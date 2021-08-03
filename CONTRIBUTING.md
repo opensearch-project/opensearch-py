@@ -1,91 +1,91 @@
-# Contributing to the Python Elasticsearch Client
+- [Contributing to OpenSearch](#contributing-to-opensearch)
+- [First Things First](#first-things-first)
+- [Ways to Contribute](#ways-to-contribute)
+  - [Bug Reports](#bug-reports)
+  - [Feature Requests](#feature-requests)
+  - [Contributing Code](#contributing-code)
+- [Developer Certificate of Origin](#developer-certificate-of-origin)
+- [Review Process](#review-process)
 
-If you have a bugfix or new feature that you would like to contribute to
-elasticsearch-py, please find or open an issue about it first. Talk about what
-you would like to do. It may be that somebody is already working on it, or that
-there are particular issues that you should know about before implementing the
-change.
+## Contributing to OpenSearch
 
-We enjoy working with contributors to get their code accepted. There are many
-approaches to fixing a problem and it is important to find the best approach
-before writing too much code.
+OpenSearch is a community project that is built and maintained by people just like **you**. We're glad you're interested in helping out. There are several different ways you can do it, but before we talk about that, let's talk about how to get started.
 
-## Running Elasticsearch locally
+## First Things First
 
-We've provided a script to start an Elasticsearch cluster of a certain version
-found at `.ci/run-elasticsearch.sh`.
+1. **When in doubt, open an issue** - For almost any type of contribution, the first step is opening an issue. Even if you think you already know what the solution is, writing down a description of the problem you're trying to solve will help everyone get context when they review your pull request. If it's truly a trivial change (e.g. spelling error), you can skip this step -- but as the subject says, when it doubt, [open an issue](issues).
 
-There are several environment variables that control integration tests:
+2. **Only submit your own work**  (or work you have sufficient rights to submit) - Please make sure that any code or documentation you submit is your work or you have the rights to submit. We respect the intellectual property rights of others, and as part of contributing, we'll ask you to sign your contribution with a "Developer Certificate of Origin" (DCO) that states you have the rights to submit this work and you understand we'll use your contribution. There's more information about this topic in the [DCO section](#developer-certificate-of-origin).
 
-- `PYTHON_VERSION`: Version of Python to use, defaults to `3.9`
-- `PYTHON_CONNECTION_CLASS`: Connection class to use, defaults to `Urllib3HttpConnection`
-- `STACK_VERSION`: Version of Elasticsearch to use. These should be
-  the same as tags of `docker.elastic.co/elasticsearch/elasticsearch`
-  such as `8.0.0-SNAPSHOT`, `7.x-SNAPSHOT`, etc. Defaults to the
-  same `*-SNAPSHOT` version as the branch.
+## Ways to Contribute
 
-**NOTE: You don't need to run the live integration tests for all changes. If
-you don't have Elasticsearch running locally the integration tests will be skipped.**
+### Bug Reports
 
-## API Code Generation
+Ugh! Bugs!
 
-All the API methods (any method in `elasticsearch.client` classes decorated
-with `@query_params`) are actually auto-generated from the
-[rest-api-spec](https://github.com/elastic/elasticsearch/tree/master/rest-api-spec/src/main/resources/rest-api-spec/api)
-found in the `Elasticsearch` repository. Any changes to those methods should be
-done either by submitting a PR to Elasticsearch itself (in case of adding or
-modifying any of the API methods) or to the [Generate
-Script](https://github.com/elastic/elasticsearch-py/blob/master/utils/generate_api.py).
+A bug is when software behaves in a way that you didn't expect and the developer didn't intend. To help us understand what's going on, we first want to make sure you're working from the latest version.
 
-To run the code generation make sure you have pre-requisites installed:
+Once you've confirmed that the bug still exists in the latest version, you'll want to check to make sure it's not something we already know about on the [open issues GitHub page](issues).
 
-* by running `python -m pip install -e '.[develop]'`
-* having the [elasticsearch](https://github.com/elastic/elasticsearch) repo
-  cloned on the same level as `elasticsearch-py` and switched to appropriate
-  version
+If you've upgraded to the latest version and you can't find it in our open issues list, then you'll need to tell us how to reproduce it Provide as much information as you can. You may think that the problem lies with your query, when actually it depends on how your data is indexed. The easier it is for us to recreate your problem, the faster it is likely to be fixed.
 
-Then you should be able to run the code generation by invoking:
+### Feature Requests
+
+If you've thought of a way that OpenSearch could be better, we want to hear about it. We track feature requests using GitHub, so please feel free to open an issue which describes the feature you would like to see, why you need it, and how it should work.
+
+
+### Contributing Code
+
+As with other types of contributions, the first step is to [open an issue on GitHub](issues/new/choose). Opening an issue before you make changes makes sure that someone else isn't already working on that particular problem. It also lets us all work together to find the right approach before you spend a bunch of time on a PR. So again, when in doubt, open an issue.
+
+## Developer Certificate of Origin
+
+OpenSearch is an open source product released under the Apache 2.0 license (see either [the Apache site](https://www.apache.org/licenses/LICENSE-2.0) or the [LICENSE.txt file](LICENSE.txt)). The Apache 2.0 license allows you to freely use, modify, distribute, and sell your own products that include Apache 2.0 licensed software.
+
+We respect intellectual property rights of others and we want to make sure all incoming contributions are correctly attributed and licensed. A Developer Certificate of Origin (DCO) is a lightweight mechanism to do that.
+
+The DCO is a declaration attached to every contribution made by every developer. In the commit message of the contribution, the developer simply adds a `Signed-off-by` statement and thereby agrees to the DCO, which you can find below or at [DeveloperCertificate.org](http://developercertificate.org/).
 
 ```
-$ python utils/generate-api.py 8.0.0-SNAPSHOT
+Developer's Certificate of Origin 1.1
+By making a contribution to this project, I certify that:
+(a) The contribution was created in whole or in part by me and I
+    have the right to submit it under the open source license
+    indicated in the file; or
+(b) The contribution is based upon previous work that, to the
+    best of my knowledge, is covered under an appropriate open
+    source license and I have the right under that license to
+    submit that work with modifications, whether created in whole
+    or in part by me, under the same open source license (unless
+    I am permitted to submit under a different license), as
+    Indicated in the file; or
+(c) The contribution was provided directly to me by some other
+    person who certified (a), (b) or (c) and I have not modified
+    it.
+(d) I understand and agree that this project and the contribution
+    are public and that a record of the contribution (including
+    all personal information I submit with it, including my
+    sign-off) is maintained indefinitely and may be redistributed
+    consistent with this project or the open source license(s)
+    involved.
+ ```
+
+We require that every contribution to OpenSearch is signed with a Developer Certificate of Origin. Additionally, please use your real name. We do not accept anonymous contributors nor those utilizing pseudonyms.
+
+Each commit must include a DCO which looks like this
+
+```
+Signed-off-by: Jane Smith <jane.smith@email.com>
 ```
 
-## Contributing Code Changes
+You may type this line on your own when writing your commit messages. However, if your user.name and user.email are set in your git configs, you can use `-s` or `– – signoff` to add the `Signed-off-by` line to the end of the commit message.
 
-The process for contributing to any of the Elasticsearch repositories is similar.
+## Review Process
 
-1. Please make sure you have signed the [Contributor License
-   Agreement](http://www.elastic.co/contributor-agreement/). We are not
-   asking you to assign copyright to us, but to give us the right to distribute
-   your code without restriction. We ask this of all contributors in order to
-   assure our users of the origin and continuing existence of the code. You only
-   need to sign the CLA once.
+We deeply appreciate everyone who takes the time to make a contribution. We will review all contributions as quickly as possible. As a reminder, [opening an issue](issues/new/choose) discussing your change before you make it is the best way to smooth the PR process. This will prevent a rejection because someone else is already working on the problem, or because the solution is incompatible with the architectural direction.
 
-2. Run the linter and test suite to ensure your changes do not break existing code:
+During the PR process, expect that there will be some back-and-forth. Please try to respond to comments in a timely fashion, and if you don't wish to continue with the PR, let us know. If a PR takes too many iterations for its complexity or size, we may reject it. Additionally, if you stop responding we may close the PR as abandoned. In either case, if you feel this was done in error, please add a comment on the PR.
 
-   ```
-   # Install Nox for task management
-   $ python -m pip install nox
-   
-   # Auto-format and lint your changes
-   $ nox -rs format
-   
-   # Run the test suite
-   $ nox -rs test
-   ```
+If we accept the PR, a [maintainer](MAINTAINERS.md) will merge your change and usually take care of backporting it to appropriate branches ourselves.
 
-3. Rebase your changes.
-   Update your local repository with the most recent code from the main
-   elasticsearch-py repository, and rebase your branch on top of the latest master
-   branch. We prefer your changes to be squashed into a single commit for easier
-   backporting.
-
-4. Submit a pull request. Push your local changes to your forked copy of the
-   repository and submit a pull request. In the pull request, describe what your
-   changes do and mention the number of the issue where discussion has taken
-   place, eg “Closes #123″.  Please consider adding or modifying tests related to
-   your changes.
-
-Then sit back and wait. There will probably be a discussion about the pull
-request and, if any changes are needed, we would love to work with you to get
-your pull request merged into elasticsearch-py.
+If we reject the PR, we will close the pull request with a comment explaining why. This decision isn't always final: if you feel we have misunderstood your intended change or otherwise think that we should reconsider then please continue the conversation with a comment on the PR and we'll do our best to address any further points you raise.
