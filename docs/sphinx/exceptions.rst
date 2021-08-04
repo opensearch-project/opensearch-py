@@ -23,4 +23,3 @@ Exceptions
 .. autoclass:: RequestError(TransportError)
 .. autoclass:: AuthenticationException(TransportError)
 .. autoclass:: AuthorizationException(TransportError)
-.. autoclass:: UnsupportedProductError
