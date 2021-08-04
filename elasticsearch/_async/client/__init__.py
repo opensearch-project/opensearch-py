@@ -58,9 +58,6 @@ from .transform import TransformClient
 from .utils import SKIP_IN_PATH, _bulk_body, _make_path, _normalize_hosts, query_params
 from .watcher import WatcherClient
 
-# xpack APIs
-from .xpack import XPackClient
-
 logger = logging.getLogger("elasticsearch")
 
 
@@ -219,7 +216,6 @@ class AsyncElasticsearch(object):
         self.snapshot = SnapshotClient(self)
         self.tasks = TasksClient(self)
 
-        self.xpack = XPackClient(self)
         self.ccr = CcrClient(self)
         self.data_frame = Data_FrameClient(self)
         self.deprecation = DeprecationClient(self)
