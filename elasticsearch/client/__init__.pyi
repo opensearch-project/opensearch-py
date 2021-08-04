@@ -55,9 +55,6 @@ from .text_structure import TextStructureClient
 from .transform import TransformClient
 from .watcher import WatcherClient
 
-# xpack APIs
-from .xpack import XPackClient
-
 logger: logging.Logger
 
 class Elasticsearch(object):
@@ -75,7 +72,6 @@ class Elasticsearch(object):
     snapshot: SnapshotClient
     tasks: TasksClient
 
-    xpack: XPackClient
     ccr: CcrClient
     dangling_indices: DanglingIndicesClient
     enrich: EnrichClient
