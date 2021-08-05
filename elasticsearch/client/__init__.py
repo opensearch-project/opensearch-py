@@ -44,7 +44,6 @@ from .ml import MlClient
 from .monitoring import MonitoringClient
 from .nodes import NodesClient
 from .remote import RemoteClient
-from .rollup import RollupClient
 from .searchable_snapshots import SearchableSnapshotsClient
 from .security import SecurityClient
 from .shutdown import ShutdownClient
@@ -57,9 +56,6 @@ from .text_structure import TextStructureClient
 from .transform import TransformClient
 from .utils import SKIP_IN_PATH, _bulk_body, _make_path, _normalize_hosts, query_params
 from .watcher import WatcherClient
-
-# xpack APIs
-from .xpack import XPackClient
 
 logger = logging.getLogger("elasticsearch")
 
@@ -219,7 +215,6 @@ class Elasticsearch(object):
         self.snapshot = SnapshotClient(self)
         self.tasks = TasksClient(self)
 
-        self.xpack = XPackClient(self)
         self.ccr = CcrClient(self)
         self.data_frame = Data_FrameClient(self)
         self.deprecation = DeprecationClient(self)
@@ -234,7 +229,6 @@ class Elasticsearch(object):
         self.migration = MigrationClient(self)
         self.ml = MlClient(self)
         self.monitoring = MonitoringClient(self)
-        self.rollup = RollupClient(self)
         self.searchable_snapshots = SearchableSnapshotsClient(self)
         self.security = SecurityClient(self)
         self.slm = SlmClient(self)

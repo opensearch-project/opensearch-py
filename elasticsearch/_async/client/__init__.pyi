@@ -42,7 +42,6 @@ from .ml import MlClient
 from .monitoring import MonitoringClient
 from .nodes import NodesClient
 from .remote import RemoteClient
-from .rollup import RollupClient
 from .searchable_snapshots import SearchableSnapshotsClient
 from .security import SecurityClient
 from .shutdown import ShutdownClient
@@ -54,9 +53,6 @@ from .tasks import TasksClient
 from .text_structure import TextStructureClient
 from .transform import TransformClient
 from .watcher import WatcherClient
-
-# xpack APIs
-from .xpack import XPackClient
 
 logger: logging.Logger
 
@@ -75,7 +71,6 @@ class AsyncElasticsearch(object):
     snapshot: SnapshotClient
     tasks: TasksClient
 
-    xpack: XPackClient
     ccr: CcrClient
     dangling_indices: DanglingIndicesClient
     enrich: EnrichClient
@@ -87,7 +82,6 @@ class AsyncElasticsearch(object):
     migration: MigrationClient
     ml: MlClient
     monitoring: MonitoringClient
-    rollup: RollupClient
     searchable_snapshots: SearchableSnapshotsClient
     security: SecurityClient
     shutdown: ShutdownClient

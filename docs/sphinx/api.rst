@@ -300,9 +300,3 @@ Watcher
 
 .. autoclass:: WatcherClient
    :members:
-
-X-Pack
-------
-
-.. autoclass:: XPackClient
-   :members:
