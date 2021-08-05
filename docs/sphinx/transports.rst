@@ -21,27 +21,6 @@ and lightweight than the optional ``requests``-based class. Only use
 ``RequestsHttpConnection`` if you have need of any of ``requests`` advanced
 features like custom auth plugins etc.
 
-Product check on first request
-------------------------------
-
-Starting in v7.14.0 the client performs a required product check before
-the first API call is executed. This product check allows the client to
-establish that it's communicating with a supported Elasticsearch cluster.
-
-The product check requires a single HTTP request to the ``info`` API. In
-most cases this request will succeed quickly and then no further product
-check HTTP requests will be sent.
-
-The product check will verify that the ``X-Elastic-Product: Elasticsearch``
-HTTP header is being sent or if the ``info`` API indicates a supported
-distribution of Elasticsearch.
-
-If the client detects that it's not connected to a supported distribution of
-Elasticsearch the ``UnsupportedProductError`` exception will be raised.
-In previous versions of Elasticsearch the ``info`` API required additional
-permissions so if an authentication or authorization error is raised during
-the product check then an ``ElasticsearchWarning`` is raised and the client
-proceeds normally.
 
 .. py:module:: elasticsearch.connection
 
