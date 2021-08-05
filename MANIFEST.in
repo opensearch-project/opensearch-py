@@ -3,7 +3,7 @@ include Changelog.rst
 include CONTRIBUTING.md
 include LICENSE
 include MANIFEST.in
-include README.rst
+include README.md
 include setup.py
 recursive-include elasticsearch* py.typed *.pyi
 recursive-include docs/sphinx *
