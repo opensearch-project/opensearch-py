@@ -25,7 +25,7 @@ import warnings
 
 import pytest
 
-from elasticsearch import ElasticsearchWarning, RequestError
+from elasticsearch import ElasticsearchWarning
 from elasticsearch.helpers.test import _get_version
 
 from ...test_server.test_rest_api_spec import (
@@ -38,7 +38,7 @@ from ...test_server.test_rest_api_spec import (
 
 pytestmark = pytest.mark.asyncio
 
-XPACK_FEATURES = None
+XPACK_FEATURES = set()
 ES_VERSION = None
 
 
@@ -208,16 +208,6 @@ class AsyncYamlRunner(YamlRunner):
 
     async def _feature_enabled(self, name):
         global XPACK_FEATURES
-        if XPACK_FEATURES is None:
-            try:
-                xinfo = await self.client.xpack.info()
-                XPACK_FEATURES = set(
-                    f for f in xinfo["features"] if xinfo["features"][f]["enabled"]
-                )
-                IMPLEMENTED_FEATURES.add("xpack")
-            except RequestError:
-                XPACK_FEATURES = set()
-                IMPLEMENTED_FEATURES.add("no_xpack")
         return name in XPACK_FEATURES
 
 

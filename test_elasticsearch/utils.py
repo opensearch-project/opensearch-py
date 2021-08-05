@@ -17,8 +17,7 @@
 
 import time
 
-from elasticsearch import Elasticsearch, NotFoundError, RequestError
-from elasticsearch.helpers.test import es_version
+from elasticsearch import Elasticsearch
 
 
 def wipe_cluster(client):
@@ -35,36 +34,14 @@ def wipe_cluster(client):
     except ImportError:
         pass
 
-    is_xpack = True
-    if is_xpack:
-        wipe_rollup_jobs(client)
-        wait_for_pending_tasks(client, filter="xpack/rollup/job")
-        wipe_slm_policies(client)
-
-        # Searchable snapshot indices start in 7.8+
-        if es_version(client) >= (7, 8):
-            wipe_searchable_snapshot_indices(client)
-
     wipe_snapshots(client)
-    if is_xpack:
-        wipe_data_streams(client)
     wipe_indices(client)
 
-    if is_xpack:
-        wipe_xpack_templates(client)
-    else:
-        client.indices.delete_template(name="*")
-        client.indices.delete_index_template(name="*")
-        client.cluster.delete_component_template(name="*")
+    client.indices.delete_template(name="*")
+    client.indices.delete_index_template(name="*")
+    client.cluster.delete_component_template(name="*")
 
     wipe_cluster_settings(client)
-
-    if is_xpack:
-        wipe_ilm_policies(client)
-        wipe_auto_follow_patterns(client)
-        wipe_tasks(client)
-        wipe_node_shutdown_metadata(client)
-        wait_for_pending_datafeeds_and_jobs(client)
 
     wait_for_cluster_state_updates_to_finish(client)
     if close_after_wipe:
@@ -81,14 +58,6 @@ def wipe_cluster_settings(client):
                 new_settings[name][key + ".*"] = None
     if new_settings:
         client.cluster.put_settings(body=new_settings)
-
-
-def wipe_rollup_jobs(client):
-    rollup_jobs = client.rollup.get_jobs(id="_all").get("jobs", ())
-    for job in rollup_jobs:
-        job_id = job["config"]["id"]
-        client.rollup.stop_job(id=job_id, wait_for_completion=True, ignore=404)
-        client.rollup.delete_job(id=job_id, ignore=404)
 
 
 def wipe_snapshots(client):
@@ -139,54 +108,6 @@ def wipe_searchable_snapshot_indices(client):
     if cluster_metadata:
         for index in cluster_metadata["metadata"]["indices"].keys():
             client.indices.delete(index=index)
-
-
-def wipe_xpack_templates(client):
-    templates = [
-        x.strip() for x in client.cat.templates(h="name").split("\n") if x.strip()
-    ]
-    for template in templates:
-        if is_xpack_template(template):
-            continue
-        try:
-            client.indices.delete_template(name=template)
-        except NotFoundError as e:
-            if "index_template [%s] missing" % template in str(e.info):
-                client.indices.delete_index_template(name=template)
-
-    # Delete component templates, need to retry because sometimes
-    # indices aren't cleaned up in time before we issue the delete.
-    templates = client.cluster.get_component_template()["component_templates"]
-    templates_to_delete = [
-        template for template in templates if not is_xpack_template(template["name"])
-    ]
-    for _ in range(3):
-        for template in list(templates_to_delete):
-            try:
-                client.cluster.delete_component_template(
-                    name=template["name"],
-                )
-            except RequestError:
-                pass
-            else:
-                templates_to_delete.remove(template)
-
-        if not templates_to_delete:
-            break
-        time.sleep(0.01)
-
-
-def wipe_ilm_policies(client):
-    for policy in client.ilm.get_lifecycle():
-        if policy not in {
-            "ilm-history-ilm-policy",
-            "slm-history-ilm-policy",
-            "watch-history-ilm-policy",
-            "ml-size-based-ilm-policy",
-            "logs",
-            "metrics",
-        }:
-            client.ilm.delete_lifecycle(policy=policy)
 
 
 def wipe_slm_policies(client):
@@ -244,40 +165,3 @@ def wait_for_cluster_state_updates_to_finish(client, timeout=30):
     while time.time() < end_time:
         if not client.cluster.pending_tasks().get("tasks", ()):
             break
-
-
-def is_xpack_template(name):
-    if ".monitoring-" in name:
-        return True
-    if ".watch" in name or ".triggered_watches" in name:
-        return True
-    if ".data-frame-" in name:
-        return True
-    if ".ml-" in name:
-        return True
-    if ".transform-" in name:
-        return True
-    if name in {
-        ".watches",
-        "logstash-index-template",
-        ".logstash-management",
-        "security_audit_log",
-        ".slm-history",
-        ".async-search",
-        ".geoip_databases",
-        "saml-service-provider",
-        "ilm-history",
-        "logs",
-        "logs-settings",
-        "logs-mappings",
-        "metrics",
-        "metrics-settings",
-        "metrics-mappings",
-        "synthetics",
-        "synthetics-settings",
-        "synthetics-mappings",
-        ".snapshot-blob-cache",
-        "data-streams-mappings",
-    }:
-        return True
-    return False

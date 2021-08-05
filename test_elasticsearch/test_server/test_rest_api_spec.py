@@ -32,7 +32,7 @@ import pytest
 import urllib3
 import yaml
 
-from elasticsearch import ElasticsearchWarning, RequestError, TransportError
+from elasticsearch import ElasticsearchWarning, TransportError
 from elasticsearch.client.utils import _base64_auth_header
 from elasticsearch.compat import string_types
 from elasticsearch.helpers.test import _get_version
@@ -83,8 +83,6 @@ SKIP_TESTS = {
     "transform/transforms_stats_continuous[0]",
     # Fails bad request instead of 404?
     "ml/inference_crud",
-    # rollup/security_tests time out?
-    "rollup/security_tests",
     # Our TLS certs are custom
     "ssl/10_basic[0]",
     # Our user is custom
@@ -110,7 +108,7 @@ SKIP_TESTS = {
 }
 
 
-XPACK_FEATURES = None
+XPACK_FEATURES = set()
 ES_VERSION = None
 RUN_ASYNC_REST_API_TESTS = (
     sys.version_info >= (3, 6)
@@ -442,16 +440,6 @@ class YamlRunner:
 
     def _feature_enabled(self, name):
         global XPACK_FEATURES, IMPLEMENTED_FEATURES
-        if XPACK_FEATURES is None:
-            try:
-                xinfo = self.client.xpack.info()
-                XPACK_FEATURES = set(
-                    f for f in xinfo["features"] if xinfo["features"][f]["enabled"]
-                )
-                IMPLEMENTED_FEATURES.add("xpack")
-            except RequestError:
-                XPACK_FEATURES = set()
-                IMPLEMENTED_FEATURES.add("no_xpack")
         return name in XPACK_FEATURES
 
     def _assert_match_equals(self, a, b):
