@@ -1,8 +1,8 @@
 STACK_VERSION:
-  - 7.x-SNAPSHOT
+  - 7.10.2
 
 TEST_SUITE:
-  - platinum
+  - free
 
 PYTHON_VERSION:
   - "2.7"

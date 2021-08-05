@@ -18,14 +18,14 @@ require_stack_version
 if [[ -z $es_node_name ]]; then
   # only set these once
   set -euo pipefail
-  export TEST_SUITE=${TEST_SUITE-platinum}
+  export TEST_SUITE=${TEST_SUITE-free}
   export RUNSCRIPTS=${RUNSCRIPTS-}
   export DETACH=${DETACH-false}
   export CLEANUP=${CLEANUP-false}
 
   export es_node_name=instance
   export elastic_password=changeme
-  export elasticsearch_image=elasticsearch
+  export elasticsearch_image=elasticsearch-oss
   export elasticsearch_url=https://elastic:${elastic_password}@${es_node_name}:9200
   if [[ $TEST_SUITE != "platinum" ]]; then
     export elasticsearch_url=http://${es_node_name}:9200
@@ -56,4 +56,3 @@ fi
 
 echo -e "\033[34;1mINFO:\033[0m Creating network $network_name if it does not exist already \033[0m"
 docker network inspect "$network_name" > /dev/null 2>&1 || docker network create "$network_name"
-
