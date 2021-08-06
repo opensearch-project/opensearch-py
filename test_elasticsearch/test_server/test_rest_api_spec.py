@@ -536,7 +536,7 @@ try:
             # is to remove most of the file path prefixes and
             # the .yml suffix.
             pytest_test_name = yaml_file.rpartition(".")[0].replace(".", "/")
-            for prefix in ("rest-api-spec/", "test/", "free/", "platinum/"):
+            for prefix in ("rest-api-spec/", "test/", "oss/"):
                 if pytest_test_name.startswith(prefix):
                     pytest_test_name = pytest_test_name[len(prefix) :]
             pytest_param_id = "%s[%d]" % (pytest_test_name, test_number)

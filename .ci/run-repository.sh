@@ -10,7 +10,7 @@
 # NODE_NAME -- The docker container name also used as Elasticsearch node name
 
 # When run in CI the test-matrix is used to define additional variables
-# TEST_SUITE -- either `oss` or `xpack`, defaults to `oss` in `run-tests`
+# TEST_SUITE -- defaults to `oss` in `run-tests`
 
 set -e
 

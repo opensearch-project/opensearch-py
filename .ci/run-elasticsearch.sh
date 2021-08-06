@@ -4,7 +4,7 @@
 # to form a cluster suitable for running the REST API tests.
 #
 # Export the STACK_VERSION variable, eg. '8.0.0-SNAPSHOT'.
-# Export the TEST_SUITE variable, eg. 'free' or 'platinum' defaults to 'free'.
+# Export the TEST_SUITE variable, i.e. 'oss'
 # Export the NUMBER_OF_NODES variable to start more than 1 node
 
 # Version 1.4.0
@@ -42,23 +42,6 @@ environment=($(cat <<-END
   --env action.destructive_requires_name=false
 END
 ))
-if [[ "$TEST_SUITE" == "platinum" ]]; then
-  environment+=($(cat <<-END
-    --env ELASTIC_PASSWORD=$elastic_password
-END
-))
-  volumes+=($(cat <<-END
-    --volume $ssl_cert:/usr/share/elasticsearch/config/certs/testnode.crt
-    --volume $ssl_key:/usr/share/elasticsearch/config/certs/testnode.key
-    --volume $ssl_ca:/usr/share/elasticsearch/config/certs/ca.crt
-END
-))
-fi
-
-cert_validation_flags=""
-if [[ "$TEST_SUITE" == "platinum" ]]; then
-  cert_validation_flags="--insecure --cacert /usr/share/elasticsearch/config/certs/ca.crt --resolve ${es_node_name}:443:127.0.0.1"
-fi
 
 # Pull the container, retry on failures up to 5 times with
 # short delays between each attempt. Fixes most transient network errors.
@@ -111,7 +94,7 @@ END
     --ulimit nofile=65536:65536 \
     --ulimit memlock=-1:-1 \
     --detach="$local_detach" \
-    --health-cmd="curl $cert_validation_flags --fail $elasticsearch_url/_cluster/health || exit 1" \
+    --health-cmd="curl -vvv -s --fail $elasticsearch_url/_cluster/health || exit 1" \
     --health-interval=2s \
     --health-retries=20 \
     --health-timeout=2s \
