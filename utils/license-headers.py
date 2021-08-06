@@ -1,3 +1,12 @@
+# SPDX-License-Identifier: Apache-2.0
+#
+# The OpenSearch Contributors require contributions made to
+# this file be licensed under the Apache-2.0 license or a
+# compatible open source license.
+#
+# Modifications Copyright OpenSearch Contributors. See
+# GitHub history for details.
+#
 #  Licensed to Elasticsearch B.V. under one or more contributor
 #  license agreements. See the NOTICE file distributed with
 #  this work for additional information regarding copyright
@@ -28,23 +37,14 @@ from typing import Iterator, List
 
 lines_to_keep = ["# -*- coding: utf-8 -*-\n", "#!/usr/bin/env python\n"]
 license_header_lines = [
-    "#  Licensed to Elasticsearch B.V. under one or more contributor\n",
-    "#  license agreements. See the NOTICE file distributed with\n",
-    "#  this work for additional information regarding copyright\n",
-    "#  ownership. Elasticsearch B.V. licenses this file to you under\n",
-    '#  the Apache License, Version 2.0 (the "License"); you may\n',
-    "#  not use this file except in compliance with the License.\n",
-    "#  You may obtain a copy of the License at\n",
+    "# SPDX-License-Identifier: Apache-2.0\n",
     "#\n",
-    "# 	http://www.apache.org/licenses/LICENSE-2.0\n",
+    "# The OpenSearch Contributors require contributions made to\n",
+    "# this file be licensed under the Apache-2.0 license or a\n",
+    "# compatible open source license.\n",
     "#\n",
-    "#  Unless required by applicable law or agreed to in writing,\n",
-    "#  software distributed under the License is distributed on an\n",
-    '#  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY\n',
-    "#  KIND, either express or implied.  See the License for the\n",
-    "#  specific language governing permissions and limitations\n",
-    "#  under the License.\n",
-    "\n",
+    "# Modifications Copyright OpenSearch Contributors. See\n",
+    "# GitHub history for details.\n",
 ]
 
 
