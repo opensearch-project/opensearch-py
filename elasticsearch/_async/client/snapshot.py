@@ -33,7 +33,6 @@ class SnapshotClient(NamespacedClient):
         """
         Creates a snapshot in a repository.
 
-        `<https://www.elastic.co/guide/en/elasticsearch/reference/7.x/modules-snapshots.html>`_
 
         :arg repository: A repository name
         :arg snapshot: A snapshot name
@@ -60,7 +59,6 @@ class SnapshotClient(NamespacedClient):
         """
         Deletes a snapshot.
 
-        `<https://www.elastic.co/guide/en/elasticsearch/reference/7.x/modules-snapshots.html>`_
 
         :arg repository: A repository name
         :arg snapshot: A snapshot name
@@ -89,7 +87,6 @@ class SnapshotClient(NamespacedClient):
         """
         Returns information about a snapshot.
 
-        `<https://www.elastic.co/guide/en/elasticsearch/reference/7.x/modules-snapshots.html>`_
 
         :arg repository: A repository name
         :arg snapshot: A comma-separated list of snapshot names
@@ -121,7 +118,6 @@ class SnapshotClient(NamespacedClient):
         """
         Deletes a repository.
 
-        `<https://www.elastic.co/guide/en/elasticsearch/reference/7.x/modules-snapshots.html>`_
 
         :arg repository: Name of the snapshot repository to unregister.
             Wildcard (`*`) patterns are supported.
@@ -144,7 +140,6 @@ class SnapshotClient(NamespacedClient):
         """
         Returns information about a repository.
 
-        `<https://www.elastic.co/guide/en/elasticsearch/reference/7.x/modules-snapshots.html>`_
 
         :arg repository: A comma-separated list of repository names
         :arg local: Return local information, do not retrieve the state
@@ -161,7 +156,6 @@ class SnapshotClient(NamespacedClient):
         """
         Creates a repository.
 
-        `<https://www.elastic.co/guide/en/elasticsearch/reference/7.x/modules-snapshots.html>`_
 
         :arg repository: A repository name
         :arg body: The repository definition
@@ -187,7 +181,6 @@ class SnapshotClient(NamespacedClient):
         """
         Restores a snapshot.
 
-        `<https://www.elastic.co/guide/en/elasticsearch/reference/7.x/modules-snapshots.html>`_
 
         :arg repository: A repository name
         :arg snapshot: A snapshot name
@@ -214,7 +207,6 @@ class SnapshotClient(NamespacedClient):
         """
         Returns information about the status of a snapshot.
 
-        `<https://www.elastic.co/guide/en/elasticsearch/reference/7.x/modules-snapshots.html>`_
 
         :arg repository: A repository name
         :arg snapshot: A comma-separated list of snapshot names
@@ -236,7 +228,6 @@ class SnapshotClient(NamespacedClient):
         """
         Verifies a repository.
 
-        `<https://www.elastic.co/guide/en/elasticsearch/reference/7.x/modules-snapshots.html>`_
 
         :arg repository: A repository name
         :arg master_timeout: Explicit operation timeout for connection
@@ -258,7 +249,6 @@ class SnapshotClient(NamespacedClient):
         """
         Removes stale data from repository.
 
-        `<https://www.elastic.co/guide/en/elasticsearch/reference/7.x/clean-up-snapshot-repo-api.html>`_
 
         :arg repository: A repository name
         :arg master_timeout: Explicit operation timeout for connection
@@ -282,7 +272,6 @@ class SnapshotClient(NamespacedClient):
         """
         Clones indices from one snapshot into another snapshot in the same repository.
 
-        `<https://www.elastic.co/guide/en/elasticsearch/reference/7.x/modules-snapshots.html>`_
 
         :arg repository: A repository name
         :arg snapshot: The name of the snapshot to clone from
@@ -320,7 +309,6 @@ class SnapshotClient(NamespacedClient):
         """
         Analyzes a repository for correctness and performance
 
-        `<https://www.elastic.co/guide/en/elasticsearch/reference/7.x/modules-snapshots.html>`_
 
         :arg repository: A repository name
         :arg blob_count: Number of blobs to create during the test.

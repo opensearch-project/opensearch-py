@@ -230,7 +230,6 @@ class AsyncElasticsearch(object):
         """
         Returns whether the cluster is running.
 
-        `<https://www.elastic.co/guide/en/elasticsearch/reference/7.x/index.html>`_
         """
         try:
             return await self.transport.perform_request(
@@ -244,7 +243,6 @@ class AsyncElasticsearch(object):
         """
         Returns basic information about the cluster.
 
-        `<https://www.elastic.co/guide/en/elasticsearch/reference/7.x/index.html>`_
         """
         return await self.transport.perform_request(
             "GET", "/", params=params, headers=headers
@@ -264,7 +262,6 @@ class AsyncElasticsearch(object):
         Creates a new document in the index.  Returns a 409 response when a document
         with a same ID already exists in the index.
 
-        `<https://www.elastic.co/guide/en/elasticsearch/reference/7.x/docs-index_.html>`_
 
         :arg index: The name of the index
         :arg id: Document ID
@@ -319,7 +316,6 @@ class AsyncElasticsearch(object):
         """
         Creates or updates a document in an index.
 
-        `<https://www.elastic.co/guide/en/elasticsearch/reference/7.x/docs-index_.html>`_
 
         :arg index: The name of the index
         :arg body: The document
@@ -383,7 +379,6 @@ class AsyncElasticsearch(object):
         """
         Allows to perform multiple index/update/delete operations in a single request.
 
-        `<https://www.elastic.co/guide/en/elasticsearch/reference/7.x/docs-bulk.html>`_
 
         :arg body: The operation definition and data (action-data
             pairs), separated by newlines
@@ -430,7 +425,6 @@ class AsyncElasticsearch(object):
         """
         Explicitly clears the search context for a scroll.
 
-        `<https://www.elastic.co/guide/en/elasticsearch/reference/7.x/clear-scroll-api.html>`_
 
         :arg body: A comma-separated list of scroll IDs to clear if none
             was specified via the scroll_id parameter
@@ -469,7 +463,6 @@ class AsyncElasticsearch(object):
         """
         Returns number of documents matching a query.
 
-        `<https://www.elastic.co/guide/en/elasticsearch/reference/7.x/search-count.html>`_
 
         :arg body: A query to restrict the results specified with the
             Query DSL (optional)
@@ -527,7 +520,6 @@ class AsyncElasticsearch(object):
         """
         Removes a document from the index.
 
-        `<https://www.elastic.co/guide/en/elasticsearch/reference/7.x/docs-delete.html>`_
 
         :arg index: The name of the index
         :arg id: The document ID
@@ -605,7 +597,6 @@ class AsyncElasticsearch(object):
         """
         Deletes documents matching the provided query.
 
-        `<https://www.elastic.co/guide/en/elasticsearch/reference/7.x/docs-delete-by-query.html>`_
 
         :arg index: A comma-separated list of index names to search; use
             `_all` or empty string to perform the operation on all indices
@@ -702,7 +693,6 @@ class AsyncElasticsearch(object):
         Changes the number of requests per second for a particular Delete By Query
         operation.
 
-        `<https://www.elastic.co/guide/en/elasticsearch/reference/7.x/docs-delete-by-query.html>`_
 
         :arg task_id: The task id to rethrottle
         :arg requests_per_second: The throttle to set on this request in
@@ -723,7 +713,6 @@ class AsyncElasticsearch(object):
         """
         Deletes a script.
 
-        `<https://www.elastic.co/guide/en/elasticsearch/reference/7.x/modules-scripting.html>`_
 
         :arg id: Script ID
         :arg master_timeout: Specify timeout for connection to master
@@ -752,7 +741,6 @@ class AsyncElasticsearch(object):
         """
         Returns information about whether a document exists in an index.
 
-        `<https://www.elastic.co/guide/en/elasticsearch/reference/7.x/docs-get.html>`_
 
         :arg index: The name of the index
         :arg id: The document ID
@@ -803,7 +791,6 @@ class AsyncElasticsearch(object):
         """
         Returns information about whether a document source exists in an index.
 
-        `<https://www.elastic.co/guide/en/elasticsearch/reference/7.x/docs-get.html>`_
 
         :arg index: The name of the index
         :arg id: The document ID
@@ -859,7 +846,6 @@ class AsyncElasticsearch(object):
         """
         Returns information about why a specific matches (or doesn't match) a query.
 
-        `<https://www.elastic.co/guide/en/elasticsearch/reference/7.x/search-explain.html>`_
 
         :arg index: The name of the index
         :arg id: The document ID
@@ -912,7 +898,6 @@ class AsyncElasticsearch(object):
         Returns the information about the capabilities of fields among multiple
         indices.
 
-        `<https://www.elastic.co/guide/en/elasticsearch/reference/7.x/search-field-caps.html>`_
 
         :arg body: An index filter specified with the Query DSL
         :arg index: A comma-separated list of index names; use `_all` or
@@ -953,7 +938,6 @@ class AsyncElasticsearch(object):
         """
         Returns a document.
 
-        `<https://www.elastic.co/guide/en/elasticsearch/reference/7.x/docs-get.html>`_
 
         :arg index: The name of the index
         :arg id: The document ID
@@ -994,7 +978,6 @@ class AsyncElasticsearch(object):
         """
         Returns a script.
 
-        `<https://www.elastic.co/guide/en/elasticsearch/reference/7.x/modules-scripting.html>`_
 
         :arg id: Script ID
         :arg master_timeout: Specify timeout for connection to master
@@ -1021,7 +1004,6 @@ class AsyncElasticsearch(object):
         """
         Returns the source of a document.
 
-        `<https://www.elastic.co/guide/en/elasticsearch/reference/7.x/docs-get.html>`_
 
         :arg index: The name of the index
         :arg id: The document ID
@@ -1071,7 +1053,6 @@ class AsyncElasticsearch(object):
         """
         Allows to get multiple documents in one request.
 
-        `<https://www.elastic.co/guide/en/elasticsearch/reference/7.x/docs-multi-get.html>`_
 
         :arg body: Document identifiers; can be either `docs`
             (containing full document information) or `ids` (when index and type is
@@ -1118,7 +1099,6 @@ class AsyncElasticsearch(object):
         """
         Allows to execute several search operations in one request.
 
-        `<https://www.elastic.co/guide/en/elasticsearch/reference/7.x/search-multi-search.html>`_
 
         :arg body: The request definitions (metadata-search request
             definition pairs), separated by newlines
@@ -1174,7 +1154,6 @@ class AsyncElasticsearch(object):
         """
         Allows to execute several search template operations in one request.
 
-        `<https://www.elastic.co/guide/en/elasticsearch/reference/7.x/search-multi-search.html>`_
 
         :arg body: The request definitions (metadata-search request
             definition pairs), separated by newlines
@@ -1226,7 +1205,6 @@ class AsyncElasticsearch(object):
         """
         Returns multiple termvectors in one request.
 
-        `<https://www.elastic.co/guide/en/elasticsearch/reference/7.x/docs-multi-termvectors.html>`_
 
         :arg body: Define ids, documents, parameters or a list of
             parameters per document here. You must at least provide a list of
@@ -1279,7 +1257,6 @@ class AsyncElasticsearch(object):
         """
         Creates or updates a script.
 
-        `<https://www.elastic.co/guide/en/elasticsearch/reference/7.x/modules-scripting.html>`_
 
         :arg id: Script ID
         :arg body: The document
@@ -1307,7 +1284,6 @@ class AsyncElasticsearch(object):
         Allows to evaluate the quality of ranked search results over a set of typical
         search queries
 
-        `<https://www.elastic.co/guide/en/elasticsearch/reference/7.x/search-rank-eval.html>`_
 
         .. warning::
 
@@ -1356,7 +1332,6 @@ class AsyncElasticsearch(object):
         source documents by a query, changing the destination index settings, or
         fetching the documents from a remote cluster.
 
-        `<https://www.elastic.co/guide/en/elasticsearch/reference/7.x/docs-reindex.html>`_
 
         :arg body: The search definition using the Query DSL and the
             prototype for the index request.
@@ -1392,7 +1367,6 @@ class AsyncElasticsearch(object):
         """
         Changes the number of requests per second for a particular Reindex operation.
 
-        `<https://www.elastic.co/guide/en/elasticsearch/reference/7.x/docs-reindex.html>`_
 
         :arg task_id: The task id to rethrottle
         :arg requests_per_second: The throttle to set on this request in
@@ -1415,7 +1389,6 @@ class AsyncElasticsearch(object):
         """
         Allows to use the Mustache language to pre-render a search definition.
 
-        `<https://www.elastic.co/guide/en/elasticsearch/reference/7.x/render-search-template-api.html>`_
 
         :arg body: The search definition template and its params
         :arg id: The id of the stored search template
@@ -1433,7 +1406,6 @@ class AsyncElasticsearch(object):
         """
         Allows an arbitrary script to be executed and a result to be returned
 
-        `<https://www.elastic.co/guide/en/elasticsearch/painless/master/painless-execute-api.html>`_
 
         .. warning::
 
@@ -1455,7 +1427,6 @@ class AsyncElasticsearch(object):
         """
         Allows to retrieve a large numbers of results from a single search request.
 
-        `<https://www.elastic.co/guide/en/elasticsearch/reference/7.x/search-request-body.html#request-body-search-scroll>`_
 
         :arg body: The scroll ID if not passed by URL or query
             parameter.
@@ -1527,7 +1498,6 @@ class AsyncElasticsearch(object):
         """
         Returns results matching a query.
 
-        `<https://www.elastic.co/guide/en/elasticsearch/reference/7.x/search-search.html>`_
 
         :arg body: The search definition using the Query DSL
         :arg index: A comma-separated list of index names to search; use
@@ -1653,7 +1623,6 @@ class AsyncElasticsearch(object):
         Returns information about the indices and shards that a search request would be
         executed against.
 
-        `<https://www.elastic.co/guide/en/elasticsearch/reference/7.x/search-shards.html>`_
 
         :arg index: A comma-separated list of index names to search; use
             `_all` or empty string to perform the operation on all indices
@@ -1696,7 +1665,6 @@ class AsyncElasticsearch(object):
         """
         Allows to use the Mustache language to pre-render a search definition.
 
-        `<https://www.elastic.co/guide/en/elasticsearch/reference/7.x/search-template.html>`_
 
         :arg body: The search definition template and its params
         :arg index: A comma-separated list of index names to search; use
@@ -1762,7 +1730,6 @@ class AsyncElasticsearch(object):
         Returns information and statistics about terms in the fields of a particular
         document.
 
-        `<https://www.elastic.co/guide/en/elasticsearch/reference/7.x/docs-termvectors.html>`_
 
         :arg index: The index in which the document resides.
         :arg body: Define parameters and or supply a document to get
@@ -1821,7 +1788,6 @@ class AsyncElasticsearch(object):
         """
         Updates a document with a script or partial document.
 
-        `<https://www.elastic.co/guide/en/elasticsearch/reference/7.x/docs-update.html>`_
 
         :arg index: The name of the index
         :arg id: Document ID
@@ -1914,7 +1880,6 @@ class AsyncElasticsearch(object):
         Performs an update on every document in the index without changing the source,
         for example to pick up a mapping change.
 
-        `<https://www.elastic.co/guide/en/elasticsearch/reference/7.x/docs-update-by-query.html>`_
 
         :arg index: A comma-separated list of index names to search; use
             `_all` or empty string to perform the operation on all indices
@@ -2014,7 +1979,6 @@ class AsyncElasticsearch(object):
         Changes the number of requests per second for a particular Update By Query
         operation.
 
-        `<https://www.elastic.co/guide/en/elasticsearch/reference/7.x/docs-update-by-query.html>`_
 
         :arg task_id: The task id to rethrottle
         :arg requests_per_second: The throttle to set on this request in
@@ -2035,7 +1999,6 @@ class AsyncElasticsearch(object):
         """
         Returns all script contexts.
 
-        `<https://www.elastic.co/guide/en/elasticsearch/painless/master/painless-contexts.html>`_
 
         .. warning::
 
@@ -2051,7 +2014,6 @@ class AsyncElasticsearch(object):
         """
         Returns available script types, languages and contexts
 
-        `<https://www.elastic.co/guide/en/elasticsearch/reference/7.x/modules-scripting.html>`_
 
         .. warning::
 
@@ -2067,7 +2029,6 @@ class AsyncElasticsearch(object):
         """
         Close a point in time
 
-        `<https://www.elastic.co/guide/en/elasticsearch/reference/7.x/point-in-time-api.html>`_
 
         :arg body: a point-in-time id to close
         """
@@ -2082,7 +2043,6 @@ class AsyncElasticsearch(object):
         """
         Open a point in time that can be used in subsequent searches
 
-        `<https://www.elastic.co/guide/en/elasticsearch/reference/7.x/point-in-time-api.html>`_
 
         :arg index: A comma-separated list of index names to open point
             in time; use `_all` or empty string to perform the operation on all
@@ -2108,7 +2068,6 @@ class AsyncElasticsearch(object):
         the provided string. It is designed for low-latency look-ups used in auto-
         complete scenarios.
 
-        `<https://www.elastic.co/guide/en/elasticsearch/reference/7.x/search-terms-enum.html>`_
 
         .. warning::
 

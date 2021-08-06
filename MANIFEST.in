@@ -6,9 +6,7 @@ include MANIFEST.in
 include README.md
 include setup.py
 recursive-include elasticsearch* py.typed *.pyi
-recursive-include docs/sphinx *
 
-prune docs/sphinx/_build
 prune test_elasticsearch
 recursive-exclude * __pycache__
 recursive-exclude * *.py[co]
