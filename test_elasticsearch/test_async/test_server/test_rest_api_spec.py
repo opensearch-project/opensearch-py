@@ -47,7 +47,6 @@ from ...test_server.test_rest_api_spec import (
 
 pytestmark = pytest.mark.asyncio
 
-XPACK_FEATURES = set()
 ES_VERSION = None
 
 
@@ -216,8 +215,7 @@ class AsyncYamlRunner(YamlRunner):
                 pytest.skip(reason)
 
     async def _feature_enabled(self, name):
-        global XPACK_FEATURES
-        return name in XPACK_FEATURES
+        return False
 
 
 @pytest.fixture(scope="function")

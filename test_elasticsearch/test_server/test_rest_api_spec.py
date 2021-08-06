@@ -106,7 +106,6 @@ SKIP_TESTS = {
     # service account number not right?
     "service_accounts/10_basic[1]",
     # doesn't use 'contains' properly?
-    "xpack/10_basic[0]",
     "privileges/40_get_user_privs[0]",
     "privileges/40_get_user_privs[1]",
     # bad use of 'is_false'?
@@ -117,7 +116,6 @@ SKIP_TESTS = {
 }
 
 
-XPACK_FEATURES = set()
 ES_VERSION = None
 RUN_ASYNC_REST_API_TESTS = (
     sys.version_info >= (3, 6)
@@ -448,8 +446,7 @@ class YamlRunner:
         return value
 
     def _feature_enabled(self, name):
-        global XPACK_FEATURES, IMPLEMENTED_FEATURES
-        return name in XPACK_FEATURES
+        return False
 
     def _assert_match_equals(self, a, b):
         # Handle for large floating points with 'E'

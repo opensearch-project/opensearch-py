@@ -46,7 +46,6 @@ from .indices import IndicesClient
 from .ingest import IngestClient
 from .license import LicenseClient
 from .logstash import LogstashClient
-from .migration import MigrationClient
 from .ml import MlClient
 from .monitoring import MonitoringClient
 from .nodes import NodesClient
@@ -88,7 +87,6 @@ class AsyncElasticsearch(object):
     ilm: IlmClient
     license: LicenseClient
     logstash: LogstashClient
-    migration: MigrationClient
     ml: MlClient
     monitoring: MonitoringClient
     searchable_snapshots: SearchableSnapshotsClient

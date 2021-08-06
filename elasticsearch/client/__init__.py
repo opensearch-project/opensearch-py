@@ -37,7 +37,6 @@ from .ccr import CcrClient
 from .cluster import ClusterClient
 from .dangling_indices import DanglingIndicesClient
 from .data_frame import Data_FrameClient
-from .deprecation import DeprecationClient
 from .enrich import EnrichClient
 from .eql import EqlClient
 from .features import FeaturesClient
@@ -48,7 +47,6 @@ from .indices import IndicesClient
 from .ingest import IngestClient
 from .license import LicenseClient
 from .logstash import LogstashClient
-from .migration import MigrationClient
 from .ml import MlClient
 from .monitoring import MonitoringClient
 from .nodes import NodesClient
@@ -226,7 +224,6 @@ class Elasticsearch(object):
 
         self.ccr = CcrClient(self)
         self.data_frame = Data_FrameClient(self)
-        self.deprecation = DeprecationClient(self)
         self.enrich = EnrichClient(self)
         self.eql = EqlClient(self)
         self.features = FeaturesClient(self)
@@ -235,7 +232,6 @@ class Elasticsearch(object):
         self.ilm = IlmClient(self)
         self.license = LicenseClient(self)
         self.logstash = LogstashClient(self)
-        self.migration = MigrationClient(self)
         self.ml = MlClient(self)
         self.monitoring = MonitoringClient(self)
         self.searchable_snapshots = SearchableSnapshotsClient(self)
