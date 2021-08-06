@@ -25,7 +25,7 @@ if [[ -z $es_node_name ]]; then
 
   export es_node_name=instance
   export elastic_password=changeme
-  export elasticsearch_image=elasticsearch-oss
+  export elasticsearch_image=opendistro-for-elasticsearch
   export elasticsearch_url=https://elastic:${elastic_password}@${es_node_name}:9200
   if [[ $TEST_SUITE != "platinum" ]]; then
     export elasticsearch_url=http://${es_node_name}:9200
