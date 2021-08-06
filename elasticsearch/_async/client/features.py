@@ -34,7 +34,6 @@ class FeaturesClient(NamespacedClient):
         Gets a list of features which can be included in snapshots using the
         feature_states field when creating a snapshot
 
-        `<https://www.elastic.co/guide/en/elasticsearch/reference/7.x/get-features-api.html>`_
 
         :arg master_timeout: Explicit operation timeout for connection
             to master node
@@ -48,7 +47,6 @@ class FeaturesClient(NamespacedClient):
         """
         Resets the internal state of features, usually by deleting system indices
 
-        `<https://www.elastic.co/guide/en/elasticsearch/reference/7.x/modules-snapshots.html>`_
 
         .. warning::
 

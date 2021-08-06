@@ -346,7 +346,7 @@ class Connection(object):
     def _get_api_key_header_val(self, api_key):
         """
         Check the type of the passed api_key and return the correct header value
-        for the `API Key authentication <https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-create-api-key.html>`
+        for the API Key authentication
         :arg api_key, either a tuple or a base64 encoded string
         """
         if isinstance(api_key, (tuple, list)):
