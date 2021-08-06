@@ -2,7 +2,7 @@ STACK_VERSION:
   - 7.10.2
 
 TEST_SUITE:
-  - free
+  - oss
 
 PYTHON_VERSION:
   - "2.7"
