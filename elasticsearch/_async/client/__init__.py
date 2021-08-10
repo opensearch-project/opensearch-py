@@ -30,39 +30,17 @@ from __future__ import unicode_literals
 import logging
 
 from ..transport import AsyncTransport, TransportError
-from .async_search import AsyncSearchClient
-from .autoscaling import AutoscalingClient
 from .cat import CatClient
-from .ccr import CcrClient
 from .cluster import ClusterClient
 from .dangling_indices import DanglingIndicesClient
-from .data_frame import Data_FrameClient
-from .enrich import EnrichClient
-from .eql import EqlClient
 from .features import FeaturesClient
-from .fleet import FleetClient
-from .graph import GraphClient
-from .ilm import IlmClient
 from .indices import IndicesClient
 from .ingest import IngestClient
-from .license import LicenseClient
-from .logstash import LogstashClient
-from .ml import MlClient
-from .monitoring import MonitoringClient
 from .nodes import NodesClient
 from .remote import RemoteClient
-from .searchable_snapshots import SearchableSnapshotsClient
-from .security import SecurityClient
-from .shutdown import ShutdownClient
-from .slm import SlmClient
 from .snapshot import SnapshotClient
-from .sql import SqlClient
-from .ssl import SslClient
 from .tasks import TasksClient
-from .text_structure import TextStructureClient
-from .transform import TransformClient
 from .utils import SKIP_IN_PATH, _bulk_body, _make_path, _normalize_hosts, query_params
-from .watcher import WatcherClient
 
 logger = logging.getLogger("elasticsearch")
 
@@ -210,8 +188,6 @@ class AsyncElasticsearch(object):
         self.transport = transport_class(_normalize_hosts(hosts), **kwargs)
 
         # namespaced clients for compatibility with API names
-        self.async_search = AsyncSearchClient(self)
-        self.autoscaling = AutoscalingClient(self)
         self.cat = CatClient(self)
         self.cluster = ClusterClient(self)
         self.dangling_indices = DanglingIndicesClient(self)
@@ -222,27 +198,7 @@ class AsyncElasticsearch(object):
         self.snapshot = SnapshotClient(self)
         self.tasks = TasksClient(self)
 
-        self.ccr = CcrClient(self)
-        self.data_frame = Data_FrameClient(self)
-        self.enrich = EnrichClient(self)
-        self.eql = EqlClient(self)
         self.features = FeaturesClient(self)
-        self.fleet = FleetClient(self)
-        self.graph = GraphClient(self)
-        self.ilm = IlmClient(self)
-        self.license = LicenseClient(self)
-        self.logstash = LogstashClient(self)
-        self.ml = MlClient(self)
-        self.monitoring = MonitoringClient(self)
-        self.searchable_snapshots = SearchableSnapshotsClient(self)
-        self.security = SecurityClient(self)
-        self.slm = SlmClient(self)
-        self.shutdown = ShutdownClient(self)
-        self.sql = SqlClient(self)
-        self.ssl = SslClient(self)
-        self.text_structure = TextStructureClient(self)
-        self.transform = TransformClient(self)
-        self.watcher = WatcherClient(self)
 
     def __repr__(self):
         try:

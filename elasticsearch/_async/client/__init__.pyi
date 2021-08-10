@@ -31,44 +31,22 @@ import logging
 from typing import Any, Collection, MutableMapping, Optional, Tuple, Type, Union
 
 from ..transport import AsyncTransport
-from .async_search import AsyncSearchClient
-from .autoscaling import AutoscalingClient
 from .cat import CatClient
-from .ccr import CcrClient
 from .cluster import ClusterClient
 from .dangling_indices import DanglingIndicesClient
-from .enrich import EnrichClient
-from .eql import EqlClient
 from .features import FeaturesClient
-from .graph import GraphClient
-from .ilm import IlmClient
 from .indices import IndicesClient
 from .ingest import IngestClient
-from .license import LicenseClient
-from .logstash import LogstashClient
-from .ml import MlClient
-from .monitoring import MonitoringClient
 from .nodes import NodesClient
 from .remote import RemoteClient
-from .searchable_snapshots import SearchableSnapshotsClient
-from .security import SecurityClient
-from .shutdown import ShutdownClient
-from .slm import SlmClient
 from .snapshot import SnapshotClient
-from .sql import SqlClient
-from .ssl import SslClient
 from .tasks import TasksClient
-from .text_structure import TextStructureClient
-from .transform import TransformClient
-from .watcher import WatcherClient
 
 logger: logging.Logger
 
 class AsyncElasticsearch(object):
     transport: AsyncTransport
 
-    async_search: AsyncSearchClient
-    autoscaling: AutoscalingClient
     cat: CatClient
     cluster: ClusterClient
     features: FeaturesClient
@@ -78,26 +56,6 @@ class AsyncElasticsearch(object):
     remote: RemoteClient
     snapshot: SnapshotClient
     tasks: TasksClient
-
-    ccr: CcrClient
-    dangling_indices: DanglingIndicesClient
-    enrich: EnrichClient
-    eql: EqlClient
-    graph: GraphClient
-    ilm: IlmClient
-    license: LicenseClient
-    logstash: LogstashClient
-    ml: MlClient
-    monitoring: MonitoringClient
-    searchable_snapshots: SearchableSnapshotsClient
-    security: SecurityClient
-    shutdown: ShutdownClient
-    slm: SlmClient
-    sql: SqlClient
-    ssl: SslClient
-    transform: TransformClient
-    text_structure: TextStructureClient
-    watcher: WatcherClient
     def __init__(
         self,
         hosts: Any = ...,
