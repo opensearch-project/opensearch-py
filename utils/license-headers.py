@@ -45,7 +45,6 @@ license_header_lines = [
     "#\n",
     "# Modifications Copyright OpenSearch Contributors. See\n",
     "# GitHub history for details.\n",
-    "#\n",
 ]
 
 
