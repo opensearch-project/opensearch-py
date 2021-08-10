@@ -93,10 +93,10 @@ END
   if [[ "$i" == "$((NUMBER_OF_NODES-1))" ]]; then local_detach=$DETACH; fi
 
 
-  echo -e "\033[34;1mINFO: building odfe-no-security-plugin container\033[0m"
+  echo -e "\033[34;1mINFO: building odfe container\033[0m"
   docker build \
-    --file=.ci/Dockerfile.opendistro.no.security.plugin \
-    --tag=odfe-no-security-plugin \
+    --file=.ci/Dockerfile.server \
+    --tag=odfe \
     .
 
   echo -e "\033[34;1mINFO:\033[0m Starting container $node_name \033[0m"
@@ -116,7 +116,7 @@ END
     --health-retries=20 \
     --health-timeout=2s \
     --rm \
-    odfe-no-security-plugin;
+    odfe;
 
   set +x
   if wait_for_container "$es_node_name" "$network_name"; then

@@ -115,7 +115,7 @@ esac
 echo -e "\033[34;1mINFO: building $product container\033[0m"
 
 docker build \
-  --file $repo/.ci/Dockerfile \
+  --file $repo/.ci/Dockerfile.client \
   --tag ${product} \
   .
 
