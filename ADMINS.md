@@ -4,10 +4,12 @@ This document explains who the admins are (see below), what they do in this repo
 
 ## Current Admins
 
-| Admin                    | GitHub ID                               | Affiliation |
-| -------------------------| --------------------------------------- | ----------- |
-| Charlotte                | [CEHENKLE](https://github.com/CEHENKLE) | Amazon |
-| Henri Yandell            | [hyandell](https://github.com/hyandell) | Amazon      |
+| Admin                    | GitHub ID                                           | Affiliation |
+| -------------------------| ----------------------------------------------------| ----------- |
+| Charlotte                | [CEHENKLE](https://github.com/CEHENKLE)             | Amazon      |
+| Henri Yandell            | [hyandell](https://github.com/hyandell)             | Amazon      |
+| Rushi Agrawal            | [rushiagr](https://github.com/rushiagr)             | Amazon      |
+| Shephali Mittal          | [Shephalimittal](https://github.com/Shephalimittal) | Amazon      |
 
 
 ## Admin Responsibilities
