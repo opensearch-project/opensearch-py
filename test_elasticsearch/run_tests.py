@@ -40,13 +40,13 @@ def fetch_es_repo():
 
     repo_path = environ.get(
         "TEST_ES_REPO",
-        abspath(join(dirname(__file__), pardir, pardir, "elasticsearch")),
+        abspath(join(dirname(__file__), pardir, pardir, "opensearch")),
     )
 
     # no repo
     if not exists(repo_path) or not exists(join(repo_path, ".git")):
         subprocess.check_call(
-            "git clone https://github.com/elastic/elasticsearch %s" % repo_path,
+            "git clone https://github.com/opensearch-project/opensearch %s" % repo_path,
             shell=True,
         )
 
@@ -73,7 +73,8 @@ def fetch_es_repo():
     # fetch new commits to be sure...
     print("Fetching elasticsearch repo...")
     subprocess.check_call(
-        "cd %s && git fetch https://github.com/elastic/elasticsearch.git" % repo_path,
+        "cd %s && git fetch https://github.com/opensearch-project/opensearch.git"
+        % repo_path,
         shell=True,
     )
     # reset to the version from info()

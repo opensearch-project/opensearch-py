@@ -22,11 +22,16 @@ if [[ -z $es_node_name ]]; then
   export RUNSCRIPTS=${RUNSCRIPTS-}
   export DETACH=${DETACH-false}
   export CLEANUP=${CLEANUP-false}
+  export ELASTICSEARCH_URL_EXTENSION=${ELASTICSEARCH_URL_EXTENSION-http}
 
   export es_node_name=instance
   export elastic_password=changeme
-  export elasticsearch_image=opendistro-for-elasticsearch
-  export elasticsearch_url=http://elastic:${elastic_password}@${es_node_name}:9200
+  export elasticsearch_image=opensearchproject/opensearch
+  if [[ "$CLUSTER" == "opendistro" ]]; then
+    export elasticsearch_image=amazon/opendistro-for-elasticsearch
+  fi
+
+  export elasticsearch_url=$ELASTICSEARCH_URL_EXTENSION://${es_node_name}:9200
   export external_elasticsearch_url=${elasticsearch_url/$es_node_name/localhost}
   export elasticsearch_container="${elasticsearch_image}:${STACK_VERSION}"
 
