@@ -48,7 +48,7 @@ END
 docker_pull_attempts=0
 until [ "$docker_pull_attempts" -ge 5 ]
 do
-   docker pull amazon/"$elasticsearch_container" && break
+   docker pull "$elasticsearch_container" && break
    docker_pull_attempts=$((docker_pull_attempts+1))
    echo "Failed to pull image, retrying in 10 seconds (retry $docker_pull_attempts/5)..."
    sleep 10
@@ -75,11 +75,12 @@ END
   local_detach="true"
   if [[ "$i" == "$((NUMBER_OF_NODES-1))" ]]; then local_detach=$DETACH; fi
 
-
-  echo -e "\033[34;1mINFO: building odfe container\033[0m"
+  echo -e "\033[34;1mINFO: building $CLUSTER container\033[0m"
+  echo 'cluster is' $CLUSTER
   docker build \
-    --file=.ci/Dockerfile.server \
-    --tag=odfe \
+    --file=.ci/$CLUSTER/Dockerfile \
+    --build-arg SECURE_INTEGRATION=false \
+    --tag=$CLUSTER \
     .
 
   echo -e "\033[34;1mINFO:\033[0m Starting container $node_name \033[0m"
@@ -99,7 +100,8 @@ END
     --health-retries=20 \
     --health-timeout=2s \
     --rm \
-    odfe;
+    -d \
+    $CLUSTER;
 
   set +x
   if wait_for_container "$es_node_name" "$network_name"; then
