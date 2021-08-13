@@ -5,14 +5,14 @@ build:
 	PYTHON_VERSION=${PYTHON_VERSION} docker-compose build client
 
 pull:
-	ELASTICSEARCH_VERSION=${ELASTICSEARCH_VERSION} PYTHON_VERSION=${PYTHON_VERSION} docker-compose pull
+	OPENSEARCH_VERSION=${OPENSEARCH_VERSION} PYTHON_VERSION=${PYTHON_VERSION} docker-compose pull
 
 push:
 	# requires authentication.
 	PYTHON_VERSION=${PYTHON_VERSION} docker-compose push client
 
 run_tests:
-	ELASTICSEARCH_VERSION=${ELASTICSEARCH_VERSION} PYTHON_VERSION=${PYTHON_VERSION} docker-compose -p "${ELASTIC_VERSION}-${PYTHON_VERSION}" run client python setup.py test
+	OPENSEARCH_VERSION=${OPENSEARCH_VERSION} PYTHON_VERSION=${PYTHON_VERSION} docker-compose -p "${OPEN_VERSION}-${PYTHON_VERSION}" run client python setup.py test
 
-start_elasticsearch:
-	ELASTICSEARCH_VERSION=${ELASTICSEARCH_VERSION} docker-compose up -d elasticsearch
+start_opensearch:
+	OPENSEARCH_VERSION=${OPENSEARCH_VERSION} docker-compose up -d opensearch
