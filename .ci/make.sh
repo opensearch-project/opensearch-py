@@ -2,7 +2,7 @@
 
 # ------------------------------------------------------- #
 #
-# Skeleton for common build entry script for all elastic
+# Skeleton for common build entry script for all opensearch
 # clients. Needs to be adapted to individual client usage.
 #
 # Must be called: ./.ci/make.sh <target> <params>
@@ -35,7 +35,7 @@ VERSION=$2
 STACK_VERSION=$VERSION
 set -euo pipefail
 
-product="elastic/elasticsearch-py"
+product="opensearch-project/opensearch-py"
 output_folder=".ci/output"
 codegen_folder=".ci/output"
 OUTPUT_DIR="$repo/${output_folder}"
@@ -129,15 +129,15 @@ if [[ "$CMD" == "assemble" ]]; then
 
   # Build dists into .ci/output
   docker run \
-    --rm -v $repo/.ci/output:/code/elasticsearch-py/dist \
+    --rm -v $repo/.ci/output:/code/opensearch-py/dist \
     $product \
-    /bin/bash -c "python /code/elasticsearch-py/utils/build-dists.py $VERSION"
+    /bin/bash -c "python /code/opensearch-py/utils/build-dists.py $VERSION"
 
   # Verify that there are dists in .ci/output
 	if compgen -G ".ci/output/*" > /dev/null; then
 
 	  # Tarball everything up in .ci/output
-    cd $repo/.ci/output && tar -czvf elasticsearch-py-$VERSION.tar.gz * && cd -
+    cd $repo/.ci/output && tar -czvf opensearch-py-$VERSION.tar.gz * && cd -
 
 		echo -e "\033[32;1mTARGET: successfully assembled client v$VERSION\033[0m"
 		exit 0

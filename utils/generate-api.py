@@ -144,7 +144,7 @@ class Module:
     def filepath(self):
         return (
             CODE_ROOT
-            / f"elasticsearch/_async/client/{self.namespace}.py{'i' if self.is_pyi else ''}"
+            / f"opensearch/_async/client/{self.namespace}.py{'i' if self.is_pyi else ''}"
         )
 
 
@@ -184,8 +184,8 @@ class API:
             # Try setting doc refs like 'current' and 'master' to our branches ref.
             if BRANCH_NAME is not None:
                 revised_url = re.sub(
-                    "/elasticsearch/reference/[^/]+/",
-                    f"/elasticsearch/reference/{BRANCH_NAME}/",
+                    "/opensearch/reference/[^/]+/",
+                    f"/opensearch/reference/{BRANCH_NAME}/",
                     self.doc_url,
                 )
                 if is_valid_url(revised_url):
@@ -338,9 +338,9 @@ def download_artifact(version):
     resp = http.request(
         "GET", f"https://artifacts-api.elastic.co/v1/versions/{version}"
     )
-    packages = json.loads(resp.data)["version"]["builds"][0]["projects"][
-        "elasticsearch"
-    ]["packages"]
+    packages = json.loads(resp.data)["version"]["builds"][0]["projects"]["opensearch"][
+        "packages"
+    ]
     for package in packages:
         if re.match(r"^rest-resources-zip-.*\.zip$", package):
             zip_url = packages[package]["url"]
@@ -404,20 +404,20 @@ def dump_modules(modules):
     additional_replacements = {
         # We want to rewrite to 'Transport' instead of 'SyncTransport', etc
         "AsyncTransport": "Transport",
-        "AsyncElasticsearch": "Elasticsearch",
+        "AsyncOpenSearch": "OpenSearch",
         # We don't want to rewrite this class
         "AsyncSearchClient": "AsyncSearchClient",
     }
     rules = [
         unasync.Rule(
-            fromdir="/elasticsearch/_async/client/",
-            todir="/elasticsearch/client/",
+            fromdir="/opensearch/_async/client/",
+            todir="/opensearch/client/",
             additional_replacements=additional_replacements,
         ),
     ]
 
     filepaths = []
-    for root, _, filenames in os.walk(CODE_ROOT / "elasticsearch/_async"):
+    for root, _, filenames in os.walk(CODE_ROOT / "opensearch/_async"):
         for filename in filenames:
             if (
                 filename.rpartition(".")[-1]
@@ -430,7 +430,7 @@ def dump_modules(modules):
                 filepaths.append(os.path.join(root, filename))
 
     unasync.unasync_files(filepaths, rules)
-    blacken(CODE_ROOT / "elasticsearch")
+    blacken(CODE_ROOT / "opensearch")
 
 
 if __name__ == "__main__":

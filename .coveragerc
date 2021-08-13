@@ -5,5 +5,5 @@ omit =
     */lib_pypy/*
     */site-packages/*
     *.egg/*
-    test_elasticsearch/*
-    elasticsearch/connection/esthrift/*
+    test_opensearch/*
+    opensearch/connection/esthrift/*

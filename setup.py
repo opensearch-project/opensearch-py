@@ -30,7 +30,7 @@ from os.path import abspath, dirname, join
 
 from setuptools import find_packages, setup
 
-package_name = "elasticsearch"
+package_name = "opensearch"
 base_dir = abspath(dirname(__file__))
 
 with open(join(base_dir, package_name, "_version.py")) as f:
@@ -43,7 +43,7 @@ with open(join(base_dir, "README.md")) as f:
 
 packages = [
     package
-    for package in find_packages(where=".", exclude=("test_elasticsearch*",))
+    for package in find_packages(where=".", exclude=("test_opensearch*",))
     if package == package_name or package.startswith(package_name + ".")
 ]
 
@@ -68,7 +68,7 @@ setup(
     name=package_name,
     description="Python client for Elasticsearch",
     license="Apache-2.0",
-    url="https://github.com/elastic/elasticsearch-py",
+    url="https://github.com/opensearch-project/opensearch-py",
     long_description=long_description,
     long_description_content_type="text/x-rst",
     version=package_version,
@@ -77,12 +77,12 @@ setup(
     maintainer="Seth Michael Larson",
     maintainer_email="seth.larson@elastic.co",
     project_urls={
-        "Documentation": "https://elasticsearch-py.readthedocs.io",
-        "Source Code": "https://github.com/elastic/elasticsearch-py",
-        "Issue Tracker": "https://github.com/elastic/elasticsearch-py/issues",
+        "Documentation": "https://opensearch-py.readthedocs.io",
+        "Source Code": "https://github.com/opensearch-project/opensearch-py",
+        "Issue Tracker": "https://github.com/opensearch-project/opensearch-py/issues",
     },
     packages=packages,
-    package_data={"elasticsearch": ["py.typed", "*.pyi"]},
+    package_data={"opensearch": ["py.typed", "*.pyi"]},
     include_package_data=True,
     zip_safe=False,
     classifiers=[
@@ -105,7 +105,7 @@ setup(
     ],
     python_requires=">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, <4",
     install_requires=install_requires,
-    test_suite="test_elasticsearch.run_tests.run_all",
+    test_suite="test_opensearch.run_tests.run_all",
     tests_require=tests_require,
     extras_require={
         "develop": tests_require + docs_require + generate_require,

@@ -5,8 +5,8 @@ include LICENSE
 include MANIFEST.in
 include README.md
 include setup.py
-recursive-include elasticsearch* py.typed *.pyi
+recursive-include opensearch* py.typed *.pyi
 
-prune test_elasticsearch
+prune test_opensearch
 recursive-exclude * __pycache__
 recursive-exclude * *.py[co]
