@@ -226,17 +226,6 @@ class TestDeserializer(TestCase):
             self.de.loads('{"some":"data"}', "text/plain; charset=whatever"),
         )
 
-    def test_deserialize_compatibility_header(self):
-        for content_type in (
-            "application/vnd.opensearch+json;compatible-with=7",
-            "application/vnd.opensearch+json; compatible-with=7",
-            "application/vnd.opensearch+json;compatible-with=8",
-            "application/vnd.opensearch+json; compatible-with=8",
-        ):
-            self.assertEqual(
-                {"some": "data"}, self.de.loads('{"some":"data"}', content_type)
-            )
-
     def test_raises_serialization_error_on_unknown_mimetype(self):
         self.assertRaises(SerializationError, self.de.loads, "{}", "text/html")
 
