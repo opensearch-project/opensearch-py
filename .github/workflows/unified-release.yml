@@ -19,7 +19,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        stack_version: ['7.10.2']
+        stack_version: ['1.0.0']
 
     steps:
       - name: Checkout
