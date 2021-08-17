@@ -4,16 +4,6 @@
 #
 # Version 1.0.1
 # - Initial version after refactor
-# - Validate STACK_VERSION asap
-
-function require_stack_version() {
-  if [[ -z $STACK_VERSION ]]; then
-    echo -e "\033[31;1mERROR:\033[0m Required environment variable [STACK_VERSION] not set\033[0m"
-    exit 1
-  fi
-}
-
-require_stack_version
 
 if [[ -z $es_node_name ]]; then
   # only set these once
@@ -33,7 +23,7 @@ if [[ -z $es_node_name ]]; then
 
   export elasticsearch_url=$ELASTICSEARCH_URL_EXTENSION://${es_node_name}:9200
   export external_elasticsearch_url=${elasticsearch_url/$es_node_name/localhost}
-  export elasticsearch_container="${elasticsearch_image}:${STACK_VERSION}"
+  export elasticsearch_container="${elasticsearch_image}:latest"
 
   export suffix=rest-test
   export moniker=$(echo "$elasticsearch_container" | tr -C "[:alnum:]" '-')
