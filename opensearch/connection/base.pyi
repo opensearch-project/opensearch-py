@@ -27,11 +27,11 @@
 import logging
 from typing import (
     Any,
+    AnyStr,
     Collection,
     Dict,
     List,
     Mapping,
-    MutableMapping,
     NoReturn,
     Optional,
     Sequence,
@@ -52,7 +52,6 @@ class Connection(object):
     host: str
     url_prefix: str
     timeout: Optional[Union[float, int]]
-    meta_header: bool
     def __init__(
         self,
         host: str = ...,
@@ -65,7 +64,6 @@ class Connection(object):
         cloud_id: Optional[str] = ...,
         api_key: Optional[Union[Tuple[str, str], List[str], str]] = ...,
         opaque_id: Optional[str] = ...,
-        meta_header: bool = ...,
         **kwargs: Any
     ) -> None: ...
     def __repr__(self) -> str: ...
@@ -87,11 +85,11 @@ class Connection(object):
         self,
         method: str,
         url: str,
-        params: Optional[MutableMapping[str, Any]] = ...,
+        params: Optional[Mapping[str, Any]] = ...,
         body: Optional[bytes] = ...,
         timeout: Optional[Union[int, float]] = ...,
         ignore: Collection[int] = ...,
-        headers: Optional[MutableMapping[str, str]] = ...,
+        headers: Optional[Mapping[str, str]] = ...,
     ) -> Tuple[int, Mapping[str, str], str]: ...
     def log_request_success(
         self,

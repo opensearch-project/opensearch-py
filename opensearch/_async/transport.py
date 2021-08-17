@@ -332,8 +332,8 @@ class AsyncTransport(Transport):
         """
         await self._async_call()
 
-        method, headers, params, body, ignore, timeout = self._resolve_request_args(
-            method, headers, params, body
+        method, params, body, ignore, timeout = self._resolve_request_args(
+            method, params, body
         )
 
         for attempt in range(self.max_retries + 1):

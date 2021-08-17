@@ -40,7 +40,6 @@ from ..exceptions import (
     ImproperlyConfigured,
     SSLError,
 )
-from ..utils import _client_meta_version
 from .base import Connection
 
 # sentinel value for `verify_certs` and `ssl_show_warn`.
@@ -107,8 +106,6 @@ class Urllib3HttpConnection(Connection):
     :arg opaque_id: Send this value in the 'X-Opaque-Id' HTTP header
         For tracing all requests made by this transport.
     """
-
-    HTTP_CLIENT_META = ("ur", _client_meta_version(urllib3.__version__))
 
     def __init__(
         self,
@@ -234,7 +231,6 @@ class Urllib3HttpConnection(Connection):
             url = "%s?%s" % (url, urlencode(params))
 
         full_url = self.host + url
-
         start = time.time()
         orig_body = body
         try:

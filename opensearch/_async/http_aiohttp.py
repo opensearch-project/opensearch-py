@@ -39,7 +39,6 @@ from ..exceptions import (
     ImproperlyConfigured,
     SSLError,
 )
-from ..utils import _client_meta_version
 from ._extra_imports import aiohttp, aiohttp_exceptions, yarl
 from .compat import get_running_loop
 
@@ -79,9 +78,6 @@ class AsyncConnection(Connection):
 
 
 class AIOHttpConnection(AsyncConnection):
-
-    HTTP_CLIENT_META = ("ai", _client_meta_version(aiohttp.__version__))
-
     def __init__(
         self,
         host="localhost",

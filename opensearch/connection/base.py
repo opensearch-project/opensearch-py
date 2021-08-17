@@ -77,8 +77,6 @@ class Connection(object):
         For tracing all requests made by this transport.
     """
 
-    HTTP_CLIENT_META = None
-
     def __init__(
         self,
         host="localhost",
@@ -91,7 +89,6 @@ class Connection(object):
         cloud_id=None,
         api_key=None,
         opaque_id=None,
-        meta_header=True,
         **kwargs
     ):
 
@@ -167,10 +164,6 @@ class Connection(object):
             url_prefix = "/" + url_prefix.strip("/")
         self.url_prefix = url_prefix
         self.timeout = timeout
-
-        if not isinstance(meta_header, bool):
-            raise TypeError("meta_header must be of type bool")
-        self.meta_header = meta_header
 
     def __repr__(self):
         return "<%s: %s>" % (self.__class__.__name__, self.host)
