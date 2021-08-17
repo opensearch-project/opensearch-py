@@ -1,6 +1,3 @@
-STACK_VERSION:
-  - 7.10.2
-
 TEST_SUITE:
   - oss
 

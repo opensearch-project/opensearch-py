@@ -5,7 +5,6 @@
 # - Add `$RUNSCRIPTS` env var for running Elasticsearch dependent products
 
 # Default environment variables
-export STACK_VERSION="${STACK_VERSION:=latest}"
 export TEST_SUITE="${TEST_SUITE:=oss}"
 export PYTHON_VERSION="${PYTHON_VERSION:=3.9}"
 export PYTHON_CONNECTION_CLASS="${PYTHON_CONNECTION_CLASS:=Urllib3HttpConnection}"
@@ -16,7 +15,7 @@ script_path=$(dirname $(realpath -s $0))
 source $script_path/functions/imports.sh
 set -euo pipefail
 
-echo -e "\033[1m>>>>> Start [$STACK_VERSION container] >>>>>>>>>>>>>>>>>>>>>>>>>>>>>\033[0m"
+echo -e "\033[1m>>>>> Start server container >>>>>>>>>>>>>>>>>>>>>>>>>>>>>\033[0m"
 DETACH=true bash .ci/run-elasticsearch.sh
 
 if [[ -n "$RUNSCRIPTS" ]]; then
