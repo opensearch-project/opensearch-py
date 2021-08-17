@@ -26,7 +26,7 @@ echo -e "\033[34;1mINFO:\033[0m Take down node if called twice with the same arg
 cleanup_node $es_node_name
 
 master_node_name=${es_node_name}
-cluster_name=${moniker}${suffix}
+cluster_name=search-rest-test
 
 declare -a volumes
 environment=($(cat <<-END
@@ -43,17 +43,6 @@ environment=($(cat <<-END
 END
 ))
 
-# Pull the container, retry on failures up to 5 times with
-# short delays between each attempt. Fixes most transient network errors.
-docker_pull_attempts=0
-until [ "$docker_pull_attempts" -ge 5 ]
-do
-   docker pull "$elasticsearch_container" && break
-   docker_pull_attempts=$((docker_pull_attempts+1))
-   echo "Failed to pull image, retrying in 10 seconds (retry $docker_pull_attempts/5)..."
-   sleep 10
-done
-
 NUMBER_OF_NODES=${NUMBER_OF_NODES-1}
 http_port=9200
 for (( i=0; i<$NUMBER_OF_NODES; i++, http_port++ )); do
@@ -65,7 +54,7 @@ for (( i=0; i<$NUMBER_OF_NODES; i++, http_port++ )); do
 END
 ))
   echo "$i: $http_port $node_url "
-  volume_name=${node_name}-${suffix}-data
+  volume_name=${node_name}-rest-test-data
   volumes+=($(cat <<-END
     --volume $volume_name:/usr/share/elasticsearch/data${i}
 END
