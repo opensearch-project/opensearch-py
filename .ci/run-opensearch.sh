@@ -23,14 +23,14 @@ source $script_path/functions/imports.sh
 set -euo pipefail
 
 echo -e "\033[34;1mINFO:\033[0m Take down node if called twice with the same arguments (DETACH=true) or on seperate terminals \033[0m"
-cleanup_node $es_node_name
+cleanup_node $opensearch_node_name
 
-master_node_name=${es_node_name}
+master_node_name=${opensearch_node_name}
 cluster_name=search-rest-test
 
 declare -a volumes
 environment=($(cat <<-END
-  --env node.name=$es_node_name
+  --env node.name=$opensearch_node_name
   --env cluster.name=$cluster_name
   --env cluster.initial_master_nodes=$master_node_name
   --env discovery.seed_hosts=$master_node_name
@@ -46,9 +46,9 @@ END
 NUMBER_OF_NODES=${NUMBER_OF_NODES-1}
 http_port=9200
 for (( i=0; i<$NUMBER_OF_NODES; i++, http_port++ )); do
-  node_name=${es_node_name}$i
+  node_name=${opensearch_node_name}$i
   node_url=${external_opensearch_url/9200/${http_port}}$i
-  if [[ "$i" == "0" ]]; then node_name=$es_node_name; fi
+  if [[ "$i" == "0" ]]; then node_name=$opensearch_node_name; fi
   environment+=($(cat <<-END
     --env node.name=$node_name
 END
@@ -93,7 +93,7 @@ END
     $CLUSTER;
 
   set +x
-  if wait_for_container "$es_node_name" "$network_name"; then
+  if wait_for_container "$opensearch_node_name" "$network_name"; then
     echo -e "\033[32;1mSUCCESS:\033[0m Running on: $node_url\033[0m"
   fi
 

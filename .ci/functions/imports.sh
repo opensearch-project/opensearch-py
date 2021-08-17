@@ -5,7 +5,7 @@
 # Version 1.0.1
 # - Initial version after refactor
 
-if [[ -z $es_node_name ]]; then
+if [[ -z $opensearch_node_name ]]; then
   # only set these once
   set -euo pipefail
   export TEST_SUITE=${TEST_SUITE-oss}
@@ -14,7 +14,7 @@ if [[ -z $es_node_name ]]; then
   export CLEANUP=${CLEANUP-false}
   export OPENSEARCH_URL_EXTENSION=${OPENSEARCH_URL_EXTENSION-http}
 
-  export es_node_name=instance
+  export opensearch_node_name=instance
   export opensearch_image=opensearchproject/opensearch
   if [[ "$CLUSTER" == "opendistro" ]]; then
     export opensearch_image=amazon/opendistro-for-elasticsearch

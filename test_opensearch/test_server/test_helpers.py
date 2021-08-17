@@ -92,7 +92,7 @@ class TestStreamingBulk(OpenSearchTestCase):
             assert False, "exception should have been raised"
 
     def test_different_op_types(self):
-        if self.es_version() < (0, 90, 1):
+        if self.opensearch_version() < (0, 90, 1):
             raise SkipTest("update supported since 0.90.1")
         self.client.index(index="i", id=45, body={})
         self.client.index(index="i", id=42, body={})

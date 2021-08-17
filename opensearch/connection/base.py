@@ -98,7 +98,7 @@ class Connection(object):
         if cloud_id:
             try:
                 _, cloud_id = cloud_id.split(":")
-                parent_dn, es_uuid = (
+                parent_dn, opensearch_uuid = (
                     binascii.a2b_base64(cloud_id.encode("utf-8"))
                     .decode("utf-8")
                     .split("$")[:2]
@@ -110,7 +110,7 @@ class Connection(object):
             except (ValueError, IndexError):
                 raise ImproperlyConfigured("'cloud_id' is not properly formatted")
 
-            host = "%s.%s" % (es_uuid, parent_dn)
+            host = "%s.%s" % (opensearch_uuid, parent_dn)
             use_ssl = True
             if http_compress is None:
                 http_compress = True

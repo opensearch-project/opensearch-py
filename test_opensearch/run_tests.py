@@ -33,13 +33,13 @@ from os import environ
 from os.path import abspath, dirname, exists, join, pardir
 
 
-def fetch_es_repo():
+def fetch_opensearch_repo():
     # user is manually setting YAML dir, don't tamper with it
-    if "TEST_ES_YAML_DIR" in environ:
+    if "TEST_OPENSEARCH_YAML_DIR" in environ:
         return
 
     repo_path = environ.get(
-        "TEST_ES_REPO",
+        "TEST_OPENSEARCH_REPO",
         abspath(join(dirname(__file__), pardir, pardir, "opensearch")),
     )
 
@@ -51,12 +51,12 @@ def fetch_es_repo():
         )
 
     # set YAML test dir
-    environ["TEST_ES_YAML_DIR"] = join(
+    environ["TEST_OPENSEARCH_YAML_DIR"] = join(
         repo_path, "rest-api-spec", "src", "main", "resources", "rest-api-spec", "test"
     )
 
     # fetching of yaml tests disabled, we'll run with what's there
-    if environ.get("TEST_ES_NOFETCH", False):
+    if environ.get("TEST_OPENSEARCH_NOFETCH", False):
         return
 
     from test_opensearch.test_cases import SkipTest
@@ -87,7 +87,7 @@ def run_all(argv=None):
 
     # fetch yaml tests anywhere that's not GitHub Actions
     if "GITHUB_ACTION" not in environ:
-        fetch_es_repo()
+        fetch_opensearch_repo()
 
     # always insert coverage when running tests
     if argv is None:

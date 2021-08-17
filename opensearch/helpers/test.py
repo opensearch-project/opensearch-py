@@ -80,7 +80,7 @@ class OpenSearchTestCase(TestCase):
     def teardown_method(self, _):
         # Hidden indices expanded in wildcards in ES 7.7
         expand_wildcards = ["open", "closed"]
-        if self.es_version() >= (7, 7):
+        if self.opensearch_version() >= (7, 7):
             expand_wildcards.append("hidden")
 
         self.client.indices.delete(
@@ -88,10 +88,10 @@ class OpenSearchTestCase(TestCase):
         )
         self.client.indices.delete_template(name="*", ignore=404)
 
-    def es_version(self):
-        if not hasattr(self, "_es_version"):
-            self._es_version = es_version(self.client)
-        return self._es_version
+    def opensearch_version(self):
+        if not hasattr(self, "_opensearch_version"):
+            self._opensearch_version = opensearch_version(self.client)
+        return self._opensearch_version
 
 
 def _get_version(version_string):
@@ -101,5 +101,5 @@ def _get_version(version_string):
     return tuple(int(v) if v.isdigit() else 999 for v in version)
 
 
-def es_version(client):
+def opensearch_version(client):
     return _get_version(client.info()["version"]["number"])
