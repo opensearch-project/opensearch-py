@@ -407,7 +407,6 @@ async def async_scan(
                 body={"scroll_id": [scroll_id]},
                 **transport_kwargs,
                 ignore=(404,),
-                params={"__elastic_client_meta": (("h", "s"),)},
             )
 
 

@@ -239,8 +239,6 @@ def _process_bulk_chunk(
     """
     Send a bulk request to opensearch and process the output.
     """
-    kwargs = _add_helper_meta_to_kwargs(kwargs, "bp")
-
     if not isinstance(ignore_status, (list, tuple)):
         ignore_status = (ignore_status,)
 
@@ -264,13 +262,6 @@ def _process_bulk_chunk(
         )
     for item in gen:
         yield item
-
-
-def _add_helper_meta_to_kwargs(kwargs, helper_meta):
-    params = (kwargs or {}).pop("params", {})
-    params["__elastic_client_meta"] = (("h", helper_meta),)
-    kwargs["params"] = params
-    return kwargs
 
 
 def streaming_bulk(
@@ -553,7 +544,6 @@ def scan(
 
     """
     scroll_kwargs = scroll_kwargs or {}
-    _add_helper_meta_to_kwargs(scroll_kwargs, "s")
 
     if not preserve_order:
         query = query.copy() if query else {}
@@ -616,10 +606,7 @@ def scan(
     finally:
         if scroll_id and clear_scroll:
             client.clear_scroll(
-                body={"scroll_id": [scroll_id]},
-                ignore=(404,),
-                params={"__elastic_client_meta": (("h", "s"),)},
-                **transport_kwargs
+                body={"scroll_id": [scroll_id]}, ignore=(404,), **transport_kwargs
             )
 
 

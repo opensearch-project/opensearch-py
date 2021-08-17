@@ -174,16 +174,6 @@ class TestBaseConnection(TestCase):
             conn = Connection(**kwargs)
             assert conn.host == expected_host
 
-    def test_meta_header(self):
-        conn = Connection(meta_header=True)
-        assert conn.meta_header is True
-        conn = Connection(meta_header=False)
-        assert conn.meta_header is False
-
-        with pytest.raises(TypeError) as e:
-            Connection(meta_header=1)
-        assert str(e.value) == "meta_header must be of type bool"
-
     def test_compatibility_accept_header(self):
         try:
             conn = Connection()

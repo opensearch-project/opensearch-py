@@ -29,7 +29,6 @@ from __future__ import unicode_literals
 
 import asyncio
 import json
-import re
 
 import pytest
 from mock import patch
@@ -129,7 +128,7 @@ class TestTransport:
         assert isinstance(t.connection_pool, DummyConnectionPool)
 
     async def test_request_timeout_extracted_from_params_and_passed(self):
-        t = AsyncTransport([{}], connection_class=DummyConnection, meta_header=False)
+        t = AsyncTransport([{}], connection_class=DummyConnection)
 
         await t.perform_request("GET", "/", params={"request_timeout": 42})
         assert 1 == len(t.get_connection().calls)
@@ -141,9 +140,7 @@ class TestTransport:
         } == t.get_connection().calls[0][1]
 
     async def test_opaque_id(self):
-        t = AsyncTransport(
-            [{}], opaque_id="app-1", connection_class=DummyConnection, meta_header=False
-        )
+        t = AsyncTransport([{}], opaque_id="app-1", connection_class=DummyConnection)
 
         await t.perform_request("GET", "/")
         assert 1 == len(t.get_connection().calls)
@@ -165,7 +162,7 @@ class TestTransport:
         } == t.get_connection().calls[1][1]
 
     async def test_request_with_custom_user_agent_header(self):
-        t = AsyncTransport([{}], connection_class=DummyConnection, meta_header=False)
+        t = AsyncTransport([{}], connection_class=DummyConnection)
 
         await t.perform_request(
             "GET", "/", headers={"user-agent": "my-custom-value/1.2.3"}
@@ -194,39 +191,6 @@ class TestTransport:
         await t.perform_request("GET", "/", body={})
         assert 1 == len(t.get_connection().calls)
         assert ("POST", "/", None, b"{}") == t.get_connection().calls[0][0]
-
-    async def test_client_meta_header(self):
-        t = AsyncTransport([{}], connection_class=DummyConnection)
-
-        await t.perform_request("GET", "/", body={})
-        assert len(t.get_connection().calls) == 1
-        headers = t.get_connection().calls[0][1]["headers"]
-        assert re.match(
-            r"^es=[0-9.]+p?,py=[0-9.]+p?,t=[0-9.]+p?$",
-            headers["x-elastic-client-meta"],
-        )
-
-        class DummyConnectionWithMeta(DummyConnection):
-            HTTP_CLIENT_META = ("dm", "1.2.3")
-
-        t = AsyncTransport([{}], connection_class=DummyConnectionWithMeta)
-
-        await t.perform_request("GET", "/", body={}, headers={"Custom": "header"})
-        assert len(t.get_connection().calls) == 1
-        headers = t.get_connection().calls[0][1]["headers"]
-        assert re.match(
-            r"^es=[0-9.]+p?,py=[0-9.]+p?,t=[0-9.]+p?,dm=1.2.3$",
-            headers["x-elastic-client-meta"],
-        )
-        assert headers["Custom"] == "header"
-
-    async def test_client_meta_header_not_sent(self):
-        t = AsyncTransport([{}], meta_header=False, connection_class=DummyConnection)
-
-        await t.perform_request("GET", "/", body={})
-        assert len(t.get_connection().calls) == 1
-        headers = t.get_connection().calls[0][1]["headers"]
-        assert headers is None
 
     async def test_body_gets_encoded_into_bytes(self):
         t = AsyncTransport([{}], connection_class=DummyConnection)
