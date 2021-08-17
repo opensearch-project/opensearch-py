@@ -116,7 +116,7 @@ SKIP_TESTS = {
 }
 
 
-ES_VERSION = None
+OPENSEARCH_VERSION = None
 RUN_ASYNC_REST_API_TESTS = (
     sys.version_info >= (3, 6)
     and os.environ.get("PYTHON_CONNECTION_CLASS") == "RequestsHttpConnection"
@@ -163,15 +163,15 @@ class YamlRunner:
             self.section("teardown")
             self.run_code(self._teardown_code)
 
-    def es_version(self):
-        global ES_VERSION
-        if ES_VERSION is None:
+    def opensearch_version(self):
+        global OPENSEARCH_VERSION
+        if OPENSEARCH_VERSION is None:
             version_string = (self.client.info())["version"]["number"]
             if "." not in version_string:
                 return ()
             version = version_string.strip().split(".")
-            ES_VERSION = tuple(int(v) if v.isdigit() else 999 for v in version)
-        return ES_VERSION
+            OPENSEARCH_VERSION = tuple(int(v) if v.isdigit() else 999 for v in version)
+        return OPENSEARCH_VERSION
 
     def section(self, name):
         print(("=" * 10) + " " + name + " " + ("=" * 10))
@@ -311,7 +311,7 @@ class YamlRunner:
             min_version, max_version = version.split("-")
             min_version = _get_version(min_version) or (0,)
             max_version = _get_version(max_version) or (999,)
-            if min_version <= (self.es_version()) <= max_version:
+            if min_version <= (self.opensearch_version()) <= max_version:
                 pytest.skip(reason)
 
     def run_gt(self, action):

@@ -132,7 +132,7 @@ def _make_path(*parts):
 GLOBAL_PARAMS = ("pretty", "human", "error_trace", "format", "filter_path")
 
 
-def query_params(*es_query_params):
+def query_params(*opensearch_query_params):
     """
     Decorator that pops all accepted parameters from method's kwargs and puts
     them in the params argument.
@@ -164,7 +164,7 @@ def query_params(*es_query_params):
             elif api_key is not None:
                 headers["authorization"] = "ApiKey %s" % (_base64_auth_header(api_key),)
 
-            for p in es_query_params + GLOBAL_PARAMS:
+            for p in opensearch_query_params + GLOBAL_PARAMS:
                 if p in kwargs:
                     v = kwargs.pop(p)
                     if v is not None:

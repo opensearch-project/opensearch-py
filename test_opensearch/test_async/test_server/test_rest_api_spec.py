@@ -47,7 +47,7 @@ from ...test_server.test_rest_api_spec import (
 
 pytestmark = pytest.mark.asyncio
 
-ES_VERSION = None
+OPENSEARCH_VERSION = None
 
 
 async def await_if_coro(x):
@@ -80,15 +80,15 @@ class AsyncYamlRunner(YamlRunner):
             self.section("teardown")
             await self.run_code(self._teardown_code)
 
-    async def es_version(self):
-        global ES_VERSION
-        if ES_VERSION is None:
+    async def opensearch_version(self):
+        global OPENSEARCH_VERSION
+        if OPENSEARCH_VERSION is None:
             version_string = (await self.client.info())["version"]["number"]
             if "." not in version_string:
                 return ()
             version = version_string.strip().split(".")
-            ES_VERSION = tuple(int(v) if v.isdigit() else 999 for v in version)
-        return ES_VERSION
+            OPENSEARCH_VERSION = tuple(int(v) if v.isdigit() else 999 for v in version)
+        return OPENSEARCH_VERSION
 
     def section(self, name):
         print(("=" * 10) + " " + name + " " + ("=" * 10))
@@ -211,7 +211,7 @@ class AsyncYamlRunner(YamlRunner):
             min_version, max_version = version.split("-")
             min_version = _get_version(min_version) or (0,)
             max_version = _get_version(max_version) or (999,)
-            if min_version <= (await self.es_version()) <= max_version:
+            if min_version <= (await self.opensearch_version()) <= max_version:
                 pytest.skip(reason)
 
     async def _feature_enabled(self, name):
