@@ -26,7 +26,7 @@
 
 from typing import Any, AsyncGenerator, Dict, Generator
 
-from opensearch7 import (
+from opensearch1 import (
     AIOHttpConnection,
     AsyncOpenSearch,
     AsyncTransport,
@@ -35,7 +35,7 @@ from opensearch7 import (
     RequestsHttpConnection,
     Transport,
 )
-from opensearch7.helpers import (
+from opensearch1.helpers import (
     async_bulk,
     async_reindex,
     async_scan,
