@@ -25,7 +25,7 @@
 #  under the License.
 
 """A command line tool for building and verifying releases
-Can be used for building both 'opensearch' and 'elasticsearchX' dists.
+Can be used for building both 'opensearch' and 'opensearchX' dists.
 Only requires 'name' in 'setup.py' and the directory to be changed.
 """
 
