@@ -16,18 +16,11 @@ if [[ -z $es_node_name ]]; then
 
   export es_node_name=instance
   export elastic_password=changeme
-  export elasticsearch_image=opensearchproject/opensearch
-  if [[ "$CLUSTER" == "opendistro" ]]; then
-    export elasticsearch_image=amazon/opendistro-for-elasticsearch
-  fi
 
   export elasticsearch_url=$ELASTICSEARCH_URL_EXTENSION://${es_node_name}:9200
   export external_elasticsearch_url=${elasticsearch_url/$es_node_name/localhost}
-  export elasticsearch_container="${elasticsearch_image}:latest"
 
-  export suffix=rest-test
-  export moniker=$(echo "$elasticsearch_container" | tr -C "[:alnum:]" '-')
-  export network_name=${moniker}${suffix}
+  export network_name=search-rest-test
 
   export ssl_cert="${script_path}/certs/testnode.crt"
   export ssl_key="${script_path}/certs/testnode.key"

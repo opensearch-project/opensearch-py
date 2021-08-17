@@ -25,8 +25,8 @@ function cleanup_node {
     (docker container rm --force --volumes "$1") || true
   fi
   if [[ -n "$1" ]]; then
-    echo -e "\033[34;1mINFO:\033[0m Removing volume $1-${suffix}-data\033[0m"
-    cleanup_volume "$1-${suffix}-data"
+    echo -e "\033[34;1mINFO:\033[0m Removing volume $1-rest-test-data\033[0m"
+    cleanup_volume "$1-rest-test-data"
   fi
 }
 function cleanup_network {

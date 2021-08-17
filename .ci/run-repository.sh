@@ -4,9 +4,8 @@
 # Once called Elasticsearch is up and running and the following parameters are available to this script
 
 # ELASTICSEARCH_VERSION -- version e.g Major.Minor.Patch(-Prelease)
-# ELASTICSEARCH_CONTAINER -- the docker moniker as a reference to know which docker image distribution is used
 # ELASTICSEARCH_URL -- The url at which elasticsearch is reachable
-# NETWORK_NAME -- The docker network name
+# network_name -- The docker network name
 # NODE_NAME -- The docker container name also used as Elasticsearch node name
 
 # When run in CI the test-matrix is used to define additional variables
@@ -16,7 +15,6 @@ set -e
 
 echo -e "\033[34;1mINFO:\033[0m URL ${elasticsearch_url}\033[0m"
 echo -e "\033[34;1mINFO:\033[0m VERSION ${ELASTICSEARCH_VERSION}\033[0m"
-echo -e "\033[34;1mINFO:\033[0m CONTAINER ${ELASTICSEARCH_CONTAINER}\033[0m"
 echo -e "\033[34;1mINFO:\033[0m TEST_SUITE ${TEST_SUITE}\033[0m"
 echo -e "\033[34;1mINFO:\033[0m PYTHON_VERSION ${PYTHON_VERSION}\033[0m"
 echo -e "\033[34;1mINFO:\033[0m PYTHON_CONNECTION_CLASS ${PYTHON_CONNECTION_CLASS}\033[0m"
