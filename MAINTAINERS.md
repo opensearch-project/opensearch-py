@@ -17,9 +17,10 @@ This document explains who the maintainers are (see below), what they do in this
 
 ## Current Maintainers
 
-| Maintainer               | GitHub ID                                    | Affiliation |
-| ------------------------ | ---------------------------------------------| ----------- |
-| Rushi Agarwal            | [rushiagr](https://github.com/rushiagr)      | Amazon      |
+| Maintainer        | GitHub ID                                           | Affiliation |
+| ----------------- | ----------------------------------------------------| ----------- |
+| Denis Zalevskiy   | [deztructor](https://github.com/deztructor)         | Aiven       |
+| Rushi Agarwal     | [rushiagr](https://github.com/rushiagr)             | Amazon      |
 | Shephali Mittal   | [Shephalimittal](https://github.com/Shephalimittal) | Amazon      |
 
 ## Maintainer Responsibilities
