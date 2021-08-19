@@ -61,21 +61,21 @@ tests_require = [
 ]
 async_require = ["aiohttp>=3,<4"]
 
-docs_require = ["sphinx<1.7", "sphinx_rtd_theme"]
+docs_require = []
 generate_require = ["black", "jinja2"]
 
 setup(
     name=package_name,
-    description="Python client for OpenSearch",
+    description="Python low-level client for OpenSearch",
     license="Apache-2.0",
     url="https://github.com/opensearch-project/opensearch-py",
     long_description=long_description,
     long_description_content_type="text/x-rst",
     version=package_version,
-    author="Honza Král, Nick Lang",
-    author_email="honza.kral@gmail.com, nick@nicklang.com",
-    maintainer="Seth Michael Larson",
-    maintainer_email="seth.larson@elastic.co",
+    author="Rushi Agrawal",
+    author_email="rushi.agr@gmail.com",
+    maintainer="Rushi Agrawal",
+    maintainer_email="rushi.agr@gmail.com",
     project_urls={
         "Documentation": "https://opensearch-py.readthedocs.io",
         "Source Code": "https://github.com/opensearch-project/opensearch-py",
