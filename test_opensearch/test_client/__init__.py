@@ -121,13 +121,13 @@ class TestClient(OpenSearchTestCase):
         self.assertEqual("<OtherOpenSearch([{}])>", repr(OtherOpenSearch()))
 
     def test_repr_contains_hosts_passed_in(self):
-        self.assertIn("es.org", repr(OpenSearch(["es.org:123"])))
+        self.assertIn("opensearch.org", repr(OpenSearch(["opensearch.org:123"])))
 
     def test_repr_truncates_host_to_5(self):
-        hosts = [{"host": "es" + str(i)} for i in range(10)]
-        es = OpenSearch(hosts)
-        self.assertNotIn("es5", repr(es))
-        self.assertIn("...", repr(es))
+        hosts = [{"host": "opensearch" + str(i)} for i in range(10)]
+        client = OpenSearch(hosts)
+        self.assertNotIn("opensearch5", repr(client))
+        self.assertIn("...", repr(client))
 
     def test_index_uses_post_if_id_is_empty(self):
         self.client.index(index="my-index", id="", body={})

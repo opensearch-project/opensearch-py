@@ -296,7 +296,7 @@ def streaming_bulk(
 
     :arg client: instance of :class:`~opensearch.OpenSearch` to use
     :arg actions: iterable containing the actions to be executed
-    :arg chunk_size: number of docs in one chunk sent to es (default: 500)
+    :arg chunk_size: number of docs in one chunk sent to client (default: 500)
     :arg max_chunk_bytes: the maximum size of the request in bytes (default: 100MB)
     :arg raise_on_error: raise ``BulkIndexError`` containing errors (as `.errors`)
         from the execution of the last chunk when some occur. By default we raise.
@@ -439,7 +439,7 @@ def parallel_bulk(
     :arg client: instance of :class:`~opensearch.OpenSearch` to use
     :arg actions: iterator containing the actions
     :arg thread_count: size of the threadpool to use for the bulk requests
-    :arg chunk_size: number of docs in one chunk sent to es (default: 500)
+    :arg chunk_size: number of docs in one chunk sent to client (default: 500)
     :arg max_chunk_bytes: the maximum size of the request in bytes (default: 100MB)
     :arg raise_on_error: raise ``BulkIndexError`` containing errors (as `.errors`)
         from the execution of the last chunk when some occur. By default we raise.
@@ -536,7 +536,7 @@ def scan(
     Any additional keyword arguments will be passed to the initial
     :meth:`~opensearch.OpenSearch.search` call::
 
-        scan(es,
+        scan(client,
             query={"query": {"match": {"title": "python"}}},
             index="orders-*",
             doc_type="books"
@@ -644,7 +644,7 @@ def reindex(
     :arg query: body for the :meth:`~opensearch.OpenSearch.search` api
     :arg target_client: optional, is specified will be used for writing (thus
         enabling reindex between clusters)
-    :arg chunk_size: number of docs in one chunk sent to es (default: 500)
+    :arg chunk_size: number of docs in one chunk sent to client (default: 500)
     :arg scroll: Specify how long a consistent view of the index should be
         maintained for scrolled search
     :arg scan_kwargs: additional kwargs to be passed to

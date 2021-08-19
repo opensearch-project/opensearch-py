@@ -62,10 +62,10 @@ def fetch_opensearch_repo():
     from test_opensearch.test_cases import SkipTest
     from test_opensearch.test_server import get_client
 
-    # find out the sha of the running es
+    # find out the sha of the running client
     try:
-        es = get_client()
-        sha = es.info()["version"]["build_hash"]
+        client = get_client()
+        sha = client.info()["version"]["build_hash"]
     except (SkipTest, KeyError):
         print("No running opensearch >1.X server...")
         return
