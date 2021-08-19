@@ -62,7 +62,7 @@ class SerializationError(OpenSearchException):
 
 class TransportError(OpenSearchException):
     """
-    Exception raised when ES returns a non-OK (>=400) HTTP status code. Or when
+    Exception raised when OpenSearch returns a non-OK (>=400) HTTP status code. Or when
     an actual connection error happens; in that case the ``status_code`` will
     be set to ``'N/A'``.
     """
@@ -83,7 +83,7 @@ class TransportError(OpenSearchException):
     @property
     def info(self):
         """
-        Dict of returned error info from ES, where available, underlying
+        Dict of returned error info from OpenSearch, where available, underlying
         exception when not.
         """
         return self.args[2]
@@ -115,7 +115,7 @@ class TransportError(OpenSearchException):
 
 class ConnectionError(TransportError):
     """
-    Error raised when there was an exception while talking to ES. Original
+    Error raised when there was an exception while talking to OpenSearch. Original
     exception from the underlying :class:`~opensearch.Connection`
     implementation is available as ``.info``.
     """

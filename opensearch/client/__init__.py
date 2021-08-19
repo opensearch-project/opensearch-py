@@ -48,7 +48,7 @@ logger = logging.getLogger("opensearch")
 class OpenSearch(object):
     """
     OpenSearch low-level client. Provides a straightforward mapping from
-    Python to ES REST endpoints.
+    Python to OpenSearch REST endpoints.
 
     The instance has attributes ``cat``, ``cluster``, ``indices``, ``ingest``,
     ``nodes``, ``snapshot`` and ``tasks`` that provide access to instances of
@@ -66,16 +66,16 @@ class OpenSearch(object):
     the ``connection_class`` parameter::
 
         # create connection to localhost using the ThriftConnection
-        es = OpenSearch(connection_class=ThriftConnection)
+        client = OpenSearch(connection_class=ThriftConnection)
 
     If you want to turn on :ref:`sniffing` you have several options (described
     in :class:`~opensearch.Transport`)::
 
         # create connection that will automatically inspect the cluster to get
-        # the list of active nodes. Start with nodes running on 'esnode1' and
-        # 'esnode2'
-        es = OpenSearch(
-            ['esnode1', 'esnode2'],
+        # the list of active nodes. Start with nodes running on
+        # 'opensearchnode1' and 'opensearchnode2'
+        client = OpenSearch(
+            ['opensearchnode1', 'opensearchnode2'],
             # sniff before doing anything
             sniff_on_start=True,
             # refresh nodes after a node fails to respond
@@ -89,16 +89,16 @@ class OpenSearch(object):
 
         # connect to localhost directly and another node using SSL on port 443
         # and an url_prefix. Note that ``port`` needs to be an int.
-        es = OpenSearch([
+        client = OpenSearch([
             {'host': 'localhost'},
-            {'host': 'othernode', 'port': 443, 'url_prefix': 'es', 'use_ssl': True},
+            {'host': 'othernode', 'port': 443, 'url_prefix': 'opensearch', 'use_ssl': True},
         ])
 
     If using SSL, there are several parameters that control how we deal with
     certificates (see :class:`~opensearch.Urllib3HttpConnection` for
     detailed description of the options)::
 
-        es = OpenSearch(
+        client = OpenSearch(
             ['localhost:443', 'other_host:443'],
             # turn on SSL
             use_ssl=True,
@@ -112,7 +112,7 @@ class OpenSearch(object):
     optionally (see :class:`~opensearch.Urllib3HttpConnection` for
     detailed description of the options)::
 
-        es = OpenSearch(
+        client = OpenSearch(
             ['localhost:443', 'other_host:443'],
             # turn on SSL
             use_ssl=True,
@@ -126,7 +126,7 @@ class OpenSearch(object):
     (see :class:`~opensearch.Urllib3HttpConnection` for
     detailed description of the options)::
 
-        es = OpenSearch(
+        client = OpenSearch(
             ['localhost:443', 'other_host:443'],
             # turn on SSL
             use_ssl=True,
@@ -143,7 +143,7 @@ class OpenSearch(object):
     Alternatively you can use RFC-1738 formatted URLs, as long as they are not
     in conflict with other options::
 
-        es = OpenSearch(
+        client = OpenSearch(
             [
                 'http://user:secret@localhost:9200/',
                 'https://user:secret@other_host:443/production'
@@ -166,7 +166,7 @@ class OpenSearch(object):
                     return 'CustomSomethingRepresentation'
                 return JSONSerializer.default(self, obj)
 
-        es = OpenSearch(serializer=SetEncoder())
+        client = OpenSearch(serializer=SetEncoder())
 
     """
 

@@ -371,14 +371,14 @@ class AIOHttpConnection(AsyncConnection):
             auto_decompress=True,
             loop=self.loop,
             cookie_jar=aiohttp.DummyCookieJar(),
-            response_class=ESClientResponse,
+            response_class=OpenSearchClientResponse,
             connector=aiohttp.TCPConnector(
                 limit=self._limit, use_dns_cache=True, ssl=self._ssl_context
             ),
         )
 
 
-class ESClientResponse(aiohttp.ClientResponse):
+class OpenSearchClientResponse(aiohttp.ClientResponse):
     async def text(self, encoding=None, errors="strict"):
         if self._body is None:
             await self.read()

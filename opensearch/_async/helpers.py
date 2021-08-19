@@ -158,7 +158,7 @@ async def async_streaming_bulk(
 
     :arg client: instance of :class:`~opensearch.AsyncOpenSearch` to use
     :arg actions: iterable or async iterable containing the actions to be executed
-    :arg chunk_size: number of docs in one chunk sent to es (default: 500)
+    :arg chunk_size: number of docs in one chunk sent to client (default: 500)
     :arg max_chunk_bytes: the maximum size of the request in bytes (default: 100MB)
     :arg raise_on_error: raise ``BulkIndexError`` containing errors (as `.errors`)
         from the execution of the last chunk when some occur. By default we raise.
@@ -334,7 +334,7 @@ async def async_scan(
     Any additional keyword arguments will be passed to the initial
     :meth:`~opensearch.AsyncOpenSearch.search` call::
 
-        async_scan(es,
+        async_scan(client,
             query={"query": {"match": {"title": "python"}}},
             index="orders-*",
             doc_type="books"
@@ -444,7 +444,7 @@ async def async_reindex(
     :arg query: body for the :meth:`~opensearch.AsyncOpenSearch.search` api
     :arg target_client: optional, is specified will be used for writing (thus
         enabling reindex between clusters)
-    :arg chunk_size: number of docs in one chunk sent to es (default: 500)
+    :arg chunk_size: number of docs in one chunk sent to client (default: 500)
     :arg scroll: Specify how long a consistent view of the index should be
         maintained for scrolled search
     :arg scan_kwargs: additional kwargs to be passed to

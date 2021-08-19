@@ -29,7 +29,7 @@ from typing import Any, Dict, Generator
 from opensearch import ConnectionPool, OpenSearch, RequestsHttpConnection, Transport
 from opensearch.helpers import bulk, reindex, scan, streaming_bulk
 
-es = OpenSearch(
+client = OpenSearch(
     [{"host": "localhost", "port": 9443}],
     transport_class=Transport,
 )
@@ -54,7 +54,7 @@ def sync_gen() -> Generator[Dict[Any, Any], None, None]:
 
 def scan_types() -> None:
     for _ in scan(
-        es,
+        client,
         query={"query": {"match_all": {}}},
         request_timeout=10,
         clear_scroll=True,
@@ -62,7 +62,7 @@ def scan_types() -> None:
     ):
         pass
     for _ in scan(
-        es,
+        client,
         raise_on_error=False,
         preserve_order=False,
         scroll="10m",
@@ -73,32 +73,35 @@ def scan_types() -> None:
 
 
 def streaming_bulk_types() -> None:
-    for _ in streaming_bulk(es, sync_gen()):
+    for _ in streaming_bulk(client, sync_gen()):
         pass
-    for _ in streaming_bulk(es, sync_gen().__iter__()):
+    for _ in streaming_bulk(client, sync_gen().__iter__()):
         pass
-    for _ in streaming_bulk(es, [{}]):
+    for _ in streaming_bulk(client, [{}]):
         pass
-    for _ in streaming_bulk(es, ({},)):
+    for _ in streaming_bulk(client, ({},)):
         pass
 
 
 def bulk_types() -> None:
-    _, _ = bulk(es, sync_gen())
-    _, _ = bulk(es, sync_gen().__iter__())
-    _, _ = bulk(es, [{}])
-    _, _ = bulk(es, ({},))
+    _, _ = bulk(client, sync_gen())
+    _, _ = bulk(client, sync_gen().__iter__())
+    _, _ = bulk(client, [{}])
+    _, _ = bulk(client, ({},))
 
 
 def reindex_types() -> None:
     _, _ = reindex(
-        es, "src-index", "target-index", query={"query": {"match": {"key": "val"}}}
+        client, "src-index", "target-index", query={"query": {"match": {"key": "val"}}}
     )
     _, _ = reindex(
-        es, source_index="src-index", target_index="target-index", target_client=es
+        client,
+        source_index="src-index",
+        target_index="target-index",
+        target_client=client,
     )
     _, _ = reindex(
-        es,
+        client,
         "src-index",
         "target-index",
         chunk_size=1,

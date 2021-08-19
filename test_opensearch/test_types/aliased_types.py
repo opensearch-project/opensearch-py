@@ -46,7 +46,7 @@ from opensearch1.helpers import (
     streaming_bulk,
 )
 
-es = OpenSearch(
+client = OpenSearch(
     [{"host": "localhost", "port": 9443}],
     transport_class=Transport,
 )
@@ -71,7 +71,7 @@ def sync_gen() -> Generator[Dict[Any, Any], None, None]:
 
 def scan_types() -> None:
     for _ in scan(
-        es,
+        client,
         query={"query": {"match_all": {}}},
         request_timeout=10,
         clear_scroll=True,
@@ -79,7 +79,7 @@ def scan_types() -> None:
     ):
         pass
     for _ in scan(
-        es,
+        client,
         raise_on_error=False,
         preserve_order=False,
         scroll="10m",
@@ -90,32 +90,35 @@ def scan_types() -> None:
 
 
 def streaming_bulk_types() -> None:
-    for _ in streaming_bulk(es, sync_gen()):
+    for _ in streaming_bulk(client, sync_gen()):
         pass
-    for _ in streaming_bulk(es, sync_gen().__iter__()):
+    for _ in streaming_bulk(client, sync_gen().__iter__()):
         pass
-    for _ in streaming_bulk(es, [{}]):
+    for _ in streaming_bulk(client, [{}]):
         pass
-    for _ in streaming_bulk(es, ({},)):
+    for _ in streaming_bulk(client, ({},)):
         pass
 
 
 def bulk_types() -> None:
-    _, _ = bulk(es, sync_gen())
-    _, _ = bulk(es, sync_gen().__iter__())
-    _, _ = bulk(es, [{}])
-    _, _ = bulk(es, ({},))
+    _, _ = bulk(client, sync_gen())
+    _, _ = bulk(client, sync_gen().__iter__())
+    _, _ = bulk(client, [{}])
+    _, _ = bulk(client, ({},))
 
 
 def reindex_types() -> None:
     _, _ = reindex(
-        es, "src-index", "target-index", query={"query": {"match": {"key": "val"}}}
+        client, "src-index", "target-index", query={"query": {"match": {"key": "val"}}}
     )
     _, _ = reindex(
-        es, source_index="src-index", target_index="target-index", target_client=es
+        client,
+        source_index="src-index",
+        target_index="target-index",
+        target_client=client,
     )
     _, _ = reindex(
-        es,
+        client,
         "src-index",
         "target-index",
         chunk_size=1,
@@ -125,7 +128,7 @@ def reindex_types() -> None:
     )
 
 
-es2 = AsyncOpenSearch(
+client2 = AsyncOpenSearch(
     [{"host": "localhost", "port": 9443}],
     transport_class=AsyncTransport,
 )
@@ -150,7 +153,7 @@ async def async_gen() -> AsyncGenerator[Dict[Any, Any], None]:
 
 async def async_scan_types() -> None:
     async for _ in async_scan(
-        es2,
+        client2,
         query={"query": {"match_all": {}}},
         request_timeout=10,
         clear_scroll=True,
@@ -158,7 +161,7 @@ async def async_scan_types() -> None:
     ):
         pass
     async for _ in async_scan(
-        es2,
+        client2,
         raise_on_error=False,
         preserve_order=False,
         scroll="10m",
@@ -169,32 +172,35 @@ async def async_scan_types() -> None:
 
 
 async def async_streaming_bulk_types() -> None:
-    async for _ in async_streaming_bulk(es2, async_gen()):
+    async for _ in async_streaming_bulk(client2, async_gen()):
         pass
-    async for _ in async_streaming_bulk(es2, async_gen().__aiter__()):
+    async for _ in async_streaming_bulk(client2, async_gen().__aiter__()):
         pass
-    async for _ in async_streaming_bulk(es2, [{}]):
+    async for _ in async_streaming_bulk(client2, [{}]):
         pass
-    async for _ in async_streaming_bulk(es2, ({},)):
+    async for _ in async_streaming_bulk(client2, ({},)):
         pass
 
 
 async def async_bulk_types() -> None:
-    _, _ = await async_bulk(es2, async_gen())
-    _, _ = await async_bulk(es2, async_gen().__aiter__())
-    _, _ = await async_bulk(es2, [{}])
-    _, _ = await async_bulk(es2, ({},))
+    _, _ = await async_bulk(client2, async_gen())
+    _, _ = await async_bulk(client2, async_gen().__aiter__())
+    _, _ = await async_bulk(client2, [{}])
+    _, _ = await async_bulk(client2, ({},))
 
 
 async def async_reindex_types() -> None:
     _, _ = await async_reindex(
-        es2, "src-index", "target-index", query={"query": {"match": {"key": "val"}}}
+        client2, "src-index", "target-index", query={"query": {"match": {"key": "val"}}}
     )
     _, _ = await async_reindex(
-        es2, source_index="src-index", target_index="target-index", target_client=es2
+        client2,
+        source_index="src-index",
+        target_index="target-index",
+        target_client=client2,
     )
     _, _ = await async_reindex(
-        es2,
+        client2,
         "src-index",
         "target-index",
         chunk_size=1,
