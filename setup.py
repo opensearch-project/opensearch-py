@@ -66,7 +66,7 @@ generate_require = ["black", "jinja2"]
 
 setup(
     name=package_name,
-    description="Python client for Elasticsearch",
+    description="Python client for OpenSearch",
     license="Apache-2.0",
     url="https://github.com/opensearch-project/opensearch-py",
     long_description=long_description,
