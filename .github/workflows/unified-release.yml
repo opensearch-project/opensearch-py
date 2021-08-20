@@ -1,16 +1,6 @@
 name: Unified Release
 
-on:
-  pull_request:
-    paths-ignore:
-      - 'README.md'
-    branches:
-      - "*"
-  push:
-    paths-ignore:
-      - 'README.md'
-    branches:
-      - "*"
+on: [push, pull_request]
 
 jobs:
   assemble:
