@@ -28,6 +28,7 @@
 import gzip
 import io
 import json
+import os
 import re
 import ssl
 import warnings
@@ -172,6 +173,26 @@ class TestBaseConnection(TestCase):
         ]:
             conn = Connection(**kwargs)
             assert conn.host == expected_host
+
+    def test_compatibility_accept_header(self):
+        try:
+            conn = Connection()
+            assert "accept" not in conn.headers
+
+            os.environ["ELASTIC_CLIENT_APIVERSIONING"] = "0"
+
+            conn = Connection()
+            assert "accept" not in conn.headers
+
+            os.environ["ELASTIC_CLIENT_APIVERSIONING"] = "1"
+
+            conn = Connection()
+            assert (
+                conn.headers["accept"]
+                == "application/vnd.elasticsearch+json;compatible-with=7"
+            )
+        finally:
+            os.environ.pop("ELASTIC_CLIENT_APIVERSIONING")
 
 
 class TestUrllib3Connection(TestCase):
