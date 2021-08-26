@@ -28,6 +28,7 @@ import binascii
 import gzip
 import io
 import logging
+import os
 import re
 import warnings
 from platform import python_version
@@ -126,6 +127,11 @@ class Connection(object):
             self.headers[key.lower()] = headers[key]
         if opaque_id:
             self.headers["x-opaque-id"] = opaque_id
+
+        if os.getenv("ELASTIC_CLIENT_APIVERSIONING") == "1":
+            self.headers.setdefault(
+                "accept", "application/vnd.elasticsearch+json;compatible-with=7"
+            )
 
         self.headers.setdefault("content-type", "application/json")
         self.headers.setdefault("user-agent", self._get_default_user_agent())
