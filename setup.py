@@ -70,7 +70,7 @@ setup(
     license="Apache-2.0",
     url="https://github.com/opensearch-project/opensearch-py",
     long_description=long_description,
-    long_description_content_type="text/x-rst",
+    long_description_content_type="text/markdown",
     version=package_version,
     author="Aleksei Atavin, Denis Zalevskiy, Rushi Agrawal, Shephali Mittal",
     author_email="axeo@aiven.io, dez@aiven.io, rushi.agr@gmail.com, shephalm@amazon.com",
