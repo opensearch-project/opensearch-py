@@ -46,7 +46,8 @@ def fetch_opensearch_repo():
     # no repo
     if not exists(repo_path) or not exists(join(repo_path, ".git")):
         subprocess.check_call(
-            "git clone https://github.com/opensearch-project/opensearch %s" % repo_path,
+            "git clone --branch main --single-branch --depth 1 "
+            "https://github.com/opensearch-project/opensearch %s" % repo_path,
             shell=True,
         )
 
@@ -62,7 +63,7 @@ def fetch_opensearch_repo():
     from test_opensearch.test_cases import SkipTest
     from test_opensearch.test_server import get_client
 
-    # find out the sha of the running client
+    # find out the sha of the running server
     try:
         client = get_client()
         sha = client.info()["version"]["build_hash"]
@@ -77,9 +78,12 @@ def fetch_opensearch_repo():
         % repo_path,
         shell=True,
     )
+
     # reset to the version from info()
-    subprocess.check_call("cd %s && git fetch" % repo_path, shell=True)
-    subprocess.check_call("cd %s && git reset --hard %s" % (repo_path, sha), shell=True)
+    subprocess.check_call(
+        "cd %s && git fetch --depth=1 origin %s" % (repo_path, sha),
+        shell=True,
+    )
 
 
 def run_all(argv=None):
