@@ -59,8 +59,6 @@ class Urllib3HttpConnection(Connection):
         headers: Optional[Mapping[str, str]] = ...,
         ssl_context: Optional[Any] = ...,
         http_compress: Optional[bool] = ...,
-        cloud_id: Optional[str] = ...,
-        api_key: Optional[Any] = ...,
         opaque_id: Optional[str] = ...,
         **kwargs: Any
     ) -> None: ...

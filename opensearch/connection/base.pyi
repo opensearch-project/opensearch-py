@@ -61,8 +61,6 @@ class Connection(object):
         timeout: Optional[Union[float, int]] = ...,
         headers: Optional[Mapping[str, str]] = ...,
         http_compress: Optional[bool] = ...,
-        cloud_id: Optional[str] = ...,
-        api_key: Optional[Union[Tuple[str, str], List[str], str]] = ...,
         opaque_id: Optional[str] = ...,
         **kwargs: Any
     ) -> None: ...

@@ -72,7 +72,6 @@ class Connection(object):
     :arg url_prefix: optional url prefix for opensearch
     :arg timeout: default timeout in seconds (float, default: 10)
     :arg http_compress: Use gzip compression
-    :arg cloud_id: The Cloud ID from ElasticCloud. Convenient way to connect to cloud instances.
     :arg opaque_id: Send this value in the 'X-Opaque-Id' HTTP header
         For tracing all requests made by this transport.
     """
@@ -86,35 +85,12 @@ class Connection(object):
         timeout=10,
         headers=None,
         http_compress=None,
-        cloud_id=None,
-        api_key=None,
         opaque_id=None,
         **kwargs
     ):
 
-        if cloud_id:
-            try:
-                _, cloud_id = cloud_id.split(":")
-                parent_dn, opensearch_uuid = (
-                    binascii.a2b_base64(cloud_id.encode("utf-8"))
-                    .decode("utf-8")
-                    .split("$")[:2]
-                )
-                if ":" in parent_dn:
-                    parent_dn, _, parent_port = parent_dn.rpartition(":")
-                    if port is None and parent_port != "443":
-                        port = int(parent_port)
-            except (ValueError, IndexError):
-                raise ImproperlyConfigured("'cloud_id' is not properly formatted")
-
-            host = "%s.%s" % (opensearch_uuid, parent_dn)
-            use_ssl = True
-            if http_compress is None:
-                http_compress = True
-
-        # If cloud_id isn't set and port is default then use 9200.
-        # Cloud should use '443' by default via the 'https' scheme.
-        elif port is None:
+        # If port is default then use 9200.
+        if port is None:
             port = 9200
 
         # Work-around if the implementing class doesn't

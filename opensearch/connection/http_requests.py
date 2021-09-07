@@ -61,9 +61,6 @@ class RequestsHttpConnection(Connection):
         separate cert and key files (client_cert will contain only the cert)
     :arg headers: any custom http headers to be add to requests
     :arg http_compress: Use gzip compression
-    :arg cloud_id: The Cloud ID from ElasticCloud. Convenient way to connect to cloud instances.
-        Other host connection params will be ignored.
-    :arg api_key: optional API Key authentication as either base64 encoded string or a tuple.
     :arg opaque_id: Send this value in the 'X-Opaque-Id' HTTP header
         For tracing all requests made by this transport.
     """
@@ -81,8 +78,6 @@ class RequestsHttpConnection(Connection):
         client_key=None,
         headers=None,
         http_compress=None,
-        cloud_id=None,
-        api_key=None,
         opaque_id=None,
         **kwargs
     ):
@@ -102,8 +97,6 @@ class RequestsHttpConnection(Connection):
             use_ssl=use_ssl,
             headers=headers,
             http_compress=http_compress,
-            cloud_id=cloud_id,
-            api_key=api_key,
             opaque_id=opaque_id,
             **kwargs
         )
