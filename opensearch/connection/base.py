@@ -41,7 +41,6 @@ except ImportError:
 from .. import __versionstr__
 from ..exceptions import (
     HTTP_EXCEPTIONS,
-    ImproperlyConfigured,
     OpenSearchWarning,
     TransportError,
 )
@@ -111,9 +110,6 @@ class Connection(object):
 
         self.headers.setdefault("content-type", "application/json")
         self.headers.setdefault("user-agent", self._get_default_user_agent())
-
-        if api_key is not None:
-            self.headers["authorization"] = self._get_api_key_header_val(api_key)
 
         if http_compress:
             self.headers["accept-encoding"] = "gzip,deflate"
