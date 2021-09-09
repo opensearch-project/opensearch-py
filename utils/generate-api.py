@@ -42,7 +42,7 @@ import black
 import unasync
 import urllib3
 from click.testing import CliRunner
-from jinja2 import Environment, FileSystemLoader, TemplateNotFound
+from jinja2 import Environment, FileSystemLoader, TemplateNotFound, select_autoescape
 
 http = urllib3.PoolManager()
 
@@ -67,6 +67,7 @@ GLOBAL_QUERY_PARAMS = {
 }
 
 jinja_env = Environment(
+    autoescape=select_autoescape(["html", "xml"]),
     loader=FileSystemLoader([CODE_ROOT / "utils" / "templates"]),
     trim_blocks=True,
     lstrip_blocks=True,
