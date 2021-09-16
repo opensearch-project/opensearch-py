@@ -32,7 +32,7 @@ pip install git+https://github.com/opensearch-project/opensearch-py.git
 Then import it like any other module:
 
 ```python
-from opensearch import OpenSearch
+from opensearchpy import OpenSearch
 ```
 
 If you prefer to add the client manually or just want to examine the source code, see [opensearch-py on GitHub](https://github.com/opensearch-project/opensearch-py).
@@ -41,7 +41,7 @@ If you prefer to add the client manually or just want to examine the source code
 ## Sample code
 
 ```python
-from opensearch import OpenSearch
+from opensearchpy import OpenSearch
 
 host = 'localhost'
 port = 9200
