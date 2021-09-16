@@ -30,7 +30,7 @@ from os.path import abspath, dirname, join
 
 from setuptools import find_packages, setup
 
-package_name = "opensearch"
+package_name = "opensearchpy"
 base_dir = abspath(dirname(__file__))
 
 with open(join(base_dir, package_name, "_version.py")) as f:
@@ -43,7 +43,7 @@ with open(join(base_dir, "README.md")) as f:
 
 packages = [
     package
-    for package in find_packages(where=".", exclude=("test_opensearch*",))
+    for package in find_packages(where=".", exclude=("test_opensearchpy*",))
     if package == package_name or package.startswith(package_name + ".")
 ]
 
@@ -82,7 +82,7 @@ setup(
         "Issue Tracker": "https://github.com/opensearch-project/opensearch-py/issues",
     },
     packages=packages,
-    package_data={"opensearch": ["py.typed", "*.pyi"]},
+    package_data={"opensearchpy": ["py.typed", "*.pyi"]},
     include_package_data=True,
     zip_safe=False,
     classifiers=[
@@ -105,7 +105,7 @@ setup(
     ],
     python_requires=">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, <4",
     install_requires=install_requires,
-    test_suite="test_opensearch.run_tests.run_all",
+    test_suite="test_opensearchpy.run_tests.run_all",
     tests_require=tests_require,
     extras_require={
         "develop": tests_require + docs_require + generate_require,

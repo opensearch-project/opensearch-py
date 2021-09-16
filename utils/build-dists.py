@@ -25,7 +25,7 @@
 #  under the License.
 
 """A command line tool for building and verifying releases
-Can be used for building both 'opensearch' and 'opensearchX' dists.
+Can be used for building both 'opensearchpy' and 'opensearchpyX' dists.
 Only requires 'name' in 'setup.py' and the directory to be changed.
 """
 
@@ -70,7 +70,7 @@ def run(*argv, expect_exit_code=0):
 
 def test_dist(dist):
     with set_tmp_dir() as tmp_dir:
-        dist_name = re.match(r"^(opensearch\d*)-", os.path.basename(dist)).group(1)
+        dist_name = re.match(r"^(opensearchpy\d*)-", os.path.basename(dist)).group(1)
 
         # Build the venv and install the dist
         run("python", "-m", "venv", os.path.join(tmp_dir, "venv"))
@@ -117,18 +117,18 @@ def test_dist(dist):
 
         # Only need to test 'async_types' for non-aliased package
         # since 'aliased_types' tests both async and sync.
-        if dist_name == "opensearch":
+        if dist_name == "opensearchpy":
             run(
                 venv_python,
                 "-m",
                 "mypy",
                 "--strict",
-                os.path.join(base_dir, "test_opensearch/test_types/async_types.py"),
+                os.path.join(base_dir, "test_opensearchpy/test_types/async_types.py"),
             )
 
         # Ensure that the namespaces are correct for the dist
         for suffix in ("", "1", "2", "5", "6", "7", "8", "9", "10"):
-            distx_name = f"opensearch{suffix}"
+            distx_name = f"opensearchpy{suffix}"
             run(
                 venv_python,
                 "-c",
@@ -136,15 +136,15 @@ def test_dist(dist):
                 expect_exit_code=256 if distx_name != dist_name else 0,
             )
 
-        # Check that sync types work for 'opensearch' and
-        # that aliased types work for 'opensearchX'
-        if dist_name == "opensearch":
+        # Check that sync types work for 'opensearchpy' and
+        # that aliased types work for 'opensearchpyX'
+        if dist_name == "opensearchpy":
             run(
                 venv_python,
                 "-m",
                 "mypy",
                 "--strict",
-                os.path.join(base_dir, "test_opensearch/test_types/sync_types.py"),
+                os.path.join(base_dir, "test_opensearchpy/test_types/sync_types.py"),
             )
         else:
             run(
@@ -152,7 +152,7 @@ def test_dist(dist):
                 "-m",
                 "mypy",
                 "--strict",
-                os.path.join(base_dir, "test_opensearch/test_types/aliased_types.py"),
+                os.path.join(base_dir, "test_opensearchpy/test_types/aliased_types.py"),
             )
 
         # Uninstall the dist, see that we can't import things anymore
@@ -166,11 +166,11 @@ def test_dist(dist):
 
 
 def main():
-    run("git", "checkout", "--", "setup.py", "opensearch/")
+    run("git", "checkout", "--", "setup.py", "opensearchpy/")
     run("rm", "-rf", "build/", "dist/*", "*.egg-info", ".eggs")
 
     # Grab the major version to be used as a suffix.
-    version_path = os.path.join(base_dir, "opensearch/_version.py")
+    version_path = os.path.join(base_dir, "opensearchpy/_version.py")
     with open(version_path) as f:
         version = re.search(
             r"^__versionstr__\s+=\s+[\"\']([^\"\']+)[\"\']", f.read(), re.M
@@ -228,12 +228,12 @@ def main():
 
         # Rename the module to fit the suffix.
         shutil.move(
-            os.path.join(base_dir, "opensearch"),
-            os.path.join(base_dir, "opensearch%s" % suffix),
+            os.path.join(base_dir, "opensearchpy"),
+            os.path.join(base_dir, "opensearchpy%s" % suffix),
         )
 
-        # Ensure that the version within 'opensearch/_version.py' is correct.
-        version_path = os.path.join(base_dir, f"opensearch{suffix}/_version.py")
+        # Ensure that the version within 'opensearchpy/_version.py' is correct.
+        version_path = os.path.join(base_dir, f"opensearchpy{suffix}/_version.py")
         with open(version_path) as f:
             version_data = f.read()
         version_data = re.sub(
@@ -251,11 +251,11 @@ def main():
             setup_py = f.read()
         with open(setup_py_path, "w") as f:
             f.truncate()
-            assert 'package_name = "opensearch"' in setup_py
+            assert 'package_name = "opensearchpy"' in setup_py
             f.write(
                 setup_py.replace(
-                    'package_name = "opensearch"',
-                    'package_name = "opensearch%s"' % suffix,
+                    'package_name = "opensearchpy"',
+                    'package_name = "opensearchpy%s"' % suffix,
                 )
             )
 
@@ -263,9 +263,9 @@ def main():
         run("python", "setup.py", "sdist", "bdist_wheel")
 
         # Clean up everything.
-        run("git", "checkout", "--", "setup.py", "opensearch/")
+        run("git", "checkout", "--", "setup.py", "opensearchpy/")
         if suffix:
-            run("rm", "-rf", "opensearch%s/" % suffix)
+            run("rm", "-rf", "opensearchpy%s/" % suffix)
 
     # Test everything that got created
     dists = os.listdir(os.path.join(base_dir, "dist"))
