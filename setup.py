@@ -30,10 +30,10 @@ from os.path import abspath, dirname, join
 
 from setuptools import find_packages, setup
 
-package_name = "opensearchpy"
+package_name = "opensearch-py"
 base_dir = abspath(dirname(__file__))
 
-with open(join(base_dir, package_name, "_version.py")) as f:
+with open(join(base_dir, package_name.replace("-", ""), "_version.py")) as f:
     package_version = re.search(
         r"__versionstr__\s+=\s+[\"\']([^\"\']+)[\"\']", f.read()
     ).group(1)
