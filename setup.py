@@ -65,7 +65,7 @@ docs_require = []
 generate_require = ["black", "jinja2"]
 
 setup(
-    name=package_name,
+    name="opensearch-py",
     description="Python low-level client for OpenSearch",
     license="Apache-2.0",
     url="https://github.com/opensearch-project/opensearch-py",
