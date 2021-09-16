@@ -70,7 +70,12 @@ def run(*argv, expect_exit_code=0):
 
 def test_dist(dist):
     with set_tmp_dir() as tmp_dir:
-        dist_name = re.match(r"^(opensearchpy\d*)-", os.path.basename(dist)).group(1)
+        dist_name = re.match(
+            r"^(opensearchpy\d*)-",
+            os.path.basename(dist)
+            .replace("opensearch-py", "opensearchpy")
+            .replace("opensearch_py", "opensearchpy"),
+        ).group(1)
 
         # Build the venv and install the dist
         run("python", "-m", "venv", os.path.join(tmp_dir, "venv"))
@@ -251,11 +256,11 @@ def main():
             setup_py = f.read()
         with open(setup_py_path, "w") as f:
             f.truncate()
-            assert 'package_name = "opensearchpy"' in setup_py
+            assert 'package_name = "opensearch-py"' in setup_py
             f.write(
                 setup_py.replace(
-                    'package_name = "opensearchpy"',
-                    'package_name = "opensearchpy%s"' % suffix,
+                    'package_name = "opensearch-py"',
+                    'package_name = "opensearch-py%s"' % suffix,
                 )
             )
 
