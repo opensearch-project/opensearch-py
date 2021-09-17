@@ -41,10 +41,11 @@ with open(join(base_dir, package_name.replace("-", ""), "_version.py")) as f:
 with open(join(base_dir, "README.md")) as f:
     long_description = f.read().strip()
 
+module_dir = package_name.replace("-", "")
 packages = [
     package
     for package in find_packages(where=".", exclude=("test_opensearchpy*",))
-    if package == package_name or package.startswith(package_name + ".")
+    if package == module_dir or package.startswith(module_dir + ".")
 ]
 
 install_requires = [

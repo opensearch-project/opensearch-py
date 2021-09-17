@@ -161,7 +161,14 @@ def test_dist(dist):
             )
 
         # Uninstall the dist, see that we can't import things anymore
-        run(venv_python, "-m", "pip", "uninstall", "--yes", dist_name)
+        run(
+            venv_python,
+            "-m",
+            "pip",
+            "uninstall",
+            "--yes",
+            dist_name.replace("opensearchpy", "opensearch-py"),
+        )
         run(
             venv_python,
             "-c",
