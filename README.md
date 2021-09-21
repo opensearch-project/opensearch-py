@@ -26,7 +26,7 @@ This is the low-level client. A high-level Python client is in the works, and wi
 To add the client to your project, install it using [pip](https://pip.pypa.io/):
 
 ```bash
-pip install git+https://github.com/opensearch-project/opensearch-py.git
+pip install opensearch-py
 ```
 
 Then import it like any other module:
