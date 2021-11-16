@@ -279,13 +279,20 @@ class Urllib3HttpConnection(Connection):
             self.log_request_fail(
                 method, full_url, url, orig_body, duration, response.status, raw_data
             )
-            self._raise_error(response.status, raw_data)
+            self._raise_error(
+                response.status,
+                raw_data,
+                self.get_response_headers(response).get("content-type", "")
+            )
 
         self.log_request_success(
             method, full_url, url, orig_body, response.status, raw_data, duration
         )
 
         return response.status, response.getheaders(), raw_data
+
+    def get_response_headers(self, response):
+        return {header.lower(): value for header, value in response.headers.items()}
 
     def close(self):
         """
