@@ -78,7 +78,7 @@ setup(
     maintainer="Aleksei Atavin, Denis Zalevskiy, Rushi Agrawal, Shephali Mittal",
     maintainer_email="axeo@aiven.io, dez@aiven.io, rushi.agr@gmail.com, shephalm@amazon.com",
     project_urls={
-        "Documentation": "https://opensearch-py.readthedocs.io",
+        "Documentation": "https://opensearch.org/docs/clients/python",
         "Source Code": "https://github.com/opensearch-project/opensearch-py",
         "Issue Tracker": "https://github.com/opensearch-project/opensearch-py/issues",
     },
