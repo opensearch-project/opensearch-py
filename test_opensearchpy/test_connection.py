@@ -30,13 +30,13 @@ import io
 import json
 import os
 import re
-import six
 import ssl
 import unittest
 import warnings
 from platform import python_version
 
 import pytest
+import six
 import urllib3
 from mock import Mock, patch
 from requests.auth import AuthBase
