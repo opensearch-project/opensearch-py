@@ -43,13 +43,6 @@ def fetch_opensearch_repo():
         abspath(join(dirname(__file__), pardir, pardir, "opensearch")),
     )
 
-    # no repo
-    if not exists(repo_path) or not exists(join(repo_path, ".git")):
-        subprocess.check_call(
-            "git clone https://github.com/opensearch-project/opensearch %s" % repo_path,
-            shell=True,
-        )
-
     # set YAML test dir
     environ["TEST_OPENSEARCH_YAML_DIR"] = join(
         repo_path, "rest-api-spec", "src", "main", "resources", "rest-api-spec", "test"
@@ -70,16 +63,23 @@ def fetch_opensearch_repo():
         print("No running opensearch >1.X server...")
         return
 
-    # fetch new commits to be sure...
-    print("Fetching opensearch repo...")
+    # no test directory
+    if not exists(repo_path):
+        subprocess.check_call("mkdir %s" % repo_path, shell=True)
+
+    # make a new blank repository in the test directory
+    subprocess.check_call("cd %s && git init" % repo_path, shell=True)
+
+    # add a remote
     subprocess.check_call(
-        "cd %s && git fetch https://github.com/opensearch-project/opensearch.git"
+        "cd %s && git remote add origin https://github.com/opensearch-project/opensearch.git"
         % repo_path,
         shell=True,
     )
-    # reset to the version from info()
-    subprocess.check_call("cd %s && git fetch" % repo_path, shell=True)
-    subprocess.check_call("cd %s && git reset --hard %s" % (repo_path, sha), shell=True)
+
+    # fetch the sha commit, version from info()
+    print("Fetching opensearch repo...")
+    subprocess.check_call("cd %s && git fetch origin %s" % (repo_path, sha), shell=True)
 
 
 def run_all(argv=None):
