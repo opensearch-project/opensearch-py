@@ -2,7 +2,7 @@
 name: 🎆 Feature request
 about: Request a feature in this project
 title: '[FEATURE]'
-labels: enhancement
+labels: enhancement, needs-triage
 assignees: ''
 ---
 **Is your feature request related to a problem?**
