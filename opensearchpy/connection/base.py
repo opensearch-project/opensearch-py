@@ -320,7 +320,7 @@ class Connection(object):
         additional_info = None
         try:
             content_type = (
-                "application/json"
+                "text/plain"
                 if content_type is None
                 else content_type.split(";")[0].strip()
             )

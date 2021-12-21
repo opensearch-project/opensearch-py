@@ -282,7 +282,7 @@ class Urllib3HttpConnection(Connection):
             self._raise_error(
                 response.status,
                 raw_data,
-                self.get_response_headers(response).get("content-type", None),
+                self.get_response_headers(response).get("content-type"),
             )
 
         self.log_request_success(

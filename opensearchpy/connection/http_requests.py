@@ -210,7 +210,7 @@ class RequestsHttpConnection(Connection):
             self._raise_error(
                 response.status_code,
                 raw_data,
-                response.headers.get("Content-Type", None),
+                response.headers.get("Content-Type"),
             )
 
         self.log_request_success(
