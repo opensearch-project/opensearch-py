@@ -171,7 +171,7 @@ class TestBaseConnection(TestCase):
         with self.assertLogs("opensearch") as captured, self.assertRaises(
             NotFoundError
         ):
-            con._raise_error(404, "Not found")
+            con._raise_error(404, "Not found", "application/json")
         self.assertEqual(len(captured.output), 1)
 
         # NB: this should assertNoLogs() but that method is not available until python3.10
