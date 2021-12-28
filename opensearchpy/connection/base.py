@@ -314,12 +314,17 @@ class Connection(object):
         if response is not None:
             logger.debug("< %s", response)
 
-    def _raise_error(self, status_code, raw_data):
+    def _raise_error(self, status_code, raw_data, content_type=None):
         """Locate appropriate exception and raise it."""
         error_message = raw_data
         additional_info = None
         try:
-            if raw_data:
+            content_type = (
+                "text/plain"
+                if content_type is None
+                else content_type.split(";")[0].strip()
+            )
+            if raw_data and content_type == "application/json":
                 additional_info = json.loads(raw_data)
                 error_message = additional_info.get("error", error_message)
                 if isinstance(error_message, dict) and "type" in error_message:
