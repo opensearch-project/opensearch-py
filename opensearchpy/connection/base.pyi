@@ -61,8 +61,6 @@ class Connection(object):
         timeout: Optional[Union[float, int]] = ...,
         headers: Optional[Mapping[str, str]] = ...,
         http_compress: Optional[bool] = ...,
-        cloud_id: Optional[str] = ...,
-        api_key: Optional[Union[Tuple[str, str], List[str], str]] = ...,
         opaque_id: Optional[str] = ...,
         **kwargs: Any
     ) -> None: ...
@@ -116,4 +114,3 @@ class Connection(object):
         self, status_code: int, raw_data: str, content_type: Optional[str]
     ) -> NoReturn: ...
     def _get_default_user_agent(self) -> str: ...
-    def _get_api_key_header_val(self, api_key: Any) -> str: ...

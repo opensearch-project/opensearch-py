@@ -99,10 +99,6 @@ class AsyncTransport(Transport):
             *args, hosts=[], sniff_on_start=False, **kwargs
         )
 
-        # Don't enable sniffing on Cloud instances.
-        if kwargs.get("cloud_id", False):
-            sniff_on_start = False
-
         # Since we defer connections / sniffing to not occur
         # within the constructor we never want to signal to
         # our parent to 'sniff_on_start' or non-empty 'hosts'.

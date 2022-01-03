@@ -24,7 +24,6 @@
 #  specific language governing permissions and limitations
 #  under the License.
 
-import binascii
 import gzip
 import io
 import logging
@@ -39,12 +38,7 @@ except ImportError:
     import json
 
 from .. import __versionstr__
-from ..exceptions import (
-    HTTP_EXCEPTIONS,
-    ImproperlyConfigured,
-    OpenSearchWarning,
-    TransportError,
-)
+from ..exceptions import HTTP_EXCEPTIONS, OpenSearchWarning, TransportError
 
 logger = logging.getLogger("opensearch")
 
@@ -72,7 +66,6 @@ class Connection(object):
     :arg url_prefix: optional url prefix for opensearch
     :arg timeout: default timeout in seconds (float, default: 10)
     :arg http_compress: Use gzip compression
-    :arg cloud_id: The Cloud ID from ElasticCloud. Convenient way to connect to cloud instances.
     :arg opaque_id: Send this value in the 'X-Opaque-Id' HTTP header
         For tracing all requests made by this transport.
     """
@@ -86,35 +79,10 @@ class Connection(object):
         timeout=10,
         headers=None,
         http_compress=None,
-        cloud_id=None,
-        api_key=None,
         opaque_id=None,
         **kwargs
     ):
-
-        if cloud_id:
-            try:
-                _, cloud_id = cloud_id.split(":")
-                parent_dn, opensearch_uuid = (
-                    binascii.a2b_base64(cloud_id.encode("utf-8"))
-                    .decode("utf-8")
-                    .split("$")[:2]
-                )
-                if ":" in parent_dn:
-                    parent_dn, _, parent_port = parent_dn.rpartition(":")
-                    if port is None and parent_port != "443":
-                        port = int(parent_port)
-            except (ValueError, IndexError):
-                raise ImproperlyConfigured("'cloud_id' is not properly formatted")
-
-            host = "%s.%s" % (opensearch_uuid, parent_dn)
-            use_ssl = True
-            if http_compress is None:
-                http_compress = True
-
-        # If cloud_id isn't set and port is default then use 9200.
-        # Cloud should use '443' by default via the 'https' scheme.
-        elif port is None:
+        if port is None:
             port = 9200
 
         # Work-around if the implementing class doesn't
@@ -135,9 +103,6 @@ class Connection(object):
 
         self.headers.setdefault("content-type", "application/json")
         self.headers.setdefault("user-agent", self._get_default_user_agent())
-
-        if api_key is not None:
-            self.headers["authorization"] = self._get_api_key_header_val(api_key)
 
         if http_compress:
             self.headers["accept-encoding"] = "gzip,deflate"
@@ -338,14 +303,3 @@ class Connection(object):
 
     def _get_default_user_agent(self):
         return "opensearch-py/%s (Python %s)" % (__versionstr__, python_version())
-
-    def _get_api_key_header_val(self, api_key):
-        """
-        Check the type of the passed api_key and return the correct header value
-        for the API Key authentication
-        :arg api_key, either a tuple or a base64 encoded string
-        """
-        if isinstance(api_key, (tuple, list)):
-            s = "{0}:{1}".format(api_key[0], api_key[1]).encode("utf-8")
-            return "ApiKey " + binascii.b2a_base64(s).rstrip(b"\r\n").decode("utf-8")
-        return "ApiKey " + api_key
