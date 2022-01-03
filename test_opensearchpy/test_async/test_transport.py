@@ -436,23 +436,6 @@ class TestTransport:
             "port": 123,
         }
 
-    @patch("opensearchpy._async.transport.AsyncTransport.sniff_hosts")
-    async def test_sniffing_disabled_on_cloud_instances(self, sniff_hosts):
-        t = AsyncTransport(
-            [{}],
-            sniff_on_start=True,
-            sniff_on_connection_fail=True,
-            connection_class=DummyConnection,
-            cloud_id="cluster:dXMtZWFzdC0xLmF3cy5mb3VuZC5pbyQ0ZmE4ODIxZTc1NjM0MDMyYmVkMWNmMjIxMTBlMmY5NyQ0ZmE4ODIxZTc1NjM0MDMyYmVkMWNmMjIxMTBlMmY5Ng==",
-        )
-        await t._async_call()
-
-        assert not t.sniff_on_connection_fail
-        assert sniff_hosts.call_args is None  # Assert not called.
-        await t.perform_request("GET", "/", body={})
-        assert 1 == len(t.get_connection().calls)
-        assert ("GET", "/", None, b"{}") == t.get_connection().calls[0][0]
-
     async def test_transport_close_closes_all_pool_connections(self):
         t = AsyncTransport([{}], connection_class=DummyConnection)
         await t._async_call()

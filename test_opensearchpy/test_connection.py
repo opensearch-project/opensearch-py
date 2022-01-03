@@ -59,11 +59,6 @@ from opensearchpy.exceptions import (
 
 from .test_cases import SkipTest, TestCase
 
-CLOUD_ID_PORT_443 = "cluster:d2VzdGV1cm9wZS5henVyZS5lbGFzdGljLWNsb3VkLmNvbTo0NDMkZTdkZTlmMTM0NWU0NDkwMjgzZDkwM2JlNWI2ZjkxOWUk"
-CLOUD_ID_KIBANA = "cluster:d2VzdGV1cm9wZS5henVyZS5lbGFzdGljLWNsb3VkLmNvbSQ4YWY3ZWUzNTQyMGY0NThlOTAzMDI2YjQwNjQwODFmMiQyMDA2MTU1NmM1NDA0OTg2YmZmOTU3ZDg0YTZlYjUxZg=="
-CLOUD_ID_PORT_AND_KIBANA = "cluster:d2VzdGV1cm9wZS5henVyZS5lbGFzdGljLWNsb3VkLmNvbTo5MjQzJGM2NjM3ZjMxMmM1MjQzY2RhN2RlZDZlOTllM2QyYzE5JA=="
-CLOUD_ID_NO_PORT_OR_KIBANA = "cluster:d2VzdGV1cm9wZS5henVyZS5lbGFzdGljLWNsb3VkLmNvbSRlN2RlOWYxMzQ1ZTQ0OTAyODNkOTAzYmU1YjZmOTE5ZSQ="
-
 
 def gzip_decompress(data):
     buf = gzip.GzipFile(fileobj=io.BytesIO(data), mode="rb")
@@ -71,58 +66,6 @@ def gzip_decompress(data):
 
 
 class TestBaseConnection(TestCase):
-    def test_parse_cloud_id(self):
-        # Embedded port in cloud_id
-        con = Connection(cloud_id=CLOUD_ID_PORT_AND_KIBANA)
-        self.assertEqual(
-            con.host,
-            "https://c6637f312c5243cda7ded6e99e3d2c19.westeurope.azure.elastic-cloud.com:9243",
-        )
-        self.assertEqual(con.port, 9243)
-        self.assertEqual(
-            con.hostname,
-            "c6637f312c5243cda7ded6e99e3d2c19.westeurope.azure.elastic-cloud.com",
-        )
-
-        # Embedded port but overridden
-        con = Connection(
-            cloud_id=CLOUD_ID_PORT_AND_KIBANA,
-            port=443,
-        )
-        self.assertEqual(
-            con.host,
-            "https://c6637f312c5243cda7ded6e99e3d2c19.westeurope.azure.elastic-cloud.com:443",
-        )
-        self.assertEqual(con.port, 443)
-        self.assertEqual(
-            con.hostname,
-            "c6637f312c5243cda7ded6e99e3d2c19.westeurope.azure.elastic-cloud.com",
-        )
-
-        # Port is 443, removed by default.
-        con = Connection(cloud_id=CLOUD_ID_PORT_443)
-        self.assertEqual(
-            con.host,
-            "https://e7de9f1345e4490283d903be5b6f919e.westeurope.azure.elastic-cloud.com",
-        )
-        self.assertEqual(con.port, None)
-        self.assertEqual(
-            con.hostname,
-            "e7de9f1345e4490283d903be5b6f919e.westeurope.azure.elastic-cloud.com",
-        )
-
-        # No port, contains Kibana UUID
-        con = Connection(cloud_id=CLOUD_ID_KIBANA)
-        self.assertEqual(
-            con.host,
-            "https://8af7ee35420f458e903026b4064081f2.westeurope.azure.elastic-cloud.com",
-        )
-        self.assertEqual(con.port, None)
-        self.assertEqual(
-            con.hostname,
-            "8af7ee35420f458e903026b4064081f2.westeurope.azure.elastic-cloud.com",
-        )
-
     def test_empty_warnings(self):
         con = Connection()
         with warnings.catch_warnings(record=True) as w:
@@ -245,58 +188,6 @@ class TestUrllib3Connection(TestCase):
         con = Urllib3HttpConnection(opaque_id="app-1")
         self.assertEqual(con.headers["x-opaque-id"], "app-1")
 
-    def test_http_cloud_id(self):
-        con = Urllib3HttpConnection(
-            cloud_id="cluster:dXMtZWFzdC0xLmF3cy5mb3VuZC5pbyQ0ZmE4ODIxZTc1NjM0MDMyYmVkMWNmMjIxMTBlMmY5NyQ0ZmE4ODIxZTc1NjM0MDMyYmVkMWNmMjIxMTBlMmY5Ng=="
-        )
-        self.assertTrue(con.use_ssl)
-        self.assertEqual(
-            con.host, "https://4fa8821e75634032bed1cf22110e2f97.us-east-1.aws.found.io"
-        )
-        self.assertEqual(con.port, None)
-        self.assertEqual(
-            con.hostname, "4fa8821e75634032bed1cf22110e2f97.us-east-1.aws.found.io"
-        )
-        self.assertTrue(con.http_compress)
-
-        con = Urllib3HttpConnection(
-            cloud_id="cluster:dXMtZWFzdC0xLmF3cy5mb3VuZC5pbyQ0ZmE4ODIxZTc1NjM0MDMyYmVkMWNmMjIxMTBlMmY5NyQ0ZmE4ODIxZTc1NjM0MDMyYmVkMWNmMjIxMTBlMmY5Ng==",
-            port=9243,
-        )
-        self.assertEqual(
-            con.host,
-            "https://4fa8821e75634032bed1cf22110e2f97.us-east-1.aws.found.io:9243",
-        )
-        self.assertEqual(con.port, 9243)
-        self.assertEqual(
-            con.hostname, "4fa8821e75634032bed1cf22110e2f97.us-east-1.aws.found.io"
-        )
-
-    def test_api_key_auth(self):
-        # test with tuple
-        con = Urllib3HttpConnection(
-            cloud_id="cluster:dXMtZWFzdC0xLmF3cy5mb3VuZC5pbyQ0ZmE4ODIxZTc1NjM0MDMyYmVkMWNmMjIxMTBlMmY5NyQ0ZmE4ODIxZTc1NjM0MDMyYmVkMWNmMjIxMTBlMmY5Ng==",
-            api_key=("elastic", "changeme1"),
-        )
-        self.assertEqual(
-            con.headers["authorization"], "ApiKey ZWxhc3RpYzpjaGFuZ2VtZTE="
-        )
-        self.assertEqual(
-            con.host, "https://4fa8821e75634032bed1cf22110e2f97.us-east-1.aws.found.io"
-        )
-
-        # test with base64 encoded string
-        con = Urllib3HttpConnection(
-            cloud_id="cluster:dXMtZWFzdC0xLmF3cy5mb3VuZC5pbyQ0ZmE4ODIxZTc1NjM0MDMyYmVkMWNmMjIxMTBlMmY5NyQ0ZmE4ODIxZTc1NjM0MDMyYmVkMWNmMjIxMTBlMmY5Ng==",
-            api_key="ZWxhc3RpYzpjaGFuZ2VtZTI=",
-        )
-        self.assertEqual(
-            con.headers["authorization"], "ApiKey ZWxhc3RpYzpjaGFuZ2VtZTI="
-        )
-        self.assertEqual(
-            con.host, "https://4fa8821e75634032bed1cf22110e2f97.us-east-1.aws.found.io"
-        )
-
     def test_no_http_compression(self):
         con = self._get_mock_connection()
         self.assertFalse(con.http_compress)
@@ -334,26 +225,6 @@ class TestUrllib3Connection(TestCase):
         self.assertFalse(req_body)
         self.assertEqual(kwargs["headers"]["accept-encoding"], "gzip,deflate")
         self.assertNotIn("content-encoding", kwargs["headers"])
-
-    def test_cloud_id_http_compress_override(self):
-        # 'http_compress' will be 'True' by default for connections with
-        # 'cloud_id' set but should prioritize user-defined values.
-        con = Urllib3HttpConnection(
-            cloud_id="cluster:dXMtZWFzdC0xLmF3cy5mb3VuZC5pbyQ0ZmE4ODIxZTc1NjM0MDMyYmVkMWNmMjIxMTBlMmY5NyQ0ZmE4ODIxZTc1NjM0MDMyYmVkMWNmMjIxMTBlMmY5Ng==",
-        )
-        self.assertEqual(con.http_compress, True)
-
-        con = Urllib3HttpConnection(
-            cloud_id="cluster:dXMtZWFzdC0xLmF3cy5mb3VuZC5pbyQ0ZmE4ODIxZTc1NjM0MDMyYmVkMWNmMjIxMTBlMmY5NyQ0ZmE4ODIxZTc1NjM0MDMyYmVkMWNmMjIxMTBlMmY5Ng==",
-            http_compress=False,
-        )
-        self.assertEqual(con.http_compress, False)
-
-        con = Urllib3HttpConnection(
-            cloud_id="cluster:dXMtZWFzdC0xLmF3cy5mb3VuZC5pbyQ0ZmE4ODIxZTc1NjM0MDMyYmVkMWNmMjIxMTBlMmY5NyQ0ZmE4ODIxZTc1NjM0MDMyYmVkMWNmMjIxMTBlMmY5Ng==",
-            http_compress=True,
-        )
-        self.assertEqual(con.http_compress, True)
 
     def test_default_user_agent(self):
         con = Urllib3HttpConnection()
@@ -545,58 +416,6 @@ class TestRequestsConnection(TestCase):
         con = RequestsHttpConnection(opaque_id="app-1")
         self.assertEqual(con.headers["x-opaque-id"], "app-1")
 
-    def test_http_cloud_id(self):
-        con = RequestsHttpConnection(
-            cloud_id="cluster:dXMtZWFzdC0xLmF3cy5mb3VuZC5pbyQ0ZmE4ODIxZTc1NjM0MDMyYmVkMWNmMjIxMTBlMmY5NyQ0ZmE4ODIxZTc1NjM0MDMyYmVkMWNmMjIxMTBlMmY5Ng=="
-        )
-        self.assertTrue(con.use_ssl)
-        self.assertEqual(
-            con.host, "https://4fa8821e75634032bed1cf22110e2f97.us-east-1.aws.found.io"
-        )
-        self.assertEqual(con.port, None)
-        self.assertEqual(
-            con.hostname, "4fa8821e75634032bed1cf22110e2f97.us-east-1.aws.found.io"
-        )
-        self.assertTrue(con.http_compress)
-
-        con = RequestsHttpConnection(
-            cloud_id="cluster:dXMtZWFzdC0xLmF3cy5mb3VuZC5pbyQ0ZmE4ODIxZTc1NjM0MDMyYmVkMWNmMjIxMTBlMmY5NyQ0ZmE4ODIxZTc1NjM0MDMyYmVkMWNmMjIxMTBlMmY5Ng==",
-            port=9243,
-        )
-        self.assertEqual(
-            con.host,
-            "https://4fa8821e75634032bed1cf22110e2f97.us-east-1.aws.found.io:9243",
-        )
-        self.assertEqual(con.port, 9243)
-        self.assertEqual(
-            con.hostname, "4fa8821e75634032bed1cf22110e2f97.us-east-1.aws.found.io"
-        )
-
-    def test_api_key_auth(self):
-        # test with tuple
-        con = RequestsHttpConnection(
-            cloud_id="cluster:dXMtZWFzdC0xLmF3cy5mb3VuZC5pbyQ0ZmE4ODIxZTc1NjM0MDMyYmVkMWNmMjIxMTBlMmY5NyQ0ZmE4ODIxZTc1NjM0MDMyYmVkMWNmMjIxMTBlMmY5Ng==",
-            api_key=("elastic", "changeme1"),
-        )
-        self.assertEqual(
-            con.session.headers["authorization"], "ApiKey ZWxhc3RpYzpjaGFuZ2VtZTE="
-        )
-        self.assertEqual(
-            con.host, "https://4fa8821e75634032bed1cf22110e2f97.us-east-1.aws.found.io"
-        )
-
-        # test with base64 encoded string
-        con = RequestsHttpConnection(
-            cloud_id="cluster:dXMtZWFzdC0xLmF3cy5mb3VuZC5pbyQ0ZmE4ODIxZTc1NjM0MDMyYmVkMWNmMjIxMTBlMmY5NyQ0ZmE4ODIxZTc1NjM0MDMyYmVkMWNmMjIxMTBlMmY5Ng==",
-            api_key="ZWxhc3RpYzpjaGFuZ2VtZTI=",
-        )
-        self.assertEqual(
-            con.session.headers["authorization"], "ApiKey ZWxhc3RpYzpjaGFuZ2VtZTI="
-        )
-        self.assertEqual(
-            con.host, "https://4fa8821e75634032bed1cf22110e2f97.us-east-1.aws.found.io"
-        )
-
     def test_no_http_compression(self):
         con = self._get_mock_connection()
 
@@ -631,26 +450,6 @@ class TestRequestsConnection(TestCase):
         req = con.session.send.call_args[0][0]
         self.assertNotIn("content-encoding", req.headers)
         self.assertEqual(req.headers["accept-encoding"], "gzip,deflate")
-
-    def test_cloud_id_http_compress_override(self):
-        # 'http_compress' will be 'True' by default for connections with
-        # 'cloud_id' set but should prioritize user-defined values.
-        con = RequestsHttpConnection(
-            cloud_id="cluster:dXMtZWFzdC0xLmF3cy5mb3VuZC5pbyQ0ZmE4ODIxZTc1NjM0MDMyYmVkMWNmMjIxMTBlMmY5NyQ0ZmE4ODIxZTc1NjM0MDMyYmVkMWNmMjIxMTBlMmY5Ng==",
-        )
-        self.assertEqual(con.http_compress, True)
-
-        con = RequestsHttpConnection(
-            cloud_id="cluster:dXMtZWFzdC0xLmF3cy5mb3VuZC5pbyQ0ZmE4ODIxZTc1NjM0MDMyYmVkMWNmMjIxMTBlMmY5NyQ0ZmE4ODIxZTc1NjM0MDMyYmVkMWNmMjIxMTBlMmY5Ng==",
-            http_compress=False,
-        )
-        self.assertEqual(con.http_compress, False)
-
-        con = RequestsHttpConnection(
-            cloud_id="cluster:dXMtZWFzdC0xLmF3cy5mb3VuZC5pbyQ0ZmE4ODIxZTc1NjM0MDMyYmVkMWNmMjIxMTBlMmY5NyQ0ZmE4ODIxZTc1NjM0MDMyYmVkMWNmMjIxMTBlMmY5Ng==",
-            http_compress=True,
-        )
-        self.assertEqual(con.http_compress, True)
 
     def test_uses_https_if_verify_certs_is_off(self):
         with warnings.catch_warnings(record=True) as w:

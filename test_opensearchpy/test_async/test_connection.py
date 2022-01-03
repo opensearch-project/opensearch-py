@@ -94,53 +94,6 @@ class TestAIOHttpConnection:
         con = AIOHttpConnection(opaque_id="app-1")
         assert con.headers["x-opaque-id"] == "app-1"
 
-    def test_http_cloud_id(self):
-        con = AIOHttpConnection(
-            cloud_id="cluster:dXMtZWFzdC0xLmF3cy5mb3VuZC5pbyQ0ZmE4ODIxZTc1NjM0MDMyYmVkMWNmMjIxMTBlMmY5NyQ0ZmE4ODIxZTc1NjM0MDMyYmVkMWNmMjIxMTBlMmY5Ng=="
-        )
-        assert con.use_ssl
-        assert (
-            con.host
-            == "https://4fa8821e75634032bed1cf22110e2f97.us-east-1.aws.found.io"
-        )
-        assert con.port is None
-        assert con.hostname == "4fa8821e75634032bed1cf22110e2f97.us-east-1.aws.found.io"
-        assert con.http_compress
-
-        con = AIOHttpConnection(
-            cloud_id="cluster:dXMtZWFzdC0xLmF3cy5mb3VuZC5pbyQ0ZmE4ODIxZTc1NjM0MDMyYmVkMWNmMjIxMTBlMmY5NyQ0ZmE4ODIxZTc1NjM0MDMyYmVkMWNmMjIxMTBlMmY5Ng==",
-            port=9243,
-        )
-        assert (
-            con.host
-            == "https://4fa8821e75634032bed1cf22110e2f97.us-east-1.aws.found.io:9243"
-        )
-        assert con.port == 9243
-        assert con.hostname == "4fa8821e75634032bed1cf22110e2f97.us-east-1.aws.found.io"
-
-    def test_api_key_auth(self):
-        # test with tuple
-        con = AIOHttpConnection(
-            cloud_id="cluster:dXMtZWFzdC0xLmF3cy5mb3VuZC5pbyQ0ZmE4ODIxZTc1NjM0MDMyYmVkMWNmMjIxMTBlMmY5NyQ0ZmE4ODIxZTc1NjM0MDMyYmVkMWNmMjIxMTBlMmY5Ng==",
-            api_key=("elastic", "changeme1"),
-        )
-        assert con.headers["authorization"] == "ApiKey ZWxhc3RpYzpjaGFuZ2VtZTE="
-        assert (
-            con.host
-            == "https://4fa8821e75634032bed1cf22110e2f97.us-east-1.aws.found.io"
-        )
-
-        # test with base64 encoded string
-        con = AIOHttpConnection(
-            cloud_id="cluster:dXMtZWFzdC0xLmF3cy5mb3VuZC5pbyQ0ZmE4ODIxZTc1NjM0MDMyYmVkMWNmMjIxMTBlMmY5NyQ0ZmE4ODIxZTc1NjM0MDMyYmVkMWNmMjIxMTBlMmY5Ng==",
-            api_key="ZWxhc3RpYzpjaGFuZ2VtZTI=",
-        )
-        assert con.headers["authorization"] == "ApiKey ZWxhc3RpYzpjaGFuZ2VtZTI="
-        assert (
-            con.host
-            == "https://4fa8821e75634032bed1cf22110e2f97.us-east-1.aws.found.io"
-        )
-
     async def test_no_http_compression(self):
         con = await self._get_mock_connection()
         assert not con.http_compress
@@ -178,26 +131,6 @@ class TestAIOHttpConnection:
         assert not kwargs["data"]
         assert kwargs["headers"]["accept-encoding"] == "gzip,deflate"
         assert "content-encoding" not in kwargs["headers"]
-
-    def test_cloud_id_http_compress_override(self):
-        # 'http_compress' will be 'True' by default for connections with
-        # 'cloud_id' set but should prioritize user-defined values.
-        con = AIOHttpConnection(
-            cloud_id="cluster:dXMtZWFzdC0xLmF3cy5mb3VuZC5pbyQ0ZmE4ODIxZTc1NjM0MDMyYmVkMWNmMjIxMTBlMmY5NyQ0ZmE4ODIxZTc1NjM0MDMyYmVkMWNmMjIxMTBlMmY5Ng==",
-        )
-        assert con.http_compress is True
-
-        con = AIOHttpConnection(
-            cloud_id="cluster:dXMtZWFzdC0xLmF3cy5mb3VuZC5pbyQ0ZmE4ODIxZTc1NjM0MDMyYmVkMWNmMjIxMTBlMmY5NyQ0ZmE4ODIxZTc1NjM0MDMyYmVkMWNmMjIxMTBlMmY5Ng==",
-            http_compress=False,
-        )
-        assert con.http_compress is False
-
-        con = AIOHttpConnection(
-            cloud_id="cluster:dXMtZWFzdC0xLmF3cy5mb3VuZC5pbyQ0ZmE4ODIxZTc1NjM0MDMyYmVkMWNmMjIxMTBlMmY5NyQ0ZmE4ODIxZTc1NjM0MDMyYmVkMWNmMjIxMTBlMmY5Ng==",
-            http_compress=True,
-        )
-        assert con.http_compress is True
 
     async def test_url_prefix(self):
         con = await self._get_mock_connection(
