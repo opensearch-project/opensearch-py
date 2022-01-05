@@ -1018,7 +1018,7 @@ class IndicesClient(NamespacedClient):
     def flush_synced(self, index=None, params=None, headers=None):
         """
         Performs a synced flush operation on one or more indices. Synced flush is
-        deprecated and will be removed in 8.0. Use flush instead
+        deprecated. Use flush instead
 
 
         :arg index: A comma-separated list of index names; use `_all` or
