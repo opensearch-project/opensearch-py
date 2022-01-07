@@ -28,7 +28,6 @@
 
 import os
 import time
-from os.path import abspath, dirname, join
 from unittest import SkipTest, TestCase
 
 from opensearchpy import OpenSearch
@@ -39,12 +38,10 @@ if "OPENSEARCH_URL" in os.environ:
 else:
     OPENSEARCH_URL = "https://elastic:changeme@localhost:9200"
 
-CA_CERTS = join(dirname(dirname(dirname(abspath(__file__)))), ".ci/certs/ca.pem")
-
 
 def get_test_client(nowait=False, **kwargs):
     # construct kwargs from the environment
-    kw = {"timeout": 30, "ca_certs": CA_CERTS}
+    kw = {"timeout": 30}
 
     if "PYTHON_CONNECTION_CLASS" in os.environ:
         from opensearchpy import connection
