@@ -29,7 +29,7 @@ import asyncio
 import pytest
 
 import opensearchpy
-from opensearchpy.helpers.test import CA_CERTS, OPENSEARCH_URL
+from opensearchpy.helpers.test import OPENSEARCH_URL
 
 from ...utils import wipe_cluster
 
@@ -43,7 +43,7 @@ async def async_client():
         if not hasattr(opensearchpy, "AsyncOpenSearch"):
             pytest.skip("test requires 'AsyncOpenSearch'")
 
-        kw = {"timeout": 3, "ca_certs": CA_CERTS}
+        kw = {"timeout": 3}
         client = opensearchpy.AsyncOpenSearch(OPENSEARCH_URL, **kw)
 
         # wait for yellow status
