@@ -30,7 +30,7 @@ import time
 import pytest
 
 import opensearchpy
-from opensearchpy.helpers.test import CA_CERTS, OPENSEARCH_URL
+from opensearchpy.helpers.test import OPENSEARCH_URL
 
 from ..utils import wipe_cluster
 
@@ -45,11 +45,10 @@ OPENSEARCH_REST_API_TESTS = []
 def sync_client_factory():
     client = None
     try:
-        # Configure the client with certificates and optionally
-        # an HTTP conn class depending on 'PYTHON_CONNECTION_CLASS' envvar
+        # Configure the client optionally with an HTTP conn class
+        # depending on 'PYTHON_CONNECTION_CLASS' envvar
         kw = {
             "timeout": 3,
-            "ca_certs": CA_CERTS,
             "headers": {"Authorization": "Basic ZWxhc3RpYzpjaGFuZ2VtZQ=="},
         }
         if "PYTHON_CONNECTION_CLASS" in os.environ:

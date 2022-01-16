@@ -45,8 +45,6 @@ class RequestsHttpConnection(Connection):
         client_key: Optional[Any] = ...,
         headers: Optional[Mapping[str, str]] = ...,
         http_compress: Optional[bool] = ...,
-        cloud_id: Optional[str] = ...,
-        api_key: Optional[Any] = ...,
         opaque_id: Optional[str] = ...,
         **kwargs: Any
     ) -> None: ...
