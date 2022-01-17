@@ -9,6 +9,8 @@
 # Copyright OpenSearch Contributors
 # SPDX-License-Identifier: Apache-2.0
 
+import warnings
+
 from ..plugins.alerting import AlertingClient
 from .utils import NamespacedClient
 
@@ -24,3 +26,28 @@ class PluginsClient(NamespacedClient):
         # self.trace_analytics = TraceAnalyticsClient(client)
         # self.index_management = IndexManagementClient(client)
         # self.security = SecurityClient(client)
+
+        self._dynamic_lookup(client)
+
+    def _dynamic_lookup(self, client):
+        # Issue : https://github.com/opensearch-project/opensearch-py/issues/90#issuecomment-1003396742
+
+        plugins = [
+            # "query_workbench",
+            # "reporting",
+            # "notebooks",
+            "alerting",
+            # "anomaly_detection",
+            # "trace_analytics",
+            # "index_management",
+            # "security"
+        ]
+        for plugin in plugins:
+            if not hasattr(client, plugin):
+                setattr(client, plugin, getattr(self, plugin))
+            else:
+                warnings.warn(
+                    f"Cannot load `{plugin}` directly to OpenSearch. `{plugin}` already exists in OpenSearch. Please use `OpenSearch.plugin.{plugin}` instead.",
+                    category=RuntimeWarning,
+                    stacklevel=2,
+                )
