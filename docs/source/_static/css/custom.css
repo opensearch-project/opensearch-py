@@ -1,0 +1,20 @@
+/*
+.wy-nav-top: top box in mobile view
+.wy-side-nav-search: top left box in nav bar
+.wy-side-nav-search > a:hover: no hover highlight
+*/
+.wy-nav-top,
+.wy-side-nav-search,
+.wy-side-nav-search > a:hover {
+    background-color: #2980b9;
+}
+
+/* broader content area */
+.wy-nav-content {
+    max-width: 1000px;
+}
+
+/* top left project name -> bigger */
+.wy-side-nav-search > a.icon.icon-home {
+    font-size: 160%;
+}
