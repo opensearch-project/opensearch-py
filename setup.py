@@ -62,7 +62,7 @@ tests_require = [
 ]
 async_require = ["aiohttp>=3,<4"]
 
-docs_require = []
+docs_require = ["sphinx", "sphinx_rtd_theme", "myst_parser", "sphinx_copybutton"]
 generate_require = ["black", "jinja2"]
 
 setup(
