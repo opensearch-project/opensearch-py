@@ -83,7 +83,7 @@ class TestParallelBulk(TestCase):
 
 class TestChunkActions(TestCase):
     def setup_method(self, _):
-        self.actions = [({"index": {}}, {"some": u"datá", "i": i}) for i in range(100)]
+        self.actions = [({"index": {}}, {"some": u"datá", "i": i}) for i in range(100)]  # fmt: skip
 
     def test_expand_action(self):
         self.assertEqual(helpers.expand_action({}), ({"index": {}}, {}))
@@ -209,7 +209,7 @@ class TestChunkActions(TestCase):
         )
         self.assertEqual(25, len(chunks))
         for chunk_data, chunk_actions in chunks:
-            chunk = u"".join(chunk_actions)
+            chunk = u"".join(chunk_actions)  # fmt: skip
             chunk = chunk if isinstance(chunk, str) else chunk.encode("utf-8")
             self.assertLessEqual(len(chunk), max_byte_size)
 
