@@ -29,7 +29,9 @@ Note that integration tests require docker to be installed and running, and down
 This are the steps to build the documentation with [Sphinx](https://www.sphinx-doc.org/):
 
 1. change into the `opensearch-py` directory where `setup.py` is located
-2. install opensearch-py - we recommend [editable mode](https://pip.pypa.io/en/stable/cli/pip_install/#cmdoption-e): `pip install -e .[docs]`
-3. change into the `docs` directory
-4. execute `make html`
-5. use your favorite web browser to open the file called `opensearch-py/docs/build/html/index.html`
+2. install opensearch-py - we recommend [editable mode](https://pip.pypa.io/en/stable/cli/pip_install/#cmdoption-e
+    - with bash: `pip install -e .[docs]`
+    - with zsh: `pip install -e .\[docs]`
+4. change into the `docs` directory
+5. execute `make html`
+6. use your favorite web browser to open the file called `opensearch-py/docs/build/html/index.html`
