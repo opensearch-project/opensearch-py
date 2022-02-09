@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OpenSearch Python Client Documentation &mdash; OpenSearch Python Client  documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/clipboard.min.js"></script>
+        <script src="_static/copybutton.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="API Reference" href="api-ref.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="#" class="icon icon-home"> OpenSearch Python Client
+            <img src="_static/OpenSearch.svg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="api-ref.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="genindex.html">Index</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/opensearch-project/opensearch-py/blob/main/LICENSE.txt">License</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/opensearch-project/opensearch-py/blob/main/CONTRIBUTING.md">Contributing</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/opensearch-project/opensearch-py/blob/main/CODE_OF_CONDUCT.md">Code of Conduct</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/opensearch-project/opensearch-py/blob/main/DEVELOPER_GUIDE.md">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/opensearch-project/opensearch-py">GitHub Repository</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">OpenSearch Python Client</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="#" class="icon icon-home"></a> &raquo;</li>
+      <li>OpenSearch Python Client Documentation</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/opensearch-project/opensearch-py/blob/main/docs/source/index.md" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section class="tex2jax_ignore mathjax_ignore" id="opensearch-python-client-documentation">
+<h1>OpenSearch Python Client Documentation<a class="headerlink" href="#opensearch-python-client-documentation" title="Permalink to this headline"></a></h1>
+<section id="table-of-contents">
+<h2>Table of Contents<a class="headerlink" href="#table-of-contents" title="Permalink to this headline"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api-ref.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="genindex.html">Index</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/opensearch-project/opensearch-py/blob/main/LICENSE.txt">License</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/opensearch-project/opensearch-py/blob/main/CONTRIBUTING.md">Contributing</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/opensearch-project/opensearch-py/blob/main/CODE_OF_CONDUCT.md">Code of Conduct</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/opensearch-project/opensearch-py/blob/main/DEVELOPER_GUIDE.md">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/opensearch-project/opensearch-py">GitHub Repository</a></li>
+</ul>
+</div>
+<p><a class="reference external" href="https://github.com/opensearch-project/opensearch-py/actions/workflows/unified-release.yml"><img alt="Release" src="https://github.com/opensearch-project/opensearch-py/actions/workflows/unified-release.yml/badge.svg" /></a>
+<a class="reference external" href="https://github.com/opensearch-project/opensearch-py/actions/workflows/ci.yml"><img alt="CI" src="https://github.com/opensearch-project/opensearch-py/actions/workflows/ci.yml/badge.svg" /></a>
+<a class="reference external" href="https://github.com/opensearch-project/opensearch-py/actions/workflows/integration.yml"><img alt="Integration" src="https://github.com/opensearch-project/opensearch-py/actions/workflows/integration.yml/badge.svg" /></a>
+<a class="reference external" href="https://discuss.opendistrocommunity.dev/c/clients/"><img alt="Chat" src="https://img.shields.io/badge/chat-on%20forums-blue" /></a>
+<img alt="PRs welcome!" src="https://img.shields.io/badge/PRs-welcome!-success" /></p>
+<p><img alt="OpenSearch logo" src="https://github.com/opensearch-project/opensearch-py/raw/main/OpenSearch.svg" /></p>
+<p>OpenSearch Python Client</p>
+<ul class="simple">
+<li><p><a class="reference external" href="#welcome">Welcome!</a></p></li>
+<li><p><a class="reference external" href="#project-resources">Project Resources</a></p></li>
+<li><p><a class="reference external" href="#code-of-conduct">Code of Conduct</a></p></li>
+<li><p><a class="reference external" href="#license">License</a></p></li>
+<li><p><a class="reference external" href="#copyright">Copyright</a></p></li>
+</ul>
+</section>
+<section id="welcome">
+<h2>Welcome!<a class="headerlink" href="#welcome" title="Permalink to this headline"></a></h2>
+<p><strong>opensearch-py</strong> is <a class="reference external" href="https://aws.amazon.com/blogs/opensource/introducing-opensearch/">a community-driven, open source fork</a>
+of elasticsearch-py licensed under the <a class="reference external" href="https://github.com/opensearch-project/opensearch-py/blob/main/LICENSE.txt">Apache v2.0 License</a>.
+For more information, see <a class="reference external" href="https://opensearch.org/">opensearch.org</a>.</p>
+<p>This is the low-level client. A high-level Python client is in the works, and will be available soon.</p>
+</section>
+<section id="setup">
+<h2>Setup<a class="headerlink" href="#setup" title="Permalink to this headline"></a></h2>
+<p>To add the client to your project, install it using <a class="reference external" href="https://pip.pypa.io/">pip</a>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install opensearch-py
+</pre></div>
+</div>
+<p>Then import it like any other module:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">opensearchpy</span> <span class="kn">import</span> <span class="n">OpenSearch</span>
+</pre></div>
+</div>
+<p>If you prefer to add the client manually or just want to examine the source code, see <a class="reference external" href="https://github.com/opensearch-project/opensearch-py">opensearch-py on GitHub</a>.</p>
+</section>
+<section id="sample-code">
+<h2>Sample code<a class="headerlink" href="#sample-code" title="Permalink to this headline"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">opensearchpy</span> <span class="kn">import</span> <span class="n">OpenSearch</span>
+
+<span class="n">host</span> <span class="o">=</span> <span class="s1">&#39;localhost&#39;</span>
+<span class="n">port</span> <span class="o">=</span> <span class="mi">9200</span>
+<span class="n">auth</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;admin&#39;</span><span class="p">,</span> <span class="s1">&#39;admin&#39;</span><span class="p">)</span> <span class="c1"># For testing only. Don&#39;t store credentials in code.</span>
+<span class="n">ca_certs_path</span> <span class="o">=</span> <span class="s1">&#39;/full/path/to/root-ca.pem&#39;</span> <span class="c1"># Provide a CA bundle if you use intermediate CAs with your root CA.</span>
+
+<span class="c1"># Optional client certificates if you don&#39;t want to use HTTP basic authentication.</span>
+<span class="c1"># client_cert_path = &#39;/full/path/to/client.pem&#39;</span>
+<span class="c1"># client_key_path = &#39;/full/path/to/client-key.pem&#39;</span>
+
+<span class="c1"># Create the client with SSL/TLS enabled, but hostname verification disabled.</span>
+<span class="n">client</span> <span class="o">=</span> <span class="n">OpenSearch</span><span class="p">(</span>
+    <span class="n">hosts</span> <span class="o">=</span> <span class="p">[{</span><span class="s1">&#39;host&#39;</span><span class="p">:</span> <span class="n">host</span><span class="p">,</span> <span class="s1">&#39;port&#39;</span><span class="p">:</span> <span class="n">port</span><span class="p">}],</span>
+    <span class="n">http_compress</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="c1"># enables gzip compression for request bodies</span>
+    <span class="n">http_auth</span> <span class="o">=</span> <span class="n">auth</span><span class="p">,</span>
+    <span class="c1"># client_cert = client_cert_path,</span>
+    <span class="c1"># client_key = client_key_path,</span>
+    <span class="n">use_ssl</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">verify_certs</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">ssl_assert_hostname</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">ssl_show_warn</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">ca_certs</span> <span class="o">=</span> <span class="n">ca_certs_path</span>
+<span class="p">)</span>
+
+<span class="c1"># Create an index with non-default settings.</span>
+<span class="n">index_name</span> <span class="o">=</span> <span class="s1">&#39;python-test-index3&#39;</span>
+<span class="n">index_body</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s1">&#39;settings&#39;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s1">&#39;index&#39;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="s1">&#39;number_of_shards&#39;</span><span class="p">:</span> <span class="mi">4</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">indices</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">index_name</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">index_body</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Creating index:&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+
+<span class="c1"># Add a document to the index.</span>
+<span class="n">document</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="s1">&#39;Moneyball&#39;</span><span class="p">,</span>
+  <span class="s1">&#39;director&#39;</span><span class="p">:</span> <span class="s1">&#39;Bennett Miller&#39;</span><span class="p">,</span>
+  <span class="s1">&#39;year&#39;</span><span class="p">:</span> <span class="s1">&#39;2011&#39;</span>
+<span class="p">}</span>
+<span class="nb">id</span> <span class="o">=</span> <span class="s1">&#39;1&#39;</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">index</span><span class="p">(</span>
+    <span class="n">index</span> <span class="o">=</span> <span class="n">index_name</span><span class="p">,</span>
+    <span class="n">body</span> <span class="o">=</span> <span class="n">document</span><span class="p">,</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="nb">id</span><span class="p">,</span>
+    <span class="n">refresh</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Adding document:&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+
+<span class="c1"># Search for the document.</span>
+<span class="n">q</span> <span class="o">=</span> <span class="s1">&#39;miller&#39;</span>
+<span class="n">query</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s1">&#39;size&#39;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+  <span class="s1">&#39;query&#39;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s1">&#39;multi_match&#39;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="s1">&#39;query&#39;</span><span class="p">:</span> <span class="n">q</span><span class="p">,</span>
+      <span class="s1">&#39;fields&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;title^2&#39;</span><span class="p">,</span> <span class="s1">&#39;director&#39;</span><span class="p">]</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">search</span><span class="p">(</span>
+    <span class="n">body</span> <span class="o">=</span> <span class="n">query</span><span class="p">,</span>
+    <span class="n">index</span> <span class="o">=</span> <span class="n">index_name</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Search results:&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+
+<span class="c1"># Delete the document.</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span>
+    <span class="n">index</span> <span class="o">=</span> <span class="n">index_name</span><span class="p">,</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="nb">id</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Deleting document:&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+
+<span class="c1"># Delete the index.</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">indices</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span>
+    <span class="n">index</span> <span class="o">=</span> <span class="n">index_name</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Deleting index:&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="project-resources">
+<h2>Project Resources<a class="headerlink" href="#project-resources" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://opensearch.org/">Project Website</a></p></li>
+<li><p><a class="reference external" href="https://opensearch.org/downloads.html">Downloads</a></p></li>
+<li><p><a class="reference external" href="https://opensearch.org/docs/">Documentation</a></p></li>
+<li><p>Need help? Try <a class="reference external" href="https://discuss.opendistrocommunity.dev/">Forums</a></p></li>
+<li><p><a class="reference external" href="https://opensearch.org/#principles">Project Principles</a></p></li>
+<li><p><a class="reference external" href="https://github.com/opensearch-project/opensearch-py/blob/main/CONTRIBUTING.md">Contributing to OpenSearch</a></p></li>
+<li><p><a class="reference external" href="https://github.com/opensearch-project/opensearch-py/blob/main/MAINTAINERS.md">Maintainer Responsibilities</a></p></li>
+<li><p><a class="reference external" href="https://github.com/opensearch-project/opensearch-py/blob/main/RELEASING.md">Release Management</a></p></li>
+<li><p><a class="reference external" href="https://github.com/opensearch-project/opensearch-py/blob/main/ADMINS.md">Admin Responsibilities</a></p></li>
+<li><p><a class="reference external" href="https://github.com/opensearch-project/opensearch-py/blob/main/SECURITY.md">Security</a></p></li>
+</ul>
+</section>
+<section id="code-of-conduct">
+<h2>Code of Conduct<a class="headerlink" href="#code-of-conduct" title="Permalink to this headline"></a></h2>
+<p>This project has adopted the
+<a class="reference external" href="https://github.com/opensearch-project/opensearch-py/blob/main/CODE_OF_CONDUCT.md">Amazon Open Source Code of Conduct</a>.
+For more information see the <a class="reference external" href="https://aws.github.io/code-of-conduct-faq">Code of Conduct FAQ</a>, or contact
+<a class="reference external" href="mailto:opensource-codeofconduct&#37;&#52;&#48;amazon&#46;com">opensource-codeofconduct<span>&#64;</span>amazon<span>&#46;</span>com</a> with any additional questions or comments.</p>
+</section>
+<section id="license">
+<h2>License<a class="headerlink" href="#license" title="Permalink to this headline"></a></h2>
+<p>This project is licensed under the
+<a class="reference external" href="https://github.com/opensearch-project/opensearch-py/blob/main/LICENSE.txt">Apache v2.0 License</a>.</p>
+</section>
+<section id="copyright">
+<h2>Copyright<a class="headerlink" href="#copyright" title="Permalink to this headline"></a></h2>
+<p>Copyright OpenSearch Contributors. See
+<a class="reference external" href="https://github.com/opensearch-project/opensearch-py/blob/main/NOTICE.txt">NOTICE</a> for details.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="api-ref.html" class="btn btn-neutral float-right" title="API Reference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright OpenSearch Project Contributors.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

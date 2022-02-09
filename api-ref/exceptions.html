@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>exceptions &mdash; OpenSearch Python Client  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="serializer" href="serializer.html" />
+    <link rel="prev" title="connection_pool" href="connection_pool.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> OpenSearch Python Client
+            <img src="../_static/OpenSearch.svg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../api-ref.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="client.html">client</a></li>
+<li class="toctree-l2"><a class="reference internal" href="connection.html">connection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="connection_pool.html">connection_pool</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="serializer.html">serializer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="transport.html">transport</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../genindex.html">Index</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/opensearch-project/opensearch-py/blob/main/LICENSE.txt">License</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/opensearch-project/opensearch-py/blob/main/CONTRIBUTING.md">Contributing</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/opensearch-project/opensearch-py/blob/main/CODE_OF_CONDUCT.md">Code of Conduct</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/opensearch-project/opensearch-py/blob/main/DEVELOPER_GUIDE.md">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/opensearch-project/opensearch-py">GitHub Repository</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">OpenSearch Python Client</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../api-ref.html">API Reference</a> &raquo;</li>
+      <li>exceptions</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/opensearch-project/opensearch-py/blob/main/docs/source/api-ref/exceptions.md" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section class="tex2jax_ignore mathjax_ignore" id="exceptions">
+<h1>exceptions<a class="headerlink" href="#exceptions" title="Permalink to this headline"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="opensearchpy.AuthenticationException">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opensearchpy.</span></span><span class="sig-name descname"><span class="pre">AuthenticationException</span></span><a class="reference internal" href="../_modules/opensearchpy/exceptions.html#AuthenticationException"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.AuthenticationException" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#opensearchpy.TransportError" title="opensearchpy.exceptions.TransportError"><code class="xref py py-class docutils literal notranslate"><span class="pre">opensearchpy.exceptions.TransportError</span></code></a></p>
+<p>Exception representing a 401 status code.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="opensearchpy.AuthorizationException">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opensearchpy.</span></span><span class="sig-name descname"><span class="pre">AuthorizationException</span></span><a class="reference internal" href="../_modules/opensearchpy/exceptions.html#AuthorizationException"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.AuthorizationException" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#opensearchpy.TransportError" title="opensearchpy.exceptions.TransportError"><code class="xref py py-class docutils literal notranslate"><span class="pre">opensearchpy.exceptions.TransportError</span></code></a></p>
+<p>Exception representing a 403 status code.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="opensearchpy.ConflictError">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opensearchpy.</span></span><span class="sig-name descname"><span class="pre">ConflictError</span></span><a class="reference internal" href="../_modules/opensearchpy/exceptions.html#ConflictError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.ConflictError" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#opensearchpy.TransportError" title="opensearchpy.exceptions.TransportError"><code class="xref py py-class docutils literal notranslate"><span class="pre">opensearchpy.exceptions.TransportError</span></code></a></p>
+<p>Exception representing a 409 status code.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="opensearchpy.ConnectionError">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opensearchpy.</span></span><span class="sig-name descname"><span class="pre">ConnectionError</span></span><a class="reference internal" href="../_modules/opensearchpy/exceptions.html#ConnectionError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.ConnectionError" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#opensearchpy.TransportError" title="opensearchpy.exceptions.TransportError"><code class="xref py py-class docutils literal notranslate"><span class="pre">opensearchpy.exceptions.TransportError</span></code></a></p>
+<p>Error raised when there was an exception while talking to OpenSearch. Original
+exception from the underlying <a class="reference internal" href="connection.html#opensearchpy.Connection" title="opensearchpy.Connection"><code class="xref py py-class docutils literal notranslate"><span class="pre">Connection</span></code></a>
+implementation is available as <code class="docutils literal notranslate"><span class="pre">.info</span></code>.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.ConnectionError.__str__">
+<span class="sig-name descname"><span class="pre">__str__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opensearchpy/exceptions.html#ConnectionError.__str__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.ConnectionError.__str__" title="Permalink to this definition"></a></dt>
+<dd><p>Return str(self).</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="opensearchpy.ConnectionTimeout">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opensearchpy.</span></span><span class="sig-name descname"><span class="pre">ConnectionTimeout</span></span><a class="reference internal" href="../_modules/opensearchpy/exceptions.html#ConnectionTimeout"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.ConnectionTimeout" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#opensearchpy.ConnectionError" title="opensearchpy.exceptions.ConnectionError"><code class="xref py py-class docutils literal notranslate"><span class="pre">opensearchpy.exceptions.ConnectionError</span></code></a></p>
+<p>A network timeout. Doesn’t cause a node retry by default.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.ConnectionTimeout.__str__">
+<span class="sig-name descname"><span class="pre">__str__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opensearchpy/exceptions.html#ConnectionTimeout.__str__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.ConnectionTimeout.__str__" title="Permalink to this definition"></a></dt>
+<dd><p>Return str(self).</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="opensearchpy.ImproperlyConfigured">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opensearchpy.</span></span><span class="sig-name descname"><span class="pre">ImproperlyConfigured</span></span><a class="reference internal" href="../_modules/opensearchpy/exceptions.html#ImproperlyConfigured"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.ImproperlyConfigured" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#Exception" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></a></p>
+<p>Exception raised when the config passed to the client is inconsistent or invalid.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="opensearchpy.NotFoundError">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opensearchpy.</span></span><span class="sig-name descname"><span class="pre">NotFoundError</span></span><a class="reference internal" href="../_modules/opensearchpy/exceptions.html#NotFoundError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.NotFoundError" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#opensearchpy.TransportError" title="opensearchpy.exceptions.TransportError"><code class="xref py py-class docutils literal notranslate"><span class="pre">opensearchpy.exceptions.TransportError</span></code></a></p>
+<p>Exception representing a 404 status code.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="opensearchpy.OpenSearchDeprecationWarning">
+<span class="sig-prename descclassname"><span class="pre">opensearchpy.</span></span><span class="sig-name descname"><span class="pre">OpenSearchDeprecationWarning</span></span><a class="headerlink" href="#opensearchpy.OpenSearchDeprecationWarning" title="Permalink to this definition"></a></dt>
+<dd><p>alias of <a class="reference internal" href="#opensearchpy.OpenSearchWarning" title="opensearchpy.exceptions.OpenSearchWarning"><code class="xref py py-class docutils literal notranslate"><span class="pre">opensearchpy.exceptions.OpenSearchWarning</span></code></a></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="opensearchpy.OpenSearchException">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opensearchpy.</span></span><span class="sig-name descname"><span class="pre">OpenSearchException</span></span><a class="reference internal" href="../_modules/opensearchpy/exceptions.html#OpenSearchException"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.OpenSearchException" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#Exception" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></a></p>
+<p>Base class for all exceptions raised by this package’s operations (doesn’t
+apply to <a class="reference internal" href="#opensearchpy.ImproperlyConfigured" title="opensearchpy.ImproperlyConfigured"><code class="xref py py-class docutils literal notranslate"><span class="pre">ImproperlyConfigured</span></code></a>).</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="opensearchpy.OpenSearchWarning">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opensearchpy.</span></span><span class="sig-name descname"><span class="pre">OpenSearchWarning</span></span><a class="reference internal" href="../_modules/opensearchpy/exceptions.html#OpenSearchWarning"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.OpenSearchWarning" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#Warning" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Warning</span></code></a></p>
+<p>Warning that is raised when a deprecated option
+or incorrect usage is flagged via the ‘Warning’ HTTP header.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="opensearchpy.RequestError">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opensearchpy.</span></span><span class="sig-name descname"><span class="pre">RequestError</span></span><a class="reference internal" href="../_modules/opensearchpy/exceptions.html#RequestError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.RequestError" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#opensearchpy.TransportError" title="opensearchpy.exceptions.TransportError"><code class="xref py py-class docutils literal notranslate"><span class="pre">opensearchpy.exceptions.TransportError</span></code></a></p>
+<p>Exception representing a 400 status code.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="opensearchpy.SerializationError">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opensearchpy.</span></span><span class="sig-name descname"><span class="pre">SerializationError</span></span><a class="reference internal" href="../_modules/opensearchpy/exceptions.html#SerializationError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.SerializationError" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#opensearchpy.OpenSearchException" title="opensearchpy.exceptions.OpenSearchException"><code class="xref py py-class docutils literal notranslate"><span class="pre">opensearchpy.exceptions.OpenSearchException</span></code></a></p>
+<p>Data passed in failed to serialize properly in the <code class="docutils literal notranslate"><span class="pre">Serializer</span></code> being
+used.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="opensearchpy.SSLError">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opensearchpy.</span></span><span class="sig-name descname"><span class="pre">SSLError</span></span><a class="reference internal" href="../_modules/opensearchpy/exceptions.html#SSLError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.SSLError" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#opensearchpy.ConnectionError" title="opensearchpy.exceptions.ConnectionError"><code class="xref py py-class docutils literal notranslate"><span class="pre">opensearchpy.exceptions.ConnectionError</span></code></a></p>
+<p>Error raised when encountering SSL errors.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="opensearchpy.TransportError">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opensearchpy.</span></span><span class="sig-name descname"><span class="pre">TransportError</span></span><a class="reference internal" href="../_modules/opensearchpy/exceptions.html#TransportError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.TransportError" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#opensearchpy.OpenSearchException" title="opensearchpy.exceptions.OpenSearchException"><code class="xref py py-class docutils literal notranslate"><span class="pre">opensearchpy.exceptions.OpenSearchException</span></code></a></p>
+<p>Exception raised when OpenSearch returns a non-OK (&gt;=400) HTTP status code. Or when
+an actual connection error happens; in that case the <code class="docutils literal notranslate"><span class="pre">status_code</span></code> will
+be set to <code class="docutils literal notranslate"><span class="pre">'N/A'</span></code>.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.TransportError.__str__">
+<span class="sig-name descname"><span class="pre">__str__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opensearchpy/exceptions.html#TransportError.__str__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.TransportError.__str__" title="Permalink to this definition"></a></dt>
+<dd><p>Return str(self).</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="opensearchpy.TransportError.error">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">error</span></span><a class="headerlink" href="#opensearchpy.TransportError.error" title="Permalink to this definition"></a></dt>
+<dd><p>A string error message.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="opensearchpy.TransportError.info">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">info</span></span><a class="headerlink" href="#opensearchpy.TransportError.info" title="Permalink to this definition"></a></dt>
+<dd><p>Dict of returned error info from OpenSearch, where available, underlying
+exception when not.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="opensearchpy.TransportError.status_code">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">status_code</span></span><a class="headerlink" href="#opensearchpy.TransportError.status_code" title="Permalink to this definition"></a></dt>
+<dd><p>The HTTP status code of the response that precipitated the error or
+<code class="docutils literal notranslate"><span class="pre">'N/A'</span></code> if not applicable.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="connection_pool.html" class="btn btn-neutral float-left" title="connection_pool" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="serializer.html" class="btn btn-neutral float-right" title="serializer" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright OpenSearch Project Contributors.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

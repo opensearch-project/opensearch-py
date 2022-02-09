@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>connection_pool &mdash; OpenSearch Python Client  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="exceptions" href="exceptions.html" />
+    <link rel="prev" title="connection" href="connection.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> OpenSearch Python Client
+            <img src="../_static/OpenSearch.svg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../api-ref.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="client.html">client</a></li>
+<li class="toctree-l2"><a class="reference internal" href="connection.html">connection</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">connection_pool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="exceptions.html">exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="serializer.html">serializer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="transport.html">transport</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../genindex.html">Index</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/opensearch-project/opensearch-py/blob/main/LICENSE.txt">License</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/opensearch-project/opensearch-py/blob/main/CONTRIBUTING.md">Contributing</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/opensearch-project/opensearch-py/blob/main/CODE_OF_CONDUCT.md">Code of Conduct</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/opensearch-project/opensearch-py/blob/main/DEVELOPER_GUIDE.md">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/opensearch-project/opensearch-py">GitHub Repository</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">OpenSearch Python Client</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../api-ref.html">API Reference</a> &raquo;</li>
+      <li>connection_pool</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/opensearch-project/opensearch-py/blob/main/docs/source/api-ref/connection_pool.md" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section class="tex2jax_ignore mathjax_ignore" id="connection-pool">
+<h1>connection_pool<a class="headerlink" href="#connection-pool" title="Permalink to this headline"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="opensearchpy.ConnectionPool">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opensearchpy.</span></span><span class="sig-name descname"><span class="pre">ConnectionPool</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">connections</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dead_timeout=60</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout_cutoff=5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">selector_class=&lt;class</span> <span class="pre">'opensearchpy.connection_pool.RoundRobinSelector'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">randomize_hosts=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opensearchpy/connection_pool.html#ConnectionPool"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.ConnectionPool" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Container holding the <a class="reference internal" href="connection.html#opensearchpy.Connection" title="opensearchpy.Connection"><code class="xref py py-class docutils literal notranslate"><span class="pre">Connection</span></code></a> instances,
+managing the selection process (via a
+<a class="reference internal" href="#opensearchpy.ConnectionSelector" title="opensearchpy.ConnectionSelector"><code class="xref py py-class docutils literal notranslate"><span class="pre">ConnectionSelector</span></code></a>) and dead connections.</p>
+<p>It’s only interactions are with the <a class="reference internal" href="transport.html#opensearchpy.Transport" title="opensearchpy.Transport"><code class="xref py py-class docutils literal notranslate"><span class="pre">Transport</span></code></a> class
+that drives all the actions within <cite>ConnectionPool</cite>.</p>
+<p>Initially connections are stored on the class as a list and, along with the
+connection options, get passed to the <cite>ConnectionSelector</cite> instance for
+future reference.</p>
+<p>Upon each request the <cite>Transport</cite> will ask for a <cite>Connection</cite> via the
+<cite>get_connection</cite> method. If the connection fails (it’s <cite>perform_request</cite>
+raises a <cite>ConnectionError</cite>) it will be marked as dead (via <cite>mark_dead</cite>) and
+put on a timeout (if it fails N times in a row the timeout is exponentially
+longer - the formula is <cite>default_timeout * 2 ** (fail_count - 1)</cite>). When
+the timeout is over the connection will be resurrected and returned to the
+live pool. A connection that has been previously marked as dead and
+succeeds will be marked as live (its fail count will be deleted).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>connections</strong> – list of tuples containing the
+<a class="reference internal" href="connection.html#opensearchpy.Connection" title="opensearchpy.Connection"><code class="xref py py-class docutils literal notranslate"><span class="pre">Connection</span></code></a> instance and it’s options</p></li>
+<li><p><strong>dead_timeout</strong> – number of seconds a connection should be retired for
+after a failure, increases on consecutive failures</p></li>
+<li><p><strong>timeout_cutoff</strong> – number of consecutive failures after which the
+timeout doesn’t increase</p></li>
+<li><p><strong>selector_class</strong> – <a class="reference internal" href="#opensearchpy.ConnectionSelector" title="opensearchpy.ConnectionSelector"><code class="xref py py-class docutils literal notranslate"><span class="pre">ConnectionSelector</span></code></a>
+subclass to use if more than one connection is live</p></li>
+<li><p><strong>randomize_hosts</strong> – shuffle the list of connections upon arrival to
+avoid dog piling effect across processes</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.ConnectionPool.__repr__">
+<span class="sig-name descname"><span class="pre">__repr__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opensearchpy/connection_pool.html#ConnectionPool.__repr__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.ConnectionPool.__repr__" title="Permalink to this definition"></a></dt>
+<dd><p>Return repr(self).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.ConnectionPool.close">
+<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opensearchpy/connection_pool.html#ConnectionPool.close"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.ConnectionPool.close" title="Permalink to this definition"></a></dt>
+<dd><p>Explicitly closes connections</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.ConnectionPool.get_connection">
+<span class="sig-name descname"><span class="pre">get_connection</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opensearchpy/connection_pool.html#ConnectionPool.get_connection"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.ConnectionPool.get_connection" title="Permalink to this definition"></a></dt>
+<dd><p>Return a connection from the pool using the <cite>ConnectionSelector</cite>
+instance.</p>
+<p>It tries to resurrect eligible connections, forces a resurrection when
+no connections are available and passes the list of live connections to
+the selector instance to choose from.</p>
+<p>Returns a connection instance and it’s current fail count.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.ConnectionPool.mark_dead">
+<span class="sig-name descname"><span class="pre">mark_dead</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">connection</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">now</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opensearchpy/connection_pool.html#ConnectionPool.mark_dead"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.ConnectionPool.mark_dead" title="Permalink to this definition"></a></dt>
+<dd><p>Mark the connection as dead (failed). Remove it from the live pool and
+put it on a timeout.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>connection</strong> – the failed instance</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.ConnectionPool.mark_live">
+<span class="sig-name descname"><span class="pre">mark_live</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">connection</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opensearchpy/connection_pool.html#ConnectionPool.mark_live"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.ConnectionPool.mark_live" title="Permalink to this definition"></a></dt>
+<dd><p>Mark connection as healthy after a resurrection. Resets the fail
+counter for the connection.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>connection</strong> – the connection to redeem</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.ConnectionPool.resurrect">
+<span class="sig-name descname"><span class="pre">resurrect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">force</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opensearchpy/connection_pool.html#ConnectionPool.resurrect"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.ConnectionPool.resurrect" title="Permalink to this definition"></a></dt>
+<dd><p>Attempt to resurrect a connection from the dead pool. It will try to
+locate one (not all) eligible (it’s timeout is over) connection to
+return to the live pool. Any resurrected connection is also returned.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>force</strong> – resurrect a connection even if there is none eligible (used
+when we have no live connections). If force is specified resurrect
+always returns a connection.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="opensearchpy.ConnectionSelector">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opensearchpy.</span></span><span class="sig-name descname"><span class="pre">ConnectionSelector</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">opts</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opensearchpy/connection_pool.html#ConnectionSelector"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.ConnectionSelector" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Simple class used to select a connection from a list of currently live
+connection instances. In init time it is passed a dictionary containing all
+the connections’ options which it can then use during the selection
+process. When the <cite>select</cite> method is called it is given a list of
+<em>currently</em> live connections to choose from.</p>
+<p>The options dictionary is the one that has been passed to
+<a class="reference internal" href="transport.html#opensearchpy.Transport" title="opensearchpy.Transport"><code class="xref py py-class docutils literal notranslate"><span class="pre">Transport</span></code></a> as <cite>hosts</cite> param and the same that is
+used to construct the Connection object itself. When the Connection was
+created from information retrieved from the cluster via the sniffing
+process it will be the dictionary returned by the <cite>host_info_callback</cite>.</p>
+<p>Example of where this would be useful is a zone-aware selector that would
+only select connections from it’s own zones and only fall back to other
+connections where there would be none in it’s zones.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>opts</strong> – dictionary of connection instances and their options</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.ConnectionSelector.select">
+<span class="sig-name descname"><span class="pre">select</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">connections</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opensearchpy/connection_pool.html#ConnectionSelector.select"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.ConnectionSelector.select" title="Permalink to this definition"></a></dt>
+<dd><p>Select a connection from the given list.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>connections</strong> – list of live connections to choose from</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="opensearchpy.RoundRobinSelector">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opensearchpy.</span></span><span class="sig-name descname"><span class="pre">RoundRobinSelector</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">opts</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opensearchpy/connection_pool.html#RoundRobinSelector"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.RoundRobinSelector" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#opensearchpy.ConnectionSelector" title="opensearchpy.connection_pool.ConnectionSelector"><code class="xref py py-class docutils literal notranslate"><span class="pre">opensearchpy.connection_pool.ConnectionSelector</span></code></a></p>
+<p>Selector using round-robin.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>opts</strong> – dictionary of connection instances and their options</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.RoundRobinSelector.select">
+<span class="sig-name descname"><span class="pre">select</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">connections</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opensearchpy/connection_pool.html#RoundRobinSelector.select"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.RoundRobinSelector.select" title="Permalink to this definition"></a></dt>
+<dd><p>Select a connection from the given list.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>connections</strong> – list of live connections to choose from</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="connection.html" class="btn btn-neutral float-left" title="connection" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="exceptions.html" class="btn btn-neutral float-right" title="exceptions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright OpenSearch Project Contributors.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

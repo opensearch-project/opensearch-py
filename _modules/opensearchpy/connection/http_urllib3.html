@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>opensearchpy.connection.http_urllib3 &mdash; OpenSearch Python Client  documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/clipboard.min.js"></script>
+        <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> OpenSearch Python Client
+            <img src="../../../_static/OpenSearch.svg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api-ref.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../genindex.html">Index</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/opensearch-project/opensearch-py/blob/main/LICENSE.txt">License</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/opensearch-project/opensearch-py/blob/main/CONTRIBUTING.md">Contributing</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/opensearch-project/opensearch-py/blob/main/CODE_OF_CONDUCT.md">Code of Conduct</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/opensearch-project/opensearch-py/blob/main/DEVELOPER_GUIDE.md">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/opensearch-project/opensearch-py">GitHub Repository</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">OpenSearch Python Client</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      <li>opensearchpy.connection.http_urllib3</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for opensearchpy.connection.http_urllib3</h1><div class="highlight"><pre>
+<span></span><span class="c1"># SPDX-License-Identifier: Apache-2.0</span>
+<span class="c1">#</span>
+<span class="c1"># The OpenSearch Contributors require contributions made to</span>
+<span class="c1"># this file be licensed under the Apache-2.0 license or a</span>
+<span class="c1"># compatible open source license.</span>
+<span class="c1">#</span>
+<span class="c1"># Modifications Copyright OpenSearch Contributors. See</span>
+<span class="c1"># GitHub history for details.</span>
+<span class="c1">#</span>
+<span class="c1">#  Licensed to Elasticsearch B.V. under one or more contributor</span>
+<span class="c1">#  license agreements. See the NOTICE file distributed with</span>
+<span class="c1">#  this work for additional information regarding copyright</span>
+<span class="c1">#  ownership. Elasticsearch B.V. licenses this file to you under</span>
+<span class="c1">#  the Apache License, Version 2.0 (the &quot;License&quot;); you may</span>
+<span class="c1">#  not use this file except in compliance with the License.</span>
+<span class="c1">#  You may obtain a copy of the License at</span>
+<span class="c1">#</span>
+<span class="c1"># 	http://www.apache.org/licenses/LICENSE-2.0</span>
+<span class="c1">#</span>
+<span class="c1">#  Unless required by applicable law or agreed to in writing,</span>
+<span class="c1">#  software distributed under the License is distributed on an</span>
+<span class="c1">#  &quot;AS IS&quot; BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY</span>
+<span class="c1">#  KIND, either express or implied.  See the License for the</span>
+<span class="c1">#  specific language governing permissions and limitations</span>
+<span class="c1">#  under the License.</span>
+
+<span class="kn">import</span> <span class="nn">ssl</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+
+<span class="kn">import</span> <span class="nn">urllib3</span>  <span class="c1"># type: ignore</span>
+<span class="kn">from</span> <span class="nn">urllib3.exceptions</span> <span class="kn">import</span> <span class="n">ReadTimeoutError</span>
+<span class="kn">from</span> <span class="nn">urllib3.exceptions</span> <span class="kn">import</span> <span class="n">SSLError</span> <span class="k">as</span> <span class="n">UrllibSSLError</span>  <span class="c1"># type: ignore</span>
+<span class="kn">from</span> <span class="nn">urllib3.util.retry</span> <span class="kn">import</span> <span class="n">Retry</span>  <span class="c1"># type: ignore</span>
+
+<span class="kn">from</span> <span class="nn">..compat</span> <span class="kn">import</span> <span class="n">reraise_exceptions</span><span class="p">,</span> <span class="n">urlencode</span>
+<span class="kn">from</span> <span class="nn">..exceptions</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="ne">ConnectionError</span><span class="p">,</span>
+    <span class="n">ConnectionTimeout</span><span class="p">,</span>
+    <span class="n">ImproperlyConfigured</span><span class="p">,</span>
+    <span class="n">SSLError</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">Connection</span>
+
+<span class="c1"># sentinel value for `verify_certs` and `ssl_show_warn`.</span>
+<span class="c1"># This is used to detect if a user is passing in a value</span>
+<span class="c1"># for SSL kwargs if also using an SSLContext.</span>
+<span class="n">VERIFY_CERTS_DEFAULT</span> <span class="o">=</span> <span class="nb">object</span><span class="p">()</span>
+<span class="n">SSL_SHOW_WARN_DEFAULT</span> <span class="o">=</span> <span class="nb">object</span><span class="p">()</span>
+
+<span class="n">CA_CERTS</span> <span class="o">=</span> <span class="kc">None</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">certifi</span>
+
+    <span class="n">CA_CERTS</span> <span class="o">=</span> <span class="n">certifi</span><span class="o">.</span><span class="n">where</span><span class="p">()</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="k">pass</span>
+
+
+<span class="k">def</span> <span class="nf">create_ssl_context</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A helper function around creating an SSL context</span>
+
+<span class="sd">    https://docs.python.org/3/library/ssl.html#context-creation</span>
+
+<span class="sd">    Accepts kwargs in the same manner as `create_default_context`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">ctx</span> <span class="o">=</span> <span class="n">ssl</span><span class="o">.</span><span class="n">create_default_context</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">ctx</span>
+
+
+<div class="viewcode-block" id="Urllib3HttpConnection"><a class="viewcode-back" href="../../../api-ref/connection.html#opensearchpy.Urllib3HttpConnection">[docs]</a><span class="k">class</span> <span class="nc">Urllib3HttpConnection</span><span class="p">(</span><span class="n">Connection</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Default connection class using the `urllib3` library and the http protocol.</span>
+
+<span class="sd">    :arg host: hostname of the node (default: localhost)</span>
+<span class="sd">    :arg port: port to use (integer, default: 9200)</span>
+<span class="sd">    :arg url_prefix: optional url prefix for opensearch</span>
+<span class="sd">    :arg timeout: default timeout in seconds (float, default: 10)</span>
+<span class="sd">    :arg http_auth: optional http auth information as either &#39;:&#39; separated</span>
+<span class="sd">        string or a tuple</span>
+<span class="sd">    :arg use_ssl: use ssl for the connection if `True`</span>
+<span class="sd">    :arg verify_certs: whether to verify SSL certificates</span>
+<span class="sd">    :arg ssl_show_warn: show warning when verify certs is disabled</span>
+<span class="sd">    :arg ca_certs: optional path to CA bundle.</span>
+<span class="sd">        See https://urllib3.readthedocs.io/en/latest/security.html#using-certifi-with-urllib3</span>
+<span class="sd">        for instructions how to get default set</span>
+<span class="sd">    :arg client_cert: path to the file containing the private key and the</span>
+<span class="sd">        certificate, or cert only if using client_key</span>
+<span class="sd">    :arg client_key: path to the file containing the private key if using</span>
+<span class="sd">        separate cert and key files (client_cert will contain only the cert)</span>
+<span class="sd">    :arg ssl_version: version of the SSL protocol to use. Choices are:</span>
+<span class="sd">        SSLv23 (default) SSLv2 SSLv3 TLSv1 (see ``PROTOCOL_*`` constants in the</span>
+<span class="sd">        ``ssl`` module for exact options for your environment).</span>
+<span class="sd">    :arg ssl_assert_hostname: use hostname verification if not `False`</span>
+<span class="sd">    :arg ssl_assert_fingerprint: verify the supplied certificate fingerprint if not `None`</span>
+<span class="sd">    :arg maxsize: the number of connections which will be kept open to this</span>
+<span class="sd">        host. See https://urllib3.readthedocs.io/en/1.4/pools.html#api for more</span>
+<span class="sd">        information.</span>
+<span class="sd">    :arg headers: any custom http headers to be add to requests</span>
+<span class="sd">    :arg http_compress: Use gzip compression</span>
+<span class="sd">    :arg opaque_id: Send this value in the &#39;X-Opaque-Id&#39; HTTP header</span>
+<span class="sd">        For tracing all requests made by this transport.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">host</span><span class="o">=</span><span class="s2">&quot;localhost&quot;</span><span class="p">,</span>
+        <span class="n">port</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">http_auth</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">use_ssl</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">verify_certs</span><span class="o">=</span><span class="n">VERIFY_CERTS_DEFAULT</span><span class="p">,</span>
+        <span class="n">ssl_show_warn</span><span class="o">=</span><span class="n">SSL_SHOW_WARN_DEFAULT</span><span class="p">,</span>
+        <span class="n">ca_certs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">client_cert</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">client_key</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">ssl_version</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">ssl_assert_hostname</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">ssl_assert_fingerprint</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">maxsize</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+        <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">ssl_context</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">http_compress</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">opaque_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span>
+    <span class="p">):</span>
+        <span class="c1"># Initialize headers before calling super().__init__().</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">headers</span> <span class="o">=</span> <span class="n">urllib3</span><span class="o">.</span><span class="n">make_headers</span><span class="p">(</span><span class="n">keep_alive</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="nb">super</span><span class="p">(</span><span class="n">Urllib3HttpConnection</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="n">host</span><span class="o">=</span><span class="n">host</span><span class="p">,</span>
+            <span class="n">port</span><span class="o">=</span><span class="n">port</span><span class="p">,</span>
+            <span class="n">use_ssl</span><span class="o">=</span><span class="n">use_ssl</span><span class="p">,</span>
+            <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
+            <span class="n">http_compress</span><span class="o">=</span><span class="n">http_compress</span><span class="p">,</span>
+            <span class="n">opaque_id</span><span class="o">=</span><span class="n">opaque_id</span><span class="p">,</span>
+            <span class="o">**</span><span class="n">kwargs</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">http_auth</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">http_auth</span><span class="p">,</span> <span class="p">(</span><span class="nb">tuple</span><span class="p">,</span> <span class="nb">list</span><span class="p">)):</span>
+                <span class="n">http_auth</span> <span class="o">=</span> <span class="s2">&quot;:&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">http_auth</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">urllib3</span><span class="o">.</span><span class="n">make_headers</span><span class="p">(</span><span class="n">basic_auth</span><span class="o">=</span><span class="n">http_auth</span><span class="p">))</span>
+
+        <span class="n">pool_class</span> <span class="o">=</span> <span class="n">urllib3</span><span class="o">.</span><span class="n">HTTPConnectionPool</span>
+        <span class="n">kw</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="c1"># if providing an SSL context, raise error if any other SSL related flag is used</span>
+        <span class="k">if</span> <span class="n">ssl_context</span> <span class="ow">and</span> <span class="p">(</span>
+            <span class="p">(</span><span class="n">verify_certs</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">VERIFY_CERTS_DEFAULT</span><span class="p">)</span>
+            <span class="ow">or</span> <span class="p">(</span><span class="n">ssl_show_warn</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">SSL_SHOW_WARN_DEFAULT</span><span class="p">)</span>
+            <span class="ow">or</span> <span class="n">ca_certs</span>
+            <span class="ow">or</span> <span class="n">client_cert</span>
+            <span class="ow">or</span> <span class="n">client_key</span>
+            <span class="ow">or</span> <span class="n">ssl_version</span>
+        <span class="p">):</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                <span class="s2">&quot;When using `ssl_context`, all other SSL related kwargs are ignored&quot;</span>
+            <span class="p">)</span>
+
+        <span class="c1"># if ssl_context provided use SSL by default</span>
+        <span class="k">if</span> <span class="n">ssl_context</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_ssl</span><span class="p">:</span>
+            <span class="n">pool_class</span> <span class="o">=</span> <span class="n">urllib3</span><span class="o">.</span><span class="n">HTTPSConnectionPool</span>
+            <span class="n">kw</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+                <span class="p">{</span>
+                    <span class="s2">&quot;assert_fingerprint&quot;</span><span class="p">:</span> <span class="n">ssl_assert_fingerprint</span><span class="p">,</span>
+                    <span class="s2">&quot;ssl_context&quot;</span><span class="p">:</span> <span class="n">ssl_context</span><span class="p">,</span>
+                <span class="p">}</span>
+            <span class="p">)</span>
+
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_ssl</span><span class="p">:</span>
+            <span class="n">pool_class</span> <span class="o">=</span> <span class="n">urllib3</span><span class="o">.</span><span class="n">HTTPSConnectionPool</span>
+            <span class="n">kw</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+                <span class="p">{</span>
+                    <span class="s2">&quot;ssl_version&quot;</span><span class="p">:</span> <span class="n">ssl_version</span><span class="p">,</span>
+                    <span class="s2">&quot;assert_hostname&quot;</span><span class="p">:</span> <span class="n">ssl_assert_hostname</span><span class="p">,</span>
+                    <span class="s2">&quot;assert_fingerprint&quot;</span><span class="p">:</span> <span class="n">ssl_assert_fingerprint</span><span class="p">,</span>
+                <span class="p">}</span>
+            <span class="p">)</span>
+
+            <span class="c1"># Convert all sentinel values to their actual default</span>
+            <span class="c1"># values if not using an SSLContext.</span>
+            <span class="k">if</span> <span class="n">verify_certs</span> <span class="ow">is</span> <span class="n">VERIFY_CERTS_DEFAULT</span><span class="p">:</span>
+                <span class="n">verify_certs</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">if</span> <span class="n">ssl_show_warn</span> <span class="ow">is</span> <span class="n">SSL_SHOW_WARN_DEFAULT</span><span class="p">:</span>
+                <span class="n">ssl_show_warn</span> <span class="o">=</span> <span class="kc">True</span>
+
+            <span class="n">ca_certs</span> <span class="o">=</span> <span class="n">CA_CERTS</span> <span class="k">if</span> <span class="n">ca_certs</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">ca_certs</span>
+            <span class="k">if</span> <span class="n">verify_certs</span><span class="p">:</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">ca_certs</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="n">ImproperlyConfigured</span><span class="p">(</span>
+                        <span class="s2">&quot;Root certificates are missing for certificate &quot;</span>
+                        <span class="s2">&quot;validation. Either pass them in using the ca_certs parameter or &quot;</span>
+                        <span class="s2">&quot;install certifi to use it automatically.&quot;</span>
+                    <span class="p">)</span>
+
+                <span class="n">kw</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+                    <span class="p">{</span>
+                        <span class="s2">&quot;cert_reqs&quot;</span><span class="p">:</span> <span class="s2">&quot;CERT_REQUIRED&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;ca_certs&quot;</span><span class="p">:</span> <span class="n">ca_certs</span><span class="p">,</span>
+                        <span class="s2">&quot;cert_file&quot;</span><span class="p">:</span> <span class="n">client_cert</span><span class="p">,</span>
+                        <span class="s2">&quot;key_file&quot;</span><span class="p">:</span> <span class="n">client_key</span><span class="p">,</span>
+                    <span class="p">}</span>
+                <span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">kw</span><span class="p">[</span><span class="s2">&quot;cert_reqs&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;CERT_NONE&quot;</span>
+                <span class="k">if</span> <span class="n">ssl_show_warn</span><span class="p">:</span>
+                    <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                        <span class="s2">&quot;Connecting to </span><span class="si">%s</span><span class="s2"> using SSL with verify_certs=False is insecure.&quot;</span>
+                        <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">host</span>
+                    <span class="p">)</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">ssl_show_warn</span><span class="p">:</span>
+                    <span class="n">urllib3</span><span class="o">.</span><span class="n">disable_warnings</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">pool</span> <span class="o">=</span> <span class="n">pool_class</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">hostname</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">timeout</span><span class="p">,</span> <span class="n">maxsize</span><span class="o">=</span><span class="n">maxsize</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">perform_request</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ignore</span><span class="o">=</span><span class="p">(),</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span>
+    <span class="p">):</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">url_prefix</span> <span class="o">+</span> <span class="n">url</span>
+        <span class="k">if</span> <span class="n">params</span><span class="p">:</span>
+            <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">?</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">urlencode</span><span class="p">(</span><span class="n">params</span><span class="p">))</span>
+
+        <span class="n">full_url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">host</span> <span class="o">+</span> <span class="n">url</span>
+        <span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="n">orig_body</span> <span class="o">=</span> <span class="n">body</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">kw</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="k">if</span> <span class="n">timeout</span><span class="p">:</span>
+                <span class="n">kw</span><span class="p">[</span><span class="s2">&quot;timeout&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">timeout</span>
+
+            <span class="c1"># in python2 we need to make sure the url and method are not</span>
+            <span class="c1"># unicode. Otherwise the body will be decoded into unicode too and</span>
+            <span class="c1"># that will fail (#133, #201).</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+                <span class="n">url</span> <span class="o">=</span> <span class="n">url</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">method</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+                <span class="n">method</span> <span class="o">=</span> <span class="n">method</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+
+            <span class="n">request_headers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+            <span class="n">request_headers</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">headers</span> <span class="ow">or</span> <span class="p">())</span>
+
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">http_compress</span> <span class="ow">and</span> <span class="n">body</span><span class="p">:</span>
+                <span class="n">body</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_gzip_compress</span><span class="p">(</span><span class="n">body</span><span class="p">)</span>
+                <span class="n">request_headers</span><span class="p">[</span><span class="s2">&quot;content-encoding&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;gzip&quot;</span>
+
+            <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pool</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span>
+                <span class="n">method</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="n">retries</span><span class="o">=</span><span class="n">Retry</span><span class="p">(</span><span class="kc">False</span><span class="p">),</span> <span class="n">headers</span><span class="o">=</span><span class="n">request_headers</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span>
+            <span class="p">)</span>
+            <span class="n">duration</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start</span>
+            <span class="n">raw_data</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">,</span> <span class="s2">&quot;surrogatepass&quot;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">reraise_exceptions</span><span class="p">:</span>
+            <span class="k">raise</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">log_request_fail</span><span class="p">(</span>
+                <span class="n">method</span><span class="p">,</span> <span class="n">full_url</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">orig_body</span><span class="p">,</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start</span><span class="p">,</span> <span class="n">exception</span><span class="o">=</span><span class="n">e</span>
+            <span class="p">)</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">UrllibSSLError</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="n">SSLError</span><span class="p">(</span><span class="s2">&quot;N/A&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">),</span> <span class="n">e</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">ReadTimeoutError</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="n">ConnectionTimeout</span><span class="p">(</span><span class="s2">&quot;TIMEOUT&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">),</span> <span class="n">e</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ConnectionError</span><span class="p">(</span><span class="s2">&quot;N/A&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">),</span> <span class="n">e</span><span class="p">)</span>
+
+        <span class="c1"># raise warnings if any from the &#39;Warnings&#39; header.</span>
+        <span class="n">warning_headers</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">get_all</span><span class="p">(</span><span class="s2">&quot;warning&quot;</span><span class="p">,</span> <span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_raise_warnings</span><span class="p">(</span><span class="n">warning_headers</span><span class="p">)</span>
+
+        <span class="c1"># raise errors based on http status codes, let the client handle those if needed</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="mi">200</span> <span class="o">&lt;=</span> <span class="n">response</span><span class="o">.</span><span class="n">status</span> <span class="o">&lt;</span> <span class="mi">300</span><span class="p">)</span> <span class="ow">and</span> <span class="n">response</span><span class="o">.</span><span class="n">status</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">ignore</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">log_request_fail</span><span class="p">(</span>
+                <span class="n">method</span><span class="p">,</span> <span class="n">full_url</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">orig_body</span><span class="p">,</span> <span class="n">duration</span><span class="p">,</span> <span class="n">response</span><span class="o">.</span><span class="n">status</span><span class="p">,</span> <span class="n">raw_data</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_raise_error</span><span class="p">(</span>
+                <span class="n">response</span><span class="o">.</span><span class="n">status</span><span class="p">,</span>
+                <span class="n">raw_data</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">get_response_headers</span><span class="p">(</span><span class="n">response</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;content-type&quot;</span><span class="p">),</span>
+            <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">log_request_success</span><span class="p">(</span>
+            <span class="n">method</span><span class="p">,</span> <span class="n">full_url</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">orig_body</span><span class="p">,</span> <span class="n">response</span><span class="o">.</span><span class="n">status</span><span class="p">,</span> <span class="n">raw_data</span><span class="p">,</span> <span class="n">duration</span>
+        <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">response</span><span class="o">.</span><span class="n">status</span><span class="p">,</span> <span class="n">response</span><span class="o">.</span><span class="n">getheaders</span><span class="p">(),</span> <span class="n">raw_data</span>
+
+    <span class="k">def</span> <span class="nf">get_response_headers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">{</span><span class="n">header</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span> <span class="n">value</span> <span class="k">for</span> <span class="n">header</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">response</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+
+<div class="viewcode-block" id="Urllib3HttpConnection.close"><a class="viewcode-back" href="../../../api-ref/connection.html#opensearchpy.Urllib3HttpConnection.close">[docs]</a>    <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Explicitly closes connection</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pool</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright OpenSearch Project Contributors.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

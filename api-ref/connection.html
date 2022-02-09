@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>connection &mdash; OpenSearch Python Client  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="connection_pool" href="connection_pool.html" />
+    <link rel="prev" title="client" href="client.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> OpenSearch Python Client
+            <img src="../_static/OpenSearch.svg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../api-ref.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="client.html">client</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">connection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="connection_pool.html">connection_pool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="exceptions.html">exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="serializer.html">serializer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="transport.html">transport</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../genindex.html">Index</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/opensearch-project/opensearch-py/blob/main/LICENSE.txt">License</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/opensearch-project/opensearch-py/blob/main/CONTRIBUTING.md">Contributing</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/opensearch-project/opensearch-py/blob/main/CODE_OF_CONDUCT.md">Code of Conduct</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/opensearch-project/opensearch-py/blob/main/DEVELOPER_GUIDE.md">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/opensearch-project/opensearch-py">GitHub Repository</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">OpenSearch Python Client</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../api-ref.html">API Reference</a> &raquo;</li>
+      <li>connection</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/opensearch-project/opensearch-py/blob/main/docs/source/api-ref/connection.md" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section class="tex2jax_ignore mathjax_ignore" id="connection">
+<h1>connection<a class="headerlink" href="#connection" title="Permalink to this headline"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="opensearchpy.Connection">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opensearchpy.</span></span><span class="sig-name descname"><span class="pre">Connection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">host</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'localhost'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_ssl</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">url_prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">http_compress</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opaque_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opensearchpy/connection/base.html#Connection"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.Connection" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Class responsible for maintaining a connection to an OpenSearch node. It
+holds persistent connection pool to it and it’s main interface
+(<cite>perform_request</cite>) is thread-safe.</p>
+<p>Also responsible for logging.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>host</strong> – hostname of the node (default: localhost)</p></li>
+<li><p><strong>port</strong> – port to use (integer, default: 9200)</p></li>
+<li><p><strong>use_ssl</strong> – use ssl for the connection if <cite>True</cite></p></li>
+<li><p><strong>url_prefix</strong> – optional url prefix for opensearch</p></li>
+<li><p><strong>timeout</strong> – default timeout in seconds (float, default: 10)</p></li>
+<li><p><strong>http_compress</strong> – Use gzip compression</p></li>
+<li><p><strong>opaque_id</strong> – Send this value in the ‘X-Opaque-Id’ HTTP header
+For tracing all requests made by this transport.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.Connection.__eq__">
+<span class="sig-name descname"><span class="pre">__eq__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opensearchpy/connection/base.html#Connection.__eq__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.Connection.__eq__" title="Permalink to this definition"></a></dt>
+<dd><p>Return self==value.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.Connection.__hash__">
+<span class="sig-name descname"><span class="pre">__hash__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opensearchpy/connection/base.html#Connection.__hash__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.Connection.__hash__" title="Permalink to this definition"></a></dt>
+<dd><p>Return hash(self).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.Connection.__repr__">
+<span class="sig-name descname"><span class="pre">__repr__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opensearchpy/connection/base.html#Connection.__repr__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.Connection.__repr__" title="Permalink to this definition"></a></dt>
+<dd><p>Return repr(self).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.Connection._raise_error">
+<span class="sig-name descname"><span class="pre">_raise_error</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">status_code</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">raw_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">content_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opensearchpy/connection/base.html#Connection._raise_error"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.Connection._raise_error" title="Permalink to this definition"></a></dt>
+<dd><p>Locate appropriate exception and raise it.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.Connection._raise_warnings">
+<span class="sig-name descname"><span class="pre">_raise_warnings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">warning_headers</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opensearchpy/connection/base.html#Connection._raise_warnings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.Connection._raise_warnings" title="Permalink to this definition"></a></dt>
+<dd><p>If ‘headers’ contains a ‘Warning’ header raise
+the warnings to be seen by the user. Takes an iterable
+of string values from any number of ‘Warning’ headers.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.Connection.log_request_fail">
+<span class="sig-name descname"><span class="pre">log_request_fail</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">method</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">full_url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">body</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duration</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">status_code</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">response</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exception</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opensearchpy/connection/base.html#Connection.log_request_fail"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.Connection.log_request_fail" title="Permalink to this definition"></a></dt>
+<dd><p>Log an unsuccessful API call.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.Connection.log_request_success">
+<span class="sig-name descname"><span class="pre">log_request_success</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">method</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">full_url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">body</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">status_code</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">response</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duration</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opensearchpy/connection/base.html#Connection.log_request_success"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.Connection.log_request_success" title="Permalink to this definition"></a></dt>
+<dd><p>Log a successful API call.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="opensearchpy.RequestsHttpConnection">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opensearchpy.</span></span><span class="sig-name descname"><span class="pre">RequestsHttpConnection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">host</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'localhost'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">http_auth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_ssl</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verify_certs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ssl_show_warn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ca_certs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">client_cert</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">client_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">http_compress</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opaque_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opensearchpy/connection/http_requests.html#RequestsHttpConnection"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.RequestsHttpConnection" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#opensearchpy.Connection" title="opensearchpy.connection.base.Connection"><code class="xref py py-class docutils literal notranslate"><span class="pre">opensearchpy.connection.base.Connection</span></code></a></p>
+<p>Connection using the <cite>requests</cite> library.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>http_auth</strong> – optional http auth information as either ‘:’ separated
+string or a tuple. Any value will be passed into requests as <cite>auth</cite>.</p></li>
+<li><p><strong>use_ssl</strong> – use ssl for the connection if <cite>True</cite></p></li>
+<li><p><strong>verify_certs</strong> – whether to verify SSL certificates</p></li>
+<li><p><strong>ssl_show_warn</strong> – show warning when verify certs is disabled</p></li>
+<li><p><strong>ca_certs</strong> – optional path to CA bundle. By default standard requests’
+bundle will be used.</p></li>
+<li><p><strong>client_cert</strong> – path to the file containing the private key and the
+certificate, or cert only if using client_key</p></li>
+<li><p><strong>client_key</strong> – path to the file containing the private key if using
+separate cert and key files (client_cert will contain only the cert)</p></li>
+<li><p><strong>headers</strong> – any custom http headers to be add to requests</p></li>
+<li><p><strong>http_compress</strong> – Use gzip compression</p></li>
+<li><p><strong>opaque_id</strong> – Send this value in the ‘X-Opaque-Id’ HTTP header
+For tracing all requests made by this transport.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.RequestsHttpConnection.close">
+<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opensearchpy/connection/http_requests.html#RequestsHttpConnection.close"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.RequestsHttpConnection.close" title="Permalink to this definition"></a></dt>
+<dd><p>Explicitly closes connections</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="opensearchpy.Urllib3HttpConnection">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opensearchpy.</span></span><span class="sig-name descname"><span class="pre">Urllib3HttpConnection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">host='localhost'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">http_auth=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_ssl=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verify_certs=&lt;object</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ssl_show_warn=&lt;object</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ca_certs=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">client_cert=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">client_key=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ssl_version=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ssl_assert_hostname=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ssl_assert_fingerprint=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxsize=10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ssl_context=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">http_compress=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opaque_id=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opensearchpy/connection/http_urllib3.html#Urllib3HttpConnection"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.Urllib3HttpConnection" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#opensearchpy.Connection" title="opensearchpy.connection.base.Connection"><code class="xref py py-class docutils literal notranslate"><span class="pre">opensearchpy.connection.base.Connection</span></code></a></p>
+<p>Default connection class using the <cite>urllib3</cite> library and the http protocol.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>host</strong> – hostname of the node (default: localhost)</p></li>
+<li><p><strong>port</strong> – port to use (integer, default: 9200)</p></li>
+<li><p><strong>url_prefix</strong> – optional url prefix for opensearch</p></li>
+<li><p><strong>timeout</strong> – default timeout in seconds (float, default: 10)</p></li>
+<li><p><strong>http_auth</strong> – optional http auth information as either ‘:’ separated
+string or a tuple</p></li>
+<li><p><strong>use_ssl</strong> – use ssl for the connection if <cite>True</cite></p></li>
+<li><p><strong>verify_certs</strong> – whether to verify SSL certificates</p></li>
+<li><p><strong>ssl_show_warn</strong> – show warning when verify certs is disabled</p></li>
+<li><p><strong>ca_certs</strong> – optional path to CA bundle.
+See <a class="reference external" href="https://urllib3.readthedocs.io/en/latest/security.html#using-certifi-with-urllib3">https://urllib3.readthedocs.io/en/latest/security.html#using-certifi-with-urllib3</a>
+for instructions how to get default set</p></li>
+<li><p><strong>client_cert</strong> – path to the file containing the private key and the
+certificate, or cert only if using client_key</p></li>
+<li><p><strong>client_key</strong> – path to the file containing the private key if using
+separate cert and key files (client_cert will contain only the cert)</p></li>
+<li><p><strong>ssl_version</strong> – version of the SSL protocol to use. Choices are:
+SSLv23 (default) SSLv2 SSLv3 TLSv1 (see <code class="docutils literal notranslate"><span class="pre">PROTOCOL_*</span></code> constants in the
+<code class="docutils literal notranslate"><span class="pre">ssl</span></code> module for exact options for your environment).</p></li>
+<li><p><strong>ssl_assert_hostname</strong> – use hostname verification if not <cite>False</cite></p></li>
+<li><p><strong>ssl_assert_fingerprint</strong> – verify the supplied certificate fingerprint if not <cite>None</cite></p></li>
+<li><p><strong>maxsize</strong> – the number of connections which will be kept open to this
+host. See <a class="reference external" href="https://urllib3.readthedocs.io/en/1.4/pools.html#api">https://urllib3.readthedocs.io/en/1.4/pools.html#api</a> for more
+information.</p></li>
+<li><p><strong>headers</strong> – any custom http headers to be add to requests</p></li>
+<li><p><strong>http_compress</strong> – Use gzip compression</p></li>
+<li><p><strong>opaque_id</strong> – Send this value in the ‘X-Opaque-Id’ HTTP header
+For tracing all requests made by this transport.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.Urllib3HttpConnection.close">
+<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opensearchpy/connection/http_urllib3.html#Urllib3HttpConnection.close"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.Urllib3HttpConnection.close" title="Permalink to this definition"></a></dt>
+<dd><p>Explicitly closes connection</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="client.html" class="btn btn-neutral float-left" title="client" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="connection_pool.html" class="btn btn-neutral float-right" title="connection_pool" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright OpenSearch Project Contributors.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

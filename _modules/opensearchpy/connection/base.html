@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>opensearchpy.connection.base &mdash; OpenSearch Python Client  documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/clipboard.min.js"></script>
+        <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> OpenSearch Python Client
+            <img src="../../../_static/OpenSearch.svg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api-ref.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../genindex.html">Index</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/opensearch-project/opensearch-py/blob/main/LICENSE.txt">License</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/opensearch-project/opensearch-py/blob/main/CONTRIBUTING.md">Contributing</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/opensearch-project/opensearch-py/blob/main/CODE_OF_CONDUCT.md">Code of Conduct</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/opensearch-project/opensearch-py/blob/main/DEVELOPER_GUIDE.md">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/opensearch-project/opensearch-py">GitHub Repository</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">OpenSearch Python Client</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      <li>opensearchpy.connection.base</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for opensearchpy.connection.base</h1><div class="highlight"><pre>
+<span></span><span class="c1"># SPDX-License-Identifier: Apache-2.0</span>
+<span class="c1">#</span>
+<span class="c1"># The OpenSearch Contributors require contributions made to</span>
+<span class="c1"># this file be licensed under the Apache-2.0 license or a</span>
+<span class="c1"># compatible open source license.</span>
+<span class="c1">#</span>
+<span class="c1"># Modifications Copyright OpenSearch Contributors. See</span>
+<span class="c1"># GitHub history for details.</span>
+<span class="c1">#</span>
+<span class="c1">#  Licensed to Elasticsearch B.V. under one or more contributor</span>
+<span class="c1">#  license agreements. See the NOTICE file distributed with</span>
+<span class="c1">#  this work for additional information regarding copyright</span>
+<span class="c1">#  ownership. Elasticsearch B.V. licenses this file to you under</span>
+<span class="c1">#  the Apache License, Version 2.0 (the &quot;License&quot;); you may</span>
+<span class="c1">#  not use this file except in compliance with the License.</span>
+<span class="c1">#  You may obtain a copy of the License at</span>
+<span class="c1">#</span>
+<span class="c1"># 	http://www.apache.org/licenses/LICENSE-2.0</span>
+<span class="c1">#</span>
+<span class="c1">#  Unless required by applicable law or agreed to in writing,</span>
+<span class="c1">#  software distributed under the License is distributed on an</span>
+<span class="c1">#  &quot;AS IS&quot; BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY</span>
+<span class="c1">#  KIND, either express or implied.  See the License for the</span>
+<span class="c1">#  specific language governing permissions and limitations</span>
+<span class="c1">#  under the License.</span>
+
+<span class="kn">import</span> <span class="nn">gzip</span>
+<span class="kn">import</span> <span class="nn">io</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">from</span> <span class="nn">platform</span> <span class="kn">import</span> <span class="n">python_version</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">simplejson</span> <span class="k">as</span> <span class="nn">json</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">json</span>
+
+<span class="kn">from</span> <span class="nn">..</span> <span class="kn">import</span> <span class="n">__versionstr__</span>
+<span class="kn">from</span> <span class="nn">..exceptions</span> <span class="kn">import</span> <span class="n">HTTP_EXCEPTIONS</span><span class="p">,</span> <span class="n">OpenSearchWarning</span><span class="p">,</span> <span class="n">TransportError</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;opensearch&quot;</span><span class="p">)</span>
+
+<span class="c1"># create the opensearchpy.trace logger, but only set propagate to False if the</span>
+<span class="c1"># logger hasn&#39;t already been configured</span>
+<span class="n">_tracer_already_configured</span> <span class="o">=</span> <span class="s2">&quot;opensearchpy.trace&quot;</span> <span class="ow">in</span> <span class="n">logging</span><span class="o">.</span><span class="n">Logger</span><span class="o">.</span><span class="n">manager</span><span class="o">.</span><span class="n">loggerDict</span>
+<span class="n">tracer</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;opensearchpy.trace&quot;</span><span class="p">)</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">_tracer_already_configured</span><span class="p">:</span>
+    <span class="n">tracer</span><span class="o">.</span><span class="n">propagate</span> <span class="o">=</span> <span class="kc">False</span>
+
+<span class="n">_WARNING_RE</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;</span><span class="se">\&quot;</span><span class="s2">([^</span><span class="se">\&quot;</span><span class="s2">]*)</span><span class="se">\&quot;</span><span class="s2">&quot;</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="Connection"><a class="viewcode-back" href="../../../api-ref/connection.html#opensearchpy.Connection">[docs]</a><span class="k">class</span> <span class="nc">Connection</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Class responsible for maintaining a connection to an OpenSearch node. It</span>
+<span class="sd">    holds persistent connection pool to it and it&#39;s main interface</span>
+<span class="sd">    (`perform_request`) is thread-safe.</span>
+
+<span class="sd">    Also responsible for logging.</span>
+
+<span class="sd">    :arg host: hostname of the node (default: localhost)</span>
+<span class="sd">    :arg port: port to use (integer, default: 9200)</span>
+<span class="sd">    :arg use_ssl: use ssl for the connection if `True`</span>
+<span class="sd">    :arg url_prefix: optional url prefix for opensearch</span>
+<span class="sd">    :arg timeout: default timeout in seconds (float, default: 10)</span>
+<span class="sd">    :arg http_compress: Use gzip compression</span>
+<span class="sd">    :arg opaque_id: Send this value in the &#39;X-Opaque-Id&#39; HTTP header</span>
+<span class="sd">        For tracing all requests made by this transport.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">host</span><span class="o">=</span><span class="s2">&quot;localhost&quot;</span><span class="p">,</span>
+        <span class="n">port</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">use_ssl</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">url_prefix</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">timeout</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+        <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">http_compress</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">opaque_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span>
+    <span class="p">):</span>
+        <span class="k">if</span> <span class="n">port</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">port</span> <span class="o">=</span> <span class="mi">9200</span>
+
+        <span class="c1"># Work-around if the implementing class doesn&#39;t</span>
+        <span class="c1"># define the headers property before calling super().__init__()</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;headers&quot;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">headers</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span> <span class="ow">or</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">headers</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">headers</span><span class="p">[</span><span class="n">key</span><span class="o">.</span><span class="n">lower</span><span class="p">()]</span> <span class="o">=</span> <span class="n">headers</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">opaque_id</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">headers</span><span class="p">[</span><span class="s2">&quot;x-opaque-id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">opaque_id</span>
+
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;ELASTIC_CLIENT_APIVERSIONING&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;1&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span>
+                <span class="s2">&quot;accept&quot;</span><span class="p">,</span> <span class="s2">&quot;application/vnd.elasticsearch+json;compatible-with=7&quot;</span>
+            <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;content-type&quot;</span><span class="p">,</span> <span class="s2">&quot;application/json&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;user-agent&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_default_user_agent</span><span class="p">())</span>
+
+        <span class="k">if</span> <span class="n">http_compress</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">headers</span><span class="p">[</span><span class="s2">&quot;accept-encoding&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;gzip,deflate&quot;</span>
+
+        <span class="n">scheme</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;scheme&quot;</span><span class="p">,</span> <span class="s2">&quot;http&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">use_ssl</span> <span class="ow">or</span> <span class="n">scheme</span> <span class="o">==</span> <span class="s2">&quot;https&quot;</span><span class="p">:</span>
+            <span class="n">scheme</span> <span class="o">=</span> <span class="s2">&quot;https&quot;</span>
+            <span class="n">use_ssl</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">use_ssl</span> <span class="o">=</span> <span class="n">use_ssl</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">http_compress</span> <span class="o">=</span> <span class="n">http_compress</span> <span class="ow">or</span> <span class="kc">False</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">scheme</span> <span class="o">=</span> <span class="n">scheme</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hostname</span> <span class="o">=</span> <span class="n">host</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">port</span> <span class="o">=</span> <span class="n">port</span>
+        <span class="k">if</span> <span class="s2">&quot;:&quot;</span> <span class="ow">in</span> <span class="n">host</span><span class="p">:</span>  <span class="c1"># IPv6</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">host</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">://[</span><span class="si">%s</span><span class="s2">]&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">scheme</span><span class="p">,</span> <span class="n">host</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">host</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">://</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">scheme</span><span class="p">,</span> <span class="n">host</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">port</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">host</span> <span class="o">+=</span> <span class="s2">&quot;:</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">port</span>
+        <span class="k">if</span> <span class="n">url_prefix</span><span class="p">:</span>
+            <span class="n">url_prefix</span> <span class="o">=</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="n">url_prefix</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">url_prefix</span> <span class="o">=</span> <span class="n">url_prefix</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">timeout</span> <span class="o">=</span> <span class="n">timeout</span>
+
+<div class="viewcode-block" id="Connection.__repr__"><a class="viewcode-back" href="../../../api-ref/connection.html#opensearchpy.Connection.__repr__">[docs]</a>    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;&lt;</span><span class="si">%s</span><span class="s2">: </span><span class="si">%s</span><span class="s2">&gt;&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">host</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Connection.__eq__"><a class="viewcode-back" href="../../../api-ref/connection.html#opensearchpy.Connection.__eq__">[docs]</a>    <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">Connection</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Unsupported equality check for </span><span class="si">%s</span><span class="s2"> and </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">))</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__hash__</span><span class="p">()</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="fm">__hash__</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Connection.__hash__"><a class="viewcode-back" href="../../../api-ref/connection.html#opensearchpy.Connection.__hash__">[docs]</a>    <span class="k">def</span> <span class="fm">__hash__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">_gzip_compress</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">body</span><span class="p">):</span>
+        <span class="n">buf</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">BytesIO</span><span class="p">()</span>
+        <span class="k">with</span> <span class="n">gzip</span><span class="o">.</span><span class="n">GzipFile</span><span class="p">(</span><span class="n">fileobj</span><span class="o">=</span><span class="n">buf</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;wb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">body</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">buf</span><span class="o">.</span><span class="n">getvalue</span><span class="p">()</span>
+
+<div class="viewcode-block" id="Connection._raise_warnings"><a class="viewcode-back" href="../../../api-ref/connection.html#opensearchpy.Connection._raise_warnings">[docs]</a>    <span class="k">def</span> <span class="nf">_raise_warnings</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">warning_headers</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;If &#39;headers&#39; contains a &#39;Warning&#39; header raise</span>
+<span class="sd">        the warnings to be seen by the user. Takes an iterable</span>
+<span class="sd">        of string values from any number of &#39;Warning&#39; headers.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">warning_headers</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="c1"># Grab only the message from each header, the rest is discarded.</span>
+        <span class="c1"># Format is: &#39;(number) OpenSearch-(version)-(instance) &quot;(message)&quot;&#39;</span>
+        <span class="n">warning_messages</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">header</span> <span class="ow">in</span> <span class="n">warning_headers</span><span class="p">:</span>
+            <span class="c1"># Because &#39;Requests&#39; does it&#39;s own folding of multiple HTTP headers</span>
+            <span class="c1"># into one header delimited by commas (totally standard compliant, just</span>
+            <span class="c1"># annoying for cases like this) we need to expect there may be</span>
+            <span class="c1"># more than one message per &#39;Warning&#39; header.</span>
+            <span class="n">matches</span> <span class="o">=</span> <span class="n">_WARNING_RE</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">header</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">matches</span><span class="p">:</span>
+                <span class="n">warning_messages</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">matches</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># Don&#39;t want to throw away any warnings, even if they</span>
+                <span class="c1"># don&#39;t follow the format we have now. Use the whole header.</span>
+                <span class="n">warning_messages</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">header</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">message</span> <span class="ow">in</span> <span class="n">warning_messages</span><span class="p">:</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="n">OpenSearchWarning</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">_pretty_json</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="c1"># pretty JSON in tracer curl logs</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span>
+                <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="n">sort_keys</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">separators</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">,</span> <span class="s2">&quot;: &quot;</span><span class="p">)</span>
+            <span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;&#39;&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;\u0027&quot;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">):</span>
+            <span class="c1"># non-json data or a bulk request</span>
+            <span class="k">return</span> <span class="n">data</span>
+
+    <span class="k">def</span> <span class="nf">_log_trace</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="n">status_code</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="n">duration</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">tracer</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">)</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">tracer</span><span class="o">.</span><span class="n">handlers</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="c1"># include pretty in trace curls</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;?&quot;</span><span class="p">,</span> <span class="s2">&quot;?pretty&amp;&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="k">if</span> <span class="s2">&quot;?&quot;</span> <span class="ow">in</span> <span class="n">path</span> <span class="k">else</span> <span class="n">path</span> <span class="o">+</span> <span class="s2">&quot;?pretty&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">url_prefix</span><span class="p">:</span>
+            <span class="n">path</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">url_prefix</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">tracer</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+            <span class="s2">&quot;curl </span><span class="si">%s</span><span class="s2">-X</span><span class="si">%s</span><span class="s2"> &#39;http://localhost:9200</span><span class="si">%s</span><span class="s2">&#39; -d &#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;-H &#39;Content-Type: application/json&#39; &quot;</span> <span class="k">if</span> <span class="n">body</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="n">method</span><span class="p">,</span>
+            <span class="n">path</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_pretty_json</span><span class="p">(</span><span class="n">body</span><span class="p">)</span> <span class="k">if</span> <span class="n">body</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">tracer</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">):</span>
+            <span class="n">tracer</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+                <span class="s2">&quot;#[</span><span class="si">%s</span><span class="s2">] (</span><span class="si">%.3f</span><span class="s2">s)</span><span class="se">\n</span><span class="s2">#</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+                <span class="n">status_code</span><span class="p">,</span>
+                <span class="n">duration</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_pretty_json</span><span class="p">(</span><span class="n">response</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">#&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="n">response</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">perform_request</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">method</span><span class="p">,</span>
+        <span class="n">url</span><span class="p">,</span>
+        <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">body</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">timeout</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">ignore</span><span class="o">=</span><span class="p">(),</span>
+        <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span>
+
+<div class="viewcode-block" id="Connection.log_request_success"><a class="viewcode-back" href="../../../api-ref/connection.html#opensearchpy.Connection.log_request_success">[docs]</a>    <span class="k">def</span> <span class="nf">log_request_success</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="n">full_url</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="n">status_code</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="n">duration</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Log a successful API call.&quot;&quot;&quot;</span>
+        <span class="c1">#  TODO: optionally pass in params instead of full_url and do urlencode only when needed</span>
+
+        <span class="c1"># body has already been serialized to utf-8, deserialize it for logging</span>
+        <span class="c1"># TODO: find a better way to avoid (de)encoding the body back and forth</span>
+        <span class="k">if</span> <span class="n">body</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">body</span> <span class="o">=</span> <span class="n">body</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">,</span> <span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+                <span class="k">pass</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+            <span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2"> [status:</span><span class="si">%s</span><span class="s2"> request:</span><span class="si">%.3f</span><span class="s2">s]&quot;</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="n">full_url</span><span class="p">,</span> <span class="n">status_code</span><span class="p">,</span> <span class="n">duration</span>
+        <span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;&gt; </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">body</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;&lt; </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">response</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_log_trace</span><span class="p">(</span><span class="n">method</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="n">status_code</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="n">duration</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Connection.log_request_fail"><a class="viewcode-back" href="../../../api-ref/connection.html#opensearchpy.Connection.log_request_fail">[docs]</a>    <span class="k">def</span> <span class="nf">log_request_fail</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">method</span><span class="p">,</span>
+        <span class="n">full_url</span><span class="p">,</span>
+        <span class="n">path</span><span class="p">,</span>
+        <span class="n">body</span><span class="p">,</span>
+        <span class="n">duration</span><span class="p">,</span>
+        <span class="n">status_code</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">response</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">exception</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Log an unsuccessful API call.&quot;&quot;&quot;</span>
+        <span class="c1"># do not log 404s on HEAD requests</span>
+        <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;HEAD&quot;</span> <span class="ow">and</span> <span class="n">status_code</span> <span class="o">==</span> <span class="mi">404</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+            <span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2"> [status:</span><span class="si">%s</span><span class="s2"> request:</span><span class="si">%.3f</span><span class="s2">s]&quot;</span><span class="p">,</span>
+            <span class="n">method</span><span class="p">,</span>
+            <span class="n">full_url</span><span class="p">,</span>
+            <span class="n">status_code</span> <span class="ow">or</span> <span class="s2">&quot;N/A&quot;</span><span class="p">,</span>
+            <span class="n">duration</span><span class="p">,</span>
+            <span class="n">exc_info</span><span class="o">=</span><span class="n">exception</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="c1"># body has already been serialized to utf-8, deserialize it for logging</span>
+        <span class="c1"># TODO: find a better way to avoid (de)encoding the body back and forth</span>
+        <span class="k">if</span> <span class="n">body</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">body</span> <span class="o">=</span> <span class="n">body</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">,</span> <span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+                <span class="k">pass</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;&gt; </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">body</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_log_trace</span><span class="p">(</span><span class="n">method</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="n">status_code</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="n">duration</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">response</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;&lt; </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">response</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Connection._raise_error"><a class="viewcode-back" href="../../../api-ref/connection.html#opensearchpy.Connection._raise_error">[docs]</a>    <span class="k">def</span> <span class="nf">_raise_error</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">status_code</span><span class="p">,</span> <span class="n">raw_data</span><span class="p">,</span> <span class="n">content_type</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Locate appropriate exception and raise it.&quot;&quot;&quot;</span>
+        <span class="n">error_message</span> <span class="o">=</span> <span class="n">raw_data</span>
+        <span class="n">additional_info</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">content_type</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="s2">&quot;text/plain&quot;</span>
+                <span class="k">if</span> <span class="n">content_type</span> <span class="ow">is</span> <span class="kc">None</span>
+                <span class="k">else</span> <span class="n">content_type</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;;&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+            <span class="p">)</span>
+            <span class="k">if</span> <span class="n">raw_data</span> <span class="ow">and</span> <span class="n">content_type</span> <span class="o">==</span> <span class="s2">&quot;application/json&quot;</span><span class="p">:</span>
+                <span class="n">additional_info</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">raw_data</span><span class="p">)</span>
+                <span class="n">error_message</span> <span class="o">=</span> <span class="n">additional_info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="n">error_message</span><span class="p">)</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">error_message</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span> <span class="ow">and</span> <span class="s2">&quot;type&quot;</span> <span class="ow">in</span> <span class="n">error_message</span><span class="p">:</span>
+                    <span class="n">error_message</span> <span class="o">=</span> <span class="n">error_message</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span>
+        <span class="k">except</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">)</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Undecodable raw error response from server: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">err</span><span class="p">)</span>
+
+        <span class="k">raise</span> <span class="n">HTTP_EXCEPTIONS</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">status_code</span><span class="p">,</span> <span class="n">TransportError</span><span class="p">)(</span>
+            <span class="n">status_code</span><span class="p">,</span> <span class="n">error_message</span><span class="p">,</span> <span class="n">additional_info</span>
+        <span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">_get_default_user_agent</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;opensearch-py/</span><span class="si">%s</span><span class="s2"> (Python </span><span class="si">%s</span><span class="s2">)&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">__versionstr__</span><span class="p">,</span> <span class="n">python_version</span><span class="p">())</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright OpenSearch Project Contributors.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
