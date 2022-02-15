@@ -2,7 +2,7 @@
 name: 💭 Proposal
 about: Suggest an idea for a specific feature you wish to propose to the community for comment
 title: '[PROPOSAL]'
-labels: proposal, needs-triage
+labels: proposal, untriaged
 assignees: ''
 ---
 ## What kind of business use case are you trying to solve? What are your requirements?

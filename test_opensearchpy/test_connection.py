@@ -351,7 +351,7 @@ class TestUrllib3Connection(TestCase):
         buf = b"\xe4\xbd\xa0\xe5\xa5\xbd\xed\xa9\xaa"
         con = self._get_mock_connection(response_body=buf)
         status, headers, data = con.perform_request("GET", "/")
-        self.assertEqual(u"你好\uda6a", data)
+        self.assertEqual(u"你好\uda6a", data)  # fmt: skip
 
     @pytest.mark.skipif(
         not reraise_exceptions, reason="RecursionError isn't defined in Python <3.5"
@@ -696,7 +696,7 @@ class TestRequestsConnection(TestCase):
         buf = b"\xe4\xbd\xa0\xe5\xa5\xbd\xed\xa9\xaa"
         con = self._get_mock_connection(response_body=buf)
         status, headers, data = con.perform_request("GET", "/")
-        self.assertEqual(u"你好\uda6a", data)
+        self.assertEqual(u"你好\uda6a", data)  # fmt: skip
 
     @pytest.mark.skipif(
         not reraise_exceptions, reason="RecursionError isn't defined in Python <3.5"
