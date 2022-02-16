@@ -31,7 +31,9 @@ import json
 import os
 import re
 import ssl
+import sys
 import unittest
+import uuid
 import warnings
 from platform import python_version
 
@@ -407,6 +409,24 @@ class TestRequestsConnection(TestCase):
         c = RequestsHttpConnection(http_auth=auth)
 
         self.assertEqual(auth, c.session.auth)
+
+    def test_aws_signer_http_auth_is_allowed(self):
+        access_key = uuid.uuid4().hex
+        secret_key = uuid.uuid4().hex
+        token = uuid.uuid4().hex
+        dummy_session = Mock()
+        dummy_session.access_key = access_key
+        dummy_session.secret_key = secret_key
+        dummy_session.token = token
+        region = "us-west-2"
+
+        if sys.hexversion >= 0x03060000:
+            from opensearchpy.helpers.signer import AWSV4Signer
+
+            auth = AWSV4Signer(region, dummy_session)
+            c = RequestsHttpConnection(http_auth=auth)
+
+            self.assertEqual(auth, c.session.auth)
 
     def test_timeout_set(self):
         con = RequestsHttpConnection(timeout=42)
