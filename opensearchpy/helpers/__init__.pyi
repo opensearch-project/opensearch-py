@@ -46,5 +46,6 @@ try:
     from .._async.helpers import async_reindex as async_reindex
     from .._async.helpers import async_scan as async_scan
     from .._async.helpers import async_streaming_bulk as async_streaming_bulk
+    from .signer import AWSV4SignerAuth as AWSV4SignerAuth
 except (ImportError, SyntaxError):
     pass
