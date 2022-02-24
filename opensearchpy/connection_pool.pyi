@@ -30,7 +30,7 @@ from typing import Any, Dict, List, Optional, Sequence, Tuple, Type, Union
 from .connection import Connection
 
 try:
-    from Queue import PriorityQueue  # type: ignore
+    from Queue import PriorityQueue
 except ImportError:
     from queue import PriorityQueue
 
