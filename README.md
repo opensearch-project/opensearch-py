@@ -137,6 +137,58 @@ print('\nDeleting index:')
 print(response)
 ```
 
+## Using IAM credentials for authentication
+
+Refer the AWS documentation regarding usage of IAM credentials to sign requests to OpenSearch APIs - [Signing HTTP requests to Amazon OpenSearch Service.](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/request-signing.html#request-signing-python)
+
+Opensearch-py client library also provides an in-house IAM based authentication feature, `AWSV4SignerAuth` that will help users to connect to their opensearch clusters by making use of IAM roles.
+
+#### Pre-requisites to use `AWSV4SignerAuth`
+ - Python version 3.6 or above,
+ - Install [botocore](https://pypi.org/project/botocore/) using pip
+
+   `pip install botocore`
+
+Here is the sample code that uses `AWSV4SignerAuth` -
+
+```python
+from opensearchpy import OpenSearch, RequestsHttpConnection, AWSV4SignerAuth
+import boto3
+
+host = '' # cluster endpoint, for example: my-test-domain.us-east-1.es.amazonaws.com
+region = 'us-west-2'
+credentials = boto3.Session().get_credentials()
+auth = AWSV4SignerAuth(credentials, region)
+index_name = 'python-test-index3'
+
+client = OpenSearch(
+    hosts = [{'host': host, 'port': 443}],
+    http_auth = auth,
+    use_ssl = True,
+    verify_certs = True,
+    connection_class = RequestsHttpConnection
+)
+
+q = 'miller'
+query = {
+  'size': 5,
+  'query': {
+    'multi_match': {
+      'query': q,
+      'fields': ['title^2', 'director']
+    }
+  }
+}
+
+response = client.search(
+    body = query,
+    index = index_name
+)
+
+print('\nSearch results:')
+print(response)
+```
+
 ## Project Resources
 
 * [Project Website](https://opensearch.org/)
