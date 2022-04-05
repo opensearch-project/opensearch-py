@@ -1,0 +1,18 @@
+name: Integration tests with OpenDistro
+
+on: [push, pull_request]
+
+jobs:
+  integration:
+    name: Integ
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        secured: ["true", "false"]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Integ opendistro secured=${{ matrix.secured }}
+        run: "./.ci/run-tests opendistro ${{ matrix.secured }}"
