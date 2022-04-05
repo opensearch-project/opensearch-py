@@ -3,20 +3,7 @@
 # Launch one or more OpenSearch nodes via the Docker image,
 # to form a cluster suitable for running the REST API tests.
 #
-# Export the STACK_VERSION variable, eg. '8.0.0-SNAPSHOT'.
-# Export the TEST_SUITE variable, i.e. 'oss'
 # Export the NUMBER_OF_NODES variable to start more than 1 node
-
-# Version 1.4.0
-# - Initial version of the run-opensearch.sh script
-# - Deleting the volume should not dependent on the container still running
-# - Fixed `ES_JAVA_OPTS` config
-# - Moved to STACK_VERSION and TEST_VERSION
-# - Refactored into functions and imports
-# - Support NUMBER_OF_NODES
-# - Added 5 retries on docker pull for fixing transient network errors
-# - Added flags to make local CCR configurations work
-# - Added action.destructive_requires_name=false as the default will be true in v8
 
 script_path=$(dirname $(realpath -s $0))
 source $script_path/functions/imports.sh
@@ -32,7 +19,7 @@ declare -a volumes
 environment=($(cat <<-END
   --env node.name=$opensearch_node_name
   --env cluster.name=$cluster_name
-  --env cluster.initial_master_nodes=$master_node_name
+  --env discovery.type=single-node
   --env discovery.seed_hosts=$master_node_name
   --env cluster.routing.allocation.disk.threshold_enabled=false
   --env bootstrap.memory_lock=true
@@ -42,6 +29,13 @@ environment=($(cat <<-END
   --env action.destructive_requires_name=false
 END
 ))
+
+if [[ "$SECURE_INTEGRATION" == "false" ]] && [[ "$CLUSTER" == "opensearch" ]]; then
+  security=($(cat <<-END
+    --env plugins.security.disabled=true
+END
+))
+fi
 
 NUMBER_OF_NODES=${NUMBER_OF_NODES-1}
 http_port=9200
@@ -68,6 +62,7 @@ END
   docker build \
     --file=.ci/$CLUSTER/Dockerfile \
     --build-arg SECURE_INTEGRATION=$SECURE_INTEGRATION \
+    --build-arg OPENSEARCH_VERSION=$OPENSEARCH_VERSION \
     --tag=$CLUSTER-secure-$SECURE_INTEGRATION \
     .
 
@@ -84,6 +79,7 @@ END
     --env "ES_JAVA_OPTS=-Xms1g -Xmx1g" \
     "${environment[@]}" \
     "${volumes[@]}" \
+    "${security[@]}" \
     --publish "$http_port":9200 \
     --ulimit nofile=65536:65536 \
     --ulimit memlock=-1:-1 \

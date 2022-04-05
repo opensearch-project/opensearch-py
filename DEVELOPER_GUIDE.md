@@ -1,3 +1,8 @@
+- [Developer Guide](#developer-guide)
+  - [Linter and Test Suite](#linter-and-test-suite)
+  - [Integration Tests](#integration-tests)
+  - [Build the Documentation with Sphinx](#build-the-documentation-with-sphinx)
+
 # Developer Guide
 
 ## Linter and Test Suite 
@@ -18,10 +23,12 @@ $ nox -rs test
 To run the integration tests locally, run:
 
 ```
-./.ci/run-tests opensearch true
+./.ci/run-tests opensearch true 1.3.0
 ```
 
-The first argument, `opensearch` tells the server type to run integration test against. Valid values are `opensearch` and `opendistro`. The second argument tells whether to run server with security plugin enabled or not.
+The first argument, `opensearch` tells the server type to run integration test against. Valid values are `opensearch` and `opendistro`. 
+The second argument tells whether to run server with security plugin enabled or not.
+The third argument specifies the version of OpenSearch the tests should run against, if not specified, the tests run against the latest version. This argument is ignored if the server type is `opendistro`. 
 
 Note that integration tests require docker to be installed and running, and downloads quite a bit of data from over the internet and hence take few minutes to complete.
 
