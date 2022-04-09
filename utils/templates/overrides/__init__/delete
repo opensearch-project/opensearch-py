@@ -1,7 +1,6 @@
 {% extends "base" %}
 {% block request %}
-        if doc_type in SKIP_IN_PATH:
-            doc_type = "_doc"
+        doc_type = "_doc"
 
         {{ super()|trim }}
 {% endblock %}

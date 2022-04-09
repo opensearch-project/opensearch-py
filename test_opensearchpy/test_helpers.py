@@ -128,7 +128,6 @@ class TestChunkActions(TestCase):
             "_index",
             "_percolate",
             "_timestamp",
-            "_type",
             "if_seq_no",
             "if_primary_term",
             "parent",

@@ -332,38 +332,6 @@ class IndicesClient(NamespacedClient):
             "HEAD", _make_path(index), params=params, headers=headers
         )
 
-    @query_params("allow_no_indices", "expand_wildcards", "ignore_unavailable", "local")
-    async def exists_type(self, index, doc_type, params=None, headers=None):
-        """
-        Returns information about whether a particular document type exists.
-        (DEPRECATED)
-
-
-        :arg index: A comma-separated list of index names; use `_all` to
-            check the types across all indices
-        :arg doc_type: A comma-separated list of document types to check
-        :arg allow_no_indices: Whether to ignore if a wildcard indices
-            expression resolves into no concrete indices. (This includes `_all`
-            string or when no indices have been specified)
-        :arg expand_wildcards: Whether to expand wildcard expression to
-            concrete indices that are open, closed or both.  Valid choices: open,
-            closed, hidden, none, all  Default: open
-        :arg ignore_unavailable: Whether specified concrete indices
-            should be ignored when unavailable (missing or closed)
-        :arg local: Return local information, do not retrieve the state
-            from master node (default: false)
-        """
-        for param in (index, doc_type):
-            if param in SKIP_IN_PATH:
-                raise ValueError("Empty value passed for a required argument.")
-
-        return await self.transport.perform_request(
-            "HEAD",
-            _make_path(index, "_mapping", doc_type),
-            params=params,
-            headers=headers,
-        )
-
     @query_params(
         "allow_no_indices",
         "expand_wildcards",
@@ -374,7 +342,7 @@ class IndicesClient(NamespacedClient):
         "write_index_only",
     )
     async def put_mapping(
-        self, body, index=None, doc_type=None, params=None, headers=None
+        self, body, index=None, params=None, headers=None
     ):
         """
         Updates the index mappings.
@@ -384,7 +352,6 @@ class IndicesClient(NamespacedClient):
         :arg index: A comma-separated list of index names the mapping
             should be added to (supports wildcards); use `_all` or omit to add the
             mapping on all indices.
-        :arg doc_type: The name of the document type
         :arg allow_no_indices: Whether to ignore if a wildcard indices
             expression resolves into no concrete indices. (This includes `_all`
             string or when no indices have been specified)
@@ -403,12 +370,9 @@ class IndicesClient(NamespacedClient):
         if body in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'body'.")
 
-        if doc_type not in SKIP_IN_PATH and index in SKIP_IN_PATH:
-            index = "_all"
-
         return await self.transport.perform_request(
             "PUT",
-            _make_path(index, doc_type, "_mapping"),
+            _make_path(index, "_mapping"),
             params=params,
             headers=headers,
             body=body,
@@ -422,13 +386,12 @@ class IndicesClient(NamespacedClient):
         "local",
         "master_timeout",
     )
-    async def get_mapping(self, index=None, doc_type=None, params=None, headers=None):
+    async def get_mapping(self, index=None, params=None, headers=None):
         """
         Returns mappings for one or more indices.
 
 
         :arg index: A comma-separated list of index names
-        :arg doc_type: A comma-separated list of document types
         :arg allow_no_indices: Whether to ignore if a wildcard indices
             expression resolves into no concrete indices. (This includes `_all`
             string or when no indices have been specified)
@@ -445,7 +408,7 @@ class IndicesClient(NamespacedClient):
         """
         return await self.transport.perform_request(
             "GET",
-            _make_path(index, "_mapping", doc_type),
+            _make_path(index, "_mapping"),
             params=params,
             headers=headers,
         )
@@ -459,7 +422,7 @@ class IndicesClient(NamespacedClient):
         "local",
     )
     async def get_field_mapping(
-        self, fields, index=None, doc_type=None, params=None, headers=None
+        self, fields, index=None, params=None, headers=None
     ):
         """
         Returns mapping for one or more fields.
@@ -467,7 +430,6 @@ class IndicesClient(NamespacedClient):
 
         :arg fields: A comma-separated list of fields
         :arg index: A comma-separated list of index names
-        :arg doc_type: A comma-separated list of document types
         :arg allow_no_indices: Whether to ignore if a wildcard indices
             expression resolves into no concrete indices. (This includes `_all`
             string or when no indices have been specified)
@@ -488,7 +450,7 @@ class IndicesClient(NamespacedClient):
 
         return await self.transport.perform_request(
             "GET",
-            _make_path(index, "_mapping", doc_type, "field", fields),
+            _make_path(index, "_mapping", "field", fields),
             params=params,
             headers=headers,
         )
@@ -868,7 +830,7 @@ class IndicesClient(NamespacedClient):
         "rewrite",
     )
     async def validate_query(
-        self, body=None, index=None, doc_type=None, params=None, headers=None
+        self, body=None, index=None, params=None, headers=None
     ):
         """
         Allows a user to validate a potentially expensive query without executing it.
@@ -878,9 +840,6 @@ class IndicesClient(NamespacedClient):
         :arg index: A comma-separated list of index names to restrict
             the operation; use `_all` or empty string to perform the operation on
             all indices
-        :arg doc_type: A comma-separated list of document types to
-            restrict the operation; leave empty to perform the operation on all
-            types
         :arg all_shards: Execute validation on all shards instead of one
             random shard per index
         :arg allow_no_indices: Whether to ignore if a wildcard indices
@@ -907,7 +866,7 @@ class IndicesClient(NamespacedClient):
         """
         return await self.transport.perform_request(
             "POST",
-            _make_path(index, doc_type, "_validate", "query"),
+            _make_path(index, "_validate", "query"),
             params=params,
             headers=headers,
             body=body,
@@ -1014,31 +973,6 @@ class IndicesClient(NamespacedClient):
         """
         return await self.transport.perform_request(
             "GET", _make_path(index, "_upgrade"), params=params, headers=headers
-        )
-
-    @query_params("allow_no_indices", "expand_wildcards", "ignore_unavailable")
-    async def flush_synced(self, index=None, params=None, headers=None):
-        """
-        Performs a synced flush operation on one or more indices. Synced flush is
-        deprecated. Use flush instead
-
-
-        :arg index: A comma-separated list of index names; use `_all` or
-            empty string for all indices
-        :arg allow_no_indices: Whether to ignore if a wildcard indices
-            expression resolves into no concrete indices. (This includes `_all`
-            string or when no indices have been specified)
-        :arg expand_wildcards: Whether to expand wildcard expression to
-            concrete indices that are open, closed or both.  Valid choices: open,
-            closed, none, all  Default: open
-        :arg ignore_unavailable: Whether specified concrete indices
-            should be ignored when unavailable (missing or closed)
-        """
-        return await self.transport.perform_request(
-            "POST",
-            _make_path(index, "_flush", "synced"),
-            params=params,
-            headers=headers,
         )
 
     @query_params(
