@@ -1,0 +1,40 @@
+name: Integration with Unreleased OpenSearch
+
+on:
+  push:
+    branches:
+      - "main"
+  pull_request:
+    branches:
+      - "main"
+
+env:
+  OPENSEARCH_VERSION: '2.0'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout OpenSearch
+        uses: actions/checkout@v2
+        with:
+          repository: opensearch-project/opensearch
+          ref: ${{ env.OPENSEARCH_VERSION }}
+          path: opensearch
+
+      - name: Assemble OpenSearch
+        run: |
+          cd opensearch
+          ./gradlew assemble
+        # This step runs the docker image generated during gradle assemble in OpenSearch. It is tagged as opensearch:test.
+        # Reference: https://github.com/opensearch-project/OpenSearch/blob/2.0/distribution/docker/build.gradle#L190
+
+      - name: Checkout Python Client
+        uses: actions/checkout@v2
+        with:
+          path: opensearch-py
+
+      - name: Run Integration Test
+        run: |
+          cd opensearch-py
+          "./.ci/run-tests opensearch false ${{ env.OPENSEARCH_VERSION }}.0-SNAPSHOT true"
