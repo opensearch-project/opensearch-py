@@ -1103,9 +1103,7 @@ class OpenSearch(object):
         "search_type",
         "typed_keys",
     )
-    def msearch_template(
-        self, body, index=None, params=None, headers=None
-    ):
+    def msearch_template(self, body, index=None, params=None, headers=None):
         """
         Allows to execute several search template operations in one request.
 
@@ -1152,9 +1150,7 @@ class OpenSearch(object):
         "version",
         "version_type",
     )
-    def mtermvectors(
-        self, body=None, index=None, params=None, headers=None
-    ):
+    def mtermvectors(self, body=None, index=None, params=None, headers=None):
         """
         Returns multiple termvectors in one request.
 
@@ -1602,9 +1598,7 @@ class OpenSearch(object):
         "search_type",
         "typed_keys",
     )
-    def search_template(
-        self, body, index=None, params=None, headers=None
-    ):
+    def search_template(self, body, index=None, params=None, headers=None):
         """
         Allows to use the Mustache language to pre-render a search definition.
 
@@ -1664,9 +1658,7 @@ class OpenSearch(object):
         "version",
         "version_type",
     )
-    def termvectors(
-        self, index, body=None, id=None, params=None, headers=None
-    ):
+    def termvectors(self, index, body=None, id=None, params=None, headers=None):
         """
         Returns information and statistics about terms in the fields of a particular
         document.
@@ -1764,7 +1756,7 @@ class OpenSearch(object):
                 raise ValueError("Empty value passed for a required argument.")
 
         path = _make_path(index, "_update", id)
-        
+
         return self.transport.perform_request(
             "POST", path, params=params, headers=headers, body=body
         )
@@ -1806,9 +1798,7 @@ class OpenSearch(object):
         "wait_for_active_shards",
         "wait_for_completion",
     )
-    def update_by_query(
-        self, index, body=None, params=None, headers=None
-    ):
+    def update_by_query(self, index, body=None, params=None, headers=None):
         """
         Performs an update on every document in the index without changing the source,
         for example to pick up a mapping change.

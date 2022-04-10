@@ -341,9 +341,7 @@ class IndicesClient(NamespacedClient):
         "timeout",
         "write_index_only",
     )
-    async def put_mapping(
-        self, body, index=None, params=None, headers=None
-    ):
+    async def put_mapping(self, body, index=None, params=None, headers=None):
         """
         Updates the index mappings.
 
@@ -421,9 +419,7 @@ class IndicesClient(NamespacedClient):
         "include_type_name",
         "local",
     )
-    async def get_field_mapping(
-        self, fields, index=None, params=None, headers=None
-    ):
+    async def get_field_mapping(self, fields, index=None, params=None, headers=None):
         """
         Returns mapping for one or more fields.
 
@@ -829,9 +825,7 @@ class IndicesClient(NamespacedClient):
         "q",
         "rewrite",
     )
-    async def validate_query(
-        self, body=None, index=None, params=None, headers=None
-    ):
+    async def validate_query(self, body=None, index=None, params=None, headers=None):
         """
         Allows a user to validate a potentially expensive query without executing it.
 

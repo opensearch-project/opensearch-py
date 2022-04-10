@@ -422,9 +422,7 @@ class IndicesClient(NamespacedClient):
         "include_type_name",
         "local",
     )
-    def get_field_mapping(
-        self, fields, index=None, params=None, headers=None
-    ):
+    def get_field_mapping(self, fields, index=None, params=None, headers=None):
         """
         Returns mapping for one or more fields.
 
@@ -830,9 +828,7 @@ class IndicesClient(NamespacedClient):
         "q",
         "rewrite",
     )
-    def validate_query(
-        self, body=None, index=None, params=None, headers=None
-    ):
+    def validate_query(self, body=None, index=None, params=None, headers=None):
         """
         Allows a user to validate a potentially expensive query without executing it.
 

@@ -37,11 +37,11 @@ class TestOverriddenUrlTargets(OpenSearchTestCase):
 
     def test_delete(self):
         self.client.delete(index="test-index", id="test-id")
-        self.assert_url_called("DELETE", "/test-index/test-id")
+        self.assert_url_called("DELETE", "/test-index/_doc/test-id")
 
     def test_exists(self):
         self.client.exists(index="test-index", id="test-id")
-        self.assert_url_called("HEAD", "/test-index/test-id")
+        self.assert_url_called("HEAD", "/test-index/_doc/test-id")
 
     def test_explain(self):
         self.client.explain(index="test-index", id="test-id")
@@ -49,7 +49,7 @@ class TestOverriddenUrlTargets(OpenSearchTestCase):
 
     def test_get(self):
         self.client.get(index="test-index", id="test-id")
-        self.assert_url_called("GET", "/test-index/test-id")
+        self.assert_url_called("GET", "/test-index/_doc/test-id")
 
     def test_get_source(self):
         self.client.get_source(index="test-index", id="test-id")
@@ -61,10 +61,10 @@ class TestOverriddenUrlTargets(OpenSearchTestCase):
 
     def test_index(self):
         self.client.index(index="test-index", body={})
-        self.assert_url_called("POST", "/test-index")
+        self.assert_url_called("POST", "/test-index/_doc")
 
         self.client.index(index="test-index", id="test-id", body={})
-        self.assert_url_called("PUT", "/test-index/test-id")
+        self.assert_url_called("PUT", "/test-index/_doc/test-id")
 
     def test_termvectors(self):
         self.client.termvectors(index="test-index", body={})

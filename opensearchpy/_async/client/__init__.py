@@ -306,9 +306,7 @@ class AsyncOpenSearch(object):
         "version_type",
         "wait_for_active_shards",
     )
-    async def index(
-        self, index, body, id=None, params=None, headers=None
-    ):
+    async def index(self, index, body, id=None, params=None, headers=None):
         """
         Creates or updates a document in an index.
 
@@ -349,7 +347,7 @@ class AsyncOpenSearch(object):
                 raise ValueError("Empty value passed for a required argument.")
 
         doc_type = "_doc"
-        
+
         return await self.transport.perform_request(
             "POST" if id in SKIP_IN_PATH else "PUT",
             _make_path(index, doc_type, id),
@@ -449,9 +447,7 @@ class AsyncOpenSearch(object):
         "routing",
         "terminate_after",
     )
-    async def count(
-        self, body=None, index=None, params=None, headers=None
-    ):
+    async def count(self, body=None, index=None, params=None, headers=None):
         """
         Returns number of documents matching a query.
 
@@ -579,9 +575,7 @@ class AsyncOpenSearch(object):
         "wait_for_active_shards",
         "wait_for_completion",
     )
-    async def delete_by_query(
-        self, index, body, params=None, headers=None
-    ):
+    async def delete_by_query(self, index, body, params=None, headers=None):
         """
         Deletes documents matching the provided query.
 
@@ -818,9 +812,7 @@ class AsyncOpenSearch(object):
         "routing",
         "stored_fields",
     )
-    async def explain(
-        self, index, id, body=None, params=None, headers=None
-    ):
+    async def explain(self, index, id, body=None, params=None, headers=None):
         """
         Returns information about why a specific matches (or doesn't match) a query.
 
@@ -1111,9 +1103,7 @@ class AsyncOpenSearch(object):
         "search_type",
         "typed_keys",
     )
-    async def msearch_template(
-        self, body, index=None, params=None, headers=None
-    ):
+    async def msearch_template(self, body, index=None, params=None, headers=None):
         """
         Allows to execute several search template operations in one request.
 
@@ -1160,9 +1150,7 @@ class AsyncOpenSearch(object):
         "version",
         "version_type",
     )
-    async def mtermvectors(
-        self, body=None, index=None, params=None, headers=None
-    ):
+    async def mtermvectors(self, body=None, index=None, params=None, headers=None):
         """
         Returns multiple termvectors in one request.
 
@@ -1449,9 +1437,7 @@ class AsyncOpenSearch(object):
         "typed_keys",
         "version",
     )
-    async def search(
-        self, body=None, index=None, params=None, headers=None
-    ):
+    async def search(self, body=None, index=None, params=None, headers=None):
         """
         Returns results matching a query.
 
@@ -1614,9 +1600,7 @@ class AsyncOpenSearch(object):
         "search_type",
         "typed_keys",
     )
-    async def search_template(
-        self, body, index=None, params=None, headers=None
-    ):
+    async def search_template(self, body, index=None, params=None, headers=None):
         """
         Allows to use the Mustache language to pre-render a search definition.
 
@@ -1676,9 +1660,7 @@ class AsyncOpenSearch(object):
         "version",
         "version_type",
     )
-    async def termvectors(
-        self, index, body=None, id=None, params=None, headers=None
-    ):
+    async def termvectors(self, index, body=None, id=None, params=None, headers=None):
         """
         Returns information and statistics about terms in the fields of a particular
         document.
@@ -1818,9 +1800,7 @@ class AsyncOpenSearch(object):
         "wait_for_active_shards",
         "wait_for_completion",
     )
-    async def update_by_query(
-        self, index, body=None, params=None, headers=None
-    ):
+    async def update_by_query(self, index, body=None, params=None, headers=None):
         """
         Performs an update on every document in the index without changing the source,
         for example to pick up a mapping change.

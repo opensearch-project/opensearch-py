@@ -22,19 +22,14 @@ jobs:
           ref: ${{ env.OPENSEARCH_VERSION }}
           path: opensearch
 
+        # This step builds the docker image tagged as opensearch:test. It will be further used in /ci/run-tests to test against unreleased OpenSearch.
+        # Reference: https://github.com/opensearch-project/OpenSearch/blob/2.0/distribution/docker/build.gradle#L190
       - name: Assemble OpenSearch
         run: |
           cd opensearch
           ./gradlew assemble
-        # This step runs the docker image generated during gradle assemble in OpenSearch. It is tagged as opensearch:test.
-        # Reference: https://github.com/opensearch-project/OpenSearch/blob/2.0/distribution/docker/build.gradle#L190
-
       - name: Checkout Python Client
         uses: actions/checkout@v2
-        with:
-          path: opensearch-py
 
       - name: Run Integration Test
-        run: |
-          cd opensearch-py
-          "./.ci/run-tests opensearch false ${{ env.OPENSEARCH_VERSION }}.0-SNAPSHOT true"
+        run: "./.ci/run-tests opensearch false ${{ env.OPENSEARCH_VERSION }}.0-SNAPSHOT"

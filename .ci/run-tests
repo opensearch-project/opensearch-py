@@ -9,13 +9,18 @@ export PYTHON_CONNECTION_CLASS="${PYTHON_CONNECTION_CLASS:=Urllib3HttpConnection
 export CLUSTER="${1:-opensearch}"
 export SECURE_INTEGRATION="${2:-false}"
 export OPENSEARCH_VERSION="${3:-latest}"
-export IS_UNRELEASED="${4:-false}"
 if [[ "$SECURE_INTEGRATION" == "true" ]]; then
     export OPENSEARCH_URL_EXTENSION="https"
 else
     export OPENSEARCH_URL_EXTENSION="http"
 fi
 
+export IS_UNRELEASED=false
+if [[ "$OPENSEARCH_VERSION" == *"SNAPSHOT" ]]; then
+  IS_UNRELEASED=true
+fi
+
+echo -e "\033[1m>>>>> Unreleased is $IS_UNRELEASED >>>>>>>>>>>>>>>>>>>>>>>>>>>>>\033[0m"
 script_path=$(dirname $(realpath -s $0))
 source $script_path/functions/imports.sh
 set -euo pipefail
