@@ -64,36 +64,20 @@ END
     healthcmd="curl -vvv -s --insecure -u admin:admin --fail https://localhost:9200/_cluster/health || exit 1"
   fi
 
+  CLUSTER_TAG=$CLUSTER
   if [[ "$IS_UNRELEASED" == "false" ]]; then
+    CLUSTER_TAG=$CLUSTER_TAG-secure-$SECURE_INTEGRATION
     echo -e "\033[34;1mINFO: building $CLUSTER container\033[0m"
     docker build \
       --file=.ci/$CLUSTER/Dockerfile \
       --build-arg SECURE_INTEGRATION=$SECURE_INTEGRATION \
       --build-arg OPENSEARCH_VERSION=$OPENSEARCH_VERSION \
-      --tag=$CLUSTER-secure-$SECURE_INTEGRATION \
+      --tag=$CLUSTER_TAG \
       .
-
-    echo -e "\033[34;1mINFO:\033[0m Starting container $node_name \033[0m"
-
-    docker run \
-      --name "$node_name" \
-      --network "$network_name" \
-      --env "ES_JAVA_OPTS=-Xms1g -Xmx1g" \
-      "${environment[@]}" \
-      "${volumes[@]}" \
-      "${security[@]}" \
-      --publish "$http_port":9200 \
-      --ulimit nofile=65536:65536 \
-      --ulimit memlock=-1:-1 \
-      --detach="$local_detach" \
-      --health-cmd="$(echo $healthcmd)" \
-      --health-interval=2s \
-      --health-retries=20 \
-      --health-timeout=2s \
-      --rm \
-      -d \
-      $CLUSTER-secure-$SECURE_INTEGRATION;
   else
+    CLUSTER_TAG=$CLUSTER_TAG:test
+  fi
+  echo -e "\033[34;1mINFO:\033[0m Starting container $node_name \033[0m"
     docker run \
       --name "$node_name" \
       --network "$network_name" \
@@ -111,8 +95,7 @@ END
       --health-timeout=2s \
       --rm \
       -d \
-      opensearch:test;
-  fi
+      $CLUSTER_TAG;
   
   set +x
   if wait_for_container "$opensearch_node_name" "$network_name"; then
