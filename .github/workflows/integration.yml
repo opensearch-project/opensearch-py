@@ -11,7 +11,7 @@ jobs:
       matrix:
         cluster: ["opensearch"]
         secured: ["true", "false"]
-        opensearch_version: []
+        opensearch_version: [""]
 
     steps:
       - name: Checkout
