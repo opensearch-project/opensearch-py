@@ -70,7 +70,6 @@ def expand_action(data):
         "_retry_on_conflict",
         "_routing",
         "_timestamp",
-        "_type",
         "_version",
         "_version_type",
         "if_seq_no",

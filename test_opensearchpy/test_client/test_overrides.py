@@ -35,54 +35,29 @@ class TestOverriddenUrlTargets(OpenSearchTestCase):
         self.client.create(index="test-index", id="test-id", body={})
         self.assert_url_called("PUT", "/test-index/_create/test-id")
 
-        self.client.create(
-            index="test-index", doc_type="test-type", id="test-id", body={}
-        )
-        self.assert_url_called("PUT", "/test-index/test-type/test-id/_create")
-
     def test_delete(self):
         self.client.delete(index="test-index", id="test-id")
         self.assert_url_called("DELETE", "/test-index/_doc/test-id")
-
-        self.client.delete(index="test-index", doc_type="test-type", id="test-id")
-        self.assert_url_called("DELETE", "/test-index/test-type/test-id")
 
     def test_exists(self):
         self.client.exists(index="test-index", id="test-id")
         self.assert_url_called("HEAD", "/test-index/_doc/test-id")
 
-        self.client.exists(index="test-index", doc_type="test-type", id="test-id")
-        self.assert_url_called("HEAD", "/test-index/test-type/test-id")
-
     def test_explain(self):
         self.client.explain(index="test-index", id="test-id")
         self.assert_url_called("POST", "/test-index/_explain/test-id")
-
-        self.client.explain(index="test-index", doc_type="test-type", id="test-id")
-        self.assert_url_called("POST", "/test-index/test-type/test-id/_explain")
 
     def test_get(self):
         self.client.get(index="test-index", id="test-id")
         self.assert_url_called("GET", "/test-index/_doc/test-id")
 
-        self.client.get(index="test-index", doc_type="test-type", id="test-id")
-        self.assert_url_called("GET", "/test-index/test-type/test-id")
-
     def test_get_source(self):
         self.client.get_source(index="test-index", id="test-id")
         self.assert_url_called("GET", "/test-index/_source/test-id")
 
-        self.client.get_source(index="test-index", doc_type="test-type", id="test-id")
-        self.assert_url_called("GET", "/test-index/test-type/test-id/_source")
-
     def test_exists_source(self):
         self.client.exists_source(index="test-index", id="test-id")
         self.assert_url_called("HEAD", "/test-index/_source/test-id")
-
-        self.client.exists_source(
-            index="test-index", doc_type="test-type", id="test-id"
-        )
-        self.assert_url_called("HEAD", "/test-index/test-type/test-id/_source")
 
     def test_index(self):
         self.client.index(index="test-index", body={})
@@ -91,20 +66,6 @@ class TestOverriddenUrlTargets(OpenSearchTestCase):
         self.client.index(index="test-index", id="test-id", body={})
         self.assert_url_called("PUT", "/test-index/_doc/test-id")
 
-        self.client.index(index="test-index", doc_type="test-type", body={})
-        self.assert_url_called("POST", "/test-index/test-type")
-
-        self.client.index(
-            index="test-index", doc_type="test-type", id="test-id", body={}
-        )
-        self.assert_url_called("PUT", "/test-index/test-type/test-id")
-
-        self.client.index(index="test-index", doc_type="_doc", body={})
-        self.assert_url_called("POST", "/test-index/_doc", count=2)
-
-        self.client.index(index="test-index", doc_type="_doc", id="test-id", body={})
-        self.assert_url_called("PUT", "/test-index/_doc/test-id", count=2)
-
     def test_termvectors(self):
         self.client.termvectors(index="test-index", body={})
         self.assert_url_called("POST", "/test-index/_termvectors")
@@ -112,29 +73,13 @@ class TestOverriddenUrlTargets(OpenSearchTestCase):
         self.client.termvectors(index="test-index", id="test-id", body={})
         self.assert_url_called("POST", "/test-index/_termvectors/test-id")
 
-        self.client.termvectors(index="test-index", doc_type="test-type", body={})
-        self.assert_url_called("POST", "/test-index/test-type/_termvectors")
-
-        self.client.termvectors(
-            index="test-index", doc_type="test-type", id="test-id", body={}
-        )
-        self.assert_url_called("POST", "/test-index/test-type/test-id/_termvectors")
-
     def test_mtermvectors(self):
         self.client.mtermvectors(index="test-index", body={})
         self.assert_url_called("POST", "/test-index/_mtermvectors")
 
-        self.client.mtermvectors(index="test-index", doc_type="test-type", body={})
-        self.assert_url_called("POST", "/test-index/test-type/_mtermvectors")
-
     def test_update(self):
         self.client.update(index="test-index", id="test-id", body={})
         self.assert_url_called("POST", "/test-index/_update/test-id")
-
-        self.client.update(
-            index="test-index", doc_type="test-type", id="test-id", body={}
-        )
-        self.assert_url_called("POST", "/test-index/test-type/test-id/_update")
 
     def test_cluster_state(self):
         self.client.cluster.state()
@@ -155,18 +100,10 @@ class TestOverriddenUrlTargets(OpenSearchTestCase):
 
     def test_indices_put_mapping(self):
         self.client.indices.put_mapping(body={})
-        self.assert_url_called("PUT", "/_mapping")
+        self.assert_url_called("PUT", "/_all/_mapping")
 
         self.client.indices.put_mapping(index="test-index", body={})
         self.assert_url_called("PUT", "/test-index/_mapping")
-
-        self.client.indices.put_mapping(
-            index="test-index", doc_type="test-type", body={}
-        )
-        self.assert_url_called("PUT", "/test-index/test-type/_mapping")
-
-        self.client.indices.put_mapping(doc_type="test-type", body={})
-        self.assert_url_called("PUT", "/_all/test-type/_mapping")
 
     def test_tasks_get(self):
         with pytest.warns(DeprecationWarning):
