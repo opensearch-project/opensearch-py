@@ -104,9 +104,7 @@ class IndicesClient(NamespacedClient):
             "POST", _make_path(index, "_flush"), params=params, headers=headers
         )
 
-    @query_params(
-        "master_timeout", "timeout", "wait_for_active_shards"
-    )
+    @query_params("master_timeout", "timeout", "wait_for_active_shards")
     def create(self, index, body=None, params=None, headers=None):
         """
         Creates an index with optional settings and mappings.
