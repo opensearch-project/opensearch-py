@@ -738,33 +738,12 @@ class TestParentChildReindex(OpenSearchTestCase):
     def test_children_are_reindexed_correctly(self):
         helpers.reindex(self.client, "test-index", "real-index")
 
-        q = self.client.get(index="real-index", id=42)
         self.assertEqual(
-            {
-                "_id": "42",
-                "_index": "real-index",
-                "_primary_term": 1,
-                "_seq_no": 0,
-                "_source": {"question_answer": "question"},
-                "_version": 1,
-                "found": True,
-            },
-            q,
+            {"question_answer": "question"},
+            self.client.get(index="real-index", id=42)["_source"],
         )
-        q = self.client.get(index="test-index", id=47, routing=42)
+
         self.assertEqual(
-            {
-                "_routing": "42",
-                "_id": "47",
-                "_index": "test-index",
-                "_primary_term": 1,
-                "_seq_no": 1,
-                "_source": {
-                    "some": "data",
-                    "question_answer": {"name": "answer", "parent": 42},
-                },
-                "_version": 1,
-                "found": True,
-            },
-            q,
+            {"some": "data", "question_answer": {"name": "answer", "parent": 42}},
+            self.client.get(index="test-index", id=47, routing=42)["_source"],
         )
