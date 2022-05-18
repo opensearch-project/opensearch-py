@@ -6,8 +6,6 @@
 #
 # Modifications Copyright OpenSearch Contributors. See
 # GitHub history for details.
-# Copyright OpenSearch Contributors
-# SPDX-License-Identifier: Apache-2.0
 
 import warnings
 
