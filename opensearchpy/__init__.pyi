@@ -57,6 +57,7 @@ try:
     from ._async.client import AsyncOpenSearch as AsyncOpenSearch
     from ._async.http_aiohttp import AIOHttpConnection as AIOHttpConnection
     from ._async.transport import AsyncTransport as AsyncTransport
+    from .helpers import AWSV4SignerAuth as AWSV4SignerAuth
 except (ImportError, SyntaxError):
     pass
 

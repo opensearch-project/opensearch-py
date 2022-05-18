@@ -31,7 +31,9 @@ import json
 import os
 import re
 import ssl
+import sys
 import unittest
+import uuid
 import warnings
 from platform import python_version
 
@@ -283,6 +285,61 @@ class TestUrllib3Connection(TestCase):
             },
             con.headers,
         )
+
+    @pytest.mark.skipif(
+        sys.version_info < (3, 6), reason="AWSV4SignerAuth requires python3.6+"
+    )
+    def test_aws_signer_as_http_auth(self):
+        region = "us-west-2"
+
+        import requests
+
+        from opensearchpy.helpers.signer import AWSV4SignerAuth
+
+        auth = AWSV4SignerAuth(self.mock_session(), region)
+        con = RequestsHttpConnection(http_auth=auth)
+        prepared_request = requests.Request("GET", "http://localhost").prepare()
+        auth(prepared_request)
+        self.assertEqual(auth, con.session.auth)
+        self.assertIn("Authorization", prepared_request.headers)
+        self.assertIn("X-Amz-Date", prepared_request.headers)
+        self.assertIn("X-Amz-Security-Token", prepared_request.headers)
+
+    def test_aws_signer_when_region_is_null(self):
+        session = self.mock_session()
+
+        from opensearchpy.helpers.signer import AWSV4SignerAuth
+
+        with pytest.raises(ValueError) as e:
+            AWSV4SignerAuth(session, None)
+        assert str(e.value) == "Region cannot be empty"
+
+        with pytest.raises(ValueError) as e:
+            AWSV4SignerAuth(session, "")
+        assert str(e.value) == "Region cannot be empty"
+
+    def test_aws_signer_when_credentials_is_null(self):
+        region = "us-west-1"
+
+        from opensearchpy.helpers.signer import AWSV4SignerAuth
+
+        with pytest.raises(ValueError) as e:
+            AWSV4SignerAuth(None, region)
+        assert str(e.value) == "Credentials cannot be empty"
+
+        with pytest.raises(ValueError) as e:
+            AWSV4SignerAuth("", region)
+        assert str(e.value) == "Credentials cannot be empty"
+
+    def mock_session(self):
+        access_key = uuid.uuid4().hex
+        secret_key = uuid.uuid4().hex
+        token = uuid.uuid4().hex
+        dummy_session = Mock()
+        dummy_session.access_key = access_key
+        dummy_session.secret_key = secret_key
+        dummy_session.token = token
+        return dummy_session
 
     def test_uses_https_if_verify_certs_is_off(self):
         with warnings.catch_warnings(record=True) as w:

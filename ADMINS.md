@@ -1,3 +1,10 @@
+- [Overview](#overview)
+- [Current Admins](#current-admins)
+- [Admin Responsibilities](#admin-responsibilities)
+  - [Prioritize Security](#prioritize-security)
+  - [Enforce Code of Conduct](#enforce-code-of-conduct)
+  - [Adopt Organizational Best Practices](#adopt-organizational-best-practices)
+
 ## Overview
 
 This document explains who the admins are (see below), what they do in this repo, and how they should be doing it. If you're interested in becoming a maintainer, see [MAINTAINERS](MAINTAINERS.md). If you're interested in contributing, see [CONTRIBUTING](CONTRIBUTING.md).

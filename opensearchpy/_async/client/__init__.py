@@ -259,7 +259,7 @@ class AsyncOpenSearch(object):
         "version_type",
         "wait_for_active_shards",
     )
-    async def create(self, index, id, body, doc_type=None, params=None, headers=None):
+    async def create(self, index, id, body, params=None, headers=None):
         """
         Creates a new document in the index.  Returns a 409 response when a document
         with a same ID already exists in the index.
@@ -268,7 +268,6 @@ class AsyncOpenSearch(object):
         :arg index: The name of the index
         :arg id: Document ID
         :arg body: The document
-        :arg doc_type: The type of the document
         :arg pipeline: The pipeline id to preprocess incoming documents
             with
         :arg refresh: If `true` then refresh the affected shards to make
@@ -290,10 +289,7 @@ class AsyncOpenSearch(object):
             if param in SKIP_IN_PATH:
                 raise ValueError("Empty value passed for a required argument.")
 
-        if doc_type in SKIP_IN_PATH:
-            path = _make_path(index, "_create", id)
-        else:
-            path = _make_path(index, doc_type, id, "_create")
+        path = _make_path(index, "_create", id)
 
         return await self.transport.perform_request(
             "PUT", path, params=params, headers=headers, body=body
@@ -312,16 +308,13 @@ class AsyncOpenSearch(object):
         "version_type",
         "wait_for_active_shards",
     )
-    async def index(
-        self, index, body, doc_type=None, id=None, params=None, headers=None
-    ):
+    async def index(self, index, body, id=None, params=None, headers=None):
         """
         Creates or updates a document in an index.
 
 
         :arg index: The name of the index
         :arg body: The document
-        :arg doc_type: The type of the document
         :arg id: Document ID
         :arg if_primary_term: only perform the index operation if the
             last operation that has changed the document has the specified primary
@@ -355,8 +348,7 @@ class AsyncOpenSearch(object):
             if param in SKIP_IN_PATH:
                 raise ValueError("Empty value passed for a required argument.")
 
-        if doc_type is None:
-            doc_type = "_doc"
+        doc_type = "_doc"
 
         return await self.transport.perform_request(
             "POST" if id in SKIP_IN_PATH else "PUT",
@@ -377,7 +369,7 @@ class AsyncOpenSearch(object):
         "timeout",
         "wait_for_active_shards",
     )
-    async def bulk(self, body, index=None, doc_type=None, params=None, headers=None):
+    async def bulk(self, body, index=None, params=None, headers=None):
         """
         Allows to perform multiple index/update/delete operations in a single request.
 
@@ -385,8 +377,6 @@ class AsyncOpenSearch(object):
         :arg body: The operation definition and data (action-data
             pairs), separated by newlines
         :arg index: Default index for items which don't provide one
-        :arg doc_type: Default document type for items which don't
-            provide one
         :arg _source: True or false to return the _source field or not,
             or default list of fields to return, can be overridden on each sub-
             request
@@ -416,7 +406,7 @@ class AsyncOpenSearch(object):
         body = _bulk_body(self.transport.serializer, body)
         return await self.transport.perform_request(
             "POST",
-            _make_path(index, doc_type, "_bulk"),
+            _make_path(index, "_bulk"),
             params=params,
             headers=headers,
             body=body,
@@ -459,9 +449,7 @@ class AsyncOpenSearch(object):
         "routing",
         "terminate_after",
     )
-    async def count(
-        self, body=None, index=None, doc_type=None, params=None, headers=None
-    ):
+    async def count(self, body=None, index=None, params=None, headers=None):
         """
         Returns number of documents matching a query.
 
@@ -469,8 +457,6 @@ class AsyncOpenSearch(object):
         :arg body: A query to restrict the results specified with the
             Query DSL (optional)
         :arg index: A comma-separated list of indices to restrict the
-            results
-        :arg doc_type: A comma-separated list of types to restrict the
             results
         :arg allow_no_indices: Whether to ignore if a wildcard indices
             expression resolves into no concrete indices. (This includes `_all`
@@ -502,7 +488,7 @@ class AsyncOpenSearch(object):
         """
         return await self.transport.perform_request(
             "POST",
-            _make_path(index, doc_type, "_count"),
+            _make_path(index, "_count"),
             params=params,
             headers=headers,
             body=body,
@@ -518,14 +504,13 @@ class AsyncOpenSearch(object):
         "version_type",
         "wait_for_active_shards",
     )
-    async def delete(self, index, id, doc_type=None, params=None, headers=None):
+    async def delete(self, index, id, params=None, headers=None):
         """
         Removes a document from the index.
 
 
         :arg index: The name of the index
         :arg id: The document ID
-        :arg doc_type: The type of the document
         :arg if_primary_term: only perform the delete operation if the
             last operation that has changed the document has the specified primary
             term
@@ -551,8 +536,7 @@ class AsyncOpenSearch(object):
             if param in SKIP_IN_PATH:
                 raise ValueError("Empty value passed for a required argument.")
 
-        if doc_type in SKIP_IN_PATH:
-            doc_type = "_doc"
+        doc_type = "_doc"
 
         return await self.transport.perform_request(
             "DELETE", _make_path(index, doc_type, id), params=params, headers=headers
@@ -593,9 +577,7 @@ class AsyncOpenSearch(object):
         "wait_for_active_shards",
         "wait_for_completion",
     )
-    async def delete_by_query(
-        self, index, body, doc_type=None, params=None, headers=None
-    ):
+    async def delete_by_query(self, index, body, params=None, headers=None):
         """
         Deletes documents matching the provided query.
 
@@ -603,8 +585,6 @@ class AsyncOpenSearch(object):
         :arg index: A comma-separated list of index names to search; use
             `_all` or empty string to perform the operation on all indices
         :arg body: The search definition using the Query DSL
-        :arg doc_type: A comma-separated list of document types to
-            search; leave empty to perform the operation on all types
         :arg _source: True or false to return the _source field or not,
             or a list of fields to return
         :arg _source_excludes: A list of fields to exclude from the
@@ -683,7 +663,7 @@ class AsyncOpenSearch(object):
 
         return await self.transport.perform_request(
             "POST",
-            _make_path(index, doc_type, "_delete_by_query"),
+            _make_path(index, "_delete_by_query"),
             params=params,
             headers=headers,
             body=body,
@@ -739,15 +719,13 @@ class AsyncOpenSearch(object):
         "version",
         "version_type",
     )
-    async def exists(self, index, id, doc_type=None, params=None, headers=None):
+    async def exists(self, index, id, params=None, headers=None):
         """
         Returns information about whether a document exists in an index.
 
 
         :arg index: The name of the index
         :arg id: The document ID
-        :arg doc_type: The type of the document (use `_all` to fetch the
-            first document matching the ID across all types)
         :arg _source: True or false to return the _source field or not,
             or a list of fields to return
         :arg _source_excludes: A list of fields to exclude from the
@@ -771,8 +749,7 @@ class AsyncOpenSearch(object):
             if param in SKIP_IN_PATH:
                 raise ValueError("Empty value passed for a required argument.")
 
-        if doc_type in SKIP_IN_PATH:
-            doc_type = "_doc"
+        doc_type = "_doc"
 
         return await self.transport.perform_request(
             "HEAD", _make_path(index, doc_type, id), params=params, headers=headers
@@ -789,15 +766,13 @@ class AsyncOpenSearch(object):
         "version",
         "version_type",
     )
-    async def exists_source(self, index, id, doc_type=None, params=None, headers=None):
+    async def exists_source(self, index, id, params=None, headers=None):
         """
         Returns information about whether a document source exists in an index.
 
 
         :arg index: The name of the index
         :arg id: The document ID
-        :arg doc_type: The type of the document; deprecated and optional
-            starting with 7.0
         :arg _source: True or false to return the _source field or not,
             or a list of fields to return
         :arg _source_excludes: A list of fields to exclude from the
@@ -819,10 +794,7 @@ class AsyncOpenSearch(object):
             if param in SKIP_IN_PATH:
                 raise ValueError("Empty value passed for a required argument.")
 
-        if doc_type in SKIP_IN_PATH:
-            path = _make_path(index, "_source", id)
-        else:
-            path = _make_path(index, doc_type, id, "_source")
+        path = _make_path(index, "_source", id)
 
         return await self.transport.perform_request(
             "HEAD", path, params=params, headers=headers
@@ -842,9 +814,7 @@ class AsyncOpenSearch(object):
         "routing",
         "stored_fields",
     )
-    async def explain(
-        self, index, id, body=None, doc_type=None, params=None, headers=None
-    ):
+    async def explain(self, index, id, body=None, params=None, headers=None):
         """
         Returns information about why a specific matches (or doesn't match) a query.
 
@@ -852,7 +822,6 @@ class AsyncOpenSearch(object):
         :arg index: The name of the index
         :arg id: The document ID
         :arg body: The query definition using the Query DSL
-        :arg doc_type: The type of the document
         :arg _source: True or false to return the _source field or not,
             or a list of fields to return
         :arg _source_excludes: A list of fields to exclude from the
@@ -879,10 +848,7 @@ class AsyncOpenSearch(object):
             if param in SKIP_IN_PATH:
                 raise ValueError("Empty value passed for a required argument.")
 
-        if doc_type in SKIP_IN_PATH:
-            path = _make_path(index, "_explain", id)
-        else:
-            path = _make_path(index, doc_type, id, "_explain")
+        path = _make_path(index, "_explain", id)
 
         return await self.transport.perform_request(
             "POST", path, params=params, headers=headers, body=body
@@ -936,15 +902,13 @@ class AsyncOpenSearch(object):
         "version",
         "version_type",
     )
-    async def get(self, index, id, doc_type=None, params=None, headers=None):
+    async def get(self, index, id, params=None, headers=None):
         """
         Returns a document.
 
 
         :arg index: The name of the index
         :arg id: The document ID
-        :arg doc_type: The type of the document (use `_all` to fetch the
-            first document matching the ID across all types)
         :arg _source: True or false to return the _source field or not,
             or a list of fields to return
         :arg _source_excludes: A list of fields to exclude from the
@@ -968,8 +932,7 @@ class AsyncOpenSearch(object):
             if param in SKIP_IN_PATH:
                 raise ValueError("Empty value passed for a required argument.")
 
-        if doc_type in SKIP_IN_PATH:
-            doc_type = "_doc"
+        doc_type = "_doc"
 
         return await self.transport.perform_request(
             "GET", _make_path(index, doc_type, id), params=params, headers=headers
@@ -1002,15 +965,13 @@ class AsyncOpenSearch(object):
         "version",
         "version_type",
     )
-    async def get_source(self, index, id, doc_type=None, params=None, headers=None):
+    async def get_source(self, index, id, params=None, headers=None):
         """
         Returns the source of a document.
 
 
         :arg index: The name of the index
         :arg id: The document ID
-        :arg doc_type: The type of the document; deprecated and optional
-            starting with 7.0
         :arg _source: True or false to return the _source field or not,
             or a list of fields to return
         :arg _source_excludes: A list of fields to exclude from the
@@ -1032,10 +993,7 @@ class AsyncOpenSearch(object):
             if param in SKIP_IN_PATH:
                 raise ValueError("Empty value passed for a required argument.")
 
-        if doc_type in SKIP_IN_PATH:
-            path = _make_path(index, "_source", id)
-        else:
-            path = _make_path(index, doc_type, id, "_source")
+        path = _make_path(index, "_source", id)
 
         return await self.transport.perform_request(
             "GET", path, params=params, headers=headers
@@ -1051,7 +1009,7 @@ class AsyncOpenSearch(object):
         "routing",
         "stored_fields",
     )
-    async def mget(self, body, index=None, doc_type=None, params=None, headers=None):
+    async def mget(self, body, index=None, params=None, headers=None):
         """
         Allows to get multiple documents in one request.
 
@@ -1060,7 +1018,6 @@ class AsyncOpenSearch(object):
             (containing full document information) or `ids` (when index and type is
             provided in the URL.
         :arg index: The name of the index
-        :arg doc_type: The type of the document
         :arg _source: True or false to return the _source field or not,
             or a list of fields to return
         :arg _source_excludes: A list of fields to exclude from the
@@ -1082,7 +1039,7 @@ class AsyncOpenSearch(object):
 
         return await self.transport.perform_request(
             "POST",
-            _make_path(index, doc_type, "_mget"),
+            _make_path(index, "_mget"),
             params=params,
             headers=headers,
             body=body,
@@ -1097,7 +1054,7 @@ class AsyncOpenSearch(object):
         "search_type",
         "typed_keys",
     )
-    async def msearch(self, body, index=None, doc_type=None, params=None, headers=None):
+    async def msearch(self, body, index=None, params=None, headers=None):
         """
         Allows to execute several search operations in one request.
 
@@ -1106,8 +1063,6 @@ class AsyncOpenSearch(object):
             definition pairs), separated by newlines
         :arg index: A comma-separated list of index names to use as
             default
-        :arg doc_type: A comma-separated list of document types to use
-            as default
         :arg ccs_minimize_roundtrips: Indicates whether network round-
             trips should be minimized as part of cross-cluster search requests
             execution  Default: true
@@ -1137,7 +1092,7 @@ class AsyncOpenSearch(object):
         body = _bulk_body(self.transport.serializer, body)
         return await self.transport.perform_request(
             "POST",
-            _make_path(index, doc_type, "_msearch"),
+            _make_path(index, "_msearch"),
             params=params,
             headers=headers,
             body=body,
@@ -1150,9 +1105,7 @@ class AsyncOpenSearch(object):
         "search_type",
         "typed_keys",
     )
-    async def msearch_template(
-        self, body, index=None, doc_type=None, params=None, headers=None
-    ):
+    async def msearch_template(self, body, index=None, params=None, headers=None):
         """
         Allows to execute several search template operations in one request.
 
@@ -1161,8 +1114,6 @@ class AsyncOpenSearch(object):
             definition pairs), separated by newlines
         :arg index: A comma-separated list of index names to use as
             default
-        :arg doc_type: A comma-separated list of document types to use
-            as default
         :arg ccs_minimize_roundtrips: Indicates whether network round-
             trips should be minimized as part of cross-cluster search requests
             execution  Default: true
@@ -1181,7 +1132,7 @@ class AsyncOpenSearch(object):
         body = _bulk_body(self.transport.serializer, body)
         return await self.transport.perform_request(
             "POST",
-            _make_path(index, doc_type, "_msearch", "template"),
+            _make_path(index, "_msearch", "template"),
             params=params,
             headers=headers,
             body=body,
@@ -1201,9 +1152,7 @@ class AsyncOpenSearch(object):
         "version",
         "version_type",
     )
-    async def mtermvectors(
-        self, body=None, index=None, doc_type=None, params=None, headers=None
-    ):
+    async def mtermvectors(self, body=None, index=None, params=None, headers=None):
         """
         Returns multiple termvectors in one request.
 
@@ -1212,7 +1161,6 @@ class AsyncOpenSearch(object):
             parameters per document here. You must at least provide a list of
             document ids. See documentation.
         :arg index: The index in which the document resides.
-        :arg doc_type: The type of the document.
         :arg field_statistics: Specifies if document count, sum of
             document frequencies and sum of total term frequencies should be
             returned. Applies to all returned documents unless otherwise specified
@@ -1245,10 +1193,7 @@ class AsyncOpenSearch(object):
         :arg version_type: Specific version type  Valid choices:
             internal, external, external_gte, force
         """
-        if doc_type in SKIP_IN_PATH:
-            path = _make_path(index, "_mtermvectors")
-        else:
-            path = _make_path(index, doc_type, "_mtermvectors")
+        path = _make_path(index, "_mtermvectors")
 
         return await self.transport.perform_request(
             "POST", path, params=params, headers=headers, body=body
@@ -1494,9 +1439,7 @@ class AsyncOpenSearch(object):
         "typed_keys",
         "version",
     )
-    async def search(
-        self, body=None, index=None, doc_type=None, params=None, headers=None
-    ):
+    async def search(self, body=None, index=None, params=None, headers=None):
         """
         Returns results matching a query.
 
@@ -1504,8 +1447,6 @@ class AsyncOpenSearch(object):
         :arg body: The search definition using the Query DSL
         :arg index: A comma-separated list of index names to search; use
             `_all` or empty string to perform the operation on all indices
-        :arg doc_type: A comma-separated list of document types to
-            search; leave empty to perform the operation on all types
         :arg _source: True or false to return the _source field or not,
             or a list of fields to return
         :arg _source_excludes: A list of fields to exclude from the
@@ -1606,7 +1547,7 @@ class AsyncOpenSearch(object):
 
         return await self.transport.perform_request(
             "POST",
-            _make_path(index, doc_type, "_search"),
+            _make_path(index, "_search"),
             params=params,
             headers=headers,
             body=body,
@@ -1661,9 +1602,7 @@ class AsyncOpenSearch(object):
         "search_type",
         "typed_keys",
     )
-    async def search_template(
-        self, body, index=None, doc_type=None, params=None, headers=None
-    ):
+    async def search_template(self, body, index=None, params=None, headers=None):
         """
         Allows to use the Mustache language to pre-render a search definition.
 
@@ -1671,8 +1610,6 @@ class AsyncOpenSearch(object):
         :arg body: The search definition template and its params
         :arg index: A comma-separated list of index names to search; use
             `_all` or empty string to perform the operation on all indices
-        :arg doc_type: A comma-separated list of document types to
-            search; leave empty to perform the operation on all types
         :arg allow_no_indices: Whether to ignore if a wildcard indices
             expression resolves into no concrete indices. (This includes `_all`
             string or when no indices have been specified)
@@ -1706,7 +1643,7 @@ class AsyncOpenSearch(object):
 
         return await self.transport.perform_request(
             "POST",
-            _make_path(index, doc_type, "_search", "template"),
+            _make_path(index, "_search", "template"),
             params=params,
             headers=headers,
             body=body,
@@ -1725,9 +1662,7 @@ class AsyncOpenSearch(object):
         "version",
         "version_type",
     )
-    async def termvectors(
-        self, index, body=None, doc_type=None, id=None, params=None, headers=None
-    ):
+    async def termvectors(self, index, body=None, id=None, params=None, headers=None):
         """
         Returns information and statistics about terms in the fields of a particular
         document.
@@ -1736,7 +1671,6 @@ class AsyncOpenSearch(object):
         :arg index: The index in which the document resides.
         :arg body: Define parameters and or supply a document to get
             termvectors for. See documentation.
-        :arg doc_type: The type of the document.
         :arg id: The id of the document, when not specified a doc param
             should be supplied.
         :arg field_statistics: Specifies if document count, sum of
@@ -1763,10 +1697,7 @@ class AsyncOpenSearch(object):
         if index in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'index'.")
 
-        if doc_type in SKIP_IN_PATH:
-            path = _make_path(index, "_termvectors", id)
-        else:
-            path = _make_path(index, doc_type, id, "_termvectors")
+        path = _make_path(index, "_termvectors", id)
 
         return await self.transport.perform_request(
             "POST", path, params=params, headers=headers, body=body
@@ -1786,7 +1717,7 @@ class AsyncOpenSearch(object):
         "timeout",
         "wait_for_active_shards",
     )
-    async def update(self, index, id, body, doc_type=None, params=None, headers=None):
+    async def update(self, index, id, body, params=None, headers=None):
         """
         Updates a document with a script or partial document.
 
@@ -1795,7 +1726,6 @@ class AsyncOpenSearch(object):
         :arg id: Document ID
         :arg body: The request definition requires either `script` or
             partial `doc`
-        :arg doc_type: The type of the document
         :arg _source: True or false to return the _source field or not,
             or a list of fields to return
         :arg _source_excludes: A list of fields to exclude from the
@@ -1829,10 +1759,7 @@ class AsyncOpenSearch(object):
             if param in SKIP_IN_PATH:
                 raise ValueError("Empty value passed for a required argument.")
 
-        if doc_type in SKIP_IN_PATH:
-            path = _make_path(index, "_update", id)
-        else:
-            path = _make_path(index, doc_type, id, "_update")
+        path = _make_path(index, "_update", id)
 
         return await self.transport.perform_request(
             "POST", path, params=params, headers=headers, body=body
@@ -1875,9 +1802,7 @@ class AsyncOpenSearch(object):
         "wait_for_active_shards",
         "wait_for_completion",
     )
-    async def update_by_query(
-        self, index, body=None, doc_type=None, params=None, headers=None
-    ):
+    async def update_by_query(self, index, body=None, params=None, headers=None):
         """
         Performs an update on every document in the index without changing the source,
         for example to pick up a mapping change.
@@ -1886,8 +1811,6 @@ class AsyncOpenSearch(object):
         :arg index: A comma-separated list of index names to search; use
             `_all` or empty string to perform the operation on all indices
         :arg body: The search definition using the Query DSL
-        :arg doc_type: A comma-separated list of document types to
-            search; leave empty to perform the operation on all types
         :arg _source: True or false to return the _source field or not,
             or a list of fields to return
         :arg _source_excludes: A list of fields to exclude from the
@@ -1969,7 +1892,7 @@ class AsyncOpenSearch(object):
 
         return await self.transport.perform_request(
             "POST",
-            _make_path(index, doc_type, "_update_by_query"),
+            _make_path(index, "_update_by_query"),
             params=params,
             headers=headers,
             body=body,

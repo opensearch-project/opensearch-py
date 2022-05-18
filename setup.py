@@ -51,6 +51,7 @@ packages = [
 install_requires = [
     "urllib3>=1.21.1, <2",
     "certifi",
+    "requests>=2.4.0, <3.0.0",
 ]
 tests_require = [
     "requests>=2.0.0, <3.0.0",
@@ -59,6 +60,7 @@ tests_require = [
     "pyyaml",
     "pytest",
     "pytest-cov",
+    "botocore;python_version>='3.6'",
 ]
 async_require = ["aiohttp>=3,<4"]
 
@@ -111,7 +113,6 @@ setup(
     extras_require={
         "develop": tests_require + docs_require + generate_require,
         "docs": docs_require,
-        "requests": ["requests>=2.4.0, <3.0.0"],
         "async": async_require,
     },
 )

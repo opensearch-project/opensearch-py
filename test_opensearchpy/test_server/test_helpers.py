@@ -97,12 +97,11 @@ class TestStreamingBulk(OpenSearchTestCase):
         self.client.index(index="i", id=45, body={})
         self.client.index(index="i", id=42, body={})
         docs = [
-            {"_index": "i", "_type": "_doc", "_id": 47, "f": "v"},
-            {"_op_type": "delete", "_index": "i", "_type": "_doc", "_id": 45},
+            {"_index": "i", "_id": 47, "f": "v"},
+            {"_op_type": "delete", "_index": "i", "_id": 45},
             {
                 "_op_type": "update",
                 "_index": "i",
-                "_type": "_doc",
                 "_id": 42,
                 "doc": {"answer": 42},
             },
@@ -117,9 +116,9 @@ class TestStreamingBulk(OpenSearchTestCase):
     def test_transport_error_can_becaught(self):
         failing_client = FailingBulkClient(self.client)
         docs = [
-            {"_index": "i", "_type": "_doc", "_id": 47, "f": "v"},
-            {"_index": "i", "_type": "_doc", "_id": 45, "f": "v"},
-            {"_index": "i", "_type": "_doc", "_id": 42, "f": "v"},
+            {"_index": "i", "_id": 47, "f": "v"},
+            {"_index": "i", "_id": 45, "f": "v"},
+            {"_index": "i", "_id": 42, "f": "v"},
         ]
 
         results = list(
@@ -141,7 +140,6 @@ class TestStreamingBulk(OpenSearchTestCase):
             {
                 "index": {
                     "_index": "i",
-                    "_type": "_doc",
                     "_id": 45,
                     "data": {"f": "v"},
                     "error": "TransportError(599, 'Error!')",
@@ -156,9 +154,9 @@ class TestStreamingBulk(OpenSearchTestCase):
             self.client, fail_with=TransportError(429, "Rejected!", {})
         )
         docs = [
-            {"_index": "i", "_type": "_doc", "_id": 47, "f": "v"},
-            {"_index": "i", "_type": "_doc", "_id": 45, "f": "v"},
-            {"_index": "i", "_type": "_doc", "_id": 42, "f": "v"},
+            {"_index": "i", "_id": 47, "f": "v"},
+            {"_index": "i", "_id": 45, "f": "v"},
+            {"_index": "i", "_id": 42, "f": "v"},
         ]
         results = list(
             helpers.streaming_bulk(
@@ -184,9 +182,9 @@ class TestStreamingBulk(OpenSearchTestCase):
         )
 
         docs = [
-            {"_index": "i", "_type": "_doc", "_id": 47, "f": "v"},
-            {"_index": "i", "_type": "_doc", "_id": 45, "f": "v"},
-            {"_index": "i", "_type": "_doc", "_id": 42, "f": "v"},
+            {"_index": "i", "_id": 47, "f": "v"},
+            {"_index": "i", "_id": 45, "f": "v"},
+            {"_index": "i", "_id": 42, "f": "v"},
         ]
         results = list(
             helpers.streaming_bulk(
@@ -286,7 +284,6 @@ class TestBulk(OpenSearchTestCase):
         self.assertEqual(1, len(failed))
         error = failed[0]
         self.assertEqual("42", error["index"]["_id"])
-        self.assertEqual("_doc", error["index"]["_type"])
         self.assertEqual("i", error["index"]["_index"])
         print(error["index"]["error"])
         self.assertTrue(
@@ -387,7 +384,7 @@ class TestScan(OpenSearchTestCase):
     def test_order_can_be_preserved(self):
         bulk = []
         for x in range(100):
-            bulk.append({"index": {"_index": "test_index", "_type": "_doc", "_id": x}})
+            bulk.append({"index": {"_index": "test_index", "_id": x}})
             bulk.append({"answer": x, "correct": x == 42})
         self.client.bulk(bulk, refresh=True)
 
@@ -407,7 +404,7 @@ class TestScan(OpenSearchTestCase):
     def test_all_documents_are_read(self):
         bulk = []
         for x in range(100):
-            bulk.append({"index": {"_index": "test_index", "_type": "_doc", "_id": x}})
+            bulk.append({"index": {"_index": "test_index", "_id": x}})
             bulk.append({"answer": x, "correct": x == 42})
         self.client.bulk(bulk, refresh=True)
 
@@ -420,7 +417,7 @@ class TestScan(OpenSearchTestCase):
     def test_scroll_error(self):
         bulk = []
         for x in range(4):
-            bulk.append({"index": {"_index": "test_index", "_type": "_doc"}})
+            bulk.append({"index": {"_index": "test_index"}})
             bulk.append({"value": x})
         self.client.bulk(bulk, refresh=True)
 
@@ -554,7 +551,7 @@ class TestScan(OpenSearchTestCase):
     def test_logger(self, logger_mock):
         bulk = []
         for x in range(4):
-            bulk.append({"index": {"_index": "test_index", "_type": "_doc"}})
+            bulk.append({"index": {"_index": "test_index"}})
             bulk.append({"value": x})
         self.client.bulk(bulk, refresh=True)
 
@@ -589,7 +586,7 @@ class TestScan(OpenSearchTestCase):
     def test_clear_scroll(self):
         bulk = []
         for x in range(4):
-            bulk.append({"index": {"_index": "test_index", "_type": "_doc"}})
+            bulk.append({"index": {"_index": "test_index"}})
             bulk.append({"value": x})
         self.client.bulk(bulk, refresh=True)
 
@@ -645,7 +642,7 @@ class TestReindex(OpenSearchTestCase):
     def setup_method(self, _):
         bulk = []
         for x in range(100):
-            bulk.append({"index": {"_index": "test_index", "_type": "_doc", "_id": x}})
+            bulk.append({"index": {"_index": "test_index", "_id": x}})
             bulk.append(
                 {
                     "answer": x,
@@ -741,35 +738,12 @@ class TestParentChildReindex(OpenSearchTestCase):
     def test_children_are_reindexed_correctly(self):
         helpers.reindex(self.client, "test-index", "real-index")
 
-        q = self.client.get(index="real-index", id=42)
         self.assertEqual(
-            {
-                "_id": "42",
-                "_index": "real-index",
-                "_primary_term": 1,
-                "_seq_no": 0,
-                "_source": {"question_answer": "question"},
-                "_type": "_doc",
-                "_version": 1,
-                "found": True,
-            },
-            q,
+            {"question_answer": "question"},
+            self.client.get(index="real-index", id=42)["_source"],
         )
-        q = self.client.get(index="test-index", id=47, routing=42)
+
         self.assertEqual(
-            {
-                "_routing": "42",
-                "_id": "47",
-                "_index": "test-index",
-                "_primary_term": 1,
-                "_seq_no": 1,
-                "_source": {
-                    "some": "data",
-                    "question_answer": {"name": "answer", "parent": 42},
-                },
-                "_type": "_doc",
-                "_version": 1,
-                "found": True,
-            },
-            q,
+            {"some": "data", "question_answer": {"name": "answer", "parent": 42}},
+            self.client.get(index="test-index", id=47, routing=42)["_source"],
         )

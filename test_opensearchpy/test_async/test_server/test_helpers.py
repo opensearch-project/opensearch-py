@@ -872,30 +872,11 @@ class TestParentChildReindex:
     ):
         await helpers.async_reindex(async_client, "test-index", "real-index")
 
-        q = await async_client.get(index="real-index", id=42)
-        assert {
-            "_id": "42",
-            "_index": "real-index",
-            "_primary_term": 1,
-            "_seq_no": 0,
-            "_source": {"question_answer": "question"},
-            "_type": "_doc",
-            "_version": 1,
-            "found": True,
-        } == q
+        assert {"question_answer": "question"} == (
+            await async_client.get(index="real-index", id=42)
+        )["_source"]
 
-        q = await async_client.get(index="test-index", id=47, routing=42)
         assert {
-            "_routing": "42",
-            "_id": "47",
-            "_index": "test-index",
-            "_primary_term": 1,
-            "_seq_no": 1,
-            "_source": {
-                "some": "data",
-                "question_answer": {"name": "answer", "parent": 42},
-            },
-            "_type": "_doc",
-            "_version": 1,
-            "found": True,
-        } == q
+            "some": "data",
+            "question_answer": {"name": "answer", "parent": 42},
+        } == (await async_client.get(index="test-index", id=47, routing=42))["_source"]
