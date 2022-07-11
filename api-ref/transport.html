@@ -16,6 +16,7 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
         <script src="../_static/clipboard.min.js"></script>
         <script src="../_static/copybutton.js"></script>
@@ -85,8 +86,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section class="tex2jax_ignore mathjax_ignore" id="transport">
-<h1>transport<a class="headerlink" href="#transport" title="Permalink to this headline"></a></h1>
+  <section id="transport">
+<h1>transport<a class="headerlink" href="#transport" title="Permalink to this heading"></a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="opensearchpy.Transport">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opensearchpy.</span></span><span class="sig-name descname"><span class="pre">Transport</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hosts</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">connection_class=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">connection_pool_class=&lt;class</span> <span class="pre">'opensearchpy.connection_pool.ConnectionPool'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">host_info_callback=&lt;function</span> <span class="pre">get_host_info&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sniff_on_start=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sniffer_timeout=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sniff_timeout=0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sniff_on_connection_fail=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">serializer=&lt;opensearchpy.serializer.JSONSerializer</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">serializers=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default_mimetype='application/json'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_retries=3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">retry_on_status=(502</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">503</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">504)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">retry_on_timeout=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">send_get_body_as='GET'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opensearchpy/transport.html#Transport"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.Transport" title="Permalink to this definition"></a></dt>
@@ -137,7 +138,7 @@ options provided as part of the hosts parameter.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="opensearchpy.Transport.DEFAULT_CONNECTION_CLASS">
 <span class="sig-name descname"><span class="pre">DEFAULT_CONNECTION_CLASS</span></span><a class="headerlink" href="#opensearchpy.Transport.DEFAULT_CONNECTION_CLASS" title="Permalink to this definition"></a></dt>
-<dd><p>alias of <a class="reference internal" href="connection.html#opensearchpy.Urllib3HttpConnection" title="opensearchpy.connection.http_urllib3.Urllib3HttpConnection"><code class="xref py py-class docutils literal notranslate"><span class="pre">opensearchpy.connection.http_urllib3.Urllib3HttpConnection</span></code></a></p>
+<dd><p>alias of <a class="reference internal" href="connection.html#opensearchpy.Urllib3HttpConnection" title="opensearchpy.connection.http_urllib3.Urllib3HttpConnection"><code class="xref py py-class docutils literal notranslate"><span class="pre">Urllib3HttpConnection</span></code></a></p>
 </dd></dl>
 
 <dl class="py method">

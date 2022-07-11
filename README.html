@@ -16,6 +16,7 @@
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
         <script src="_static/clipboard.min.js"></script>
         <script src="_static/copybutton.js"></script>
@@ -82,130 +83,32 @@
 <p><img alt="OpenSearch logo" src="https://github.com/opensearch-project/opensearch-py/raw/main/OpenSearch.svg" /></p>
 <p>OpenSearch Python Client</p>
 <ul class="simple">
-<li><p><a class="reference external" href="#welcome">Welcome!</a></p></li>
-<li><p><a class="reference external" href="#project-resources">Project Resources</a></p></li>
-<li><p><a class="reference external" href="#code-of-conduct">Code of Conduct</a></p></li>
-<li><p><a class="reference external" href="#license">License</a></p></li>
-<li><p><a class="reference external" href="#copyright">Copyright</a></p></li>
+<li><p><span class="xref myst">Welcome!</span></p></li>
+<li><p><span class="xref myst">Getting Started</span></p></li>
+<li><p><a class="reference external" href="https://opensearch-project.github.io/opensearch-py/">API Doc</a></p></li>
+<li><p><span class="xref myst">Compatibility with OpenSearch</span></p></li>
+<li><p><span class="xref myst">Project Resources</span></p></li>
+<li><p><span class="xref myst">Code of Conduct</span></p></li>
+<li><p><span class="xref myst">License</span></p></li>
+<li><p><span class="xref myst">Copyright</span></p></li>
 </ul>
 <section id="welcome">
-<h1>Welcome!<a class="headerlink" href="#welcome" title="Permalink to this headline"></a></h1>
+<h1>Welcome!<a class="headerlink" href="#welcome" title="Permalink to this heading"></a></h1>
 <p><strong>opensearch-py</strong> is <a class="reference external" href="https://aws.amazon.com/blogs/opensource/introducing-opensearch/">a community-driven, open source fork</a>
 of elasticsearch-py licensed under the <a class="reference external" href="https://github.com/opensearch-project/opensearch-py/blob/main/LICENSE.txt">Apache v2.0 License</a>.
-For more information, see <a class="reference external" href="https://opensearch.org/">opensearch.org</a>.</p>
+For more information, see <a class="reference external" href="https://opensearch.org/">opensearch.org</a> and the <a class="reference external" href="https://opensearch-project.github.io/opensearch-py/">API Doc</a>.</p>
 <p>This is the low-level client. A high-level Python client is in the works, and will be available soon.</p>
 </section>
-<section id="setup">
-<h1>Setup<a class="headerlink" href="#setup" title="Permalink to this headline"></a></h1>
-<p>To add the client to your project, install it using <a class="reference external" href="https://pip.pypa.io/">pip</a>:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install opensearch-py
-</pre></div>
-</div>
-<p>Then import it like any other module:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">opensearchpy</span> <span class="kn">import</span> <span class="n">OpenSearch</span>
-</pre></div>
-</div>
-<p>If you prefer to add the client manually or just want to examine the source code, see <a class="reference external" href="https://github.com/opensearch-project/opensearch-py">opensearch-py on GitHub</a>.</p>
+<section id="getting-started">
+<h1>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this heading"></a></h1>
+<p>To get started with the OpenSearch Python Client, see <span class="xref myst">Getting Started</span>.</p>
 </section>
-<section id="sample-code">
-<h1>Sample code<a class="headerlink" href="#sample-code" title="Permalink to this headline"></a></h1>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">opensearchpy</span> <span class="kn">import</span> <span class="n">OpenSearch</span>
-
-<span class="n">host</span> <span class="o">=</span> <span class="s1">&#39;localhost&#39;</span>
-<span class="n">port</span> <span class="o">=</span> <span class="mi">9200</span>
-<span class="n">auth</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;admin&#39;</span><span class="p">,</span> <span class="s1">&#39;admin&#39;</span><span class="p">)</span> <span class="c1"># For testing only. Don&#39;t store credentials in code.</span>
-<span class="n">ca_certs_path</span> <span class="o">=</span> <span class="s1">&#39;/full/path/to/root-ca.pem&#39;</span> <span class="c1"># Provide a CA bundle if you use intermediate CAs with your root CA.</span>
-
-<span class="c1"># Optional client certificates if you don&#39;t want to use HTTP basic authentication.</span>
-<span class="c1"># client_cert_path = &#39;/full/path/to/client.pem&#39;</span>
-<span class="c1"># client_key_path = &#39;/full/path/to/client-key.pem&#39;</span>
-
-<span class="c1"># Create the client with SSL/TLS enabled, but hostname verification disabled.</span>
-<span class="n">client</span> <span class="o">=</span> <span class="n">OpenSearch</span><span class="p">(</span>
-    <span class="n">hosts</span> <span class="o">=</span> <span class="p">[{</span><span class="s1">&#39;host&#39;</span><span class="p">:</span> <span class="n">host</span><span class="p">,</span> <span class="s1">&#39;port&#39;</span><span class="p">:</span> <span class="n">port</span><span class="p">}],</span>
-    <span class="n">http_compress</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="c1"># enables gzip compression for request bodies</span>
-    <span class="n">http_auth</span> <span class="o">=</span> <span class="n">auth</span><span class="p">,</span>
-    <span class="c1"># client_cert = client_cert_path,</span>
-    <span class="c1"># client_key = client_key_path,</span>
-    <span class="n">use_ssl</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-    <span class="n">verify_certs</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-    <span class="n">ssl_assert_hostname</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-    <span class="n">ssl_show_warn</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-    <span class="n">ca_certs</span> <span class="o">=</span> <span class="n">ca_certs_path</span>
-<span class="p">)</span>
-
-<span class="c1"># Create an index with non-default settings.</span>
-<span class="n">index_name</span> <span class="o">=</span> <span class="s1">&#39;python-test-index3&#39;</span>
-<span class="n">index_body</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="s1">&#39;settings&#39;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="s1">&#39;index&#39;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="s1">&#39;number_of_shards&#39;</span><span class="p">:</span> <span class="mi">4</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-
-<span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">indices</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">index_name</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">index_body</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Creating index:&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
-
-<span class="c1"># Add a document to the index.</span>
-<span class="n">document</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="s1">&#39;Moneyball&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;director&#39;</span><span class="p">:</span> <span class="s1">&#39;Bennett Miller&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;year&#39;</span><span class="p">:</span> <span class="s1">&#39;2011&#39;</span>
-<span class="p">}</span>
-<span class="nb">id</span> <span class="o">=</span> <span class="s1">&#39;1&#39;</span>
-
-<span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">index</span><span class="p">(</span>
-    <span class="n">index</span> <span class="o">=</span> <span class="n">index_name</span><span class="p">,</span>
-    <span class="n">body</span> <span class="o">=</span> <span class="n">document</span><span class="p">,</span>
-    <span class="nb">id</span> <span class="o">=</span> <span class="nb">id</span><span class="p">,</span>
-    <span class="n">refresh</span> <span class="o">=</span> <span class="kc">True</span>
-<span class="p">)</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Adding document:&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
-
-<span class="c1"># Search for the document.</span>
-<span class="n">q</span> <span class="o">=</span> <span class="s1">&#39;miller&#39;</span>
-<span class="n">query</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="s1">&#39;size&#39;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
-  <span class="s1">&#39;query&#39;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="s1">&#39;multi_match&#39;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="s1">&#39;query&#39;</span><span class="p">:</span> <span class="n">q</span><span class="p">,</span>
-      <span class="s1">&#39;fields&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;title^2&#39;</span><span class="p">,</span> <span class="s1">&#39;director&#39;</span><span class="p">]</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-
-<span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">search</span><span class="p">(</span>
-    <span class="n">body</span> <span class="o">=</span> <span class="n">query</span><span class="p">,</span>
-    <span class="n">index</span> <span class="o">=</span> <span class="n">index_name</span>
-<span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Search results:&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
-
-<span class="c1"># Delete the document.</span>
-<span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span>
-    <span class="n">index</span> <span class="o">=</span> <span class="n">index_name</span><span class="p">,</span>
-    <span class="nb">id</span> <span class="o">=</span> <span class="nb">id</span>
-<span class="p">)</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Deleting document:&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
-
-<span class="c1"># Delete the index.</span>
-<span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">indices</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span>
-    <span class="n">index</span> <span class="o">=</span> <span class="n">index_name</span>
-<span class="p">)</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Deleting index:&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
-</pre></div>
-</div>
+<section id="compatibility-with-opensearch">
+<h1>Compatibility with OpenSearch<a class="headerlink" href="#compatibility-with-opensearch" title="Permalink to this heading"></a></h1>
+<p>See <span class="xref myst">Compatibility</span>.</p>
 </section>
 <section id="project-resources">
-<h1>Project Resources<a class="headerlink" href="#project-resources" title="Permalink to this headline"></a></h1>
+<h1>Project Resources<a class="headerlink" href="#project-resources" title="Permalink to this heading"></a></h1>
 <ul class="simple">
 <li><p><a class="reference external" href="https://opensearch.org/">Project Website</a></p></li>
 <li><p><a class="reference external" href="https://opensearch.org/downloads.html">Downloads</a></p></li>
@@ -220,19 +123,19 @@ For more information, see <a class="reference external" href="https://opensearch
 </ul>
 </section>
 <section id="code-of-conduct">
-<h1>Code of Conduct<a class="headerlink" href="#code-of-conduct" title="Permalink to this headline"></a></h1>
+<h1>Code of Conduct<a class="headerlink" href="#code-of-conduct" title="Permalink to this heading"></a></h1>
 <p>This project has adopted the
 <a class="reference external" href="https://github.com/opensearch-project/opensearch-py/blob/main/CODE_OF_CONDUCT.md">Amazon Open Source Code of Conduct</a>.
 For more information see the <a class="reference external" href="https://aws.github.io/code-of-conduct-faq">Code of Conduct FAQ</a>, or contact
 <a class="reference external" href="mailto:opensource-codeofconduct&#37;&#52;&#48;amazon&#46;com">opensource-codeofconduct<span>&#64;</span>amazon<span>&#46;</span>com</a> with any additional questions or comments.</p>
 </section>
 <section id="license">
-<h1>License<a class="headerlink" href="#license" title="Permalink to this headline"></a></h1>
+<h1>License<a class="headerlink" href="#license" title="Permalink to this heading"></a></h1>
 <p>This project is licensed under the
 <a class="reference external" href="https://github.com/opensearch-project/opensearch-py/blob/main/LICENSE.txt">Apache v2.0 License</a>.</p>
 </section>
 <section id="copyright">
-<h1>Copyright<a class="headerlink" href="#copyright" title="Permalink to this headline"></a></h1>
+<h1>Copyright<a class="headerlink" href="#copyright" title="Permalink to this heading"></a></h1>
 <p>Copyright OpenSearch Contributors. See
 <a class="reference external" href="https://github.com/opensearch-project/opensearch-py/blob/main/NOTICE.txt">NOTICE</a> for details.</p>
 </section>

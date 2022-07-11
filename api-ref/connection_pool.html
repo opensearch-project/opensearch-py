@@ -16,6 +16,7 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
         <script src="../_static/clipboard.min.js"></script>
         <script src="../_static/copybutton.js"></script>
@@ -85,8 +86,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section class="tex2jax_ignore mathjax_ignore" id="connection-pool">
-<h1>connection_pool<a class="headerlink" href="#connection-pool" title="Permalink to this headline"></a></h1>
+  <section id="connection-pool">
+<h1>connection_pool<a class="headerlink" href="#connection-pool" title="Permalink to this heading"></a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="opensearchpy.ConnectionPool">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opensearchpy.</span></span><span class="sig-name descname"><span class="pre">ConnectionPool</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">connections</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dead_timeout=60</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout_cutoff=5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">selector_class=&lt;class</span> <span class="pre">'opensearchpy.connection_pool.RoundRobinSelector'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">randomize_hosts=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opensearchpy/connection_pool.html#ConnectionPool"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.ConnectionPool" title="Permalink to this definition"></a></dt>
@@ -225,7 +226,7 @@ connections where there would be none in it’s zones.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="opensearchpy.RoundRobinSelector">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opensearchpy.</span></span><span class="sig-name descname"><span class="pre">RoundRobinSelector</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">opts</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opensearchpy/connection_pool.html#RoundRobinSelector"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.RoundRobinSelector" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#opensearchpy.ConnectionSelector" title="opensearchpy.connection_pool.ConnectionSelector"><code class="xref py py-class docutils literal notranslate"><span class="pre">opensearchpy.connection_pool.ConnectionSelector</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#opensearchpy.ConnectionSelector" title="opensearchpy.connection_pool.ConnectionSelector"><code class="xref py py-class docutils literal notranslate"><span class="pre">ConnectionSelector</span></code></a></p>
 <p>Selector using round-robin.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>

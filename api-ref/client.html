@@ -16,6 +16,7 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
         <script src="../_static/clipboard.min.js"></script>
         <script src="../_static/copybutton.js"></script>
@@ -85,8 +86,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section class="tex2jax_ignore mathjax_ignore" id="client">
-<h1>client<a class="headerlink" href="#client" title="Permalink to this headline"></a></h1>
+  <section id="client">
+<h1>client<a class="headerlink" href="#client" title="Permalink to this heading"></a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="opensearchpy.OpenSearch">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opensearchpy.</span></span><span class="sig-name descname"><span class="pre">OpenSearch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hosts=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transport_class=&lt;class</span> <span class="pre">'opensearchpy.transport.Transport'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opensearchpy/client.html#OpenSearch"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.OpenSearch" title="Permalink to this definition"></a></dt>
@@ -233,7 +234,7 @@ translated to a dictionary automatically.  If no value is given the
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.OpenSearch.bulk">
-<span class="sig-name descname"><span class="pre">bulk</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">body</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">doc_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opensearchpy/client.html#OpenSearch.bulk"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.OpenSearch.bulk" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">bulk</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">body</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opensearchpy/client.html#OpenSearch.bulk"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.OpenSearch.bulk" title="Permalink to this definition"></a></dt>
 <dd><p>Allows to perform multiple index/update/delete operations in a single request.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -241,8 +242,6 @@ translated to a dictionary automatically.  If no value is given the
 <li><p><strong>body</strong> – The operation definition and data (action-data
 pairs), separated by newlines</p></li>
 <li><p><strong>index</strong> – Default index for items which don’t provide one</p></li>
-<li><p><strong>doc_type</strong> – Default document type for items which don’t
-provide one</p></li>
 <li><p><strong>_source</strong> – True or false to return the _source field or not,
 or default list of fields to return, can be overridden on each sub-
 request</p></li>
@@ -304,7 +303,7 @@ was specified via the scroll_id parameter</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.OpenSearch.count">
-<span class="sig-name descname"><span class="pre">count</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">body</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">doc_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opensearchpy/client.html#OpenSearch.count"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.OpenSearch.count" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">count</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">body</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opensearchpy/client.html#OpenSearch.count"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.OpenSearch.count" title="Permalink to this definition"></a></dt>
 <dd><p>Returns number of documents matching a query.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -312,8 +311,6 @@ was specified via the scroll_id parameter</p></li>
 <li><p><strong>body</strong> – A query to restrict the results specified with the
 Query DSL (optional)</p></li>
 <li><p><strong>index</strong> – A comma-separated list of indices to restrict the
-results</p></li>
-<li><p><strong>doc_type</strong> – A comma-separated list of types to restrict the
 results</p></li>
 <li><p><strong>allow_no_indices</strong> – Whether to ignore if a wildcard indices
 expression resolves into no concrete indices. (This includes <cite>_all</cite>
@@ -349,7 +346,7 @@ reaching which the query execution will terminate early</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.OpenSearch.create">
-<span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">body</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">doc_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opensearchpy/client.html#OpenSearch.create"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.OpenSearch.create" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">body</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opensearchpy/client.html#OpenSearch.create"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.OpenSearch.create" title="Permalink to this definition"></a></dt>
 <dd><p>Creates a new document in the index.  Returns a 409 response when a document
 with a same ID already exists in the index.</p>
 <dl class="field-list simple">
@@ -358,7 +355,6 @@ with a same ID already exists in the index.</p>
 <li><p><strong>index</strong> – The name of the index</p></li>
 <li><p><strong>id</strong> – Document ID</p></li>
 <li><p><strong>body</strong> – The document</p></li>
-<li><p><strong>doc_type</strong> – The type of the document</p></li>
 <li><p><strong>pipeline</strong> – The pipeline id to preprocess incoming documents
 with</p></li>
 <li><p><strong>refresh</strong> – If <cite>true</cite> then refresh the affected shards to make
@@ -382,14 +378,13 @@ number of copies for the shard (number of replicas + 1)</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.OpenSearch.delete">
-<span class="sig-name descname"><span class="pre">delete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">doc_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opensearchpy/client.html#OpenSearch.delete"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.OpenSearch.delete" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">delete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opensearchpy/client.html#OpenSearch.delete"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.OpenSearch.delete" title="Permalink to this definition"></a></dt>
 <dd><p>Removes a document from the index.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>index</strong> – The name of the index</p></li>
 <li><p><strong>id</strong> – The document ID</p></li>
-<li><p><strong>doc_type</strong> – The type of the document</p></li>
 <li><p><strong>if_primary_term</strong> – only perform the delete operation if the
 last operation that has changed the document has the specified primary
 term</p></li>
@@ -417,7 +412,7 @@ to the total number of copies for the shard (number of replicas + 1)</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.OpenSearch.delete_by_query">
-<span class="sig-name descname"><span class="pre">delete_by_query</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">body</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">doc_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opensearchpy/client.html#OpenSearch.delete_by_query"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.OpenSearch.delete_by_query" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">delete_by_query</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">body</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opensearchpy/client.html#OpenSearch.delete_by_query"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.OpenSearch.delete_by_query" title="Permalink to this definition"></a></dt>
 <dd><p>Deletes documents matching the provided query.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -425,8 +420,6 @@ to the total number of copies for the shard (number of replicas + 1)</p></li>
 <li><p><strong>index</strong> – A comma-separated list of index names to search; use
 <cite>_all</cite> or empty string to perform the operation on all indices</p></li>
 <li><p><strong>body</strong> – The search definition using the Query DSL</p></li>
-<li><p><strong>doc_type</strong> – A comma-separated list of document types to
-search; leave empty to perform the operation on all types</p></li>
 <li><p><strong>_source</strong> – True or false to return the _source field or not,
 or a list of fields to return</p></li>
 <li><p><strong>_source_excludes</strong> – A list of fields to exclude from the
@@ -532,15 +525,13 @@ floating sub-requests per second. -1 means set no throttle.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.OpenSearch.exists">
-<span class="sig-name descname"><span class="pre">exists</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">doc_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opensearchpy/client.html#OpenSearch.exists"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.OpenSearch.exists" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">exists</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opensearchpy/client.html#OpenSearch.exists"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.OpenSearch.exists" title="Permalink to this definition"></a></dt>
 <dd><p>Returns information about whether a document exists in an index.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>index</strong> – The name of the index</p></li>
 <li><p><strong>id</strong> – The document ID</p></li>
-<li><p><strong>doc_type</strong> – The type of the document (use <cite>_all</cite> to fetch the
-first document matching the ID across all types)</p></li>
 <li><p><strong>_source</strong> – True or false to return the _source field or not,
 or a list of fields to return</p></li>
 <li><p><strong>_source_excludes</strong> – A list of fields to exclude from the
@@ -566,15 +557,13 @@ internal, external, external_gte, force</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.OpenSearch.exists_source">
-<span class="sig-name descname"><span class="pre">exists_source</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">doc_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opensearchpy/client.html#OpenSearch.exists_source"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.OpenSearch.exists_source" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">exists_source</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opensearchpy/client.html#OpenSearch.exists_source"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.OpenSearch.exists_source" title="Permalink to this definition"></a></dt>
 <dd><p>Returns information about whether a document source exists in an index.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>index</strong> – The name of the index</p></li>
 <li><p><strong>id</strong> – The document ID</p></li>
-<li><p><strong>doc_type</strong> – The type of the document; deprecated and optional
-starting with 7.0</p></li>
 <li><p><strong>_source</strong> – True or false to return the _source field or not,
 or a list of fields to return</p></li>
 <li><p><strong>_source_excludes</strong> – A list of fields to exclude from the
@@ -598,7 +587,7 @@ internal, external, external_gte, force</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.OpenSearch.explain">
-<span class="sig-name descname"><span class="pre">explain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">body</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">doc_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opensearchpy/client.html#OpenSearch.explain"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.OpenSearch.explain" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">explain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">body</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opensearchpy/client.html#OpenSearch.explain"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.OpenSearch.explain" title="Permalink to this definition"></a></dt>
 <dd><p>Returns information about why a specific matches (or doesn’t match) a query.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -606,7 +595,6 @@ internal, external, external_gte, force</p></li>
 <li><p><strong>index</strong> – The name of the index</p></li>
 <li><p><strong>id</strong> – The document ID</p></li>
 <li><p><strong>body</strong> – The query definition using the Query DSL</p></li>
-<li><p><strong>doc_type</strong> – The type of the document</p></li>
 <li><p><strong>_source</strong> – True or false to return the _source field or not,
 or a list of fields to return</p></li>
 <li><p><strong>_source_excludes</strong> – A list of fields to exclude from the
@@ -662,15 +650,13 @@ be included in the response.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.OpenSearch.get">
-<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">doc_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opensearchpy/client.html#OpenSearch.get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.OpenSearch.get" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opensearchpy/client.html#OpenSearch.get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.OpenSearch.get" title="Permalink to this definition"></a></dt>
 <dd><p>Returns a document.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>index</strong> – The name of the index</p></li>
 <li><p><strong>id</strong> – The document ID</p></li>
-<li><p><strong>doc_type</strong> – The type of the document (use <cite>_all</cite> to fetch the
-first document matching the ID across all types)</p></li>
 <li><p><strong>_source</strong> – True or false to return the _source field or not,
 or a list of fields to return</p></li>
 <li><p><strong>_source_excludes</strong> – A list of fields to exclude from the
@@ -732,15 +718,13 @@ or be removed in a future version</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.OpenSearch.get_source">
-<span class="sig-name descname"><span class="pre">get_source</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">doc_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opensearchpy/client.html#OpenSearch.get_source"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.OpenSearch.get_source" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_source</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opensearchpy/client.html#OpenSearch.get_source"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.OpenSearch.get_source" title="Permalink to this definition"></a></dt>
 <dd><p>Returns the source of a document.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>index</strong> – The name of the index</p></li>
 <li><p><strong>id</strong> – The document ID</p></li>
-<li><p><strong>doc_type</strong> – The type of the document; deprecated and optional
-starting with 7.0</p></li>
 <li><p><strong>_source</strong> – True or false to return the _source field or not,
 or a list of fields to return</p></li>
 <li><p><strong>_source_excludes</strong> – A list of fields to exclude from the
@@ -764,14 +748,13 @@ internal, external, external_gte, force</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.OpenSearch.index">
-<span class="sig-name descname"><span class="pre">index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">body</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">doc_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opensearchpy/client.html#OpenSearch.index"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.OpenSearch.index" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">body</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opensearchpy/client.html#OpenSearch.index"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.OpenSearch.index" title="Permalink to this definition"></a></dt>
 <dd><p>Creates or updates a document in an index.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>index</strong> – The name of the index</p></li>
 <li><p><strong>body</strong> – The document</p></li>
-<li><p><strong>doc_type</strong> – The type of the document</p></li>
 <li><p><strong>id</strong> – Document ID</p></li>
 <li><p><strong>if_primary_term</strong> – only perform the index operation if the
 last operation that has changed the document has the specified primary
@@ -813,7 +796,7 @@ number of copies for the shard (number of replicas + 1)</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.OpenSearch.mget">
-<span class="sig-name descname"><span class="pre">mget</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">body</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">doc_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opensearchpy/client.html#OpenSearch.mget"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.OpenSearch.mget" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">mget</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">body</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opensearchpy/client.html#OpenSearch.mget"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.OpenSearch.mget" title="Permalink to this definition"></a></dt>
 <dd><p>Allows to get multiple documents in one request.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -822,7 +805,6 @@ number of copies for the shard (number of replicas + 1)</p></li>
 (containing full document information) or <cite>ids</cite> (when index and type is
 provided in the URL.</p></li>
 <li><p><strong>index</strong> – The name of the index</p></li>
-<li><p><strong>doc_type</strong> – The type of the document</p></li>
 <li><p><strong>_source</strong> – True or false to return the _source field or not,
 or a list of fields to return</p></li>
 <li><p><strong>_source_excludes</strong> – A list of fields to exclude from the
@@ -845,7 +827,7 @@ return in the response</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.OpenSearch.msearch">
-<span class="sig-name descname"><span class="pre">msearch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">body</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">doc_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opensearchpy/client.html#OpenSearch.msearch"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.OpenSearch.msearch" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">msearch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">body</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opensearchpy/client.html#OpenSearch.msearch"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.OpenSearch.msearch" title="Permalink to this definition"></a></dt>
 <dd><p>Allows to execute several search operations in one request.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -854,8 +836,6 @@ return in the response</p></li>
 definition pairs), separated by newlines</p></li>
 <li><p><strong>index</strong> – A comma-separated list of index names to use as
 default</p></li>
-<li><p><strong>doc_type</strong> – A comma-separated list of document types to use
-as default</p></li>
 <li><p><strong>ccs_minimize_roundtrips</strong> – Indicates whether network round-
 trips should be minimized as part of cross-cluster search requests
 execution  Default: true</p></li>
@@ -885,7 +865,7 @@ should be prefixed by their respective types in the response</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.OpenSearch.msearch_template">
-<span class="sig-name descname"><span class="pre">msearch_template</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">body</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">doc_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opensearchpy/client.html#OpenSearch.msearch_template"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.OpenSearch.msearch_template" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">msearch_template</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">body</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opensearchpy/client.html#OpenSearch.msearch_template"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.OpenSearch.msearch_template" title="Permalink to this definition"></a></dt>
 <dd><p>Allows to execute several search template operations in one request.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -894,8 +874,6 @@ should be prefixed by their respective types in the response</p></li>
 definition pairs), separated by newlines</p></li>
 <li><p><strong>index</strong> – A comma-separated list of index names to use as
 default</p></li>
-<li><p><strong>doc_type</strong> – A comma-separated list of document types to use
-as default</p></li>
 <li><p><strong>ccs_minimize_roundtrips</strong> – Indicates whether network round-
 trips should be minimized as part of cross-cluster search requests
 execution  Default: true</p></li>
@@ -914,7 +892,7 @@ should be prefixed by their respective types in the response</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.OpenSearch.mtermvectors">
-<span class="sig-name descname"><span class="pre">mtermvectors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">body</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">doc_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opensearchpy/client.html#OpenSearch.mtermvectors"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.OpenSearch.mtermvectors" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">mtermvectors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">body</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opensearchpy/client.html#OpenSearch.mtermvectors"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.OpenSearch.mtermvectors" title="Permalink to this definition"></a></dt>
 <dd><p>Returns multiple termvectors in one request.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -923,7 +901,6 @@ should be prefixed by their respective types in the response</p></li>
 parameters per document here. You must at least provide a list of
 document ids. See documentation.</p></li>
 <li><p><strong>index</strong> – The index in which the document resides.</p></li>
-<li><p><strong>doc_type</strong> – The type of the document.</p></li>
 <li><p><strong>field_statistics</strong> – Specifies if document count, sum of
 document frequencies and sum of total term frequencies should be
 returned. Applies to all returned documents unless otherwise specified
@@ -1140,7 +1117,7 @@ should be maintained for scrolled search</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.OpenSearch.search">
-<span class="sig-name descname"><span class="pre">search</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">body</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">doc_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opensearchpy/client.html#OpenSearch.search"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.OpenSearch.search" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">search</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">body</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opensearchpy/client.html#OpenSearch.search"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.OpenSearch.search" title="Permalink to this definition"></a></dt>
 <dd><p>Returns results matching a query.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1148,8 +1125,6 @@ should be maintained for scrolled search</p></li>
 <li><p><strong>body</strong> – The search definition using the Query DSL</p></li>
 <li><p><strong>index</strong> – A comma-separated list of index names to search; use
 <cite>_all</cite> or empty string to perform the operation on all indices</p></li>
-<li><p><strong>doc_type</strong> – A comma-separated list of document types to
-search; leave empty to perform the operation on all types</p></li>
 <li><p><strong>_source</strong> – True or false to return the _source field or not,
 or a list of fields to return</p></li>
 <li><p><strong>_source_excludes</strong> – A list of fields to exclude from the
@@ -1278,7 +1253,7 @@ be performed on (default: random)</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.OpenSearch.search_template">
-<span class="sig-name descname"><span class="pre">search_template</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">body</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">doc_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opensearchpy/client.html#OpenSearch.search_template"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.OpenSearch.search_template" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">search_template</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">body</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opensearchpy/client.html#OpenSearch.search_template"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.OpenSearch.search_template" title="Permalink to this definition"></a></dt>
 <dd><p>Allows to use the Mustache language to pre-render a search definition.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1286,8 +1261,6 @@ be performed on (default: random)</p></li>
 <li><p><strong>body</strong> – The search definition template and its params</p></li>
 <li><p><strong>index</strong> – A comma-separated list of index names to search; use
 <cite>_all</cite> or empty string to perform the operation on all indices</p></li>
-<li><p><strong>doc_type</strong> – A comma-separated list of document types to
-search; leave empty to perform the operation on all types</p></li>
 <li><p><strong>allow_no_indices</strong> – Whether to ignore if a wildcard indices
 expression resolves into no concrete indices. (This includes <cite>_all</cite>
 string or when no indices have been specified)</p></li>
@@ -1345,7 +1318,7 @@ matching terms, timeout and size for max number of results</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.OpenSearch.termvectors">
-<span class="sig-name descname"><span class="pre">termvectors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">body</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">doc_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opensearchpy/client.html#OpenSearch.termvectors"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.OpenSearch.termvectors" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">termvectors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">body</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opensearchpy/client.html#OpenSearch.termvectors"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.OpenSearch.termvectors" title="Permalink to this definition"></a></dt>
 <dd><p>Returns information and statistics about terms in the fields of a particular
 document.</p>
 <dl class="field-list simple">
@@ -1354,7 +1327,6 @@ document.</p>
 <li><p><strong>index</strong> – The index in which the document resides.</p></li>
 <li><p><strong>body</strong> – Define parameters and or supply a document to get
 termvectors for. See documentation.</p></li>
-<li><p><strong>doc_type</strong> – The type of the document.</p></li>
 <li><p><strong>id</strong> – The id of the document, when not specified a doc param
 should be supplied.</p></li>
 <li><p><strong>field_statistics</strong> – Specifies if document count, sum of
@@ -1384,7 +1356,7 @@ internal, external, external_gte, force</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.OpenSearch.update">
-<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">body</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">doc_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opensearchpy/client.html#OpenSearch.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.OpenSearch.update" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">body</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opensearchpy/client.html#OpenSearch.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.OpenSearch.update" title="Permalink to this definition"></a></dt>
 <dd><p>Updates a document with a script or partial document.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1393,7 +1365,6 @@ internal, external, external_gte, force</p></li>
 <li><p><strong>id</strong> – Document ID</p></li>
 <li><p><strong>body</strong> – The request definition requires either <cite>script</cite> or
 partial <cite>doc</cite></p></li>
-<li><p><strong>doc_type</strong> – The type of the document</p></li>
 <li><p><strong>_source</strong> – True or false to return the _source field or not,
 or a list of fields to return</p></li>
 <li><p><strong>_source_excludes</strong> – A list of fields to exclude from the
@@ -1429,7 +1400,7 @@ to the total number of copies for the shard (number of replicas + 1)</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.OpenSearch.update_by_query">
-<span class="sig-name descname"><span class="pre">update_by_query</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">body</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">doc_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opensearchpy/client.html#OpenSearch.update_by_query"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.OpenSearch.update_by_query" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">update_by_query</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">body</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opensearchpy/client.html#OpenSearch.update_by_query"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.OpenSearch.update_by_query" title="Permalink to this definition"></a></dt>
 <dd><p>Performs an update on every document in the index without changing the source,
 for example to pick up a mapping change.</p>
 <dl class="field-list simple">
@@ -1437,8 +1408,7 @@ for example to pick up a mapping change.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>index</strong> – A comma-separated list of index names to search; use
 <cite>_all</cite> or empty string to perform the operation on all indices</p></li>
-<li><p><strong>body</strong> – The search definition using the Query DSL</p></li>
-<li><p><strong>doc_type</strong> – A comma-separated list of document types to
+<li><p><strong>body</strong> – The search definition using the Query DSL
 search; leave empty to perform the operation on all types</p></li>
 <li><p><strong>_source</strong> – True or false to return the _source field or not,
 or a list of fields to return</p></li>

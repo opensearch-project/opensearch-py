@@ -15,6 +15,7 @@
         <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../_static/doctools.js"></script>
         <script src="../../_static/clipboard.min.js"></script>
         <script src="../../_static/copybutton.js"></script>
@@ -333,7 +334,7 @@
         <span class="s2">&quot;version_type&quot;</span><span class="p">,</span>
         <span class="s2">&quot;wait_for_active_shards&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="n">doc_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Creates a new document in the index.  Returns a 409 response when a document</span>
 <span class="sd">        with a same ID already exists in the index.</span>
@@ -342,7 +343,6 @@
 <span class="sd">        :arg index: The name of the index</span>
 <span class="sd">        :arg id: Document ID</span>
 <span class="sd">        :arg body: The document</span>
-<span class="sd">        :arg doc_type: The type of the document</span>
 <span class="sd">        :arg pipeline: The pipeline id to preprocess incoming documents</span>
 <span class="sd">            with</span>
 <span class="sd">        :arg refresh: If `true` then refresh the affected shards to make</span>
@@ -364,10 +364,7 @@
             <span class="k">if</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Empty value passed for a required argument.&quot;</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">doc_type</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
-            <span class="n">path</span> <span class="o">=</span> <span class="n">_make_path</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="s2">&quot;_create&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">path</span> <span class="o">=</span> <span class="n">_make_path</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">doc_type</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="s2">&quot;_create&quot;</span><span class="p">)</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">_make_path</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="s2">&quot;_create&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
             <span class="s2">&quot;PUT&quot;</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">body</span>
@@ -386,14 +383,13 @@
         <span class="s2">&quot;version_type&quot;</span><span class="p">,</span>
         <span class="s2">&quot;wait_for_active_shards&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="n">doc_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Creates or updates a document in an index.</span>
 
 
 <span class="sd">        :arg index: The name of the index</span>
 <span class="sd">        :arg body: The document</span>
-<span class="sd">        :arg doc_type: The type of the document</span>
 <span class="sd">        :arg id: Document ID</span>
 <span class="sd">        :arg if_primary_term: only perform the index operation if the</span>
 <span class="sd">            last operation that has changed the document has the specified primary</span>
@@ -427,8 +423,7 @@
             <span class="k">if</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Empty value passed for a required argument.&quot;</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">doc_type</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">doc_type</span> <span class="o">=</span> <span class="s2">&quot;_doc&quot;</span>
+        <span class="n">doc_type</span> <span class="o">=</span> <span class="s2">&quot;_doc&quot;</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
             <span class="s2">&quot;POST&quot;</span> <span class="k">if</span> <span class="nb">id</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span> <span class="k">else</span> <span class="s2">&quot;PUT&quot;</span><span class="p">,</span>
@@ -449,7 +444,7 @@
         <span class="s2">&quot;timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;wait_for_active_shards&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">bulk</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">doc_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">bulk</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Allows to perform multiple index/update/delete operations in a single request.</span>
 
@@ -457,8 +452,6 @@
 <span class="sd">        :arg body: The operation definition and data (action-data</span>
 <span class="sd">            pairs), separated by newlines</span>
 <span class="sd">        :arg index: Default index for items which don&#39;t provide one</span>
-<span class="sd">        :arg doc_type: Default document type for items which don&#39;t</span>
-<span class="sd">            provide one</span>
 <span class="sd">        :arg _source: True or false to return the _source field or not,</span>
 <span class="sd">            or default list of fields to return, can be overridden on each sub-</span>
 <span class="sd">            request</span>
@@ -488,7 +481,7 @@
         <span class="n">body</span> <span class="o">=</span> <span class="n">_bulk_body</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">serializer</span><span class="p">,</span> <span class="n">body</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
             <span class="s2">&quot;POST&quot;</span><span class="p">,</span>
-            <span class="n">_make_path</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">doc_type</span><span class="p">,</span> <span class="s2">&quot;_bulk&quot;</span><span class="p">),</span>
+            <span class="n">_make_path</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="s2">&quot;_bulk&quot;</span><span class="p">),</span>
             <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span>
             <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
             <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
@@ -531,7 +524,7 @@
         <span class="s2">&quot;routing&quot;</span><span class="p">,</span>
         <span class="s2">&quot;terminate_after&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">count</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">doc_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">count</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns number of documents matching a query.</span>
 
@@ -539,8 +532,6 @@
 <span class="sd">        :arg body: A query to restrict the results specified with the</span>
 <span class="sd">            Query DSL (optional)</span>
 <span class="sd">        :arg index: A comma-separated list of indices to restrict the</span>
-<span class="sd">            results</span>
-<span class="sd">        :arg doc_type: A comma-separated list of types to restrict the</span>
 <span class="sd">            results</span>
 <span class="sd">        :arg allow_no_indices: Whether to ignore if a wildcard indices</span>
 <span class="sd">            expression resolves into no concrete indices. (This includes `_all`</span>
@@ -572,7 +563,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
             <span class="s2">&quot;POST&quot;</span><span class="p">,</span>
-            <span class="n">_make_path</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">doc_type</span><span class="p">,</span> <span class="s2">&quot;_count&quot;</span><span class="p">),</span>
+            <span class="n">_make_path</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="s2">&quot;_count&quot;</span><span class="p">),</span>
             <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span>
             <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
             <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
@@ -588,14 +579,13 @@
         <span class="s2">&quot;version_type&quot;</span><span class="p">,</span>
         <span class="s2">&quot;wait_for_active_shards&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">doc_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Removes a document from the index.</span>
 
 
 <span class="sd">        :arg index: The name of the index</span>
 <span class="sd">        :arg id: The document ID</span>
-<span class="sd">        :arg doc_type: The type of the document</span>
 <span class="sd">        :arg if_primary_term: only perform the delete operation if the</span>
 <span class="sd">            last operation that has changed the document has the specified primary</span>
 <span class="sd">            term</span>
@@ -621,8 +611,7 @@
             <span class="k">if</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Empty value passed for a required argument.&quot;</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">doc_type</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
-            <span class="n">doc_type</span> <span class="o">=</span> <span class="s2">&quot;_doc&quot;</span>
+        <span class="n">doc_type</span> <span class="o">=</span> <span class="s2">&quot;_doc&quot;</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
             <span class="s2">&quot;DELETE&quot;</span><span class="p">,</span> <span class="n">_make_path</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">doc_type</span><span class="p">,</span> <span class="nb">id</span><span class="p">),</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
@@ -663,7 +652,7 @@
         <span class="s2">&quot;wait_for_active_shards&quot;</span><span class="p">,</span>
         <span class="s2">&quot;wait_for_completion&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">delete_by_query</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="n">doc_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">delete_by_query</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Deletes documents matching the provided query.</span>
 
@@ -671,8 +660,6 @@
 <span class="sd">        :arg index: A comma-separated list of index names to search; use</span>
 <span class="sd">            `_all` or empty string to perform the operation on all indices</span>
 <span class="sd">        :arg body: The search definition using the Query DSL</span>
-<span class="sd">        :arg doc_type: A comma-separated list of document types to</span>
-<span class="sd">            search; leave empty to perform the operation on all types</span>
 <span class="sd">        :arg _source: True or false to return the _source field or not,</span>
 <span class="sd">            or a list of fields to return</span>
 <span class="sd">        :arg _source_excludes: A list of fields to exclude from the</span>
@@ -751,7 +738,7 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
             <span class="s2">&quot;POST&quot;</span><span class="p">,</span>
-            <span class="n">_make_path</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">doc_type</span><span class="p">,</span> <span class="s2">&quot;_delete_by_query&quot;</span><span class="p">),</span>
+            <span class="n">_make_path</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="s2">&quot;_delete_by_query&quot;</span><span class="p">),</span>
             <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span>
             <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
             <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
@@ -807,15 +794,13 @@
         <span class="s2">&quot;version&quot;</span><span class="p">,</span>
         <span class="s2">&quot;version_type&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">exists</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">doc_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">exists</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns information about whether a document exists in an index.</span>
 
 
 <span class="sd">        :arg index: The name of the index</span>
 <span class="sd">        :arg id: The document ID</span>
-<span class="sd">        :arg doc_type: The type of the document (use `_all` to fetch the</span>
-<span class="sd">            first document matching the ID across all types)</span>
 <span class="sd">        :arg _source: True or false to return the _source field or not,</span>
 <span class="sd">            or a list of fields to return</span>
 <span class="sd">        :arg _source_excludes: A list of fields to exclude from the</span>
@@ -839,8 +824,7 @@
             <span class="k">if</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Empty value passed for a required argument.&quot;</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">doc_type</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
-            <span class="n">doc_type</span> <span class="o">=</span> <span class="s2">&quot;_doc&quot;</span>
+        <span class="n">doc_type</span> <span class="o">=</span> <span class="s2">&quot;_doc&quot;</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
             <span class="s2">&quot;HEAD&quot;</span><span class="p">,</span> <span class="n">_make_path</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">doc_type</span><span class="p">,</span> <span class="nb">id</span><span class="p">),</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
@@ -857,15 +841,13 @@
         <span class="s2">&quot;version&quot;</span><span class="p">,</span>
         <span class="s2">&quot;version_type&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">exists_source</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">doc_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">exists_source</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns information about whether a document source exists in an index.</span>
 
 
 <span class="sd">        :arg index: The name of the index</span>
 <span class="sd">        :arg id: The document ID</span>
-<span class="sd">        :arg doc_type: The type of the document; deprecated and optional</span>
-<span class="sd">            starting with 7.0</span>
 <span class="sd">        :arg _source: True or false to return the _source field or not,</span>
 <span class="sd">            or a list of fields to return</span>
 <span class="sd">        :arg _source_excludes: A list of fields to exclude from the</span>
@@ -887,10 +869,7 @@
             <span class="k">if</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Empty value passed for a required argument.&quot;</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">doc_type</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
-            <span class="n">path</span> <span class="o">=</span> <span class="n">_make_path</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="s2">&quot;_source&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">path</span> <span class="o">=</span> <span class="n">_make_path</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">doc_type</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="s2">&quot;_source&quot;</span><span class="p">)</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">_make_path</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="s2">&quot;_source&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
             <span class="s2">&quot;HEAD&quot;</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
@@ -910,7 +889,7 @@
         <span class="s2">&quot;routing&quot;</span><span class="p">,</span>
         <span class="s2">&quot;stored_fields&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">explain</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">doc_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">explain</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns information about why a specific matches (or doesn&#39;t match) a query.</span>
 
@@ -918,7 +897,6 @@
 <span class="sd">        :arg index: The name of the index</span>
 <span class="sd">        :arg id: The document ID</span>
 <span class="sd">        :arg body: The query definition using the Query DSL</span>
-<span class="sd">        :arg doc_type: The type of the document</span>
 <span class="sd">        :arg _source: True or false to return the _source field or not,</span>
 <span class="sd">            or a list of fields to return</span>
 <span class="sd">        :arg _source_excludes: A list of fields to exclude from the</span>
@@ -945,10 +923,7 @@
             <span class="k">if</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Empty value passed for a required argument.&quot;</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">doc_type</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
-            <span class="n">path</span> <span class="o">=</span> <span class="n">_make_path</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="s2">&quot;_explain&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">path</span> <span class="o">=</span> <span class="n">_make_path</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">doc_type</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="s2">&quot;_explain&quot;</span><span class="p">)</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">_make_path</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="s2">&quot;_explain&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
             <span class="s2">&quot;POST&quot;</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">body</span>
@@ -1002,15 +977,13 @@
         <span class="s2">&quot;version&quot;</span><span class="p">,</span>
         <span class="s2">&quot;version_type&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">doc_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns a document.</span>
 
 
 <span class="sd">        :arg index: The name of the index</span>
 <span class="sd">        :arg id: The document ID</span>
-<span class="sd">        :arg doc_type: The type of the document (use `_all` to fetch the</span>
-<span class="sd">            first document matching the ID across all types)</span>
 <span class="sd">        :arg _source: True or false to return the _source field or not,</span>
 <span class="sd">            or a list of fields to return</span>
 <span class="sd">        :arg _source_excludes: A list of fields to exclude from the</span>
@@ -1034,8 +1007,7 @@
             <span class="k">if</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Empty value passed for a required argument.&quot;</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">doc_type</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
-            <span class="n">doc_type</span> <span class="o">=</span> <span class="s2">&quot;_doc&quot;</span>
+        <span class="n">doc_type</span> <span class="o">=</span> <span class="s2">&quot;_doc&quot;</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
             <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="n">_make_path</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">doc_type</span><span class="p">,</span> <span class="nb">id</span><span class="p">),</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
@@ -1068,15 +1040,13 @@
         <span class="s2">&quot;version&quot;</span><span class="p">,</span>
         <span class="s2">&quot;version_type&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">get_source</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">doc_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">get_source</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the source of a document.</span>
 
 
 <span class="sd">        :arg index: The name of the index</span>
 <span class="sd">        :arg id: The document ID</span>
-<span class="sd">        :arg doc_type: The type of the document; deprecated and optional</span>
-<span class="sd">            starting with 7.0</span>
 <span class="sd">        :arg _source: True or false to return the _source field or not,</span>
 <span class="sd">            or a list of fields to return</span>
 <span class="sd">        :arg _source_excludes: A list of fields to exclude from the</span>
@@ -1098,10 +1068,7 @@
             <span class="k">if</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Empty value passed for a required argument.&quot;</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">doc_type</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
-            <span class="n">path</span> <span class="o">=</span> <span class="n">_make_path</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="s2">&quot;_source&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">path</span> <span class="o">=</span> <span class="n">_make_path</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">doc_type</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="s2">&quot;_source&quot;</span><span class="p">)</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">_make_path</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="s2">&quot;_source&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
             <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
@@ -1117,7 +1084,7 @@
         <span class="s2">&quot;routing&quot;</span><span class="p">,</span>
         <span class="s2">&quot;stored_fields&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">mget</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">doc_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">mget</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Allows to get multiple documents in one request.</span>
 
@@ -1126,7 +1093,6 @@
 <span class="sd">            (containing full document information) or `ids` (when index and type is</span>
 <span class="sd">            provided in the URL.</span>
 <span class="sd">        :arg index: The name of the index</span>
-<span class="sd">        :arg doc_type: The type of the document</span>
 <span class="sd">        :arg _source: True or false to return the _source field or not,</span>
 <span class="sd">            or a list of fields to return</span>
 <span class="sd">        :arg _source_excludes: A list of fields to exclude from the</span>
@@ -1148,7 +1114,7 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
             <span class="s2">&quot;POST&quot;</span><span class="p">,</span>
-            <span class="n">_make_path</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">doc_type</span><span class="p">,</span> <span class="s2">&quot;_mget&quot;</span><span class="p">),</span>
+            <span class="n">_make_path</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="s2">&quot;_mget&quot;</span><span class="p">),</span>
             <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span>
             <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
             <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
@@ -1163,7 +1129,7 @@
         <span class="s2">&quot;search_type&quot;</span><span class="p">,</span>
         <span class="s2">&quot;typed_keys&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">msearch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">doc_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">msearch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Allows to execute several search operations in one request.</span>
 
@@ -1172,8 +1138,6 @@
 <span class="sd">            definition pairs), separated by newlines</span>
 <span class="sd">        :arg index: A comma-separated list of index names to use as</span>
 <span class="sd">            default</span>
-<span class="sd">        :arg doc_type: A comma-separated list of document types to use</span>
-<span class="sd">            as default</span>
 <span class="sd">        :arg ccs_minimize_roundtrips: Indicates whether network round-</span>
 <span class="sd">            trips should be minimized as part of cross-cluster search requests</span>
 <span class="sd">            execution  Default: true</span>
@@ -1203,7 +1167,7 @@
         <span class="n">body</span> <span class="o">=</span> <span class="n">_bulk_body</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">serializer</span><span class="p">,</span> <span class="n">body</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
             <span class="s2">&quot;POST&quot;</span><span class="p">,</span>
-            <span class="n">_make_path</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">doc_type</span><span class="p">,</span> <span class="s2">&quot;_msearch&quot;</span><span class="p">),</span>
+            <span class="n">_make_path</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="s2">&quot;_msearch&quot;</span><span class="p">),</span>
             <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span>
             <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
             <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
@@ -1216,9 +1180,7 @@
         <span class="s2">&quot;search_type&quot;</span><span class="p">,</span>
         <span class="s2">&quot;typed_keys&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">msearch_template</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">doc_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span>
-    <span class="p">):</span>
+    <span class="k">def</span> <span class="nf">msearch_template</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Allows to execute several search template operations in one request.</span>
 
@@ -1227,8 +1189,6 @@
 <span class="sd">            definition pairs), separated by newlines</span>
 <span class="sd">        :arg index: A comma-separated list of index names to use as</span>
 <span class="sd">            default</span>
-<span class="sd">        :arg doc_type: A comma-separated list of document types to use</span>
-<span class="sd">            as default</span>
 <span class="sd">        :arg ccs_minimize_roundtrips: Indicates whether network round-</span>
 <span class="sd">            trips should be minimized as part of cross-cluster search requests</span>
 <span class="sd">            execution  Default: true</span>
@@ -1247,7 +1207,7 @@
         <span class="n">body</span> <span class="o">=</span> <span class="n">_bulk_body</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">serializer</span><span class="p">,</span> <span class="n">body</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
             <span class="s2">&quot;POST&quot;</span><span class="p">,</span>
-            <span class="n">_make_path</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">doc_type</span><span class="p">,</span> <span class="s2">&quot;_msearch&quot;</span><span class="p">,</span> <span class="s2">&quot;template&quot;</span><span class="p">),</span>
+            <span class="n">_make_path</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="s2">&quot;_msearch&quot;</span><span class="p">,</span> <span class="s2">&quot;template&quot;</span><span class="p">),</span>
             <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span>
             <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
             <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
@@ -1267,9 +1227,7 @@
         <span class="s2">&quot;version&quot;</span><span class="p">,</span>
         <span class="s2">&quot;version_type&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">mtermvectors</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">doc_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span>
-    <span class="p">):</span>
+    <span class="k">def</span> <span class="nf">mtermvectors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns multiple termvectors in one request.</span>
 
@@ -1278,7 +1236,6 @@
 <span class="sd">            parameters per document here. You must at least provide a list of</span>
 <span class="sd">            document ids. See documentation.</span>
 <span class="sd">        :arg index: The index in which the document resides.</span>
-<span class="sd">        :arg doc_type: The type of the document.</span>
 <span class="sd">        :arg field_statistics: Specifies if document count, sum of</span>
 <span class="sd">            document frequencies and sum of total term frequencies should be</span>
 <span class="sd">            returned. Applies to all returned documents unless otherwise specified</span>
@@ -1311,10 +1268,7 @@
 <span class="sd">        :arg version_type: Specific version type  Valid choices:</span>
 <span class="sd">            internal, external, external_gte, force</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">doc_type</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
-            <span class="n">path</span> <span class="o">=</span> <span class="n">_make_path</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="s2">&quot;_mtermvectors&quot;</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">path</span> <span class="o">=</span> <span class="n">_make_path</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">doc_type</span><span class="p">,</span> <span class="s2">&quot;_mtermvectors&quot;</span><span class="p">)</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">_make_path</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="s2">&quot;_mtermvectors&quot;</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
             <span class="s2">&quot;POST&quot;</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">body</span>
@@ -1558,7 +1512,7 @@
         <span class="s2">&quot;typed_keys&quot;</span><span class="p">,</span>
         <span class="s2">&quot;version&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">search</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">doc_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">search</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns results matching a query.</span>
 
@@ -1566,8 +1520,6 @@
 <span class="sd">        :arg body: The search definition using the Query DSL</span>
 <span class="sd">        :arg index: A comma-separated list of index names to search; use</span>
 <span class="sd">            `_all` or empty string to perform the operation on all indices</span>
-<span class="sd">        :arg doc_type: A comma-separated list of document types to</span>
-<span class="sd">            search; leave empty to perform the operation on all types</span>
 <span class="sd">        :arg _source: True or false to return the _source field or not,</span>
 <span class="sd">            or a list of fields to return</span>
 <span class="sd">        :arg _source_excludes: A list of fields to exclude from the</span>
@@ -1668,7 +1620,7 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
             <span class="s2">&quot;POST&quot;</span><span class="p">,</span>
-            <span class="n">_make_path</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">doc_type</span><span class="p">,</span> <span class="s2">&quot;_search&quot;</span><span class="p">),</span>
+            <span class="n">_make_path</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="s2">&quot;_search&quot;</span><span class="p">),</span>
             <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span>
             <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
             <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
@@ -1723,9 +1675,7 @@
         <span class="s2">&quot;search_type&quot;</span><span class="p">,</span>
         <span class="s2">&quot;typed_keys&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">search_template</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">doc_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span>
-    <span class="p">):</span>
+    <span class="k">def</span> <span class="nf">search_template</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Allows to use the Mustache language to pre-render a search definition.</span>
 
@@ -1733,8 +1683,6 @@
 <span class="sd">        :arg body: The search definition template and its params</span>
 <span class="sd">        :arg index: A comma-separated list of index names to search; use</span>
 <span class="sd">            `_all` or empty string to perform the operation on all indices</span>
-<span class="sd">        :arg doc_type: A comma-separated list of document types to</span>
-<span class="sd">            search; leave empty to perform the operation on all types</span>
 <span class="sd">        :arg allow_no_indices: Whether to ignore if a wildcard indices</span>
 <span class="sd">            expression resolves into no concrete indices. (This includes `_all`</span>
 <span class="sd">            string or when no indices have been specified)</span>
@@ -1768,7 +1716,7 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
             <span class="s2">&quot;POST&quot;</span><span class="p">,</span>
-            <span class="n">_make_path</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">doc_type</span><span class="p">,</span> <span class="s2">&quot;_search&quot;</span><span class="p">,</span> <span class="s2">&quot;template&quot;</span><span class="p">),</span>
+            <span class="n">_make_path</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="s2">&quot;_search&quot;</span><span class="p">,</span> <span class="s2">&quot;template&quot;</span><span class="p">),</span>
             <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span>
             <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
             <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
@@ -1787,9 +1735,7 @@
         <span class="s2">&quot;version&quot;</span><span class="p">,</span>
         <span class="s2">&quot;version_type&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">termvectors</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">doc_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span>
-    <span class="p">):</span>
+    <span class="k">def</span> <span class="nf">termvectors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns information and statistics about terms in the fields of a particular</span>
 <span class="sd">        document.</span>
@@ -1798,7 +1744,6 @@
 <span class="sd">        :arg index: The index in which the document resides.</span>
 <span class="sd">        :arg body: Define parameters and or supply a document to get</span>
 <span class="sd">            termvectors for. See documentation.</span>
-<span class="sd">        :arg doc_type: The type of the document.</span>
 <span class="sd">        :arg id: The id of the document, when not specified a doc param</span>
 <span class="sd">            should be supplied.</span>
 <span class="sd">        :arg field_statistics: Specifies if document count, sum of</span>
@@ -1825,10 +1770,7 @@
         <span class="k">if</span> <span class="n">index</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Empty value passed for a required argument &#39;index&#39;.&quot;</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">doc_type</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
-            <span class="n">path</span> <span class="o">=</span> <span class="n">_make_path</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="s2">&quot;_termvectors&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">path</span> <span class="o">=</span> <span class="n">_make_path</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">doc_type</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="s2">&quot;_termvectors&quot;</span><span class="p">)</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">_make_path</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="s2">&quot;_termvectors&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
             <span class="s2">&quot;POST&quot;</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">body</span>
@@ -1848,7 +1790,7 @@
         <span class="s2">&quot;timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;wait_for_active_shards&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="n">doc_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Updates a document with a script or partial document.</span>
 
@@ -1857,7 +1799,6 @@
 <span class="sd">        :arg id: Document ID</span>
 <span class="sd">        :arg body: The request definition requires either `script` or</span>
 <span class="sd">            partial `doc`</span>
-<span class="sd">        :arg doc_type: The type of the document</span>
 <span class="sd">        :arg _source: True or false to return the _source field or not,</span>
 <span class="sd">            or a list of fields to return</span>
 <span class="sd">        :arg _source_excludes: A list of fields to exclude from the</span>
@@ -1891,10 +1832,7 @@
             <span class="k">if</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Empty value passed for a required argument.&quot;</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">doc_type</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
-            <span class="n">path</span> <span class="o">=</span> <span class="n">_make_path</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="s2">&quot;_update&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">path</span> <span class="o">=</span> <span class="n">_make_path</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">doc_type</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="s2">&quot;_update&quot;</span><span class="p">)</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">_make_path</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="s2">&quot;_update&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
             <span class="s2">&quot;POST&quot;</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">body</span>
@@ -1937,9 +1875,7 @@
         <span class="s2">&quot;wait_for_active_shards&quot;</span><span class="p">,</span>
         <span class="s2">&quot;wait_for_completion&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">update_by_query</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">doc_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span>
-    <span class="p">):</span>
+    <span class="k">def</span> <span class="nf">update_by_query</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Performs an update on every document in the index without changing the source,</span>
 <span class="sd">        for example to pick up a mapping change.</span>
@@ -1948,7 +1884,6 @@
 <span class="sd">        :arg index: A comma-separated list of index names to search; use</span>
 <span class="sd">            `_all` or empty string to perform the operation on all indices</span>
 <span class="sd">        :arg body: The search definition using the Query DSL</span>
-<span class="sd">        :arg doc_type: A comma-separated list of document types to</span>
 <span class="sd">            search; leave empty to perform the operation on all types</span>
 <span class="sd">        :arg _source: True or false to return the _source field or not,</span>
 <span class="sd">            or a list of fields to return</span>
@@ -2031,7 +1966,7 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
             <span class="s2">&quot;POST&quot;</span><span class="p">,</span>
-            <span class="n">_make_path</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">doc_type</span><span class="p">,</span> <span class="s2">&quot;_update_by_query&quot;</span><span class="p">),</span>
+            <span class="n">_make_path</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="s2">&quot;_update_by_query&quot;</span><span class="p">),</span>
             <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span>
             <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
             <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
