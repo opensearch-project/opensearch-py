@@ -9,14 +9,14 @@
 
 OpenSearch Python Client
 
-- [Welcome!](#welcome)
-- [Getting Started](#getting-started)
+- [Welcome!](https://github.com/opensearch-project/opensearch-py#welcome)
+- [Getting Started](https://github.com/opensearch-project/opensearch-py#getting-started)
 - [API Doc](https://opensearch-project.github.io/opensearch-py/)
-- [Compatibility with OpenSearch](#compatibility-with-opensearch)
-- [Project Resources](#project-resources)
-- [Code of Conduct](#code-of-conduct)
-- [License](#license)
-- [Copyright](#copyright)
+- [Compatibility with OpenSearch](https://github.com/opensearch-project/opensearch-py#compatibility-with-opensearch)
+- [Project Resources](https://github.com/opensearch-project/opensearch-py#project-resources)
+- [Code of Conduct](https://github.com/opensearch-project/opensearch-py#code-of-conduct)
+- [License](https://github.com/opensearch-project/opensearch-py#license)
+- [Copyright](https://github.com/opensearch-project/opensearch-py#copyright)
 
 ## Welcome!
 
@@ -28,11 +28,11 @@ This is the low-level client. A high-level Python client is in the works, and wi
 
 ## Getting Started
 
-To get started with the OpenSearch Python Client, see [Getting Started](GETTING_STARTED.md).
+To get started with the OpenSearch Python Client, see [Getting Started](https://github.com/opensearch-project/opensearch-py/blob/main/GETTING_STARTED.md).
 
 ## Compatibility with OpenSearch
 
-See [Compatibility](COMPATIBILITY.md).
+See [Compatibility](https://github.com/opensearch-project/opensearch-py/blob/main/COMPATIBILITY.md).
 
 ## Project Resources
 
