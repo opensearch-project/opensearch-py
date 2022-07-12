@@ -35,8 +35,9 @@ from . import OpenSearchTestCase
 
 
 class TestAlertingPlugin(OpenSearchTestCase):
-    @unittest.skipIf(
-        (2, 0, 0) <= OPENSEARCH_VERSION, "Plugin not supported for opensearch version"
+    @unittest.skipUnless(
+        (OPENSEARCH_VERSION) and (OPENSEARCH_VERSION < (2, 0, 0)),
+        "Plugin not supported for opensearch version",
     )
     def test_create_destination(self):
         # Test to create alert destination
@@ -50,8 +51,9 @@ class TestAlertingPlugin(OpenSearchTestCase):
         self.assertNotIn("errors", response)
         self.assertIn("_id", response)
 
-    @unittest.skipIf(
-        (2, 0, 0) <= OPENSEARCH_VERSION, "Plugin not supported for opensearch version"
+    @unittest.skipUnless(
+        (OPENSEARCH_VERSION) and (OPENSEARCH_VERSION < (2, 0, 0)),
+        "Plugin not supported for opensearch version",
     )
     def test_get_destination(self):
         # Create a dummy destination
@@ -64,8 +66,9 @@ class TestAlertingPlugin(OpenSearchTestCase):
         self.assertGreaterEqual(response["totalDestinations"], 1)
         self.assertEqual(response["totalDestinations"], len(response["destinations"]))
 
-    @unittest.skipIf(
-        (2, 0, 0) <= OPENSEARCH_VERSION, "Plugin not supported for opensearch version"
+    @unittest.skipUnless(
+        (OPENSEARCH_VERSION) and (OPENSEARCH_VERSION < (2, 0, 0)),
+        "Plugin not supported for opensearch version",
     )
     def test_create_monitor(self):
         # Create a dummy destination
@@ -128,8 +131,9 @@ class TestAlertingPlugin(OpenSearchTestCase):
         self.assertIn("_id", response)
         self.assertIn("monitor", response)
 
-    @unittest.skipIf(
-        (2, 0, 0) <= OPENSEARCH_VERSION, "Plugin not supported for opensearch version"
+    @unittest.skipUnless(
+        (OPENSEARCH_VERSION) and (OPENSEARCH_VERSION < (2, 0, 0)),
+        "Plugin not supported for opensearch version",
     )
     def test_search_monitor(self):
         # Create a dummy monitor
@@ -145,8 +149,9 @@ class TestAlertingPlugin(OpenSearchTestCase):
         self.assertIn("hits", response)
         self.assertEqual(response["hits"]["total"]["value"], 1, "No monitor found.")
 
-    @unittest.skipIf(
-        (2, 0, 0) <= OPENSEARCH_VERSION, "Plugin not supported for opensearch version"
+    @unittest.skipUnless(
+        (OPENSEARCH_VERSION) and (OPENSEARCH_VERSION < (2, 0, 0)),
+        "Plugin not supported for opensearch version",
     )
     def test_get_monitor(self):
         # Create a dummy monitor
@@ -168,8 +173,9 @@ class TestAlertingPlugin(OpenSearchTestCase):
         self.assertIn("_id", response)
         self.assertIn("monitor", response)
 
-    @unittest.skipIf(
-        (2, 0, 0) <= OPENSEARCH_VERSION, "Plugin not supported for opensearch version"
+    @unittest.skipUnless(
+        (OPENSEARCH_VERSION) and (OPENSEARCH_VERSION < (2, 0, 0)),
+        "Plugin not supported for opensearch version",
     )
     def test_run_monitor(self):
         # Create a dummy monitor
