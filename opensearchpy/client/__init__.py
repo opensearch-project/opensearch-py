@@ -37,6 +37,7 @@ from .features import FeaturesClient
 from .indices import IndicesClient
 from .ingest import IngestClient
 from .nodes import NodesClient
+from .plugins import PluginsClient
 from .remote import RemoteClient
 from .snapshot import SnapshotClient
 from .tasks import TasksClient
@@ -199,6 +200,8 @@ class OpenSearch(object):
         self.tasks = TasksClient(self)
 
         self.features = FeaturesClient(self)
+
+        self.plugins = PluginsClient(self)
 
     def __repr__(self):
         try:
