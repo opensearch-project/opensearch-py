@@ -1947,23 +1947,33 @@ class OpenSearch(object):
         )
 
     @query_params()
-    def close_point_in_time(self, body=None, params=None, headers=None):
+    def get_point_in_time(self, params=None, headers=None):
         """
-        Close a point in time
-
-
-        :arg body: a point-in-time id to close
+        Returns the list of point in times which are alive
         """
         return self.transport.perform_request(
-            "DELETE", "/_pit", params=params, headers=headers, body=body
+            "GET", _make_path("_search","point_in_time","all"), params=params, headers=headers
+        )
+
+    
+    @query_params()
+    def delete_point_in_time(self, all=None, body=None, params=None, headers=None):
+        """
+        Delete a point in time
+
+
+        :arg body: a point-in-time id to delete
+        """
+        return self.transport.perform_request(
+            "DELETE", _make_path("_search","point_in_time", all), params=params, headers=headers, body=body
         )
 
     @query_params(
         "expand_wildcards", "ignore_unavailable", "keep_alive", "preference", "routing"
     )
-    def open_point_in_time(self, index=None, params=None, headers=None):
+    def create_point_in_time(self, index=None, params=None, headers=None):
         """
-        Open a point in time that can be used in subsequent searches
+        Create a point in time that can be used in subsequent searches
 
 
         :arg index: A comma-separated list of index names to open point
@@ -1980,7 +1990,7 @@ class OpenSearch(object):
         :arg routing: Specific routing value
         """
         return self.transport.perform_request(
-            "POST", _make_path(index, "_pit"), params=params, headers=headers
+            "POST", _make_path(index,"_search","point_in_time"), params=params, headers=headers
         )
 
     @query_params()
