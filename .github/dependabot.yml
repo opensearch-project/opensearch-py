@@ -1,0 +1,7 @@
+updates:
+  - directory: /
+    open-pull-requests-limit: 3
+    package-ecosystem: pip
+    schedule:
+      interval: weekly
+version: 2
