@@ -118,6 +118,34 @@ response = client.indices.delete(
 
 print('\nDeleting index:')
 print(response)
+
+
+# Bulk index documents
+
+docs = '{"index": {"_index": "index-2022-06-08", "_id": "1"}} \n 
+{"name": "foo"} \n 
+{"index": {"_index": "index-2022-06-09", "_id": "2"}} \n 
+{"name": "bar"} \n 
+{"index": {"_index": "index-2022-06-10", "_id": "3"}} \n 
+{"name": "baz"}'
+
+client.bulk(docs)
+
+
+# Bulk index documents using the helper function
+
+docs = []
+def generate_data():
+    mywords = ['foo', 'bar', 'baz']
+    for index, word in enumerate(mywords):
+        docs.append({
+            "_index": "mywords",
+            "word": word,
+            "_id": index
+        })
+    return docs
+
+helpers.bulk(client, generate_data(), max_retries=3)
 ```
 
 ## Using IAM credentials for authentication

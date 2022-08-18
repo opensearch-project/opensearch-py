@@ -142,3 +142,10 @@ cython_debug/
 test_opensearch/cover
 test_opensearch/local.py
 .ci/output
+
+# Local test file
+test_opensearchpy/local.py
+test_opensearchpy/custom-opensearch.yml
+
+# Certificates
+root-ca.pem
