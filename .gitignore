@@ -145,7 +145,6 @@ test_opensearch/local.py
 
 # Local test file
 test_opensearchpy/local.py
-test_opensearchpy/custom-opensearch.yml
 
 # Certificates
 root-ca.pem
