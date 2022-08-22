@@ -1947,12 +1947,12 @@ class OpenSearch(object):
         )
 
     @query_params()
-    def get_point_in_time(self, params=None, headers=None):
+    def list_all_point_in_time(self, params=None, headers=None):
         """
-        Returns the list of point in times which are alive
+        Returns the list of active point in times searches
         """
         return self.transport.perform_request(
-            "GET", _make_path("_search","point_in_time","all"), params=params, headers=headers
+            "GET", _make_path("_search", "point_in_time", "all"), params=params, headers=headers
         )
 
     
@@ -1963,9 +1963,10 @@ class OpenSearch(object):
 
 
         :arg body: a point-in-time id to delete
+        :arg all: set it to `_all` to delete all alive point in time.
         """
         return self.transport.perform_request(
-            "DELETE", _make_path("_search","point_in_time", all), params=params, headers=headers, body=body
+            "DELETE", _make_path("_search", "point_in_time", all), params=params, headers=headers, body=body
         )
 
     @query_params(

@@ -1329,7 +1329,7 @@ class AsyncOpenSearch(object):
 
     @query_params()
     async def render_search_template(
-            self, body=None, id=None, params=None, headers=None
+        self, body=None, id=None, params=None, headers=None
     ):
         """
         Allows to use the Mustache language to pre-render a search definition.
@@ -1948,7 +1948,7 @@ class AsyncOpenSearch(object):
         )
 
     @query_params()
-    async def get_point_in_time(self, params=None, headers=None):
+    async def list_all_point_in_time(self, params=None, headers=None):
         """
         Returns the list of point in times which are alive
         """
@@ -1959,10 +1959,11 @@ class AsyncOpenSearch(object):
     @query_params()
     async def delete_point_in_time(self, all=None, body=None, params=None, headers=None):
         """
-        Close a point in time
+        Delete a point in time
 
 
-        :arg body: a point-in-time id to close
+        :arg body: a point-in-time id to delete
+        :arg all: set it to `_all` to delete all alive point in time.
         """
         return await self.transport.perform_request(
             "DELETE", _make_path("_search", "point_in_time", all), params=params, headers=headers, body=body
@@ -1974,10 +1975,10 @@ class AsyncOpenSearch(object):
     )
     async def create_point_in_time(self, index=None, params=None, headers=None):
         """
-        Open a point in time that can be used in subsequent searches
+        Create a point in time that can be used in subsequent searches
 
 
-        :arg index: A comma-separated list of index names to open point
+        :arg index: A comma-separated list of index names to create point
             in time; use `_all` or empty string to perform the operation on all
             indices
         :arg expand_wildcards: Whether to expand wildcard expression to
