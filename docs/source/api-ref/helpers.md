@@ -19,7 +19,3 @@
 ```{eval-rst}
 .. autofunction:: opensearchpy.helpers.scan
 ```
-
-```{eval-rst}
-.. autoclass:: opensearchpy.AWSV4SignerAuth
-```
