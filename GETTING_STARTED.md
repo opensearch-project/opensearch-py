@@ -25,6 +25,8 @@ If you prefer to add the client manually or just want to examine the source code
 
 ## Sample code
 
+### Creating a client
+
 ```python
 from opensearchpy import OpenSearch
 
@@ -51,6 +53,10 @@ client = OpenSearch(
     ca_certs = ca_certs_path
 )
 
+```
+
+### Creating an index
+```python
 # Create an index with non-default settings.
 index_name = 'python-test-index3'
 index_body = {
@@ -64,8 +70,10 @@ index_body = {
 response = client.indices.create(index_name, body=index_body)
 print('\nCreating index:')
 print(response)
+```
 
-# Add a document to the index.
+### Adding a document to an index
+```python
 document = {
   'title': 'Moneyball',
   'director': 'Bennett Miller',
@@ -82,8 +90,44 @@ response = client.index(
 
 print('\nAdding document:')
 print(response)
+```
 
-# Search for the document.
+### Adding documents in bulk
+```python
+docs = '{"index": {"_index": "index-2022-06-08", "_id": "1"}} \n 
+{"name": "foo"} \n 
+{"index": {"_index": "index-2022-06-09", "_id": "2"}} \n 
+{"name": "bar"} \n 
+{"index": {"_index": "index-2022-06-10", "_id": "3"}} \n 
+{"name": "baz"}'
+
+response = client.bulk(docs)
+
+print('\nAdding bulk documents:')
+print(response)
+```
+
+### Adding documents in bulk using helper functions
+```python
+docs = []
+def generate_data():
+    mywords = ['foo', 'bar', 'baz']
+    for index, word in enumerate(mywords):
+        docs.append({
+            "_index": "mywords",
+            "word": word,
+            "_id": index
+        })
+    return docs
+
+response = helpers.bulk(client, generate_data(), max_retries=3)
+
+print('\nAdding bulk documents using helper:')
+print(response)
+```
+
+### Searching for a document
+```python
 q = 'miller'
 query = {
   'size': 5,
@@ -101,8 +145,10 @@ response = client.search(
 )
 print('\nSearch results:')
 print(response)
+```
 
-# Delete the document.
+### Deleting a document
+```python
 response = client.delete(
     index = index_name,
     id = id
@@ -110,42 +156,16 @@ response = client.delete(
 
 print('\nDeleting document:')
 print(response)
+```
 
-# Delete the index.
+### Deleting an index
+```python
 response = client.indices.delete(
     index = index_name
 )
 
 print('\nDeleting index:')
 print(response)
-
-
-# Bulk index documents
-
-docs = '{"index": {"_index": "index-2022-06-08", "_id": "1"}} \n 
-{"name": "foo"} \n 
-{"index": {"_index": "index-2022-06-09", "_id": "2"}} \n 
-{"name": "bar"} \n 
-{"index": {"_index": "index-2022-06-10", "_id": "3"}} \n 
-{"name": "baz"}'
-
-client.bulk(docs)
-
-
-# Bulk index documents using the helper function
-
-docs = []
-def generate_data():
-    mywords = ['foo', 'bar', 'baz']
-    for index, word in enumerate(mywords):
-        docs.append({
-            "_index": "mywords",
-            "word": word,
-            "_id": index
-        })
-    return docs
-
-helpers.bulk(client, generate_data(), max_retries=3)
 ```
 
 ## Using IAM credentials for authentication
