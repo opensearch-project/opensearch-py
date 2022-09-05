@@ -1953,7 +1953,7 @@ class AsyncOpenSearch(object):
         Returns the list of point in times which are alive
         """
         return await self.transport.perform_request(
-            "GET", _make_path("_search", "point_in_time", "all"), params=params, headers=headers
+            "GET", _make_path("_search", "point_in_time", "_all"), params=params, headers=headers
         )
 
     @query_params()

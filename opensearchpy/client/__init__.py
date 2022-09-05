@@ -1952,7 +1952,7 @@ class OpenSearch(object):
         Returns the list of active point in times searches
         """
         return self.transport.perform_request(
-            "GET", _make_path("_search", "point_in_time", "all"), params=params, headers=headers
+            "GET", _make_path("_search", "point_in_time", "_all"), params=params, headers=headers
         )
 
     
