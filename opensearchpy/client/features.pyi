@@ -32,7 +32,7 @@ class FeaturesClient(NamespacedClient):
     def get_features(
         self,
         *,
-        master_timeout: Optional[Any] = ...,
+        leader_timeout: Optional[Any] = ...,
         pretty: Optional[bool] = ...,
         human: Optional[bool] = ...,
         error_trace: Optional[bool] = ...,
@@ -62,3 +62,4 @@ class FeaturesClient(NamespacedClient):
         params: Optional[MutableMapping[str, Any]] = ...,
         headers: Optional[MutableMapping[str, str]] = ...,
     ) -> Any: ...
+        
