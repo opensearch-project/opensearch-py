@@ -24,35 +24,57 @@
 #  specific language governing permissions and limitations
 #  under the License.
 
-from .utils import NamespacedClient, query_params
+from .utils import SKIP_IN_PATH, NamespacedClient, _make_path, query_params
 
 
-class FeaturesClient(NamespacedClient):
-    @query_params("master_timeout")
-    async def get_features(self, params=None, headers=None):
+class DanglingIndicesClient(NamespacedClient):
+    @query_params("accept_data_loss", "leader_timeout", "timeout")
+    async def delete_dangling_index(self, index_uuid, params=None, headers=None):
         """
-        Gets a list of features which can be included in snapshots using the
-        feature_states field when creating a snapshot
+        Deletes the specified dangling index
 
 
-        :arg master_timeout: Explicit operation timeout for connection
-            to master node
+        :arg index_uuid: The UUID of the dangling index
+        :arg accept_data_loss: Must be set to true in order to delete
+            the dangling index
+        :arg leader_timeout: Specify timeout for connection to leader
+        :arg timeout: Explicit operation timeout
         """
+        if index_uuid in SKIP_IN_PATH:
+            raise ValueError("Empty value passed for a required argument 'index_uuid'.")
+
         return await self.transport.perform_request(
-            "GET", "/_features", params=params, headers=headers
+            "DELETE",
+            _make_path("_dangling", index_uuid),
+            params=params,
+            headers=headers,
+        )
+
+    @query_params("accept_data_loss", "leader_timeout", "timeout")
+    async def import_dangling_index(self, index_uuid, params=None, headers=None):
+        """
+        Imports the specified dangling index
+
+
+        :arg index_uuid: The UUID of the dangling index
+        :arg accept_data_loss: Must be set to true in order to import
+            the dangling index
+        :arg leader_timeout: Specify timeout for connection to leader
+        :arg timeout: Explicit operation timeout
+        """
+        if index_uuid in SKIP_IN_PATH:
+            raise ValueError("Empty value passed for a required argument 'index_uuid'.")
+
+        return await self.transport.perform_request(
+            "POST", _make_path("_dangling", index_uuid), params=params, headers=headers
         )
 
     @query_params()
-    async def reset_features(self, params=None, headers=None):
+    async def list_dangling_indices(self, params=None, headers=None):
         """
-        Resets the internal state of features, usually by deleting system indices
+        Returns all dangling indices.
 
-
-        .. warning::
-
-            This API is **experimental** so may include breaking changes
-            or be removed in a future version
         """
         return await self.transport.perform_request(
-            "POST", "/_features/_reset", params=params, headers=headers
+            "GET", "/_dangling", params=params, headers=headers
         )
