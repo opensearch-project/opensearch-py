@@ -104,7 +104,7 @@ class IndicesClient(NamespacedClient):
             "POST", _make_path(index, "_flush"), params=params, headers=headers
         )
 
-    @query_params("master_timeout", "timeout", "wait_for_active_shards")
+    @query_params("leader_timeout", "timeout", "wait_for_active_shards")
     async def create(self, index, body=None, params=None, headers=None):
         """
         Creates an index with optional settings and mappings.
@@ -113,7 +113,7 @@ class IndicesClient(NamespacedClient):
         :arg index: The name of the index
         :arg body: The configuration for the index (`settings` and
             `mappings`)
-        :arg master_timeout: Specify timeout for connection to master
+        :arg leader_timeout: Specify timeout for connection to leader
         :arg timeout: Explicit operation timeout
         :arg wait_for_active_shards: Set the number of active shards to
             wait for before the operation returns.
@@ -125,7 +125,7 @@ class IndicesClient(NamespacedClient):
             "PUT", _make_path(index), params=params, headers=headers, body=body
         )
 
-    @query_params("master_timeout", "timeout", "wait_for_active_shards")
+    @query_params("leader_timeout", "timeout", "wait_for_active_shards")
     async def clone(self, index, target, body=None, params=None, headers=None):
         """
         Clones an index
@@ -135,7 +135,7 @@ class IndicesClient(NamespacedClient):
         :arg target: The name of the target index to clone into
         :arg body: The configuration for the target index (`settings`
             and `aliases`)
-        :arg master_timeout: Specify timeout for connection to master
+        :arg leader_timeout: Specify timeout for connection to leader
         :arg timeout: Explicit operation timeout
         :arg wait_for_active_shards: Set the number of active shards to
             wait for on the cloned index before the operation returns.
@@ -159,7 +159,7 @@ class IndicesClient(NamespacedClient):
         "ignore_unavailable",
         "include_defaults",
         "local",
-        "master_timeout",
+        "leader_timeout",
     )
     async def get(self, index, params=None, headers=None):
         """
@@ -179,8 +179,8 @@ class IndicesClient(NamespacedClient):
         :arg include_defaults: Whether to return all default setting for
             each of the indices.
         :arg local: Return local information, do not retrieve the state
-            from master node (default: false)
-        :arg master_timeout: Specify timeout for connection to master
+            from leader node (default: false)
+        :arg leader_timeout: Specify timeout for connection to leader
         """
         if index in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'index'.")
@@ -193,7 +193,7 @@ class IndicesClient(NamespacedClient):
         "allow_no_indices",
         "expand_wildcards",
         "ignore_unavailable",
-        "master_timeout",
+        "leader_timeout",
         "timeout",
         "wait_for_active_shards",
     )
@@ -211,7 +211,7 @@ class IndicesClient(NamespacedClient):
             closed, hidden, none, all  Default: closed
         :arg ignore_unavailable: Whether specified concrete indices
             should be ignored when unavailable (missing or closed)
-        :arg master_timeout: Specify timeout for connection to master
+        :arg leader_timeout: Specify timeout for connection to leader
         :arg timeout: Explicit operation timeout
         :arg wait_for_active_shards: Sets the number of active shards to
             wait for before the operation returns.
@@ -227,7 +227,7 @@ class IndicesClient(NamespacedClient):
         "allow_no_indices",
         "expand_wildcards",
         "ignore_unavailable",
-        "master_timeout",
+        "leader_timeout",
         "timeout",
         "wait_for_active_shards",
     )
@@ -245,7 +245,7 @@ class IndicesClient(NamespacedClient):
             closed, hidden, none, all  Default: open
         :arg ignore_unavailable: Whether specified concrete indices
             should be ignored when unavailable (missing or closed)
-        :arg master_timeout: Specify timeout for connection to master
+        :arg leader_timeout: Specify timeout for connection to leader
         :arg timeout: Explicit operation timeout
         :arg wait_for_active_shards: Sets the number of active shards to
             wait for before the operation returns. Set to `index-setting` to wait
@@ -263,7 +263,7 @@ class IndicesClient(NamespacedClient):
         "allow_no_indices",
         "expand_wildcards",
         "ignore_unavailable",
-        "master_timeout",
+        "leader_timeout",
         "timeout",
     )
     async def delete(self, index, params=None, headers=None):
@@ -280,7 +280,7 @@ class IndicesClient(NamespacedClient):
             closed, hidden, none, all  Default: open
         :arg ignore_unavailable: Ignore unavailable indexes (default:
             false)
-        :arg master_timeout: Specify timeout for connection to master
+        :arg leader_timeout: Specify timeout for connection to leader
         :arg timeout: Explicit operation timeout
         """
         if index in SKIP_IN_PATH:
@@ -316,7 +316,7 @@ class IndicesClient(NamespacedClient):
         :arg include_defaults: Whether to return all default setting for
             each of the indices.
         :arg local: Return local information, do not retrieve the state
-            from master node (default: false)
+            from leader node (default: false)
         """
         if index in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'index'.")
@@ -329,7 +329,7 @@ class IndicesClient(NamespacedClient):
         "allow_no_indices",
         "expand_wildcards",
         "ignore_unavailable",
-        "master_timeout",
+        "leader_timeout",
         "timeout",
         "write_index_only",
     )
@@ -350,7 +350,7 @@ class IndicesClient(NamespacedClient):
             closed, hidden, none, all  Default: open
         :arg ignore_unavailable: Whether specified concrete indices
             should be ignored when unavailable (missing or closed)
-        :arg master_timeout: Specify timeout for connection to master
+        :arg leader_timeout: Specify timeout for connection to leader
         :arg timeout: Explicit operation timeout
         :arg write_index_only: When true, applies mappings only to the
             write index of an alias or data stream
@@ -371,7 +371,7 @@ class IndicesClient(NamespacedClient):
         "expand_wildcards",
         "ignore_unavailable",
         "local",
-        "master_timeout",
+        "leader_timeout",
     )
     async def get_mapping(self, index=None, params=None, headers=None):
         """
@@ -388,8 +388,8 @@ class IndicesClient(NamespacedClient):
         :arg ignore_unavailable: Whether specified concrete indices
             should be ignored when unavailable (missing or closed)
         :arg local: Return local information, do not retrieve the state
-            from master node (default: false)
-        :arg master_timeout: Specify timeout for connection to master
+            from leader node (default: false)
+        :arg leader_timeout: Specify timeout for connection to leader
         """
         return await self.transport.perform_request(
             "GET",
@@ -423,7 +423,7 @@ class IndicesClient(NamespacedClient):
         :arg include_defaults: Whether the default mapping values should
             be returned as well
         :arg local: Return local information, do not retrieve the state
-            from master node (default: false)
+            from leader node (default: false)
         """
         if fields in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'fields'.")
@@ -435,7 +435,7 @@ class IndicesClient(NamespacedClient):
             headers=headers,
         )
 
-    @query_params("master_timeout", "timeout")
+    @query_params("leader_timeout", "timeout")
     async def put_alias(self, index, name, body=None, params=None, headers=None):
         """
         Creates or updates an alias.
@@ -447,7 +447,7 @@ class IndicesClient(NamespacedClient):
         :arg name: The name of the alias to be created or updated
         :arg body: The settings for the alias, such as `routing` or
             `filter`
-        :arg master_timeout: Specify timeout for connection to master
+        :arg leader_timeout: Specify timeout for connection to leader
         :arg timeout: Explicit timestamp for the document
         """
         for param in (index, name):
@@ -480,7 +480,7 @@ class IndicesClient(NamespacedClient):
         :arg ignore_unavailable: Whether specified concrete indices
             should be ignored when unavailable (missing or closed)
         :arg local: Return local information, do not retrieve the state
-            from master node (default: false)
+            from leader node (default: false)
         """
         if name in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'name'.")
@@ -507,20 +507,20 @@ class IndicesClient(NamespacedClient):
         :arg ignore_unavailable: Whether specified concrete indices
             should be ignored when unavailable (missing or closed)
         :arg local: Return local information, do not retrieve the state
-            from master node (default: false)
+            from leader node (default: false)
         """
         return await self.transport.perform_request(
             "GET", _make_path(index, "_alias", name), params=params, headers=headers
         )
 
-    @query_params("master_timeout", "timeout")
+    @query_params("leader_timeout", "timeout")
     async def update_aliases(self, body, params=None, headers=None):
         """
         Updates index aliases.
 
 
         :arg body: The definition of `actions` to perform
-        :arg master_timeout: Specify timeout for connection to master
+        :arg leader_timeout: Specify timeout for connection to leader
         :arg timeout: Request timeout
         """
         if body in SKIP_IN_PATH:
@@ -530,7 +530,7 @@ class IndicesClient(NamespacedClient):
             "POST", "/_aliases", params=params, headers=headers, body=body
         )
 
-    @query_params("master_timeout", "timeout")
+    @query_params("leader_timeout", "timeout")
     async def delete_alias(self, index, name, params=None, headers=None):
         """
         Deletes an alias.
@@ -540,7 +540,7 @@ class IndicesClient(NamespacedClient):
             wildcards); use `_all` for all indices
         :arg name: A comma-separated list of aliases to delete (supports
             wildcards); use `_all` to delete all aliases for the specified indices.
-        :arg master_timeout: Specify timeout for connection to master
+        :arg leader_timeout: Specify timeout for connection to leader
         :arg timeout: Explicit timestamp for the document
         """
         for param in (index, name):
@@ -551,7 +551,7 @@ class IndicesClient(NamespacedClient):
             "DELETE", _make_path(index, "_alias", name), params=params, headers=headers
         )
 
-    @query_params("create", "master_timeout", "order")
+    @query_params("create", "leader_timeout", "order")
     async def put_template(self, name, body, params=None, headers=None):
         """
         Creates or updates an index template.
@@ -561,7 +561,7 @@ class IndicesClient(NamespacedClient):
         :arg body: The template definition
         :arg create: Whether the index template should only be added if
             new or can also replace an existing one
-        :arg master_timeout: Specify timeout for connection to master
+        :arg leader_timeout: Specify timeout for connection to leader
         :arg order: The order for this template when merging multiple
             matching ones (higher numbers are merged later, overriding the lower
             numbers)
@@ -578,7 +578,7 @@ class IndicesClient(NamespacedClient):
             body=body,
         )
 
-    @query_params("flat_settings", "local", "master_timeout")
+    @query_params("flat_settings", "local", "leader_timeout")
     async def exists_template(self, name, params=None, headers=None):
         """
         Returns information about whether a particular index template exists.
@@ -588,9 +588,9 @@ class IndicesClient(NamespacedClient):
         :arg flat_settings: Return settings in flat format (default:
             false)
         :arg local: Return local information, do not retrieve the state
-            from master node (default: false)
-        :arg master_timeout: Explicit operation timeout for connection
-            to master node
+            from leader node (default: false)
+        :arg leader_timeout: Explicit operation timeout for connection
+            to leader node
         """
         if name in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'name'.")
@@ -599,7 +599,7 @@ class IndicesClient(NamespacedClient):
             "HEAD", _make_path("_template", name), params=params, headers=headers
         )
 
-    @query_params("flat_settings", "local", "master_timeout")
+    @query_params("flat_settings", "local", "leader_timeout")
     async def get_template(self, name=None, params=None, headers=None):
         """
         Returns an index template.
@@ -609,22 +609,22 @@ class IndicesClient(NamespacedClient):
         :arg flat_settings: Return settings in flat format (default:
             false)
         :arg local: Return local information, do not retrieve the state
-            from master node (default: false)
-        :arg master_timeout: Explicit operation timeout for connection
-            to master node
+            from leader node (default: false)
+        :arg leader_timeout: Explicit operation timeout for connection
+            to leader node
         """
         return await self.transport.perform_request(
             "GET", _make_path("_template", name), params=params, headers=headers
         )
 
-    @query_params("master_timeout", "timeout")
+    @query_params("leader_timeout", "timeout")
     async def delete_template(self, name, params=None, headers=None):
         """
         Deletes an index template.
 
 
         :arg name: The name of the template
-        :arg master_timeout: Specify timeout for connection to master
+        :arg leader_timeout: Specify timeout for connection to leader
         :arg timeout: Explicit operation timeout
         """
         if name in SKIP_IN_PATH:
@@ -641,7 +641,7 @@ class IndicesClient(NamespacedClient):
         "ignore_unavailable",
         "include_defaults",
         "local",
-        "master_timeout",
+        "leader_timeout",
     )
     async def get_settings(self, index=None, name=None, params=None, headers=None):
         """
@@ -664,8 +664,8 @@ class IndicesClient(NamespacedClient):
         :arg include_defaults: Whether to return all default setting for
             each of the indices.
         :arg local: Return local information, do not retrieve the state
-            from master node (default: false)
-        :arg master_timeout: Specify timeout for connection to master
+            from leader node (default: false)
+        :arg leader_timeout: Specify timeout for connection to leader
         """
         return await self.transport.perform_request(
             "GET", _make_path(index, "_settings", name), params=params, headers=headers
@@ -676,7 +676,7 @@ class IndicesClient(NamespacedClient):
         "expand_wildcards",
         "flat_settings",
         "ignore_unavailable",
-        "master_timeout",
+        "leader_timeout",
         "preserve_existing",
         "timeout",
     )
@@ -698,7 +698,7 @@ class IndicesClient(NamespacedClient):
             false)
         :arg ignore_unavailable: Whether specified concrete indices
             should be ignored when unavailable (missing or closed)
-        :arg master_timeout: Specify timeout for connection to master
+        :arg leader_timeout: Specify timeout for connection to leader
         :arg preserve_existing: Whether to update existing settings. If
             set to `true` existing settings on an index remain unchanged, the
             default is `false`
@@ -1010,7 +1010,7 @@ class IndicesClient(NamespacedClient):
         )
 
     @query_params(
-        "copy_settings", "master_timeout", "timeout", "wait_for_active_shards"
+        "copy_settings", "leader_timeout", "timeout", "wait_for_active_shards"
     )
     async def shrink(self, index, target, body=None, params=None, headers=None):
         """
@@ -1023,7 +1023,7 @@ class IndicesClient(NamespacedClient):
             and `aliases`)
         :arg copy_settings: whether or not to copy settings from the
             source index (defaults to false)
-        :arg master_timeout: Specify timeout for connection to master
+        :arg leader_timeout: Specify timeout for connection to leader
         :arg timeout: Explicit operation timeout
         :arg wait_for_active_shards: Set the number of active shards to
             wait for on the shrunken index before the operation returns.
@@ -1041,7 +1041,7 @@ class IndicesClient(NamespacedClient):
         )
 
     @query_params(
-        "copy_settings", "master_timeout", "timeout", "wait_for_active_shards"
+        "copy_settings", "leader_timeout", "timeout", "wait_for_active_shards"
     )
     async def split(self, index, target, body=None, params=None, headers=None):
         """
@@ -1055,7 +1055,7 @@ class IndicesClient(NamespacedClient):
             and `aliases`)
         :arg copy_settings: whether or not to copy settings from the
             source index (defaults to false)
-        :arg master_timeout: Specify timeout for connection to master
+        :arg leader_timeout: Specify timeout for connection to leader
         :arg timeout: Explicit operation timeout
         :arg wait_for_active_shards: Set the number of active shards to
             wait for on the shrunken index before the operation returns.
@@ -1074,7 +1074,7 @@ class IndicesClient(NamespacedClient):
 
     @query_params(
         "dry_run",
-        "master_timeout",
+        "leader_timeout",
         "timeout",
         "wait_for_active_shards",
     )
@@ -1093,7 +1093,7 @@ class IndicesClient(NamespacedClient):
         :arg dry_run: If set to true the rollover action will only be
             validated but not actually performed even if a condition matches. The
             default is false
-        :arg master_timeout: Specify timeout for connection to master
+        :arg leader_timeout: Specify timeout for connection to leader
         :arg timeout: Explicit operation timeout
         :arg wait_for_active_shards: Set the number of active shards to
             wait for on the newly created rollover index before the operation
@@ -1114,7 +1114,7 @@ class IndicesClient(NamespacedClient):
         "allow_no_indices",
         "expand_wildcards",
         "ignore_unavailable",
-        "master_timeout",
+        "leader_timeout",
         "timeout",
         "wait_for_active_shards",
     )
@@ -1133,7 +1133,7 @@ class IndicesClient(NamespacedClient):
             closed, hidden, none, all  Default: closed
         :arg ignore_unavailable: Whether specified concrete indices
             should be ignored when unavailable (missing or closed)
-        :arg master_timeout: Specify timeout for connection to master
+        :arg leader_timeout: Specify timeout for connection to leader
         :arg timeout: Explicit operation timeout
         :arg wait_for_active_shards: Sets the number of active shards to
             wait for before the operation returns.
@@ -1149,7 +1149,7 @@ class IndicesClient(NamespacedClient):
         "allow_no_indices",
         "expand_wildcards",
         "ignore_unavailable",
-        "master_timeout",
+        "leader_timeout",
         "timeout",
         "wait_for_active_shards",
     )
@@ -1168,7 +1168,7 @@ class IndicesClient(NamespacedClient):
             closed, hidden, none, all  Default: closed
         :arg ignore_unavailable: Whether specified concrete indices
             should be ignored when unavailable (missing or closed)
-        :arg master_timeout: Specify timeout for connection to master
+        :arg leader_timeout: Specify timeout for connection to leader
         :arg timeout: Explicit operation timeout
         :arg wait_for_active_shards: Sets the number of active shards to
             wait for before the operation returns.
@@ -1241,14 +1241,14 @@ class IndicesClient(NamespacedClient):
             "DELETE", _make_path("_data_stream", name), params=params, headers=headers
         )
 
-    @query_params("master_timeout", "timeout")
+    @query_params("leader_timeout", "timeout")
     async def delete_index_template(self, name, params=None, headers=None):
         """
         Deletes an index template.
 
 
         :arg name: The name of the template
-        :arg master_timeout: Specify timeout for connection to master
+        :arg leader_timeout: Specify timeout for connection to leader
         :arg timeout: Explicit operation timeout
         """
         if name in SKIP_IN_PATH:
@@ -1261,7 +1261,7 @@ class IndicesClient(NamespacedClient):
             headers=headers,
         )
 
-    @query_params("flat_settings", "local", "master_timeout")
+    @query_params("flat_settings", "local", "leader_timeout")
     async def exists_index_template(self, name, params=None, headers=None):
         """
         Returns information about whether a particular index template exists.
@@ -1271,9 +1271,9 @@ class IndicesClient(NamespacedClient):
         :arg flat_settings: Return settings in flat format (default:
             false)
         :arg local: Return local information, do not retrieve the state
-            from master node (default: false)
-        :arg master_timeout: Explicit operation timeout for connection
-            to master node
+            from leader node (default: false)
+        :arg leader_timeout: Explicit operation timeout for connection
+            to leader node
         """
         if name in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'name'.")
@@ -1282,7 +1282,7 @@ class IndicesClient(NamespacedClient):
             "HEAD", _make_path("_index_template", name), params=params, headers=headers
         )
 
-    @query_params("flat_settings", "local", "master_timeout")
+    @query_params("flat_settings", "local", "leader_timeout")
     async def get_index_template(self, name=None, params=None, headers=None):
         """
         Returns an index template.
@@ -1292,15 +1292,15 @@ class IndicesClient(NamespacedClient):
         :arg flat_settings: Return settings in flat format (default:
             false)
         :arg local: Return local information, do not retrieve the state
-            from master node (default: false)
-        :arg master_timeout: Explicit operation timeout for connection
-            to master node
+            from leader node (default: false)
+        :arg leader_timeout: Explicit operation timeout for connection
+            to leader node
         """
         return await self.transport.perform_request(
             "GET", _make_path("_index_template", name), params=params, headers=headers
         )
 
-    @query_params("cause", "create", "master_timeout")
+    @query_params("cause", "create", "leader_timeout")
     async def put_index_template(self, name, body, params=None, headers=None):
         """
         Creates or updates an index template.
@@ -1312,7 +1312,7 @@ class IndicesClient(NamespacedClient):
             template
         :arg create: Whether the index template should only be added if
             new or can also replace an existing one
-        :arg master_timeout: Specify timeout for connection to master
+        :arg leader_timeout: Specify timeout for connection to leader
         """
         for param in (name, body):
             if param in SKIP_IN_PATH:
@@ -1326,7 +1326,7 @@ class IndicesClient(NamespacedClient):
             body=body,
         )
 
-    @query_params("cause", "create", "master_timeout")
+    @query_params("cause", "create", "leader_timeout")
     async def simulate_index_template(self, name, body=None, params=None, headers=None):
         """
         Simulate matching the given index name against the index templates in the
@@ -1342,7 +1342,7 @@ class IndicesClient(NamespacedClient):
         :arg create: Whether the index template we optionally defined in
             the body should only be dry-run added if new or can also replace an
             existing one
-        :arg master_timeout: Specify timeout for connection to master
+        :arg leader_timeout: Specify timeout for connection to leader
         """
         if name in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'name'.")
@@ -1371,7 +1371,7 @@ class IndicesClient(NamespacedClient):
             "GET", _make_path("_data_stream", name), params=params, headers=headers
         )
 
-    @query_params("cause", "create", "master_timeout")
+    @query_params("cause", "create", "leader_timeout")
     async def simulate_template(self, body=None, name=None, params=None, headers=None):
         """
         Simulate resolving the given template name or body
@@ -1385,7 +1385,7 @@ class IndicesClient(NamespacedClient):
         :arg create: Whether the index template we optionally defined in
             the body should only be dry-run added if new or can also replace an
             existing one
-        :arg master_timeout: Specify timeout for connection to master
+        :arg leader_timeout: Specify timeout for connection to leader
         """
         return await self.transport.perform_request(
             "POST",
@@ -1423,7 +1423,7 @@ class IndicesClient(NamespacedClient):
         "allow_no_indices",
         "expand_wildcards",
         "ignore_unavailable",
-        "master_timeout",
+        "leader_timeout",
         "timeout",
     )
     async def add_block(self, index, block, params=None, headers=None):
@@ -1442,7 +1442,7 @@ class IndicesClient(NamespacedClient):
             closed, hidden, none, all  Default: open
         :arg ignore_unavailable: Whether specified concrete indices
             should be ignored when unavailable (missing or closed)
-        :arg master_timeout: Specify timeout for connection to master
+        :arg leader_timeout: Specify timeout for connection to leader
         :arg timeout: Explicit operation timeout
         """
         for param in (index, block):
