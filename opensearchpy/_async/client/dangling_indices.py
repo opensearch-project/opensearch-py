@@ -28,7 +28,7 @@ from .utils import SKIP_IN_PATH, NamespacedClient, _make_path, query_params
 
 
 class DanglingIndicesClient(NamespacedClient):
-    @query_params("accept_data_loss", "master_timeout", "timeout")
+    @query_params("accept_data_loss", "leader_timeout", "timeout")
     async def delete_dangling_index(self, index_uuid, params=None, headers=None):
         """
         Deletes the specified dangling index
@@ -37,7 +37,7 @@ class DanglingIndicesClient(NamespacedClient):
         :arg index_uuid: The UUID of the dangling index
         :arg accept_data_loss: Must be set to true in order to delete
             the dangling index
-        :arg master_timeout: Specify timeout for connection to master
+        :arg leader_timeout: Specify timeout for connection to leader
         :arg timeout: Explicit operation timeout
         """
         if index_uuid in SKIP_IN_PATH:
@@ -50,7 +50,7 @@ class DanglingIndicesClient(NamespacedClient):
             headers=headers,
         )
 
-    @query_params("accept_data_loss", "master_timeout", "timeout")
+    @query_params("accept_data_loss", "leader_timeout", "timeout")
     async def import_dangling_index(self, index_uuid, params=None, headers=None):
         """
         Imports the specified dangling index
@@ -59,7 +59,7 @@ class DanglingIndicesClient(NamespacedClient):
         :arg index_uuid: The UUID of the dangling index
         :arg accept_data_loss: Must be set to true in order to import
             the dangling index
-        :arg master_timeout: Specify timeout for connection to master
+        :arg leader_timeout: Specify timeout for connection to leader
         :arg timeout: Explicit operation timeout
         """
         if index_uuid in SKIP_IN_PATH:
@@ -78,3 +78,4 @@ class DanglingIndicesClient(NamespacedClient):
         return await self.transport.perform_request(
             "GET", "/_dangling", params=params, headers=headers
         )
+    
