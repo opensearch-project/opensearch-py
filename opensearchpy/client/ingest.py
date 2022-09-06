@@ -28,7 +28,7 @@ from .utils import SKIP_IN_PATH, NamespacedClient, _make_path, query_params
 
 
 class IngestClient(NamespacedClient):
-    @query_params("master_timeout", "summary")
+    @query_params("leader_timeout", "summary")
     def get_pipeline(self, id=None, params=None, headers=None):
         """
         Returns a pipeline.
@@ -36,8 +36,8 @@ class IngestClient(NamespacedClient):
 
         :arg id: Comma separated list of pipeline ids. Wildcards
             supported
-        :arg master_timeout: Explicit operation timeout for connection
-            to master node
+        :arg leader_timeout: Explicit operation timeout for connection
+            to leader node
         :arg summary: Return pipelines without their definitions
             (default: false)
         """
@@ -45,7 +45,7 @@ class IngestClient(NamespacedClient):
             "GET", _make_path("_ingest", "pipeline", id), params=params, headers=headers
         )
 
-    @query_params("master_timeout", "timeout")
+    @query_params("leader_timeout", "timeout")
     def put_pipeline(self, id, body, params=None, headers=None):
         """
         Creates or updates a pipeline.
@@ -53,8 +53,8 @@ class IngestClient(NamespacedClient):
 
         :arg id: Pipeline ID
         :arg body: The ingest definition
-        :arg master_timeout: Explicit operation timeout for connection
-            to master node
+        :arg leader_timeout: Explicit operation timeout for connection
+            to leader node
         :arg timeout: Explicit operation timeout
         """
         for param in (id, body):
@@ -69,15 +69,15 @@ class IngestClient(NamespacedClient):
             body=body,
         )
 
-    @query_params("master_timeout", "timeout")
+    @query_params("leader_timeout", "timeout")
     def delete_pipeline(self, id, params=None, headers=None):
         """
         Deletes a pipeline.
 
 
         :arg id: Pipeline ID
-        :arg master_timeout: Explicit operation timeout for connection
-            to master node
+        :arg leader_timeout: Explicit operation timeout for connection
+            to leader node
         :arg timeout: Explicit operation timeout
         """
         if id in SKIP_IN_PATH:
@@ -131,3 +131,4 @@ class IngestClient(NamespacedClient):
         return self.transport.perform_request(
             "GET", "/_ingest/geoip/stats", params=params, headers=headers
         )
+    
