@@ -688,14 +688,14 @@ class OpenSearch(object):
             headers=headers,
         )
 
-    @query_params("master_timeout", "timeout")
+    @query_params("leader_timeout", "timeout")
     def delete_script(self, id, params=None, headers=None):
         """
         Deletes a script.
 
 
         :arg id: Script ID
-        :arg master_timeout: Specify timeout for connection to master
+        :arg leader_timeout: Specify timeout for connection to leader
         :arg timeout: Explicit operation timeout
         """
         if id in SKIP_IN_PATH:
@@ -936,14 +936,14 @@ class OpenSearch(object):
             "GET", _make_path(index, doc_type, id), params=params, headers=headers
         )
 
-    @query_params("master_timeout")
+    @query_params("leader_timeout")
     def get_script(self, id, params=None, headers=None):
         """
         Returns a script.
 
 
         :arg id: Script ID
-        :arg master_timeout: Specify timeout for connection to master
+        :arg leader_timeout: Specify timeout for connection to leader
         """
         if id in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'id'.")
@@ -1197,7 +1197,7 @@ class OpenSearch(object):
             "POST", path, params=params, headers=headers, body=body
         )
 
-    @query_params("master_timeout", "timeout")
+    @query_params("leader_timeout", "timeout")
     def put_script(self, id, body, context=None, params=None, headers=None):
         """
         Creates or updates a script.
@@ -1206,7 +1206,7 @@ class OpenSearch(object):
         :arg id: Script ID
         :arg body: The document
         :arg context: Context name to compile script against
-        :arg master_timeout: Specify timeout for connection to master
+        :arg leader_timeout: Specify timeout for connection to leader
         :arg timeout: Explicit operation timeout
         """
         for param in (id, body):
@@ -1574,7 +1574,7 @@ class OpenSearch(object):
         :arg ignore_unavailable: Whether specified concrete indices
             should be ignored when unavailable (missing or closed)
         :arg local: Return local information, do not retrieve the state
-            from master node (default: false)
+            from leader node (default: false)
         :arg preference: Specify the node or shard the operation should
             be performed on (default: random)
         :arg routing: Specific routing value
@@ -2011,3 +2011,4 @@ class OpenSearch(object):
             headers=headers,
             body=body,
         )
+    
