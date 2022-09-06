@@ -34,7 +34,7 @@ class DanglingIndicesClient(NamespacedClient):
         index_uuid: Any,
         *,
         accept_data_loss: Optional[Any] = ...,
-        master_timeout: Optional[Any] = ...,
+        leader_timeout: Optional[Any] = ...,
         timeout: Optional[Any] = ...,
         pretty: Optional[bool] = ...,
         human: Optional[bool] = ...,
@@ -54,7 +54,7 @@ class DanglingIndicesClient(NamespacedClient):
         index_uuid: Any,
         *,
         accept_data_loss: Optional[Any] = ...,
-        master_timeout: Optional[Any] = ...,
+        leader_timeout: Optional[Any] = ...,
         timeout: Optional[Any] = ...,
         pretty: Optional[bool] = ...,
         human: Optional[bool] = ...,
@@ -85,3 +85,4 @@ class DanglingIndicesClient(NamespacedClient):
         params: Optional[MutableMapping[str, Any]] = ...,
         headers: Optional[MutableMapping[str, str]] = ...,
     ) -> Any: ...
+        
