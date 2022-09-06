@@ -33,7 +33,7 @@ class IngestClient(NamespacedClient):
         self,
         *,
         id: Optional[Any] = ...,
-        master_timeout: Optional[Any] = ...,
+        leader_timeout: Optional[Any] = ...,
         summary: Optional[Any] = ...,
         pretty: Optional[bool] = ...,
         human: Optional[bool] = ...,
@@ -53,7 +53,7 @@ class IngestClient(NamespacedClient):
         id: Any,
         *,
         body: Any,
-        master_timeout: Optional[Any] = ...,
+        leader_timeout: Optional[Any] = ...,
         timeout: Optional[Any] = ...,
         pretty: Optional[bool] = ...,
         human: Optional[bool] = ...,
@@ -72,7 +72,7 @@ class IngestClient(NamespacedClient):
         self,
         id: Any,
         *,
-        master_timeout: Optional[Any] = ...,
+        leader_timeout: Optional[Any] = ...,
         timeout: Optional[Any] = ...,
         pretty: Optional[bool] = ...,
         human: Optional[bool] = ...,
@@ -138,3 +138,4 @@ class IngestClient(NamespacedClient):
         params: Optional[MutableMapping[str, Any]] = ...,
         headers: Optional[MutableMapping[str, str]] = ...,
     ) -> Any: ...
+        
