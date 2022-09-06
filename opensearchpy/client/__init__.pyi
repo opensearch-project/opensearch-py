@@ -331,7 +331,7 @@ class OpenSearch(object):
         self,
         id: Any,
         *,
-        master_timeout: Optional[Any] = ...,
+        leader_timeout: Optional[Any] = ...,
         timeout: Optional[Any] = ...,
         pretty: Optional[bool] = ...,
         human: Optional[bool] = ...,
@@ -487,7 +487,7 @@ class OpenSearch(object):
         self,
         id: Any,
         *,
-        master_timeout: Optional[Any] = ...,
+        leader_timeout: Optional[Any] = ...,
         pretty: Optional[bool] = ...,
         human: Optional[bool] = ...,
         error_trace: Optional[bool] = ...,
@@ -638,7 +638,7 @@ class OpenSearch(object):
         *,
         body: Any,
         context: Optional[Any] = ...,
-        master_timeout: Optional[Any] = ...,
+        leader_timeout: Optional[Any] = ...,
         timeout: Optional[Any] = ...,
         pretty: Optional[bool] = ...,
         human: Optional[bool] = ...,
@@ -1109,3 +1109,4 @@ class OpenSearch(object):
         params: Optional[MutableMapping[str, Any]] = ...,
         headers: Optional[MutableMapping[str, str]] = ...,
     ) -> Any: ...
+        
