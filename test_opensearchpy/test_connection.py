@@ -768,7 +768,8 @@ class TestConnectionHttpbin:
 
     def test_urllib3_connection(self):
         # Defaults
-        conn = Urllib3HttpConnection("httpbin.org", port=443, use_ssl=True)
+        # httpbin.org can be slow sometimes. Hence the timeout
+        conn = Urllib3HttpConnection("httpbin.org", port=443, use_ssl=True, timeout=60)
         user_agent = conn._get_default_user_agent()
         status, data = self.httpbin_anything(conn)
         assert status == 200
@@ -782,7 +783,7 @@ class TestConnectionHttpbin:
 
         # http_compress=False
         conn = Urllib3HttpConnection(
-            "httpbin.org", port=443, use_ssl=True, http_compress=False
+            "httpbin.org", port=443, use_ssl=True, http_compress=False, timeout=60
         )
         status, data = self.httpbin_anything(conn)
         assert status == 200
@@ -796,7 +797,7 @@ class TestConnectionHttpbin:
 
         # http_compress=True
         conn = Urllib3HttpConnection(
-            "httpbin.org", port=443, use_ssl=True, http_compress=True
+            "httpbin.org", port=443, use_ssl=True, http_compress=True, timeout=60
         )
         status, data = self.httpbin_anything(conn)
         assert status == 200
@@ -813,7 +814,7 @@ class TestConnectionHttpbin:
             port=443,
             use_ssl=True,
             http_compress=True,
-            headers={"header1": "value1"},
+            headers={"header1": "value1"}, timeout=60
         )
         status, data = self.httpbin_anything(
             conn, headers={"header2": "value2", "header1": "override!"}
@@ -835,7 +836,7 @@ class TestConnectionHttpbin:
 
     def test_requests_connection(self):
         # Defaults
-        conn = RequestsHttpConnection("httpbin.org", port=443, use_ssl=True)
+        conn = RequestsHttpConnection("httpbin.org", port=443, use_ssl=True, timeout=60)
         user_agent = conn._get_default_user_agent()
         status, data = self.httpbin_anything(conn)
         assert status == 200
@@ -849,7 +850,7 @@ class TestConnectionHttpbin:
 
         # http_compress=False
         conn = RequestsHttpConnection(
-            "httpbin.org", port=443, use_ssl=True, http_compress=False
+            "httpbin.org", port=443, use_ssl=True, http_compress=False, timeout=60
         )
         status, data = self.httpbin_anything(conn)
         assert status == 200
@@ -863,7 +864,7 @@ class TestConnectionHttpbin:
 
         # http_compress=True
         conn = RequestsHttpConnection(
-            "httpbin.org", port=443, use_ssl=True, http_compress=True
+            "httpbin.org", port=443, use_ssl=True, http_compress=True, timeout=60
         )
         status, data = self.httpbin_anything(conn)
         assert status == 200
@@ -880,7 +881,7 @@ class TestConnectionHttpbin:
             port=443,
             use_ssl=True,
             http_compress=True,
-            headers={"header1": "value1"},
+            headers={"header1": "value1"}, timeout=60
         )
         status, data = self.httpbin_anything(
             conn, headers={"header2": "value2", "header1": "override!"}
