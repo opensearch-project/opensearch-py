@@ -814,7 +814,8 @@ class TestConnectionHttpbin:
             port=443,
             use_ssl=True,
             http_compress=True,
-            headers={"header1": "value1"}, timeout=60
+            headers={"header1": "value1"},
+            timeout=60,
         )
         status, data = self.httpbin_anything(
             conn, headers={"header2": "value2", "header1": "override!"}
@@ -881,7 +882,8 @@ class TestConnectionHttpbin:
             port=443,
             use_ssl=True,
             http_compress=True,
-            headers={"header1": "value1"}, timeout=60
+            headers={"header1": "value1"},
+            timeout=60,
         )
         status, data = self.httpbin_anything(
             conn, headers={"header2": "value2", "header1": "override!"}
