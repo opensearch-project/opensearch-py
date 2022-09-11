@@ -24,6 +24,7 @@
 #  specific language governing permissions and limitations
 #  under the License.
 
+import os
 import ssl
 import time
 import warnings
@@ -48,14 +49,15 @@ from .base import Connection
 VERIFY_CERTS_DEFAULT = object()
 SSL_SHOW_WARN_DEFAULT = object()
 
-CA_CERTS = None
+CA_CERTS = os.environ.get('SSL_CERT_FILE') or os.environ.get('SSL_CERT_DIR')
 
-try:
-    import certifi
+if CA_CERTS is None:
+    try:
+        import certifi
 
-    CA_CERTS = certifi.where()
-except ImportError:
-    pass
+        CA_CERTS = certifi.where()
+    except ImportError:
+        pass
 
 
 def create_ssl_context(**kwargs):
