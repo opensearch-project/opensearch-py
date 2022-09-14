@@ -49,7 +49,7 @@ from .base import Connection
 VERIFY_CERTS_DEFAULT = object()
 SSL_SHOW_WARN_DEFAULT = object()
 
-CA_CERTS = os.environ.get('SSL_CERT_FILE') or os.environ.get('SSL_CERT_DIR')
+CA_CERTS = os.environ.get("SSL_CERT_FILE") or os.environ.get("SSL_CERT_DIR")
 
 if CA_CERTS is None:
     try:
