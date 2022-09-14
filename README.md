@@ -11,7 +11,6 @@ OpenSearch Python Client
 
 - [Welcome!](https://github.com/opensearch-project/opensearch-py#welcome)
 - [Getting Started](https://github.com/opensearch-project/opensearch-py#getting-started)
-- [API Doc](https://opensearch-project.github.io/opensearch-py/)
 - [Compatibility with OpenSearch](https://github.com/opensearch-project/opensearch-py#compatibility-with-opensearch)
 - [Project Resources](https://github.com/opensearch-project/opensearch-py#project-resources)
 - [Code of Conduct](https://github.com/opensearch-project/opensearch-py#code-of-conduct)
