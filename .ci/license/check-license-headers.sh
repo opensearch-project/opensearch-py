@@ -17,18 +17,18 @@ set -o errexit
 set -o pipefail
 
 TOP=$(cd "$(dirname "$0")/.." >/dev/null && pwd)
-NLINES_SC=$(wc -l license-sc.txt | awk '{print $1}')
-NLINES_MC=$(wc -l license-mc.txt | awk '{print $1}')
+NLINES_SC=$(wc -l ./.ci/license/license-sc.txt | awk '{print $1}')
+NLINES_MC=$(wc -l ./.ci/license/license-mc.txt | awk '{print $1}')
 
 function check_license_header {
     local fP
     f=$1
-    if [[ $f == *.fs ]] && ! diff -a --strip-trailing-cr license-mc.txt <(head -$NLINES_MC "$f") >/dev/null; then
+    if [[ $f == *.fs ]] && ! diff -a --strip-trailing-cr ./.ci/license/license-mc.txt <(head -$NLINES_MC "$f") >/dev/null; then
         echo $f
-        echo "check-license-headers: error: '$f' does not have required license header, see 'diff -u license-mc.txt <(head -$NLINES_MC $f)'"
+        echo "check-license-headers: error: '$f' does not have required license header, see 'diff -u ./.ci/license/license-mc.txt <(head -$NLINES_MC $f)'"
         return 1
-    elif [[ $f != *.fs ]] && ! diff -a --strip-trailing-cr license-sc.txt <(head -$NLINES_SC "$f") >/dev/null; then
-        echo "check-license-headers: error: '$f' does not have required license header, see 'diff -u license-sc.txt <(head -$NLINES_SC $f)'"
+    elif [[ $f != *.fs ]] && ! diff -a --strip-trailing-cr ./.ci/license/license-sc.txt <(head -$NLINES_SC "$f") >/dev/null; then
+        echo "check-license-headers: error: '$f' does not have required license header, see 'diff -u ./.ci/license/license-sc.txt <(head -$NLINES_SC $f)'"
         return 1
     else
         return 0

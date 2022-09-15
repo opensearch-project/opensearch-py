@@ -11,5 +11,4 @@ jobs:
     - uses: actions/checkout@v2
 
     - name: Check license headers
-      run: |
-        ./.ci/license/check-license-headers.sh
+      run: "./.ci/license/check-license-headers.sh"
