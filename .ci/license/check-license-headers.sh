@@ -20,14 +20,16 @@ TOP=$(cd "$(dirname "$0")/.." >/dev/null && pwd)
 NLINES_SC=$(wc -l ./.ci/license/license-sc.txt | awk '{print $1}')
 NLINES_MC=$(wc -l ./.ci/license/license-mc.txt | awk '{print $1}')
 
+echo $NLINES_SC
+
 function check_license_header {
     local fP
     f=$1
-    if [[ $f == *.fs ]] && ! diff -a --strip-trailing-cr ./.ci/license/license-mc.txt <(head -$NLINES_MC "$f") >/dev/null; then
-        echo $f
-        echo "check-license-headers: error: '$f' does not have required license header, see 'diff -u ./.ci/license/license-mc.txt <(head -$NLINES_MC $f)'"
+    firstLine=$(head -1 "$f")
+    if [[ $f == *.fs ]] && (! diff -a --strip-trailing-cr license/license-mc.txt <(head -$NLINES_MC "$f") >/dev/null && ([[ $firstLine == "# -*- coding: utf-8 -*-" ]] && ! diff -a --strip-trailing-cr license/license-mc.txt <(head -7 "$f" | tail -n+2) >/dev/null)); then
+        echo "check-license-headers: error: '$f' does not have required license header, see 'diff -u ./.ci/license/license-mc.txt <(head -$NLINES_MC ../$f)'"
         return 1
-    elif [[ $f != *.fs ]] && ! diff -a --strip-trailing-cr ./.ci/license/license-sc.txt <(head -$NLINES_SC "$f") >/dev/null; then
+    elif [[ $f != *.fs ]] && (! diff -a --strip-trailing-cr license/license-sc.txt <(head -$NLINES_SC "$f") >/dev/null && ([[ $firstLine == "# -*- coding: utf-8 -*-" ]] && ! diff -a --strip-trailing-cr license/license-sc.txt <(head -7 "$f" | tail -n+2) >/dev/null)); then
         echo "check-license-headers: error: '$f' does not have required license header, see 'diff -u ./.ci/license/license-sc.txt <(head -$NLINES_SC $f)'"
         return 1
     else
@@ -37,13 +39,14 @@ function check_license_header {
 
 cd "$TOP"
 nErrors=0
-for f in $(git ls-files | grep '\.py$'); do
+
+for f in $(git ls-files --directory ../ | grep '\.py$'); do
     if ! check_license_header $f; then
         nErrors=$((nErrors+1))
     fi
 done
 
-for f in $(git ls-files | grep '\.pyi$'); do
+for f in $(git ls-files --directory ../ | grep '\.pyi$'); do
     if ! check_license_header $f; then
         nErrors=$((nErrors+1))
     fi
