@@ -35,14 +35,12 @@ from typing import Iterator, List
 
 lines_to_keep = ["# -*- coding: utf-8 -*-\n", "#!/usr/bin/env python\n"]
 license_header_lines = [
+    "# Copyright OpenSearch Contributors\n",
     "# SPDX-License-Identifier: Apache-2.0\n",
     "#\n",
     "# The OpenSearch Contributors require contributions made to\n",
     "# this file be licensed under the Apache-2.0 license or a\n",
     "# compatible open source license.\n",
-    "#\n",
-    "# Modifications Copyright OpenSearch Contributors. See\n",
-    "# GitHub history for details.\n",
 ]
 
 
