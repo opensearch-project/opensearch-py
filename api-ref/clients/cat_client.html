@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Compact and aligned text (CAT) Client &mdash; OpenSearch Python Client  documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
+        <script src="../../_static/clipboard.min.js"></script>
+        <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Cluster Client" href="cluster_client.html" />
+    <link rel="prev" title="OpenSearch Client" href="opensearch_client.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> OpenSearch Python Client
+            <img src="../../_static/OpenSearch.svg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../api-ref.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../client.html">Clients</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="opensearch_client.html">OpenSearch Client</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../client.html#clients-within-opensearch">Clients within Opensearch</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Compact and aligned text (CAT) Client</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cluster_client.html">Cluster Client</a></li>
+<li class="toctree-l4"><a class="reference internal" href="dangling_indices_client.html">Dangling Indices Client</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ingest_client.html">Ingest Client</a></li>
+<li class="toctree-l4"><a class="reference internal" href="indices_client.html">Indices Client</a></li>
+<li class="toctree-l4"><a class="reference internal" href="nodes_client.html">Nodes Client</a></li>
+<li class="toctree-l4"><a class="reference internal" href="remote_client.html">Remote Client</a></li>
+<li class="toctree-l4"><a class="reference internal" href="snapshot_client.html">Snapshot Client</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tasks_client.html">Tasks Client</a></li>
+<li class="toctree-l4"><a class="reference internal" href="features_client.html">Features Client</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../connection.html">connection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../connection_pool.html">connection_pool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../exceptions.html">exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../serializer.html">serializer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../transport.html">transport</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../genindex.html">Index</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/opensearch-project/opensearch-py/blob/main/LICENSE.txt">License</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/opensearch-project/opensearch-py/blob/main/CONTRIBUTING.md">Contributing</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/opensearch-project/opensearch-py/blob/main/CODE_OF_CONDUCT.md">Code of Conduct</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/opensearch-project/opensearch-py/blob/main/DEVELOPER_GUIDE.md">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/opensearch-project/opensearch-py">GitHub Repository</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">OpenSearch Python Client</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../api-ref.html">API Reference</a> &raquo;</li>
+          <li><a href="../client.html">Clients</a> &raquo;</li>
+      <li>Compact and aligned text (CAT) Client</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/opensearch-project/opensearch-py/blob/main/docs/source/api-ref/clients/cat_client.md" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="compact-and-aligned-text-cat-client">
+<h1>Compact and aligned text (CAT) Client<a class="headerlink" href="#compact-and-aligned-text-cat-client" title="Permalink to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="opensearchpy.client.cat.CatClient">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opensearchpy.client.cat.</span></span><span class="sig-name descname"><span class="pre">CatClient</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">client</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cat.html#CatClient"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cat.CatClient" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">NamespacedClient</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.client.cat.CatClient.aliases">
+<span class="sig-name descname"><span class="pre">aliases</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cat.html#CatClient.aliases"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cat.CatClient.aliases" title="Permalink to this definition"></a></dt>
+<dd><p>Shows information about currently configured aliases to indices including
+filter and routing infos.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – A comma-separated list of alias names to return</p></li>
+<li><p><strong>expand_wildcards</strong> – Whether to expand wildcard expression to
+concrete indices that are open, closed or both.  Valid choices: open,
+closed, hidden, none, all  Default: all</p></li>
+<li><p><strong>format</strong> – a short version of the Accept header, e.g. json,
+yaml</p></li>
+<li><p><strong>h</strong> – Comma-separated list of column names to display</p></li>
+<li><p><strong>help</strong> – Return help information</p></li>
+<li><p><strong>local</strong> – Return local information, do not retrieve the state
+from master node (default: false)</p></li>
+<li><p><strong>s</strong> – Comma-separated list of column names or column aliases
+to sort by</p></li>
+<li><p><strong>v</strong> – Verbose mode. Display column headers</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.client.cat.CatClient.allocation">
+<span class="sig-name descname"><span class="pre">allocation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cat.html#CatClient.allocation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cat.CatClient.allocation" title="Permalink to this definition"></a></dt>
+<dd><p>Provides a snapshot of how many shards are allocated to each data node and how
+much disk space they are using.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>node_id</strong> – A comma-separated list of node IDs or names to
+limit the returned information</p></li>
+<li><p><strong>bytes</strong> – The unit in which to display byte values  Valid
+choices: b, k, kb, m, mb, g, gb, t, tb, p, pb</p></li>
+<li><p><strong>format</strong> – a short version of the Accept header, e.g. json,
+yaml</p></li>
+<li><p><strong>h</strong> – Comma-separated list of column names to display</p></li>
+<li><p><strong>help</strong> – Return help information</p></li>
+<li><p><strong>local</strong> – Return local information, do not retrieve the state
+from master node (default: false)</p></li>
+<li><p><strong>master_timeout</strong> – Explicit operation timeout for connection
+to master node</p></li>
+<li><p><strong>s</strong> – Comma-separated list of column names or column aliases
+to sort by</p></li>
+<li><p><strong>v</strong> – Verbose mode. Display column headers</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.client.cat.CatClient.count">
+<span class="sig-name descname"><span class="pre">count</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cat.html#CatClient.count"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cat.CatClient.count" title="Permalink to this definition"></a></dt>
+<dd><p>Provides quick access to the document count of the entire cluster, or
+individual indices.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>index</strong> – A comma-separated list of index names to limit the
+returned information</p></li>
+<li><p><strong>format</strong> – a short version of the Accept header, e.g. json,
+yaml</p></li>
+<li><p><strong>h</strong> – Comma-separated list of column names to display</p></li>
+<li><p><strong>help</strong> – Return help information</p></li>
+<li><p><strong>s</strong> – Comma-separated list of column names or column aliases
+to sort by</p></li>
+<li><p><strong>v</strong> – Verbose mode. Display column headers</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.client.cat.CatClient.fielddata">
+<span class="sig-name descname"><span class="pre">fielddata</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fields</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cat.html#CatClient.fielddata"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cat.CatClient.fielddata" title="Permalink to this definition"></a></dt>
+<dd><p>Shows how much heap memory is currently being used by fielddata on every data
+node in the cluster.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fields</strong> – A comma-separated list of fields to return in the
+output</p></li>
+<li><p><strong>bytes</strong> – The unit in which to display byte values  Valid
+choices: b, k, kb, m, mb, g, gb, t, tb, p, pb</p></li>
+<li><p><strong>format</strong> – a short version of the Accept header, e.g. json,
+yaml</p></li>
+<li><p><strong>h</strong> – Comma-separated list of column names to display</p></li>
+<li><p><strong>help</strong> – Return help information</p></li>
+<li><p><strong>s</strong> – Comma-separated list of column names or column aliases
+to sort by</p></li>
+<li><p><strong>v</strong> – Verbose mode. Display column headers</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.client.cat.CatClient.health">
+<span class="sig-name descname"><span class="pre">health</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cat.html#CatClient.health"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cat.CatClient.health" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a concise representation of the cluster health.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>format</strong> – a short version of the Accept header, e.g. json,
+yaml</p></li>
+<li><p><strong>h</strong> – Comma-separated list of column names to display</p></li>
+<li><p><strong>help</strong> – Return help information</p></li>
+<li><p><strong>s</strong> – Comma-separated list of column names or column aliases
+to sort by</p></li>
+<li><p><strong>time</strong> – The unit in which to display time values  Valid
+choices: d, h, m, s, ms, micros, nanos</p></li>
+<li><p><strong>ts</strong> – Set to false to disable timestamping  Default: True</p></li>
+<li><p><strong>v</strong> – Verbose mode. Display column headers</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.client.cat.CatClient.help">
+<span class="sig-name descname"><span class="pre">help</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cat.html#CatClient.help"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cat.CatClient.help" title="Permalink to this definition"></a></dt>
+<dd><p>Returns help for the Cat APIs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>help</strong> – Return help information</p></li>
+<li><p><strong>s</strong> – Comma-separated list of column names or column aliases
+to sort by</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.client.cat.CatClient.indices">
+<span class="sig-name descname"><span class="pre">indices</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cat.html#CatClient.indices"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cat.CatClient.indices" title="Permalink to this definition"></a></dt>
+<dd><p>Returns information about indices: number of primaries and replicas, document
+counts, disk size, …</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>index</strong> – A comma-separated list of index names to limit the
+returned information</p></li>
+<li><p><strong>bytes</strong> – The unit in which to display byte values  Valid
+choices: b, k, kb, m, mb, g, gb, t, tb, p, pb</p></li>
+<li><p><strong>expand_wildcards</strong> – Whether to expand wildcard expression to
+concrete indices that are open, closed or both.  Valid choices: open,
+closed, hidden, none, all  Default: all</p></li>
+<li><p><strong>format</strong> – a short version of the Accept header, e.g. json,
+yaml</p></li>
+<li><p><strong>h</strong> – Comma-separated list of column names to display</p></li>
+<li><p><strong>health</strong> – A health status (“green”, “yellow”, or “red” to
+filter only indices matching the specified health status  Valid choices:
+green, yellow, red</p></li>
+<li><p><strong>help</strong> – Return help information</p></li>
+<li><p><strong>include_unloaded_segments</strong> – If set to true segment stats
+will include stats for segments that are not currently loaded into
+memory</p></li>
+<li><p><strong>local</strong> – Return local information, do not retrieve the state
+from master node (default: false)</p></li>
+<li><p><strong>master_timeout</strong> – Explicit operation timeout for connection
+to master node</p></li>
+<li><p><strong>pri</strong> – Set to true to return stats only for primary shards</p></li>
+<li><p><strong>s</strong> – Comma-separated list of column names or column aliases
+to sort by</p></li>
+<li><p><strong>time</strong> – The unit in which to display time values  Valid
+choices: d, h, m, s, ms, micros, nanos</p></li>
+<li><p><strong>v</strong> – Verbose mode. Display column headers</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.client.cat.CatClient.master">
+<span class="sig-name descname"><span class="pre">master</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cat.html#CatClient.master"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cat.CatClient.master" title="Permalink to this definition"></a></dt>
+<dd><p>Returns information about the master node.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>format</strong> – a short version of the Accept header, e.g. json,
+yaml</p></li>
+<li><p><strong>h</strong> – Comma-separated list of column names to display</p></li>
+<li><p><strong>help</strong> – Return help information</p></li>
+<li><p><strong>local</strong> – Return local information, do not retrieve the state
+from master node (default: false)</p></li>
+<li><p><strong>master_timeout</strong> – Explicit operation timeout for connection
+to master node</p></li>
+<li><p><strong>s</strong> – Comma-separated list of column names or column aliases
+to sort by</p></li>
+<li><p><strong>v</strong> – Verbose mode. Display column headers</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.client.cat.CatClient.nodeattrs">
+<span class="sig-name descname"><span class="pre">nodeattrs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cat.html#CatClient.nodeattrs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cat.CatClient.nodeattrs" title="Permalink to this definition"></a></dt>
+<dd><p>Returns information about custom node attributes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>format</strong> – a short version of the Accept header, e.g. json,
+yaml</p></li>
+<li><p><strong>h</strong> – Comma-separated list of column names to display</p></li>
+<li><p><strong>help</strong> – Return help information</p></li>
+<li><p><strong>local</strong> – Return local information, do not retrieve the state
+from master node (default: false)</p></li>
+<li><p><strong>master_timeout</strong> – Explicit operation timeout for connection
+to master node</p></li>
+<li><p><strong>s</strong> – Comma-separated list of column names or column aliases
+to sort by</p></li>
+<li><p><strong>v</strong> – Verbose mode. Display column headers</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.client.cat.CatClient.nodes">
+<span class="sig-name descname"><span class="pre">nodes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cat.html#CatClient.nodes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cat.CatClient.nodes" title="Permalink to this definition"></a></dt>
+<dd><p>Returns basic statistics about performance of cluster nodes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>bytes</strong> – The unit in which to display byte values  Valid
+choices: b, k, kb, m, mb, g, gb, t, tb, p, pb</p></li>
+<li><p><strong>format</strong> – a short version of the Accept header, e.g. json,
+yaml</p></li>
+<li><p><strong>full_id</strong> – Return the full node ID instead of the shortened
+version (default: false)</p></li>
+<li><p><strong>h</strong> – Comma-separated list of column names to display</p></li>
+<li><p><strong>help</strong> – Return help information</p></li>
+<li><p><strong>include_unloaded_segments</strong> – If set to true segment stats
+will include stats for segments that are not currently loaded into
+memory</p></li>
+<li><p><strong>local</strong> – Calculate the selected nodes using the local cluster
+state rather than the state from master node (default: false)</p></li>
+<li><p><strong>master_timeout</strong> – Explicit operation timeout for connection
+to master node</p></li>
+<li><p><strong>s</strong> – Comma-separated list of column names or column aliases
+to sort by</p></li>
+<li><p><strong>time</strong> – The unit in which to display time values  Valid
+choices: d, h, m, s, ms, micros, nanos</p></li>
+<li><p><strong>v</strong> – Verbose mode. Display column headers</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.client.cat.CatClient.pending_tasks">
+<span class="sig-name descname"><span class="pre">pending_tasks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cat.html#CatClient.pending_tasks"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cat.CatClient.pending_tasks" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a concise representation of the cluster pending tasks.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>format</strong> – a short version of the Accept header, e.g. json,
+yaml</p></li>
+<li><p><strong>h</strong> – Comma-separated list of column names to display</p></li>
+<li><p><strong>help</strong> – Return help information</p></li>
+<li><p><strong>local</strong> – Return local information, do not retrieve the state
+from master node (default: false)</p></li>
+<li><p><strong>master_timeout</strong> – Explicit operation timeout for connection
+to master node</p></li>
+<li><p><strong>s</strong> – Comma-separated list of column names or column aliases
+to sort by</p></li>
+<li><p><strong>time</strong> – The unit in which to display time values  Valid
+choices: d, h, m, s, ms, micros, nanos</p></li>
+<li><p><strong>v</strong> – Verbose mode. Display column headers</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.client.cat.CatClient.plugins">
+<span class="sig-name descname"><span class="pre">plugins</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cat.html#CatClient.plugins"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cat.CatClient.plugins" title="Permalink to this definition"></a></dt>
+<dd><p>Returns information about installed plugins across nodes node.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>format</strong> – a short version of the Accept header, e.g. json,
+yaml</p></li>
+<li><p><strong>h</strong> – Comma-separated list of column names to display</p></li>
+<li><p><strong>help</strong> – Return help information</p></li>
+<li><p><strong>include_bootstrap</strong> – Include bootstrap plugins in the
+response</p></li>
+<li><p><strong>local</strong> – Return local information, do not retrieve the state
+from master node (default: false)</p></li>
+<li><p><strong>master_timeout</strong> – Explicit operation timeout for connection
+to master node</p></li>
+<li><p><strong>s</strong> – Comma-separated list of column names or column aliases
+to sort by</p></li>
+<li><p><strong>v</strong> – Verbose mode. Display column headers</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.client.cat.CatClient.recovery">
+<span class="sig-name descname"><span class="pre">recovery</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cat.html#CatClient.recovery"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cat.CatClient.recovery" title="Permalink to this definition"></a></dt>
+<dd><p>Returns information about index shard recoveries, both on-going completed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>index</strong> – Comma-separated list or wildcard expression of index
+names to limit the returned information</p></li>
+<li><p><strong>active_only</strong> – If <cite>true</cite>, the response only includes ongoing
+shard recoveries</p></li>
+<li><p><strong>bytes</strong> – The unit in which to display byte values  Valid
+choices: b, k, kb, m, mb, g, gb, t, tb, p, pb</p></li>
+<li><p><strong>detailed</strong> – If <cite>true</cite>, the response includes detailed
+information about shard recoveries</p></li>
+<li><p><strong>format</strong> – a short version of the Accept header, e.g. json,
+yaml</p></li>
+<li><p><strong>h</strong> – Comma-separated list of column names to display</p></li>
+<li><p><strong>help</strong> – Return help information</p></li>
+<li><p><strong>s</strong> – Comma-separated list of column names or column aliases
+to sort by</p></li>
+<li><p><strong>time</strong> – The unit in which to display time values  Valid
+choices: d, h, m, s, ms, micros, nanos</p></li>
+<li><p><strong>v</strong> – Verbose mode. Display column headers</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.client.cat.CatClient.repositories">
+<span class="sig-name descname"><span class="pre">repositories</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cat.html#CatClient.repositories"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cat.CatClient.repositories" title="Permalink to this definition"></a></dt>
+<dd><p>Returns information about snapshot repositories registered in the cluster.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>format</strong> – a short version of the Accept header, e.g. json,
+yaml</p></li>
+<li><p><strong>h</strong> – Comma-separated list of column names to display</p></li>
+<li><p><strong>help</strong> – Return help information</p></li>
+<li><p><strong>local</strong> – Return local information, do not retrieve the state
+from master node</p></li>
+<li><p><strong>master_timeout</strong> – Explicit operation timeout for connection
+to master node</p></li>
+<li><p><strong>s</strong> – Comma-separated list of column names or column aliases
+to sort by</p></li>
+<li><p><strong>v</strong> – Verbose mode. Display column headers</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.client.cat.CatClient.segments">
+<span class="sig-name descname"><span class="pre">segments</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cat.html#CatClient.segments"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cat.CatClient.segments" title="Permalink to this definition"></a></dt>
+<dd><p>Provides low-level information about the segments in the shards of an index.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>index</strong> – A comma-separated list of index names to limit the
+returned information</p></li>
+<li><p><strong>bytes</strong> – The unit in which to display byte values  Valid
+choices: b, k, kb, m, mb, g, gb, t, tb, p, pb</p></li>
+<li><p><strong>format</strong> – a short version of the Accept header, e.g. json,
+yaml</p></li>
+<li><p><strong>h</strong> – Comma-separated list of column names to display</p></li>
+<li><p><strong>help</strong> – Return help information</p></li>
+<li><p><strong>s</strong> – Comma-separated list of column names or column aliases
+to sort by</p></li>
+<li><p><strong>v</strong> – Verbose mode. Display column headers</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.client.cat.CatClient.shards">
+<span class="sig-name descname"><span class="pre">shards</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cat.html#CatClient.shards"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cat.CatClient.shards" title="Permalink to this definition"></a></dt>
+<dd><p>Provides a detailed view of shard allocation on nodes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>index</strong> – A comma-separated list of index names to limit the
+returned information</p></li>
+<li><p><strong>bytes</strong> – The unit in which to display byte values  Valid
+choices: b, k, kb, m, mb, g, gb, t, tb, p, pb</p></li>
+<li><p><strong>format</strong> – a short version of the Accept header, e.g. json,
+yaml</p></li>
+<li><p><strong>h</strong> – Comma-separated list of column names to display</p></li>
+<li><p><strong>help</strong> – Return help information</p></li>
+<li><p><strong>local</strong> – Return local information, do not retrieve the state
+from master node (default: false)</p></li>
+<li><p><strong>master_timeout</strong> – Explicit operation timeout for connection
+to master node</p></li>
+<li><p><strong>s</strong> – Comma-separated list of column names or column aliases
+to sort by</p></li>
+<li><p><strong>time</strong> – The unit in which to display time values  Valid
+choices: d, h, m, s, ms, micros, nanos</p></li>
+<li><p><strong>v</strong> – Verbose mode. Display column headers</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.client.cat.CatClient.snapshots">
+<span class="sig-name descname"><span class="pre">snapshots</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">repository</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cat.html#CatClient.snapshots"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cat.CatClient.snapshots" title="Permalink to this definition"></a></dt>
+<dd><p>Returns all snapshots in a specific repository.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>repository</strong> – Name of repository from which to fetch the
+snapshot information</p></li>
+<li><p><strong>format</strong> – a short version of the Accept header, e.g. json,
+yaml</p></li>
+<li><p><strong>h</strong> – Comma-separated list of column names to display</p></li>
+<li><p><strong>help</strong> – Return help information</p></li>
+<li><p><strong>ignore_unavailable</strong> – Set to true to ignore unavailable
+snapshots</p></li>
+<li><p><strong>master_timeout</strong> – Explicit operation timeout for connection
+to master node</p></li>
+<li><p><strong>s</strong> – Comma-separated list of column names or column aliases
+to sort by</p></li>
+<li><p><strong>time</strong> – The unit in which to display time values  Valid
+choices: d, h, m, s, ms, micros, nanos</p></li>
+<li><p><strong>v</strong> – Verbose mode. Display column headers</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.client.cat.CatClient.tasks">
+<span class="sig-name descname"><span class="pre">tasks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cat.html#CatClient.tasks"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cat.CatClient.tasks" title="Permalink to this definition"></a></dt>
+<dd><p>Returns information about the tasks currently executing on one or more nodes in
+the cluster.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>actions</strong> – A comma-separated list of actions that should be
+returned. Leave empty to return all.</p></li>
+<li><p><strong>detailed</strong> – Return detailed task information (default: false)</p></li>
+<li><p><strong>format</strong> – a short version of the Accept header, e.g. json,
+yaml</p></li>
+<li><p><strong>h</strong> – Comma-separated list of column names to display</p></li>
+<li><p><strong>help</strong> – Return help information</p></li>
+<li><p><strong>nodes</strong> – A comma-separated list of node IDs or names to limit
+the returned information; use <cite>_local</cite> to return information from the
+node you’re connecting to, leave empty to get information from all nodes</p></li>
+<li><p><strong>parent_task_id</strong> – Return tasks with specified parent task id
+(node_id:task_number). Set to -1 to return all.</p></li>
+<li><p><strong>s</strong> – Comma-separated list of column names or column aliases
+to sort by</p></li>
+<li><p><strong>time</strong> – The unit in which to display time values  Valid
+choices: d, h, m, s, ms, micros, nanos</p></li>
+<li><p><strong>v</strong> – Verbose mode. Display column headers</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.client.cat.CatClient.templates">
+<span class="sig-name descname"><span class="pre">templates</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cat.html#CatClient.templates"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cat.CatClient.templates" title="Permalink to this definition"></a></dt>
+<dd><p>Returns information about existing templates.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – A pattern that returned template names must match</p></li>
+<li><p><strong>format</strong> – a short version of the Accept header, e.g. json,
+yaml</p></li>
+<li><p><strong>h</strong> – Comma-separated list of column names to display</p></li>
+<li><p><strong>help</strong> – Return help information</p></li>
+<li><p><strong>local</strong> – Return local information, do not retrieve the state
+from master node (default: false)</p></li>
+<li><p><strong>master_timeout</strong> – Explicit operation timeout for connection
+to master node</p></li>
+<li><p><strong>s</strong> – Comma-separated list of column names or column aliases
+to sort by</p></li>
+<li><p><strong>v</strong> – Verbose mode. Display column headers</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.client.cat.CatClient.thread_pool">
+<span class="sig-name descname"><span class="pre">thread_pool</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">thread_pool_patterns</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cat.html#CatClient.thread_pool"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cat.CatClient.thread_pool" title="Permalink to this definition"></a></dt>
+<dd><p>Returns cluster-wide thread pool statistics per node. By default the active,
+queue and rejected statistics are returned for all thread pools.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>thread_pool_patterns</strong> – A comma-separated list of regular-
+expressions to filter the thread pools in the output</p></li>
+<li><p><strong>format</strong> – a short version of the Accept header, e.g. json,
+yaml</p></li>
+<li><p><strong>h</strong> – Comma-separated list of column names to display</p></li>
+<li><p><strong>help</strong> – Return help information</p></li>
+<li><p><strong>local</strong> – Return local information, do not retrieve the state
+from master node (default: false)</p></li>
+<li><p><strong>master_timeout</strong> – Explicit operation timeout for connection
+to master node</p></li>
+<li><p><strong>s</strong> – Comma-separated list of column names or column aliases
+to sort by</p></li>
+<li><p><strong>size</strong> – The multiplier in which to display values  Valid
+choices: , k, m, g, t, p</p></li>
+<li><p><strong>v</strong> – Verbose mode. Display column headers</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.client.cat.CatClient.transforms">
+<span class="sig-name descname"><span class="pre">transforms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">transform_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cat.html#CatClient.transforms"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cat.CatClient.transforms" title="Permalink to this definition"></a></dt>
+<dd><p>Gets configuration and usage information about transforms.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>transform_id</strong> – The id of the transform for which to get
+stats. ‘_all’ or ‘*’ implies all transforms</p></li>
+<li><p><strong>allow_no_match</strong> – Whether to ignore if a wildcard expression
+matches no transforms. (This includes <cite>_all</cite> string or when no
+transforms have been specified)</p></li>
+<li><p><strong>format</strong> – a short version of the Accept header, e.g. json,
+yaml</p></li>
+<li><p><strong>from</strong> – skips a number of transform configs, defaults to 0</p></li>
+<li><p><strong>h</strong> – Comma-separated list of column names to display</p></li>
+<li><p><strong>help</strong> – Return help information</p></li>
+<li><p><strong>s</strong> – Comma-separated list of column names or column aliases
+to sort by</p></li>
+<li><p><strong>size</strong> – specifies a max number of transforms to get, defaults
+to 100</p></li>
+<li><p><strong>time</strong> – The unit in which to display time values  Valid
+choices: d, h, m, s, ms, micros, nanos</p></li>
+<li><p><strong>v</strong> – Verbose mode. Display column headers</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="opensearch_client.html" class="btn btn-neutral float-left" title="OpenSearch Client" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="cluster_client.html" class="btn btn-neutral float-right" title="Cluster Client" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright OpenSearch Project Contributors.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

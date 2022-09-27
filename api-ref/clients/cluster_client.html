@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cluster Client &mdash; OpenSearch Python Client  documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
+        <script src="../../_static/clipboard.min.js"></script>
+        <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Dangling Indices Client" href="dangling_indices_client.html" />
+    <link rel="prev" title="Compact and aligned text (CAT) Client" href="cat_client.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> OpenSearch Python Client
+            <img src="../../_static/OpenSearch.svg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../api-ref.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../client.html">Clients</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="opensearch_client.html">OpenSearch Client</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../client.html#clients-within-opensearch">Clients within Opensearch</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="cat_client.html">Compact and aligned text (CAT) Client</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Cluster Client</a></li>
+<li class="toctree-l4"><a class="reference internal" href="dangling_indices_client.html">Dangling Indices Client</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ingest_client.html">Ingest Client</a></li>
+<li class="toctree-l4"><a class="reference internal" href="indices_client.html">Indices Client</a></li>
+<li class="toctree-l4"><a class="reference internal" href="nodes_client.html">Nodes Client</a></li>
+<li class="toctree-l4"><a class="reference internal" href="remote_client.html">Remote Client</a></li>
+<li class="toctree-l4"><a class="reference internal" href="snapshot_client.html">Snapshot Client</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tasks_client.html">Tasks Client</a></li>
+<li class="toctree-l4"><a class="reference internal" href="features_client.html">Features Client</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../connection.html">connection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../connection_pool.html">connection_pool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../exceptions.html">exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../serializer.html">serializer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../transport.html">transport</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../genindex.html">Index</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/opensearch-project/opensearch-py/blob/main/LICENSE.txt">License</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/opensearch-project/opensearch-py/blob/main/CONTRIBUTING.md">Contributing</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/opensearch-project/opensearch-py/blob/main/CODE_OF_CONDUCT.md">Code of Conduct</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/opensearch-project/opensearch-py/blob/main/DEVELOPER_GUIDE.md">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/opensearch-project/opensearch-py">GitHub Repository</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">OpenSearch Python Client</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../api-ref.html">API Reference</a> &raquo;</li>
+          <li><a href="../client.html">Clients</a> &raquo;</li>
+      <li>Cluster Client</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/opensearch-project/opensearch-py/blob/main/docs/source/api-ref/clients/cluster_client.md" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="cluster-client">
+<h1>Cluster Client<a class="headerlink" href="#cluster-client" title="Permalink to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="opensearchpy.client.cluster.ClusterClient">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opensearchpy.client.cluster.</span></span><span class="sig-name descname"><span class="pre">ClusterClient</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">client</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cluster.html#ClusterClient"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cluster.ClusterClient" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">NamespacedClient</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.client.cluster.ClusterClient.allocation_explain">
+<span class="sig-name descname"><span class="pre">allocation_explain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">body</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cluster.html#ClusterClient.allocation_explain"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cluster.ClusterClient.allocation_explain" title="Permalink to this definition"></a></dt>
+<dd><p>Provides explanations for shard allocations in the cluster.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>body</strong> – The index, shard, and primary flag to explain. Empty
+means ‘explain the first unassigned shard’</p></li>
+<li><p><strong>include_disk_info</strong> – Return information about disk usage and
+shard sizes (default: false)</p></li>
+<li><p><strong>include_yes_decisions</strong> – Return ‘YES’ decisions in
+explanation (default: false)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.client.cluster.ClusterClient.delete_component_template">
+<span class="sig-name descname"><span class="pre">delete_component_template</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cluster.html#ClusterClient.delete_component_template"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cluster.ClusterClient.delete_component_template" title="Permalink to this definition"></a></dt>
+<dd><p>Deletes a component template</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – The name of the template</p></li>
+<li><p><strong>master_timeout</strong> – Specify timeout for connection to master</p></li>
+<li><p><strong>timeout</strong> – Explicit operation timeout</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.client.cluster.ClusterClient.delete_voting_config_exclusions">
+<span class="sig-name descname"><span class="pre">delete_voting_config_exclusions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cluster.html#ClusterClient.delete_voting_config_exclusions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cluster.ClusterClient.delete_voting_config_exclusions" title="Permalink to this definition"></a></dt>
+<dd><p>Clears cluster voting config exclusions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>wait_for_removal</strong> – Specifies whether to wait for all
+excluded nodes to be removed from the cluster before clearing the voting
+configuration exclusions list.  Default: True</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.client.cluster.ClusterClient.exists_component_template">
+<span class="sig-name descname"><span class="pre">exists_component_template</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cluster.html#ClusterClient.exists_component_template"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cluster.ClusterClient.exists_component_template" title="Permalink to this definition"></a></dt>
+<dd><p>Returns information about whether a particular component template exist</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – The name of the template</p></li>
+<li><p><strong>local</strong> – Return local information, do not retrieve the state
+from master node (default: false)</p></li>
+<li><p><strong>master_timeout</strong> – Explicit operation timeout for connection
+to master node</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.client.cluster.ClusterClient.get_component_template">
+<span class="sig-name descname"><span class="pre">get_component_template</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cluster.html#ClusterClient.get_component_template"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cluster.ClusterClient.get_component_template" title="Permalink to this definition"></a></dt>
+<dd><p>Returns one or more component templates</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – The comma separated names of the component templates</p></li>
+<li><p><strong>local</strong> – Return local information, do not retrieve the state
+from master node (default: false)</p></li>
+<li><p><strong>master_timeout</strong> – Explicit operation timeout for connection
+to master node</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.client.cluster.ClusterClient.get_settings">
+<span class="sig-name descname"><span class="pre">get_settings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cluster.html#ClusterClient.get_settings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cluster.ClusterClient.get_settings" title="Permalink to this definition"></a></dt>
+<dd><p>Returns cluster settings.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>flat_settings</strong> – Return settings in flat format (default:
+false)</p></li>
+<li><p><strong>include_defaults</strong> – Whether to return all default clusters
+setting.</p></li>
+<li><p><strong>master_timeout</strong> – Explicit operation timeout for connection
+to master node</p></li>
+<li><p><strong>timeout</strong> – Explicit operation timeout</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.client.cluster.ClusterClient.health">
+<span class="sig-name descname"><span class="pre">health</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cluster.html#ClusterClient.health"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cluster.ClusterClient.health" title="Permalink to this definition"></a></dt>
+<dd><p>Returns basic information about the health of the cluster.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>index</strong> – Limit the information returned to a specific index</p></li>
+<li><p><strong>expand_wildcards</strong> – Whether to expand wildcard expression to
+concrete indices that are open, closed or both.  Valid choices: open,
+closed, hidden, none, all  Default: all</p></li>
+<li><p><strong>level</strong> – Specify the level of detail for returned information
+Valid choices: cluster, indices, shards  Default: cluster</p></li>
+<li><p><strong>local</strong> – Return local information, do not retrieve the state
+from master node (default: false)</p></li>
+<li><p><strong>master_timeout</strong> – Explicit operation timeout for connection
+to master node</p></li>
+<li><p><strong>timeout</strong> – Explicit operation timeout</p></li>
+<li><p><strong>wait_for_active_shards</strong> – Wait until the specified number of
+shards is active</p></li>
+<li><p><strong>wait_for_events</strong> – Wait until all currently queued events
+with the given priority are processed  Valid choices: immediate, urgent,
+high, normal, low, languid</p></li>
+<li><p><strong>wait_for_no_initializing_shards</strong> – Whether to wait until
+there are no initializing shards in the cluster</p></li>
+<li><p><strong>wait_for_no_relocating_shards</strong> – Whether to wait until there
+are no relocating shards in the cluster</p></li>
+<li><p><strong>wait_for_nodes</strong> – Wait until the specified number of nodes is
+available</p></li>
+<li><p><strong>wait_for_status</strong> – Wait until cluster is in a specific state
+Valid choices: green, yellow, red</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.client.cluster.ClusterClient.pending_tasks">
+<span class="sig-name descname"><span class="pre">pending_tasks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cluster.html#ClusterClient.pending_tasks"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cluster.ClusterClient.pending_tasks" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a list of any cluster-level changes (e.g. create index, update mapping,
+allocate or fail shard) which have not yet been executed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>local</strong> – Return local information, do not retrieve the state
+from master node (default: false)</p></li>
+<li><p><strong>master_timeout</strong> – Specify timeout for connection to master</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.client.cluster.ClusterClient.post_voting_config_exclusions">
+<span class="sig-name descname"><span class="pre">post_voting_config_exclusions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cluster.html#ClusterClient.post_voting_config_exclusions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cluster.ClusterClient.post_voting_config_exclusions" title="Permalink to this definition"></a></dt>
+<dd><p>Updates the cluster voting config exclusions by node ids or node names.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>node_ids</strong> – A comma-separated list of the persistent ids of
+the nodes to exclude from the voting configuration. If specified, you
+may not also specify ?node_names.</p></li>
+<li><p><strong>node_names</strong> – A comma-separated list of the names of the
+nodes to exclude from the voting configuration. If specified, you may
+not also specify ?node_ids.</p></li>
+<li><p><strong>timeout</strong> – Explicit operation timeout  Default: 30s</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.client.cluster.ClusterClient.put_component_template">
+<span class="sig-name descname"><span class="pre">put_component_template</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">body</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cluster.html#ClusterClient.put_component_template"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cluster.ClusterClient.put_component_template" title="Permalink to this definition"></a></dt>
+<dd><p>Creates or updates a component template</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – The name of the template</p></li>
+<li><p><strong>body</strong> – The template definition</p></li>
+<li><p><strong>create</strong> – Whether the index template should only be added if
+new or can also replace an existing one</p></li>
+<li><p><strong>master_timeout</strong> – Specify timeout for connection to master</p></li>
+<li><p><strong>timeout</strong> – Explicit operation timeout</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.client.cluster.ClusterClient.put_settings">
+<span class="sig-name descname"><span class="pre">put_settings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">body</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cluster.html#ClusterClient.put_settings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cluster.ClusterClient.put_settings" title="Permalink to this definition"></a></dt>
+<dd><p>Updates the cluster settings.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>body</strong> – The settings to be updated. Can be either <cite>transient</cite>
+or <cite>persistent</cite> (survives cluster restart).</p></li>
+<li><p><strong>flat_settings</strong> – Return settings in flat format (default:
+false)</p></li>
+<li><p><strong>master_timeout</strong> – Explicit operation timeout for connection
+to master node</p></li>
+<li><p><strong>timeout</strong> – Explicit operation timeout</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.client.cluster.ClusterClient.remote_info">
+<span class="sig-name descname"><span class="pre">remote_info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cluster.html#ClusterClient.remote_info"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cluster.ClusterClient.remote_info" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the information about configured remote clusters.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.client.cluster.ClusterClient.reroute">
+<span class="sig-name descname"><span class="pre">reroute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">body</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cluster.html#ClusterClient.reroute"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cluster.ClusterClient.reroute" title="Permalink to this definition"></a></dt>
+<dd><p>Allows to manually change the allocation of individual shards in the cluster.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>body</strong> – The definition of <cite>commands</cite> to perform (<cite>move</cite>,
+<cite>cancel</cite>, <cite>allocate</cite>)</p></li>
+<li><p><strong>dry_run</strong> – Simulate the operation only and return the
+resulting state</p></li>
+<li><p><strong>explain</strong> – Return an explanation of why the commands can or
+cannot be executed</p></li>
+<li><p><strong>master_timeout</strong> – Explicit operation timeout for connection
+to master node</p></li>
+<li><p><strong>metric</strong> – Limit the information returned to the specified
+metrics. Defaults to all but metadata  Valid choices: _all, blocks,
+metadata, nodes, routing_table, master_node, version</p></li>
+<li><p><strong>retry_failed</strong> – Retries allocation of shards that are blocked
+due to too many subsequent allocation failures</p></li>
+<li><p><strong>timeout</strong> – Explicit operation timeout</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.client.cluster.ClusterClient.state">
+<span class="sig-name descname"><span class="pre">state</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">metric</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cluster.html#ClusterClient.state"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cluster.ClusterClient.state" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a comprehensive information about the state of the cluster.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>metric</strong> – Limit the information returned to the specified
+metrics  Valid choices: _all, blocks, metadata, nodes, routing_table,
+routing_nodes, master_node, version</p></li>
+<li><p><strong>index</strong> – A comma-separated list of index names; use <cite>_all</cite> or
+empty string to perform the operation on all indices</p></li>
+<li><p><strong>allow_no_indices</strong> – Whether to ignore if a wildcard indices
+expression resolves into no concrete indices. (This includes <cite>_all</cite>
+string or when no indices have been specified)</p></li>
+<li><p><strong>expand_wildcards</strong> – Whether to expand wildcard expression to
+concrete indices that are open, closed or both.  Valid choices: open,
+closed, hidden, none, all  Default: open</p></li>
+<li><p><strong>flat_settings</strong> – Return settings in flat format (default:
+false)</p></li>
+<li><p><strong>ignore_unavailable</strong> – Whether specified concrete indices
+should be ignored when unavailable (missing or closed)</p></li>
+<li><p><strong>local</strong> – Return local information, do not retrieve the state
+from master node (default: false)</p></li>
+<li><p><strong>master_timeout</strong> – Specify timeout for connection to master</p></li>
+<li><p><strong>wait_for_metadata_version</strong> – Wait for the metadata version to
+be equal or greater than the specified metadata version</p></li>
+<li><p><strong>wait_for_timeout</strong> – The maximum time to wait for
+wait_for_metadata_version before timing out</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.client.cluster.ClusterClient.stats">
+<span class="sig-name descname"><span class="pre">stats</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cluster.html#ClusterClient.stats"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cluster.ClusterClient.stats" title="Permalink to this definition"></a></dt>
+<dd><p>Returns high-level overview of cluster statistics.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>node_id</strong> – A comma-separated list of node IDs or names to
+limit the returned information; use <cite>_local</cite> to return information from
+the node you’re connecting to, leave empty to get information from all
+nodes</p></li>
+<li><p><strong>flat_settings</strong> – Return settings in flat format (default:
+false)</p></li>
+<li><p><strong>timeout</strong> – Explicit operation timeout</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="cat_client.html" class="btn btn-neutral float-left" title="Compact and aligned text (CAT) Client" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="dangling_indices_client.html" class="btn btn-neutral float-right" title="Dangling Indices Client" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright OpenSearch Project Contributors.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -18,6 +18,7 @@
         <script src="../_static/underscore.js"></script>
         <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
         <script src="../_static/clipboard.min.js"></script>
         <script src="../_static/copybutton.js"></script>
     <script src="../_static/js/theme.js"></script>
@@ -45,9 +46,28 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../api-ref.html">API Reference</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="client.html">client</a></li>
+<li class="toctree-l2"><a class="reference internal" href="client.html">Clients</a></li>
 <li class="toctree-l2"><a class="reference internal" href="connection.html">connection</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">connection_pool</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">connection_pool</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#opensearchpy.ConnectionPool"><code class="docutils literal notranslate"><span class="pre">ConnectionPool</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#opensearchpy.ConnectionPool.__repr__"><code class="docutils literal notranslate"><span class="pre">ConnectionPool.__repr__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#opensearchpy.ConnectionPool.close"><code class="docutils literal notranslate"><span class="pre">ConnectionPool.close()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#opensearchpy.ConnectionPool.get_connection"><code class="docutils literal notranslate"><span class="pre">ConnectionPool.get_connection()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#opensearchpy.ConnectionPool.mark_dead"><code class="docutils literal notranslate"><span class="pre">ConnectionPool.mark_dead()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#opensearchpy.ConnectionPool.mark_live"><code class="docutils literal notranslate"><span class="pre">ConnectionPool.mark_live()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#opensearchpy.ConnectionPool.resurrect"><code class="docutils literal notranslate"><span class="pre">ConnectionPool.resurrect()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#opensearchpy.ConnectionSelector"><code class="docutils literal notranslate"><span class="pre">ConnectionSelector</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#opensearchpy.ConnectionSelector.select"><code class="docutils literal notranslate"><span class="pre">ConnectionSelector.select()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#opensearchpy.RoundRobinSelector"><code class="docutils literal notranslate"><span class="pre">RoundRobinSelector</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#opensearchpy.RoundRobinSelector.select"><code class="docutils literal notranslate"><span class="pre">RoundRobinSelector.select()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="exceptions.html">exceptions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="serializer.html">serializer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="transport.html">transport</a></li>

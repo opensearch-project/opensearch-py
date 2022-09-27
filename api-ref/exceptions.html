@@ -18,6 +18,7 @@
         <script src="../_static/underscore.js"></script>
         <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
         <script src="../_static/clipboard.min.js"></script>
         <script src="../_static/copybutton.js"></script>
     <script src="../_static/js/theme.js"></script>
@@ -45,10 +46,38 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../api-ref.html">API Reference</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="client.html">client</a></li>
+<li class="toctree-l2"><a class="reference internal" href="client.html">Clients</a></li>
 <li class="toctree-l2"><a class="reference internal" href="connection.html">connection</a></li>
 <li class="toctree-l2"><a class="reference internal" href="connection_pool.html">connection_pool</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">exceptions</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">exceptions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#opensearchpy.AuthenticationException"><code class="docutils literal notranslate"><span class="pre">AuthenticationException</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#opensearchpy.AuthorizationException"><code class="docutils literal notranslate"><span class="pre">AuthorizationException</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#opensearchpy.ConflictError"><code class="docutils literal notranslate"><span class="pre">ConflictError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#opensearchpy.ConnectionError"><code class="docutils literal notranslate"><span class="pre">ConnectionError</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#opensearchpy.ConnectionError.__str__"><code class="docutils literal notranslate"><span class="pre">ConnectionError.__str__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#opensearchpy.ConnectionTimeout"><code class="docutils literal notranslate"><span class="pre">ConnectionTimeout</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#opensearchpy.ConnectionTimeout.__str__"><code class="docutils literal notranslate"><span class="pre">ConnectionTimeout.__str__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#opensearchpy.ImproperlyConfigured"><code class="docutils literal notranslate"><span class="pre">ImproperlyConfigured</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#opensearchpy.NotFoundError"><code class="docutils literal notranslate"><span class="pre">NotFoundError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#opensearchpy.OpenSearchDeprecationWarning"><code class="docutils literal notranslate"><span class="pre">OpenSearchDeprecationWarning</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#opensearchpy.OpenSearchException"><code class="docutils literal notranslate"><span class="pre">OpenSearchException</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#opensearchpy.OpenSearchWarning"><code class="docutils literal notranslate"><span class="pre">OpenSearchWarning</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#opensearchpy.RequestError"><code class="docutils literal notranslate"><span class="pre">RequestError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#opensearchpy.SerializationError"><code class="docutils literal notranslate"><span class="pre">SerializationError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#opensearchpy.SSLError"><code class="docutils literal notranslate"><span class="pre">SSLError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#opensearchpy.TransportError"><code class="docutils literal notranslate"><span class="pre">TransportError</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#opensearchpy.TransportError.__str__"><code class="docutils literal notranslate"><span class="pre">TransportError.__str__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#opensearchpy.TransportError.error"><code class="docutils literal notranslate"><span class="pre">TransportError.error</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#opensearchpy.TransportError.info"><code class="docutils literal notranslate"><span class="pre">TransportError.info</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#opensearchpy.TransportError.status_code"><code class="docutils literal notranslate"><span class="pre">TransportError.status_code</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="serializer.html">serializer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="transport.html">transport</a></li>
 </ul>

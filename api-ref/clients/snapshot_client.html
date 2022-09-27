@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Snapshot Client &mdash; OpenSearch Python Client  documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
+        <script src="../../_static/clipboard.min.js"></script>
+        <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Tasks Client" href="tasks_client.html" />
+    <link rel="prev" title="Remote Client" href="remote_client.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> OpenSearch Python Client
+            <img src="../../_static/OpenSearch.svg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../api-ref.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../client.html">Clients</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="opensearch_client.html">OpenSearch Client</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../client.html#clients-within-opensearch">Clients within Opensearch</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="cat_client.html">Compact and aligned text (CAT) Client</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cluster_client.html">Cluster Client</a></li>
+<li class="toctree-l4"><a class="reference internal" href="dangling_indices_client.html">Dangling Indices Client</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ingest_client.html">Ingest Client</a></li>
+<li class="toctree-l4"><a class="reference internal" href="indices_client.html">Indices Client</a></li>
+<li class="toctree-l4"><a class="reference internal" href="nodes_client.html">Nodes Client</a></li>
+<li class="toctree-l4"><a class="reference internal" href="remote_client.html">Remote Client</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Snapshot Client</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tasks_client.html">Tasks Client</a></li>
+<li class="toctree-l4"><a class="reference internal" href="features_client.html">Features Client</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../connection.html">connection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../connection_pool.html">connection_pool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../exceptions.html">exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../serializer.html">serializer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../transport.html">transport</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../genindex.html">Index</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/opensearch-project/opensearch-py/blob/main/LICENSE.txt">License</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/opensearch-project/opensearch-py/blob/main/CONTRIBUTING.md">Contributing</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/opensearch-project/opensearch-py/blob/main/CODE_OF_CONDUCT.md">Code of Conduct</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/opensearch-project/opensearch-py/blob/main/DEVELOPER_GUIDE.md">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/opensearch-project/opensearch-py">GitHub Repository</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">OpenSearch Python Client</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../api-ref.html">API Reference</a> &raquo;</li>
+          <li><a href="../client.html">Clients</a> &raquo;</li>
+      <li>Snapshot Client</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/opensearch-project/opensearch-py/blob/main/docs/source/api-ref/clients/snapshot_client.md" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="snapshot-client">
+<h1>Snapshot Client<a class="headerlink" href="#snapshot-client" title="Permalink to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="opensearchpy.client.snapshot.SnapshotClient">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opensearchpy.client.snapshot.</span></span><span class="sig-name descname"><span class="pre">SnapshotClient</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">client</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/snapshot.html#SnapshotClient"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.snapshot.SnapshotClient" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">NamespacedClient</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.client.snapshot.SnapshotClient.cleanup_repository">
+<span class="sig-name descname"><span class="pre">cleanup_repository</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">repository</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/snapshot.html#SnapshotClient.cleanup_repository"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.snapshot.SnapshotClient.cleanup_repository" title="Permalink to this definition"></a></dt>
+<dd><p>Removes stale data from repository.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>repository</strong> – A repository name</p></li>
+<li><p><strong>master_timeout</strong> – Explicit operation timeout for connection
+to master node</p></li>
+<li><p><strong>timeout</strong> – Explicit operation timeout</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.client.snapshot.SnapshotClient.clone">
+<span class="sig-name descname"><span class="pre">clone</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">repository</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">snapshot</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_snapshot</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">body</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/snapshot.html#SnapshotClient.clone"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.snapshot.SnapshotClient.clone" title="Permalink to this definition"></a></dt>
+<dd><p>Clones indices from one snapshot into another snapshot in the same repository.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>repository</strong> – A repository name</p></li>
+<li><p><strong>snapshot</strong> – The name of the snapshot to clone from</p></li>
+<li><p><strong>target_snapshot</strong> – The name of the cloned snapshot to create</p></li>
+<li><p><strong>body</strong> – The snapshot clone definition</p></li>
+<li><p><strong>master_timeout</strong> – Explicit operation timeout for connection
+to master node</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.client.snapshot.SnapshotClient.create">
+<span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">repository</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">snapshot</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">body</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/snapshot.html#SnapshotClient.create"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.snapshot.SnapshotClient.create" title="Permalink to this definition"></a></dt>
+<dd><p>Creates a snapshot in a repository.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>repository</strong> – A repository name</p></li>
+<li><p><strong>snapshot</strong> – A snapshot name</p></li>
+<li><p><strong>body</strong> – The snapshot definition</p></li>
+<li><p><strong>master_timeout</strong> – Explicit operation timeout for connection
+to master node</p></li>
+<li><p><strong>wait_for_completion</strong> – Should this request wait until the
+operation has completed before returning</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.client.snapshot.SnapshotClient.create_repository">
+<span class="sig-name descname"><span class="pre">create_repository</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">repository</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">body</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/snapshot.html#SnapshotClient.create_repository"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.snapshot.SnapshotClient.create_repository" title="Permalink to this definition"></a></dt>
+<dd><p>Creates a repository.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>repository</strong> – A repository name</p></li>
+<li><p><strong>body</strong> – The repository definition</p></li>
+<li><p><strong>master_timeout</strong> – Explicit operation timeout for connection
+to master node</p></li>
+<li><p><strong>timeout</strong> – Explicit operation timeout</p></li>
+<li><p><strong>verify</strong> – Whether to verify the repository after creation</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.client.snapshot.SnapshotClient.delete">
+<span class="sig-name descname"><span class="pre">delete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">repository</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">snapshot</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/snapshot.html#SnapshotClient.delete"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.snapshot.SnapshotClient.delete" title="Permalink to this definition"></a></dt>
+<dd><p>Deletes a snapshot.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>repository</strong> – A repository name</p></li>
+<li><p><strong>snapshot</strong> – A snapshot name</p></li>
+<li><p><strong>master_timeout</strong> – Explicit operation timeout for connection
+to master node</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.client.snapshot.SnapshotClient.delete_repository">
+<span class="sig-name descname"><span class="pre">delete_repository</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">repository</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/snapshot.html#SnapshotClient.delete_repository"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.snapshot.SnapshotClient.delete_repository" title="Permalink to this definition"></a></dt>
+<dd><p>Deletes a repository.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>repository</strong> – Name of the snapshot repository to unregister.
+Wildcard (<cite>*</cite>) patterns are supported.</p></li>
+<li><p><strong>master_timeout</strong> – Explicit operation timeout for connection
+to master node</p></li>
+<li><p><strong>timeout</strong> – Explicit operation timeout</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.client.snapshot.SnapshotClient.get">
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">repository</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">snapshot</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/snapshot.html#SnapshotClient.get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.snapshot.SnapshotClient.get" title="Permalink to this definition"></a></dt>
+<dd><p>Returns information about a snapshot.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>repository</strong> – A repository name</p></li>
+<li><p><strong>snapshot</strong> – A comma-separated list of snapshot names</p></li>
+<li><p><strong>ignore_unavailable</strong> – Whether to ignore unavailable
+snapshots, defaults to false which means a SnapshotMissingException is
+thrown</p></li>
+<li><p><strong>include_repository</strong> – Whether to include the repository name
+in the snapshot info. Defaults to true.</p></li>
+<li><p><strong>index_details</strong> – Whether to include details of each index in
+the snapshot, if those details are available. Defaults to false.</p></li>
+<li><p><strong>master_timeout</strong> – Explicit operation timeout for connection
+to master node</p></li>
+<li><p><strong>verbose</strong> – Whether to show verbose snapshot info or only show
+the basic info found in the repository index blob</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.client.snapshot.SnapshotClient.get_repository">
+<span class="sig-name descname"><span class="pre">get_repository</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">repository</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/snapshot.html#SnapshotClient.get_repository"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.snapshot.SnapshotClient.get_repository" title="Permalink to this definition"></a></dt>
+<dd><p>Returns information about a repository.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>repository</strong> – A comma-separated list of repository names</p></li>
+<li><p><strong>local</strong> – Return local information, do not retrieve the state
+from master node (default: false)</p></li>
+<li><p><strong>master_timeout</strong> – Explicit operation timeout for connection
+to master node</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.client.snapshot.SnapshotClient.repository_analyze">
+<span class="sig-name descname"><span class="pre">repository_analyze</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">repository</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/snapshot.html#SnapshotClient.repository_analyze"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.snapshot.SnapshotClient.repository_analyze" title="Permalink to this definition"></a></dt>
+<dd><p>Analyzes a repository for correctness and performance</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>repository</strong> – A repository name</p></li>
+<li><p><strong>blob_count</strong> – Number of blobs to create during the test.
+Defaults to 100.</p></li>
+<li><p><strong>concurrency</strong> – Number of operations to run concurrently
+during the test. Defaults to 10.</p></li>
+<li><p><strong>detailed</strong> – Whether to return detailed results or a summary.
+Defaults to ‘false’ so that only the summary is returned.</p></li>
+<li><p><strong>early_read_node_count</strong> – Number of nodes on which to perform
+an early read on a blob, i.e. before writing has completed. Early reads
+are rare actions so the ‘rare_action_probability’ parameter is also
+relevant. Defaults to 2.</p></li>
+<li><p><strong>max_blob_size</strong> – Maximum size of a blob to create during the
+test, e.g ‘1gb’ or ‘100mb’. Defaults to ‘10mb’.</p></li>
+<li><p><strong>max_total_data_size</strong> – Maximum total size of all blobs to
+create during the test, e.g ‘1tb’ or ‘100gb’. Defaults to ‘1gb’.</p></li>
+<li><p><strong>rare_action_probability</strong> – Probability of taking a rare
+action such as an early read or an overwrite. Defaults to 0.02.</p></li>
+<li><p><strong>rarely_abort_writes</strong> – Whether to rarely abort writes before
+they complete. Defaults to ‘true’.</p></li>
+<li><p><strong>read_node_count</strong> – Number of nodes on which to read a blob
+after writing. Defaults to 10.</p></li>
+<li><p><strong>seed</strong> – Seed for the random number generator used to create
+the test workload. Defaults to a random value.</p></li>
+<li><p><strong>timeout</strong> – Explicit operation timeout. Defaults to ’30s’.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.client.snapshot.SnapshotClient.restore">
+<span class="sig-name descname"><span class="pre">restore</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">repository</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">snapshot</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">body</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/snapshot.html#SnapshotClient.restore"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.snapshot.SnapshotClient.restore" title="Permalink to this definition"></a></dt>
+<dd><p>Restores a snapshot.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>repository</strong> – A repository name</p></li>
+<li><p><strong>snapshot</strong> – A snapshot name</p></li>
+<li><p><strong>body</strong> – Details of what to restore</p></li>
+<li><p><strong>master_timeout</strong> – Explicit operation timeout for connection
+to master node</p></li>
+<li><p><strong>wait_for_completion</strong> – Should this request wait until the
+operation has completed before returning</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.client.snapshot.SnapshotClient.status">
+<span class="sig-name descname"><span class="pre">status</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">repository</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">snapshot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/snapshot.html#SnapshotClient.status"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.snapshot.SnapshotClient.status" title="Permalink to this definition"></a></dt>
+<dd><p>Returns information about the status of a snapshot.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>repository</strong> – A repository name</p></li>
+<li><p><strong>snapshot</strong> – A comma-separated list of snapshot names</p></li>
+<li><p><strong>ignore_unavailable</strong> – Whether to ignore unavailable
+snapshots, defaults to false which means a SnapshotMissingException is
+thrown</p></li>
+<li><p><strong>master_timeout</strong> – Explicit operation timeout for connection
+to master node</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.client.snapshot.SnapshotClient.verify_repository">
+<span class="sig-name descname"><span class="pre">verify_repository</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">repository</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/snapshot.html#SnapshotClient.verify_repository"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.snapshot.SnapshotClient.verify_repository" title="Permalink to this definition"></a></dt>
+<dd><p>Verifies a repository.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>repository</strong> – A repository name</p></li>
+<li><p><strong>master_timeout</strong> – Explicit operation timeout for connection
+to master node</p></li>
+<li><p><strong>timeout</strong> – Explicit operation timeout</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="remote_client.html" class="btn btn-neutral float-left" title="Remote Client" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="tasks_client.html" class="btn btn-neutral float-right" title="Tasks Client" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright OpenSearch Project Contributors.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

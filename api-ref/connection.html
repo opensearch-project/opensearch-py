@@ -18,13 +18,14 @@
         <script src="../_static/underscore.js"></script>
         <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
         <script src="../_static/clipboard.min.js"></script>
         <script src="../_static/copybutton.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="connection_pool" href="connection_pool.html" />
-    <link rel="prev" title="client" href="client.html" /> 
+    <link rel="prev" title="Features Client" href="clients/features_client.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -45,8 +46,28 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../api-ref.html">API Reference</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="client.html">client</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">connection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="client.html">Clients</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">connection</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#opensearchpy.Connection"><code class="docutils literal notranslate"><span class="pre">Connection</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#opensearchpy.Connection.__eq__"><code class="docutils literal notranslate"><span class="pre">Connection.__eq__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#opensearchpy.Connection.__hash__"><code class="docutils literal notranslate"><span class="pre">Connection.__hash__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#opensearchpy.Connection.__repr__"><code class="docutils literal notranslate"><span class="pre">Connection.__repr__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#opensearchpy.Connection._raise_error"><code class="docutils literal notranslate"><span class="pre">Connection._raise_error()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#opensearchpy.Connection._raise_warnings"><code class="docutils literal notranslate"><span class="pre">Connection._raise_warnings()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#opensearchpy.Connection.log_request_fail"><code class="docutils literal notranslate"><span class="pre">Connection.log_request_fail()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#opensearchpy.Connection.log_request_success"><code class="docutils literal notranslate"><span class="pre">Connection.log_request_success()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#opensearchpy.RequestsHttpConnection"><code class="docutils literal notranslate"><span class="pre">RequestsHttpConnection</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#opensearchpy.RequestsHttpConnection.close"><code class="docutils literal notranslate"><span class="pre">RequestsHttpConnection.close()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#opensearchpy.Urllib3HttpConnection"><code class="docutils literal notranslate"><span class="pre">Urllib3HttpConnection</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#opensearchpy.Urllib3HttpConnection.close"><code class="docutils literal notranslate"><span class="pre">Urllib3HttpConnection.close()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="connection_pool.html">connection_pool</a></li>
 <li class="toctree-l2"><a class="reference internal" href="exceptions.html">exceptions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="serializer.html">serializer</a></li>
@@ -243,7 +264,7 @@ For tracing all requests made by this transport.</p></li>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="client.html" class="btn btn-neutral float-left" title="client" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="clients/features_client.html" class="btn btn-neutral float-left" title="Features Client" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="connection_pool.html" class="btn btn-neutral float-right" title="connection_pool" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
