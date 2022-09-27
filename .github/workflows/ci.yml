@@ -5,47 +5,50 @@ on: [push, pull_request]
 
 jobs:
   lint:
-    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: [2.7, 3.5, 3.6, 3.7, 3.8, 3.9, 3.10]
+    runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v1
-      - name: Set up Python 3.7
+      - name: Set Up Python - ${{ matrix.python-version }}
         uses: actions/setup-python@v2
         with:
-          python-version: 3.7
+          python-version: ${{ matrix.python-version }}
       - name: Install dependencies
         run: |
-          python3.7 -m pip install nox
+          python -m pip install nox
       - name: Lint the code
         run: nox -s lint
 
   test-build-distribution:
-    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: [2.7, 3.5, 3.6, 3.7, 3.8, 3.9, 3.10]
+    runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v1
-      - name: Set up Python 3.7
+      - name: Set Up Python - ${{ matrix.python-version }}
         uses: actions/setup-python@v2
         with:
-          python-version: 3.7
+          python-version: ${{ matrix.python-version }}
       - name: Install build tools
         run: |
-          python3.7 -m pip install --upgrade build
+          python -m pip install --upgrade build
       - name: Build project for distribution
         run: |
-          python3.7 -m build
+          python -m build
 
   test-linux:
     strategy:
       fail-fast: false
       matrix:
-        python-version: [2.7, 3.5, 3.6, 3.7, 3.8, 3.9]
-        experimental: [false]
-        include:
-          - python-version: 3.10.0-beta.2
-            experimental: true
-
-    runs-on: ubuntu-latest
+        python-version: [2.7, 3.5, 3.6, 3.7, 3.8, 3.9, 3.10]
+    runs-on: ${{ matrix.os }}
     name: test-${{ matrix.python-version }}
     continue-on-error: ${{ matrix.experimental }}
     steps:
@@ -63,13 +66,17 @@ jobs:
           python setup.py test
 
   twine-check:
-    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: [2.7, 3.5, 3.6, 3.7, 3.8, 3.9, 3.10]
+    runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v2
-      - name: Set up Python
+      - name: Set Up Python - ${{ matrix.python-version }}
         uses: actions/setup-python@v2
         with:
-          python-version: '3.x'
+          python-version: ${{ matrix.python-version }}
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
