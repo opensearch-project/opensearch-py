@@ -20,20 +20,16 @@ TOP=$(cd "$(dirname "$0")/.." >/dev/null && pwd)
 NLINES_SC=$(wc -l ./.ci/license/license-sc.txt | awk '{print $1}')
 NLINES_MC=$(wc -l ./.ci/license/license-mc.txt | awk '{print $1}')
 
-echo $NLINES_SC
 
 function check_license_header {
     local fP
     f=$1
     firstLine=$(head -1 "$f")
-    if [[ $f == *.fs ]] && (! diff -a --strip-trailing-cr license/license-mc.txt <(head -$NLINES_MC "$f") >/dev/null && ([[ $firstLine == "# -*- coding: utf-8 -*-" ]] && ! diff -a --strip-trailing-cr license/license-mc.txt <(head -7 "$f" | tail -n+2) >/dev/null)); then
+    if (diff -a --strip-trailing-cr license/license-mc.txt <(head -$NLINES_MC "$f") >/dev/null || ([[ $firstLine == "# -*- coding: utf-8 -*-" ]] &&  diff -a --strip-trailing-cr license/license-mc.txt <(head -7 "$f" | tail -n+2) >/dev/null)) || (diff -a --strip-trailing-cr license/license-sc.txt <(head -$NLINES_SC "$f") >/dev/null || ([[ $firstLine == "# -*- coding: utf-8 -*-" ]] && diff -a --strip-trailing-cr license/license-sc.txt <(head -7 "$f" | tail -n+2) >/dev/null))|| (diff -a --strip-trailing-cr license/license-sc.txt <(head -$NLINES_SC "$f") >/dev/null || ([[ $firstLine == "#!/usr/bin/env python" ]] && diff -a --strip-trailing-cr license/license-sc.txt <(head -7 "$f" | tail -n+2) >/dev/null)); then
+        return 0
+    else
         echo "check-license-headers: error: '$f' does not have required license header, see 'diff -u ./.ci/license/license-mc.txt <(head -$NLINES_MC ../$f)'"
         return 1
-    elif [[ $f != *.fs ]] && (! diff -a --strip-trailing-cr license/license-sc.txt <(head -$NLINES_SC "$f") >/dev/null && ([[ $firstLine == "# -*- coding: utf-8 -*-" ]] && ! diff -a --strip-trailing-cr license/license-sc.txt <(head -7 "$f" | tail -n+2) >/dev/null)); then
-        echo "check-license-headers: error: '$f' does not have required license header, see 'diff -u ./.ci/license/license-sc.txt <(head -$NLINES_SC $f)'"
-        return 1
-    else
-        return 0
     fi
 }
 
