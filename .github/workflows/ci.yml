@@ -51,7 +51,6 @@ jobs:
         os: [ubuntu-latest, windows-latest, macOS-latest]
     runs-on: ${{ matrix.os }}
     name: test-${{ matrix.python-version }}
-    continue-on-error: ${{ matrix.experimental }}
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v1
