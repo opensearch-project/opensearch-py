@@ -454,6 +454,8 @@ class Transport(object):
         timeout = None
         if params:
             timeout = params.pop("request_timeout", None)
+            if not timeout:
+                timeout = params.pop("timeout", None)
             ignore = params.pop("ignore", ())
             if isinstance(ignore, int):
                 ignore = (ignore,)
