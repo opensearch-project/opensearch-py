@@ -36,7 +36,7 @@ from opensearchpy.exceptions import ConnectionError
 if "OPENSEARCH_URL" in os.environ:
     OPENSEARCH_URL = os.environ["OPENSEARCH_URL"]
 else:
-    OPENSEARCH_URL = "https://elastic:changeme@localhost:9200"
+    OPENSEARCH_URL = "https://localhost:9200"
 
 
 def get_test_client(nowait=False, **kwargs):
