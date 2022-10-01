@@ -1957,18 +1957,18 @@ class AsyncOpenSearch(object):
         )
 
     @query_params()
-    async def delete_point_in_time(self, all=None, body=None, params=None, headers=None):
+    async def delete_point_in_time(self, body=None, all=False, params=None, headers=None):
         """
         Delete a point in time
 
 
         :arg body: a point-in-time id to delete
-        :arg all: set it to `_all` to delete all alive point in time.
+        :arg all: set it to `True` to delete all alive point in time.
         """
+        path = _make_path("_search", "point_in_time", "_all") if all else _make_path("_search", "point_in_time")
         return await self.transport.perform_request(
-            "DELETE", _make_path("_search", "point_in_time", all), params=params, headers=headers, body=body
+            "DELETE", path, params=params, headers=headers, body=body
         )
-
 
     @query_params(
         "expand_wildcards", "ignore_unavailable", "keep_alive", "preference", "routing"
