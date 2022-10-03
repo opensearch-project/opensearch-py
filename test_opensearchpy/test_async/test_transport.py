@@ -139,6 +139,18 @@ class TestTransport:
             "headers": None,
         } == t.get_connection().calls[0][1]
 
+    async def test_timeout_extracted_from_params_and_passed(self):
+        t = AsyncTransport([{}], connection_class=DummyConnection)
+
+        await t.perform_request("GET", "/", params={"timeout": 84})
+        assert 1 == len(t.get_connection().calls)
+        assert ("GET", "/", {}, None) == t.get_connection().calls[0][0]
+        assert {
+            "timeout": 84,
+            "ignore": (),
+            "headers": None,
+        } == t.get_connection().calls[0][1]
+
     async def test_opaque_id(self):
         t = AsyncTransport([{}], opaque_id="app-1", connection_class=DummyConnection)
 
