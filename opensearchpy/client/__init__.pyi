@@ -57,10 +57,7 @@ class OpenSearch(object):
     snapshot: SnapshotClient
     tasks: TasksClient
     def __init__(
-        self,
-        hosts: Any = ...,
-        transport_class: Type[Transport] = ...,
-        **kwargs: Any,
+        self, hosts: Any = ..., transport_class: Type[Transport] = ..., **kwargs: Any
     ) -> None: ...
     def __repr__(self) -> str: ...
     def __enter__(self) -> "OpenSearch": ...
