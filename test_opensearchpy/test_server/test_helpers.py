@@ -24,6 +24,7 @@
 #  specific language governing permissions and limitations
 #  under the License.
 
+
 from mock import patch
 
 from opensearchpy import TransportError, helpers

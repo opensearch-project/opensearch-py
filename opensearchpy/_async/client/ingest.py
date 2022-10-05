@@ -24,7 +24,7 @@
 #  specific language governing permissions and limitations
 #  under the License.
 
-from typing import Any, Collection, MutableMapping, Optional, Tuple, Union
+
 
 from .utils import NamespacedClient
 

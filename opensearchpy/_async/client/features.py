@@ -24,7 +24,7 @@
 #  specific language governing permissions and limitations
 #  under the License.
 
-from .utils import SKIP_IN_PATH, NamespacedClient, _make_path, query_params
+
 
 
 class DanglingIndicesClient(NamespacedClient):
