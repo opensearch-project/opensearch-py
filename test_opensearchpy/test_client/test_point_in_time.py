@@ -34,9 +34,7 @@ class TestPointInTime(OpenSearchTestCase):
         self.assert_url_called("POST", "/test-index/_search/point_in_time")
 
     def test_delete_one_point_in_time(self):
-        self.client.delete_point_in_time(body={
-            "pit_id": ["Sample-PIT-ID"]
-        })
+        self.client.delete_point_in_time(body={"pit_id": ["Sample-PIT-ID"]})
         self.assert_url_called("DELETE", "/_search/point_in_time")
 
     def test_delete_all_point_in_time(self):

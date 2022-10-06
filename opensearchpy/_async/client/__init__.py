@@ -1953,11 +1953,16 @@ class AsyncOpenSearch(object):
         Returns the list of point in times which are alive
         """
         return await self.transport.perform_request(
-            "GET", _make_path("_search", "point_in_time", "_all"), params=params, headers=headers
+            "GET",
+            _make_path("_search", "point_in_time", "_all"),
+            params=params,
+            headers=headers,
         )
 
     @query_params()
-    async def delete_point_in_time(self, body=None, all=False, params=None, headers=None):
+    async def delete_point_in_time(
+        self, body=None, all=False, params=None, headers=None
+    ):
         """
         Delete a point in time
 
@@ -1965,7 +1970,11 @@ class AsyncOpenSearch(object):
         :arg body: a point-in-time id to delete
         :arg all: set it to `True` to delete all alive point in time.
         """
-        path = _make_path("_search", "point_in_time", "_all") if all else _make_path("_search", "point_in_time")
+        path = (
+            _make_path("_search", "point_in_time", "_all")
+            if all
+            else _make_path("_search", "point_in_time")
+        )
         return await self.transport.perform_request(
             "DELETE", path, params=params, headers=headers, body=body
         )
@@ -1992,7 +2001,10 @@ class AsyncOpenSearch(object):
         :arg routing: Specific routing value
         """
         return await self.transport.perform_request(
-            "POST", _make_path(index, "_search", "point_in_time"), params=params, headers=headers
+            "POST",
+            _make_path(index, "_search", "point_in_time"),
+            params=params,
+            headers=headers,
         )
 
     @query_params()
