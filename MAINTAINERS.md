@@ -11,8 +11,8 @@
 | -------------------- | --------------------------------------------------- | ----------- |
 | Vacha Shah           | [VachaShah](https://github.com/VachaShah)           | Amazon      |
 | Daniel Doubrovkine   | [dblock](https://github.com/dblock)                 | Amazon      |
-| Harsha Vamsi Kalluri | [harshavamsi](https://github.com/axeoman)           | Amazon      |
-| Aleksei Atavin       | [axeoman](https://github.com/axeoman)           | Aiven       |
+| Harsha Vamsi Kalluri | [harshavamsi](https://github.com/harshavamsi)       | Amazon      |
+| Aleksei Atavin       | [axeoman](https://github.com/axeoman)               | Aiven       |
 | Denis Zalevskiy      | [deztructor](https://github.com/deztructor)         | Aiven       |
 | Rushi Agrawal        | [rushiagr](https://github.com/rushiagr)             | External    |
 | Shephali Mittal      | [Shephalimittal](https://github.com/Shephalimittal) | Amazon      |
