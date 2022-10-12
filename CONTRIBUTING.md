@@ -5,6 +5,8 @@
   - [Feature Requests](#feature-requests)
   - [Contributing Code](#contributing-code)
 - [Developer Certificate of Origin](#developer-certificate-of-origin)
+- [Changelog](#changelog)
+  - [How to add my changes to CHANGELOG?](#how-to-add-my-changes-to-changelog)
 - [Review Process](#review-process)
 
 ## Contributing to OpenSearch
@@ -79,6 +81,25 @@ Signed-off-by: Jane Smith <jane.smith@email.com>
 ```
 
 You may type this line on your own when writing your commit messages. However, if your user.name and user.email are set in your git configs, you can use `-s` or `– – signoff` to add the `Signed-off-by` line to the end of the commit message.
+
+## Changelog
+
+OpenSearch-Py maintains version specific changelog by enforcing a change to the ongoing [CHANGELOG](CHANGELOG.md) file adhering to the [Keep A Changelog](https://keepachangelog.com/en/1.0.0/) format.
+
+Briefly, the changes are curated by version, with the changes to the main branch added chronologically to `Unreleased` version. Further, each version has corresponding sections which list out the category of the change - `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `Security`.
+
+
+### How to add my changes to [CHANGELOG](CHANGELOG.md)?
+
+As a contributor, you must ensure that every pull request has the changes listed out within the corresponding version and appropriate section of [CHANGELOG](CHANGELOG.md) file.
+
+Adding in the change is two step process -
+1. Add your changes to the corresponding section within the CHANGELOG file with dummy pull request information, publish the PR
+
+  `Your change here ([#PR_NUMBER](PR_URL))`
+
+2. Update the entry for your change in [`CHANGELOG.md`](CHANGELOG.md) and make sure that you reference the pull request there.
+
 
 ## Review Process
 
