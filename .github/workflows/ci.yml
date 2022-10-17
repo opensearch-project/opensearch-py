@@ -63,12 +63,8 @@ jobs:
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v3
         with:
-          directory: ./junit
-          env_vars: OS,PYTHON
-          fail_ci_if_error: true
-          files: opensearch-py-junit.xml
+          file: ./junit/opensearch-py-junit.xml
           flags: unittests
-          name: codecov-umbrella
           verbose: true
 
   twine-check:
