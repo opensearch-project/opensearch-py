@@ -1,5 +1,6 @@
 - [Overview](#overview)
 - [Current Maintainers](#current-maintainers)
+- [Emeritus](#emeritus)
 
 ## Overview
 
@@ -14,5 +15,10 @@
 | Harsha Vamsi Kalluri | [harshavamsi](https://github.com/harshavamsi)       | Amazon      |
 | Aleksei Atavin       | [axeoman](https://github.com/axeoman)               | Aiven       |
 | Denis Zalevskiy      | [deztructor](https://github.com/deztructor)         | Aiven       |
-| Rushi Agrawal        | [rushiagr](https://github.com/rushiagr)             | External    |
 | Shephali Mittal      | [Shephalimittal](https://github.com/Shephalimittal) | Amazon      |
+
+## Emeritus
+
+| Maintainer    | GitHub ID                               | Affiliation |
+| ------------- | --------------------------------------- | ----------- |
+| Rushi Agrawal | [rushiagr](https://github.com/rushiagr) | Amazon      |
