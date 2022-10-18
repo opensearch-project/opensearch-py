@@ -1,6 +1,22 @@
 - [Getting Started with the OpenSearch Python Client](#getting-started-with-the-opensearch-python-client)
   - [Setup](#setup)
   - [Sample code](#sample-code)
+    - [Creating a client](#creating-a-client)
+    - [Creating an index](#creating-an-index)
+    - [Adding a document to an index](#adding-a-document-to-an-index)
+    - [Adding documents in bulk](#adding-documents-in-bulk)
+    - [Adding documents in bulk using helper functions](#adding-documents-in-bulk-using-helper-functions)
+    - [Searching for a document](#searching-for-a-document)
+    - [Deleting a document](#deleting-a-document)
+    - [Deleting an index](#deleting-an-index)
+  - [Using plugins](#using-plugins)
+    - [Alerting plugin](#alerting-plugin)
+      - [**Searching for monitors**](#searching-for-monitors)
+      - [**Getting a monitor**](#getting-a-monitor)
+      - [**Creating a monitor**](#creating-a-monitor)
+      - [**Creating a destination**](#creating-a-destination)
+      - [**Getting alerts**](#getting-alerts)
+      - [**Acknowledge alerts**](#acknowledge-alerts)
   - [Using IAM credentials for authentication](#using-iam-credentials-for-authentication)
       - [Pre-requisites to use `AWSV4SignerAuth`](#pre-requisites-to-use-awsv4signerauth)
 
@@ -168,6 +184,159 @@ print('\nDeleting index:')
 print(response)
 ```
 
+## Using plugins
+
+Plugin client definitions can be found here -- 
+
+### Alerting plugin
+
+#### **Searching for monitors**
+[API definition](https://opensearch.org/docs/latest/monitoring-plugins/alerting/api/#search-monitors)
+```python
+print('\Searching for monitors:')
+
+query = {
+  "query": {
+    "match" : {
+      "monitor.name": "test-monitor"
+    }
+  }
+}
+
+response = client.plugins.alerting.search_monitor(query)
+print(response)
+```
+
+#### **Getting a monitor**
+[API definition](https://opensearch.org/docs/latest/monitoring-plugins/alerting/api/#get-monitor)
+```python
+print('\Getting a monitor:')
+
+response = client.plugins.alerting.get_monitor("monitorID")
+print(response)
+```
+
+#### **Creating a monitor**
+[API definition](https://opensearch.org/docs/latest/monitoring-plugins/alerting/api/#create-a-bucket-level-monitor)
+```python
+print('\Creating a bucket level monitor:')
+
+query = {
+  "type": "monitor",
+  "name": "Demo bucket-level monitor",
+  "monitor_type": "bucket_level_monitor",
+  "enabled": True,
+  "schedule": {
+    "period": {
+      "interval": 1,
+      "unit": "MINUTES"
+    }
+  },
+  "inputs": [
+    {
+      "search": {
+        "indices": [
+          "python-test-index3"
+        ],
+        "query": {
+          "size": 0,
+          "query": {
+            "bool": {
+              "filter": [
+                {
+                  "range": {
+                    "order_date": {
+                      "from": "||-1h",
+                      "to": "",
+                      "include_lower": True,
+                      "include_upper": True,
+                      "format": "epoch_millis"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "aggregations": {
+            "composite_agg": {
+              "composite": {
+                "sources": [
+                  {
+                    "user": {
+                      "terms": {
+                        "field": "user"
+                      }
+                    }
+                  }
+                ]
+              },
+              "aggregations": {
+                "avg_products_base_price": {
+                  "avg": {
+                    "field": "products.base_price"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+}
+
+response = client.plugins.alerting.create_monitor(query)
+print(response)
+```
+
+#### **Creating a destination**
+[API definition](https://opensearch.org/docs/latest/monitoring-plugins/alerting/api/#create-destination)
+```python
+print('\Creating an email destination:')
+
+query = {
+  "type": "email",
+  "name": "my-email-destination",
+  "email": {
+    "email_account_id": "YjY7mXMBx015759_IcfW",
+    "recipients": [
+      {
+        "type": "email_group",
+        "email_group_id": "YzY-mXMBx015759_dscs"
+      },
+      {
+        "type": "email",
+        "email": "example@email.com"
+      }
+    ]
+  }
+}
+
+response = client.plugins.alerting.create_destination(query)
+print(response)
+```
+
+#### **Getting alerts**
+[API definition](https://opensearch.org/docs/latest/monitoring-plugins/alerting/api/#get-alerts)
+```python
+print('\Getting alerts:')
+
+response = client.plugins.alerting.get_alerts()
+print(response)
+```
+
+#### **Acknowledge alerts**
+[API definition](https://opensearch.org/docs/latest/monitoring-plugins/alerting/api/#acknowledge-alert)
+```python
+print('\Acknowledge alerts:')
+
+query = {
+  "alerts": ["eQURa3gBKo1jAh6qUo49"]
+}
+
+response = client.plugins.alerting.acknowledge_alert(query)
+print(response)
+```
 ## Using IAM credentials for authentication
 
 Refer the AWS documentation regarding usage of IAM credentials to sign requests to OpenSearch APIs - [Signing HTTP requests to Amazon OpenSearch Service.](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/request-signing.html#request-signing-python)
