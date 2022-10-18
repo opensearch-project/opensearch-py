@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Overview: module code &mdash; OpenSearch Python Client  documentation</title>
+  <title>Plugins &mdash; OpenSearch Python Client  documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
@@ -22,7 +23,9 @@
         <script src="../_static/copybutton.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" /> 
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Alerting Plugin" href="plugins/alerting_plugin.html" />
+    <link rel="prev" title="exceptions" href="exceptions.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -41,8 +44,20 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <ul>
-<li class="toctree-l1"><a class="reference internal" href="../api-ref.html">API Reference</a></li>
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../api-ref.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="client.html">Clients</a></li>
+<li class="toctree-l2"><a class="reference internal" href="connection.html">connection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="connection_pool.html">connection_pool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="exceptions.html">exceptions</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Plugins</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="plugins/alerting_plugin.html">Alerting Plugin</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="serializer.html">serializer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="transport.html">transport</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../genindex.html">Index</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/opensearch-project/opensearch-py/blob/main/LICENSE.txt">License</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/opensearch-project/opensearch-py/blob/main/CONTRIBUTING.md">Contributing</a></li>
@@ -65,8 +80,10 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Overview: module code</li>
+          <li><a href="../api-ref.html">API Reference</a> &raquo;</li>
+      <li>Plugins</li>
       <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/opensearch-project/opensearch-py/blob/main/docs/source/api-ref/plugins.md" class="fa fa-github"> Edit on GitHub</a>
       </li>
   </ul>
   <hr/>
@@ -74,31 +91,22 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <h1>All modules for which code is available</h1>
-<ul><li><a href="opensearchpy/client.html">opensearchpy.client</a></li>
-<ul><li><a href="opensearchpy/client/cat.html">opensearchpy.client.cat</a></li>
-<li><a href="opensearchpy/client/cluster.html">opensearchpy.client.cluster</a></li>
-<li><a href="opensearchpy/client/dangling_indices.html">opensearchpy.client.dangling_indices</a></li>
-<li><a href="opensearchpy/client/features.html">opensearchpy.client.features</a></li>
-<li><a href="opensearchpy/client/indices.html">opensearchpy.client.indices</a></li>
-<li><a href="opensearchpy/client/ingest.html">opensearchpy.client.ingest</a></li>
-<li><a href="opensearchpy/client/nodes.html">opensearchpy.client.nodes</a></li>
-<li><a href="opensearchpy/client/remote.html">opensearchpy.client.remote</a></li>
-<li><a href="opensearchpy/client/snapshot.html">opensearchpy.client.snapshot</a></li>
-<li><a href="opensearchpy/client/tasks.html">opensearchpy.client.tasks</a></li>
-</ul><li><a href="opensearchpy/connection/base.html">opensearchpy.connection.base</a></li>
-<li><a href="opensearchpy/connection/http_requests.html">opensearchpy.connection.http_requests</a></li>
-<li><a href="opensearchpy/connection/http_urllib3.html">opensearchpy.connection.http_urllib3</a></li>
-<li><a href="opensearchpy/connection_pool.html">opensearchpy.connection_pool</a></li>
-<li><a href="opensearchpy/exceptions.html">opensearchpy.exceptions</a></li>
-<li><a href="opensearchpy/plugins/alerting.html">opensearchpy.plugins.alerting</a></li>
-<li><a href="opensearchpy/serializer.html">opensearchpy.serializer</a></li>
-<li><a href="opensearchpy/transport.html">opensearchpy.transport</a></li>
+  <section id="plugins">
+<h1>Plugins<a class="headerlink" href="#plugins" title="Permalink to this heading"></a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="plugins/alerting_plugin.html">Alerting Plugin</a></li>
 </ul>
+</div>
+</section>
+
 
            </div>
           </div>
-          <footer>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="exceptions.html" class="btn btn-neutral float-left" title="exceptions" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="plugins/alerting_plugin.html" class="btn btn-neutral float-right" title="Alerting Plugin" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
 
   <hr/>
 
