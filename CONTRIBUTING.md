@@ -6,7 +6,7 @@
   - [Contributing Code](#contributing-code)
 - [Developer Certificate of Origin](#developer-certificate-of-origin)
 - [Changelog](#changelog)
-  - [Adding changes](#adding-changes)
+  - [Adding Changes](#adding-changes)
 - [Review Process](#review-process)
 
 ## Contributing to OpenSearch
@@ -84,12 +84,12 @@ You may type this line on your own when writing your commit messages. However, i
 
 ## Changelog
 
-OpenSearch-Py maintains a version specific changelog by enforcing a change to the ongoing [CHANGELOG](CHANGELOG.md) file adhering to the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) format.
+OpenSearch-py maintains a version specific changelog by enforcing a change to the ongoing [CHANGELOG](CHANGELOG.md) file adhering to the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) format.
 
 The changes are curated by version, with the changes to the main branch added chronologically to the `Unreleased` version. Each version has corresponding sections which list out the category of the change - `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `Security`.
 
 
-### Adding changes
+### Adding Changes
 
 As a contributor, you must ensure that every pull request has its changes listed out within the corresponding version and appropriate section of the [CHANGELOG](CHANGELOG.md) file.
 
