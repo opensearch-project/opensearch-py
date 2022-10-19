@@ -24,6 +24,7 @@
 #  specific language governing permissions and limitations
 #  under the License.
 
+
 import asyncio
 import os
 import ssl
@@ -98,7 +99,7 @@ class AIOHttpConnection(AsyncConnection):
         http_compress=None,
         opaque_id=None,
         loop=None,
-        **kwargs,
+        **kwargs
     ):
         """
         Default connection class for ``AsyncOpenSearch`` using the `aiohttp` library and the http protocol.
@@ -143,7 +144,7 @@ class AIOHttpConnection(AsyncConnection):
             headers=headers,
             http_compress=http_compress,
             opaque_id=opaque_id,
-            **kwargs,
+            **kwargs
         )
 
         if http_auth is not None:

@@ -1,6 +1,7 @@
 # OpenSearch Python Client Documentation
 
 ## Table of Contents
+
 ```{toctree}
 ---
 maxdepth: 1
@@ -16,4 +17,5 @@ GitHub Repository <https://github.com/opensearch-project/opensearch-py>
 ```
 
 ```{include} README.md
+
 ```

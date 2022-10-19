@@ -7,5 +7,6 @@ titlesonly:
 maxdepth: 2
 ---
 
+api-ref/client
 api-ref/*
 ```
