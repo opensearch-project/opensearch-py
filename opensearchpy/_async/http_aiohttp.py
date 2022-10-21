@@ -33,7 +33,7 @@ import warnings
 import urllib3  # type: ignore
 
 from ..compat import reraise_exceptions, urlencode
-from ..connection.base import Connection, CA_CERTS
+from ..connection.base import CA_CERTS, Connection
 from ..exceptions import (
     ConnectionError,
     ConnectionTimeout,

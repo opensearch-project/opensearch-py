@@ -24,7 +24,6 @@
 #  specific language governing permissions and limitations
 #  under the License.
 
-import os
 import ssl
 import time
 import warnings
@@ -41,7 +40,7 @@ from ..exceptions import (
     ImproperlyConfigured,
     SSLError,
 )
-from .base import Connection, CA_CERTS
+from .base import CA_CERTS, Connection
 
 # sentinel value for `verify_certs` and `ssl_show_warn`.
 # This is used to detect if a user is passing in a value

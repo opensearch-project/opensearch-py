@@ -42,7 +42,7 @@ from ..exceptions import (
     ImproperlyConfigured,
     SSLError,
 )
-from .base import Connection, CA_CERTS
+from .base import CA_CERTS, Connection
 
 
 class RequestsHttpConnection(Connection):
