@@ -42,7 +42,7 @@ from ..exceptions import (
     ImproperlyConfigured,
     SSLError,
 )
-from .base import Connection
+from .base import Connection, CA_CERTS
 
 
 class RequestsHttpConnection(Connection):
@@ -54,8 +54,10 @@ class RequestsHttpConnection(Connection):
     :arg use_ssl: use ssl for the connection if `True`
     :arg verify_certs: whether to verify SSL certificates
     :arg ssl_show_warn: show warning when verify certs is disabled
-    :arg ca_certs: optional path to CA bundle. By default standard requests'
-        bundle will be used.
+    :arg ca_certs: optional path to CA bundle. Defaults to configured OpenSSL
+        bundles from environment variables and then certifi before falling
+        back to the standard requests bundle to improve consistency with
+        other Connection implementations
     :arg client_cert: path to the file containing the private key and the
         certificate, or cert only if using client_key
     :arg client_key: path to the file containing the private key if using
@@ -129,6 +131,8 @@ class RequestsHttpConnection(Connection):
                     "You cannot pass CA certificates when verify SSL is off."
                 )
             self.session.verify = ca_certs
+        elif verify_certs and CA_CERTS:
+            self.session.verify = CA_CERTS
 
         if not ssl_show_warn:
             requests.packages.urllib3.disable_warnings()
