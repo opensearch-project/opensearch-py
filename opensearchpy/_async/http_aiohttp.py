@@ -33,7 +33,7 @@ import warnings
 import urllib3  # type: ignore
 
 from ..compat import reraise_exceptions, urlencode
-from ..connection.base import Connection
+from ..connection.base import Connection, CA_CERTS
 from ..exceptions import (
     ConnectionError,
     ConnectionTimeout,
@@ -48,16 +48,6 @@ from .compat import get_running_loop
 # for SSL kwargs if also using an SSLContext.
 VERIFY_CERTS_DEFAULT = object()
 SSL_SHOW_WARN_DEFAULT = object()
-
-CA_CERTS = os.environ.get("SSL_CERT_FILE") or os.environ.get("SSL_CERT_DIR")
-
-if CA_CERTS is None:
-    try:
-        import certifi
-
-        CA_CERTS = certifi.where()
-    except ImportError:
-        pass
 
 
 class AsyncConnection(Connection):

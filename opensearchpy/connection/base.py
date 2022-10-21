@@ -52,6 +52,18 @@ if not _tracer_already_configured:
 
 _WARNING_RE = re.compile(r"\"([^\"]*)\"")
 
+# Default CA certificate bundle, preferring those configured in the standard
+# OpenSSL environment variables before provided by certifi (if available)
+CA_CERTS = os.environ.get("SSL_CERT_FILE") or os.environ.get("SSL_CERT_DIR")
+
+if CA_CERTS is None:
+    try:
+        import certifi
+
+        CA_CERTS = certifi.where()
+    except ImportError:
+        pass
+
 
 class Connection(object):
     """

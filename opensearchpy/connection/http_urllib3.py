@@ -41,23 +41,13 @@ from ..exceptions import (
     ImproperlyConfigured,
     SSLError,
 )
-from .base import Connection
+from .base import Connection, CA_CERTS
 
 # sentinel value for `verify_certs` and `ssl_show_warn`.
 # This is used to detect if a user is passing in a value
 # for SSL kwargs if also using an SSLContext.
 VERIFY_CERTS_DEFAULT = object()
 SSL_SHOW_WARN_DEFAULT = object()
-
-CA_CERTS = os.environ.get("SSL_CERT_FILE") or os.environ.get("SSL_CERT_DIR")
-
-if CA_CERTS is None:
-    try:
-        import certifi
-
-        CA_CERTS = certifi.where()
-    except ImportError:
-        pass
 
 
 def create_ssl_context(**kwargs):

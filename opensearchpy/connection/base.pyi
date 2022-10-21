@@ -42,6 +42,8 @@ from typing import (
 logger: logging.Logger
 tracer: logging.Logger
 
+CA_CERTS: Optional[str]
+
 class Connection(object):
     headers: Dict[str, str]
     use_ssl: bool
