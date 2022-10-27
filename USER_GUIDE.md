@@ -4,7 +4,7 @@
   - [Using IAM credentials for authentication](#using-iam-credentials-for-authentication)
       - [Pre-requisites to use `AWSV4SignerAuth`](#pre-requisites-to-use-awsv4signerauth)
 
-# Getting Started with the OpenSearch Python Client
+# User guide of OpenSearch Python Client
 
 ## Setup
 
@@ -23,8 +23,9 @@ from opensearchpy import OpenSearch
 If you prefer to add the client manually or just want to examine the source code, see [opensearch-py on GitHub](https://github.com/opensearch-project/opensearch-py).
 
 
-## Sample code
-
+## Example
+In the example given below, we create a client, an index with non-default settings, insert a 
+document in the index, search for the document, delete the document and finally delete the index.
 ```python
 from opensearchpy import OpenSearch
 
@@ -119,7 +120,39 @@ response = client.indices.delete(
 print('\nDeleting index:')
 print(response)
 ```
+## Making API Calls
 
+### Point in Time API calls
+```python
+
+# create a point in time on a index
+index_name = "test-index"
+response = client.create_point_in_time(index=index_name,
+                                       keep_alive="1m")
+
+pit_id = response.get("pit_id")
+print('\n Point in time ID:')
+print(pit_id)
+
+# To list all point in time which are plive in the cluster
+response = client.list_all_point_in_time()
+print('\n List of all Point in Time:')
+print(response)
+
+# delete point in time
+body = {
+    "pit_id": [pit_id]
+}
+
+response = client.delete_point_in_time(body=body)
+# To delete all point in time 
+# client.delete_point_in_time(body=None, all=True)
+
+print('\n The deleted point in time:')
+print(response)
+
+
+```
 ## Using IAM credentials for authentication
 
 Refer the AWS documentation regarding usage of IAM credentials to sign requests to OpenSearch APIs - [Signing HTTP requests to Amazon OpenSearch Service.](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/request-signing.html#request-signing-python)
