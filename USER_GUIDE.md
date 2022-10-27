@@ -140,13 +140,13 @@ print('\n List of all Point in Time:')
 print(response)
 
 # To delete point in time
-body = {
+pit_body = {
     "pit_id": [pit_id]
 }
 
 # To delete all point in time 
 # client.delete_point_in_time(body=None, all=True)
-response = client.delete_point_in_time(body=body)
+response = client.delete_point_in_time(body=pit_body)
 
 print('\n The deleted point in time:')
 print(response)
