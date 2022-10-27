@@ -123,8 +123,8 @@ print(response)
 ## Making API Calls
 
 ### Point in Time API calls
-```python
 
+```python
 # create a point in time on a index
 index_name = "test-index"
 response = client.create_point_in_time(index=index_name,
@@ -134,19 +134,19 @@ pit_id = response.get("pit_id")
 print('\n Point in time ID:')
 print(pit_id)
 
-# To list all point in time which are plive in the cluster
+# To list all point in time which are alive in the cluster
 response = client.list_all_point_in_time()
 print('\n List of all Point in Time:')
 print(response)
 
-# delete point in time
+# To delete point in time
 body = {
     "pit_id": [pit_id]
 }
 
-response = client.delete_point_in_time(body=body)
 # To delete all point in time 
 # client.delete_point_in_time(body=None, all=True)
+response = client.delete_point_in_time(body=body)
 
 print('\n The deleted point in time:')
 print(response)
