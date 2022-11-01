@@ -24,6 +24,7 @@
 #  specific language governing permissions and limitations
 #  under the License.
 
+
 """Script which verifies that all source files have a license header.
 Has two modes: 'fix' and 'check'. 'fix' fixes problems, 'check' will
 error out if 'fix' would have changed the file.

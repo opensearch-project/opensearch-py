@@ -24,6 +24,7 @@
 #  specific language governing permissions and limitations
 #  under the License.
 
+
 # Licensed to Elasticsearch B.V.under one or more agreements.
 # Elasticsearch B.V.licenses this file to you under the Apache 2.0 License.
 # See the LICENSE file in the project root for more information
@@ -203,7 +204,7 @@ async def async_streaming_bulk(
                         raise_on_error,
                         ignore_status,
                         *args,
-                        **kwargs,
+                        **kwargs
                     ),
                 ):
 
@@ -470,5 +471,5 @@ async def async_reindex(
         target_client,
         _change_doc_index(docs, target_index),
         chunk_size=chunk_size,
-        **kwargs,
+        **kwargs
     )
