@@ -115,5 +115,6 @@ setup(
         "develop": tests_require + docs_require + generate_require,
         "docs": docs_require,
         "async": async_require,
+        "kerberos": ["requests_kerberos"],
     },
 )
