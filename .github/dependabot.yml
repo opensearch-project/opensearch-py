@@ -1,0 +1,10 @@
+updates:
+  - directory: /
+    open-pull-requests-limit: 3
+    package-ecosystem: pip
+    schedule:
+      interval: weekly
+    labels:
+      - "dependabot"
+      - "dependencies"
+version: 2

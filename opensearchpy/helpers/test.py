@@ -24,6 +24,7 @@
 #  specific language governing permissions and limitations
 #  under the License.
 
+
 # type: ignore
 
 import os
@@ -100,3 +101,12 @@ def _get_version(version_string):
 
 def opensearch_version(client):
     return _get_version(client.info()["version"]["number"])
+
+
+if "OPENSEARCH_VERSION" in os.environ:
+    OPENSEARCH_VERSION = _get_version(os.environ["OPENSEARCH_VERSION"])
+else:
+    client = OpenSearch(
+        OPENSEARCH_URL,
+    )
+    OPENSEARCH_VERSION = opensearch_version(client)

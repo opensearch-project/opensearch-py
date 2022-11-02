@@ -37,6 +37,7 @@ from .features import FeaturesClient
 from .indices import IndicesClient
 from .ingest import IngestClient
 from .nodes import NodesClient
+from .plugins import PluginsClient
 from .remote import RemoteClient
 from .snapshot import SnapshotClient
 from .tasks import TasksClient
@@ -197,6 +198,7 @@ class AsyncOpenSearch(object):
         self.remote = RemoteClient(self)
         self.snapshot = SnapshotClient(self)
         self.tasks = TasksClient(self)
+        self.plugins = PluginsClient(self)
 
         self.features = FeaturesClient(self)
 
@@ -1948,26 +1950,46 @@ class AsyncOpenSearch(object):
         )
 
     @query_params()
-    async def close_point_in_time(self, body=None, params=None, headers=None):
+    async def list_all_point_in_time(self, params=None, headers=None):
         """
-        Close a point in time
-
-
-        :arg body: a point-in-time id to close
+        Returns the list of point in times which are alive
         """
         return await self.transport.perform_request(
-            "DELETE", "/_pit", params=params, headers=headers, body=body
+            "GET",
+            _make_path("_search", "point_in_time", "_all"),
+            params=params,
+            headers=headers,
+        )
+
+    @query_params()
+    async def delete_point_in_time(
+        self, body=None, all=False, params=None, headers=None
+    ):
+        """
+        Delete a point in time
+
+
+        :arg body: a point-in-time id to delete
+        :arg all: set it to `True` to delete all alive point in time.
+        """
+        path = (
+            _make_path("_search", "point_in_time", "_all")
+            if all
+            else _make_path("_search", "point_in_time")
+        )
+        return await self.transport.perform_request(
+            "DELETE", path, params=params, headers=headers, body=body
         )
 
     @query_params(
         "expand_wildcards", "ignore_unavailable", "keep_alive", "preference", "routing"
     )
-    async def open_point_in_time(self, index=None, params=None, headers=None):
+    async def create_point_in_time(self, index=None, params=None, headers=None):
         """
-        Open a point in time that can be used in subsequent searches
+        Create a point in time that can be used in subsequent searches
 
 
-        :arg index: A comma-separated list of index names to open point
+        :arg index: A comma-separated list of index names to create point
             in time; use `_all` or empty string to perform the operation on all
             indices
         :arg expand_wildcards: Whether to expand wildcard expression to
@@ -1981,7 +2003,10 @@ class AsyncOpenSearch(object):
         :arg routing: Specific routing value
         """
         return await self.transport.perform_request(
-            "POST", _make_path(index, "_pit"), params=params, headers=headers
+            "POST",
+            _make_path(index, "_search", "point_in_time"),
+            params=params,
+            headers=headers,
         )
 
     @query_params()

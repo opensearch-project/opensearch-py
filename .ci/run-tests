@@ -6,9 +6,9 @@
 export TEST_SUITE="${TEST_SUITE:=oss}"
 export PYTHON_VERSION="${PYTHON_VERSION:=3.9}"
 export PYTHON_CONNECTION_CLASS="${PYTHON_CONNECTION_CLASS:=Urllib3HttpConnection}"
-export CLUSTER="${1:-opensearch}"
-export SECURE_INTEGRATION="${2:-false}"
-export OPENSEARCH_VERSION="${3:-latest}"
+export CLUSTER="${CLUSTER:-opensearch}"
+export SECURE_INTEGRATION="${1:-false}"
+export OPENSEARCH_VERSION="${2:-latest}"
 if [[ "$SECURE_INTEGRATION" == "true" ]]; then
     export OPENSEARCH_URL_EXTENSION="https"
 else

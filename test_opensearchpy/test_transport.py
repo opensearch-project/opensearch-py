@@ -25,6 +25,7 @@
 #  specific language governing permissions and limitations
 #  under the License.
 
+
 from __future__ import unicode_literals
 
 import json
@@ -138,6 +139,17 @@ class TestTransport(TestCase):
         self.assertEqual(("GET", "/", {}, None), t.get_connection().calls[0][0])
         self.assertEqual(
             {"timeout": 42, "ignore": (), "headers": None},
+            t.get_connection().calls[0][1],
+        )
+
+    def test_timeout_extracted_from_params_and_passed(self):
+        t = Transport([{}], connection_class=DummyConnection)
+
+        t.perform_request("GET", "/", params={"timeout": 84})
+        self.assertEqual(1, len(t.get_connection().calls))
+        self.assertEqual(("GET", "/", {}, None), t.get_connection().calls[0][0])
+        self.assertEqual(
+            {"timeout": 84, "ignore": (), "headers": None},
             t.get_connection().calls[0][1],
         )
 

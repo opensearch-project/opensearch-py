@@ -25,6 +25,7 @@
 #  specific language governing permissions and limitations
 #  under the License.
 
+
 from __future__ import unicode_literals
 
 import asyncio
@@ -135,6 +136,18 @@ class TestTransport:
         assert ("GET", "/", {}, None) == t.get_connection().calls[0][0]
         assert {
             "timeout": 42,
+            "ignore": (),
+            "headers": None,
+        } == t.get_connection().calls[0][1]
+
+    async def test_timeout_extracted_from_params_and_passed(self):
+        t = AsyncTransport([{}], connection_class=DummyConnection)
+
+        await t.perform_request("GET", "/", params={"timeout": 84})
+        assert 1 == len(t.get_connection().calls)
+        assert ("GET", "/", {}, None) == t.get_connection().calls[0][0]
+        assert {
+            "timeout": 84,
             "ignore": (),
             "headers": None,
         } == t.get_connection().calls[0][1]
