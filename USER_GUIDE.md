@@ -9,6 +9,8 @@
     - [Searching for a document](#searching-for-a-document)
     - [Deleting a document](#deleting-a-document)
     - [Deleting an index](#deleting-an-index)
+  - [Making API Calls](#making-api-calls)
+    - [Point in Time API](#point-in-time-api-calls)
   - [Using plugins](#using-plugins)
     - [Alerting plugin](#alerting-plugin)
       - [**Searching for monitors**](#searching-for-monitors)
@@ -20,7 +22,7 @@
   - [Using IAM credentials for authentication](#using-iam-credentials-for-authentication)
       - [Pre-requisites to use `AWSV4SignerAuth`](#pre-requisites-to-use-awsv4signerauth)
 
-# Getting Started with the OpenSearch Python Client
+# User guide of OpenSearch Python Client
 
 ## Setup
 
@@ -39,7 +41,9 @@ from opensearchpy import OpenSearch
 If you prefer to add the client manually or just want to examine the source code, see [opensearch-py on GitHub](https://github.com/opensearch-project/opensearch-py).
 
 
-## Sample code
+## Example
+In the example given below, we create a client, an index with non-default settings, insert a 
+document in the index, search for the document, delete the document and finally delete the index.
 
 ### Creating a client
 
@@ -68,7 +72,6 @@ client = OpenSearch(
     ssl_show_warn = False,
     ca_certs = ca_certs_path
 )
-
 ```
 
 ### Creating an index
@@ -181,6 +184,37 @@ response = client.indices.delete(
 )
 
 print('\nDeleting index:')
+print(response)
+```
+## Making API Calls
+
+### Point in Time API
+
+```python
+# create a point in time on a index
+index_name = "test-index"
+response = client.create_point_in_time(index=index_name,
+                                       keep_alive="1m")
+
+pit_id = response.get("pit_id")
+print('\n Point in time ID:')
+print(pit_id)
+
+# To list all point in time which are alive in the cluster
+response = client.list_all_point_in_time()
+print('\n List of all Point in Time:')
+print(response)
+
+# To delete point in time
+pit_body = {
+    "pit_id": [pit_id]
+}
+
+# To delete all point in time 
+# client.delete_point_in_time(body=None, all=True)
+response = client.delete_point_in_time(body=pit_body)
+
+print('\n The deleted point in time:')
 print(response)
 ```
 
