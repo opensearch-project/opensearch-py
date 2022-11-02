@@ -64,8 +64,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Index</li>
+      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">Index</li>
       <li class="wy-breadcrumbs-aside">
               <a href="https://github.com/opensearch-project/opensearch-py/blob/main/docs/source/genindex" class="fa fa-github"> Edit on GitHub</a>
       </li>
@@ -207,14 +207,12 @@
         <li><a href="api-ref/connection.html#opensearchpy.Urllib3HttpConnection.close">(opensearchpy.Urllib3HttpConnection method)</a>
 </li>
       </ul></li>
-      <li><a href="api-ref/clients/opensearch_client.html#opensearchpy.OpenSearch.close_point_in_time">close_point_in_time() (opensearchpy.OpenSearch method)</a>
-</li>
       <li><a href="api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient">ClusterClient (class in opensearchpy.client.cluster)</a>
+</li>
+      <li><a href="api-ref/exceptions.html#opensearchpy.ConflictError">ConflictError (class in opensearchpy)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api-ref/exceptions.html#opensearchpy.ConflictError">ConflictError (class in opensearchpy)</a>
-</li>
       <li><a href="api-ref/connection.html#opensearchpy.Connection">Connection (class in opensearchpy)</a>
 </li>
       <li><a href="api-ref/exceptions.html#opensearchpy.ConnectionError">ConnectionError (class in opensearchpy)</a>
@@ -244,6 +242,8 @@
       <li><a href="api-ref/plugins/alerting_plugin.html#opensearchpy.plugins.alerting.AlertingClient.create_destination">create_destination() (opensearchpy.plugins.alerting.AlertingClient method)</a>
 </li>
       <li><a href="api-ref/plugins/alerting_plugin.html#opensearchpy.plugins.alerting.AlertingClient.create_monitor">create_monitor() (opensearchpy.plugins.alerting.AlertingClient method)</a>
+</li>
+      <li><a href="api-ref/clients/opensearch_client.html#opensearchpy.OpenSearch.create_point_in_time">create_point_in_time() (opensearchpy.OpenSearch method)</a>
 </li>
       <li><a href="api-ref/clients/snapshot_client.html#opensearchpy.client.snapshot.SnapshotClient.create_repository">create_repository() (opensearchpy.client.snapshot.SnapshotClient method)</a>
 </li>
@@ -275,10 +275,10 @@
 </li>
       <li><a href="api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.delete_component_template">delete_component_template() (opensearchpy.client.cluster.ClusterClient method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api-ref/clients/dangling_indices_client.html#opensearchpy.client.dangling_indices.DanglingIndicesClient.delete_dangling_index">delete_dangling_index() (opensearchpy.client.dangling_indices.DanglingIndicesClient method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.delete_data_stream">delete_data_stream() (opensearchpy.client.indices.IndicesClient method)</a>
 </li>
       <li><a href="api-ref/plugins/alerting_plugin.html#opensearchpy.plugins.alerting.AlertingClient.delete_destination">delete_destination() (opensearchpy.plugins.alerting.AlertingClient method)</a>
@@ -288,6 +288,8 @@
       <li><a href="api-ref/plugins/alerting_plugin.html#opensearchpy.plugins.alerting.AlertingClient.delete_monitor">delete_monitor() (opensearchpy.plugins.alerting.AlertingClient method)</a>
 </li>
       <li><a href="api-ref/clients/ingest_client.html#opensearchpy.client.ingest.IngestClient.delete_pipeline">delete_pipeline() (opensearchpy.client.ingest.IngestClient method)</a>
+</li>
+      <li><a href="api-ref/clients/opensearch_client.html#opensearchpy.OpenSearch.delete_point_in_time">delete_point_in_time() (opensearchpy.OpenSearch method)</a>
 </li>
       <li><a href="api-ref/clients/snapshot_client.html#opensearchpy.client.snapshot.SnapshotClient.delete_repository">delete_repository() (opensearchpy.client.snapshot.SnapshotClient method)</a>
 </li>
@@ -481,10 +483,12 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api-ref/clients/tasks_client.html#opensearchpy.client.tasks.TasksClient.list">list() (opensearchpy.client.tasks.TasksClient method)</a>
 </li>
-      <li><a href="api-ref/clients/dangling_indices_client.html#opensearchpy.client.dangling_indices.DanglingIndicesClient.list_dangling_indices">list_dangling_indices() (opensearchpy.client.dangling_indices.DanglingIndicesClient method)</a>
+      <li><a href="api-ref/clients/opensearch_client.html#opensearchpy.OpenSearch.list_all_point_in_time">list_all_point_in_time() (opensearchpy.OpenSearch method)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api-ref/clients/dangling_indices_client.html#opensearchpy.client.dangling_indices.DanglingIndicesClient.list_dangling_indices">list_dangling_indices() (opensearchpy.client.dangling_indices.DanglingIndicesClient method)</a>
+</li>
       <li><a href="api-ref/connection.html#opensearchpy.Connection.log_request_fail">log_request_fail() (opensearchpy.Connection method)</a>
 </li>
       <li><a href="api-ref/connection.html#opensearchpy.Connection.log_request_success">log_request_success() (opensearchpy.Connection method)</a>
@@ -540,8 +544,6 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.open">open() (opensearchpy.client.indices.IndicesClient method)</a>
-</li>
-      <li><a href="api-ref/clients/opensearch_client.html#opensearchpy.OpenSearch.open_point_in_time">open_point_in_time() (opensearchpy.OpenSearch method)</a>
 </li>
       <li><a href="api-ref/clients/opensearch_client.html#opensearchpy.OpenSearch">OpenSearch (class in opensearchpy)</a>
 </li>

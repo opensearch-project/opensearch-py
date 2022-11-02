@@ -83,10 +83,10 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="../../api-ref.html">API Reference</a> &raquo;</li>
-          <li><a href="../client.html">Clients</a> &raquo;</li>
-      <li>OpenSearch Client</li>
+      <li><a href="../../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../../api-ref.html">API Reference</a></li>
+          <li class="breadcrumb-item"><a href="../client.html">Clients</a></li>
+      <li class="breadcrumb-item active">OpenSearch Client</li>
       <li class="wy-breadcrumbs-aside">
               <a href="https://github.com/opensearch-project/opensearch-py/blob/main/docs/source/api-ref/clients/opensearch_client.md" class="fa fa-github"> Edit on GitHub</a>
       </li>
@@ -101,7 +101,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="opensearchpy.OpenSearch">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opensearchpy.</span></span><span class="sig-name descname"><span class="pre">OpenSearch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hosts=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transport_class=&lt;class</span> <span class="pre">'opensearchpy.transport.Transport'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client.html#OpenSearch"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.OpenSearch" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>OpenSearch low-level client. Provides a straightforward mapping from
 Python to OpenSearch REST endpoints.</p>
 <p>The instance has attributes <code class="docutils literal notranslate"><span class="pre">cat</span></code>, <code class="docutils literal notranslate"><span class="pre">cluster</span></code>, <code class="docutils literal notranslate"><span class="pre">indices</span></code>, <code class="docutils literal notranslate"><span class="pre">ingest</span></code>,
@@ -301,17 +301,6 @@ was specified via the scroll_id parameter</p></li>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="opensearchpy.OpenSearch.close_point_in_time">
-<span class="sig-name descname"><span class="pre">close_point_in_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">body</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client.html#OpenSearch.close_point_in_time"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.OpenSearch.close_point_in_time" title="Permalink to this definition"></a></dt>
-<dd><p>Close a point in time</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>body</strong> – a point-in-time id to close</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.OpenSearch.count">
 <span class="sig-name descname"><span class="pre">count</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">body</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client.html#OpenSearch.count"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.OpenSearch.count" title="Permalink to this definition"></a></dt>
 <dd><p>Returns number of documents matching a query.</p>
@@ -381,6 +370,30 @@ that must be active before proceeding with the index operation. Defaults
 to 1, meaning the primary shard only. Set to <cite>all</cite> for all shard copies,
 otherwise set to any non-negative value less than or equal to the total
 number of copies for the shard (number of replicas + 1)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.OpenSearch.create_point_in_time">
+<span class="sig-name descname"><span class="pre">create_point_in_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client.html#OpenSearch.create_point_in_time"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.OpenSearch.create_point_in_time" title="Permalink to this definition"></a></dt>
+<dd><p>Create a point in time that can be used in subsequent searches</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>index</strong> – A comma-separated list of index names to open point
+in time; use <cite>_all</cite> or empty string to perform the operation on all
+indices</p></li>
+<li><p><strong>expand_wildcards</strong> – Whether to expand wildcard expression to
+concrete indices that are open, closed or both.  Valid choices: open,
+closed, hidden, none, all  Default: open</p></li>
+<li><p><strong>ignore_unavailable</strong> – Whether specified concrete indices
+should be ignored when unavailable (missing or closed)</p></li>
+<li><p><strong>keep_alive</strong> – Specific the time to live for the point in time</p></li>
+<li><p><strong>preference</strong> – Specify the node or shard the operation should
+be performed on (default: random)</p></li>
+<li><p><strong>routing</strong> – Specific routing value</p></li>
 </ul>
 </dd>
 </dl>
@@ -513,6 +526,20 @@ operation.</p>
 <li><p><strong>task_id</strong> – The task id to rethrottle</p></li>
 <li><p><strong>requests_per_second</strong> – The throttle to set on this request in
 floating sub-requests per second. -1 means set no throttle.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.OpenSearch.delete_point_in_time">
+<span class="sig-name descname"><span class="pre">delete_point_in_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">body</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">all</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client.html#OpenSearch.delete_point_in_time"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.OpenSearch.delete_point_in_time" title="Permalink to this definition"></a></dt>
+<dd><p>Delete a point in time</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>body</strong> – a point-in-time id to delete</p></li>
+<li><p><strong>all</strong> – set it to <cite>True</cite> to delete all alive point in time.</p></li>
 </ul>
 </dd>
 </dl>
@@ -805,6 +832,12 @@ number of copies for the shard (number of replicas + 1)</p></li>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.OpenSearch.list_all_point_in_time">
+<span class="sig-name descname"><span class="pre">list_all_point_in_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client.html#OpenSearch.list_all_point_in_time"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.OpenSearch.list_all_point_in_time" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the list of active point in times searches</p>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.OpenSearch.mget">
 <span class="sig-name descname"><span class="pre">mget</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">body</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client.html#OpenSearch.mget"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.OpenSearch.mget" title="Permalink to this definition"></a></dt>
 <dd><p>Allows to get multiple documents in one request.</p>
@@ -942,30 +975,6 @@ unless otherwise specified in body “params” or “docs”.</p></li>
 <li><p><strong>version</strong> – Explicit version number for concurrency control</p></li>
 <li><p><strong>version_type</strong> – Specific version type  Valid choices:
 internal, external, external_gte, force</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="opensearchpy.OpenSearch.open_point_in_time">
-<span class="sig-name descname"><span class="pre">open_point_in_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client.html#OpenSearch.open_point_in_time"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.OpenSearch.open_point_in_time" title="Permalink to this definition"></a></dt>
-<dd><p>Open a point in time that can be used in subsequent searches</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>index</strong> – A comma-separated list of index names to open point
-in time; use <cite>_all</cite> or empty string to perform the operation on all
-indices</p></li>
-<li><p><strong>expand_wildcards</strong> – Whether to expand wildcard expression to
-concrete indices that are open, closed or both.  Valid choices: open,
-closed, hidden, none, all  Default: open</p></li>
-<li><p><strong>ignore_unavailable</strong> – Whether specified concrete indices
-should be ignored when unavailable (missing or closed)</p></li>
-<li><p><strong>keep_alive</strong> – Specific the time to live for the point in time</p></li>
-<li><p><strong>preference</strong> – Specify the node or shard the operation should
-be performed on (default: random)</p></li>
-<li><p><strong>routing</strong> – Specific routing value</p></li>
 </ul>
 </dd>
 </dl>
