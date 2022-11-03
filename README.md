@@ -26,9 +26,9 @@ For more information, see [opensearch.org](https://opensearch.org/) and the [API
 
 This is the low-level client. A high-level Python client is in the works, and will be available soon.
 
-## Getting Started
+## User guide
 
-To get started with the OpenSearch Python Client, see [Getting Started](https://github.com/opensearch-project/opensearch-py/blob/main/GETTING_STARTED.md).
+For User guide of OpenSearch Python Client, see [User guide](https://github.com/opensearch-project/opensearch-py/blob/main/USER_GUIDE.md).
 
 ## Compatibility with OpenSearch
 
