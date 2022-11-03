@@ -6,7 +6,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - Added Point in time API rest API([#191](https://github.com/opensearch-project/opensearch-py/pull/191))
 - Github workflow for changelog verification ([#218](https://github.com/opensearch-project/opensearch-py/pull/218))
 ### Changed
-
+- Renaming Getting Started to User Guide([#232](https://github.com/opensearch-project/opensearch-py/pull/232))
 ### Deprecated
 
 ### Removed
