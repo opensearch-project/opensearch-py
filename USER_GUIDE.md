@@ -1,4 +1,4 @@
-- [Getting Started with the OpenSearch Python Client](#getting-started-with-the-opensearch-python-client)
+- [User guide of OpenSearch Python Client](#user-guide-of-opensearch-python-client)
   - [Setup](#setup)
   - [Sample code](#sample-code)
     - [Creating a client](#creating-a-client)
