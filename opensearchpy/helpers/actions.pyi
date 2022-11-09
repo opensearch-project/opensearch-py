@@ -34,10 +34,12 @@ from typing import (
     Generator,
     Iterable,
     List,
+    Literal,
     Mapping,
     Optional,
     Tuple,
     Union,
+    overload,
 )
 
 from ..client import OpenSearch
@@ -74,14 +76,24 @@ def streaming_bulk(
     *args: Any,
     **kwargs: Any
 ) -> Generator[Tuple[bool, Any], None, None]: ...
+@overload
 def bulk(
     client: OpenSearch,
     actions: Iterable[Any],
-    stats_only: bool = ...,
+    stats_only: Literal[True] = ...,
     ignore_status: Optional[Union[int, Collection[int]]] = ...,
     *args: Any,
     **kwargs: Any
-) -> Tuple[int, Union[int, List[Any]]]: ...
+) -> Tuple[int, int]: ...
+@overload
+def bulk(
+    client: OpenSearch,
+    actions: Iterable[Any],
+    stats_only: Literal[False],
+    ignore_status: Optional[Union[int, Collection[int]]] = ...,
+    *args: Any,
+    **kwargs: Any
+) -> Tuple[int, List[Any]]: ...
 def parallel_bulk(
     client: OpenSearch,
     actions: Iterable[Any],
