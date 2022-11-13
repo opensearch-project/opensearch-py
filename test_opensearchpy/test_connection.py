@@ -52,6 +52,7 @@ from opensearchpy.connection import (
     RequestsHttpConnection,
     Urllib3HttpConnection,
 )
+from opensearchpy.connection.base import CA_CERTS
 from opensearchpy.exceptions import (
     ConflictError,
     ConnectionError,
@@ -394,6 +395,19 @@ class TestUrllib3Connection(TestCase):
                     str(w[0].message),
                 )
 
+    def test_uses_given_ca_certs(self):
+        path = "/path/to/my/ca_certs.pem"
+        c = Urllib3HttpConnection(use_ssl=True, ca_certs=path)
+        self.assertEqual(path, c.pool.ca_certs)
+
+    def test_uses_default_ca_certs(self):
+        c = Urllib3HttpConnection(use_ssl=True)
+        self.assertEqual(CA_CERTS, c.pool.ca_certs)
+
+    def test_uses_no_ca_certs(self):
+        c = Urllib3HttpConnection(use_ssl=True, verify_certs=False)
+        self.assertIsNone(c.pool.ca_certs)
+
     @patch("opensearchpy.connection.base.logger")
     def test_uncompressed_body_logged(self, logger):
         con = self._get_mock_connection(connection_params={"http_compress": True})
@@ -525,6 +539,19 @@ class TestRequestsConnection(TestCase):
         self.assertEqual("https://localhost:9200/url/", request.url)
         self.assertEqual("GET", request.method)
         self.assertEqual(None, request.body)
+
+    def test_uses_given_ca_certs(self):
+        path = "/path/to/my/ca_certs.pem"
+        c = RequestsHttpConnection(ca_certs=path)
+        self.assertEqual(path, c.session.verify)
+
+    def test_uses_default_ca_certs(self):
+        c = RequestsHttpConnection()
+        self.assertEqual(CA_CERTS, c.session.verify)
+
+    def test_uses_no_ca_certs(self):
+        c = RequestsHttpConnection(verify_certs=False)
+        self.assertFalse(c.session.verify)
 
     def test_nowarn_when_uses_https_if_verify_certs_is_off(self):
         with warnings.catch_warnings(record=True) as w:
