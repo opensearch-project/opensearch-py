@@ -184,19 +184,18 @@ class AIOHttpConnection(AsyncConnection):
                         "validation. Either pass them in using the ca_certs parameter or "
                         "install certifi to use it automatically."
                     )
+                if os.path.isfile(ca_certs):
+                    ssl_context.load_verify_locations(cafile=ca_certs)
+                elif os.path.isdir(ca_certs):
+                    ssl_context.load_verify_locations(capath=ca_certs)
+                else:
+                    raise ImproperlyConfigured("ca_certs parameter is not a path")
             else:
                 if ssl_show_warn:
                     warnings.warn(
                         "Connecting to %s using SSL with verify_certs=False is insecure."
                         % self.host
                     )
-
-            if os.path.isfile(ca_certs):
-                ssl_context.load_verify_locations(cafile=ca_certs)
-            elif os.path.isdir(ca_certs):
-                ssl_context.load_verify_locations(capath=ca_certs)
-            else:
-                raise ImproperlyConfigured("ca_certs parameter is not a path")
 
             # Use client_cert and client_key variables for SSL certificate configuration.
             if client_cert and not os.path.isfile(client_cert):
