@@ -52,18 +52,6 @@ if not _tracer_already_configured:
 
 _WARNING_RE = re.compile(r"\"([^\"]*)\"")
 
-# Default CA certificate bundle, preferring those configured in the standard
-# OpenSSL environment variables before provided by certifi (if available)
-CA_CERTS = os.environ.get("SSL_CERT_FILE") or os.environ.get("SSL_CERT_DIR")
-
-if CA_CERTS is None:
-    try:
-        import certifi
-
-        CA_CERTS = certifi.where()
-    except ImportError:
-        pass
-
 
 class Connection(object):
     """
@@ -316,3 +304,22 @@ class Connection(object):
 
     def _get_default_user_agent(self):
         return "opensearch-py/%s (Python %s)" % (__versionstr__, python_version())
+
+    @staticmethod
+    def default_ca_certs():
+        """
+        Get the default CA certificate bundle, preferring those configured in
+        the standard OpenSSL environment variables before those provided by
+        certifi (if available)
+        """
+        ca_certs = os.environ.get("SSL_CERT_FILE") or os.environ.get("SSL_CERT_DIR")
+
+        if ca_certs:
+            return ca_certs
+
+        try:
+            import certifi
+        except ImportError:
+            pass
+        else:
+            return certifi.where()

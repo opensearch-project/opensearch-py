@@ -33,7 +33,7 @@ import warnings
 import urllib3  # type: ignore
 
 from ..compat import reraise_exceptions, urlencode
-from ..connection.base import CA_CERTS, Connection
+from ..connection.base import Connection
 from ..exceptions import (
     ConnectionError,
     ConnectionTimeout,
@@ -176,7 +176,7 @@ class AIOHttpConnection(AsyncConnection):
                 ssl_context.check_hostname = False
                 ssl_context.verify_mode = ssl.CERT_NONE
 
-            ca_certs = CA_CERTS if ca_certs is None else ca_certs
+            ca_certs = self.default_ca_certs() if ca_certs is None else ca_certs
             if verify_certs:
                 if not ca_certs:
                     raise ImproperlyConfigured(

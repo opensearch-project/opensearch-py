@@ -52,7 +52,6 @@ from opensearchpy.connection import (
     RequestsHttpConnection,
     Urllib3HttpConnection,
 )
-from opensearchpy.connection.base import CA_CERTS
 from opensearchpy.exceptions import (
     ConflictError,
     ConnectionError,
@@ -155,6 +154,28 @@ class TestBaseConnection(TestCase):
             )
         finally:
             os.environ.pop("ELASTIC_CLIENT_APIVERSIONING")
+
+    def test_ca_certs_ssl_cert_file(self):
+        cert = "/path/to/clientcert.pem"
+        with pytest.MonkeyPatch().context() as monkeypatch:
+            monkeypatch.setenv("SSL_CERT_FILE", cert)
+            assert Connection.default_ca_certs() == cert
+
+    def test_ca_certs_ssl_cert_dir(self):
+        cert = "/path/to/clientcert/dir"
+        with pytest.MonkeyPatch().context() as monkeypatch:
+            monkeypatch.setenv("SSL_CERT_DIR", cert)
+            assert Connection.default_ca_certs() == cert
+
+    def test_ca_certs_certifi(self):
+        import certifi
+
+        assert Connection.default_ca_certs() == certifi.where()
+
+    def test_no_ca_certs(self):
+        with pytest.MonkeyPatch().context() as monkeypatch:
+            monkeypatch.setitem(sys.modules, "certifi", None)
+            assert Connection.default_ca_certs() is None
 
 
 class TestUrllib3Connection(TestCase):
@@ -402,7 +423,7 @@ class TestUrllib3Connection(TestCase):
 
     def test_uses_default_ca_certs(self):
         c = Urllib3HttpConnection(use_ssl=True)
-        self.assertEqual(CA_CERTS, c.pool.ca_certs)
+        self.assertEqual(Connection.default_ca_certs(), c.pool.ca_certs)
 
     def test_uses_no_ca_certs(self):
         c = Urllib3HttpConnection(use_ssl=True, verify_certs=False)
@@ -547,7 +568,7 @@ class TestRequestsConnection(TestCase):
 
     def test_uses_default_ca_certs(self):
         c = RequestsHttpConnection()
-        self.assertEqual(CA_CERTS, c.session.verify)
+        self.assertEqual(Connection.default_ca_certs(), c.session.verify)
 
     def test_uses_no_ca_certs(self):
         c = RequestsHttpConnection(verify_certs=False)

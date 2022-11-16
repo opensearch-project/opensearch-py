@@ -42,7 +42,7 @@ from ..exceptions import (
     ImproperlyConfigured,
     SSLError,
 )
-from .base import CA_CERTS, Connection
+from .base import Connection
 
 
 class RequestsHttpConnection(Connection):
@@ -131,8 +131,10 @@ class RequestsHttpConnection(Connection):
                     "You cannot pass CA certificates when verify SSL is off."
                 )
             self.session.verify = ca_certs
-        elif verify_certs and CA_CERTS:
-            self.session.verify = CA_CERTS
+        elif verify_certs:
+            ca_certs = self.default_ca_certs()
+            if ca_certs:
+                self.session.verify = ca_certs
 
         if not ssl_show_warn:
             requests.packages.urllib3.disable_warnings()

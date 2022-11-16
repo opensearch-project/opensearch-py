@@ -40,7 +40,7 @@ from ..exceptions import (
     ImproperlyConfigured,
     SSLError,
 )
-from .base import CA_CERTS, Connection
+from .base import Connection
 
 # sentinel value for `verify_certs` and `ssl_show_warn`.
 # This is used to detect if a user is passing in a value
@@ -176,7 +176,7 @@ class Urllib3HttpConnection(Connection):
             if ssl_show_warn is SSL_SHOW_WARN_DEFAULT:
                 ssl_show_warn = True
 
-            ca_certs = CA_CERTS if ca_certs is None else ca_certs
+            ca_certs = self.default_ca_certs() if ca_certs is None else ca_certs
             if verify_certs:
                 if not ca_certs:
                     raise ImproperlyConfigured(

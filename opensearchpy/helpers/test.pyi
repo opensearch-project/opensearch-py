@@ -30,7 +30,6 @@ from unittest import TestCase
 from ..client import OpenSearch
 
 OPENSEARCH_URL: str
-CA_CERTS: str
 
 def get_test_client(nowait: bool = ..., **kwargs: Any) -> OpenSearch: ...
 def _get_version(version_string: str) -> Tuple[int, ...]: ...

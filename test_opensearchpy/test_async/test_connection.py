@@ -40,7 +40,7 @@ from multidict import CIMultiDict
 
 from opensearchpy import AIOHttpConnection, __versionstr__
 from opensearchpy.compat import reraise_exceptions
-from opensearchpy.connection.base import CA_CERTS
+from opensearchpy.connection import Connection
 from opensearchpy.exceptions import ConnectionError
 
 pytestmark = pytest.mark.asyncio
@@ -257,7 +257,9 @@ class TestAIOHttpConnection:
     @patch("ssl.SSLContext.load_verify_locations")
     def test_uses_default_ca_certs(self, load_verify_locations):
         AIOHttpConnection(use_ssl=True)
-        load_verify_locations.assert_called_once_with(cafile=CA_CERTS)
+        load_verify_locations.assert_called_once_with(
+            cafile=Connection.default_ca_certs()
+        )
 
     @patch("ssl.SSLContext.load_verify_locations")
     def test_uses_no_ca_certs(self, load_verify_locations):

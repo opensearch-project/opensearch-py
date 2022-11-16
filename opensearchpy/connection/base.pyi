@@ -42,8 +42,6 @@ from typing import (
 logger: logging.Logger
 tracer: logging.Logger
 
-CA_CERTS: Optional[str]
-
 class Connection(object):
     headers: Dict[str, str]
     use_ssl: bool
@@ -116,3 +114,5 @@ class Connection(object):
         self, status_code: int, raw_data: str, content_type: Optional[str]
     ) -> NoReturn: ...
     def _get_default_user_agent(self) -> str: ...
+    @staticmethod
+    def default_ca_certs() -> Optional[str]: ...
