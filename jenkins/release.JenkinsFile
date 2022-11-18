@@ -8,5 +8,5 @@ standardReleasePipelineWithGenericTrigger(
     causeString: 'A tag was cut on opensearch-project/opensearch-py repository causing this workflow to run',
     downloadReleaseAsset: true,
     publishRelease: true) {
-        publishToPyPi()
+        publishToPyPi(credentialId: 'jenkins-opensearch-py-pypi-credentials')
     }
