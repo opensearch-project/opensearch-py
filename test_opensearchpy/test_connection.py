@@ -62,6 +62,11 @@ from opensearchpy.exceptions import (
 
 from .test_cases import SkipTest, TestCase
 
+try:
+    from pytest import MonkeyPatch
+except ImportError:  # Old version of pytest for 2.7 and 3.5
+    from _pytest.monkeypatch import MonkeyPatch
+
 
 def gzip_decompress(data):
     buf = gzip.GzipFile(fileobj=io.BytesIO(data), mode="rb")
@@ -157,13 +162,13 @@ class TestBaseConnection(TestCase):
 
     def test_ca_certs_ssl_cert_file(self):
         cert = "/path/to/clientcert.pem"
-        with pytest.MonkeyPatch().context() as monkeypatch:
+        with MonkeyPatch().context() as monkeypatch:
             monkeypatch.setenv("SSL_CERT_FILE", cert)
             assert Connection.default_ca_certs() == cert
 
     def test_ca_certs_ssl_cert_dir(self):
         cert = "/path/to/clientcert/dir"
-        with pytest.MonkeyPatch().context() as monkeypatch:
+        with MonkeyPatch().context() as monkeypatch:
             monkeypatch.setenv("SSL_CERT_DIR", cert)
             assert Connection.default_ca_certs() == cert
 
@@ -173,7 +178,7 @@ class TestBaseConnection(TestCase):
         assert Connection.default_ca_certs() == certifi.where()
 
     def test_no_ca_certs(self):
-        with pytest.MonkeyPatch().context() as monkeypatch:
+        with MonkeyPatch().context() as monkeypatch:
             monkeypatch.setitem(sys.modules, "certifi", None)
             assert Connection.default_ca_certs() is None
 
