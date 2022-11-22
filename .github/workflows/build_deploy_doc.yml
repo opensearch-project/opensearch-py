@@ -23,7 +23,7 @@ jobs:
     - name: Make
       run: |
         cd docs
-        make html
+        sphinx-multiversion source build/html
         cd ..
 
     - name: Deploy
