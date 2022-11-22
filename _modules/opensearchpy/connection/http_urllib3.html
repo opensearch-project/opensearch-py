@@ -102,7 +102,6 @@
 <span class="c1">#  specific language governing permissions and limitations</span>
 <span class="c1">#  under the License.</span>
 
-
 <span class="kn">import</span> <span class="nn">ssl</span>
 <span class="kn">import</span> <span class="nn">time</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
@@ -126,15 +125,6 @@
 <span class="c1"># for SSL kwargs if also using an SSLContext.</span>
 <span class="n">VERIFY_CERTS_DEFAULT</span> <span class="o">=</span> <span class="nb">object</span><span class="p">()</span>
 <span class="n">SSL_SHOW_WARN_DEFAULT</span> <span class="o">=</span> <span class="nb">object</span><span class="p">()</span>
-
-<span class="n">CA_CERTS</span> <span class="o">=</span> <span class="kc">None</span>
-
-<span class="k">try</span><span class="p">:</span>
-    <span class="kn">import</span> <span class="nn">certifi</span>
-
-    <span class="n">CA_CERTS</span> <span class="o">=</span> <span class="n">certifi</span><span class="o">.</span><span class="n">where</span><span class="p">()</span>
-<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
-    <span class="k">pass</span>
 
 
 <span class="k">def</span> <span class="nf">create_ssl_context</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
@@ -264,7 +254,7 @@
             <span class="k">if</span> <span class="n">ssl_show_warn</span> <span class="ow">is</span> <span class="n">SSL_SHOW_WARN_DEFAULT</span><span class="p">:</span>
                 <span class="n">ssl_show_warn</span> <span class="o">=</span> <span class="kc">True</span>
 
-            <span class="n">ca_certs</span> <span class="o">=</span> <span class="n">CA_CERTS</span> <span class="k">if</span> <span class="n">ca_certs</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">ca_certs</span>
+            <span class="n">ca_certs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_ca_certs</span><span class="p">()</span> <span class="k">if</span> <span class="n">ca_certs</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">ca_certs</span>
             <span class="k">if</span> <span class="n">verify_certs</span><span class="p">:</span>
                 <span class="k">if</span> <span class="ow">not</span> <span class="n">ca_certs</span><span class="p">:</span>
                     <span class="k">raise</span> <span class="n">ImproperlyConfigured</span><span class="p">(</span>

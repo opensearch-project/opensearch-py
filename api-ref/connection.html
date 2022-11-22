@@ -54,6 +54,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#opensearchpy.Connection.__repr__"><code class="docutils literal notranslate"><span class="pre">Connection.__repr__()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#opensearchpy.Connection._raise_error"><code class="docutils literal notranslate"><span class="pre">Connection._raise_error()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#opensearchpy.Connection._raise_warnings"><code class="docutils literal notranslate"><span class="pre">Connection._raise_warnings()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#opensearchpy.Connection.default_ca_certs"><code class="docutils literal notranslate"><span class="pre">Connection.default_ca_certs()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#opensearchpy.Connection.log_request_fail"><code class="docutils literal notranslate"><span class="pre">Connection.log_request_fail()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#opensearchpy.Connection.log_request_success"><code class="docutils literal notranslate"><span class="pre">Connection.log_request_success()</span></code></a></li>
 </ul>
@@ -165,6 +166,14 @@ of string values from any number of ‘Warning’ headers.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.Connection.default_ca_certs">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">default_ca_certs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opensearchpy/connection/base.html#Connection.default_ca_certs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.Connection.default_ca_certs" title="Permalink to this definition"></a></dt>
+<dd><p>Get the default CA certificate bundle, preferring those configured in
+the standard OpenSSL environment variables before those provided by
+certifi (if available)</p>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.Connection.log_request_fail">
 <span class="sig-name descname"><span class="pre">log_request_fail</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">method</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">full_url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">body</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duration</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">status_code</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">response</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exception</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opensearchpy/connection/base.html#Connection.log_request_fail"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.Connection.log_request_fail" title="Permalink to this definition"></a></dt>
 <dd><p>Log an unsuccessful API call.</p>
@@ -191,8 +200,10 @@ string or a tuple. Any value will be passed into requests as <cite>auth</cite>.<
 <li><p><strong>use_ssl</strong> – use ssl for the connection if <cite>True</cite></p></li>
 <li><p><strong>verify_certs</strong> – whether to verify SSL certificates</p></li>
 <li><p><strong>ssl_show_warn</strong> – show warning when verify certs is disabled</p></li>
-<li><p><strong>ca_certs</strong> – optional path to CA bundle. By default standard requests’
-bundle will be used.</p></li>
+<li><p><strong>ca_certs</strong> – optional path to CA bundle. Defaults to configured OpenSSL
+bundles from environment variables and then certifi before falling
+back to the standard requests bundle to improve consistency with
+other Connection implementations</p></li>
 <li><p><strong>client_cert</strong> – path to the file containing the private key and the
 certificate, or cert only if using client_key</p></li>
 <li><p><strong>client_key</strong> – path to the file containing the private key if using

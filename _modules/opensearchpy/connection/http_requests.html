@@ -132,8 +132,10 @@
 <span class="sd">    :arg use_ssl: use ssl for the connection if `True`</span>
 <span class="sd">    :arg verify_certs: whether to verify SSL certificates</span>
 <span class="sd">    :arg ssl_show_warn: show warning when verify certs is disabled</span>
-<span class="sd">    :arg ca_certs: optional path to CA bundle. By default standard requests&#39;</span>
-<span class="sd">        bundle will be used.</span>
+<span class="sd">    :arg ca_certs: optional path to CA bundle. Defaults to configured OpenSSL</span>
+<span class="sd">        bundles from environment variables and then certifi before falling</span>
+<span class="sd">        back to the standard requests bundle to improve consistency with</span>
+<span class="sd">        other Connection implementations</span>
 <span class="sd">    :arg client_cert: path to the file containing the private key and the</span>
 <span class="sd">        certificate, or cert only if using client_key</span>
 <span class="sd">    :arg client_key: path to the file containing the private key if using</span>
@@ -207,6 +209,10 @@
                     <span class="s2">&quot;You cannot pass CA certificates when verify SSL is off.&quot;</span>
                 <span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">verify</span> <span class="o">=</span> <span class="n">ca_certs</span>
+        <span class="k">elif</span> <span class="n">verify_certs</span><span class="p">:</span>
+            <span class="n">ca_certs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_ca_certs</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">ca_certs</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">verify</span> <span class="o">=</span> <span class="n">ca_certs</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="n">ssl_show_warn</span><span class="p">:</span>
             <span class="n">requests</span><span class="o">.</span><span class="n">packages</span><span class="o">.</span><span class="n">urllib3</span><span class="o">.</span><span class="n">disable_warnings</span><span class="p">()</span>
