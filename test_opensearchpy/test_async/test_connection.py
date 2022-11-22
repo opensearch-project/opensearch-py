@@ -40,6 +40,7 @@ from multidict import CIMultiDict
 
 from opensearchpy import AIOHttpConnection, __versionstr__
 from opensearchpy.compat import reraise_exceptions
+from opensearchpy.connection import Connection
 from opensearchpy.exceptions import ConnectionError
 
 pytestmark = pytest.mark.asyncio
@@ -245,6 +246,25 @@ class TestAIOHttpConnection:
                     "When using `ssl_context`, all other SSL related kwargs are ignored"
                     == str(w[0].message)
                 )
+
+    @patch("ssl.SSLContext.load_verify_locations")
+    def test_uses_given_ca_certs(self, load_verify_locations, tmp_path):
+        path = tmp_path / "ca_certs.pem"
+        path.touch()
+        AIOHttpConnection(use_ssl=True, ca_certs=str(path))
+        load_verify_locations.assert_called_once_with(cafile=str(path))
+
+    @patch("ssl.SSLContext.load_verify_locations")
+    def test_uses_default_ca_certs(self, load_verify_locations):
+        AIOHttpConnection(use_ssl=True)
+        load_verify_locations.assert_called_once_with(
+            cafile=Connection.default_ca_certs()
+        )
+
+    @patch("ssl.SSLContext.load_verify_locations")
+    def test_uses_no_ca_certs(self, load_verify_locations):
+        AIOHttpConnection(use_ssl=True, verify_certs=False)
+        load_verify_locations.assert_not_called()
 
     @patch("opensearchpy.connection.base.logger")
     async def test_uncompressed_body_logged(self, logger):
