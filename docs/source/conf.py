@@ -14,7 +14,6 @@
 # import sys
 # sys.path.insert(0, os.path.abspath('.'))
 
-
 # -- Project information -----------------------------------------------------
 
 project = 'OpenSearch Python Client'
@@ -35,6 +34,7 @@ extensions = [
     "sphinx.ext.intersphinx",
     "sphinx_copybutton",  # https://github.com/executablebooks/sphinx-copybutton
     "sphinx.ext.todo",  # https://www.sphinx-doc.org/en/master/usage/extensions/todo.html
+    "sphinx_multiversion",
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -109,3 +109,5 @@ autodoc_default_options = {
     "private-members": None,
     "exclude-members": "__weakref__, __init__",
 }
+
+smv_branch_whitelist = r"^main$"
