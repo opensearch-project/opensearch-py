@@ -6,7 +6,7 @@ on:
       - "*"
 
 jobs:
-  lint:
+  draft-a-release:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
