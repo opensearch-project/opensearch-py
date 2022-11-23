@@ -25,6 +25,7 @@
 #  under the License.
 
 import logging
+import sys
 from typing import (
     Any,
     AsyncIterable,
@@ -38,7 +39,13 @@ from typing import (
     Optional,
     Tuple,
     Union,
+    overload,
 )
+
+if sys.version_info >= (3, 8):
+    from typing import Literal
+else:
+    from typing_extensions import Literal
 
 from ..client import OpenSearch
 from ..serializer import Serializer
@@ -74,14 +81,24 @@ def streaming_bulk(
     *args: Any,
     **kwargs: Any
 ) -> Generator[Tuple[bool, Any], None, None]: ...
+@overload
 def bulk(
     client: OpenSearch,
     actions: Iterable[Any],
-    stats_only: bool = ...,
+    stats_only: Literal[True] = ...,
     ignore_status: Optional[Union[int, Collection[int]]] = ...,
     *args: Any,
     **kwargs: Any
-) -> Tuple[int, Union[int, List[Any]]]: ...
+) -> Tuple[int, int]: ...
+@overload
+def bulk(
+    client: OpenSearch,
+    actions: Iterable[Any],
+    stats_only: Literal[False],
+    ignore_status: Optional[Union[int, Collection[int]]] = ...,
+    *args: Any,
+    **kwargs: Any
+) -> Tuple[int, List[Any]]: ...
 def parallel_bulk(
     client: OpenSearch,
     actions: Iterable[Any],
