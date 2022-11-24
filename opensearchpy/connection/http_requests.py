@@ -66,6 +66,8 @@ class RequestsHttpConnection(Connection):
     :arg http_compress: Use gzip compression
     :arg opaque_id: Send this value in the 'X-Opaque-Id' HTTP header
         For tracing all requests made by this transport.
+    :arg pool_maxsize: Maximum connection pool size used by pool-manager
+        For custom connection-pooling on current session
     """
 
     def __init__(
@@ -82,6 +84,7 @@ class RequestsHttpConnection(Connection):
         headers=None,
         http_compress=None,
         opaque_id=None,
+        pool_maxsize=None,
         **kwargs
     ):
         if not REQUESTS_AVAILABLE:
@@ -93,6 +96,14 @@ class RequestsHttpConnection(Connection):
         self.session = requests.Session()
         for key in list(self.session.headers):
             self.session.headers.pop(key)
+
+        # Mount http-adapter with custom connection-pool size. Default=10
+        if pool_maxsize and isinstance(pool_maxsize, int):
+            pool_adapter = requests.adapters.HTTPAdapter(
+                pool_maxsize=pool_maxsize
+            )
+            self.session.mount("http://", pool_adapter)
+            self.session.mount("https://", pool_adapter)
 
         super(RequestsHttpConnection, self).__init__(
             host=host,

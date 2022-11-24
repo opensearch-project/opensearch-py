@@ -1,6 +1,6 @@
-- [Getting Started with the OpenSearch Python Client](#getting-started-with-the-opensearch-python-client)
+- [User guide of OpenSearch Python Client](#user-guide-of-opensearch-python-client)
   - [Setup](#setup)
-  - [Sample code](#sample-code)
+  - [Example](#example)
     - [Creating a client](#creating-a-client)
     - [Creating an index](#creating-an-index)
     - [Adding a document to an index](#adding-a-document-to-an-index)
@@ -10,7 +10,7 @@
     - [Deleting a document](#deleting-a-document)
     - [Deleting an index](#deleting-an-index)
   - [Making API Calls](#making-api-calls)
-    - [Point in Time API](#point-in-time-api-calls)
+    - [Point in Time API](#point-in-time-api)
   - [Using plugins](#using-plugins)
     - [Alerting plugin](#alerting-plugin)
       - [**Searching for monitors**](#searching-for-monitors)
@@ -384,6 +384,8 @@ Refer the AWS documentation regarding usage of IAM credentials to sign requests 
 
 Opensearch-py client library also provides an in-house IAM based authentication feature, `AWSV4SignerAuth` that will help users to connect to their opensearch clusters by making use of IAM roles.
 
+`AWSV4SignerAuth` uses RequestHttpConnection as transport class for communication with opensearch clusters. Opensearch-py client library provides `pool_maxsize` option to modify default connection-pool size.
+
 #### Pre-requisites to use `AWSV4SignerAuth`
  - Python version 3.6 or above,
  - Install [botocore](https://pypi.org/project/botocore/) using pip
@@ -407,7 +409,8 @@ client = OpenSearch(
     http_auth = auth,
     use_ssl = True,
     verify_certs = True,
-    connection_class = RequestsHttpConnection
+    connection_class = RequestsHttpConnection,
+    pool_maxsize = 20
 )
 
 q = 'miller'
