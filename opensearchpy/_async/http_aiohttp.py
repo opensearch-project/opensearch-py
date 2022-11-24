@@ -49,15 +49,6 @@ from .compat import get_running_loop
 VERIFY_CERTS_DEFAULT = object()
 SSL_SHOW_WARN_DEFAULT = object()
 
-CA_CERTS = None
-
-try:
-    import certifi
-
-    CA_CERTS = certifi.where()
-except ImportError:
-    pass
-
 
 class AsyncConnection(Connection):
     """Base class for Async HTTP connection implementations"""
@@ -185,7 +176,7 @@ class AIOHttpConnection(AsyncConnection):
                 ssl_context.check_hostname = False
                 ssl_context.verify_mode = ssl.CERT_NONE
 
-            ca_certs = CA_CERTS if ca_certs is None else ca_certs
+            ca_certs = self.default_ca_certs() if ca_certs is None else ca_certs
             if verify_certs:
                 if not ca_certs:
                     raise ImproperlyConfigured(
@@ -193,19 +184,18 @@ class AIOHttpConnection(AsyncConnection):
                         "validation. Either pass them in using the ca_certs parameter or "
                         "install certifi to use it automatically."
                     )
+                if os.path.isfile(ca_certs):
+                    ssl_context.load_verify_locations(cafile=ca_certs)
+                elif os.path.isdir(ca_certs):
+                    ssl_context.load_verify_locations(capath=ca_certs)
+                else:
+                    raise ImproperlyConfigured("ca_certs parameter is not a path")
             else:
                 if ssl_show_warn:
                     warnings.warn(
                         "Connecting to %s using SSL with verify_certs=False is insecure."
                         % self.host
                     )
-
-            if os.path.isfile(ca_certs):
-                ssl_context.load_verify_locations(cafile=ca_certs)
-            elif os.path.isdir(ca_certs):
-                ssl_context.load_verify_locations(capath=ca_certs)
-            else:
-                raise ImproperlyConfigured("ca_certs parameter is not a path")
 
             # Use client_cert and client_key variables for SSL certificate configuration.
             if client_cert and not os.path.isfile(client_cert):

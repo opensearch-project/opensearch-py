@@ -62,6 +62,11 @@ from opensearchpy.exceptions import (
 
 from .test_cases import SkipTest, TestCase
 
+try:
+    from pytest import MonkeyPatch
+except ImportError:  # Old version of pytest for 2.7 and 3.5
+    from _pytest.monkeypatch import MonkeyPatch
+
 
 def gzip_decompress(data):
     buf = gzip.GzipFile(fileobj=io.BytesIO(data), mode="rb")
@@ -154,6 +159,28 @@ class TestBaseConnection(TestCase):
             )
         finally:
             os.environ.pop("ELASTIC_CLIENT_APIVERSIONING")
+
+    def test_ca_certs_ssl_cert_file(self):
+        cert = "/path/to/clientcert.pem"
+        with MonkeyPatch().context() as monkeypatch:
+            monkeypatch.setenv("SSL_CERT_FILE", cert)
+            assert Connection.default_ca_certs() == cert
+
+    def test_ca_certs_ssl_cert_dir(self):
+        cert = "/path/to/clientcert/dir"
+        with MonkeyPatch().context() as monkeypatch:
+            monkeypatch.setenv("SSL_CERT_DIR", cert)
+            assert Connection.default_ca_certs() == cert
+
+    def test_ca_certs_certifi(self):
+        import certifi
+
+        assert Connection.default_ca_certs() == certifi.where()
+
+    def test_no_ca_certs(self):
+        with MonkeyPatch().context() as monkeypatch:
+            monkeypatch.setitem(sys.modules, "certifi", None)
+            assert Connection.default_ca_certs() is None
 
 
 class TestUrllib3Connection(TestCase):
@@ -394,6 +421,19 @@ class TestUrllib3Connection(TestCase):
                     str(w[0].message),
                 )
 
+    def test_uses_given_ca_certs(self):
+        path = "/path/to/my/ca_certs.pem"
+        c = Urllib3HttpConnection(use_ssl=True, ca_certs=path)
+        self.assertEqual(path, c.pool.ca_certs)
+
+    def test_uses_default_ca_certs(self):
+        c = Urllib3HttpConnection(use_ssl=True)
+        self.assertEqual(Connection.default_ca_certs(), c.pool.ca_certs)
+
+    def test_uses_no_ca_certs(self):
+        c = Urllib3HttpConnection(use_ssl=True, verify_certs=False)
+        self.assertIsNone(c.pool.ca_certs)
+
     @patch("opensearchpy.connection.base.logger")
     def test_uncompressed_body_logged(self, logger):
         con = self._get_mock_connection(connection_params={"http_compress": True})
@@ -525,6 +565,19 @@ class TestRequestsConnection(TestCase):
         self.assertEqual("https://localhost:9200/url/", request.url)
         self.assertEqual("GET", request.method)
         self.assertEqual(None, request.body)
+
+    def test_uses_given_ca_certs(self):
+        path = "/path/to/my/ca_certs.pem"
+        c = RequestsHttpConnection(ca_certs=path)
+        self.assertEqual(path, c.session.verify)
+
+    def test_uses_default_ca_certs(self):
+        c = RequestsHttpConnection()
+        self.assertEqual(Connection.default_ca_certs(), c.session.verify)
+
+    def test_uses_no_ca_certs(self):
+        c = RequestsHttpConnection(verify_certs=False)
+        self.assertFalse(c.session.verify)
 
     def test_nowarn_when_uses_https_if_verify_certs_is_off(self):
         with warnings.catch_warnings(record=True) as w:

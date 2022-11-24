@@ -24,7 +24,6 @@
 #  specific language governing permissions and limitations
 #  under the License.
 
-
 import ssl
 import time
 import warnings
@@ -48,15 +47,6 @@ from .base import Connection
 # for SSL kwargs if also using an SSLContext.
 VERIFY_CERTS_DEFAULT = object()
 SSL_SHOW_WARN_DEFAULT = object()
-
-CA_CERTS = None
-
-try:
-    import certifi
-
-    CA_CERTS = certifi.where()
-except ImportError:
-    pass
 
 
 def create_ssl_context(**kwargs):
@@ -186,7 +176,7 @@ class Urllib3HttpConnection(Connection):
             if ssl_show_warn is SSL_SHOW_WARN_DEFAULT:
                 ssl_show_warn = True
 
-            ca_certs = CA_CERTS if ca_certs is None else ca_certs
+            ca_certs = self.default_ca_certs() if ca_certs is None else ca_certs
             if verify_certs:
                 if not ca_certs:
                     raise ImproperlyConfigured(
