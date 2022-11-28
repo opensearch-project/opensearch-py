@@ -33,6 +33,7 @@ class FeaturesClient(NamespacedClient):
         self,
         *,
         master_timeout: Optional[Any] = ...,
+        cluster_manager_timeout: Optional[Any] = ...,
         pretty: Optional[bool] = ...,
         human: Optional[bool] = ...,
         error_trace: Optional[bool] = ...,

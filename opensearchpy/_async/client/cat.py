@@ -45,7 +45,7 @@ class CatClient(NamespacedClient):
         :arg h: Comma-separated list of column names to display
         :arg help: Return help information
         :arg local: Return local information, do not retrieve the state
-            from master node (default: false)
+            from cluster_manager node (default: false)
         :arg s: Comma-separated list of column names or column aliases
             to sort by
         :arg v: Verbose mode. Display column headers
@@ -54,7 +54,17 @@ class CatClient(NamespacedClient):
             "GET", _make_path("_cat", "aliases", name), params=params, headers=headers
         )
 
-    @query_params("bytes", "format", "h", "help", "local", "master_timeout", "s", "v")
+    @query_params(
+        "bytes",
+        "format",
+        "h",
+        "help",
+        "local",
+        "master_timeout",
+        "cluster_manager_timeout",
+        "s",
+        "v",
+    )
     async def allocation(self, node_id=None, params=None, headers=None):
         """
         Provides a snapshot of how many shards are allocated to each data node and how
@@ -70,9 +80,13 @@ class CatClient(NamespacedClient):
         :arg h: Comma-separated list of column names to display
         :arg help: Return help information
         :arg local: Return local information, do not retrieve the state
-            from master node (default: false)
-        :arg master_timeout: Explicit operation timeout for connection
+            from cluster_manager node (default: false)
+        :arg master_timeout (Deprecated: use cluster_manager_timeout): Explicit operation timeout for connection
             to master node
+        :arg cluster_manager_timeout: Explicit operation timeout for connection
+            to cluster_manager node
+        :arg cluster_manager_timeout: Explicit operation timeout for connection
+            to cluster_manager node
         :arg s: Comma-separated list of column names or column aliases
             to sort by
         :arg v: Verbose mode. Display column headers
@@ -150,6 +164,7 @@ class CatClient(NamespacedClient):
         "include_unloaded_segments",
         "local",
         "master_timeout",
+        "cluster_manager_timeout",
         "pri",
         "s",
         "time",
@@ -179,9 +194,11 @@ class CatClient(NamespacedClient):
             will include stats for segments that are not currently loaded into
             memory
         :arg local: Return local information, do not retrieve the state
-            from master node (default: false)
-        :arg master_timeout: Explicit operation timeout for connection
+            from cluster_manager node (default: false)
+        :arg master_timeout (Deprecated: use cluster_manager_timeout): Explicit operation timeout for connection
             to master node
+        :arg cluster_manager_timeout: Explicit operation timeout for connection
+            to cluster_manager node
         :arg pri: Set to true to return stats only for primary shards
         :arg s: Comma-separated list of column names or column aliases
             to sort by
@@ -193,7 +210,16 @@ class CatClient(NamespacedClient):
             "GET", _make_path("_cat", "indices", index), params=params, headers=headers
         )
 
-    @query_params("format", "h", "help", "local", "master_timeout", "s", "v")
+    @query_params(
+        "format",
+        "h",
+        "help",
+        "local",
+        "master_timeout",
+        "cluster_manager_timeout",
+        "s",
+        "v",
+    )
     async def master(self, params=None, headers=None):
         """
         Returns information about the master node.
@@ -204,15 +230,42 @@ class CatClient(NamespacedClient):
         :arg h: Comma-separated list of column names to display
         :arg help: Return help information
         :arg local: Return local information, do not retrieve the state
-            from master node (default: false)
-        :arg master_timeout: Explicit operation timeout for connection
+            from cluster_manager node (default: false)
+        :arg master_timeout (Deprecated: use cluster_manager_timeout): Explicit operation timeout for connection
             to master node
+        :arg cluster_manager_timeout: Explicit operation timeout for connection
+            to cluster_manager node
+        :arg s: Comma-separated list of column names or column aliases
+            to sort by
+        :arg v: Verbose mode. Display column headers
+        """
+        from warnings import warn
+
+        warn("Deprecated: use `cluster_manager` instead")
+        return await self.transport.perform_request(
+            "GET", "/_cat/master", params=params, headers=headers
+        )
+
+    @query_params("format", "h", "help", "local", "cluster_manager", "s", "v")
+    async def cluster_manager(self, params=None, headers=None):
+        """
+        Returns information about the cluster_manager node.
+
+
+        :arg format: a short version of the Accept header, e.g. json,
+            yaml
+        :arg h: Comma-separated list of column names to display
+        :arg help: Return help information
+        :arg local: Return local information, do not retrieve the state
+            from cluster_manager node (default: false)
+        :arg cluster_manager_timeout: Explicit operation timeout for connection
+            to cluster_manager node
         :arg s: Comma-separated list of column names or column aliases
             to sort by
         :arg v: Verbose mode. Display column headers
         """
         return await self.transport.perform_request(
-            "GET", "/_cat/master", params=params, headers=headers
+            "GET", "/_cat/cluster_manager", params=params, headers=headers
         )
 
     @query_params(
@@ -224,6 +277,7 @@ class CatClient(NamespacedClient):
         "include_unloaded_segments",
         "local",
         "master_timeout",
+        "cluster_manager_timeout",
         "s",
         "time",
         "v",
@@ -246,8 +300,10 @@ class CatClient(NamespacedClient):
             memory
         :arg local: Calculate the selected nodes using the local cluster
             state rather than the state from master node (default: false)
-        :arg master_timeout: Explicit operation timeout for connection
+        :arg master_timeout (Deprecated: use cluster_manager_timeout): Explicit operation timeout for connection
             to master node
+        :arg cluster_manager_timeout: Explicit operation timeout for connection
+            to cluster_manager node
         :arg s: Comma-separated list of column names or column aliases
             to sort by
         :arg time: The unit in which to display time values  Valid
@@ -289,7 +345,16 @@ class CatClient(NamespacedClient):
         )
 
     @query_params(
-        "bytes", "format", "h", "help", "local", "master_timeout", "s", "time", "v"
+        "bytes",
+        "format",
+        "h",
+        "help",
+        "local",
+        "master_timeout",
+        "cluster_manager_timeout",
+        "s",
+        "time",
+        "v",
     )
     async def shards(self, index=None, params=None, headers=None):
         """
@@ -305,9 +370,11 @@ class CatClient(NamespacedClient):
         :arg h: Comma-separated list of column names to display
         :arg help: Return help information
         :arg local: Return local information, do not retrieve the state
-            from master node (default: false)
-        :arg master_timeout: Explicit operation timeout for connection
+            from cluster_manager node (default: false)
+        :arg master_timeout (Deprecated: use cluster_manager_timeout): Explicit operation timeout for connection
             to master node
+        :arg cluster_manager_timeout: Explicit operation timeout for connection
+            to cluster_manager node
         :arg s: Comma-separated list of column names or column aliases
             to sort by
         :arg time: The unit in which to display time values  Valid
@@ -340,7 +407,17 @@ class CatClient(NamespacedClient):
             "GET", _make_path("_cat", "segments", index), params=params, headers=headers
         )
 
-    @query_params("format", "h", "help", "local", "master_timeout", "s", "time", "v")
+    @query_params(
+        "format",
+        "h",
+        "help",
+        "local",
+        "master_timeout",
+        "cluster_manager_timeout",
+        "s",
+        "time",
+        "v",
+    )
     async def pending_tasks(self, params=None, headers=None):
         """
         Returns a concise representation of the cluster pending tasks.
@@ -351,9 +428,11 @@ class CatClient(NamespacedClient):
         :arg h: Comma-separated list of column names to display
         :arg help: Return help information
         :arg local: Return local information, do not retrieve the state
-            from master node (default: false)
-        :arg master_timeout: Explicit operation timeout for connection
+            from cluster_manager node (default: false)
+        :arg master_timeout (Deprecated: use cluster_manager_timeout): Explicit operation timeout for connection
             to master node
+        :arg cluster_manager_timeout: Explicit operation timeout for connection
+            to cluster_manager node
         :arg s: Comma-separated list of column names or column aliases
             to sort by
         :arg time: The unit in which to display time values  Valid
@@ -364,7 +443,17 @@ class CatClient(NamespacedClient):
             "GET", "/_cat/pending_tasks", params=params, headers=headers
         )
 
-    @query_params("format", "h", "help", "local", "master_timeout", "s", "size", "v")
+    @query_params(
+        "format",
+        "h",
+        "help",
+        "local",
+        "master_timeout",
+        "cluster_manager_timeout",
+        "s",
+        "size",
+        "v",
+    )
     async def thread_pool(self, thread_pool_patterns=None, params=None, headers=None):
         """
         Returns cluster-wide thread pool statistics per node. By default the active,
@@ -378,9 +467,11 @@ class CatClient(NamespacedClient):
         :arg h: Comma-separated list of column names to display
         :arg help: Return help information
         :arg local: Return local information, do not retrieve the state
-            from master node (default: false)
-        :arg master_timeout: Explicit operation timeout for connection
+            from cluster_manager node (default: false)
+        :arg master_timeout (Deprecated: use cluster_manager_timeout): Explicit operation timeout for connection
             to master node
+        :arg cluster_manager_timeout: Explicit operation timeout for connection
+            to cluster_manager node
         :arg s: Comma-separated list of column names or column aliases
             to sort by
         :arg size: The multiplier in which to display values  Valid
@@ -421,7 +512,15 @@ class CatClient(NamespacedClient):
         )
 
     @query_params(
-        "format", "h", "help", "include_bootstrap", "local", "master_timeout", "s", "v"
+        "format",
+        "h",
+        "help",
+        "include_bootstrap",
+        "local",
+        "master_timeout",
+        "cluster_manager_timeout",
+        "s",
+        "v",
     )
     async def plugins(self, params=None, headers=None):
         """
@@ -435,9 +534,11 @@ class CatClient(NamespacedClient):
         :arg include_bootstrap: Include bootstrap plugins in the
             response
         :arg local: Return local information, do not retrieve the state
-            from master node (default: false)
-        :arg master_timeout: Explicit operation timeout for connection
+            from cluster_manager node (default: false)
+        :arg master_timeout (Deprecated: use cluster_manager_timeout): Explicit operation timeout for connection
             to master node
+        :arg cluster_manager_timeout: Explicit operation timeout for connection
+            to cluster_manager node
         :arg s: Comma-separated list of column names or column aliases
             to sort by
         :arg v: Verbose mode. Display column headers
@@ -446,7 +547,16 @@ class CatClient(NamespacedClient):
             "GET", "/_cat/plugins", params=params, headers=headers
         )
 
-    @query_params("format", "h", "help", "local", "master_timeout", "s", "v")
+    @query_params(
+        "format",
+        "h",
+        "help",
+        "local",
+        "master_timeout",
+        "cluster_manager_timeout",
+        "s",
+        "v",
+    )
     async def nodeattrs(self, params=None, headers=None):
         """
         Returns information about custom node attributes.
@@ -457,9 +567,11 @@ class CatClient(NamespacedClient):
         :arg h: Comma-separated list of column names to display
         :arg help: Return help information
         :arg local: Return local information, do not retrieve the state
-            from master node (default: false)
-        :arg master_timeout: Explicit operation timeout for connection
+            from cluster_manager node (default: false)
+        :arg master_timeout (Deprecated: use cluster_manager_timeout): Explicit operation timeout for connection
             to master node
+        :arg cluster_manager_timeout: Explicit operation timeout for connection
+            to cluster_manager node
         :arg s: Comma-separated list of column names or column aliases
             to sort by
         :arg v: Verbose mode. Display column headers
@@ -468,7 +580,16 @@ class CatClient(NamespacedClient):
             "GET", "/_cat/nodeattrs", params=params, headers=headers
         )
 
-    @query_params("format", "h", "help", "local", "master_timeout", "s", "v")
+    @query_params(
+        "format",
+        "h",
+        "help",
+        "local",
+        "master_timeout",
+        "cluster_manager_timeout",
+        "s",
+        "v",
+    )
     async def repositories(self, params=None, headers=None):
         """
         Returns information about snapshot repositories registered in the cluster.
@@ -480,8 +601,10 @@ class CatClient(NamespacedClient):
         :arg help: Return help information
         :arg local: Return local information, do not retrieve the state
             from master node
-        :arg master_timeout: Explicit operation timeout for connection
+        :arg master_timeout (Deprecated: use cluster_manager_timeout): Explicit operation timeout for connection
             to master node
+        :arg cluster_manager_timeout: Explicit operation timeout for connection
+            to cluster_manager node
         :arg s: Comma-separated list of column names or column aliases
             to sort by
         :arg v: Verbose mode. Display column headers
@@ -491,7 +614,15 @@ class CatClient(NamespacedClient):
         )
 
     @query_params(
-        "format", "h", "help", "ignore_unavailable", "master_timeout", "s", "time", "v"
+        "format",
+        "h",
+        "help",
+        "ignore_unavailable",
+        "master_timeout",
+        "cluster_manager_timeout",
+        "s",
+        "time",
+        "v",
     )
     async def snapshots(self, repository=None, params=None, headers=None):
         """
@@ -506,8 +637,10 @@ class CatClient(NamespacedClient):
         :arg help: Return help information
         :arg ignore_unavailable: Set to true to ignore unavailable
             snapshots
-        :arg master_timeout: Explicit operation timeout for connection
+        :arg master_timeout (Deprecated: use cluster_manager_timeout): Explicit operation timeout for connection
             to master node
+        :arg cluster_manager_timeout: Explicit operation timeout for connection
+            to cluster_manager node
         :arg s: Comma-separated list of column names or column aliases
             to sort by
         :arg time: The unit in which to display time values  Valid
@@ -561,7 +694,16 @@ class CatClient(NamespacedClient):
             "GET", "/_cat/tasks", params=params, headers=headers
         )
 
-    @query_params("format", "h", "help", "local", "master_timeout", "s", "v")
+    @query_params(
+        "format",
+        "h",
+        "help",
+        "local",
+        "master_timeout",
+        "cluster_manager_timeout",
+        "s",
+        "v",
+    )
     async def templates(self, name=None, params=None, headers=None):
         """
         Returns information about existing templates.
@@ -573,9 +715,11 @@ class CatClient(NamespacedClient):
         :arg h: Comma-separated list of column names to display
         :arg help: Return help information
         :arg local: Return local information, do not retrieve the state
-            from master node (default: false)
-        :arg master_timeout: Explicit operation timeout for connection
+            from cluster_manager node (default: false)
+        :arg master_timeout (Deprecated: use cluster_manager_timeout): Explicit operation timeout for connection
             to master node
+        :arg cluster_manager_timeout: Explicit operation timeout for connection
+            to cluster_manager node
         :arg s: Comma-separated list of column names or column aliases
             to sort by
         :arg v: Verbose mode. Display column headers

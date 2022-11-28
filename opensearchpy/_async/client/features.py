@@ -29,15 +29,17 @@ from .utils import NamespacedClient, query_params
 
 
 class FeaturesClient(NamespacedClient):
-    @query_params("master_timeout")
+    @query_params("master_timeout", "cluster_manager_timeout")
     async def get_features(self, params=None, headers=None):
         """
         Gets a list of features which can be included in snapshots using the
         feature_states field when creating a snapshot
 
 
-        :arg master_timeout: Explicit operation timeout for connection
+        :arg master_timeout (Deprecated: use cluster_manager_timeout): Explicit operation timeout for connection
             to master node
+        :arg cluster_manager_timeout: Explicit operation timeout for connection
+            to cluster_manager node
         """
         return await self.transport.perform_request(
             "GET", "/_features", params=params, headers=headers
