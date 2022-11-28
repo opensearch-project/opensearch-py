@@ -108,15 +108,17 @@
 
 
 <div class="viewcode-block" id="FeaturesClient"><a class="viewcode-back" href="../../../api-ref/clients/features_client.html#opensearchpy.client.features.FeaturesClient">[docs]</a><span class="k">class</span> <span class="nc">FeaturesClient</span><span class="p">(</span><span class="n">NamespacedClient</span><span class="p">):</span>
-<div class="viewcode-block" id="FeaturesClient.get_features"><a class="viewcode-back" href="../../../api-ref/clients/features_client.html#opensearchpy.client.features.FeaturesClient.get_features">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;master_timeout&quot;</span><span class="p">)</span>
+<div class="viewcode-block" id="FeaturesClient.get_features"><a class="viewcode-back" href="../../../api-ref/clients/features_client.html#opensearchpy.client.features.FeaturesClient.get_features">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">get_features</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets a list of features which can be included in snapshots using the</span>
 <span class="sd">        feature_states field when creating a snapshot</span>
 
 
-<span class="sd">        :arg master_timeout: Explicit operation timeout for connection</span>
+<span class="sd">        :arg master_timeout (Deprecated: use cluster_manager_timeout): Explicit operation timeout for connection</span>
 <span class="sd">            to master node</span>
+<span class="sd">        :arg cluster_manager_timeout: Explicit operation timeout for connection</span>
+<span class="sd">            to cluster_manager node</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
             <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="s2">&quot;/_features&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>

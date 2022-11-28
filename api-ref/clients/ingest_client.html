@@ -119,8 +119,10 @@
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>id</strong> – Pipeline ID</p></li>
-<li><p><strong>master_timeout</strong> – Explicit operation timeout for connection
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Explicit operation timeout for connection
 to master node</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Explicit operation timeout for connection
+to cluster_manager node</p></li>
 <li><p><strong>timeout</strong> – Explicit operation timeout</p></li>
 </ul>
 </dd>
@@ -142,8 +144,10 @@ to master node</p></li>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>id</strong> – Comma separated list of pipeline ids. Wildcards
 supported</p></li>
-<li><p><strong>master_timeout</strong> – Explicit operation timeout for connection
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Explicit operation timeout for connection
 to master node</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Explicit operation timeout for connection
+to cluster_manager node</p></li>
 <li><p><strong>summary</strong> – Return pipelines without their definitions
 (default: false)</p></li>
 </ul>
@@ -166,8 +170,10 @@ to master node</p></li>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>id</strong> – Pipeline ID</p></li>
 <li><p><strong>body</strong> – The ingest definition</p></li>
-<li><p><strong>master_timeout</strong> – Explicit operation timeout for connection
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Explicit operation timeout for connection
 to master node</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Explicit operation timeout for connection
+to cluster_manager node</p></li>
 <li><p><strong>timeout</strong> – Explicit operation timeout</p></li>
 </ul>
 </dd>

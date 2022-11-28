@@ -125,14 +125,14 @@
 
 <span class="sd">    Useful for filtering nodes (by proximity for example) or if additional</span>
 <span class="sd">    information needs to be provided for the :class:`~opensearchpy.Connection`</span>
-<span class="sd">    class. By default master only nodes are filtered out since they shouldn&#39;t</span>
+<span class="sd">    class. By default cluster_manager only nodes are filtered out since they shouldn&#39;t</span>
 <span class="sd">    typically be used for API operations.</span>
 
 <span class="sd">    :arg node_info: node information from `/_cluster/nodes`</span>
 <span class="sd">    :arg host: connection information (host, port) extracted from the node info</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c1"># ignore master only nodes</span>
-    <span class="k">if</span> <span class="n">node_info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;roles&quot;</span><span class="p">,</span> <span class="p">[])</span> <span class="o">==</span> <span class="p">[</span><span class="s2">&quot;master&quot;</span><span class="p">]:</span>
+    <span class="c1"># ignore cluster_manager only nodes</span>
+    <span class="k">if</span> <span class="n">node_info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;roles&quot;</span><span class="p">,</span> <span class="p">[])</span> <span class="o">==</span> <span class="p">[</span><span class="s2">&quot;cluster_manager&quot;</span><span class="p">]:</span>
         <span class="k">return</span> <span class="kc">None</span>
     <span class="k">return</span> <span class="n">host</span>
 

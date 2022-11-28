@@ -108,7 +108,7 @@
 
 
 <div class="viewcode-block" id="IngestClient"><a class="viewcode-back" href="../../../api-ref/clients/ingest_client.html#opensearchpy.client.ingest.IngestClient">[docs]</a><span class="k">class</span> <span class="nc">IngestClient</span><span class="p">(</span><span class="n">NamespacedClient</span><span class="p">):</span>
-<div class="viewcode-block" id="IngestClient.get_pipeline"><a class="viewcode-back" href="../../../api-ref/clients/ingest_client.html#opensearchpy.client.ingest.IngestClient.get_pipeline">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;summary&quot;</span><span class="p">)</span>
+<div class="viewcode-block" id="IngestClient.get_pipeline"><a class="viewcode-back" href="../../../api-ref/clients/ingest_client.html#opensearchpy.client.ingest.IngestClient.get_pipeline">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;summary&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">get_pipeline</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns a pipeline.</span>
@@ -116,8 +116,10 @@
 
 <span class="sd">        :arg id: Comma separated list of pipeline ids. Wildcards</span>
 <span class="sd">            supported</span>
-<span class="sd">        :arg master_timeout: Explicit operation timeout for connection</span>
+<span class="sd">        :arg master_timeout (Deprecated: use cluster_manager_timeout): Explicit operation timeout for connection</span>
 <span class="sd">            to master node</span>
+<span class="sd">        :arg cluster_manager_timeout: Explicit operation timeout for connection</span>
+<span class="sd">            to cluster_manager node</span>
 <span class="sd">        :arg summary: Return pipelines without their definitions</span>
 <span class="sd">            (default: false)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -125,7 +127,7 @@
             <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="n">_make_path</span><span class="p">(</span><span class="s2">&quot;_ingest&quot;</span><span class="p">,</span> <span class="s2">&quot;pipeline&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="p">),</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="IngestClient.put_pipeline"><a class="viewcode-back" href="../../../api-ref/clients/ingest_client.html#opensearchpy.client.ingest.IngestClient.put_pipeline">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;timeout&quot;</span><span class="p">)</span>
+<div class="viewcode-block" id="IngestClient.put_pipeline"><a class="viewcode-back" href="../../../api-ref/clients/ingest_client.html#opensearchpy.client.ingest.IngestClient.put_pipeline">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;timeout&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">put_pipeline</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Creates or updates a pipeline.</span>
@@ -133,8 +135,10 @@
 
 <span class="sd">        :arg id: Pipeline ID</span>
 <span class="sd">        :arg body: The ingest definition</span>
-<span class="sd">        :arg master_timeout: Explicit operation timeout for connection</span>
+<span class="sd">        :arg master_timeout (Deprecated: use cluster_manager_timeout): Explicit operation timeout for connection</span>
 <span class="sd">            to master node</span>
+<span class="sd">        :arg cluster_manager_timeout: Explicit operation timeout for connection</span>
+<span class="sd">            to cluster_manager node</span>
 <span class="sd">        :arg timeout: Explicit operation timeout</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="p">(</span><span class="nb">id</span><span class="p">,</span> <span class="n">body</span><span class="p">):</span>
@@ -149,15 +153,17 @@
             <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="IngestClient.delete_pipeline"><a class="viewcode-back" href="../../../api-ref/clients/ingest_client.html#opensearchpy.client.ingest.IngestClient.delete_pipeline">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;timeout&quot;</span><span class="p">)</span>
+<div class="viewcode-block" id="IngestClient.delete_pipeline"><a class="viewcode-back" href="../../../api-ref/clients/ingest_client.html#opensearchpy.client.ingest.IngestClient.delete_pipeline">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;timeout&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">delete_pipeline</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Deletes a pipeline.</span>
 
 
 <span class="sd">        :arg id: Pipeline ID</span>
-<span class="sd">        :arg master_timeout: Explicit operation timeout for connection</span>
+<span class="sd">        :arg master_timeout (Deprecated: use cluster_manager_timeout): Explicit operation timeout for connection</span>
 <span class="sd">            to master node</span>
+<span class="sd">        :arg cluster_manager_timeout: Explicit operation timeout for connection</span>
+<span class="sd">            to cluster_manager node</span>
 <span class="sd">        :arg timeout: Explicit operation timeout</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">id</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>

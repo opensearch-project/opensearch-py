@@ -137,7 +137,8 @@ explanation (default: false)</p></li>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>name</strong> – The name of the template</p></li>
-<li><p><strong>master_timeout</strong> – Specify timeout for connection to master</p></li>
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Specify timeout for connection to master</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Specify timeout for connection to cluster_manager</p></li>
 <li><p><strong>timeout</strong> – Explicit operation timeout</p></li>
 </ul>
 </dd>
@@ -166,9 +167,11 @@ configuration exclusions list.  Default: True</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>name</strong> – The name of the template</p></li>
 <li><p><strong>local</strong> – Return local information, do not retrieve the state
-from master node (default: false)</p></li>
-<li><p><strong>master_timeout</strong> – Explicit operation timeout for connection
+from cluster_manager node (default: false)</p></li>
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Explicit operation timeout for connection
 to master node</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Explicit operation timeout for connection
+to cluster_manager node</p></li>
 </ul>
 </dd>
 </dl>
@@ -183,9 +186,11 @@ to master node</p></li>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>name</strong> – The comma separated names of the component templates</p></li>
 <li><p><strong>local</strong> – Return local information, do not retrieve the state
-from master node (default: false)</p></li>
-<li><p><strong>master_timeout</strong> – Explicit operation timeout for connection
+from cluster_manager node (default: false)</p></li>
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Explicit operation timeout for connection
 to master node</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Explicit operation timeout for connection
+to cluster_manager node</p></li>
 </ul>
 </dd>
 </dl>
@@ -202,8 +207,10 @@ to master node</p></li>
 false)</p></li>
 <li><p><strong>include_defaults</strong> – Whether to return all default clusters
 setting.</p></li>
-<li><p><strong>master_timeout</strong> – Explicit operation timeout for connection
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Explicit operation timeout for connection
 to master node</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Explicit operation timeout for connection
+to cluster_manager node</p></li>
 <li><p><strong>timeout</strong> – Explicit operation timeout</p></li>
 </ul>
 </dd>
@@ -224,9 +231,11 @@ closed, hidden, none, all  Default: all</p></li>
 <li><p><strong>level</strong> – Specify the level of detail for returned information
 Valid choices: cluster, indices, shards  Default: cluster</p></li>
 <li><p><strong>local</strong> – Return local information, do not retrieve the state
-from master node (default: false)</p></li>
-<li><p><strong>master_timeout</strong> – Explicit operation timeout for connection
+from cluster_manager node (default: false)</p></li>
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Explicit operation timeout for connection
 to master node</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Explicit operation timeout for connection
+to cluster_manager node</p></li>
 <li><p><strong>timeout</strong> – Explicit operation timeout</p></li>
 <li><p><strong>wait_for_active_shards</strong> – Wait until the specified number of
 shards is active</p></li>
@@ -255,8 +264,9 @@ allocate or fail shard) which have not yet been executed.</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>local</strong> – Return local information, do not retrieve the state
-from master node (default: false)</p></li>
-<li><p><strong>master_timeout</strong> – Specify timeout for connection to master</p></li>
+from cluster_manager node (default: false)</p></li>
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Specify timeout for connection to master</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Specify timeout for connection to cluster_manager</p></li>
 </ul>
 </dd>
 </dl>
@@ -292,7 +302,8 @@ not also specify ?node_ids.</p></li>
 <li><p><strong>body</strong> – The template definition</p></li>
 <li><p><strong>create</strong> – Whether the index template should only be added if
 new or can also replace an existing one</p></li>
-<li><p><strong>master_timeout</strong> – Specify timeout for connection to master</p></li>
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Specify timeout for connection to master</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Specify timeout for connection to cluster_manager</p></li>
 <li><p><strong>timeout</strong> – Explicit operation timeout</p></li>
 </ul>
 </dd>
@@ -310,8 +321,10 @@ new or can also replace an existing one</p></li>
 or <cite>persistent</cite> (survives cluster restart).</p></li>
 <li><p><strong>flat_settings</strong> – Return settings in flat format (default:
 false)</p></li>
-<li><p><strong>master_timeout</strong> – Explicit operation timeout for connection
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Explicit operation timeout for connection
 to master node</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Explicit operation timeout for connection
+to cluster_manager node</p></li>
 <li><p><strong>timeout</strong> – Explicit operation timeout</p></li>
 </ul>
 </dd>
@@ -337,8 +350,10 @@ to master node</p></li>
 resulting state</p></li>
 <li><p><strong>explain</strong> – Return an explanation of why the commands can or
 cannot be executed</p></li>
-<li><p><strong>master_timeout</strong> – Explicit operation timeout for connection
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Explicit operation timeout for connection
 to master node</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Explicit operation timeout for connection
+to cluster_manager node</p></li>
 <li><p><strong>metric</strong> – Limit the information returned to the specified
 metrics. Defaults to all but metadata  Valid choices: _all, blocks,
 metadata, nodes, routing_table, master_node, version</p></li>
@@ -373,8 +388,9 @@ false)</p></li>
 <li><p><strong>ignore_unavailable</strong> – Whether specified concrete indices
 should be ignored when unavailable (missing or closed)</p></li>
 <li><p><strong>local</strong> – Return local information, do not retrieve the state
-from master node (default: false)</p></li>
-<li><p><strong>master_timeout</strong> – Specify timeout for connection to master</p></li>
+from cluster_manager node (default: false)</p></li>
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Specify timeout for connection to master</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Specify timeout for connection to cluster_manager</p></li>
 <li><p><strong>wait_for_metadata_version</strong> – Wait for the metadata version to
 be equal or greater than the specified metadata version</p></li>
 <li><p><strong>wait_for_timeout</strong> – The maximum time to wait for

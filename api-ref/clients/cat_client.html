@@ -128,7 +128,7 @@ yaml</p></li>
 <li><p><strong>h</strong> – Comma-separated list of column names to display</p></li>
 <li><p><strong>help</strong> – Return help information</p></li>
 <li><p><strong>local</strong> – Return local information, do not retrieve the state
-from master node (default: false)</p></li>
+from cluster_manager node (default: false)</p></li>
 <li><p><strong>s</strong> – Comma-separated list of column names or column aliases
 to sort by</p></li>
 <li><p><strong>v</strong> – Verbose mode. Display column headers</p></li>
@@ -154,9 +154,34 @@ yaml</p></li>
 <li><p><strong>h</strong> – Comma-separated list of column names to display</p></li>
 <li><p><strong>help</strong> – Return help information</p></li>
 <li><p><strong>local</strong> – Return local information, do not retrieve the state
-from master node (default: false)</p></li>
-<li><p><strong>master_timeout</strong> – Explicit operation timeout for connection
+from cluster_manager node (default: false)</p></li>
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Explicit operation timeout for connection
 to master node</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Explicit operation timeout for connection
+to cluster_manager node</p></li>
+<li><p><strong>s</strong> – Comma-separated list of column names or column aliases
+to sort by</p></li>
+<li><p><strong>v</strong> – Verbose mode. Display column headers</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.client.cat.CatClient.cluster_manager">
+<span class="sig-name descname"><span class="pre">cluster_manager</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cat.html#CatClient.cluster_manager"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cat.CatClient.cluster_manager" title="Permalink to this definition"></a></dt>
+<dd><p>Returns information about the cluster_manager node.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>format</strong> – a short version of the Accept header, e.g. json,
+yaml</p></li>
+<li><p><strong>h</strong> – Comma-separated list of column names to display</p></li>
+<li><p><strong>help</strong> – Return help information</p></li>
+<li><p><strong>local</strong> – Return local information, do not retrieve the state
+from cluster_manager node (default: false)</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Explicit operation timeout for connection
+to cluster_manager node</p></li>
 <li><p><strong>s</strong> – Comma-separated list of column names or column aliases
 to sort by</p></li>
 <li><p><strong>v</strong> – Verbose mode. Display column headers</p></li>
@@ -274,9 +299,11 @@ green, yellow, red</p></li>
 will include stats for segments that are not currently loaded into
 memory</p></li>
 <li><p><strong>local</strong> – Return local information, do not retrieve the state
-from master node (default: false)</p></li>
-<li><p><strong>master_timeout</strong> – Explicit operation timeout for connection
+from cluster_manager node (default: false)</p></li>
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Explicit operation timeout for connection
 to master node</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Explicit operation timeout for connection
+to cluster_manager node</p></li>
 <li><p><strong>pri</strong> – Set to true to return stats only for primary shards</p></li>
 <li><p><strong>s</strong> – Comma-separated list of column names or column aliases
 to sort by</p></li>
@@ -300,9 +327,11 @@ yaml</p></li>
 <li><p><strong>h</strong> – Comma-separated list of column names to display</p></li>
 <li><p><strong>help</strong> – Return help information</p></li>
 <li><p><strong>local</strong> – Return local information, do not retrieve the state
-from master node (default: false)</p></li>
-<li><p><strong>master_timeout</strong> – Explicit operation timeout for connection
+from cluster_manager node (default: false)</p></li>
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Explicit operation timeout for connection
 to master node</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Explicit operation timeout for connection
+to cluster_manager node</p></li>
 <li><p><strong>s</strong> – Comma-separated list of column names or column aliases
 to sort by</p></li>
 <li><p><strong>v</strong> – Verbose mode. Display column headers</p></li>
@@ -323,9 +352,11 @@ yaml</p></li>
 <li><p><strong>h</strong> – Comma-separated list of column names to display</p></li>
 <li><p><strong>help</strong> – Return help information</p></li>
 <li><p><strong>local</strong> – Return local information, do not retrieve the state
-from master node (default: false)</p></li>
-<li><p><strong>master_timeout</strong> – Explicit operation timeout for connection
+from cluster_manager node (default: false)</p></li>
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Explicit operation timeout for connection
 to master node</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Explicit operation timeout for connection
+to cluster_manager node</p></li>
 <li><p><strong>s</strong> – Comma-separated list of column names or column aliases
 to sort by</p></li>
 <li><p><strong>v</strong> – Verbose mode. Display column headers</p></li>
@@ -354,8 +385,10 @@ will include stats for segments that are not currently loaded into
 memory</p></li>
 <li><p><strong>local</strong> – Calculate the selected nodes using the local cluster
 state rather than the state from master node (default: false)</p></li>
-<li><p><strong>master_timeout</strong> – Explicit operation timeout for connection
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Explicit operation timeout for connection
 to master node</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Explicit operation timeout for connection
+to cluster_manager node</p></li>
 <li><p><strong>s</strong> – Comma-separated list of column names or column aliases
 to sort by</p></li>
 <li><p><strong>time</strong> – The unit in which to display time values  Valid
@@ -378,9 +411,11 @@ yaml</p></li>
 <li><p><strong>h</strong> – Comma-separated list of column names to display</p></li>
 <li><p><strong>help</strong> – Return help information</p></li>
 <li><p><strong>local</strong> – Return local information, do not retrieve the state
-from master node (default: false)</p></li>
-<li><p><strong>master_timeout</strong> – Explicit operation timeout for connection
+from cluster_manager node (default: false)</p></li>
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Explicit operation timeout for connection
 to master node</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Explicit operation timeout for connection
+to cluster_manager node</p></li>
 <li><p><strong>s</strong> – Comma-separated list of column names or column aliases
 to sort by</p></li>
 <li><p><strong>time</strong> – The unit in which to display time values  Valid
@@ -405,9 +440,11 @@ yaml</p></li>
 <li><p><strong>include_bootstrap</strong> – Include bootstrap plugins in the
 response</p></li>
 <li><p><strong>local</strong> – Return local information, do not retrieve the state
-from master node (default: false)</p></li>
-<li><p><strong>master_timeout</strong> – Explicit operation timeout for connection
+from cluster_manager node (default: false)</p></li>
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Explicit operation timeout for connection
 to master node</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Explicit operation timeout for connection
+to cluster_manager node</p></li>
 <li><p><strong>s</strong> – Comma-separated list of column names or column aliases
 to sort by</p></li>
 <li><p><strong>v</strong> – Verbose mode. Display column headers</p></li>
@@ -458,8 +495,10 @@ yaml</p></li>
 <li><p><strong>help</strong> – Return help information</p></li>
 <li><p><strong>local</strong> – Return local information, do not retrieve the state
 from master node</p></li>
-<li><p><strong>master_timeout</strong> – Explicit operation timeout for connection
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Explicit operation timeout for connection
 to master node</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Explicit operation timeout for connection
+to cluster_manager node</p></li>
 <li><p><strong>s</strong> – Comma-separated list of column names or column aliases
 to sort by</p></li>
 <li><p><strong>v</strong> – Verbose mode. Display column headers</p></li>
@@ -507,9 +546,11 @@ yaml</p></li>
 <li><p><strong>h</strong> – Comma-separated list of column names to display</p></li>
 <li><p><strong>help</strong> – Return help information</p></li>
 <li><p><strong>local</strong> – Return local information, do not retrieve the state
-from master node (default: false)</p></li>
-<li><p><strong>master_timeout</strong> – Explicit operation timeout for connection
+from cluster_manager node (default: false)</p></li>
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Explicit operation timeout for connection
 to master node</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Explicit operation timeout for connection
+to cluster_manager node</p></li>
 <li><p><strong>s</strong> – Comma-separated list of column names or column aliases
 to sort by</p></li>
 <li><p><strong>time</strong> – The unit in which to display time values  Valid
@@ -535,8 +576,10 @@ yaml</p></li>
 <li><p><strong>help</strong> – Return help information</p></li>
 <li><p><strong>ignore_unavailable</strong> – Set to true to ignore unavailable
 snapshots</p></li>
-<li><p><strong>master_timeout</strong> – Explicit operation timeout for connection
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Explicit operation timeout for connection
 to master node</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Explicit operation timeout for connection
+to cluster_manager node</p></li>
 <li><p><strong>s</strong> – Comma-separated list of column names or column aliases
 to sort by</p></li>
 <li><p><strong>time</strong> – The unit in which to display time values  Valid
@@ -590,9 +633,11 @@ yaml</p></li>
 <li><p><strong>h</strong> – Comma-separated list of column names to display</p></li>
 <li><p><strong>help</strong> – Return help information</p></li>
 <li><p><strong>local</strong> – Return local information, do not retrieve the state
-from master node (default: false)</p></li>
-<li><p><strong>master_timeout</strong> – Explicit operation timeout for connection
+from cluster_manager node (default: false)</p></li>
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Explicit operation timeout for connection
 to master node</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Explicit operation timeout for connection
+to cluster_manager node</p></li>
 <li><p><strong>s</strong> – Comma-separated list of column names or column aliases
 to sort by</p></li>
 <li><p><strong>v</strong> – Verbose mode. Display column headers</p></li>
@@ -616,9 +661,11 @@ yaml</p></li>
 <li><p><strong>h</strong> – Comma-separated list of column names to display</p></li>
 <li><p><strong>help</strong> – Return help information</p></li>
 <li><p><strong>local</strong> – Return local information, do not retrieve the state
-from master node (default: false)</p></li>
-<li><p><strong>master_timeout</strong> – Explicit operation timeout for connection
+from cluster_manager node (default: false)</p></li>
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Explicit operation timeout for connection
 to master node</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Explicit operation timeout for connection
+to cluster_manager node</p></li>
 <li><p><strong>s</strong> – Comma-separated list of column names or column aliases
 to sort by</p></li>
 <li><p><strong>size</strong> – The multiplier in which to display values  Valid

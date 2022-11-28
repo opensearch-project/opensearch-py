@@ -108,7 +108,9 @@
 
 
 <div class="viewcode-block" id="DanglingIndicesClient"><a class="viewcode-back" href="../../../api-ref/clients/dangling_indices_client.html#opensearchpy.client.dangling_indices.DanglingIndicesClient">[docs]</a><span class="k">class</span> <span class="nc">DanglingIndicesClient</span><span class="p">(</span><span class="n">NamespacedClient</span><span class="p">):</span>
-<div class="viewcode-block" id="DanglingIndicesClient.delete_dangling_index"><a class="viewcode-back" href="../../../api-ref/clients/dangling_indices_client.html#opensearchpy.client.dangling_indices.DanglingIndicesClient.delete_dangling_index">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;accept_data_loss&quot;</span><span class="p">,</span> <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;timeout&quot;</span><span class="p">)</span>
+<div class="viewcode-block" id="DanglingIndicesClient.delete_dangling_index"><a class="viewcode-back" href="../../../api-ref/clients/dangling_indices_client.html#opensearchpy.client.dangling_indices.DanglingIndicesClient.delete_dangling_index">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+        <span class="s2">&quot;accept_data_loss&quot;</span><span class="p">,</span> <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;timeout&quot;</span>
+    <span class="p">)</span>
     <span class="k">def</span> <span class="nf">delete_dangling_index</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index_uuid</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Deletes the specified dangling index</span>
@@ -117,7 +119,8 @@
 <span class="sd">        :arg index_uuid: The UUID of the dangling index</span>
 <span class="sd">        :arg accept_data_loss: Must be set to true in order to delete</span>
 <span class="sd">            the dangling index</span>
-<span class="sd">        :arg master_timeout: Specify timeout for connection to master</span>
+<span class="sd">        :arg master_timeout (Deprecated: use cluster_manager_timeout): Specify timeout for connection to master</span>
+<span class="sd">        :arg cluster_manager_timeout: Specify timeout for connection to cluster_manager</span>
 <span class="sd">        :arg timeout: Explicit operation timeout</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">index_uuid</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
@@ -130,7 +133,9 @@
             <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="DanglingIndicesClient.import_dangling_index"><a class="viewcode-back" href="../../../api-ref/clients/dangling_indices_client.html#opensearchpy.client.dangling_indices.DanglingIndicesClient.import_dangling_index">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;accept_data_loss&quot;</span><span class="p">,</span> <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;timeout&quot;</span><span class="p">)</span>
+<div class="viewcode-block" id="DanglingIndicesClient.import_dangling_index"><a class="viewcode-back" href="../../../api-ref/clients/dangling_indices_client.html#opensearchpy.client.dangling_indices.DanglingIndicesClient.import_dangling_index">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+        <span class="s2">&quot;accept_data_loss&quot;</span><span class="p">,</span> <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;timeout&quot;</span>
+    <span class="p">)</span>
     <span class="k">def</span> <span class="nf">import_dangling_index</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index_uuid</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Imports the specified dangling index</span>
@@ -139,7 +144,8 @@
 <span class="sd">        :arg index_uuid: The UUID of the dangling index</span>
 <span class="sd">        :arg accept_data_loss: Must be set to true in order to import</span>
 <span class="sd">            the dangling index</span>
-<span class="sd">        :arg master_timeout: Specify timeout for connection to master</span>
+<span class="sd">        :arg master_timeout (Deprecated: use cluster_manager_timeout): Specify timeout for connection to master</span>
+<span class="sd">        :arg cluster_manager_timeout: Specify timeout for connection to cluster_manager</span>
 <span class="sd">        :arg timeout: Explicit operation timeout</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">index_uuid</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>

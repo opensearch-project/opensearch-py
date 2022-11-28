@@ -770,14 +770,15 @@
             <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="OpenSearch.delete_script"><a class="viewcode-back" href="../../api-ref/clients/opensearch_client.html#opensearchpy.OpenSearch.delete_script">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;timeout&quot;</span><span class="p">)</span>
+<div class="viewcode-block" id="OpenSearch.delete_script"><a class="viewcode-back" href="../../api-ref/clients/opensearch_client.html#opensearchpy.OpenSearch.delete_script">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;timeout&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">delete_script</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Deletes a script.</span>
 
 
 <span class="sd">        :arg id: Script ID</span>
-<span class="sd">        :arg master_timeout: Specify timeout for connection to master</span>
+<span class="sd">        :arg master_timeout (Deprecated: use cluster_manager_timeout): Specify timeout for connection to master</span>
+<span class="sd">        :arg cluster_manager_timeout: Specify timeout for connection to cluster_manager</span>
 <span class="sd">        :arg timeout: Explicit operation timeout</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">id</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
@@ -1018,14 +1019,15 @@
             <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="n">_make_path</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">doc_type</span><span class="p">,</span> <span class="nb">id</span><span class="p">),</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="OpenSearch.get_script"><a class="viewcode-back" href="../../api-ref/clients/opensearch_client.html#opensearchpy.OpenSearch.get_script">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;master_timeout&quot;</span><span class="p">)</span>
+<div class="viewcode-block" id="OpenSearch.get_script"><a class="viewcode-back" href="../../api-ref/clients/opensearch_client.html#opensearchpy.OpenSearch.get_script">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">get_script</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns a script.</span>
 
 
 <span class="sd">        :arg id: Script ID</span>
-<span class="sd">        :arg master_timeout: Specify timeout for connection to master</span>
+<span class="sd">        :arg master_timeout (Deprecated: use cluster_manager_timeout): Specify timeout for connection to master</span>
+<span class="sd">        :arg cluster_manager_timeout: Specify timeout for connection to cluster_manager</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">id</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Empty value passed for a required argument &#39;id&#39;.&quot;</span><span class="p">)</span>
@@ -1279,7 +1281,7 @@
             <span class="s2">&quot;POST&quot;</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">body</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="OpenSearch.put_script"><a class="viewcode-back" href="../../api-ref/clients/opensearch_client.html#opensearchpy.OpenSearch.put_script">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;timeout&quot;</span><span class="p">)</span>
+<div class="viewcode-block" id="OpenSearch.put_script"><a class="viewcode-back" href="../../api-ref/clients/opensearch_client.html#opensearchpy.OpenSearch.put_script">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;timeout&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">put_script</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Creates or updates a script.</span>
@@ -1288,7 +1290,8 @@
 <span class="sd">        :arg id: Script ID</span>
 <span class="sd">        :arg body: The document</span>
 <span class="sd">        :arg context: Context name to compile script against</span>
-<span class="sd">        :arg master_timeout: Specify timeout for connection to master</span>
+<span class="sd">        :arg master_timeout (Deprecated: use cluster_manager_timeout): Specify timeout for connection to master</span>
+<span class="sd">        :arg cluster_manager_timeout: Specify timeout for connection to cluster_manager</span>
 <span class="sd">        :arg timeout: Explicit operation timeout</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="p">(</span><span class="nb">id</span><span class="p">,</span> <span class="n">body</span><span class="p">):</span>
@@ -1656,7 +1659,7 @@
 <span class="sd">        :arg ignore_unavailable: Whether specified concrete indices</span>
 <span class="sd">            should be ignored when unavailable (missing or closed)</span>
 <span class="sd">        :arg local: Return local information, do not retrieve the state</span>
-<span class="sd">            from master node (default: false)</span>
+<span class="sd">            from cluster_manager node (default: false)</span>
 <span class="sd">        :arg preference: Specify the node or shard the operation should</span>
 <span class="sd">            be performed on (default: random)</span>
 <span class="sd">        :arg routing: Specific routing value</span>

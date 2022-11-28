@@ -184,7 +184,9 @@
             <span class="s2">&quot;POST&quot;</span><span class="p">,</span> <span class="n">_make_path</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="s2">&quot;_flush&quot;</span><span class="p">),</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="IndicesClient.create"><a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.create">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;wait_for_active_shards&quot;</span><span class="p">)</span>
+<div class="viewcode-block" id="IndicesClient.create"><a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.create">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+        <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;wait_for_active_shards&quot;</span>
+    <span class="p">)</span>
     <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Creates an index with optional settings and mappings.</span>
@@ -193,7 +195,8 @@
 <span class="sd">        :arg index: The name of the index</span>
 <span class="sd">        :arg body: The configuration for the index (`settings` and</span>
 <span class="sd">            `mappings`)</span>
-<span class="sd">        :arg master_timeout: Specify timeout for connection to master</span>
+<span class="sd">        :arg master_timeout (Deprecated: use cluster_manager_timeout): Specify timeout for connection to master</span>
+<span class="sd">        :arg cluster_manager_timeout: Specify timeout for connection to cluster_manager</span>
 <span class="sd">        :arg timeout: Explicit operation timeout</span>
 <span class="sd">        :arg wait_for_active_shards: Set the number of active shards to</span>
 <span class="sd">            wait for before the operation returns.</span>
@@ -205,7 +208,9 @@
             <span class="s2">&quot;PUT&quot;</span><span class="p">,</span> <span class="n">_make_path</span><span class="p">(</span><span class="n">index</span><span class="p">),</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">body</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="IndicesClient.clone"><a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.clone">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;wait_for_active_shards&quot;</span><span class="p">)</span>
+<div class="viewcode-block" id="IndicesClient.clone"><a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.clone">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+        <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;wait_for_active_shards&quot;</span>
+    <span class="p">)</span>
     <span class="k">def</span> <span class="nf">clone</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Clones an index</span>
@@ -215,7 +220,8 @@
 <span class="sd">        :arg target: The name of the target index to clone into</span>
 <span class="sd">        :arg body: The configuration for the target index (`settings`</span>
 <span class="sd">            and `aliases`)</span>
-<span class="sd">        :arg master_timeout: Specify timeout for connection to master</span>
+<span class="sd">        :arg master_timeout (Deprecated: use cluster_manager_timeout): Specify timeout for connection to master</span>
+<span class="sd">        :arg cluster_manager_timeout: Specify timeout for connection to cluster_manager</span>
 <span class="sd">        :arg timeout: Explicit operation timeout</span>
 <span class="sd">        :arg wait_for_active_shards: Set the number of active shards to</span>
 <span class="sd">            wait for on the cloned index before the operation returns.</span>
@@ -240,6 +246,7 @@
         <span class="s2">&quot;include_defaults&quot;</span><span class="p">,</span>
         <span class="s2">&quot;local&quot;</span><span class="p">,</span>
         <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -259,8 +266,9 @@
 <span class="sd">        :arg include_defaults: Whether to return all default setting for</span>
 <span class="sd">            each of the indices.</span>
 <span class="sd">        :arg local: Return local information, do not retrieve the state</span>
-<span class="sd">            from master node (default: false)</span>
-<span class="sd">        :arg master_timeout: Specify timeout for connection to master</span>
+<span class="sd">            from cluster_manager node (default: false)</span>
+<span class="sd">        :arg master_timeout (Deprecated: use cluster_manager_timeout): Specify timeout for connection to master</span>
+<span class="sd">        :arg cluster_manager_timeout: Specify timeout for connection to cluster_manager</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">index</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Empty value passed for a required argument &#39;index&#39;.&quot;</span><span class="p">)</span>
@@ -274,6 +282,7 @@
         <span class="s2">&quot;expand_wildcards&quot;</span><span class="p">,</span>
         <span class="s2">&quot;ignore_unavailable&quot;</span><span class="p">,</span>
         <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;wait_for_active_shards&quot;</span><span class="p">,</span>
     <span class="p">)</span>
@@ -291,7 +300,8 @@
 <span class="sd">            closed, hidden, none, all  Default: closed</span>
 <span class="sd">        :arg ignore_unavailable: Whether specified concrete indices</span>
 <span class="sd">            should be ignored when unavailable (missing or closed)</span>
-<span class="sd">        :arg master_timeout: Specify timeout for connection to master</span>
+<span class="sd">        :arg master_timeout (Deprecated: use cluster_manager_timeout): Specify timeout for connection to master</span>
+<span class="sd">        :arg cluster_manager_timeout: Specify timeout for connection to cluster_manager</span>
 <span class="sd">        :arg timeout: Explicit operation timeout</span>
 <span class="sd">        :arg wait_for_active_shards: Sets the number of active shards to</span>
 <span class="sd">            wait for before the operation returns.</span>
@@ -308,6 +318,7 @@
         <span class="s2">&quot;expand_wildcards&quot;</span><span class="p">,</span>
         <span class="s2">&quot;ignore_unavailable&quot;</span><span class="p">,</span>
         <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;wait_for_active_shards&quot;</span><span class="p">,</span>
     <span class="p">)</span>
@@ -325,7 +336,8 @@
 <span class="sd">            closed, hidden, none, all  Default: open</span>
 <span class="sd">        :arg ignore_unavailable: Whether specified concrete indices</span>
 <span class="sd">            should be ignored when unavailable (missing or closed)</span>
-<span class="sd">        :arg master_timeout: Specify timeout for connection to master</span>
+<span class="sd">        :arg master_timeout (Deprecated: use cluster_manager_timeout): Specify timeout for connection to master</span>
+<span class="sd">        :arg cluster_manager_timeout: Specify timeout for connection to cluster_manager</span>
 <span class="sd">        :arg timeout: Explicit operation timeout</span>
 <span class="sd">        :arg wait_for_active_shards: Sets the number of active shards to</span>
 <span class="sd">            wait for before the operation returns. Set to `index-setting` to wait</span>
@@ -344,6 +356,7 @@
         <span class="s2">&quot;expand_wildcards&quot;</span><span class="p">,</span>
         <span class="s2">&quot;ignore_unavailable&quot;</span><span class="p">,</span>
         <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;timeout&quot;</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -360,7 +373,8 @@
 <span class="sd">            closed, hidden, none, all  Default: open</span>
 <span class="sd">        :arg ignore_unavailable: Ignore unavailable indexes (default:</span>
 <span class="sd">            false)</span>
-<span class="sd">        :arg master_timeout: Specify timeout for connection to master</span>
+<span class="sd">        :arg master_timeout (Deprecated: use cluster_manager_timeout): Specify timeout for connection to master</span>
+<span class="sd">        :arg cluster_manager_timeout: Specify timeout for connection to cluster_manager</span>
 <span class="sd">        :arg timeout: Explicit operation timeout</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">index</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
@@ -396,7 +410,7 @@
 <span class="sd">        :arg include_defaults: Whether to return all default setting for</span>
 <span class="sd">            each of the indices.</span>
 <span class="sd">        :arg local: Return local information, do not retrieve the state</span>
-<span class="sd">            from master node (default: false)</span>
+<span class="sd">            from cluster_manager node (default: false)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">index</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Empty value passed for a required argument &#39;index&#39;.&quot;</span><span class="p">)</span>
@@ -410,6 +424,7 @@
         <span class="s2">&quot;expand_wildcards&quot;</span><span class="p">,</span>
         <span class="s2">&quot;ignore_unavailable&quot;</span><span class="p">,</span>
         <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;write_index_only&quot;</span><span class="p">,</span>
     <span class="p">)</span>
@@ -430,7 +445,8 @@
 <span class="sd">            closed, hidden, none, all  Default: open</span>
 <span class="sd">        :arg ignore_unavailable: Whether specified concrete indices</span>
 <span class="sd">            should be ignored when unavailable (missing or closed)</span>
-<span class="sd">        :arg master_timeout: Specify timeout for connection to master</span>
+<span class="sd">        :arg master_timeout (Deprecated: use cluster_manager_timeout): Specify timeout for connection to master</span>
+<span class="sd">        :arg cluster_manager_timeout: Specify timeout for connection to cluster_manager</span>
 <span class="sd">        :arg timeout: Explicit operation timeout</span>
 <span class="sd">        :arg write_index_only: When true, applies mappings only to the</span>
 <span class="sd">            write index of an alias or data stream</span>
@@ -455,6 +471,7 @@
         <span class="s2">&quot;ignore_unavailable&quot;</span><span class="p">,</span>
         <span class="s2">&quot;local&quot;</span><span class="p">,</span>
         <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="k">def</span> <span class="nf">get_mapping</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -471,8 +488,9 @@
 <span class="sd">        :arg ignore_unavailable: Whether specified concrete indices</span>
 <span class="sd">            should be ignored when unavailable (missing or closed)</span>
 <span class="sd">        :arg local: Return local information, do not retrieve the state</span>
-<span class="sd">            from master node (default: false)</span>
-<span class="sd">        :arg master_timeout: Specify timeout for connection to master</span>
+<span class="sd">            from cluster_manager node (default: false)</span>
+<span class="sd">        :arg master_timeout (Deprecated: use cluster_manager_timeout): Specify timeout for connection to master</span>
+<span class="sd">        :arg cluster_manager_timeout: Specify timeout for connection to cluster_manager</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
             <span class="s2">&quot;GET&quot;</span><span class="p">,</span>
@@ -506,7 +524,7 @@
 <span class="sd">        :arg include_defaults: Whether the default mapping values should</span>
 <span class="sd">            be returned as well</span>
 <span class="sd">        :arg local: Return local information, do not retrieve the state</span>
-<span class="sd">            from master node (default: false)</span>
+<span class="sd">            from cluster_manager node (default: false)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">fields</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Empty value passed for a required argument &#39;fields&#39;.&quot;</span><span class="p">)</span>
@@ -518,7 +536,7 @@
             <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="IndicesClient.put_alias"><a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.put_alias">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;timeout&quot;</span><span class="p">)</span>
+<div class="viewcode-block" id="IndicesClient.put_alias"><a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.put_alias">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;timeout&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">put_alias</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Creates or updates an alias.</span>
@@ -530,7 +548,8 @@
 <span class="sd">        :arg name: The name of the alias to be created or updated</span>
 <span class="sd">        :arg body: The settings for the alias, such as `routing` or</span>
 <span class="sd">            `filter`</span>
-<span class="sd">        :arg master_timeout: Specify timeout for connection to master</span>
+<span class="sd">        :arg master_timeout (Deprecated: use cluster_manager_timeout): Specify timeout for connection to master</span>
+<span class="sd">        :arg cluster_manager_timeout: Specify timeout for connection to cluster_manager</span>
 <span class="sd">        :arg timeout: Explicit timestamp for the document</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
@@ -563,7 +582,7 @@
 <span class="sd">        :arg ignore_unavailable: Whether specified concrete indices</span>
 <span class="sd">            should be ignored when unavailable (missing or closed)</span>
 <span class="sd">        :arg local: Return local information, do not retrieve the state</span>
-<span class="sd">            from master node (default: false)</span>
+<span class="sd">            from cluster_manager node (default: false)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Empty value passed for a required argument &#39;name&#39;.&quot;</span><span class="p">)</span>
@@ -590,20 +609,21 @@
 <span class="sd">        :arg ignore_unavailable: Whether specified concrete indices</span>
 <span class="sd">            should be ignored when unavailable (missing or closed)</span>
 <span class="sd">        :arg local: Return local information, do not retrieve the state</span>
-<span class="sd">            from master node (default: false)</span>
+<span class="sd">            from cluster_manager node (default: false)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
             <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="n">_make_path</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="s2">&quot;_alias&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">),</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="IndicesClient.update_aliases"><a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.update_aliases">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;timeout&quot;</span><span class="p">)</span>
+<div class="viewcode-block" id="IndicesClient.update_aliases"><a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.update_aliases">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;timeout&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">update_aliases</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Updates index aliases.</span>
 
 
 <span class="sd">        :arg body: The definition of `actions` to perform</span>
-<span class="sd">        :arg master_timeout: Specify timeout for connection to master</span>
+<span class="sd">        :arg master_timeout (Deprecated: use cluster_manager_timeout): Specify timeout for connection to master</span>
+<span class="sd">        :arg cluster_manager_timeout: Specify timeout for connection to cluster_manager</span>
 <span class="sd">        :arg timeout: Request timeout</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">body</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
@@ -613,7 +633,7 @@
             <span class="s2">&quot;POST&quot;</span><span class="p">,</span> <span class="s2">&quot;/_aliases&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">body</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="IndicesClient.delete_alias"><a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.delete_alias">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;timeout&quot;</span><span class="p">)</span>
+<div class="viewcode-block" id="IndicesClient.delete_alias"><a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.delete_alias">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;timeout&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">delete_alias</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Deletes an alias.</span>
@@ -623,7 +643,8 @@
 <span class="sd">            wildcards); use `_all` for all indices</span>
 <span class="sd">        :arg name: A comma-separated list of aliases to delete (supports</span>
 <span class="sd">            wildcards); use `_all` to delete all aliases for the specified indices.</span>
-<span class="sd">        :arg master_timeout: Specify timeout for connection to master</span>
+<span class="sd">        :arg master_timeout (Deprecated: use cluster_manager_timeout): Specify timeout for connection to master</span>
+<span class="sd">        :arg cluster_manager_timeout: Specify timeout for connection to cluster_manager</span>
 <span class="sd">        :arg timeout: Explicit timestamp for the document</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
@@ -634,7 +655,7 @@
             <span class="s2">&quot;DELETE&quot;</span><span class="p">,</span> <span class="n">_make_path</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="s2">&quot;_alias&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">),</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="IndicesClient.put_template"><a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.put_template">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;create&quot;</span><span class="p">,</span> <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;order&quot;</span><span class="p">)</span>
+<div class="viewcode-block" id="IndicesClient.put_template"><a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.put_template">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;create&quot;</span><span class="p">,</span> <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;order&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">put_template</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Creates or updates an index template.</span>
@@ -644,7 +665,8 @@
 <span class="sd">        :arg body: The template definition</span>
 <span class="sd">        :arg create: Whether the index template should only be added if</span>
 <span class="sd">            new or can also replace an existing one</span>
-<span class="sd">        :arg master_timeout: Specify timeout for connection to master</span>
+<span class="sd">        :arg master_timeout (Deprecated: use cluster_manager_timeout): Specify timeout for connection to master</span>
+<span class="sd">        :arg cluster_manager_timeout: Specify timeout for connection to cluster_manager</span>
 <span class="sd">        :arg order: The order for this template when merging multiple</span>
 <span class="sd">            matching ones (higher numbers are merged later, overriding the lower</span>
 <span class="sd">            numbers)</span>
@@ -661,7 +683,7 @@
             <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="IndicesClient.exists_template"><a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.exists_template">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;flat_settings&quot;</span><span class="p">,</span> <span class="s2">&quot;local&quot;</span><span class="p">,</span> <span class="s2">&quot;master_timeout&quot;</span><span class="p">)</span>
+<div class="viewcode-block" id="IndicesClient.exists_template"><a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.exists_template">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;flat_settings&quot;</span><span class="p">,</span> <span class="s2">&quot;local&quot;</span><span class="p">,</span> <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">exists_template</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns information about whether a particular index template exists.</span>
@@ -671,9 +693,11 @@
 <span class="sd">        :arg flat_settings: Return settings in flat format (default:</span>
 <span class="sd">            false)</span>
 <span class="sd">        :arg local: Return local information, do not retrieve the state</span>
-<span class="sd">            from master node (default: false)</span>
-<span class="sd">        :arg master_timeout: Explicit operation timeout for connection</span>
+<span class="sd">            from cluster_manager node (default: false)</span>
+<span class="sd">        :arg master_timeout (Deprecated: use cluster_manager_timeout): Explicit operation timeout for connection</span>
 <span class="sd">            to master node</span>
+<span class="sd">        :arg cluster_manager_timeout: Explicit operation timeout for connection</span>
+<span class="sd">            to cluster_manager node</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Empty value passed for a required argument &#39;name&#39;.&quot;</span><span class="p">)</span>
@@ -682,7 +706,7 @@
             <span class="s2">&quot;HEAD&quot;</span><span class="p">,</span> <span class="n">_make_path</span><span class="p">(</span><span class="s2">&quot;_template&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">),</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="IndicesClient.get_template"><a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.get_template">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;flat_settings&quot;</span><span class="p">,</span> <span class="s2">&quot;local&quot;</span><span class="p">,</span> <span class="s2">&quot;master_timeout&quot;</span><span class="p">)</span>
+<div class="viewcode-block" id="IndicesClient.get_template"><a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.get_template">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;flat_settings&quot;</span><span class="p">,</span> <span class="s2">&quot;local&quot;</span><span class="p">,</span> <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">get_template</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns an index template.</span>
@@ -692,22 +716,25 @@
 <span class="sd">        :arg flat_settings: Return settings in flat format (default:</span>
 <span class="sd">            false)</span>
 <span class="sd">        :arg local: Return local information, do not retrieve the state</span>
-<span class="sd">            from master node (default: false)</span>
-<span class="sd">        :arg master_timeout: Explicit operation timeout for connection</span>
+<span class="sd">            from cluster_manager node (default: false)</span>
+<span class="sd">        :arg master_timeout (Deprecated: use cluster_manager_timeout): Explicit operation timeout for connection</span>
 <span class="sd">            to master node</span>
+<span class="sd">        :arg cluster_manager_timeout: Explicit operation timeout for connection</span>
+<span class="sd">            to cluster_manager node</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
             <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="n">_make_path</span><span class="p">(</span><span class="s2">&quot;_template&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">),</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="IndicesClient.delete_template"><a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.delete_template">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;timeout&quot;</span><span class="p">)</span>
+<div class="viewcode-block" id="IndicesClient.delete_template"><a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.delete_template">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;timeout&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">delete_template</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Deletes an index template.</span>
 
 
 <span class="sd">        :arg name: The name of the template</span>
-<span class="sd">        :arg master_timeout: Specify timeout for connection to master</span>
+<span class="sd">        :arg master_timeout (Deprecated: use cluster_manager_timeout): Specify timeout for connection to master</span>
+<span class="sd">        :arg cluster_manager_timeout: Specify timeout for connection to cluster_manager</span>
 <span class="sd">        :arg timeout: Explicit operation timeout</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
@@ -725,6 +752,7 @@
         <span class="s2">&quot;include_defaults&quot;</span><span class="p">,</span>
         <span class="s2">&quot;local&quot;</span><span class="p">,</span>
         <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="k">def</span> <span class="nf">get_settings</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -747,8 +775,9 @@
 <span class="sd">        :arg include_defaults: Whether to return all default setting for</span>
 <span class="sd">            each of the indices.</span>
 <span class="sd">        :arg local: Return local information, do not retrieve the state</span>
-<span class="sd">            from master node (default: false)</span>
-<span class="sd">        :arg master_timeout: Specify timeout for connection to master</span>
+<span class="sd">            from cluster_manager node (default: false)</span>
+<span class="sd">        :arg master_timeout (Deprecated: use cluster_manager_timeout): Specify timeout for connection to master</span>
+<span class="sd">        :arg cluster_manager_timeout: Specify timeout for connection to cluster_manager</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
             <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="n">_make_path</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="s2">&quot;_settings&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">),</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
@@ -760,6 +789,7 @@
         <span class="s2">&quot;flat_settings&quot;</span><span class="p">,</span>
         <span class="s2">&quot;ignore_unavailable&quot;</span><span class="p">,</span>
         <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;preserve_existing&quot;</span><span class="p">,</span>
         <span class="s2">&quot;timeout&quot;</span><span class="p">,</span>
     <span class="p">)</span>
@@ -781,7 +811,8 @@
 <span class="sd">            false)</span>
 <span class="sd">        :arg ignore_unavailable: Whether specified concrete indices</span>
 <span class="sd">            should be ignored when unavailable (missing or closed)</span>
-<span class="sd">        :arg master_timeout: Specify timeout for connection to master</span>
+<span class="sd">        :arg master_timeout (Deprecated: use cluster_manager_timeout): Specify timeout for connection to master</span>
+<span class="sd">        :arg cluster_manager_timeout: Specify timeout for connection to cluster_manager</span>
 <span class="sd">        :arg preserve_existing: Whether to update existing settings. If</span>
 <span class="sd">            set to `true` existing settings on an index remain unchanged, the</span>
 <span class="sd">            default is `false`</span>
@@ -1120,7 +1151,11 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="IndicesClient.shrink"><a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.shrink">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
-        <span class="s2">&quot;copy_settings&quot;</span><span class="p">,</span> <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;wait_for_active_shards&quot;</span>
+        <span class="s2">&quot;copy_settings&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;timeout&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;wait_for_active_shards&quot;</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="k">def</span> <span class="nf">shrink</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -1133,7 +1168,8 @@
 <span class="sd">            and `aliases`)</span>
 <span class="sd">        :arg copy_settings: whether or not to copy settings from the</span>
 <span class="sd">            source index (defaults to false)</span>
-<span class="sd">        :arg master_timeout: Specify timeout for connection to master</span>
+<span class="sd">        :arg master_timeout (Deprecated: use cluster_manager_timeout): Specify timeout for connection to master</span>
+<span class="sd">        :arg cluster_manager_timeout: Specify timeout for connection to cluster_manager</span>
 <span class="sd">        :arg timeout: Explicit operation timeout</span>
 <span class="sd">        :arg wait_for_active_shards: Set the number of active shards to</span>
 <span class="sd">            wait for on the shrunken index before the operation returns.</span>
@@ -1151,7 +1187,11 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="IndicesClient.split"><a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.split">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
-        <span class="s2">&quot;copy_settings&quot;</span><span class="p">,</span> <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;wait_for_active_shards&quot;</span>
+        <span class="s2">&quot;copy_settings&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;timeout&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;wait_for_active_shards&quot;</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="k">def</span> <span class="nf">split</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -1165,7 +1205,8 @@
 <span class="sd">            and `aliases`)</span>
 <span class="sd">        :arg copy_settings: whether or not to copy settings from the</span>
 <span class="sd">            source index (defaults to false)</span>
-<span class="sd">        :arg master_timeout: Specify timeout for connection to master</span>
+<span class="sd">        :arg master_timeout (Deprecated: use cluster_manager_timeout): Specify timeout for connection to master</span>
+<span class="sd">        :arg cluster_manager_timeout: Specify timeout for connection to cluster_manager</span>
 <span class="sd">        :arg timeout: Explicit operation timeout</span>
 <span class="sd">        :arg wait_for_active_shards: Set the number of active shards to</span>
 <span class="sd">            wait for on the shrunken index before the operation returns.</span>
@@ -1185,6 +1226,7 @@
 <div class="viewcode-block" id="IndicesClient.rollover"><a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.rollover">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;dry_run&quot;</span><span class="p">,</span>
         <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;wait_for_active_shards&quot;</span><span class="p">,</span>
     <span class="p">)</span>
@@ -1201,7 +1243,8 @@
 <span class="sd">        :arg dry_run: If set to true the rollover action will only be</span>
 <span class="sd">            validated but not actually performed even if a condition matches. The</span>
 <span class="sd">            default is false</span>
-<span class="sd">        :arg master_timeout: Specify timeout for connection to master</span>
+<span class="sd">        :arg master_timeout (Deprecated: use cluster_manager_timeout): Specify timeout for connection to master</span>
+<span class="sd">        :arg cluster_manager_timeout: Specify timeout for connection to cluster_manager</span>
 <span class="sd">        :arg timeout: Explicit operation timeout</span>
 <span class="sd">        :arg wait_for_active_shards: Set the number of active shards to</span>
 <span class="sd">            wait for on the newly created rollover index before the operation</span>
@@ -1223,6 +1266,7 @@
         <span class="s2">&quot;expand_wildcards&quot;</span><span class="p">,</span>
         <span class="s2">&quot;ignore_unavailable&quot;</span><span class="p">,</span>
         <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;wait_for_active_shards&quot;</span><span class="p">,</span>
     <span class="p">)</span>
@@ -1241,7 +1285,8 @@
 <span class="sd">            closed, hidden, none, all  Default: closed</span>
 <span class="sd">        :arg ignore_unavailable: Whether specified concrete indices</span>
 <span class="sd">            should be ignored when unavailable (missing or closed)</span>
-<span class="sd">        :arg master_timeout: Specify timeout for connection to master</span>
+<span class="sd">        :arg master_timeout (Deprecated: use cluster_manager_timeout): Specify timeout for connection to master</span>
+<span class="sd">        :arg cluster_manager_timeout: Specify timeout for connection to cluster_manager</span>
 <span class="sd">        :arg timeout: Explicit operation timeout</span>
 <span class="sd">        :arg wait_for_active_shards: Sets the number of active shards to</span>
 <span class="sd">            wait for before the operation returns.</span>
@@ -1258,6 +1303,7 @@
         <span class="s2">&quot;expand_wildcards&quot;</span><span class="p">,</span>
         <span class="s2">&quot;ignore_unavailable&quot;</span><span class="p">,</span>
         <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;wait_for_active_shards&quot;</span><span class="p">,</span>
     <span class="p">)</span>
@@ -1276,7 +1322,8 @@
 <span class="sd">            closed, hidden, none, all  Default: closed</span>
 <span class="sd">        :arg ignore_unavailable: Whether specified concrete indices</span>
 <span class="sd">            should be ignored when unavailable (missing or closed)</span>
-<span class="sd">        :arg master_timeout: Specify timeout for connection to master</span>
+<span class="sd">        :arg master_timeout (Deprecated: use cluster_manager_timeout): Specify timeout for connection to master</span>
+<span class="sd">        :arg cluster_manager_timeout: Specify timeout for connection to cluster_manager</span>
 <span class="sd">        :arg timeout: Explicit operation timeout</span>
 <span class="sd">        :arg wait_for_active_shards: Sets the number of active shards to</span>
 <span class="sd">            wait for before the operation returns.</span>
@@ -1349,14 +1396,15 @@
             <span class="s2">&quot;DELETE&quot;</span><span class="p">,</span> <span class="n">_make_path</span><span class="p">(</span><span class="s2">&quot;_data_stream&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">),</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="IndicesClient.delete_index_template"><a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.delete_index_template">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;timeout&quot;</span><span class="p">)</span>
+<div class="viewcode-block" id="IndicesClient.delete_index_template"><a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.delete_index_template">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;timeout&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">delete_index_template</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Deletes an index template.</span>
 
 
 <span class="sd">        :arg name: The name of the template</span>
-<span class="sd">        :arg master_timeout: Specify timeout for connection to master</span>
+<span class="sd">        :arg master_timeout (Deprecated: use cluster_manager_timeout): Specify timeout for connection to master</span>
+<span class="sd">        :arg cluster_manager_timeout: Specify timeout for connection to cluster_manager</span>
 <span class="sd">        :arg timeout: Explicit operation timeout</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
@@ -1369,7 +1417,7 @@
             <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="IndicesClient.exists_index_template"><a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.exists_index_template">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;flat_settings&quot;</span><span class="p">,</span> <span class="s2">&quot;local&quot;</span><span class="p">,</span> <span class="s2">&quot;master_timeout&quot;</span><span class="p">)</span>
+<div class="viewcode-block" id="IndicesClient.exists_index_template"><a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.exists_index_template">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;flat_settings&quot;</span><span class="p">,</span> <span class="s2">&quot;local&quot;</span><span class="p">,</span> <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">exists_index_template</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns information about whether a particular index template exists.</span>
@@ -1379,9 +1427,11 @@
 <span class="sd">        :arg flat_settings: Return settings in flat format (default:</span>
 <span class="sd">            false)</span>
 <span class="sd">        :arg local: Return local information, do not retrieve the state</span>
-<span class="sd">            from master node (default: false)</span>
-<span class="sd">        :arg master_timeout: Explicit operation timeout for connection</span>
+<span class="sd">            from cluster_manager node (default: false)</span>
+<span class="sd">        :arg master_timeout (Deprecated: use cluster_manager_timeout): Explicit operation timeout for connection</span>
 <span class="sd">            to master node</span>
+<span class="sd">        :arg cluster_manager_timeout: Explicit operation timeout for connection</span>
+<span class="sd">            to cluster_manager node</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Empty value passed for a required argument &#39;name&#39;.&quot;</span><span class="p">)</span>
@@ -1390,7 +1440,7 @@
             <span class="s2">&quot;HEAD&quot;</span><span class="p">,</span> <span class="n">_make_path</span><span class="p">(</span><span class="s2">&quot;_index_template&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">),</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="IndicesClient.get_index_template"><a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.get_index_template">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;flat_settings&quot;</span><span class="p">,</span> <span class="s2">&quot;local&quot;</span><span class="p">,</span> <span class="s2">&quot;master_timeout&quot;</span><span class="p">)</span>
+<div class="viewcode-block" id="IndicesClient.get_index_template"><a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.get_index_template">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;flat_settings&quot;</span><span class="p">,</span> <span class="s2">&quot;local&quot;</span><span class="p">,</span> <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">get_index_template</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns an index template.</span>
@@ -1400,15 +1450,17 @@
 <span class="sd">        :arg flat_settings: Return settings in flat format (default:</span>
 <span class="sd">            false)</span>
 <span class="sd">        :arg local: Return local information, do not retrieve the state</span>
-<span class="sd">            from master node (default: false)</span>
-<span class="sd">        :arg master_timeout: Explicit operation timeout for connection</span>
+<span class="sd">            from cluster_manager node (default: false)</span>
+<span class="sd">        :arg master_timeout (Deprecated: use cluster_manager_timeout): Explicit operation timeout for connection</span>
 <span class="sd">            to master node</span>
+<span class="sd">        :arg cluster_manager_timeout: Explicit operation timeout for connection</span>
+<span class="sd">            to cluster_manager node</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
             <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="n">_make_path</span><span class="p">(</span><span class="s2">&quot;_index_template&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">),</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="IndicesClient.put_index_template"><a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.put_index_template">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;cause&quot;</span><span class="p">,</span> <span class="s2">&quot;create&quot;</span><span class="p">,</span> <span class="s2">&quot;master_timeout&quot;</span><span class="p">)</span>
+<div class="viewcode-block" id="IndicesClient.put_index_template"><a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.put_index_template">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;cause&quot;</span><span class="p">,</span> <span class="s2">&quot;create&quot;</span><span class="p">,</span> <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">put_index_template</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Creates or updates an index template.</span>
@@ -1420,7 +1472,8 @@
 <span class="sd">            template</span>
 <span class="sd">        :arg create: Whether the index template should only be added if</span>
 <span class="sd">            new or can also replace an existing one</span>
-<span class="sd">        :arg master_timeout: Specify timeout for connection to master</span>
+<span class="sd">        :arg master_timeout (Deprecated: use cluster_manager_timeout): Specify timeout for connection to master</span>
+<span class="sd">        :arg cluster_manager_timeout: Specify timeout for connection to cluster_manager</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">body</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
@@ -1434,7 +1487,7 @@
             <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="IndicesClient.simulate_index_template"><a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.simulate_index_template">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;cause&quot;</span><span class="p">,</span> <span class="s2">&quot;create&quot;</span><span class="p">,</span> <span class="s2">&quot;master_timeout&quot;</span><span class="p">)</span>
+<div class="viewcode-block" id="IndicesClient.simulate_index_template"><a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.simulate_index_template">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;cause&quot;</span><span class="p">,</span> <span class="s2">&quot;create&quot;</span><span class="p">,</span> <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">simulate_index_template</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Simulate matching the given index name against the index templates in the</span>
@@ -1450,7 +1503,8 @@
 <span class="sd">        :arg create: Whether the index template we optionally defined in</span>
 <span class="sd">            the body should only be dry-run added if new or can also replace an</span>
 <span class="sd">            existing one</span>
-<span class="sd">        :arg master_timeout: Specify timeout for connection to master</span>
+<span class="sd">        :arg master_timeout (Deprecated: use cluster_manager_timeout): Specify timeout for connection to master</span>
+<span class="sd">        :arg cluster_manager_timeout: Specify timeout for connection to cluster_manager</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Empty value passed for a required argument &#39;name&#39;.&quot;</span><span class="p">)</span>
@@ -1479,7 +1533,7 @@
             <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="n">_make_path</span><span class="p">(</span><span class="s2">&quot;_data_stream&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">),</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="IndicesClient.simulate_template"><a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.simulate_template">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;cause&quot;</span><span class="p">,</span> <span class="s2">&quot;create&quot;</span><span class="p">,</span> <span class="s2">&quot;master_timeout&quot;</span><span class="p">)</span>
+<div class="viewcode-block" id="IndicesClient.simulate_template"><a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.simulate_template">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;cause&quot;</span><span class="p">,</span> <span class="s2">&quot;create&quot;</span><span class="p">,</span> <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">simulate_template</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Simulate resolving the given template name or body</span>
@@ -1493,7 +1547,8 @@
 <span class="sd">        :arg create: Whether the index template we optionally defined in</span>
 <span class="sd">            the body should only be dry-run added if new or can also replace an</span>
 <span class="sd">            existing one</span>
-<span class="sd">        :arg master_timeout: Specify timeout for connection to master</span>
+<span class="sd">        :arg master_timeout (Deprecated: use cluster_manager_timeout): Specify timeout for connection to master</span>
+<span class="sd">        :arg cluster_manager_timeout: Specify timeout for connection to cluster_manager</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
             <span class="s2">&quot;POST&quot;</span><span class="p">,</span>
@@ -1532,6 +1587,7 @@
         <span class="s2">&quot;expand_wildcards&quot;</span><span class="p">,</span>
         <span class="s2">&quot;ignore_unavailable&quot;</span><span class="p">,</span>
         <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;timeout&quot;</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="k">def</span> <span class="nf">add_block</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">block</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -1550,7 +1606,8 @@
 <span class="sd">            closed, hidden, none, all  Default: open</span>
 <span class="sd">        :arg ignore_unavailable: Whether specified concrete indices</span>
 <span class="sd">            should be ignored when unavailable (missing or closed)</span>
-<span class="sd">        :arg master_timeout: Specify timeout for connection to master</span>
+<span class="sd">        :arg master_timeout (Deprecated: use cluster_manager_timeout): Specify timeout for connection to master</span>
+<span class="sd">        :arg cluster_manager_timeout: Specify timeout for connection to cluster_manager</span>
 <span class="sd">        :arg timeout: Explicit operation timeout</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">block</span><span class="p">):</span>

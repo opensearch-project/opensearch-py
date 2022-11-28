@@ -129,7 +129,8 @@ concrete indices that are open, closed or both.  Valid choices: open,
 closed, hidden, none, all  Default: open</p></li>
 <li><p><strong>ignore_unavailable</strong> – Whether specified concrete indices
 should be ignored when unavailable (missing or closed)</p></li>
-<li><p><strong>master_timeout</strong> – Specify timeout for connection to master</p></li>
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Specify timeout for connection to master</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Specify timeout for connection to cluster_manager</p></li>
 <li><p><strong>timeout</strong> – Explicit operation timeout</p></li>
 </ul>
 </dd>
@@ -190,7 +191,8 @@ should be ignored when unavailable (missing or closed)</p></li>
 <li><p><strong>target</strong> – The name of the target index to clone into</p></li>
 <li><p><strong>body</strong> – The configuration for the target index (<cite>settings</cite>
 and <cite>aliases</cite>)</p></li>
-<li><p><strong>master_timeout</strong> – Specify timeout for connection to master</p></li>
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Specify timeout for connection to master</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Specify timeout for connection to cluster_manager</p></li>
 <li><p><strong>timeout</strong> – Explicit operation timeout</p></li>
 <li><p><strong>wait_for_active_shards</strong> – Set the number of active shards to
 wait for on the cloned index before the operation returns.</p></li>
@@ -215,7 +217,8 @@ concrete indices that are open, closed or both.  Valid choices: open,
 closed, hidden, none, all  Default: open</p></li>
 <li><p><strong>ignore_unavailable</strong> – Whether specified concrete indices
 should be ignored when unavailable (missing or closed)</p></li>
-<li><p><strong>master_timeout</strong> – Specify timeout for connection to master</p></li>
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Specify timeout for connection to master</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Specify timeout for connection to cluster_manager</p></li>
 <li><p><strong>timeout</strong> – Explicit operation timeout</p></li>
 <li><p><strong>wait_for_active_shards</strong> – Sets the number of active shards to
 wait for before the operation returns. Set to <cite>index-setting</cite> to wait
@@ -236,7 +239,8 @@ according to the index setting <cite>index.write.wait_for_active_shards</cite>, 
 <li><p><strong>index</strong> – The name of the index</p></li>
 <li><p><strong>body</strong> – The configuration for the index (<cite>settings</cite> and
 <cite>mappings</cite>)</p></li>
-<li><p><strong>master_timeout</strong> – Specify timeout for connection to master</p></li>
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Specify timeout for connection to master</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Specify timeout for connection to cluster_manager</p></li>
 <li><p><strong>timeout</strong> – Explicit operation timeout</p></li>
 <li><p><strong>wait_for_active_shards</strong> – Set the number of active shards to
 wait for before the operation returns.</p></li>
@@ -284,7 +288,8 @@ expanded to open or closed indices (default: open)  Valid choices: open,
 closed, hidden, none, all  Default: open</p></li>
 <li><p><strong>ignore_unavailable</strong> – Ignore unavailable indexes (default:
 false)</p></li>
-<li><p><strong>master_timeout</strong> – Specify timeout for connection to master</p></li>
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Specify timeout for connection to master</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Specify timeout for connection to cluster_manager</p></li>
 <li><p><strong>timeout</strong> – Explicit operation timeout</p></li>
 </ul>
 </dd>
@@ -302,7 +307,8 @@ false)</p></li>
 wildcards); use <cite>_all</cite> for all indices</p></li>
 <li><p><strong>name</strong> – A comma-separated list of aliases to delete (supports
 wildcards); use <cite>_all</cite> to delete all aliases for the specified indices.</p></li>
-<li><p><strong>master_timeout</strong> – Specify timeout for connection to master</p></li>
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Specify timeout for connection to master</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Specify timeout for connection to cluster_manager</p></li>
 <li><p><strong>timeout</strong> – Explicit timestamp for the document</p></li>
 </ul>
 </dd>
@@ -334,7 +340,8 @@ closed, hidden, none, all  Default: open</p></li>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>name</strong> – The name of the template</p></li>
-<li><p><strong>master_timeout</strong> – Specify timeout for connection to master</p></li>
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Specify timeout for connection to master</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Specify timeout for connection to cluster_manager</p></li>
 <li><p><strong>timeout</strong> – Explicit operation timeout</p></li>
 </ul>
 </dd>
@@ -349,7 +356,8 @@ closed, hidden, none, all  Default: open</p></li>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>name</strong> – The name of the template</p></li>
-<li><p><strong>master_timeout</strong> – Specify timeout for connection to master</p></li>
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Specify timeout for connection to master</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Specify timeout for connection to cluster_manager</p></li>
 <li><p><strong>timeout</strong> – Explicit operation timeout</p></li>
 </ul>
 </dd>
@@ -407,7 +415,7 @@ false)</p></li>
 <li><p><strong>include_defaults</strong> – Whether to return all default setting for
 each of the indices.</p></li>
 <li><p><strong>local</strong> – Return local information, do not retrieve the state
-from master node (default: false)</p></li>
+from cluster_manager node (default: false)</p></li>
 </ul>
 </dd>
 </dl>
@@ -432,7 +440,7 @@ closed, hidden, none, all  Default: all</p></li>
 <li><p><strong>ignore_unavailable</strong> – Whether specified concrete indices
 should be ignored when unavailable (missing or closed)</p></li>
 <li><p><strong>local</strong> – Return local information, do not retrieve the state
-from master node (default: false)</p></li>
+from cluster_manager node (default: false)</p></li>
 </ul>
 </dd>
 </dl>
@@ -449,9 +457,11 @@ from master node (default: false)</p></li>
 <li><p><strong>flat_settings</strong> – Return settings in flat format (default:
 false)</p></li>
 <li><p><strong>local</strong> – Return local information, do not retrieve the state
-from master node (default: false)</p></li>
-<li><p><strong>master_timeout</strong> – Explicit operation timeout for connection
+from cluster_manager node (default: false)</p></li>
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Explicit operation timeout for connection
 to master node</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Explicit operation timeout for connection
+to cluster_manager node</p></li>
 </ul>
 </dd>
 </dl>
@@ -468,9 +478,11 @@ to master node</p></li>
 <li><p><strong>flat_settings</strong> – Return settings in flat format (default:
 false)</p></li>
 <li><p><strong>local</strong> – Return local information, do not retrieve the state
-from master node (default: false)</p></li>
-<li><p><strong>master_timeout</strong> – Explicit operation timeout for connection
+from cluster_manager node (default: false)</p></li>
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Explicit operation timeout for connection
 to master node</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Explicit operation timeout for connection
+to cluster_manager node</p></li>
 </ul>
 </dd>
 </dl>
@@ -604,7 +616,8 @@ concrete indices that are open, closed or both.  Valid choices: open,
 closed, hidden, none, all  Default: closed</p></li>
 <li><p><strong>ignore_unavailable</strong> – Whether specified concrete indices
 should be ignored when unavailable (missing or closed)</p></li>
-<li><p><strong>master_timeout</strong> – Specify timeout for connection to master</p></li>
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Specify timeout for connection to master</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Specify timeout for connection to cluster_manager</p></li>
 <li><p><strong>timeout</strong> – Explicit operation timeout</p></li>
 <li><p><strong>wait_for_active_shards</strong> – Sets the number of active shards to
 wait for before the operation returns.</p></li>
@@ -633,8 +646,9 @@ false)</p></li>
 <li><p><strong>include_defaults</strong> – Whether to return all default setting for
 each of the indices.</p></li>
 <li><p><strong>local</strong> – Return local information, do not retrieve the state
-from master node (default: false)</p></li>
-<li><p><strong>master_timeout</strong> – Specify timeout for connection to master</p></li>
+from cluster_manager node (default: false)</p></li>
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Specify timeout for connection to master</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Specify timeout for connection to cluster_manager</p></li>
 </ul>
 </dd>
 </dl>
@@ -659,7 +673,7 @@ closed, hidden, none, all  Default: all</p></li>
 <li><p><strong>ignore_unavailable</strong> – Whether specified concrete indices
 should be ignored when unavailable (missing or closed)</p></li>
 <li><p><strong>local</strong> – Return local information, do not retrieve the state
-from master node (default: false)</p></li>
+from cluster_manager node (default: false)</p></li>
 </ul>
 </dd>
 </dl>
@@ -702,7 +716,7 @@ should be ignored when unavailable (missing or closed)</p></li>
 <li><p><strong>include_defaults</strong> – Whether the default mapping values should
 be returned as well</p></li>
 <li><p><strong>local</strong> – Return local information, do not retrieve the state
-from master node (default: false)</p></li>
+from cluster_manager node (default: false)</p></li>
 </ul>
 </dd>
 </dl>
@@ -719,9 +733,11 @@ from master node (default: false)</p></li>
 <li><p><strong>flat_settings</strong> – Return settings in flat format (default:
 false)</p></li>
 <li><p><strong>local</strong> – Return local information, do not retrieve the state
-from master node (default: false)</p></li>
-<li><p><strong>master_timeout</strong> – Explicit operation timeout for connection
+from cluster_manager node (default: false)</p></li>
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Explicit operation timeout for connection
 to master node</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Explicit operation timeout for connection
+to cluster_manager node</p></li>
 </ul>
 </dd>
 </dl>
@@ -744,8 +760,9 @@ closed, hidden, none, all  Default: open</p></li>
 <li><p><strong>ignore_unavailable</strong> – Whether specified concrete indices
 should be ignored when unavailable (missing or closed)</p></li>
 <li><p><strong>local</strong> – Return local information, do not retrieve the state
-from master node (default: false)</p></li>
-<li><p><strong>master_timeout</strong> – Specify timeout for connection to master</p></li>
+from cluster_manager node (default: false)</p></li>
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Specify timeout for connection to master</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Specify timeout for connection to cluster_manager</p></li>
 </ul>
 </dd>
 </dl>
@@ -774,8 +791,9 @@ should be ignored when unavailable (missing or closed)</p></li>
 <li><p><strong>include_defaults</strong> – Whether to return all default setting for
 each of the indices.</p></li>
 <li><p><strong>local</strong> – Return local information, do not retrieve the state
-from master node (default: false)</p></li>
-<li><p><strong>master_timeout</strong> – Specify timeout for connection to master</p></li>
+from cluster_manager node (default: false)</p></li>
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Specify timeout for connection to master</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Specify timeout for connection to cluster_manager</p></li>
 </ul>
 </dd>
 </dl>
@@ -792,9 +810,11 @@ from master node (default: false)</p></li>
 <li><p><strong>flat_settings</strong> – Return settings in flat format (default:
 false)</p></li>
 <li><p><strong>local</strong> – Return local information, do not retrieve the state
-from master node (default: false)</p></li>
-<li><p><strong>master_timeout</strong> – Explicit operation timeout for connection
+from cluster_manager node (default: false)</p></li>
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Explicit operation timeout for connection
 to master node</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Explicit operation timeout for connection
+to cluster_manager node</p></li>
 </ul>
 </dd>
 </dl>
@@ -849,7 +869,8 @@ concrete indices that are open, closed or both.  Valid choices: open,
 closed, hidden, none, all  Default: closed</p></li>
 <li><p><strong>ignore_unavailable</strong> – Whether specified concrete indices
 should be ignored when unavailable (missing or closed)</p></li>
-<li><p><strong>master_timeout</strong> – Specify timeout for connection to master</p></li>
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Specify timeout for connection to master</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Specify timeout for connection to cluster_manager</p></li>
 <li><p><strong>timeout</strong> – Explicit operation timeout</p></li>
 <li><p><strong>wait_for_active_shards</strong> – Sets the number of active shards to
 wait for before the operation returns.</p></li>
@@ -883,7 +904,8 @@ operation on all indices.</p></li>
 <li><p><strong>name</strong> – The name of the alias to be created or updated</p></li>
 <li><p><strong>body</strong> – The settings for the alias, such as <cite>routing</cite> or
 <cite>filter</cite></p></li>
-<li><p><strong>master_timeout</strong> – Specify timeout for connection to master</p></li>
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Specify timeout for connection to master</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Specify timeout for connection to cluster_manager</p></li>
 <li><p><strong>timeout</strong> – Explicit timestamp for the document</p></li>
 </ul>
 </dd>
@@ -903,7 +925,8 @@ operation on all indices.</p></li>
 template</p></li>
 <li><p><strong>create</strong> – Whether the index template should only be added if
 new or can also replace an existing one</p></li>
-<li><p><strong>master_timeout</strong> – Specify timeout for connection to master</p></li>
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Specify timeout for connection to master</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Specify timeout for connection to cluster_manager</p></li>
 </ul>
 </dd>
 </dl>
@@ -928,7 +951,8 @@ concrete indices that are open, closed or both.  Valid choices: open,
 closed, hidden, none, all  Default: open</p></li>
 <li><p><strong>ignore_unavailable</strong> – Whether specified concrete indices
 should be ignored when unavailable (missing or closed)</p></li>
-<li><p><strong>master_timeout</strong> – Specify timeout for connection to master</p></li>
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Specify timeout for connection to master</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Specify timeout for connection to cluster_manager</p></li>
 <li><p><strong>timeout</strong> – Explicit operation timeout</p></li>
 <li><p><strong>write_index_only</strong> – When true, applies mappings only to the
 write index of an alias or data stream</p></li>
@@ -957,7 +981,8 @@ closed, hidden, none, all  Default: open</p></li>
 false)</p></li>
 <li><p><strong>ignore_unavailable</strong> – Whether specified concrete indices
 should be ignored when unavailable (missing or closed)</p></li>
-<li><p><strong>master_timeout</strong> – Specify timeout for connection to master</p></li>
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Specify timeout for connection to master</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Specify timeout for connection to cluster_manager</p></li>
 <li><p><strong>preserve_existing</strong> – Whether to update existing settings. If
 set to <cite>true</cite> existing settings on an index remain unchanged, the
 default is <cite>false</cite></p></li>
@@ -978,7 +1003,8 @@ default is <cite>false</cite></p></li>
 <li><p><strong>body</strong> – The template definition</p></li>
 <li><p><strong>create</strong> – Whether the index template should only be added if
 new or can also replace an existing one</p></li>
-<li><p><strong>master_timeout</strong> – Specify timeout for connection to master</p></li>
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Specify timeout for connection to master</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Specify timeout for connection to cluster_manager</p></li>
 <li><p><strong>order</strong> – The order for this template when merging multiple
 matching ones (higher numbers are merged later, overriding the lower
 numbers)</p></li>
@@ -1086,7 +1112,8 @@ rollover</p></li>
 <li><p><strong>dry_run</strong> – If set to true the rollover action will only be
 validated but not actually performed even if a condition matches. The
 default is false</p></li>
-<li><p><strong>master_timeout</strong> – Specify timeout for connection to master</p></li>
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Specify timeout for connection to master</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Specify timeout for connection to cluster_manager</p></li>
 <li><p><strong>timeout</strong> – Explicit operation timeout</p></li>
 <li><p><strong>wait_for_active_shards</strong> – Set the number of active shards to
 wait for on the newly created rollover index before the operation
@@ -1157,7 +1184,8 @@ red, all</p></li>
 and <cite>aliases</cite>)</p></li>
 <li><p><strong>copy_settings</strong> – whether or not to copy settings from the
 source index (defaults to false)</p></li>
-<li><p><strong>master_timeout</strong> – Specify timeout for connection to master</p></li>
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Specify timeout for connection to master</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Specify timeout for connection to cluster_manager</p></li>
 <li><p><strong>timeout</strong> – Explicit operation timeout</p></li>
 <li><p><strong>wait_for_active_shards</strong> – Set the number of active shards to
 wait for on the shrunken index before the operation returns.</p></li>
@@ -1183,7 +1211,8 @@ template for simulation purposes</p></li>
 <li><p><strong>create</strong> – Whether the index template we optionally defined in
 the body should only be dry-run added if new or can also replace an
 existing one</p></li>
-<li><p><strong>master_timeout</strong> – Specify timeout for connection to master</p></li>
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Specify timeout for connection to master</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Specify timeout for connection to cluster_manager</p></li>
 </ul>
 </dd>
 </dl>
@@ -1204,7 +1233,8 @@ template for simulation purposes</p></li>
 <li><p><strong>create</strong> – Whether the index template we optionally defined in
 the body should only be dry-run added if new or can also replace an
 existing one</p></li>
-<li><p><strong>master_timeout</strong> – Specify timeout for connection to master</p></li>
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Specify timeout for connection to master</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Specify timeout for connection to cluster_manager</p></li>
 </ul>
 </dd>
 </dl>
@@ -1224,7 +1254,8 @@ shards.</p>
 and <cite>aliases</cite>)</p></li>
 <li><p><strong>copy_settings</strong> – whether or not to copy settings from the
 source index (defaults to false)</p></li>
-<li><p><strong>master_timeout</strong> – Specify timeout for connection to master</p></li>
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Specify timeout for connection to master</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Specify timeout for connection to cluster_manager</p></li>
 <li><p><strong>timeout</strong> – Explicit operation timeout</p></li>
 <li><p><strong>wait_for_active_shards</strong> – Set the number of active shards to
 wait for on the shrunken index before the operation returns.</p></li>
@@ -1292,7 +1323,8 @@ concrete indices that are open, closed or both.  Valid choices: open,
 closed, hidden, none, all  Default: closed</p></li>
 <li><p><strong>ignore_unavailable</strong> – Whether specified concrete indices
 should be ignored when unavailable (missing or closed)</p></li>
-<li><p><strong>master_timeout</strong> – Specify timeout for connection to master</p></li>
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Specify timeout for connection to master</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Specify timeout for connection to cluster_manager</p></li>
 <li><p><strong>timeout</strong> – Explicit operation timeout</p></li>
 <li><p><strong>wait_for_active_shards</strong> – Sets the number of active shards to
 wait for before the operation returns.</p></li>
@@ -1309,7 +1341,8 @@ wait for before the operation returns.</p></li>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>body</strong> – The definition of <cite>actions</cite> to perform</p></li>
-<li><p><strong>master_timeout</strong> – Specify timeout for connection to master</p></li>
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Specify timeout for connection to master</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Specify timeout for connection to cluster_manager</p></li>
 <li><p><strong>timeout</strong> – Request timeout</p></li>
 </ul>
 </dd>

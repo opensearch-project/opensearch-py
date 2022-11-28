@@ -119,8 +119,10 @@
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>repository</strong> – A repository name</p></li>
-<li><p><strong>master_timeout</strong> – Explicit operation timeout for connection
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Explicit operation timeout for connection
 to master node</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Explicit operation timeout for connection
+to cluster_manager node</p></li>
 <li><p><strong>timeout</strong> – Explicit operation timeout</p></li>
 </ul>
 </dd>
@@ -138,8 +140,10 @@ to master node</p></li>
 <li><p><strong>snapshot</strong> – The name of the snapshot to clone from</p></li>
 <li><p><strong>target_snapshot</strong> – The name of the cloned snapshot to create</p></li>
 <li><p><strong>body</strong> – The snapshot clone definition</p></li>
-<li><p><strong>master_timeout</strong> – Explicit operation timeout for connection
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Explicit operation timeout for connection
 to master node</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Explicit operation timeout for connection
+to cluster_manager node</p></li>
 </ul>
 </dd>
 </dl>
@@ -155,8 +159,10 @@ to master node</p></li>
 <li><p><strong>repository</strong> – A repository name</p></li>
 <li><p><strong>snapshot</strong> – A snapshot name</p></li>
 <li><p><strong>body</strong> – The snapshot definition</p></li>
-<li><p><strong>master_timeout</strong> – Explicit operation timeout for connection
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Explicit operation timeout for connection
 to master node</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Explicit operation timeout for connection
+to cluster_manager node</p></li>
 <li><p><strong>wait_for_completion</strong> – Should this request wait until the
 operation has completed before returning</p></li>
 </ul>
@@ -173,8 +179,10 @@ operation has completed before returning</p></li>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>repository</strong> – A repository name</p></li>
 <li><p><strong>body</strong> – The repository definition</p></li>
-<li><p><strong>master_timeout</strong> – Explicit operation timeout for connection
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Explicit operation timeout for connection
 to master node</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Explicit operation timeout for connection
+to cluster_manager node</p></li>
 <li><p><strong>timeout</strong> – Explicit operation timeout</p></li>
 <li><p><strong>verify</strong> – Whether to verify the repository after creation</p></li>
 </ul>
@@ -191,8 +199,10 @@ to master node</p></li>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>repository</strong> – A repository name</p></li>
 <li><p><strong>snapshot</strong> – A snapshot name</p></li>
-<li><p><strong>master_timeout</strong> – Explicit operation timeout for connection
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Explicit operation timeout for connection
 to master node</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Explicit operation timeout for connection
+to cluster_manager node</p></li>
 </ul>
 </dd>
 </dl>
@@ -207,8 +217,10 @@ to master node</p></li>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>repository</strong> – Name of the snapshot repository to unregister.
 Wildcard (<cite>*</cite>) patterns are supported.</p></li>
-<li><p><strong>master_timeout</strong> – Explicit operation timeout for connection
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Explicit operation timeout for connection
 to master node</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Explicit operation timeout for connection
+to cluster_manager node</p></li>
 <li><p><strong>timeout</strong> – Explicit operation timeout</p></li>
 </ul>
 </dd>
@@ -231,8 +243,10 @@ thrown</p></li>
 in the snapshot info. Defaults to true.</p></li>
 <li><p><strong>index_details</strong> – Whether to include details of each index in
 the snapshot, if those details are available. Defaults to false.</p></li>
-<li><p><strong>master_timeout</strong> – Explicit operation timeout for connection
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Explicit operation timeout for connection
 to master node</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Explicit operation timeout for connection
+to cluster_manager node</p></li>
 <li><p><strong>verbose</strong> – Whether to show verbose snapshot info or only show
 the basic info found in the repository index blob</p></li>
 </ul>
@@ -249,9 +263,11 @@ the basic info found in the repository index blob</p></li>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>repository</strong> – A comma-separated list of repository names</p></li>
 <li><p><strong>local</strong> – Return local information, do not retrieve the state
-from master node (default: false)</p></li>
-<li><p><strong>master_timeout</strong> – Explicit operation timeout for connection
+from cluster_manager node (default: false)</p></li>
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Explicit operation timeout for connection
 to master node</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Explicit operation timeout for connection
+to cluster_manager node</p></li>
 </ul>
 </dd>
 </dl>
@@ -303,8 +319,10 @@ the test workload. Defaults to a random value.</p></li>
 <li><p><strong>repository</strong> – A repository name</p></li>
 <li><p><strong>snapshot</strong> – A snapshot name</p></li>
 <li><p><strong>body</strong> – Details of what to restore</p></li>
-<li><p><strong>master_timeout</strong> – Explicit operation timeout for connection
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Explicit operation timeout for connection
 to master node</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Explicit operation timeout for connection
+to cluster_manager node</p></li>
 <li><p><strong>wait_for_completion</strong> – Should this request wait until the
 operation has completed before returning</p></li>
 </ul>
@@ -324,8 +342,10 @@ operation has completed before returning</p></li>
 <li><p><strong>ignore_unavailable</strong> – Whether to ignore unavailable
 snapshots, defaults to false which means a SnapshotMissingException is
 thrown</p></li>
-<li><p><strong>master_timeout</strong> – Explicit operation timeout for connection
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Explicit operation timeout for connection
 to master node</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Explicit operation timeout for connection
+to cluster_manager node</p></li>
 </ul>
 </dd>
 </dl>
@@ -339,8 +359,10 @@ to master node</p></li>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>repository</strong> – A repository name</p></li>
-<li><p><strong>master_timeout</strong> – Explicit operation timeout for connection
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Explicit operation timeout for connection
 to master node</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Explicit operation timeout for connection
+to cluster_manager node</p></li>
 <li><p><strong>timeout</strong> – Explicit operation timeout</p></li>
 </ul>
 </dd>

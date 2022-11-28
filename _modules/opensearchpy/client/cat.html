@@ -124,7 +124,7 @@
 <span class="sd">        :arg h: Comma-separated list of column names to display</span>
 <span class="sd">        :arg help: Return help information</span>
 <span class="sd">        :arg local: Return local information, do not retrieve the state</span>
-<span class="sd">            from master node (default: false)</span>
+<span class="sd">            from cluster_manager node (default: false)</span>
 <span class="sd">        :arg s: Comma-separated list of column names or column aliases</span>
 <span class="sd">            to sort by</span>
 <span class="sd">        :arg v: Verbose mode. Display column headers</span>
@@ -133,7 +133,17 @@
             <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="n">_make_path</span><span class="p">(</span><span class="s2">&quot;_cat&quot;</span><span class="p">,</span> <span class="s2">&quot;aliases&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">),</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="CatClient.allocation"><a class="viewcode-back" href="../../../api-ref/clients/cat_client.html#opensearchpy.client.cat.CatClient.allocation">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;bytes&quot;</span><span class="p">,</span> <span class="s2">&quot;format&quot;</span><span class="p">,</span> <span class="s2">&quot;h&quot;</span><span class="p">,</span> <span class="s2">&quot;help&quot;</span><span class="p">,</span> <span class="s2">&quot;local&quot;</span><span class="p">,</span> <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;s&quot;</span><span class="p">,</span> <span class="s2">&quot;v&quot;</span><span class="p">)</span>
+<div class="viewcode-block" id="CatClient.allocation"><a class="viewcode-back" href="../../../api-ref/clients/cat_client.html#opensearchpy.client.cat.CatClient.allocation">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+        <span class="s2">&quot;bytes&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;format&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;h&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;help&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;local&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;s&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;v&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
     <span class="k">def</span> <span class="nf">allocation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Provides a snapshot of how many shards are allocated to each data node and how</span>
@@ -149,9 +159,11 @@
 <span class="sd">        :arg h: Comma-separated list of column names to display</span>
 <span class="sd">        :arg help: Return help information</span>
 <span class="sd">        :arg local: Return local information, do not retrieve the state</span>
-<span class="sd">            from master node (default: false)</span>
-<span class="sd">        :arg master_timeout: Explicit operation timeout for connection</span>
+<span class="sd">            from cluster_manager node (default: false)</span>
+<span class="sd">        :arg master_timeout (Deprecated: use cluster_manager_timeout): Explicit operation timeout for connection</span>
 <span class="sd">            to master node</span>
+<span class="sd">        :arg cluster_manager_timeout: Explicit operation timeout for connection</span>
+<span class="sd">            to cluster_manager node</span>
 <span class="sd">        :arg s: Comma-separated list of column names or column aliases</span>
 <span class="sd">            to sort by</span>
 <span class="sd">        :arg v: Verbose mode. Display column headers</span>
@@ -229,6 +241,7 @@
         <span class="s2">&quot;include_unloaded_segments&quot;</span><span class="p">,</span>
         <span class="s2">&quot;local&quot;</span><span class="p">,</span>
         <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;pri&quot;</span><span class="p">,</span>
         <span class="s2">&quot;s&quot;</span><span class="p">,</span>
         <span class="s2">&quot;time&quot;</span><span class="p">,</span>
@@ -258,9 +271,11 @@
 <span class="sd">            will include stats for segments that are not currently loaded into</span>
 <span class="sd">            memory</span>
 <span class="sd">        :arg local: Return local information, do not retrieve the state</span>
-<span class="sd">            from master node (default: false)</span>
-<span class="sd">        :arg master_timeout: Explicit operation timeout for connection</span>
+<span class="sd">            from cluster_manager node (default: false)</span>
+<span class="sd">        :arg master_timeout (Deprecated: use cluster_manager_timeout): Explicit operation timeout for connection</span>
 <span class="sd">            to master node</span>
+<span class="sd">        :arg cluster_manager_timeout: Explicit operation timeout for connection</span>
+<span class="sd">            to cluster_manager node</span>
 <span class="sd">        :arg pri: Set to true to return stats only for primary shards</span>
 <span class="sd">        :arg s: Comma-separated list of column names or column aliases</span>
 <span class="sd">            to sort by</span>
@@ -272,7 +287,16 @@
             <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="n">_make_path</span><span class="p">(</span><span class="s2">&quot;_cat&quot;</span><span class="p">,</span> <span class="s2">&quot;indices&quot;</span><span class="p">,</span> <span class="n">index</span><span class="p">),</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="CatClient.master"><a class="viewcode-back" href="../../../api-ref/clients/cat_client.html#opensearchpy.client.cat.CatClient.master">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;format&quot;</span><span class="p">,</span> <span class="s2">&quot;h&quot;</span><span class="p">,</span> <span class="s2">&quot;help&quot;</span><span class="p">,</span> <span class="s2">&quot;local&quot;</span><span class="p">,</span> <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;s&quot;</span><span class="p">,</span> <span class="s2">&quot;v&quot;</span><span class="p">)</span>
+<div class="viewcode-block" id="CatClient.master"><a class="viewcode-back" href="../../../api-ref/clients/cat_client.html#opensearchpy.client.cat.CatClient.master">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+        <span class="s2">&quot;format&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;h&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;help&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;local&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;s&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;v&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
     <span class="k">def</span> <span class="nf">master</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns information about the master node.</span>
@@ -283,15 +307,42 @@
 <span class="sd">        :arg h: Comma-separated list of column names to display</span>
 <span class="sd">        :arg help: Return help information</span>
 <span class="sd">        :arg local: Return local information, do not retrieve the state</span>
-<span class="sd">            from master node (default: false)</span>
-<span class="sd">        :arg master_timeout: Explicit operation timeout for connection</span>
+<span class="sd">            from cluster_manager node (default: false)</span>
+<span class="sd">        :arg master_timeout (Deprecated: use cluster_manager_timeout): Explicit operation timeout for connection</span>
 <span class="sd">            to master node</span>
+<span class="sd">        :arg cluster_manager_timeout: Explicit operation timeout for connection</span>
+<span class="sd">            to cluster_manager node</span>
+<span class="sd">        :arg s: Comma-separated list of column names or column aliases</span>
+<span class="sd">            to sort by</span>
+<span class="sd">        :arg v: Verbose mode. Display column headers</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">warnings</span> <span class="kn">import</span> <span class="n">warn</span>
+
+        <span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Deprecated: use `cluster_manager` instead&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
+            <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="s2">&quot;/_cat/master&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="CatClient.cluster_manager"><a class="viewcode-back" href="../../../api-ref/clients/cat_client.html#opensearchpy.client.cat.CatClient.cluster_manager">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;format&quot;</span><span class="p">,</span> <span class="s2">&quot;h&quot;</span><span class="p">,</span> <span class="s2">&quot;help&quot;</span><span class="p">,</span> <span class="s2">&quot;local&quot;</span><span class="p">,</span> <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;s&quot;</span><span class="p">,</span> <span class="s2">&quot;v&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">cluster_manager</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns information about the cluster_manager node.</span>
+
+
+<span class="sd">        :arg format: a short version of the Accept header, e.g. json,</span>
+<span class="sd">            yaml</span>
+<span class="sd">        :arg h: Comma-separated list of column names to display</span>
+<span class="sd">        :arg help: Return help information</span>
+<span class="sd">        :arg local: Return local information, do not retrieve the state</span>
+<span class="sd">            from cluster_manager node (default: false)</span>
+<span class="sd">        :arg cluster_manager_timeout: Explicit operation timeout for connection</span>
+<span class="sd">            to cluster_manager node</span>
 <span class="sd">        :arg s: Comma-separated list of column names or column aliases</span>
 <span class="sd">            to sort by</span>
 <span class="sd">        :arg v: Verbose mode. Display column headers</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
-            <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="s2">&quot;/_cat/master&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
+            <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="s2">&quot;/_cat/cluster_manager&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="CatClient.nodes"><a class="viewcode-back" href="../../../api-ref/clients/cat_client.html#opensearchpy.client.cat.CatClient.nodes">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
@@ -303,6 +354,7 @@
         <span class="s2">&quot;include_unloaded_segments&quot;</span><span class="p">,</span>
         <span class="s2">&quot;local&quot;</span><span class="p">,</span>
         <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;s&quot;</span><span class="p">,</span>
         <span class="s2">&quot;time&quot;</span><span class="p">,</span>
         <span class="s2">&quot;v&quot;</span><span class="p">,</span>
@@ -325,8 +377,10 @@
 <span class="sd">            memory</span>
 <span class="sd">        :arg local: Calculate the selected nodes using the local cluster</span>
 <span class="sd">            state rather than the state from master node (default: false)</span>
-<span class="sd">        :arg master_timeout: Explicit operation timeout for connection</span>
+<span class="sd">        :arg master_timeout (Deprecated: use cluster_manager_timeout): Explicit operation timeout for connection</span>
 <span class="sd">            to master node</span>
+<span class="sd">        :arg cluster_manager_timeout: Explicit operation timeout for connection</span>
+<span class="sd">            to cluster_manager node</span>
 <span class="sd">        :arg s: Comma-separated list of column names or column aliases</span>
 <span class="sd">            to sort by</span>
 <span class="sd">        :arg time: The unit in which to display time values  Valid</span>
@@ -368,7 +422,16 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="CatClient.shards"><a class="viewcode-back" href="../../../api-ref/clients/cat_client.html#opensearchpy.client.cat.CatClient.shards">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
-        <span class="s2">&quot;bytes&quot;</span><span class="p">,</span> <span class="s2">&quot;format&quot;</span><span class="p">,</span> <span class="s2">&quot;h&quot;</span><span class="p">,</span> <span class="s2">&quot;help&quot;</span><span class="p">,</span> <span class="s2">&quot;local&quot;</span><span class="p">,</span> <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;s&quot;</span><span class="p">,</span> <span class="s2">&quot;time&quot;</span><span class="p">,</span> <span class="s2">&quot;v&quot;</span>
+        <span class="s2">&quot;bytes&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;format&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;h&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;help&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;local&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;s&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;time&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;v&quot;</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="k">def</span> <span class="nf">shards</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -384,9 +447,11 @@
 <span class="sd">        :arg h: Comma-separated list of column names to display</span>
 <span class="sd">        :arg help: Return help information</span>
 <span class="sd">        :arg local: Return local information, do not retrieve the state</span>
-<span class="sd">            from master node (default: false)</span>
-<span class="sd">        :arg master_timeout: Explicit operation timeout for connection</span>
+<span class="sd">            from cluster_manager node (default: false)</span>
+<span class="sd">        :arg master_timeout (Deprecated: use cluster_manager_timeout): Explicit operation timeout for connection</span>
 <span class="sd">            to master node</span>
+<span class="sd">        :arg cluster_manager_timeout: Explicit operation timeout for connection</span>
+<span class="sd">            to cluster_manager node</span>
 <span class="sd">        :arg s: Comma-separated list of column names or column aliases</span>
 <span class="sd">            to sort by</span>
 <span class="sd">        :arg time: The unit in which to display time values  Valid</span>
@@ -419,7 +484,17 @@
             <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="n">_make_path</span><span class="p">(</span><span class="s2">&quot;_cat&quot;</span><span class="p">,</span> <span class="s2">&quot;segments&quot;</span><span class="p">,</span> <span class="n">index</span><span class="p">),</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="CatClient.pending_tasks"><a class="viewcode-back" href="../../../api-ref/clients/cat_client.html#opensearchpy.client.cat.CatClient.pending_tasks">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;format&quot;</span><span class="p">,</span> <span class="s2">&quot;h&quot;</span><span class="p">,</span> <span class="s2">&quot;help&quot;</span><span class="p">,</span> <span class="s2">&quot;local&quot;</span><span class="p">,</span> <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;s&quot;</span><span class="p">,</span> <span class="s2">&quot;time&quot;</span><span class="p">,</span> <span class="s2">&quot;v&quot;</span><span class="p">)</span>
+<div class="viewcode-block" id="CatClient.pending_tasks"><a class="viewcode-back" href="../../../api-ref/clients/cat_client.html#opensearchpy.client.cat.CatClient.pending_tasks">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+        <span class="s2">&quot;format&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;h&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;help&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;local&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;s&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;time&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;v&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
     <span class="k">def</span> <span class="nf">pending_tasks</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns a concise representation of the cluster pending tasks.</span>
@@ -430,9 +505,11 @@
 <span class="sd">        :arg h: Comma-separated list of column names to display</span>
 <span class="sd">        :arg help: Return help information</span>
 <span class="sd">        :arg local: Return local information, do not retrieve the state</span>
-<span class="sd">            from master node (default: false)</span>
-<span class="sd">        :arg master_timeout: Explicit operation timeout for connection</span>
+<span class="sd">            from cluster_manager node (default: false)</span>
+<span class="sd">        :arg master_timeout (Deprecated: use cluster_manager_timeout): Explicit operation timeout for connection</span>
 <span class="sd">            to master node</span>
+<span class="sd">        :arg cluster_manager_timeout: Explicit operation timeout for connection</span>
+<span class="sd">            to cluster_manager node</span>
 <span class="sd">        :arg s: Comma-separated list of column names or column aliases</span>
 <span class="sd">            to sort by</span>
 <span class="sd">        :arg time: The unit in which to display time values  Valid</span>
@@ -443,7 +520,17 @@
             <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="s2">&quot;/_cat/pending_tasks&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="CatClient.thread_pool"><a class="viewcode-back" href="../../../api-ref/clients/cat_client.html#opensearchpy.client.cat.CatClient.thread_pool">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;format&quot;</span><span class="p">,</span> <span class="s2">&quot;h&quot;</span><span class="p">,</span> <span class="s2">&quot;help&quot;</span><span class="p">,</span> <span class="s2">&quot;local&quot;</span><span class="p">,</span> <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;s&quot;</span><span class="p">,</span> <span class="s2">&quot;size&quot;</span><span class="p">,</span> <span class="s2">&quot;v&quot;</span><span class="p">)</span>
+<div class="viewcode-block" id="CatClient.thread_pool"><a class="viewcode-back" href="../../../api-ref/clients/cat_client.html#opensearchpy.client.cat.CatClient.thread_pool">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+        <span class="s2">&quot;format&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;h&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;help&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;local&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;s&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;size&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;v&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
     <span class="k">def</span> <span class="nf">thread_pool</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">thread_pool_patterns</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns cluster-wide thread pool statistics per node. By default the active,</span>
@@ -457,9 +544,11 @@
 <span class="sd">        :arg h: Comma-separated list of column names to display</span>
 <span class="sd">        :arg help: Return help information</span>
 <span class="sd">        :arg local: Return local information, do not retrieve the state</span>
-<span class="sd">            from master node (default: false)</span>
-<span class="sd">        :arg master_timeout: Explicit operation timeout for connection</span>
+<span class="sd">            from cluster_manager node (default: false)</span>
+<span class="sd">        :arg master_timeout (Deprecated: use cluster_manager_timeout): Explicit operation timeout for connection</span>
 <span class="sd">            to master node</span>
+<span class="sd">        :arg cluster_manager_timeout: Explicit operation timeout for connection</span>
+<span class="sd">            to cluster_manager node</span>
 <span class="sd">        :arg s: Comma-separated list of column names or column aliases</span>
 <span class="sd">            to sort by</span>
 <span class="sd">        :arg size: The multiplier in which to display values  Valid</span>
@@ -500,7 +589,15 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="CatClient.plugins"><a class="viewcode-back" href="../../../api-ref/clients/cat_client.html#opensearchpy.client.cat.CatClient.plugins">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
-        <span class="s2">&quot;format&quot;</span><span class="p">,</span> <span class="s2">&quot;h&quot;</span><span class="p">,</span> <span class="s2">&quot;help&quot;</span><span class="p">,</span> <span class="s2">&quot;include_bootstrap&quot;</span><span class="p">,</span> <span class="s2">&quot;local&quot;</span><span class="p">,</span> <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;s&quot;</span><span class="p">,</span> <span class="s2">&quot;v&quot;</span>
+        <span class="s2">&quot;format&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;h&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;help&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;include_bootstrap&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;local&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;s&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;v&quot;</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="k">def</span> <span class="nf">plugins</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -514,9 +611,11 @@
 <span class="sd">        :arg include_bootstrap: Include bootstrap plugins in the</span>
 <span class="sd">            response</span>
 <span class="sd">        :arg local: Return local information, do not retrieve the state</span>
-<span class="sd">            from master node (default: false)</span>
-<span class="sd">        :arg master_timeout: Explicit operation timeout for connection</span>
+<span class="sd">            from cluster_manager node (default: false)</span>
+<span class="sd">        :arg master_timeout (Deprecated: use cluster_manager_timeout): Explicit operation timeout for connection</span>
 <span class="sd">            to master node</span>
+<span class="sd">        :arg cluster_manager_timeout: Explicit operation timeout for connection</span>
+<span class="sd">            to cluster_manager node</span>
 <span class="sd">        :arg s: Comma-separated list of column names or column aliases</span>
 <span class="sd">            to sort by</span>
 <span class="sd">        :arg v: Verbose mode. Display column headers</span>
@@ -525,7 +624,16 @@
             <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="s2">&quot;/_cat/plugins&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="CatClient.nodeattrs"><a class="viewcode-back" href="../../../api-ref/clients/cat_client.html#opensearchpy.client.cat.CatClient.nodeattrs">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;format&quot;</span><span class="p">,</span> <span class="s2">&quot;h&quot;</span><span class="p">,</span> <span class="s2">&quot;help&quot;</span><span class="p">,</span> <span class="s2">&quot;local&quot;</span><span class="p">,</span> <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;s&quot;</span><span class="p">,</span> <span class="s2">&quot;v&quot;</span><span class="p">)</span>
+<div class="viewcode-block" id="CatClient.nodeattrs"><a class="viewcode-back" href="../../../api-ref/clients/cat_client.html#opensearchpy.client.cat.CatClient.nodeattrs">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+        <span class="s2">&quot;format&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;h&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;help&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;local&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;s&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;v&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
     <span class="k">def</span> <span class="nf">nodeattrs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns information about custom node attributes.</span>
@@ -536,9 +644,11 @@
 <span class="sd">        :arg h: Comma-separated list of column names to display</span>
 <span class="sd">        :arg help: Return help information</span>
 <span class="sd">        :arg local: Return local information, do not retrieve the state</span>
-<span class="sd">            from master node (default: false)</span>
-<span class="sd">        :arg master_timeout: Explicit operation timeout for connection</span>
+<span class="sd">            from cluster_manager node (default: false)</span>
+<span class="sd">        :arg master_timeout (Deprecated: use cluster_manager_timeout): Explicit operation timeout for connection</span>
 <span class="sd">            to master node</span>
+<span class="sd">        :arg cluster_manager_timeout: Explicit operation timeout for connection</span>
+<span class="sd">            to cluster_manager node</span>
 <span class="sd">        :arg s: Comma-separated list of column names or column aliases</span>
 <span class="sd">            to sort by</span>
 <span class="sd">        :arg v: Verbose mode. Display column headers</span>
@@ -547,7 +657,16 @@
             <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="s2">&quot;/_cat/nodeattrs&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="CatClient.repositories"><a class="viewcode-back" href="../../../api-ref/clients/cat_client.html#opensearchpy.client.cat.CatClient.repositories">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;format&quot;</span><span class="p">,</span> <span class="s2">&quot;h&quot;</span><span class="p">,</span> <span class="s2">&quot;help&quot;</span><span class="p">,</span> <span class="s2">&quot;local&quot;</span><span class="p">,</span> <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;s&quot;</span><span class="p">,</span> <span class="s2">&quot;v&quot;</span><span class="p">)</span>
+<div class="viewcode-block" id="CatClient.repositories"><a class="viewcode-back" href="../../../api-ref/clients/cat_client.html#opensearchpy.client.cat.CatClient.repositories">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+        <span class="s2">&quot;format&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;h&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;help&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;local&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;s&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;v&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
     <span class="k">def</span> <span class="nf">repositories</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns information about snapshot repositories registered in the cluster.</span>
@@ -559,8 +678,10 @@
 <span class="sd">        :arg help: Return help information</span>
 <span class="sd">        :arg local: Return local information, do not retrieve the state</span>
 <span class="sd">            from master node</span>
-<span class="sd">        :arg master_timeout: Explicit operation timeout for connection</span>
+<span class="sd">        :arg master_timeout (Deprecated: use cluster_manager_timeout): Explicit operation timeout for connection</span>
 <span class="sd">            to master node</span>
+<span class="sd">        :arg cluster_manager_timeout: Explicit operation timeout for connection</span>
+<span class="sd">            to cluster_manager node</span>
 <span class="sd">        :arg s: Comma-separated list of column names or column aliases</span>
 <span class="sd">            to sort by</span>
 <span class="sd">        :arg v: Verbose mode. Display column headers</span>
@@ -570,7 +691,15 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="CatClient.snapshots"><a class="viewcode-back" href="../../../api-ref/clients/cat_client.html#opensearchpy.client.cat.CatClient.snapshots">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
-        <span class="s2">&quot;format&quot;</span><span class="p">,</span> <span class="s2">&quot;h&quot;</span><span class="p">,</span> <span class="s2">&quot;help&quot;</span><span class="p">,</span> <span class="s2">&quot;ignore_unavailable&quot;</span><span class="p">,</span> <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;s&quot;</span><span class="p">,</span> <span class="s2">&quot;time&quot;</span><span class="p">,</span> <span class="s2">&quot;v&quot;</span>
+        <span class="s2">&quot;format&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;h&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;help&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;ignore_unavailable&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;s&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;time&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;v&quot;</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="k">def</span> <span class="nf">snapshots</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">repository</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -585,8 +714,10 @@
 <span class="sd">        :arg help: Return help information</span>
 <span class="sd">        :arg ignore_unavailable: Set to true to ignore unavailable</span>
 <span class="sd">            snapshots</span>
-<span class="sd">        :arg master_timeout: Explicit operation timeout for connection</span>
+<span class="sd">        :arg master_timeout (Deprecated: use cluster_manager_timeout): Explicit operation timeout for connection</span>
 <span class="sd">            to master node</span>
+<span class="sd">        :arg cluster_manager_timeout: Explicit operation timeout for connection</span>
+<span class="sd">            to cluster_manager node</span>
 <span class="sd">        :arg s: Comma-separated list of column names or column aliases</span>
 <span class="sd">            to sort by</span>
 <span class="sd">        :arg time: The unit in which to display time values  Valid</span>
@@ -640,7 +771,16 @@
             <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="s2">&quot;/_cat/tasks&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="CatClient.templates"><a class="viewcode-back" href="../../../api-ref/clients/cat_client.html#opensearchpy.client.cat.CatClient.templates">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;format&quot;</span><span class="p">,</span> <span class="s2">&quot;h&quot;</span><span class="p">,</span> <span class="s2">&quot;help&quot;</span><span class="p">,</span> <span class="s2">&quot;local&quot;</span><span class="p">,</span> <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;s&quot;</span><span class="p">,</span> <span class="s2">&quot;v&quot;</span><span class="p">)</span>
+<div class="viewcode-block" id="CatClient.templates"><a class="viewcode-back" href="../../../api-ref/clients/cat_client.html#opensearchpy.client.cat.CatClient.templates">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+        <span class="s2">&quot;format&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;h&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;help&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;local&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;s&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;v&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
     <span class="k">def</span> <span class="nf">templates</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns information about existing templates.</span>
@@ -652,9 +792,11 @@
 <span class="sd">        :arg h: Comma-separated list of column names to display</span>
 <span class="sd">        :arg help: Return help information</span>
 <span class="sd">        :arg local: Return local information, do not retrieve the state</span>
-<span class="sd">            from master node (default: false)</span>
-<span class="sd">        :arg master_timeout: Explicit operation timeout for connection</span>
+<span class="sd">            from cluster_manager node (default: false)</span>
+<span class="sd">        :arg master_timeout (Deprecated: use cluster_manager_timeout): Explicit operation timeout for connection</span>
 <span class="sd">            to master node</span>
+<span class="sd">        :arg cluster_manager_timeout: Explicit operation timeout for connection</span>
+<span class="sd">            to cluster_manager node</span>
 <span class="sd">        :arg s: Comma-separated list of column names or column aliases</span>
 <span class="sd">            to sort by</span>
 <span class="sd">        :arg v: Verbose mode. Display column headers</span>

@@ -553,7 +553,8 @@ floating sub-requests per second. -1 means set no throttle.</p></li>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>id</strong> – Script ID</p></li>
-<li><p><strong>master_timeout</strong> – Specify timeout for connection to master</p></li>
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Specify timeout for connection to master</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Specify timeout for connection to cluster_manager</p></li>
 <li><p><strong>timeout</strong> – Explicit operation timeout</p></li>
 </ul>
 </dd>
@@ -725,7 +726,8 @@ internal, external, external_gte, force</p></li>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>id</strong> – Script ID</p></li>
-<li><p><strong>master_timeout</strong> – Specify timeout for connection to master</p></li>
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Specify timeout for connection to master</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Specify timeout for connection to cluster_manager</p></li>
 </ul>
 </dd>
 </dl>
@@ -996,7 +998,8 @@ internal, external, external_gte, force</p></li>
 <li><p><strong>id</strong> – Script ID</p></li>
 <li><p><strong>body</strong> – The document</p></li>
 <li><p><strong>context</strong> – Context name to compile script against</p></li>
-<li><p><strong>master_timeout</strong> – Specify timeout for connection to master</p></li>
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Specify timeout for connection to master</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Specify timeout for connection to cluster_manager</p></li>
 <li><p><strong>timeout</strong> – Explicit operation timeout</p></li>
 </ul>
 </dd>
@@ -1261,7 +1264,7 @@ closed, hidden, none, all  Default: open</p></li>
 <li><p><strong>ignore_unavailable</strong> – Whether specified concrete indices
 should be ignored when unavailable (missing or closed)</p></li>
 <li><p><strong>local</strong> – Return local information, do not retrieve the state
-from master node (default: false)</p></li>
+from cluster_manager node (default: false)</p></li>
 <li><p><strong>preference</strong> – Specify the node or shard the operation should
 be performed on (default: random)</p></li>
 <li><p><strong>routing</strong> – Specific routing value</p></li>

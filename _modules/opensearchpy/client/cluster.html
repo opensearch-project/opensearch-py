@@ -113,6 +113,7 @@
         <span class="s2">&quot;level&quot;</span><span class="p">,</span>
         <span class="s2">&quot;local&quot;</span><span class="p">,</span>
         <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;wait_for_active_shards&quot;</span><span class="p">,</span>
         <span class="s2">&quot;wait_for_events&quot;</span><span class="p">,</span>
@@ -133,9 +134,11 @@
 <span class="sd">        :arg level: Specify the level of detail for returned information</span>
 <span class="sd">            Valid choices: cluster, indices, shards  Default: cluster</span>
 <span class="sd">        :arg local: Return local information, do not retrieve the state</span>
-<span class="sd">            from master node (default: false)</span>
-<span class="sd">        :arg master_timeout: Explicit operation timeout for connection</span>
+<span class="sd">            from cluster_manager node (default: false)</span>
+<span class="sd">        :arg master_timeout (Deprecated: use cluster_manager_timeout): Explicit operation timeout for connection</span>
 <span class="sd">            to master node</span>
+<span class="sd">        :arg cluster_manager_timeout: Explicit operation timeout for connection</span>
+<span class="sd">            to cluster_manager node</span>
 <span class="sd">        :arg timeout: Explicit operation timeout</span>
 <span class="sd">        :arg wait_for_active_shards: Wait until the specified number of</span>
 <span class="sd">            shards is active</span>
@@ -158,7 +161,7 @@
             <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="ClusterClient.pending_tasks"><a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.pending_tasks">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;local&quot;</span><span class="p">,</span> <span class="s2">&quot;master_timeout&quot;</span><span class="p">)</span>
+<div class="viewcode-block" id="ClusterClient.pending_tasks"><a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.pending_tasks">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;local&quot;</span><span class="p">,</span> <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">pending_tasks</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns a list of any cluster-level changes (e.g. create index, update mapping,</span>
@@ -166,8 +169,9 @@
 
 
 <span class="sd">        :arg local: Return local information, do not retrieve the state</span>
-<span class="sd">            from master node (default: false)</span>
-<span class="sd">        :arg master_timeout: Specify timeout for connection to master</span>
+<span class="sd">            from cluster_manager node (default: false)</span>
+<span class="sd">        :arg master_timeout (Deprecated: use cluster_manager_timeout): Specify timeout for connection to master</span>
+<span class="sd">        :arg cluster_manager_timeout: Specify timeout for connection to cluster_manager</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
             <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="s2">&quot;/_cluster/pending_tasks&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
@@ -180,6 +184,7 @@
         <span class="s2">&quot;ignore_unavailable&quot;</span><span class="p">,</span>
         <span class="s2">&quot;local&quot;</span><span class="p">,</span>
         <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;wait_for_metadata_version&quot;</span><span class="p">,</span>
         <span class="s2">&quot;wait_for_timeout&quot;</span><span class="p">,</span>
     <span class="p">)</span>
@@ -204,8 +209,9 @@
 <span class="sd">        :arg ignore_unavailable: Whether specified concrete indices</span>
 <span class="sd">            should be ignored when unavailable (missing or closed)</span>
 <span class="sd">        :arg local: Return local information, do not retrieve the state</span>
-<span class="sd">            from master node (default: false)</span>
-<span class="sd">        :arg master_timeout: Specify timeout for connection to master</span>
+<span class="sd">            from cluster_manager node (default: false)</span>
+<span class="sd">        :arg master_timeout (Deprecated: use cluster_manager_timeout): Specify timeout for connection to master</span>
+<span class="sd">        :arg cluster_manager_timeout: Specify timeout for connection to cluster_manager</span>
 <span class="sd">        :arg wait_for_metadata_version: Wait for the metadata version to</span>
 <span class="sd">            be equal or greater than the specified metadata version</span>
 <span class="sd">        :arg wait_for_timeout: The maximum time to wait for</span>
@@ -245,7 +251,13 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="ClusterClient.reroute"><a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.reroute">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
-        <span class="s2">&quot;dry_run&quot;</span><span class="p">,</span> <span class="s2">&quot;explain&quot;</span><span class="p">,</span> <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;metric&quot;</span><span class="p">,</span> <span class="s2">&quot;retry_failed&quot;</span><span class="p">,</span> <span class="s2">&quot;timeout&quot;</span>
+        <span class="s2">&quot;dry_run&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;explain&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;metric&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;retry_failed&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;timeout&quot;</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="k">def</span> <span class="nf">reroute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -258,8 +270,10 @@
 <span class="sd">            resulting state</span>
 <span class="sd">        :arg explain: Return an explanation of why the commands can or</span>
 <span class="sd">            cannot be executed</span>
-<span class="sd">        :arg master_timeout: Explicit operation timeout for connection</span>
+<span class="sd">        :arg master_timeout (Deprecated: use cluster_manager_timeout): Explicit operation timeout for connection</span>
 <span class="sd">            to master node</span>
+<span class="sd">        :arg cluster_manager_timeout: Explicit operation timeout for connection</span>
+<span class="sd">            to cluster_manager node</span>
 <span class="sd">        :arg metric: Limit the information returned to the specified</span>
 <span class="sd">            metrics. Defaults to all but metadata  Valid choices: _all, blocks,</span>
 <span class="sd">            metadata, nodes, routing_table, master_node, version</span>
@@ -271,7 +285,13 @@
             <span class="s2">&quot;POST&quot;</span><span class="p">,</span> <span class="s2">&quot;/_cluster/reroute&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">body</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="ClusterClient.get_settings"><a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.get_settings">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;flat_settings&quot;</span><span class="p">,</span> <span class="s2">&quot;include_defaults&quot;</span><span class="p">,</span> <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;timeout&quot;</span><span class="p">)</span>
+<div class="viewcode-block" id="ClusterClient.get_settings"><a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.get_settings">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+        <span class="s2">&quot;flat_settings&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;include_defaults&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;timeout&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
     <span class="k">def</span> <span class="nf">get_settings</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns cluster settings.</span>
@@ -281,15 +301,19 @@
 <span class="sd">            false)</span>
 <span class="sd">        :arg include_defaults: Whether to return all default clusters</span>
 <span class="sd">            setting.</span>
-<span class="sd">        :arg master_timeout: Explicit operation timeout for connection</span>
+<span class="sd">        :arg master_timeout (Deprecated: use cluster_manager_timeout): Explicit operation timeout for connection</span>
 <span class="sd">            to master node</span>
+<span class="sd">        :arg cluster_manager_timeout: Explicit operation timeout for connection</span>
+<span class="sd">            to cluster_manager node</span>
 <span class="sd">        :arg timeout: Explicit operation timeout</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
             <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="s2">&quot;/_cluster/settings&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="ClusterClient.put_settings"><a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.put_settings">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;flat_settings&quot;</span><span class="p">,</span> <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;timeout&quot;</span><span class="p">)</span>
+<div class="viewcode-block" id="ClusterClient.put_settings"><a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.put_settings">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+        <span class="s2">&quot;flat_settings&quot;</span><span class="p">,</span> <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;timeout&quot;</span>
+    <span class="p">)</span>
     <span class="k">def</span> <span class="nf">put_settings</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Updates the cluster settings.</span>
@@ -299,8 +323,10 @@
 <span class="sd">            or `persistent` (survives cluster restart).</span>
 <span class="sd">        :arg flat_settings: Return settings in flat format (default:</span>
 <span class="sd">            false)</span>
-<span class="sd">        :arg master_timeout: Explicit operation timeout for connection</span>
+<span class="sd">        :arg master_timeout (Deprecated: use cluster_manager_timeout): Explicit operation timeout for connection</span>
 <span class="sd">            to master node</span>
+<span class="sd">        :arg cluster_manager_timeout: Explicit operation timeout for connection</span>
+<span class="sd">            to cluster_manager node</span>
 <span class="sd">        :arg timeout: Explicit operation timeout</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">body</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
@@ -341,14 +367,15 @@
             <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="ClusterClient.delete_component_template"><a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.delete_component_template">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;timeout&quot;</span><span class="p">)</span>
+<div class="viewcode-block" id="ClusterClient.delete_component_template"><a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.delete_component_template">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;timeout&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">delete_component_template</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Deletes a component template</span>
 
 
 <span class="sd">        :arg name: The name of the template</span>
-<span class="sd">        :arg master_timeout: Specify timeout for connection to master</span>
+<span class="sd">        :arg master_timeout (Deprecated: use cluster_manager_timeout): Specify timeout for connection to master</span>
+<span class="sd">        :arg cluster_manager_timeout: Specify timeout for connection to cluster_manager</span>
 <span class="sd">        :arg timeout: Explicit operation timeout</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
@@ -361,7 +388,7 @@
             <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="ClusterClient.get_component_template"><a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.get_component_template">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;local&quot;</span><span class="p">,</span> <span class="s2">&quot;master_timeout&quot;</span><span class="p">)</span>
+<div class="viewcode-block" id="ClusterClient.get_component_template"><a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.get_component_template">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;local&quot;</span><span class="p">,</span> <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">get_component_template</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns one or more component templates</span>
@@ -369,9 +396,11 @@
 
 <span class="sd">        :arg name: The comma separated names of the component templates</span>
 <span class="sd">        :arg local: Return local information, do not retrieve the state</span>
-<span class="sd">            from master node (default: false)</span>
-<span class="sd">        :arg master_timeout: Explicit operation timeout for connection</span>
+<span class="sd">            from cluster_manager node (default: false)</span>
+<span class="sd">        :arg master_timeout (Deprecated: use cluster_manager_timeout): Explicit operation timeout for connection</span>
 <span class="sd">            to master node</span>
+<span class="sd">        :arg cluster_manager_timeout: Explicit operation timeout for connection</span>
+<span class="sd">            to cluster_manager node</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
             <span class="s2">&quot;GET&quot;</span><span class="p">,</span>
@@ -380,7 +409,7 @@
             <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="ClusterClient.put_component_template"><a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.put_component_template">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;create&quot;</span><span class="p">,</span> <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;timeout&quot;</span><span class="p">)</span>
+<div class="viewcode-block" id="ClusterClient.put_component_template"><a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.put_component_template">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;create&quot;</span><span class="p">,</span> <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;timeout&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">put_component_template</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Creates or updates a component template</span>
@@ -390,7 +419,8 @@
 <span class="sd">        :arg body: The template definition</span>
 <span class="sd">        :arg create: Whether the index template should only be added if</span>
 <span class="sd">            new or can also replace an existing one</span>
-<span class="sd">        :arg master_timeout: Specify timeout for connection to master</span>
+<span class="sd">        :arg master_timeout (Deprecated: use cluster_manager_timeout): Specify timeout for connection to master</span>
+<span class="sd">        :arg cluster_manager_timeout: Specify timeout for connection to cluster_manager</span>
 <span class="sd">        :arg timeout: Explicit operation timeout</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">body</span><span class="p">):</span>
@@ -405,7 +435,7 @@
             <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="ClusterClient.exists_component_template"><a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.exists_component_template">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;local&quot;</span><span class="p">,</span> <span class="s2">&quot;master_timeout&quot;</span><span class="p">)</span>
+<div class="viewcode-block" id="ClusterClient.exists_component_template"><a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.exists_component_template">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;local&quot;</span><span class="p">,</span> <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">exists_component_template</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns information about whether a particular component template exist</span>
@@ -413,9 +443,11 @@
 
 <span class="sd">        :arg name: The name of the template</span>
 <span class="sd">        :arg local: Return local information, do not retrieve the state</span>
-<span class="sd">            from master node (default: false)</span>
-<span class="sd">        :arg master_timeout: Explicit operation timeout for connection</span>
+<span class="sd">            from cluster_manager node (default: false)</span>
+<span class="sd">        :arg master_timeout (Deprecated: use cluster_manager_timeout): Explicit operation timeout for connection</span>
 <span class="sd">            to master node</span>
+<span class="sd">        :arg cluster_manager_timeout: Explicit operation timeout for connection</span>
+<span class="sd">            to cluster_manager node</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Empty value passed for a required argument &#39;name&#39;.&quot;</span><span class="p">)</span>
