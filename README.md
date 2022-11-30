@@ -38,7 +38,7 @@ See [Compatibility](https://github.com/opensearch-project/opensearch-py/blob/mai
 
 * [Project Website](https://opensearch.org/)
 * [Downloads](https://opensearch.org/downloads.html)
-* [Documentation](https://opensearch.org/docs/)
+* [Documentation](https://opensearch.org/docs/latest/clients/python/)
 * Need help? Try [Forums](https://discuss.opendistrocommunity.dev/)
 * [Project Principles](https://opensearch.org/#principles)
 * [Contributing to OpenSearch](https://github.com/opensearch-project/opensearch-py/blob/main/CONTRIBUTING.md)
