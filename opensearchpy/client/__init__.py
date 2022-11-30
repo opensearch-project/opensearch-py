@@ -312,7 +312,7 @@ class OpenSearch(object):
     )
     def index(self, index, body, id=None, params=None, headers=None):
         """
-        Creates or updates a document in an index.
+        Creates or overwrites a document in an index.
 
 
         :arg index: The name of the index
