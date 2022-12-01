@@ -144,6 +144,8 @@
 <span class="sd">    :arg http_compress: Use gzip compression</span>
 <span class="sd">    :arg opaque_id: Send this value in the &#39;X-Opaque-Id&#39; HTTP header</span>
 <span class="sd">        For tracing all requests made by this transport.</span>
+<span class="sd">    :arg pool_maxsize: Maximum connection pool size used by pool-manager</span>
+<span class="sd">        For custom connection-pooling on current session</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
@@ -160,6 +162,7 @@
         <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">http_compress</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">opaque_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">pool_maxsize</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="o">**</span><span class="n">kwargs</span>
     <span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">REQUESTS_AVAILABLE</span><span class="p">:</span>
@@ -171,6 +174,14 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">session</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">headers</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+
+        <span class="c1"># Mount http-adapter with custom connection-pool size. Default=10</span>
+        <span class="k">if</span> <span class="n">pool_maxsize</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">pool_maxsize</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+            <span class="n">pool_adapter</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">adapters</span><span class="o">.</span><span class="n">HTTPAdapter</span><span class="p">(</span>
+                <span class="n">pool_maxsize</span><span class="o">=</span><span class="n">pool_maxsize</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">mount</span><span class="p">(</span><span class="s2">&quot;http://&quot;</span><span class="p">,</span> <span class="n">pool_adapter</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">mount</span><span class="p">(</span><span class="s2">&quot;https://&quot;</span><span class="p">,</span> <span class="n">pool_adapter</span><span class="p">)</span>
 
         <span class="nb">super</span><span class="p">(</span><span class="n">RequestsHttpConnection</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
             <span class="n">host</span><span class="o">=</span><span class="n">host</span><span class="p">,</span>
