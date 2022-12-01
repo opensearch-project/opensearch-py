@@ -29,7 +29,9 @@ from .utils import SKIP_IN_PATH, NamespacedClient, _make_path, query_params
 
 
 class DanglingIndicesClient(NamespacedClient):
-    @query_params("accept_data_loss", "master_timeout", "timeout")
+    @query_params(
+        "accept_data_loss", "master_timeout", "cluster_manager_timeout", "timeout"
+    )
     async def delete_dangling_index(self, index_uuid, params=None, headers=None):
         """
         Deletes the specified dangling index
@@ -38,7 +40,8 @@ class DanglingIndicesClient(NamespacedClient):
         :arg index_uuid: The UUID of the dangling index
         :arg accept_data_loss: Must be set to true in order to delete
             the dangling index
-        :arg master_timeout: Specify timeout for connection to master
+        :arg master_timeout (Deprecated: use cluster_manager_timeout): Specify timeout for connection to master
+        :arg cluster_manager_timeout: Specify timeout for connection to cluster_manager
         :arg timeout: Explicit operation timeout
         """
         if index_uuid in SKIP_IN_PATH:
@@ -51,7 +54,9 @@ class DanglingIndicesClient(NamespacedClient):
             headers=headers,
         )
 
-    @query_params("accept_data_loss", "master_timeout", "timeout")
+    @query_params(
+        "accept_data_loss", "master_timeout", "cluster_manager_timeout", "timeout"
+    )
     async def import_dangling_index(self, index_uuid, params=None, headers=None):
         """
         Imports the specified dangling index
@@ -60,7 +65,8 @@ class DanglingIndicesClient(NamespacedClient):
         :arg index_uuid: The UUID of the dangling index
         :arg accept_data_loss: Must be set to true in order to import
             the dangling index
-        :arg master_timeout: Specify timeout for connection to master
+        :arg master_timeout (Deprecated: use cluster_manager_timeout): Specify timeout for connection to master
+        :arg cluster_manager_timeout: Specify timeout for connection to cluster_manager
         :arg timeout: Explicit operation timeout
         """
         if index_uuid in SKIP_IN_PATH:

@@ -71,7 +71,7 @@ CLUSTER_NODES = """{
       "ip" : "127.0.0.1",
       "version" : "5.0.0",
       "build_hash" : "253032b",
-      "roles" : [ "master", "data", "ingest" ],
+      "roles" : [ "cluster_manager", "data", "ingest" ],
       "http" : {
         "bound_address" : [ "[fe80::1]:9200", "[::1]:9200", "127.0.0.1:9200" ],
         "publish_address" : "1.1.1.1:123",
@@ -96,7 +96,7 @@ CLUSTER_NODES_7x_PUBLISH_HOST = """{
       "ip" : "127.0.0.1",
       "version" : "5.0.0",
       "build_hash" : "253032b",
-      "roles" : [ "master", "data", "ingest" ],
+      "roles" : [ "cluster_manager", "data", "ingest" ],
       "http" : {
         "bound_address" : [ "[fe80::1]:9200", "[::1]:9200", "127.0.0.1:9200" ],
         "publish_address" : "somehost.tld/1.1.1.1:123",
@@ -108,10 +108,10 @@ CLUSTER_NODES_7x_PUBLISH_HOST = """{
 
 
 class TestHostsInfoCallback(TestCase):
-    def test_master_only_nodes_are_ignored(self):
+    def test_cluster_manager_only_nodes_are_ignored(self):
         nodes = [
-            {"roles": ["master"]},
-            {"roles": ["master", "data", "ingest"]},
+            {"roles": ["cluster_manager"]},
+            {"roles": ["cluster_manager", "data", "ingest"]},
             {"roles": ["data", "ingest"]},
             {"roles": []},
             {},

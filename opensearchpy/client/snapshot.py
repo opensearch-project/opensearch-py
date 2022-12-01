@@ -29,7 +29,7 @@ from .utils import SKIP_IN_PATH, NamespacedClient, _make_path, query_params
 
 
 class SnapshotClient(NamespacedClient):
-    @query_params("master_timeout", "wait_for_completion")
+    @query_params("master_timeout", "cluster_manager_timeout", "wait_for_completion")
     def create(self, repository, snapshot, body=None, params=None, headers=None):
         """
         Creates a snapshot in a repository.
@@ -38,8 +38,10 @@ class SnapshotClient(NamespacedClient):
         :arg repository: A repository name
         :arg snapshot: A snapshot name
         :arg body: The snapshot definition
-        :arg master_timeout: Explicit operation timeout for connection
+        :arg master_timeout (Deprecated: use cluster_manager_timeout): Explicit operation timeout for connection
             to master node
+        :arg cluster_manager_timeout: Explicit operation timeout for connection
+            to cluster_manager node
         :arg wait_for_completion: Should this request wait until the
             operation has completed before returning
         """
@@ -55,7 +57,7 @@ class SnapshotClient(NamespacedClient):
             body=body,
         )
 
-    @query_params("master_timeout")
+    @query_params("master_timeout", "cluster_manager_timeout")
     def delete(self, repository, snapshot, params=None, headers=None):
         """
         Deletes a snapshot.
@@ -63,8 +65,10 @@ class SnapshotClient(NamespacedClient):
 
         :arg repository: A repository name
         :arg snapshot: A snapshot name
-        :arg master_timeout: Explicit operation timeout for connection
+        :arg master_timeout (Deprecated: use cluster_manager_timeout): Explicit operation timeout for connection
             to master node
+        :arg cluster_manager_timeout: Explicit operation timeout for connection
+            to cluster_manager node
         """
         for param in (repository, snapshot):
             if param in SKIP_IN_PATH:
@@ -82,6 +86,7 @@ class SnapshotClient(NamespacedClient):
         "include_repository",
         "index_details",
         "master_timeout",
+        "cluster_manager_timeout",
         "verbose",
     )
     def get(self, repository, snapshot, params=None, headers=None):
@@ -98,8 +103,10 @@ class SnapshotClient(NamespacedClient):
             in the snapshot info. Defaults to true.
         :arg index_details: Whether to include details of each index in
             the snapshot, if those details are available. Defaults to false.
-        :arg master_timeout: Explicit operation timeout for connection
+        :arg master_timeout (Deprecated: use cluster_manager_timeout): Explicit operation timeout for connection
             to master node
+        :arg cluster_manager_timeout: Explicit operation timeout for connection
+            to cluster_manager node
         :arg verbose: Whether to show verbose snapshot info or only show
             the basic info found in the repository index blob
         """
@@ -114,7 +121,7 @@ class SnapshotClient(NamespacedClient):
             headers=headers,
         )
 
-    @query_params("master_timeout", "timeout")
+    @query_params("master_timeout", "cluster_manager_timeout", "timeout")
     def delete_repository(self, repository, params=None, headers=None):
         """
         Deletes a repository.
@@ -122,8 +129,10 @@ class SnapshotClient(NamespacedClient):
 
         :arg repository: Name of the snapshot repository to unregister.
             Wildcard (`*`) patterns are supported.
-        :arg master_timeout: Explicit operation timeout for connection
+        :arg master_timeout (Deprecated: use cluster_manager_timeout): Explicit operation timeout for connection
             to master node
+        :arg cluster_manager_timeout: Explicit operation timeout for connection
+            to cluster_manager node
         :arg timeout: Explicit operation timeout
         """
         if repository in SKIP_IN_PATH:
@@ -136,7 +145,7 @@ class SnapshotClient(NamespacedClient):
             headers=headers,
         )
 
-    @query_params("local", "master_timeout")
+    @query_params("local", "master_timeout", "cluster_manager_timeout")
     def get_repository(self, repository=None, params=None, headers=None):
         """
         Returns information about a repository.
@@ -144,15 +153,17 @@ class SnapshotClient(NamespacedClient):
 
         :arg repository: A comma-separated list of repository names
         :arg local: Return local information, do not retrieve the state
-            from master node (default: false)
-        :arg master_timeout: Explicit operation timeout for connection
+            from cluster_manager node (default: false)
+        :arg master_timeout (Deprecated: use cluster_manager_timeout): Explicit operation timeout for connection
             to master node
+        :arg cluster_manager_timeout: Explicit operation timeout for connection
+            to cluster_manager node
         """
         return self.transport.perform_request(
             "GET", _make_path("_snapshot", repository), params=params, headers=headers
         )
 
-    @query_params("master_timeout", "timeout", "verify")
+    @query_params("master_timeout", "cluster_manager_timeout", "timeout", "verify")
     def create_repository(self, repository, body, params=None, headers=None):
         """
         Creates a repository.
@@ -160,8 +171,10 @@ class SnapshotClient(NamespacedClient):
 
         :arg repository: A repository name
         :arg body: The repository definition
-        :arg master_timeout: Explicit operation timeout for connection
+        :arg master_timeout (Deprecated: use cluster_manager_timeout): Explicit operation timeout for connection
             to master node
+        :arg cluster_manager_timeout: Explicit operation timeout for connection
+            to cluster_manager node
         :arg timeout: Explicit operation timeout
         :arg verify: Whether to verify the repository after creation
         """
@@ -177,7 +190,7 @@ class SnapshotClient(NamespacedClient):
             body=body,
         )
 
-    @query_params("master_timeout", "wait_for_completion")
+    @query_params("master_timeout", "cluster_manager_timeout", "wait_for_completion")
     def restore(self, repository, snapshot, body=None, params=None, headers=None):
         """
         Restores a snapshot.
@@ -186,8 +199,10 @@ class SnapshotClient(NamespacedClient):
         :arg repository: A repository name
         :arg snapshot: A snapshot name
         :arg body: Details of what to restore
-        :arg master_timeout: Explicit operation timeout for connection
+        :arg master_timeout (Deprecated: use cluster_manager_timeout): Explicit operation timeout for connection
             to master node
+        :arg cluster_manager_timeout: Explicit operation timeout for connection
+            to cluster_manager node
         :arg wait_for_completion: Should this request wait until the
             operation has completed before returning
         """
@@ -203,7 +218,7 @@ class SnapshotClient(NamespacedClient):
             body=body,
         )
 
-    @query_params("ignore_unavailable", "master_timeout")
+    @query_params("ignore_unavailable", "master_timeout", "cluster_manager_timeout")
     def status(self, repository=None, snapshot=None, params=None, headers=None):
         """
         Returns information about the status of a snapshot.
@@ -214,8 +229,10 @@ class SnapshotClient(NamespacedClient):
         :arg ignore_unavailable: Whether to ignore unavailable
             snapshots, defaults to false which means a SnapshotMissingException is
             thrown
-        :arg master_timeout: Explicit operation timeout for connection
+        :arg master_timeout (Deprecated: use cluster_manager_timeout): Explicit operation timeout for connection
             to master node
+        :arg cluster_manager_timeout: Explicit operation timeout for connection
+            to cluster_manager node
         """
         return self.transport.perform_request(
             "GET",
@@ -224,15 +241,17 @@ class SnapshotClient(NamespacedClient):
             headers=headers,
         )
 
-    @query_params("master_timeout", "timeout")
+    @query_params("master_timeout", "cluster_manager_timeout", "timeout")
     def verify_repository(self, repository, params=None, headers=None):
         """
         Verifies a repository.
 
 
         :arg repository: A repository name
-        :arg master_timeout: Explicit operation timeout for connection
+        :arg master_timeout (Deprecated: use cluster_manager_timeout): Explicit operation timeout for connection
             to master node
+        :arg cluster_manager_timeout: Explicit operation timeout for connection
+            to cluster_manager node
         :arg timeout: Explicit operation timeout
         """
         if repository in SKIP_IN_PATH:
@@ -245,15 +264,17 @@ class SnapshotClient(NamespacedClient):
             headers=headers,
         )
 
-    @query_params("master_timeout", "timeout")
+    @query_params("master_timeout", "cluster_manager_timeout", "timeout")
     def cleanup_repository(self, repository, params=None, headers=None):
         """
         Removes stale data from repository.
 
 
         :arg repository: A repository name
-        :arg master_timeout: Explicit operation timeout for connection
+        :arg master_timeout (Deprecated: use cluster_manager_timeout): Explicit operation timeout for connection
             to master node
+        :arg cluster_manager_timeout: Explicit operation timeout for connection
+            to cluster_manager node
         :arg timeout: Explicit operation timeout
         """
         if repository in SKIP_IN_PATH:
@@ -266,7 +287,7 @@ class SnapshotClient(NamespacedClient):
             headers=headers,
         )
 
-    @query_params("master_timeout")
+    @query_params("master_timeout", "cluster_manager_timeout")
     def clone(
         self, repository, snapshot, target_snapshot, body, params=None, headers=None
     ):
@@ -278,8 +299,10 @@ class SnapshotClient(NamespacedClient):
         :arg snapshot: The name of the snapshot to clone from
         :arg target_snapshot: The name of the cloned snapshot to create
         :arg body: The snapshot clone definition
-        :arg master_timeout: Explicit operation timeout for connection
+        :arg master_timeout (Deprecated: use cluster_manager_timeout): Explicit operation timeout for connection
             to master node
+        :arg cluster_manager_timeout: Explicit operation timeout for connection
+            to cluster_manager node
         """
         for param in (repository, snapshot, target_snapshot, body):
             if param in SKIP_IN_PATH:
