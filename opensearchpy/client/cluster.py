@@ -34,6 +34,7 @@ class ClusterClient(NamespacedClient):
         "level",
         "local",
         "master_timeout",
+        "cluster_manager_timeout",
         "timeout",
         "wait_for_active_shards",
         "wait_for_events",
@@ -54,9 +55,11 @@ class ClusterClient(NamespacedClient):
         :arg level: Specify the level of detail for returned information
             Valid choices: cluster, indices, shards  Default: cluster
         :arg local: Return local information, do not retrieve the state
-            from master node (default: false)
-        :arg master_timeout: Explicit operation timeout for connection
+            from cluster_manager node (default: false)
+        :arg master_timeout (Deprecated: use cluster_manager_timeout): Explicit operation timeout for connection
             to master node
+        :arg cluster_manager_timeout: Explicit operation timeout for connection
+            to cluster_manager node
         :arg timeout: Explicit operation timeout
         :arg wait_for_active_shards: Wait until the specified number of
             shards is active
@@ -79,7 +82,7 @@ class ClusterClient(NamespacedClient):
             headers=headers,
         )
 
-    @query_params("local", "master_timeout")
+    @query_params("local", "master_timeout", "cluster_manager_timeout")
     def pending_tasks(self, params=None, headers=None):
         """
         Returns a list of any cluster-level changes (e.g. create index, update mapping,
@@ -87,8 +90,9 @@ class ClusterClient(NamespacedClient):
 
 
         :arg local: Return local information, do not retrieve the state
-            from master node (default: false)
-        :arg master_timeout: Specify timeout for connection to master
+            from cluster_manager node (default: false)
+        :arg master_timeout (Deprecated: use cluster_manager_timeout): Specify timeout for connection to master
+        :arg cluster_manager_timeout: Specify timeout for connection to cluster_manager
         """
         return self.transport.perform_request(
             "GET", "/_cluster/pending_tasks", params=params, headers=headers
@@ -101,6 +105,7 @@ class ClusterClient(NamespacedClient):
         "ignore_unavailable",
         "local",
         "master_timeout",
+        "cluster_manager_timeout",
         "wait_for_metadata_version",
         "wait_for_timeout",
     )
@@ -125,8 +130,9 @@ class ClusterClient(NamespacedClient):
         :arg ignore_unavailable: Whether specified concrete indices
             should be ignored when unavailable (missing or closed)
         :arg local: Return local information, do not retrieve the state
-            from master node (default: false)
-        :arg master_timeout: Specify timeout for connection to master
+            from cluster_manager node (default: false)
+        :arg master_timeout (Deprecated: use cluster_manager_timeout): Specify timeout for connection to master
+        :arg cluster_manager_timeout: Specify timeout for connection to cluster_manager
         :arg wait_for_metadata_version: Wait for the metadata version to
             be equal or greater than the specified metadata version
         :arg wait_for_timeout: The maximum time to wait for
@@ -166,7 +172,13 @@ class ClusterClient(NamespacedClient):
         )
 
     @query_params(
-        "dry_run", "explain", "master_timeout", "metric", "retry_failed", "timeout"
+        "dry_run",
+        "explain",
+        "master_timeout",
+        "cluster_manager_timeout",
+        "metric",
+        "retry_failed",
+        "timeout",
     )
     def reroute(self, body=None, params=None, headers=None):
         """
@@ -179,8 +191,10 @@ class ClusterClient(NamespacedClient):
             resulting state
         :arg explain: Return an explanation of why the commands can or
             cannot be executed
-        :arg master_timeout: Explicit operation timeout for connection
+        :arg master_timeout (Deprecated: use cluster_manager_timeout): Explicit operation timeout for connection
             to master node
+        :arg cluster_manager_timeout: Explicit operation timeout for connection
+            to cluster_manager node
         :arg metric: Limit the information returned to the specified
             metrics. Defaults to all but metadata  Valid choices: _all, blocks,
             metadata, nodes, routing_table, master_node, version
@@ -192,7 +206,13 @@ class ClusterClient(NamespacedClient):
             "POST", "/_cluster/reroute", params=params, headers=headers, body=body
         )
 
-    @query_params("flat_settings", "include_defaults", "master_timeout", "timeout")
+    @query_params(
+        "flat_settings",
+        "include_defaults",
+        "master_timeout",
+        "cluster_manager_timeout",
+        "timeout",
+    )
     def get_settings(self, params=None, headers=None):
         """
         Returns cluster settings.
@@ -202,15 +222,19 @@ class ClusterClient(NamespacedClient):
             false)
         :arg include_defaults: Whether to return all default clusters
             setting.
-        :arg master_timeout: Explicit operation timeout for connection
+        :arg master_timeout (Deprecated: use cluster_manager_timeout): Explicit operation timeout for connection
             to master node
+        :arg cluster_manager_timeout: Explicit operation timeout for connection
+            to cluster_manager node
         :arg timeout: Explicit operation timeout
         """
         return self.transport.perform_request(
             "GET", "/_cluster/settings", params=params, headers=headers
         )
 
-    @query_params("flat_settings", "master_timeout", "timeout")
+    @query_params(
+        "flat_settings", "master_timeout", "cluster_manager_timeout", "timeout"
+    )
     def put_settings(self, body, params=None, headers=None):
         """
         Updates the cluster settings.
@@ -220,8 +244,10 @@ class ClusterClient(NamespacedClient):
             or `persistent` (survives cluster restart).
         :arg flat_settings: Return settings in flat format (default:
             false)
-        :arg master_timeout: Explicit operation timeout for connection
+        :arg master_timeout (Deprecated: use cluster_manager_timeout): Explicit operation timeout for connection
             to master node
+        :arg cluster_manager_timeout: Explicit operation timeout for connection
+            to cluster_manager node
         :arg timeout: Explicit operation timeout
         """
         if body in SKIP_IN_PATH:
@@ -262,14 +288,15 @@ class ClusterClient(NamespacedClient):
             body=body,
         )
 
-    @query_params("master_timeout", "timeout")
+    @query_params("master_timeout", "cluster_manager_timeout", "timeout")
     def delete_component_template(self, name, params=None, headers=None):
         """
         Deletes a component template
 
 
         :arg name: The name of the template
-        :arg master_timeout: Specify timeout for connection to master
+        :arg master_timeout (Deprecated: use cluster_manager_timeout): Specify timeout for connection to master
+        :arg cluster_manager_timeout: Specify timeout for connection to cluster_manager
         :arg timeout: Explicit operation timeout
         """
         if name in SKIP_IN_PATH:
@@ -282,7 +309,7 @@ class ClusterClient(NamespacedClient):
             headers=headers,
         )
 
-    @query_params("local", "master_timeout")
+    @query_params("local", "master_timeout", "cluster_manager_timeout")
     def get_component_template(self, name=None, params=None, headers=None):
         """
         Returns one or more component templates
@@ -290,9 +317,11 @@ class ClusterClient(NamespacedClient):
 
         :arg name: The comma separated names of the component templates
         :arg local: Return local information, do not retrieve the state
-            from master node (default: false)
-        :arg master_timeout: Explicit operation timeout for connection
+            from cluster_manager node (default: false)
+        :arg master_timeout (Deprecated: use cluster_manager_timeout): Explicit operation timeout for connection
             to master node
+        :arg cluster_manager_timeout: Explicit operation timeout for connection
+            to cluster_manager node
         """
         return self.transport.perform_request(
             "GET",
@@ -301,7 +330,7 @@ class ClusterClient(NamespacedClient):
             headers=headers,
         )
 
-    @query_params("create", "master_timeout", "timeout")
+    @query_params("create", "master_timeout", "cluster_manager_timeout", "timeout")
     def put_component_template(self, name, body, params=None, headers=None):
         """
         Creates or updates a component template
@@ -311,7 +340,8 @@ class ClusterClient(NamespacedClient):
         :arg body: The template definition
         :arg create: Whether the index template should only be added if
             new or can also replace an existing one
-        :arg master_timeout: Specify timeout for connection to master
+        :arg master_timeout (Deprecated: use cluster_manager_timeout): Specify timeout for connection to master
+        :arg cluster_manager_timeout: Specify timeout for connection to cluster_manager
         :arg timeout: Explicit operation timeout
         """
         for param in (name, body):
@@ -326,7 +356,7 @@ class ClusterClient(NamespacedClient):
             body=body,
         )
 
-    @query_params("local", "master_timeout")
+    @query_params("local", "master_timeout", "cluster_manager_timeout")
     def exists_component_template(self, name, params=None, headers=None):
         """
         Returns information about whether a particular component template exist
@@ -334,9 +364,11 @@ class ClusterClient(NamespacedClient):
 
         :arg name: The name of the template
         :arg local: Return local information, do not retrieve the state
-            from master node (default: false)
-        :arg master_timeout: Explicit operation timeout for connection
+            from cluster_manager node (default: false)
+        :arg master_timeout (Deprecated: use cluster_manager_timeout): Explicit operation timeout for connection
             to master node
+        :arg cluster_manager_timeout: Explicit operation timeout for connection
+            to cluster_manager node
         """
         if name in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'name'.")

@@ -47,14 +47,14 @@ def get_host_info(node_info, host):
 
     Useful for filtering nodes (by proximity for example) or if additional
     information needs to be provided for the :class:`~opensearchpy.Connection`
-    class. By default master only nodes are filtered out since they shouldn't
+    class. By default cluster_manager only nodes are filtered out since they shouldn't
     typically be used for API operations.
 
     :arg node_info: node information from `/_cluster/nodes`
     :arg host: connection information (host, port) extracted from the node info
     """
-    # ignore master only nodes
-    if node_info.get("roles", []) == ["master"]:
+    # ignore cluster_manager only nodes
+    if node_info.get("roles", []) == ["cluster_manager"]:
         return None
     return host
 
