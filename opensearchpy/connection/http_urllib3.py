@@ -273,7 +273,7 @@ class Urllib3HttpConnection(Connection):
             method, full_url, url, orig_body, response.status, raw_data, duration
         )
 
-        return response.status, response.getheaders(), raw_data
+        return response.status, response.headers, raw_data
 
     def get_response_headers(self, response):
         return {header.lower(): value for header, value in response.headers.items()}
