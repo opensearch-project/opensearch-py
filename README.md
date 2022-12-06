@@ -24,7 +24,7 @@ OpenSearch Python Client
 of elasticsearch-py licensed under the [Apache v2.0 License](https://github.com/opensearch-project/opensearch-py/blob/main/LICENSE.txt). 
 For more information, see [opensearch.org](https://opensearch.org/) and the [API Doc](https://opensearch-project.github.io/opensearch-py/).
 
-This is the low-level client. A high-level Python client is in the works, and will be available soon.
+This is the low-level client. A high-level Python client is available here [opensearch-dsl-py](https://github.com/opensearch-project/opensearch-dsl-py).
 
 ## User Guide
 
