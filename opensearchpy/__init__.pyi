@@ -30,6 +30,7 @@ from typing import Tuple
 from .client import OpenSearch as OpenSearch
 from .connection import Connection as Connection
 from .connection import RequestsHttpConnection as RequestsHttpConnection
+from .connection import RequestsAsyncHttpConnection as RequestsAsyncHttpConnection
 from .connection import Urllib3HttpConnection as Urllib3HttpConnection
 from .connection_pool import ConnectionPool as ConnectionPool
 from .connection_pool import ConnectionSelector as ConnectionSelector
@@ -58,6 +59,7 @@ try:
     from ._async.http_aiohttp import AIOHttpConnection as AIOHttpConnection
     from ._async.transport import AsyncTransport as AsyncTransport
     from .helpers import AWSV4SignerAuth as AWSV4SignerAuth
+    from .helpers import AWSV4SignerAuthAsync as AWSV4SignerAuthAsync
 except (ImportError, SyntaxError):
     pass
 

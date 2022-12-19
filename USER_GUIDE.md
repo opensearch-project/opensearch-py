@@ -1,6 +1,6 @@
-- [Getting Started with the OpenSearch Python Client](#getting-started-with-the-opensearch-python-client)
+- [User guide of OpenSearch Python Client](#user-guide-of-opensearch-python-client)
   - [Setup](#setup)
-  - [Sample code](#sample-code)
+  - [Example](#example)
     - [Creating a client](#creating-a-client)
     - [Creating an index](#creating-an-index)
     - [Adding a document to an index](#adding-a-document-to-an-index)
@@ -10,7 +10,7 @@
     - [Deleting a document](#deleting-a-document)
     - [Deleting an index](#deleting-an-index)
   - [Making API Calls](#making-api-calls)
-    - [Point in Time API](#point-in-time-api-calls)
+    - [Point in Time API](#point-in-time-api)
   - [Using plugins](#using-plugins)
     - [Alerting plugin](#alerting-plugin)
       - [**Searching for monitors**](#searching-for-monitors)
@@ -21,6 +21,7 @@
       - [**Acknowledge alerts**](#acknowledge-alerts)
   - [Using IAM credentials for authentication](#using-iam-credentials-for-authentication)
       - [Pre-requisites to use `AWSV4SignerAuth`](#pre-requisites-to-use-awsv4signerauth)
+  - [Using IAM authentication with Async opensearch-py](#using-iam-authentication-with-async-opensearch-py)
 
 # User guide of OpenSearch Python Client
 
@@ -428,4 +429,49 @@ response = client.search(
 
 print('\nSearch results:')
 print(response)
+```
+
+## Using IAM authentication with Async opensearch-py
+
+Make sure to use the new `RequestsAsyncHttpConnection` connection class with the new async `AWSV4SignerAuthAsync` signer.
+
+```python
+from opensearchpy import OpenSearch, RequestsAsyncHttpConnection, AWSV4SignerAuthAsync
+import boto3
+
+host = '' # cluster endpoint, for example: my-test-domain.us-east-1.es.amazonaws.com
+region = 'us-west-2'
+credentials = boto3.Session().get_credentials()
+auth = AWSV4SignerAuthAsync(credentials, region)
+index_name = 'python-test-index3'
+
+client = OpenSearch(
+    hosts = [{'host': host, 'port': 443}],
+    http_auth = auth,
+    use_ssl = True,
+    verify_certs = True,
+    connection_class = RequestsAsyncHttpConnection
+)
+
+async def search():
+  q = 'miller'
+  query = {
+    'size': 5,
+    'query': {
+      'multi_match': {
+        'query': q,
+        'fields': ['title^2', 'director']
+      }
+    }
+  }
+
+  response = await client.search(
+      body = query,
+      index = index_name
+  )
+
+  print('\nSearch results:')
+  print(response)
+
+search()
 ```

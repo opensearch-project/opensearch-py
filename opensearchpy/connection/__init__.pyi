@@ -26,5 +26,6 @@
 
 from .base import Connection as Connection
 from .http_requests import RequestsHttpConnection as RequestsHttpConnection
+from .http_async_requests import RequestsAsyncHttpConnection as RequestsAsyncHttpConnection
 from .http_urllib3 import Urllib3HttpConnection as Urllib3HttpConnection
 from .http_urllib3 import create_ssl_context as create_ssl_context

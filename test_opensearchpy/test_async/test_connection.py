@@ -32,13 +32,14 @@ import json
 import ssl
 import warnings
 from platform import python_version
+import sys
 
 import aiohttp
 import pytest
 from mock import patch
 from multidict import CIMultiDict
 
-from opensearchpy import AIOHttpConnection, __versionstr__
+from opensearchpy import AIOHttpConnection, __versionstr__, RequestsAsyncHttpConnection
 from opensearchpy.compat import reraise_exceptions
 from opensearchpy.connection import Connection
 from opensearchpy.exceptions import ConnectionError
@@ -296,6 +297,51 @@ class TestAIOHttpConnection:
         with pytest.raises(exception_cls) as e:
             await conn.perform_request("GET", "/")
         assert str(e.value) == "Wasn't modified!"
+
+
+    @pytest.mark.skipif(
+        sys.version_info < (3, 6), reason="AWSV4SignerAuthAsync requires python3.6+"
+    )
+    async def test_aws_signer_async_as_http_auth(self):
+        region = "us-west-2"
+
+        import requests
+
+        from opensearchpy.helpers.asyncsigner import AWSV4SignerAuthAsync
+
+        auth = AWSV4SignerAuthAsync(self.mock_session(), region)
+        con = RequestsAsyncHttpConnection(http_auth=auth)
+        headers = auth("GET", "http://localhost")
+        self.assertIn("Authorization", headers)
+        self.assertIn("X-Amz-Date", headers)
+        self.assertIn("X-Amz-Security-Token", headers)
+
+    async def test_aws_signer_async_when_region_is_null(self):
+        session = self.mock_session()
+
+        from opensearchpy.helpers.asyncsigner import AWSV4SignerAuthAsync
+
+        with pytest.raises(ValueError) as e:
+            AWSV4SignerAuthAsync(session, None)
+        assert str(e.value) == "Region cannot be empty"
+
+        with pytest.raises(ValueError) as e:
+            AWSV4SignerAuthAsync(session, "")
+        assert str(e.value) == "Region cannot be empty"
+
+    def test_aws_signer_async_when_credentials_is_null(self):
+        region = "us-west-1"
+
+        from opensearchpy.helpers.asyncsigner import AWSV4SignerAuthAsync
+
+        with pytest.raises(ValueError) as e:
+            AWSV4SignerAuthAsync(None, region)
+        assert str(e.value) == "Credentials cannot be empty"
+
+        with pytest.raises(ValueError) as e:
+            AWSV4SignerAuthAsync("", region)
+        assert str(e.value) == "Credentials cannot be empty"
+
 
 
 class TestConnectionHttpbin:
