@@ -45,8 +45,8 @@ logger.addHandler(logging.NullHandler())
 
 from .client import OpenSearch
 from .connection import (
-    Connection,
     AsyncHttpConnection,
+    Connection,
     RequestsHttpConnection,
     Urllib3HttpConnection,
 )
@@ -67,7 +67,7 @@ from .exceptions import (
     SSLError,
     TransportError,
 )
-from .helpers import AWSV4SignerAuth, AWSV4SignerAsyncAuth
+from .helpers import AWSV4SignerAsyncAuth, AWSV4SignerAuth
 from .serializer import JSONSerializer
 from .transport import Transport
 

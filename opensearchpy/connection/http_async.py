@@ -157,7 +157,7 @@ class AsyncHttpConnection(AIOHttpConnection):
 
         # There is a bug in aiohttp that disables the re-use
         # of the connection in the pool when method=HEAD.
-        # See: aio-libs/aiohttp#1769
+        # See: https://github.com/aio-libs/aiohttp/issues/1769
         is_head = False
         if method == "HEAD":
             method = "GET"

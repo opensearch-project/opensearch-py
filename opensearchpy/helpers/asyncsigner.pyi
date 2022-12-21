@@ -7,16 +7,12 @@
 # Modifications Copyright OpenSearch Contributors. See
 # GitHub history for details.
 
-from typing import Any, Optional
-
-from botocore.credentials import Credentials
+from typing import Any, Dict, List
 
 class AWSV4SignerAsyncAuth:
     @property
-    def __init__(self, credentials: Credentials, region: str) -> None: ...
+    def __init__(self, *args: Any, **kwargs: Any) -> None: ...
     @property
-    def __call__(self, *args: Any, **kwds: Any) -> Any: ...
+    def __call__(self, *args: Any, **kwargs: Any) -> Any: ...
     @property
-    def _sign_request(
-        self, method: str, url: str, query_string: Optional[str], body: Optional[str]
-    ) -> dict: ...
+    def _sign_request(self, *args: Any, **kwargs: Any) -> Dict[str, List[str]]: ...
