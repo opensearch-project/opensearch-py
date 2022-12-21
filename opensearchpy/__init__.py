@@ -44,12 +44,7 @@ logger = logging.getLogger("opensearch")
 logger.addHandler(logging.NullHandler())
 
 from .client import OpenSearch
-from .connection import (
-    AsyncHttpConnection,
-    Connection,
-    RequestsHttpConnection,
-    Urllib3HttpConnection,
-)
+from .connection import Connection, RequestsHttpConnection, Urllib3HttpConnection
 from .connection_pool import ConnectionPool, ConnectionSelector, RoundRobinSelector
 from .exceptions import (
     AuthenticationException,
@@ -112,12 +107,14 @@ try:
     from ._async.client import AsyncOpenSearch
     from ._async.http_aiohttp import AIOHttpConnection, AsyncConnection
     from ._async.transport import AsyncTransport
+    from .connection import AsyncHttpConnection
 
     __all__ += [
         "AIOHttpConnection",
         "AsyncConnection",
         "AsyncTransport",
         "AsyncOpenSearch",
+        "AsyncHttpConnection",
     ]
 except (ImportError, SyntaxError):
     pass

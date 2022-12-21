@@ -25,15 +25,28 @@
 #  under the License.
 
 
+import sys
+
 from .base import Connection
-from .http_async import AsyncHttpConnection
 from .http_requests import RequestsHttpConnection
 from .http_urllib3 import Urllib3HttpConnection, create_ssl_context
 
 __all__ = [
     "Connection",
     "RequestsHttpConnection",
-    "AsyncHttpConnection",
     "Urllib3HttpConnection",
     "create_ssl_context",
 ]
+
+try:
+    # Asyncio only supported on Python 3.6+
+    if sys.version_info < (3, 6):
+        raise ImportError
+
+    from .http_async import AsyncHttpConnection
+
+    __all__ += [
+        "AsyncHttpConnection",
+    ]
+except (ImportError, SyntaxError):
+    pass
