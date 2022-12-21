@@ -8,22 +8,15 @@
 # GitHub history for details.
 
 from typing import Any, Optional
+
 from botocore.credentials import Credentials
 
-class AWSV4SignerAuthAsync():
+class AWSV4SignerAsyncAuth:
     @property
-    def __init__(self, 
-    credentials: Credentials,
-    region: str
-    ) -> None: ...
-
+    def __init__(self, credentials: Credentials, region: str) -> None: ...
     @property
     def __call__(self, *args: Any, **kwds: Any) -> Any: ...
-
     @property
-    def _sign_request(self, 
-    method: str,
-    url: str,
-    query_string: Optional[str],
-    body: Optional[str]
+    def _sign_request(
+        self, method: str, url: str, query_string: Optional[str], body: Optional[str]
     ) -> dict: ...

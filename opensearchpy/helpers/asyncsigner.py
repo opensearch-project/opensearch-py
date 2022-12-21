@@ -13,7 +13,8 @@ OPENSEARCH_SERVICE = "es"
 
 PY3 = sys.version_info[0] == 3
 
-class AWSV4SignerAuthAsync():
+
+class AWSV4SignerAsyncAuth:
     """
     AWS V4 Request Signer for Async Requests.
     """
@@ -50,4 +51,4 @@ class AWSV4SignerAuthAsync():
         sig_v4_auth.add_auth(aws_request)
 
         # copy the headers from AWS request object into the prepared_request
-        return (dict(aws_request.headers.items()))
+        return dict(aws_request.headers.items())

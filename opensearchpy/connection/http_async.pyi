@@ -10,10 +10,9 @@
 from typing import Any, Mapping, Optional
 
 from .._async._extra_imports import aiohttp  # type: ignore
-
 from .._async.http_aiohttp import AIOHttpConnection
 
-class RequestsAsyncHttpConnection(AIOHttpConnection):
+class AsyncHttpConnection(AIOHttpConnection):
     session: Optional[aiohttp.ClientSession]
     def __init__(
         self,

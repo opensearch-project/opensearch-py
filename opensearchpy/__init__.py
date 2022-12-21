@@ -44,7 +44,12 @@ logger = logging.getLogger("opensearch")
 logger.addHandler(logging.NullHandler())
 
 from .client import OpenSearch
-from .connection import Connection, RequestsHttpConnection, RequestsAsyncHttpConnection, Urllib3HttpConnection
+from .connection import (
+    Connection,
+    AsyncHttpConnection,
+    RequestsHttpConnection,
+    Urllib3HttpConnection,
+)
 from .connection_pool import ConnectionPool, ConnectionSelector, RoundRobinSelector
 from .exceptions import (
     AuthenticationException,
@@ -62,8 +67,7 @@ from .exceptions import (
     SSLError,
     TransportError,
 )
-from .helpers import AWSV4SignerAuth
-from .helpers import AWSV4SignerAuthAsync
+from .helpers import AWSV4SignerAuth, AWSV4SignerAsyncAuth
 from .serializer import JSONSerializer
 from .transport import Transport
 
@@ -80,7 +84,7 @@ __all__ = [
     "JSONSerializer",
     "Connection",
     "RequestsHttpConnection",
-    "RequestsAsyncHttpConnection",
+    "AsyncHttpConnection",
     "Urllib3HttpConnection",
     "ImproperlyConfigured",
     "OpenSearchException",
@@ -97,7 +101,7 @@ __all__ = [
     "OpenSearchWarning",
     "OpenSearchDeprecationWarning",
     "AWSV4SignerAuth",
-    "AWSV4SignerAuthAsync",
+    "AWSV4SignerAsyncAuth",
 ]
 
 try:

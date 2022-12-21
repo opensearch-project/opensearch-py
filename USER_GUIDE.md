@@ -1,4 +1,4 @@
-- [User guide of OpenSearch Python Client](#user-guide-of-opensearch-python-client)
+- [User guide of OpenSearch Python client](#user-guide-of-opensearch-python-client)
   - [Setup](#setup)
   - [Example](#example)
     - [Creating a client](#creating-a-client)
@@ -9,8 +9,8 @@
     - [Searching for a document](#searching-for-a-document)
     - [Deleting a document](#deleting-a-document)
     - [Deleting an index](#deleting-an-index)
-  - [Making API Calls](#making-api-calls)
-    - [Point in Time API](#point-in-time-api)
+  - [Making API calls](#making-api-calls)
+    - [Point in time API](#point-in-time-api)
   - [Using plugins](#using-plugins)
     - [Alerting plugin](#alerting-plugin)
       - [**Searching for monitors**](#searching-for-monitors)
@@ -22,8 +22,8 @@
   - [Using different authentication methods](#using-different-authentication-methods)
     - [Using IAM credentials](#using-iam-credentials)
       - [Pre-requisites to use `AWSV4SignerAuth`](#pre-requisites-to-use-awsv4signerauth)
-  - [Using IAM authentication with Async opensearch-py](#using-iam-authentication-with-async-opensearch-py)
-  - [Using Kerberos](#using-kerberos)
+  - [Using IAM authentication with an async client](#using-iam-authentication-with-an-async-client)
+    - [Using Kerberos](#using-kerberos)
 
 # User guide of OpenSearch Python client
 
@@ -440,18 +440,18 @@ print('\nSearch results:')
 print(response)
 ```
 
-## Using IAM authentication with Async opensearch-py
+## Using IAM authentication with an async client
 
-Make sure to use the new `RequestsAsyncHttpConnection` connection class with the new async `AWSV4SignerAuthAsync` signer.
+Make sure to use the `AsyncHttpConnection` connection class with the async `AWSV4SignerAsyncAuth` signer.
 
 ```python
-from opensearchpy import OpenSearch, RequestsAsyncHttpConnection, AWSV4SignerAuthAsync
+from opensearchpy import OpenSearch, AsyncHttpConnection, AWSV4SignerAsyncAuth
 import boto3
 
 host = '' # cluster endpoint, for example: my-test-domain.us-east-1.es.amazonaws.com
 region = 'us-west-2'
 credentials = boto3.Session().get_credentials()
-auth = AWSV4SignerAuthAsync(credentials, region)
+auth = AWSV4SignerAsyncAuth(credentials, region)
 index_name = 'python-test-index3'
 
 client = OpenSearch(
@@ -459,7 +459,7 @@ client = OpenSearch(
     http_auth = auth,
     use_ssl = True,
     verify_certs = True,
-    connection_class = RequestsAsyncHttpConnection
+    connection_class = AsyncHttpConnection
 )
 
 async def search():

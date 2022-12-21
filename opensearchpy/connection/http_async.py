@@ -8,27 +8,27 @@
 # GitHub history for details.
 #
 
-from ..compat import reraise_exceptions, urlencode, string_types
+import asyncio
+import os
+import ssl
+import warnings
+
+from .._async._extra_imports import aiohttp, aiohttp_exceptions
+from .._async.compat import get_running_loop
+from .._async.http_aiohttp import AIOHttpConnection
+from ..compat import reraise_exceptions, string_types, urlencode
 from ..exceptions import (
     ConnectionError,
     ConnectionTimeout,
     ImproperlyConfigured,
     SSLError,
 )
-from .._async._extra_imports import aiohttp, aiohttp_exceptions, yarl
-from .._async.compat import get_running_loop
-import warnings
-import os
-import ssl
-import asyncio
-
-
-from .._async.http_aiohttp import AIOHttpConnection
 
 VERIFY_CERTS_DEFAULT = object()
 SSL_SHOW_WARN_DEFAULT = object()
 
-class RequestsAsyncHttpConnection(AIOHttpConnection):
+
+class AsyncHttpConnection(AIOHttpConnection):
     def __init__(
         self,
         host="localhost",
@@ -155,7 +155,6 @@ class RequestsAsyncHttpConnection(AIOHttpConnection):
         else:
             query_string = ""
 
-
         # There is a bug in aiohttp that disables the re-use
         # of the connection in the pool when method=HEAD.
         # See: aio-libs/aiohttp#1769
@@ -190,7 +189,10 @@ class RequestsAsyncHttpConnection(AIOHttpConnection):
             body = self._gzip_compress(body)
             req_headers["content-encoding"] = "gzip"
 
-        req_headers = {**req_headers, **self._http_auth(method, url, query_string, body)}
+        req_headers = {
+            **req_headers,
+            **self._http_auth(method, url, query_string, body),
+        }
 
         start = self.loop.time()
         try:
@@ -278,6 +280,7 @@ class RequestsAsyncHttpConnection(AIOHttpConnection):
                 limit=self._limit, use_dns_cache=True, ssl=self._ssl_context
             ),
         )
+
 
 class OpenSearchClientResponse(aiohttp.ClientResponse):
     async def text(self, encoding=None, errors="strict"):

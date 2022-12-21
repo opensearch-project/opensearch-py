@@ -30,16 +30,16 @@ import gzip
 import io
 import json
 import ssl
+import sys
 import warnings
 from platform import python_version
-import sys
 
 import aiohttp
 import pytest
 from mock import patch
 from multidict import CIMultiDict
 
-from opensearchpy import AIOHttpConnection, __versionstr__, RequestsAsyncHttpConnection
+from opensearchpy import AIOHttpConnection, RequestsAsyncHttpConnection, __versionstr__
 from opensearchpy.compat import reraise_exceptions
 from opensearchpy.connection import Connection
 from opensearchpy.exceptions import ConnectionError
@@ -298,19 +298,16 @@ class TestAIOHttpConnection:
             await conn.perform_request("GET", "/")
         assert str(e.value) == "Wasn't modified!"
 
-
     @pytest.mark.skipif(
         sys.version_info < (3, 6), reason="AWSV4SignerAuthAsync requires python3.6+"
     )
     async def test_aws_signer_async_as_http_auth(self):
         region = "us-west-2"
 
-        import requests
-
         from opensearchpy.helpers.asyncsigner import AWSV4SignerAuthAsync
 
         auth = AWSV4SignerAuthAsync(self.mock_session(), region)
-        con = RequestsAsyncHttpConnection(http_auth=auth)
+        RequestsAsyncHttpConnection(http_auth=auth)
         headers = auth("GET", "http://localhost")
         self.assertIn("Authorization", headers)
         self.assertIn("X-Amz-Date", headers)
@@ -341,7 +338,6 @@ class TestAIOHttpConnection:
         with pytest.raises(ValueError) as e:
             AWSV4SignerAuthAsync("", region)
         assert str(e.value) == "Credentials cannot be empty"
-
 
 
 class TestConnectionHttpbin:
