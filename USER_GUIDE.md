@@ -122,12 +122,12 @@ print(response)
 
 ### Adding documents in bulk
 ```python
-docs = '{"index": {"_index": "index-2022-06-08", "_id": "1"}} \n 
-{"name": "foo"} \n 
-{"index": {"_index": "index-2022-06-09", "_id": "2"}} \n 
-{"name": "bar"} \n 
-{"index": {"_index": "index-2022-06-10", "_id": "3"}} \n 
-{"name": "baz"}'
+docs = '''{"index": {"_index": "index-2022-06-08", "_id": "1"}}
+{"name": "foo"} 
+{"index": {"_index": "index-2022-06-09", "_id": "2"}}
+{"name": "bar"}
+{"index": {"_index": "index-2022-06-10", "_id": "3"}}
+{"name": "baz"}'''
 
 response = client.bulk(docs)
 
