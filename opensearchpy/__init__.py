@@ -62,7 +62,7 @@ from .exceptions import (
     SSLError,
     TransportError,
 )
-from .helpers import AWSV4SignerAuth
+from .helpers import AWSV4SignerAsyncAuth, AWSV4SignerAuth
 from .serializer import JSONSerializer
 from .transport import Transport
 
@@ -79,6 +79,7 @@ __all__ = [
     "JSONSerializer",
     "Connection",
     "RequestsHttpConnection",
+    "AsyncHttpConnection",
     "Urllib3HttpConnection",
     "ImproperlyConfigured",
     "OpenSearchException",
@@ -95,6 +96,7 @@ __all__ = [
     "OpenSearchWarning",
     "OpenSearchDeprecationWarning",
     "AWSV4SignerAuth",
+    "AWSV4SignerAsyncAuth",
 ]
 
 try:
@@ -105,12 +107,14 @@ try:
     from ._async.client import AsyncOpenSearch
     from ._async.http_aiohttp import AIOHttpConnection, AsyncConnection
     from ._async.transport import AsyncTransport
+    from .connection import AsyncHttpConnection
 
     __all__ += [
         "AIOHttpConnection",
         "AsyncConnection",
         "AsyncTransport",
         "AsyncOpenSearch",
+        "AsyncHttpConnection",
     ]
 except (ImportError, SyntaxError):
     pass

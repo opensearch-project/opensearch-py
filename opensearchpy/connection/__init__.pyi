@@ -25,6 +25,7 @@
 #  under the License.
 
 from .base import Connection as Connection
+from .http_async import AsyncHttpConnection as AsyncHttpConnection
 from .http_requests import RequestsHttpConnection as RequestsHttpConnection
 from .http_urllib3 import Urllib3HttpConnection as Urllib3HttpConnection
 from .http_urllib3 import create_ssl_context as create_ssl_context
