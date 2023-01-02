@@ -28,6 +28,7 @@ import sys
 from typing import Tuple
 
 from .client import OpenSearch as OpenSearch
+from .connection import AsyncHttpConnection as AsyncHttpConnection
 from .connection import Connection as Connection
 from .connection import RequestsHttpConnection as RequestsHttpConnection
 from .connection import Urllib3HttpConnection as Urllib3HttpConnection
@@ -57,6 +58,7 @@ try:
     from ._async.client import AsyncOpenSearch as AsyncOpenSearch
     from ._async.http_aiohttp import AIOHttpConnection as AIOHttpConnection
     from ._async.transport import AsyncTransport as AsyncTransport
+    from .helpers import AWSV4SignerAsyncAuth as AWSV4SignerAsyncAuth
     from .helpers import AWSV4SignerAuth as AWSV4SignerAuth
 except (ImportError, SyntaxError):
     pass

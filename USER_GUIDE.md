@@ -1,4 +1,4 @@
-- [User guide of OpenSearch Python Client](#user-guide-of-opensearch-python-client)
+- [User guide of OpenSearch Python client](#user-guide-of-opensearch-python-client)
   - [Setup](#setup)
   - [Example](#example)
     - [Creating a client](#creating-a-client)
@@ -9,8 +9,8 @@
     - [Searching for a document](#searching-for-a-document)
     - [Deleting a document](#deleting-a-document)
     - [Deleting an index](#deleting-an-index)
-  - [Making API Calls](#making-api-calls)
-    - [Point in Time API](#point-in-time-api)
+  - [Making API calls](#making-api-calls)
+    - [Point in time API](#point-in-time-api)
   - [Using plugins](#using-plugins)
     - [Alerting plugin](#alerting-plugin)
       - [**Searching for monitors**](#searching-for-monitors)
@@ -22,6 +22,7 @@
   - [Using different authentication methods](#using-different-authentication-methods)
     - [Using IAM credentials](#using-iam-credentials)
       - [Pre-requisites to use `AWSV4SignerAuth`](#pre-requisites-to-use-awsv4signerauth)
+  - [Using IAM authentication with an async client](#using-iam-authentication-with-an-async-client)
     - [Using Kerberos](#using-kerberos)
 
 # User guide of OpenSearch Python client
@@ -439,6 +440,51 @@ print('\nSearch results:')
 print(response)
 ```
 
+## Using IAM authentication with an async client
+
+Make sure to use the `AsyncHttpConnection` connection class with the async `AWSV4SignerAsyncAuth` signer.
+
+```python
+from opensearchpy import OpenSearch, AsyncHttpConnection, AWSV4SignerAsyncAuth
+import boto3
+
+host = '' # cluster endpoint, for example: my-test-domain.us-east-1.es.amazonaws.com
+region = 'us-west-2'
+credentials = boto3.Session().get_credentials()
+auth = AWSV4SignerAsyncAuth(credentials, region)
+index_name = 'python-test-index3'
+
+client = OpenSearch(
+    hosts = [{'host': host, 'port': 443}],
+    http_auth = auth,
+    use_ssl = True,
+    verify_certs = True,
+    connection_class = AsyncHttpConnection
+)
+
+async def search():
+  q = 'miller'
+  query = {
+    'size': 5,
+    'query': {
+      'multi_match': {
+        'query': q,
+        'fields': ['title^2', 'director']
+      }
+    }
+  }
+
+  response = await client.search(
+      body = query,
+      index = index_name
+  )
+
+  print('\nSearch results:')
+  print(response)
+
+search()
+```
+=======
 ### Using Kerberos
 
 There are several python packages that provide Kerberos support over HTTP connections, such as [requests-kerberos](http://pypi.org/project/requests-kerberos) and [requests-gssapi](https://pypi.org/project/requests-gssapi). The following example shows how to setup the authentication. Note that some of the parameters, such as `mutual_authentication` might depend on the server settings.

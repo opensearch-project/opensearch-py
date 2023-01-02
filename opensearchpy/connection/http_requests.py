@@ -99,9 +99,7 @@ class RequestsHttpConnection(Connection):
 
         # Mount http-adapter with custom connection-pool size. Default=10
         if pool_maxsize and isinstance(pool_maxsize, int):
-            pool_adapter = requests.adapters.HTTPAdapter(
-                pool_maxsize=pool_maxsize
-            )
+            pool_adapter = requests.adapters.HTTPAdapter(pool_maxsize=pool_maxsize)
             self.session.mount("http://", pool_adapter)
             self.session.mount("https://", pool_adapter)
 
