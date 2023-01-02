@@ -124,7 +124,7 @@
 
 
 <div class="viewcode-block" id="RequestsHttpConnection"><a class="viewcode-back" href="../../../api-ref/connection.html#opensearchpy.RequestsHttpConnection">[docs]</a><span class="k">class</span> <span class="nc">RequestsHttpConnection</span><span class="p">(</span><span class="n">Connection</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Connection using the `requests` library.</span>
 
 <span class="sd">    :arg http_auth: optional http auth information as either &#39;:&#39; separated</span>
@@ -177,9 +177,7 @@
 
         <span class="c1"># Mount http-adapter with custom connection-pool size. Default=10</span>
         <span class="k">if</span> <span class="n">pool_maxsize</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">pool_maxsize</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
-            <span class="n">pool_adapter</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">adapters</span><span class="o">.</span><span class="n">HTTPAdapter</span><span class="p">(</span>
-                <span class="n">pool_maxsize</span><span class="o">=</span><span class="n">pool_maxsize</span>
-            <span class="p">)</span>
+            <span class="n">pool_adapter</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">adapters</span><span class="o">.</span><span class="n">HTTPAdapter</span><span class="p">(</span><span class="n">pool_maxsize</span><span class="o">=</span><span class="n">pool_maxsize</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">mount</span><span class="p">(</span><span class="s2">&quot;http://&quot;</span><span class="p">,</span> <span class="n">pool_adapter</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">mount</span><span class="p">(</span><span class="s2">&quot;https://&quot;</span><span class="p">,</span> <span class="n">pool_adapter</span><span class="p">)</span>
 
@@ -319,7 +317,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">headers</span>
 
 <div class="viewcode-block" id="RequestsHttpConnection.close"><a class="viewcode-back" href="../../../api-ref/connection.html#opensearchpy.RequestsHttpConnection.close">[docs]</a>    <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Explicitly closes connections</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div></div>

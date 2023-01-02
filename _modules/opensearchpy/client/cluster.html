@@ -123,7 +123,7 @@
         <span class="s2">&quot;wait_for_status&quot;</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="k">def</span> <span class="nf">health</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns basic information about the health of the cluster.</span>
 
 
@@ -163,7 +163,7 @@
 
 <div class="viewcode-block" id="ClusterClient.pending_tasks"><a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.pending_tasks">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;local&quot;</span><span class="p">,</span> <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">pending_tasks</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns a list of any cluster-level changes (e.g. create index, update mapping,</span>
 <span class="sd">        allocate or fail shard) which have not yet been executed.</span>
 
@@ -189,7 +189,7 @@
         <span class="s2">&quot;wait_for_timeout&quot;</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="k">def</span> <span class="nf">state</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns a comprehensive information about the state of the cluster.</span>
 
 
@@ -229,7 +229,7 @@
 
 <div class="viewcode-block" id="ClusterClient.stats"><a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.stats">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;flat_settings&quot;</span><span class="p">,</span> <span class="s2">&quot;timeout&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">stats</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns high-level overview of cluster statistics.</span>
 
 
@@ -260,7 +260,7 @@
         <span class="s2">&quot;timeout&quot;</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="k">def</span> <span class="nf">reroute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Allows to manually change the allocation of individual shards in the cluster.</span>
 
 
@@ -293,7 +293,7 @@
         <span class="s2">&quot;timeout&quot;</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="k">def</span> <span class="nf">get_settings</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns cluster settings.</span>
 
 
@@ -315,7 +315,7 @@
         <span class="s2">&quot;flat_settings&quot;</span><span class="p">,</span> <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;timeout&quot;</span>
     <span class="p">)</span>
     <span class="k">def</span> <span class="nf">put_settings</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Updates the cluster settings.</span>
 
 
@@ -338,7 +338,7 @@
 
 <div class="viewcode-block" id="ClusterClient.remote_info"><a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.remote_info">[docs]</a>    <span class="nd">@query_params</span><span class="p">()</span>
     <span class="k">def</span> <span class="nf">remote_info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the information about configured remote clusters.</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -348,7 +348,7 @@
 
 <div class="viewcode-block" id="ClusterClient.allocation_explain"><a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.allocation_explain">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;include_disk_info&quot;</span><span class="p">,</span> <span class="s2">&quot;include_yes_decisions&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">allocation_explain</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Provides explanations for shard allocations in the cluster.</span>
 
 
@@ -369,7 +369,7 @@
 
 <div class="viewcode-block" id="ClusterClient.delete_component_template"><a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.delete_component_template">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;timeout&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">delete_component_template</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Deletes a component template</span>
 
 
@@ -390,7 +390,7 @@
 
 <div class="viewcode-block" id="ClusterClient.get_component_template"><a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.get_component_template">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;local&quot;</span><span class="p">,</span> <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">get_component_template</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns one or more component templates</span>
 
 
@@ -411,7 +411,7 @@
 
 <div class="viewcode-block" id="ClusterClient.put_component_template"><a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.put_component_template">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;create&quot;</span><span class="p">,</span> <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;timeout&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">put_component_template</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Creates or updates a component template</span>
 
 
@@ -437,7 +437,7 @@
 
 <div class="viewcode-block" id="ClusterClient.exists_component_template"><a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.exists_component_template">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;local&quot;</span><span class="p">,</span> <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">exists_component_template</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns information about whether a particular component template exist</span>
 
 
@@ -461,7 +461,7 @@
 
 <div class="viewcode-block" id="ClusterClient.delete_voting_config_exclusions"><a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.delete_voting_config_exclusions">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;wait_for_removal&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">delete_voting_config_exclusions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Clears cluster voting config exclusions.</span>
 
 
@@ -478,7 +478,7 @@
 
 <div class="viewcode-block" id="ClusterClient.post_voting_config_exclusions"><a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.post_voting_config_exclusions">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;node_ids&quot;</span><span class="p">,</span> <span class="s2">&quot;node_names&quot;</span><span class="p">,</span> <span class="s2">&quot;timeout&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">post_voting_config_exclusions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Updates the cluster voting config exclusions by node ids or node names.</span>
 
 

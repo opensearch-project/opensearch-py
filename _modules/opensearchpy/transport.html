@@ -118,7 +118,7 @@
 
 
 <span class="k">def</span> <span class="nf">get_host_info</span><span class="p">(</span><span class="n">node_info</span><span class="p">,</span> <span class="n">host</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Simple callback that takes the node info from `/_cluster/nodes` and a</span>
 <span class="sd">    parsed connection information and return the connection information. If</span>
 <span class="sd">    `None` is returned this node will be skipped.</span>
@@ -138,7 +138,7 @@
 
 
 <div class="viewcode-block" id="Transport"><a class="viewcode-back" href="../../api-ref/transport.html#opensearchpy.Transport">[docs]</a><span class="k">class</span> <span class="nc">Transport</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Encapsulation of transport-related to logic. Handles instantiation of the</span>
 <span class="sd">    individual connections as well as creating a connection pool to hold them.</span>
 
@@ -166,7 +166,7 @@
         <span class="n">send_get_body_as</span><span class="o">=</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span>
         <span class="o">**</span><span class="n">kwargs</span>
     <span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        :arg hosts: list of dictionaries, each containing keyword arguments to</span>
 <span class="sd">            create a `connection_class` instance</span>
 <span class="sd">        :arg connection_class: subclass of :class:`~opensearchpy.Connection` to use</span>
@@ -259,7 +259,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">sniff_hosts</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
 
 <div class="viewcode-block" id="Transport.add_connection"><a class="viewcode-back" href="../../api-ref/transport.html#opensearchpy.Transport.add_connection">[docs]</a>    <span class="k">def</span> <span class="nf">add_connection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">host</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Create a new :class:`~opensearchpy.Connection` instance and add it to the pool.</span>
 
 <span class="sd">        :arg host: kwargs that will be used to create the instance</span>
@@ -268,7 +268,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">set_connections</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">hosts</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Transport.set_connections"><a class="viewcode-back" href="../../api-ref/transport.html#opensearchpy.Transport.set_connections">[docs]</a>    <span class="k">def</span> <span class="nf">set_connections</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">hosts</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Instantiate all the connections and create new connection pool to hold them.</span>
 <span class="sd">        Tries to identify unchanged hosts and re-use existing</span>
 <span class="sd">        :class:`~opensearchpy.Connection` instances.</span>
@@ -302,7 +302,7 @@
             <span class="p">)</span></div>
 
 <div class="viewcode-block" id="Transport.get_connection"><a class="viewcode-back" href="../../api-ref/transport.html#opensearchpy.Transport.get_connection">[docs]</a>    <span class="k">def</span> <span class="nf">get_connection</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Retrieve a :class:`~opensearchpy.Connection` instance from the</span>
 <span class="sd">        :class:`~opensearchpy.ConnectionPool` instance.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -312,7 +312,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">connection_pool</span><span class="o">.</span><span class="n">get_connection</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="Transport._get_sniff_data"><a class="viewcode-back" href="../../api-ref/transport.html#opensearchpy.Transport._get_sniff_data">[docs]</a>    <span class="k">def</span> <span class="nf">_get_sniff_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">initial</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Perform the request to get sniffing information. Returns a list of</span>
 <span class="sd">        dictionaries (one per node) containing all the information from the</span>
 <span class="sd">        cluster.</span>
@@ -381,7 +381,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">host_info_callback</span><span class="p">(</span><span class="n">host_info</span><span class="p">,</span> <span class="n">host</span><span class="p">)</span>
 
 <div class="viewcode-block" id="Transport.sniff_hosts"><a class="viewcode-back" href="../../api-ref/transport.html#opensearchpy.Transport.sniff_hosts">[docs]</a>    <span class="k">def</span> <span class="nf">sniff_hosts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">initial</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Obtain a list of nodes from the cluster and create a new connection</span>
 <span class="sd">        pool using the information retrieved.</span>
 
@@ -404,7 +404,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">set_connections</span><span class="p">(</span><span class="n">hosts</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Transport.mark_dead"><a class="viewcode-back" href="../../api-ref/transport.html#opensearchpy.Transport.mark_dead">[docs]</a>    <span class="k">def</span> <span class="nf">mark_dead</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">connection</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Mark a connection as dead (failed) in the connection pool. If sniffing</span>
 <span class="sd">        on failure is enabled this will initiate the sniffing process.</span>
 
@@ -416,7 +416,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">sniff_hosts</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="Transport.perform_request"><a class="viewcode-back" href="../../api-ref/transport.html#opensearchpy.Transport.perform_request">[docs]</a>    <span class="k">def</span> <span class="nf">perform_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Perform the actual request. Retrieve a connection from the connection</span>
 <span class="sd">        pool, pass all the information to it&#39;s perform_request method and</span>
 <span class="sd">        return the data.</span>
@@ -499,13 +499,13 @@
                 <span class="k">return</span> <span class="n">data</span></div>
 
 <div class="viewcode-block" id="Transport.close"><a class="viewcode-back" href="../../api-ref/transport.html#opensearchpy.Transport.close">[docs]</a>    <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Explicitly closes connections</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">connection_pool</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="Transport._resolve_request_args"><a class="viewcode-back" href="../../api-ref/transport.html#opensearchpy.Transport._resolve_request_args">[docs]</a>    <span class="k">def</span> <span class="nf">_resolve_request_args</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">body</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Resolves parameters for .perform_request()&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Resolves parameters for .perform_request()&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">body</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">body</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">serializer</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">body</span><span class="p">)</span>
 

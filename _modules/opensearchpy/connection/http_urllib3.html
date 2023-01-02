@@ -128,7 +128,7 @@
 
 
 <span class="k">def</span> <span class="nf">create_ssl_context</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A helper function around creating an SSL context</span>
 
 <span class="sd">    https://docs.python.org/3/library/ssl.html#context-creation</span>
@@ -140,7 +140,7 @@
 
 
 <div class="viewcode-block" id="Urllib3HttpConnection"><a class="viewcode-back" href="../../../api-ref/connection.html#opensearchpy.Urllib3HttpConnection">[docs]</a><span class="k">class</span> <span class="nc">Urllib3HttpConnection</span><span class="p">(</span><span class="n">Connection</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Default connection class using the `urllib3` library and the http protocol.</span>
 
 <span class="sd">    :arg host: hostname of the node (default: localhost)</span>
@@ -357,7 +357,7 @@
         <span class="k">return</span> <span class="p">{</span><span class="n">header</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span> <span class="n">value</span> <span class="k">for</span> <span class="n">header</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">response</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
 
 <div class="viewcode-block" id="Urllib3HttpConnection.close"><a class="viewcode-back" href="../../../api-ref/connection.html#opensearchpy.Urllib3HttpConnection.close">[docs]</a>    <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Explicitly closes connection</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">pool</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div></div>
