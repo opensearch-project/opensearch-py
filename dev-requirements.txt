@@ -3,7 +3,7 @@ pytest
 pytest-cov
 coverage
 mock
-sphinx<1.7
+sphinx<6.1
 sphinx_rtd_theme
 jinja2
 
