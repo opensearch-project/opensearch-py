@@ -38,10 +38,7 @@ from ..exceptions import (
     TransportError,
 )
 from ..serializer import JSONSerializer
-from ..transport import (
-    get_host_info,
-    Transport, 
-)
+from ..transport import Transport, get_host_info
 from .compat import get_running_loop
 from .http_aiohttp import AIOHttpConnection
 
