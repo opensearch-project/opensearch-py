@@ -26,6 +26,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - Updated getting started to user guide ([#233](https://github.com/opensearch-project/opensearch-py/pull/233))
 - Updated CA certificate handling to check OpenSSL environment variables before defaulting to certifi ([#196](https://github.com/opensearch-project/opensearch-py/pull/196))
 - Updates `master` to `cluster_manager` to be inclusive ([#242](https://github.com/opensearch-project/opensearch-py/pull/242))
+- Updates the service name in SigV4 signing to allow users to specify custom input ([#268](https://github.com/opensearch-project/opensearch-py/pull/268))
 ### Deprecated
 
 ### Removed
