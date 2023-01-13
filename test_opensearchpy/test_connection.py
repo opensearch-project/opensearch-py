@@ -328,7 +328,6 @@ class TestUrllib3Connection(TestCase):
         con = RequestsHttpConnection(http_auth=auth)
         prepared_request = requests.Request("GET", "http://localhost").prepare()
         auth(prepared_request)
-        prepared_request.headers["Content-Length"] = "0"
         self.assertEqual(auth, con.session.auth)
         self.assertIn("Authorization", prepared_request.headers)
         self.assertIn("X-Amz-Date", prepared_request.headers)

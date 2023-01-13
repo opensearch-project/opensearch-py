@@ -29,7 +29,6 @@ class TestAsyncSigner(TestCase):
 
         auth = AWSV4SignerAsyncAuth(self.mock_session(), region)
         headers = auth("GET", "http://localhost")
-        headers["Content-Length"] = "0"
         self.assertIn("Authorization", headers)
         self.assertIn("X-Amz-Date", headers)
         self.assertIn("X-Amz-Security-Token", headers)
