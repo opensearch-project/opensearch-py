@@ -86,17 +86,20 @@ class AWSV4SignerAuth(requests.auth.AuthBase):
             data=prepared_request.body,
         )
 
-        if hasattr(prepared_request, 'body') and prepared_request.body is not None:
-            if hasattr(prepared_request.body, 'read'):
+        if hasattr(prepared_request, "body") and prepared_request.body is not None:
+            if hasattr(prepared_request.body, "read"):
                 prepared_request.body = prepared_request.body.read()
             self.encode_body(prepared_request)
             content_hash = hashlib.sha256(prepared_request.body)
-        elif hasattr(prepared_request, 'content') and prepared_request.content is not None:
+        elif (
+            hasattr(prepared_request, "content")
+            and prepared_request.content is not None
+        ):
             content_hash = hashlib.sha256(prepared_request.content)
         else:
-            content_hash = hashlib.sha256(b'')
+            content_hash = hashlib.sha256(b"")
 
-        prepared_request.headers['x-amz-content-sha256'] = content_hash.hexdigest()
+        prepared_request.headers["x-amz-content-sha256"] = content_hash.hexdigest()
 
         sig_v4_auth = SigV4Auth(self.credentials, self.service, self.region)
         sig_v4_auth.add_auth(aws_request)
@@ -104,23 +107,23 @@ class AWSV4SignerAuth(requests.auth.AuthBase):
         # copy the headers from AWS request object into the prepared_request
         prepared_request.headers.update(dict(aws_request.headers.items()))
 
-        del prepared_request.headers['Content-Length']
+        del prepared_request.headers["Content-Length"]
 
         return prepared_request
-    
+
     # inspired by https://github.com/tedder/requests-aws4auth
     @staticmethod
     def encode_body(req):
         if isinstance(req.body, text_type):
-            split = req.headers.get('content-type', 'text/plain').split(';')
+            split = req.headers.get("content-type", "text/plain").split(";")
             if len(split) == 2:
                 ct, cs = split
-                cs = cs.split('=')[1]
+                cs = cs.split("=")[1]
                 req.body = req.body.encode(cs)
             else:
                 ct = split[0]
-                if (ct == 'application/x-www-form-urlencoded' or 'x-amz-' in ct):
+                if ct == "application/x-www-form-urlencoded" or "x-amz-" in ct:
                     req.body = req.body.encode()
                 else:
-                    req.body = req.body.encode('utf-8')
-                    req.headers['content-type'] = ct + '; charset=utf-8'
+                    req.body = req.body.encode("utf-8")
+                    req.headers["content-type"] = ct + "; charset=utf-8"
