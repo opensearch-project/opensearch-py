@@ -57,7 +57,7 @@ def format(session):
 
 @nox.session()
 def lint(session):
-    session.install("flake8", "black", "mypy", "isort", "types-requests")
+    session.install("flake8", "black", "mypy", "isort", "types-requests", "types-six")
 
     session.run("isort", "--check", "--profile=black", *SOURCE_FILES)
     session.run("black", "--target-version=py33", "--check", *SOURCE_FILES)

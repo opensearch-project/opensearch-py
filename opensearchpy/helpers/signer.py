@@ -89,7 +89,7 @@ class AWSV4SignerAuth(requests.auth.AuthBase):
         if hasattr(prepared_request, "body") and prepared_request.body is not None:
             if hasattr(prepared_request.body, "read"):
                 prepared_request.body = prepared_request.body.read()
-            self.encode_body(prepared_request)
+            self.encode_body(prepared_request)  # type: ignore
             content_hash = hashlib.sha256(prepared_request.body)
         elif (
             hasattr(prepared_request, "content")
@@ -113,7 +113,7 @@ class AWSV4SignerAuth(requests.auth.AuthBase):
 
     # inspired by https://github.com/tedder/requests-aws4auth
     @staticmethod
-    def encode_body(req):
+    def encode_body(req):  # type: ignore
         if isinstance(req.body, text_type):
             split = req.headers.get("content-type", "text/plain").split(";")
             if len(split) == 2:
