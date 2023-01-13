@@ -68,7 +68,7 @@ class AWSV4SignerAsyncAuth:
         sig_v4_auth = SigV4Auth(self.credentials, self.service, self.region)
         sig_v4_auth.add_auth(aws_request)
 
-        if "Content-Length" in aws_request.headers():
+        if "Content-Length" in aws_request.headers:
             del aws_request.headers["Content-Length"]
 
         # copy the headers from AWS request object into the prepared_request

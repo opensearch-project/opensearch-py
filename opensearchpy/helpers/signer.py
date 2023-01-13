@@ -107,7 +107,7 @@ class AWSV4SignerAuth(requests.auth.AuthBase):
         # copy the headers from AWS request object into the prepared_request
         prepared_request.headers.update(dict(aws_request.headers.items()))
 
-        if "Content-Length" in prepared_request.headers():
+        if "Content-Length" in prepared_request.headers:
             del prepared_request.headers["Content-Length"]
 
         return prepared_request
