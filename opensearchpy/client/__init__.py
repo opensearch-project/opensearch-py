@@ -310,13 +310,14 @@ class OpenSearch(object):
         "version_type",
         "wait_for_active_shards",
     )
-    def index(self, index, body, id=None, params=None, headers=None):
+    def index(self, index, body, doc_type="_doc", id=None, params=None, headers=None):
         """
         Creates or overwrites a document in an index.
 
 
         :arg index: The name of the index
         :arg body: The document
+        :arg doc_type: The document type
         :arg id: Document ID
         :arg if_primary_term: only perform the index operation if the
             last operation that has changed the document has the specified primary
@@ -349,8 +350,6 @@ class OpenSearch(object):
         for param in (index, body):
             if param in SKIP_IN_PATH:
                 raise ValueError("Empty value passed for a required argument.")
-
-        doc_type = "_doc"
 
         return self.transport.perform_request(
             "POST" if id in SKIP_IN_PATH else "PUT",
