@@ -407,7 +407,7 @@ import boto3
 
 host = '' # cluster endpoint, for example: my-test-domain.us-east-1.es.amazonaws.com
 region = 'us-west-2'
-service = 'es' # 'aoss' for OpenSearch serverless
+service = 'es' # 'aoss' for OpenSearch Serverless
 credentials = boto3.Session().get_credentials()
 auth = AWSV4SignerAuth(credentials, region, service)
 index_name = 'python-test-index3'
@@ -451,7 +451,7 @@ import boto3
 
 host = '' # cluster endpoint, for example: my-test-domain.us-east-1.es.amazonaws.com
 region = 'us-west-2'
-service = 'es' # 'aoss' for OpenSearch serverless
+service = 'es' # 'aoss' for OpenSearch Serverless
 credentials = boto3.Session().get_credentials()
 auth = AWSV4SignerAsyncAuth(credentials, region, service)
 index_name = 'python-test-index3'
