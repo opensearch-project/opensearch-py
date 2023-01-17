@@ -10,7 +10,6 @@
 import sys
 
 import requests
-from six import text_type
 
 PY3 = sys.version_info[0] == 3
 
@@ -72,8 +71,6 @@ class AWSV4SignerAuth(requests.auth.AuthBase):
         :return: signed request
         """
 
-        import hashlib
-
         from botocore.auth import SigV4Auth
         from botocore.awsrequest import AWSRequest
 
@@ -83,23 +80,7 @@ class AWSV4SignerAuth(requests.auth.AuthBase):
         aws_request = AWSRequest(
             method=prepared_request.method.upper(),
             url=url,
-            data=prepared_request.body,
         )
-
-        if hasattr(prepared_request, "body") and prepared_request.body is not None:
-            if hasattr(prepared_request.body, "read"):
-                prepared_request.body = prepared_request.body.read()
-            self.encode_body(prepared_request)  # type: ignore
-            content_hash = hashlib.sha256(prepared_request.body)
-        elif (
-            hasattr(prepared_request, "content")
-            and prepared_request.content is not None
-        ):
-            content_hash = hashlib.sha256(prepared_request.content)
-        else:
-            content_hash = hashlib.sha256(b"")
-
-        prepared_request.headers["x-amz-content-sha256"] = content_hash.hexdigest()
 
         sig_v4_auth = SigV4Auth(self.credentials, self.service, self.region)
         sig_v4_auth.add_auth(aws_request)
@@ -111,20 +92,3 @@ class AWSV4SignerAuth(requests.auth.AuthBase):
             del prepared_request.headers["Content-Length"]
 
         return prepared_request
-
-    # inspired by https://github.com/tedder/requests-aws4auth
-    @staticmethod
-    def encode_body(req):  # type: ignore
-        if isinstance(req.body, text_type):
-            split = req.headers.get("content-type", "text/plain").split(";")
-            if len(split) == 2:
-                ct, cs = split
-                cs = cs.split("=")[1]
-                req.body = req.body.encode(cs)
-            else:
-                ct = split[0]
-                if ct == "application/x-www-form-urlencoded" or "x-amz-" in ct:
-                    req.body = req.body.encode()
-                else:
-                    req.body = req.body.encode("utf-8")
-                    req.headers["content-type"] = ct + "; charset=utf-8"
