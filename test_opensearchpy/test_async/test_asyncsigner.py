@@ -63,3 +63,18 @@ class TestAsyncSigner(TestCase):
 
         with pytest.raises(ValueError) as e:
             assert str(e.value) == "Credentials cannot be empty"
+
+    @pytest.mark.skipif(
+        sys.version_info < (3, 6), reason="AWSV4SignerAsyncAuth requires python3.6+"
+    )
+    async def test_aws_signer_async_when_service_is_specified(self):
+        region = "us-west-2"
+        service = "aoss"
+
+        from opensearchpy.helpers.asyncsigner import AWSV4SignerAsyncAuth
+
+        auth = AWSV4SignerAsyncAuth(self.mock_session(), region, service)
+        headers = auth("GET", "http://localhost")
+        self.assertIn("Authorization", headers)
+        self.assertIn("X-Amz-Date", headers)
+        self.assertIn("X-Amz-Security-Token", headers)
