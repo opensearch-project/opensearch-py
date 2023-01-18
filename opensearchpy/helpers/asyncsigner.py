@@ -26,7 +26,7 @@ class AWSV4SignerAsyncAuth:
             raise ValueError("Region cannot be empty")
         self.region = region
 
-        if not region:
+        if not service:
             raise ValueError("Service name cannot be empty")
         self.service = service
 
