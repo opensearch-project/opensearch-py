@@ -445,7 +445,7 @@ print(response)
 Make sure to use the `AsyncHttpConnection` connection class with the async `AWSV4SignerAsyncAuth` signer.
 
 ```python
-from opensearchpy import OpenSearch, AsyncHttpConnection, AWSV4SignerAsyncAuth
+from opensearchpy import AsyncOpenSearch, AsyncHttpConnection, AWSV4SignerAsyncAuth
 import boto3
 
 host = '' # cluster endpoint, for example: my-test-domain.us-east-1.es.amazonaws.com
@@ -454,7 +454,7 @@ credentials = boto3.Session().get_credentials()
 auth = AWSV4SignerAsyncAuth(credentials, region)
 index_name = 'python-test-index3'
 
-client = OpenSearch(
+client = AsyncOpenSearch(
     hosts = [{'host': host, 'port': 443}],
     http_auth = auth,
     use_ssl = True,

@@ -13,6 +13,32 @@ OPENSEARCH_SERVICE = "es"
 
 PY3 = sys.version_info[0] == 3
 
+if PY3:
+    from urllib.parse import parse_qs, urlencode, urlparse
+
+
+def sanitise_url(url, host):  # type: ignore
+    """
+    This is a util method that helps in reconstructing the request url.
+    :param url
+    :param query_string
+    :param host
+    :return: reconstructed url
+    """
+    url = urlparse(url)
+    path = url.path or "/"
+
+    querystring = ""
+    if url.query:
+        querystring = "?" + urlencode(
+            parse_qs(url.query, keep_blank_values=True), doseq=True
+        )
+
+    location = host or url.netloc
+
+    # construct the url and return
+    return location + path + querystring
+
 
 class AWSV4SignerAsyncAuth:
     """
@@ -28,10 +54,10 @@ class AWSV4SignerAsyncAuth:
             raise ValueError("Region cannot be empty")
         self.region = region
 
-    def __call__(self, method, url, query_string, body):  # type: ignore
-        return self._sign_request(method, url, query_string, body)  # type: ignore
+    def __call__(self, method, url, body, host):  # type: ignore
+        return self._sign_request(method, url, body, host)  # type: ignore
 
-    def _sign_request(self, method, url, query_string, body):
+    def _sign_request(self, method, url, body, host):
         """
         This method helps in signing the request by injecting the required headers.
         :param prepared_request: unsigned headers
@@ -40,11 +66,12 @@ class AWSV4SignerAsyncAuth:
         from botocore.auth import SigV4Auth
         from botocore.awsrequest import AWSRequest
 
+        url = sanitise_url(url, host)
+
         # create an AWS request object and sign it using SigV4Auth
-        print("".join([url, query_string]))
         aws_request = AWSRequest(
             method=method,
-            url="".join([url, query_string]),
+            url=url,
             data=body,
         )
         sig_v4_auth = SigV4Auth(self.credentials, OPENSEARCH_SERVICE, self.region)

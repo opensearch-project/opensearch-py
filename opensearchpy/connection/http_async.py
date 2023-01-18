@@ -191,7 +191,7 @@ class AsyncHttpConnection(AIOHttpConnection):
 
         req_headers = {
             **req_headers,
-            **self._http_auth(method, url, query_string, body),
+            **self._http_auth(method, url, body, self.host),
         }
 
         start = self.loop.time()
