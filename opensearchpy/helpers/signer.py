@@ -11,8 +11,6 @@ import sys
 
 import requests
 
-OPENSEARCH_SERVICE = "es"
-
 PY3 = sys.version_info[0] == 3
 
 if PY3:
@@ -50,7 +48,7 @@ class AWSV4SignerAuth(requests.auth.AuthBase):
     AWS V4 Request Signer for Requests.
     """
 
-    def __init__(self, credentials, region):  # type: ignore
+    def __init__(self, credentials, region, service="es"):  # type: ignore
         if not credentials:
             raise ValueError("Credentials cannot be empty")
         self.credentials = credentials
@@ -58,6 +56,10 @@ class AWSV4SignerAuth(requests.auth.AuthBase):
         if not region:
             raise ValueError("Region cannot be empty")
         self.region = region
+
+        if not service:
+            raise ValueError("Service name cannot be empty")
+        self.service = service
 
     def __call__(self, request):  # type: ignore
         return self._sign_request(request)  # type: ignore
@@ -78,9 +80,9 @@ class AWSV4SignerAuth(requests.auth.AuthBase):
         aws_request = AWSRequest(
             method=prepared_request.method.upper(),
             url=url,
-            data=prepared_request.body,
         )
-        sig_v4_auth = SigV4Auth(self.credentials, OPENSEARCH_SERVICE, self.region)
+
+        sig_v4_auth = SigV4Auth(self.credentials, self.service, self.region)
         sig_v4_auth.add_auth(aws_request)
 
         # copy the headers from AWS request object into the prepared_request
