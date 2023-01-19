@@ -74,6 +74,8 @@ class AIOHttpConnection(AsyncConnection):
         self,
         host="localhost",
         port=None,
+        url_prefix="",
+        timeout=10,
         http_auth=None,
         use_ssl=False,
         verify_certs=VERIFY_CERTS_DEFAULT,
@@ -130,6 +132,8 @@ class AIOHttpConnection(AsyncConnection):
         super().__init__(
             host=host,
             port=port,
+            url_prefix=url_prefix,
+            timeout=timeout,
             use_ssl=use_ssl,
             headers=headers,
             http_compress=http_compress,

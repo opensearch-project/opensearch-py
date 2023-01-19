@@ -22,6 +22,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - Add release workflows ([#240](https://github.com/opensearch-project/opensearch-py/pull/240))
 - Added SigV4 support for Async Opensearch Client ([#254](https://github.com/opensearch-project/opensearch-py/pull/254))
 - Compatibility with OpenSearch 2.1.0 - 2.4.1 ([#257](https://github.com/opensearch-project/opensearch-py/pull/257))
+- Adding explicit parameters for AIOHttpConnection and AsyncTransport ([#276](https://github.com/opensearch-project/opensearch-py/pull/276))
 ### Changed
 - Updated getting started to user guide ([#233](https://github.com/opensearch-project/opensearch-py/pull/233))
 - Updated CA certificate handling to check OpenSSL environment variables before defaulting to certifi ([#196](https://github.com/opensearch-project/opensearch-py/pull/196))
