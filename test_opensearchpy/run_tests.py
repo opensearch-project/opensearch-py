@@ -113,15 +113,13 @@ def run_all(argv=None):
         if sys.version_info < (3, 6):
             ignores.append("test_opensearchpy/test_async/")
 
-        # GitHub Actions, run non-server tests
-        if "GITHUB_ACTION" in environ:
-            ignores.extend(
-                [
-                    "test_opensearchpy/test_server/",
-                    "test_opensearchpy/test_server_secured/",
-                    "test_opensearchpy/test_async/test_server/",
-                ]
-            )
+        ignores.extend(
+            [
+                "test_opensearchpy/test_server/",
+                "test_opensearchpy/test_server_secured/",
+                "test_opensearchpy/test_async/test_server/",
+            ]
+        )
 
         # Jenkins/Github actions, only run server tests
         if environ.get("TEST_TYPE") == "server":
