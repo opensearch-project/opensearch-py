@@ -9,8 +9,6 @@
 
 import sys
 
-OPENSEARCH_SERVICE = "es"
-
 PY3 = sys.version_info[0] == 3
 
 if PY3:
@@ -45,7 +43,7 @@ class AWSV4SignerAsyncAuth:
     AWS V4 Request Signer for Async Requests.
     """
 
-    def __init__(self, credentials, region):  # type: ignore
+    def __init__(self, credentials, region, service="es"):  # type: ignore
         if not credentials:
             raise ValueError("Credentials cannot be empty")
         self.credentials = credentials
@@ -56,6 +54,10 @@ class AWSV4SignerAsyncAuth:
 
     def __call__(self, method, url, body, host):  # type: ignore
         return self._sign_request(method, url, body, host)  # type: ignore
+        
+        if not service:
+            raise ValueError("Service name cannot be empty")
+        self.service = service
 
     def _sign_request(self, method, url, body, host):
         """
@@ -63,6 +65,7 @@ class AWSV4SignerAsyncAuth:
         :param prepared_request: unsigned headers
         :return: signed headers
         """
+
         from botocore.auth import SigV4Auth
         from botocore.awsrequest import AWSRequest
 
@@ -72,9 +75,9 @@ class AWSV4SignerAsyncAuth:
         aws_request = AWSRequest(
             method=method,
             url=url,
-            data=body,
         )
-        sig_v4_auth = SigV4Auth(self.credentials, OPENSEARCH_SERVICE, self.region)
+
+        sig_v4_auth = SigV4Auth(self.credentials, self.service, self.region)
         sig_v4_auth.add_auth(aws_request)
 
         # copy the headers from AWS request object into the prepared_request

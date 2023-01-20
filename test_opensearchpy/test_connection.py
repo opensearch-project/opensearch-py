@@ -333,6 +333,9 @@ class TestUrllib3Connection(TestCase):
         self.assertIn("X-Amz-Date", prepared_request.headers)
         self.assertIn("X-Amz-Security-Token", prepared_request.headers)
 
+    @pytest.mark.skipif(
+        sys.version_info < (3, 6), reason="AWSV4SignerAuth requires python3.6+"
+    )
     def test_aws_signer_when_region_is_null(self):
         session = self.mock_session()
 
@@ -346,6 +349,9 @@ class TestUrllib3Connection(TestCase):
             AWSV4SignerAuth(session, "")
         assert str(e.value) == "Region cannot be empty"
 
+    @pytest.mark.skipif(
+        sys.version_info < (3, 6), reason="AWSV4SignerAuth requires python3.6+"
+    )
     def test_aws_signer_when_credentials_is_null(self):
         region = "us-west-1"
 
@@ -358,6 +364,26 @@ class TestUrllib3Connection(TestCase):
         with pytest.raises(ValueError) as e:
             AWSV4SignerAuth("", region)
         assert str(e.value) == "Credentials cannot be empty"
+
+    @pytest.mark.skipif(
+        sys.version_info < (3, 6), reason="AWSV4SignerAuth requires python3.6+"
+    )
+    def test_aws_signer_when_service_is_specified(self):
+        region = "us-west-1"
+        service = "aoss"
+
+        import requests
+
+        from opensearchpy.helpers.signer import AWSV4SignerAuth
+
+        auth = AWSV4SignerAuth(self.mock_session(), region, service)
+        con = RequestsHttpConnection(http_auth=auth)
+        prepared_request = requests.Request("GET", "http://localhost").prepare()
+        auth(prepared_request)
+        self.assertEqual(auth, con.session.auth)
+        self.assertIn("Authorization", prepared_request.headers)
+        self.assertIn("X-Amz-Date", prepared_request.headers)
+        self.assertIn("X-Amz-Security-Token", prepared_request.headers)
 
     def mock_session(self):
         access_key = uuid.uuid4().hex
