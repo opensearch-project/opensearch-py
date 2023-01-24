@@ -46,11 +46,13 @@ class AWSV4SignerAsyncAuth:
         # create an AWS request object and sign it using SigV4Auth
         aws_request = AWSRequest(
             method=method,
-            url="".join([url, query_string]),
+            url=url,
+            data=body,
         )
 
         sig_v4_auth = SigV4Auth(self.credentials, self.service, self.region)
         sig_v4_auth.add_auth(aws_request)
+        aws_request.headers["X-Amz-Content-SHA256"] = sig_v4_auth.payload(aws_request)
 
         # copy the headers from AWS request object into the prepared_request
         return dict(aws_request.headers.items())

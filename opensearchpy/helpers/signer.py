@@ -80,6 +80,7 @@ class AWSV4SignerAuth(requests.auth.AuthBase):
         aws_request = AWSRequest(
             method=prepared_request.method.upper(),
             url=url,
+            data=prepared_request.body,
         )
 
         sig_v4_auth = SigV4Auth(self.credentials, self.service, self.region)
@@ -87,5 +88,8 @@ class AWSV4SignerAuth(requests.auth.AuthBase):
 
         # copy the headers from AWS request object into the prepared_request
         prepared_request.headers.update(dict(aws_request.headers.items()))
+        prepared_request.headers["X-Amz-Content-SHA256"] = sig_v4_auth.payload(
+            aws_request
+        )
 
         return prepared_request
