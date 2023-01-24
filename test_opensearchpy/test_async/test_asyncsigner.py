@@ -78,3 +78,4 @@ class TestAsyncSigner(TestCase):
         self.assertIn("Authorization", headers)
         self.assertIn("X-Amz-Date", headers)
         self.assertIn("X-Amz-Security-Token", headers)
+        self.assertIn("X-Amz-Content-SHA256", headers)

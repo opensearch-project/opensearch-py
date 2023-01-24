@@ -332,6 +332,7 @@ class TestUrllib3Connection(TestCase):
         self.assertIn("Authorization", prepared_request.headers)
         self.assertIn("X-Amz-Date", prepared_request.headers)
         self.assertIn("X-Amz-Security-Token", prepared_request.headers)
+        self.assertIn("X-Amz-Content-SHA256", prepared_request.headers)
 
     @pytest.mark.skipif(
         sys.version_info < (3, 6), reason="AWSV4SignerAuth requires python3.6+"
