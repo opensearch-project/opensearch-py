@@ -33,12 +33,14 @@ To add the client to your project, install it using [pip](https://pip.pypa.io/):
 
 ```bash
 pip install opensearch-py
+pip install opensearch-py[async] # to include async client
 ```
 
 Then import it like any other module:
 
 ```python
 from opensearchpy import OpenSearch
+from opensearchpy import AsyncOpenSearch # or with async
 ```
 
 If you prefer to add the client manually or just want to examine the source code, see [opensearch-py on GitHub](https://github.com/opensearch-project/opensearch-py).
