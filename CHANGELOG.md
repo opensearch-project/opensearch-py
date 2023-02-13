@@ -1,15 +1,23 @@
 # CHANGELOG
 Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
-## [Unreleased]
+## [2.1.1]
 ### Added
 ### Changed
 ### Deprecated
-
 ### Removed
-
 ### Fixed
+- Fixed SigV4 Signing for Managed Service ([#279](https://github.com/opensearch-project/opensearch-py/pull/279))
+- Fixed SigV4 Signing for Async Requests with QueryStrings ([#272](https://github.com/opensearch-project/opensearch-py/pull/279))
+### Security
 
+## [2.1.0]
+### Added
+- Added Support for AOSS ([#268](https://github.com/opensearch-project/opensearch-py/pull/268))
+### Changed
+### Deprecated
+### Removed
+### Fixed
 ### Security
 
 ## [2.0.1]
@@ -23,6 +31,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - Added SigV4 support for Async Opensearch Client ([#254](https://github.com/opensearch-project/opensearch-py/pull/254))
 - Compatibility with OpenSearch 2.1.0 - 2.4.1 ([#257](https://github.com/opensearch-project/opensearch-py/pull/257))
 - Adding explicit parameters for AIOHttpConnection and AsyncTransport ([#276](https://github.com/opensearch-project/opensearch-py/pull/276))
+- Merging opensearch-dsl-py into opensearch-py ([#280](https://github.com/opensearch-project/opensearch-py/pull/280))
 ### Changed
 - Updated getting started to user guide ([#233](https://github.com/opensearch-project/opensearch-py/pull/233))
 - Updated CA certificate handling to check OpenSSL environment variables before defaulting to certifi ([#196](https://github.com/opensearch-project/opensearch-py/pull/196))

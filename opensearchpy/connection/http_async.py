@@ -8,6 +8,7 @@
 # GitHub history for details.
 #
 
+
 import asyncio
 import os
 import ssl
@@ -196,7 +197,6 @@ class AsyncHttpConnection(AIOHttpConnection):
 
         start = self.loop.time()
         try:
-
             async with self.session.request(
                 method,
                 url,

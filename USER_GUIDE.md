@@ -11,6 +11,8 @@
     - [Deleting an index](#deleting-an-index)
   - [Making API calls](#making-api-calls)
     - [Point in time API](#point-in-time-api)
+  - [Using High-level Python client](#using-high-level-python-client)
+    - [Searching for documents with filters](#searching-for-documents-with-filters)
   - [Using plugins](#using-plugins)
     - [Alerting plugin](#alerting-plugin)
       - [**Searching for monitors**](#searching-for-monitors)
@@ -226,6 +228,33 @@ response = client.delete_point_in_time(body=pit_body)
 
 print('\n The deleted point in time:')
 print(response)
+```
+
+## Using High-level Python client
+High-level python client is now merged into Low-level python client. Thus, opensearch-py supports creating and indexing documents, searching with and without filters, and updating documents using queries.[High-level Python client documentation](https://opensearch.org/docs/latest/clients/python-high-level/).
+
+### Searching for documents with filters
+
+```python
+from opensearchpy import OpenSearch, Search
+
+    # Use the above mentioned examples for creating client. 
+    # Then,create an index
+    # Add a document to the index.
+
+    # Search for the document.
+    s = Search(using=client, index=index_name) \
+        .filter("term", category="search") \
+        .query("match", title="python")
+
+    response = s.execute()
+
+    print('\nSearch results:')
+    for hit in response:
+        print(hit.meta.score, hit.title)
+
+    # Delete the document.
+    # Delete the index.
 ```
 
 ## Using plugins
@@ -486,7 +515,7 @@ async def search():
 
 search()
 ```
-=======
+
 ### Using Kerberos
 
 There are several python packages that provide Kerberos support over HTTP connections, such as [requests-kerberos](http://pypi.org/project/requests-kerberos) and [requests-gssapi](https://pypi.org/project/requests-gssapi). The following example shows how to setup the authentication. Note that some of the parameters, such as `mutual_authentication` might depend on the server settings.

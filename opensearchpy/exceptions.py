@@ -38,6 +38,12 @@ __all__ = [
     "ConnectionTimeout",
     "AuthenticationException",
     "AuthorizationException",
+    "OpenSearchDslException",
+    "UnknownDslObject",
+    "ValidationException",
+    "IllegalOperation",
+    "OpenSearchWarning",
+    "OpenSearchDeprecationWarning",
 ]
 
 
@@ -161,6 +167,22 @@ class AuthenticationException(TransportError):
 
 class AuthorizationException(TransportError):
     """Exception representing a 403 status code."""
+
+
+class OpenSearchDslException(Exception):
+    """Base class for all OpenSearchDsl exceptions"""
+
+
+class UnknownDslObject(OpenSearchDslException):
+    """Exception representing UnknownDSLObject"""
+
+
+class ValidationException(ValueError, OpenSearchDslException):
+    """Exception representing Validation Error"""
+
+
+class IllegalOperation(OpenSearchDslException):
+    """Exception representing IllegalOperation"""
 
 
 class OpenSearchWarning(Warning):

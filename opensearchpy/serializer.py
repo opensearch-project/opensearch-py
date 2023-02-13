@@ -36,6 +36,7 @@ from decimal import Decimal
 
 from .compat import string_types
 from .exceptions import ImproperlyConfigured, SerializationError
+from .helpers.utils import AttrList
 
 INTEGER_TYPES = ()
 FLOAT_TYPES = (Decimal,)
@@ -194,3 +195,15 @@ class Deserializer(object):
                 )
 
         return deserializer.loads(s)
+
+
+class AttrJSONSerializer(JSONSerializer):
+    def default(self, data):
+        if isinstance(data, AttrList):
+            return data._l_
+        if hasattr(data, "to_dict"):
+            return data.to_dict()
+        return super(AttrJSONSerializer, self).default(data)
+
+
+serializer = AttrJSONSerializer()

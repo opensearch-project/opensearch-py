@@ -280,7 +280,6 @@ def streaming_bulk(
     *args,
     **kwargs
 ):
-
     """
     Streaming bulk consumes actions from the iterable passed in and yields
     results per action. For non-streaming usecases use
@@ -319,7 +318,6 @@ def streaming_bulk(
     for bulk_data, bulk_actions in _chunk_actions(
         actions, chunk_size, max_chunk_bytes, client.transport.serializer
     ):
-
         for attempt in range(max_retries + 1):
             to_retry, to_retry_data = [], []
             if attempt:
@@ -339,7 +337,6 @@ def streaming_bulk(
                         **kwargs
                     ),
                 ):
-
                     if not ok:
                         action, info = info.popitem()
                         # retry if retries enabled, we get 429, and we are not
@@ -621,7 +618,6 @@ def reindex(
     scan_kwargs={},
     bulk_kwargs={},
 ):
-
     """
     Reindex all documents from one index that satisfy a given query
     to another, potentially (if `target_client` is specified) on a different cluster.
