@@ -279,13 +279,14 @@
 
 <span class="sd">        :arg hosts: same as `__init__`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+
         <span class="c1"># construct the connections</span>
         <span class="k">def</span> <span class="nf">_create_connection</span><span class="p">(</span><span class="n">host</span><span class="p">):</span>
             <span class="c1"># if this is not the initial setup look at the existing connection</span>
             <span class="c1"># options and identify connections that haven&#39;t changed and can be</span>
             <span class="c1"># kept around.</span>
             <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;connection_pool&quot;</span><span class="p">):</span>
-                <span class="k">for</span> <span class="p">(</span><span class="n">connection</span><span class="p">,</span> <span class="n">old_host</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">connection_pool</span><span class="o">.</span><span class="n">connection_opts</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">connection</span><span class="p">,</span> <span class="n">old_host</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">connection_pool</span><span class="o">.</span><span class="n">connection_opts</span><span class="p">:</span>
                     <span class="k">if</span> <span class="n">old_host</span> <span class="o">==</span> <span class="n">host</span><span class="p">:</span>
                         <span class="k">return</span> <span class="n">connection</span>
 
