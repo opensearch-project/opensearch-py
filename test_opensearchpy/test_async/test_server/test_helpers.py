@@ -530,7 +530,6 @@ class TestScan(object):
                 ),
             ):
                 with patch.object(async_client, "scroll", MockScroll()):
-
                     data = [
                         x
                         async for x in helpers.async_scan(
@@ -554,7 +553,6 @@ class TestScan(object):
                 ),
             ):
                 with patch.object(async_client, "scroll", MockScroll()) as mock_scroll:
-
                     with pytest.raises(ScanError):
                         data = [
                             x
