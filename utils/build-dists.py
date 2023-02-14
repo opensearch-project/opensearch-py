@@ -85,7 +85,7 @@ def test_dist(dist):
         run(venv_python, "-m", "pip", "install", dist)
 
         # Test the sync namespaces
-        run(venv_python, "-c", f"from {dist_name} import OpenSearch")
+        run(venv_python, "-c", f"from {dist_name} import OpenSearch, Q")
         run(
             venv_python,
             "-c",
@@ -173,7 +173,7 @@ def test_dist(dist):
         run(
             venv_python,
             "-c",
-            f"from {dist_name} import OpenSearch",
+            f"from {dist_name} import OpenSearch,Q",
             expect_exit_code=256,
         )
 
@@ -181,6 +181,7 @@ def test_dist(dist):
 def main():
     run("git", "checkout", "--", "setup.py", "opensearchpy/")
     run("rm", "-rf", "build/", "dist/*", "*.egg-info", ".eggs")
+    run("python", "setup.py", "sdist", "bdist_wheel")
 
     # Grab the major version to be used as a suffix.
     version_path = os.path.join(base_dir, "opensearchpy/_version.py")

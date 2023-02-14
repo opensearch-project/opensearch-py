@@ -27,6 +27,7 @@
 
 
 import re
+import sys
 from os.path import abspath, dirname, join
 
 from setuptools import find_packages, setup
@@ -48,21 +49,27 @@ packages = [
     for package in find_packages(where=".", exclude=("test_opensearchpy*",))
     if package == module_dir or package.startswith(module_dir + ".")
 ]
-
 install_requires = [
     "urllib3>=1.21.1, <2",
     "certifi",
     "requests>=2.4.0, <3.0.0",
+    "six",
+    "python-dateutil",
+    # ipaddress is included in stdlib since python 3.3
+    'ipaddress; python_version<"3.3"',
 ]
 tests_require = [
     "requests>=2.0.0, <3.0.0",
-    "coverage",
+    "coverage<7.0.0",
     "mock",
     "pyyaml",
-    "pytest",
+    "pytest>=3.0.0",
     "pytest-cov",
+    "pytz",
     "botocore;python_version>='3.6'",
 ]
+if sys.version_info >= (3, 6):
+    tests_require.append("pytest-mock<4.0.0")
 async_require = ["aiohttp>=3,<4"]
 
 docs_require = ["sphinx", "sphinx_rtd_theme", "myst_parser", "sphinx_copybutton"]
@@ -70,7 +77,7 @@ generate_require = ["black", "jinja2"]
 
 setup(
     name=package_name,
-    description="Python low-level client for OpenSearch",
+    description="Python client for OpenSearch",
     license="Apache-2.0",
     url="https://github.com/opensearch-project/opensearch-py",
     long_description=long_description,

@@ -30,8 +30,8 @@ from mock import patch
 from opensearchpy import TransportError, helpers
 from opensearchpy.helpers import ScanError
 
-from ..test_cases import SkipTest
-from . import OpenSearchTestCase
+from ...test_cases import SkipTest
+from .. import OpenSearchTestCase
 
 
 class FailingBulkClient(object):
@@ -87,7 +87,7 @@ class TestStreamingBulk(OpenSearchTestCase):
                 self.client, [{"a": "b"}, {"a": "c"}], index="i", raise_on_error=True
             ):
                 self.assertTrue(ok)
-        except helpers.BulkIndexError as e:
+        except helpers.errors.BulkIndexError as e:
             self.assertEqual(2, len(e.errors))
         else:
             assert False, "exception should have been raised"
@@ -303,7 +303,7 @@ class TestBulk(OpenSearchTestCase):
         self.client.cluster.health(wait_for_status="yellow")
 
         self.assertRaises(
-            helpers.BulkIndexError,
+            helpers.errors.BulkIndexError,
             helpers.bulk,
             self.client,
             [{"a": 42}, {"a": "c"}],
@@ -331,7 +331,7 @@ class TestBulk(OpenSearchTestCase):
 
         # ignore only the status code in the `ignore_status` argument
         self.assertRaises(
-            helpers.BulkIndexError,
+            helpers.errors.BulkIndexError,
             helpers.bulk,
             self.client,
             [{"a": 42}, {"a": "c"}],
