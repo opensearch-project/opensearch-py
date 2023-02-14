@@ -24,7 +24,7 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Plugins" href="plugins.html" />
+    <link rel="next" title="helpers" href="helpers.html" />
     <link rel="prev" title="connection_pool" href="connection_pool.html" /> 
 </head>
 
@@ -80,8 +80,13 @@
 <li class="toctree-l4"><a class="reference internal" href="#opensearchpy.TransportError.status_code"><code class="docutils literal notranslate"><span class="pre">TransportError.status_code</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="#opensearchpy.OpenSearchDslException"><code class="docutils literal notranslate"><span class="pre">OpenSearchDslException</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#opensearchpy.IllegalOperation"><code class="docutils literal notranslate"><span class="pre">IllegalOperation</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#opensearchpy.UnknownDslObject"><code class="docutils literal notranslate"><span class="pre">UnknownDslObject</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#opensearchpy.ValidationException"><code class="docutils literal notranslate"><span class="pre">ValidationException</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="helpers.html">helpers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="plugins.html">Plugins</a></li>
 <li class="toctree-l2"><a class="reference internal" href="serializer.html">serializer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="transport.html">transport</a></li>
@@ -264,6 +269,34 @@ exception when not.</p>
 
 </dd></dl>
 
+<dl class="py class">
+<dt class="sig sig-object py" id="opensearchpy.OpenSearchDslException">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opensearchpy.</span></span><span class="sig-name descname"><span class="pre">OpenSearchDslException</span></span><a class="reference internal" href="../_modules/opensearchpy/exceptions.html#OpenSearchDslException"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.OpenSearchDslException" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#Exception" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></a></p>
+<p>Base class for all OpenSearchDsl exceptions</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="opensearchpy.IllegalOperation">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opensearchpy.</span></span><span class="sig-name descname"><span class="pre">IllegalOperation</span></span><a class="reference internal" href="../_modules/opensearchpy/exceptions.html#IllegalOperation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.IllegalOperation" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#opensearchpy.OpenSearchDslException" title="opensearchpy.exceptions.OpenSearchDslException"><code class="xref py py-class docutils literal notranslate"><span class="pre">OpenSearchDslException</span></code></a></p>
+<p>Exception representing IllegalOperation</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="opensearchpy.UnknownDslObject">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opensearchpy.</span></span><span class="sig-name descname"><span class="pre">UnknownDslObject</span></span><a class="reference internal" href="../_modules/opensearchpy/exceptions.html#UnknownDslObject"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.UnknownDslObject" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#opensearchpy.OpenSearchDslException" title="opensearchpy.exceptions.OpenSearchDslException"><code class="xref py py-class docutils literal notranslate"><span class="pre">OpenSearchDslException</span></code></a></p>
+<p>Exception representing UnknownDSLObject</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="opensearchpy.ValidationException">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opensearchpy.</span></span><span class="sig-name descname"><span class="pre">ValidationException</span></span><a class="reference internal" href="../_modules/opensearchpy/exceptions.html#ValidationException"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.ValidationException" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ValueError</span></code></a>, <a class="reference internal" href="#opensearchpy.OpenSearchDslException" title="opensearchpy.exceptions.OpenSearchDslException"><code class="xref py py-class docutils literal notranslate"><span class="pre">OpenSearchDslException</span></code></a></p>
+<p>Exception representing Validation Error</p>
+</dd></dl>
+
 </section>
 
 
@@ -271,7 +304,7 @@ exception when not.</p>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="connection_pool.html" class="btn btn-neutral float-left" title="connection_pool" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="plugins.html" class="btn btn-neutral float-right" title="Plugins" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="helpers.html" class="btn btn-neutral float-right" title="helpers" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

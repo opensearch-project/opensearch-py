@@ -11,3 +11,7 @@
 ```{eval-rst}
 .. autoclass:: opensearchpy.Urllib3HttpConnection
 ```
+
+```{eval-rst}
+.. autoclass:: opensearchpy.connections
+```

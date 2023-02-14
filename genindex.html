@@ -99,6 +99,7 @@
  | <a href="#N"><strong>N</strong></a>
  | <a href="#O"><strong>O</strong></a>
  | <a href="#P"><strong>P</strong></a>
+ | <a href="#Q"><strong>Q</strong></a>
  | <a href="#R"><strong>R</strong></a>
  | <a href="#S"><strong>S</strong></a>
  | <a href="#T"><strong>T</strong></a>
@@ -111,16 +112,28 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api-ref/connection.html#opensearchpy.Connection.__eq__">__eq__() (opensearchpy.Connection method)</a>
 </li>
+      <li><a href="api-ref/helpers/search.html#opensearchpy.helpers.search.Search.__getitem__">__getitem__() (opensearchpy.helpers.search.Search method)</a>
+</li>
       <li><a href="api-ref/connection.html#opensearchpy.Connection.__hash__">__hash__() (opensearchpy.Connection method)</a>
+</li>
+      <li><a href="api-ref/helpers/search.html#opensearchpy.helpers.search.Search.__iter__">__iter__() (opensearchpy.helpers.search.Search method)</a>
 </li>
       <li><a href="api-ref/connection.html#opensearchpy.Connection.__repr__">__repr__() (opensearchpy.Connection method)</a>
 
       <ul>
         <li><a href="api-ref/connection_pool.html#opensearchpy.ConnectionPool.__repr__">(opensearchpy.ConnectionPool method)</a>
 </li>
+        <li><a href="api-ref/helpers/document.html#opensearchpy.helpers.document.Document.__repr__">(opensearchpy.helpers.document.Document method)</a>
+</li>
+        <li><a href="api-ref/helpers/mapping.html#opensearchpy.helpers.mapping.Mapping.__repr__">(opensearchpy.helpers.mapping.Mapping method)</a>
+</li>
+        <li><a href="api-ref/helpers/wrappers.html#opensearchpy.helpers.wrappers.Range.__repr__">(opensearchpy.helpers.wrappers.Range method)</a>
+</li>
         <li><a href="api-ref/clients/opensearch_client.html#opensearchpy.OpenSearch.__repr__">(opensearchpy.OpenSearch method)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api-ref/exceptions.html#opensearchpy.ConnectionError.__str__">__str__() (opensearchpy.ConnectionError method)</a>
 
       <ul>
@@ -129,8 +142,12 @@
         <li><a href="api-ref/exceptions.html#opensearchpy.TransportError.__str__">(opensearchpy.TransportError method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api-ref/helpers/search.html#opensearchpy.helpers.search.Search._clone">_clone() (opensearchpy.helpers.search.Search method)</a>
+
+      <ul>
+        <li><a href="api-ref/helpers/update_by_query.html#opensearchpy.helpers.update_by_query.UpdateByQuery._clone">(opensearchpy.helpers.update_by_query.UpdateByQuery method)</a>
+</li>
+      </ul></li>
       <li><a href="api-ref/transport.html#opensearchpy.Transport._get_sniff_data">_get_sniff_data() (opensearchpy.Transport method)</a>
 </li>
       <li><a href="api-ref/connection.html#opensearchpy.Connection._raise_error">_raise_error() (opensearchpy.Connection method)</a>
@@ -151,10 +168,20 @@
 </li>
       <li><a href="api-ref/transport.html#opensearchpy.Transport.add_connection">add_connection() (opensearchpy.Transport method)</a>
 </li>
+      <li><a href="api-ref/helpers/faceted_search.html#opensearchpy.helpers.faceted_search.FacetedSearch.add_filter">add_filter() (opensearchpy.helpers.faceted_search.FacetedSearch method)</a>
+</li>
+      <li><a href="api-ref/helpers/aggs.html#opensearchpy.helpers.aggs.Agg">Agg (class in opensearchpy.helpers.aggs)</a>
+</li>
+      <li><a href="api-ref/helpers/faceted_search.html#opensearchpy.helpers.faceted_search.FacetedSearch.aggregate">aggregate() (opensearchpy.helpers.faceted_search.FacetedSearch method)</a>
+</li>
       <li><a href="api-ref/plugins/alerting_plugin.html#opensearchpy.plugins.alerting.AlertingClient">AlertingClient (class in opensearchpy.plugins.alerting)</a>
 </li>
       <li><a href="api-ref/clients/cat_client.html#opensearchpy.client.cat.CatClient.aliases">aliases() (opensearchpy.client.cat.CatClient method)</a>
+
+      <ul>
+        <li><a href="api-ref/helpers/index.html#opensearchpy.helpers.index.Index.aliases">(opensearchpy.helpers.index.Index method)</a>
 </li>
+      </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api-ref/clients/cat_client.html#opensearchpy.client.cat.CatClient.allocation">allocation() (opensearchpy.client.cat.CatClient method)</a>
@@ -162,6 +189,14 @@
       <li><a href="api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.allocation_explain">allocation_explain() (opensearchpy.client.cluster.ClusterClient method)</a>
 </li>
       <li><a href="api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.analyze">analyze() (opensearchpy.client.indices.IndicesClient method)</a>
+
+      <ul>
+        <li><a href="api-ref/helpers/index.html#opensearchpy.helpers.index.Index.analyze">(opensearchpy.helpers.index.Index method)</a>
+</li>
+      </ul></li>
+      <li><a href="api-ref/helpers/analysis.html#opensearchpy.helpers.analysis.Analyzer">Analyzer (class in opensearchpy.helpers.analysis)</a>
+</li>
+      <li><a href="api-ref/helpers/index.html#opensearchpy.helpers.index.Index.analyzer">analyzer() (opensearchpy.helpers.index.Index method)</a>
 </li>
       <li><a href="api-ref/exceptions.html#opensearchpy.AuthenticationException">AuthenticationException (class in opensearchpy)</a>
 </li>
@@ -172,6 +207,10 @@
 
 <h2 id="B">B</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api-ref/helpers/faceted_search.html#opensearchpy.helpers.faceted_search.FacetedSearch.build_search">build_search() (opensearchpy.helpers.faceted_search.FacetedSearch method)</a>
+</li>
+  </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api-ref/clients/opensearch_client.html#opensearchpy.OpenSearch.bulk">bulk() (opensearchpy.OpenSearch method)</a>
 </li>
@@ -188,7 +227,11 @@
       <li><a href="api-ref/clients/snapshot_client.html#opensearchpy.client.snapshot.SnapshotClient.cleanup_repository">cleanup_repository() (opensearchpy.client.snapshot.SnapshotClient method)</a>
 </li>
       <li><a href="api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.clear_cache">clear_cache() (opensearchpy.client.indices.IndicesClient method)</a>
+
+      <ul>
+        <li><a href="api-ref/helpers/index.html#opensearchpy.helpers.index.Index.clear_cache">(opensearchpy.helpers.index.Index method)</a>
 </li>
+      </ul></li>
       <li><a href="api-ref/clients/opensearch_client.html#opensearchpy.OpenSearch.clear_scroll">clear_scroll() (opensearchpy.OpenSearch method)</a>
 </li>
       <li><a href="api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.clone">clone() (opensearchpy.client.indices.IndicesClient method)</a>
@@ -196,11 +239,15 @@
       <ul>
         <li><a href="api-ref/clients/snapshot_client.html#opensearchpy.client.snapshot.SnapshotClient.clone">(opensearchpy.client.snapshot.SnapshotClient method)</a>
 </li>
+        <li><a href="api-ref/helpers/index.html#opensearchpy.helpers.index.Index.clone">(opensearchpy.helpers.index.Index method)</a>
+</li>
       </ul></li>
       <li><a href="api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.close">close() (opensearchpy.client.indices.IndicesClient method)</a>
 
       <ul>
         <li><a href="api-ref/connection_pool.html#opensearchpy.ConnectionPool.close">(opensearchpy.ConnectionPool method)</a>
+</li>
+        <li><a href="api-ref/helpers/index.html#opensearchpy.helpers.index.Index.close">(opensearchpy.helpers.index.Index method)</a>
 </li>
         <li><a href="api-ref/clients/opensearch_client.html#opensearchpy.OpenSearch.close">(opensearchpy.OpenSearch method)</a>
 </li>
@@ -225,6 +272,8 @@
 </li>
       <li><a href="api-ref/connection_pool.html#opensearchpy.ConnectionPool">ConnectionPool (class in opensearchpy)</a>
 </li>
+      <li><a href="api-ref/connection.html#opensearchpy.connections">connections (in module opensearchpy)</a>
+</li>
       <li><a href="api-ref/connection_pool.html#opensearchpy.ConnectionSelector">ConnectionSelector (class in opensearchpy)</a>
 </li>
       <li><a href="api-ref/exceptions.html#opensearchpy.ConnectionTimeout">ConnectionTimeout (class in opensearchpy)</a>
@@ -232,6 +281,8 @@
       <li><a href="api-ref/clients/cat_client.html#opensearchpy.client.cat.CatClient.count">count() (opensearchpy.client.cat.CatClient method)</a>
 
       <ul>
+        <li><a href="api-ref/helpers/search.html#opensearchpy.helpers.search.Search.count">(opensearchpy.helpers.search.Search method)</a>
+</li>
         <li><a href="api-ref/clients/opensearch_client.html#opensearchpy.OpenSearch.count">(opensearchpy.OpenSearch method)</a>
 </li>
       </ul></li>
@@ -239,6 +290,8 @@
 
       <ul>
         <li><a href="api-ref/clients/snapshot_client.html#opensearchpy.client.snapshot.SnapshotClient.create">(opensearchpy.client.snapshot.SnapshotClient method)</a>
+</li>
+        <li><a href="api-ref/helpers/index.html#opensearchpy.helpers.index.Index.create">(opensearchpy.helpers.index.Index method)</a>
 </li>
         <li><a href="api-ref/clients/opensearch_client.html#opensearchpy.OpenSearch.create">(opensearchpy.OpenSearch method)</a>
 </li>
@@ -272,19 +325,29 @@
       <ul>
         <li><a href="api-ref/clients/snapshot_client.html#opensearchpy.client.snapshot.SnapshotClient.delete">(opensearchpy.client.snapshot.SnapshotClient method)</a>
 </li>
+        <li><a href="api-ref/helpers/document.html#opensearchpy.helpers.document.Document.delete">(opensearchpy.helpers.document.Document method)</a>
+</li>
+        <li><a href="api-ref/helpers/index.html#opensearchpy.helpers.index.Index.delete">(opensearchpy.helpers.index.Index method)</a>
+</li>
+        <li><a href="api-ref/helpers/search.html#opensearchpy.helpers.search.Search.delete">(opensearchpy.helpers.search.Search method)</a>
+</li>
         <li><a href="api-ref/clients/opensearch_client.html#opensearchpy.OpenSearch.delete">(opensearchpy.OpenSearch method)</a>
 </li>
       </ul></li>
       <li><a href="api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.delete_alias">delete_alias() (opensearchpy.client.indices.IndicesClient method)</a>
+
+      <ul>
+        <li><a href="api-ref/helpers/index.html#opensearchpy.helpers.index.Index.delete_alias">(opensearchpy.helpers.index.Index method)</a>
 </li>
+      </ul></li>
       <li><a href="api-ref/clients/opensearch_client.html#opensearchpy.OpenSearch.delete_by_query">delete_by_query() (opensearchpy.OpenSearch method)</a>
 </li>
       <li><a href="api-ref/clients/opensearch_client.html#opensearchpy.OpenSearch.delete_by_query_rethrottle">delete_by_query_rethrottle() (opensearchpy.OpenSearch method)</a>
 </li>
-      <li><a href="api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.delete_component_template">delete_component_template() (opensearchpy.client.cluster.ClusterClient method)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.delete_component_template">delete_component_template() (opensearchpy.client.cluster.ClusterClient method)</a>
+</li>
       <li><a href="api-ref/clients/dangling_indices_client.html#opensearchpy.client.dangling_indices.DanglingIndicesClient.delete_dangling_index">delete_dangling_index() (opensearchpy.client.dangling_indices.DanglingIndicesClient method)</a>
 </li>
       <li><a href="api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.delete_data_stream">delete_data_stream() (opensearchpy.client.indices.IndicesClient method)</a>
@@ -309,6 +372,10 @@
 </li>
       <li><a href="api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.disk_usage">disk_usage() (opensearchpy.client.indices.IndicesClient method)</a>
 </li>
+      <li><a href="api-ref/helpers/document.html#opensearchpy.helpers.document.Document">Document (class in opensearchpy.helpers.document)</a>
+</li>
+      <li><a href="api-ref/helpers/index.html#opensearchpy.helpers.index.Index.document">document() (opensearchpy.helpers.index.Index method)</a>
+</li>
   </ul></td>
 </tr></table>
 
@@ -317,16 +384,32 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api-ref/exceptions.html#opensearchpy.TransportError.error">error (opensearchpy.TransportError property)</a>
 </li>
+      <li><a href="api-ref/helpers/faceted_search.html#opensearchpy.helpers.faceted_search.FacetedSearch.execute">execute() (opensearchpy.helpers.faceted_search.FacetedSearch method)</a>
+
+      <ul>
+        <li><a href="api-ref/helpers/search.html#opensearchpy.helpers.search.Search.execute">(opensearchpy.helpers.search.Search method)</a>
+</li>
+        <li><a href="api-ref/helpers/update_by_query.html#opensearchpy.helpers.update_by_query.UpdateByQuery.execute">(opensearchpy.helpers.update_by_query.UpdateByQuery method)</a>
+</li>
+      </ul></li>
       <li><a href="api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.exists">exists() (opensearchpy.client.indices.IndicesClient method)</a>
 
       <ul>
+        <li><a href="api-ref/helpers/document.html#opensearchpy.helpers.document.Document.exists">(opensearchpy.helpers.document.Document class method)</a>
+</li>
+        <li><a href="api-ref/helpers/index.html#opensearchpy.helpers.index.Index.exists">(opensearchpy.helpers.index.Index method)</a>
+</li>
         <li><a href="api-ref/clients/opensearch_client.html#opensearchpy.OpenSearch.exists">(opensearchpy.OpenSearch method)</a>
 </li>
       </ul></li>
-      <li><a href="api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.exists_alias">exists_alias() (opensearchpy.client.indices.IndicesClient method)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.exists_alias">exists_alias() (opensearchpy.client.indices.IndicesClient method)</a>
+
+      <ul>
+        <li><a href="api-ref/helpers/index.html#opensearchpy.helpers.index.Index.exists_alias">(opensearchpy.helpers.index.Index method)</a>
+</li>
+      </ul></li>
       <li><a href="api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.exists_component_template">exists_component_template() (opensearchpy.client.cluster.ClusterClient method)</a>
 </li>
       <li><a href="api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.exists_index_template">exists_index_template() (opensearchpy.client.indices.IndicesClient method)</a>
@@ -343,7 +426,11 @@
 <h2 id="F">F</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api-ref/helpers/faceted_search.html#opensearchpy.helpers.faceted_search.FacetedSearch">FacetedSearch (class in opensearchpy.helpers.faceted_search)</a>
+</li>
       <li><a href="api-ref/clients/features_client.html#opensearchpy.client.features.FeaturesClient">FeaturesClient (class in opensearchpy.client.features)</a>
+</li>
+      <li><a href="api-ref/helpers/field.html#opensearchpy.helpers.field.Field">Field (class in opensearchpy.helpers.field)</a>
 </li>
       <li><a href="api-ref/clients/opensearch_client.html#opensearchpy.OpenSearch.field_caps">field_caps() (opensearchpy.OpenSearch method)</a>
 </li>
@@ -351,16 +438,32 @@
 </li>
       <li><a href="api-ref/clients/cat_client.html#opensearchpy.client.cat.CatClient.fielddata">fielddata() (opensearchpy.client.cat.CatClient method)</a>
 </li>
+      <li><a href="api-ref/helpers/faceted_search.html#opensearchpy.helpers.faceted_search.FacetedSearch.filter">filter() (opensearchpy.helpers.faceted_search.FacetedSearch method)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.flush">flush() (opensearchpy.client.indices.IndicesClient method)</a>
+
+      <ul>
+        <li><a href="api-ref/helpers/index.html#opensearchpy.helpers.index.Index.flush">(opensearchpy.helpers.index.Index method)</a>
 </li>
+      </ul></li>
       <li><a href="api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.flush_synced">flush_synced() (opensearchpy.client.indices.IndicesClient method)</a>
 </li>
       <li><a href="api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.forcemerge">forcemerge() (opensearchpy.client.indices.IndicesClient method)</a>
+
+      <ul>
+        <li><a href="api-ref/helpers/index.html#opensearchpy.helpers.index.Index.forcemerge">(opensearchpy.helpers.index.Index method)</a>
 </li>
+      </ul></li>
       <li><a href="api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.freeze">freeze() (opensearchpy.client.indices.IndicesClient method)</a>
 </li>
+      <li><a href="api-ref/helpers/search.html#opensearchpy.helpers.search.Search.from_dict">from_dict() (opensearchpy.helpers.search.Search class method)</a>
+
+      <ul>
+        <li><a href="api-ref/helpers/update_by_query.html#opensearchpy.helpers.update_by_query.UpdateByQuery.from_dict">(opensearchpy.helpers.update_by_query.UpdateByQuery class method)</a>
+</li>
+      </ul></li>
   </ul></td>
 </tr></table>
 
@@ -376,13 +479,21 @@
 </li>
         <li><a href="api-ref/clients/tasks_client.html#opensearchpy.client.tasks.TasksClient.get">(opensearchpy.client.tasks.TasksClient method)</a>
 </li>
+        <li><a href="api-ref/helpers/document.html#opensearchpy.helpers.document.Document.get">(opensearchpy.helpers.document.Document class method)</a>
+</li>
+        <li><a href="api-ref/helpers/index.html#opensearchpy.helpers.index.Index.get">(opensearchpy.helpers.index.Index method)</a>
+</li>
         <li><a href="api-ref/clients/opensearch_client.html#opensearchpy.OpenSearch.get">(opensearchpy.OpenSearch method)</a>
 </li>
       </ul></li>
       <li><a href="api-ref/plugins/alerting_plugin.html#opensearchpy.plugins.alerting.AlertingClient.get_alerts">get_alerts() (opensearchpy.plugins.alerting.AlertingClient method)</a>
 </li>
       <li><a href="api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.get_alias">get_alias() (opensearchpy.client.indices.IndicesClient method)</a>
+
+      <ul>
+        <li><a href="api-ref/helpers/index.html#opensearchpy.helpers.index.Index.get_alias">(opensearchpy.helpers.index.Index method)</a>
 </li>
+      </ul></li>
       <li><a href="api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.get_component_template">get_component_template() (opensearchpy.client.cluster.ClusterClient method)</a>
 </li>
       <li><a href="api-ref/connection_pool.html#opensearchpy.ConnectionPool.get_connection">get_connection() (opensearchpy.ConnectionPool method)</a>
@@ -397,14 +508,22 @@
 </li>
       <li><a href="api-ref/clients/features_client.html#opensearchpy.client.features.FeaturesClient.get_features">get_features() (opensearchpy.client.features.FeaturesClient method)</a>
 </li>
+      <li><a href="api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.get_field_mapping">get_field_mapping() (opensearchpy.client.indices.IndicesClient method)</a>
+
+      <ul>
+        <li><a href="api-ref/helpers/index.html#opensearchpy.helpers.index.Index.get_field_mapping">(opensearchpy.helpers.index.Index method)</a>
+</li>
+      </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.get_field_mapping">get_field_mapping() (opensearchpy.client.indices.IndicesClient method)</a>
-</li>
       <li><a href="api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.get_index_template">get_index_template() (opensearchpy.client.indices.IndicesClient method)</a>
 </li>
       <li><a href="api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.get_mapping">get_mapping() (opensearchpy.client.indices.IndicesClient method)</a>
+
+      <ul>
+        <li><a href="api-ref/helpers/index.html#opensearchpy.helpers.index.Index.get_mapping">(opensearchpy.helpers.index.Index method)</a>
 </li>
+      </ul></li>
       <li><a href="api-ref/plugins/alerting_plugin.html#opensearchpy.plugins.alerting.AlertingClient.get_monitor">get_monitor() (opensearchpy.plugins.alerting.AlertingClient method)</a>
 </li>
       <li><a href="api-ref/clients/ingest_client.html#opensearchpy.client.ingest.IngestClient.get_pipeline">get_pipeline() (opensearchpy.client.ingest.IngestClient method)</a>
@@ -422,13 +541,19 @@
       <ul>
         <li><a href="api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.get_settings">(opensearchpy.client.indices.IndicesClient method)</a>
 </li>
+        <li><a href="api-ref/helpers/index.html#opensearchpy.helpers.index.Index.get_settings">(opensearchpy.helpers.index.Index method)</a>
+</li>
       </ul></li>
       <li><a href="api-ref/clients/opensearch_client.html#opensearchpy.OpenSearch.get_source">get_source() (opensearchpy.OpenSearch method)</a>
 </li>
       <li><a href="api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.get_template">get_template() (opensearchpy.client.indices.IndicesClient method)</a>
 </li>
       <li><a href="api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.get_upgrade">get_upgrade() (opensearchpy.client.indices.IndicesClient method)</a>
+
+      <ul>
+        <li><a href="api-ref/helpers/index.html#opensearchpy.helpers.index.Index.get_upgrade">(opensearchpy.helpers.index.Index method)</a>
 </li>
+      </ul></li>
   </ul></td>
 </tr></table>
 
@@ -441,9 +566,17 @@
         <li><a href="api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.health">(opensearchpy.client.cluster.ClusterClient method)</a>
 </li>
       </ul></li>
+      <li><a href="api-ref/clients/cat_client.html#opensearchpy.client.cat.CatClient.help">help() (opensearchpy.client.cat.CatClient method)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api-ref/clients/cat_client.html#opensearchpy.client.cat.CatClient.help">help() (opensearchpy.client.cat.CatClient method)</a>
+      <li><a href="api-ref/helpers/faceted_search.html#opensearchpy.helpers.faceted_search.FacetedSearch.highlight">highlight() (opensearchpy.helpers.faceted_search.FacetedSearch method)</a>
+
+      <ul>
+        <li><a href="api-ref/helpers/search.html#opensearchpy.helpers.search.Search.highlight">(opensearchpy.helpers.search.Search method)</a>
+</li>
+      </ul></li>
+      <li><a href="api-ref/helpers/search.html#opensearchpy.helpers.search.Search.highlight_options">highlight_options() (opensearchpy.helpers.search.Search method)</a>
 </li>
       <li><a href="api-ref/clients/nodes_client.html#opensearchpy.client.nodes.NodesClient.hot_threads">hot_threads() (opensearchpy.client.nodes.NodesClient method)</a>
 </li>
@@ -453,9 +586,13 @@
 <h2 id="I">I</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api-ref/exceptions.html#opensearchpy.IllegalOperation">IllegalOperation (class in opensearchpy)</a>
+</li>
       <li><a href="api-ref/clients/dangling_indices_client.html#opensearchpy.client.dangling_indices.DanglingIndicesClient.import_dangling_index">import_dangling_index() (opensearchpy.client.dangling_indices.DanglingIndicesClient method)</a>
 </li>
       <li><a href="api-ref/exceptions.html#opensearchpy.ImproperlyConfigured">ImproperlyConfigured (class in opensearchpy)</a>
+</li>
+      <li><a href="api-ref/helpers/index.html#opensearchpy.helpers.index.Index">Index (class in opensearchpy.helpers.index)</a>
 </li>
       <li><a href="api-ref/clients/opensearch_client.html#opensearchpy.OpenSearch.index">index() (opensearchpy.OpenSearch method)</a>
 </li>
@@ -474,6 +611,8 @@
 </li>
       </ul></li>
       <li><a href="api-ref/clients/ingest_client.html#opensearchpy.client.ingest.IngestClient">IngestClient (class in opensearchpy.client.ingest)</a>
+</li>
+      <li><a href="api-ref/helpers/document.html#opensearchpy.helpers.document.Document.init">init() (opensearchpy.helpers.document.Document class method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -507,6 +646,10 @@
 <h2 id="M">M</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api-ref/helpers/mapping.html#opensearchpy.helpers.mapping.Mapping">Mapping (class in opensearchpy.helpers.mapping)</a>
+</li>
+      <li><a href="api-ref/helpers/index.html#opensearchpy.helpers.index.Index.mapping">mapping() (opensearchpy.helpers.index.Index method)</a>
+</li>
       <li><a href="api-ref/connection_pool.html#opensearchpy.ConnectionPool.mark_dead">mark_dead() (opensearchpy.ConnectionPool method)</a>
 
       <ul>
@@ -519,8 +662,12 @@
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api-ref/clients/opensearch_client.html#opensearchpy.OpenSearch.mget">mget() (opensearchpy.OpenSearch method)</a>
+      <li><a href="api-ref/helpers/document.html#opensearchpy.helpers.document.Document.mget">mget() (opensearchpy.helpers.document.Document class method)</a>
+
+      <ul>
+        <li><a href="api-ref/clients/opensearch_client.html#opensearchpy.OpenSearch.mget">(opensearchpy.OpenSearch method)</a>
 </li>
+      </ul></li>
       <li><a href="api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.migrate_to_data_stream">migrate_to_data_stream() (opensearchpy.client.indices.IndicesClient method)</a>
 </li>
       <li><a href="api-ref/clients/opensearch_client.html#opensearchpy.OpenSearch.msearch">msearch() (opensearchpy.OpenSearch method)</a>
@@ -552,12 +699,18 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.open">open() (opensearchpy.client.indices.IndicesClient method)</a>
+
+      <ul>
+        <li><a href="api-ref/helpers/index.html#opensearchpy.helpers.index.Index.open">(opensearchpy.helpers.index.Index method)</a>
 </li>
+      </ul></li>
       <li><a href="api-ref/clients/opensearch_client.html#opensearchpy.OpenSearch">OpenSearch (class in opensearchpy)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api-ref/exceptions.html#opensearchpy.OpenSearchDeprecationWarning">OpenSearchDeprecationWarning (in module opensearchpy)</a>
+</li>
+      <li><a href="api-ref/exceptions.html#opensearchpy.OpenSearchDslException">OpenSearchDslException (class in opensearchpy)</a>
 </li>
       <li><a href="api-ref/exceptions.html#opensearchpy.OpenSearchException">OpenSearchException (class in opensearchpy)</a>
 </li>
@@ -587,16 +740,24 @@
 </li>
       <li><a href="api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.promote_data_stream">promote_data_stream() (opensearchpy.client.indices.IndicesClient method)</a>
 </li>
+      <li><a href="api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.put_alias">put_alias() (opensearchpy.client.indices.IndicesClient method)</a>
+
+      <ul>
+        <li><a href="api-ref/helpers/index.html#opensearchpy.helpers.index.Index.put_alias">(opensearchpy.helpers.index.Index method)</a>
+</li>
+      </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.put_alias">put_alias() (opensearchpy.client.indices.IndicesClient method)</a>
-</li>
       <li><a href="api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.put_component_template">put_component_template() (opensearchpy.client.cluster.ClusterClient method)</a>
 </li>
       <li><a href="api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.put_index_template">put_index_template() (opensearchpy.client.indices.IndicesClient method)</a>
 </li>
       <li><a href="api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.put_mapping">put_mapping() (opensearchpy.client.indices.IndicesClient method)</a>
+
+      <ul>
+        <li><a href="api-ref/helpers/index.html#opensearchpy.helpers.index.Index.put_mapping">(opensearchpy.helpers.index.Index method)</a>
 </li>
+      </ul></li>
       <li><a href="api-ref/clients/ingest_client.html#opensearchpy.client.ingest.IngestClient.put_pipeline">put_pipeline() (opensearchpy.client.ingest.IngestClient method)</a>
 </li>
       <li><a href="api-ref/clients/opensearch_client.html#opensearchpy.OpenSearch.put_script">put_script() (opensearchpy.OpenSearch method)</a>
@@ -606,8 +767,22 @@
       <ul>
         <li><a href="api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.put_settings">(opensearchpy.client.indices.IndicesClient method)</a>
 </li>
+        <li><a href="api-ref/helpers/index.html#opensearchpy.helpers.index.Index.put_settings">(opensearchpy.helpers.index.Index method)</a>
+</li>
       </ul></li>
       <li><a href="api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.put_template">put_template() (opensearchpy.client.indices.IndicesClient method)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="Q">Q</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api-ref/helpers/query.html#opensearchpy.helpers.query.Query">Query (class in opensearchpy.helpers.query)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api-ref/helpers/faceted_search.html#opensearchpy.helpers.faceted_search.FacetedSearch.query">query() (opensearchpy.helpers.faceted_search.FacetedSearch method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -615,6 +790,8 @@
 <h2 id="R">R</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api-ref/helpers/wrappers.html#opensearchpy.helpers.wrappers.Range">Range (class in opensearchpy.helpers.wrappers)</a>
+</li>
       <li><a href="api-ref/clients/opensearch_client.html#opensearchpy.OpenSearch.rank_eval">rank_eval() (opensearchpy.OpenSearch method)</a>
 </li>
       <li><a href="api-ref/clients/cat_client.html#opensearchpy.client.cat.CatClient.recovery">recovery() (opensearchpy.client.cat.CatClient method)</a>
@@ -622,9 +799,15 @@
       <ul>
         <li><a href="api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.recovery">(opensearchpy.client.indices.IndicesClient method)</a>
 </li>
+        <li><a href="api-ref/helpers/index.html#opensearchpy.helpers.index.Index.recovery">(opensearchpy.helpers.index.Index method)</a>
+</li>
       </ul></li>
       <li><a href="api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.refresh">refresh() (opensearchpy.client.indices.IndicesClient method)</a>
+
+      <ul>
+        <li><a href="api-ref/helpers/index.html#opensearchpy.helpers.index.Index.refresh">(opensearchpy.helpers.index.Index method)</a>
 </li>
+      </ul></li>
       <li><a href="api-ref/clients/opensearch_client.html#opensearchpy.OpenSearch.reindex">reindex() (opensearchpy.OpenSearch method)</a>
 </li>
       <li><a href="api-ref/clients/opensearch_client.html#opensearchpy.OpenSearch.reindex_rethrottle">reindex_rethrottle() (opensearchpy.OpenSearch method)</a>
@@ -655,6 +838,12 @@
 </li>
       <li><a href="api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.resolve_index">resolve_index() (opensearchpy.client.indices.IndicesClient method)</a>
 </li>
+      <li><a href="api-ref/helpers/search.html#opensearchpy.helpers.search.Search.response_class">response_class() (opensearchpy.helpers.search.Search method)</a>
+
+      <ul>
+        <li><a href="api-ref/helpers/update_by_query.html#opensearchpy.helpers.update_by_query.UpdateByQuery.response_class">(opensearchpy.helpers.update_by_query.UpdateByQuery method)</a>
+</li>
+      </ul></li>
       <li><a href="api-ref/clients/snapshot_client.html#opensearchpy.client.snapshot.SnapshotClient.restore">restore() (opensearchpy.client.snapshot.SnapshotClient method)</a>
 </li>
       <li><a href="api-ref/connection_pool.html#opensearchpy.ConnectionPool.resurrect">resurrect() (opensearchpy.ConnectionPool method)</a>
@@ -671,12 +860,36 @@
 <h2 id="S">S</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api-ref/helpers/document.html#opensearchpy.helpers.document.Document.save">save() (opensearchpy.helpers.document.Document method)</a>
+
+      <ul>
+        <li><a href="api-ref/helpers/index.html#opensearchpy.helpers.index.Index.save">(opensearchpy.helpers.index.Index method)</a>
+</li>
+      </ul></li>
+      <li><a href="api-ref/helpers/search.html#opensearchpy.helpers.search.Search.scan">scan() (opensearchpy.helpers.search.Search method)</a>
+</li>
+      <li><a href="api-ref/helpers/function.html#opensearchpy.helpers.function.ScoreFunction">ScoreFunction (class in opensearchpy.helpers.function)</a>
+</li>
+      <li><a href="api-ref/helpers/update_by_query.html#opensearchpy.helpers.update_by_query.UpdateByQuery.script">script() (opensearchpy.helpers.update_by_query.UpdateByQuery method)</a>
+</li>
+      <li><a href="api-ref/helpers/search.html#opensearchpy.helpers.search.Search.script_fields">script_fields() (opensearchpy.helpers.search.Search method)</a>
+</li>
       <li><a href="api-ref/clients/opensearch_client.html#opensearchpy.OpenSearch.scripts_painless_execute">scripts_painless_execute() (opensearchpy.OpenSearch method)</a>
 </li>
       <li><a href="api-ref/clients/opensearch_client.html#opensearchpy.OpenSearch.scroll">scroll() (opensearchpy.OpenSearch method)</a>
 </li>
-      <li><a href="api-ref/clients/opensearch_client.html#opensearchpy.OpenSearch.search">search() (opensearchpy.OpenSearch method)</a>
+      <li><a href="api-ref/helpers/search.html#opensearchpy.helpers.search.Search">Search (class in opensearchpy.helpers.search)</a>
 </li>
+      <li><a href="api-ref/helpers/document.html#opensearchpy.helpers.document.Document.search">search() (opensearchpy.helpers.document.Document class method)</a>
+
+      <ul>
+        <li><a href="api-ref/helpers/faceted_search.html#opensearchpy.helpers.faceted_search.FacetedSearch.search">(opensearchpy.helpers.faceted_search.FacetedSearch method)</a>
+</li>
+        <li><a href="api-ref/helpers/index.html#opensearchpy.helpers.index.Index.search">(opensearchpy.helpers.index.Index method)</a>
+</li>
+        <li><a href="api-ref/clients/opensearch_client.html#opensearchpy.OpenSearch.search">(opensearchpy.OpenSearch method)</a>
+</li>
+      </ul></li>
       <li><a href="api-ref/plugins/alerting_plugin.html#opensearchpy.plugins.alerting.AlertingClient.search_monitor">search_monitor() (opensearchpy.plugins.alerting.AlertingClient method)</a>
 </li>
       <li><a href="api-ref/clients/opensearch_client.html#opensearchpy.OpenSearch.search_shards">search_shards() (opensearchpy.OpenSearch method)</a>
@@ -687,6 +900,8 @@
 
       <ul>
         <li><a href="api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.segments">(opensearchpy.client.indices.IndicesClient method)</a>
+</li>
+        <li><a href="api-ref/helpers/index.html#opensearchpy.helpers.index.Index.segments">(opensearchpy.helpers.index.Index method)</a>
 </li>
       </ul></li>
       <li><a href="api-ref/connection_pool.html#opensearchpy.ConnectionSelector.select">select() (opensearchpy.ConnectionSelector method)</a>
@@ -699,14 +914,24 @@
 </li>
       <li><a href="api-ref/transport.html#opensearchpy.Transport.set_connections">set_connections() (opensearchpy.Transport method)</a>
 </li>
-      <li><a href="api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.shard_stores">shard_stores() (opensearchpy.client.indices.IndicesClient method)</a>
-</li>
-      <li><a href="api-ref/clients/cat_client.html#opensearchpy.client.cat.CatClient.shards">shards() (opensearchpy.client.cat.CatClient method)</a>
+      <li><a href="api-ref/helpers/index.html#opensearchpy.helpers.index.Index.settings">settings() (opensearchpy.helpers.index.Index method)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.shrink">shrink() (opensearchpy.client.indices.IndicesClient method)</a>
+      <li><a href="api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.shard_stores">shard_stores() (opensearchpy.client.indices.IndicesClient method)</a>
+
+      <ul>
+        <li><a href="api-ref/helpers/index.html#opensearchpy.helpers.index.Index.shard_stores">(opensearchpy.helpers.index.Index method)</a>
 </li>
+      </ul></li>
+      <li><a href="api-ref/clients/cat_client.html#opensearchpy.client.cat.CatClient.shards">shards() (opensearchpy.client.cat.CatClient method)</a>
+</li>
+      <li><a href="api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.shrink">shrink() (opensearchpy.client.indices.IndicesClient method)</a>
+
+      <ul>
+        <li><a href="api-ref/helpers/index.html#opensearchpy.helpers.index.Index.shrink">(opensearchpy.helpers.index.Index method)</a>
+</li>
+      </ul></li>
       <li><a href="api-ref/clients/ingest_client.html#opensearchpy.client.ingest.IngestClient.simulate">simulate() (opensearchpy.client.ingest.IngestClient method)</a>
 </li>
       <li><a href="api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.simulate_index_template">simulate_index_template() (opensearchpy.client.indices.IndicesClient method)</a>
@@ -718,6 +943,14 @@
       <li><a href="api-ref/clients/cat_client.html#opensearchpy.client.cat.CatClient.snapshots">snapshots() (opensearchpy.client.cat.CatClient method)</a>
 </li>
       <li><a href="api-ref/transport.html#opensearchpy.Transport.sniff_hosts">sniff_hosts() (opensearchpy.Transport method)</a>
+</li>
+      <li><a href="api-ref/helpers/faceted_search.html#opensearchpy.helpers.faceted_search.FacetedSearch.sort">sort() (opensearchpy.helpers.faceted_search.FacetedSearch method)</a>
+
+      <ul>
+        <li><a href="api-ref/helpers/search.html#opensearchpy.helpers.search.Search.sort">(opensearchpy.helpers.search.Search method)</a>
+</li>
+      </ul></li>
+      <li><a href="api-ref/helpers/search.html#opensearchpy.helpers.search.Search.source">source() (opensearchpy.helpers.search.Search method)</a>
 </li>
       <li><a href="api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.split">split() (opensearchpy.client.indices.IndicesClient method)</a>
 </li>
@@ -732,10 +965,14 @@
 </li>
         <li><a href="api-ref/clients/nodes_client.html#opensearchpy.client.nodes.NodesClient.stats">(opensearchpy.client.nodes.NodesClient method)</a>
 </li>
+        <li><a href="api-ref/helpers/index.html#opensearchpy.helpers.index.Index.stats">(opensearchpy.helpers.index.Index method)</a>
+</li>
       </ul></li>
       <li><a href="api-ref/clients/snapshot_client.html#opensearchpy.client.snapshot.SnapshotClient.status">status() (opensearchpy.client.snapshot.SnapshotClient method)</a>
 </li>
       <li><a href="api-ref/exceptions.html#opensearchpy.TransportError.status_code">status_code (opensearchpy.TransportError property)</a>
+</li>
+      <li><a href="api-ref/helpers/search.html#opensearchpy.helpers.search.Search.suggest">suggest() (opensearchpy.helpers.search.Search method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -751,12 +988,26 @@
 </li>
       <li><a href="api-ref/clients/opensearch_client.html#opensearchpy.OpenSearch.terms_enum">terms_enum() (opensearchpy.OpenSearch method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api-ref/clients/opensearch_client.html#opensearchpy.OpenSearch.termvectors">termvectors() (opensearchpy.OpenSearch method)</a>
 </li>
       <li><a href="api-ref/clients/cat_client.html#opensearchpy.client.cat.CatClient.thread_pool">thread_pool() (opensearchpy.client.cat.CatClient method)</a>
 </li>
+      <li><a href="api-ref/helpers/aggs.html#opensearchpy.helpers.aggs.Agg.to_dict">to_dict() (opensearchpy.helpers.aggs.Agg method)</a>
+
+      <ul>
+        <li><a href="api-ref/helpers/document.html#opensearchpy.helpers.document.Document.to_dict">(opensearchpy.helpers.document.Document method)</a>
+</li>
+        <li><a href="api-ref/helpers/field.html#opensearchpy.helpers.field.Field.to_dict">(opensearchpy.helpers.field.Field method)</a>
+</li>
+        <li><a href="api-ref/helpers/function.html#opensearchpy.helpers.function.ScoreFunction.to_dict">(opensearchpy.helpers.function.ScoreFunction method)</a>
+</li>
+        <li><a href="api-ref/helpers/search.html#opensearchpy.helpers.search.Search.to_dict">(opensearchpy.helpers.search.Search method)</a>
+</li>
+        <li><a href="api-ref/helpers/update_by_query.html#opensearchpy.helpers.update_by_query.UpdateByQuery.to_dict">(opensearchpy.helpers.update_by_query.UpdateByQuery method)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api-ref/clients/cat_client.html#opensearchpy.client.cat.CatClient.transforms">transforms() (opensearchpy.client.cat.CatClient method)</a>
 </li>
       <li><a href="api-ref/transport.html#opensearchpy.Transport">Transport (class in opensearchpy)</a>
@@ -771,22 +1022,42 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.unfreeze">unfreeze() (opensearchpy.client.indices.IndicesClient method)</a>
 </li>
-      <li><a href="api-ref/clients/opensearch_client.html#opensearchpy.OpenSearch.update">update() (opensearchpy.OpenSearch method)</a>
+      <li><a href="api-ref/exceptions.html#opensearchpy.UnknownDslObject">UnknownDslObject (class in opensearchpy)</a>
 </li>
+      <li><a href="api-ref/helpers/document.html#opensearchpy.helpers.document.Document.update">update() (opensearchpy.helpers.document.Document method)</a>
+
+      <ul>
+        <li><a href="api-ref/clients/opensearch_client.html#opensearchpy.OpenSearch.update">(opensearchpy.OpenSearch method)</a>
+</li>
+      </ul></li>
       <li><a href="api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.update_aliases">update_aliases() (opensearchpy.client.indices.IndicesClient method)</a>
 </li>
       <li><a href="api-ref/clients/opensearch_client.html#opensearchpy.OpenSearch.update_by_query">update_by_query() (opensearchpy.OpenSearch method)</a>
 </li>
       <li><a href="api-ref/clients/opensearch_client.html#opensearchpy.OpenSearch.update_by_query_rethrottle">update_by_query_rethrottle() (opensearchpy.OpenSearch method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api-ref/plugins/alerting_plugin.html#opensearchpy.plugins.alerting.AlertingClient.update_destination">update_destination() (opensearchpy.plugins.alerting.AlertingClient method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api-ref/helpers/search.html#opensearchpy.helpers.search.Search.update_from_dict">update_from_dict() (opensearchpy.helpers.search.Search method)</a>
+
+      <ul>
+        <li><a href="api-ref/helpers/update_by_query.html#opensearchpy.helpers.update_by_query.UpdateByQuery.update_from_dict">(opensearchpy.helpers.update_by_query.UpdateByQuery method)</a>
+</li>
+      </ul></li>
       <li><a href="api-ref/plugins/alerting_plugin.html#opensearchpy.plugins.alerting.AlertingClient.update_monitor">update_monitor() (opensearchpy.plugins.alerting.AlertingClient method)</a>
 </li>
-      <li><a href="api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.upgrade">upgrade() (opensearchpy.client.indices.IndicesClient method)</a>
+      <li><a href="api-ref/helpers/update_by_query.html#opensearchpy.helpers.update_by_query.UpdateByQuery">UpdateByQuery (class in opensearchpy.helpers.update_by_query)</a>
 </li>
+      <li><a href="api-ref/helpers/index.html#opensearchpy.helpers.index.Index.updateByQuery">updateByQuery() (opensearchpy.helpers.index.Index method)</a>
+</li>
+      <li><a href="api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.upgrade">upgrade() (opensearchpy.client.indices.IndicesClient method)</a>
+
+      <ul>
+        <li><a href="api-ref/helpers/index.html#opensearchpy.helpers.index.Index.upgrade">(opensearchpy.helpers.index.Index method)</a>
+</li>
+      </ul></li>
       <li><a href="api-ref/connection.html#opensearchpy.Urllib3HttpConnection">Urllib3HttpConnection (class in opensearchpy)</a>
 </li>
       <li><a href="api-ref/clients/nodes_client.html#opensearchpy.client.nodes.NodesClient.usage">usage() (opensearchpy.client.nodes.NodesClient method)</a>
@@ -798,9 +1069,15 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.validate_query">validate_query() (opensearchpy.client.indices.IndicesClient method)</a>
+
+      <ul>
+        <li><a href="api-ref/helpers/index.html#opensearchpy.helpers.index.Index.validate_query">(opensearchpy.helpers.index.Index method)</a>
 </li>
+      </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api-ref/exceptions.html#opensearchpy.ValidationException">ValidationException (class in opensearchpy)</a>
+</li>
       <li><a href="api-ref/clients/snapshot_client.html#opensearchpy.client.snapshot.SnapshotClient.verify_repository">verify_repository() (opensearchpy.client.snapshot.SnapshotClient method)</a>
 </li>
   </ul></td>

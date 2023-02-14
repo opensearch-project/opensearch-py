@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>index &mdash; OpenSearch Python Client  documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
+        <script src="../../_static/clipboard.min.js"></script>
+        <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="mapping" href="mapping.html" />
+    <link rel="prev" title="function" href="function.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            OpenSearch Python Client
+              <img src="../../_static/OpenSearch.svg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../api-ref.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../client.html">Clients</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../connection.html">connection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../connection_pool.html">connection_pool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../exceptions.html">exceptions</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../helpers.html">helpers</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="aggs.html">aggs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="analysis.html">analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="document.html">document</a></li>
+<li class="toctree-l3"><a class="reference internal" href="faceted_search.html">faceted_search</a></li>
+<li class="toctree-l3"><a class="reference internal" href="field.html">field</a></li>
+<li class="toctree-l3"><a class="reference internal" href="function.html">function</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">index</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#opensearchpy.helpers.index.Index"><code class="docutils literal notranslate"><span class="pre">Index</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mapping.html">mapping</a></li>
+<li class="toctree-l3"><a class="reference internal" href="query.html">query</a></li>
+<li class="toctree-l3"><a class="reference internal" href="search.html">search</a></li>
+<li class="toctree-l3"><a class="reference internal" href="update_by_query.html">update_by_query</a></li>
+<li class="toctree-l3"><a class="reference internal" href="wrappers.html">wrappers</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../plugins.html">Plugins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../serializer.html">serializer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../transport.html">transport</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../genindex.html">Index</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/opensearch-project/opensearch-py/blob/main/LICENSE.txt">License</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/opensearch-project/opensearch-py/blob/main/CONTRIBUTING.md">Contributing</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/opensearch-project/opensearch-py/blob/main/CODE_OF_CONDUCT.md">Code of Conduct</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/opensearch-project/opensearch-py/blob/main/DEVELOPER_GUIDE.md">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/opensearch-project/opensearch-py">GitHub Repository</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">OpenSearch Python Client</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../api-ref.html">API Reference</a></li>
+          <li class="breadcrumb-item"><a href="../helpers.html">helpers</a></li>
+      <li class="breadcrumb-item active">index</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/opensearch-project/opensearch-py/blob/main/docs/source/api-ref/helpers/index.md" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="index">
+<h1>index<a class="headerlink" href="#index" title="Permalink to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="opensearchpy.helpers.index.Index">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opensearchpy.helpers.index.</span></span><span class="sig-name descname"><span class="pre">Index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">using</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'default'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/index.html#Index"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.index.Index" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – name of the index</p></li>
+<li><p><strong>using</strong> – connection alias to use, defaults to <code class="docutils literal notranslate"><span class="pre">'default'</span></code></p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.helpers.index.Index.aliases">
+<span class="sig-name descname"><span class="pre">aliases</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/index.html#Index.aliases"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.index.Index.aliases" title="Permalink to this definition"></a></dt>
+<dd><p>Add aliases to the index definition:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">i</span> <span class="o">=</span> <span class="n">Index</span><span class="p">(</span><span class="s1">&#39;blog-v2&#39;</span><span class="p">)</span>
+<span class="n">i</span><span class="o">.</span><span class="n">aliases</span><span class="p">(</span><span class="n">blog</span><span class="o">=</span><span class="p">{},</span> <span class="n">published</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;filter&#39;</span><span class="p">:</span> <span class="n">Q</span><span class="p">(</span><span class="s1">&#39;term&#39;</span><span class="p">,</span> <span class="n">published</span><span class="o">=</span><span class="kc">True</span><span class="p">)})</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.helpers.index.Index.analyze">
+<span class="sig-name descname"><span class="pre">analyze</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">using</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/index.html#Index.analyze"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.index.Index.analyze" title="Permalink to this definition"></a></dt>
+<dd><p>Perform the analysis process on a text and return the tokens breakdown
+of the text.</p>
+<p>Any additional keyword arguments will be passed to
+<code class="docutils literal notranslate"><span class="pre">OpenSearch.indices.analyze</span></code> unchanged.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.helpers.index.Index.analyzer">
+<span class="sig-name descname"><span class="pre">analyzer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/index.html#Index.analyzer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.index.Index.analyzer" title="Permalink to this definition"></a></dt>
+<dd><p>Explicitly add an analyzer to an index. Note that all custom analyzers
+defined in mappings will also be created. This is useful for search analyzers.</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">opensearchpy</span> <span class="kn">import</span> <span class="n">analyzer</span><span class="p">,</span> <span class="n">tokenizer</span>
+
+<span class="n">my_analyzer</span> <span class="o">=</span> <span class="n">analyzer</span><span class="p">(</span><span class="s1">&#39;my_analyzer&#39;</span><span class="p">,</span>
+    <span class="n">tokenizer</span><span class="o">=</span><span class="n">tokenizer</span><span class="p">(</span><span class="s1">&#39;trigram&#39;</span><span class="p">,</span> <span class="s1">&#39;nGram&#39;</span><span class="p">,</span> <span class="n">min_gram</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">max_gram</span><span class="o">=</span><span class="mi">3</span><span class="p">),</span>
+    <span class="nb">filter</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;lowercase&#39;</span><span class="p">]</span>
+<span class="p">)</span>
+
+<span class="n">i</span> <span class="o">=</span> <span class="n">Index</span><span class="p">(</span><span class="s1">&#39;blog&#39;</span><span class="p">)</span>
+<span class="n">i</span><span class="o">.</span><span class="n">analyzer</span><span class="p">(</span><span class="n">my_analyzer</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.helpers.index.Index.clear_cache">
+<span class="sig-name descname"><span class="pre">clear_cache</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">using</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/index.html#Index.clear_cache"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.index.Index.clear_cache" title="Permalink to this definition"></a></dt>
+<dd><p>Clear all caches or specific cached associated with the index.</p>
+<p>Any additional keyword arguments will be passed to
+<code class="docutils literal notranslate"><span class="pre">OpenSearch.indices.clear_cache</span></code> unchanged.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.helpers.index.Index.clone">
+<span class="sig-name descname"><span class="pre">clone</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">using</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/index.html#Index.clone"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.index.Index.clone" title="Permalink to this definition"></a></dt>
+<dd><p>Create a copy of the instance with another name or connection alias.
+Useful for creating multiple indices with shared configuration:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">i</span> <span class="o">=</span> <span class="n">Index</span><span class="p">(</span><span class="s1">&#39;base-index&#39;</span><span class="p">)</span>
+<span class="n">i</span><span class="o">.</span><span class="n">settings</span><span class="p">(</span><span class="n">number_of_shards</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">i</span><span class="o">.</span><span class="n">create</span><span class="p">()</span>
+
+<span class="n">i2</span> <span class="o">=</span> <span class="n">i</span><span class="o">.</span><span class="n">clone</span><span class="p">(</span><span class="s1">&#39;other-index&#39;</span><span class="p">)</span>
+<span class="n">i2</span><span class="o">.</span><span class="n">create</span><span class="p">()</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – name of the index</p></li>
+<li><p><strong>using</strong> – connection alias to use, defaults to <code class="docutils literal notranslate"><span class="pre">'default'</span></code></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.helpers.index.Index.close">
+<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">using</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/index.html#Index.close"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.index.Index.close" title="Permalink to this definition"></a></dt>
+<dd><p>Closes the index in opensearch.</p>
+<p>Any additional keyword arguments will be passed to
+<code class="docutils literal notranslate"><span class="pre">OpenSearch.indices.close</span></code> unchanged.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.helpers.index.Index.create">
+<span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">using</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/index.html#Index.create"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.index.Index.create" title="Permalink to this definition"></a></dt>
+<dd><p>Creates the index in opensearch.</p>
+<p>Any additional keyword arguments will be passed to
+<code class="docutils literal notranslate"><span class="pre">OpenSearch.indices.create</span></code> unchanged.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.helpers.index.Index.delete">
+<span class="sig-name descname"><span class="pre">delete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">using</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/index.html#Index.delete"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.index.Index.delete" title="Permalink to this definition"></a></dt>
+<dd><p>Deletes the index in opensearch.</p>
+<p>Any additional keyword arguments will be passed to
+<code class="docutils literal notranslate"><span class="pre">OpenSearch.indices.delete</span></code> unchanged.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.helpers.index.Index.delete_alias">
+<span class="sig-name descname"><span class="pre">delete_alias</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">using</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/index.html#Index.delete_alias"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.index.Index.delete_alias" title="Permalink to this definition"></a></dt>
+<dd><p>Delete specific alias.</p>
+<p>Any additional keyword arguments will be passed to
+<code class="docutils literal notranslate"><span class="pre">OpenSearch.indices.delete_alias</span></code> unchanged.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.helpers.index.Index.document">
+<span class="sig-name descname"><span class="pre">document</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">document</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/index.html#Index.document"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.index.Index.document" title="Permalink to this definition"></a></dt>
+<dd><p>Associate a <code class="xref py py-class docutils literal notranslate"><span class="pre">Document</span></code> subclass with an index.
+This means that, when this index is created, it will contain the
+mappings for the <code class="docutils literal notranslate"><span class="pre">Document</span></code>. If the <code class="docutils literal notranslate"><span class="pre">Document</span></code> class doesn’t have a
+default index yet (by defining <code class="docutils literal notranslate"><span class="pre">class</span> <span class="pre">Index</span></code>), this instance will be
+used. Can be used as a decorator:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">i</span> <span class="o">=</span> <span class="n">Index</span><span class="p">(</span><span class="s1">&#39;blog&#39;</span><span class="p">)</span>
+
+<span class="nd">@i</span><span class="o">.</span><span class="n">document</span>
+<span class="k">class</span> <span class="nc">Post</span><span class="p">(</span><span class="n">Document</span><span class="p">):</span>
+    <span class="n">title</span> <span class="o">=</span> <span class="n">Text</span><span class="p">()</span>
+
+<span class="c1"># create the index, including Post mappings</span>
+<span class="n">i</span><span class="o">.</span><span class="n">create</span><span class="p">()</span>
+
+<span class="c1"># .search() will now return a Search object that will return</span>
+<span class="c1"># properly deserialized Post instances</span>
+<span class="n">s</span> <span class="o">=</span> <span class="n">i</span><span class="o">.</span><span class="n">search</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.helpers.index.Index.exists">
+<span class="sig-name descname"><span class="pre">exists</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">using</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/index.html#Index.exists"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.index.Index.exists" title="Permalink to this definition"></a></dt>
+<dd><p>Returns <code class="docutils literal notranslate"><span class="pre">True</span></code> if the index already exists in opensearch.</p>
+<p>Any additional keyword arguments will be passed to
+<code class="docutils literal notranslate"><span class="pre">OpenSearch.indices.exists</span></code> unchanged.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.helpers.index.Index.exists_alias">
+<span class="sig-name descname"><span class="pre">exists_alias</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">using</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/index.html#Index.exists_alias"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.index.Index.exists_alias" title="Permalink to this definition"></a></dt>
+<dd><p>Return a boolean indicating whether given alias exists for this index.</p>
+<p>Any additional keyword arguments will be passed to
+<code class="docutils literal notranslate"><span class="pre">OpenSearch.indices.exists_alias</span></code> unchanged.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.helpers.index.Index.flush">
+<span class="sig-name descname"><span class="pre">flush</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">using</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/index.html#Index.flush"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.index.Index.flush" title="Permalink to this definition"></a></dt>
+<dd><p>Performs a flush operation on the index.</p>
+<p>Any additional keyword arguments will be passed to
+<code class="docutils literal notranslate"><span class="pre">OpenSearch.indices.flush</span></code> unchanged.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.helpers.index.Index.forcemerge">
+<span class="sig-name descname"><span class="pre">forcemerge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">using</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/index.html#Index.forcemerge"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.index.Index.forcemerge" title="Permalink to this definition"></a></dt>
+<dd><p>The force merge API allows to force merging of the index through an
+API. The merge relates to the number of segments a Lucene index holds
+within each shard. The force merge operation allows to reduce the
+number of segments by merging them.</p>
+<p>This call will block until the merge is complete. If the http
+connection is lost, the request will continue in the background, and
+any new requests will block until the previous force merge is complete.</p>
+<p>Any additional keyword arguments will be passed to
+<code class="docutils literal notranslate"><span class="pre">OpenSearch.indices.forcemerge</span></code> unchanged.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.helpers.index.Index.get">
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">using</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/index.html#Index.get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.index.Index.get" title="Permalink to this definition"></a></dt>
+<dd><p>The get index API allows to retrieve information about the index.</p>
+<p>Any additional keyword arguments will be passed to
+<code class="docutils literal notranslate"><span class="pre">OpenSearch.indices.get</span></code> unchanged.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.helpers.index.Index.get_alias">
+<span class="sig-name descname"><span class="pre">get_alias</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">using</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/index.html#Index.get_alias"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.index.Index.get_alias" title="Permalink to this definition"></a></dt>
+<dd><p>Retrieve a specified alias.</p>
+<p>Any additional keyword arguments will be passed to
+<code class="docutils literal notranslate"><span class="pre">OpenSearch.indices.get_alias</span></code> unchanged.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.helpers.index.Index.get_field_mapping">
+<span class="sig-name descname"><span class="pre">get_field_mapping</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">using</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/index.html#Index.get_field_mapping"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.index.Index.get_field_mapping" title="Permalink to this definition"></a></dt>
+<dd><p>Retrieve mapping definition of a specific field.</p>
+<p>Any additional keyword arguments will be passed to
+<code class="docutils literal notranslate"><span class="pre">OpenSearch.indices.get_field_mapping</span></code> unchanged.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.helpers.index.Index.get_mapping">
+<span class="sig-name descname"><span class="pre">get_mapping</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">using</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/index.html#Index.get_mapping"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.index.Index.get_mapping" title="Permalink to this definition"></a></dt>
+<dd><p>Retrieve specific mapping definition for a specific type.</p>
+<p>Any additional keyword arguments will be passed to
+<code class="docutils literal notranslate"><span class="pre">OpenSearch.indices.get_mapping</span></code> unchanged.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.helpers.index.Index.get_settings">
+<span class="sig-name descname"><span class="pre">get_settings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">using</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/index.html#Index.get_settings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.index.Index.get_settings" title="Permalink to this definition"></a></dt>
+<dd><p>Retrieve settings for the index.</p>
+<p>Any additional keyword arguments will be passed to
+<code class="docutils literal notranslate"><span class="pre">OpenSearch.indices.get_settings</span></code> unchanged.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.helpers.index.Index.get_upgrade">
+<span class="sig-name descname"><span class="pre">get_upgrade</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">using</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/index.html#Index.get_upgrade"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.index.Index.get_upgrade" title="Permalink to this definition"></a></dt>
+<dd><p>Monitor how much of the index is upgraded.</p>
+<p>Any additional keyword arguments will be passed to
+<code class="docutils literal notranslate"><span class="pre">OpenSearch.indices.get_upgrade</span></code> unchanged.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.helpers.index.Index.mapping">
+<span class="sig-name descname"><span class="pre">mapping</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mapping</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/index.html#Index.mapping"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.index.Index.mapping" title="Permalink to this definition"></a></dt>
+<dd><p>Associate a mapping (an instance of
+<code class="xref py py-class docutils literal notranslate"><span class="pre">Mapping</span></code>) with this index.
+This means that, when this index is created, it will contain the
+mappings for the document type defined by those mappings.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.helpers.index.Index.open">
+<span class="sig-name descname"><span class="pre">open</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">using</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/index.html#Index.open"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.index.Index.open" title="Permalink to this definition"></a></dt>
+<dd><p>Opens the index in opensearch.</p>
+<p>Any additional keyword arguments will be passed to
+<code class="docutils literal notranslate"><span class="pre">OpenSearch.indices.open</span></code> unchanged.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.helpers.index.Index.put_alias">
+<span class="sig-name descname"><span class="pre">put_alias</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">using</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/index.html#Index.put_alias"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.index.Index.put_alias" title="Permalink to this definition"></a></dt>
+<dd><p>Create an alias for the index.</p>
+<p>Any additional keyword arguments will be passed to
+<code class="docutils literal notranslate"><span class="pre">OpenSearch.indices.put_alias</span></code> unchanged.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.helpers.index.Index.put_mapping">
+<span class="sig-name descname"><span class="pre">put_mapping</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">using</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/index.html#Index.put_mapping"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.index.Index.put_mapping" title="Permalink to this definition"></a></dt>
+<dd><p>Register specific mapping definition for a specific type.</p>
+<p>Any additional keyword arguments will be passed to
+<code class="docutils literal notranslate"><span class="pre">OpenSearch.indices.put_mapping</span></code> unchanged.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.helpers.index.Index.put_settings">
+<span class="sig-name descname"><span class="pre">put_settings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">using</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/index.html#Index.put_settings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.index.Index.put_settings" title="Permalink to this definition"></a></dt>
+<dd><p>Change specific index level settings in real time.</p>
+<p>Any additional keyword arguments will be passed to
+<code class="docutils literal notranslate"><span class="pre">OpenSearch.indices.put_settings</span></code> unchanged.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.helpers.index.Index.recovery">
+<span class="sig-name descname"><span class="pre">recovery</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">using</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/index.html#Index.recovery"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.index.Index.recovery" title="Permalink to this definition"></a></dt>
+<dd><p>The indices recovery API provides insight into on-going shard
+recoveries for the index.</p>
+<p>Any additional keyword arguments will be passed to
+<code class="docutils literal notranslate"><span class="pre">OpenSearch.indices.recovery</span></code> unchanged.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.helpers.index.Index.refresh">
+<span class="sig-name descname"><span class="pre">refresh</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">using</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/index.html#Index.refresh"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.index.Index.refresh" title="Permalink to this definition"></a></dt>
+<dd><p>Performs a refresh operation on the index.</p>
+<p>Any additional keyword arguments will be passed to
+<code class="docutils literal notranslate"><span class="pre">OpenSearch.indices.refresh</span></code> unchanged.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.helpers.index.Index.save">
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">using</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/index.html#Index.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.index.Index.save" title="Permalink to this definition"></a></dt>
+<dd><p>Sync the index definition with opensearch, creating the index if it
+doesn’t exist and updating its settings and mappings if it does.</p>
+<p>Note some settings and mapping changes cannot be done on an open
+index (or at all on an existing index) and for those this method will
+fail with the underlying exception.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.helpers.index.Index.search">
+<span class="sig-name descname"><span class="pre">search</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">using</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/index.html#Index.search"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.index.Index.search" title="Permalink to this definition"></a></dt>
+<dd><p>Return a <code class="xref py py-class docutils literal notranslate"><span class="pre">Search</span></code> object searching over the
+index (or all the indices belonging to this template) and its
+<code class="docutils literal notranslate"><span class="pre">Document</span></code>s.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.helpers.index.Index.segments">
+<span class="sig-name descname"><span class="pre">segments</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">using</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/index.html#Index.segments"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.index.Index.segments" title="Permalink to this definition"></a></dt>
+<dd><p>Provide low level segments information that a Lucene index (shard
+level) is built with.</p>
+<p>Any additional keyword arguments will be passed to
+<code class="docutils literal notranslate"><span class="pre">OpenSearch.indices.segments</span></code> unchanged.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.helpers.index.Index.settings">
+<span class="sig-name descname"><span class="pre">settings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/index.html#Index.settings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.index.Index.settings" title="Permalink to this definition"></a></dt>
+<dd><p>Add settings to the index:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">i</span> <span class="o">=</span> <span class="n">Index</span><span class="p">(</span><span class="s1">&#39;i&#39;</span><span class="p">)</span>
+<span class="n">i</span><span class="o">.</span><span class="n">settings</span><span class="p">(</span><span class="n">number_of_shards</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">number_of_replicas</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Multiple calls to <code class="docutils literal notranslate"><span class="pre">settings</span></code> will merge the keys, later overriding
+the earlier.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.helpers.index.Index.shard_stores">
+<span class="sig-name descname"><span class="pre">shard_stores</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">using</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/index.html#Index.shard_stores"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.index.Index.shard_stores" title="Permalink to this definition"></a></dt>
+<dd><p>Provides store information for shard copies of the index. Store
+information reports on which nodes shard copies exist, the shard copy
+version, indicating how recent they are, and any exceptions encountered
+while opening the shard index or from earlier engine failure.</p>
+<p>Any additional keyword arguments will be passed to
+<code class="docutils literal notranslate"><span class="pre">OpenSearch.indices.shard_stores</span></code> unchanged.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.helpers.index.Index.shrink">
+<span class="sig-name descname"><span class="pre">shrink</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">using</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/index.html#Index.shrink"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.index.Index.shrink" title="Permalink to this definition"></a></dt>
+<dd><p>The shrink index API allows you to shrink an existing index into a new
+index with fewer primary shards. The number of primary shards in the
+target index must be a factor of the shards in the source index. For
+example an index with 8 primary shards can be shrunk into 4, 2 or 1
+primary shards or an index with 15 primary shards can be shrunk into 5,
+3 or 1. If the number of shards in the index is a prime number it can
+only be shrunk into a single primary shard. Before shrinking, a
+(primary or replica) copy of every shard in the index must be present
+on the same node.</p>
+<p>Any additional keyword arguments will be passed to
+<code class="docutils literal notranslate"><span class="pre">OpenSearch.indices.shrink</span></code> unchanged.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.helpers.index.Index.stats">
+<span class="sig-name descname"><span class="pre">stats</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">using</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/index.html#Index.stats"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.index.Index.stats" title="Permalink to this definition"></a></dt>
+<dd><p>Retrieve statistics on different operations happening on the index.</p>
+<p>Any additional keyword arguments will be passed to
+<code class="docutils literal notranslate"><span class="pre">OpenSearch.indices.stats</span></code> unchanged.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.helpers.index.Index.updateByQuery">
+<span class="sig-name descname"><span class="pre">updateByQuery</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">using</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/index.html#Index.updateByQuery"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.index.Index.updateByQuery" title="Permalink to this definition"></a></dt>
+<dd><p>Return a <code class="xref py py-class docutils literal notranslate"><span class="pre">UpdateByQuery</span></code> object searching over the index
+(or all the indices belonging to this template) and updating Documents that match
+the search criteria.</p>
+<p>For more information, see here:
+<a class="reference external" href="https://opensearch.org/docs/latest/opensearch/rest-api/document-apis/update-by-query/">https://opensearch.org/docs/latest/opensearch/rest-api/document-apis/update-by-query/</a></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.helpers.index.Index.upgrade">
+<span class="sig-name descname"><span class="pre">upgrade</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">using</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/index.html#Index.upgrade"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.index.Index.upgrade" title="Permalink to this definition"></a></dt>
+<dd><p>Upgrade the index to the latest format.</p>
+<p>Any additional keyword arguments will be passed to
+<code class="docutils literal notranslate"><span class="pre">OpenSearch.indices.upgrade</span></code> unchanged.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.helpers.index.Index.validate_query">
+<span class="sig-name descname"><span class="pre">validate_query</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">using</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/index.html#Index.validate_query"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.index.Index.validate_query" title="Permalink to this definition"></a></dt>
+<dd><p>Validate a potentially expensive query without executing it.</p>
+<p>Any additional keyword arguments will be passed to
+<code class="docutils literal notranslate"><span class="pre">OpenSearch.indices.validate_query</span></code> unchanged.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="function.html" class="btn btn-neutral float-left" title="function" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="mapping.html" class="btn btn-neutral float-right" title="mapping" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright OpenSearch Project Contributors.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>search &mdash; OpenSearch Python Client  documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
+        <script src="../../_static/clipboard.min.js"></script>
+        <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="update_by_query" href="update_by_query.html" />
+    <link rel="prev" title="query" href="query.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            OpenSearch Python Client
+              <img src="../../_static/OpenSearch.svg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../api-ref.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../client.html">Clients</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../connection.html">connection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../connection_pool.html">connection_pool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../exceptions.html">exceptions</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../helpers.html">helpers</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="aggs.html">aggs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="analysis.html">analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="document.html">document</a></li>
+<li class="toctree-l3"><a class="reference internal" href="faceted_search.html">faceted_search</a></li>
+<li class="toctree-l3"><a class="reference internal" href="field.html">field</a></li>
+<li class="toctree-l3"><a class="reference internal" href="function.html">function</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html">index</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mapping.html">mapping</a></li>
+<li class="toctree-l3"><a class="reference internal" href="query.html">query</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">search</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#opensearchpy.helpers.search.Search"><code class="docutils literal notranslate"><span class="pre">Search</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="update_by_query.html">update_by_query</a></li>
+<li class="toctree-l3"><a class="reference internal" href="wrappers.html">wrappers</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../plugins.html">Plugins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../serializer.html">serializer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../transport.html">transport</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../genindex.html">Index</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/opensearch-project/opensearch-py/blob/main/LICENSE.txt">License</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/opensearch-project/opensearch-py/blob/main/CONTRIBUTING.md">Contributing</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/opensearch-project/opensearch-py/blob/main/CODE_OF_CONDUCT.md">Code of Conduct</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/opensearch-project/opensearch-py/blob/main/DEVELOPER_GUIDE.md">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/opensearch-project/opensearch-py">GitHub Repository</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">OpenSearch Python Client</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../api-ref.html">API Reference</a></li>
+          <li class="breadcrumb-item"><a href="../helpers.html">helpers</a></li>
+      <li class="breadcrumb-item active">search</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/opensearch-project/opensearch-py/blob/main/docs/source/api-ref/helpers/search.md" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="search">
+<h1>search<a class="headerlink" href="#search" title="Permalink to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="opensearchpy.helpers.search.Search">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opensearchpy.helpers.search.</span></span><span class="sig-name descname"><span class="pre">Search</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/search.html#Search"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.search.Search" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Request</span></code></p>
+<p>Search request to opensearch.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>using</strong> – <cite>OpenSearch</cite> instance to use</p></li>
+<li><p><strong>index</strong> – limit the search to index</p></li>
+<li><p><strong>doc_type</strong> – only query this type.</p></li>
+</ul>
+</dd>
+</dl>
+<p>All the parameters supplied (or omitted) at creation type can be later
+overridden by methods (<cite>using</cite>, <cite>index</cite> and <cite>doc_type</cite> respectively).</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.helpers.search.Search.__getitem__">
+<span class="sig-name descname"><span class="pre">__getitem__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/search.html#Search.__getitem__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.search.Search.__getitem__" title="Permalink to this definition"></a></dt>
+<dd><p>Support slicing the <cite>Search</cite> instance for pagination.</p>
+<p>Slicing equates to the from/size parameters. E.g.:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="n">Search</span><span class="p">()</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="o">...</span><span class="p">)[</span><span class="mi">0</span><span class="p">:</span><span class="mi">25</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>is equivalent to:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="n">Search</span><span class="p">()</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="o">...</span><span class="p">)</span><span class="o">.</span><span class="n">extra</span><span class="p">(</span><span class="n">from_</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">25</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.helpers.search.Search.__iter__">
+<span class="sig-name descname"><span class="pre">__iter__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/search.html#Search.__iter__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.search.Search.__iter__" title="Permalink to this definition"></a></dt>
+<dd><p>Iterate over the hits.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.helpers.search.Search._clone">
+<span class="sig-name descname"><span class="pre">_clone</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/search.html#Search._clone"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.search.Search._clone" title="Permalink to this definition"></a></dt>
+<dd><p>Return a clone of the current search request. Performs a shallow copy
+of all the underlying objects. Used internally by most state modifying
+APIs.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.helpers.search.Search.count">
+<span class="sig-name descname"><span class="pre">count</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/search.html#Search.count"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.search.Search.count" title="Permalink to this definition"></a></dt>
+<dd><p>Return the number of hits matching the query and filters. Note that
+only the actual number is returned.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.helpers.search.Search.delete">
+<span class="sig-name descname"><span class="pre">delete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">)</span> <span class="pre">executes</span> <span class="pre">the</span> <span class="pre">query</span> <span class="pre">by</span> <span class="pre">delegating</span> <span class="pre">to</span> <span class="pre">delete_by_query(</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/search.html#Search.delete"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.search.Search.delete" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.helpers.search.Search.execute">
+<span class="sig-name descname"><span class="pre">execute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ignore_cache</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/search.html#Search.execute"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.search.Search.execute" title="Permalink to this definition"></a></dt>
+<dd><p>Execute the search and return an instance of <code class="docutils literal notranslate"><span class="pre">Response</span></code> wrapping all
+the data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ignore_cache</strong> – if set to <code class="docutils literal notranslate"><span class="pre">True</span></code>, consecutive calls will hit
+OpenSearch, while cached result will be ignored. Defaults to <cite>False</cite></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.helpers.search.Search.from_dict">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/search.html#Search.from_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.search.Search.from_dict" title="Permalink to this definition"></a></dt>
+<dd><p>Construct a new <cite>Search</cite> instance from a raw dict containing the search
+body. Useful when migrating from raw dictionaries.</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="n">Search</span><span class="o">.</span><span class="n">from_dict</span><span class="p">({</span>
+    <span class="s2">&quot;query&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;bool&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;must&quot;</span><span class="p">:</span> <span class="p">[</span><span class="o">...</span><span class="p">]</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;aggs&quot;</span><span class="p">:</span> <span class="p">{</span><span class="o">...</span><span class="p">}</span>
+<span class="p">})</span>
+<span class="n">s</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="s1">&#39;term&#39;</span><span class="p">,</span> <span class="n">published</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.helpers.search.Search.highlight">
+<span class="sig-name descname"><span class="pre">highlight</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">fields</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/search.html#Search.highlight"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.search.Search.highlight" title="Permalink to this definition"></a></dt>
+<dd><p>Request highlighting of some fields. All keyword arguments passed in will be
+used as parameters for all the fields in the <code class="docutils literal notranslate"><span class="pre">fields</span></code> parameter. Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Search</span><span class="p">()</span><span class="o">.</span><span class="n">highlight</span><span class="p">(</span><span class="s1">&#39;title&#39;</span><span class="p">,</span> <span class="s1">&#39;body&#39;</span><span class="p">,</span> <span class="n">fragment_size</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>will produce the equivalent of:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;highlight&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;fields&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;fragment_size&quot;</span><span class="p">:</span> <span class="mi">50</span><span class="p">},</span>
+            <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;fragment_size&quot;</span><span class="p">:</span> <span class="mi">50</span><span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>If you want to have different options for different fields
+you can call <code class="docutils literal notranslate"><span class="pre">highlight</span></code> twice:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Search</span><span class="p">()</span><span class="o">.</span><span class="n">highlight</span><span class="p">(</span><span class="s1">&#39;title&#39;</span><span class="p">,</span> <span class="n">fragment_size</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span><span class="o">.</span><span class="n">highlight</span><span class="p">(</span><span class="s1">&#39;body&#39;</span><span class="p">,</span> <span class="n">fragment_size</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>which will produce:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;highlight&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;fields&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;fragment_size&quot;</span><span class="p">:</span> <span class="mi">100</span><span class="p">},</span>
+            <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;fragment_size&quot;</span><span class="p">:</span> <span class="mi">50</span><span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.helpers.search.Search.highlight_options">
+<span class="sig-name descname"><span class="pre">highlight_options</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/search.html#Search.highlight_options"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.search.Search.highlight_options" title="Permalink to this definition"></a></dt>
+<dd><p>Update the global highlighting options used for this request. For
+example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="n">Search</span><span class="p">()</span>
+<span class="n">s</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">highlight_options</span><span class="p">(</span><span class="n">order</span><span class="o">=</span><span class="s1">&#39;score&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.helpers.search.Search.response_class">
+<span class="sig-name descname"><span class="pre">response_class</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cls</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/search.html#Search.response_class"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.search.Search.response_class" title="Permalink to this definition"></a></dt>
+<dd><p>Override the default wrapper used for the response.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.helpers.search.Search.scan">
+<span class="sig-name descname"><span class="pre">scan</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/search.html#Search.scan"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.search.Search.scan" title="Permalink to this definition"></a></dt>
+<dd><p>Turn the search into a scan search and return a generator that will
+iterate over all the documents matching the query.</p>
+<p>Use <code class="docutils literal notranslate"><span class="pre">params</span></code> method to specify any additional arguments you with to
+pass to the underlying <code class="docutils literal notranslate"><span class="pre">scan</span></code> helper from <code class="docutils literal notranslate"><span class="pre">opensearchpy</span></code></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.helpers.search.Search.script_fields">
+<span class="sig-name descname"><span class="pre">script_fields</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/search.html#Search.script_fields"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.search.Search.script_fields" title="Permalink to this definition"></a></dt>
+<dd><p>Define script fields to be calculated on hits.</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="n">Search</span><span class="p">()</span>
+<span class="n">s</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">script_fields</span><span class="p">(</span><span class="n">times_two</span><span class="o">=</span><span class="s2">&quot;doc[&#39;field&#39;].value * 2&quot;</span><span class="p">)</span>
+<span class="n">s</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">script_fields</span><span class="p">(</span>
+    <span class="n">times_three</span><span class="o">=</span><span class="p">{</span>
+        <span class="s1">&#39;script&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;lang&#39;</span><span class="p">:</span> <span class="s1">&#39;painless&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;source&#39;</span><span class="p">:</span> <span class="s2">&quot;doc[&#39;field&#39;].value * params.n&quot;</span><span class="p">,</span>
+            <span class="s1">&#39;params&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;n&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.helpers.search.Search.sort">
+<span class="sig-name descname"><span class="pre">sort</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">keys</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/search.html#Search.sort"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.search.Search.sort" title="Permalink to this definition"></a></dt>
+<dd><p>Add sorting information to the search request. If called without
+arguments it will remove all sort requirements. Otherwise it will
+replace them. Acceptable arguments are:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;some.field&#39;</span>
+<span class="s1">&#39;-some.other.field&#39;</span>
+<span class="p">{</span><span class="s1">&#39;different.field&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;any&#39;</span><span class="p">:</span> <span class="s1">&#39;dict&#39;</span><span class="p">}}</span>
+</pre></div>
+</div>
+<p>so for example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="n">Search</span><span class="p">()</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span>
+    <span class="s1">&#39;category&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;-title&#39;</span><span class="p">,</span>
+    <span class="p">{</span><span class="s2">&quot;price&quot;</span> <span class="p">:</span> <span class="p">{</span><span class="s2">&quot;order&quot;</span> <span class="p">:</span> <span class="s2">&quot;asc&quot;</span><span class="p">,</span> <span class="s2">&quot;mode&quot;</span> <span class="p">:</span> <span class="s2">&quot;avg&quot;</span><span class="p">}}</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>will sort by <code class="docutils literal notranslate"><span class="pre">category</span></code>, <code class="docutils literal notranslate"><span class="pre">title</span></code> (in descending order) and
+<code class="docutils literal notranslate"><span class="pre">price</span></code> in ascending order using the <code class="docutils literal notranslate"><span class="pre">avg</span></code> mode.</p>
+<p>The API returns a copy of the Search object and can thus be chained.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.helpers.search.Search.source">
+<span class="sig-name descname"><span class="pre">source</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fields</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/search.html#Search.source"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.search.Search.source" title="Permalink to this definition"></a></dt>
+<dd><p>Selectively control how the _source field is returned.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>fields</strong> – wildcard string, array of wildcards, or dictionary of includes and excludes</p>
+</dd>
+</dl>
+<p>If <code class="docutils literal notranslate"><span class="pre">fields</span></code> is None, the entire document will be returned for
+each hit.  If fields is a dictionary with keys of ‘includes’ and/or
+‘excludes’ the fields will be either included or excluded appropriately.</p>
+<p>Calling this multiple times with the same named parameter will override the
+previous values with the new ones.</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="n">Search</span><span class="p">()</span>
+<span class="n">s</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">source</span><span class="p">(</span><span class="n">includes</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;obj1.*&#39;</span><span class="p">],</span> <span class="n">excludes</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;*.description&quot;</span><span class="p">])</span>
+
+<span class="n">s</span> <span class="o">=</span> <span class="n">Search</span><span class="p">()</span>
+<span class="n">s</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">source</span><span class="p">(</span><span class="n">includes</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;obj1.*&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">source</span><span class="p">(</span><span class="n">excludes</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;*.description&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.helpers.search.Search.suggest">
+<span class="sig-name descname"><span class="pre">suggest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/search.html#Search.suggest"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.search.Search.suggest" title="Permalink to this definition"></a></dt>
+<dd><p>Add a suggestions request to the search.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – name of the suggestion</p></li>
+<li><p><strong>text</strong> – text to suggest on</p></li>
+</ul>
+</dd>
+</dl>
+<p>All keyword arguments will be added to the suggestions body. For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="n">Search</span><span class="p">()</span>
+<span class="n">s</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">suggest</span><span class="p">(</span><span class="s1">&#39;suggestion-1&#39;</span><span class="p">,</span> <span class="s1">&#39;OpenSearch&#39;</span><span class="p">,</span> <span class="n">term</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;field&#39;</span><span class="p">:</span> <span class="s1">&#39;body&#39;</span><span class="p">})</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.helpers.search.Search.to_dict">
+<span class="sig-name descname"><span class="pre">to_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">count</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/search.html#Search.to_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.search.Search.to_dict" title="Permalink to this definition"></a></dt>
+<dd><p>Serialize the search into the dictionary that will be sent over as the
+request’s body.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>count</strong> – a flag to specify if we are interested in a body for count -
+no aggregations, no pagination bounds etc.</p>
+</dd>
+</dl>
+<p>All additional keyword arguments will be included into the dictionary.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.helpers.search.Search.update_from_dict">
+<span class="sig-name descname"><span class="pre">update_from_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/search.html#Search.update_from_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.search.Search.update_from_dict" title="Permalink to this definition"></a></dt>
+<dd><p>Apply options from a serialized body to the current instance. Modifies
+the object in-place. Used mostly by <code class="docutils literal notranslate"><span class="pre">from_dict</span></code>.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="query.html" class="btn btn-neutral float-left" title="query" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="update_by_query.html" class="btn btn-neutral float-right" title="update_by_query" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright OpenSearch Project Contributors.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -120,6 +120,12 @@
     <span class="s2">&quot;ConnectionTimeout&quot;</span><span class="p">,</span>
     <span class="s2">&quot;AuthenticationException&quot;</span><span class="p">,</span>
     <span class="s2">&quot;AuthorizationException&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;OpenSearchDslException&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;UnknownDslObject&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ValidationException&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;IllegalOperation&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;OpenSearchWarning&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;OpenSearchDeprecationWarning&quot;</span><span class="p">,</span>
 <span class="p">]</span>
 
 
@@ -243,6 +249,22 @@
 
 <div class="viewcode-block" id="AuthorizationException"><a class="viewcode-back" href="../../api-ref/exceptions.html#opensearchpy.AuthorizationException">[docs]</a><span class="k">class</span> <span class="nc">AuthorizationException</span><span class="p">(</span><span class="n">TransportError</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Exception representing a 403 status code.&quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="OpenSearchDslException"><a class="viewcode-back" href="../../api-ref/exceptions.html#opensearchpy.OpenSearchDslException">[docs]</a><span class="k">class</span> <span class="nc">OpenSearchDslException</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Base class for all OpenSearchDsl exceptions&quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="UnknownDslObject"><a class="viewcode-back" href="../../api-ref/exceptions.html#opensearchpy.UnknownDslObject">[docs]</a><span class="k">class</span> <span class="nc">UnknownDslObject</span><span class="p">(</span><span class="n">OpenSearchDslException</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Exception representing UnknownDSLObject&quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="ValidationException"><a class="viewcode-back" href="../../api-ref/exceptions.html#opensearchpy.ValidationException">[docs]</a><span class="k">class</span> <span class="nc">ValidationException</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="n">OpenSearchDslException</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Exception representing Validation Error&quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="IllegalOperation"><a class="viewcode-back" href="../../api-ref/exceptions.html#opensearchpy.IllegalOperation">[docs]</a><span class="k">class</span> <span class="nc">IllegalOperation</span><span class="p">(</span><span class="n">OpenSearchDslException</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Exception representing IllegalOperation&quot;&quot;&quot;</span></div>
 
 
 <div class="viewcode-block" id="OpenSearchWarning"><a class="viewcode-back" href="../../api-ref/exceptions.html#opensearchpy.OpenSearchWarning">[docs]</a><span class="k">class</span> <span class="nc">OpenSearchWarning</span><span class="p">(</span><span class="ne">Warning</span><span class="p">):</span>
