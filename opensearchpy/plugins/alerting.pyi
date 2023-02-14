@@ -6,7 +6,6 @@
 #
 # Modifications Copyright OpenSearch Contributors. See
 # GitHub history for details.
-#
 
 from typing import Any, Union
 
