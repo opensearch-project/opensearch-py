@@ -85,7 +85,6 @@ def fetch_opensearch_repo():
 
 def run_all(argv=None):
     sys.exitfunc = lambda: sys.stderr.write("Shutting down....\n")
-
     # fetch yaml tests anywhere that's not GitHub Actions
     if "GITHUB_ACTION" not in environ:
         fetch_opensearch_repo()

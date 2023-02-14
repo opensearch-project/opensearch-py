@@ -55,3 +55,19 @@
 ```{eval-rst}
 .. autoclass:: opensearchpy.TransportError
 ```
+
+```{eval-rst}
+.. autoclass:: opensearchpy.OpenSearchDslException
+```
+
+```{eval-rst}
+.. autoclass:: opensearchpy.IllegalOperation
+```
+
+```{eval-rst}
+.. autoclass:: opensearchpy.UnknownDslObject
+```
+
+```{eval-rst}
+.. autoclass:: opensearchpy.ValidationException
+```

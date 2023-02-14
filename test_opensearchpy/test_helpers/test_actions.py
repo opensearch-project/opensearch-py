@@ -35,7 +35,7 @@ import pytest
 from opensearchpy import OpenSearch, helpers
 from opensearchpy.serializer import JSONSerializer
 
-from .test_cases import TestCase
+from ..test_cases import TestCase
 
 lock_side_effect = threading.Lock()
 

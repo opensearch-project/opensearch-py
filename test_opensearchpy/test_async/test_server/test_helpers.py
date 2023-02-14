@@ -34,8 +34,9 @@ import asyncio
 import pytest
 from mock import MagicMock, patch
 
-from opensearchpy import TransportError, helpers
-from opensearchpy.helpers import ScanError
+from opensearchpy import TransportError
+from opensearchpy._async import helpers
+from opensearchpy.helpers import BulkIndexError, ScanError
 
 pytestmark = pytest.mark.asyncio
 
@@ -135,7 +136,7 @@ class TestStreamingBulk(object):
                 async_client, [{"a": "b"}, {"a": "c"}], index="i", raise_on_error=True
             ):
                 assert ok
-        except helpers.BulkIndexError as e:
+        except BulkIndexError as e:
             assert 2 == len(e.errors)
         else:
             assert False, "exception should have been raised"
@@ -346,7 +347,7 @@ class TestBulk(object):
         )
         await async_client.cluster.health(wait_for_status="yellow")
 
-        with pytest.raises(helpers.BulkIndexError):
+        with pytest.raises(BulkIndexError):
             await helpers.async_bulk(async_client, [{"a": 42}, {"a": "c"}], index="i")
 
     async def test_ignore_error_if_raised(self, async_client):
@@ -371,7 +372,7 @@ class TestBulk(object):
         )
 
         # ignore only the status code in the `ignore_status` argument
-        with pytest.raises(helpers.BulkIndexError):
+        with pytest.raises(BulkIndexError):
             await helpers.async_bulk(
                 async_client, [{"a": 42}, {"a": "c"}], index="i", ignore_status=(444,)
             )
@@ -870,7 +871,6 @@ class TestParentChildReindex:
         self, async_client, parent_reindex_setup
     ):
         await helpers.async_reindex(async_client, "test-index", "real-index")
-
         assert {"question_answer": "question"} == (
             await async_client.get(index="real-index", id=42)
         )["_source"]
