@@ -196,7 +196,6 @@ class AsyncHttpConnection(AIOHttpConnection):
 
         start = self.loop.time()
         try:
-
             async with self.session.request(
                 method,
                 url,
