@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>transport &mdash; OpenSearch Python Client  documentation</title>
@@ -33,12 +33,16 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../index.html" class="icon icon-home"> OpenSearch Python Client
-            <img src="../_static/OpenSearch.svg" class="logo" alt="Logo"/>
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            OpenSearch Python Client
+              <img src="../_static/OpenSearch.svg" class="logo" alt="Logo"/>
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -91,7 +95,7 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a></li>
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../api-ref.html">API Reference</a></li>
       <li class="breadcrumb-item active">transport</li>
       <li class="wy-breadcrumbs-aside">
@@ -113,7 +117,7 @@
 individual connections as well as creating a connection pool to hold them.</p>
 <p>Main interface is the <cite>perform_request</cite> method.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>hosts</strong> – list of dictionaries, each containing keyword arguments to
 create a <cite>connection_class</cite> instance</p></li>
@@ -181,7 +185,7 @@ configuration management.</p>
 <span class="sig-name descname"><span class="pre">add_connection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">host</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opensearchpy/transport.html#Transport.add_connection"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.Transport.add_connection" title="Permalink to this definition"></a></dt>
 <dd><p>Create a new <a class="reference internal" href="connection.html#opensearchpy.Connection" title="opensearchpy.Connection"><code class="xref py py-class docutils literal notranslate"><span class="pre">Connection</span></code></a> instance and add it to the pool.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>host</strong> – kwargs that will be used to create the instance</p>
 </dd>
 </dl>
@@ -206,7 +210,7 @@ configuration management.</p>
 <dd><p>Mark a connection as dead (failed) in the connection pool. If sniffing
 on failure is enabled this will initiate the sniffing process.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>connection</strong> – instance of <a class="reference internal" href="connection.html#opensearchpy.Connection" title="opensearchpy.Connection"><code class="xref py py-class docutils literal notranslate"><span class="pre">Connection</span></code></a> that failed</p>
 </dd>
 </dl>
@@ -223,7 +227,7 @@ to <cite>max_retries</cite> times).</p>
 <p>If the operation was successful and the connection used was previously
 marked as dead, mark it as live, resetting it’s failure count.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>method</strong> – HTTP method to use</p></li>
 <li><p><strong>url</strong> – absolute url (without host) to target</p></li>
@@ -245,7 +249,7 @@ passed to the connection</p></li>
 Tries to identify unchanged hosts and re-use existing
 <a class="reference internal" href="connection.html#opensearchpy.Connection" title="opensearchpy.Connection"><code class="xref py py-class docutils literal notranslate"><span class="pre">Connection</span></code></a> instances.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>hosts</strong> – same as <cite>__init__</cite></p>
 </dd>
 </dl>
@@ -258,7 +262,7 @@ Tries to identify unchanged hosts and re-use existing
 pool using the information retrieved.</p>
 <p>To extract the node connection parameters use the <code class="docutils literal notranslate"><span class="pre">nodes_to_host_callback</span></code>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>initial</strong> – flag indicating if this is during startup
 (<code class="docutils literal notranslate"><span class="pre">sniff_on_start</span></code>), ignore the <code class="docutils literal notranslate"><span class="pre">sniff_timeout</span></code> if <code class="docutils literal notranslate"><span class="pre">True</span></code></p>
 </dd>

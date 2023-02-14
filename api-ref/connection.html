@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>connection &mdash; OpenSearch Python Client  documentation</title>
@@ -33,12 +33,16 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../index.html" class="icon icon-home"> OpenSearch Python Client
-            <img src="../_static/OpenSearch.svg" class="logo" alt="Logo"/>
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            OpenSearch Python Client
+              <img src="../_static/OpenSearch.svg" class="logo" alt="Logo"/>
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -97,7 +101,7 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a></li>
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../api-ref.html">API Reference</a></li>
       <li class="breadcrumb-item active">connection</li>
       <li class="wy-breadcrumbs-aside">
@@ -120,7 +124,7 @@ holds persistent connection pool to it and it’s main interface
 (<cite>perform_request</cite>) is thread-safe.</p>
 <p>Also responsible for logging.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>host</strong> – hostname of the node (default: localhost)</p></li>
 <li><p><strong>port</strong> – port to use (integer, default: 9200)</p></li>
@@ -193,7 +197,7 @@ certifi (if available)</p>
 <dd><p>Bases: <a class="reference internal" href="#opensearchpy.Connection" title="opensearchpy.connection.base.Connection"><code class="xref py py-class docutils literal notranslate"><span class="pre">Connection</span></code></a></p>
 <p>Connection using the <cite>requests</cite> library.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>http_auth</strong> – optional http auth information as either ‘:’ separated
 string or a tuple. Any value will be passed into requests as <cite>auth</cite>.</p></li>
@@ -231,7 +235,7 @@ For custom connection-pooling on current session</p></li>
 <dd><p>Bases: <a class="reference internal" href="#opensearchpy.Connection" title="opensearchpy.connection.base.Connection"><code class="xref py py-class docutils literal notranslate"><span class="pre">Connection</span></code></a></p>
 <p>Default connection class using the <cite>urllib3</cite> library and the http protocol.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>host</strong> – hostname of the node (default: localhost)</p></li>
 <li><p><strong>port</strong> – port to use (integer, default: 9200)</p></li>

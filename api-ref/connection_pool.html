@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>connection_pool &mdash; OpenSearch Python Client  documentation</title>
@@ -33,12 +33,16 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../index.html" class="icon icon-home"> OpenSearch Python Client
-            <img src="../_static/OpenSearch.svg" class="logo" alt="Logo"/>
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            OpenSearch Python Client
+              <img src="../_static/OpenSearch.svg" class="logo" alt="Logo"/>
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -95,7 +99,7 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a></li>
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../api-ref.html">API Reference</a></li>
       <li class="breadcrumb-item active">connection_pool</li>
       <li class="wy-breadcrumbs-aside">
@@ -130,7 +134,7 @@ the timeout is over the connection will be resurrected and returned to the
 live pool. A connection that has been previously marked as dead and
 succeeds will be marked as live (its fail count will be deleted).</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>connections</strong> – list of tuples containing the
 <a class="reference internal" href="connection.html#opensearchpy.Connection" title="opensearchpy.Connection"><code class="xref py py-class docutils literal notranslate"><span class="pre">Connection</span></code></a> instance and it’s options</p></li>
@@ -174,7 +178,7 @@ the selector instance to choose from.</p>
 <dd><p>Mark the connection as dead (failed). Remove it from the live pool and
 put it on a timeout.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>connection</strong> – the failed instance</p>
 </dd>
 </dl>
@@ -186,7 +190,7 @@ put it on a timeout.</p>
 <dd><p>Mark connection as healthy after a resurrection. Resets the fail
 counter for the connection.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>connection</strong> – the connection to redeem</p>
 </dd>
 </dl>
@@ -199,7 +203,7 @@ counter for the connection.</p>
 locate one (not all) eligible (it’s timeout is over) connection to
 return to the live pool. Any resurrected connection is also returned.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>force</strong> – resurrect a connection even if there is none eligible (used
 when we have no live connections). If force is specified resurrect
 always returns a connection.</p>
@@ -227,7 +231,7 @@ process it will be the dictionary returned by the <cite>host_info_callback</cite
 only select connections from it’s own zones and only fall back to other
 connections where there would be none in it’s zones.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>opts</strong> – dictionary of connection instances and their options</p>
 </dd>
 </dl>
@@ -236,7 +240,7 @@ connections where there would be none in it’s zones.</p>
 <span class="sig-name descname"><span class="pre">select</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">connections</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opensearchpy/connection_pool.html#ConnectionSelector.select"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.ConnectionSelector.select" title="Permalink to this definition"></a></dt>
 <dd><p>Select a connection from the given list.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>connections</strong> – list of live connections to choose from</p>
 </dd>
 </dl>
@@ -250,7 +254,7 @@ connections where there would be none in it’s zones.</p>
 <dd><p>Bases: <a class="reference internal" href="#opensearchpy.ConnectionSelector" title="opensearchpy.connection_pool.ConnectionSelector"><code class="xref py py-class docutils literal notranslate"><span class="pre">ConnectionSelector</span></code></a></p>
 <p>Selector using round-robin.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>opts</strong> – dictionary of connection instances and their options</p>
 </dd>
 </dl>
@@ -259,7 +263,7 @@ connections where there would be none in it’s zones.</p>
 <span class="sig-name descname"><span class="pre">select</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">connections</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opensearchpy/connection_pool.html#RoundRobinSelector.select"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.RoundRobinSelector.select" title="Permalink to this definition"></a></dt>
 <dd><p>Select a connection from the given list.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>connections</strong> – list of live connections to choose from</p>
 </dd>
 </dl>
