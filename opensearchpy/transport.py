@@ -197,13 +197,14 @@ class Transport(object):
 
         :arg hosts: same as `__init__`
         """
+
         # construct the connections
         def _create_connection(host):
             # if this is not the initial setup look at the existing connection
             # options and identify connections that haven't changed and can be
             # kept around.
             if hasattr(self, "connection_pool"):
-                for (connection, old_host) in self.connection_pool.connection_opts:
+                for connection, old_host in self.connection_pool.connection_opts:
                     if old_host == host:
                         return connection
 

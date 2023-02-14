@@ -160,7 +160,6 @@ class AsyncTransport(Transport):
 
         # ... and we can start sniffing in the background.
         if self.sniffing_task is None and self.sniff_on_start:
-
             # Create an asyncio.Event for future calls to block on
             # until the initial sniffing task completes.
             self._sniff_on_start_event = asyncio.Event()
