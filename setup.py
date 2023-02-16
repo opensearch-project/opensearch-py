@@ -51,7 +51,6 @@ packages = [
 ]
 install_requires = [
     "urllib3>=1.21.1, <2",
-    "certifi",
     "requests>=2.4.0, <3.0.0",
     "six",
     "python-dateutil",
@@ -70,6 +69,8 @@ tests_require = [
 ]
 if sys.version_info >= (3, 6):
     tests_require.append("pytest-mock<4.0.0")
+    install_requires.append("certifi>=2022.12.07")
+
 async_require = ["aiohttp>=3,<4"]
 
 docs_require = ["sphinx", "sphinx_rtd_theme", "myst_parser", "sphinx_copybutton"]
