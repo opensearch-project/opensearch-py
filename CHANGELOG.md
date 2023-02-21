@@ -1,5 +1,13 @@
 # CHANGELOG
 Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
+## [2.1.2]
+### Added
+### Changed
+### Deprecated
+### Removed
+### Fixed
+- Fixed Async Client without http_auth argument ([#297](https://github.com/opensearch-project/opensearch-py/pull/297))
+### Security
 
 ## [2.1.1]
 ### Added
