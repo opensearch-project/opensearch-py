@@ -48,7 +48,7 @@ logger = logging.getLogger("opensearch")
 
 class AsyncOpenSearch(object):
     """
-    OpenSearch low-level client. Provides a straightforward mapping from
+    OpenSearch client. Provides a straightforward mapping from
     Python to OpenSearch REST endpoints.
 
     The instance has attributes ``cat``, ``cluster``, ``indices``, ``ingest``,

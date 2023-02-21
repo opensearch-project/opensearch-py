@@ -11,7 +11,7 @@
     - [Deleting an index](#deleting-an-index)
   - [Making API calls](#making-api-calls)
     - [Point in time API](#point-in-time-api)
-  - [Using High-level Python client](#using-high-level-python-client)
+  - [Using DSL features from opensearch-dsl-py](#using-dsl-features-from-opensearch-dsl-py)
     - [Searching for documents with filters](#searching-for-documents-with-filters)
   - [Using plugins](#using-plugins)
     - [Alerting plugin](#alerting-plugin)
@@ -230,12 +230,12 @@ print('\n The deleted point in time:')
 print(response)
 ```
 
-## Using High-level Python client
-High-level python client is now merged into Low-level python client. Thus, opensearch-py supports creating and indexing documents, searching with and without filters, and updating documents using queries.[High-level Python client documentation](https://opensearch.org/docs/latest/clients/python-high-level/).
+## Using DSL features from opensearch-dsl-py
+opensearch-dsl-py client is now merged into the opensearch-py client. Thus, opensearch-py supports creating and indexing documents, searching with and without filters, and updating documents using queries. See [opensearch-dsl-py client documentation](https://opensearch.org/docs/latest/clients/python-high-level/) for details.
 
 All the APIs newly added from opensearch-dsl-py are listed in [docs](https://github.com/opensearch-project/opensearch-py/tree/main/docs/source/api-ref). 
 
-In the below example, 'Search' API from High-level Python Client is used. 
+In the below example, [Search API](https://github.com/opensearch-project/opensearch-py/blob/main/opensearchpy/helpers/search.py) from opensearch-dsl-py client is used. 
 
 ### Searching for documents with filters
 
