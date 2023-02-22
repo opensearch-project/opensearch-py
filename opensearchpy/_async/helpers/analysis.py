@@ -26,8 +26,10 @@
 
 import six
 
-from opensearchpy.connection.connections import get_connection
+from opensearchpy.connection.async_connections import get_connection
 from opensearchpy.helpers.utils import AttrDict, DslBase, merge
+
+__all__ = ["tokenizer", "analyzer", "char_filter", "token_filter", "normalizer"]
 
 
 class AnalysisBase(object):

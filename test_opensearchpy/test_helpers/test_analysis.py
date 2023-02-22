@@ -27,17 +27,17 @@
 
 from pytest import raises
 
-from opensearchpy.helpers import analysis
+from opensearchpy.helpers.analysis import *
 
 
 def test_analyzer_serializes_as_name():
-    a = analysis.analyzer("my_analyzer")
+    a = analyzer("my_analyzer")
 
     assert "my_analyzer" == a.to_dict()
 
 
 def test_analyzer_has_definition():
-    a = analysis.CustomAnalyzer(
+    a = CustomAnalyzer(
         "my_analyzer", tokenizer="keyword", filter=["lowercase"]
     )
 
@@ -49,11 +49,11 @@ def test_analyzer_has_definition():
 
 
 def test_simple_multiplexer_filter():
-    a = analysis.analyzer(
+    a = analyzer(
         "my_analyzer",
         tokenizer="keyword",
         filter=[
-            analysis.token_filter(
+            token_filter(
                 "my_multi", "multiplexer", filters=["lowercase", "lowercase, stop"]
             )
         ],
@@ -77,15 +77,15 @@ def test_simple_multiplexer_filter():
 
 
 def test_multiplexer_with_custom_filter():
-    a = analysis.analyzer(
+    a = analyzer(
         "my_analyzer",
         tokenizer="keyword",
         filter=[
-            analysis.token_filter(
+            token_filter(
                 "my_multi",
                 "multiplexer",
                 filters=[
-                    [analysis.token_filter("en", "snowball", language="English")],
+                    [token_filter("en", "snowball", language="English")],
                     "lowercase, stop",
                 ],
             )
@@ -108,17 +108,17 @@ def test_multiplexer_with_custom_filter():
 
 
 def test_conditional_token_filter():
-    a = analysis.analyzer(
+    a = analyzer(
         "my_cond",
-        tokenizer=analysis.tokenizer("keyword"),
+        tokenizer=tokenizer("keyword"),
         filter=[
-            analysis.token_filter(
+            token_filter(
                 "testing",
                 "condition",
                 script={"source": "return true"},
                 filter=[
                     "lowercase",
-                    analysis.token_filter("en", "snowball", language="English"),
+                    token_filter("en", "snowball", language="English"),
                 ],
             ),
             "stop",
@@ -145,18 +145,18 @@ def test_conditional_token_filter():
 
 
 def test_conflicting_nested_filters_cause_error():
-    a = analysis.analyzer(
+    a = analyzer(
         "my_cond",
-        tokenizer=analysis.tokenizer("keyword"),
+        tokenizer=tokenizer("keyword"),
         filter=[
-            analysis.token_filter("en", "stemmer", language="english"),
-            analysis.token_filter(
+            token_filter("en", "stemmer", language="english"),
+            token_filter(
                 "testing",
                 "condition",
                 script={"source": "return true"},
                 filter=[
                     "lowercase",
-                    analysis.token_filter("en", "snowball", language="English"),
+                    token_filter("en", "snowball", language="English"),
                 ],
             ),
         ],
@@ -167,13 +167,13 @@ def test_conflicting_nested_filters_cause_error():
 
 
 def test_normalizer_serializes_as_name():
-    n = analysis.normalizer("my_normalizer")
+    n = normalizer("my_normalizer")
 
     assert "my_normalizer" == n.to_dict()
 
 
 def test_normalizer_has_definition():
-    n = analysis.CustomNormalizer(
+    n = CustomNormalizer(
         "my_normalizer", filter=["lowercase", "asciifolding"], char_filter=["quote"]
     )
 
@@ -185,17 +185,17 @@ def test_normalizer_has_definition():
 
 
 def test_tokenizer():
-    t = analysis.tokenizer("trigram", "nGram", min_gram=3, max_gram=3)
+    t = tokenizer("trigram", "nGram", min_gram=3, max_gram=3)
 
     assert t.to_dict() == "trigram"
     assert {"type": "nGram", "min_gram": 3, "max_gram": 3} == t.get_definition()
 
 
 def test_custom_analyzer_can_collect_custom_items():
-    trigram = analysis.tokenizer("trigram", "nGram", min_gram=3, max_gram=3)
-    my_stop = analysis.token_filter("my_stop", "stop", stopwords=["a", "b"])
-    umlauts = analysis.char_filter("umlauts", "pattern_replace", mappings=["ü=>ue"])
-    a = analysis.analyzer(
+    trigram = tokenizer("trigram", "nGram", min_gram=3, max_gram=3)
+    my_stop = token_filter("my_stop", "stop", stopwords=["a", "b"])
+    umlauts = char_filter("umlauts", "pattern_replace", mappings=["ü=>ue"])
+    a = analyzer(
         "my_analyzer",
         tokenizer=trigram,
         filter=["lowercase", my_stop],
@@ -219,7 +219,7 @@ def test_custom_analyzer_can_collect_custom_items():
 
 
 def test_stemmer_analyzer_can_pass_name():
-    t = analysis.token_filter(
+    t = token_filter(
         "my_english_filter", name="minimal_english", type="stemmer"
     )
     assert t.to_dict() == "my_english_filter"
