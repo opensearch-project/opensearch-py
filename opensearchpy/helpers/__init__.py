@@ -62,7 +62,7 @@ try:
     if sys.version_info < (3, 6):
         raise ImportError
 
-    from .._async.helpers import (
+    from .._async.helpers.actions import (
         async_bulk,
         async_reindex,
         async_scan,

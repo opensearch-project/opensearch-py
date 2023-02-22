@@ -32,16 +32,16 @@
 import asyncio
 import logging
 
-from ..compat import map
-from ..exceptions import TransportError
-from ..helpers.actions import (
+from ...compat import map
+from ...exceptions import TransportError
+from ...helpers.actions import (
     _ActionChunker,
     _process_bulk_chunk_error,
     _process_bulk_chunk_success,
     expand_action,
 )
-from ..helpers.errors import ScanError
-from .client import AsyncOpenSearch  # noqa
+from ...helpers.errors import ScanError
+from ..client import AsyncOpenSearch  # noqa
 
 logger = logging.getLogger("opensearchpy.helpers")
 
