@@ -80,15 +80,15 @@ class AsyncSearch(Request):
 
     def __getitem__(self, n):
         """
-        Support slicing the `Search` instance for pagination.
+        Support slicing the `AsyncSearch` instance for pagination.
 
         Slicing equates to the from/size parameters. E.g.::
 
-            s = Search().query(...)[0:25]
+            s = AsyncSearch().query(...)[0:25]
 
         is equivalent to::
 
-            s = Search().query(...).extra(from_=0, size=25)
+            s = AsyncSearch().query(...).extra(from_=0, size=25)
 
         """
         s = self._clone()
@@ -366,7 +366,7 @@ class AsyncSearch(Request):
         All keyword arguments will be added to the suggestions body. For example::
 
             s = AsyncSearch()
-            s = s.suggest('suggestion-1', 'OpenSearch', term={'field': 'body'})
+            s = s.suggest('suggestion-1', 'AsyncOpenSearch', term={'field': 'body'})
         """
         s = self._clone()
         s._suggest[name] = {"text": text}
@@ -474,7 +474,7 @@ class AsyncSearch(Request):
         opensearch = await get_connection(self._using)
 
         return AttrDict(
-            await opensearch.delete_by_query(
+            opensearch.delete_by_query(
                 index=self._index, body=self.to_dict(), **self._params
             )
         )
