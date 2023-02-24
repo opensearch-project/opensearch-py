@@ -59,10 +59,10 @@ def async_client():
             "verify_certs": False,	
         }	
     try:	
-        async_client = AsyncOpenSearch(opensearch_url, **kwargs)	
-        async_client.cluster.health(wait_for_status="yellow")	
+        client = AsyncOpenSearch(opensearch_url, **kwargs)	
+        client.cluster.health(wait_for_status="yellow")	
         add_connection("default", client)	
-        return async_client	
+        return client	
     except ConnectionError:	
         skip()	
 
