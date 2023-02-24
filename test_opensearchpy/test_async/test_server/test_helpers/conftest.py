@@ -44,7 +44,7 @@ from test_opensearchpy.test_server.test_helpers.test_data import (
 from test_opensearchpy.test_server.test_helpers.test_document import Comment, History, PullRequest, User
 
 @fixture(scope="session")	
-def client():	
+async def client():	
     opensearch_url = "http://localhost:9200/"	
     kwargs = {}	
     # "verify_certs": False will optionally generate a warning message	
@@ -61,7 +61,7 @@ def client():
     try:	
         client = AsyncOpenSearch(opensearch_url, **kwargs)	
         client.cluster.health(wait_for_status="yellow")	
-        add_connection("default", client)	
+        await add_connection("default", client)	
         return client	
     except ConnectionError:	
         skip()	
