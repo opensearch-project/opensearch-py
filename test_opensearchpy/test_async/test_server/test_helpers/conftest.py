@@ -44,7 +44,7 @@ from test_opensearchpy.test_server.test_helpers.test_data import (
 from test_opensearchpy.test_server.test_helpers.test_document import Comment, History, PullRequest, User
 
 @fixture(scope="session")	
-def async_client():	
+def client():	
     opensearch_url = "http://localhost:9200/"	
     kwargs = {}	
     # "verify_certs": False will optionally generate a warning message	
