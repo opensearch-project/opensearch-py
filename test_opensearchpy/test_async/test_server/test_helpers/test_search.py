@@ -33,15 +33,14 @@ from opensearchpy import (
     Date,
     Document,
     Keyword,
-    MultiSearch,
     Q,
-    Search,
     Text,
     TransportError,
 )
 from opensearchpy.helpers.response import aggs
+from opensearchpy._async.helpers.search import AsyncSearch, AsyncMultiSearch
 
-from .test_data import FLAT_DATA
+from test_opensearchpy.test_server.test_helpers.test_data import FLAT_DATA
 
 
 class Repository(Document):
@@ -99,11 +98,11 @@ def test_top_hits_are_wrapped_in_response(data_client):
     assert isinstance(hits[0], Commit)
 
 
-def test_inner_hits_are_wrapped_in_response(data_client):
-    s = Search(index="git")[0:1].query(
+async def test_inner_hits_are_wrapped_in_response(data_client):
+    s = AsyncSearch(index="git")[0:1].query(
         "has_parent", parent_type="repo", inner_hits={}, query=Q("match_all")
     )
-    response = s.execute()
+    response = await s.execute()
 
     commit = response.hits[0]
     assert isinstance(commit.meta.inner_hits.repo, response.__class__)
@@ -118,10 +117,10 @@ def test_scan_respects_doc_types(data_client):
     assert repos[0].organization == "opensearch"
 
 
-def test_scan_iterates_through_all_docs(data_client):
-    s = Search(index="flat-git")
+async def test_scan_iterates_through_all_docs(data_client):
+    s = AsyncSearch(index="flat-git")
 
-    commits = list(s.scan())
+    commits = list(await s.scan())
 
     assert 52 == len(commits)
     assert {d["_id"] for d in FLAT_DATA} == {c.meta.id for c in commits}
@@ -135,14 +134,14 @@ def test_response_is_cached(data_client):
     assert s._response.hits == repos
 
 
-def test_multi_search(data_client):
+async def test_multi_search(data_client):
     s1 = Repository.search()
-    s2 = Search(index="flat-git")
+    s2 = AsyncSearch(index="flat-git")
 
-    ms = MultiSearch()
-    ms = ms.add(s1).add(s2)
+    ms = AsyncMultiSearch()
+    ms = await ms.add(s1).add(s2)
 
-    r1, r2 = ms.execute()
+    r1, r2 = await ms.execute()
 
     assert 1 == len(r1)
     assert isinstance(r1[0], Repository)
@@ -152,16 +151,16 @@ def test_multi_search(data_client):
     assert r2._search is s2
 
 
-def test_multi_missing(data_client):
+async def test_multi_missing(data_client):
     s1 = Repository.search()
-    s2 = Search(index="flat-git")
-    s3 = Search(index="does_not_exist")
+    s2 = AsyncSearch(index="flat-git")
+    s3 = AsyncSearch(index="does_not_exist")
 
-    ms = MultiSearch()
-    ms = ms.add(s1).add(s2).add(s3)
+    ms = AsyncMultiSearch()
+    ms = await ms.add(s1).add(s2).add(s3)
 
     with raises(TransportError):
-        ms.execute()
+        await ms.execute()
 
     r1, r2, r3 = ms.execute(raise_on_error=False)
 
@@ -175,11 +174,11 @@ def test_multi_missing(data_client):
     assert r3 is None
 
 
-def test_raw_subfield_can_be_used_in_aggs(data_client):
-    s = Search(index="git")[0:0]
+asyncdef test_raw_subfield_can_be_used_in_aggs(data_client):
+    s = AsyncSearch(index="git")[0:0]
     s.aggs.bucket("authors", "terms", field="author.name.raw", size=1)
 
-    r = s.execute()
+    r = await s.execute()
 
     authors = r.aggregations.authors
     assert 1 == len(authors)
