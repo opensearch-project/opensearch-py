@@ -8,28 +8,53 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        entry:
-          - { opensearch_ref: '1.x' }
-          - { opensearch_ref: '2.0' }
-          - { opensearch_ref: '2.x' }
-          - { opensearch_ref: 'main' }
+        opensearch_ref: [ '1.x', '2.x', '2.0', 'main' ]
+        
     steps:
       - name: Checkout OpenSearch
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           repository: opensearch-project/opensearch
-          ref: ${{ matrix.entry.opensearch_ref }}
+          ref: ${{ matrix.opensearch_ref }}
           path: opensearch
 
-        # This step builds the docker image tagged as opensearch:test. It will be further used in /ci/run-tests to test against unreleased OpenSearch.
-        # Reference: https://github.com/opensearch-project/OpenSearch/blob/2.0/distribution/docker/build.gradle#L190
+      - name: Get OpenSearch branch top
+        id: get-key
+        working-directory: opensearch
+        run: echo key=`git log -1 --format='%H'` >> $GITHUB_OUTPUT
+
+      - name: Restore cached build
+        id: cache-restore
+        uses: actions/cache/restore@v3
+        with:
+          path: opensearch/distribution/archives/linux-tar/build/distributions
+          key: ${{ steps.get-key.outputs.key }}
+
       - name: Assemble OpenSearch
+        if: steps.cache-restore.outputs.cache-hit != 'true'
+        working-directory: opensearch
+        run: ./gradlew :distribution:archives:linux-tar:assemble
+
+      - name: Save cached build
+        if: steps.cache-restore.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v3
+        with:
+          path: opensearch/distribution/archives/linux-tar/build/distributions
+          key: ${{ steps.get-key.outputs.key }}
+
+      - name: Run OpenSearch
+        working-directory: opensearch/distribution/archives/linux-tar/build/distributions
         run: |
-          cd opensearch
-          ./gradlew assemble
+          tar xf opensearch-min-*
+          ./opensearch-*/bin/opensearch &
+          for attempt in {1..20}; do sleep 5; if curl -s localhost:9200; then echo '=====> ready'; break; fi; echo '=====> waiting...'; done
 
       - name: Checkout Python Client
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+        with:
+          path: opensearch-py
 
       - name: Run Integration Test
-        run: "./.ci/run-tests false SNAPSHOT"
+        run: python setup.py test
+        working-directory: opensearch-py
+#        run: "opensearch-py/.ci/run-tests false SNAPSHOT"
