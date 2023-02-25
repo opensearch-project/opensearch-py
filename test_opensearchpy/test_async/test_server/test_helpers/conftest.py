@@ -74,7 +74,7 @@ async def client():
         }
     try:
         client = AsyncOpenSearch(opensearch_url, **kwargs)
-        client.cluster.health(wait_for_status="yellow")
+        await client.cluster.health(wait_for_status="yellow")
         await add_connection("default", client)
         return client
     except ConnectionError:
@@ -89,8 +89,8 @@ async def client():
 
 
 @fixture(scope="session")
-def opensearch_version(client):
-    info = client.info()
+async def opensearch_version(client):
+    info = await client.info()
     print(info)
     yield tuple(
         int(x)
@@ -99,23 +99,23 @@ def opensearch_version(client):
 
 
 @fixture
-def write_client(client):
+async def write_client(client):
     yield client
-    client.indices.delete("test-*", ignore=404)
-    client.indices.delete_template("test-template", ignore=404)
+    await client.indices.delete("test-*", ignore=404)
+    await client.indices.delete_template("test-template", ignore=404)
 
 
 @fixture
-def data_client(client):
+async def data_client(client):
     # create mappings
     create_git_index(client, "git")
     create_flat_git_index(client, "flat-git")
     # load data
-    async_bulk(client, DATA, raise_on_error=True, refresh=True)
-    async_bulk(client, FLAT_DATA, raise_on_error=True, refresh=True)
+    await async_bulk(client, DATA, raise_on_error=True, refresh=True)
+    await async_bulk(client, FLAT_DATA, raise_on_error=True, refresh=True)
     yield client
-    client.indices.delete("git", ignore=404)
-    client.indices.delete("flat-git", ignore=404)
+    await client.indices.delete("git", ignore=404)
+    await client.indices.delete("flat-git", ignore=404)
 
 
 @fixture
@@ -143,8 +143,8 @@ def pull_request(write_client):
 
 
 @fixture
-def setup_ubq_tests(client):
+async def setup_ubq_tests(client):
     index = "test-git"
     create_git_index(client, index)
-    async_bulk(client, TEST_GIT_DATA, raise_on_error=True, refresh=True)
+    await async_bulk(client, TEST_GIT_DATA, raise_on_error=True, refresh=True)
     return index
