@@ -28,7 +28,7 @@
 import os
 import re
 from datetime import datetime
-
+import asyncio
 from pytest import fixture, skip
 import pytest
 from opensearchpy import AsyncOpenSearch
@@ -51,6 +51,11 @@ from test_opensearchpy.test_server.test_helpers.test_document import (
 pytestmark = pytest.mark.asyncio
 # from opensearchpy._async.helpers.test import get_test_client
 
+@pytest.fixture(scope="session")
+def event_loop():
+    loop = asyncio.get_event_loop()
+    yield loop
+    loop.close()
 
 @fixture(scope="session")
 async def client():
