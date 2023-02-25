@@ -25,15 +25,16 @@
 #  specific language governing permissions and limitations
 #  under the License.
 
+import os
 import re
 from datetime import datetime
 
-from pytest import fixture
+from pytest import fixture, skip
 
-from opensearchpy.connection.async_connections import add_connection
+from opensearchpy import AsyncOpenSearch
 from opensearchpy._async.helpers.actions import async_bulk
-#from opensearchpy._async.helpers.test import get_test_client
-
+from opensearchpy.connection.async_connections import add_connection
+from opensearchpy.exceptions import ConnectionError
 from test_opensearchpy.test_server.test_helpers.test_data import (
     DATA,
     FLAT_DATA,
@@ -41,37 +42,45 @@ from test_opensearchpy.test_server.test_helpers.test_data import (
     create_flat_git_index,
     create_git_index,
 )
-from test_opensearchpy.test_server.test_helpers.test_document import Comment, History, PullRequest, User
+from test_opensearchpy.test_server.test_helpers.test_document import (
+    Comment,
+    History,
+    PullRequest,
+    User,
+)
 
-@fixture(scope="session")	
-async def client():	
-    opensearch_url = "http://localhost:9200/"	
-    kwargs = {}	
-    # "verify_certs": False will optionally generate a warning message	
-    # (see :class:`~opensearchpy.Urllib3HttpConnection` for detailed description of the options)::	
-    if (	
-        "SECURE_INTEGRATION" in os.environ	
-        and os.environ["SECURE_INTEGRATION"] == "true"	
-    ):	
-        opensearch_url = "https://localhost:9200/"	
-        kwargs = {	
-            "http_auth": ("admin", "admin"),	
-            "verify_certs": False,	
-        }	
-    try:	
-        client = AsyncOpenSearch(opensearch_url, **kwargs)	
-        client.cluster.health(wait_for_status="yellow")	
-        await add_connection("default", client)	
-        return client	
-    except ConnectionError:	
-        skip()	
+# from opensearchpy._async.helpers.test import get_test_client
 
 
-#@fixture(scope="session")
-#def client():
- #   client = get_test_client(verify_certs=False, http_auth=("admin", "admin"))
- #   add_connection("default", client)
-  #  return client
+@fixture(scope="session")
+async def client():
+    opensearch_url = "http://localhost:9200/"
+    kwargs = {}
+    # "verify_certs": False will optionally generate a warning message
+    # (see :class:`~opensearchpy.Urllib3HttpConnection` for detailed description of the options)::
+    if (
+        "SECURE_INTEGRATION" in os.environ
+        and os.environ["SECURE_INTEGRATION"] == "true"
+    ):
+        opensearch_url = "https://localhost:9200/"
+        kwargs = {
+            "http_auth": ("admin", "admin"),
+            "verify_certs": False,
+        }
+    try:
+        client = AsyncOpenSearch(opensearch_url, **kwargs)
+        client.cluster.health(wait_for_status="yellow")
+        await add_connection("default", client)
+        return client
+    except ConnectionError:
+        skip()
+
+
+# @fixture(scope="session")
+# def client():
+#   client = get_test_client(verify_certs=False, http_auth=("admin", "admin"))
+#   add_connection("default", client)
+#  return client
 
 
 @fixture(scope="session")
@@ -91,14 +100,14 @@ def write_client(client):
     client.indices.delete_template("test-template", ignore=404)
 
 
-@fixture(scope="session")
+@fixture
 def data_client(client):
     # create mappings
     create_git_index(client, "git")
     create_flat_git_index(client, "flat-git")
     # load data
-    bulk(client, DATA, raise_on_error=True, refresh=True)
-    bulk(client, FLAT_DATA, raise_on_error=True, refresh=True)
+    async_bulk(client, DATA, raise_on_error=True, refresh=True)
+    async_bulk(client, FLAT_DATA, raise_on_error=True, refresh=True)
     yield client
     client.indices.delete("git", ignore=404)
     client.indices.delete("flat-git", ignore=404)
@@ -132,5 +141,5 @@ def pull_request(write_client):
 def setup_ubq_tests(client):
     index = "test-git"
     create_git_index(client, index)
-    bulk(client, TEST_GIT_DATA, raise_on_error=True, refresh=True)
+    async_bulk(client, TEST_GIT_DATA, raise_on_error=True, refresh=True)
     return index

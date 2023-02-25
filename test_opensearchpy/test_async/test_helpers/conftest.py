@@ -26,12 +26,14 @@
 #  under the License.
 
 
-from mock import Mock
 import pytest
+from mock import Mock
 from pytest import fixture
 
 from opensearchpy.connection.async_connections import add_connection, async_connections
+
 pytestmark = pytest.mark.asyncio
+
 
 @fixture
 async def mock_client(dummy_response):

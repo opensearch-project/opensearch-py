@@ -33,15 +33,15 @@ except ImportError:
 
 from six import iteritems, string_types
 
-from opensearchpy._async.helpers.actions import async_scan
+from opensearchpy._async.helpers.actions import aiter, async_scan
 from opensearchpy.connection.async_connections import get_connection
 from opensearchpy.exceptions import IllegalOperation, TransportError
 from opensearchpy.helpers.aggs import A, AggBase
 from opensearchpy.helpers.query import Bool, Q
 from opensearchpy.helpers.response import Hit, Response
-from opensearchpy.helpers.utils import AttrDict, DslBase, recursive_to_dict
 from opensearchpy.helpers.search import AggsProxy, ProxyDescriptor, QueryProxy, Request
-from opensearchpy._async.helpers.actions import aiter
+from opensearchpy.helpers.utils import AttrDict, DslBase, recursive_to_dict
+
 
 class AsyncSearch(Request):
     query = ProxyDescriptor("query")
@@ -429,7 +429,9 @@ class AsyncSearch(Request):
 
         d = self.to_dict(count=True)
         # TODO: failed shards detection
-        return await opensearch.count(index=self._index, body=d, **self._params)["count"]
+        return await opensearch.count(index=self._index, body=d, **self._params)[
+            "count"
+        ]
 
     async def execute(self, ignore_cache=False):
         """

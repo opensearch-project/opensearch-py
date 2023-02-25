@@ -29,17 +29,9 @@ from __future__ import unicode_literals
 
 from pytest import raises
 
-from opensearchpy import (
-    Date,
-    Document,
-    Keyword,
-    Q,
-    Text,
-    TransportError,
-)
+from opensearchpy import Date, Document, Keyword, Q, Text, TransportError
+from opensearchpy._async.helpers.search import AsyncMultiSearch, AsyncSearch
 from opensearchpy.helpers.response import aggs
-from opensearchpy._async.helpers.search import AsyncSearch, AsyncMultiSearch
-
 from test_opensearchpy.test_server.test_helpers.test_data import FLAT_DATA
 
 

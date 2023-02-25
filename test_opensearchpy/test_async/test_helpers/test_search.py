@@ -25,15 +25,18 @@
 #  under the License.
 
 from copy import deepcopy
+
 import pytest
 from pytest import raises
 
-from opensearchpy.helpers.document import Document
-from opensearchpy.helpers.query import Q
+from opensearchpy._async.helpers import search
 from opensearchpy.exceptions import IllegalOperation
 from opensearchpy.helpers import query
-from opensearchpy._async.helpers import search
+from opensearchpy.helpers.document import Document
+from opensearchpy.helpers.query import Q
+
 pytestmark = pytest.mark.asyncio
+
 
 async def test_expand__to_dot_is_respected():
     s = search.AsyncSearch().query("match", a__b=42, _expand__to_dot=False)
@@ -431,7 +434,9 @@ def test_source():
 
     assert {
         "_source": {"includes": ["foo.bar.*"], "excludes": ["foo.one"]}
-    } == search.AsyncSearch().source(includes=["foo.bar.*"], excludes=["foo.one"]).to_dict()
+    } == search.AsyncSearch().source(
+        includes=["foo.bar.*"], excludes=["foo.one"]
+    ).to_dict()
 
     assert {"_source": False} == search.AsyncSearch().source(False).to_dict()
 
