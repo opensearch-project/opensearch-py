@@ -94,7 +94,7 @@ def event_loop():
 
 @fixture(scope="session")
 async def client():
-    client = get_test_client(verify_certs=False, http_auth=("admin", "admin"))
+    client = await get_test_client(verify_certs=False, http_auth=("admin", "admin"))
     await add_connection("default", client)
     return client
 
