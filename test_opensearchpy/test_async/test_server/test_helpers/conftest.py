@@ -77,8 +77,13 @@ async def client():
         await client.cluster.health(wait_for_status="yellow")
         await add_connection("default", client)
         return client
-    except ConnectionError:
+    except ConnectionError as e:
+        print("Remove Later")
+        print(e.msg)
+        print("Remove Later")
         skip()
+    #except ConnectionError:
+        #skip()
 
 
 # @fixture(scope="session")
