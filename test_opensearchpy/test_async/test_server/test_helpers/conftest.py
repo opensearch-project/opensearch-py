@@ -30,7 +30,7 @@ import re
 from datetime import datetime
 
 from pytest import fixture, skip
-
+import pytest
 from opensearchpy import AsyncOpenSearch
 from opensearchpy._async.helpers.actions import async_bulk
 from opensearchpy.connection.async_connections import add_connection
@@ -48,7 +48,7 @@ from test_opensearchpy.test_server.test_helpers.test_document import (
     PullRequest,
     User,
 )
-
+pytestmark = pytest.mark.asyncio
 # from opensearchpy._async.helpers.test import get_test_client
 
 
