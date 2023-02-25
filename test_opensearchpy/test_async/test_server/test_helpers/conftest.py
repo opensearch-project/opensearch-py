@@ -79,7 +79,7 @@ async def client():
         return client
     except ConnectionError as e:
         print("Remove Later")
-        print(e.msg)
+        print(e.message)
         print("Remove Later")
         skip()
     #except ConnectionError:
