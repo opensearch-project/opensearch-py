@@ -78,9 +78,11 @@ async def client():
         await add_connection("default", client)
         return client
     except ConnectionError as e:
-        print("Remove Later")
-        print(e.message)
-        print("Remove Later")
+        print("Remove Later1")
+        print(e.__str__())
+        print("Remove Later2")
+        print(e)
+        print("Remove Later3")
         skip()
     #except ConnectionError:
         #skip()
