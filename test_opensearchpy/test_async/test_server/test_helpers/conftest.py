@@ -73,17 +73,21 @@ async def client():
             "verify_certs": False,
         }
     try:
+        print("Remove Later0")
         client = AsyncOpenSearch(opensearch_url, **kwargs)
+        print("Remove Later4")
         await client.cluster.health(wait_for_status="yellow")
+        print("Remove Later5")
         await add_connection("default", client)
+        print("Remove Later6")
         return client
+        print("Remove Later7")
     except ConnectionError as e:
         print("Remove Later1")
         print(e.__str__())
         print("Remove Later2")
         print(e)
         print("Remove Later3")
-        skip()
     #except ConnectionError:
         #skip()
 
