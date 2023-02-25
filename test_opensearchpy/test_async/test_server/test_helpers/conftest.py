@@ -49,7 +49,7 @@ from test_opensearchpy.test_server.test_helpers.test_document import (
     User,
 )
 pytestmark = pytest.mark.asyncio
-# from opensearchpy._async.helpers.test import get_test_client
+from opensearchpy._async.helpers.test import get_test_client
 
 @pytest.fixture(scope="session")
 def event_loop():
@@ -57,46 +57,46 @@ def event_loop():
     yield loop
     loop.close()
 
+# @fixture(scope="session")
+# async def client():
+#     opensearch_url = "http://localhost:9200/"
+#     kwargs = {}
+#     # "verify_certs": False will optionally generate a warning message
+#     # (see :class:`~opensearchpy.Urllib3HttpConnection` for detailed description of the options)::
+#     if (
+#         "SECURE_INTEGRATION" in os.environ
+#         and os.environ["SECURE_INTEGRATION"] == "true"
+#     ):
+#         opensearch_url = "https://localhost:9200/"
+#         kwargs = {
+#             "http_auth": ("admin", "admin"),
+#             "verify_certs": False,
+#         }
+#     try:
+#         print("Remove Later0")
+#         client = AsyncOpenSearch(opensearch_url, **kwargs)
+#         print("Remove Later4")
+#         await client.cluster.health(wait_for_status="yellow")
+#         print("Remove Later5")
+#         await add_connection("default", client)
+#         print("Remove Later6")
+#         return client
+#         print("Remove Later7")
+#     except ConnectionError as e:
+#         print("Remove Later1")
+#         print(e.__str__())
+#         print("Remove Later2")
+#         print(e)
+#         print("Remove Later3")
+#     #except ConnectionError:
+#         #skip()
+
+
 @fixture(scope="session")
 async def client():
-    opensearch_url = "http://localhost:9200/"
-    kwargs = {}
-    # "verify_certs": False will optionally generate a warning message
-    # (see :class:`~opensearchpy.Urllib3HttpConnection` for detailed description of the options)::
-    if (
-        "SECURE_INTEGRATION" in os.environ
-        and os.environ["SECURE_INTEGRATION"] == "true"
-    ):
-        opensearch_url = "https://localhost:9200/"
-        kwargs = {
-            "http_auth": ("admin", "admin"),
-            "verify_certs": False,
-        }
-    try:
-        print("Remove Later0")
-        client = AsyncOpenSearch(opensearch_url, **kwargs)
-        print("Remove Later4")
-        await client.cluster.health(wait_for_status="yellow")
-        print("Remove Later5")
-        await add_connection("default", client)
-        print("Remove Later6")
-        return client
-        print("Remove Later7")
-    except ConnectionError as e:
-        print("Remove Later1")
-        print(e.__str__())
-        print("Remove Later2")
-        print(e)
-        print("Remove Later3")
-    #except ConnectionError:
-        #skip()
-
-
-# @fixture(scope="session")
-# def client():
-#   client = get_test_client(verify_certs=False, http_auth=("admin", "admin"))
-#   add_connection("default", client)
-#  return client
+    client = get_test_client(verify_certs=False, http_auth=("admin", "admin"))
+    await add_connection("default", client)
+    return client
 
 
 @fixture(scope="session")
