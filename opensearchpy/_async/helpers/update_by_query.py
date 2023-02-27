@@ -24,14 +24,14 @@
 #  specific language governing permissions and limitations
 #  under the License.
 
-from opensearchpy._async.helpers.search import ProxyDescriptor, QueryProxy, Request
 from opensearchpy.connection.async_connections import get_connection
 from opensearchpy.helpers.query import Bool, Q
 from opensearchpy.helpers.response import UpdateByQueryResponse
+from opensearchpy.helpers.search import ProxyDescriptor, QueryProxy, Request
 from opensearchpy.helpers.utils import recursive_to_dict
 
 
-class UpdateByQuery(Request):
+class AsyncUpdateByQuery(Request):
     query = ProxyDescriptor("query")
 
     def __init__(self, **kwargs):
@@ -46,7 +46,7 @@ class UpdateByQuery(Request):
         overridden by methods (`using`, `index` and `doc_type` respectively).
 
         """
-        super(UpdateByQuery, self).__init__(**kwargs)
+        super(AsyncUpdateByQuery, self).__init__(**kwargs)
         self._response_class = UpdateByQueryResponse
         self._script = {}
         self._query_proxy = QueryProxy(self, "query")
@@ -85,7 +85,7 @@ class UpdateByQuery(Request):
         of all the underlying objects. Used internally by most state modifying
         APIs.
         """
-        ubq = super(UpdateByQuery, self)._clone()
+        ubq = super(AsyncUpdateByQuery, self)._clone()
 
         ubq._response_class = self._response_class
         ubq._script = self._script.copy()
@@ -152,16 +152,16 @@ class UpdateByQuery(Request):
         d.update(recursive_to_dict(kwargs))
         return d
 
-    def execute(self):
+    async def execute(self):
         """
         Execute the search and return an instance of ``Response`` wrapping all
         the data.
         """
-        opensearch = get_connection(self._using)
+        opensearch = await get_connection(self._using)
 
         self._response = self._response_class(
             self,
-            opensearch.update_by_query(
+            await opensearch.update_by_query(
                 index=self._index, body=self.to_dict(), **self._params
             ),
         )
