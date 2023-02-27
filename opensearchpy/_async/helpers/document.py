@@ -33,8 +33,8 @@ from fnmatch import fnmatch
 
 from six import add_metaclass, iteritems
 
-from opensearchpy._async.helpers.index import Index
-from opensearchpy._async.helpers.mapping import Mapping
+from opensearchpy._async.helpers.index import AsyncIndex
+from opensearchpy._async.helpers.mapping import AsyncMapping
 from opensearchpy.connection.async_connections import get_connection
 from opensearchpy.exceptions import (
     IllegalOperation,
@@ -42,30 +42,19 @@ from opensearchpy.exceptions import (
     RequestError,
     ValidationException,
 )
-from opensearchpy.helpers._async.search import Search
+from opensearchpy._async.helpers.search import AsyncSearch
 from opensearchpy.helpers.field import Field
 from opensearchpy.helpers.utils import DOC_META_FIELDS, META_FIELDS, ObjectBase, merge
+from opensearchpy.helpers.document import DocumentMeta
 
 
-class MetaField(object):
-    def __init__(self, *args, **kwargs):
-        self.args, self.kwargs = args, kwargs
-
-
-class DocumentMeta(type):
-    def __new__(cls, name, bases, attrs):
-        # DocumentMeta filters attrs in place
-        attrs["_doc_type"] = DocumentOptions(name, bases, attrs)
-        return super(DocumentMeta, cls).__new__(cls, name, bases, attrs)
-
-
-class IndexMeta(DocumentMeta):
+class AsyncIndexMeta(DocumentMeta):
     # global flag to guard us from associating an Index with the base Document
     # class, only user defined subclasses should have an _index attr
     _document_initialized = False
 
     def __new__(cls, name, bases, attrs):
-        new_cls = super(IndexMeta, cls).__new__(cls, name, bases, attrs)
+        new_cls = super(AsyncIndexMeta, cls).__new__(cls, name, bases, attrs)
         if cls._document_initialized:
             index_opts = attrs.pop("Index", None)
             index = cls.construct_index(index_opts, bases)
@@ -82,9 +71,9 @@ class IndexMeta(DocumentMeta):
                     return b._index
 
             # Set None as Index name so it will set _all while making the query
-            return Index(name=None)
+            return AsyncIndex(name=None)
 
-        i = Index(getattr(opts, "name", "*"), using=getattr(opts, "using", "default"))
+        i = AsyncIndex(getattr(opts, "name", "*"), using=getattr(opts, "using", "default"))
         i.settings(**getattr(opts, "settings", {}))
         i.aliases(**getattr(opts, "aliases", {}))
         for a in getattr(opts, "analyzers", ()):
@@ -92,50 +81,8 @@ class IndexMeta(DocumentMeta):
         return i
 
 
-class DocumentOptions(object):
-    def __init__(self, name, bases, attrs):
-        meta = attrs.pop("Meta", None)
-
-        # create the mapping instance
-        self.mapping = getattr(meta, "mapping", Mapping())
-
-        # register all declared fields into the mapping
-        for name, value in list(iteritems(attrs)):
-            if isinstance(value, Field):
-                self.mapping.field(name, value)
-                del attrs[name]
-
-        # add all the mappings for meta fields
-        for name in dir(meta):
-            if isinstance(getattr(meta, name, None), MetaField):
-                params = getattr(meta, name)
-                self.mapping.meta(name, *params.args, **params.kwargs)
-
-        # document inheritance - include the fields from parents' mappings
-        for b in bases:
-            if hasattr(b, "_doc_type") and hasattr(b._doc_type, "mapping"):
-                self.mapping.update(b._doc_type.mapping, update_only=True)
-
-    @property
-    def name(self):
-        return self.mapping.properties.name
-
-
-@add_metaclass(DocumentMeta)
-class InnerDoc(ObjectBase):
-    """
-    Common class for inner documents like Object or Nested
-    """
-
-    @classmethod
-    def from_opensearch(cls, data, data_only=False):
-        if data_only:
-            data = {"_source": data}
-        return super(InnerDoc, cls).from_opensearch(data)
-
-
-@add_metaclass(IndexMeta)
-class Document(ObjectBase):
+@add_metaclass(AsyncIndexMeta)
+class AsyncDocument(ObjectBase):
     """
     Model-like class for persisting documents in opensearch.
     """
@@ -151,22 +98,22 @@ class Document(ObjectBase):
         return using or cls._index._using
 
     @classmethod
-    def _get_connection(cls, using=None):
-        return get_connection(cls._get_using(using))
+    async def _get_connection(cls, using=None):
+        return await get_connection(cls._get_using(using))
 
     @classmethod
     def _default_index(cls, index=None):
         return index or cls._index._name
 
     @classmethod
-    def init(cls, index=None, using=None):
+    async def init(cls, index=None, using=None):
         """
         Create the index and populate the mappings in opensearch.
         """
         i = cls._index
         if index:
             i = i.clone(name=index)
-        i.save(using=using)
+        await i.save(using=using)
 
     def _get_index(self, index=None, required=True):
         if index is None:
@@ -195,12 +142,12 @@ class Document(ObjectBase):
         Create an :class:`~opensearchpy.Search` instance that will search
         over this ``Document``.
         """
-        return Search(
+        return AsyncSearch(
             using=cls._get_using(using), index=cls._default_index(index), doc_type=[cls]
         )
 
     @classmethod
-    def get(cls, id, using=None, index=None, **kwargs):
+    async def get(cls, id, using=None, index=None, **kwargs):
         """
         Retrieve a single document from opensearch using its ``id``.
 
@@ -212,14 +159,14 @@ class Document(ObjectBase):
         Any additional keyword arguments will be passed to
         ``OpenSearch.get`` unchanged.
         """
-        opensearch = cls._get_connection(using)
-        doc = opensearch.get(index=cls._default_index(index), id=id, **kwargs)
+        opensearch = await cls._get_connection(using)
+        doc = await opensearch.get(index=cls._default_index(index), id=id, **kwargs)
         if not doc.get("found", False):
             return None
         return cls.from_opensearch(doc)
 
     @classmethod
-    def exists(cls, id, using=None, index=None, **kwargs):
+    async def exists(cls, id, using=None, index=None, **kwargs):
         """
         check if exists a single document from opensearch using its ``id``.
 
@@ -231,11 +178,11 @@ class Document(ObjectBase):
         Any additional keyword arguments will be passed to
         ``OpenSearch.exists`` unchanged.
         """
-        opensearch = cls._get_connection(using)
-        return opensearch.exists(index=cls._default_index(index), id=id, **kwargs)
+        opensearch = await cls._get_connection(using)
+        return await opensearch.exists(index=cls._default_index(index), id=id, **kwargs)
 
     @classmethod
-    def mget(
+    async def mget(
         cls, docs, using=None, index=None, raise_on_error=True, missing="none", **kwargs
     ):
         r"""
@@ -257,14 +204,14 @@ class Document(ObjectBase):
         """
         if missing not in ("raise", "skip", "none"):
             raise ValueError("'missing' must be 'raise', 'skip', or 'none'.")
-        opensearch = cls._get_connection(using)
+        opensearch = await cls._get_connection(using)
         body = {
             "docs": [
                 doc if isinstance(doc, collections_abc.Mapping) else {"_id": doc}
                 for doc in docs
             ]
         }
-        results = opensearch.mget(body, index=cls._default_index(index), **kwargs)
+        results = await opensearch.mget(body, index=cls._default_index(index), **kwargs)
 
         objs, error_docs, missing_docs = [], [], []
         for doc in results["docs"]:
@@ -299,7 +246,7 @@ class Document(ObjectBase):
             raise NotFoundError(404, message, {"docs": missing_docs})
         return objs
 
-    def delete(self, using=None, index=None, **kwargs):
+    async def delete(self, using=None, index=None, **kwargs):
         """
         Delete the instance in opensearch.
 
@@ -310,7 +257,7 @@ class Document(ObjectBase):
         Any additional keyword arguments will be passed to
         ``OpenSearch.delete`` unchanged.
         """
-        opensearch = self._get_connection(using)
+        opensearch = await self._get_connection(using)
         # extract routing etc from meta
         doc_meta = {k: self.meta[k] for k in DOC_META_FIELDS if k in self.meta}
 
@@ -334,7 +281,7 @@ class Document(ObjectBase):
             ``[]``, ``{}``) to be left on the document. Those values will be
             stripped out otherwise as they make no difference in opensearch.
         """
-        d = super(Document, self).to_dict(skip_empty=skip_empty)
+        d = super(AsyncDocument, self).to_dict(skip_empty=skip_empty)
         if not include_meta:
             return d
 
@@ -348,7 +295,7 @@ class Document(ObjectBase):
         meta["_source"] = d
         return meta
 
-    def update(
+    async def update(
         self,
         using=None,
         index=None,
@@ -443,7 +390,7 @@ class Document(ObjectBase):
             doc_meta["if_seq_no"] = self.meta["seq_no"]
             doc_meta["if_primary_term"] = self.meta["primary_term"]
 
-        meta = self._get_connection(using).update(
+        meta = await self._get_connection(using).update(
             index=self._get_index(index), body=body, refresh=refresh, **doc_meta
         )
         # update meta information from OpenSearch
@@ -453,7 +400,7 @@ class Document(ObjectBase):
 
         return meta if return_doc_meta else meta["result"]
 
-    def save(
+    async def save(
         self,
         using=None,
         index=None,
@@ -485,7 +432,7 @@ class Document(ObjectBase):
         if validate:
             self.full_clean()
 
-        opensearch = self._get_connection(using)
+        opensearch = await self._get_connection(using)
         # extract routing etc from meta
         doc_meta = {k: self.meta[k] for k in DOC_META_FIELDS if k in self.meta}
 
@@ -495,7 +442,7 @@ class Document(ObjectBase):
             doc_meta["if_primary_term"] = self.meta["primary_term"]
 
         doc_meta.update(kwargs)
-        meta = opensearch.index(
+        meta = await opensearch.index(
             index=self._get_index(index),
             body=self.to_dict(skip_empty=skip_empty),
             **doc_meta

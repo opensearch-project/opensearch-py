@@ -24,19 +24,19 @@
 #  specific language governing permissions and limitations
 #  under the License.
 
-from opensearchpy._async.helpers import analysis
+from opensearchpy.helpers import analysis
 from opensearchpy._async.helpers.mapping import AsyncMapping
-from opensearchpy._async.helpers.search import Search
-from opensearchpy._async.helpers.update_by_query import UpdateByQuery
+from opensearchpy._async.helpers.search import AsyncSearch
+from opensearchpy._async.helpers.update_by_query import AsyncUpdateByQuery
 from opensearchpy.connection.async_connections import get_connection
 from opensearchpy.exceptions import IllegalOperation
 from opensearchpy.helpers.utils import merge
 
 
-class IndexTemplate(object):
+class AsyncIndexTemplate(object):
     def __init__(self, name, template, index=None, order=None, **kwargs):
         if index is None:
-            self._index = Index(template, **kwargs)
+            self._index = AsyncIndex(template, **kwargs)
         else:
             if kwargs:
                 raise ValueError(
@@ -58,14 +58,14 @@ class IndexTemplate(object):
             d["order"] = self.order
         return d
 
-    def save(self, using=None):
-        opensearch = get_connection(using or self._index._using)
+    async def save(self, using=None):
+        opensearch = await get_connection(using or self._index._using)
         return opensearch.indices.put_template(
             name=self._template_name, body=self.to_dict()
         )
 
 
-class Index(object):
+class AsyncIndex(object):
     def __init__(self, name, using="default"):
         """
         :arg name: name of the index
@@ -88,7 +88,7 @@ class Index(object):
         # TODO: should we allow pattern to be a top-level arg?
         # or maybe have an IndexPattern that allows for it and have
         # Document._index be that?
-        return IndexTemplate(
+        return AsyncIndexTemplate(
             template_name, pattern or self._name, index=self, order=order
         )
 
@@ -110,8 +110,8 @@ class Index(object):
             return self._mapping.resolve_field(field_path)
         return None
 
-    def load_mappings(self, using=None):
-        self.get_or_create_mapping().update_from_opensearch(
+    async def load_mappings(self, using=None):
+        await self.get_or_create_mapping().update_from_opensearch(
             self._name, using=using or self._using
         )
 
@@ -130,7 +130,7 @@ class Index(object):
         :arg name: name of the index
         :arg using: connection alias to use, defaults to ``'default'``
         """
-        i = Index(name or self._name, using=using or self._using)
+        i = AsyncIndex(name or self._name, using=using or self._using)
         i._settings = self._settings.copy()
         i._aliases = self._aliases.copy()
         i._analysis = self._analysis.copy()
@@ -139,10 +139,10 @@ class Index(object):
             i._mapping = self._mapping._clone()
         return i
 
-    def _get_connection(self, using=None):
+    async def _get_connection(self, using=None):
         if self._name is None:
             raise ValueError("You cannot perform API calls on the default index.")
-        return get_connection(using or self._using)
+        return await get_connection(using or self._using)
 
     connection = property(_get_connection)
 
@@ -261,7 +261,7 @@ class Index(object):
         index (or all the indices belonging to this template) and its
         ``Document``\\s.
         """
-        return Search(
+        return AsyncSearch(
             using=using or self._using, index=self._name, doc_type=self._doc_types
         )
 
@@ -274,29 +274,29 @@ class Index(object):
         For more information, see here:
         https://opensearch.org/docs/latest/opensearch/rest-api/document-apis/update-by-query/
         """
-        return UpdateByQuery(
+        return AsyncUpdateByQuery(
             using=using or self._using,
             index=self._name,
         )
 
-    def create(self, using=None, **kwargs):
+    async def create(self, using=None, **kwargs):
         """
         Creates the index in opensearch.
 
         Any additional keyword arguments will be passed to
         ``OpenSearch.indices.create`` unchanged.
         """
-        return self._get_connection(using).indices.create(
+        return await self._get_connection(using).indices.create(
             index=self._name, body=self.to_dict(), **kwargs
         )
 
-    def is_closed(self, using=None):
-        state = self._get_connection(using).cluster.state(
+    async def is_closed(self, using=None):
+        state = await self._get_connection(using).cluster.state(
             index=self._name, metric="metadata"
         )
         return state["metadata"]["indices"][self._name]["state"] == "close"
 
-    def save(self, using=None):
+    async def save(self, using=None):
         """
         Sync the index definition with opensearch, creating the index if it
         doesn't exist and updating its settings and mappings if it does.
@@ -305,17 +305,17 @@ class Index(object):
         index (or at all on an existing index) and for those this method will
         fail with the underlying exception.
         """
-        if not self.exists(using=using):
-            return self.create(using=using)
+        if not await self.exists(using=using):
+            return await self.create(using=using)
 
         body = self.to_dict()
         settings = body.pop("settings", {})
         analysis = settings.pop("analysis", None)
-        current_settings = self.get_settings(using=using)[self._name]["settings"][
+        current_settings = (await self.get_settings(using=using)[self._name])["settings"][
             "index"
         ]
         if analysis:
-            if self.is_closed(using=using):
+            if await self.is_closed(using=using):
                 # closed index, update away
                 settings["analysis"] = analysis
             else:
@@ -342,15 +342,15 @@ class Index(object):
                     del settings[k]
 
             if settings:
-                self.put_settings(using=using, body=settings)
+                await self.put_settings(using=using, body=settings)
 
         # update the mappings, any conflict in the mappings will result in an
         # exception
         mappings = body.pop("mappings", {})
         if mappings:
-            self.put_mapping(using=using, body=mappings)
+            await self.put_mapping(using=using, body=mappings)
 
-    def analyze(self, using=None, **kwargs):
+    async def analyze(self, using=None, **kwargs):
         """
         Perform the analysis process on a text and return the tokens breakdown
         of the text.
@@ -358,176 +358,176 @@ class Index(object):
         Any additional keyword arguments will be passed to
         ``OpenSearch.indices.analyze`` unchanged.
         """
-        return self._get_connection(using).indices.analyze(index=self._name, **kwargs)
+        return await self._get_connection(using).indices.analyze(index=self._name, **kwargs)
 
-    def refresh(self, using=None, **kwargs):
+    async def refresh(self, using=None, **kwargs):
         """
         Performs a refresh operation on the index.
 
         Any additional keyword arguments will be passed to
         ``OpenSearch.indices.refresh`` unchanged.
         """
-        return self._get_connection(using).indices.refresh(index=self._name, **kwargs)
+        return await self._get_connection(using).indices.refresh(index=self._name, **kwargs)
 
-    def flush(self, using=None, **kwargs):
+    async def flush(self, using=None, **kwargs):
         """
         Performs a flush operation on the index.
 
         Any additional keyword arguments will be passed to
         ``OpenSearch.indices.flush`` unchanged.
         """
-        return self._get_connection(using).indices.flush(index=self._name, **kwargs)
+        return await self._get_connection(using).indices.flush(index=self._name, **kwargs)
 
-    def get(self, using=None, **kwargs):
+    async def get(self, using=None, **kwargs):
         """
         The get index API allows to retrieve information about the index.
 
         Any additional keyword arguments will be passed to
         ``OpenSearch.indices.get`` unchanged.
         """
-        return self._get_connection(using).indices.get(index=self._name, **kwargs)
+        return await self._get_connection(using).indices.get(index=self._name, **kwargs)
 
-    def open(self, using=None, **kwargs):
+    async def open(self, using=None, **kwargs):
         """
         Opens the index in opensearch.
 
         Any additional keyword arguments will be passed to
         ``OpenSearch.indices.open`` unchanged.
         """
-        return self._get_connection(using).indices.open(index=self._name, **kwargs)
+        return await self._get_connection(using).indices.open(index=self._name, **kwargs)
 
-    def close(self, using=None, **kwargs):
+    async def close(self, using=None, **kwargs):
         """
         Closes the index in opensearch.
 
         Any additional keyword arguments will be passed to
         ``OpenSearch.indices.close`` unchanged.
         """
-        return self._get_connection(using).indices.close(index=self._name, **kwargs)
+        return await self._get_connection(using).indices.close(index=self._name, **kwargs)
 
-    def delete(self, using=None, **kwargs):
+    async def delete(self, using=None, **kwargs):
         """
         Deletes the index in opensearch.
 
         Any additional keyword arguments will be passed to
         ``OpenSearch.indices.delete`` unchanged.
         """
-        return self._get_connection(using).indices.delete(index=self._name, **kwargs)
+        return await self._get_connection(using).indices.delete(index=self._name, **kwargs)
 
-    def exists(self, using=None, **kwargs):
+    async def exists(self, using=None, **kwargs):
         """
         Returns ``True`` if the index already exists in opensearch.
 
         Any additional keyword arguments will be passed to
         ``OpenSearch.indices.exists`` unchanged.
         """
-        return self._get_connection(using).indices.exists(index=self._name, **kwargs)
+        return await self._get_connection(using).indices.exists(index=self._name, **kwargs)
 
-    def put_mapping(self, using=None, **kwargs):
+    async def put_mapping(self, using=None, **kwargs):
         """
         Register specific mapping definition for a specific type.
 
         Any additional keyword arguments will be passed to
         ``OpenSearch.indices.put_mapping`` unchanged.
         """
-        return self._get_connection(using).indices.put_mapping(
+        return await self._get_connection(using).indices.put_mapping(
             index=self._name, **kwargs
         )
 
-    def get_mapping(self, using=None, **kwargs):
+    async def get_mapping(self, using=None, **kwargs):
         """
         Retrieve specific mapping definition for a specific type.
 
         Any additional keyword arguments will be passed to
         ``OpenSearch.indices.get_mapping`` unchanged.
         """
-        return self._get_connection(using).indices.get_mapping(
+        return await self._get_connection(using).indices.get_mapping(
             index=self._name, **kwargs
         )
 
-    def get_field_mapping(self, using=None, **kwargs):
+    async def get_field_mapping(self, using=None, **kwargs):
         """
         Retrieve mapping definition of a specific field.
 
         Any additional keyword arguments will be passed to
         ``OpenSearch.indices.get_field_mapping`` unchanged.
         """
-        return self._get_connection(using).indices.get_field_mapping(
+        return await self._get_connection(using).indices.get_field_mapping(
             index=self._name, **kwargs
         )
 
-    def put_alias(self, using=None, **kwargs):
+    async def put_alias(self, using=None, **kwargs):
         """
         Create an alias for the index.
 
         Any additional keyword arguments will be passed to
         ``OpenSearch.indices.put_alias`` unchanged.
         """
-        return self._get_connection(using).indices.put_alias(index=self._name, **kwargs)
+        return await self._get_connection(using).indices.put_alias(index=self._name, **kwargs)
 
-    def exists_alias(self, using=None, **kwargs):
+    async def exists_alias(self, using=None, **kwargs):
         """
         Return a boolean indicating whether given alias exists for this index.
 
         Any additional keyword arguments will be passed to
         ``OpenSearch.indices.exists_alias`` unchanged.
         """
-        return self._get_connection(using).indices.exists_alias(
+        return await self._get_connection(using).indices.exists_alias(
             index=self._name, **kwargs
         )
 
-    def get_alias(self, using=None, **kwargs):
+    async def get_alias(self, using=None, **kwargs):
         """
         Retrieve a specified alias.
 
         Any additional keyword arguments will be passed to
         ``OpenSearch.indices.get_alias`` unchanged.
         """
-        return self._get_connection(using).indices.get_alias(index=self._name, **kwargs)
+        return await self._get_connection(using).indices.get_alias(index=self._name, **kwargs)
 
-    def delete_alias(self, using=None, **kwargs):
+    async def delete_alias(self, using=None, **kwargs):
         """
         Delete specific alias.
 
         Any additional keyword arguments will be passed to
         ``OpenSearch.indices.delete_alias`` unchanged.
         """
-        return self._get_connection(using).indices.delete_alias(
+        return await self._get_connection(using).indices.delete_alias(
             index=self._name, **kwargs
         )
 
-    def get_settings(self, using=None, **kwargs):
+    async def get_settings(self, using=None, **kwargs):
         """
         Retrieve settings for the index.
 
         Any additional keyword arguments will be passed to
         ``OpenSearch.indices.get_settings`` unchanged.
         """
-        return self._get_connection(using).indices.get_settings(
+        return await self._get_connection(using).indices.get_settings(
             index=self._name, **kwargs
         )
 
-    def put_settings(self, using=None, **kwargs):
+    async def put_settings(self, using=None, **kwargs):
         """
         Change specific index level settings in real time.
 
         Any additional keyword arguments will be passed to
         ``OpenSearch.indices.put_settings`` unchanged.
         """
-        return self._get_connection(using).indices.put_settings(
+        return await self._get_connection(using).indices.put_settings(
             index=self._name, **kwargs
         )
 
-    def stats(self, using=None, **kwargs):
+    async def stats(self, using=None, **kwargs):
         """
         Retrieve statistics on different operations happening on the index.
 
         Any additional keyword arguments will be passed to
         ``OpenSearch.indices.stats`` unchanged.
         """
-        return self._get_connection(using).indices.stats(index=self._name, **kwargs)
+        return await self._get_connection(using).indices.stats(index=self._name, **kwargs)
 
-    def segments(self, using=None, **kwargs):
+    async def segments(self, using=None, **kwargs):
         """
         Provide low level segments information that a Lucene index (shard
         level) is built with.
@@ -535,31 +535,31 @@ class Index(object):
         Any additional keyword arguments will be passed to
         ``OpenSearch.indices.segments`` unchanged.
         """
-        return self._get_connection(using).indices.segments(index=self._name, **kwargs)
+        return await self._get_connection(using).indices.segments(index=self._name, **kwargs)
 
-    def validate_query(self, using=None, **kwargs):
+    async def validate_query(self, using=None, **kwargs):
         """
         Validate a potentially expensive query without executing it.
 
         Any additional keyword arguments will be passed to
         ``OpenSearch.indices.validate_query`` unchanged.
         """
-        return self._get_connection(using).indices.validate_query(
+        return await self._get_connection(using).indices.validate_query(
             index=self._name, **kwargs
         )
 
-    def clear_cache(self, using=None, **kwargs):
+    async def clear_cache(self, using=None, **kwargs):
         """
         Clear all caches or specific cached associated with the index.
 
         Any additional keyword arguments will be passed to
         ``OpenSearch.indices.clear_cache`` unchanged.
         """
-        return self._get_connection(using).indices.clear_cache(
+        return await self._get_connection(using).indices.clear_cache(
             index=self._name, **kwargs
         )
 
-    def recovery(self, using=None, **kwargs):
+    async def recovery(self, using=None, **kwargs):
         """
         The indices recovery API provides insight into on-going shard
         recoveries for the index.
@@ -567,29 +567,29 @@ class Index(object):
         Any additional keyword arguments will be passed to
         ``OpenSearch.indices.recovery`` unchanged.
         """
-        return self._get_connection(using).indices.recovery(index=self._name, **kwargs)
+        return await self._get_connection(using).indices.recovery(index=self._name, **kwargs)
 
-    def upgrade(self, using=None, **kwargs):
+    async def upgrade(self, using=None, **kwargs):
         """
         Upgrade the index to the latest format.
 
         Any additional keyword arguments will be passed to
         ``OpenSearch.indices.upgrade`` unchanged.
         """
-        return self._get_connection(using).indices.upgrade(index=self._name, **kwargs)
+        return await self._get_connection(using).indices.upgrade(index=self._name, **kwargs)
 
-    def get_upgrade(self, using=None, **kwargs):
+    async def get_upgrade(self, using=None, **kwargs):
         """
         Monitor how much of the index is upgraded.
 
         Any additional keyword arguments will be passed to
         ``OpenSearch.indices.get_upgrade`` unchanged.
         """
-        return self._get_connection(using).indices.get_upgrade(
+        return await self._get_connection(using).indices.get_upgrade(
             index=self._name, **kwargs
         )
 
-    def shard_stores(self, using=None, **kwargs):
+    async def shard_stores(self, using=None, **kwargs):
         """
         Provides store information for shard copies of the index. Store
         information reports on which nodes shard copies exist, the shard copy
@@ -599,11 +599,11 @@ class Index(object):
         Any additional keyword arguments will be passed to
         ``OpenSearch.indices.shard_stores`` unchanged.
         """
-        return self._get_connection(using).indices.shard_stores(
+        return await self._get_connection(using).indices.shard_stores(
             index=self._name, **kwargs
         )
 
-    def forcemerge(self, using=None, **kwargs):
+    async def forcemerge(self, using=None, **kwargs):
         """
         The force merge API allows to force merging of the index through an
         API. The merge relates to the number of segments a Lucene index holds
@@ -617,11 +617,11 @@ class Index(object):
         Any additional keyword arguments will be passed to
         ``OpenSearch.indices.forcemerge`` unchanged.
         """
-        return self._get_connection(using).indices.forcemerge(
+        return await self._get_connection(using).indices.forcemerge(
             index=self._name, **kwargs
         )
 
-    def shrink(self, using=None, **kwargs):
+    async def shrink(self, using=None, **kwargs):
         """
         The shrink index API allows you to shrink an existing index into a new
         index with fewer primary shards. The number of primary shards in the
@@ -636,4 +636,4 @@ class Index(object):
         Any additional keyword arguments will be passed to
         ``OpenSearch.indices.shrink`` unchanged.
         """
-        return self._get_connection(using).indices.shrink(index=self._name, **kwargs)
+        return await self._get_connection(using).indices.shrink(index=self._name, **kwargs)
