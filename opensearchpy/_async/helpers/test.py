@@ -28,7 +28,7 @@ async def get_test_client(nowait=False, **kwargs):
     # wait for yellow status
     for _ in range(1 if nowait else 100):
         try:
-            await client.cluster.health(wait_for_status="yellow")
+            client.cluster.health(wait_for_status="yellow")
             return client
         except ConnectionError:
             time.sleep(0.1)
