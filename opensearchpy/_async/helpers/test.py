@@ -15,12 +15,12 @@ async def get_test_client(nowait=False, **kwargs):
     # construct kwargs from the environment
     kw = {"timeout": 30}
 
-    if "PYTHON_CONNECTION_CLASS" in os.environ:
-        from opensearchpy import connection, AsyncConnection
-        async_connection=AsyncConnection()
-
+    #if "PYTHON_CONNECTION_CLASS" in os.environ:
+    from opensearchpy import connection, AsyncConnection
+    async_connection=AsyncConnection()
+    if hasattr(async_connection, "AIOHttpConnection"):
         kw["connection_class"] = getattr(
-            async_connection, os.environ["PYTHON_CONNECTION_CLASS"]
+            async_connection, "AIOHttpConnection"
         )
 
     kw.update(kwargs)
