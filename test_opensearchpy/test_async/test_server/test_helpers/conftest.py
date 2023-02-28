@@ -35,7 +35,7 @@ from opensearchpy import AsyncOpenSearch
 from opensearchpy._async.helpers.actions import async_bulk
 from opensearchpy.connection.async_connections import add_connection
 from opensearchpy.exceptions import ConnectionError
-from test_opensearchpy.test_server.test_helpers.test_data import (
+from test_opensearchpy.test_async.test_server.test_helpers.test_data import (
     DATA,
     FLAT_DATA,
     TEST_GIT_DATA,
