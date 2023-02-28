@@ -23,20 +23,21 @@
 #  KIND, either express or implied.  See the License for the
 #  specific language governing permissions and limitations
 #  under the License.
-
+import pytest
 from pytest import raises
 
 from opensearchpy import exceptions
-from opensearchpy.helpers import analysis, mapping
+from opensearchpy.helpers import analysis
+from opensearchpy._async.helpers import mapping
+pytestmark = pytest.mark.asyncio
 
-
-def test_mapping_saved_into_opensearch(write_client):
-    m = mapping.Mapping()
+async def test_mapping_saved_into_opensearch(write_client):
+    m = mapping.AsyncMapping()
     m.field(
         "name", "text", analyzer=analysis.analyzer("my_analyzer", tokenizer="keyword")
     )
     m.field("tags", "keyword")
-    m.save("test-mapping", using=write_client)
+    await m.save("test-mapping", using=write_client)
 
     assert {
         "test-mapping": {
@@ -47,22 +48,22 @@ def test_mapping_saved_into_opensearch(write_client):
                 }
             }
         }
-    } == write_client.indices.get_mapping(index="test-mapping")
+    } == await write_client.indices.get_mapping(index="test-mapping")
 
 
-def test_mapping_saved_into_opensearch_when_index_already_exists_closed(write_client):
-    m = mapping.Mapping()
+async def test_mapping_saved_into_opensearch_when_index_already_exists_closed(write_client):
+    m = mapping.AsyncMapping()
     m.field(
         "name", "text", analyzer=analysis.analyzer("my_analyzer", tokenizer="keyword")
     )
-    write_client.indices.create(index="test-mapping")
+    await write_client.indices.create(index="test-mapping")
 
     with raises(exceptions.IllegalOperation):
-        m.save("test-mapping", using=write_client)
+        await m.save("test-mapping", using=write_client)
 
-    write_client.cluster.health(index="test-mapping", wait_for_status="yellow")
-    write_client.indices.close(index="test-mapping")
-    m.save("test-mapping", using=write_client)
+    await write_client.cluster.health(index="test-mapping", wait_for_status="yellow")
+    await write_client.indices.close(index="test-mapping")
+    await m.save("test-mapping", using=write_client)
 
     assert {
         "test-mapping": {
@@ -70,13 +71,13 @@ def test_mapping_saved_into_opensearch_when_index_already_exists_closed(write_cl
                 "properties": {"name": {"type": "text", "analyzer": "my_analyzer"}}
             }
         }
-    } == write_client.indices.get_mapping(index="test-mapping")
+    } == await write_client.indices.get_mapping(index="test-mapping")
 
 
-def test_mapping_saved_into_opensearch_when_index_already_exists_with_analysis(
+async def test_mapping_saved_into_opensearch_when_index_already_exists_with_analysis(
     write_client,
 ):
-    m = mapping.Mapping()
+    m = mapping.AsyncMapping()
     analyzer = analysis.analyzer("my_analyzer", tokenizer="keyword")
     m.field("name", "text", analyzer=analyzer)
 
@@ -85,12 +86,12 @@ def test_mapping_saved_into_opensearch_when_index_already_exists_with_analysis(
         "type": "custom",
         "tokenizer": "whitespace",
     }
-    write_client.indices.create(
+    await write_client.indices.create(
         index="test-mapping", body={"settings": {"analysis": new_analysis}}
     )
 
     m.field("title", "text", analyzer=analyzer)
-    m.save("test-mapping", using=write_client)
+    await m.save("test-mapping", using=write_client)
 
     assert {
         "test-mapping": {
@@ -101,11 +102,11 @@ def test_mapping_saved_into_opensearch_when_index_already_exists_with_analysis(
                 }
             }
         }
-    } == write_client.indices.get_mapping(index="test-mapping")
+    } == await write_client.indices.get_mapping(index="test-mapping")
 
 
-def test_mapping_gets_updated_from_opensearch(write_client):
-    write_client.indices.create(
+async def test_mapping_gets_updated_from_opensearch(write_client):
+    await write_client.indices.create(
         index="test-mapping",
         body={
             "settings": {"number_of_shards": 1, "number_of_replicas": 0},
@@ -134,7 +135,7 @@ def test_mapping_gets_updated_from_opensearch(write_client):
         },
     )
 
-    m = mapping.Mapping.from_opensearch("test-mapping", using=write_client)
+    m = await mapping.AsyncMapping.from_opensearch("test-mapping", using=write_client)
 
     assert ["comments", "created_at", "title"] == list(
         sorted(m.properties.properties._d_.keys())
@@ -163,7 +164,7 @@ def test_mapping_gets_updated_from_opensearch(write_client):
     } == m.to_dict()
 
     # test same with alias
-    write_client.indices.put_alias(index="test-mapping", name="test-alias")
+    await write_client.indices.put_alias(index="test-mapping", name="test-alias")
 
-    m2 = mapping.Mapping.from_opensearch("test-alias", using=write_client)
+    m2 = await mapping.AsyncMapping.from_opensearch("test-alias", using=write_client)
     assert m2.to_dict() == m.to_dict()

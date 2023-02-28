@@ -57,7 +57,7 @@ async def test_update_by_query_with_script(write_client, setup_ubq_tests):
         .filter(~Q("exists", field="parent_shas"))
         .script(source="ctx._source.is_public = false")
     )
-    ubq = await ubq.params(conflicts="proceed")
+    ubq = ubq.params(conflicts="proceed")
 
     response = await ubq.execute()
     assert response.total == 2
@@ -74,7 +74,7 @@ async def test_delete_by_query_with_script(write_client, setup_ubq_tests):
         .filter(Q("match", parent_shas="1dd19210b5be92b960f7db6f66ae526288edccc3"))
         .script(source='ctx.op = "delete"')
     )
-    ubq = await ubq.params(conflicts="proceed")
+    ubq = ubq.params(conflicts="proceed")
 
     response = await ubq.execute()
 
