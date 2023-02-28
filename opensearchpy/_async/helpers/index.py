@@ -421,7 +421,7 @@ class AsyncIndex(object):
         Any additional keyword arguments will be passed to
         ``OpenSearch.indices.exists`` unchanged.
         """
-        return await self._get_connection(using).indices.exists(index=self._name, **kwargs)
+        return await (await self._get_connection(using)).indices.exists(index=self._name, **kwargs)
 
     async def put_mapping(self, using=None, **kwargs):
         """

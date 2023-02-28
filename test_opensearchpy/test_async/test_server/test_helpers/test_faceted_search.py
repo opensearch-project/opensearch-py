@@ -141,7 +141,7 @@ async def test_facet_with_custom_metric(data_client):
 
 async def test_nested_facet(pull_request, pr_search_cls):
     prs = pr_search_cls()
-    r = prs.execute()
+    r = await prs.execute()
 
     assert r.hits.total.value == 1
     assert [(datetime(2018, 1, 1, 0, 0), 1, False)] == r.facets.comments
@@ -149,19 +149,19 @@ async def test_nested_facet(pull_request, pr_search_cls):
 
 async def test_nested_facet_with_filter(pull_request, pr_search_cls):
     prs = pr_search_cls(filters={"comments": datetime(2018, 1, 1, 0, 0)})
-    r = prs.execute()
+    r = await prs.execute()
 
     assert r.hits.total.value == 1
     assert [(datetime(2018, 1, 1, 0, 0), 1, True)] == r.facets.comments
 
     prs = pr_search_cls(filters={"comments": datetime(2018, 2, 1, 0, 0)})
-    r = prs.execute()
+    r = await prs.execute()
     assert not r.hits
 
 
 async def test_datehistogram_facet(data_client, repo_search_cls):
     rs = repo_search_cls()
-    r = rs.execute()
+    r = await rs.execute()
 
     assert r.hits.total.value == 1
     assert [(datetime(2014, 3, 1, 0, 0), 1, False)] == r.facets.created
@@ -169,7 +169,7 @@ async def test_datehistogram_facet(data_client, repo_search_cls):
 
 async def test_boolean_facet(data_client, repo_search_cls):
     rs = repo_search_cls()
-    r = rs.execute()
+    r = await rs.execute()
 
     assert r.hits.total.value == 1
     assert [(True, 1, False)] == r.facets.public
@@ -181,7 +181,7 @@ async def test_empty_search_finds_everything(
     data_client, opensearch_version, commit_search_cls
 ):
     cs = commit_search_cls()
-    r = cs.execute()
+    r = await cs.execute()
     assert r.hits.total.value == 52
     assert [
         ("opensearchpy", 39, False),
@@ -228,7 +228,7 @@ async def test_term_filters_are_shown_as_selected_and_data_is_filtered(
 ):
     cs = commit_search_cls(filters={"files": "test_opensearchpy/test_dsl"})
 
-    r = cs.execute()
+    r = await cs.execute()
 
     assert 35 == r.hits.total.value
     assert [
@@ -274,7 +274,7 @@ async def test_range_filters_are_shown_as_selected_and_data_is_filtered(
 ):
     cs = commit_search_cls(filters={"deletions": "better"})
 
-    r = cs.execute()
+    r = await cs.execute()
 
     assert 19 == r.hits.total.value
 
@@ -283,5 +283,5 @@ async def test_pagination(data_client, commit_search_cls):
     cs = commit_search_cls()
     cs = cs[0:20]
 
-    assert 52 == cs.count()
-    assert 20 == len(cs.execute())
+    assert 52 == await cs.count()
+    assert 20 == len(await cs.execute())

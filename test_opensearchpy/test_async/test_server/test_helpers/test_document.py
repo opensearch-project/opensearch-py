@@ -26,7 +26,7 @@
 
 from datetime import datetime
 from ipaddress import ip_address
-
+import asyncio
 import pytest
 from pytest import raises
 from pytz import timezone
@@ -53,6 +53,7 @@ from opensearchpy import (
 from opensearchpy._async.helpers.document import AsyncDocument
 from opensearchpy._async.helpers.mapping import AsyncMapping
 from opensearchpy.helpers.utils import AttrList
+from opensearchpy._async.helpers.actions import aiter
 import pytest
 pytestmark = pytest.mark.asyncio
 snowball = analyzer("my_snow", tokenizer="standard", filter=["lowercase", "snowball"])
@@ -364,7 +365,7 @@ async def test_save_with_tz_date(data_client):
     )
     await first_commit.save()
 
-    first_commit = Commit.get(
+    first_commit = await Commit.get(
         id="3ca6e1e73a071a705b4babd2f581c91a2a3e5037", routing="opensearch-py"
     )
     assert (
@@ -406,7 +407,7 @@ async def test_mget_ignores_missing_docs_when_missing_param_is_skip(data_client)
 
 
 async def test_update_works_from_search_response(data_client):
-    opensearch_repo = await Repository.search().execute()[0]
+    opensearch_repo = (await Repository.search().execute())[0]
 
     await opensearch_repo.update(owner={"other_name": "opensearchpy"})
     assert "opensearchpy" == opensearch_repo.owner.other_name
@@ -447,7 +448,7 @@ async def test_save_updates_existing_doc(data_client):
     old_seq_no = opensearch_repo.meta.seq_no
     assert "updated" == await opensearch_repo.save()
 
-    new_repo = data_client.get(index="git", id="opensearch-py")
+    new_repo = await data_client.get(index="git", id="opensearch-py")
     assert "testing-save" == new_repo["_source"]["new_field"]
     assert new_repo["_seq_no"] != old_seq_no
     assert new_repo["_seq_no"] == opensearch_repo.meta.seq_no
@@ -463,14 +464,14 @@ async def test_save_automatically_uses_seq_no_and_primary_term(data_client):
 
 async def test_delete_automatically_uses_seq_no_and_primary_term(data_client):
     opensearch_repo = await Repository.get("opensearch-py")
-    opensearch_repo.meta.seq_no += 1
+    await opensearch_repo.meta.seq_no += 1
 
     with raises(ConflictError):
-        await opensearch_repo.delete()
+        (await opensearch_repo.delete())
 
 
-def assert_doc_equals(expected, actual):
-    for f in expected:
+async def assert_doc_equals(expected, actual):
+    async for f in aiter(expected):
         assert f in actual
         assert actual[f] == expected[f]
 
@@ -520,7 +521,7 @@ async def test_delete(write_client):
     test_repo.meta.index = "test-document"
     await test_repo.delete()
 
-    assert not write_client.exists(
+    assert not await write_client.exists(
         index="test-document",
         id="opensearch-py",
     )
@@ -544,7 +545,7 @@ async def test_refresh_mapping(data_client):
         class Index:
             name = "git"
 
-    Commit._index.load_mappings()
+    await Commit._index.load_mappings()
 
     assert "stats" in Commit._index._mapping
     assert "committer" in Commit._index._mapping
@@ -554,12 +555,8 @@ async def test_refresh_mapping(data_client):
 
 
 async def test_highlight_in_meta(data_client):
-    commit = (await (
-        Commit.search()
-        .query("match", description="inverting")
-        .highlight("description")
-        .execute())[0]
-    )
+    commit = (await Commit.search().query("match", description="inverting").highlight("description").execute())[0]
+    
 
     assert isinstance(commit, Commit)
     assert "description" in commit.meta.highlight
