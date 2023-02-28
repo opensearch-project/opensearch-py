@@ -131,7 +131,7 @@ async def test_multi_search(data_client):
     s2 = AsyncSearch(index="flat-git")
 
     ms = AsyncMultiSearch()
-    ms = await ms.add(s1).add(s2)
+    ms = ms.add(s1).add(s2)
 
     r1, r2 = await ms.execute()
 
@@ -149,12 +149,12 @@ async def test_multi_missing(data_client):
     s3 = AsyncSearch(index="does_not_exist")
 
     ms = AsyncMultiSearch()
-    ms = await ms.add(s1).add(s2).add(s3)
+    ms = ms.add(s1).add(s2).add(s3)
 
     with raises(TransportError):
         await ms.execute()
 
-    r1, r2, r3 = ms.execute(raise_on_error=False)
+    r1, r2, r3 = await ms.execute(raise_on_error=False)
 
     assert 1 == len(r1)
     assert isinstance(r1[0], Repository)
