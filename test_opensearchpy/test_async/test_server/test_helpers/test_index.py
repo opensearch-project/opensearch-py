@@ -26,7 +26,7 @@
 import pytest
 from opensearchpy import Date, Text
 from opensearchpy._async.helpers.document import AsyncDocument
-from opensearchpy._async.helpers.document import AsyncIndex, AsyncIndexTemplate
+from opensearchpy._async.helpers.index import AsyncIndex, AsyncIndexTemplate
 from opensearchpy.helpers import analysis
 from opensearchpy._async.helpers.actions import aiter
 pytestmark = pytest.mark.asyncio
