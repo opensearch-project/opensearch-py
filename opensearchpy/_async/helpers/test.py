@@ -17,7 +17,7 @@ async def get_test_client(nowait=False, **kwargs):
 
     if "PYTHON_CONNECTION_CLASS" in os.environ:
         from opensearchpy import connection, AsyncConnection
-        async_connection=AsyncConnection(connection)
+        async_connection=AsyncConnection()
 
         kw["connection_class"] = getattr(
             async_connection, os.environ["PYTHON_CONNECTION_CLASS"]
