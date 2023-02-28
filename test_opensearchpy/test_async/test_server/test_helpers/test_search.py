@@ -96,7 +96,7 @@ async def test_inner_hits_are_wrapped_in_response(data_client):
     )
     response = await s.execute()
 
-    commit = (await response).hits[0]
+    commit = response.hits[0]
     assert isinstance(commit.meta.inner_hits.repo, response.__class__)
     assert repr(commit.meta.inner_hits.repo[0]).startswith("<Hit(git/opensearch-py): ")
 
