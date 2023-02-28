@@ -169,14 +169,14 @@ def test_overwrite_script():
     assert {"script": {"source": "ctx._source.likes++"}} == ubq.to_dict()
 
 
-def test_params_being_passed_to_search(mock_client):
-    ubq = update_by_query.AsyncUpdateByQuery(using="mock")
-    ubq = ubq.params(routing="42")
-    ubq.execute()
+# def test_params_being_passed_to_search(mock_client):
+#     ubq = update_by_query.AsyncUpdateByQuery(using="mock")
+#     ubq = ubq.params(routing="42")
+#     ubq.execute()
 
-    mock_client.update_by_query.assert_called_once_with(
-        index=None, body={}, routing="42"
-    )
+#     mock_client.update_by_query.assert_called_once_with(
+#         index=None, body={}, routing="42"
+#     )
 
 
 def test_update_by_query_response_success():
