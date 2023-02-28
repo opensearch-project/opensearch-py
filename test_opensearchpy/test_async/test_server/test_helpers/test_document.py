@@ -464,7 +464,7 @@ async def test_save_automatically_uses_seq_no_and_primary_term(data_client):
 
 async def test_delete_automatically_uses_seq_no_and_primary_term(data_client):
     opensearch_repo = await Repository.get("opensearch-py")
-    await opensearch_repo.meta.seq_no += 1
+    opensearch_repo.meta.seq_no += 1
 
     with raises(ConflictError):
         (await opensearch_repo.delete())
