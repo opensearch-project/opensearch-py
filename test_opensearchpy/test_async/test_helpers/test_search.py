@@ -61,11 +61,11 @@ async def test_cache_can_be_ignored(mock_client):
     mock_client.search.assert_called_once_with(index=None, body={})
 
 
-# def test_iter_iterates_over_hits():
-#     s = search.AsyncSearch()
-#     s._response = [1, 2, 3]
+def test_iter_iterates_over_hits():
+    s = search.AsyncSearch()
+    s._response = [1, 2, 3]
 
-#     assert [1, 2, 3] == list(s)
+    assert [1, 2, 3] == list(s)
 
 
 def test_cache_isnt_cloned():
