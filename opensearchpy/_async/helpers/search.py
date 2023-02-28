@@ -42,7 +42,6 @@ from opensearchpy.helpers.response import Hit, Response
 from opensearchpy.helpers.search import AggsProxy, ProxyDescriptor, QueryProxy, Request
 from opensearchpy.helpers.utils import AttrDict, DslBase, recursive_to_dict
 
-
 class AsyncSearch(Request):
     query = ProxyDescriptor("query")
     post_filter = ProxyDescriptor("post_filter")
@@ -463,9 +462,9 @@ class AsyncSearch(Request):
         """
         opensearch = await get_connection(self._using)
 
-        async for hit in async_scan(
+        async for hit in aiter(async_scan(
             opensearch, query=self.to_dict(), index=self._index, **self._params
-        ):
+        )):
             yield self._get_result(hit)
 
     async def delete(self):
