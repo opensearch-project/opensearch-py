@@ -119,8 +119,8 @@ async def write_client(client):
 @fixture
 async def data_client(client):
     # create mappings
-    create_git_index(client, "git")
-    create_flat_git_index(client, "flat-git")
+    await create_git_index(client, "git")
+    await create_flat_git_index(client, "flat-git")
     # load data
     await async_bulk(client, DATA, raise_on_error=True, refresh=True)
     await async_bulk(client, FLAT_DATA, raise_on_error=True, refresh=True)
@@ -156,6 +156,6 @@ def pull_request(write_client):
 @fixture
 async def setup_ubq_tests(client):
     index = "test-git"
-    create_git_index(client, index)
+    await create_git_index(client, index)
     await async_bulk(client, TEST_GIT_DATA, raise_on_error=True, refresh=True)
     return index
