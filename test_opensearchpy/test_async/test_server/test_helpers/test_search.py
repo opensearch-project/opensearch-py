@@ -111,8 +111,9 @@ def test_scan_respects_doc_types(data_client):
 
 async def test_scan_iterates_through_all_docs(data_client):
     s = AsyncSearch(index="flat-git")
-
-    commits = list(s.scan())
+    result = await s.scan()
+    print (result)
+    commits = list(result)
 
     assert 52 == len(commits)
     assert {d["_id"] for d in FLAT_DATA} == {c.meta.id for c in commits}
