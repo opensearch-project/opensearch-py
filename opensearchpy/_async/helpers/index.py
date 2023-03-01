@@ -503,7 +503,7 @@ class AsyncIndex(object):
         Any additional keyword arguments will be passed to
         ``OpenSearch.indices.get_settings`` unchanged.
         """
-        return await self._get_connection(using).indices.get_settings(
+        return await (await self._get_connection(using)).indices.get_settings(
             index=self._name, **kwargs
         )
 
