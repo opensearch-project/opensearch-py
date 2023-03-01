@@ -467,7 +467,7 @@ async def test_delete_automatically_uses_seq_no_and_primary_term(data_client):
     opensearch_repo.meta.seq_no += 1
 
     with raises(ConflictError):
-        (await opensearch_repo.delete())
+        opensearch_repo.delete()
 
 
 async def assert_doc_equals(expected, actual):
