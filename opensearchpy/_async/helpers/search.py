@@ -133,13 +133,13 @@ class AsyncSearch(Request):
         s.update_from_dict(d)
         return s
 
-    async def _clone(self):
+    def _clone(self):
         """
         Return a clone of the current search request. Performs a shallow copy
         of all the underlying objects. Used internally by most state modifying
         APIs.
         """
-        s = await super(AsyncSearch, self)._clone()
+        s = super(AsyncSearch, self)._clone()
 
         s._response_class = self._response_class
         s._sort = self._sort[:]
