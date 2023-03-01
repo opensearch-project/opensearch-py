@@ -134,7 +134,7 @@ class SerializationDoc(AsyncDocument):
 
 async def test_serialization(write_client):
     await SerializationDoc.init()
-    write_client.index(
+    await write_client.index(
         index="test-serialization",
         id=42,
         body={
