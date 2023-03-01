@@ -118,7 +118,7 @@ async def test_multiple_indices_with_same_doc_type_work(write_client):
         i.document(Post)
         await i.create()
 
-    async for i in aiter("test-index-1", "test-index-2"):
+    for i in ("test-index-1", "test-index-2"):
         settings = await write_client.indices.get_settings(index=i)
         assert settings[i]["settings"]["index"]["analysis"] == {
             "analyzer": {"my_analyzer": {"type": "custom", "tokenizer": "keyword"}}
