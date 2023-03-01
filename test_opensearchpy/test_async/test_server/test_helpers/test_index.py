@@ -114,7 +114,7 @@ async def test_multiple_indices_with_same_doc_type_work(write_client):
     i1 = AsyncIndex("test-index-1", using=write_client)
     i2 = AsyncIndex("test-index-2", using=write_client)
 
-    async for i in i1, i2:
+    for i in i1, i2:
         i.document(Post)
         await i.create()
 
