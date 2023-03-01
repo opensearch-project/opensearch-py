@@ -38,7 +38,7 @@ class Post(AsyncDocument):
 
 async def test_index_template_works(write_client):
     it = AsyncIndexTemplate("test-template", "test-*")
-    await it.document(Post)
+    it.document(Post)
     await it.settings(number_of_replicas=0, number_of_shards=1)
     await it.save()
 
@@ -76,7 +76,7 @@ async def test_index_exists(data_client):
 
 async def test_index_can_be_created_with_settings_and_mappings(write_client):
     i = AsyncIndex("test-blog", using=write_client)
-    await i.document(Post)
+    i.document(Post)
     await i.settings(number_of_replicas=0, number_of_shards=1)
     await i.create()
 
@@ -114,8 +114,8 @@ async def test_multiple_indices_with_same_doc_type_work(write_client):
     i1 = AsyncIndex("test-index-1", using=write_client)
     i2 = AsyncIndex("test-index-2", using=write_client)
 
-    async for i in aiter(i1, i2):
-        await i.document(Post)
+    async for i in i1, i2:
+        i.document(Post)
         await i.create()
 
     async for i in aiter("test-index-1", "test-index-2"):

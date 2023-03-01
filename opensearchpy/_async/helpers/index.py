@@ -286,7 +286,7 @@ class AsyncIndex(object):
         Any additional keyword arguments will be passed to
         ``OpenSearch.indices.create`` unchanged.
         """
-        return await self._get_connection(using).indices.create(
+        return await (await self._get_connection(using)).indices.create(
             index=self._name, body=self.to_dict(), **kwargs
         )
 
@@ -311,7 +311,7 @@ class AsyncIndex(object):
         body = self.to_dict()
         settings = body.pop("settings", {})
         analysis = settings.pop("analysis", None)
-        current_settings = (await self.get_settings(using=using)[self._name])["settings"][
+        current_settings = (await self.get_settings(using=using))[self._name]["settings"][
             "index"
         ]
         if analysis:
@@ -412,7 +412,7 @@ class AsyncIndex(object):
         Any additional keyword arguments will be passed to
         ``OpenSearch.indices.delete`` unchanged.
         """
-        return await self._get_connection(using).indices.delete(index=self._name, **kwargs)
+        return await (await self._get_connection(using)).indices.delete(index=self._name, **kwargs)
 
     async def exists(self, using=None, **kwargs):
         """
