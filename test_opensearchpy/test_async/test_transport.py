@@ -34,7 +34,9 @@ import json
 import pytest
 from mock import patch
 
+from opensearchpy import AIOHttpConnection
 from opensearchpy import AsyncTransport
+from opensearchpy import ConnectionPool
 from opensearchpy.connection import Connection
 from opensearchpy.connection_pool import DummyConnectionPool
 from opensearchpy.exceptions import ConnectionError, TransportError
@@ -543,3 +545,38 @@ class TestTransport:
 
         # A lot quicker than 10 seconds defined in 'delay'
         assert duration < 1
+
+    def __assure_connection_pool_create(self, t: AsyncTransport, amt_connection):
+        assert (
+            len(t.connection_pool.connections) == amt_connection,
+            "Pool of connections must be created"
+        )
+
+    async def test_init_connection_pool_with_many_hosts(self):
+        amt_hosts = 4
+        hosts = [{"host": "localhost", "port": 9092}] * amt_hosts
+        t = AsyncTransport(
+            hosts=hosts,
+        )
+        self.__assure_connection_pool_create(
+            t=t,
+            amt_connection=amt_hosts,
+        )
+
+    async def test_init_pool_with_connection_class_to_many_hosts(self):
+        amt_hosts = 4
+        hosts = [{"host": "localhost", "port": 9092}]
+        t = AsyncTransport(
+            hosts=hosts,
+            connection_class=AIOHttpConnection,
+        )
+        self.__assure_connection_pool_create(
+            t=t,
+            amt_connection=amt_hosts,
+        )
+        await t._async_call()
+        assert isinstance(
+            t.connection_pool.connections[0],
+            AIOHttpConnection,
+        )
+        
