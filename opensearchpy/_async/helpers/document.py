@@ -390,7 +390,7 @@ class AsyncDocument(ObjectBase):
             doc_meta["if_seq_no"] = self.meta["seq_no"]
             doc_meta["if_primary_term"] = self.meta["primary_term"]
 
-        meta = await self._get_connection(using).update(
+        meta = await (await self._get_connection(using)).update(
             index=self._get_index(index), body=body, refresh=refresh, **doc_meta
         )
         # update meta information from OpenSearch
