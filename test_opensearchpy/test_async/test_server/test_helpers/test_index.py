@@ -39,7 +39,7 @@ class Post(AsyncDocument):
 async def test_index_template_works(write_client):
     it = AsyncIndexTemplate("test-template", "test-*")
     it.document(Post)
-    await it.settings(number_of_replicas=0, number_of_shards=1)
+    it.settings(number_of_replicas=0, number_of_shards=1)
     await it.save()
 
     i = AsyncIndex("test-blog")
@@ -59,7 +59,7 @@ async def test_index_template_works(write_client):
 
 async def test_index_can_be_saved_even_with_settings(write_client):
     i = AsyncIndex("test-blog", using=write_client)
-    await i.settings(number_of_shards=3, number_of_replicas=0)
+    i.settings(number_of_shards=3, number_of_replicas=0)
     await i.save()
     i.settings(number_of_replicas=1)
     await i.save()
@@ -77,7 +77,7 @@ async def test_index_exists(data_client):
 async def test_index_can_be_created_with_settings_and_mappings(write_client):
     i = AsyncIndex("test-blog", using=write_client)
     i.document(Post)
-    await i.settings(number_of_replicas=0, number_of_shards=1)
+    i.settings(number_of_replicas=0, number_of_shards=1)
     await i.create()
 
     assert {
