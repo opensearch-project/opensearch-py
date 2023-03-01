@@ -163,7 +163,7 @@ class AsyncDocument(ObjectBase):
         doc = await opensearch.get(index=cls._default_index(index), id=id, **kwargs)
         if not doc.get("found", False):
             return None
-        return cls.from_opensearch(doc)
+        return await cls.from_opensearch(doc)
 
     @classmethod
     async def exists(cls, id, using=None, index=None, **kwargs):
