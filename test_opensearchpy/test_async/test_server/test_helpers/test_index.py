@@ -100,7 +100,7 @@ async def test_index_can_be_created_with_settings_and_mappings(write_client):
 
 
 async def test_delete(write_client):
-    write_client.indices.create(
+    await write_client.indices.create(
         index="test-index",
         body={"settings": {"number_of_replicas": 0, "number_of_shards": 1}},
     )
