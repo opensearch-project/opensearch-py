@@ -38,7 +38,7 @@ import pytest
 from mock import patch
 from multidict import CIMultiDict
 
-from opensearchpy import AIOHttpConnection, __versionstr__
+from opensearchpy import AIOHttpConnection, AsyncHttpConnection, __versionstr__
 from opensearchpy.compat import reraise_exceptions
 from opensearchpy.connection import Connection
 from opensearchpy.exceptions import ConnectionError
@@ -371,5 +371,82 @@ class TestConnectionHttpbin:
 
     async def test_aiohttp_connection_error(self):
         conn = AIOHttpConnection("not.a.host.name")
+        with pytest.raises(ConnectionError):
+            await conn.perform_request("GET", "/")
+
+
+# TODO: add mock tests for AsyncHttpConnection as well (similar to TestAIOHttpConnection class)
+class TestAsyncConnectionHttpbin:
+    async def httpbin_anything(self, conn, **kwargs):
+        status, headers, data = await conn.perform_request("GET", "/anything", **kwargs)
+        data = json.loads(data)
+        data["headers"].pop(
+            "X-Amzn-Trace-Id", None
+        )  # Remove this header as it's put there by AWS.
+        return (status, data)
+
+
+    async def test_async_connection(self):
+        # Defaults
+        conn = AsyncHttpConnection("httpbin.org", port=443, use_ssl=True)
+        user_agent = conn._get_default_user_agent()
+        status, data = await self.httpbin_anything(conn)
+        assert status == 200
+        assert data["method"] == "GET"
+        assert data["headers"] == {
+            "Content-Type": "application/json",
+            "Host": "httpbin.org",
+            "User-Agent": user_agent,
+        }
+
+        # http_compress=False
+        conn = AsyncHttpConnection(
+            "httpbin.org", port=443, use_ssl=True, http_compress=False
+        )
+        status, data = await self.httpbin_anything(conn)
+        assert status == 200
+        assert data["method"] == "GET"
+        assert data["headers"] == {
+            "Content-Type": "application/json",
+            "Host": "httpbin.org",
+            "User-Agent": user_agent,
+        }
+
+        # http_compress=True
+        conn = AsyncHttpConnection(
+            "httpbin.org", port=443, use_ssl=True, http_compress=True
+        )
+        status, data = await self.httpbin_anything(conn)
+        assert status == 200
+        assert data["headers"] == {
+            "Accept-Encoding": "gzip,deflate",
+            "Content-Type": "application/json",
+            "Host": "httpbin.org",
+            "User-Agent": user_agent,
+        }
+
+        # Headers
+        conn = AsyncHttpConnection(
+            "httpbin.org",
+            port=443,
+            use_ssl=True,
+            http_compress=True,
+            headers={"header1": "value1"},
+        )
+        status, data = await self.httpbin_anything(
+            conn, headers={"header2": "value2", "header1": "override!"}
+        )
+        assert status == 200
+        assert data["headers"] == {
+            "Accept-Encoding": "gzip,deflate",
+            "Content-Type": "application/json",
+            "Host": "httpbin.org",
+            "Header1": "override!",
+            "Header2": "value2",
+            "User-Agent": user_agent,
+        }
+
+    async def test_aiohttp_connection_error(self):
+        conn = AsyncHttpConnection("not.a.host.name")
         with pytest.raises(ConnectionError):
             await conn.perform_request("GET", "/")
