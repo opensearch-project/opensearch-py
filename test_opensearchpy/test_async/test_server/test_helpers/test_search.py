@@ -112,9 +112,6 @@ def test_scan_respects_doc_types(data_client):
 async def test_scan_iterates_through_all_docs(data_client):
     s = AsyncSearch(index="flat-git")
     result = s.scan()
-    print("Remove Later")
-    print (result)
-    print("Remove Later")
     commits = list(result)
 
     assert 52 == len(commits)
