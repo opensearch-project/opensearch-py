@@ -174,14 +174,7 @@ async def test_multi_missing(data_client):
 async def test_raw_subfield_can_be_used_in_aggs(data_client):
     s = AsyncSearch(index="git")[0:0]
     s.aggs.bucket("authors", "terms", field="author.name.raw", size=1)
-    print("Remove later5")
     r = await s.execute()
-    print("Remove later1")
-    print(r)
-    print("Remove later2")
     authors = r.aggregations.authors
-    print("Remove later3")
-    print(authors)
-    print("Remove later4")
     assert 1 == len(authors)
     assert {"key": "Honza Král", "doc_count": 52} == authors[0]
