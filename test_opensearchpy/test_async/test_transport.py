@@ -547,10 +547,7 @@ class TestTransport:
         assert duration < 1
 
     def __assure_connection_pool_create(self, t: AsyncTransport, amt_connection):
-        assert (
-            len(t.connection_pool.connections) == amt_connection,
-            "Pool of connections must be created"
-        )
+        assert len(t.connection_pool.connections) == amt_connection
 
     async def test_init_connection_pool_with_many_hosts(self):
         amt_hosts = 4
@@ -558,23 +555,25 @@ class TestTransport:
         t = AsyncTransport(
             hosts=hosts,
         )
-        self.__assure_connection_pool_create(
-            t=t,
-            amt_connection=amt_hosts,
-        )
-
-    async def test_init_pool_with_connection_class_to_many_hosts(self):
-        amt_hosts = 4
-        hosts = [{"host": "localhost", "port": 9092}]
-        t = AsyncTransport(
-            hosts=hosts,
-            connection_class=AIOHttpConnection,
-        )
+        await t._async_init()
         self.__assure_connection_pool_create(
             t=t,
             amt_connection=amt_hosts,
         )
         await t._async_call()
+
+    async def test_init_pool_with_connection_class_to_many_hosts(self):
+        amt_hosts = 4
+        hosts = [{"host": "localhost", "port": 9092}] * amt_hosts
+        t = AsyncTransport(
+            hosts=hosts,
+            connection_class=AIOHttpConnection,
+        )
+        await t._async_init()
+        self.__assure_connection_pool_create(
+            t=t,
+            amt_connection=amt_hosts,
+        )
         assert isinstance(
             t.connection_pool.connections[0],
             AIOHttpConnection,
