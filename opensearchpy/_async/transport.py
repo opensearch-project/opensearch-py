@@ -120,11 +120,7 @@ class AsyncTransport(Transport):
 
 
         super(AsyncTransport, self).__init__(
-            hosts=self.__ensure_compatability_with_legacy_test_cases(
-                hosts=hosts,
-                connection_class=connection_class,
-                connection_pool_class=connection_pool_class,
-            ),
+            hosts=[],
             connection_class=connection_class,
             connection_pool_class=connection_pool_class,
             host_info_callback=host_info_callback,
@@ -148,29 +144,6 @@ class AsyncTransport(Transport):
         self.hosts = hosts
         self.sniff_on_start = sniff_on_start
 
-    def __ensure_compatability_with_legacy_test_cases(
-            self,
-            hosts,
-            connection_class,
-            connection_pool_class) -> list:
-        """
-        Function required for ensuring compatability with legacy test cases
-
-        Args:
-        param: hosts: specified host paramters
-        param: connection_class: specified connection class
-        param: connection_pool_class: specified connection pool class
-
-        Returns:
-        list: list of hosts parameters
-        """
-        has_many_hosts = len(hosts) > 0
-        is_aiohttp_conn = isinstance(connection_class, AIOHttpConnection)
-        is_connection_pool = isinstance(connection_pool_class, ConnectionPool)
-        output = self.DEFAULT_HOSTS_PARENT_CLASS_ARG
-        if is_connection_pool and is_aiohttp_conn and has_many_hosts:
-            output = hosts
-        return output
 
     async def _async_init(self):
         """This is our stand-in for an async constructor. Everything
