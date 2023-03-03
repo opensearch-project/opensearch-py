@@ -65,7 +65,7 @@ async def test_index_can_be_saved_even_with_settings(write_client):
     await i.save()
 
     assert (
-        "1" == i.get_settings()["test-blog"]["settings"]["index"]["number_of_replicas"]
+        "1" ==(await i.get_settings())["test-blog"]["settings"]["index"]["number_of_replicas"]
     )
 
 
