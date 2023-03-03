@@ -38,7 +38,7 @@ class Post(AsyncDocument):
 
 async def test_index_template_works(write_client):
     it = AsyncIndexTemplate("test-template", "test-*")
-    await it.document(Post)
+    it.document(Post)
     it.settings(number_of_replicas=0, number_of_shards=1)
     await it.save()
 
