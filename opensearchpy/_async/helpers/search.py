@@ -462,7 +462,7 @@ class AsyncSearch(Request):
         """
         opensearch = await get_connection(self._using)
 
-        async for hit in aiter(await async_scan(
+        async for hit in aiter(async_scan(
             opensearch, query=self.to_dict(), index=self._index, **self._params
         )):
             yield self._get_result(hit)
