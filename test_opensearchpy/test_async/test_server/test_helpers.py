@@ -34,8 +34,7 @@ import asyncio
 import pytest
 from mock import MagicMock, patch
 
-from opensearchpy import TransportError
-from opensearchpy._async import helpers
+from opensearchpy import TransportError, helpers
 from opensearchpy.helpers import BulkIndexError, ScanError
 
 pytestmark = pytest.mark.asyncio
