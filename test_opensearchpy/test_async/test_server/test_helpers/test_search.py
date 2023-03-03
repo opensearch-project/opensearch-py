@@ -108,14 +108,19 @@ def test_scan_respects_doc_types(data_client):
     assert isinstance(repos[0], Repository)
     assert repos[0].organization == "opensearch"
 
-
 async def test_scan_iterates_through_all_docs(data_client):
     s = AsyncSearch(index="flat-git")
     result = s.scan()
-    commits = list(result)
+    commits = await get_result(result)
 
     assert 52 == len(commits)
     assert {d["_id"] for d in FLAT_DATA} == {c.meta.id for c in commits}
+    
+async def get_result(b):
+    a=[]
+    async for i in b:
+        a.append(i)
+    return a
 
 
 def test_response_is_cached(data_client):
