@@ -507,7 +507,7 @@ async def test_save_without_skip_empty_will_include_empty_fields(write_client):
 
 
 async def test_delete(write_client):
-    write_client.create(
+    await write_client.create(
         index="test-document",
         id="opensearch-py",
         body={
