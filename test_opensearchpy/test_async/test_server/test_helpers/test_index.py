@@ -54,7 +54,7 @@ async def test_index_template_works(write_client):
                 }
             }
         }
-    } == await (await write_client).indices.get_mapping(index="test-blog")
+    } == await write_client.indices.get_mapping(index="test-blog")
 
 
 async def test_index_can_be_saved_even_with_settings(write_client):
