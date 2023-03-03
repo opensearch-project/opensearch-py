@@ -267,7 +267,7 @@ class AsyncDocument(ObjectBase):
             doc_meta["if_primary_term"] = self.meta["primary_term"]
 
         doc_meta.update(kwargs)
-        opensearch.delete(index=self._get_index(index), **doc_meta)
+        await opensearch.delete(index=self._get_index(index), **doc_meta)
 
     def to_dict(self, include_meta=False, skip_empty=True):
         """
