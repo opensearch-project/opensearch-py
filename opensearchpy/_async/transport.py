@@ -30,7 +30,6 @@ import logging
 import sys
 from itertools import chain
 
-from .http_aiohttp import AIOHttpConnection
 from ..connection_pool import ConnectionPool
 from ..exceptions import (
     ConnectionError,
@@ -118,7 +117,6 @@ class AsyncTransport(Transport):
         self._async_init_called = False
         self._sniff_on_start_event = None  # type: asyncio.Event
 
-
         super(AsyncTransport, self).__init__(
             hosts=[],
             connection_class=connection_class,
@@ -143,7 +141,6 @@ class AsyncTransport(Transport):
         # our parent to 'sniff_on_start' or non-empty 'hosts'.
         self.hosts = hosts
         self.sniff_on_start = sniff_on_start
-
 
     async def _async_init(self):
         """This is our stand-in for an async constructor. Everything
