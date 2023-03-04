@@ -60,7 +60,7 @@ class AsyncIndexTemplate(object):
 
     async def save(self, using=None):
         opensearch = await get_connection(using or self._index._using)
-        return opensearch.indices.put_template(
+        return await opensearch.indices.put_template(
             name=self._template_name, body=self.to_dict()
         )
 
