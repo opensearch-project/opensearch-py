@@ -26,7 +26,7 @@
 
 from datetime import datetime
 from ipaddress import ip_address
-import asyncio
+
 import pytest
 from pytest import raises
 from pytz import timezone
@@ -50,11 +50,11 @@ from opensearchpy import (
     Text,
     analyzer,
 )
+from opensearchpy._async.helpers.actions import aiter
 from opensearchpy._async.helpers.document import AsyncDocument
 from opensearchpy._async.helpers.mapping import AsyncMapping
 from opensearchpy.helpers.utils import AttrList
-from opensearchpy._async.helpers.actions import aiter
-import pytest
+
 pytestmark = pytest.mark.asyncio
 snowball = analyzer("my_snow", tokenizer="standard", filter=["lowercase", "snowball"])
 
@@ -254,8 +254,12 @@ async def test_update_retry_on_conflict(write_client):
 
     w1 = await Wiki.get(id="opensearch-py")
     w2 = await Wiki.get(id="opensearch-py")
-    await w1.update(script="ctx._source.views += params.inc", inc=5, retry_on_conflict=1)
-    await w2.update(script="ctx._source.views += params.inc", inc=5, retry_on_conflict=1)
+    await w1.update(
+        script="ctx._source.views += params.inc", inc=5, retry_on_conflict=1
+    )
+    await w2.update(
+        script="ctx._source.views += params.inc", inc=5, retry_on_conflict=1
+    )
 
     w = await Wiki.get(id="opensearch-py")
     assert w.views == 52
@@ -555,8 +559,12 @@ async def test_refresh_mapping(data_client):
 
 
 async def test_highlight_in_meta(data_client):
-    commit = (await Commit.search().query("match", description="inverting").highlight("description").execute())[0]
-    
+    commit = (
+        await Commit.search()
+        .query("match", description="inverting")
+        .highlight("description")
+        .execute()
+    )[0]
 
     assert isinstance(commit, Commit)
     assert "description" in commit.meta.highlight

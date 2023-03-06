@@ -25,16 +25,12 @@
 #  specific language governing permissions and limitations
 #  under the License.
 
-import os
+import asyncio
 import re
 from datetime import datetime
-import asyncio
-from pytest import fixture, skip
+
 import pytest
-from opensearchpy import AsyncOpenSearch
-from opensearchpy._async.helpers.actions import async_bulk
-from opensearchpy.connection.async_connections import add_connection
-from opensearchpy.exceptions import ConnectionError
+from pytest import fixture
 from test_data import (
     DATA,
     FLAT_DATA,
@@ -42,21 +38,25 @@ from test_data import (
     create_flat_git_index,
     create_git_index,
 )
+
+from opensearchpy._async.helpers.actions import async_bulk
+from opensearchpy._async.helpers.test import get_test_client
+from opensearchpy.connection.async_connections import add_connection
 from test_opensearchpy.test_server.test_helpers.test_document import (
     Comment,
     History,
     PullRequest,
     User,
 )
+
 pytestmark = pytest.mark.asyncio
-from opensearchpy._async.helpers.test import get_test_client
+
 
 @pytest.fixture(scope="session")
 def event_loop():
     loop = asyncio.get_event_loop()
     yield loop
     loop.close()
-
 
 
 @fixture(scope="session")

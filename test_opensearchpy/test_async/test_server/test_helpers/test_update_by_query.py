@@ -25,9 +25,12 @@
 #  under the License.
 
 import pytest
-from opensearchpy.helpers.search import Q
+
 from opensearchpy._async.helpers.update_by_query import AsyncUpdateByQuery
+from opensearchpy.helpers.search import Q
+
 pytestmark = pytest.mark.asyncio
+
 
 async def test_update_by_query_no_script(write_client, setup_ubq_tests):
     index = setup_ubq_tests

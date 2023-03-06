@@ -31,15 +31,20 @@ import ipaddress
 import pickle
 from datetime import datetime
 from hashlib import sha256
+
 import pytest
 from pytest import raises
-pytestmark = pytest.mark.asyncio
-from opensearchpy import InnerDoc, Range, analyzer, MetaField
+
+from opensearchpy import InnerDoc, MetaField, Range, analyzer
+from opensearchpy._async.helpers import document
+from opensearchpy._async.helpers.index import AsyncIndex
+from opensearchpy._async.helpers.mapping import AsyncMapping
 from opensearchpy.exceptions import IllegalOperation, ValidationException
 from opensearchpy.helpers import field, utils
-from opensearchpy._async.helpers import document
-from opensearchpy._async.helpers.mapping import AsyncMapping
-from opensearchpy._async.helpers.index import AsyncIndex
+
+pytestmark = pytest.mark.asyncio
+
+
 class MyInner(InnerDoc):
     old_field = field.Text()
 

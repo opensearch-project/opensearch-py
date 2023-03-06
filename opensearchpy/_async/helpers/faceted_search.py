@@ -24,16 +24,12 @@
 #  specific language governing permissions and limitations
 #  under the License.
 
-from datetime import datetime, timedelta
 
 from six import iteritems, itervalues
 
 from opensearchpy._async.helpers.search import AsyncSearch
-from opensearchpy.helpers.aggs import A
-from opensearchpy.helpers.query import MatchAll, Nested, Range, Terms
-from opensearchpy.helpers.response import Response
-from opensearchpy.helpers.utils import AttrDict
 from opensearchpy.helpers.faceted_search import FacetedResponse
+from opensearchpy.helpers.query import MatchAll
 
 
 class AsyncFacetedSearch(object):

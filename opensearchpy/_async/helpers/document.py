@@ -31,10 +31,10 @@ except ImportError:
 
 from fnmatch import fnmatch
 
-from six import add_metaclass, iteritems
+from six import add_metaclass
 
 from opensearchpy._async.helpers.index import AsyncIndex
-from opensearchpy._async.helpers.mapping import AsyncMapping
+from opensearchpy._async.helpers.search import AsyncSearch
 from opensearchpy.connection.async_connections import get_connection
 from opensearchpy.exceptions import (
     IllegalOperation,
@@ -42,10 +42,8 @@ from opensearchpy.exceptions import (
     RequestError,
     ValidationException,
 )
-from opensearchpy._async.helpers.search import AsyncSearch
-from opensearchpy.helpers.field import Field
-from opensearchpy.helpers.utils import DOC_META_FIELDS, META_FIELDS, ObjectBase, merge
 from opensearchpy.helpers.document import DocumentMeta
+from opensearchpy.helpers.utils import DOC_META_FIELDS, META_FIELDS, ObjectBase, merge
 
 
 class AsyncIndexMeta(DocumentMeta):
@@ -73,7 +71,9 @@ class AsyncIndexMeta(DocumentMeta):
             # Set None as Index name so it will set _all while making the query
             return AsyncIndex(name=None)
 
-        i = AsyncIndex(getattr(opts, "name", "*"), using=getattr(opts, "using", "default"))
+        i = AsyncIndex(
+            getattr(opts, "name", "*"), using=getattr(opts, "using", "default")
+        )
         i.settings(**getattr(opts, "settings", {}))
         i.aliases(**getattr(opts, "aliases", {}))
         for a in getattr(opts, "analyzers", ()):

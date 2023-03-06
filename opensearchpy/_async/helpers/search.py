@@ -26,21 +26,17 @@
 
 import copy
 
-try:
-    import collections.abc as collections_abc  # only works on python 3.3+
-except ImportError:
-    import collections as collections_abc
-
 from six import iteritems, string_types
 
 from opensearchpy._async.helpers.actions import aiter, async_scan
 from opensearchpy.connection.async_connections import get_connection
 from opensearchpy.exceptions import IllegalOperation, TransportError
-from opensearchpy.helpers.aggs import A, AggBase
+from opensearchpy.helpers.aggs import A
 from opensearchpy.helpers.query import Bool, Q
-from opensearchpy.helpers.response import Hit, Response
+from opensearchpy.helpers.response import Response
 from opensearchpy.helpers.search import AggsProxy, ProxyDescriptor, QueryProxy, Request
-from opensearchpy.helpers.utils import AttrDict, DslBase, recursive_to_dict
+from opensearchpy.helpers.utils import AttrDict, recursive_to_dict
+
 
 class AsyncSearch(Request):
     query = ProxyDescriptor("query")
@@ -462,9 +458,11 @@ class AsyncSearch(Request):
         """
         opensearch = await get_connection(self._using)
 
-        async for hit in aiter(async_scan(
-            opensearch, query=self.to_dict(), index=self._index, **self._params
-        )):
+        async for hit in aiter(
+            async_scan(
+                opensearch, query=self.to_dict(), index=self._index, **self._params
+            )
+        ):
             yield self._get_result(hit)
 
     async def delete(self):

@@ -28,14 +28,11 @@ from datetime import datetime
 
 import pytest
 
-from opensearchpy.helpers.faceted_search import (
-    DateHistogramFacet,
-    TermsFacet,
-)
 from opensearchpy._async.helpers.faceted_search import AsyncFacetedSearch
+from opensearchpy.helpers.faceted_search import DateHistogramFacet, TermsFacet
 
-import pytest
 pytestmark = pytest.mark.asyncio
+
 
 class BlogSearch(AsyncFacetedSearch):
     doc_types = ["user", "post"]

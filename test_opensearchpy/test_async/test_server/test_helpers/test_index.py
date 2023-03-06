@@ -24,12 +24,14 @@
 #  specific language governing permissions and limitations
 #  under the License.
 import pytest
+
 from opensearchpy import Date, Text
 from opensearchpy._async.helpers.document import AsyncDocument
 from opensearchpy._async.helpers.index import AsyncIndex, AsyncIndexTemplate
 from opensearchpy.helpers import analysis
-from opensearchpy._async.helpers.actions import aiter
+
 pytestmark = pytest.mark.asyncio
+
 
 class Post(AsyncDocument):
     title = Text(analyzer=analysis.analyzer("my_analyzer", tokenizer="keyword"))
@@ -65,7 +67,10 @@ async def test_index_can_be_saved_even_with_settings(write_client):
     await i.save()
 
     assert (
-        "1" ==(await i.get_settings())["test-blog"]["settings"]["index"]["number_of_replicas"]
+        "1"
+        == (await i.get_settings())["test-blog"]["settings"]["index"][
+            "number_of_replicas"
+        ]
     )
 
 

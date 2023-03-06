@@ -27,13 +27,16 @@
 
 from __future__ import unicode_literals
 
-from pytest import raises
 import pytest
+from pytest import raises
+
 from opensearchpy import Date, Document, Keyword, Q, Text, TransportError
 from opensearchpy._async.helpers.search import AsyncMultiSearch, AsyncSearch
 from opensearchpy.helpers.response import aggs
 from test_opensearchpy.test_server.test_helpers.test_data import FLAT_DATA
+
 pytestmark = pytest.mark.asyncio
+
 
 class Repository(Document):
     created_at = Date()
@@ -108,6 +111,7 @@ def test_scan_respects_doc_types(data_client):
     assert isinstance(repos[0], Repository)
     assert repos[0].organization == "opensearch"
 
+
 async def test_scan_iterates_through_all_docs(data_client):
     s = AsyncSearch(index="flat-git")
     result = s.scan()
@@ -115,9 +119,10 @@ async def test_scan_iterates_through_all_docs(data_client):
 
     assert 52 == len(commits)
     assert {d["_id"] for d in FLAT_DATA} == {c.meta.id for c in commits}
-    
+
+
 async def get_result(b):
-    a=[]
+    a = []
     async for i in b:
         a.append(i)
     return a

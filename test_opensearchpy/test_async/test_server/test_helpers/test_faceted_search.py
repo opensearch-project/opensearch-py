@@ -27,17 +27,21 @@
 from datetime import datetime
 
 import pytest
-pytestmark = pytest.mark.asyncio
+
 from opensearchpy import A, Boolean, Date, Keyword
+from opensearchpy._async.helpers.document import AsyncDocument
+from opensearchpy._async.helpers.faceted_search import AsyncFacetedSearch
 from opensearchpy.helpers.faceted_search import (
     DateHistogramFacet,
     NestedFacet,
     RangeFacet,
     TermsFacet,
 )
-from opensearchpy._async.helpers.faceted_search import AsyncFacetedSearch
-from opensearchpy._async.helpers.document import AsyncDocument
-from test_opensearchpy.test_async.test_server.test_helpers.test_document import PullRequest
+from test_opensearchpy.test_async.test_server.test_helpers.test_document import (
+    PullRequest,
+)
+
+pytestmark = pytest.mark.asyncio
 
 
 class Repos(AsyncDocument):

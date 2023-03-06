@@ -27,9 +27,11 @@ import pytest
 from pytest import raises
 
 from opensearchpy import exceptions
-from opensearchpy.helpers import analysis
 from opensearchpy._async.helpers import mapping
+from opensearchpy.helpers import analysis
+
 pytestmark = pytest.mark.asyncio
+
 
 async def test_mapping_saved_into_opensearch(write_client):
     m = mapping.AsyncMapping()
@@ -51,7 +53,9 @@ async def test_mapping_saved_into_opensearch(write_client):
     } == await write_client.indices.get_mapping(index="test-mapping")
 
 
-async def test_mapping_saved_into_opensearch_when_index_already_exists_closed(write_client):
+async def test_mapping_saved_into_opensearch_when_index_already_exists_closed(
+    write_client,
+):
     m = mapping.AsyncMapping()
     m.field(
         "name", "text", analyzer=analysis.analyzer("my_analyzer", tokenizer="keyword")

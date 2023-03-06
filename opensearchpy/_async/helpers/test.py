@@ -1,6 +1,14 @@
+# SPDX-License-Identifier: Apache-2.0
+#
+# The OpenSearch Contributors require contributions made to
+# this file be licensed under the Apache-2.0 license or a
+# compatible open source license.
+#
+# Modifications Copyright OpenSearch Contributors. See
+# GitHub history for details.
 import os
 import time
-from unittest import SkipTest, TestCase
+from unittest import SkipTest
 
 from opensearchpy import AsyncOpenSearch
 from opensearchpy.exceptions import ConnectionError
@@ -15,13 +23,12 @@ async def get_test_client(nowait=False, **kwargs):
     # construct kwargs from the environment
     kw = {"timeout": 30}
 
-    #if "PYTHON_CONNECTION_CLASS" in os.environ:
-    from opensearchpy import connection, AsyncConnection
-    async_connection=AsyncConnection()
+    # if "PYTHON_CONNECTION_CLASS" in os.environ:
+    from opensearchpy import AsyncConnection
+
+    async_connection = AsyncConnection()
     if hasattr(async_connection, "AIOHttpConnection"):
-        kw["connection_class"] = getattr(
-            async_connection, "AIOHttpConnection"
-        )
+        kw["connection_class"] = getattr(async_connection, "AIOHttpConnection")
 
     kw.update(kwargs)
     client = AsyncOpenSearch(OPENSEARCH_URL, **kw)

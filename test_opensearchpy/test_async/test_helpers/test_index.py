@@ -26,12 +26,15 @@
 
 import string
 from random import choice
+
 import pytest
 from pytest import raises
-pytestmark = pytest.mark.asyncio
+
 from opensearchpy import Date, Text, analyzer
-from opensearchpy._async.helpers.document import AsyncDocument 
+from opensearchpy._async.helpers.document import AsyncDocument
 from opensearchpy._async.helpers.index import AsyncIndex, AsyncIndexTemplate
+
+pytestmark = pytest.mark.asyncio
 
 
 class Post(AsyncDocument):

@@ -31,12 +31,11 @@ except ImportError:
 
 from itertools import chain
 
-from six import iteritems, itervalues
+from six import iteritems
 
 from opensearchpy.connection.async_connections import get_connection
-from opensearchpy.helpers.field import Nested, Text, construct_field
-from opensearchpy.helpers.mapping import Properties, META_FIELDS
-from opensearchpy.helpers.utils import DslBase
+from opensearchpy.helpers.field import Nested, Text
+from opensearchpy.helpers.mapping import META_FIELDS, Properties
 
 
 class AsyncMapping(object):

@@ -27,7 +27,6 @@
 from copy import deepcopy
 
 import pytest
-from pytest import raises
 
 from opensearchpy import Q
 from opensearchpy._async.helpers import update_by_query
