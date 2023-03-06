@@ -33,6 +33,7 @@ from opensearchpy.exceptions import IllegalOperation
 from opensearchpy.helpers.utils import merge
 
 
+
 class AsyncIndexTemplate(object):
     def __init__(self, name, template, index=None, order=None, **kwargs):
         if index is None:
