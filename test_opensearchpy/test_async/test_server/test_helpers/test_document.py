@@ -306,7 +306,7 @@ async def test_save_and_update_return_doc_meta(write_client):
 async def test_init(write_client):
     await Repository.init(index="test-git")
 
-    assert write_client.indices.exists(index="test-git")
+    assert await write_client.indices.exists(index="test-git")
 
 
 async def test_get_raises_404_on_index_missing(data_client):
@@ -480,14 +480,14 @@ async def test_can_save_to_different_index(write_client):
     test_repo = Repository(description="testing", meta={"id": 42})
     assert await test_repo.save(index="test-document")
 
-    assert_doc_equals(
+    await assert_doc_equals(
         {
             "found": True,
             "_index": "test-document",
             "_id": "42",
             "_source": {"description": "testing"},
         },
-        write_client.get(index="test-document", id=42),
+        await write_client.get(index="test-document", id=42),
     )
 
 
@@ -495,14 +495,14 @@ async def test_save_without_skip_empty_will_include_empty_fields(write_client):
     test_repo = Repository(field_1=[], field_2=None, field_3={}, meta={"id": 42})
     assert await test_repo.save(index="test-document", skip_empty=False)
 
-    assert_doc_equals(
+    await assert_doc_equals(
         {
             "found": True,
             "_index": "test-document",
             "_id": "42",
             "_source": {"field_1": [], "field_2": None, "field_3": {}},
         },
-        write_client.get(index="test-document", id=42),
+        await write_client.get(index="test-document", id=42),
     )
 
 
