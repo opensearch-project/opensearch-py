@@ -15,7 +15,7 @@
 # bump     <VERSION> : bump client internals to version
 # codegen  <VERSION> : generate endpoints
 # docsgen  <VERSION> : generate documentation
-# examplegen         : generate the doc examples
+# examplesgen         : generate the doc examples
 # clean              : clean workspace
 #
 # ------------------------------------------------------- #
