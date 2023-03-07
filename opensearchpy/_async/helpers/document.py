@@ -6,23 +6,6 @@
 #
 # Modifications Copyright OpenSearch Contributors. See
 # GitHub history for details.
-#
-#  Licensed to Elasticsearch B.V. under one or more contributor
-#  license agreements. See the NOTICE file distributed with
-#  this work for additional information regarding copyright
-#  ownership. Elasticsearch B.V. licenses this file to you under
-#  the Apache License, Version 2.0 (the "License"); you may
-#  not use this file except in compliance with the License.
-#  You may obtain a copy of the License at
-#
-# 	http://www.apache.org/licenses/LICENSE-2.0
-#
-#  Unless required by applicable law or agreed to in writing,
-#  software distributed under the License is distributed on an
-#  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-#  KIND, either express or implied.  See the License for the
-#  specific language governing permissions and limitations
-#  under the License.
 
 try:
     import collections.abc as collections_abc  # only works on python 3.3+
@@ -139,7 +122,7 @@ class AsyncDocument(ObjectBase):
     @classmethod
     def search(cls, using=None, index=None):
         """
-        Create an :class:`~opensearchpy.Search` instance that will search
+        Create an :class:`~opensearchpy.AsyncSearch` instance that will search
         over this ``Document``.
         """
         return AsyncSearch(
@@ -157,7 +140,7 @@ class AsyncDocument(ObjectBase):
         :arg using: connection alias to use, defaults to ``'default'``
 
         Any additional keyword arguments will be passed to
-        ``OpenSearch.get`` unchanged.
+        ``AsyncOpenSearch.get`` unchanged.
         """
         opensearch = await cls._get_connection(using)
         doc = await opensearch.get(index=cls._default_index(index), id=id, **kwargs)
@@ -176,7 +159,7 @@ class AsyncDocument(ObjectBase):
         :arg using: connection alias to use, defaults to ``'default'``
 
         Any additional keyword arguments will be passed to
-        ``OpenSearch.exists`` unchanged.
+        ``AsyncOpenSearch.exists`` unchanged.
         """
         opensearch = await cls._get_connection(using)
         return await opensearch.exists(index=cls._default_index(index), id=id, **kwargs)
@@ -200,7 +183,7 @@ class AsyncDocument(ObjectBase):
             ``NotFoundError``) or ``'skip'`` (ignore the missing document).
 
         Any additional keyword arguments will be passed to
-        ``OpenSearch.mget`` unchanged.
+        ``AsyncOpenSearch.mget`` unchanged.
         """
         if missing not in ("raise", "skip", "none"):
             raise ValueError("'missing' must be 'raise', 'skip', or 'none'.")
@@ -255,7 +238,7 @@ class AsyncDocument(ObjectBase):
         :arg using: connection alias to use, defaults to ``'default'``
 
         Any additional keyword arguments will be passed to
-        ``OpenSearch.delete`` unchanged.
+        ``AsyncOpenSearch.delete`` unchanged.
         """
         opensearch = await self._get_connection(using)
         # extract routing etc from meta
@@ -275,8 +258,7 @@ class AsyncDocument(ObjectBase):
 
         :arg include_meta: if set to ``True`` will include all the metadata
             (``_index``, ``_id`` etc). Otherwise just the document's
-            data is serialized. This is useful when passing multiple instances into
-            ``opensearchpy.helpers.bulk``.
+            data is serialized. 
         :arg skip_empty: if set to ``False`` will cause empty values (``None``,
             ``[]``, ``{}``) to be left on the document. Those values will be
             stripped out otherwise as they make no difference in opensearch.
@@ -425,7 +407,7 @@ class AsyncDocument(ObjectBase):
             update API call instead of only the operation result
 
         Any additional keyword arguments will be passed to
-        ``OpenSearch.index`` unchanged.
+        ``AsyncOpenSearch.index`` unchanged.
 
         :return operation result created/updated
         """

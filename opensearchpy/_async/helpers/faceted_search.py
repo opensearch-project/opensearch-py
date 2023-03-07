@@ -6,23 +6,6 @@
 #
 # Modifications Copyright OpenSearch Contributors. See
 # GitHub history for details.
-#
-#  Licensed to Elasticsearch B.V. under one or more contributor
-#  license agreements. See the NOTICE file distributed with
-#  this work for additional information regarding copyright
-#  ownership. Elasticsearch B.V. licenses this file to you under
-#  the Apache License, Version 2.0 (the "License"); you may
-#  not use this file except in compliance with the License.
-#  You may obtain a copy of the License at
-#
-# 	http://www.apache.org/licenses/LICENSE-2.0
-#
-#  Unless required by applicable law or agreed to in writing,
-#  software distributed under the License is distributed on an
-#  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-#  KIND, either express or implied.  See the License for the
-#  specific language governing permissions and limitations
-#  under the License.
 
 
 from six import iteritems, itervalues
@@ -38,7 +21,7 @@ class AsyncFacetedSearch(object):
     composing the queries, aggregations and filters as needed as well as
     presenting the results in an easy-to-consume fashion::
 
-        class BlogSearch(FacetedSearch):
+        class BlogSearch(AsyncFacetedSearch):
             index = 'blogs'
             doc_types = [Blog, Post]
             fields = ['title^5', 'category', 'description', 'body']
@@ -60,7 +43,7 @@ class AsyncFacetedSearch(object):
         # supports pagination
         blog_search[10:20]
 
-        response = blog_search.execute()
+        response = await blog_search.execute()
 
         # easy access to aggregation results:
         for category, hit_count, is_selected in response.facets.category:
@@ -84,7 +67,7 @@ class AsyncFacetedSearch(object):
         """
         :arg query: the text to search for
         :arg filters: facet values to filter
-        :arg sort: sort information to be passed to :class:`~opensearchpy.Search`
+        :arg sort: sort information to be passed to :class:`~opensearchpy.AsyncSearch`
         """
         self._query = query
         self._filters = {}
@@ -197,7 +180,7 @@ class AsyncFacetedSearch(object):
 
     def build_search(self):
         """
-        Construct the ``Search`` object.
+        Construct the ``AsyncSearch`` object.
         """
         s = self.search()
         s = self.query(s, self._query)

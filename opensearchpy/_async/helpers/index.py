@@ -6,23 +6,6 @@
 #
 # Modifications Copyright OpenSearch Contributors. See
 # GitHub history for details.
-#
-#  Licensed to Elasticsearch B.V. under one or more contributor
-#  license agreements. See the NOTICE file distributed with
-#  this work for additional information regarding copyright
-#  ownership. Elasticsearch B.V. licenses this file to you under
-#  the Apache License, Version 2.0 (the "License"); you may
-#  not use this file except in compliance with the License.
-#  You may obtain a copy of the License at
-#
-# 	http://www.apache.org/licenses/LICENSE-2.0
-#
-#  Unless required by applicable law or agreed to in writing,
-#  software distributed under the License is distributed on an
-#  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-#  KIND, either express or implied.  See the License for the
-#  specific language governing permissions and limitations
-#  under the License.
 
 from opensearchpy._async.helpers.mapping import AsyncMapping
 from opensearchpy._async.helpers.search import AsyncSearch
@@ -87,7 +70,7 @@ class AsyncIndex(object):
     def as_template(self, template_name, pattern=None, order=None):
         # TODO: should we allow pattern to be a top-level arg?
         # or maybe have an IndexPattern that allows for it and have
-        # Document._index be that?
+        # AsyncDocument._index be that?
         return AsyncIndexTemplate(
             template_name, pattern or self._name, index=self, order=order
         )
@@ -120,12 +103,12 @@ class AsyncIndex(object):
         Create a copy of the instance with another name or connection alias.
         Useful for creating multiple indices with shared configuration::
 
-            i = Index('base-index')
+            i = AsyncIndex('base-index')
             i.settings(number_of_shards=1)
-            i.create()
+            await i.create()
 
             i2 = i.clone('other-index')
-            i2.create()
+            await i2.create()
 
         :arg name: name of the index
         :arg using: connection alias to use, defaults to ``'default'``
@@ -157,22 +140,22 @@ class AsyncIndex(object):
 
     def document(self, document):
         """
-        Associate a :class:`~opensearchpy.Document` subclass with an index.
+        Associate a :class:`~opensearchpy.AsyncDocument` subclass with an index.
         This means that, when this index is created, it will contain the
-        mappings for the ``Document``. If the ``Document`` class doesn't have a
-        default index yet (by defining ``class Index``), this instance will be
+        mappings for the ``AsyncDocument``. If the ``AsyncDocument`` class doesn't have a
+        default index yet (by defining ``class AsyncIndex``), this instance will be
         used. Can be used as a decorator::
 
-            i = Index('blog')
+            i = AsyncIndex('blog')
 
             @i.document
-            class Post(Document):
+            class Post(AsyncDocument):
                 title = Text()
 
             # create the index, including Post mappings
-            i.create()
+            await i.create()
 
-            # .search() will now return a Search object that will return
+            # .search() will now return a AsyncSearch object that will return
             # properly deserialized Post instances
             s = i.search()
         """
@@ -190,7 +173,7 @@ class AsyncIndex(object):
         """
         Add settings to the index::
 
-            i = Index('i')
+            i = AsyncIndex('i')
             i.settings(number_of_shards=1, number_of_replicas=0)
 
         Multiple calls to ``settings`` will merge the keys, later overriding
@@ -203,7 +186,7 @@ class AsyncIndex(object):
         """
         Add aliases to the index definition::
 
-            i = Index('blog-v2')
+            i = AsyncIndex('blog-v2')
             i.aliases(blog={}, published={'filter': Q('term', published=True)})
         """
         self._aliases.update(kwargs)
@@ -223,7 +206,7 @@ class AsyncIndex(object):
                 filter=['lowercase']
             )
 
-            i = Index('blog')
+            i = AsyncIndex('blog')
             i.analyzer(my_analyzer)
 
         """
@@ -257,7 +240,7 @@ class AsyncIndex(object):
 
     def search(self, using=None):
         """
-        Return a :class:`~opensearchpy.Search` object searching over the
+        Return a :class:`~opensearchpy.AsyncSearch` object searching over the
         index (or all the indices belonging to this template) and its
         ``Document``\\s.
         """
@@ -267,7 +250,7 @@ class AsyncIndex(object):
 
     def updateByQuery(self, using=None):
         """
-        Return a :class:`~opensearchpy.UpdateByQuery` object searching over the index
+        Return a :class:`~opensearchpy.AsyncUpdateByQuery` object searching over the index
         (or all the indices belonging to this template) and updating Documents that match
         the search criteria.
 
@@ -284,7 +267,7 @@ class AsyncIndex(object):
         Creates the index in opensearch.
 
         Any additional keyword arguments will be passed to
-        ``OpenSearch.indices.create`` unchanged.
+        ``AsyncOpenSearch.indices.create`` unchanged.
         """
         return await (await self._get_connection(using)).indices.create(
             index=self._name, body=self.to_dict(), **kwargs
