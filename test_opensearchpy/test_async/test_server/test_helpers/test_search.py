@@ -12,15 +12,16 @@ from __future__ import unicode_literals
 import pytest
 from pytest import raises
 
-from opensearchpy import Date, Document, Keyword, Q, Text, TransportError
+from opensearchpy import Date, Keyword, Q, Text, TransportError
 from opensearchpy._async.helpers.search import AsyncMultiSearch, AsyncSearch
 from opensearchpy.helpers.response import aggs
 from test_opensearchpy.test_server.test_helpers.test_data import FLAT_DATA
+from opensearchpy._async.helpers.document import AsyncDocument
 
 pytestmark = pytest.mark.asyncio
 
 
-class Repository(Document):
+class Repository(AsyncDocument):
     created_at = Date()
     description = Text(analyzer="snowball")
     tags = Keyword()
@@ -33,7 +34,7 @@ class Repository(Document):
         name = "git"
 
 
-class Commit(Document):
+class Commit(AsyncDocument):
     class Index:
         name = "flat-git"
 

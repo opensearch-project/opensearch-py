@@ -15,7 +15,7 @@ from pytest import raises
 from opensearchpy._async.helpers import search
 from opensearchpy.exceptions import IllegalOperation
 from opensearchpy.helpers import query
-from opensearchpy.helpers.document import Document
+from opensearchpy._async.helpers.document import AsyncDocument
 from opensearchpy.helpers.query import Q
 
 pytestmark = pytest.mark.asyncio
@@ -220,7 +220,7 @@ def test_search_index():
 
 
 def test_doc_type_document_class():
-    class MyDocument(Document):
+    class MyDocument(AsyncDocument):
         pass
 
     s = search.AsyncSearch(doc_type=MyDocument)
