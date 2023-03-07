@@ -21,7 +21,7 @@ class AsyncUpdateByQuery(Request):
         """
         Update by query request to opensearch.
 
-        :arg using: `OpenSearch` instance to use
+        :arg using: `AsyncOpenSearch` instance to use
         :arg index: limit the search to index
         :arg doc_type: only query this type.
 
@@ -43,12 +43,12 @@ class AsyncUpdateByQuery(Request):
     @classmethod
     def from_dict(cls, d):
         """
-        Construct a new `UpdateByQuery` instance from a raw dict containing the search
+        Construct a new `AsyncUpdateByQuery` instance from a raw dict containing the search
         body. Useful when migrating from raw dictionaries.
 
         Example::
 
-            ubq = UpdateByQuery.from_dict({
+            ubq = AsyncUpdateByQuery.from_dict({
                 "query": {
                     "bool": {
                         "must": [...]
@@ -105,7 +105,7 @@ class AsyncUpdateByQuery(Request):
 
         Example::
 
-            ubq = Search()
+            ubq = AsyncSearch()
             ubq = ubq.script(source="ctx._source.likes++"")
             ubq = ubq.script(source="ctx._source.likes += params.f"",
                          lang="expression",

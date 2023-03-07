@@ -24,7 +24,6 @@ async def get_test_client(nowait=False, **kwargs):
     # construct kwargs from the environment
     kw = {"timeout": 30}
 
-    # if "PYTHON_CONNECTION_CLASS" in os.environ:
     from opensearchpy import AsyncConnection
 
     async_connection = AsyncConnection()

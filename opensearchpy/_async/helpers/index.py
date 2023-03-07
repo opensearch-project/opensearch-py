@@ -339,7 +339,7 @@ class AsyncIndex(object):
         of the text.
 
         Any additional keyword arguments will be passed to
-        ``OpenSearch.indices.analyze`` unchanged.
+        ``AsyncOpenSearch.indices.analyze`` unchanged.
         """
         return await (await self._get_connection(using)).indices.analyze(
             index=self._name, **kwargs
@@ -350,7 +350,7 @@ class AsyncIndex(object):
         Performs a refresh operation on the index.
 
         Any additional keyword arguments will be passed to
-        ``OpenSearch.indices.refresh`` unchanged.
+        ``AsyncOpenSearch.indices.refresh`` unchanged.
         """
         return await (await self._get_connection(using)).indices.refresh(
             index=self._name, **kwargs
@@ -361,7 +361,7 @@ class AsyncIndex(object):
         Performs a flush operation on the index.
 
         Any additional keyword arguments will be passed to
-        ``OpenSearch.indices.flush`` unchanged.
+        ``AsyncOpenSearch.indices.flush`` unchanged.
         """
         return await (await self._get_connection(using)).indices.flush(
             index=self._name, **kwargs
@@ -372,7 +372,7 @@ class AsyncIndex(object):
         The get index API allows to retrieve information about the index.
 
         Any additional keyword arguments will be passed to
-        ``OpenSearch.indices.get`` unchanged.
+        ``AsyncOpenSearch.indices.get`` unchanged.
         """
         return await (await self._get_connection(using)).indices.get(
             index=self._name, **kwargs
@@ -383,7 +383,7 @@ class AsyncIndex(object):
         Opens the index in opensearch.
 
         Any additional keyword arguments will be passed to
-        ``OpenSearch.indices.open`` unchanged.
+        ``AsyncOpenSearch.indices.open`` unchanged.
         """
         return await (await self._get_connection(using)).indices.open(
             index=self._name, **kwargs
@@ -394,7 +394,7 @@ class AsyncIndex(object):
         Closes the index in opensearch.
 
         Any additional keyword arguments will be passed to
-        ``OpenSearch.indices.close`` unchanged.
+        ``AsyncOpenSearch.indices.close`` unchanged.
         """
         return await (await self._get_connection(using)).indices.close(
             index=self._name, **kwargs
@@ -405,7 +405,7 @@ class AsyncIndex(object):
         Deletes the index in opensearch.
 
         Any additional keyword arguments will be passed to
-        ``OpenSearch.indices.delete`` unchanged.
+        ``AsyncOpenSearch.indices.delete`` unchanged.
         """
         return await (await self._get_connection(using)).indices.delete(
             index=self._name, **kwargs
@@ -416,7 +416,7 @@ class AsyncIndex(object):
         Returns ``True`` if the index already exists in opensearch.
 
         Any additional keyword arguments will be passed to
-        ``OpenSearch.indices.exists`` unchanged.
+        ``AsyncOpenSearch.indices.exists`` unchanged.
         """
         return await (await self._get_connection(using)).indices.exists(
             index=self._name, **kwargs
@@ -427,7 +427,7 @@ class AsyncIndex(object):
         Register specific mapping definition for a specific type.
 
         Any additional keyword arguments will be passed to
-        ``OpenSearch.indices.put_mapping`` unchanged.
+        ``AsyncOpenSearch.indices.put_mapping`` unchanged.
         """
         return await (await self._get_connection(using)).indices.put_mapping(
             index=self._name, **kwargs
@@ -438,7 +438,7 @@ class AsyncIndex(object):
         Retrieve specific mapping definition for a specific type.
 
         Any additional keyword arguments will be passed to
-        ``OpenSearch.indices.get_mapping`` unchanged.
+        ``AsyncOpenSearch.indices.get_mapping`` unchanged.
         """
         return await (await self._get_connection(using)).indices.get_mapping(
             index=self._name, **kwargs
@@ -449,7 +449,7 @@ class AsyncIndex(object):
         Retrieve mapping definition of a specific field.
 
         Any additional keyword arguments will be passed to
-        ``OpenSearch.indices.get_field_mapping`` unchanged.
+        ``Async OpenSearch.indices.get_field_mapping`` unchanged.
         """
         return await (await self._get_connection(using)).indices.get_field_mapping(
             index=self._name, **kwargs
@@ -460,7 +460,7 @@ class AsyncIndex(object):
         Create an alias for the index.
 
         Any additional keyword arguments will be passed to
-        ``OpenSearch.indices.put_alias`` unchanged.
+        ``AsyncOpenSearch.indices.put_alias`` unchanged.
         """
         return await (await self._get_connection(using)).indices.put_alias(
             index=self._name, **kwargs
@@ -471,7 +471,7 @@ class AsyncIndex(object):
         Return a boolean indicating whether given alias exists for this index.
 
         Any additional keyword arguments will be passed to
-        ``OpenSearch.indices.exists_alias`` unchanged.
+        ``AsyncOpenSearch.indices.exists_alias`` unchanged.
         """
         return await (await self._get_connection(using)).indices.exists_alias(
             index=self._name, **kwargs
@@ -482,7 +482,7 @@ class AsyncIndex(object):
         Retrieve a specified alias.
 
         Any additional keyword arguments will be passed to
-        ``OpenSearch.indices.get_alias`` unchanged.
+        ``AsyncOpenSearch.indices.get_alias`` unchanged.
         """
         return await (await self._get_connection(using)).indices.get_alias(
             index=self._name, **kwargs
@@ -493,7 +493,7 @@ class AsyncIndex(object):
         Delete specific alias.
 
         Any additional keyword arguments will be passed to
-        ``OpenSearch.indices.delete_alias`` unchanged.
+        ``AsyncOpenSearch.indices.delete_alias`` unchanged.
         """
         return await (await self._get_connection(using)).indices.delete_alias(
             index=self._name, **kwargs
@@ -504,7 +504,7 @@ class AsyncIndex(object):
         Retrieve settings for the index.
 
         Any additional keyword arguments will be passed to
-        ``OpenSearch.indices.get_settings`` unchanged.
+        ``AsyncOpenSearch.indices.get_settings`` unchanged.
         """
         return await (await self._get_connection(using)).indices.get_settings(
             index=self._name, **kwargs
@@ -515,7 +515,7 @@ class AsyncIndex(object):
         Change specific index level settings in real time.
 
         Any additional keyword arguments will be passed to
-        ``OpenSearch.indices.put_settings`` unchanged.
+        ``AsyncOpenSearch.indices.put_settings`` unchanged.
         """
         return await (await self._get_connection(using)).indices.put_settings(
             index=self._name, **kwargs
@@ -526,7 +526,7 @@ class AsyncIndex(object):
         Retrieve statistics on different operations happening on the index.
 
         Any additional keyword arguments will be passed to
-        ``OpenSearch.indices.stats`` unchanged.
+        ``AsyncOpenSearch.indices.stats`` unchanged.
         """
         return await (await self._get_connection(using)).indices.stats(
             index=self._name, **kwargs
@@ -538,7 +538,7 @@ class AsyncIndex(object):
         level) is built with.
 
         Any additional keyword arguments will be passed to
-        ``OpenSearch.indices.segments`` unchanged.
+        ``AsyncOpenSearch.indices.segments`` unchanged.
         """
         return await (await self._get_connection(using)).indices.segments(
             index=self._name, **kwargs
@@ -549,7 +549,7 @@ class AsyncIndex(object):
         Validate a potentially expensive query without executing it.
 
         Any additional keyword arguments will be passed to
-        ``OpenSearch.indices.validate_query`` unchanged.
+        ``AsyncOpenSearch.indices.validate_query`` unchanged.
         """
         return await (await self._get_connection(using)).indices.validate_query(
             index=self._name, **kwargs
@@ -560,7 +560,7 @@ class AsyncIndex(object):
         Clear all caches or specific cached associated with the index.
 
         Any additional keyword arguments will be passed to
-        ``OpenSearch.indices.clear_cache`` unchanged.
+        ``AsyncOpenSearch.indices.clear_cache`` unchanged.
         """
         return await (await self._get_connection(using)).indices.clear_cache(
             index=self._name, **kwargs
@@ -572,7 +572,7 @@ class AsyncIndex(object):
         recoveries for the index.
 
         Any additional keyword arguments will be passed to
-        ``OpenSearch.indices.recovery`` unchanged.
+        ``AsyncOpenSearch.indices.recovery`` unchanged.
         """
         return await (await self._get_connection(using)).indices.recovery(
             index=self._name, **kwargs
@@ -583,7 +583,7 @@ class AsyncIndex(object):
         Upgrade the index to the latest format.
 
         Any additional keyword arguments will be passed to
-        ``OpenSearch.indices.upgrade`` unchanged.
+        ``AsyncOpenSearch.indices.upgrade`` unchanged.
         """
         return await (await self._get_connection(using)).indices.upgrade(
             index=self._name, **kwargs
@@ -594,7 +594,7 @@ class AsyncIndex(object):
         Monitor how much of the index is upgraded.
 
         Any additional keyword arguments will be passed to
-        ``OpenSearch.indices.get_upgrade`` unchanged.
+        ``AsyncOpenSearch.indices.get_upgrade`` unchanged.
         """
         return await (await self._get_connection(using)).indices.get_upgrade(
             index=self._name, **kwargs
@@ -608,7 +608,7 @@ class AsyncIndex(object):
         while opening the shard index or from earlier engine failure.
 
         Any additional keyword arguments will be passed to
-        ``OpenSearch.indices.shard_stores`` unchanged.
+        ``AsyncOpenSearch.indices.shard_stores`` unchanged.
         """
         return await (await self._get_connection(using)).indices.shard_stores(
             index=self._name, **kwargs
@@ -626,7 +626,7 @@ class AsyncIndex(object):
         any new requests will block until the previous force merge is complete.
 
         Any additional keyword arguments will be passed to
-        ``OpenSearch.indices.forcemerge`` unchanged.
+        ``AsyncOpenSearch.indices.forcemerge`` unchanged.
         """
         return await (await self._get_connection(using)).indices.forcemerge(
             index=self._name, **kwargs
@@ -645,7 +645,7 @@ class AsyncIndex(object):
         on the same node.
 
         Any additional keyword arguments will be passed to
-        ``OpenSearch.indices.shrink`` unchanged.
+        ``AsyncOpenSearch.indices.shrink`` unchanged.
         """
         return await (await self._get_connection(using)).indices.shrink(
             index=self._name, **kwargs

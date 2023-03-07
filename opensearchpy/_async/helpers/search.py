@@ -6,6 +6,7 @@
 #
 # Modifications Copyright OpenSearch Contributors. See
 # GitHub history for details.
+
 import copy
 
 from six import iteritems, string_types
@@ -28,7 +29,7 @@ class AsyncSearch(Request):
         """
         Search request to opensearch.
 
-        :arg using: `OpenSearch` instance to use
+        :arg using: `AsyncOpenSearch` instance to use
         :arg index: limit the search to index
         :arg doc_type: only query this type.
 
@@ -73,7 +74,7 @@ class AsyncSearch(Request):
         if isinstance(n, slice):
             # If negative slicing, abort.
             if n.start and n.start < 0 or n.stop and n.stop < 0:
-                raise ValueError("Search does not support negative slicing.")
+                raise ValueError("AsyncSearch does not support negative slicing.")
             # OpenSearch won't get all results so we default to size: 10 if
             # stop not given.
             s._extra["from"] = n.start or 0
@@ -84,7 +85,7 @@ class AsyncSearch(Request):
         else:  # This is an index lookup, equivalent to slicing by [n:n+1].
             # If negative index, abort.
             if n < 0:
-                raise ValueError("Search does not support negative indexing.")
+                raise ValueError("AsyncSearch does not support negative indexing.")
             s._extra["from"] = n
             s._extra["size"] = 1
             return s
@@ -92,12 +93,12 @@ class AsyncSearch(Request):
     @classmethod
     def from_dict(cls, d):
         """
-        Construct a new `Search` instance from a raw dict containing the search
+        Construct a new `AsyncSearch` instance from a raw dict containing the search
         body. Useful when migrating from raw dictionaries.
 
         Example::
 
-            s = Search.from_dict({
+            s = AsyncSearch.from_dict({
                 "query": {
                     "bool": {
                         "must": [...]
@@ -269,7 +270,7 @@ class AsyncSearch(Request):
         will sort by ``category``, ``title`` (in descending order) and
         ``price`` in ascending order using the ``avg`` mode.
 
-        The API returns a copy of the Search object and can thus be chained.
+        The API returns a copy of the AsyncSearch object and can thus be chained.
         """
         s = self._clone()
         s._sort = []
@@ -416,7 +417,7 @@ class AsyncSearch(Request):
         the data.
 
         :arg ignore_cache: if set to ``True``, consecutive calls will hit
-            OpenSearch, while cached result will be ignored. Defaults to `False`
+            AsyncOpenSearch, while cached result will be ignored. Defaults to `False`
         """
         if ignore_cache or not hasattr(self, "_response"):
             opensearch = await get_connection(self._using)
