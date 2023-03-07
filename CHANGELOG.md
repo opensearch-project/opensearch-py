@@ -1,7 +1,7 @@
 # CHANGELOG
 Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
-## [2.2.1]
+## [Unreleased]
 ### Fixed
 - Fixed import cycle when importing async helpers ([#311](https://github.com/opensearch-project/opensearch-py/pull/311))
 
