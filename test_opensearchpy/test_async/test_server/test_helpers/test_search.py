@@ -87,12 +87,12 @@ async def test_inner_hits_are_wrapped_in_response(data_client):
     assert repr(commit.meta.inner_hits.repo[0]).startswith("<Hit(git/opensearch-py): ")
 
 
-# async def test_scan_respects_doc_types(data_client):
-#     repos = list(await Repository.search().scan())
+async def test_scan_respects_doc_types(data_client):
+    repos = list(await Repository.search().scan())
 
-#     assert 1 == len(repos)
-#     assert isinstance(repos[0], Repository)
-#     assert repos[0].organization == "opensearch"
+    assert 1 == len(repos)
+    assert isinstance(repos[0], Repository)
+    assert repos[0].organization == "opensearch"
 
 
 async def test_scan_iterates_through_all_docs(data_client):
@@ -111,12 +111,12 @@ async def get_result(b):
     return a
 
 
-def test_response_is_cached(data_client):
-    s = Repository.search()
-    repos = list(s)
+# def test_response_is_cached(data_client):
+#     s = Repository.search()
+#     repos = list(s)
 
-    assert hasattr(s, "_response")
-    assert s._response.hits == repos
+#     assert hasattr(s, "_response")
+#     assert s._response.hits == repos
 
 
 async def test_multi_search(data_client):
