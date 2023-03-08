@@ -39,13 +39,13 @@ class Commit(AsyncDocument):
         name = "flat-git"
 
 
-def test_filters_aggregation_buckets_are_accessible(data_client):
+async def test_filters_aggregation_buckets_are_accessible(data_client):
     has_tests_query = Q("term", files="test_opensearchpy/test_dsl")
     s = Commit.search()[0:0]
     s.aggs.bucket("top_authors", "terms", field="author.name.raw").bucket(
         "has_tests", "filters", filters={"yes": has_tests_query, "no": ~has_tests_query}
     ).metric("lines", "stats", field="stats.lines")
-    response = s.execute()
+    response = await s.execute()
 
     assert isinstance(
         response.aggregations.top_authors.buckets[0].has_tests.buckets.yes, aggs.Bucket
