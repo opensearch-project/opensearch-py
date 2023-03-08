@@ -88,7 +88,8 @@ async def test_inner_hits_are_wrapped_in_response(data_client):
 
 
 async def test_scan_respects_doc_types(data_client):
-    repos = list(Repository.search().scan())
+    result = Repository.search().scan()
+    repos = await get_result(result)
 
     assert 1 == len(repos)
     assert isinstance(repos[0], Repository)
