@@ -105,11 +105,12 @@ def test_dist(dist):
             f"from {dist_name} import AsyncOpenSearch",
             expect_exit_code=256,
         )
+
+        # Ensure async helpers are available regardless of aiohttp installation
         run(
             venv_python,
             "-c",
             f"from {dist_name}.helpers import async_scan, async_bulk, async_streaming_bulk, async_reindex",
-            expect_exit_code=256,
         )
 
         # Install aiohttp and see that async is now available
