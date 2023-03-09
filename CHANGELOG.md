@@ -13,6 +13,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - Fixed SigV4 Signing for Managed Service ([#279](https://github.com/opensearch-project/opensearch-py/pull/279))
 - Fixed SigV4 Signing for Async Requests with QueryStrings ([#272](https://github.com/opensearch-project/opensearch-py/pull/279))
 - Fixed CVE - issue 86 mentioned in opensearch-dsl-py repo ([#295](https://github.com/opensearch-project/opensearch-py/pull/295))
+- Update ci workflows ([#318](https://github.com/opensearch-project/opensearch-py/pull/318))
 ### Security
 
 ## [2.1.0]
