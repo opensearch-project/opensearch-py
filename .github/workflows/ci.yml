@@ -43,10 +43,10 @@ jobs:
         os: [ubuntu-latest]
         experimental: [false]
         include:
-          - runner: 'ubuntu-20.04'
+          - os: 'ubuntu-20.04'
             python-version: '3.5'
             experimental: false
-          - runner: 'ubuntu-20.04'
+          - os: 'ubuntu-20.04'
             python-version: '3.6'
             experimental: false
 
