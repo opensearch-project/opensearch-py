@@ -54,10 +54,6 @@ jobs:
           ./opensearch-*/bin/opensearch &
           for attempt in {1..20}; do sleep 5; if curl -s localhost:9200; then echo '=====> ready'; break; fi; echo '=====> waiting...'; done
 
-      - name: Get OpenSearch version
-        id: get-version
-        run: echo version=`curl -s http://localhost:9200 | jq -r .version.number` >> $GITHUB_OUTPUT
-
       - name: Checkout Python Client
         uses: actions/checkout@v3
         with:
@@ -67,7 +63,7 @@ jobs:
         env:
           OPENSEARCH_URL: http://localhost:9200
           TEST_TYPE: server
-          OPENSEARCH_VERSION: ${{ steps.get-version.outputs.version }}
+          OPENSEARCH_VERSION: SNAPSHOT
         run: |
           mkdir -p junit
           python -m pip install -U --no-cache-dir --disable-pip-version-check pip
