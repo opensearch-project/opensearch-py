@@ -2,8 +2,13 @@
 Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 ## [Unreleased]
+### Added
+### Changed
+### Deprecated
+### Removed
 ### Fixed
 - Fixed import cycle when importing async helpers ([#311](https://github.com/opensearch-project/opensearch-py/pull/311))
+### Security
 
 ## [2.2.0]
 ### Added
@@ -63,5 +68,8 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ### Security
 
 
-[Unreleased]: https://github.com/opensearch-project/opensearch-py/compare/2.0...HEAD
-[2.0.1]: https://github.com/opensearch-project/opensearch-py/compare/2.0...HEAD
+[Unreleased]: https://github.com/opensearch-project/opensearch-py/compare/v2.2.0...HEAD
+[2.0.1]: https://github.com/opensearch-project/opensearch-py/compare/v2.0.0...v2.0.1
+[2.1.0]: https://github.com/opensearch-project/opensearch-py/compare/v2.0.1...v2.1.0
+[2.1.1]: https://github.com/opensearch-project/opensearch-py/compare/v2.1.0...v2.1.1
+[2.2.0]: https://github.com/opensearch-project/opensearch-py/compare/v2.1.1...v2.2.0
