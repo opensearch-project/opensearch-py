@@ -13,9 +13,9 @@ import pytest
 from pytest import raises
 
 from opensearchpy._async.helpers import search
+from opensearchpy._async.helpers.document import AsyncDocument
 from opensearchpy.exceptions import IllegalOperation
 from opensearchpy.helpers import query
-from opensearchpy._async.helpers.document import AsyncDocument
 from opensearchpy.helpers.query import Q
 
 pytestmark = pytest.mark.asyncio

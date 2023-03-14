@@ -5,7 +5,7 @@
 # compatible open source license.
 #
 # Modifications Copyright OpenSearch Contributors. See
-# GitHub history for details. 
+# GitHub history for details.
 
 import pytest
 from pytest import raises

@@ -258,7 +258,7 @@ class AsyncDocument(ObjectBase):
 
         :arg include_meta: if set to ``True`` will include all the metadata
             (``_index``, ``_id`` etc). Otherwise just the document's
-            data is serialized. 
+            data is serialized.
         :arg skip_empty: if set to ``False`` will cause empty values (``None``,
             ``[]``, ``{}``) to be left on the document. Those values will be
             stripped out otherwise as they make no difference in opensearch.
