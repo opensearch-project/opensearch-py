@@ -424,7 +424,7 @@ class AsyncSearch(Request):
 
             self._response = self._response_class(
                 self,
-                opensearch.search(
+                await opensearch.search(
                     index=self._index, body=self.to_dict(), **self._params
                 ),
             )
@@ -456,7 +456,7 @@ class AsyncSearch(Request):
         opensearch = await get_connection(self._using)
 
         return AttrDict(
-            opensearch.delete_by_query(
+            await opensearch.delete_by_query(
                 index=self._index, body=self.to_dict(), **self._params
             )
         )
