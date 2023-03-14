@@ -112,14 +112,6 @@ async def get_result(b):
     return a
 
 
-# def test_response_is_cached(data_client):
-#     s = Repository.search()
-#     repos = list(s)
-
-#     assert hasattr(s, "_response")
-#     assert s._response.hits == repos
-
-
 async def test_multi_search(data_client):
     s1 = Repository.search()
     s2 = AsyncSearch(index="flat-git")

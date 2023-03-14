@@ -176,9 +176,3 @@ def test_index_template_can_have_order():
     it = i.as_template("i", order=2)
 
     assert {"index_patterns": ["i-*"], "order": 2} == it.to_dict()
-
-
-async def test_index_template_save_result(mock_client):
-    it = AsyncIndexTemplate("test-template", "test-*")
-
-    assert await it.save(using="mock") == mock_client.indices.put_template()

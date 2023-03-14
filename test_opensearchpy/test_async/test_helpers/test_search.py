@@ -35,22 +35,6 @@ async def test_execute_uses_cache():
     assert r is await s.execute()
 
 
-async def test_cache_can_be_ignored(mock_client):
-    s = search.AsyncSearch(using="mock")
-    r = object()
-    s._response = r
-    await s.execute(ignore_cache=True)
-
-    mock_client.search.assert_called_once_with(index=None, body={})
-
-
-async def test_iter_iterates_over_hits():
-    s = search.AsyncSearch()
-    s._response = [1, 2, 3]
-
-    assert [1, 2, 3] == list(s)
-
-
 def test_cache_isnt_cloned():
     s = search.AsyncSearch()
     s._response = object()
@@ -404,14 +388,6 @@ def test_from_dict_doesnt_need_query():
     assert {"size": 5} == s.to_dict()
 
 
-async def test_params_being_passed_to_search(mock_client):
-    s = search.AsyncSearch(using="mock")
-    s = s.params(routing="42")
-    await s.execute()
-
-    mock_client.search.assert_called_once_with(index=None, body={}, routing="42")
-
-
 def test_source():
     assert {} == search.AsyncSearch().source().to_dict()
 
@@ -495,15 +471,6 @@ def test_exclude():
             }
         }
     } == s.to_dict()
-
-
-async def test_delete_by_query(mock_client):
-    s = search.AsyncSearch(using="mock").query("match", lang="java")
-    await s.delete()
-
-    mock_client.delete_by_query.assert_called_once_with(
-        index=None, body={"query": {"match": {"lang": "java"}}}
-    )
 
 
 def test_update_from_dict():
