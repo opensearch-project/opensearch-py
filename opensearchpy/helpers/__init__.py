@@ -68,7 +68,27 @@ try:
         async_scan,
         async_streaming_bulk,
     )
+    from .._async.helpers.document import AsyncDocument, AsyncIndexMeta
+    from .._async.helpers.faceted_search import AsyncFacetedSearch
+    from .._async.helpers.index import AsyncIndex, AsyncIndexTemplate
+    from .._async.helpers.mapping import AsyncMapping
+    from .._async.helpers.search import AsyncMultiSearch, AsyncSearch
+    from .._async.helpers.update_by_query import AsyncUpdateByQuery
 
-    __all__ += ["async_scan", "async_bulk", "async_reindex", "async_streaming_bulk"]
+    __all__ += [
+        "async_scan",
+        "async_bulk",
+        "async_reindex",
+        "async_streaming_bulk",
+        "AsyncDocument",
+        "AsyncIndexMeta",
+        "AsyncFacetedSearch",
+        "AsyncIndex",
+        "AsyncIndexTemplate",
+        "AsyncMapping",
+        "AsyncSearch",
+        "AsyncMultiSearch",
+        "AsyncUpdateByQuery",
+    ]
 except (ImportError, SyntaxError):
     pass
