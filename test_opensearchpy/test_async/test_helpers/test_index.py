@@ -25,7 +25,7 @@ class Post(AsyncDocument):
     published_from = Date()
 
 
-def test_multiple_doc_types_will_combine_mappings():
+async def test_multiple_doc_types_will_combine_mappings():
     class User(AsyncDocument):
         username = Text()
 
@@ -43,14 +43,14 @@ def test_multiple_doc_types_will_combine_mappings():
     } == i.to_dict()
 
 
-def test_search_is_limited_to_index_name():
+async def test_search_is_limited_to_index_name():
     i = AsyncIndex("my-index")
     s = i.search()
 
     assert s._index == ["my-index"]
 
 
-def test_cloned_index_has_copied_settings_and_using():
+async def test_cloned_index_has_copied_settings_and_using():
     client = object()
     i = AsyncIndex("my-index", using=client)
     i.settings(number_of_shards=1)
@@ -63,7 +63,7 @@ def test_cloned_index_has_copied_settings_and_using():
     assert i._settings is not i2._settings
 
 
-def test_cloned_index_has_analysis_attribute():
+async def test_cloned_index_has_analysis_attribute():
     """
     Regression test for Issue #582 in which `Index.clone()` was not copying
     over the `_analysis` attribute.
@@ -91,7 +91,7 @@ def test_settings_are_saved():
     assert {"settings": {"number_of_shards": 1, "number_of_replicas": 0}} == i.to_dict()
 
 
-def test_registered_doc_type_included_in_to_dict():
+async def test_registered_doc_type_included_in_to_dict():
     i = AsyncIndex("i", using="alias")
     i.document(Post)
 
@@ -105,7 +105,7 @@ def test_registered_doc_type_included_in_to_dict():
     } == i.to_dict()
 
 
-def test_registered_doc_type_included_in_search():
+async def test_registered_doc_type_included_in_search():
     i = AsyncIndex("i", using="alias")
     i.document(Post)
 
@@ -114,7 +114,7 @@ def test_registered_doc_type_included_in_search():
     assert s._doc_type == [Post]
 
 
-def test_aliases_add_to_object():
+async def test_aliases_add_to_object():
     random_alias = "".join((choice(string.ascii_letters) for _ in range(100)))
     alias_dict = {random_alias: {}}
 
@@ -124,7 +124,7 @@ def test_aliases_add_to_object():
     assert index._aliases == alias_dict
 
 
-def test_aliases_returned_from_to_dict():
+async def test_aliases_returned_from_to_dict():
     random_alias = "".join((choice(string.ascii_letters) for _ in range(100)))
     alias_dict = {random_alias: {}}
 
@@ -134,7 +134,7 @@ def test_aliases_returned_from_to_dict():
     assert index._aliases == index.to_dict()["aliases"] == alias_dict
 
 
-def test_analyzers_added_to_object():
+async def test_analyzers_added_to_object():
     random_analyzer_name = "".join((choice(string.ascii_letters) for _ in range(100)))
     random_analyzer = analyzer(
         random_analyzer_name, tokenizer="standard", filter="standard"
@@ -150,7 +150,7 @@ def test_analyzers_added_to_object():
     }
 
 
-def test_analyzers_returned_from_to_dict():
+async def test_analyzers_returned_from_to_dict():
     random_analyzer_name = "".join((choice(string.ascii_letters) for _ in range(100)))
     random_analyzer = analyzer(
         random_analyzer_name, tokenizer="standard", filter="standard"
@@ -163,7 +163,7 @@ def test_analyzers_returned_from_to_dict():
     ] == {"filter": ["standard"], "type": "custom", "tokenizer": "standard"}
 
 
-def test_conflicting_analyzer_raises_error():
+async def test_conflicting_analyzer_raises_error():
     i = AsyncIndex("i")
     i.analyzer("my_analyzer", tokenizer="whitespace", filter=["lowercase", "stop"])
 
@@ -171,7 +171,7 @@ def test_conflicting_analyzer_raises_error():
         i.analyzer("my_analyzer", tokenizer="keyword", filter=["lowercase", "stop"])
 
 
-def test_index_template_can_have_order():
+async def test_index_template_can_have_order():
     i = AsyncIndex("i-*")
     it = i.as_template("i", order=2)
 

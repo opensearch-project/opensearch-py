@@ -35,20 +35,20 @@ async def test_execute_uses_cache():
     assert r is await s.execute()
 
 
-def test_cache_isnt_cloned():
+async def test_cache_isnt_cloned():
     s = search.AsyncSearch()
     s._response = object()
 
     assert not hasattr(s._clone(), "_response")
 
 
-def test_search_starts_with_no_query():
+async def test_search_starts_with_no_query():
     s = search.AsyncSearch()
 
     assert s.query._proxied is None
 
 
-def test_search_query_combines_query():
+async def test_search_query_combines_query():
     s = search.AsyncSearch()
 
     s2 = s.query("match", f=42)
@@ -60,7 +60,7 @@ def test_search_query_combines_query():
     assert s3.query._proxied == query.Bool(must=[query.Match(f=42), query.Match(f=43)])
 
 
-def test_query_can_be_assigned_to():
+async def test_query_can_be_assigned_to():
     s = search.AsyncSearch()
 
     q = Q("match", title="python")
@@ -69,7 +69,7 @@ def test_query_can_be_assigned_to():
     assert s.query._proxied is q
 
 
-def test_query_can_be_wrapped():
+async def test_query_can_be_wrapped():
     s = search.AsyncSearch().query("match", title="python")
 
     s.query = Q("function_score", query=s.query, field_value_factor={"field": "rating"})
@@ -84,7 +84,7 @@ def test_query_can_be_wrapped():
     } == s.to_dict()
 
 
-def test_using():
+async def test_using():
     o = object()
     o2 = object()
     s = search.AsyncSearch(using=o)
@@ -94,19 +94,19 @@ def test_using():
     assert s2._using is o2
 
 
-def test_methods_are_proxied_to_the_query():
+async def test_methods_are_proxied_to_the_query():
     s = search.AsyncSearch().query("match_all")
 
     assert s.query.to_dict() == {"match_all": {}}
 
 
-def test_query_always_returns_search():
+async def test_query_always_returns_search():
     s = search.AsyncSearch()
 
     assert isinstance(s.query("match", f=42), search.AsyncSearch)
 
 
-def test_source_copied_on_clone():
+async def test_source_copied_on_clone():
     s = search.AsyncSearch().source(False)
     assert s._clone()._source == s._source
     assert s._clone()._source is False
@@ -120,7 +120,7 @@ def test_source_copied_on_clone():
     assert s3._clone()._source == ["some", "fields"]
 
 
-def test_copy_clones():
+async def test_copy_clones():
     from copy import copy
 
     s1 = search.AsyncSearch().source(["some", "fields"])
@@ -130,7 +130,7 @@ def test_copy_clones():
     assert s1 is not s2
 
 
-def test_aggs_allow_two_metric():
+async def test_aggs_allow_two_metric():
     s = search.AsyncSearch()
 
     s.aggs.metric("a", "max", field="a").metric("b", "max", field="b")
@@ -140,7 +140,7 @@ def test_aggs_allow_two_metric():
     }
 
 
-def test_aggs_get_copied_on_change():
+async def test_aggs_get_copied_on_change():
     s = search.AsyncSearch().query("match_all")
     s.aggs.bucket("per_tag", "terms", field="f").metric(
         "max_score", "max", field="score"
@@ -172,7 +172,7 @@ def test_aggs_get_copied_on_change():
     assert d == s4.to_dict()
 
 
-def test_search_index():
+async def test_search_index():
     s = search.AsyncSearch(index="i")
     assert s._index == ["i"]
     s = s.index("i2")
@@ -203,7 +203,7 @@ def test_search_index():
     assert s2._index == ["i", "i2", "i3", "i4", "i5"]
 
 
-def test_doc_type_document_class():
+async def test_doc_type_document_class():
     class MyDocument(AsyncDocument):
         pass
 
@@ -216,7 +216,7 @@ def test_doc_type_document_class():
     assert s._doc_type_map == {}
 
 
-def test_sort():
+async def test_sort():
     s = search.AsyncSearch()
     s = s.sort("fielda", "-fieldb")
 
@@ -228,7 +228,7 @@ def test_sort():
     assert search.AsyncSearch().to_dict() == s.to_dict()
 
 
-def test_sort_by_score():
+async def test_sort_by_score():
     s = search.AsyncSearch()
     s = s.sort("_score")
     assert {"sort": ["_score"]} == s.to_dict()
@@ -238,7 +238,7 @@ def test_sort_by_score():
         s.sort("-_score")
 
 
-def test_slice():
+async def test_slice():
     s = search.AsyncSearch()
     assert {"from": 3, "size": 7} == s[3:10].to_dict()
     assert {"from": 0, "size": 5} == s[:5].to_dict()
@@ -247,12 +247,12 @@ def test_slice():
     assert {"from": 20, "size": 0} == s[20:0].to_dict()
 
 
-def test_index():
+async def test_index():
     s = search.AsyncSearch()
     assert {"from": 3, "size": 1} == s[3].to_dict()
 
 
-def test_search_to_dict():
+async def test_search_to_dict():
     s = search.AsyncSearch()
     assert {} == s.to_dict()
 
@@ -281,7 +281,7 @@ def test_search_to_dict():
     assert {"size": 5, "from": 42} == s.to_dict()
 
 
-def test_complex_example():
+async def test_complex_example():
     s = search.AsyncSearch()
     s = (
         s.query("match", title="python")
@@ -332,7 +332,7 @@ def test_complex_example():
     } == s.to_dict()
 
 
-def test_reverse():
+async def test_reverse():
     d = {
         "query": {
             "filtered": {
@@ -382,13 +382,13 @@ def test_reverse():
     assert d == s.to_dict()
 
 
-def test_from_dict_doesnt_need_query():
+async def test_from_dict_doesnt_need_query():
     s = search.AsyncSearch.from_dict({"size": 5})
 
     assert {"size": 5} == s.to_dict()
 
 
-def test_source():
+async def test_source():
     assert {} == search.AsyncSearch().source().to_dict()
 
     assert {
@@ -404,7 +404,7 @@ def test_source():
     ).source(["f1", "f2"]).to_dict()
 
 
-def test_source_on_clone():
+async def test_source_on_clone():
     assert {
         "_source": {"includes": ["foo.bar.*"], "excludes": ["foo.one"]},
         "query": {"bool": {"filter": [{"term": {"title": "python"}}]}},
@@ -419,7 +419,7 @@ def test_source_on_clone():
     } == search.AsyncSearch().source(False).filter("term", title="python").to_dict()
 
 
-def test_source_on_clear():
+async def test_source_on_clear():
     assert (
         {}
         == search.AsyncSearch()
@@ -429,7 +429,7 @@ def test_source_on_clear():
     )
 
 
-def test_suggest_accepts_global_text():
+async def test_suggest_accepts_global_text():
     s = search.AsyncSearch.from_dict(
         {
             "suggest": {
@@ -451,7 +451,7 @@ def test_suggest_accepts_global_text():
     } == s.to_dict()
 
 
-def test_suggest():
+async def test_suggest():
     s = search.AsyncSearch()
     s = s.suggest("my_suggestion", "pyhton", term={"field": "title"})
 
@@ -460,7 +460,7 @@ def test_suggest():
     } == s.to_dict()
 
 
-def test_exclude():
+async def test_exclude():
     s = search.AsyncSearch()
     s = s.exclude("match", title="python")
 
@@ -473,7 +473,7 @@ def test_exclude():
     } == s.to_dict()
 
 
-def test_update_from_dict():
+async def test_update_from_dict():
     s = search.AsyncSearch()
     s.update_from_dict({"indices_boost": [{"important-documents": 2}]})
     s.update_from_dict({"_source": ["id", "name"]})
@@ -484,7 +484,7 @@ def test_update_from_dict():
     } == s.to_dict()
 
 
-def test_rescore_query_to_dict():
+async def test_rescore_query_to_dict():
     s = search.AsyncSearch(index="index-name")
 
     positive_query = Q(

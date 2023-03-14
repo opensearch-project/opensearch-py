@@ -14,7 +14,7 @@ from opensearchpy._async.helpers import mapping
 from opensearchpy.helpers import analysis
 
 
-def test_mapping_can_has_fields():
+async def test_mapping_can_has_fields():
     m = mapping.AsyncMapping()
     m.field("name", "text").field("tags", "keyword")
 
@@ -23,7 +23,7 @@ def test_mapping_can_has_fields():
     } == m.to_dict()
 
 
-def test_mapping_update_is_recursive():
+async def test_mapping_update_is_recursive():
     m1 = mapping.AsyncMapping()
     m1.field("title", "text")
     m1.field("author", "object")
@@ -56,7 +56,7 @@ def test_mapping_update_is_recursive():
     } == m1.to_dict()
 
 
-def test_properties_can_iterate_over_all_the_fields():
+async def test_properties_can_iterate_over_all_the_fields():
     m = mapping.AsyncMapping()
     m.field("f1", "text", test_attr="f1", fields={"f2": Keyword(test_attr="f2")})
     m.field("f3", Nested(test_attr="f3", properties={"f4": Text(test_attr="f4")}))
@@ -66,7 +66,7 @@ def test_properties_can_iterate_over_all_the_fields():
     }
 
 
-def test_mapping_can_collect_all_analyzers_and_normalizers():
+async def test_mapping_can_collect_all_analyzers_and_normalizers():
     a1 = analysis.analyzer(
         "my_analyzer1",
         tokenizer="keyword",
@@ -139,7 +139,7 @@ def test_mapping_can_collect_all_analyzers_and_normalizers():
     assert json.loads(json.dumps(m.to_dict())) == m.to_dict()
 
 
-def test_mapping_can_collect_multiple_analyzers():
+async def test_mapping_can_collect_multiple_analyzers():
     a1 = analysis.analyzer(
         "my_analyzer1",
         tokenizer="keyword",
@@ -185,7 +185,7 @@ def test_mapping_can_collect_multiple_analyzers():
     } == m._collect_analysis()
 
 
-def test_even_non_custom_analyzers_can_have_params():
+async def test_even_non_custom_analyzers_can_have_params():
     a1 = analysis.analyzer("whitespace", type="pattern", pattern=r"\\s+")
     m = mapping.AsyncMapping()
     m.field("title", "text", analyzer=a1)
@@ -195,14 +195,14 @@ def test_even_non_custom_analyzers_can_have_params():
     } == m._collect_analysis()
 
 
-def test_resolve_field_can_resolve_multifields():
+async def test_resolve_field_can_resolve_multifields():
     m = mapping.AsyncMapping()
     m.field("title", "text", fields={"keyword": Keyword()})
 
     assert isinstance(m.resolve_field("title.keyword"), Keyword)
 
 
-def test_resolve_nested():
+async def test_resolve_nested():
     m = mapping.AsyncMapping()
     m.field("n1", "nested", properties={"n2": Nested(properties={"k1": Keyword()})})
     m.field("k2", "keyword")

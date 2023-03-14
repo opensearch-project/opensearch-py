@@ -18,13 +18,13 @@ from opensearchpy.helpers.response import UpdateByQueryResponse
 pytestmark = pytest.mark.asyncio
 
 
-def test_ubq_starts_with_no_query():
+async def test_ubq_starts_with_no_query():
     ubq = update_by_query.AsyncUpdateByQuery()
 
     assert ubq.query._proxied is None
 
 
-def test_ubq_to_dict():
+async def test_ubq_to_dict():
     ubq = update_by_query.AsyncUpdateByQuery()
     assert {} == ubq.to_dict()
 
@@ -42,7 +42,7 @@ def test_ubq_to_dict():
     assert {"extra_q": {"term": {"category": "conference"}}} == ubq.to_dict()
 
 
-def test_complex_example():
+async def test_complex_example():
     ubq = update_by_query.AsyncUpdateByQuery()
     ubq = (
         ubq.query("match", title="python")
@@ -80,7 +80,7 @@ def test_complex_example():
     } == ubq.to_dict()
 
 
-def test_exclude():
+async def test_exclude():
     ubq = update_by_query.AsyncUpdateByQuery()
     ubq = ubq.exclude("match", title="python")
 
@@ -93,7 +93,7 @@ def test_exclude():
     } == ubq.to_dict()
 
 
-def test_reverse():
+async def test_reverse():
     d = {
         "query": {
             "filtered": {
@@ -129,13 +129,13 @@ def test_reverse():
     assert d == ubq.to_dict()
 
 
-def test_from_dict_doesnt_need_query():
+async def test_from_dict_doesnt_need_query():
     ubq = update_by_query.AsyncUpdateByQuery.from_dict({"script": {"source": "test"}})
 
     assert {"script": {"source": "test"}} == ubq.to_dict()
 
 
-def test_overwrite_script():
+async def test_overwrite_script():
     ubq = update_by_query.AsyncUpdateByQuery()
     ubq = ubq.script(
         source="ctx._source.likes += params.f", lang="painless", params={"f": 3}
@@ -151,17 +151,7 @@ def test_overwrite_script():
     assert {"script": {"source": "ctx._source.likes++"}} == ubq.to_dict()
 
 
-# def test_params_being_passed_to_search(mock_client):
-#     ubq = update_by_query.AsyncUpdateByQuery(using="mock")
-#     ubq = ubq.params(routing="42")
-#     ubq.execute()
-
-#     mock_client.update_by_query.assert_called_once_with(
-#         index=None, body={}, routing="42"
-#     )
-
-
-def test_update_by_query_response_success():
+async def test_update_by_query_response_success():
     ubqr = UpdateByQueryResponse({}, {"timed_out": False, "failures": []})
     assert ubqr.success()
 

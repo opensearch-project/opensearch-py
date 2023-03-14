@@ -30,7 +30,7 @@ class BlogSearch(AsyncFacetedSearch):
     }
 
 
-def test_query_is_created_properly():
+async def test_query_is_created_properly():
     bs = BlogSearch("python search")
     s = bs.build_search()
 
@@ -53,7 +53,7 @@ def test_query_is_created_properly():
     } == s.to_dict()
 
 
-def test_query_is_created_properly_with_sort_tuple():
+async def test_query_is_created_properly_with_sort_tuple():
     bs = BlogSearch("python search", sort=("category", "-title"))
     s = bs.build_search()
 
@@ -77,7 +77,7 @@ def test_query_is_created_properly_with_sort_tuple():
     } == s.to_dict()
 
 
-def test_filter_is_applied_to_search_but_not_relevant_facet():
+async def test_filter_is_applied_to_search_but_not_relevant_facet():
     bs = BlogSearch("python search", filters={"category": "opensearch"})
     s = bs.build_search()
 
@@ -100,7 +100,7 @@ def test_filter_is_applied_to_search_but_not_relevant_facet():
     } == s.to_dict()
 
 
-def test_filters_are_applied_to_search_ant_relevant_facets():
+async def test_filters_are_applied_to_search_ant_relevant_facets():
     bs = BlogSearch(
         "python search",
         filters={"category": "opensearch", "tags": ["python", "django"]},
@@ -134,7 +134,7 @@ def test_filters_are_applied_to_search_ant_relevant_facets():
     } == d
 
 
-def test_date_histogram_facet_with_1970_01_01_date():
+async def test_date_histogram_facet_with_1970_01_01_date():
     dhf = DateHistogramFacet()
     assert dhf.get_value({"key": None}) == datetime(1970, 1, 1, 0, 0)
     assert dhf.get_value({"key": 0}) == datetime(1970, 1, 1, 0, 0)
@@ -167,7 +167,7 @@ def test_date_histogram_facet_with_1970_01_01_date():
         ("fixed_interval", "1h"),
     ],
 )
-def test_date_histogram_interval_types(interval_type, interval):
+async def test_date_histogram_interval_types(interval_type, interval):
     dhf = DateHistogramFacet(field="@timestamp", **{interval_type: interval})
     assert dhf.get_aggregation().to_dict() == {
         "date_histogram": {
@@ -179,7 +179,7 @@ def test_date_histogram_interval_types(interval_type, interval):
     dhf.get_value_filter(datetime.now())
 
 
-def test_date_histogram_no_interval_keyerror():
+async def test_date_histogram_no_interval_keyerror():
     dhf = DateHistogramFacet(field="@timestamp")
     with pytest.raises(KeyError) as e:
         dhf.get_value_filter(datetime.now())
