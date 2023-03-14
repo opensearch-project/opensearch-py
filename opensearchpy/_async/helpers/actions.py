@@ -32,15 +32,16 @@
 import asyncio
 import logging
 
-from ..compat import map
-from ..exceptions import TransportError
-from ..helpers.actions import (
+from ...compat import map
+from ...exceptions import TransportError
+from ...helpers.actions import (
     _ActionChunker,
     _process_bulk_chunk_error,
     _process_bulk_chunk_success,
     expand_action,
 )
-from ..helpers.errors import ScanError
+
+from ...helpers.errors import ScanError
 
 logger = logging.getLogger("opensearchpy.helpers")
 
