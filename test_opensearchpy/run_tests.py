@@ -97,6 +97,7 @@ def run_all(argv=None):
         argv = [
             "pytest",
             "--cov=opensearch",
+            "--cov-report=xml",
             "--junitxml=%s" % junit_xml,
             "--log-level=DEBUG",
             "--cache-clear",
