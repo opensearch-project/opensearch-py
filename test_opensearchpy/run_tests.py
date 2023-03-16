@@ -91,16 +91,21 @@ def run_all(argv=None):
 
     # always insert coverage when running tests
     if argv is None:
+
         junit_xml = join(
             abspath(dirname(dirname(__file__))), "junit", "opensearch-py-junit.xml"
         )
+        codecov_xml = join(
+            abspath(dirname(dirname(__file__))), "junit", "opensearch-py-codecov.xml"
+        )
         argv = [
             "pytest",
-            "--cov=opensearch",
+            "--cov=opensearchpy",
             "--junitxml=%s" % junit_xml,
             "--log-level=DEBUG",
             "--cache-clear",
             "-vv",
+            "--cov-report=xml:%s" % codecov_xml,
         ]
 
         secured = False

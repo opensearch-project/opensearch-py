@@ -39,18 +39,15 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ['3.7', '3.8', '3.9', '3.10']
+        python-version: ["2.7", "3.7", "3.8", "3.9", "3.10", "3.11"]
         os: [ubuntu-latest]
         experimental: [false]
         include:
-          - python-version: '2.7'
-            os: ubuntu-20.04
+          - os: "ubuntu-20.04"
+            python-version: "3.5"
             experimental: false
-          - python-version: '3.5'
-            os: ubuntu-20.04
-            experimental: false
-          - python-version: '3.6'
-            os: ubuntu-20.04
+          - os: "ubuntu-20.04"
+            python-version: "3.6"
             experimental: false
 
     runs-on: ${{ matrix.os }}
@@ -69,6 +66,11 @@ jobs:
       - name: Run Tests
         run: |
           python setup.py test
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v2
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./junit/opensearch-py-codecov.xml
 
   twine-check:
     runs-on: ubuntu-latest
@@ -77,7 +79,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: '3.x'
+          python-version: "3.x"
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
