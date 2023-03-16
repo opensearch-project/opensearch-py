@@ -38,7 +38,10 @@ docker run \
   --env "TEST_SUITE=${TEST_SUITE}" \
   --env "PYTHON_CONNECTION_CLASS=${PYTHON_CONNECTION_CLASS}" \
   --env "TEST_TYPE=server" \
+  --env "TEST_NAME=${TEST_NAME}" \
   --name opensearch-py \
   --rm \
   opensearch-project/opensearch-py \
   python setup.py test
+
+unset TEST_NAME

@@ -148,6 +148,10 @@ def run_all(argv=None):
         else:
             argv.append(abspath(dirname(__file__)))
 
+    # check TEST_NAME env var for specific test to run
+    if "TEST_NAME" in environ:
+        argv = ["pytest", "-k", environ["TEST_NAME"]]
+
     exit_code = 0
     try:
         subprocess.check_call(argv, stdout=sys.stdout, stderr=sys.stderr)
