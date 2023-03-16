@@ -37,10 +37,11 @@ import aiohttp
 import pytest
 from mock import patch
 from multidict import CIMultiDict
+from pytest import raises
 
-from opensearchpy import AIOHttpConnection, __versionstr__
+from opensearchpy import AIOHttpConnection, AsyncOpenSearch, __versionstr__, serializer
 from opensearchpy.compat import reraise_exceptions
-from opensearchpy.connection import Connection
+from opensearchpy.connection import Connection, async_connections
 from opensearchpy.exceptions import ConnectionError
 
 pytestmark = pytest.mark.asyncio
@@ -373,3 +374,78 @@ class TestConnectionHttpbin:
         conn = AIOHttpConnection("not.a.host.name")
         with pytest.raises(ConnectionError):
             await conn.perform_request("GET", "/")
+
+
+async def test_default_connection_is_returned_by_default():
+    c = async_connections.AsyncConnections()
+
+    con, con2 = object(), object()
+    await c.add_connection("default", con)
+
+    await c.add_connection("not-default", con2)
+
+    assert await c.get_connection() is con
+
+
+async def test_get_connection_created_connection_if_needed():
+    c = async_connections.AsyncConnections()
+    await c.configure(
+        default={"hosts": ["opensearch.com"]}, local={"hosts": ["localhost"]}
+    )
+    default = await c.get_connection()
+    local = await c.get_connection("local")
+    assert isinstance(default, AsyncOpenSearch)
+    assert isinstance(local, AsyncOpenSearch)
+    assert [{"host": "opensearch.com"}] == default.transport.hosts
+    assert [{"host": "localhost"}] == local.transport.hosts
+
+
+async def test_configure_preserves_unchanged_connections():
+    c = async_connections.AsyncConnections()
+
+    await c.configure(
+        default={"hosts": ["opensearch.com"]}, local={"hosts": ["localhost"]}
+    )
+    default = await c.get_connection()
+    local = await c.get_connection("local")
+
+    await c.configure(
+        default={"hosts": ["not-opensearch.com"]}, local={"hosts": ["localhost"]}
+    )
+    new_default = await c.get_connection()
+    new_local = await c.get_connection("local")
+
+    assert new_local is local
+    assert new_default is not default
+
+
+async def test_remove_connection_removes_both_conn_and_conf():
+    c = async_connections.AsyncConnections()
+
+    await c.configure(
+        default={"hosts": ["opensearch.com"]}, local={"hosts": ["localhost"]}
+    )
+    await c.add_connection("local2", object())
+
+    await c.remove_connection("default")
+    await c.get_connection("local2")
+    await c.remove_connection("local2")
+
+    with raises(Exception):
+        await c.get_connection("local2")
+        await c.get_connection("default")
+
+
+async def test_create_connection_constructs_client():
+    c = async_connections.AsyncConnections()
+    await c.create_connection("testing", hosts=["opensearch.com"])
+
+    con = await c.get_connection("testing")
+    assert [{"host": "opensearch.com"}] == con.transport.hosts
+
+
+async def test_create_connection_adds_our_serializer():
+    c = async_connections.AsyncConnections()
+    await c.create_connection("testing", hosts=["opensearch.com"])
+    result = await c.get_connection("testing")
+    assert result.transport.serializer is serializer.serializer
