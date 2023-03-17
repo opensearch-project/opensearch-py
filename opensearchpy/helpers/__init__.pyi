@@ -42,10 +42,10 @@ try:
     if sys.version_info < (3, 6):
         raise ImportError
 
-    from .._async.helpers import async_bulk as async_bulk
-    from .._async.helpers import async_reindex as async_reindex
-    from .._async.helpers import async_scan as async_scan
-    from .._async.helpers import async_streaming_bulk as async_streaming_bulk
+    from .._async.helpers.actions import async_bulk as async_bulk
+    from .._async.helpers.actions import async_reindex as async_reindex
+    from .._async.helpers.actions import async_scan as async_scan
+    from .._async.helpers.actions import async_streaming_bulk as async_streaming_bulk
     from .asyncsigner import AWSV4SignerAsyncAuth as AWSV4SignerAsyncAuth
     from .signer import AWSV4SignerAuth as AWSV4SignerAuth
 except (ImportError, SyntaxError):
