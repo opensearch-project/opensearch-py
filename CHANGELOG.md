@@ -4,16 +4,6 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ## [Unreleased]
 ### Added
 - Added async support for helpers that are merged from opensearch-dsl-py ([#329](https://github.com/opensearch-project/opensearch-py/pull/329))
-- Added search.md to guides ([#356](https://github.com/opensearch-project/opensearch-py/pull/356))
-- Added index lifecycle guide ([#362](https://github.com/opensearch-project/opensearch-py/pull/362))
-- Added 'point in time' APIs to the pyi files in sync and async client ([#378](https://github.com/opensearch-project/opensearch-py/pull/378))
-- Added MacOS and Windows CI workflows ([#390](https://github.com/opensearch-project/opensearch-py/pull/390))
-- Added support for the security plugin ([#399](https://github.com/opensearch-project/opensearch-py/pull/399))
-- Compatibility with OpenSearch 2.1.0 - 2.6.0 ([#381](https://github.com/opensearch-project/opensearch-py/pull/381))
-- Added 'allow_redirects' parameter in perform_request function for RequestsHttpConnection ([#401](https://github.com/opensearch-project/opensearch-py/pull/401))
-- Enhanced YAML test runner to use OpenSearch rest-api-spec YAML tests ([#414](https://github.com/opensearch-project/opensearch-py/pull/414)
-- Added `Search#collapse` ([#409](https://github.com/opensearch-project/opensearch-py/issues/409))
-- Added support for the ISM API ([#398](https://github.com/opensearch-project/opensearch-py/pull/398))
 ### Changed
 - Upgrading pytest-asyncio to latest version - 0.21.0 ([#339](https://github.com/opensearch-project/opensearch-py/pull/339))
 - Fixed flaky CI tests by replacing httpbin with a simple http_server ([#395](https://github.com/opensearch-project/opensearch-py/pull/395))

@@ -16,7 +16,7 @@ from opensearchpy import Date, Keyword, Q, Text, TransportError
 from opensearchpy._async.helpers.document import AsyncDocument
 from opensearchpy._async.helpers.search import AsyncMultiSearch, AsyncSearch
 from opensearchpy.helpers.response import aggs
-from test_opensearchpy.test_async.test_server.test_helpers.test_data import FLAT_DATA
+from test_opensearchpy.test_server.test_helpers.test_data import FLAT_DATA
 
 pytestmark = pytest.mark.asyncio
 
