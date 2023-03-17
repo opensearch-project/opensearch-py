@@ -41,7 +41,6 @@ from ..helpers.actions import (
     expand_action,
 )
 from ..helpers.errors import ScanError
-from .client import AsyncOpenSearch  # noqa
 
 logger = logging.getLogger("opensearchpy.helpers")
 

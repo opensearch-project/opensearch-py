@@ -1,7 +1,18 @@
 # CHANGELOG
 Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
-## [2.1.1]
+## [Unreleased]
+### Added
+### Changed
+### Deprecated
+### Removed
+### Fixed
+- Fixed import cycle when importing async helpers ([#311](https://github.com/opensearch-project/opensearch-py/pull/311))
+### Security
+- Fixed CVE-2022-23491 reported in opensearch-dsl-py ([#295](https://github.com/opensearch-project/opensearch-py/pull/295))
+- Update ci workflows ([#318](https://github.com/opensearch-project/opensearch-py/pull/318))
+
+## [2.2.0]
 ### Added
 - Merging opensearch-dsl-py into opensearch-py ([#287](https://github.com/opensearch-project/opensearch-py/pull/287))
 - Added upgrading.md file and updated it for opensearch-py 2.2.0 release ([#293](https://github.com/opensearch-project/opensearch-py/pull/293))
@@ -9,10 +20,19 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ### Deprecated
 ### Removed
 - Removed 'out/opensearchpy' folder which was produced while generating pyi files for plugins ([#288](https://github.com/opensearch-project/opensearch-py/pull/288))
+- Removed low-level and high-level client terminology from guides ([#298](https://github.com/opensearch-project/opensearch-py/pull/298))
+### Fixed
+- Fixed CVE - issue 86 mentioned in opensearch-dsl-py repo ([#295](https://github.com/opensearch-project/opensearch-py/pull/295))
+### Security
+
+## [2.1.1]
+### Added
+### Changed
+### Deprecated
+### Removed
 ### Fixed
 - Fixed SigV4 Signing for Managed Service ([#279](https://github.com/opensearch-project/opensearch-py/pull/279))
 - Fixed SigV4 Signing for Async Requests with QueryStrings ([#272](https://github.com/opensearch-project/opensearch-py/pull/279))
-- Fixed CVE - issue 86 mentioned in opensearch-dsl-py repo ([#295](https://github.com/opensearch-project/opensearch-py/pull/295))
 ### Security
 
 ## [2.1.0]
@@ -50,5 +70,8 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ### Security
 
 
-[Unreleased]: https://github.com/opensearch-project/opensearch-py/compare/2.0...HEAD
-[2.0.1]: https://github.com/opensearch-project/opensearch-py/compare/2.0...HEAD
+[Unreleased]: https://github.com/opensearch-project/opensearch-py/compare/v2.2.0...HEAD
+[2.0.1]: https://github.com/opensearch-project/opensearch-py/compare/v2.0.0...v2.0.1
+[2.1.0]: https://github.com/opensearch-project/opensearch-py/compare/v2.0.1...v2.1.0
+[2.1.1]: https://github.com/opensearch-project/opensearch-py/compare/v2.1.0...v2.1.1
+[2.2.0]: https://github.com/opensearch-project/opensearch-py/compare/v2.1.1...v2.2.0
