@@ -149,8 +149,9 @@ def run_all(argv=None):
             argv.append(abspath(dirname(__file__)))
 
     # check TEST_NAME env var for specific test to run
-    if "TEST_NAME" in environ:
-        argv = ["pytest", "-k", environ["TEST_NAME"]]
+    test_name = environ.get("TEST_NAME")
+    if test_name:
+        argv = ["pytest", "-k", test_name]
 
     exit_code = 0
     try:
