@@ -59,7 +59,7 @@ __all__ = [
 
 # Asyncio only supported on Python 3.6+
 if sys.version_info >= (3, 6):
-    from .._async.helpers import (
+    from .._async.helpers.actions import (
         async_bulk,
         async_reindex,
         async_scan,
