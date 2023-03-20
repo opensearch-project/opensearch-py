@@ -619,6 +619,7 @@ print(response)
 ## Using IAM authentication with an async client
 
 Make sure to use `AsyncOpenSearch` with the `AsyncHttpConnection` connection class with the async `AWSV4SignerAsyncAuth` signer.
+Make sure to use `AsyncOpenSearch` with the `AsyncHttpConnection` connection class with the async `AWSV4SignerAsyncAuth` signer.
 
 - Requires opensearch-py[async]
 
