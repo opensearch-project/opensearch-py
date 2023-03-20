@@ -39,15 +39,17 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ['2.7', '3.7', '3.8', '3.9', '3.10', '3.11']
+        # Python versions used for testing. Any changes made here should also be reflected in the noxfile.py file.
+        python-version:
+          ["2.7", "3.4", "3.5", "3.6", "3.7", "3.8", "3.9", "3.10", "3.11"]
         os: [ubuntu-latest]
         experimental: [false]
         include:
-          - os: 'ubuntu-20.04'
-            python-version: '3.5'
+          - os: "ubuntu-20.04"
+            python-version: "3.5"
             experimental: false
-          - os: 'ubuntu-20.04'
-            python-version: '3.6'
+          - os: "ubuntu-20.04"
+            python-version: "3.6"
             experimental: false
 
     runs-on: ${{ matrix.os }}
@@ -77,7 +79,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.x'
+          python-version: "3.x"
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
