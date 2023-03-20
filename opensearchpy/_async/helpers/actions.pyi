@@ -41,8 +41,8 @@ from typing import (
     Union,
 )
 
-from ..serializer import Serializer
-from .client import AsyncOpenSearch
+from ...serializer import Serializer
+from ..client import AsyncOpenSearch
 
 logger: logging.Logger
 

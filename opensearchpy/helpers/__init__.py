@@ -57,12 +57,9 @@ __all__ = [
 ]
 
 
-try:
-    # Asyncio only supported on Python 3.6+
-    if sys.version_info < (3, 6):
-        raise ImportError
-
-    from .._async.helpers import (
+# Asyncio only supported on Python 3.6+
+if sys.version_info >= (3, 6):
+    from .._async.helpers.actions import (
         async_bulk,
         async_reindex,
         async_scan,
@@ -70,5 +67,3 @@ try:
     )
 
     __all__ += ["async_scan", "async_bulk", "async_reindex", "async_streaming_bulk"]
-except (ImportError, SyntaxError):
-    pass
