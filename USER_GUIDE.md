@@ -478,6 +478,10 @@ print(response)
 
 Make sure to use `AsyncOpenSearch` with the `AsyncHttpConnection` connection class with the async `AWSV4SignerAsyncAuth` signer.
 
+```bash
+pip install opensearch-py[async]
+```
+
 ```python
 from opensearchpy import AsyncOpenSearch, AsyncHttpConnection, AWSV4SignerAsyncAuth
 import boto3
