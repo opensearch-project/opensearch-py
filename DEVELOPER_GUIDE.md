@@ -20,6 +20,15 @@ $ nox -rs test
 
 ```
 
+## Install and Run Docker Image
+Note that integration tests require docker to be installed and running, and downloads quite a bit of data from over the internet and hence take few minutes to complete.
+
+Run the following commands to download and run the docker image:
+```
+docker pull opensearchproject/opensearch:latest
+docker run -d -p 9200:9200 -p 9600:9600 -e "discovery.type=single-node" opensearchproject/opensearch:latest
+```
+
 ## Install Docker Image
 Integration tests require [docker](https://opensearch.org/docs/latest/install-and-configure/install-opensearch/docker/).
 
