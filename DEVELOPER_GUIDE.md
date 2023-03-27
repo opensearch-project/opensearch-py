@@ -36,6 +36,16 @@ If your OpenSearch docker instance is running, you can execute the test suite di
 
 ```
 $ nox -rs test
+
+```
+
+## Install and Run Docker Image
+Note that integration tests require docker to be installed and running, and downloads quite a bit of data from over the internet and hence take few minutes to complete.
+
+Run the following commands to download and run the docker image:
+```
+docker pull opensearchproject/opensearch:latest
+docker run -d -p 9200:9200 -p 9600:9600 -e "discovery.type=single-node" opensearchproject/opensearch:latest
 ```
 
 To run tests against different versions of OpenSearch, use `run-tests [with/without security] [version]`:
@@ -52,7 +62,6 @@ The following example runs tests against the latest SNAPSHOT build of OpenSearch
 ./.ci/run-tests opensearch false SNAPSHOT
 ```
 
-Note that integration tests require docker to be installed and running, and downloads quite a bit of data from over the internet and hence take few minutes to complete.
 
 ## Linter
 
