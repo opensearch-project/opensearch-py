@@ -626,9 +626,10 @@ Make sure to use `AsyncOpenSearch` with the `AsyncHttpConnection` connection cla
 
 Here is the sample code that uses `AWSV4SignerAsyncAuth` -
 
-```bash
-pip install opensearch-py[async]
-```
+- Requires opensearch-py[async]
+
+
+Here is the sample code that uses `AWSV4SignerAsyncAuth` -
 
 ```python
 from opensearchpy import AsyncOpenSearch, AsyncHttpConnection, AWSV4SignerAsyncAuth
