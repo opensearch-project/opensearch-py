@@ -191,6 +191,45 @@ for hit in hits_page_3:
 
 When retrieving large amounts of non-real-time data, you can use the `scroll` parameter to paginate through the search results. 
 
+```python
+from opensearchpy import OpenSearch
+# Create an OpenSearch client with appropriate hosts and connection details
+client = OpenSearch(hosts=['localhost'])
+# Define the search query with scroll and pagination options
+search_body = {
+    "query": {
+        "match": {
+            "title": "dark knight"
+        }
+    },
+    "scroll": "1m",  # Set the scroll duration to 1 minute
+    "size": 2
+}
+# Perform the initial search operation on the 'movies' index with the defined query and scroll options
+page_1 = client.search(
+    index='movies',
+    body=search_body
+)
+# Extract the scroll_id from the response
+scroll_id = page_1['_scroll_id']
+# Perform the scroll operation to get the next page of results
+page_2 = client.scroll(
+    scroll_id=scroll_id,
+    scroll='1m'
+)
+# Extract the scroll_id from the response
+scroll_id = page_2['_scroll_id']
+# Perform another scroll operation to get the third page of results
+page_3 = client.scroll(
+    scroll_id=scroll_id,
+    scroll='1m'
+)
+# Extract the hits from each page of results
+hits_page_1 = page_1['hits']['hits']
+hits_page_2 = page_2['hits']['hits']
+hits_page_3 = page_3['hits']['hits']
+```
+
 
 
 ### Pagination with Point in Time
