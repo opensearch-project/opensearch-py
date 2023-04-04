@@ -94,20 +94,33 @@ The search API allows you to paginate through the search results. The following 
 
 ```python
 from opensearchpy import OpenSearch
-# Create an OpenSearch client
+# Create an OpenSearch client with appropriate hosts and connection details
 client = OpenSearch(hosts=['localhost'])
-# Define the query
-query = {
+# Define the search query with sorting and pagination options
+search_body = {
     "query": {
         "match": {
             "title": "dark knight"
         }
-    }
+    },
+    "sort": [
+        {
+            "year": {
+                "order": "asc"
+            }
+        }
+    ]
 }
-# Search for documents in the 'movies' index with the given query
-response = client.search(index='movies', body=query)
+# Perform the search operation on the 'movies' index with the defined query and pagination options
+response = client.search(
+    index='movies',
+    size=2,
+    from_=5,
+    body=search_body
+)
 # Extract the hits from the response
 hits = response['hits']['hits']
+
 # Print the hits
 for hit in hits:
     print(hit)
