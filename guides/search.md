@@ -238,47 +238,46 @@ The scroll example above has one weakness: if the index is updated while you are
 
 ```python
 from opensearchpy import OpenSearch
-
-# Create a client
-client = OpenSearch([{'host': 'localhost'}])
-
+# Create an OpenSearch client with appropriate hosts and connection details
+client = OpenSearch(hosts=['localhost'])
+# Define the search query with sorting and pagination options
+search_body = {
+    "query": {
+        "match": {
+            "title": "dark knight"
+        }
+    },
+    "sort": [
+        {
+            "year": {
+                "order": "asc"
+            }
+        }
+    ]
+}
 # Create a point in time
-pit = client.create_pit(
-    index='movies',
-    keep_alive='1m'
-)
-
+pit = client.create_pit(index='movies', keep_alive='1m')
 # Include pit info in the search body
 pit_search_body = search_body.copy()
-pit_search_body.update(
-    {'pit': {'id': pit['pit_id'], 'keep_alive': '1m'}}
-)
-
+pit_search_body['pit'] = {
+    'id': pit['pit_id'],
+    'keep_alive': '1m'
+}
 # Get the first 3 pages of results
-page_1 = client.search(
-    size=2,
-    body=pit_search_body
-)['hits']['hits']
-
+page_1 = client.search(size=2, body=pit_search_body)['hits']['hits']
 page_2 = client.search(
     size=2,
-    body=pit_search_body.update(
-        {'search_after': page_1[-1]['sort']}
-    )
+    body=pit_search_body.copy().update({'search_after': page_1[-1]['sort']})
 )['hits']['hits']
 
 page_3 = client.search(
     size=2,
-    body=pit_search_body.update(
-        {'search_after': page_2[-1]['sort']}
-    )
+    body=pit_search_body.copy().update({'search_after': page_2[-1]['sort']})
 )['hits']['hits']
-
 # Print out the titles of the first 3 pages of results
 print([hit['_source']['title'] for hit in page_1])
 print([hit['_source']['title'] for hit in page_2])
 print([hit['_source']['title'] for hit in page_3])
-
 # Delete the point in time
 client.delete_pit(body={'pit_id': pit['pit_id']})
 ```
