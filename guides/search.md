@@ -129,11 +129,12 @@ for hit in hits:
 With sorting, you can also use the `search_after` parameter to paginate through the search results. Let's say you have already displayed the first page of results, and you want to display the next page. You can use the `search_after` parameter to paginate through the search results. The following example will demonstrate how to get the first 3 pages of results using the search query of the previous example:
 
 ```python
+# Import the required libraries
 from opensearchpy import OpenSearch
-# Create an OpenSearch client
+# Create an OpenSearch client with appropriate hosts and connection details
 client = OpenSearch(hosts=['localhost'])
-# Define the query and sort
-query = {
+# Define the search query with sorting and pagination options
+search_body = {
     "query": {
         "match": {
             "title": "dark knight"
@@ -145,29 +146,43 @@ query = {
                 "order": "asc"
             }
         }
-    ]
+    ],
+    "size": 2
 }
-# Perform the initial search to get the first page of results
-response = client.search(index='movies', size=2, body=query)
-page_1 = response['hits']['hits']
-# Extract the sort value of the last hit in page 1
-last_sort = page_1[-1]['sort']
-# Perform subsequent searches to get next pages of results
-response = client.search(index='movies', size=2, body=query, search_after=last_sort)
-page_2 = response['hits']['hits']
-# Extract the sort value of the last hit in page 2
-last_sort = page_2[-1]['sort']
-response = client.search(index='movies', size=2, body=query, search_after=last_sort)
-page_3 = response['hits']['hits']
-# Print the hits in each page
+# Perform the search operation on the 'movies' index with the defined query and pagination options
+response = client.search(
+    index='movies',
+    body=search_body
+)
+# Extract the hits from the response
+hits = response['hits']['hits']
+# Get the last sort value from the first page
+search_after = hits[-1]['sort']
+# Fetch page 2
+search_body["search_after"] = search_after
+response = client.search(
+    index='movies',
+    body=search_body
+)
+hits_page_2 = response['hits']['hits']
+# Get the last sort value from page 2
+search_after = hits_page_2[-1]['sort']
+# Fetch page 3
+search_body["search_after"] = search_after
+response = client.search(
+    index='movies',
+    body=search_body
+)
+hits_page_3 = response['hits']['hits']
+# Print the hits from each page
 print("Page 1:")
-for hit in page_1:
+for hit in hits:
     print(hit)
-print("Page 2:")
-for hit in page_2:
+print("\nPage 2:")
+for hit in hits_page_2:
     print(hit)
-print("Page 3:")
-for hit in page_3:
+print("\nPage 3:")
+for hit in hits_page_3:
     print(hit)
 ```
 
