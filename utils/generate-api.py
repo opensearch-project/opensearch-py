@@ -44,6 +44,7 @@ import unasync
 import urllib3
 from click.testing import CliRunner
 from jinja2 import Environment, FileSystemLoader, TemplateNotFound, select_autoescape
+import yaml
 
 http = urllib3.PoolManager()
 
@@ -430,7 +431,15 @@ def dump_modules(modules):
     unasync.unasync_files(filepaths, rules)
     blacken(CODE_ROOT / "opensearchpy")
 
+def read_single_api():
+    with open((CODE_ROOT / "utils" / "spec" / "OpenSearch.yml"), 'r') as yaml_in:
+        yaml_object = yaml.safe_load(yaml_in)
+        api_string = json.dumps(yaml_object)
+        api = json.loads(api_string)
+        print(api)
+
 
 if __name__ == "__main__":
-    version = sys.argv[1]
-    dump_modules(read_modules(version))
+    # version = sys.argv[1]
+    read_single_api()
+    # dump_modules(read_modules(version))

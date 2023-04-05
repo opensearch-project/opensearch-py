@@ -1,0 +1,81 @@
+openapi: 3.0.3
+info:
+  title: OpenSearch
+  version: 1.0.0
+paths:
+  /_remotestore/_restore:
+    post:
+      description: Restore one or more indices from a remote backup.
+      operationId: PostRemoteStoreRestore
+      x-namespace: remote_store
+      x-operation-name: restore
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PostRemoteStoreRestoreRequest"
+        required: true
+      parameters:
+        - name: cluster_manager_timeout
+          in: query
+          schema:
+            type: string
+            pattern: ^([0-9]+)(?:d|h|m|s|ms|micros|nanos)$
+        - name: wait_for_completion
+          in: query
+          schema:
+            type: boolean
+      responses:
+        200:
+          description: PostRemoteStoreRestore 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PostRemoteStoreRestoreResponse"
+components:
+  schemas:
+    PostRemoteStoreRestoreRequest:
+      x-namespace: remote_store
+      type: object
+      properties:
+        indices:
+          type: array
+          items:
+            type: string
+            pattern: ^[^+_\-\.][^\\, /*?"<>| ,#\nA-Z]+$
+      required:
+        - indices
+    PostRemoteStoreRestoreResponse:
+      x-namespace: remote_store
+      type: object
+      properties:
+        accepted:
+          type: boolean
+        remote_store:
+          $ref: "#/components/schemas/RemoteStoreRestoreInfo"
+    RemoteStoreRestoreInfo:
+      x-namespace: remote_store
+      type: object
+      properties:
+        snapshot:
+          type: string
+        indices:
+          type: array
+          items:
+            type: string
+            pattern: ^[^+_\-\.][^\\, /*?"<>| ,#\nA-Z]+$
+        shards:
+          $ref: "#/components/schemas/RemoteStoreRestoreShardsInfo"
+    RemoteStoreRestoreShardsInfo:
+      x-namespace: remote_store
+      type: object
+      properties:
+        total:
+          type: integer
+          format: int32
+        failed:
+          type: integer
+          format: int32
+        successful:
+          type: integer
+          format: int32
