@@ -50,5 +50,8 @@ class TestCluster(OpenSearchTestCase):
         self.client.cluster.state(index="index-1")
         self.assert_url_called("GET", "/_cluster/state/_all/index-1")
 
+        self.client.cluster.state(index="index-2")
+        self.assert_url_called("GET", "/_cluster/state/_all/index-2")
+
         self.client.cluster.state(index="index-1", metric="cluster_name")
         self.assert_url_called("GET", "/_cluster/state/cluster_name/index-1")
