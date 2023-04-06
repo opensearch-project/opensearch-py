@@ -1,30 +1,3 @@
-#!/usr/bin/env python
-# SPDX-License-Identifier: Apache-2.0
-#
-# The OpenSearch Contributors require contributions made to
-# this file be licensed under the Apache-2.0 license or a
-# compatible open source license.
-#
-# Modifications Copyright OpenSearch Contributors. See
-# GitHub history for details.
-#
-#  Licensed to Elasticsearch B.V. under one or more contributor
-#  license agreements. See the NOTICE file distributed with
-#  this work for additional information regarding copyright
-#  ownership. Elasticsearch B.V. licenses this file to you under
-#  the Apache License, Version 2.0 (the "License"); you may
-#  not use this file except in compliance with the License.
-#  You may obtain a copy of the License at
-#
-# 	http://www.apache.org/licenses/LICENSE-2.0
-#
-#  Unless required by applicable law or agreed to in writing,
-#  software distributed under the License is distributed on an
-#  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-#  KIND, either express or implied.  See the License for the
-#  specific language governing permissions and limitations
-#  under the License.
-
 
 import contextlib
 import io
@@ -334,17 +307,25 @@ class API:
 
 
 
+
+import json
+import os
 @contextlib.contextmanager
-def download_open_api_specs():
+def load_open_api_specs():
     with open('openapi_spec/json/opensearch.openapi.json', 'r') as file:
         data = json.load(file)
 
-# Print the contents of the dictionary
-    print(data["paths"])
+    # Load and merge the contents of each file referenced in the "paths" key
+    for path in data["paths"]:
+        if "$ref" in data["paths"][path]:
+            ref_path = data["paths"][path]["$ref"]
+            ref_file = os.path.join(os.path.dirname(file.name), ref_path)
+            with open(ref_file, "r") as ref:
+                ref_data = json.load(ref)
+                data["paths"][path].update(ref_data)
+    return data["paths"]
 
-
-
-    
+ 
 
 
 
@@ -353,7 +334,7 @@ def download_open_api_specs():
 def read_modules():
     modules = {}
 
-    with download_open_api_specs() as path:
+    with load_open_api_specs() as path:
         for f in sorted(os.listdir(path)):
             name, ext = f.rsplit(".", 1)
 
@@ -415,4 +396,4 @@ def dump_modules(modules):
 
 if __name__ == "__main__":
    # dump_modules(read_modules())
-    download_open_api_specs()
+    load_open_api_specs()
