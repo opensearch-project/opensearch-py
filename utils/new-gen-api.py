@@ -333,45 +333,27 @@ class API:
         )
 
 
+
 @contextlib.contextmanager
-def download_artifact(version):
-    # Download the list of all artifacts for a version
-    # and find the latest build URL for 'rest-resources-zip-*.zip'
-    resp = http.request(
-        "GET", f"https://artifacts-api.elastic.co/v1/versions/{version}"
-    )
-    packages = json.loads(resp.data)["version"]["builds"][0]["projects"][
-        "opensearchpy"
-    ]["packages"]
-    for package in packages:
-        if re.match(r"^rest-resources-zip-.*\.zip$", package):
-            zip_url = packages[package]["url"]
-            break
-    else:
-        raise RuntimeError(
-            "Could not find the package 'rest-resources-zip-*.zip' in build"
-        )
+def download_open_api_specs():
+    with open('openapi_spec/json/opensearch.openapi.json', 'r') as file:
+        data = json.load(file)
 
-    # Download the .jar file and unzip only the API
-    # .json files into a temporary directory
-    resp = http.request("GET", zip_url)
-
-    tmp = Path(tempfile.mkdtemp())
-    zip = zipfile.ZipFile(io.BytesIO(resp.data))
-    for name in zip.namelist():
-        if not name.endswith(".json") or name == "schema.json":
-            continue
-        with (tmp / name.replace("rest-api-spec/api/", "")).open("wb") as f:
-            f.write(zip.read(name))
-
-    yield tmp
-    shutil.rmtree(tmp)
+# Print the contents of the dictionary
+    print(data["paths"])
 
 
-def read_modules(version):
+
+    
+
+
+
+
+
+def read_modules():
     modules = {}
 
-    with download_artifact(version) as path:
+    with download_open_api_specs() as path:
         for f in sorted(os.listdir(path)):
             name, ext = f.rsplit(".", 1)
 
@@ -432,5 +414,5 @@ def dump_modules(modules):
 
 
 if __name__ == "__main__":
-    version = sys.argv[1]
-    dump_modules(read_modules(version))
+   # dump_modules(read_modules())
+    download_open_api_specs()
