@@ -1,0 +1,91 @@
+---
+put:
+  x-endpoint-group: snapshot.create
+  description: Creates a snapshot in a repository.
+  parameters:
+  - in: path
+    name: repository
+    description: A repository name
+    required: true
+    schema:
+      type: string
+  - in: path
+    name: snapshot
+    description: A snapshot name
+    required: true
+    schema:
+      type: string
+  - $ref: "../parameters/query.yaml#/master_timeout"
+  - $ref: "../parameters/query.yaml#/cluster_manager_timeout"
+  - $ref: "../parameters/query.yaml#/wait_for_completion"
+  requestBody:
+    description: The snapshot definition
+    required: false
+    content:
+      application/json:
+        schema:
+          type: object
+post:
+  x-endpoint-group: snapshot.create
+  description: Creates a snapshot in a repository.
+  parameters:
+  - in: path
+    name: repository
+    description: A repository name
+    required: true
+    schema:
+      type: string
+  - in: path
+    name: snapshot
+    description: A snapshot name
+    required: true
+    schema:
+      type: string
+  - $ref: "../parameters/query.yaml#/master_timeout"
+  - $ref: "../parameters/query.yaml#/cluster_manager_timeout"
+  - $ref: "../parameters/query.yaml#/wait_for_completion"
+  requestBody:
+    description: The snapshot definition
+    required: false
+    content:
+      application/json:
+        schema:
+          type: object
+get:
+  x-endpoint-group: snapshot.get
+  description: Returns information about a snapshot.
+  parameters:
+  - in: path
+    name: repository
+    description: A repository name
+    required: true
+    schema:
+      type: string
+  - in: path
+    name: snapshot
+    description: A comma-separated list of snapshot names
+    required: true
+    schema:
+      $ref: "../schemas/_common.yaml#/string_array"
+  - $ref: "../parameters/query.yaml#/master_timeout"
+  - $ref: "../parameters/query.yaml#/cluster_manager_timeout"
+  - $ref: "../parameters/query.yaml#/ignore_unavailable"
+  - $ref: "../parameters/query.yaml#/verbose"
+delete:
+  x-endpoint-group: snapshot.delete
+  description: Deletes a snapshot.
+  parameters:
+  - in: path
+    name: repository
+    description: A repository name
+    required: true
+    schema:
+      type: string
+  - in: path
+    name: snapshot
+    description: A snapshot name
+    required: true
+    schema:
+      type: string
+  - $ref: "../parameters/query.yaml#/master_timeout"
+  - $ref: "../parameters/query.yaml#/cluster_manager_timeout"

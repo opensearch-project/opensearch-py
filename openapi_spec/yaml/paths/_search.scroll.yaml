@@ -1,0 +1,28 @@
+---
+delete:
+  x-endpoint-group: clear_scroll
+  description: Explicitly clears the search context for a scroll.
+  parameters: []
+get:
+  x-endpoint-group: scroll
+  description: Allows to retrieve a large numbers of results from a single search
+    request.
+  parameters:
+  - $ref: "../parameters/query.yaml#/scroll"
+  - $ref: "../parameters/query.yaml#/scroll_id"
+  - $ref: "../parameters/query.yaml#/rest_total_hits_as_int"
+post:
+  x-endpoint-group: scroll
+  description: Allows to retrieve a large numbers of results from a single search
+    request.
+  parameters:
+  - $ref: "../parameters/query.yaml#/scroll"
+  - $ref: "../parameters/query.yaml#/scroll_id"
+  - $ref: "../parameters/query.yaml#/rest_total_hits_as_int"
+  requestBody:
+    description: The scroll ID if not passed by URL or query parameter.
+    required: false
+    content:
+      application/json:
+        schema:
+          type: object

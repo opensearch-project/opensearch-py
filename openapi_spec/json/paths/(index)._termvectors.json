@@ -1,0 +1,109 @@
+{
+  "get": {
+    "x-endpoint-group": "termvectors",
+    "description": "Returns information and statistics about terms in the fields of a particular document.",
+    "parameters": [
+      {
+        "in": "path",
+        "name": "index",
+        "description": "The index in which the document resides.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "$ref": "../parameters/query.json#/term_statistics"
+      },
+      {
+        "$ref": "../parameters/query.json#/field_statistics"
+      },
+      {
+        "$ref": "../parameters/query.json#/fields"
+      },
+      {
+        "$ref": "../parameters/query.json#/offsets"
+      },
+      {
+        "$ref": "../parameters/query.json#/positions"
+      },
+      {
+        "$ref": "../parameters/query.json#/payloads"
+      },
+      {
+        "$ref": "../parameters/query.json#/preference"
+      },
+      {
+        "$ref": "../parameters/query.json#/routing"
+      },
+      {
+        "$ref": "../parameters/query.json#/realtime"
+      },
+      {
+        "$ref": "../parameters/query.json#/version"
+      },
+      {
+        "$ref": "../parameters/query.json#/version_type"
+      }
+    ]
+  },
+  "post": {
+    "x-endpoint-group": "termvectors",
+    "description": "Returns information and statistics about terms in the fields of a particular document.",
+    "parameters": [
+      {
+        "in": "path",
+        "name": "index",
+        "description": "The index in which the document resides.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "$ref": "../parameters/query.json#/term_statistics"
+      },
+      {
+        "$ref": "../parameters/query.json#/field_statistics"
+      },
+      {
+        "$ref": "../parameters/query.json#/fields"
+      },
+      {
+        "$ref": "../parameters/query.json#/offsets"
+      },
+      {
+        "$ref": "../parameters/query.json#/positions"
+      },
+      {
+        "$ref": "../parameters/query.json#/payloads"
+      },
+      {
+        "$ref": "../parameters/query.json#/preference"
+      },
+      {
+        "$ref": "../parameters/query.json#/routing"
+      },
+      {
+        "$ref": "../parameters/query.json#/realtime"
+      },
+      {
+        "$ref": "../parameters/query.json#/version"
+      },
+      {
+        "$ref": "../parameters/query.json#/version_type"
+      }
+    ],
+    "requestBody": {
+      "description": "Define parameters and or supply a document to get termvectors for. See documentation.",
+      "required": false,
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object"
+          }
+        }
+      }
+    }
+  }
+}

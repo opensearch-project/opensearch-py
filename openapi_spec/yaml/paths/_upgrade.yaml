@@ -1,0 +1,17 @@
+---
+post:
+  x-endpoint-group: indices.upgrade
+  description: The _upgrade API is no longer useful and will be removed.
+  parameters:
+  - $ref: "../parameters/query.yaml#/allow_no_indices"
+  - $ref: "../parameters/query.yaml#/expand_wildcards"
+  - $ref: "../parameters/query.yaml#/ignore_unavailable"
+  - $ref: "../parameters/query.yaml#/wait_for_completion"
+  - $ref: "../parameters/query.yaml#/only_ancient_segments"
+get:
+  x-endpoint-group: indices.get_upgrade
+  description: The _upgrade API is no longer useful and will be removed.
+  parameters:
+  - $ref: "../parameters/query.yaml#/ignore_unavailable"
+  - $ref: "../parameters/query.yaml#/allow_no_indices"
+  - $ref: "../parameters/query.yaml#/expand_wildcards"

@@ -1,0 +1,14 @@
+---
+get:
+  x-endpoint-group: nodes.info
+  description: Returns information about nodes in the cluster.
+  parameters:
+  - in: path
+    name: metric
+    description: A comma-separated list of metrics you wish returned. Leave empty
+      to return all.
+    required: true
+    schema:
+      $ref: "../schemas/_common.yaml#/string_array"
+  - $ref: "../parameters/query.yaml#/flat_settings"
+  - $ref: "../parameters/query.yaml#/timeout"

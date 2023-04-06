@@ -1,0 +1,56 @@
+---
+post:
+  x-endpoint-group: count
+  description: Returns number of documents matching a query.
+  parameters:
+  - in: path
+    name: index
+    description: A comma-separated list of indices to restrict the results
+    required: true
+    schema:
+      $ref: "../schemas/_common.yaml#/string_array"
+  - $ref: "../parameters/query.yaml#/ignore_unavailable"
+  - $ref: "../parameters/query.yaml#/ignore_throttled"
+  - $ref: "../parameters/query.yaml#/allow_no_indices"
+  - $ref: "../parameters/query.yaml#/expand_wildcards"
+  - $ref: "../parameters/query.yaml#/min_score"
+  - $ref: "../parameters/query.yaml#/preference"
+  - $ref: "../parameters/query.yaml#/routing"
+  - $ref: "../parameters/query.yaml#/q"
+  - $ref: "../parameters/query.yaml#/analyzer"
+  - $ref: "../parameters/query.yaml#/analyze_wildcard"
+  - $ref: "../parameters/query.yaml#/default_operator"
+  - $ref: "../parameters/query.yaml#/df"
+  - $ref: "../parameters/query.yaml#/lenient"
+  - $ref: "../parameters/query.yaml#/terminate_after"
+  requestBody:
+    description: A query to restrict the results specified with the Query DSL (optional)
+    required: false
+    content:
+      application/json:
+        schema:
+          type: object
+get:
+  x-endpoint-group: count
+  description: Returns number of documents matching a query.
+  parameters:
+  - in: path
+    name: index
+    description: A comma-separated list of indices to restrict the results
+    required: true
+    schema:
+      $ref: "../schemas/_common.yaml#/string_array"
+  - $ref: "../parameters/query.yaml#/ignore_unavailable"
+  - $ref: "../parameters/query.yaml#/ignore_throttled"
+  - $ref: "../parameters/query.yaml#/allow_no_indices"
+  - $ref: "../parameters/query.yaml#/expand_wildcards"
+  - $ref: "../parameters/query.yaml#/min_score"
+  - $ref: "../parameters/query.yaml#/preference"
+  - $ref: "../parameters/query.yaml#/routing"
+  - $ref: "../parameters/query.yaml#/q"
+  - $ref: "../parameters/query.yaml#/analyzer"
+  - $ref: "../parameters/query.yaml#/analyze_wildcard"
+  - $ref: "../parameters/query.yaml#/default_operator"
+  - $ref: "../parameters/query.yaml#/df"
+  - $ref: "../parameters/query.yaml#/lenient"
+  - $ref: "../parameters/query.yaml#/terminate_after"

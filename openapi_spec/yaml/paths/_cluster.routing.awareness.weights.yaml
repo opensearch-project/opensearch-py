@@ -1,0 +1,5 @@
+---
+delete:
+  x-endpoint-group: cluster.delete_weighted_routing
+  description: Delete weighted shard routing weights
+  parameters: []

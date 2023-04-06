@@ -1,0 +1,12 @@
+---
+get:
+  x-endpoint-group: cat.health
+  description: Returns a concise representation of the cluster health.
+  parameters:
+  - $ref: "../parameters/query.yaml#/format"
+  - $ref: "../parameters/query.yaml#/h"
+  - $ref: "../parameters/query.yaml#/help"
+  - $ref: "../parameters/query.yaml#/s"
+  - $ref: "../parameters/query.yaml#/time"
+  - $ref: "../parameters/query.yaml#/ts"
+  - $ref: "../parameters/query.yaml#/v"

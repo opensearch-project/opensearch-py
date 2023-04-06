@@ -1,0 +1,129 @@
+{
+  "get": {
+    "x-endpoint-group": "indices.get_mapping",
+    "description": "Returns mappings for one or more indices.",
+    "parameters": [
+      {
+        "in": "path",
+        "name": "index",
+        "description": "A comma-separated list of index names",
+        "required": true,
+        "schema": {
+          "$ref": "../schemas/_common.json#/string_array"
+        }
+      },
+      {
+        "$ref": "../parameters/query.json#/ignore_unavailable"
+      },
+      {
+        "$ref": "../parameters/query.json#/allow_no_indices"
+      },
+      {
+        "$ref": "../parameters/query.json#/expand_wildcards"
+      },
+      {
+        "$ref": "../parameters/query.json#/master_timeout"
+      },
+      {
+        "$ref": "../parameters/query.json#/cluster_manager_timeout"
+      },
+      {
+        "$ref": "../parameters/query.json#/local"
+      }
+    ]
+  },
+  "put": {
+    "x-endpoint-group": "indices.put_mapping",
+    "description": "Updates the index mappings.",
+    "parameters": [
+      {
+        "in": "path",
+        "name": "index",
+        "description": "A comma-separated list of index names the mapping should be added to (supports wildcards); use `_all` or omit to add the mapping on all indices.",
+        "required": true,
+        "schema": {
+          "$ref": "../schemas/_common.json#/string_array"
+        }
+      },
+      {
+        "$ref": "../parameters/query.json#/timeout"
+      },
+      {
+        "$ref": "../parameters/query.json#/master_timeout"
+      },
+      {
+        "$ref": "../parameters/query.json#/cluster_manager_timeout"
+      },
+      {
+        "$ref": "../parameters/query.json#/ignore_unavailable"
+      },
+      {
+        "$ref": "../parameters/query.json#/allow_no_indices"
+      },
+      {
+        "$ref": "../parameters/query.json#/expand_wildcards"
+      },
+      {
+        "$ref": "../parameters/query.json#/write_index_only"
+      }
+    ],
+    "requestBody": {
+      "description": "The mapping definition",
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object"
+          }
+        }
+      }
+    }
+  },
+  "post": {
+    "x-endpoint-group": "indices.put_mapping",
+    "description": "Updates the index mappings.",
+    "parameters": [
+      {
+        "in": "path",
+        "name": "index",
+        "description": "A comma-separated list of index names the mapping should be added to (supports wildcards); use `_all` or omit to add the mapping on all indices.",
+        "required": true,
+        "schema": {
+          "$ref": "../schemas/_common.json#/string_array"
+        }
+      },
+      {
+        "$ref": "../parameters/query.json#/timeout"
+      },
+      {
+        "$ref": "../parameters/query.json#/master_timeout"
+      },
+      {
+        "$ref": "../parameters/query.json#/cluster_manager_timeout"
+      },
+      {
+        "$ref": "../parameters/query.json#/ignore_unavailable"
+      },
+      {
+        "$ref": "../parameters/query.json#/allow_no_indices"
+      },
+      {
+        "$ref": "../parameters/query.json#/expand_wildcards"
+      },
+      {
+        "$ref": "../parameters/query.json#/write_index_only"
+      }
+    ],
+    "requestBody": {
+      "description": "The mapping definition",
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object"
+          }
+        }
+      }
+    }
+  }
+}

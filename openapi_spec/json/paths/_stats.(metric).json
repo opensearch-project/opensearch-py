@@ -1,0 +1,44 @@
+{
+  "get": {
+    "x-endpoint-group": "indices.stats",
+    "description": "Provides statistics on operations happening in an index.",
+    "parameters": [
+      {
+        "in": "path",
+        "name": "metric",
+        "description": "Limit the information returned the specific metrics.",
+        "required": true,
+        "schema": {
+          "$ref": "../schemas/_common.json#/string_array"
+        }
+      },
+      {
+        "$ref": "../parameters/query.json#/completion_fields"
+      },
+      {
+        "$ref": "../parameters/query.json#/fielddata_fields"
+      },
+      {
+        "$ref": "../parameters/query.json#/fields"
+      },
+      {
+        "$ref": "../parameters/query.json#/groups"
+      },
+      {
+        "$ref": "../parameters/query.json#/level"
+      },
+      {
+        "$ref": "../parameters/query.json#/include_segment_file_sizes"
+      },
+      {
+        "$ref": "../parameters/query.json#/include_unloaded_segments"
+      },
+      {
+        "$ref": "../parameters/query.json#/expand_wildcards"
+      },
+      {
+        "$ref": "../parameters/query.json#/forbid_closed_indices"
+      }
+    ]
+  }
+}

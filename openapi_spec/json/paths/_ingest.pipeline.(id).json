@@ -1,0 +1,82 @@
+{
+  "put": {
+    "x-endpoint-group": "ingest.put_pipeline",
+    "description": "Creates or updates a pipeline.",
+    "parameters": [
+      {
+        "in": "path",
+        "name": "id",
+        "description": "Pipeline ID",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "$ref": "../parameters/query.json#/master_timeout"
+      },
+      {
+        "$ref": "../parameters/query.json#/cluster_manager_timeout"
+      },
+      {
+        "$ref": "../parameters/query.json#/timeout"
+      }
+    ],
+    "requestBody": {
+      "description": "The ingest definition",
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object"
+          }
+        }
+      }
+    }
+  },
+  "delete": {
+    "x-endpoint-group": "ingest.delete_pipeline",
+    "description": "Deletes a pipeline.",
+    "parameters": [
+      {
+        "in": "path",
+        "name": "id",
+        "description": "Pipeline ID",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "$ref": "../parameters/query.json#/master_timeout"
+      },
+      {
+        "$ref": "../parameters/query.json#/cluster_manager_timeout"
+      },
+      {
+        "$ref": "../parameters/query.json#/timeout"
+      }
+    ]
+  },
+  "get": {
+    "x-endpoint-group": "ingest.get_pipeline",
+    "description": "Returns a pipeline.",
+    "parameters": [
+      {
+        "in": "path",
+        "name": "id",
+        "description": "Comma separated list of pipeline ids. Wildcards supported",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "$ref": "../parameters/query.json#/master_timeout"
+      },
+      {
+        "$ref": "../parameters/query.json#/cluster_manager_timeout"
+      }
+    ]
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "get": {
+    "x-endpoint-group": "cat.tasks",
+    "description": "Returns information about the tasks currently executing on one or more nodes in the cluster.",
+    "parameters": [
+      {
+        "$ref": "../parameters/query.json#/format"
+      },
+      {
+        "$ref": "../parameters/query.json#/nodes"
+      },
+      {
+        "$ref": "../parameters/query.json#/actions"
+      },
+      {
+        "$ref": "../parameters/query.json#/detailed"
+      },
+      {
+        "$ref": "../parameters/query.json#/parent_task_id"
+      },
+      {
+        "$ref": "../parameters/query.json#/h"
+      },
+      {
+        "$ref": "../parameters/query.json#/help"
+      },
+      {
+        "$ref": "../parameters/query.json#/s"
+      },
+      {
+        "$ref": "../parameters/query.json#/time"
+      },
+      {
+        "$ref": "../parameters/query.json#/v"
+      }
+    ]
+  }
+}

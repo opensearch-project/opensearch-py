@@ -1,0 +1,27 @@
+---
+get:
+  x-endpoint-group: rank_eval
+  description: Allows to evaluate the quality of ranked search results over a set
+    of typical search queries
+  parameters:
+  - $ref: "../parameters/query.yaml#/ignore_unavailable"
+  - $ref: "../parameters/query.yaml#/allow_no_indices"
+  - $ref: "../parameters/query.yaml#/expand_wildcards"
+  - $ref: "../parameters/query.yaml#/search_type"
+post:
+  x-endpoint-group: rank_eval
+  description: Allows to evaluate the quality of ranked search results over a set
+    of typical search queries
+  parameters:
+  - $ref: "../parameters/query.yaml#/ignore_unavailable"
+  - $ref: "../parameters/query.yaml#/allow_no_indices"
+  - $ref: "../parameters/query.yaml#/expand_wildcards"
+  - $ref: "../parameters/query.yaml#/search_type"
+  requestBody:
+    description: The ranking evaluation search definition, including search requests,
+      document ratings and ranking metric definition.
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object

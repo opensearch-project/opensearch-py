@@ -1,0 +1,20 @@
+{
+  "get": {
+    "x-endpoint-group": "nodes.usage",
+    "description": "Returns low-level information about REST actions usage on nodes.",
+    "parameters": [
+      {
+        "in": "path",
+        "name": "metric",
+        "description": "Limit the information returned to the specified metrics",
+        "required": true,
+        "schema": {
+          "$ref": "../schemas/_common.json#/string_array"
+        }
+      },
+      {
+        "$ref": "../parameters/query.json#/timeout"
+      }
+    ]
+  }
+}

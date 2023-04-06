@@ -1,0 +1,35 @@
+{
+  "post": {
+    "x-endpoint-group": "indices.open",
+    "description": "Opens an index.",
+    "parameters": [
+      {
+        "in": "path",
+        "name": "index",
+        "description": "A comma separated list of indices to open",
+        "required": true,
+        "schema": {
+          "$ref": "../schemas/_common.json#/string_array"
+        }
+      },
+      {
+        "$ref": "../parameters/query.json#/timeout"
+      },
+      {
+        "$ref": "../parameters/query.json#/master_timeout"
+      },
+      {
+        "$ref": "../parameters/query.json#/ignore_unavailable"
+      },
+      {
+        "$ref": "../parameters/query.json#/allow_no_indices"
+      },
+      {
+        "$ref": "../parameters/query.json#/expand_wildcards"
+      },
+      {
+        "$ref": "../parameters/query.json#/wait_for_active_shards"
+      }
+    ]
+  }
+}

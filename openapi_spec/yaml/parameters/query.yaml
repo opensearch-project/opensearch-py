@@ -1,0 +1,1074 @@
+---
+_source:
+  in: query
+  name: _source
+  description: True or false to return the _source field or not, or a list of fields
+    to return
+  schema:
+    $ref: "../schemas/_common.yaml#/string_array"
+_source_excludes:
+  in: query
+  name: _source_excludes
+  description: A list of fields to exclude from the returned _source field
+  schema:
+    $ref: "../schemas/_common.yaml#/string_array"
+_source_includes:
+  in: query
+  name: _source_includes
+  description: A list of fields to extract and return from the _source field
+  schema:
+    $ref: "../schemas/_common.yaml#/string_array"
+accept_data_loss:
+  in: query
+  name: accept_data_loss
+  description: Must be set to true in order to delete the dangling index
+  schema:
+    type: boolean
+actions:
+  in: query
+  name: actions
+  description: A comma-separated list of actions that should be returned. Leave empty
+    to return all.
+  schema:
+    $ref: "../schemas/_common.yaml#/string_array"
+active_only:
+  in: query
+  name: active_only
+  description: If `true`, the response only includes ongoing shard recoveries
+  schema:
+    type: boolean
+all_shards:
+  in: query
+  name: all_shards
+  description: Execute validation on all shards instead of one random shard per index
+  schema:
+    type: boolean
+allow_no_indices:
+  in: query
+  name: allow_no_indices
+  description: Whether to ignore if a wildcard indices expression resolves into no
+    concrete indices. (This includes `_all` string or when no indices have been specified)
+  schema:
+    type: boolean
+allow_partial_pit_creation:
+  in: query
+  name: allow_partial_pit_creation
+  description: Allow if point in time can be created with partial failures
+  schema:
+    type: boolean
+allow_partial_search_results:
+  in: query
+  name: allow_partial_search_results
+  description: Indicate if an error should be returned if there is a partial search
+    failure or timeout
+  schema:
+    type: boolean
+analyze_wildcard:
+  in: query
+  name: analyze_wildcard
+  description: 'Specify whether wildcard and prefix queries should be analyzed (default:
+    false)'
+  schema:
+    type: boolean
+analyzer:
+  in: query
+  name: analyzer
+  description: The analyzer to use for the query string
+  schema:
+    type: string
+awareness_attribute:
+  in: query
+  name: awareness_attribute
+  description: The awareness attribute for which the health is required
+  schema:
+    type: string
+batched_reduce_size:
+  in: query
+  name: batched_reduce_size
+  description: The number of shard results that should be reduced at once on the coordinating
+    node. This value should be used as a protection mechanism to reduce the memory
+    overhead per search request if the potential number of shards in the request can
+    be large.
+  schema:
+    type: integer
+bytes:
+  in: query
+  name: bytes
+  description: The unit in which to display byte values
+  schema:
+    type: string
+    enum:
+    - b
+    - k
+    - kb
+    - m
+    - mb
+    - g
+    - gb
+    - t
+    - tb
+    - p
+    - pb
+cause:
+  in: query
+  name: cause
+  description: User defined reason for dry-run creating the new template for simulation
+    purposes
+  schema:
+    type: string
+ccs_minimize_roundtrips:
+  in: query
+  name: ccs_minimize_roundtrips
+  description: Indicates whether network round-trips should be minimized as part of
+    cross-cluster search requests execution
+  schema:
+    type: boolean
+cluster_manager_timeout:
+  in: query
+  name: cluster_manager_timeout
+  description: Specify timeout for connection to cluster-manager node
+  schema:
+    $ref: "../schemas/_common.yaml#/time"
+completed_only:
+  in: query
+  name: completed_only
+  description: If `true`, the response only includes latest completed segment replication
+    events
+  schema:
+    type: boolean
+completion_fields:
+  in: query
+  name: completion_fields
+  description: A comma-separated list of fields for `fielddata` and `suggest` index
+    metric (supports wildcards)
+  schema:
+    $ref: "../schemas/_common.yaml#/string_array"
+conflicts:
+  in: query
+  name: conflicts
+  description: What to do when the update by query hits version conflicts?
+  schema:
+    type: string
+    enum:
+    - abort
+    - proceed
+context:
+  in: query
+  name: context
+  description: Context name to compile script against
+  schema:
+    type: string
+copy_settings:
+  in: query
+  name: copy_settings
+  description: whether or not to copy settings from the source index (defaults to
+    false)
+  schema:
+    type: boolean
+create:
+  in: query
+  name: create
+  description: Whether the index template we optionally defined in the body should
+    only be dry-run added if new or can also replace an existing one
+  schema:
+    type: boolean
+default_operator:
+  in: query
+  name: default_operator
+  description: The default operator for query string query (AND or OR)
+  schema:
+    type: string
+    enum:
+    - AND
+    - OR
+detailed:
+  in: query
+  name: detailed
+  description: 'Return detailed task information (default: false)'
+  schema:
+    type: boolean
+df:
+  in: query
+  name: df
+  description: The field to use as default where no field prefix is given in the query
+    string
+  schema:
+    type: string
+docvalue_fields:
+  in: query
+  name: docvalue_fields
+  description: A comma-separated list of fields to return as the docvalue representation
+    of a field for each hit
+  schema:
+    $ref: "../schemas/_common.yaml#/string_array"
+dry_run:
+  in: query
+  name: dry_run
+  description: If set to true the rollover action will only be validated but not actually
+    performed even if a condition matches. The default is false
+  schema:
+    type: boolean
+ensure_node_commissioned:
+  in: query
+  name: ensure_node_commissioned
+  description: 'Checks whether local node is commissioned or not. If set to true on
+    a local call it will throw exception if node is decommissioned (default: false)'
+  schema:
+    type: boolean
+expand_wildcards:
+  in: query
+  name: expand_wildcards
+  description: Whether to expand wildcard expression to concrete indices that are
+    open, closed or both.
+  schema:
+    type: string
+    enum:
+    - open
+    - closed
+    - hidden
+    - none
+    - all
+explain:
+  in: query
+  name: explain
+  description: Specify whether to return detailed information about score computation
+    as part of a hit
+  schema:
+    type: boolean
+field_statistics:
+  in: query
+  name: field_statistics
+  description: Specifies if document count, sum of document frequencies and sum of
+    total term frequencies should be returned.
+  schema:
+    type: boolean
+fielddata:
+  in: query
+  name: fielddata
+  description: Clear field data
+  schema:
+    type: boolean
+fielddata_fields:
+  in: query
+  name: fielddata_fields
+  description: A comma-separated list of fields for `fielddata` index metric (supports
+    wildcards)
+  schema:
+    $ref: "../schemas/_common.yaml#/string_array"
+fields:
+  in: query
+  name: fields
+  description: 'A comma-separated list of fields to clear when using the `fielddata`
+    parameter (default: all)'
+  schema:
+    $ref: "../schemas/_common.yaml#/string_array"
+flat_settings:
+  in: query
+  name: flat_settings
+  description: 'Return settings in flat format (default: false)'
+  schema:
+    type: boolean
+flush:
+  in: query
+  name: flush
+  description: 'Specify whether the index should be flushed after performing the operation
+    (default: true)'
+  schema:
+    type: boolean
+forbid_closed_indices:
+  in: query
+  name: forbid_closed_indices
+  description: If set to false stats will also collected from closed indices if explicitly
+    specified or if expand_wildcards expands to closed indices
+  schema:
+    type: boolean
+force:
+  in: query
+  name: force
+  description: Whether a flush should be forced even if it is not necessarily needed
+    ie. if no changes will be committed to the index. This is useful if transaction
+    log IDs should be incremented even if no uncommitted changes are present. (This
+    setting can be considered as internal)
+  schema:
+    type: boolean
+format:
+  in: query
+  name: format
+  description: a short version of the Accept header, e.g. json, yaml
+  schema:
+    type: string
+from:
+  in: query
+  name: from
+  description: 'Starting offset (default: 0)'
+  schema:
+    type: integer
+full_id:
+  in: query
+  name: full_id
+  description: 'Return the full node ID instead of the shortened version (default:
+    false)'
+  schema:
+    type: boolean
+group_by:
+  in: query
+  name: group_by
+  description: Group tasks by nodes or parent/child relationships
+  schema:
+    type: string
+    enum:
+    - nodes
+    - parents
+    - none
+groups:
+  in: query
+  name: groups
+  description: A comma-separated list of search groups for `search` index metric
+  schema:
+    $ref: "../schemas/_common.yaml#/string_array"
+h:
+  in: query
+  name: h
+  description: Comma-separated list of column names to display
+  schema:
+    $ref: "../schemas/_common.yaml#/string_array"
+health:
+  in: query
+  name: health
+  description: A health status ("green", "yellow", or "red" to filter only indices
+    matching the specified health status
+  schema:
+    type: string
+    enum:
+    - green
+    - yellow
+    - red
+help:
+  in: query
+  name: help
+  description: Return help information
+  schema:
+    type: boolean
+ids:
+  in: query
+  name: ids
+  description: A comma-separated list of documents ids. You must define ids as parameter
+    or set "ids" or "docs" in the request body
+  schema:
+    $ref: "../schemas/_common.yaml#/string_array"
+if_primary_term:
+  in: query
+  name: if_primary_term
+  description: only perform the index operation if the last operation that has changed
+    the document has the specified primary term
+  schema:
+    type: integer
+if_seq_no:
+  in: query
+  name: if_seq_no
+  description: only perform the index operation if the last operation that has changed
+    the document has the specified sequence number
+  schema:
+    type: integer
+ignore_idle_threads:
+  in: query
+  name: ignore_idle_threads
+  description: 'Don''t show threads that are in known-idle places, such as waiting
+    on a socket select or pulling from an empty task queue (default: true)'
+  schema:
+    type: boolean
+ignore_throttled:
+  in: query
+  name: ignore_throttled
+  description: Whether specified concrete, expanded or aliased indices should be ignored
+    when throttled
+  schema:
+    type: boolean
+ignore_unavailable:
+  in: query
+  name: ignore_unavailable
+  description: Whether specified concrete indices should be ignored when unavailable
+    (missing or closed)
+  schema:
+    type: boolean
+include_defaults:
+  in: query
+  name: include_defaults
+  description: Whether to return all default clusters setting.
+  schema:
+    type: boolean
+include_disk_info:
+  in: query
+  name: include_disk_info
+  description: 'Return information about disk usage and shard sizes (default: false)'
+  schema:
+    type: boolean
+include_segment_file_sizes:
+  in: query
+  name: include_segment_file_sizes
+  description: Whether to report the aggregated disk usage of each one of the Lucene
+    index files (only applies if segment stats are requested)
+  schema:
+    type: boolean
+include_unloaded_segments:
+  in: query
+  name: include_unloaded_segments
+  description: If set to true segment stats will include stats for segments that are
+    not currently loaded into memory
+  schema:
+    type: boolean
+include_unmapped:
+  in: query
+  name: include_unmapped
+  description: Indicates whether unmapped fields should be included in the response.
+  schema:
+    type: boolean
+include_yes_decisions:
+  in: query
+  name: include_yes_decisions
+  description: 'Return ''YES'' decisions in explanation (default: false)'
+  schema:
+    type: boolean
+index:
+  in: query
+  name: index
+  description: A comma-separated list of index name to limit the operation
+  schema:
+    $ref: "../schemas/_common.yaml#/string_array"
+interval:
+  in: query
+  name: interval
+  description: The interval for the second sampling of threads
+  schema:
+    $ref: "../schemas/_common.yaml#/time"
+keep_alive:
+  in: query
+  name: keep_alive
+  description: Specify the keep alive for point in time
+  schema:
+    type: string
+lang:
+  in: query
+  name: lang
+  description: 'The script language (default: painless)'
+  schema:
+    type: string
+lenient:
+  in: query
+  name: lenient
+  description: Specify whether format-based query failures (such as providing text
+    to a numeric field) should be ignored
+  schema:
+    type: boolean
+level:
+  in: query
+  name: level
+  description: Return stats aggregated at cluster, index or shard level
+  schema:
+    type: string
+    enum:
+    - cluster
+    - indices
+    - shards
+local:
+  in: query
+  name: local
+  description: 'Return local information, do not retrieve the state from master node
+    (default: false)'
+  schema:
+    type: boolean
+master_timeout:
+  in: query
+  name: master_timeout
+  description: Specify timeout for connection to master
+  deprecated: true
+  x-deprecation-version: 2.0.0
+  x-deprecation-description: To support inclusive language, use 'cluster_manager_timeout'
+    instead.
+  schema:
+    $ref: "../schemas/_common.yaml#/time"
+max_concurrent_searches:
+  in: query
+  name: max_concurrent_searches
+  description: Controls the maximum number of concurrent searches the multi search
+    api will execute
+  schema:
+    type: integer
+max_concurrent_shard_requests:
+  in: query
+  name: max_concurrent_shard_requests
+  description: The number of concurrent shard requests each sub search executes concurrently
+    per node. This value should be used to limit the impact of the search on the cluster
+    in order to limit the number of concurrent shard requests
+  schema:
+    type: integer
+max_docs:
+  in: query
+  name: max_docs
+  description: 'Maximum number of documents to process (default: all documents)'
+  schema:
+    type: integer
+max_num_segments:
+  in: query
+  name: max_num_segments
+  description: 'The number of segments the index should be merged into (default: dynamic)'
+  schema:
+    type: integer
+metric:
+  in: query
+  name: metric
+  description: Limit the information returned to the specified metrics. Defaults to
+    all but metadata
+  schema:
+    $ref: "../schemas/_common.yaml#/string_array"
+min_score:
+  in: query
+  name: min_score
+  description: Include only documents with a specific `_score` value in the result
+  schema:
+    type: integer
+node_ids:
+  in: query
+  name: node_ids
+  description: A comma-separated list of the persistent ids of the nodes to exclude
+    from the voting configuration. If specified, you may not also specify ?node_names.
+  schema:
+    type: string
+node_names:
+  in: query
+  name: node_names
+  description: A comma-separated list of the names of the nodes to exclude from the
+    voting configuration. If specified, you may not also specify ?node_ids.
+  schema:
+    type: string
+nodes:
+  in: query
+  name: nodes
+  description: A comma-separated list of node IDs or names to limit the returned information;
+    use `_local` to return information from the node you're connecting to, leave empty
+    to get information from all nodes
+  schema:
+    $ref: "../schemas/_common.yaml#/string_array"
+offsets:
+  in: query
+  name: offsets
+  description: Specifies if term offsets should be returned.
+  schema:
+    type: boolean
+only_ancient_segments:
+  in: query
+  name: only_ancient_segments
+  description: If true, only ancient (an older Lucene major release) segments will
+    be upgraded
+  schema:
+    type: boolean
+only_expunge_deletes:
+  in: query
+  name: only_expunge_deletes
+  description: Specify whether the operation should only expunge deleted documents
+  schema:
+    type: boolean
+op_type:
+  in: query
+  name: op_type
+  description: Explicit operation type. Defaults to `index` for requests with an explicit
+    document ID, and to `create`for requests without an explicit document ID
+  schema:
+    type: string
+    enum:
+    - index
+    - create
+order:
+  in: query
+  name: order
+  description: The order for this template when merging multiple matching ones (higher
+    numbers are merged later, overriding the lower numbers)
+  schema:
+    type: integer
+parent_task_id:
+  in: query
+  name: parent_task_id
+  description: Return tasks with specified parent task id (node_id:task_number). Set
+    to -1 to return all.
+  schema:
+    type: string
+payloads:
+  in: query
+  name: payloads
+  description: Specifies if term payloads should be returned.
+  schema:
+    type: boolean
+pipeline:
+  in: query
+  name: pipeline
+  description: The pipeline id to preprocess incoming documents with
+  schema:
+    type: string
+positions:
+  in: query
+  name: positions
+  description: Specifies if term positions should be returned.
+  schema:
+    type: boolean
+pre_filter_shard_size:
+  in: query
+  name: pre_filter_shard_size
+  description: A threshold that enforces a pre-filter roundtrip to prefilter search
+    shards based on query rewriting if the number of shards the search request expands
+    to exceeds the threshold. This filter roundtrip can limit the number of shards
+    significantly if for instance a shard can not match any documents based on its
+    rewrite method ie. if date filters are mandatory to match but the shard bounds
+    and the query are disjoint.
+  schema:
+    type: integer
+preference:
+  in: query
+  name: preference
+  description: 'Specify the node or shard the operation should be performed on (default:
+    random)'
+  schema:
+    type: string
+preserve_existing:
+  in: query
+  name: preserve_existing
+  description: Whether to update existing settings. If set to `true` existing settings
+    on an index remain unchanged, the default is `false`
+  schema:
+    type: boolean
+pri:
+  in: query
+  name: pri
+  description: Set to true to return stats only for primary shards
+  schema:
+    type: boolean
+profile:
+  in: query
+  name: profile
+  description: Specify whether to profile the query execution
+  schema:
+    type: boolean
+q:
+  in: query
+  name: q
+  description: Query in the Lucene query string syntax
+  schema:
+    type: string
+query:
+  in: query
+  name: query
+  description: Clear query caches
+  schema:
+    type: boolean
+realtime:
+  in: query
+  name: realtime
+  description: Specify whether to perform the operation in realtime or search mode
+  schema:
+    type: boolean
+refresh:
+  in: query
+  name: refresh
+  description: Should the affected indexes be refreshed?
+  schema:
+    type: boolean
+request:
+  in: query
+  name: request
+  description: Clear request cache
+  schema:
+    type: boolean
+request_cache:
+  in: query
+  name: request_cache
+  description: Specify if request cache should be used for this request or not, defaults
+    to index level setting
+  schema:
+    type: boolean
+requests_per_second:
+  in: query
+  name: requests_per_second
+  description: The throttle to set on this request in sub-requests per second. -1
+    means no throttle.
+  schema:
+    type: integer
+require_alias:
+  in: query
+  name: require_alias
+  description: When true, requires destination to be an alias. Default is false
+  schema:
+    type: boolean
+rest_total_hits_as_int:
+  in: query
+  name: rest_total_hits_as_int
+  description: Indicates whether hits.total should be rendered as an integer or an
+    object in the rest search response
+  schema:
+    type: boolean
+retry_failed:
+  in: query
+  name: retry_failed
+  description: Retries allocation of shards that are blocked due to too many subsequent
+    allocation failures
+  schema:
+    type: boolean
+retry_on_conflict:
+  in: query
+  name: retry_on_conflict
+  description: 'Specify how many times should the operation be retried when a conflict
+    occurs (default: 0)'
+  schema:
+    type: integer
+rewrite:
+  in: query
+  name: rewrite
+  description: Provide a more detailed explanation showing the actual Lucene query
+    that will be executed.
+  schema:
+    type: boolean
+routing:
+  in: query
+  name: routing
+  description: Specific routing value
+  schema:
+    type: string
+s:
+  in: query
+  name: s
+  description: Comma-separated list of column names or column aliases to sort by
+  schema:
+    $ref: "../schemas/_common.yaml#/string_array"
+scroll:
+  in: query
+  name: scroll
+  description: Control how long to keep the search context alive
+  schema:
+    $ref: "../schemas/_common.yaml#/time"
+scroll_id:
+  in: query
+  name: scroll_id
+  description: The scroll ID for scrolled search
+  schema:
+    type: string
+scroll_size:
+  in: query
+  name: scroll_size
+  description: Size on the scroll request powering the update by query
+  schema:
+    type: integer
+search_timeout:
+  in: query
+  name: search_timeout
+  description: Explicit timeout for each search request. Defaults to no timeout.
+  schema:
+    $ref: "../schemas/_common.yaml#/time"
+search_type:
+  in: query
+  name: search_type
+  description: Search operation type
+  schema:
+    type: string
+    enum:
+    - query_then_fetch
+    - query_and_fetch
+    - dfs_query_then_fetch
+    - dfs_query_and_fetch
+seq_no_primary_term:
+  in: query
+  name: seq_no_primary_term
+  description: Specify whether to return sequence number and primary term of the last
+    modification of each hit
+  schema:
+    type: boolean
+shards:
+  in: query
+  name: shards
+  description: Comma-separated list of shards to display
+  schema:
+    $ref: "../schemas/_common.yaml#/string_array"
+size:
+  in: query
+  name: size
+  description: Deprecated, please use `max_docs` instead
+  schema:
+    type: integer
+slices:
+  in: query
+  name: slices
+  description: The number of slices this task should be divided into. Defaults to
+    1, meaning the task isn't sliced into subtasks. Can be set to `auto`.
+  schema:
+    type:
+    - integer
+    - string
+snapshots:
+  in: query
+  name: snapshots
+  description: 'Number of samples of thread stacktrace (default: 10)'
+  schema:
+    type: integer
+sort:
+  in: query
+  name: sort
+  description: A comma-separated list of <field>:<direction> pairs
+  schema:
+    $ref: "../schemas/_common.yaml#/string_array"
+stats:
+  in: query
+  name: stats
+  description: Specific 'tag' of the request for logging and statistical purposes
+  schema:
+    $ref: "../schemas/_common.yaml#/string_array"
+status:
+  in: query
+  name: status
+  description: A comma-separated list of statuses used to filter on shards to get
+    store information for
+  schema:
+    $ref: "../schemas/_common.yaml#/string_array"
+stored_fields:
+  in: query
+  name: stored_fields
+  description: A comma-separated list of stored fields to return in the response
+  schema:
+    $ref: "../schemas/_common.yaml#/string_array"
+suggest_field:
+  in: query
+  name: suggest_field
+  description: Specify which field to use for suggestions
+  schema:
+    type: string
+suggest_mode:
+  in: query
+  name: suggest_mode
+  description: Specify suggest mode
+  schema:
+    type: string
+    enum:
+    - missing
+    - popular
+    - always
+suggest_size:
+  in: query
+  name: suggest_size
+  description: How many suggestions to return in response
+  schema:
+    type: integer
+suggest_text:
+  in: query
+  name: suggest_text
+  description: The source text for which the suggestions should be returned
+  schema:
+    type: string
+term_statistics:
+  in: query
+  name: term_statistics
+  description: Specifies if total term frequency and document frequency should be
+    returned.
+  schema:
+    type: boolean
+terminate_after:
+  in: query
+  name: terminate_after
+  description: The maximum count for each shard, upon reaching which the query execution
+    will terminate early
+  schema:
+    type: integer
+threads:
+  in: query
+  name: threads
+  description: 'Specify the number of threads to provide information for (default:
+    3)'
+  schema:
+    type: integer
+time:
+  in: query
+  name: time
+  description: The unit in which to display time values
+  schema:
+    type: string
+    enum:
+    - d
+    - h
+    - m
+    - s
+    - ms
+    - micros
+    - nanos
+timeout:
+  in: query
+  name: timeout
+  description: Explicit operation timeout
+  schema:
+    $ref: "../schemas/_common.yaml#/time"
+track_scores:
+  in: query
+  name: track_scores
+  description: Whether to calculate and return scores even if they are not used for
+    sorting
+  schema:
+    type: boolean
+track_total_hits:
+  in: query
+  name: track_total_hits
+  description: Indicate if the number of documents that match the query should be
+    tracked
+  schema:
+    type: boolean
+ts:
+  in: query
+  name: ts
+  description: Set to false to disable timestamping
+  schema:
+    type: boolean
+type:
+  in: query
+  name: type
+  description: 'The type to sample (default: cpu)'
+  schema:
+    type: string
+    enum:
+    - cpu
+    - wait
+    - block
+typed_keys:
+  in: query
+  name: typed_keys
+  description: Specify whether aggregation and suggester names should be prefixed
+    by their respective types in the response
+  schema:
+    type: boolean
+types:
+  in: query
+  name: types
+  description: A comma-separated list of document types for the `indexing` index metric
+  schema:
+    $ref: "../schemas/_common.yaml#/string_array"
+v:
+  in: query
+  name: v
+  description: Verbose mode. Display column headers
+  schema:
+    type: boolean
+verbose:
+  in: query
+  name: verbose
+  description: Includes detailed memory usage by Lucene.
+  schema:
+    type: boolean
+verify:
+  in: query
+  name: verify
+  description: Whether to verify the repository after creation
+  schema:
+    type: boolean
+version:
+  in: query
+  name: version
+  description: Explicit version number for concurrency control
+  schema:
+    type: integer
+version_type:
+  in: query
+  name: version_type
+  description: Specific version type
+  schema:
+    type: string
+    enum:
+    - internal
+    - external
+    - external_gte
+    - force
+wait_for_active_shards:
+  in: query
+  name: wait_for_active_shards
+  description: Sets the number of shard copies that must be active before proceeding
+    with the reindex operation. Defaults to 1, meaning the primary shard only. Set
+    to `all` for all shard copies, otherwise set to any non-negative value less than
+    or equal to the total number of copies for the shard (number of replicas + 1)
+  schema:
+    type: string
+wait_for_completion:
+  in: query
+  name: wait_for_completion
+  description: 'Wait for the matching tasks to complete (default: false)'
+  schema:
+    type: boolean
+wait_for_events:
+  in: query
+  name: wait_for_events
+  description: Wait until all currently queued events with the given priority are
+    processed
+  schema:
+    type: string
+    enum:
+    - immediate
+    - urgent
+    - high
+    - normal
+    - low
+    - languid
+wait_for_metadata_version:
+  in: query
+  name: wait_for_metadata_version
+  description: Wait for the metadata version to be equal or greater than the specified
+    metadata version
+  schema:
+    type: integer
+wait_for_no_initializing_shards:
+  in: query
+  name: wait_for_no_initializing_shards
+  description: Whether to wait until there are no initializing shards in the cluster
+  schema:
+    type: boolean
+wait_for_no_relocating_shards:
+  in: query
+  name: wait_for_no_relocating_shards
+  description: Whether to wait until there are no relocating shards in the cluster
+  schema:
+    type: boolean
+wait_for_nodes:
+  in: query
+  name: wait_for_nodes
+  description: Wait until the specified number of nodes is available
+  schema:
+    type: string
+wait_for_removal:
+  in: query
+  name: wait_for_removal
+  description: Specifies whether to wait for all excluded nodes to be removed from
+    the cluster before clearing the voting configuration exclusions list.
+  schema:
+    type: boolean
+wait_for_status:
+  in: query
+  name: wait_for_status
+  description: Wait until cluster is in a specific state
+  schema:
+    type: string
+    enum:
+    - green
+    - yellow
+    - red
+wait_for_timeout:
+  in: query
+  name: wait_for_timeout
+  description: The maximum time to wait for wait_for_metadata_version before timing
+    out
+  schema:
+    $ref: "../schemas/_common.yaml#/time"
+wait_if_ongoing:
+  in: query
+  name: wait_if_ongoing
+  description: If set to true the flush operation will block until the flush can be
+    executed if another flush operation is already executing. The default is true.
+    If set to false the flush will be skipped iff if another flush operation is already
+    running.
+  schema:
+    type: boolean
+write_index_only:
+  in: query
+  name: write_index_only
+  description: When true, applies mappings only to the write index of an alias or
+    data stream
+  schema:
+    type: boolean

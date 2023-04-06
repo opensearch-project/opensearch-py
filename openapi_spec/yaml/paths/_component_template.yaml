@@ -1,0 +1,8 @@
+---
+get:
+  x-endpoint-group: cluster.get_component_template
+  description: Returns one or more component templates
+  parameters:
+  - $ref: "../parameters/query.yaml#/master_timeout"
+  - $ref: "../parameters/query.yaml#/cluster_manager_timeout"
+  - $ref: "../parameters/query.yaml#/local"

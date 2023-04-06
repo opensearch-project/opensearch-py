@@ -1,0 +1,58 @@
+{
+  "delete": {
+    "x-endpoint-group": "indices.delete_data_stream",
+    "description": "Deletes a data stream.",
+    "parameters": [
+      {
+        "in": "path",
+        "name": "name",
+        "description": "A comma-separated list of data streams to delete; use `*` to delete all data streams",
+        "required": true,
+        "schema": {
+          "$ref": "../schemas/_common.json#/string_array"
+        }
+      }
+    ]
+  },
+  "get": {
+    "x-endpoint-group": "indices.get_data_stream",
+    "description": "Returns data streams.",
+    "parameters": [
+      {
+        "in": "path",
+        "name": "name",
+        "description": "A comma-separated list of data streams to get; use `*` to get all data streams",
+        "required": true,
+        "schema": {
+          "$ref": "../schemas/_common.json#/string_array"
+        }
+      }
+    ]
+  },
+  "put": {
+    "x-endpoint-group": "indices.create_data_stream",
+    "description": "Creates or updates a data stream",
+    "parameters": [
+      {
+        "in": "path",
+        "name": "name",
+        "description": "The name of the data stream",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "requestBody": {
+      "description": "The data stream definition",
+      "required": false,
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object"
+          }
+        }
+      }
+    }
+  }
+}

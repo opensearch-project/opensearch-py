@@ -1,0 +1,9 @@
+---
+get:
+  x-endpoint-group: indices.shard_stores
+  description: Provides store information for shard copies of indices.
+  parameters:
+  - $ref: "../parameters/query.yaml#/status"
+  - $ref: "../parameters/query.yaml#/ignore_unavailable"
+  - $ref: "../parameters/query.yaml#/allow_no_indices"
+  - $ref: "../parameters/query.yaml#/expand_wildcards"

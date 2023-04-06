@@ -1,0 +1,72 @@
+---
+delete:
+  x-endpoint-group: indices.delete
+  description: Deletes an index.
+  parameters:
+  - in: path
+    name: index
+    description: A comma-separated list of indices to delete; use `_all` or `*` string
+      to delete all indices
+    required: true
+    schema:
+      $ref: "../schemas/_common.yaml#/string_array"
+  - $ref: "../parameters/query.yaml#/timeout"
+  - $ref: "../parameters/query.yaml#/master_timeout"
+  - $ref: "../parameters/query.yaml#/ignore_unavailable"
+  - $ref: "../parameters/query.yaml#/allow_no_indices"
+  - $ref: "../parameters/query.yaml#/expand_wildcards"
+get:
+  x-endpoint-group: indices.get
+  description: Returns information about one or more indices.
+  parameters:
+  - in: path
+    name: index
+    description: A comma-separated list of index names
+    required: true
+    schema:
+      $ref: "../schemas/_common.yaml#/string_array"
+  - $ref: "../parameters/query.yaml#/local"
+  - $ref: "../parameters/query.yaml#/ignore_unavailable"
+  - $ref: "../parameters/query.yaml#/allow_no_indices"
+  - $ref: "../parameters/query.yaml#/expand_wildcards"
+  - $ref: "../parameters/query.yaml#/flat_settings"
+  - $ref: "../parameters/query.yaml#/include_defaults"
+  - $ref: "../parameters/query.yaml#/master_timeout"
+  - $ref: "../parameters/query.yaml#/cluster_manager_timeout"
+head:
+  x-endpoint-group: indices.exists
+  description: Returns information about whether a particular index exists.
+  parameters:
+  - in: path
+    name: index
+    description: A comma-separated list of index names
+    required: true
+    schema:
+      $ref: "../schemas/_common.yaml#/string_array"
+  - $ref: "../parameters/query.yaml#/local"
+  - $ref: "../parameters/query.yaml#/ignore_unavailable"
+  - $ref: "../parameters/query.yaml#/allow_no_indices"
+  - $ref: "../parameters/query.yaml#/expand_wildcards"
+  - $ref: "../parameters/query.yaml#/flat_settings"
+  - $ref: "../parameters/query.yaml#/include_defaults"
+put:
+  x-endpoint-group: indices.create
+  description: Creates an index with optional settings and mappings.
+  parameters:
+  - in: path
+    name: index
+    description: The name of the index
+    required: true
+    schema:
+      type: string
+  - $ref: "../parameters/query.yaml#/wait_for_active_shards"
+  - $ref: "../parameters/query.yaml#/timeout"
+  - $ref: "../parameters/query.yaml#/master_timeout"
+  - $ref: "../parameters/query.yaml#/cluster_manager_timeout"
+  requestBody:
+    description: The configuration for the index (`settings` and `mappings`)
+    required: false
+    content:
+      application/json:
+        schema:
+          type: object

@@ -1,0 +1,67 @@
+---
+put:
+  x-endpoint-group: create
+  description: |-
+    Creates a new document in the index.
+
+    Returns a 409 response when a document with a same ID already exists in the index.
+  parameters:
+  - in: path
+    name: id
+    description: Document ID
+    required: true
+    schema:
+      type: string
+  - in: path
+    name: index
+    description: The name of the index
+    required: true
+    schema:
+      type: string
+  - $ref: "../parameters/query.yaml#/wait_for_active_shards"
+  - $ref: "../parameters/query.yaml#/refresh"
+  - $ref: "../parameters/query.yaml#/routing"
+  - $ref: "../parameters/query.yaml#/timeout"
+  - $ref: "../parameters/query.yaml#/version"
+  - $ref: "../parameters/query.yaml#/version_type"
+  - $ref: "../parameters/query.yaml#/pipeline"
+  requestBody:
+    description: The document
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+post:
+  x-endpoint-group: create
+  description: |-
+    Creates a new document in the index.
+
+    Returns a 409 response when a document with a same ID already exists in the index.
+  parameters:
+  - in: path
+    name: id
+    description: Document ID
+    required: true
+    schema:
+      type: string
+  - in: path
+    name: index
+    description: The name of the index
+    required: true
+    schema:
+      type: string
+  - $ref: "../parameters/query.yaml#/wait_for_active_shards"
+  - $ref: "../parameters/query.yaml#/refresh"
+  - $ref: "../parameters/query.yaml#/routing"
+  - $ref: "../parameters/query.yaml#/timeout"
+  - $ref: "../parameters/query.yaml#/version"
+  - $ref: "../parameters/query.yaml#/version_type"
+  - $ref: "../parameters/query.yaml#/pipeline"
+  requestBody:
+    description: The document
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object

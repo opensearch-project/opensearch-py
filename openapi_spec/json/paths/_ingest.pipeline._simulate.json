@@ -1,0 +1,31 @@
+{
+  "get": {
+    "x-endpoint-group": "ingest.simulate",
+    "description": "Allows to simulate a pipeline with example documents.",
+    "parameters": [
+      {
+        "$ref": "../parameters/query.json#/verbose"
+      }
+    ]
+  },
+  "post": {
+    "x-endpoint-group": "ingest.simulate",
+    "description": "Allows to simulate a pipeline with example documents.",
+    "parameters": [
+      {
+        "$ref": "../parameters/query.json#/verbose"
+      }
+    ],
+    "requestBody": {
+      "description": "The simulate definition",
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object"
+          }
+        }
+      }
+    }
+  }
+}

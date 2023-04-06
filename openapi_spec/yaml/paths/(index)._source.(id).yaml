@@ -1,0 +1,51 @@
+---
+head:
+  x-endpoint-group: exists_source
+  description: Returns information about whether a document source exists in an index.
+  parameters:
+  - in: path
+    name: id
+    description: The document ID
+    required: true
+    schema:
+      type: string
+  - in: path
+    name: index
+    description: The name of the index
+    required: true
+    schema:
+      type: string
+  - $ref: "../parameters/query.yaml#/preference"
+  - $ref: "../parameters/query.yaml#/realtime"
+  - $ref: "../parameters/query.yaml#/refresh"
+  - $ref: "../parameters/query.yaml#/routing"
+  - $ref: "../parameters/query.yaml#/_source"
+  - $ref: "../parameters/query.yaml#/_source_excludes"
+  - $ref: "../parameters/query.yaml#/_source_includes"
+  - $ref: "../parameters/query.yaml#/version"
+  - $ref: "../parameters/query.yaml#/version_type"
+get:
+  x-endpoint-group: get_source
+  description: Returns the source of a document.
+  parameters:
+  - in: path
+    name: id
+    description: The document ID
+    required: true
+    schema:
+      type: string
+  - in: path
+    name: index
+    description: The name of the index
+    required: true
+    schema:
+      type: string
+  - $ref: "../parameters/query.yaml#/preference"
+  - $ref: "../parameters/query.yaml#/realtime"
+  - $ref: "../parameters/query.yaml#/refresh"
+  - $ref: "../parameters/query.yaml#/routing"
+  - $ref: "../parameters/query.yaml#/_source"
+  - $ref: "../parameters/query.yaml#/_source_excludes"
+  - $ref: "../parameters/query.yaml#/_source_includes"
+  - $ref: "../parameters/query.yaml#/version"
+  - $ref: "../parameters/query.yaml#/version_type"

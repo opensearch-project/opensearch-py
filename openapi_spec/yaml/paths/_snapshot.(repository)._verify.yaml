@@ -1,0 +1,14 @@
+---
+post:
+  x-endpoint-group: snapshot.verify_repository
+  description: Verifies a repository.
+  parameters:
+  - in: path
+    name: repository
+    description: A repository name
+    required: true
+    schema:
+      type: string
+  - $ref: "../parameters/query.yaml#/master_timeout"
+  - $ref: "../parameters/query.yaml#/cluster_manager_timeout"
+  - $ref: "../parameters/query.yaml#/timeout"

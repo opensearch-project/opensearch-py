@@ -1,0 +1,20 @@
+---
+get:
+  x-endpoint-group: cat.segments
+  description: Provides low-level information about the segments in the shards of
+    an index.
+  parameters:
+  - in: path
+    name: index
+    description: A comma-separated list of index names to limit the returned information
+    required: true
+    schema:
+      $ref: "../schemas/_common.yaml#/string_array"
+  - $ref: "../parameters/query.yaml#/format"
+  - $ref: "../parameters/query.yaml#/bytes"
+  - $ref: "../parameters/query.yaml#/master_timeout"
+  - $ref: "../parameters/query.yaml#/cluster_manager_timeout"
+  - $ref: "../parameters/query.yaml#/h"
+  - $ref: "../parameters/query.yaml#/help"
+  - $ref: "../parameters/query.yaml#/s"
+  - $ref: "../parameters/query.yaml#/v"

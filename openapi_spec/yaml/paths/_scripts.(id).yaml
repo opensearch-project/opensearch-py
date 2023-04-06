@@ -1,0 +1,68 @@
+---
+delete:
+  x-endpoint-group: delete_script
+  description: Deletes a script.
+  parameters:
+  - in: path
+    name: id
+    description: Script ID
+    required: true
+    schema:
+      type: string
+  - $ref: "../parameters/query.yaml#/timeout"
+  - $ref: "../parameters/query.yaml#/master_timeout"
+  - $ref: "../parameters/query.yaml#/cluster_manager_timeout"
+get:
+  x-endpoint-group: get_script
+  description: Returns a script.
+  parameters:
+  - in: path
+    name: id
+    description: Script ID
+    required: true
+    schema:
+      type: string
+  - $ref: "../parameters/query.yaml#/master_timeout"
+  - $ref: "../parameters/query.yaml#/cluster_manager_timeout"
+put:
+  x-endpoint-group: put_script
+  description: Creates or updates a script.
+  parameters:
+  - in: path
+    name: id
+    description: Script ID
+    required: true
+    schema:
+      type: string
+  - $ref: "../parameters/query.yaml#/timeout"
+  - $ref: "../parameters/query.yaml#/master_timeout"
+  - $ref: "../parameters/query.yaml#/cluster_manager_timeout"
+  - $ref: "../parameters/query.yaml#/context"
+  requestBody:
+    description: The document
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+post:
+  x-endpoint-group: put_script
+  description: Creates or updates a script.
+  parameters:
+  - in: path
+    name: id
+    description: Script ID
+    required: true
+    schema:
+      type: string
+  - $ref: "../parameters/query.yaml#/timeout"
+  - $ref: "../parameters/query.yaml#/master_timeout"
+  - $ref: "../parameters/query.yaml#/cluster_manager_timeout"
+  - $ref: "../parameters/query.yaml#/context"
+  requestBody:
+    description: The document
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object

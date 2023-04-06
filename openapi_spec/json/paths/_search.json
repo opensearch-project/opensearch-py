@@ -1,0 +1,277 @@
+{
+  "get": {
+    "x-endpoint-group": "search",
+    "description": "Returns results matching a query.",
+    "parameters": [
+      {
+        "$ref": "../parameters/query.json#/analyzer"
+      },
+      {
+        "$ref": "../parameters/query.json#/analyze_wildcard"
+      },
+      {
+        "$ref": "../parameters/query.json#/ccs_minimize_roundtrips"
+      },
+      {
+        "$ref": "../parameters/query.json#/default_operator"
+      },
+      {
+        "$ref": "../parameters/query.json#/df"
+      },
+      {
+        "$ref": "../parameters/query.json#/explain"
+      },
+      {
+        "$ref": "../parameters/query.json#/stored_fields"
+      },
+      {
+        "$ref": "../parameters/query.json#/docvalue_fields"
+      },
+      {
+        "$ref": "../parameters/query.json#/from"
+      },
+      {
+        "$ref": "../parameters/query.json#/ignore_unavailable"
+      },
+      {
+        "$ref": "../parameters/query.json#/ignore_throttled"
+      },
+      {
+        "$ref": "../parameters/query.json#/allow_no_indices"
+      },
+      {
+        "$ref": "../parameters/query.json#/expand_wildcards"
+      },
+      {
+        "$ref": "../parameters/query.json#/lenient"
+      },
+      {
+        "$ref": "../parameters/query.json#/preference"
+      },
+      {
+        "$ref": "../parameters/query.json#/q"
+      },
+      {
+        "$ref": "../parameters/query.json#/routing"
+      },
+      {
+        "$ref": "../parameters/query.json#/scroll"
+      },
+      {
+        "$ref": "../parameters/query.json#/search_type"
+      },
+      {
+        "$ref": "../parameters/query.json#/size"
+      },
+      {
+        "$ref": "../parameters/query.json#/sort"
+      },
+      {
+        "$ref": "../parameters/query.json#/_source"
+      },
+      {
+        "$ref": "../parameters/query.json#/_source_excludes"
+      },
+      {
+        "$ref": "../parameters/query.json#/_source_includes"
+      },
+      {
+        "$ref": "../parameters/query.json#/terminate_after"
+      },
+      {
+        "$ref": "../parameters/query.json#/stats"
+      },
+      {
+        "$ref": "../parameters/query.json#/suggest_field"
+      },
+      {
+        "$ref": "../parameters/query.json#/suggest_mode"
+      },
+      {
+        "$ref": "../parameters/query.json#/suggest_size"
+      },
+      {
+        "$ref": "../parameters/query.json#/suggest_text"
+      },
+      {
+        "$ref": "../parameters/query.json#/timeout"
+      },
+      {
+        "$ref": "../parameters/query.json#/track_scores"
+      },
+      {
+        "$ref": "../parameters/query.json#/track_total_hits"
+      },
+      {
+        "$ref": "../parameters/query.json#/allow_partial_search_results"
+      },
+      {
+        "$ref": "../parameters/query.json#/typed_keys"
+      },
+      {
+        "$ref": "../parameters/query.json#/version"
+      },
+      {
+        "$ref": "../parameters/query.json#/seq_no_primary_term"
+      },
+      {
+        "$ref": "../parameters/query.json#/request_cache"
+      },
+      {
+        "$ref": "../parameters/query.json#/batched_reduce_size"
+      },
+      {
+        "$ref": "../parameters/query.json#/max_concurrent_shard_requests"
+      },
+      {
+        "$ref": "../parameters/query.json#/pre_filter_shard_size"
+      },
+      {
+        "$ref": "../parameters/query.json#/rest_total_hits_as_int"
+      }
+    ]
+  },
+  "post": {
+    "x-endpoint-group": "search",
+    "description": "Returns results matching a query.",
+    "parameters": [
+      {
+        "$ref": "../parameters/query.json#/analyzer"
+      },
+      {
+        "$ref": "../parameters/query.json#/analyze_wildcard"
+      },
+      {
+        "$ref": "../parameters/query.json#/ccs_minimize_roundtrips"
+      },
+      {
+        "$ref": "../parameters/query.json#/default_operator"
+      },
+      {
+        "$ref": "../parameters/query.json#/df"
+      },
+      {
+        "$ref": "../parameters/query.json#/explain"
+      },
+      {
+        "$ref": "../parameters/query.json#/stored_fields"
+      },
+      {
+        "$ref": "../parameters/query.json#/docvalue_fields"
+      },
+      {
+        "$ref": "../parameters/query.json#/from"
+      },
+      {
+        "$ref": "../parameters/query.json#/ignore_unavailable"
+      },
+      {
+        "$ref": "../parameters/query.json#/ignore_throttled"
+      },
+      {
+        "$ref": "../parameters/query.json#/allow_no_indices"
+      },
+      {
+        "$ref": "../parameters/query.json#/expand_wildcards"
+      },
+      {
+        "$ref": "../parameters/query.json#/lenient"
+      },
+      {
+        "$ref": "../parameters/query.json#/preference"
+      },
+      {
+        "$ref": "../parameters/query.json#/q"
+      },
+      {
+        "$ref": "../parameters/query.json#/routing"
+      },
+      {
+        "$ref": "../parameters/query.json#/scroll"
+      },
+      {
+        "$ref": "../parameters/query.json#/search_type"
+      },
+      {
+        "$ref": "../parameters/query.json#/size"
+      },
+      {
+        "$ref": "../parameters/query.json#/sort"
+      },
+      {
+        "$ref": "../parameters/query.json#/_source"
+      },
+      {
+        "$ref": "../parameters/query.json#/_source_excludes"
+      },
+      {
+        "$ref": "../parameters/query.json#/_source_includes"
+      },
+      {
+        "$ref": "../parameters/query.json#/terminate_after"
+      },
+      {
+        "$ref": "../parameters/query.json#/stats"
+      },
+      {
+        "$ref": "../parameters/query.json#/suggest_field"
+      },
+      {
+        "$ref": "../parameters/query.json#/suggest_mode"
+      },
+      {
+        "$ref": "../parameters/query.json#/suggest_size"
+      },
+      {
+        "$ref": "../parameters/query.json#/suggest_text"
+      },
+      {
+        "$ref": "../parameters/query.json#/timeout"
+      },
+      {
+        "$ref": "../parameters/query.json#/track_scores"
+      },
+      {
+        "$ref": "../parameters/query.json#/track_total_hits"
+      },
+      {
+        "$ref": "../parameters/query.json#/allow_partial_search_results"
+      },
+      {
+        "$ref": "../parameters/query.json#/typed_keys"
+      },
+      {
+        "$ref": "../parameters/query.json#/version"
+      },
+      {
+        "$ref": "../parameters/query.json#/seq_no_primary_term"
+      },
+      {
+        "$ref": "../parameters/query.json#/request_cache"
+      },
+      {
+        "$ref": "../parameters/query.json#/batched_reduce_size"
+      },
+      {
+        "$ref": "../parameters/query.json#/max_concurrent_shard_requests"
+      },
+      {
+        "$ref": "../parameters/query.json#/pre_filter_shard_size"
+      },
+      {
+        "$ref": "../parameters/query.json#/rest_total_hits_as_int"
+      }
+    ],
+    "requestBody": {
+      "description": "The search definition using the Query DSL",
+      "required": false,
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object"
+          }
+        }
+      }
+    }
+  }
+}

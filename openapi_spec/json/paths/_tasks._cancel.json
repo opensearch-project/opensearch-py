@@ -1,0 +1,20 @@
+{
+  "post": {
+    "x-endpoint-group": "tasks.cancel",
+    "description": "Cancels a task, if it can be cancelled through an API.",
+    "parameters": [
+      {
+        "$ref": "../parameters/query.json#/nodes"
+      },
+      {
+        "$ref": "../parameters/query.json#/actions"
+      },
+      {
+        "$ref": "../parameters/query.json#/parent_task_id"
+      },
+      {
+        "$ref": "../parameters/query.json#/wait_for_completion"
+      }
+    ]
+  }
+}

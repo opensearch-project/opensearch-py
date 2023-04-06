@@ -1,0 +1,29 @@
+---
+head:
+  x-endpoint-group: indices.exists_alias
+  description: Returns information about whether a particular alias exists.
+  parameters:
+  - in: path
+    name: name
+    description: A comma-separated list of alias names to return
+    required: true
+    schema:
+      $ref: "../schemas/_common.yaml#/string_array"
+  - $ref: "../parameters/query.yaml#/ignore_unavailable"
+  - $ref: "../parameters/query.yaml#/allow_no_indices"
+  - $ref: "../parameters/query.yaml#/expand_wildcards"
+  - $ref: "../parameters/query.yaml#/local"
+get:
+  x-endpoint-group: indices.get_alias
+  description: Returns an alias.
+  parameters:
+  - in: path
+    name: name
+    description: A comma-separated list of alias names to return
+    required: true
+    schema:
+      $ref: "../schemas/_common.yaml#/string_array"
+  - $ref: "../parameters/query.yaml#/ignore_unavailable"
+  - $ref: "../parameters/query.yaml#/allow_no_indices"
+  - $ref: "../parameters/query.yaml#/expand_wildcards"
+  - $ref: "../parameters/query.yaml#/local"

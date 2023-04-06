@@ -1,0 +1,38 @@
+{
+  "get": {
+    "x-endpoint-group": "cat.fielddata",
+    "description": "Shows how much heap memory is currently being used by fielddata on every data node in the cluster.",
+    "parameters": [
+      {
+        "in": "path",
+        "name": "fields",
+        "description": "A comma-separated list of fields to return the fielddata size",
+        "required": true,
+        "schema": {
+          "$ref": "../schemas/_common.json#/string_array"
+        }
+      },
+      {
+        "$ref": "../parameters/query.json#/format"
+      },
+      {
+        "$ref": "../parameters/query.json#/bytes"
+      },
+      {
+        "$ref": "../parameters/query.json#/h"
+      },
+      {
+        "$ref": "../parameters/query.json#/help"
+      },
+      {
+        "$ref": "../parameters/query.json#/s"
+      },
+      {
+        "$ref": "../parameters/query.json#/v"
+      },
+      {
+        "$ref": "../parameters/query.json#/fields"
+      }
+    ]
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "post": {
+    "x-endpoint-group": "snapshot.cleanup_repository",
+    "description": "Removes stale data from repository.",
+    "parameters": [
+      {
+        "in": "path",
+        "name": "repository",
+        "description": "A repository name",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "$ref": "../parameters/query.json#/master_timeout"
+      },
+      {
+        "$ref": "../parameters/query.json#/cluster_manager_timeout"
+      },
+      {
+        "$ref": "../parameters/query.json#/timeout"
+      }
+    ]
+  }
+}

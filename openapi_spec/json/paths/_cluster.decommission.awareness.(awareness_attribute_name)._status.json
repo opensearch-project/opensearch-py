@@ -1,0 +1,17 @@
+{
+  "get": {
+    "x-endpoint-group": "cluster.get_decommission_awareness",
+    "description": "Get details and status of decommissioned attribute",
+    "parameters": [
+      {
+        "in": "path",
+        "name": "awareness_attribute_name",
+        "description": "Awareness attribute name",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ]
+  }
+}

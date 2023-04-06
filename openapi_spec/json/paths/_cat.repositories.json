@@ -1,0 +1,32 @@
+{
+  "get": {
+    "x-endpoint-group": "cat.repositories",
+    "description": "Returns information about snapshot repositories registered in the cluster.",
+    "parameters": [
+      {
+        "$ref": "../parameters/query.json#/format"
+      },
+      {
+        "$ref": "../parameters/query.json#/local"
+      },
+      {
+        "$ref": "../parameters/query.json#/master_timeout"
+      },
+      {
+        "$ref": "../parameters/query.json#/cluster_manager_timeout"
+      },
+      {
+        "$ref": "../parameters/query.json#/h"
+      },
+      {
+        "$ref": "../parameters/query.json#/help"
+      },
+      {
+        "$ref": "../parameters/query.json#/s"
+      },
+      {
+        "$ref": "../parameters/query.json#/v"
+      }
+    ]
+  }
+}

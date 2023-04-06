@@ -1,0 +1,22 @@
+{
+  "post": {
+    "x-endpoint-group": "nodes.reload_secure_settings",
+    "description": "Reloads secure settings.",
+    "parameters": [
+      {
+        "$ref": "../parameters/query.json#/timeout"
+      }
+    ],
+    "requestBody": {
+      "description": "An object containing the password for the opensearch keystore",
+      "required": false,
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object"
+          }
+        }
+      }
+    }
+  }
+}

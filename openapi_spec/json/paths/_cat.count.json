@@ -1,0 +1,23 @@
+{
+  "get": {
+    "x-endpoint-group": "cat.count",
+    "description": "Provides quick access to the document count of the entire cluster, or individual indices.",
+    "parameters": [
+      {
+        "$ref": "../parameters/query.json#/format"
+      },
+      {
+        "$ref": "../parameters/query.json#/h"
+      },
+      {
+        "$ref": "../parameters/query.json#/help"
+      },
+      {
+        "$ref": "../parameters/query.json#/s"
+      },
+      {
+        "$ref": "../parameters/query.json#/v"
+      }
+    ]
+  }
+}

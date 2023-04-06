@@ -1,0 +1,13 @@
+---
+get:
+  x-endpoint-group: cat.fielddata
+  description: Shows how much heap memory is currently being used by fielddata on
+    every data node in the cluster.
+  parameters:
+  - $ref: "../parameters/query.yaml#/format"
+  - $ref: "../parameters/query.yaml#/bytes"
+  - $ref: "../parameters/query.yaml#/h"
+  - $ref: "../parameters/query.yaml#/help"
+  - $ref: "../parameters/query.yaml#/s"
+  - $ref: "../parameters/query.yaml#/v"
+  - $ref: "../parameters/query.yaml#/fields"

@@ -1,0 +1,294 @@
+{
+  "get": {
+    "x-endpoint-group": "get",
+    "description": "Returns a document.",
+    "parameters": [
+      {
+        "in": "path",
+        "name": "id",
+        "description": "The document ID",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "in": "path",
+        "name": "index",
+        "description": "The name of the index",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "$ref": "../parameters/query.json#/stored_fields"
+      },
+      {
+        "$ref": "../parameters/query.json#/preference"
+      },
+      {
+        "$ref": "../parameters/query.json#/realtime"
+      },
+      {
+        "$ref": "../parameters/query.json#/refresh"
+      },
+      {
+        "$ref": "../parameters/query.json#/routing"
+      },
+      {
+        "$ref": "../parameters/query.json#/_source"
+      },
+      {
+        "$ref": "../parameters/query.json#/_source_excludes"
+      },
+      {
+        "$ref": "../parameters/query.json#/_source_includes"
+      },
+      {
+        "$ref": "../parameters/query.json#/version"
+      },
+      {
+        "$ref": "../parameters/query.json#/version_type"
+      }
+    ]
+  },
+  "delete": {
+    "x-endpoint-group": "delete",
+    "description": "Removes a document from the index.",
+    "parameters": [
+      {
+        "in": "path",
+        "name": "id",
+        "description": "The document ID",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "in": "path",
+        "name": "index",
+        "description": "The name of the index",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "$ref": "../parameters/query.json#/wait_for_active_shards"
+      },
+      {
+        "$ref": "../parameters/query.json#/refresh"
+      },
+      {
+        "$ref": "../parameters/query.json#/routing"
+      },
+      {
+        "$ref": "../parameters/query.json#/timeout"
+      },
+      {
+        "$ref": "../parameters/query.json#/if_seq_no"
+      },
+      {
+        "$ref": "../parameters/query.json#/if_primary_term"
+      },
+      {
+        "$ref": "../parameters/query.json#/version"
+      },
+      {
+        "$ref": "../parameters/query.json#/version_type"
+      }
+    ]
+  },
+  "put": {
+    "x-endpoint-group": "index",
+    "description": "Creates or updates a document in an index.",
+    "parameters": [
+      {
+        "in": "path",
+        "name": "id",
+        "description": "Document ID",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "in": "path",
+        "name": "index",
+        "description": "The name of the index",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "$ref": "../parameters/query.json#/wait_for_active_shards"
+      },
+      {
+        "$ref": "../parameters/query.json#/op_type"
+      },
+      {
+        "$ref": "../parameters/query.json#/refresh"
+      },
+      {
+        "$ref": "../parameters/query.json#/routing"
+      },
+      {
+        "$ref": "../parameters/query.json#/timeout"
+      },
+      {
+        "$ref": "../parameters/query.json#/version"
+      },
+      {
+        "$ref": "../parameters/query.json#/version_type"
+      },
+      {
+        "$ref": "../parameters/query.json#/if_seq_no"
+      },
+      {
+        "$ref": "../parameters/query.json#/if_primary_term"
+      },
+      {
+        "$ref": "../parameters/query.json#/pipeline"
+      },
+      {
+        "$ref": "../parameters/query.json#/require_alias"
+      }
+    ],
+    "requestBody": {
+      "description": "The document",
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object"
+          }
+        }
+      }
+    }
+  },
+  "post": {
+    "x-endpoint-group": "index",
+    "description": "Creates or updates a document in an index.",
+    "parameters": [
+      {
+        "in": "path",
+        "name": "id",
+        "description": "Document ID",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "in": "path",
+        "name": "index",
+        "description": "The name of the index",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "$ref": "../parameters/query.json#/wait_for_active_shards"
+      },
+      {
+        "$ref": "../parameters/query.json#/op_type"
+      },
+      {
+        "$ref": "../parameters/query.json#/refresh"
+      },
+      {
+        "$ref": "../parameters/query.json#/routing"
+      },
+      {
+        "$ref": "../parameters/query.json#/timeout"
+      },
+      {
+        "$ref": "../parameters/query.json#/version"
+      },
+      {
+        "$ref": "../parameters/query.json#/version_type"
+      },
+      {
+        "$ref": "../parameters/query.json#/if_seq_no"
+      },
+      {
+        "$ref": "../parameters/query.json#/if_primary_term"
+      },
+      {
+        "$ref": "../parameters/query.json#/pipeline"
+      },
+      {
+        "$ref": "../parameters/query.json#/require_alias"
+      }
+    ],
+    "requestBody": {
+      "description": "The document",
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object"
+          }
+        }
+      }
+    }
+  },
+  "head": {
+    "x-endpoint-group": "exists",
+    "description": "Returns information about whether a document exists in an index.",
+    "parameters": [
+      {
+        "in": "path",
+        "name": "id",
+        "description": "The document ID",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "in": "path",
+        "name": "index",
+        "description": "The name of the index",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "$ref": "../parameters/query.json#/stored_fields"
+      },
+      {
+        "$ref": "../parameters/query.json#/preference"
+      },
+      {
+        "$ref": "../parameters/query.json#/realtime"
+      },
+      {
+        "$ref": "../parameters/query.json#/refresh"
+      },
+      {
+        "$ref": "../parameters/query.json#/routing"
+      },
+      {
+        "$ref": "../parameters/query.json#/_source"
+      },
+      {
+        "$ref": "../parameters/query.json#/_source_excludes"
+      },
+      {
+        "$ref": "../parameters/query.json#/_source_includes"
+      },
+      {
+        "$ref": "../parameters/query.json#/version"
+      },
+      {
+        "$ref": "../parameters/query.json#/version_type"
+      }
+    ]
+  }
+}

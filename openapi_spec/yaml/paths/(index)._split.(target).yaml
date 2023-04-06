@@ -1,0 +1,59 @@
+---
+put:
+  x-endpoint-group: indices.split
+  description: Allows you to split an existing index into a new index with more primary
+    shards.
+  parameters:
+  - in: path
+    name: index
+    description: The name of the source index to split
+    required: true
+    schema:
+      type: string
+  - in: path
+    name: target
+    description: The name of the target index to split into
+    required: true
+    schema:
+      type: string
+  - $ref: "../parameters/query.yaml#/copy_settings"
+  - $ref: "../parameters/query.yaml#/timeout"
+  - $ref: "../parameters/query.yaml#/master_timeout"
+  - $ref: "../parameters/query.yaml#/cluster_manager_timeout"
+  - $ref: "../parameters/query.yaml#/wait_for_active_shards"
+  requestBody:
+    description: The configuration for the target index (`settings` and `aliases`)
+    required: false
+    content:
+      application/json:
+        schema:
+          type: object
+post:
+  x-endpoint-group: indices.split
+  description: Allows you to split an existing index into a new index with more primary
+    shards.
+  parameters:
+  - in: path
+    name: index
+    description: The name of the source index to split
+    required: true
+    schema:
+      type: string
+  - in: path
+    name: target
+    description: The name of the target index to split into
+    required: true
+    schema:
+      type: string
+  - $ref: "../parameters/query.yaml#/copy_settings"
+  - $ref: "../parameters/query.yaml#/timeout"
+  - $ref: "../parameters/query.yaml#/master_timeout"
+  - $ref: "../parameters/query.yaml#/cluster_manager_timeout"
+  - $ref: "../parameters/query.yaml#/wait_for_active_shards"
+  requestBody:
+    description: The configuration for the target index (`settings` and `aliases`)
+    required: false
+    content:
+      application/json:
+        schema:
+          type: object

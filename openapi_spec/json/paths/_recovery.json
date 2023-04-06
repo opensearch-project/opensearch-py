@@ -1,0 +1,14 @@
+{
+  "get": {
+    "x-endpoint-group": "indices.recovery",
+    "description": "Returns information about ongoing index shard recoveries.",
+    "parameters": [
+      {
+        "$ref": "../parameters/query.json#/detailed"
+      },
+      {
+        "$ref": "../parameters/query.json#/active_only"
+      }
+    ]
+  }
+}

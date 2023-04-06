@@ -1,0 +1,133 @@
+{
+  "get": {
+    "x-endpoint-group": "explain",
+    "description": "Returns information about why a specific matches (or doesn't match) a query.",
+    "parameters": [
+      {
+        "in": "path",
+        "name": "id",
+        "description": "The document ID",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "in": "path",
+        "name": "index",
+        "description": "The name of the index",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "$ref": "../parameters/query.json#/analyze_wildcard"
+      },
+      {
+        "$ref": "../parameters/query.json#/analyzer"
+      },
+      {
+        "$ref": "../parameters/query.json#/default_operator"
+      },
+      {
+        "$ref": "../parameters/query.json#/df"
+      },
+      {
+        "$ref": "../parameters/query.json#/stored_fields"
+      },
+      {
+        "$ref": "../parameters/query.json#/lenient"
+      },
+      {
+        "$ref": "../parameters/query.json#/preference"
+      },
+      {
+        "$ref": "../parameters/query.json#/q"
+      },
+      {
+        "$ref": "../parameters/query.json#/routing"
+      },
+      {
+        "$ref": "../parameters/query.json#/_source"
+      },
+      {
+        "$ref": "../parameters/query.json#/_source_excludes"
+      },
+      {
+        "$ref": "../parameters/query.json#/_source_includes"
+      }
+    ]
+  },
+  "post": {
+    "x-endpoint-group": "explain",
+    "description": "Returns information about why a specific matches (or doesn't match) a query.",
+    "parameters": [
+      {
+        "in": "path",
+        "name": "id",
+        "description": "The document ID",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "in": "path",
+        "name": "index",
+        "description": "The name of the index",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "$ref": "../parameters/query.json#/analyze_wildcard"
+      },
+      {
+        "$ref": "../parameters/query.json#/analyzer"
+      },
+      {
+        "$ref": "../parameters/query.json#/default_operator"
+      },
+      {
+        "$ref": "../parameters/query.json#/df"
+      },
+      {
+        "$ref": "../parameters/query.json#/stored_fields"
+      },
+      {
+        "$ref": "../parameters/query.json#/lenient"
+      },
+      {
+        "$ref": "../parameters/query.json#/preference"
+      },
+      {
+        "$ref": "../parameters/query.json#/q"
+      },
+      {
+        "$ref": "../parameters/query.json#/routing"
+      },
+      {
+        "$ref": "../parameters/query.json#/_source"
+      },
+      {
+        "$ref": "../parameters/query.json#/_source_excludes"
+      },
+      {
+        "$ref": "../parameters/query.json#/_source_includes"
+      }
+    ],
+    "requestBody": {
+      "description": "The query definition using the Query DSL",
+      "required": false,
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object"
+          }
+        }
+      }
+    }
+  }
+}

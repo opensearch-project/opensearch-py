@@ -1,0 +1,5 @@
+---
+get:
+  x-endpoint-group: cluster.remote_info
+  description: Returns the information about configured remote clusters.
+  parameters: []

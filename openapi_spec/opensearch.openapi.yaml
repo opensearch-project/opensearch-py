@@ -1,0 +1,422 @@
+---
+openapi: 3.1.0
+info:
+  title: OpenSearch
+  version: '2.5'
+paths:
+  "/":
+    $ref: "./paths/_.yaml"
+  "/_alias":
+    $ref: "./paths/_alias.yaml"
+  "/_alias/{name}":
+    $ref: "./paths/_alias.(name).yaml"
+  "/_aliases":
+    $ref: "./paths/_aliases.yaml"
+  "/_analyze":
+    $ref: "./paths/_analyze.yaml"
+  "/_bulk":
+    $ref: "./paths/_bulk.yaml"
+  "/_cache/clear":
+    $ref: "./paths/_cache.clear.yaml"
+  "/_cat":
+    $ref: "./paths/_cat.yaml"
+  "/_cat/aliases":
+    $ref: "./paths/_cat.aliases.yaml"
+  "/_cat/aliases/{name}":
+    $ref: "./paths/_cat.aliases.(name).yaml"
+  "/_cat/allocation":
+    $ref: "./paths/_cat.allocation.yaml"
+  "/_cat/allocation/{node_id}":
+    $ref: "./paths/_cat.allocation.(node_id).yaml"
+  "/_cat/cluster_manager":
+    $ref: "./paths/_cat.cluster_manager.yaml"
+  "/_cat/count":
+    $ref: "./paths/_cat.count.yaml"
+  "/_cat/count/{index}":
+    $ref: "./paths/_cat.count.(index).yaml"
+  "/_cat/fielddata":
+    $ref: "./paths/_cat.fielddata.yaml"
+  "/_cat/fielddata/{fields}":
+    $ref: "./paths/_cat.fielddata.(fields).yaml"
+  "/_cat/health":
+    $ref: "./paths/_cat.health.yaml"
+  "/_cat/indices":
+    $ref: "./paths/_cat.indices.yaml"
+  "/_cat/indices/{index}":
+    $ref: "./paths/_cat.indices.(index).yaml"
+  "/_cat/master":
+    $ref: "./paths/_cat.master.yaml"
+  "/_cat/nodeattrs":
+    $ref: "./paths/_cat.nodeattrs.yaml"
+  "/_cat/nodes":
+    $ref: "./paths/_cat.nodes.yaml"
+  "/_cat/pending_tasks":
+    $ref: "./paths/_cat.pending_tasks.yaml"
+  "/_cat/plugins":
+    $ref: "./paths/_cat.plugins.yaml"
+  "/_cat/recovery":
+    $ref: "./paths/_cat.recovery.yaml"
+  "/_cat/recovery/{index}":
+    $ref: "./paths/_cat.recovery.(index).yaml"
+  "/_cat/repositories":
+    $ref: "./paths/_cat.repositories.yaml"
+  "/_cat/segment_replication":
+    $ref: "./paths/_cat.segment_replication.yaml"
+  "/_cat/segment_replication/{index}":
+    $ref: "./paths/_cat.segment_replication.(index).yaml"
+  "/_cat/segments":
+    $ref: "./paths/_cat.segments.yaml"
+  "/_cat/segments/{index}":
+    $ref: "./paths/_cat.segments.(index).yaml"
+  "/_cat/shards":
+    $ref: "./paths/_cat.shards.yaml"
+  "/_cat/shards/{index}":
+    $ref: "./paths/_cat.shards.(index).yaml"
+  "/_cat/snapshots":
+    $ref: "./paths/_cat.snapshots.yaml"
+  "/_cat/snapshots/{repository}":
+    $ref: "./paths/_cat.snapshots.(repository).yaml"
+  "/_cat/tasks":
+    $ref: "./paths/_cat.tasks.yaml"
+  "/_cat/templates":
+    $ref: "./paths/_cat.templates.yaml"
+  "/_cat/templates/{name}":
+    $ref: "./paths/_cat.templates.(name).yaml"
+  "/_cat/thread_pool":
+    $ref: "./paths/_cat.thread_pool.yaml"
+  "/_cat/thread_pool/{thread_pool_patterns}":
+    $ref: "./paths/_cat.thread_pool.(thread_pool_patterns).yaml"
+  "/_cluster/allocation/explain":
+    $ref: "./paths/_cluster.allocation.explain.yaml"
+  "/_cluster/decommission/awareness/":
+    $ref: "./paths/_cluster.decommission.awareness..yaml"
+  "/_cluster/decommission/awareness/{awareness_attribute_name}/_status":
+    $ref: "./paths/_cluster.decommission.awareness.(awareness_attribute_name)._status.yaml"
+  "/_cluster/decommission/awareness/{awareness_attribute_name}/{awareness_attribute_value}":
+    $ref: "./paths/_cluster.decommission.awareness.(awareness_attribute_name).(awareness_attribute_value).yaml"
+  "/_cluster/health":
+    $ref: "./paths/_cluster.health.yaml"
+  "/_cluster/health/{index}":
+    $ref: "./paths/_cluster.health.(index).yaml"
+  "/_cluster/nodes/hot_threads":
+    $ref: "./paths/_cluster.nodes.hot_threads.yaml"
+  "/_cluster/nodes/hotthreads":
+    $ref: "./paths/_cluster.nodes.hotthreads.yaml"
+  "/_cluster/nodes/{node_id}/hot_threads":
+    $ref: "./paths/_cluster.nodes.(node_id).hot_threads.yaml"
+  "/_cluster/nodes/{node_id}/hotthreads":
+    $ref: "./paths/_cluster.nodes.(node_id).hotthreads.yaml"
+  "/_cluster/pending_tasks":
+    $ref: "./paths/_cluster.pending_tasks.yaml"
+  "/_cluster/reroute":
+    $ref: "./paths/_cluster.reroute.yaml"
+  "/_cluster/routing/awareness/weights":
+    $ref: "./paths/_cluster.routing.awareness.weights.yaml"
+  "/_cluster/routing/awareness/{attribute}/weights":
+    $ref: "./paths/_cluster.routing.awareness.(attribute).weights.yaml"
+  "/_cluster/settings":
+    $ref: "./paths/_cluster.settings.yaml"
+  "/_cluster/state":
+    $ref: "./paths/_cluster.state.yaml"
+  "/_cluster/state/{metric}":
+    $ref: "./paths/_cluster.state.(metric).yaml"
+  "/_cluster/state/{metric}/{index}":
+    $ref: "./paths/_cluster.state.(metric).(index).yaml"
+  "/_cluster/stats":
+    $ref: "./paths/_cluster.stats.yaml"
+  "/_cluster/stats/nodes/{node_id}":
+    $ref: "./paths/_cluster.stats.nodes.(node_id).yaml"
+  "/_cluster/voting_config_exclusions":
+    $ref: "./paths/_cluster.voting_config_exclusions.yaml"
+  "/_component_template":
+    $ref: "./paths/_component_template.yaml"
+  "/_component_template/{name}":
+    $ref: "./paths/_component_template.(name).yaml"
+  "/_count":
+    $ref: "./paths/_count.yaml"
+  "/_dangling":
+    $ref: "./paths/_dangling.yaml"
+  "/_dangling/{index_uuid}":
+    $ref: "./paths/_dangling.(index_uuid).yaml"
+  "/_data_stream":
+    $ref: "./paths/_data_stream.yaml"
+  "/_data_stream/_stats":
+    $ref: "./paths/_data_stream._stats.yaml"
+  "/_data_stream/{name}":
+    $ref: "./paths/_data_stream.(name).yaml"
+  "/_data_stream/{name}/_stats":
+    $ref: "./paths/_data_stream.(name)._stats.yaml"
+  "/_delete_by_query/{task_id}/_rethrottle":
+    $ref: "./paths/_delete_by_query.(task_id)._rethrottle.yaml"
+  "/_field_caps":
+    $ref: "./paths/_field_caps.yaml"
+  "/_flush":
+    $ref: "./paths/_flush.yaml"
+  "/_forcemerge":
+    $ref: "./paths/_forcemerge.yaml"
+  "/_index_template":
+    $ref: "./paths/_index_template.yaml"
+  "/_index_template/_simulate":
+    $ref: "./paths/_index_template._simulate.yaml"
+  "/_index_template/_simulate/{name}":
+    $ref: "./paths/_index_template._simulate.(name).yaml"
+  "/_index_template/_simulate_index/{name}":
+    $ref: "./paths/_index_template._simulate_index.(name).yaml"
+  "/_index_template/{name}":
+    $ref: "./paths/_index_template.(name).yaml"
+  "/_ingest/pipeline":
+    $ref: "./paths/_ingest.pipeline.yaml"
+  "/_ingest/pipeline/_simulate":
+    $ref: "./paths/_ingest.pipeline._simulate.yaml"
+  "/_ingest/pipeline/{id}":
+    $ref: "./paths/_ingest.pipeline.(id).yaml"
+  "/_ingest/pipeline/{id}/_simulate":
+    $ref: "./paths/_ingest.pipeline.(id)._simulate.yaml"
+  "/_ingest/processor/grok":
+    $ref: "./paths/_ingest.processor.grok.yaml"
+  "/_mapping":
+    $ref: "./paths/_mapping.yaml"
+  "/_mapping/field/{fields}":
+    $ref: "./paths/_mapping.field.(fields).yaml"
+  "/_mget":
+    $ref: "./paths/_mget.yaml"
+  "/_msearch":
+    $ref: "./paths/_msearch.yaml"
+  "/_msearch/template":
+    $ref: "./paths/_msearch.template.yaml"
+  "/_mtermvectors":
+    $ref: "./paths/_mtermvectors.yaml"
+  "/_nodes":
+    $ref: "./paths/_nodes.yaml"
+  "/_nodes/hot_threads":
+    $ref: "./paths/_nodes.hot_threads.yaml"
+  "/_nodes/hotthreads":
+    $ref: "./paths/_nodes.hotthreads.yaml"
+  "/_nodes/reload_secure_settings":
+    $ref: "./paths/_nodes.reload_secure_settings.yaml"
+  "/_nodes/stats":
+    $ref: "./paths/_nodes.stats.yaml"
+  "/_nodes/stats/{metric}":
+    $ref: "./paths/_nodes.stats.(metric).yaml"
+  "/_nodes/stats/{metric}/{index_metric}":
+    $ref: "./paths/_nodes.stats.(metric).(index_metric).yaml"
+  "/_nodes/usage":
+    $ref: "./paths/_nodes.usage.yaml"
+  "/_nodes/usage/{metric}":
+    $ref: "./paths/_nodes.usage.(metric).yaml"
+  "/_nodes/{metric}":
+    $ref: "./paths/_nodes.(metric).yaml"
+  "/_nodes/{node_id}":
+    $ref: "./paths/_nodes.(node_id).yaml"
+  "/_nodes/{node_id}/hot_threads":
+    $ref: "./paths/_nodes.(node_id).hot_threads.yaml"
+  "/_nodes/{node_id}/hotthreads":
+    $ref: "./paths/_nodes.(node_id).hotthreads.yaml"
+  "/_nodes/{node_id}/reload_secure_settings":
+    $ref: "./paths/_nodes.(node_id).reload_secure_settings.yaml"
+  "/_nodes/{node_id}/stats":
+    $ref: "./paths/_nodes.(node_id).stats.yaml"
+  "/_nodes/{node_id}/stats/{metric}":
+    $ref: "./paths/_nodes.(node_id).stats.(metric).yaml"
+  "/_nodes/{node_id}/stats/{metric}/{index_metric}":
+    $ref: "./paths/_nodes.(node_id).stats.(metric).(index_metric).yaml"
+  "/_nodes/{node_id}/usage":
+    $ref: "./paths/_nodes.(node_id).usage.yaml"
+  "/_nodes/{node_id}/usage/{metric}":
+    $ref: "./paths/_nodes.(node_id).usage.(metric).yaml"
+  "/_nodes/{node_id}/{metric}":
+    $ref: "./paths/_nodes.(node_id).(metric).yaml"
+  "/_rank_eval":
+    $ref: "./paths/_rank_eval.yaml"
+  "/_recovery":
+    $ref: "./paths/_recovery.yaml"
+  "/_refresh":
+    $ref: "./paths/_refresh.yaml"
+  "/_reindex":
+    $ref: "./paths/_reindex.yaml"
+  "/_reindex/{task_id}/_rethrottle":
+    $ref: "./paths/_reindex.(task_id)._rethrottle.yaml"
+  "/_remote/info":
+    $ref: "./paths/_remote.info.yaml"
+  "/_remotestore/_restore":
+    $ref: "./paths/_remotestore._restore.yaml"
+  "/_render/template":
+    $ref: "./paths/_render.template.yaml"
+  "/_render/template/{id}":
+    $ref: "./paths/_render.template.(id).yaml"
+  "/_resolve/index/{name}":
+    $ref: "./paths/_resolve.index.(name).yaml"
+  "/_script_context":
+    $ref: "./paths/_script_context.yaml"
+  "/_script_language":
+    $ref: "./paths/_script_language.yaml"
+  "/_scripts/painless/_execute":
+    $ref: "./paths/_scripts.painless._execute.yaml"
+  "/_scripts/{id}":
+    $ref: "./paths/_scripts.(id).yaml"
+  "/_scripts/{id}/{context}":
+    $ref: "./paths/_scripts.(id).(context).yaml"
+  "/_search":
+    $ref: "./paths/_search.yaml"
+  "/_search/point_in_time":
+    $ref: "./paths/_search.point_in_time.yaml"
+  "/_search/point_in_time/_all":
+    $ref: "./paths/_search.point_in_time._all.yaml"
+  "/_search/scroll":
+    $ref: "./paths/_search.scroll.yaml"
+  "/_search/scroll/{scroll_id}":
+    $ref: "./paths/_search.scroll.(scroll_id).yaml"
+  "/_search/template":
+    $ref: "./paths/_search.template.yaml"
+  "/_search_shards":
+    $ref: "./paths/_search_shards.yaml"
+  "/_segments":
+    $ref: "./paths/_segments.yaml"
+  "/_settings":
+    $ref: "./paths/_settings.yaml"
+  "/_settings/{name}":
+    $ref: "./paths/_settings.(name).yaml"
+  "/_shard_stores":
+    $ref: "./paths/_shard_stores.yaml"
+  "/_snapshot":
+    $ref: "./paths/_snapshot.yaml"
+  "/_snapshot/_status":
+    $ref: "./paths/_snapshot._status.yaml"
+  "/_snapshot/{repository}":
+    $ref: "./paths/_snapshot.(repository).yaml"
+  "/_snapshot/{repository}/_cleanup":
+    $ref: "./paths/_snapshot.(repository)._cleanup.yaml"
+  "/_snapshot/{repository}/_status":
+    $ref: "./paths/_snapshot.(repository)._status.yaml"
+  "/_snapshot/{repository}/_verify":
+    $ref: "./paths/_snapshot.(repository)._verify.yaml"
+  "/_snapshot/{repository}/{snapshot}":
+    $ref: "./paths/_snapshot.(repository).(snapshot).yaml"
+  "/_snapshot/{repository}/{snapshot}/_clone/{target_snapshot}":
+    $ref: "./paths/_snapshot.(repository).(snapshot)._clone.(target_snapshot).yaml"
+  "/_snapshot/{repository}/{snapshot}/_restore":
+    $ref: "./paths/_snapshot.(repository).(snapshot)._restore.yaml"
+  "/_snapshot/{repository}/{snapshot}/_status":
+    $ref: "./paths/_snapshot.(repository).(snapshot)._status.yaml"
+  "/_stats":
+    $ref: "./paths/_stats.yaml"
+  "/_stats/{metric}":
+    $ref: "./paths/_stats.(metric).yaml"
+  "/_tasks":
+    $ref: "./paths/_tasks.yaml"
+  "/_tasks/_cancel":
+    $ref: "./paths/_tasks._cancel.yaml"
+  "/_tasks/{task_id}":
+    $ref: "./paths/_tasks.(task_id).yaml"
+  "/_tasks/{task_id}/_cancel":
+    $ref: "./paths/_tasks.(task_id)._cancel.yaml"
+  "/_template":
+    $ref: "./paths/_template.yaml"
+  "/_template/{name}":
+    $ref: "./paths/_template.(name).yaml"
+  "/_update_by_query/{task_id}/_rethrottle":
+    $ref: "./paths/_update_by_query.(task_id)._rethrottle.yaml"
+  "/_upgrade":
+    $ref: "./paths/_upgrade.yaml"
+  "/_validate/query":
+    $ref: "./paths/_validate.query.yaml"
+  "/{alias}/_rollover":
+    $ref: "./paths/(alias)._rollover.yaml"
+  "/{alias}/_rollover/{new_index}":
+    $ref: "./paths/(alias)._rollover.(new_index).yaml"
+  "/{index}":
+    $ref: "./paths/(index).yaml"
+  "/{index}/_alias":
+    $ref: "./paths/(index)._alias.yaml"
+  "/{index}/_alias/{name}":
+    $ref: "./paths/(index)._alias.(name).yaml"
+  "/{index}/_aliases/{name}":
+    $ref: "./paths/(index)._aliases.(name).yaml"
+  "/{index}/_analyze":
+    $ref: "./paths/(index)._analyze.yaml"
+  "/{index}/_block/{block}":
+    $ref: "./paths/(index)._block.(block).yaml"
+  "/{index}/_bulk":
+    $ref: "./paths/(index)._bulk.yaml"
+  "/{index}/_cache/clear":
+    $ref: "./paths/(index)._cache.clear.yaml"
+  "/{index}/_clone/{target}":
+    $ref: "./paths/(index)._clone.(target).yaml"
+  "/{index}/_close":
+    $ref: "./paths/(index)._close.yaml"
+  "/{index}/_count":
+    $ref: "./paths/(index)._count.yaml"
+  "/{index}/_create/{id}":
+    $ref: "./paths/(index)._create.(id).yaml"
+  "/{index}/_delete_by_query":
+    $ref: "./paths/(index)._delete_by_query.yaml"
+  "/{index}/_doc":
+    $ref: "./paths/(index)._doc.yaml"
+  "/{index}/_doc/{id}":
+    $ref: "./paths/(index)._doc.(id).yaml"
+  "/{index}/_explain/{id}":
+    $ref: "./paths/(index)._explain.(id).yaml"
+  "/{index}/_field_caps":
+    $ref: "./paths/(index)._field_caps.yaml"
+  "/{index}/_flush":
+    $ref: "./paths/(index)._flush.yaml"
+  "/{index}/_forcemerge":
+    $ref: "./paths/(index)._forcemerge.yaml"
+  "/{index}/_mapping":
+    $ref: "./paths/(index)._mapping.yaml"
+  "/{index}/_mapping/field/{fields}":
+    $ref: "./paths/(index)._mapping.field.(fields).yaml"
+  "/{index}/_mget":
+    $ref: "./paths/(index)._mget.yaml"
+  "/{index}/_msearch":
+    $ref: "./paths/(index)._msearch.yaml"
+  "/{index}/_msearch/template":
+    $ref: "./paths/(index)._msearch.template.yaml"
+  "/{index}/_mtermvectors":
+    $ref: "./paths/(index)._mtermvectors.yaml"
+  "/{index}/_open":
+    $ref: "./paths/(index)._open.yaml"
+  "/{index}/_rank_eval":
+    $ref: "./paths/(index)._rank_eval.yaml"
+  "/{index}/_recovery":
+    $ref: "./paths/(index)._recovery.yaml"
+  "/{index}/_refresh":
+    $ref: "./paths/(index)._refresh.yaml"
+  "/{index}/_search":
+    $ref: "./paths/(index)._search.yaml"
+  "/{index}/_search/point_in_time":
+    $ref: "./paths/(index)._search.point_in_time.yaml"
+  "/{index}/_search/template":
+    $ref: "./paths/(index)._search.template.yaml"
+  "/{index}/_search_shards":
+    $ref: "./paths/(index)._search_shards.yaml"
+  "/{index}/_segments":
+    $ref: "./paths/(index)._segments.yaml"
+  "/{index}/_settings":
+    $ref: "./paths/(index)._settings.yaml"
+  "/{index}/_settings/{name}":
+    $ref: "./paths/(index)._settings.(name).yaml"
+  "/{index}/_shard_stores":
+    $ref: "./paths/(index)._shard_stores.yaml"
+  "/{index}/_shrink/{target}":
+    $ref: "./paths/(index)._shrink.(target).yaml"
+  "/{index}/_source/{id}":
+    $ref: "./paths/(index)._source.(id).yaml"
+  "/{index}/_split/{target}":
+    $ref: "./paths/(index)._split.(target).yaml"
+  "/{index}/_stats":
+    $ref: "./paths/(index)._stats.yaml"
+  "/{index}/_stats/{metric}":
+    $ref: "./paths/(index)._stats.(metric).yaml"
+  "/{index}/_termvectors":
+    $ref: "./paths/(index)._termvectors.yaml"
+  "/{index}/_termvectors/{id}":
+    $ref: "./paths/(index)._termvectors.(id).yaml"
+  "/{index}/_update/{id}":
+    $ref: "./paths/(index)._update.(id).yaml"
+  "/{index}/_update_by_query":
+    $ref: "./paths/(index)._update_by_query.yaml"
+  "/{index}/_upgrade":
+    $ref: "./paths/(index)._upgrade.yaml"
+  "/{index}/_validate/query":
+    $ref: "./paths/(index)._validate.query.yaml"

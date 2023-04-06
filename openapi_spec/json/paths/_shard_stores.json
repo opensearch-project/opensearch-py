@@ -1,0 +1,20 @@
+{
+  "get": {
+    "x-endpoint-group": "indices.shard_stores",
+    "description": "Provides store information for shard copies of indices.",
+    "parameters": [
+      {
+        "$ref": "../parameters/query.json#/status"
+      },
+      {
+        "$ref": "../parameters/query.json#/ignore_unavailable"
+      },
+      {
+        "$ref": "../parameters/query.json#/allow_no_indices"
+      },
+      {
+        "$ref": "../parameters/query.json#/expand_wildcards"
+      }
+    ]
+  }
+}

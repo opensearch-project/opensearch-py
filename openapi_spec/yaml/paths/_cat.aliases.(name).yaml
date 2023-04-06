@@ -1,0 +1,19 @@
+---
+get:
+  x-endpoint-group: cat.aliases
+  description: Shows information about currently configured aliases to indices including
+    filter and routing infos.
+  parameters:
+  - in: path
+    name: name
+    description: A comma-separated list of alias names to return
+    required: true
+    schema:
+      $ref: "../schemas/_common.yaml#/string_array"
+  - $ref: "../parameters/query.yaml#/format"
+  - $ref: "../parameters/query.yaml#/local"
+  - $ref: "../parameters/query.yaml#/h"
+  - $ref: "../parameters/query.yaml#/help"
+  - $ref: "../parameters/query.yaml#/s"
+  - $ref: "../parameters/query.yaml#/v"
+  - $ref: "../parameters/query.yaml#/expand_wildcards"

@@ -1,0 +1,41 @@
+{
+  "get": {
+    "x-endpoint-group": "cat.segments",
+    "description": "Provides low-level information about the segments in the shards of an index.",
+    "parameters": [
+      {
+        "in": "path",
+        "name": "index",
+        "description": "A comma-separated list of index names to limit the returned information",
+        "required": true,
+        "schema": {
+          "$ref": "../schemas/_common.json#/string_array"
+        }
+      },
+      {
+        "$ref": "../parameters/query.json#/format"
+      },
+      {
+        "$ref": "../parameters/query.json#/bytes"
+      },
+      {
+        "$ref": "../parameters/query.json#/master_timeout"
+      },
+      {
+        "$ref": "../parameters/query.json#/cluster_manager_timeout"
+      },
+      {
+        "$ref": "../parameters/query.json#/h"
+      },
+      {
+        "$ref": "../parameters/query.json#/help"
+      },
+      {
+        "$ref": "../parameters/query.json#/s"
+      },
+      {
+        "$ref": "../parameters/query.json#/v"
+      }
+    ]
+  }
+}

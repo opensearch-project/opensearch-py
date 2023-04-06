@@ -1,0 +1,7 @@
+---
+get:
+  x-endpoint-group: nodes.info
+  description: Returns information about nodes in the cluster.
+  parameters:
+  - $ref: "../parameters/query.yaml#/flat_settings"
+  - $ref: "../parameters/query.yaml#/timeout"

@@ -1,0 +1,25 @@
+{
+  "post": {
+    "x-endpoint-group": "remote_store.restore",
+    "description": "Restores from remote store.",
+    "parameters": [
+      {
+        "$ref": "../parameters/query.json#/cluster_manager_timeout"
+      },
+      {
+        "$ref": "../parameters/query.json#/wait_for_completion"
+      }
+    ],
+    "requestBody": {
+      "description": "A comma separated list of index IDs",
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object"
+          }
+        }
+      }
+    }
+  }
+}

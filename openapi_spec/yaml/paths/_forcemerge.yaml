@@ -1,0 +1,11 @@
+---
+post:
+  x-endpoint-group: indices.forcemerge
+  description: Performs the force merge operation on one or more indices.
+  parameters:
+  - $ref: "../parameters/query.yaml#/flush"
+  - $ref: "../parameters/query.yaml#/ignore_unavailable"
+  - $ref: "../parameters/query.yaml#/allow_no_indices"
+  - $ref: "../parameters/query.yaml#/expand_wildcards"
+  - $ref: "../parameters/query.yaml#/max_num_segments"
+  - $ref: "../parameters/query.yaml#/only_expunge_deletes"

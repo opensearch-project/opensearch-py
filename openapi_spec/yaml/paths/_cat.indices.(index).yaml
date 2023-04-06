@@ -1,0 +1,26 @@
+---
+get:
+  x-endpoint-group: cat.indices
+  description: 'Returns information about indices: number of primaries and replicas,
+    document counts, disk size, ...'
+  parameters:
+  - in: path
+    name: index
+    description: A comma-separated list of index names to limit the returned information
+    required: true
+    schema:
+      $ref: "../schemas/_common.yaml#/string_array"
+  - $ref: "../parameters/query.yaml#/format"
+  - $ref: "../parameters/query.yaml#/bytes"
+  - $ref: "../parameters/query.yaml#/local"
+  - $ref: "../parameters/query.yaml#/master_timeout"
+  - $ref: "../parameters/query.yaml#/cluster_manager_timeout"
+  - $ref: "../parameters/query.yaml#/h"
+  - $ref: "../parameters/query.yaml#/health"
+  - $ref: "../parameters/query.yaml#/help"
+  - $ref: "../parameters/query.yaml#/pri"
+  - $ref: "../parameters/query.yaml#/s"
+  - $ref: "../parameters/query.yaml#/time"
+  - $ref: "../parameters/query.yaml#/v"
+  - $ref: "../parameters/query.yaml#/include_unloaded_segments"
+  - $ref: "../parameters/query.yaml#/expand_wildcards"

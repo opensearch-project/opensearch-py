@@ -1,0 +1,20 @@
+---
+post:
+  x-endpoint-group: cluster.reroute
+  description: Allows to manually change the allocation of individual shards in the
+    cluster.
+  parameters:
+  - $ref: "../parameters/query.yaml#/dry_run"
+  - $ref: "../parameters/query.yaml#/explain"
+  - $ref: "../parameters/query.yaml#/retry_failed"
+  - $ref: "../parameters/query.yaml#/metric"
+  - $ref: "../parameters/query.yaml#/master_timeout"
+  - $ref: "../parameters/query.yaml#/cluster_manager_timeout"
+  - $ref: "../parameters/query.yaml#/timeout"
+  requestBody:
+    description: The definition of `commands` to perform (`move`, `cancel`, `allocate`)
+    required: false
+    content:
+      application/json:
+        schema:
+          type: object

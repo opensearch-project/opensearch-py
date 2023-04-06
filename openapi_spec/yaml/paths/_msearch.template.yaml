@@ -1,0 +1,27 @@
+---
+get:
+  x-endpoint-group: msearch_template
+  description: Allows to execute several search template operations in one request.
+  parameters:
+  - $ref: "../parameters/query.yaml#/search_type"
+  - $ref: "../parameters/query.yaml#/typed_keys"
+  - $ref: "../parameters/query.yaml#/max_concurrent_searches"
+  - $ref: "../parameters/query.yaml#/rest_total_hits_as_int"
+  - $ref: "../parameters/query.yaml#/ccs_minimize_roundtrips"
+post:
+  x-endpoint-group: msearch_template
+  description: Allows to execute several search template operations in one request.
+  parameters:
+  - $ref: "../parameters/query.yaml#/search_type"
+  - $ref: "../parameters/query.yaml#/typed_keys"
+  - $ref: "../parameters/query.yaml#/max_concurrent_searches"
+  - $ref: "../parameters/query.yaml#/rest_total_hits_as_int"
+  - $ref: "../parameters/query.yaml#/ccs_minimize_roundtrips"
+  requestBody:
+    description: The request definitions (metadata-search request definition pairs),
+      separated by newlines
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object

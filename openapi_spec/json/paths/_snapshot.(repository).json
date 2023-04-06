@@ -1,0 +1,126 @@
+{
+  "get": {
+    "x-endpoint-group": "snapshot.get_repository",
+    "description": "Returns information about a repository.",
+    "parameters": [
+      {
+        "in": "path",
+        "name": "repository",
+        "description": "A comma-separated list of repository names",
+        "required": true,
+        "schema": {
+          "$ref": "../schemas/_common.json#/string_array"
+        }
+      },
+      {
+        "$ref": "../parameters/query.json#/master_timeout"
+      },
+      {
+        "$ref": "../parameters/query.json#/cluster_manager_timeout"
+      },
+      {
+        "$ref": "../parameters/query.json#/local"
+      }
+    ]
+  },
+  "put": {
+    "x-endpoint-group": "snapshot.create_repository",
+    "description": "Creates a repository.",
+    "parameters": [
+      {
+        "in": "path",
+        "name": "repository",
+        "description": "A repository name",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "$ref": "../parameters/query.json#/master_timeout"
+      },
+      {
+        "$ref": "../parameters/query.json#/cluster_manager_timeout"
+      },
+      {
+        "$ref": "../parameters/query.json#/timeout"
+      },
+      {
+        "$ref": "../parameters/query.json#/verify"
+      }
+    ],
+    "requestBody": {
+      "description": "The repository definition",
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object"
+          }
+        }
+      }
+    }
+  },
+  "post": {
+    "x-endpoint-group": "snapshot.create_repository",
+    "description": "Creates a repository.",
+    "parameters": [
+      {
+        "in": "path",
+        "name": "repository",
+        "description": "A repository name",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "$ref": "../parameters/query.json#/master_timeout"
+      },
+      {
+        "$ref": "../parameters/query.json#/cluster_manager_timeout"
+      },
+      {
+        "$ref": "../parameters/query.json#/timeout"
+      },
+      {
+        "$ref": "../parameters/query.json#/verify"
+      }
+    ],
+    "requestBody": {
+      "description": "The repository definition",
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object"
+          }
+        }
+      }
+    }
+  },
+  "delete": {
+    "x-endpoint-group": "snapshot.delete_repository",
+    "description": "Deletes a repository.",
+    "parameters": [
+      {
+        "in": "path",
+        "name": "repository",
+        "description": "Name of the snapshot repository to unregister. Wildcard (`*`) patterns are supported.",
+        "required": true,
+        "schema": {
+          "$ref": "../schemas/_common.json#/string_array"
+        }
+      },
+      {
+        "$ref": "../parameters/query.json#/master_timeout"
+      },
+      {
+        "$ref": "../parameters/query.json#/cluster_manager_timeout"
+      },
+      {
+        "$ref": "../parameters/query.json#/timeout"
+      }
+    ]
+  }
+}

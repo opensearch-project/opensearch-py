@@ -1,0 +1,13 @@
+---
+post:
+  x-endpoint-group: indices.clear_cache
+  description: Clears all or specific caches for one or more indices.
+  parameters:
+  - $ref: "../parameters/query.yaml#/fielddata"
+  - $ref: "../parameters/query.yaml#/fields"
+  - $ref: "../parameters/query.yaml#/query"
+  - $ref: "../parameters/query.yaml#/ignore_unavailable"
+  - $ref: "../parameters/query.yaml#/allow_no_indices"
+  - $ref: "../parameters/query.yaml#/expand_wildcards"
+  - $ref: "../parameters/query.yaml#/index"
+  - $ref: "../parameters/query.yaml#/request"

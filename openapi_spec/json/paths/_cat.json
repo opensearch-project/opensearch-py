@@ -1,0 +1,14 @@
+{
+  "get": {
+    "x-endpoint-group": "cat.help",
+    "description": "Returns help for the Cat APIs.",
+    "parameters": [
+      {
+        "$ref": "../parameters/query.json#/help"
+      },
+      {
+        "$ref": "../parameters/query.json#/s"
+      }
+    ]
+  }
+}

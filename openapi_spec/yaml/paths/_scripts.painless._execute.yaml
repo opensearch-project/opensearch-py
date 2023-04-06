@@ -1,0 +1,16 @@
+---
+get:
+  x-endpoint-group: scripts_painless_execute
+  description: Allows an arbitrary script to be executed and a result to be returned
+  parameters: []
+post:
+  x-endpoint-group: scripts_painless_execute
+  description: Allows an arbitrary script to be executed and a result to be returned
+  parameters: []
+  requestBody:
+    description: The script to execute
+    required: false
+    content:
+      application/json:
+        schema:
+          type: object

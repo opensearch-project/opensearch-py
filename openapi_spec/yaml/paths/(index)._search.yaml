@@ -1,0 +1,114 @@
+---
+get:
+  x-endpoint-group: search
+  description: Returns results matching a query.
+  parameters:
+  - in: path
+    name: index
+    description: A comma-separated list of index names to search; use `_all` or empty
+      string to perform the operation on all indices
+    required: true
+    schema:
+      $ref: "../schemas/_common.yaml#/string_array"
+  - $ref: "../parameters/query.yaml#/analyzer"
+  - $ref: "../parameters/query.yaml#/analyze_wildcard"
+  - $ref: "../parameters/query.yaml#/ccs_minimize_roundtrips"
+  - $ref: "../parameters/query.yaml#/default_operator"
+  - $ref: "../parameters/query.yaml#/df"
+  - $ref: "../parameters/query.yaml#/explain"
+  - $ref: "../parameters/query.yaml#/stored_fields"
+  - $ref: "../parameters/query.yaml#/docvalue_fields"
+  - $ref: "../parameters/query.yaml#/from"
+  - $ref: "../parameters/query.yaml#/ignore_unavailable"
+  - $ref: "../parameters/query.yaml#/ignore_throttled"
+  - $ref: "../parameters/query.yaml#/allow_no_indices"
+  - $ref: "../parameters/query.yaml#/expand_wildcards"
+  - $ref: "../parameters/query.yaml#/lenient"
+  - $ref: "../parameters/query.yaml#/preference"
+  - $ref: "../parameters/query.yaml#/q"
+  - $ref: "../parameters/query.yaml#/routing"
+  - $ref: "../parameters/query.yaml#/scroll"
+  - $ref: "../parameters/query.yaml#/search_type"
+  - $ref: "../parameters/query.yaml#/size"
+  - $ref: "../parameters/query.yaml#/sort"
+  - $ref: "../parameters/query.yaml#/_source"
+  - $ref: "../parameters/query.yaml#/_source_excludes"
+  - $ref: "../parameters/query.yaml#/_source_includes"
+  - $ref: "../parameters/query.yaml#/terminate_after"
+  - $ref: "../parameters/query.yaml#/stats"
+  - $ref: "../parameters/query.yaml#/suggest_field"
+  - $ref: "../parameters/query.yaml#/suggest_mode"
+  - $ref: "../parameters/query.yaml#/suggest_size"
+  - $ref: "../parameters/query.yaml#/suggest_text"
+  - $ref: "../parameters/query.yaml#/timeout"
+  - $ref: "../parameters/query.yaml#/track_scores"
+  - $ref: "../parameters/query.yaml#/track_total_hits"
+  - $ref: "../parameters/query.yaml#/allow_partial_search_results"
+  - $ref: "../parameters/query.yaml#/typed_keys"
+  - $ref: "../parameters/query.yaml#/version"
+  - $ref: "../parameters/query.yaml#/seq_no_primary_term"
+  - $ref: "../parameters/query.yaml#/request_cache"
+  - $ref: "../parameters/query.yaml#/batched_reduce_size"
+  - $ref: "../parameters/query.yaml#/max_concurrent_shard_requests"
+  - $ref: "../parameters/query.yaml#/pre_filter_shard_size"
+  - $ref: "../parameters/query.yaml#/rest_total_hits_as_int"
+post:
+  x-endpoint-group: search
+  description: Returns results matching a query.
+  parameters:
+  - in: path
+    name: index
+    description: A comma-separated list of index names to search; use `_all` or empty
+      string to perform the operation on all indices
+    required: true
+    schema:
+      $ref: "../schemas/_common.yaml#/string_array"
+  - $ref: "../parameters/query.yaml#/analyzer"
+  - $ref: "../parameters/query.yaml#/analyze_wildcard"
+  - $ref: "../parameters/query.yaml#/ccs_minimize_roundtrips"
+  - $ref: "../parameters/query.yaml#/default_operator"
+  - $ref: "../parameters/query.yaml#/df"
+  - $ref: "../parameters/query.yaml#/explain"
+  - $ref: "../parameters/query.yaml#/stored_fields"
+  - $ref: "../parameters/query.yaml#/docvalue_fields"
+  - $ref: "../parameters/query.yaml#/from"
+  - $ref: "../parameters/query.yaml#/ignore_unavailable"
+  - $ref: "../parameters/query.yaml#/ignore_throttled"
+  - $ref: "../parameters/query.yaml#/allow_no_indices"
+  - $ref: "../parameters/query.yaml#/expand_wildcards"
+  - $ref: "../parameters/query.yaml#/lenient"
+  - $ref: "../parameters/query.yaml#/preference"
+  - $ref: "../parameters/query.yaml#/q"
+  - $ref: "../parameters/query.yaml#/routing"
+  - $ref: "../parameters/query.yaml#/scroll"
+  - $ref: "../parameters/query.yaml#/search_type"
+  - $ref: "../parameters/query.yaml#/size"
+  - $ref: "../parameters/query.yaml#/sort"
+  - $ref: "../parameters/query.yaml#/_source"
+  - $ref: "../parameters/query.yaml#/_source_excludes"
+  - $ref: "../parameters/query.yaml#/_source_includes"
+  - $ref: "../parameters/query.yaml#/terminate_after"
+  - $ref: "../parameters/query.yaml#/stats"
+  - $ref: "../parameters/query.yaml#/suggest_field"
+  - $ref: "../parameters/query.yaml#/suggest_mode"
+  - $ref: "../parameters/query.yaml#/suggest_size"
+  - $ref: "../parameters/query.yaml#/suggest_text"
+  - $ref: "../parameters/query.yaml#/timeout"
+  - $ref: "../parameters/query.yaml#/track_scores"
+  - $ref: "../parameters/query.yaml#/track_total_hits"
+  - $ref: "../parameters/query.yaml#/allow_partial_search_results"
+  - $ref: "../parameters/query.yaml#/typed_keys"
+  - $ref: "../parameters/query.yaml#/version"
+  - $ref: "../parameters/query.yaml#/seq_no_primary_term"
+  - $ref: "../parameters/query.yaml#/request_cache"
+  - $ref: "../parameters/query.yaml#/batched_reduce_size"
+  - $ref: "../parameters/query.yaml#/max_concurrent_shard_requests"
+  - $ref: "../parameters/query.yaml#/pre_filter_shard_size"
+  - $ref: "../parameters/query.yaml#/rest_total_hits_as_int"
+  requestBody:
+    description: The search definition using the Query DSL
+    required: false
+    content:
+      application/json:
+        schema:
+          type: object

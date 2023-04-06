@@ -1,0 +1,24 @@
+---
+post:
+  x-endpoint-group: reindex
+  description: |-
+    Allows to copy documents from one index to another, optionally filtering the source
+    documents by a query, changing the destination index settings, or fetching the
+    documents from a remote cluster.
+  parameters:
+  - $ref: "../parameters/query.yaml#/refresh"
+  - $ref: "../parameters/query.yaml#/timeout"
+  - $ref: "../parameters/query.yaml#/wait_for_active_shards"
+  - $ref: "../parameters/query.yaml#/wait_for_completion"
+  - $ref: "../parameters/query.yaml#/requests_per_second"
+  - $ref: "../parameters/query.yaml#/scroll"
+  - $ref: "../parameters/query.yaml#/slices"
+  - $ref: "../parameters/query.yaml#/max_docs"
+  requestBody:
+    description: The search definition using the Query DSL and the prototype for the
+      index request.
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object

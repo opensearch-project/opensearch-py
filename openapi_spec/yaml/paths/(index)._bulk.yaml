@@ -1,0 +1,59 @@
+---
+post:
+  x-endpoint-group: bulk
+  description: Allows to perform multiple index/update/delete operations in a single
+    request.
+  parameters:
+  - in: path
+    name: index
+    description: Default index for items which don't provide one
+    required: true
+    schema:
+      type: string
+  - $ref: "../parameters/query.yaml#/wait_for_active_shards"
+  - $ref: "../parameters/query.yaml#/refresh"
+  - $ref: "../parameters/query.yaml#/routing"
+  - $ref: "../parameters/query.yaml#/timeout"
+  - $ref: "../parameters/query.yaml#/type"
+  - $ref: "../parameters/query.yaml#/_source"
+  - $ref: "../parameters/query.yaml#/_source_excludes"
+  - $ref: "../parameters/query.yaml#/_source_includes"
+  - $ref: "../parameters/query.yaml#/pipeline"
+  - $ref: "../parameters/query.yaml#/require_alias"
+  requestBody:
+    description: The operation definition and data (action-data pairs), separated
+      by newlines
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+put:
+  x-endpoint-group: bulk
+  description: Allows to perform multiple index/update/delete operations in a single
+    request.
+  parameters:
+  - in: path
+    name: index
+    description: Default index for items which don't provide one
+    required: true
+    schema:
+      type: string
+  - $ref: "../parameters/query.yaml#/wait_for_active_shards"
+  - $ref: "../parameters/query.yaml#/refresh"
+  - $ref: "../parameters/query.yaml#/routing"
+  - $ref: "../parameters/query.yaml#/timeout"
+  - $ref: "../parameters/query.yaml#/type"
+  - $ref: "../parameters/query.yaml#/_source"
+  - $ref: "../parameters/query.yaml#/_source_excludes"
+  - $ref: "../parameters/query.yaml#/_source_includes"
+  - $ref: "../parameters/query.yaml#/pipeline"
+  - $ref: "../parameters/query.yaml#/require_alias"
+  requestBody:
+    description: The operation definition and data (action-data pairs), separated
+      by newlines
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object

@@ -1,0 +1,20 @@
+{
+  "get": {
+    "x-endpoint-group": "indices.segments",
+    "description": "Provides low-level information about segments in a Lucene index.",
+    "parameters": [
+      {
+        "$ref": "../parameters/query.json#/ignore_unavailable"
+      },
+      {
+        "$ref": "../parameters/query.json#/allow_no_indices"
+      },
+      {
+        "$ref": "../parameters/query.json#/expand_wildcards"
+      },
+      {
+        "$ref": "../parameters/query.json#/verbose"
+      }
+    ]
+  }
+}

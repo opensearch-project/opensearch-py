@@ -1,0 +1,41 @@
+{
+  "get": {
+    "x-endpoint-group": "indices.get_field_mapping",
+    "description": "Returns mapping for one or more fields.",
+    "parameters": [
+      {
+        "in": "path",
+        "name": "index",
+        "description": "A comma-separated list of index names",
+        "required": true,
+        "schema": {
+          "$ref": "../schemas/_common.json#/string_array"
+        }
+      },
+      {
+        "in": "path",
+        "name": "fields",
+        "description": "A comma-separated list of fields",
+        "required": true,
+        "schema": {
+          "$ref": "../schemas/_common.json#/string_array"
+        }
+      },
+      {
+        "$ref": "../parameters/query.json#/include_defaults"
+      },
+      {
+        "$ref": "../parameters/query.json#/ignore_unavailable"
+      },
+      {
+        "$ref": "../parameters/query.json#/allow_no_indices"
+      },
+      {
+        "$ref": "../parameters/query.json#/expand_wildcards"
+      },
+      {
+        "$ref": "../parameters/query.json#/local"
+      }
+    ]
+  }
+}

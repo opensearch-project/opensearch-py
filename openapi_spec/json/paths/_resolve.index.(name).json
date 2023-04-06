@@ -1,0 +1,20 @@
+{
+  "get": {
+    "x-endpoint-group": "indices.resolve_index",
+    "description": "Returns information about any matching indices, aliases, and data streams",
+    "parameters": [
+      {
+        "in": "path",
+        "name": "name",
+        "description": "A comma-separated list of names or wildcard expressions",
+        "required": true,
+        "schema": {
+          "$ref": "../schemas/_common.json#/string_array"
+        }
+      },
+      {
+        "$ref": "../parameters/query.json#/expand_wildcards"
+      }
+    ]
+  }
+}

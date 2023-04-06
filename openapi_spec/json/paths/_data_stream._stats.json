@@ -1,0 +1,9 @@
+{
+  "get": {
+    "x-endpoint-group": "indices.data_streams_stats",
+    "description": "Provides statistics on operations happening in a data stream.",
+    "parameters": [
+
+    ]
+  }
+}

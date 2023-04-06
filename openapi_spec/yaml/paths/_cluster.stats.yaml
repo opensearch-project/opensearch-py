@@ -1,0 +1,7 @@
+---
+get:
+  x-endpoint-group: cluster.stats
+  description: Returns high-level overview of cluster statistics.
+  parameters:
+  - $ref: "../parameters/query.yaml#/flat_settings"
+  - $ref: "../parameters/query.yaml#/timeout"

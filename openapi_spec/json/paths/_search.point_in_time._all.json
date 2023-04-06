@@ -1,0 +1,16 @@
+{
+  "delete": {
+    "x-endpoint-group": "delete_all_pits",
+    "description": "Deletes all active point in time searches.",
+    "parameters": [
+
+    ]
+  },
+  "get": {
+    "x-endpoint-group": "get_all_pits",
+    "description": "Lists all active point in time searches.",
+    "parameters": [
+
+    ]
+  }
+}

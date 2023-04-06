@@ -1,0 +1,81 @@
+---
+put:
+  x-endpoint-group: cluster.put_component_template
+  description: Creates or updates a component template
+  parameters:
+  - in: path
+    name: name
+    description: The name of the template
+    required: true
+    schema:
+      type: string
+  - $ref: "../parameters/query.yaml#/create"
+  - $ref: "../parameters/query.yaml#/timeout"
+  - $ref: "../parameters/query.yaml#/master_timeout"
+  - $ref: "../parameters/query.yaml#/cluster_manager_timeout"
+  requestBody:
+    description: The template definition
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+post:
+  x-endpoint-group: cluster.put_component_template
+  description: Creates or updates a component template
+  parameters:
+  - in: path
+    name: name
+    description: The name of the template
+    required: true
+    schema:
+      type: string
+  - $ref: "../parameters/query.yaml#/create"
+  - $ref: "../parameters/query.yaml#/timeout"
+  - $ref: "../parameters/query.yaml#/master_timeout"
+  - $ref: "../parameters/query.yaml#/cluster_manager_timeout"
+  requestBody:
+    description: The template definition
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+delete:
+  x-endpoint-group: cluster.delete_component_template
+  description: Deletes a component template
+  parameters:
+  - in: path
+    name: name
+    description: The name of the template
+    required: true
+    schema:
+      type: string
+  - $ref: "../parameters/query.yaml#/timeout"
+  - $ref: "../parameters/query.yaml#/master_timeout"
+  - $ref: "../parameters/query.yaml#/cluster_manager_timeout"
+head:
+  x-endpoint-group: cluster.exists_component_template
+  description: Returns information about whether a particular component template exist
+  parameters:
+  - in: path
+    name: name
+    description: The name of the template
+    required: true
+    schema:
+      type: string
+  - $ref: "../parameters/query.yaml#/master_timeout"
+  - $ref: "../parameters/query.yaml#/local"
+get:
+  x-endpoint-group: cluster.get_component_template
+  description: Returns one or more component templates
+  parameters:
+  - in: path
+    name: name
+    description: The comma separated names of the component templates
+    required: true
+    schema:
+      $ref: "../schemas/_common.yaml#/string_array"
+  - $ref: "../parameters/query.yaml#/master_timeout"
+  - $ref: "../parameters/query.yaml#/cluster_manager_timeout"
+  - $ref: "../parameters/query.yaml#/local"

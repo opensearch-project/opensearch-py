@@ -1,0 +1,26 @@
+{
+  "get": {
+    "x-endpoint-group": "indices.get_mapping",
+    "description": "Returns mappings for one or more indices.",
+    "parameters": [
+      {
+        "$ref": "../parameters/query.json#/ignore_unavailable"
+      },
+      {
+        "$ref": "../parameters/query.json#/allow_no_indices"
+      },
+      {
+        "$ref": "../parameters/query.json#/expand_wildcards"
+      },
+      {
+        "$ref": "../parameters/query.json#/master_timeout"
+      },
+      {
+        "$ref": "../parameters/query.json#/cluster_manager_timeout"
+      },
+      {
+        "$ref": "../parameters/query.json#/local"
+      }
+    ]
+  }
+}

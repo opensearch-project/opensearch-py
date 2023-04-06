@@ -1,0 +1,44 @@
+{
+  "get": {
+    "x-endpoint-group": "cluster.state",
+    "description": "Returns a comprehensive information about the state of the cluster.",
+    "parameters": [
+      {
+        "in": "path",
+        "name": "metric",
+        "description": "Limit the information returned to the specified metrics",
+        "required": true,
+        "schema": {
+          "$ref": "../schemas/_common.json#/string_array"
+        }
+      },
+      {
+        "$ref": "../parameters/query.json#/local"
+      },
+      {
+        "$ref": "../parameters/query.json#/master_timeout"
+      },
+      {
+        "$ref": "../parameters/query.json#/cluster_manager_timeout"
+      },
+      {
+        "$ref": "../parameters/query.json#/flat_settings"
+      },
+      {
+        "$ref": "../parameters/query.json#/wait_for_metadata_version"
+      },
+      {
+        "$ref": "../parameters/query.json#/wait_for_timeout"
+      },
+      {
+        "$ref": "../parameters/query.json#/ignore_unavailable"
+      },
+      {
+        "$ref": "../parameters/query.json#/allow_no_indices"
+      },
+      {
+        "$ref": "../parameters/query.json#/expand_wildcards"
+      }
+    ]
+  }
+}

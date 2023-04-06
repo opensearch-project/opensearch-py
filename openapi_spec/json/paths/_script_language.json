@@ -1,0 +1,9 @@
+{
+  "get": {
+    "x-endpoint-group": "get_script_languages",
+    "description": "Returns available script types, languages and contexts",
+    "parameters": [
+
+    ]
+  }
+}

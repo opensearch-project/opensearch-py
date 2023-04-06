@@ -1,0 +1,12 @@
+---
+get:
+  x-endpoint-group: tasks.list
+  description: Returns a list of tasks.
+  parameters:
+  - $ref: "../parameters/query.yaml#/nodes"
+  - $ref: "../parameters/query.yaml#/actions"
+  - $ref: "../parameters/query.yaml#/detailed"
+  - $ref: "../parameters/query.yaml#/parent_task_id"
+  - $ref: "../parameters/query.yaml#/wait_for_completion"
+  - $ref: "../parameters/query.yaml#/group_by"
+  - $ref: "../parameters/query.yaml#/timeout"

@@ -1,0 +1,36 @@
+---
+post:
+  x-endpoint-group: update
+  description: Updates a document with a script or partial document.
+  parameters:
+  - in: path
+    name: id
+    description: Document ID
+    required: true
+    schema:
+      type: string
+  - in: path
+    name: index
+    description: The name of the index
+    required: true
+    schema:
+      type: string
+  - $ref: "../parameters/query.yaml#/wait_for_active_shards"
+  - $ref: "../parameters/query.yaml#/_source"
+  - $ref: "../parameters/query.yaml#/_source_excludes"
+  - $ref: "../parameters/query.yaml#/_source_includes"
+  - $ref: "../parameters/query.yaml#/lang"
+  - $ref: "../parameters/query.yaml#/refresh"
+  - $ref: "../parameters/query.yaml#/retry_on_conflict"
+  - $ref: "../parameters/query.yaml#/routing"
+  - $ref: "../parameters/query.yaml#/timeout"
+  - $ref: "../parameters/query.yaml#/if_seq_no"
+  - $ref: "../parameters/query.yaml#/if_primary_term"
+  - $ref: "../parameters/query.yaml#/require_alias"
+  requestBody:
+    description: The request definition requires either `script` or partial `doc`
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object

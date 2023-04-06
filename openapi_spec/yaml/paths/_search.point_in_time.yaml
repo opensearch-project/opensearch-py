@@ -1,0 +1,5 @@
+---
+delete:
+  x-endpoint-group: delete_pit
+  description: Deletes one or more point in time searches based on the IDs passed.
+  parameters: []

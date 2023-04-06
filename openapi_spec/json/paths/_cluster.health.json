@@ -1,0 +1,50 @@
+{
+  "get": {
+    "x-endpoint-group": "cluster.health",
+    "description": "Returns basic information about the health of the cluster.",
+    "parameters": [
+      {
+        "$ref": "../parameters/query.json#/expand_wildcards"
+      },
+      {
+        "$ref": "../parameters/query.json#/level"
+      },
+      {
+        "$ref": "../parameters/query.json#/local"
+      },
+      {
+        "$ref": "../parameters/query.json#/master_timeout"
+      },
+      {
+        "$ref": "../parameters/query.json#/cluster_manager_timeout"
+      },
+      {
+        "$ref": "../parameters/query.json#/timeout"
+      },
+      {
+        "$ref": "../parameters/query.json#/wait_for_active_shards"
+      },
+      {
+        "$ref": "../parameters/query.json#/wait_for_nodes"
+      },
+      {
+        "$ref": "../parameters/query.json#/wait_for_events"
+      },
+      {
+        "$ref": "../parameters/query.json#/wait_for_no_relocating_shards"
+      },
+      {
+        "$ref": "../parameters/query.json#/wait_for_no_initializing_shards"
+      },
+      {
+        "$ref": "../parameters/query.json#/wait_for_status"
+      },
+      {
+        "$ref": "../parameters/query.json#/awareness_attribute"
+      },
+      {
+        "$ref": "../parameters/query.json#/ensure_node_commissioned"
+      }
+    ]
+  }
+}

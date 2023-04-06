@@ -1,0 +1,15 @@
+---
+get:
+  x-endpoint-group: cat.allocation
+  description: Provides a snapshot of how many shards are allocated to each data node
+    and how much disk space they are using.
+  parameters:
+  - $ref: "../parameters/query.yaml#/format"
+  - $ref: "../parameters/query.yaml#/bytes"
+  - $ref: "../parameters/query.yaml#/local"
+  - $ref: "../parameters/query.yaml#/master_timeout"
+  - $ref: "../parameters/query.yaml#/cluster_manager_timeout"
+  - $ref: "../parameters/query.yaml#/h"
+  - $ref: "../parameters/query.yaml#/help"
+  - $ref: "../parameters/query.yaml#/s"
+  - $ref: "../parameters/query.yaml#/v"

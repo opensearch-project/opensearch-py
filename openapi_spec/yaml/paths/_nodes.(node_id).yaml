@@ -1,0 +1,15 @@
+---
+get:
+  x-endpoint-group: nodes.info
+  description: Returns information about nodes in the cluster.
+  parameters:
+  - in: path
+    name: node_id
+    description: A comma-separated list of node IDs or names to limit the returned
+      information; use `_local` to return information from the node you're connecting
+      to, leave empty to get information from all nodes
+    required: true
+    schema:
+      $ref: "../schemas/_common.yaml#/string_array"
+  - $ref: "../parameters/query.yaml#/flat_settings"
+  - $ref: "../parameters/query.yaml#/timeout"

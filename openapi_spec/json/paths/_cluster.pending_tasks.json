@@ -1,0 +1,17 @@
+{
+  "get": {
+    "x-endpoint-group": "cluster.pending_tasks",
+    "description": "Returns a list of any cluster-level changes (e.g. create index, update mapping,\nallocate or fail shard) which have not yet been executed.",
+    "parameters": [
+      {
+        "$ref": "../parameters/query.json#/local"
+      },
+      {
+        "$ref": "../parameters/query.json#/master_timeout"
+      },
+      {
+        "$ref": "../parameters/query.json#/cluster_manager_timeout"
+      }
+    ]
+  }
+}

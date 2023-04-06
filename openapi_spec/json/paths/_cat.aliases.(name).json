@@ -1,0 +1,38 @@
+{
+  "get": {
+    "x-endpoint-group": "cat.aliases",
+    "description": "Shows information about currently configured aliases to indices including filter and routing infos.",
+    "parameters": [
+      {
+        "in": "path",
+        "name": "name",
+        "description": "A comma-separated list of alias names to return",
+        "required": true,
+        "schema": {
+          "$ref": "../schemas/_common.json#/string_array"
+        }
+      },
+      {
+        "$ref": "../parameters/query.json#/format"
+      },
+      {
+        "$ref": "../parameters/query.json#/local"
+      },
+      {
+        "$ref": "../parameters/query.json#/h"
+      },
+      {
+        "$ref": "../parameters/query.json#/help"
+      },
+      {
+        "$ref": "../parameters/query.json#/s"
+      },
+      {
+        "$ref": "../parameters/query.json#/v"
+      },
+      {
+        "$ref": "../parameters/query.json#/expand_wildcards"
+      }
+    ]
+  }
+}

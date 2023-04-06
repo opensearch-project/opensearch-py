@@ -1,0 +1,32 @@
+{
+  "get": {
+    "x-endpoint-group": "nodes.stats",
+    "description": "Returns statistical information about nodes in the cluster.",
+    "parameters": [
+      {
+        "$ref": "../parameters/query.json#/completion_fields"
+      },
+      {
+        "$ref": "../parameters/query.json#/fielddata_fields"
+      },
+      {
+        "$ref": "../parameters/query.json#/fields"
+      },
+      {
+        "$ref": "../parameters/query.json#/groups"
+      },
+      {
+        "$ref": "../parameters/query.json#/level"
+      },
+      {
+        "$ref": "../parameters/query.json#/types"
+      },
+      {
+        "$ref": "../parameters/query.json#/timeout"
+      },
+      {
+        "$ref": "../parameters/query.json#/include_segment_file_sizes"
+      }
+    ]
+  }
+}

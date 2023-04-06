@@ -1,0 +1,7 @@
+---
+get:
+  x-endpoint-group: indices.recovery
+  description: Returns information about ongoing index shard recoveries.
+  parameters:
+  - $ref: "../parameters/query.yaml#/detailed"
+  - $ref: "../parameters/query.yaml#/active_only"

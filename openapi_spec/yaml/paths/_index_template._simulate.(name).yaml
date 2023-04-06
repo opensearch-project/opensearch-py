@@ -1,0 +1,23 @@
+---
+post:
+  x-endpoint-group: indices.simulate_template
+  description: Simulate resolving the given template name or body
+  parameters:
+  - in: path
+    name: name
+    description: The name of the index template
+    required: true
+    schema:
+      type: string
+  - $ref: "../parameters/query.yaml#/create"
+  - $ref: "../parameters/query.yaml#/cause"
+  - $ref: "../parameters/query.yaml#/master_timeout"
+  - $ref: "../parameters/query.yaml#/cluster_manager_timeout"
+  requestBody:
+    description: New index template definition to be simulated, if no index template
+      name is specified
+    required: false
+    content:
+      application/json:
+        schema:
+          type: object

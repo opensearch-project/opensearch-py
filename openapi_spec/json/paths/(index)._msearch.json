@@ -1,0 +1,85 @@
+{
+  "get": {
+    "x-endpoint-group": "msearch",
+    "description": "Allows to execute several search operations in one request.",
+    "parameters": [
+      {
+        "in": "path",
+        "name": "index",
+        "description": "A comma-separated list of index names to use as default",
+        "required": true,
+        "schema": {
+          "$ref": "../schemas/_common.json#/string_array"
+        }
+      },
+      {
+        "$ref": "../parameters/query.json#/search_type"
+      },
+      {
+        "$ref": "../parameters/query.json#/max_concurrent_searches"
+      },
+      {
+        "$ref": "../parameters/query.json#/typed_keys"
+      },
+      {
+        "$ref": "../parameters/query.json#/pre_filter_shard_size"
+      },
+      {
+        "$ref": "../parameters/query.json#/max_concurrent_shard_requests"
+      },
+      {
+        "$ref": "../parameters/query.json#/rest_total_hits_as_int"
+      },
+      {
+        "$ref": "../parameters/query.json#/ccs_minimize_roundtrips"
+      }
+    ]
+  },
+  "post": {
+    "x-endpoint-group": "msearch",
+    "description": "Allows to execute several search operations in one request.",
+    "parameters": [
+      {
+        "in": "path",
+        "name": "index",
+        "description": "A comma-separated list of index names to use as default",
+        "required": true,
+        "schema": {
+          "$ref": "../schemas/_common.json#/string_array"
+        }
+      },
+      {
+        "$ref": "../parameters/query.json#/search_type"
+      },
+      {
+        "$ref": "../parameters/query.json#/max_concurrent_searches"
+      },
+      {
+        "$ref": "../parameters/query.json#/typed_keys"
+      },
+      {
+        "$ref": "../parameters/query.json#/pre_filter_shard_size"
+      },
+      {
+        "$ref": "../parameters/query.json#/max_concurrent_shard_requests"
+      },
+      {
+        "$ref": "../parameters/query.json#/rest_total_hits_as_int"
+      },
+      {
+        "$ref": "../parameters/query.json#/ccs_minimize_roundtrips"
+      }
+    ],
+    "requestBody": {
+      "description": "The request definitions (metadata-search request definition pairs), separated by newlines",
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object"
+          }
+        }
+      }
+    }
+  }
+}

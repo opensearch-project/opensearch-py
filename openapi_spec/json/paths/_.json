@@ -1,0 +1,16 @@
+{
+  "get": {
+    "x-endpoint-group": "info",
+    "description": "Returns basic information about the cluster.",
+    "parameters": [
+
+    ]
+  },
+  "head": {
+    "x-endpoint-group": "ping",
+    "description": "Returns whether the cluster is running.",
+    "parameters": [
+
+    ]
+  }
+}

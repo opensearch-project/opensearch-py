@@ -1,0 +1,20 @@
+{
+  "post": {
+    "x-endpoint-group": "update_by_query_rethrottle",
+    "description": "Changes the number of requests per second for a particular Update By Query operation.",
+    "parameters": [
+      {
+        "in": "path",
+        "name": "task_id",
+        "description": "The task id to rethrottle",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "$ref": "../parameters/query.json#/requests_per_second"
+      }
+    ]
+  }
+}

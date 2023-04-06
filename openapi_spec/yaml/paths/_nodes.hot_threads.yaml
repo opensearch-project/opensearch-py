@@ -1,0 +1,11 @@
+---
+get:
+  x-endpoint-group: nodes.hot_threads
+  description: Returns information about hot threads on each node in the cluster.
+  parameters:
+  - $ref: "../parameters/query.yaml#/interval"
+  - $ref: "../parameters/query.yaml#/snapshots"
+  - $ref: "../parameters/query.yaml#/threads"
+  - $ref: "../parameters/query.yaml#/ignore_idle_threads"
+  - $ref: "../parameters/query.yaml#/type"
+  - $ref: "../parameters/query.yaml#/timeout"

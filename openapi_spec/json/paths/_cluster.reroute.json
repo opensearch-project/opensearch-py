@@ -1,0 +1,40 @@
+{
+  "post": {
+    "x-endpoint-group": "cluster.reroute",
+    "description": "Allows to manually change the allocation of individual shards in the cluster.",
+    "parameters": [
+      {
+        "$ref": "../parameters/query.json#/dry_run"
+      },
+      {
+        "$ref": "../parameters/query.json#/explain"
+      },
+      {
+        "$ref": "../parameters/query.json#/retry_failed"
+      },
+      {
+        "$ref": "../parameters/query.json#/metric"
+      },
+      {
+        "$ref": "../parameters/query.json#/master_timeout"
+      },
+      {
+        "$ref": "../parameters/query.json#/cluster_manager_timeout"
+      },
+      {
+        "$ref": "../parameters/query.json#/timeout"
+      }
+    ],
+    "requestBody": {
+      "description": "The definition of `commands` to perform (`move`, `cancel`, `allocate`)",
+      "required": false,
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "post": {
+    "x-endpoint-group": "indices.rollover",
+    "description": "Updates an alias to point to a new index when the existing index\nis considered to be too large or too old.",
+    "parameters": [
+      {
+        "in": "path",
+        "name": "alias",
+        "description": "The name of the alias to rollover",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "$ref": "../parameters/query.json#/timeout"
+      },
+      {
+        "$ref": "../parameters/query.json#/dry_run"
+      },
+      {
+        "$ref": "../parameters/query.json#/master_timeout"
+      },
+      {
+        "$ref": "../parameters/query.json#/cluster_manager_timeout"
+      },
+      {
+        "$ref": "../parameters/query.json#/wait_for_active_shards"
+      }
+    ],
+    "requestBody": {
+      "description": "The conditions that needs to be met for executing rollover",
+      "required": false,
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object"
+          }
+        }
+      }
+    }
+  }
+}

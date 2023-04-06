@@ -1,0 +1,14 @@
+{
+  "get": {
+    "x-endpoint-group": "nodes.info",
+    "description": "Returns information about nodes in the cluster.",
+    "parameters": [
+      {
+        "$ref": "../parameters/query.json#/flat_settings"
+      },
+      {
+        "$ref": "../parameters/query.json#/timeout"
+      }
+    ]
+  }
+}

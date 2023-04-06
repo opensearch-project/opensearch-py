@@ -1,0 +1,28 @@
+{
+  "post": {
+    "x-endpoint-group": "indices.update_aliases",
+    "description": "Updates index aliases.",
+    "parameters": [
+      {
+        "$ref": "../parameters/query.json#/timeout"
+      },
+      {
+        "$ref": "../parameters/query.json#/master_timeout"
+      },
+      {
+        "$ref": "../parameters/query.json#/cluster_manager_timeout"
+      }
+    ],
+    "requestBody": {
+      "description": "The definition of `actions` to perform",
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object"
+          }
+        }
+      }
+    }
+  }
+}

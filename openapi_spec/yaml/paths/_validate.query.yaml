@@ -1,0 +1,42 @@
+---
+get:
+  x-endpoint-group: indices.validate_query
+  description: Allows a user to validate a potentially expensive query without executing
+    it.
+  parameters:
+  - $ref: "../parameters/query.yaml#/explain"
+  - $ref: "../parameters/query.yaml#/ignore_unavailable"
+  - $ref: "../parameters/query.yaml#/allow_no_indices"
+  - $ref: "../parameters/query.yaml#/expand_wildcards"
+  - $ref: "../parameters/query.yaml#/q"
+  - $ref: "../parameters/query.yaml#/analyzer"
+  - $ref: "../parameters/query.yaml#/analyze_wildcard"
+  - $ref: "../parameters/query.yaml#/default_operator"
+  - $ref: "../parameters/query.yaml#/df"
+  - $ref: "../parameters/query.yaml#/lenient"
+  - $ref: "../parameters/query.yaml#/rewrite"
+  - $ref: "../parameters/query.yaml#/all_shards"
+post:
+  x-endpoint-group: indices.validate_query
+  description: Allows a user to validate a potentially expensive query without executing
+    it.
+  parameters:
+  - $ref: "../parameters/query.yaml#/explain"
+  - $ref: "../parameters/query.yaml#/ignore_unavailable"
+  - $ref: "../parameters/query.yaml#/allow_no_indices"
+  - $ref: "../parameters/query.yaml#/expand_wildcards"
+  - $ref: "../parameters/query.yaml#/q"
+  - $ref: "../parameters/query.yaml#/analyzer"
+  - $ref: "../parameters/query.yaml#/analyze_wildcard"
+  - $ref: "../parameters/query.yaml#/default_operator"
+  - $ref: "../parameters/query.yaml#/df"
+  - $ref: "../parameters/query.yaml#/lenient"
+  - $ref: "../parameters/query.yaml#/rewrite"
+  - $ref: "../parameters/query.yaml#/all_shards"
+  requestBody:
+    description: The query definition specified with the Query DSL
+    required: false
+    content:
+      application/json:
+        schema:
+          type: object

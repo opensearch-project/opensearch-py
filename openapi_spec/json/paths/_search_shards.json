@@ -1,0 +1,50 @@
+{
+  "get": {
+    "x-endpoint-group": "search_shards",
+    "description": "Returns information about the indices and shards that a search request would be executed against.",
+    "parameters": [
+      {
+        "$ref": "../parameters/query.json#/preference"
+      },
+      {
+        "$ref": "../parameters/query.json#/routing"
+      },
+      {
+        "$ref": "../parameters/query.json#/local"
+      },
+      {
+        "$ref": "../parameters/query.json#/ignore_unavailable"
+      },
+      {
+        "$ref": "../parameters/query.json#/allow_no_indices"
+      },
+      {
+        "$ref": "../parameters/query.json#/expand_wildcards"
+      }
+    ]
+  },
+  "post": {
+    "x-endpoint-group": "search_shards",
+    "description": "Returns information about the indices and shards that a search request would be executed against.",
+    "parameters": [
+      {
+        "$ref": "../parameters/query.json#/preference"
+      },
+      {
+        "$ref": "../parameters/query.json#/routing"
+      },
+      {
+        "$ref": "../parameters/query.json#/local"
+      },
+      {
+        "$ref": "../parameters/query.json#/ignore_unavailable"
+      },
+      {
+        "$ref": "../parameters/query.json#/allow_no_indices"
+      },
+      {
+        "$ref": "../parameters/query.json#/expand_wildcards"
+      }
+    ]
+  }
+}

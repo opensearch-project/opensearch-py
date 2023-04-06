@@ -1,0 +1,142 @@
+{
+  "delete": {
+    "x-endpoint-group": "indices.delete",
+    "description": "Deletes an index.",
+    "parameters": [
+      {
+        "in": "path",
+        "name": "index",
+        "description": "A comma-separated list of indices to delete; use `_all` or `*` string to delete all indices",
+        "required": true,
+        "schema": {
+          "$ref": "../schemas/_common.json#/string_array"
+        }
+      },
+      {
+        "$ref": "../parameters/query.json#/timeout"
+      },
+      {
+        "$ref": "../parameters/query.json#/master_timeout"
+      },
+      {
+        "$ref": "../parameters/query.json#/ignore_unavailable"
+      },
+      {
+        "$ref": "../parameters/query.json#/allow_no_indices"
+      },
+      {
+        "$ref": "../parameters/query.json#/expand_wildcards"
+      }
+    ]
+  },
+  "get": {
+    "x-endpoint-group": "indices.get",
+    "description": "Returns information about one or more indices.",
+    "parameters": [
+      {
+        "in": "path",
+        "name": "index",
+        "description": "A comma-separated list of index names",
+        "required": true,
+        "schema": {
+          "$ref": "../schemas/_common.json#/string_array"
+        }
+      },
+      {
+        "$ref": "../parameters/query.json#/local"
+      },
+      {
+        "$ref": "../parameters/query.json#/ignore_unavailable"
+      },
+      {
+        "$ref": "../parameters/query.json#/allow_no_indices"
+      },
+      {
+        "$ref": "../parameters/query.json#/expand_wildcards"
+      },
+      {
+        "$ref": "../parameters/query.json#/flat_settings"
+      },
+      {
+        "$ref": "../parameters/query.json#/include_defaults"
+      },
+      {
+        "$ref": "../parameters/query.json#/master_timeout"
+      },
+      {
+        "$ref": "../parameters/query.json#/cluster_manager_timeout"
+      }
+    ]
+  },
+  "head": {
+    "x-endpoint-group": "indices.exists",
+    "description": "Returns information about whether a particular index exists.",
+    "parameters": [
+      {
+        "in": "path",
+        "name": "index",
+        "description": "A comma-separated list of index names",
+        "required": true,
+        "schema": {
+          "$ref": "../schemas/_common.json#/string_array"
+        }
+      },
+      {
+        "$ref": "../parameters/query.json#/local"
+      },
+      {
+        "$ref": "../parameters/query.json#/ignore_unavailable"
+      },
+      {
+        "$ref": "../parameters/query.json#/allow_no_indices"
+      },
+      {
+        "$ref": "../parameters/query.json#/expand_wildcards"
+      },
+      {
+        "$ref": "../parameters/query.json#/flat_settings"
+      },
+      {
+        "$ref": "../parameters/query.json#/include_defaults"
+      }
+    ]
+  },
+  "put": {
+    "x-endpoint-group": "indices.create",
+    "description": "Creates an index with optional settings and mappings.",
+    "parameters": [
+      {
+        "in": "path",
+        "name": "index",
+        "description": "The name of the index",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "$ref": "../parameters/query.json#/wait_for_active_shards"
+      },
+      {
+        "$ref": "../parameters/query.json#/timeout"
+      },
+      {
+        "$ref": "../parameters/query.json#/master_timeout"
+      },
+      {
+        "$ref": "../parameters/query.json#/cluster_manager_timeout"
+      }
+    ],
+    "requestBody": {
+      "description": "The configuration for the index (`settings` and `mappings`)",
+      "required": false,
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object"
+          }
+        }
+      }
+    }
+  }
+}

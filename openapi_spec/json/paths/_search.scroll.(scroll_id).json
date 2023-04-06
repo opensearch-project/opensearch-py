@@ -1,0 +1,79 @@
+{
+  "delete": {
+    "x-endpoint-group": "clear_scroll",
+    "description": "Explicitly clears the search context for a scroll.",
+    "parameters": [
+      {
+        "in": "path",
+        "name": "scroll_id",
+        "description": "A comma-separated list of scroll IDs to clear",
+        "required": true,
+        "deprecated": true,
+        "schema": {
+          "$ref": "../schemas/_common.json#/string_array"
+        }
+      }
+    ]
+  },
+  "get": {
+    "x-endpoint-group": "scroll",
+    "description": "Allows to retrieve a large numbers of results from a single search request.",
+    "parameters": [
+      {
+        "in": "path",
+        "name": "scroll_id",
+        "description": "The scroll ID",
+        "required": true,
+        "deprecated": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "$ref": "../parameters/query.json#/scroll"
+      },
+      {
+        "$ref": "../parameters/query.json#/scroll_id"
+      },
+      {
+        "$ref": "../parameters/query.json#/rest_total_hits_as_int"
+      }
+    ]
+  },
+  "post": {
+    "x-endpoint-group": "scroll",
+    "description": "Allows to retrieve a large numbers of results from a single search request.",
+    "parameters": [
+      {
+        "in": "path",
+        "name": "scroll_id",
+        "description": "The scroll ID",
+        "required": true,
+        "deprecated": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "$ref": "../parameters/query.json#/scroll"
+      },
+      {
+        "$ref": "../parameters/query.json#/scroll_id"
+      },
+      {
+        "$ref": "../parameters/query.json#/rest_total_hits_as_int"
+      }
+    ],
+    "requestBody": {
+      "description": "The scroll ID if not passed by URL or query parameter.",
+      "required": false,
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object"
+          }
+        }
+      }
+    }
+  }
+}

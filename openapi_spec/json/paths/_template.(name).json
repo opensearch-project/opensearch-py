@@ -1,0 +1,153 @@
+{
+  "put": {
+    "x-endpoint-group": "indices.put_template",
+    "description": "Creates or updates an index template.",
+    "parameters": [
+      {
+        "in": "path",
+        "name": "name",
+        "description": "The name of the template",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "$ref": "../parameters/query.json#/order"
+      },
+      {
+        "$ref": "../parameters/query.json#/create"
+      },
+      {
+        "$ref": "../parameters/query.json#/master_timeout"
+      },
+      {
+        "$ref": "../parameters/query.json#/cluster_manager_timeout"
+      }
+    ],
+    "requestBody": {
+      "description": "The template definition",
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object"
+          }
+        }
+      }
+    }
+  },
+  "post": {
+    "x-endpoint-group": "indices.put_template",
+    "description": "Creates or updates an index template.",
+    "parameters": [
+      {
+        "in": "path",
+        "name": "name",
+        "description": "The name of the template",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "$ref": "../parameters/query.json#/order"
+      },
+      {
+        "$ref": "../parameters/query.json#/create"
+      },
+      {
+        "$ref": "../parameters/query.json#/master_timeout"
+      },
+      {
+        "$ref": "../parameters/query.json#/cluster_manager_timeout"
+      }
+    ],
+    "requestBody": {
+      "description": "The template definition",
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object"
+          }
+        }
+      }
+    }
+  },
+  "get": {
+    "x-endpoint-group": "indices.get_template",
+    "description": "Returns an index template.",
+    "parameters": [
+      {
+        "in": "path",
+        "name": "name",
+        "description": "The comma separated names of the index templates",
+        "required": true,
+        "schema": {
+          "$ref": "../schemas/_common.json#/string_array"
+        }
+      },
+      {
+        "$ref": "../parameters/query.json#/flat_settings"
+      },
+      {
+        "$ref": "../parameters/query.json#/master_timeout"
+      },
+      {
+        "$ref": "../parameters/query.json#/cluster_manager_timeout"
+      },
+      {
+        "$ref": "../parameters/query.json#/local"
+      }
+    ]
+  },
+  "delete": {
+    "x-endpoint-group": "indices.delete_template",
+    "description": "Deletes an index template.",
+    "parameters": [
+      {
+        "in": "path",
+        "name": "name",
+        "description": "The name of the template",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "$ref": "../parameters/query.json#/timeout"
+      },
+      {
+        "$ref": "../parameters/query.json#/master_timeout"
+      },
+      {
+        "$ref": "../parameters/query.json#/cluster_manager_timeout"
+      }
+    ]
+  },
+  "head": {
+    "x-endpoint-group": "indices.exists_template",
+    "description": "Returns information about whether a particular index template exists.",
+    "parameters": [
+      {
+        "in": "path",
+        "name": "name",
+        "description": "The comma separated names of the index templates",
+        "required": true,
+        "schema": {
+          "$ref": "../schemas/_common.json#/string_array"
+        }
+      },
+      {
+        "$ref": "../parameters/query.json#/flat_settings"
+      },
+      {
+        "$ref": "../parameters/query.json#/master_timeout"
+      },
+      {
+        "$ref": "../parameters/query.json#/local"
+      }
+    ]
+  }
+}

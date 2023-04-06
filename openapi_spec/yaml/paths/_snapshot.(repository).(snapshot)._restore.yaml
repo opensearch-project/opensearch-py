@@ -1,0 +1,27 @@
+---
+post:
+  x-endpoint-group: snapshot.restore
+  description: Restores a snapshot.
+  parameters:
+  - in: path
+    name: repository
+    description: A repository name
+    required: true
+    schema:
+      type: string
+  - in: path
+    name: snapshot
+    description: A snapshot name
+    required: true
+    schema:
+      type: string
+  - $ref: "../parameters/query.yaml#/master_timeout"
+  - $ref: "../parameters/query.yaml#/cluster_manager_timeout"
+  - $ref: "../parameters/query.yaml#/wait_for_completion"
+  requestBody:
+    description: Details of what to restore
+    required: false
+    content:
+      application/json:
+        schema:
+          type: object

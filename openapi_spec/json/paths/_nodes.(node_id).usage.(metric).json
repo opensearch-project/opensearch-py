@@ -1,0 +1,29 @@
+{
+  "get": {
+    "x-endpoint-group": "nodes.usage",
+    "description": "Returns low-level information about REST actions usage on nodes.",
+    "parameters": [
+      {
+        "in": "path",
+        "name": "metric",
+        "description": "Limit the information returned to the specified metrics",
+        "required": true,
+        "schema": {
+          "$ref": "../schemas/_common.json#/string_array"
+        }
+      },
+      {
+        "in": "path",
+        "name": "node_id",
+        "description": "A comma-separated list of node IDs or names to limit the returned information; use `_local` to return information from the node you're connecting to, leave empty to get information from all nodes",
+        "required": true,
+        "schema": {
+          "$ref": "../schemas/_common.json#/string_array"
+        }
+      },
+      {
+        "$ref": "../parameters/query.json#/timeout"
+      }
+    ]
+  }
+}

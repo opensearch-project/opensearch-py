@@ -1,0 +1,29 @@
+---
+post:
+  x-endpoint-group: index
+  description: Creates or updates a document in an index.
+  parameters:
+  - in: path
+    name: index
+    description: The name of the index
+    required: true
+    schema:
+      type: string
+  - $ref: "../parameters/query.yaml#/wait_for_active_shards"
+  - $ref: "../parameters/query.yaml#/op_type"
+  - $ref: "../parameters/query.yaml#/refresh"
+  - $ref: "../parameters/query.yaml#/routing"
+  - $ref: "../parameters/query.yaml#/timeout"
+  - $ref: "../parameters/query.yaml#/version"
+  - $ref: "../parameters/query.yaml#/version_type"
+  - $ref: "../parameters/query.yaml#/if_seq_no"
+  - $ref: "../parameters/query.yaml#/if_primary_term"
+  - $ref: "../parameters/query.yaml#/pipeline"
+  - $ref: "../parameters/query.yaml#/require_alias"
+  requestBody:
+    description: The document
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object

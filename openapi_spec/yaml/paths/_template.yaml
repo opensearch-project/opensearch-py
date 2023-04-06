@@ -1,0 +1,9 @@
+---
+get:
+  x-endpoint-group: indices.get_template
+  description: Returns an index template.
+  parameters:
+  - $ref: "../parameters/query.yaml#/flat_settings"
+  - $ref: "../parameters/query.yaml#/master_timeout"
+  - $ref: "../parameters/query.yaml#/cluster_manager_timeout"
+  - $ref: "../parameters/query.yaml#/local"

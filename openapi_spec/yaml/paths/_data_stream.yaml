@@ -1,0 +1,5 @@
+---
+get:
+  x-endpoint-group: indices.get_data_stream
+  description: Returns data streams.
+  parameters: []

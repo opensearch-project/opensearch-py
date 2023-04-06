@@ -1,0 +1,21 @@
+---
+put:
+  x-endpoint-group: cluster.put_weighted_routing
+  description: Updates weighted shard routing weights
+  parameters:
+  - in: path
+    name: attribute
+    description: Awareness attribute name
+    required: true
+    schema:
+      type: string
+get:
+  x-endpoint-group: cluster.get_weighted_routing
+  description: Fetches weighted shard routing weights
+  parameters:
+  - in: path
+    name: attribute
+    description: Awareness attribute name
+    required: true
+    schema:
+      type: string

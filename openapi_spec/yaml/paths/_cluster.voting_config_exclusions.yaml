@@ -1,0 +1,13 @@
+---
+post:
+  x-endpoint-group: cluster.post_voting_config_exclusions
+  description: Updates the cluster voting config exclusions by node ids or node names.
+  parameters:
+  - $ref: "../parameters/query.yaml#/node_ids"
+  - $ref: "../parameters/query.yaml#/node_names"
+  - $ref: "../parameters/query.yaml#/timeout"
+delete:
+  x-endpoint-group: cluster.delete_voting_config_exclusions
+  description: Clears cluster voting config exclusions.
+  parameters:
+  - $ref: "../parameters/query.yaml#/wait_for_removal"

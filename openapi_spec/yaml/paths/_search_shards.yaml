@@ -1,0 +1,23 @@
+---
+get:
+  x-endpoint-group: search_shards
+  description: Returns information about the indices and shards that a search request
+    would be executed against.
+  parameters:
+  - $ref: "../parameters/query.yaml#/preference"
+  - $ref: "../parameters/query.yaml#/routing"
+  - $ref: "../parameters/query.yaml#/local"
+  - $ref: "../parameters/query.yaml#/ignore_unavailable"
+  - $ref: "../parameters/query.yaml#/allow_no_indices"
+  - $ref: "../parameters/query.yaml#/expand_wildcards"
+post:
+  x-endpoint-group: search_shards
+  description: Returns information about the indices and shards that a search request
+    would be executed against.
+  parameters:
+  - $ref: "../parameters/query.yaml#/preference"
+  - $ref: "../parameters/query.yaml#/routing"
+  - $ref: "../parameters/query.yaml#/local"
+  - $ref: "../parameters/query.yaml#/ignore_unavailable"
+  - $ref: "../parameters/query.yaml#/allow_no_indices"
+  - $ref: "../parameters/query.yaml#/expand_wildcards"

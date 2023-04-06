@@ -1,0 +1,21 @@
+---
+get:
+  x-endpoint-group: nodes.stats
+  description: Returns statistical information about nodes in the cluster.
+  parameters:
+  - in: path
+    name: node_id
+    description: A comma-separated list of node IDs or names to limit the returned
+      information; use `_local` to return information from the node you're connecting
+      to, leave empty to get information from all nodes
+    required: true
+    schema:
+      $ref: "../schemas/_common.yaml#/string_array"
+  - $ref: "../parameters/query.yaml#/completion_fields"
+  - $ref: "../parameters/query.yaml#/fielddata_fields"
+  - $ref: "../parameters/query.yaml#/fields"
+  - $ref: "../parameters/query.yaml#/groups"
+  - $ref: "../parameters/query.yaml#/level"
+  - $ref: "../parameters/query.yaml#/types"
+  - $ref: "../parameters/query.yaml#/timeout"
+  - $ref: "../parameters/query.yaml#/include_segment_file_sizes"

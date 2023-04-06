@@ -1,0 +1,52 @@
+{
+  "put": {
+    "x-endpoint-group": "snapshot.clone",
+    "description": "Clones indices from one snapshot into another snapshot in the same repository.",
+    "parameters": [
+      {
+        "in": "path",
+        "name": "repository",
+        "description": "A repository name",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "in": "path",
+        "name": "snapshot",
+        "description": "The name of the snapshot to clone from",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "in": "path",
+        "name": "target_snapshot",
+        "description": "The name of the cloned snapshot to create",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "$ref": "../parameters/query.json#/master_timeout"
+      },
+      {
+        "$ref": "../parameters/query.json#/cluster_manager_timeout"
+      }
+    ],
+    "requestBody": {
+      "description": "The snapshot clone definition",
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object"
+          }
+        }
+      }
+    }
+  }
+}

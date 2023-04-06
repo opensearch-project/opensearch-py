@@ -1,0 +1,55 @@
+{
+  "get": {
+    "x-endpoint-group": "field_caps",
+    "description": "Returns the information about the capabilities of fields among multiple indices.",
+    "parameters": [
+      {
+        "$ref": "../parameters/query.json#/fields"
+      },
+      {
+        "$ref": "../parameters/query.json#/ignore_unavailable"
+      },
+      {
+        "$ref": "../parameters/query.json#/allow_no_indices"
+      },
+      {
+        "$ref": "../parameters/query.json#/expand_wildcards"
+      },
+      {
+        "$ref": "../parameters/query.json#/include_unmapped"
+      }
+    ]
+  },
+  "post": {
+    "x-endpoint-group": "field_caps",
+    "description": "Returns the information about the capabilities of fields among multiple indices.",
+    "parameters": [
+      {
+        "$ref": "../parameters/query.json#/fields"
+      },
+      {
+        "$ref": "../parameters/query.json#/ignore_unavailable"
+      },
+      {
+        "$ref": "../parameters/query.json#/allow_no_indices"
+      },
+      {
+        "$ref": "../parameters/query.json#/expand_wildcards"
+      },
+      {
+        "$ref": "../parameters/query.json#/include_unmapped"
+      }
+    ],
+    "requestBody": {
+      "description": "An index filter specified with the Query DSL",
+      "required": false,
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object"
+          }
+        }
+      }
+    }
+  }
+}

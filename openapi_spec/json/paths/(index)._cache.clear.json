@@ -1,0 +1,41 @@
+{
+  "post": {
+    "x-endpoint-group": "indices.clear_cache",
+    "description": "Clears all or specific caches for one or more indices.",
+    "parameters": [
+      {
+        "in": "path",
+        "name": "index",
+        "description": "A comma-separated list of index name to limit the operation",
+        "required": true,
+        "schema": {
+          "$ref": "../schemas/_common.json#/string_array"
+        }
+      },
+      {
+        "$ref": "../parameters/query.json#/fielddata"
+      },
+      {
+        "$ref": "../parameters/query.json#/fields"
+      },
+      {
+        "$ref": "../parameters/query.json#/query"
+      },
+      {
+        "$ref": "../parameters/query.json#/ignore_unavailable"
+      },
+      {
+        "$ref": "../parameters/query.json#/allow_no_indices"
+      },
+      {
+        "$ref": "../parameters/query.json#/expand_wildcards"
+      },
+      {
+        "$ref": "../parameters/query.json#/index"
+      },
+      {
+        "$ref": "../parameters/query.json#/request"
+      }
+    ]
+  }
+}

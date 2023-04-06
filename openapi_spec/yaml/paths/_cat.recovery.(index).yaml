@@ -1,0 +1,22 @@
+---
+get:
+  x-endpoint-group: cat.recovery
+  description: Returns information about index shard recoveries, both on-going completed.
+  parameters:
+  - in: path
+    name: index
+    description: Comma-separated list or wildcard expression of index names to limit
+      the returned information
+    required: true
+    schema:
+      $ref: "../schemas/_common.yaml#/string_array"
+  - $ref: "../parameters/query.yaml#/format"
+  - $ref: "../parameters/query.yaml#/active_only"
+  - $ref: "../parameters/query.yaml#/bytes"
+  - $ref: "../parameters/query.yaml#/detailed"
+  - $ref: "../parameters/query.yaml#/h"
+  - $ref: "../parameters/query.yaml#/help"
+  - $ref: "../parameters/query.yaml#/index"
+  - $ref: "../parameters/query.yaml#/s"
+  - $ref: "../parameters/query.yaml#/time"
+  - $ref: "../parameters/query.yaml#/v"

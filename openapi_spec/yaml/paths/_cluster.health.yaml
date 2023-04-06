@@ -1,0 +1,19 @@
+---
+get:
+  x-endpoint-group: cluster.health
+  description: Returns basic information about the health of the cluster.
+  parameters:
+  - $ref: "../parameters/query.yaml#/expand_wildcards"
+  - $ref: "../parameters/query.yaml#/level"
+  - $ref: "../parameters/query.yaml#/local"
+  - $ref: "../parameters/query.yaml#/master_timeout"
+  - $ref: "../parameters/query.yaml#/cluster_manager_timeout"
+  - $ref: "../parameters/query.yaml#/timeout"
+  - $ref: "../parameters/query.yaml#/wait_for_active_shards"
+  - $ref: "../parameters/query.yaml#/wait_for_nodes"
+  - $ref: "../parameters/query.yaml#/wait_for_events"
+  - $ref: "../parameters/query.yaml#/wait_for_no_relocating_shards"
+  - $ref: "../parameters/query.yaml#/wait_for_no_initializing_shards"
+  - $ref: "../parameters/query.yaml#/wait_for_status"
+  - $ref: "../parameters/query.yaml#/awareness_attribute"
+  - $ref: "../parameters/query.yaml#/ensure_node_commissioned"

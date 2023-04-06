@@ -1,0 +1,31 @@
+{
+  "post": {
+    "x-endpoint-group": "indices.simulate_template",
+    "description": "Simulate resolving the given template name or body",
+    "parameters": [
+      {
+        "$ref": "../parameters/query.json#/create"
+      },
+      {
+        "$ref": "../parameters/query.json#/cause"
+      },
+      {
+        "$ref": "../parameters/query.json#/master_timeout"
+      },
+      {
+        "$ref": "../parameters/query.json#/cluster_manager_timeout"
+      }
+    ],
+    "requestBody": {
+      "description": "New index template definition to be simulated, if no index template name is specified",
+      "required": false,
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object"
+          }
+        }
+      }
+    }
+  }
+}

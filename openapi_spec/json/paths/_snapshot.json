@@ -1,0 +1,17 @@
+{
+  "get": {
+    "x-endpoint-group": "snapshot.get_repository",
+    "description": "Returns information about a repository.",
+    "parameters": [
+      {
+        "$ref": "../parameters/query.json#/master_timeout"
+      },
+      {
+        "$ref": "../parameters/query.json#/cluster_manager_timeout"
+      },
+      {
+        "$ref": "../parameters/query.json#/local"
+      }
+    ]
+  }
+}

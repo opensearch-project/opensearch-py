@@ -1,0 +1,19 @@
+---
+post:
+  x-endpoint-group: indices.flush
+  description: Performs the flush operation on one or more indices.
+  parameters:
+  - $ref: "../parameters/query.yaml#/force"
+  - $ref: "../parameters/query.yaml#/wait_if_ongoing"
+  - $ref: "../parameters/query.yaml#/ignore_unavailable"
+  - $ref: "../parameters/query.yaml#/allow_no_indices"
+  - $ref: "../parameters/query.yaml#/expand_wildcards"
+get:
+  x-endpoint-group: indices.flush
+  description: Performs the flush operation on one or more indices.
+  parameters:
+  - $ref: "../parameters/query.yaml#/force"
+  - $ref: "../parameters/query.yaml#/wait_if_ongoing"
+  - $ref: "../parameters/query.yaml#/ignore_unavailable"
+  - $ref: "../parameters/query.yaml#/allow_no_indices"
+  - $ref: "../parameters/query.yaml#/expand_wildcards"

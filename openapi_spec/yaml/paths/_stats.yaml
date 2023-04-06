@@ -1,0 +1,14 @@
+---
+get:
+  x-endpoint-group: indices.stats
+  description: Provides statistics on operations happening in an index.
+  parameters:
+  - $ref: "../parameters/query.yaml#/completion_fields"
+  - $ref: "../parameters/query.yaml#/fielddata_fields"
+  - $ref: "../parameters/query.yaml#/fields"
+  - $ref: "../parameters/query.yaml#/groups"
+  - $ref: "../parameters/query.yaml#/level"
+  - $ref: "../parameters/query.yaml#/include_segment_file_sizes"
+  - $ref: "../parameters/query.yaml#/include_unloaded_segments"
+  - $ref: "../parameters/query.yaml#/expand_wildcards"
+  - $ref: "../parameters/query.yaml#/forbid_closed_indices"

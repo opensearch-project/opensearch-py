@@ -1,0 +1,35 @@
+{
+  "get": {
+    "x-endpoint-group": "snapshot.status",
+    "description": "Returns information about the status of a snapshot.",
+    "parameters": [
+      {
+        "in": "path",
+        "name": "repository",
+        "description": "A repository name",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "in": "path",
+        "name": "snapshot",
+        "description": "A comma-separated list of snapshot names",
+        "required": true,
+        "schema": {
+          "$ref": "../schemas/_common.json#/string_array"
+        }
+      },
+      {
+        "$ref": "../parameters/query.json#/master_timeout"
+      },
+      {
+        "$ref": "../parameters/query.json#/cluster_manager_timeout"
+      },
+      {
+        "$ref": "../parameters/query.json#/ignore_unavailable"
+      }
+    ]
+  }
+}

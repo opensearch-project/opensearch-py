@@ -1,0 +1,44 @@
+{
+  "get": {
+    "x-endpoint-group": "cat.allocation",
+    "description": "Provides a snapshot of how many shards are allocated to each data node and how much disk space they are using.",
+    "parameters": [
+      {
+        "in": "path",
+        "name": "node_id",
+        "description": "A comma-separated list of node IDs or names to limit the returned information",
+        "required": true,
+        "schema": {
+          "$ref": "../schemas/_common.json#/string_array"
+        }
+      },
+      {
+        "$ref": "../parameters/query.json#/format"
+      },
+      {
+        "$ref": "../parameters/query.json#/bytes"
+      },
+      {
+        "$ref": "../parameters/query.json#/local"
+      },
+      {
+        "$ref": "../parameters/query.json#/master_timeout"
+      },
+      {
+        "$ref": "../parameters/query.json#/cluster_manager_timeout"
+      },
+      {
+        "$ref": "../parameters/query.json#/h"
+      },
+      {
+        "$ref": "../parameters/query.json#/help"
+      },
+      {
+        "$ref": "../parameters/query.json#/s"
+      },
+      {
+        "$ref": "../parameters/query.json#/v"
+      }
+    ]
+  }
+}

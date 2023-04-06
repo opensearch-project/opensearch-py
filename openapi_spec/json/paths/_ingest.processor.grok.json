@@ -1,0 +1,9 @@
+{
+  "get": {
+    "x-endpoint-group": "ingest.processor_grok",
+    "description": "Returns a list of the built-in patterns.",
+    "parameters": [
+
+    ]
+  }
+}

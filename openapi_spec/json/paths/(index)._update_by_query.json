@@ -1,0 +1,133 @@
+{
+  "post": {
+    "x-endpoint-group": "update_by_query",
+    "description": "Performs an update on every document in the index without changing the source,\nfor example to pick up a mapping change.",
+    "parameters": [
+      {
+        "in": "path",
+        "name": "index",
+        "description": "A comma-separated list of index names to search; use `_all` or empty string to perform the operation on all indices",
+        "required": true,
+        "schema": {
+          "$ref": "../schemas/_common.json#/string_array"
+        }
+      },
+      {
+        "$ref": "../parameters/query.json#/analyzer"
+      },
+      {
+        "$ref": "../parameters/query.json#/analyze_wildcard"
+      },
+      {
+        "$ref": "../parameters/query.json#/default_operator"
+      },
+      {
+        "$ref": "../parameters/query.json#/df"
+      },
+      {
+        "$ref": "../parameters/query.json#/from"
+      },
+      {
+        "$ref": "../parameters/query.json#/ignore_unavailable"
+      },
+      {
+        "$ref": "../parameters/query.json#/allow_no_indices"
+      },
+      {
+        "$ref": "../parameters/query.json#/conflicts"
+      },
+      {
+        "$ref": "../parameters/query.json#/expand_wildcards"
+      },
+      {
+        "$ref": "../parameters/query.json#/lenient"
+      },
+      {
+        "$ref": "../parameters/query.json#/pipeline"
+      },
+      {
+        "$ref": "../parameters/query.json#/preference"
+      },
+      {
+        "$ref": "../parameters/query.json#/q"
+      },
+      {
+        "$ref": "../parameters/query.json#/routing"
+      },
+      {
+        "$ref": "../parameters/query.json#/scroll"
+      },
+      {
+        "$ref": "../parameters/query.json#/search_type"
+      },
+      {
+        "$ref": "../parameters/query.json#/search_timeout"
+      },
+      {
+        "$ref": "../parameters/query.json#/size"
+      },
+      {
+        "$ref": "../parameters/query.json#/max_docs"
+      },
+      {
+        "$ref": "../parameters/query.json#/sort"
+      },
+      {
+        "$ref": "../parameters/query.json#/_source"
+      },
+      {
+        "$ref": "../parameters/query.json#/_source_excludes"
+      },
+      {
+        "$ref": "../parameters/query.json#/_source_includes"
+      },
+      {
+        "$ref": "../parameters/query.json#/terminate_after"
+      },
+      {
+        "$ref": "../parameters/query.json#/stats"
+      },
+      {
+        "$ref": "../parameters/query.json#/version"
+      },
+      {
+        "$ref": "../parameters/query.json#/version_type"
+      },
+      {
+        "$ref": "../parameters/query.json#/request_cache"
+      },
+      {
+        "$ref": "../parameters/query.json#/refresh"
+      },
+      {
+        "$ref": "../parameters/query.json#/timeout"
+      },
+      {
+        "$ref": "../parameters/query.json#/wait_for_active_shards"
+      },
+      {
+        "$ref": "../parameters/query.json#/scroll_size"
+      },
+      {
+        "$ref": "../parameters/query.json#/wait_for_completion"
+      },
+      {
+        "$ref": "../parameters/query.json#/requests_per_second"
+      },
+      {
+        "$ref": "../parameters/query.json#/slices"
+      }
+    ],
+    "requestBody": {
+      "description": "The search definition using the Query DSL",
+      "required": false,
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object"
+          }
+        }
+      }
+    }
+  }
+}

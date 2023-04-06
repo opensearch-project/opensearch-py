@@ -1,0 +1,29 @@
+---
+post:
+  x-endpoint-group: dangling_indices.import_dangling_index
+  description: Imports the specified dangling index
+  parameters:
+  - in: path
+    name: index_uuid
+    description: The UUID of the dangling index
+    required: true
+    schema:
+      type: string
+  - $ref: "../parameters/query.yaml#/accept_data_loss"
+  - $ref: "../parameters/query.yaml#/timeout"
+  - $ref: "../parameters/query.yaml#/master_timeout"
+  - $ref: "../parameters/query.yaml#/cluster_manager_timeout"
+delete:
+  x-endpoint-group: dangling_indices.delete_dangling_index
+  description: Deletes the specified dangling index
+  parameters:
+  - in: path
+    name: index_uuid
+    description: The UUID of the dangling index
+    required: true
+    schema:
+      type: string
+  - $ref: "../parameters/query.yaml#/accept_data_loss"
+  - $ref: "../parameters/query.yaml#/timeout"
+  - $ref: "../parameters/query.yaml#/master_timeout"
+  - $ref: "../parameters/query.yaml#/cluster_manager_timeout"

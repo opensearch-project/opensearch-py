@@ -1,0 +1,20 @@
+{
+  "get": {
+    "x-endpoint-group": "indices.get_template",
+    "description": "Returns an index template.",
+    "parameters": [
+      {
+        "$ref": "../parameters/query.json#/flat_settings"
+      },
+      {
+        "$ref": "../parameters/query.json#/master_timeout"
+      },
+      {
+        "$ref": "../parameters/query.json#/cluster_manager_timeout"
+      },
+      {
+        "$ref": "../parameters/query.json#/local"
+      }
+    ]
+  }
+}

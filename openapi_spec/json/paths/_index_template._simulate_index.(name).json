@@ -1,0 +1,40 @@
+{
+  "post": {
+    "x-endpoint-group": "indices.simulate_index_template",
+    "description": "Simulate matching the given index name against the index templates in the system",
+    "parameters": [
+      {
+        "in": "path",
+        "name": "name",
+        "description": "The name of the index (it must be a concrete index name)",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "$ref": "../parameters/query.json#/create"
+      },
+      {
+        "$ref": "../parameters/query.json#/cause"
+      },
+      {
+        "$ref": "../parameters/query.json#/master_timeout"
+      },
+      {
+        "$ref": "../parameters/query.json#/cluster_manager_timeout"
+      }
+    ],
+    "requestBody": {
+      "description": "New index template definition, which will be included in the simulation, as if it already exists in the system",
+      "required": false,
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object"
+          }
+        }
+      }
+    }
+  }
+}

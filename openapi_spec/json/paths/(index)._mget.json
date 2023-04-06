@@ -1,0 +1,91 @@
+{
+  "get": {
+    "x-endpoint-group": "mget",
+    "description": "Allows to get multiple documents in one request.",
+    "parameters": [
+      {
+        "in": "path",
+        "name": "index",
+        "description": "The name of the index",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "$ref": "../parameters/query.json#/stored_fields"
+      },
+      {
+        "$ref": "../parameters/query.json#/preference"
+      },
+      {
+        "$ref": "../parameters/query.json#/realtime"
+      },
+      {
+        "$ref": "../parameters/query.json#/refresh"
+      },
+      {
+        "$ref": "../parameters/query.json#/routing"
+      },
+      {
+        "$ref": "../parameters/query.json#/_source"
+      },
+      {
+        "$ref": "../parameters/query.json#/_source_excludes"
+      },
+      {
+        "$ref": "../parameters/query.json#/_source_includes"
+      }
+    ]
+  },
+  "post": {
+    "x-endpoint-group": "mget",
+    "description": "Allows to get multiple documents in one request.",
+    "parameters": [
+      {
+        "in": "path",
+        "name": "index",
+        "description": "The name of the index",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "$ref": "../parameters/query.json#/stored_fields"
+      },
+      {
+        "$ref": "../parameters/query.json#/preference"
+      },
+      {
+        "$ref": "../parameters/query.json#/realtime"
+      },
+      {
+        "$ref": "../parameters/query.json#/refresh"
+      },
+      {
+        "$ref": "../parameters/query.json#/routing"
+      },
+      {
+        "$ref": "../parameters/query.json#/_source"
+      },
+      {
+        "$ref": "../parameters/query.json#/_source_excludes"
+      },
+      {
+        "$ref": "../parameters/query.json#/_source_includes"
+      }
+    ],
+    "requestBody": {
+      "description": "Document identifiers; can be either `docs` (containing full document information) or `ids` (when index is provided in the URL.",
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object"
+          }
+        }
+      }
+    }
+  }
+}

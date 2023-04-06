@@ -1,0 +1,50 @@
+{
+  "get": {
+    "x-endpoint-group": "nodes.stats",
+    "description": "Returns statistical information about nodes in the cluster.",
+    "parameters": [
+      {
+        "in": "path",
+        "name": "metric",
+        "description": "Limit the information returned to the specified metrics",
+        "required": true,
+        "schema": {
+          "$ref": "../schemas/_common.json#/string_array"
+        }
+      },
+      {
+        "in": "path",
+        "name": "index_metric",
+        "description": "Limit the information returned for `indices` metric to the specific index metrics. Isn't used if `indices` (or `all`) metric isn't specified.",
+        "required": true,
+        "schema": {
+          "$ref": "../schemas/_common.json#/string_array"
+        }
+      },
+      {
+        "$ref": "../parameters/query.json#/completion_fields"
+      },
+      {
+        "$ref": "../parameters/query.json#/fielddata_fields"
+      },
+      {
+        "$ref": "../parameters/query.json#/fields"
+      },
+      {
+        "$ref": "../parameters/query.json#/groups"
+      },
+      {
+        "$ref": "../parameters/query.json#/level"
+      },
+      {
+        "$ref": "../parameters/query.json#/types"
+      },
+      {
+        "$ref": "../parameters/query.json#/timeout"
+      },
+      {
+        "$ref": "../parameters/query.json#/include_segment_file_sizes"
+      }
+    ]
+  }
+}

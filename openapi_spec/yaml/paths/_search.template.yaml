@@ -1,0 +1,42 @@
+---
+get:
+  x-endpoint-group: search_template
+  description: Allows to use the Mustache language to pre-render a search definition.
+  parameters:
+  - $ref: "../parameters/query.yaml#/ignore_unavailable"
+  - $ref: "../parameters/query.yaml#/ignore_throttled"
+  - $ref: "../parameters/query.yaml#/allow_no_indices"
+  - $ref: "../parameters/query.yaml#/expand_wildcards"
+  - $ref: "../parameters/query.yaml#/preference"
+  - $ref: "../parameters/query.yaml#/routing"
+  - $ref: "../parameters/query.yaml#/scroll"
+  - $ref: "../parameters/query.yaml#/search_type"
+  - $ref: "../parameters/query.yaml#/explain"
+  - $ref: "../parameters/query.yaml#/profile"
+  - $ref: "../parameters/query.yaml#/typed_keys"
+  - $ref: "../parameters/query.yaml#/rest_total_hits_as_int"
+  - $ref: "../parameters/query.yaml#/ccs_minimize_roundtrips"
+post:
+  x-endpoint-group: search_template
+  description: Allows to use the Mustache language to pre-render a search definition.
+  parameters:
+  - $ref: "../parameters/query.yaml#/ignore_unavailable"
+  - $ref: "../parameters/query.yaml#/ignore_throttled"
+  - $ref: "../parameters/query.yaml#/allow_no_indices"
+  - $ref: "../parameters/query.yaml#/expand_wildcards"
+  - $ref: "../parameters/query.yaml#/preference"
+  - $ref: "../parameters/query.yaml#/routing"
+  - $ref: "../parameters/query.yaml#/scroll"
+  - $ref: "../parameters/query.yaml#/search_type"
+  - $ref: "../parameters/query.yaml#/explain"
+  - $ref: "../parameters/query.yaml#/profile"
+  - $ref: "../parameters/query.yaml#/typed_keys"
+  - $ref: "../parameters/query.yaml#/rest_total_hits_as_int"
+  - $ref: "../parameters/query.yaml#/ccs_minimize_roundtrips"
+  requestBody:
+    description: The search definition template and its params
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object

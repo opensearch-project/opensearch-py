@@ -1,0 +1,15 @@
+---
+post:
+  x-endpoint-group: indices.refresh
+  description: Performs the refresh operation in one or more indices.
+  parameters:
+  - $ref: "../parameters/query.yaml#/ignore_unavailable"
+  - $ref: "../parameters/query.yaml#/allow_no_indices"
+  - $ref: "../parameters/query.yaml#/expand_wildcards"
+get:
+  x-endpoint-group: indices.refresh
+  description: Performs the refresh operation in one or more indices.
+  parameters:
+  - $ref: "../parameters/query.yaml#/ignore_unavailable"
+  - $ref: "../parameters/query.yaml#/allow_no_indices"
+  - $ref: "../parameters/query.yaml#/expand_wildcards"

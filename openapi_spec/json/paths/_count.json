@@ -1,0 +1,109 @@
+{
+  "post": {
+    "x-endpoint-group": "count",
+    "description": "Returns number of documents matching a query.",
+    "parameters": [
+      {
+        "$ref": "../parameters/query.json#/ignore_unavailable"
+      },
+      {
+        "$ref": "../parameters/query.json#/ignore_throttled"
+      },
+      {
+        "$ref": "../parameters/query.json#/allow_no_indices"
+      },
+      {
+        "$ref": "../parameters/query.json#/expand_wildcards"
+      },
+      {
+        "$ref": "../parameters/query.json#/min_score"
+      },
+      {
+        "$ref": "../parameters/query.json#/preference"
+      },
+      {
+        "$ref": "../parameters/query.json#/routing"
+      },
+      {
+        "$ref": "../parameters/query.json#/q"
+      },
+      {
+        "$ref": "../parameters/query.json#/analyzer"
+      },
+      {
+        "$ref": "../parameters/query.json#/analyze_wildcard"
+      },
+      {
+        "$ref": "../parameters/query.json#/default_operator"
+      },
+      {
+        "$ref": "../parameters/query.json#/df"
+      },
+      {
+        "$ref": "../parameters/query.json#/lenient"
+      },
+      {
+        "$ref": "../parameters/query.json#/terminate_after"
+      }
+    ],
+    "requestBody": {
+      "description": "A query to restrict the results specified with the Query DSL (optional)",
+      "required": false,
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object"
+          }
+        }
+      }
+    }
+  },
+  "get": {
+    "x-endpoint-group": "count",
+    "description": "Returns number of documents matching a query.",
+    "parameters": [
+      {
+        "$ref": "../parameters/query.json#/ignore_unavailable"
+      },
+      {
+        "$ref": "../parameters/query.json#/ignore_throttled"
+      },
+      {
+        "$ref": "../parameters/query.json#/allow_no_indices"
+      },
+      {
+        "$ref": "../parameters/query.json#/expand_wildcards"
+      },
+      {
+        "$ref": "../parameters/query.json#/min_score"
+      },
+      {
+        "$ref": "../parameters/query.json#/preference"
+      },
+      {
+        "$ref": "../parameters/query.json#/routing"
+      },
+      {
+        "$ref": "../parameters/query.json#/q"
+      },
+      {
+        "$ref": "../parameters/query.json#/analyzer"
+      },
+      {
+        "$ref": "../parameters/query.json#/analyze_wildcard"
+      },
+      {
+        "$ref": "../parameters/query.json#/default_operator"
+      },
+      {
+        "$ref": "../parameters/query.json#/df"
+      },
+      {
+        "$ref": "../parameters/query.json#/lenient"
+      },
+      {
+        "$ref": "../parameters/query.json#/terminate_after"
+      }
+    ]
+  }
+}

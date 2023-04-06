@@ -1,0 +1,14 @@
+{
+  "get": {
+    "x-endpoint-group": "cluster.stats",
+    "description": "Returns high-level overview of cluster statistics.",
+    "parameters": [
+      {
+        "$ref": "../parameters/query.json#/flat_settings"
+      },
+      {
+        "$ref": "../parameters/query.json#/timeout"
+      }
+    ]
+  }
+}

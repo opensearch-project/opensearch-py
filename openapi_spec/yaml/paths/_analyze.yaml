@@ -1,0 +1,21 @@
+---
+get:
+  x-endpoint-group: indices.analyze
+  description: Performs the analysis process on a text and return the tokens breakdown
+    of the text.
+  parameters:
+  - $ref: "../parameters/query.yaml#/index"
+post:
+  x-endpoint-group: indices.analyze
+  description: Performs the analysis process on a text and return the tokens breakdown
+    of the text.
+  parameters:
+  - $ref: "../parameters/query.yaml#/index"
+  requestBody:
+    description: Define analyzer/tokenizer parameters and the text on which the analysis
+      should be performed
+    required: false
+    content:
+      application/json:
+        schema:
+          type: object

@@ -1,0 +1,44 @@
+{
+  "get": {
+    "x-endpoint-group": "cat.segment_replication",
+    "description": "Returns information about both on-going and latest completed Segment Replication events",
+    "parameters": [
+      {
+        "$ref": "../parameters/query.json#/format"
+      },
+      {
+        "$ref": "../parameters/query.json#/active_only"
+      },
+      {
+        "$ref": "../parameters/query.json#/completed_only"
+      },
+      {
+        "$ref": "../parameters/query.json#/bytes"
+      },
+      {
+        "$ref": "../parameters/query.json#/detailed"
+      },
+      {
+        "$ref": "../parameters/query.json#/shards"
+      },
+      {
+        "$ref": "../parameters/query.json#/h"
+      },
+      {
+        "$ref": "../parameters/query.json#/help"
+      },
+      {
+        "$ref": "../parameters/query.json#/index"
+      },
+      {
+        "$ref": "../parameters/query.json#/s"
+      },
+      {
+        "$ref": "../parameters/query.json#/time"
+      },
+      {
+        "$ref": "../parameters/query.json#/v"
+      }
+    ]
+  }
+}

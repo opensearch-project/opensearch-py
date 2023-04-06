@@ -1,0 +1,19 @@
+---
+get:
+  x-endpoint-group: cat.templates
+  description: Returns information about existing templates.
+  parameters:
+  - in: path
+    name: name
+    description: A pattern that returned template names must match
+    required: true
+    schema:
+      type: string
+  - $ref: "../parameters/query.yaml#/format"
+  - $ref: "../parameters/query.yaml#/local"
+  - $ref: "../parameters/query.yaml#/master_timeout"
+  - $ref: "../parameters/query.yaml#/cluster_manager_timeout"
+  - $ref: "../parameters/query.yaml#/h"
+  - $ref: "../parameters/query.yaml#/help"
+  - $ref: "../parameters/query.yaml#/s"
+  - $ref: "../parameters/query.yaml#/v"

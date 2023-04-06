@@ -1,0 +1,43 @@
+{
+  "get": {
+    "x-endpoint-group": "render_search_template",
+    "description": "Allows to use the Mustache language to pre-render a search definition.",
+    "parameters": [
+      {
+        "in": "path",
+        "name": "id",
+        "description": "The id of the stored search template",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ]
+  },
+  "post": {
+    "x-endpoint-group": "render_search_template",
+    "description": "Allows to use the Mustache language to pre-render a search definition.",
+    "parameters": [
+      {
+        "in": "path",
+        "name": "id",
+        "description": "The id of the stored search template",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "requestBody": {
+      "description": "The search definition template and its params",
+      "required": false,
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object"
+          }
+        }
+      }
+    }
+  }
+}

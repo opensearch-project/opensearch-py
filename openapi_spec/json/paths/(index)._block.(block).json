@@ -1,0 +1,44 @@
+{
+  "put": {
+    "x-endpoint-group": "indices.add_block",
+    "description": "Adds a block to an index.",
+    "parameters": [
+      {
+        "in": "path",
+        "name": "index",
+        "description": "A comma separated list of indices to add a block to",
+        "required": true,
+        "schema": {
+          "$ref": "../schemas/_common.json#/string_array"
+        }
+      },
+      {
+        "in": "path",
+        "name": "block",
+        "description": "The block to add (one of read, write, read_only or metadata)",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "$ref": "../parameters/query.json#/timeout"
+      },
+      {
+        "$ref": "../parameters/query.json#/master_timeout"
+      },
+      {
+        "$ref": "../parameters/query.json#/cluster_manager_timeout"
+      },
+      {
+        "$ref": "../parameters/query.json#/ignore_unavailable"
+      },
+      {
+        "$ref": "../parameters/query.json#/allow_no_indices"
+      },
+      {
+        "$ref": "../parameters/query.json#/expand_wildcards"
+      }
+    ]
+  }
+}

@@ -1,0 +1,96 @@
+{
+  "put": {
+    "x-endpoint-group": "put_script",
+    "description": "Creates or updates a script.",
+    "parameters": [
+      {
+        "in": "path",
+        "name": "id",
+        "description": "Script ID",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "in": "path",
+        "name": "context",
+        "description": "Script context",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "$ref": "../parameters/query.json#/timeout"
+      },
+      {
+        "$ref": "../parameters/query.json#/master_timeout"
+      },
+      {
+        "$ref": "../parameters/query.json#/cluster_manager_timeout"
+      },
+      {
+        "$ref": "../parameters/query.json#/context"
+      }
+    ],
+    "requestBody": {
+      "description": "The document",
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object"
+          }
+        }
+      }
+    }
+  },
+  "post": {
+    "x-endpoint-group": "put_script",
+    "description": "Creates or updates a script.",
+    "parameters": [
+      {
+        "in": "path",
+        "name": "id",
+        "description": "Script ID",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "in": "path",
+        "name": "context",
+        "description": "Script context",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "$ref": "../parameters/query.json#/timeout"
+      },
+      {
+        "$ref": "../parameters/query.json#/master_timeout"
+      },
+      {
+        "$ref": "../parameters/query.json#/cluster_manager_timeout"
+      },
+      {
+        "$ref": "../parameters/query.json#/context"
+      }
+    ],
+    "requestBody": {
+      "description": "The document",
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object"
+          }
+        }
+      }
+    }
+  }
+}

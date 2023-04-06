@@ -1,0 +1,11 @@
+{
+  "get": {
+    "x-endpoint-group": "nodes.usage",
+    "description": "Returns low-level information about REST actions usage on nodes.",
+    "parameters": [
+      {
+        "$ref": "../parameters/query.json#/timeout"
+      }
+    ]
+  }
+}

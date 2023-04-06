@@ -1,0 +1,20 @@
+---
+get:
+  x-endpoint-group: cat.snapshots
+  description: Returns all snapshots in a specific repository.
+  parameters:
+  - in: path
+    name: repository
+    description: Name of repository from which to fetch the snapshot information
+    required: true
+    schema:
+      $ref: "../schemas/_common.yaml#/string_array"
+  - $ref: "../parameters/query.yaml#/format"
+  - $ref: "../parameters/query.yaml#/ignore_unavailable"
+  - $ref: "../parameters/query.yaml#/master_timeout"
+  - $ref: "../parameters/query.yaml#/cluster_manager_timeout"
+  - $ref: "../parameters/query.yaml#/h"
+  - $ref: "../parameters/query.yaml#/help"
+  - $ref: "../parameters/query.yaml#/s"
+  - $ref: "../parameters/query.yaml#/time"
+  - $ref: "../parameters/query.yaml#/v"

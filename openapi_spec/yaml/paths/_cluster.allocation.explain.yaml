@@ -1,0 +1,21 @@
+---
+get:
+  x-endpoint-group: cluster.allocation_explain
+  description: Provides explanations for shard allocations in the cluster.
+  parameters:
+  - $ref: "../parameters/query.yaml#/include_yes_decisions"
+  - $ref: "../parameters/query.yaml#/include_disk_info"
+post:
+  x-endpoint-group: cluster.allocation_explain
+  description: Provides explanations for shard allocations in the cluster.
+  parameters:
+  - $ref: "../parameters/query.yaml#/include_yes_decisions"
+  - $ref: "../parameters/query.yaml#/include_disk_info"
+  requestBody:
+    description: The index, shard, and primary flag to explain. Empty means 'explain
+      the first unassigned shard'
+    required: false
+    content:
+      application/json:
+        schema:
+          type: object

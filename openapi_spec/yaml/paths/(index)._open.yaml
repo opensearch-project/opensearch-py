@@ -1,0 +1,17 @@
+---
+post:
+  x-endpoint-group: indices.open
+  description: Opens an index.
+  parameters:
+  - in: path
+    name: index
+    description: A comma separated list of indices to open
+    required: true
+    schema:
+      $ref: "../schemas/_common.yaml#/string_array"
+  - $ref: "../parameters/query.yaml#/timeout"
+  - $ref: "../parameters/query.yaml#/master_timeout"
+  - $ref: "../parameters/query.yaml#/ignore_unavailable"
+  - $ref: "../parameters/query.yaml#/allow_no_indices"
+  - $ref: "../parameters/query.yaml#/expand_wildcards"
+  - $ref: "../parameters/query.yaml#/wait_for_active_shards"

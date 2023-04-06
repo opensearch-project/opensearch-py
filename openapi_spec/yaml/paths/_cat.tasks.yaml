@@ -1,0 +1,16 @@
+---
+get:
+  x-endpoint-group: cat.tasks
+  description: Returns information about the tasks currently executing on one or more
+    nodes in the cluster.
+  parameters:
+  - $ref: "../parameters/query.yaml#/format"
+  - $ref: "../parameters/query.yaml#/nodes"
+  - $ref: "../parameters/query.yaml#/actions"
+  - $ref: "../parameters/query.yaml#/detailed"
+  - $ref: "../parameters/query.yaml#/parent_task_id"
+  - $ref: "../parameters/query.yaml#/h"
+  - $ref: "../parameters/query.yaml#/help"
+  - $ref: "../parameters/query.yaml#/s"
+  - $ref: "../parameters/query.yaml#/time"
+  - $ref: "../parameters/query.yaml#/v"

@@ -1,0 +1,7 @@
+---
+get:
+  x-endpoint-group: cat.help
+  description: Returns help for the Cat APIs.
+  parameters:
+  - $ref: "../parameters/query.yaml#/help"
+  - $ref: "../parameters/query.yaml#/s"

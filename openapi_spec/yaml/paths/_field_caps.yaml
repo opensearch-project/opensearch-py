@@ -1,0 +1,28 @@
+---
+get:
+  x-endpoint-group: field_caps
+  description: Returns the information about the capabilities of fields among multiple
+    indices.
+  parameters:
+  - $ref: "../parameters/query.yaml#/fields"
+  - $ref: "../parameters/query.yaml#/ignore_unavailable"
+  - $ref: "../parameters/query.yaml#/allow_no_indices"
+  - $ref: "../parameters/query.yaml#/expand_wildcards"
+  - $ref: "../parameters/query.yaml#/include_unmapped"
+post:
+  x-endpoint-group: field_caps
+  description: Returns the information about the capabilities of fields among multiple
+    indices.
+  parameters:
+  - $ref: "../parameters/query.yaml#/fields"
+  - $ref: "../parameters/query.yaml#/ignore_unavailable"
+  - $ref: "../parameters/query.yaml#/allow_no_indices"
+  - $ref: "../parameters/query.yaml#/expand_wildcards"
+  - $ref: "../parameters/query.yaml#/include_unmapped"
+  requestBody:
+    description: An index filter specified with the Query DSL
+    required: false
+    content:
+      application/json:
+        schema:
+          type: object

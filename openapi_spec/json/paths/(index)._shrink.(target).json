@@ -1,0 +1,102 @@
+{
+  "put": {
+    "x-endpoint-group": "indices.shrink",
+    "description": "Allow to shrink an existing index into a new index with fewer primary shards.",
+    "parameters": [
+      {
+        "in": "path",
+        "name": "index",
+        "description": "The name of the source index to shrink",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "in": "path",
+        "name": "target",
+        "description": "The name of the target index to shrink into",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "$ref": "../parameters/query.json#/copy_settings"
+      },
+      {
+        "$ref": "../parameters/query.json#/timeout"
+      },
+      {
+        "$ref": "../parameters/query.json#/master_timeout"
+      },
+      {
+        "$ref": "../parameters/query.json#/cluster_manager_timeout"
+      },
+      {
+        "$ref": "../parameters/query.json#/wait_for_active_shards"
+      }
+    ],
+    "requestBody": {
+      "description": "The configuration for the target index (`settings` and `aliases`)",
+      "required": false,
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object"
+          }
+        }
+      }
+    }
+  },
+  "post": {
+    "x-endpoint-group": "indices.shrink",
+    "description": "Allow to shrink an existing index into a new index with fewer primary shards.",
+    "parameters": [
+      {
+        "in": "path",
+        "name": "index",
+        "description": "The name of the source index to shrink",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "in": "path",
+        "name": "target",
+        "description": "The name of the target index to shrink into",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "$ref": "../parameters/query.json#/copy_settings"
+      },
+      {
+        "$ref": "../parameters/query.json#/timeout"
+      },
+      {
+        "$ref": "../parameters/query.json#/master_timeout"
+      },
+      {
+        "$ref": "../parameters/query.json#/cluster_manager_timeout"
+      },
+      {
+        "$ref": "../parameters/query.json#/wait_for_active_shards"
+      }
+    ],
+    "requestBody": {
+      "description": "The configuration for the target index (`settings` and `aliases`)",
+      "required": false,
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object"
+          }
+        }
+      }
+    }
+  }
+}

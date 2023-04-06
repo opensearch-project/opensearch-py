@@ -1,0 +1,103 @@
+{
+  "get": {
+    "x-endpoint-group": "search_template",
+    "description": "Allows to use the Mustache language to pre-render a search definition.",
+    "parameters": [
+      {
+        "$ref": "../parameters/query.json#/ignore_unavailable"
+      },
+      {
+        "$ref": "../parameters/query.json#/ignore_throttled"
+      },
+      {
+        "$ref": "../parameters/query.json#/allow_no_indices"
+      },
+      {
+        "$ref": "../parameters/query.json#/expand_wildcards"
+      },
+      {
+        "$ref": "../parameters/query.json#/preference"
+      },
+      {
+        "$ref": "../parameters/query.json#/routing"
+      },
+      {
+        "$ref": "../parameters/query.json#/scroll"
+      },
+      {
+        "$ref": "../parameters/query.json#/search_type"
+      },
+      {
+        "$ref": "../parameters/query.json#/explain"
+      },
+      {
+        "$ref": "../parameters/query.json#/profile"
+      },
+      {
+        "$ref": "../parameters/query.json#/typed_keys"
+      },
+      {
+        "$ref": "../parameters/query.json#/rest_total_hits_as_int"
+      },
+      {
+        "$ref": "../parameters/query.json#/ccs_minimize_roundtrips"
+      }
+    ]
+  },
+  "post": {
+    "x-endpoint-group": "search_template",
+    "description": "Allows to use the Mustache language to pre-render a search definition.",
+    "parameters": [
+      {
+        "$ref": "../parameters/query.json#/ignore_unavailable"
+      },
+      {
+        "$ref": "../parameters/query.json#/ignore_throttled"
+      },
+      {
+        "$ref": "../parameters/query.json#/allow_no_indices"
+      },
+      {
+        "$ref": "../parameters/query.json#/expand_wildcards"
+      },
+      {
+        "$ref": "../parameters/query.json#/preference"
+      },
+      {
+        "$ref": "../parameters/query.json#/routing"
+      },
+      {
+        "$ref": "../parameters/query.json#/scroll"
+      },
+      {
+        "$ref": "../parameters/query.json#/search_type"
+      },
+      {
+        "$ref": "../parameters/query.json#/explain"
+      },
+      {
+        "$ref": "../parameters/query.json#/profile"
+      },
+      {
+        "$ref": "../parameters/query.json#/typed_keys"
+      },
+      {
+        "$ref": "../parameters/query.json#/rest_total_hits_as_int"
+      },
+      {
+        "$ref": "../parameters/query.json#/ccs_minimize_roundtrips"
+      }
+    ],
+    "requestBody": {
+      "description": "The search definition template and its params",
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object"
+          }
+        }
+      }
+    }
+  }
+}

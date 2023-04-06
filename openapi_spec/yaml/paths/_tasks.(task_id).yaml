@@ -1,0 +1,13 @@
+---
+get:
+  x-endpoint-group: tasks.get
+  description: Returns information about a task.
+  parameters:
+  - in: path
+    name: task_id
+    description: Return the task with specified id (node_id:task_number)
+    required: true
+    schema:
+      type: string
+  - $ref: "../parameters/query.yaml#/wait_for_completion"
+  - $ref: "../parameters/query.yaml#/timeout"

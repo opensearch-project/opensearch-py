@@ -1,0 +1,14 @@
+{
+  "get": {
+    "x-endpoint-group": "ingest.get_pipeline",
+    "description": "Returns a pipeline.",
+    "parameters": [
+      {
+        "$ref": "../parameters/query.json#/master_timeout"
+      },
+      {
+        "$ref": "../parameters/query.json#/cluster_manager_timeout"
+      }
+    ]
+  }
+}

@@ -1,0 +1,116 @@
+---
+put:
+  x-endpoint-group: indices.put_alias
+  description: Creates or updates an alias.
+  parameters:
+  - in: path
+    name: index
+    description: A comma-separated list of index names the alias should point to (supports
+      wildcards); use `_all` to perform the operation on all indices.
+    required: true
+    schema:
+      $ref: "../schemas/_common.yaml#/string_array"
+  - in: path
+    name: name
+    description: The name of the alias to be created or updated
+    required: true
+    schema:
+      type: string
+  - $ref: "../parameters/query.yaml#/timeout"
+  - $ref: "../parameters/query.yaml#/master_timeout"
+  - $ref: "../parameters/query.yaml#/cluster_manager_timeout"
+  requestBody:
+    description: The settings for the alias, such as `routing` or `filter`
+    required: false
+    content:
+      application/json:
+        schema:
+          type: object
+post:
+  x-endpoint-group: indices.put_alias
+  description: Creates or updates an alias.
+  parameters:
+  - in: path
+    name: index
+    description: A comma-separated list of index names the alias should point to (supports
+      wildcards); use `_all` to perform the operation on all indices.
+    required: true
+    schema:
+      $ref: "../schemas/_common.yaml#/string_array"
+  - in: path
+    name: name
+    description: The name of the alias to be created or updated
+    required: true
+    schema:
+      type: string
+  - $ref: "../parameters/query.yaml#/timeout"
+  - $ref: "../parameters/query.yaml#/master_timeout"
+  - $ref: "../parameters/query.yaml#/cluster_manager_timeout"
+  requestBody:
+    description: The settings for the alias, such as `routing` or `filter`
+    required: false
+    content:
+      application/json:
+        schema:
+          type: object
+head:
+  x-endpoint-group: indices.exists_alias
+  description: Returns information about whether a particular alias exists.
+  parameters:
+  - in: path
+    name: index
+    description: A comma-separated list of index names to filter aliases
+    required: true
+    schema:
+      $ref: "../schemas/_common.yaml#/string_array"
+  - in: path
+    name: name
+    description: A comma-separated list of alias names to return
+    required: true
+    schema:
+      $ref: "../schemas/_common.yaml#/string_array"
+  - $ref: "../parameters/query.yaml#/ignore_unavailable"
+  - $ref: "../parameters/query.yaml#/allow_no_indices"
+  - $ref: "../parameters/query.yaml#/expand_wildcards"
+  - $ref: "../parameters/query.yaml#/local"
+get:
+  x-endpoint-group: indices.get_alias
+  description: Returns an alias.
+  parameters:
+  - in: path
+    name: index
+    description: A comma-separated list of index names to filter aliases
+    required: true
+    schema:
+      $ref: "../schemas/_common.yaml#/string_array"
+  - in: path
+    name: name
+    description: A comma-separated list of alias names to return
+    required: true
+    schema:
+      $ref: "../schemas/_common.yaml#/string_array"
+  - $ref: "../parameters/query.yaml#/ignore_unavailable"
+  - $ref: "../parameters/query.yaml#/allow_no_indices"
+  - $ref: "../parameters/query.yaml#/expand_wildcards"
+  - $ref: "../parameters/query.yaml#/local"
+delete:
+  x-endpoint-group: indices.delete_alias
+  description: Deletes an alias.
+  parameters:
+  - in: path
+    name: index
+    description: A comma-separated list of index names (supports wildcards); use `_all`
+      for all indices
+    required: true
+    schema:
+      $ref: "../schemas/_common.yaml#/string_array"
+  - in: path
+    name: name
+    description: A comma-separated list of aliases to delete (supports wildcards);
+      use `_all` to delete all aliases for the specified indices.
+    required: true
+    schema:
+      $ref: "../schemas/_common.yaml#/string_array"
+  - $ref: "../parameters/query.yaml#/timeout"
+  - $ref: "../parameters/query.yaml#/master_timeout"
+  - $ref: "../parameters/query.yaml#/cluster_manager_timeout"

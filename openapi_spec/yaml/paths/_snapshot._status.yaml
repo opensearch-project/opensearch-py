@@ -1,0 +1,8 @@
+---
+get:
+  x-endpoint-group: snapshot.status
+  description: Returns information about the status of a snapshot.
+  parameters:
+  - $ref: "../parameters/query.yaml#/master_timeout"
+  - $ref: "../parameters/query.yaml#/cluster_manager_timeout"
+  - $ref: "../parameters/query.yaml#/ignore_unavailable"

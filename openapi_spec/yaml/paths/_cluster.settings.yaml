@@ -1,0 +1,26 @@
+---
+put:
+  x-endpoint-group: cluster.put_settings
+  description: Updates the cluster settings.
+  parameters:
+  - $ref: "../parameters/query.yaml#/flat_settings"
+  - $ref: "../parameters/query.yaml#/master_timeout"
+  - $ref: "../parameters/query.yaml#/cluster_manager_timeout"
+  - $ref: "../parameters/query.yaml#/timeout"
+  requestBody:
+    description: The settings to be updated. Can be either `transient` or `persistent`
+      (survives cluster restart).
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+get:
+  x-endpoint-group: cluster.get_settings
+  description: Returns cluster settings.
+  parameters:
+  - $ref: "../parameters/query.yaml#/flat_settings"
+  - $ref: "../parameters/query.yaml#/master_timeout"
+  - $ref: "../parameters/query.yaml#/cluster_manager_timeout"
+  - $ref: "../parameters/query.yaml#/timeout"
+  - $ref: "../parameters/query.yaml#/include_defaults"

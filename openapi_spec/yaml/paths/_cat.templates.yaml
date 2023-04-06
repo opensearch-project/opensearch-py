@@ -1,0 +1,13 @@
+---
+get:
+  x-endpoint-group: cat.templates
+  description: Returns information about existing templates.
+  parameters:
+  - $ref: "../parameters/query.yaml#/format"
+  - $ref: "../parameters/query.yaml#/local"
+  - $ref: "../parameters/query.yaml#/master_timeout"
+  - $ref: "../parameters/query.yaml#/cluster_manager_timeout"
+  - $ref: "../parameters/query.yaml#/h"
+  - $ref: "../parameters/query.yaml#/help"
+  - $ref: "../parameters/query.yaml#/s"
+  - $ref: "../parameters/query.yaml#/v"

@@ -1,0 +1,20 @@
+---
+get:
+  x-endpoint-group: cluster.state
+  description: Returns a comprehensive information about the state of the cluster.
+  parameters:
+  - in: path
+    name: metric
+    description: Limit the information returned to the specified metrics
+    required: true
+    schema:
+      $ref: "../schemas/_common.yaml#/string_array"
+  - $ref: "../parameters/query.yaml#/local"
+  - $ref: "../parameters/query.yaml#/master_timeout"
+  - $ref: "../parameters/query.yaml#/cluster_manager_timeout"
+  - $ref: "../parameters/query.yaml#/flat_settings"
+  - $ref: "../parameters/query.yaml#/wait_for_metadata_version"
+  - $ref: "../parameters/query.yaml#/wait_for_timeout"
+  - $ref: "../parameters/query.yaml#/ignore_unavailable"
+  - $ref: "../parameters/query.yaml#/allow_no_indices"
+  - $ref: "../parameters/query.yaml#/expand_wildcards"

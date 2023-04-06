@@ -1,0 +1,17 @@
+---
+put:
+  x-endpoint-group: cluster.put_decommission_awareness
+  description: Decommissions an awareness attribute
+  parameters:
+  - in: path
+    name: awareness_attribute_name
+    description: Awareness attribute name
+    required: true
+    schema:
+      type: string
+  - in: path
+    name: awareness_attribute_value
+    description: Awareness attribute value
+    required: true
+    schema:
+      type: string

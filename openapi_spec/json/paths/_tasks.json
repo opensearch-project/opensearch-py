@@ -1,0 +1,29 @@
+{
+  "get": {
+    "x-endpoint-group": "tasks.list",
+    "description": "Returns a list of tasks.",
+    "parameters": [
+      {
+        "$ref": "../parameters/query.json#/nodes"
+      },
+      {
+        "$ref": "../parameters/query.json#/actions"
+      },
+      {
+        "$ref": "../parameters/query.json#/detailed"
+      },
+      {
+        "$ref": "../parameters/query.json#/parent_task_id"
+      },
+      {
+        "$ref": "../parameters/query.json#/wait_for_completion"
+      },
+      {
+        "$ref": "../parameters/query.json#/group_by"
+      },
+      {
+        "$ref": "../parameters/query.json#/timeout"
+      }
+    ]
+  }
+}

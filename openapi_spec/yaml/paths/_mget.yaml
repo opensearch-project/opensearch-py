@@ -1,0 +1,33 @@
+---
+get:
+  x-endpoint-group: mget
+  description: Allows to get multiple documents in one request.
+  parameters:
+  - $ref: "../parameters/query.yaml#/stored_fields"
+  - $ref: "../parameters/query.yaml#/preference"
+  - $ref: "../parameters/query.yaml#/realtime"
+  - $ref: "../parameters/query.yaml#/refresh"
+  - $ref: "../parameters/query.yaml#/routing"
+  - $ref: "../parameters/query.yaml#/_source"
+  - $ref: "../parameters/query.yaml#/_source_excludes"
+  - $ref: "../parameters/query.yaml#/_source_includes"
+post:
+  x-endpoint-group: mget
+  description: Allows to get multiple documents in one request.
+  parameters:
+  - $ref: "../parameters/query.yaml#/stored_fields"
+  - $ref: "../parameters/query.yaml#/preference"
+  - $ref: "../parameters/query.yaml#/realtime"
+  - $ref: "../parameters/query.yaml#/refresh"
+  - $ref: "../parameters/query.yaml#/routing"
+  - $ref: "../parameters/query.yaml#/_source"
+  - $ref: "../parameters/query.yaml#/_source_excludes"
+  - $ref: "../parameters/query.yaml#/_source_includes"
+  requestBody:
+    description: Document identifiers; can be either `docs` (containing full document
+      information) or `ids` (when index is provided in the URL.
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object

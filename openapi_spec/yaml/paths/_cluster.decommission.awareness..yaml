@@ -1,0 +1,5 @@
+---
+delete:
+  x-endpoint-group: cluster.delete_decommission_awareness
+  description: Delete any existing decommission.
+  parameters: []

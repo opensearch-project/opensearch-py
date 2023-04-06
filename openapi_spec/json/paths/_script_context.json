@@ -1,0 +1,9 @@
+{
+  "get": {
+    "x-endpoint-group": "get_script_context",
+    "description": "Returns all script contexts.",
+    "parameters": [
+
+    ]
+  }
+}

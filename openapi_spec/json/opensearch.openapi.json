@@ -1,0 +1,633 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "OpenSearch",
+    "version": "2.5"
+  },
+  "paths": {
+    "/": {
+      "$ref": "./paths/_.json"
+    },
+    "/_alias": {
+      "$ref": "./paths/_alias.json"
+    },
+    "/_alias/{name}": {
+      "$ref": "./paths/_alias.(name).json"
+    },
+    "/_aliases": {
+      "$ref": "./paths/_aliases.json"
+    },
+    "/_analyze": {
+      "$ref": "./paths/_analyze.json"
+    },
+    "/_bulk": {
+      "$ref": "./paths/_bulk.json"
+    },
+    "/_cache/clear": {
+      "$ref": "./paths/_cache.clear.json"
+    },
+    "/_cat": {
+      "$ref": "./paths/_cat.json"
+    },
+    "/_cat/aliases": {
+      "$ref": "./paths/_cat.aliases.json"
+    },
+    "/_cat/aliases/{name}": {
+      "$ref": "./paths/_cat.aliases.(name).json"
+    },
+    "/_cat/allocation": {
+      "$ref": "./paths/_cat.allocation.json"
+    },
+    "/_cat/allocation/{node_id}": {
+      "$ref": "./paths/_cat.allocation.(node_id).json"
+    },
+    "/_cat/cluster_manager": {
+      "$ref": "./paths/_cat.cluster_manager.json"
+    },
+    "/_cat/count": {
+      "$ref": "./paths/_cat.count.json"
+    },
+    "/_cat/count/{index}": {
+      "$ref": "./paths/_cat.count.(index).json"
+    },
+    "/_cat/fielddata": {
+      "$ref": "./paths/_cat.fielddata.json"
+    },
+    "/_cat/fielddata/{fields}": {
+      "$ref": "./paths/_cat.fielddata.(fields).json"
+    },
+    "/_cat/health": {
+      "$ref": "./paths/_cat.health.json"
+    },
+    "/_cat/indices": {
+      "$ref": "./paths/_cat.indices.json"
+    },
+    "/_cat/indices/{index}": {
+      "$ref": "./paths/_cat.indices.(index).json"
+    },
+    "/_cat/master": {
+      "$ref": "./paths/_cat.master.json"
+    },
+    "/_cat/nodeattrs": {
+      "$ref": "./paths/_cat.nodeattrs.json"
+    },
+    "/_cat/nodes": {
+      "$ref": "./paths/_cat.nodes.json"
+    },
+    "/_cat/pending_tasks": {
+      "$ref": "./paths/_cat.pending_tasks.json"
+    },
+    "/_cat/plugins": {
+      "$ref": "./paths/_cat.plugins.json"
+    },
+    "/_cat/recovery": {
+      "$ref": "./paths/_cat.recovery.json"
+    },
+    "/_cat/recovery/{index}": {
+      "$ref": "./paths/_cat.recovery.(index).json"
+    },
+    "/_cat/repositories": {
+      "$ref": "./paths/_cat.repositories.json"
+    },
+    "/_cat/segment_replication": {
+      "$ref": "./paths/_cat.segment_replication.json"
+    },
+    "/_cat/segment_replication/{index}": {
+      "$ref": "./paths/_cat.segment_replication.(index).json"
+    },
+    "/_cat/segments": {
+      "$ref": "./paths/_cat.segments.json"
+    },
+    "/_cat/segments/{index}": {
+      "$ref": "./paths/_cat.segments.(index).json"
+    },
+    "/_cat/shards": {
+      "$ref": "./paths/_cat.shards.json"
+    },
+    "/_cat/shards/{index}": {
+      "$ref": "./paths/_cat.shards.(index).json"
+    },
+    "/_cat/snapshots": {
+      "$ref": "./paths/_cat.snapshots.json"
+    },
+    "/_cat/snapshots/{repository}": {
+      "$ref": "./paths/_cat.snapshots.(repository).json"
+    },
+    "/_cat/tasks": {
+      "$ref": "./paths/_cat.tasks.json"
+    },
+    "/_cat/templates": {
+      "$ref": "./paths/_cat.templates.json"
+    },
+    "/_cat/templates/{name}": {
+      "$ref": "./paths/_cat.templates.(name).json"
+    },
+    "/_cat/thread_pool": {
+      "$ref": "./paths/_cat.thread_pool.json"
+    },
+    "/_cat/thread_pool/{thread_pool_patterns}": {
+      "$ref": "./paths/_cat.thread_pool.(thread_pool_patterns).json"
+    },
+    "/_cluster/allocation/explain": {
+      "$ref": "./paths/_cluster.allocation.explain.json"
+    },
+    "/_cluster/decommission/awareness/": {
+      "$ref": "./paths/_cluster.decommission.awareness..json"
+    },
+    "/_cluster/decommission/awareness/{awareness_attribute_name}/_status": {
+      "$ref": "./paths/_cluster.decommission.awareness.(awareness_attribute_name)._status.json"
+    },
+    "/_cluster/decommission/awareness/{awareness_attribute_name}/{awareness_attribute_value}": {
+      "$ref": "./paths/_cluster.decommission.awareness.(awareness_attribute_name).(awareness_attribute_value).json"
+    },
+    "/_cluster/health": {
+      "$ref": "./paths/_cluster.health.json"
+    },
+    "/_cluster/health/{index}": {
+      "$ref": "./paths/_cluster.health.(index).json"
+    },
+    "/_cluster/nodes/hot_threads": {
+      "$ref": "./paths/_cluster.nodes.hot_threads.json"
+    },
+    "/_cluster/nodes/hotthreads": {
+      "$ref": "./paths/_cluster.nodes.hotthreads.json"
+    },
+    "/_cluster/nodes/{node_id}/hot_threads": {
+      "$ref": "./paths/_cluster.nodes.(node_id).hot_threads.json"
+    },
+    "/_cluster/nodes/{node_id}/hotthreads": {
+      "$ref": "./paths/_cluster.nodes.(node_id).hotthreads.json"
+    },
+    "/_cluster/pending_tasks": {
+      "$ref": "./paths/_cluster.pending_tasks.json"
+    },
+    "/_cluster/reroute": {
+      "$ref": "./paths/_cluster.reroute.json"
+    },
+    "/_cluster/routing/awareness/weights": {
+      "$ref": "./paths/_cluster.routing.awareness.weights.json"
+    },
+    "/_cluster/routing/awareness/{attribute}/weights": {
+      "$ref": "./paths/_cluster.routing.awareness.(attribute).weights.json"
+    },
+    "/_cluster/settings": {
+      "$ref": "./paths/_cluster.settings.json"
+    },
+    "/_cluster/state": {
+      "$ref": "./paths/_cluster.state.json"
+    },
+    "/_cluster/state/{metric}": {
+      "$ref": "./paths/_cluster.state.(metric).json"
+    },
+    "/_cluster/state/{metric}/{index}": {
+      "$ref": "./paths/_cluster.state.(metric).(index).json"
+    },
+    "/_cluster/stats": {
+      "$ref": "./paths/_cluster.stats.json"
+    },
+    "/_cluster/stats/nodes/{node_id}": {
+      "$ref": "./paths/_cluster.stats.nodes.(node_id).json"
+    },
+    "/_cluster/voting_config_exclusions": {
+      "$ref": "./paths/_cluster.voting_config_exclusions.json"
+    },
+    "/_component_template": {
+      "$ref": "./paths/_component_template.json"
+    },
+    "/_component_template/{name}": {
+      "$ref": "./paths/_component_template.(name).json"
+    },
+    "/_count": {
+      "$ref": "./paths/_count.json"
+    },
+    "/_dangling": {
+      "$ref": "./paths/_dangling.json"
+    },
+    "/_dangling/{index_uuid}": {
+      "$ref": "./paths/_dangling.(index_uuid).json"
+    },
+    "/_data_stream": {
+      "$ref": "./paths/_data_stream.json"
+    },
+    "/_data_stream/_stats": {
+      "$ref": "./paths/_data_stream._stats.json"
+    },
+    "/_data_stream/{name}": {
+      "$ref": "./paths/_data_stream.(name).json"
+    },
+    "/_data_stream/{name}/_stats": {
+      "$ref": "./paths/_data_stream.(name)._stats.json"
+    },
+    "/_delete_by_query/{task_id}/_rethrottle": {
+      "$ref": "./paths/_delete_by_query.(task_id)._rethrottle.json"
+    },
+    "/_field_caps": {
+      "$ref": "./paths/_field_caps.json"
+    },
+    "/_flush": {
+      "$ref": "./paths/_flush.json"
+    },
+    "/_forcemerge": {
+      "$ref": "./paths/_forcemerge.json"
+    },
+    "/_index_template": {
+      "$ref": "./paths/_index_template.json"
+    },
+    "/_index_template/_simulate": {
+      "$ref": "./paths/_index_template._simulate.json"
+    },
+    "/_index_template/_simulate/{name}": {
+      "$ref": "./paths/_index_template._simulate.(name).json"
+    },
+    "/_index_template/_simulate_index/{name}": {
+      "$ref": "./paths/_index_template._simulate_index.(name).json"
+    },
+    "/_index_template/{name}": {
+      "$ref": "./paths/_index_template.(name).json"
+    },
+    "/_ingest/pipeline": {
+      "$ref": "./paths/_ingest.pipeline.json"
+    },
+    "/_ingest/pipeline/_simulate": {
+      "$ref": "./paths/_ingest.pipeline._simulate.json"
+    },
+    "/_ingest/pipeline/{id}": {
+      "$ref": "./paths/_ingest.pipeline.(id).json"
+    },
+    "/_ingest/pipeline/{id}/_simulate": {
+      "$ref": "./paths/_ingest.pipeline.(id)._simulate.json"
+    },
+    "/_ingest/processor/grok": {
+      "$ref": "./paths/_ingest.processor.grok.json"
+    },
+    "/_mapping": {
+      "$ref": "./paths/_mapping.json"
+    },
+    "/_mapping/field/{fields}": {
+      "$ref": "./paths/_mapping.field.(fields).json"
+    },
+    "/_mget": {
+      "$ref": "./paths/_mget.json"
+    },
+    "/_msearch": {
+      "$ref": "./paths/_msearch.json"
+    },
+    "/_msearch/template": {
+      "$ref": "./paths/_msearch.template.json"
+    },
+    "/_mtermvectors": {
+      "$ref": "./paths/_mtermvectors.json"
+    },
+    "/_nodes": {
+      "$ref": "./paths/_nodes.json"
+    },
+    "/_nodes/hot_threads": {
+      "$ref": "./paths/_nodes.hot_threads.json"
+    },
+    "/_nodes/hotthreads": {
+      "$ref": "./paths/_nodes.hotthreads.json"
+    },
+    "/_nodes/reload_secure_settings": {
+      "$ref": "./paths/_nodes.reload_secure_settings.json"
+    },
+    "/_nodes/stats": {
+      "$ref": "./paths/_nodes.stats.json"
+    },
+    "/_nodes/stats/{metric}": {
+      "$ref": "./paths/_nodes.stats.(metric).json"
+    },
+    "/_nodes/stats/{metric}/{index_metric}": {
+      "$ref": "./paths/_nodes.stats.(metric).(index_metric).json"
+    },
+    "/_nodes/usage": {
+      "$ref": "./paths/_nodes.usage.json"
+    },
+    "/_nodes/usage/{metric}": {
+      "$ref": "./paths/_nodes.usage.(metric).json"
+    },
+    "/_nodes/{metric}": {
+      "$ref": "./paths/_nodes.(metric).json"
+    },
+    "/_nodes/{node_id}": {
+      "$ref": "./paths/_nodes.(node_id).json"
+    },
+    "/_nodes/{node_id}/hot_threads": {
+      "$ref": "./paths/_nodes.(node_id).hot_threads.json"
+    },
+    "/_nodes/{node_id}/hotthreads": {
+      "$ref": "./paths/_nodes.(node_id).hotthreads.json"
+    },
+    "/_nodes/{node_id}/reload_secure_settings": {
+      "$ref": "./paths/_nodes.(node_id).reload_secure_settings.json"
+    },
+    "/_nodes/{node_id}/stats": {
+      "$ref": "./paths/_nodes.(node_id).stats.json"
+    },
+    "/_nodes/{node_id}/stats/{metric}": {
+      "$ref": "./paths/_nodes.(node_id).stats.(metric).json"
+    },
+    "/_nodes/{node_id}/stats/{metric}/{index_metric}": {
+      "$ref": "./paths/_nodes.(node_id).stats.(metric).(index_metric).json"
+    },
+    "/_nodes/{node_id}/usage": {
+      "$ref": "./paths/_nodes.(node_id).usage.json"
+    },
+    "/_nodes/{node_id}/usage/{metric}": {
+      "$ref": "./paths/_nodes.(node_id).usage.(metric).json"
+    },
+    "/_nodes/{node_id}/{metric}": {
+      "$ref": "./paths/_nodes.(node_id).(metric).json"
+    },
+    "/_rank_eval": {
+      "$ref": "./paths/_rank_eval.json"
+    },
+    "/_recovery": {
+      "$ref": "./paths/_recovery.json"
+    },
+    "/_refresh": {
+      "$ref": "./paths/_refresh.json"
+    },
+    "/_reindex": {
+      "$ref": "./paths/_reindex.json"
+    },
+    "/_reindex/{task_id}/_rethrottle": {
+      "$ref": "./paths/_reindex.(task_id)._rethrottle.json"
+    },
+    "/_remote/info": {
+      "$ref": "./paths/_remote.info.json"
+    },
+    "/_remotestore/_restore": {
+      "$ref": "./paths/_remotestore._restore.json"
+    },
+    "/_render/template": {
+      "$ref": "./paths/_render.template.json"
+    },
+    "/_render/template/{id}": {
+      "$ref": "./paths/_render.template.(id).json"
+    },
+    "/_resolve/index/{name}": {
+      "$ref": "./paths/_resolve.index.(name).json"
+    },
+    "/_script_context": {
+      "$ref": "./paths/_script_context.json"
+    },
+    "/_script_language": {
+      "$ref": "./paths/_script_language.json"
+    },
+    "/_scripts/painless/_execute": {
+      "$ref": "./paths/_scripts.painless._execute.json"
+    },
+    "/_scripts/{id}": {
+      "$ref": "./paths/_scripts.(id).json"
+    },
+    "/_scripts/{id}/{context}": {
+      "$ref": "./paths/_scripts.(id).(context).json"
+    },
+    "/_search": {
+      "$ref": "./paths/_search.json"
+    },
+    "/_search/point_in_time": {
+      "$ref": "./paths/_search.point_in_time.json"
+    },
+    "/_search/point_in_time/_all": {
+      "$ref": "./paths/_search.point_in_time._all.json"
+    },
+    "/_search/scroll": {
+      "$ref": "./paths/_search.scroll.json"
+    },
+    "/_search/scroll/{scroll_id}": {
+      "$ref": "./paths/_search.scroll.(scroll_id).json"
+    },
+    "/_search/template": {
+      "$ref": "./paths/_search.template.json"
+    },
+    "/_search_shards": {
+      "$ref": "./paths/_search_shards.json"
+    },
+    "/_segments": {
+      "$ref": "./paths/_segments.json"
+    },
+    "/_settings": {
+      "$ref": "./paths/_settings.json"
+    },
+    "/_settings/{name}": {
+      "$ref": "./paths/_settings.(name).json"
+    },
+    "/_shard_stores": {
+      "$ref": "./paths/_shard_stores.json"
+    },
+    "/_snapshot": {
+      "$ref": "./paths/_snapshot.json"
+    },
+    "/_snapshot/_status": {
+      "$ref": "./paths/_snapshot._status.json"
+    },
+    "/_snapshot/{repository}": {
+      "$ref": "./paths/_snapshot.(repository).json"
+    },
+    "/_snapshot/{repository}/_cleanup": {
+      "$ref": "./paths/_snapshot.(repository)._cleanup.json"
+    },
+    "/_snapshot/{repository}/_status": {
+      "$ref": "./paths/_snapshot.(repository)._status.json"
+    },
+    "/_snapshot/{repository}/_verify": {
+      "$ref": "./paths/_snapshot.(repository)._verify.json"
+    },
+    "/_snapshot/{repository}/{snapshot}": {
+      "$ref": "./paths/_snapshot.(repository).(snapshot).json"
+    },
+    "/_snapshot/{repository}/{snapshot}/_clone/{target_snapshot}": {
+      "$ref": "./paths/_snapshot.(repository).(snapshot)._clone.(target_snapshot).json"
+    },
+    "/_snapshot/{repository}/{snapshot}/_restore": {
+      "$ref": "./paths/_snapshot.(repository).(snapshot)._restore.json"
+    },
+    "/_snapshot/{repository}/{snapshot}/_status": {
+      "$ref": "./paths/_snapshot.(repository).(snapshot)._status.json"
+    },
+    "/_stats": {
+      "$ref": "./paths/_stats.json"
+    },
+    "/_stats/{metric}": {
+      "$ref": "./paths/_stats.(metric).json"
+    },
+    "/_tasks": {
+      "$ref": "./paths/_tasks.json"
+    },
+    "/_tasks/_cancel": {
+      "$ref": "./paths/_tasks._cancel.json"
+    },
+    "/_tasks/{task_id}": {
+      "$ref": "./paths/_tasks.(task_id).json"
+    },
+    "/_tasks/{task_id}/_cancel": {
+      "$ref": "./paths/_tasks.(task_id)._cancel.json"
+    },
+    "/_template": {
+      "$ref": "./paths/_template.json"
+    },
+    "/_template/{name}": {
+      "$ref": "./paths/_template.(name).json"
+    },
+    "/_update_by_query/{task_id}/_rethrottle": {
+      "$ref": "./paths/_update_by_query.(task_id)._rethrottle.json"
+    },
+    "/_upgrade": {
+      "$ref": "./paths/_upgrade.json"
+    },
+    "/_validate/query": {
+      "$ref": "./paths/_validate.query.json"
+    },
+    "/{alias}/_rollover": {
+      "$ref": "./paths/(alias)._rollover.json"
+    },
+    "/{alias}/_rollover/{new_index}": {
+      "$ref": "./paths/(alias)._rollover.(new_index).json"
+    },
+    "/{index}": {
+      "$ref": "./paths/(index).json"
+    },
+    "/{index}/_alias": {
+      "$ref": "./paths/(index)._alias.json"
+    },
+    "/{index}/_alias/{name}": {
+      "$ref": "./paths/(index)._alias.(name).json"
+    },
+    "/{index}/_aliases/{name}": {
+      "$ref": "./paths/(index)._aliases.(name).json"
+    },
+    "/{index}/_analyze": {
+      "$ref": "./paths/(index)._analyze.json"
+    },
+    "/{index}/_block/{block}": {
+      "$ref": "./paths/(index)._block.(block).json"
+    },
+    "/{index}/_bulk": {
+      "$ref": "./paths/(index)._bulk.json"
+    },
+    "/{index}/_cache/clear": {
+      "$ref": "./paths/(index)._cache.clear.json"
+    },
+    "/{index}/_clone/{target}": {
+      "$ref": "./paths/(index)._clone.(target).json"
+    },
+    "/{index}/_close": {
+      "$ref": "./paths/(index)._close.json"
+    },
+    "/{index}/_count": {
+      "$ref": "./paths/(index)._count.json"
+    },
+    "/{index}/_create/{id}": {
+      "$ref": "./paths/(index)._create.(id).json"
+    },
+    "/{index}/_delete_by_query": {
+      "$ref": "./paths/(index)._delete_by_query.json"
+    },
+    "/{index}/_doc": {
+      "$ref": "./paths/(index)._doc.json"
+    },
+    "/{index}/_doc/{id}": {
+      "$ref": "./paths/(index)._doc.(id).json"
+    },
+    "/{index}/_explain/{id}": {
+      "$ref": "./paths/(index)._explain.(id).json"
+    },
+    "/{index}/_field_caps": {
+      "$ref": "./paths/(index)._field_caps.json"
+    },
+    "/{index}/_flush": {
+      "$ref": "./paths/(index)._flush.json"
+    },
+    "/{index}/_forcemerge": {
+      "$ref": "./paths/(index)._forcemerge.json"
+    },
+    "/{index}/_mapping": {
+      "$ref": "./paths/(index)._mapping.json"
+    },
+    "/{index}/_mapping/field/{fields}": {
+      "$ref": "./paths/(index)._mapping.field.(fields).json"
+    },
+    "/{index}/_mget": {
+      "$ref": "./paths/(index)._mget.json"
+    },
+    "/{index}/_msearch": {
+      "$ref": "./paths/(index)._msearch.json"
+    },
+    "/{index}/_msearch/template": {
+      "$ref": "./paths/(index)._msearch.template.json"
+    },
+    "/{index}/_mtermvectors": {
+      "$ref": "./paths/(index)._mtermvectors.json"
+    },
+    "/{index}/_open": {
+      "$ref": "./paths/(index)._open.json"
+    },
+    "/{index}/_rank_eval": {
+      "$ref": "./paths/(index)._rank_eval.json"
+    },
+    "/{index}/_recovery": {
+      "$ref": "./paths/(index)._recovery.json"
+    },
+    "/{index}/_refresh": {
+      "$ref": "./paths/(index)._refresh.json"
+    },
+    "/{index}/_search": {
+      "$ref": "./paths/(index)._search.json"
+    },
+    "/{index}/_search/point_in_time": {
+      "$ref": "./paths/(index)._search.point_in_time.json"
+    },
+    "/{index}/_search/template": {
+      "$ref": "./paths/(index)._search.template.json"
+    },
+    "/{index}/_search_shards": {
+      "$ref": "./paths/(index)._search_shards.json"
+    },
+    "/{index}/_segments": {
+      "$ref": "./paths/(index)._segments.json"
+    },
+    "/{index}/_settings": {
+      "$ref": "./paths/(index)._settings.json"
+    },
+    "/{index}/_settings/{name}": {
+      "$ref": "./paths/(index)._settings.(name).json"
+    },
+    "/{index}/_shard_stores": {
+      "$ref": "./paths/(index)._shard_stores.json"
+    },
+    "/{index}/_shrink/{target}": {
+      "$ref": "./paths/(index)._shrink.(target).json"
+    },
+    "/{index}/_source/{id}": {
+      "$ref": "./paths/(index)._source.(id).json"
+    },
+    "/{index}/_split/{target}": {
+      "$ref": "./paths/(index)._split.(target).json"
+    },
+    "/{index}/_stats": {
+      "$ref": "./paths/(index)._stats.json"
+    },
+    "/{index}/_stats/{metric}": {
+      "$ref": "./paths/(index)._stats.(metric).json"
+    },
+    "/{index}/_termvectors": {
+      "$ref": "./paths/(index)._termvectors.json"
+    },
+    "/{index}/_termvectors/{id}": {
+      "$ref": "./paths/(index)._termvectors.(id).json"
+    },
+    "/{index}/_update/{id}": {
+      "$ref": "./paths/(index)._update.(id).json"
+    },
+    "/{index}/_update_by_query": {
+      "$ref": "./paths/(index)._update_by_query.json"
+    },
+    "/{index}/_upgrade": {
+      "$ref": "./paths/(index)._upgrade.json"
+    },
+    "/{index}/_validate/query": {
+      "$ref": "./paths/(index)._validate.query.json"
+    }
+  }
+}
