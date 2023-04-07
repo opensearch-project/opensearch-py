@@ -11,6 +11,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ### Changed
 
 - Updated Python versions in test files (`noxfile.py`) and CI configuration file (`ci.yml`) to support the latest versions of Python ([#336](https://github.com/opensearch-project/opensearch-py/pull/336))
+- Upgrading pytest-asyncio to latest version - 0.21.0 ([#339](https://github.com/opensearch-project/opensearch-py/pull/339))
 
 ### Deprecated
 
@@ -20,7 +21,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 - Fixed import cycle when importing async helpers ([#311](https://github.com/opensearch-project/opensearch-py/pull/311))
 - Fixed userguide for async client ([#311](https://github.com/opensearch-project/opensearch-py/pull/311))
-
+- Fixed userguide for async client ([#340](https://github.com/opensearch-project/opensearch-py/pull/340))
 ### Security
 
 - Fixed CVE-2022-23491 reported in opensearch-dsl-py ([#295](https://github.com/opensearch-project/opensearch-py/pull/295))

@@ -43,6 +43,12 @@ Then import it like any other module:
 from opensearchpy import OpenSearch
 ```
 
+To add the async client to your project, install it using [pip](https://pip.pypa.io/):
+
+```bash
+pip install opensearch-py[async]
+```
+
 If you prefer to add the client manually or just want to examine the source code, see [opensearch-py on GitHub](https://github.com/opensearch-project/opensearch-py).
 
 
@@ -478,9 +484,10 @@ print(response)
 
 Make sure to use `AsyncOpenSearch` with the `AsyncHttpConnection` connection class with the async `AWSV4SignerAsyncAuth` signer.
 
-```bash
-pip install opensearch-py[async]
-```
+- Requires opensearch-py[async]
+
+
+Here is the sample code that uses `AWSV4SignerAsyncAuth` -
 
 ```python
 from opensearchpy import AsyncOpenSearch, AsyncHttpConnection, AWSV4SignerAsyncAuth

@@ -34,7 +34,6 @@ jobs:
       - name: Build project for distribution
         run: |
           python3.7 -m build
-
   test-linux:
     strategy:
       fail-fast: false
@@ -71,6 +70,11 @@ jobs:
       - name: Run Tests
         run: |
           python setup.py test
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v2
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./junit/opensearch-py-codecov.xml
 
   twine-check:
     runs-on: ubuntu-latest
