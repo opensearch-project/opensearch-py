@@ -124,80 +124,93 @@ class Module:
 
 
 class API:
-    def __init__(self, namespace, name, definition, is_pyi=False):
+    def __init__(self, namespace, name, description, method, params,path, is_pyi=False):
         self.namespace = namespace
         self.name = name
         self.is_pyi = is_pyi
+       
 
-        # overwrite the dict to maintain key order
-        definition["params"] = {
-            SUBSTITUTIONS.get(p, p): v for p, v in definition.get("params", {}).items()
-        }
+        # # overwrite the dict to maintain key order
+        # definition["params"] = {
+        #     SUBSTITUTIONS.get(p, p): v for p, v in definition.get("params", {}).items()
+        # }
 
-        self._def = definition
-        self.description = ""
-        self.doc_url = ""
-        self.stability = self._def.get("stability", "stable")
+        # self._def = definition
+        self.description = description
+        self._method=method
+        self._params=params
+        self.components=path
 
-        if isinstance(definition["documentation"], str):
-            self.doc_url = definition["documentation"]
-        else:
-            # set as attribute so it may be overridden by Module.add
-            self.description = (
-                definition["documentation"].get("description", "").strip()
-            )
-            self.doc_url = definition["documentation"].get("url", "")
+        #self.doc_url = ""
+        #self.stability = self._def.get("stability", "stable")
+
+        # if isinstance(definition["documentation"], str):
+        #     self.doc_url = definition["documentation"]
+        # else:
+        #     # set as attribute so it may be overridden by Module.add
+        #     self.description = (
+        #         definition["documentation"].get("description", "").strip()
+        #     )
+        #     self.doc_url = definition["documentation"].get("url", "")
 
         # Filter out bad URL refs like 'TODO'
-        # and serve all docs over HTTPS.
-        if self.doc_url:
-            if not self.doc_url.startswith("http"):
-                self.doc_url = ""
-            if self.doc_url.startswith("http://"):
-                self.doc_url = self.doc_url.replace("http://", "https://")
+        # # and serve all docs over HTTPS.
+        # if self.doc_url:
+        #     if not self.doc_url.startswith("http"):
+        #         self.doc_url = ""
+        #     if self.doc_url.startswith("http://"):
+        #         self.doc_url = self.doc_url.replace("http://", "https://")
 
-            # Try setting doc refs like 'current' and 'master' to our branches ref.
-            if BRANCH_NAME is not None:
-                revised_url = re.sub(
-                    "/opensearchpy/reference/[^/]+/",
-                    f"/opensearchpy/reference/{BRANCH_NAME}/",
-                    self.doc_url,
-                )
-                if is_valid_url(revised_url):
-                    self.doc_url = revised_url
-                else:
-                    print(f"URL {revised_url!r}, falling back on {self.doc_url!r}")
+        #     # Try setting doc refs like 'current' and 'master' to our branches ref.
+        #     if BRANCH_NAME is not None:
+        #         revised_url = re.sub(
+        #             "/opensearchpy/reference/[^/]+/",
+        #             f"/opensearchpy/reference/{BRANCH_NAME}/",
+        #             self.doc_url,
+        #         )
+        #         if is_valid_url(revised_url):
+        #             self.doc_url = revised_url
+        #         else:
+        #             print(f"URL {revised_url!r}, falling back on {self.doc_url!r}")
 
     @property
     def all_parts(self):
         parts = {}
-        for url in self._def["url"]["paths"]:
-            parts.update(url.get("parts", {}))
+        # for url in self._def["url"]["paths"]:
+        #     parts.update(url.get("parts", {}))
+        for  p in self.params:
+            if p["in"]=='path':
+                parts.update(p)
 
-        for p in parts:
-            parts[p]["required"] = all(
-                p in url.get("parts", {}) for url in self._def["url"]["paths"]
-            )
-            parts[p]["type"] = "Any"
+        # for p in parts:
+        #     parts[p]["required"] = all(
+        #         p in url.get("parts", {}) for url in self.params["url"]["paths"]
+        #     )
+        #     parts[p]["type"] = "Any"
 
-            # This piece of logic corresponds to calling
-            # client.tasks.get() w/o a task_id which was erroneously
-            # allowed in the 7.1 client library. This functionality
-            # is deprecated and will be removed in 8.x.
-            if self.namespace == "tasks" and self.name == "get":
-                parts["task_id"]["required"] = False
+        #     # This piece of logic corresponds to calling
+        #     # client.tasks.get() w/o a task_id which was erroneously
+        #     # allowed in the 7.1 client library. This functionality
+        #     # is deprecated and will be removed in 8.x.
+        #     if self.namespace == "tasks" and self.name == "get":
+        #         parts["task_id"]["required"] = False
 
-        for k, sub in SUBSTITUTIONS.items():
-            if k in parts:
-                parts[sub] = parts.pop(k)
+        # for k, sub in SUBSTITUTIONS.items():
+        #     if k in parts:
+        #         parts[sub] = parts.pop(k)
 
-        dynamic, components = self.url_parts
+        # dynamic, components = self.url_parts
+        dynamic=False
+        
+
+
+
 
         def ind(item):
             try:
-                return components.index(item[0])
+                return self.components.index(item[0])
             except ValueError:
-                return len(components)
+                return len(self.components)
 
         parts = dict(sorted(parts.items(), key=ind))
         return parts
@@ -205,6 +218,7 @@ class API:
     @property
     def params(self):
         parts = self.all_parts
+        print("params.parts         ", parts)
         params = self._def.get("params", {})
         return chain(
             ((p, parts[p]) for p in parts if parts[p]["required"]),
@@ -306,59 +320,109 @@ class API:
         )
 
 
-
-
-import json
-import os
-@contextlib.contextmanager
-def load_open_api_specs():
-    with open('openapi_spec/json/opensearch.openapi.json', 'r') as file:
-        data = json.load(file)
-
-    # Load and merge the contents of each file referenced in the "paths" key
-    for path in data["paths"]:
-        if "$ref" in data["paths"][path]:
-            ref_path = data["paths"][path]["$ref"]
-            ref_file = os.path.join(os.path.dirname(file.name), ref_path)
-            with open(ref_file, "r") as ref:
-                ref_data = json.load(ref)
-                data["paths"][path].update(ref_data)
-    return data["paths"]
-
- 
+def get_param(parameters,query_data):
+    params=[]
+    if len(parameters)>0:
+        for x in parameters:
+            param_ref=x['$ref'].split("#/",1)[1]
+            if param_ref in query_data:
+                params.append(query_data[param_ref])
+                
+        print("params", params)
 
 
 
 
-
+#@contextlib.contextmanager
 def read_modules():
     modules = {}
+    with open('openapi_spec/json/opensearch.openapi.json', 'r') as file:
+        data = json.load(file)
+    with open('openapi_spec/json/parameters/query.json', 'r') as query_file:
+        query_data = json.load(query_file)
+    with open('openapi_spec/json/schemas/_common.json', 'r') as common_file:
+        common_data = json.load(common_file)
+    
+    # Load and merge the contents of each file referenced in the "paths" key
+    for path in data["paths"]:
+        print("path",path) 
+        if "$ref" in data["paths"][path]:
+            ref_path = data["paths"][path]["$ref"]
+            print("path=",path, "ref_path=",ref_path)
+            ref_file = os.path.join(os.path.dirname(file.name), ref_path)
+            with open(ref_file, "r") as ref:
+               api = json.load(ref)
+            for method in api:
+                print("method",method)
 
-    with load_open_api_specs() as path:
-        for f in sorted(os.listdir(path)):
-            name, ext = f.rsplit(".", 1)
+                if "x-endpoint-group" in api[method]:
+                    x_endpoint_group=api[method]["x-endpoint-group"]
+                    if "." in x_endpoint_group:
+                        namespace, name = x_endpoint_group.rsplit(".", 1)
+                    else:
+                        namespace = "__init__"
+                        name=x_endpoint_group
 
-            if ext != "json" or name == "_common":
-                continue
+                    #print("x-endpoint-group",x_endpoint_group)
 
-            with open(path / f) as api_def:
-                api = json.load(api_def)[name]
+                if "description" in api[method]:
+                    description=api[method]["description"]
+                    #print("description",description)
 
-            namespace = "__init__"
-            if "." in name:
-                namespace, name = name.rsplit(".", 1)
+                if "parameters" in api[method]:
+                    parameters=api[method]["parameters"]
+                    #print("parameters",parameters)
+                    params=[]
+                    if len(parameters)>0:
+                        for x in parameters:
+                            if '$ref' in x:
+                                param_ref=x['$ref'].split("#/",1)[1]
+                                if param_ref in query_data:
+                                    s=query_data[param_ref]
+                                    #print("s    ", s)
+                                    if "$ref" in s["schema"]:
+                                        schema_ref = s["schema"]["$ref"].split("#/",1)[1]
+                                        if schema_ref in common_data:
+                                        # print("common_data         ", common_data[schema_ref])
+                                            s["schema"]=common_data[schema_ref]
+                                        #print("schema_ref     ",schema_ref)
+                                    #print("s after update           ", s)
+                                    params.append(s)
+                            elif 'schema' in x:
+                                schema_path_ref = x["schema"]["$ref"].split("#/",1)[1]
+                                if schema_path_ref in common_data:
+                                    x["schema"]=common_data[schema_path_ref]
 
-            # The data_frame API has been changed to transform.
-            if namespace == "data_frame_transform_deprecated":
-                continue
 
-            if namespace not in modules:
-                modules[namespace] = Module(namespace)
+                
+                        print("params", params)
 
-            modules[namespace].add(API(namespace, name, api))
-            modules[namespace].pyi.add(API(namespace, name, api, is_pyi=True))
+                    
 
-    return modules
+
+
+
+                if "requestBody" in api[method]:
+                    requestBody=api[method]["requestBody"]
+                    print("requestBody",requestBody)
+
+
+
+                # print("method",method)
+                # print("x-endpoint-group",x_endpoint_group)
+                # print("description",description)
+                # print("parameters",parameters)
+                
+                if namespace not in modules:
+                    modules[namespace] = Module(namespace)
+
+                #modules[namespace].add(API(namespace, name, api))
+                modules[namespace].add(API(namespace, name, description,str(method), params, path))
+
+                #modules[namespace].pyi.add(API(namespace, name, api, is_pyi=True))
+
+    return  modules
+
 
 
 def dump_modules(modules):
@@ -396,4 +460,4 @@ def dump_modules(modules):
 
 if __name__ == "__main__":
    # dump_modules(read_modules())
-    load_open_api_specs()
+    read_modules()
