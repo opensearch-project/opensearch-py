@@ -354,12 +354,13 @@ def read_modules():
             print("path=",path, "ref_path=",ref_path)
             ref_file = os.path.join(os.path.dirname(file.name), ref_path)
             with open(ref_file, "r") as ref:
-               api = json.load(ref)
-            for method in api:
+               api_file = json.load(ref)
+            for method in api_file:
                 print("method",method)
+                api={}
 
-                if "x-endpoint-group" in api[method]:
-                    x_endpoint_group=api[method]["x-endpoint-group"]
+                if "x-endpoint-group" in api_file[method]:
+                    x_endpoint_group=api_file[method]["x-endpoint-group"]
                     if "." in x_endpoint_group:
                         namespace, name = x_endpoint_group.rsplit(".", 1)
                     else:
@@ -368,14 +369,15 @@ def read_modules():
 
                     #print("x-endpoint-group",x_endpoint_group)
 
-                if "description" in api[method]:
-                    description=api[method]["description"]
+                if "description" in api_file[method]:
+                    description=api_file[method]["description"]
                     documentation={"description":description}
                     print("documentation:               ",documentation)
                     #print("description",description)
+                    api.update({"documentation" : documentation})
 
-                if "parameters" in api[method]:
-                    parameters=api[method]["parameters"]
+                if "parameters" in api_file[method]:
+                    parameters=api_file[method]["parameters"]
                     #print("parameters",parameters)
                     params=[]
                     if len(parameters)>0:
@@ -401,37 +403,73 @@ def read_modules():
 
 
                 
-                        print("params", params)
+                        print("params       ", params)
+                        parts = {}
+                        a=params
+                        for  p in a:
+                            if p["in"]=='path':
+                                parts.update(p)
+                                params.remove(p)
+                        # print("++++++++++++++++++++++")
+                        # print("params          ", params)
+                        # print("++++++++++++++++++++++")
+                        # print("parts            ", parts)
+                        # print("++++++++++++++++++++++")
+                        params_new={}
                         A={}
-                        B={}
-                        # for x in params:
-                        #     B.__dict__("type" = params['schema']['type'])
+                        for x in params:
+                            A=dict(type = x['schema']['type'], description = x['description'])
+                            print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+                            print(x)
+                            print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+                            if "enum" in x:
+                                print("$$$$$$$$$$$$$")
+                                A.update({"options": x['enum']})
+                                A.update({"type":"enum"})
+                            deprecated_new={}
+                            if "deprecated" in x:
+                                deprecated_new = dict(version = x['x-deprecation-version'], description = x['x-deprecation-description'])
+                                A.update({"deprecated": deprecated_new})
+                            params_new.update({x["name"]:A})
+                        #     print("++++++++++++++++++++++")
+                        #     print("A          ", A)
+                        #     print("++++++++++++++++++++++")
+                        # print("++++++++++++++++++++++")
+                        # print("params_new         ", params_new)
+                        # print("++++++++++++++++++++++")
+                        api.update({"params" : params_new})
 
+
+                body={}
+                if "requestBody" in api_file[method]:
+                    body=dict(description = api_file[method]["requestBody"]['description'], required = api_file[method]["requestBody"]['required'])
+                    print("body",body)
+                    api.update({"body" : body})
+                    
+            
+            
+            
+                    
+                    
                     
 
-
-
-                requestBody={}
-                if "requestBody" in api[method]:
-                    requestBody=api[method]["requestBody"]
-                    print("requestBody",requestBody)
-
-
-
+                print("++++++++++++++++++++++")
+                print("api              ",api)
+                print("++++++++++++++++++++++")
                 # print("method",method)
                 # print("x-endpoint-group",x_endpoint_group)
                 # print("description",description)
                 # print("parameters",parameters)
                 
-                if namespace not in modules:
-                    modules[namespace] = Module(namespace)
+    #             if namespace not in modules:
+    #                 modules[namespace] = Module(namespace)
 
-                #modules[namespace].add(API(namespace, name, api))
-                modules[namespace].add(API(namespace, name, description, method, params, path, requestBody))
+                # modules[namespace].add(API(namespace, name, api))
+                # modules[namespace].add(API(namespace, name, description, method, params, path, requestBody))
 
-                #modules[namespace].pyi.add(API(namespace, name, api, is_pyi=True))
+                 #modules[namespace].pyi.add(API(namespace, name, api, is_pyi=True))
 
-    return  modules
+    # return  modules
 
 
 
@@ -469,4 +507,5 @@ def dump_modules(modules):
 
 
 if __name__ == "__main__":
-   dump_modules(read_modules())
+   #dump_modules(read_modules())
+   read_modules()
