@@ -124,11 +124,16 @@ class Module:
 
 
 class API:
-    def __init__(self, namespace, name, description, method, params,path, is_pyi=False):
+    def __init__(self, namespace, name, description, method, params, path, requestBody, is_pyi=False):
         self.namespace = namespace
         self.name = name
+        self.description = description
+        self._method=method
+        self._params=params
+        self.components=path
+        self._requestBody=requestBody
         self.is_pyi = is_pyi
-       
+        print("API init             ")
 
         # # overwrite the dict to maintain key order
         # definition["params"] = {
@@ -136,10 +141,7 @@ class API:
         # }
 
         # self._def = definition
-        self.description = description
-        self._method=method
-        self._params=params
-        self.components=path
+        
 
         #self.doc_url = ""
         #self.stability = self._def.get("stability", "stable")
@@ -175,6 +177,7 @@ class API:
 
     @property
     def all_parts(self):
+       #print("All_parts")
         parts = {}
         # for url in self._def["url"]["paths"]:
         #     parts.update(url.get("parts", {}))
@@ -367,6 +370,8 @@ def read_modules():
 
                 if "description" in api[method]:
                     description=api[method]["description"]
+                    documentation={"description":description}
+                    print("documentation:               ",documentation)
                     #print("description",description)
 
                 if "parameters" in api[method]:
@@ -392,16 +397,21 @@ def read_modules():
                                 schema_path_ref = x["schema"]["$ref"].split("#/",1)[1]
                                 if schema_path_ref in common_data:
                                     x["schema"]=common_data[schema_path_ref]
+                                    params.append(x)
 
 
                 
                         print("params", params)
+                        A={}
+                        B={}
+                        # for x in params:
+                        #     B.__dict__("type" = params['schema']['type'])
 
                     
 
 
 
-
+                requestBody={}
                 if "requestBody" in api[method]:
                     requestBody=api[method]["requestBody"]
                     print("requestBody",requestBody)
@@ -417,7 +427,7 @@ def read_modules():
                     modules[namespace] = Module(namespace)
 
                 #modules[namespace].add(API(namespace, name, api))
-                modules[namespace].add(API(namespace, name, description,str(method), params, path))
+                modules[namespace].add(API(namespace, name, description, method, params, path, requestBody))
 
                 #modules[namespace].pyi.add(API(namespace, name, api, is_pyi=True))
 
@@ -459,5 +469,4 @@ def dump_modules(modules):
 
 
 if __name__ == "__main__":
-   # dump_modules(read_modules())
-    read_modules()
+   dump_modules(read_modules())
