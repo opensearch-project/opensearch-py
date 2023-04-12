@@ -371,11 +371,13 @@ def read_modules():
 
                 if "description" in api_file[method]:
                     description=api_file[method]["description"]
-                    documentation={"description":description}
+                    documentation={"url": "https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-indices.html","description":description}
                     print("documentation:               ",documentation)
                     #print("description",description)
                     api.update({"documentation" : documentation})
-
+                api.update({"stability": "stable","visibility": "public", "headers": {"accept": ["text/plain","application/json"]}})
+                parts = {}
+               
                 if "parameters" in api_file[method]:
                     parameters=api_file[method]["parameters"]
                     #print("parameters",parameters)
@@ -410,11 +412,11 @@ def read_modules():
                             if p["in"]=='path':
                                 parts.update(p)
                                 params.remove(p)
-                        # print("++++++++++++++++++++++")
-                        # print("params          ", params)
-                        # print("++++++++++++++++++++++")
-                        # print("parts            ", parts)
-                        # print("++++++++++++++++++++++")
+                        print("++++++++++++++++++++++")
+                        print("params          ", params)
+                        print("++++++++++++++++++++++")
+                        print("parts            ", parts)
+                        print("++++++++++++++++++++++")
                         params_new={}
                         A={}
                         for x in params:
@@ -438,6 +440,10 @@ def read_modules():
                         # print("params_new         ", params_new)
                         # print("++++++++++++++++++++++")
                         api.update({"params" : params_new})
+                print("length            ",len(parts))
+                api.update({"url": {"paths": [ { "path": path, "methods": [ method]}]}})
+                if len(parts)>0:
+                    api["url"]["paths"].update({"parts": parts})
 
 
                 body={}
