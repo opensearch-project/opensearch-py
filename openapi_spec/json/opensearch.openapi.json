@@ -5,8 +5,8 @@
     "version": "2.5"
   },
   "paths": { 
-    "/_cat/indices": {
-      "$ref": "./paths/_cat.indices.json"
+     "/_cat/indices/{index}": {
+      "$ref": "./paths/_cat.indices.(index).json"
     }
   }
 }
