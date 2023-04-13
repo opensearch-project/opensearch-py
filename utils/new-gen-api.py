@@ -348,15 +348,15 @@ def read_modules():
     
     # Load and merge the contents of each file referenced in the "paths" key
     for path in data["paths"]:
-        print("path",path) 
+        #print("path",path) 
         if "$ref" in data["paths"][path]:
             ref_path = data["paths"][path]["$ref"]
-            print("path=",path, "ref_path=",ref_path)
+            #print("path=",path, "ref_path=",ref_path)
             ref_file = os.path.join(os.path.dirname(file.name), ref_path)
             with open(ref_file, "r") as ref:
                api_file = json.load(ref)
             for method in api_file:
-                print("method",method)
+                #print("method",method)
                 api={}
 
                 if "x-endpoint-group" in api_file[method]:
@@ -372,7 +372,7 @@ def read_modules():
                 if "description" in api_file[method]:
                     description=api_file[method]["description"]
                     documentation={"url": "https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-indices.html","description":description}
-                    print("documentation:               ",documentation)
+                    #print("documentation:               ",documentation)
                     #print("description",description)
                     api.update({"documentation" : documentation})
                 api.update({"stability": "stable","visibility": "public", "headers": {"accept": ["text/plain","application/json"]}})
@@ -412,22 +412,21 @@ def read_modules():
                             if p["in"]=='path':
                                 parts.update(p)
                                 params.remove(p)
-                        print("++++++++++++++++++++++")
-                        print("params          ", params)
-                        print("++++++++++++++++++++++")
-                        print("parts            ", parts)
-                        print("++++++++++++++++++++++")
+                        # print("++++++++++++++++++++++")
+                        # print("params          ", params)
+                        # print("++++++++++++++++++++++")
+                        # print("parts            ", parts)
+                        # print("++++++++++++++++++++++")
+                        
                         params_new={}
                         A={}
+                        
                         for x in params:
                             A=dict(type = x['schema']['type'], description = x['description'])
-                            print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-                            print(x)
-                            print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-                            if "enum" in x:
-                                print("$$$$$$$$$$$$$")
-                                A.update({"options": x['enum']})
+                            if "enum" in x["schema"]:
+                                
                                 A.update({"type":"enum"})
+                                A.update({"options": x["schema"]["enum"]})
                             deprecated_new={}
                             if "deprecated" in x:
                                 deprecated_new = dict(version = x['x-deprecation-version'], description = x['x-deprecation-description'])
@@ -440,10 +439,18 @@ def read_modules():
                         # print("params_new         ", params_new)
                         # print("++++++++++++++++++++++")
                         api.update({"params" : params_new})
-                print("length            ",len(parts))
-                api.update({"url": {"paths": [ { "path": path, "methods": [ method]}]}})
+            
+                
                 if len(parts)>0:
-                    api["url"]["paths"].update({"parts": parts})
+                    api.update({"url": {"paths": [ { "path": path, "methods": [ method], "parts": {
+				parts["name"]: {
+					"type": parts["schema"]["type"],
+					"description": parts["description"]
+				}
+			}}]}})
+                else:
+                    api.update({"url": {"paths": [ { "path": path, "methods": [ method]}]}})
+                    
 
 
                 body={}
@@ -462,6 +469,10 @@ def read_modules():
                 print("++++++++++++++++++++++")
                 print("api              ",api)
                 print("++++++++++++++++++++++")
+                print("namespace              ",namespace)
+             
+                print("name             ",name)
+
                 # print("method",method)
                 # print("x-endpoint-group",x_endpoint_group)
                 # print("description",description)
