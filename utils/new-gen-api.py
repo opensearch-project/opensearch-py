@@ -345,7 +345,7 @@ def read_modules():
     
     # Load and merge the contents of each file referenced in the "paths" key
     for path in data["paths"]:
-        #print("path",path) 
+        print("path                 ",path) 
         if "$ref" in data["paths"][path]:
             ref_path = data["paths"][path]["$ref"]
             #print("path=",path, "ref_path=",ref_path)
@@ -368,7 +368,7 @@ def read_modules():
 
                 if "description" in api_file[method]:
                     description=api_file[method]["description"]
-                    documentation={"url": "https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-indices.html","description":description}
+                    documentation={"url": "","description":description}
                     #print("documentation:               ",documentation)
                     #print("description",description)
                     api.update({"documentation" : documentation})
@@ -395,9 +395,13 @@ def read_modules():
                                     #print("s after update           ", s)
                                     params.append(s)
                             elif 'schema' in x:
-                                schema_path_ref = x["schema"]["$ref"].split("#/",1)[1]
-                                if schema_path_ref in common_data:
-                                    x["schema"]=common_data[schema_path_ref]
+                                if "$ref" in x["schema"]:
+                                    schema_path_ref = x["schema"]["$ref"].split("#/",1)[1]
+
+                                    if schema_path_ref in common_data:
+                                        x["schema"]=common_data[schema_path_ref]
+                                        params.append(x)
+                                else:
                                     params.append(x)
 
 
@@ -439,14 +443,15 @@ def read_modules():
             
                 
                 if len(parts)>0:
-                    api.update({"url": {"paths": [ { "path": path, "methods": [ method], "parts": {
+                    api.update({"url": {"paths": [ { "path": path, "methods": [ method.upper()], "parts": {
 				parts["name"]: {
 					"type": parts["schema"]["type"],
-					"description": parts["description"]
+					"description": parts["description"],
+                    "required":parts["required"]
 				}
 			}}]}})
                 else:
-                    api.update({"url": {"paths": [ { "path": path, "methods": [ method]}]}})
+                    api.update({"url": {"paths": [ { "path": path, "methods": [ method.upper()]}]}})
                     
 
 
