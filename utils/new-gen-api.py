@@ -124,96 +124,80 @@ class Module:
 
 
 class API:
-    def __init__(self, namespace, name, description, method, params, path, requestBody, is_pyi=False):
+    def __init__(self, namespace, name, definition, is_pyi=False):
         self.namespace = namespace
         self.name = name
-        self.description = description
-        self._method=method
-        self._params=params
-        self.components=path
-        self._requestBody=requestBody
         self.is_pyi = is_pyi
-        print("API init             ")
 
-        # # overwrite the dict to maintain key order
-        # definition["params"] = {
-        #     SUBSTITUTIONS.get(p, p): v for p, v in definition.get("params", {}).items()
-        # }
+        # overwrite the dict to maintain key order
+        definition["params"] = {
+            SUBSTITUTIONS.get(p, p): v for p, v in definition.get("params", {}).items()
+        }
 
-        # self._def = definition
-        
+        self._def = definition
+        self.description = ""
+        self.doc_url = ""
+        self.stability = self._def.get("stability", "stable")
 
-        #self.doc_url = ""
-        #self.stability = self._def.get("stability", "stable")
-
-        # if isinstance(definition["documentation"], str):
-        #     self.doc_url = definition["documentation"]
-        # else:
-        #     # set as attribute so it may be overridden by Module.add
-        #     self.description = (
-        #         definition["documentation"].get("description", "").strip()
-        #     )
-        #     self.doc_url = definition["documentation"].get("url", "")
+        if isinstance(definition["documentation"], str):
+            self.doc_url = definition["documentation"]
+        else:
+            # set as attribute so it may be overridden by Module.add
+            self.description = (
+                definition["documentation"].get("description", "").strip()
+            )
+            self.doc_url = definition["documentation"].get("url", "")
 
         # Filter out bad URL refs like 'TODO'
-        # # and serve all docs over HTTPS.
-        # if self.doc_url:
-        #     if not self.doc_url.startswith("http"):
-        #         self.doc_url = ""
-        #     if self.doc_url.startswith("http://"):
-        #         self.doc_url = self.doc_url.replace("http://", "https://")
+        # and serve all docs over HTTPS.
+        if self.doc_url:
+            if not self.doc_url.startswith("http"):
+                self.doc_url = ""
+            if self.doc_url.startswith("http://"):
+                self.doc_url = self.doc_url.replace("http://", "https://")
 
-        #     # Try setting doc refs like 'current' and 'master' to our branches ref.
-        #     if BRANCH_NAME is not None:
-        #         revised_url = re.sub(
-        #             "/opensearchpy/reference/[^/]+/",
-        #             f"/opensearchpy/reference/{BRANCH_NAME}/",
-        #             self.doc_url,
-        #         )
-        #         if is_valid_url(revised_url):
-        #             self.doc_url = revised_url
-        #         else:
-        #             print(f"URL {revised_url!r}, falling back on {self.doc_url!r}")
+            # Try setting doc refs like 'current' and 'master' to our branches ref.
+            if BRANCH_NAME is not None:
+                revised_url = re.sub(
+                    "/opensearchpy/reference/[^/]+/",
+                    f"/opensearchpy/reference/{BRANCH_NAME}/",
+                    self.doc_url,
+                )
+                if is_valid_url(revised_url):
+                    self.doc_url = revised_url
+                else:
+                    print(f"URL {revised_url!r}, falling back on {self.doc_url!r}")
 
     @property
     def all_parts(self):
-       #print("All_parts")
         parts = {}
-        # for url in self._def["url"]["paths"]:
-        #     parts.update(url.get("parts", {}))
-        for  p in self.params:
-            if p["in"]=='path':
-                parts.update(p)
+        for url in self._def["url"]["paths"]:
+            parts.update(url.get("parts", {}))
 
-        # for p in parts:
-        #     parts[p]["required"] = all(
-        #         p in url.get("parts", {}) for url in self.params["url"]["paths"]
-        #     )
-        #     parts[p]["type"] = "Any"
+        for p in parts:
+            parts[p]["required"] = all(
+                p in url.get("parts", {}) for url in self._def["url"]["paths"]
+            )
+            parts[p]["type"] = "Any"
 
-        #     # This piece of logic corresponds to calling
-        #     # client.tasks.get() w/o a task_id which was erroneously
-        #     # allowed in the 7.1 client library. This functionality
-        #     # is deprecated and will be removed in 8.x.
-        #     if self.namespace == "tasks" and self.name == "get":
-        #         parts["task_id"]["required"] = False
+            # This piece of logic corresponds to calling
+            # client.tasks.get() w/o a task_id which was erroneously
+            # allowed in the 7.1 client library. This functionality
+            # is deprecated and will be removed in 8.x.
+            if self.namespace == "tasks" and self.name == "get":
+                parts["task_id"]["required"] = False
 
-        # for k, sub in SUBSTITUTIONS.items():
-        #     if k in parts:
-        #         parts[sub] = parts.pop(k)
+        for k, sub in SUBSTITUTIONS.items():
+            if k in parts:
+                parts[sub] = parts.pop(k)
 
-        # dynamic, components = self.url_parts
-        dynamic=False
-        
-
-
-
+        dynamic, components = self.url_parts
 
         def ind(item):
             try:
-                return self.components.index(item[0])
+                return components.index(item[0])
             except ValueError:
-                return len(self.components)
+                return len(components)
 
         parts = dict(sorted(parts.items(), key=ind))
         return parts
@@ -221,7 +205,6 @@ class API:
     @property
     def params(self):
         parts = self.all_parts
-        print("params.parts         ", parts)
         params = self._def.get("params", {})
         return chain(
             ((p, parts[p]) for p in parts if parts[p]["required"]),
@@ -321,18 +304,6 @@ class API:
             substitutions={v: k for k, v in SUBSTITUTIONS.items()},
             global_query_params=GLOBAL_QUERY_PARAMS,
         )
-
-
-def get_param(parameters,query_data):
-    params=[]
-    if len(parameters)>0:
-        for x in parameters:
-            param_ref=x['$ref'].split("#/",1)[1]
-            if param_ref in query_data:
-                params.append(query_data[param_ref])
-                
-        print("params", params)
-
 
 
 
@@ -524,5 +495,4 @@ def dump_modules(modules):
 
 
 if __name__ == "__main__":
-   #dump_modules(read_modules())
-   read_modules()
+   dump_modules(read_modules())
