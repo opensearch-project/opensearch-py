@@ -174,7 +174,6 @@ class ConnectionPool(object):
         """
         # allow inject for testing purposes
         now = now if now else time.time()
-        print(id(connection), now)
         try:
             self.connections.remove(connection)
         except ValueError:
@@ -188,7 +187,6 @@ class ConnectionPool(object):
             dead_count = self.dead_count.get(connection, 0) + 1
             self.dead_count[connection] = dead_count
             timeout = self.dead_timeout * 2 ** min(dead_count - 1, self.timeout_cutoff)
-            #time.sleep(.00001)
             self.dead.put((now + timeout,id(connection),connection))
             logger.warning(
                 "Connection %r has failed for %i times in a row, putting on %i second timeout.",
