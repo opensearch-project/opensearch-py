@@ -89,7 +89,7 @@ class TestConnectionPool(TestCase):
         pool.mark_dead(42, now=now)
         self.assertEqual(99, len(pool.connections))
         self.assertEqual(1, pool.dead.qsize())
-        self.assertEqual((now + 60, 42), pool.dead.get())
+        self.assertEqual((now + 60,id(42), 42), pool.dead.get())
 
     def test_connection_is_skipped_when_dead(self):
         pool = ConnectionPool([(x, {}) for x in range(2)])
@@ -145,7 +145,7 @@ class TestConnectionPool(TestCase):
         pool.mark_dead(42, now=now)
 
         self.assertEqual(3, pool.dead_count[42])
-        self.assertEqual((now + 4 * 60, 42), pool.dead.get())
+        self.assertEqual((now + 4 * 60,id(42), 42), pool.dead.get())
 
     def test_timeout_for_failed_connections_is_limitted(self):
         pool = ConnectionPool([(x, {}) for x in range(100)])
@@ -154,7 +154,7 @@ class TestConnectionPool(TestCase):
         pool.mark_dead(42, now=now)
 
         self.assertEqual(246, pool.dead_count[42])
-        self.assertEqual((now + 32 * 60, 42), pool.dead.get())
+        self.assertEqual((now + 32 * 60,id(42), 42), pool.dead.get())
 
     def test_dead_count_is_wiped_clean_for_connection_if_marked_live(self):
         pool = ConnectionPool([(x, {}) for x in range(100)])

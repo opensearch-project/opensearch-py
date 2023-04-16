@@ -237,7 +237,7 @@ class TestTransport(TestCase):
         self.assertEqual("http://google.com:123", t.connection_pool.connections[0].host)
 
     def test_kwargs_passed_on_to_connection_pool(self):
-        dt = object()
+        dt = 60
         t = Transport([{}, {}], dead_timeout=dt)
         self.assertIs(dt, t.connection_pool.dead_timeout)
 

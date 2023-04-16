@@ -174,6 +174,7 @@ class ConnectionPool(object):
         """
         # allow inject for testing purposes
         now = now if now else time.time()
+        print(id(connection), now)
         try:
             self.connections.remove(connection)
         except ValueError:
@@ -187,7 +188,8 @@ class ConnectionPool(object):
             dead_count = self.dead_count.get(connection, 0) + 1
             self.dead_count[connection] = dead_count
             timeout = self.dead_timeout * 2 ** min(dead_count - 1, self.timeout_cutoff)
-            self.dead.put((now + timeout, connection))
+            #time.sleep(.00001)
+            self.dead.put((now + timeout,id(connection),connection))
             logger.warning(
                 "Connection %r has failed for %i times in a row, putting on %i second timeout.",
                 connection,
@@ -232,7 +234,7 @@ class ConnectionPool(object):
 
         try:
             # retrieve a connection to check
-            timeout, connection = self.dead.get(block=False)
+            timeout,connection_id, connection = self.dead.get(block=False)
         except Empty:
             # other thread has been faster and the queue is now empty. If we
             # are forced, return a connection at random again.
@@ -242,7 +244,7 @@ class ConnectionPool(object):
 
         if not force and timeout > time.time():
             # return it back if not eligible and not forced
-            self.dead.put((timeout, connection))
+            self.dead.put((timeout,id(connection), connection))
             return
 
         # either we were forced or the connection is elligible to be retried
