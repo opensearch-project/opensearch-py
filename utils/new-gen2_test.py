@@ -433,213 +433,89 @@ def read_modules():
             # print("params_new         ", params_new)
             # print("++++++++++++++++++++++")
             p.update({"params" : params_new})
+            p.pop("parameters")
             
             if len(parts)>0:
-                    p.update("parts": {
+                    p.update({"parts": {
 				parts["name"]: {
 					"type": parts["schema"]["type"],
-					"description": parts["description"],
-                    "required":parts["required"]
+					"description": parts["description"]
 				}
-			}}]}})
-                else:
-                    api.update({"url": {"paths": [ { "path": path, "methods": [ method.upper()]}]}})
-
-
-
-            p.update({"parts" : parts})
-
-
-
-
-
-
-
+			}})
             
-    print("updated list of dicts************                                 ",list_of_dicts )
-
-
-
-
-
+    #print("updated list of dicts************                                 ",list_of_dicts )
 
     api={}
-    api.update({"stability": "stable","visibility": "public", "headers": {"accept": ["text/plain","application/json"]}})
+    api.update({"stability": "stable","visibility": "public", "headers": {"accept": ["application/json"]}})
 
     list_of_dicts = sorted(list_of_dicts,
                     key = itemgetter('x-endpoint-group'))
-    
+    #print("+++++++++++++++                    ",len(list_of_dicts))
     # Display data grouped by grade
     for key, value in groupby(list_of_dicts,
                             key = itemgetter('x-endpoint-group')):
-        print(key)
+        #print("key.....",key)
         if "." in key:
             namespace, name = key.rsplit(".", 1)
         else:
             namespace = "__init__"
             name=key
-        print("x-endpoint-group",key)
+      
+        # Display data grouped by path
+        paths=[]
+        for key2, value2 in groupby(value,
+                        key = itemgetter('path')):
+            #print("key2..............", key2)
+            methods=[]
+            parts_final={}
+            for m in value2:
+                #print("m ##########                 ",m)
+                methods.append(m["method"].upper())
+                if "parts" in m:
+                    parts_final.update(m["parts"])
+            if bool(parts_final): 
+                paths.append({"path":key2, "methods":methods, "parts":parts_final})  
+            else: 
+                paths.append({"path":key2, "methods":methods})  
+            
+                
+                
+                
+            api.update({"url":{"paths":paths}})
+            
+            for k in value:
+                #print("k1.................", k)
+                if "description" not in api:
+                        documentation={"url": "","description":k["description"]}
+                        #print("documentation:               ",documentation)
+                        #print("description",description)
+                        api.update({"documentation" : documentation})
+                if "params" not in api and len(k["params"])>0:
+                        api.update({"params" : k["params"]})
+                if "body" not in api and len(k["requestBody"])>0:
+                        body={"description":k["requestBody"]["description"], "required":k["requestBody"]["required"]}
+                        api.update({"body" : body})
+            
+        #print("api .......................", api)
+                
+
+        print("++++++++++++++++++++++")
+        print("api              ",api)
+        print("++++++++++++++++++++++")
         print("namespace              ",namespace)
+        
         print("name             ",name)
-        for k in value:
-            print("k.................", k)
-            if "description" not in api:
-                    documentation={"url": "","description":k["description"]}
-                    print("documentation:               ",documentation)
-                    #print("description",description)
-                    api.update({"documentation" : documentation})
-           
-           
-           
-            grouped_data = sorted(value,
-                    key = itemgetter('path'))
-    
-             # Display data grouped by grade
-            for key2, value2 in groupby(grouped_data,
-                            key = itemgetter('path')):
-                print("key2..............", key2)
-                
 
+         
+        if namespace not in modules:
+            modules[namespace] = Module(namespace)
 
+        modules[namespace].add(API(namespace, name, api))
+        # modules[namespace].add(API(namespace, name, description, method, params, path, requestBody))
 
+        modules[namespace].pyi.add(API(namespace, name, api, is_pyi=True))
 
-
-
-            # if "requestBody" in k[key] and "body" not in api:
-            #         documentation={"url": "","description":k[key][0]["description"]}
-            #         print("documentation:               ",documentation)
-            #         #print("description",description)
-            #         api.update({"documentation" : documentation})
-        
-
-    print("end*************************")
-
-    
-            
-       
-
-        
-        
-                
-                
-
-    #             
-    # parts = {}
-               
-    #             if "parameters" in api_file[method]:
-    #                 parameters=api_file[method]["parameters"]
-    #                 #print("parameters",parameters)
-    #                 params=[]
-    #                 if len(parameters)>0:
-    #                     for x in parameters:
-    #                         if '$ref' in x:
-    #                             param_ref=x['$ref'].split("#/",1)[1]
-    #                             if param_ref in query_data:
-    #                                 s=query_data[param_ref]
-    #                                 #print("s    ", s)
-    #                                 if "$ref" in s["schema"]:
-    #                                     schema_ref = s["schema"]["$ref"].split("#/",1)[1]
-    #                                     if schema_ref in common_data:
-    #                                     # print("common_data         ", common_data[schema_ref])
-    #                                         s["schema"]=common_data[schema_ref]
-    #                                     #print("schema_ref     ",schema_ref)
-    #                                 #print("s after update           ", s)
-    #                                 params.append(s)
-    #                         elif 'schema' in x:
-    #                             if "$ref" in x["schema"]:
-    #                                 schema_path_ref = x["schema"]["$ref"].split("#/",1)[1]
-
-    #                                 if schema_path_ref in common_data:
-    #                                     x["schema"]=common_data[schema_path_ref]
-    #                                     params.append(x)
-    #                             else:
-    #                                 params.append(x)
-
-
-                
-    #                     #print("params       ", params)
-    #                     parts = {}
-    #                     a=params
-    #                     for  p in a:
-    #                         if p["in"]=='path':
-    #                             parts.update(p)
-    #                             params.remove(p)
-    #                     # print("++++++++++++++++++++++")
-    #                     # print("params          ", params)
-    #                     # print("++++++++++++++++++++++")
-    #                     # print("parts            ", parts)
-    #                     # print("++++++++++++++++++++++")
-                        
-    #                     params_new={}
-    #                     A={}
-                        
-    #                     for x in params:
-    #                         A=dict(type = x['schema']['type'], description = x['description'])
-    #                         if "enum" in x["schema"]:
-                                
-    #                             A.update({"type":"enum"})
-    #                             A.update({"options": x["schema"]["enum"]})
-    #                         deprecated_new={}
-    #                         if "deprecated" in x:
-    #                             deprecated_new = dict(version = x['x-deprecation-version'], description = x['x-deprecation-description'])
-    #                             A.update({"deprecated": deprecated_new})
-    #                         params_new.update({x["name"]:A})
-    #                     #     print("++++++++++++++++++++++")
-    #                     #     print("A          ", A)
-    #                     #     print("++++++++++++++++++++++")
-    #                     # print("++++++++++++++++++++++")
-    #                     # print("params_new         ", params_new)
-    #                     # print("++++++++++++++++++++++")
-    #                     api.update({"params" : params_new})
-            
-                
-    #             if len(parts)>0:
-    #                 api.update({"url": {"paths": [ { "path": path, "methods": [ method.upper()], "parts": {
-	# 			parts["name"]: {
-	# 				"type": parts["schema"]["type"],
-	# 				"description": parts["description"],
-    #                 "required":parts["required"]
-	# 			}
-	# 		}}]}})
-    #             else:
-    #                 api.update({"url": {"paths": [ { "path": path, "methods": [ method.upper()]}]}})
-                    
-
-
-    #             body={}
-    #             if "requestBody" in api_file[method]:
-    #                 body=dict(description = api_file[method]["requestBody"]['description'], required = api_file[method]["requestBody"]['required'])
-    #                 print("body",body)
-    #                 api.update({"body" : body})
-                    
-            
-            
-            
-                    
-                    
-                    
-
-    #             print("++++++++++++++++++++++")
-    #             print("api              ",api)
-    #             print("++++++++++++++++++++++")
-    #             print("namespace              ",namespace)
-             
-    #             print("name             ",name)
-
-    #             # print("method",method)
-    #             # print("x-endpoint-group",x_endpoint_group)
-    #             # print("description",description)
-    #             # print("parameters",parameters)
-                
-    #             if namespace not in modules:
-    #                 modules[namespace] = Module(namespace)
-
-    #             modules[namespace].add(API(namespace, name, api))
-    #             # modules[namespace].add(API(namespace, name, description, method, params, path, requestBody))
-
-    #             modules[namespace].pyi.add(API(namespace, name, api, is_pyi=True))
-
-    # return  modules
+    return  modules
 
 
 def dump_modules(modules):
@@ -676,5 +552,5 @@ def dump_modules(modules):
 
 
 if __name__ == "__main__":
-    #dump_modules(read_modules())
-    read_modules()
+    dump_modules(read_modules())
+
