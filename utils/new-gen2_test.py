@@ -1,4 +1,31 @@
+#!/usr/bin/env python
+# SPDX-License-Identifier: Apache-2.0
+#
+# The OpenSearch Contributors require contributions made to
+# this file be licensed under the Apache-2.0 license or a
+# compatible open source license.
+#
+# Modifications Copyright OpenSearch Contributors. See
+# GitHub history for details.
+#
+#  Licensed to Elasticsearch B.V. under one or more contributor
+#  license agreements. See the NOTICE file distributed with
+#  this work for additional information regarding copyright
+#  ownership. Elasticsearch B.V. licenses this file to you under
+#  the Apache License, Version 2.0 (the "License"); you may
+#  not use this file except in compliance with the License.
+#  You may obtain a copy of the License at
+#
+# 	http://www.apache.org/licenses/LICENSE-2.0
+#
+#  Unless required by applicable law or agreed to in writing,
+#  software distributed under the License is distributed on an
+#  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+#  KIND, either express or implied.  See the License for the
+#  specific language governing permissions and limitations
+#  under the License.
 
+from itertools import groupby
 import contextlib
 import io
 import json
@@ -306,59 +333,182 @@ class API:
         )
 
 
-
-
-import json
-import os
-@contextlib.contextmanager
-def load_open_api_specs():
+#@contextlib.contextmanager
+def read_modules():
+    modules = {}
+    
     with open('openapi_spec/json/opensearch.openapi.json', 'r') as file:
         data = json.load(file)
-
+    with open('openapi_spec/json/parameters/query.json', 'r') as query_file:
+        query_data = json.load(query_file)
+    with open('openapi_spec/json/schemas/_common.json', 'r') as common_file:
+        common_data = json.load(common_file)
+        
+    list_of_dicts=[]
+    grouped_dicts={}
     # Load and merge the contents of each file referenced in the "paths" key
     for path in data["paths"]:
         if "$ref" in data["paths"][path]:
             ref_path = data["paths"][path]["$ref"]
             ref_file = os.path.join(os.path.dirname(file.name), ref_path)
             with open(ref_file, "r") as ref:
-                ref_data = json.load(ref)
-                data["paths"][path].update(ref_data)
-    return data["paths"]
-
- 
-
-
-
-
-
-def read_modules():
-    modules = {}
-
-    with load_open_api_specs() as path:
-        for f in sorted(os.listdir(path)):
-            name, ext = f.rsplit(".", 1)
-
-            if ext != "json" or name == "_common":
-                continue
-
-            with open(path / f) as api_def:
-                api = json.load(api_def)[name]
-
+                api_file = json.load(ref)
+            data["paths"][path].update(api_file)
+            data["paths"][path].pop("$ref")
+            for x in data["paths"][path]:
+                data["paths"][path][x].update({"path": path, "method": x})
+                list_of_dicts.append(data["paths"][path][x])
+                
+    #return data["paths"]
+    print("data             ", data)
+    print("list_of_dicts             ", list_of_dicts)
+    sorted_data= sorted(list_of_dicts, key=lambda x: (x["x-endpoint-group"]))
+    
+    groups=groupby(list_of_dicts, lambda x: (x["x-endpoint-group"]))
+    for key, group in groups:
+        grouped_dicts[key] = list(group)
+    
+    print("grouped_dicts                            ", grouped_dicts )
+    
+    
+    for x_endpoint_group in grouped_dicts:  
+        if "." in x_endpoint_group:
+            namespace, name = x_endpoint_group.rsplit(".", 1)
+        else:
             namespace = "__init__"
-            if "." in name:
-                namespace, name = name.rsplit(".", 1)
+            name=x_endpoint_group
+            
+        print("x-endpoint-group",x_endpoint_group)
+        print("namespace              ",namespace)
+        print("name             ",name)
+        api={}
+        api.update({"stability": "stable","visibility": "public", "headers": {"accept": ["text/plain","application/json"]}})
+        if "description" not in api:
+                    documentation={"url": "","description":grouped_dicts[x_endpoint_group]["description"]}
+                    print("documentation:               ",documentation)
+                    #print("description",description)
+                    api.update({"documentation" : documentation})
+                
+                
+                
 
-            # The data_frame API has been changed to transform.
-            if namespace == "data_frame_transform_deprecated":
-                continue
+    #             
+    # parts = {}
+               
+    #             if "parameters" in api_file[method]:
+    #                 parameters=api_file[method]["parameters"]
+    #                 #print("parameters",parameters)
+    #                 params=[]
+    #                 if len(parameters)>0:
+    #                     for x in parameters:
+    #                         if '$ref' in x:
+    #                             param_ref=x['$ref'].split("#/",1)[1]
+    #                             if param_ref in query_data:
+    #                                 s=query_data[param_ref]
+    #                                 #print("s    ", s)
+    #                                 if "$ref" in s["schema"]:
+    #                                     schema_ref = s["schema"]["$ref"].split("#/",1)[1]
+    #                                     if schema_ref in common_data:
+    #                                     # print("common_data         ", common_data[schema_ref])
+    #                                         s["schema"]=common_data[schema_ref]
+    #                                     #print("schema_ref     ",schema_ref)
+    #                                 #print("s after update           ", s)
+    #                                 params.append(s)
+    #                         elif 'schema' in x:
+    #                             if "$ref" in x["schema"]:
+    #                                 schema_path_ref = x["schema"]["$ref"].split("#/",1)[1]
 
-            if namespace not in modules:
-                modules[namespace] = Module(namespace)
+    #                                 if schema_path_ref in common_data:
+    #                                     x["schema"]=common_data[schema_path_ref]
+    #                                     params.append(x)
+    #                             else:
+    #                                 params.append(x)
 
-            modules[namespace].add(API(namespace, name, api))
-            modules[namespace].pyi.add(API(namespace, name, api, is_pyi=True))
 
-    return modules
+                
+    #                     #print("params       ", params)
+    #                     parts = {}
+    #                     a=params
+    #                     for  p in a:
+    #                         if p["in"]=='path':
+    #                             parts.update(p)
+    #                             params.remove(p)
+    #                     # print("++++++++++++++++++++++")
+    #                     # print("params          ", params)
+    #                     # print("++++++++++++++++++++++")
+    #                     # print("parts            ", parts)
+    #                     # print("++++++++++++++++++++++")
+                        
+    #                     params_new={}
+    #                     A={}
+                        
+    #                     for x in params:
+    #                         A=dict(type = x['schema']['type'], description = x['description'])
+    #                         if "enum" in x["schema"]:
+                                
+    #                             A.update({"type":"enum"})
+    #                             A.update({"options": x["schema"]["enum"]})
+    #                         deprecated_new={}
+    #                         if "deprecated" in x:
+    #                             deprecated_new = dict(version = x['x-deprecation-version'], description = x['x-deprecation-description'])
+    #                             A.update({"deprecated": deprecated_new})
+    #                         params_new.update({x["name"]:A})
+    #                     #     print("++++++++++++++++++++++")
+    #                     #     print("A          ", A)
+    #                     #     print("++++++++++++++++++++++")
+    #                     # print("++++++++++++++++++++++")
+    #                     # print("params_new         ", params_new)
+    #                     # print("++++++++++++++++++++++")
+    #                     api.update({"params" : params_new})
+            
+                
+    #             if len(parts)>0:
+    #                 api.update({"url": {"paths": [ { "path": path, "methods": [ method.upper()], "parts": {
+	# 			parts["name"]: {
+	# 				"type": parts["schema"]["type"],
+	# 				"description": parts["description"],
+    #                 "required":parts["required"]
+	# 			}
+	# 		}}]}})
+    #             else:
+    #                 api.update({"url": {"paths": [ { "path": path, "methods": [ method.upper()]}]}})
+                    
+
+
+    #             body={}
+    #             if "requestBody" in api_file[method]:
+    #                 body=dict(description = api_file[method]["requestBody"]['description'], required = api_file[method]["requestBody"]['required'])
+    #                 print("body",body)
+    #                 api.update({"body" : body})
+                    
+            
+            
+            
+                    
+                    
+                    
+
+    #             print("++++++++++++++++++++++")
+    #             print("api              ",api)
+    #             print("++++++++++++++++++++++")
+    #             print("namespace              ",namespace)
+             
+    #             print("name             ",name)
+
+    #             # print("method",method)
+    #             # print("x-endpoint-group",x_endpoint_group)
+    #             # print("description",description)
+    #             # print("parameters",parameters)
+                
+    #             if namespace not in modules:
+    #                 modules[namespace] = Module(namespace)
+
+    #             modules[namespace].add(API(namespace, name, api))
+    #             # modules[namespace].add(API(namespace, name, description, method, params, path, requestBody))
+
+    #             modules[namespace].pyi.add(API(namespace, name, api, is_pyi=True))
+
+    # return  modules
 
 
 def dump_modules(modules):
@@ -395,5 +545,5 @@ def dump_modules(modules):
 
 
 if __name__ == "__main__":
-   # dump_modules(read_modules())
-    load_open_api_specs()
+    #dump_modules(read_modules())
+    read_modules()
