@@ -26,6 +26,7 @@
 #  under the License.
 
 from itertools import groupby
+from operator import itemgetter
 import contextlib
 import io
 import json
@@ -345,7 +346,6 @@ def read_modules():
         common_data = json.load(common_file)
         
     list_of_dicts=[]
-    grouped_dicts={}
     # Load and merge the contents of each file referenced in the "paths" key
     for path in data["paths"]:
         if "$ref" in data["paths"][path]:
@@ -353,6 +353,10 @@ def read_modules():
             ref_file = os.path.join(os.path.dirname(file.name), ref_path)
             with open(ref_file, "r") as ref:
                 api_file = json.load(ref)
+                #print("apifile          ***********", api_file)
+            
+
+
             data["paths"][path].update(api_file)
             data["paths"][path].pop("$ref")
             for x in data["paths"][path]:
@@ -360,35 +364,162 @@ def read_modules():
                 list_of_dicts.append(data["paths"][path][x])
                 
     #return data["paths"]
-    print("data             ", data)
-    print("list_of_dicts             ", list_of_dicts)
-    sorted_data= sorted(list_of_dicts, key=lambda x: (x["x-endpoint-group"]))
+    # print("data             ", data)
+    # print("start111*************************")
+    # print("list_of_dicts             ", list_of_dicts)
+    # print("start2222*************************")
+    # print("grouped_dicts                            ", grouped_dicts )
+    for p in list_of_dicts:
+        if "parameters" in p:
+            parameters=p["parameters"]
+            #print("parameters",parameters)
+            params=[]
+            if len(parameters)>0:
+                for x in parameters:
+                    if '$ref' in x:
+                        param_ref=x['$ref'].split("#/",1)[1]
+                        if param_ref in query_data:
+                            s=query_data[param_ref]
+                            #print("s    ", s)
+                            if "$ref" in s["schema"]:
+                                schema_ref = s["schema"]["$ref"].split("#/",1)[1]
+                                if schema_ref in common_data:
+                                # print("common_data         ", common_data[schema_ref])
+                                    s["schema"]=common_data[schema_ref]
+                                #print("schema_ref     ",schema_ref)
+                            #print("s after update           ", s)
+                            params.append(s)
+                    elif 'schema' in x:
+                        if "$ref" in x["schema"]:
+                            schema_path_ref = x["schema"]["$ref"].split("#/",1)[1]
+
+                            if schema_path_ref in common_data:
+                                x["schema"]=common_data[schema_path_ref]
+                                params.append(x)
+                        else:
+                            params.append(x)
+            
+                        #print("params       ", params)
+            parts = {}
+            a=params
+            for  q in a:
+                if q["in"]=='path':
+                    parts.update(q)
+                    params.remove(q)
+            # print("++++++++++++++++++++++")
+            # print("params          ", params)
+            # print("++++++++++++++++++++++")
+            # print("parts            ", parts)
+            # print("++++++++++++++++++++++")
+            
+            params_new={}
+            A={}
+            
+            for x in params:
+                A=dict(type = x['schema']['type'], description = x['description'])
+                if "enum" in x["schema"]:
+                    
+                    A.update({"type":"enum"})
+                    A.update({"options": x["schema"]["enum"]})
+                deprecated_new={}
+                if "deprecated" in x:
+                    deprecated_new = dict(version = x['x-deprecation-version'], description = x['x-deprecation-description'])
+                    A.update({"deprecated": deprecated_new})
+                params_new.update({x["name"]:A})
+            #     print("++++++++++++++++++++++")
+            #     print("A          ", A)
+            #     print("++++++++++++++++++++++")
+            # print("++++++++++++++++++++++")
+            # print("params_new         ", params_new)
+            # print("++++++++++++++++++++++")
+            p.update({"params" : params_new})
+            
+            if len(parts)>0:
+                    p.update("parts": {
+				parts["name"]: {
+					"type": parts["schema"]["type"],
+					"description": parts["description"],
+                    "required":parts["required"]
+				}
+			}}]}})
+                else:
+                    api.update({"url": {"paths": [ { "path": path, "methods": [ method.upper()]}]}})
+
+
+
+            p.update({"parts" : parts})
+
+
+
+
+
+
+
+            
+    print("updated list of dicts************                                 ",list_of_dicts )
+
+
+
+
+
+
+    api={}
+    api.update({"stability": "stable","visibility": "public", "headers": {"accept": ["text/plain","application/json"]}})
+
+    list_of_dicts = sorted(list_of_dicts,
+                    key = itemgetter('x-endpoint-group'))
     
-    groups=groupby(list_of_dicts, lambda x: (x["x-endpoint-group"]))
-    for key, group in groups:
-        grouped_dicts[key] = list(group)
-    
-    print("grouped_dicts                            ", grouped_dicts )
-    
-    
-    for x_endpoint_group in grouped_dicts:  
-        if "." in x_endpoint_group:
-            namespace, name = x_endpoint_group.rsplit(".", 1)
+    # Display data grouped by grade
+    for key, value in groupby(list_of_dicts,
+                            key = itemgetter('x-endpoint-group')):
+        print(key)
+        if "." in key:
+            namespace, name = key.rsplit(".", 1)
         else:
             namespace = "__init__"
-            name=x_endpoint_group
-            
-        print("x-endpoint-group",x_endpoint_group)
+            name=key
+        print("x-endpoint-group",key)
         print("namespace              ",namespace)
         print("name             ",name)
-        api={}
-        api.update({"stability": "stable","visibility": "public", "headers": {"accept": ["text/plain","application/json"]}})
-        if "description" not in api:
-                    documentation={"url": "","description":grouped_dicts[x_endpoint_group]["description"]}
+        for k in value:
+            print("k.................", k)
+            if "description" not in api:
+                    documentation={"url": "","description":k["description"]}
                     print("documentation:               ",documentation)
                     #print("description",description)
                     api.update({"documentation" : documentation})
+           
+           
+           
+            grouped_data = sorted(value,
+                    key = itemgetter('path'))
+    
+             # Display data grouped by grade
+            for key2, value2 in groupby(grouped_data,
+                            key = itemgetter('path')):
+                print("key2..............", key2)
                 
+
+
+
+
+
+
+            # if "requestBody" in k[key] and "body" not in api:
+            #         documentation={"url": "","description":k[key][0]["description"]}
+            #         print("documentation:               ",documentation)
+            #         #print("description",description)
+            #         api.update({"documentation" : documentation})
+        
+
+    print("end*************************")
+
+    
+            
+       
+
+        
+        
                 
                 
 
