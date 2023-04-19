@@ -454,7 +454,7 @@ def read_modules():
     # Display data grouped by grade
     for key, value in groupby(list_of_dicts,
                             key = itemgetter('x-endpoint-group')):
-        #print("key.....",key)
+        print("key.....",key)
         if "." in key:
             namespace, name = key.rsplit(".", 1)
         else:
@@ -469,30 +469,32 @@ def read_modules():
             methods=[]
             parts_final={}
             for m in value2:
-                #print("m ##########                 ",m)
+                print("m ##########                 ",m)
                 methods.append(m["method"].upper())
                 if "parts" in m:
                     parts_final.update(m["parts"])
             if bool(parts_final): 
                 paths.append({"path":key2, "methods":methods, "parts":parts_final})  
             else: 
-                paths.append({"path":key2, "methods":methods})     
-            api.update({"url":{"paths":paths}})
+                paths.append({"path":key2, "methods":methods})  
             
-            
-            
-            for k in value:
-                #print("k1.................", k)
-                if "documentation" not in api:
-                        documentation={"url": "","description":k["description"]}
-                        #print("documentation:               ",documentation)
-                        #print("description",description)
-                        api.update({"documentation" : documentation})
-                if "params" not in api and len(k["params"])>0:
-                        api.update({"params" : k["params"]})
-                if "body" not in api and len(k["requestBody"])>0:
-                        body={"description":k["requestBody"]["description"], "required":k["requestBody"]["required"]}
-                        api.update({"body" : body})
+                
+                
+                
+        api.update({"url":{"paths":paths}})
+        
+        for k in value:
+            #print("k1.................", k)
+            if "documentation" not in api:
+                    documentation={"url": "","description":k["description"]}
+                    #print("documentation:               ",documentation)
+                    #print("description",description)
+                    api.update({"documentation" : documentation})
+            if "params" not in api and len(k["params"])>0:
+                    api.update({"params" : k["params"]})
+            if "body" not in api and len(k["requestBody"])>0:
+                    body={"description":k["requestBody"]["description"], "required":k["requestBody"]["required"]}
+                    api.update({"body" : body})
             
         #print("api .......................", api)
                 
@@ -505,49 +507,51 @@ def read_modules():
         print("name             ",name)
 
          
-        if namespace not in modules:
-            modules[namespace] = Module(namespace)
+#         if namespace not in modules:
+#             modules[namespace] = Module(namespace)
 
-        modules[namespace].add(API(namespace, name, api))
+#         modules[namespace].add(API(namespace, name, api))
+#         # modules[namespace].add(API(namespace, name, description, method, params, path, requestBody))
 
-        modules[namespace].pyi.add(API(namespace, name, api, is_pyi=True))
+#         modules[namespace].pyi.add(API(namespace, name, api, is_pyi=True))
 
-    return  modules
+#     return  modules
 
 
-def dump_modules(modules):
-    for mod in modules.values():
-        mod.dump()
+# def dump_modules(modules):
+#     for mod in modules.values():
+#         mod.dump()
 
-    # Unasync all the generated async code
-    additional_replacements = {
-        # We want to rewrite to 'Transport' instead of 'SyncTransport', etc
-        "AsyncTransport": "Transport",
-        "AsyncOpenSearch": "OpenSearch",
-        # We don't want to rewrite this class
-        "AsyncSearchClient": "AsyncSearchClient",
-    }
-    rules = [
-        unasync.Rule(
-            fromdir="/opensearchpy/_async/client/",
-            todir="/opensearchpy/client/",
-            additional_replacements=additional_replacements,
-        ),
-    ]
+#     # Unasync all the generated async code
+#     additional_replacements = {
+#         # We want to rewrite to 'Transport' instead of 'SyncTransport', etc
+#         "AsyncTransport": "Transport",
+#         "AsyncOpenSearch": "OpenSearch",
+#         # We don't want to rewrite this class
+#         "AsyncSearchClient": "AsyncSearchClient",
+#     }
+#     rules = [
+#         unasync.Rule(
+#             fromdir="/opensearchpy/_async/client/",
+#             todir="/opensearchpy/client/",
+#             additional_replacements=additional_replacements,
+#         ),
+#     ]
 
-    filepaths = []
-    for root, _, filenames in os.walk(CODE_ROOT / "opensearchpy/_async"):
-        for filename in filenames:
-            if filename.rpartition(".")[-1] in (
-                "py",
-                "pyi",
-            ) and not filename.startswith("utils.py"):
-                filepaths.append(os.path.join(root, filename))
+#     filepaths = []
+#     for root, _, filenames in os.walk(CODE_ROOT / "opensearchpy/_async"):
+#         for filename in filenames:
+#             if filename.rpartition(".")[-1] in (
+#                 "py",
+#                 "pyi",
+#             ) and not filename.startswith("utils.py"):
+#                 filepaths.append(os.path.join(root, filename))
 
-    unasync.unasync_files(filepaths, rules)
-    blacken(CODE_ROOT / "opensearchpy")
+#     unasync.unasync_files(filepaths, rules)
+#     blacken(CODE_ROOT / "opensearchpy")
 
 
 if __name__ == "__main__":
-    dump_modules(read_modules())
+    #dump_modules(read_modules())
+    read_modules()
 
