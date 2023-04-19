@@ -8,9 +8,6 @@
     "/_bulk": {
       "$ref": "./paths/_bulk.json"
     },
-    "/{index}/_clone/{target}": {
-      "$ref": "./paths/(index)._clone.(target).json"
-    },
 
     "/{index}/_bulk": {
       "$ref": "./paths/(index)._bulk.json"
