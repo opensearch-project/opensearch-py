@@ -5,12 +5,12 @@
     "version": "2.5"
   },
   "paths": {
-    "/_bulk": {
-      "$ref": "./paths/_bulk.json"
+    "/_search": {
+      "$ref": "./paths/_search.json"
     },
-
-    "/{index}/_bulk": {
-      "$ref": "./paths/(index)._bulk.json"
+    "/{index}/_search": {
+      "$ref": "./paths/(index)._search.json"
     }
+    
   }
 }

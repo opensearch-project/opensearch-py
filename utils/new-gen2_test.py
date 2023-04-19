@@ -476,16 +476,14 @@ def read_modules():
             if bool(parts_final): 
                 paths.append({"path":key2, "methods":methods, "parts":parts_final})  
             else: 
-                paths.append({"path":key2, "methods":methods})  
-            
-                
-                
-                
+                paths.append({"path":key2, "methods":methods})     
             api.update({"url":{"paths":paths}})
+            
+            
             
             for k in value:
                 #print("k1.................", k)
-                if "description" not in api:
+                if "documentation" not in api:
                         documentation={"url": "","description":k["description"]}
                         #print("documentation:               ",documentation)
                         #print("description",description)
@@ -511,7 +509,6 @@ def read_modules():
             modules[namespace] = Module(namespace)
 
         modules[namespace].add(API(namespace, name, api))
-        # modules[namespace].add(API(namespace, name, description, method, params, path, requestBody))
 
         modules[namespace].pyi.add(API(namespace, name, api, is_pyi=True))
 
