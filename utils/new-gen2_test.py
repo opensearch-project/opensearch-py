@@ -454,7 +454,7 @@ def read_modules():
     # Display data grouped by grade
     for key, value in groupby(list_of_dicts,
                             key = itemgetter('x-endpoint-group')):
-        print("key.....",key)
+        #print("key.....",key)
         if "." in key:
             namespace, name = key.rsplit(".", 1)
         else:
