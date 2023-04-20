@@ -63,7 +63,7 @@ When you create a new document for an index, OpenSearch will automatically creat
 
 ```python
 print(client.indices.exists(index='burner'))  # => False
-client.create(index='burner', body={'lorem': 'ipsum'})
+client.index(id='1', index='burner', body={'lorem': 'ipsum'})
 print(client.indices.exists(index='burner'))  # => True
 ```
 
@@ -143,10 +143,10 @@ client.indices.delete(index='movies')
 We can also delete multiple indices at once:
 
 ```python
-client.indices.delete(index=['movies', 'paintings', 'burner'], ignore=[404])
+client.indices.delete(index=['movies', 'paintings', 'burner'], ignore_unavailable=True)
 ```
 
-Notice that we are passing `ignore: 404` to the request. This tells the client to ignore the `404` error if the index doesn't exist for deletion. Without it, the above `delete` request will throw an error because the `movies` index has already been deleted in the previous example.
+Notice that we are passing `ignore_unavailable=True` to the request. This tells the client to ignore the `404` error if the index doesn't exist for deletion. Without it, the above `delete` request will throw an error because the `movies` index has already been deleted in the previous example.
 
 ## Cleanup
 
