@@ -445,8 +445,8 @@ def read_modules():
             
     #print("updated list of dicts************                                 ",list_of_dicts )
 
-    api={}
-    api.update({"stability": "stable","visibility": "public", "headers": {"accept": ["application/json"]}})
+    # api={}
+    # api.update({"stability": "stable","visibility": "public", "headers": {"accept": ["application/json"]}})
 
     list_of_dicts = sorted(list_of_dicts,
                     key = itemgetter('x-endpoint-group'))
@@ -454,6 +454,9 @@ def read_modules():
     # Display data grouped by grade
     for key, value in groupby(list_of_dicts,
                             key = itemgetter('x-endpoint-group')):
+        api={}
+        
+        
         #print("key.....",key)
         if "." in key:
             namespace, name = key.rsplit(".", 1)
@@ -469,11 +472,16 @@ def read_modules():
             methods=[]
             parts_final={}
             for m in value2:
-                #print("m ##########                 ",m)
+                # print("m ##########                 ",m)
+                # print("namespace              ",namespace)
+        
+                # print("name             ",name)
+                # print("api             ",api)
+                # print("method            ",m["method"])
                 methods.append(m["method"].upper())
 
                 if "documentation" not in api:
-                    documentation={"url": "","description":m["description"]}
+                    documentation={"description":m["description"]}
                     #print("documentation:               ",documentation)
                     #print("description",description)
                     api.update({"documentation" : documentation})
@@ -485,6 +493,12 @@ def read_modules():
 
                 if "parts" in m:
                     parts_final.update(m["parts"])
+                
+            if "POST" in methods or "PUT" in methods :
+                api.update({"stability": "stable","visibility": "public", 'headers': {'accept': ['application/json'],'content_type': ['application/json']}})
+            else:
+                api.update({"stability": "stable","visibility": "public", 'headers': {'accept': ['application/json']}})
+
             if bool(parts_final): 
                 paths.append({"path":key2, "methods":methods, "parts":parts_final})  
             else: 
@@ -499,11 +513,13 @@ def read_modules():
                 
 
         print("++++++++++++++++++++++")
-        print("api              ",api)
-        print("++++++++++++++++++++++")
+        
+       
         print("namespace              ",namespace)
         
         print("name             ",name)
+        print("api              ",api)
+        print("++++++++++++++++++++++")
 
          
         if namespace not in modules:
