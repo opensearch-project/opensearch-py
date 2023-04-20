@@ -51,7 +51,9 @@ http = urllib3.PoolManager()
 # line to look for in the original source file
 SEPARATOR = "    # AUTO-GENERATED-API-DEFINITIONS #"
 # global substitutions for python keywords
-SUBSTITUTIONS = {"type": "doc_type", "from": "from_"}
+#SUBSTITUTIONS = {"type": "doc_type", "from": "from_"}
+SUBSTITUTIONS = {"from": "from_"}
+
 # api path(s)
 BRANCH_NAME = "7.x"
 CODE_ROOT = Path(__file__).absolute().parent.parent
@@ -400,19 +402,27 @@ def read_modules():
                             params.append(x)
             
                         #print("params       ", params)
-            parts = {}
-            a=params
-            for  q in a:
-                if q["in"]=='path':
-                    parts.update(q)
-                    params.remove(q)
             # print("++++++++++++++++++++++")
             # print("params          ", params)
             # print("++++++++++++++++++++++")
-            # print("parts            ", parts)
+            parts = []
+            for  q in params:
+                #print("q            ", q)
+                if q["in"]=='path':
+                    parts.append(q)
+            for  q in params:
+                if q["in"]=='path':
+                    params.remove(q)
             # print("++++++++++++++++++++++")
+            # print("params          ", params)
+            print("++++++++++++++++++++++")
+            print("p            ", p)
+            print("parts            ", parts)
+
+            print("++++++++++++++++++++++")
             
             params_new={}
+            parts_new={}
             A={}
             
             for x in params:
@@ -421,10 +431,16 @@ def read_modules():
                     
                     A.update({"type":"enum"})
                     A.update({"options": x["schema"]["enum"]})
-                deprecated_new={}
+                
                 if "deprecated" in x:
-                    deprecated_new = dict(version = x['x-deprecation-version'], description = x['x-deprecation-description'])
-                    A.update({"deprecated": deprecated_new})
+                    A.update({"deprecated": x["deprecated"]})
+                    deprecated_new={}
+                    if "x-deprecation-version" in x:
+                        deprecated_new.update({"version" : x['x-deprecation-version']})
+                    if "x-deprecation-description"in x:
+                        deprecated_new.update({"description" : x['x-deprecation-description']})
+                    if bool(deprecated_new):
+                        A.update({"deprecated": deprecated_new})
                 params_new.update({x["name"]:A})
             #     print("++++++++++++++++++++++")
             #     print("A          ", A)
@@ -435,13 +451,12 @@ def read_modules():
             p.update({"params" : params_new})
             p.pop("parameters")
             
-            if len(parts)>0:
-                    p.update({"parts": {
-				parts["name"]: {
-					"type": parts["schema"]["type"],
-					"description": parts["description"]
-				}
-			}})
+            for x in parts:
+                parts_new.update({x["name"]: {"type": x["schema"]["type"],"description": x["description"]}})
+                if "deprecated" in x:
+                    params_new.update({"deprecated": x["deprecated"]})
+            if bool(parts_new):
+                p.update({"parts": parts_new})
             
     #print("updated list of dicts************                                 ",list_of_dicts )
 
