@@ -15,7 +15,6 @@ for i in range(10):
     client.index(
         index='movies',
         id=i,
-        doc_type='_doc',
         body={
             'title': f'The Dark Knight {i}',
             'director': 'Christopher Nolan',
@@ -25,7 +24,6 @@ for i in range(10):
 # Add additional documents to the index
 client.index(
     index='movies',
-    doc_type='_doc',
     body={
         'title': 'The Godfather',
         'director': 'Francis Ford Coppola',
@@ -34,7 +32,6 @@ client.index(
 )
 client.index(
     index='movies',
-    doc_type='_doc',
     body={
         'title': 'The Shawshank Redemption',
         'director': 'Frank Darabont',
@@ -52,9 +49,6 @@ client.indices.refresh(index='movies')
 The search API allows you to search for documents in an index. The following example searches for ALL documents in the `movies` index:
 
 ```python
-from opensearchpy import OpenSearch
-# Create an OpenSearch client
-client = OpenSearch(hosts=['localhost'])
 # Search for all documents in the 'movies' index
 response = client.search(index='movies')
 # Extract the count of hits from the response
@@ -66,9 +60,6 @@ print("Total Hits: ", hits_count)
 You can also search for documents that match a specific query. The following example searches for documents that match the query `dark knight`:
 
 ```python
-from opensearchpy import OpenSearch
-# Create an OpenSearch client
-client = OpenSearch(hosts=['localhost'])
 # Define the query
 query = {
     "query": {
@@ -93,9 +84,6 @@ OpenSearch query DSL allows you to specify complex queries. Check out the [OpenS
 The search API allows you to paginate through the search results. The following example searches for documents that match the query `dark knight`, sorted by `year` in ascending order, and returns the first 2 results after skipping the first 5 results:
 
 ```python
-from opensearchpy import OpenSearch
-# Create an OpenSearch client with appropriate hosts and connection details
-client = OpenSearch(hosts=['localhost'])
 # Define the search query with sorting and pagination options
 search_body = {
     "query": {
@@ -129,10 +117,6 @@ for hit in hits:
 With sorting, you can also use the `search_after` parameter to paginate through the search results. Let's say you have already displayed the first page of results, and you want to display the next page. You can use the `search_after` parameter to paginate through the search results. The following example will demonstrate how to get the first 3 pages of results using the search query of the previous example:
 
 ```python
-# Import the required libraries
-from opensearchpy import OpenSearch
-# Create an OpenSearch client with appropriate hosts and connection details
-client = OpenSearch(hosts=['localhost'])
 # Define the search query with sorting and pagination options
 search_body = {
     "query": {
@@ -192,9 +176,6 @@ for hit in hits_page_3:
 When retrieving large amounts of non-real-time data, you can use the `scroll` parameter to paginate through the search results. 
 
 ```python
-from opensearchpy import OpenSearch
-# Create an OpenSearch client with appropriate hosts and connection details
-client = OpenSearch(hosts=['localhost'])
 # Define the search query with scroll and pagination options
 search_body = {
     "query": {
@@ -202,12 +183,12 @@ search_body = {
             "title": "dark knight"
         }
     },
-    "scroll": "1m",  # Set the scroll duration to 1 minute
     "size": 2
 }
 # Perform the initial search operation on the 'movies' index with the defined query and scroll options
 page_1 = client.search(
     index='movies',
+    scroll='1m',
     body=search_body
 )
 # Extract the scroll_id from the response
@@ -237,9 +218,6 @@ hits_page_3 = page_3['hits']['hits']
 The scroll example above has one weakness: if the index is updated while you are scrolling through the results, they will be paginated inconsistently. To avoid this, you should use the "Point in Time" feature. The following example demonstrates how to use the `point_in_time` and `pit_id` parameters to paginate through the search results:
 
 ```python
-from opensearchpy import OpenSearch
-# Create an OpenSearch client with appropriate hosts and connection details
-client = OpenSearch(hosts=['localhost'])
 # Define the search query with sorting and pagination options
 search_body = {
     "query": {
@@ -255,31 +233,40 @@ search_body = {
         }
     ]
 }
-# Create a point in time
-pit = client.create_pit(index='movies', keep_alive='1m')
+# create a point in time
+pit = client.create_point_in_time(
+  index = 'movies',
+  keep_alive = '1m'
+)
 # Include pit info in the search body
-pit_search_body = search_body.copy()
-pit_search_body['pit'] = {
+search_body.update(
+  {'pit': {
     'id': pit['pit_id'],
     'keep_alive': '1m'
-}
+  }
+  })
+pit_search_body = search_body
 # Get the first 3 pages of results
-page_1 = client.search(size=2, body=pit_search_body)['hits']['hits']
-page_2 = client.search(
-    size=2,
-    body=pit_search_body.copy().update({'search_after': page_1[-1]['sort']})
+page_1 = client.search(
+  size = 2,
+  body = pit_search_body
 )['hits']['hits']
-
+pit_search_body.update({'search_after':page_1[-1]['sort']})
+page_2 = client.search(
+  size = 2,
+  body = pit_search_body
+)['hits']['hits']
+pit_search_body.update({'search_after':page_2[-1]['sort']})
 page_3 = client.search(
-    size=2,
-    body=pit_search_body.copy().update({'search_after': page_2[-1]['sort']})
+  size = 2,
+  body = pit_search_body
 )['hits']['hits']
 # Print out the titles of the first 3 pages of results
 print([hit['_source']['title'] for hit in page_1])
 print([hit['_source']['title'] for hit in page_2])
 print([hit['_source']['title'] for hit in page_3])
-# Delete the point in time
-client.delete_pit(body={'pit_id': pit['pit_id']})
+# delete the point in time
+client.delete_point_in_time(body = { 'pit_id': pit['pit_id'] })
 ```
 
 ## Cleanup
