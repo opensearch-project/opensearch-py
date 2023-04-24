@@ -434,13 +434,13 @@ def read_modules():
                 
                 if "deprecated" in x:
                     A.update({"deprecated": x["deprecated"]})
-                    deprecated_new={}
-                    if "x-deprecation-version" in x:
-                        deprecated_new.update({"version" : x['x-deprecation-version']})
-                    if "x-deprecation-description"in x:
-                        deprecated_new.update({"description" : x['x-deprecation-description']})
-                    if bool(deprecated_new):
-                        A.update({"deprecated": deprecated_new})
+                #     deprecated_new={}
+                #     if "x-deprecation-version" in x:
+                #         deprecated_new.update({"version" : x['x-deprecation-version']})
+                #     if "x-deprecation-description"in x:
+                #         deprecated_new.update({"description" : x['x-deprecation-description']})
+                #     if bool(deprecated_new):
+                #         params_new.update({"deprecated": deprecated_new})
                 params_new.update({x["name"]:A})
             if "type" in params_new:
                 params_new.pop("type")
@@ -451,13 +451,20 @@ def read_modules():
             # print("++++++++++++++++++++++")
             # print("params_new         ", params_new)
             # print("++++++++++++++++++++++")
-            p.update({"params" : params_new})
+            if bool(params_new):
+                p.update({"params" : params_new})
             p.pop("parameters")
-            
+            B={}
             for x in parts:
-                parts_new.update({x["name"]: {"type": x["schema"]["type"],"description": x["description"]}})
+                B=dict(type = x['schema']['type'], description = x['description'])
                 if "deprecated" in x:
-                    params_new.update({"deprecated": x["deprecated"]})
+                    B.update({"deprecated": x["deprecated"]})
+                    deprecated_new={}
+                    if "x-deprecation-version" in x:
+                        deprecated_new.update({"version" : x['x-deprecation-version']})
+                    if "x-deprecation-description"in x:
+                        deprecated_new.update({"description" : x['x-deprecation-description']})
+                parts_new.update({x["name"]:B})
             if bool(parts_new):
                 p.update({"parts": parts_new})
             
@@ -490,7 +497,7 @@ def read_modules():
             methods=[]
             parts_final={}
             for m in value2:
-                # print("m ##########                 ",m)
+                print("m ##########                 ",m)
                 # print("namespace              ",namespace)
         
                 # print("name             ",name)
@@ -503,11 +510,11 @@ def read_modules():
                     #print("documentation:               ",documentation)
                     #print("description",description)
                     api.update({"documentation" : documentation})
-                if "params" not in api and len(m["params"])>0:
-                        api.update({"params" : m["params"]})
+                if "params" not in api and "params" in m:
+                    api.update({"params" : m["params"]})
                 if "body" not in api and "requestBody" in m:
-                        body={"description":m["requestBody"]["description"], "required":m["requestBody"]["required"]}
-                        api.update({"body" : body})
+                    body={"description":m["requestBody"]["description"], "required":m["requestBody"]["required"]}
+                    api.update({"body" : body})
 
                 if "parts" in m:
                     parts_final.update(m["parts"])
@@ -516,11 +523,13 @@ def read_modules():
                 api.update({"stability": "stable","visibility": "public", 'headers': {'accept': ['application/json'],'content_type': ['application/json']}})
             else:
                 api.update({"stability": "stable","visibility": "public", 'headers': {'accept': ['application/json']}})
-
-            if bool(parts_final): 
-                paths.append({"path":key2, "methods":methods, "parts":parts_final})  
-            else: 
-                paths.append({"path":key2, "methods":methods})  
+            
+            if bool(deprecated_new) and bool(parts_final):
+                paths.append({"path":key2, "methods":methods, "parts":parts_final, "deprecated": deprecated_new})
+            elif bool(parts_final):
+                paths.append({"path":key2, "methods":methods, "parts":parts_final})
+            else:
+                paths.append({"path":key2, "methods":methods})
             
                 
                 
@@ -586,5 +595,3 @@ def dump_modules(modules):
 
 if __name__ == "__main__":
     dump_modules(read_modules())
-   
-
