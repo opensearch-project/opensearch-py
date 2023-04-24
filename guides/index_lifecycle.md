@@ -19,9 +19,9 @@ Let's create a client instance to access this cluster:
 from opensearchpy import OpenSearch
 
 client = OpenSearch(
-    hosts=['https://admin:admin@localhost:9200'],
-    use_ssl=True,
-    verify_certs=False
+  hosts=['https://admin:admin@localhost:9200'],
+  use_ssl=True,
+  verify_certs=False
 )
 
 print(client.info())  # Check server info and make sure the client is connected
@@ -41,21 +41,21 @@ To specify settings and mappings, you can pass them as the `body` of the request
 
 ```python
 client.indices.create(
-    index='movies',
-    body={
-        'settings': {
-            'index': {
-                'number_of_shards': 2,
-                'number_of_replicas': 1
-            }
-        },
-        'mappings': {
-            'properties': {
-                'title': {'type': 'text'},
-                'year': {'type': 'integer'}
-            }
-        }
-    }
+  index='movies',
+  body={
+      'settings': {
+          'index': {
+              'number_of_shards': 2,
+              'number_of_replicas': 1
+          }
+      },
+      'mappings': {
+          'properties': {
+              'title': {'type': 'text'},
+              'year': {'type': 'integer'}
+          }
+      }
+  }
 )
 ```
 
@@ -75,12 +75,12 @@ The following example updates the `movies` index's number of replicas to `0`:
 
 ```python
 client.indices.put_settings(
-      index='movies',
-      body={
-            'index': {
-            'number_of_replicas': 0
-            }
-      }
+  index='movies',
+  body={
+        'index': {
+        'number_of_replicas': 0
+        }
+  }
 )
 ```
 
@@ -88,12 +88,12 @@ The following example updates the `movies` index's mappings to add a new field n
 
 ```python
 client.indices.put_mapping(
-    index='movies',
-    body={
-        'properties': {
-            'director': {'type': 'text'}
-        }
-    }
+  index='movies',
+  body={
+      'properties': {
+          'director': {'type': 'text'}
+      }
+  }
 )
 ```
 
