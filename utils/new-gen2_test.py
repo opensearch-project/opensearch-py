@@ -51,8 +51,8 @@ http = urllib3.PoolManager()
 # line to look for in the original source file
 SEPARATOR = "    # AUTO-GENERATED-API-DEFINITIONS #"
 # global substitutions for python keywords
-#SUBSTITUTIONS = {"type": "doc_type", "from": "from_"}
-SUBSTITUTIONS = {"from": "from_"}
+SUBSTITUTIONS = {"type": "doc_type", "from": "from_"}
+
 
 # api path(s)
 BRANCH_NAME = "7.x"
@@ -406,15 +406,15 @@ def read_modules():
             # print("params          ", params)
             # print("++++++++++++++++++++++")
             parts = []
-            for  q in params:
+            k=params.copy()
+            for  q in k:
                 #print("q            ", q)
                 if q["in"]=='path':
                     parts.append(q)
-            for  q in params:
-                if q["in"]=='path':
                     params.remove(q)
-            # print("++++++++++++++++++++++")
-            # print("params          ", params)
+            print("++++++++++++++++++++++")
+            print("params          ", params)
+
             print("++++++++++++++++++++++")
             print("p            ", p)
             print("parts            ", parts)
@@ -442,6 +442,9 @@ def read_modules():
                     if bool(deprecated_new):
                         A.update({"deprecated": deprecated_new})
                 params_new.update({x["name"]:A})
+            if "type" in params_new:
+                params_new.pop("type")
+
             #     print("++++++++++++++++++++++")
             #     print("A          ", A)
             #     print("++++++++++++++++++++++")
