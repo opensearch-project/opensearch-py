@@ -487,8 +487,8 @@ def read_modules():
                         "visibility": "public",
                         "headers": {
                             "accept": ["application/json"],
-                            "content_type": ["application/json"],
-                        },
+                            "content_type": ["application/json"]
+                        }
                     }
                 )
             else:
@@ -496,7 +496,7 @@ def read_modules():
                     {
                         "stability": "stable",
                         "visibility": "public",
-                        "headers": {"accept": ["application/json"]},
+                        "headers": {"accept": ["application/json"]}
                     }
                 )
 
