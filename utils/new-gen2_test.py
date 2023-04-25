@@ -412,14 +412,14 @@ def read_modules():
                 if q["in"]=='path':
                     parts.append(q)
                     params.remove(q)
-            print("++++++++++++++++++++++")
-            print("params          ", params)
+            # print("++++++++++++++++++++++")
+            # print("params          ", params)
 
-            print("++++++++++++++++++++++")
-            print("p            ", p)
-            print("parts            ", parts)
+            # print("++++++++++++++++++++++")
+            # print("p            ", p)
+            # print("parts            ", parts)
 
-            print("++++++++++++++++++++++")
+            # print("++++++++++++++++++++++")
             
             params_new={}
             parts_new={}
@@ -497,7 +497,7 @@ def read_modules():
             methods=[]
             parts_final={}
             for m in value2:
-                print("m ##########                 ",m)
+                # print("m ##########                 ",m)
                 # print("namespace              ",namespace)
         
                 # print("name             ",name)
