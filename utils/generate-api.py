@@ -25,18 +25,12 @@
 #  specific language governing permissions and limitations
 #  under the License.
 
-
-import contextlib
-import io
 import json
 import os
 import re
-import shutil
-import sys
-import tempfile
-import zipfile
 from functools import lru_cache
-from itertools import chain
+from itertools import chain, groupby
+from operator import itemgetter
 from pathlib import Path
 
 import black
@@ -51,6 +45,8 @@ http = urllib3.PoolManager()
 SEPARATOR = "    # AUTO-GENERATED-API-DEFINITIONS #"
 # global substitutions for python keywords
 SUBSTITUTIONS = {"type": "doc_type", "from": "from_"}
+
+
 # api path(s)
 BRANCH_NAME = "7.x"
 CODE_ROOT = Path(__file__).absolute().parent.parent
@@ -333,67 +329,198 @@ class API:
         )
 
 
-@contextlib.contextmanager
-def download_artifact(version):
-    # Download the list of all artifacts for a version
-    # and find the latest build URL for 'rest-resources-zip-*.zip'
-    resp = http.request(
-        "GET", f"https://artifacts-api.elastic.co/v1/versions/{version}"
-    )
-    packages = json.loads(resp.data)["version"]["builds"][0]["projects"][
-        "opensearchpy"
-    ]["packages"]
-    for package in packages:
-        if re.match(r"^rest-resources-zip-.*\.zip$", package):
-            zip_url = packages[package]["url"]
-            break
-    else:
-        raise RuntimeError(
-            "Could not find the package 'rest-resources-zip-*.zip' in build"
-        )
-
-    # Download the .jar file and unzip only the API
-    # .json files into a temporary directory
-    resp = http.request("GET", zip_url)
-
-    tmp = Path(tempfile.mkdtemp())
-    zip = zipfile.ZipFile(io.BytesIO(resp.data))
-    for name in zip.namelist():
-        if not name.endswith(".json") or name == "schema.json":
-            continue
-        with (tmp / name.replace("rest-api-spec/api/", "")).open("wb") as f:
-            f.write(zip.read(name))
-
-    yield tmp
-    shutil.rmtree(tmp)
-
-
-def read_modules(version):
+def read_modules():
     modules = {}
 
-    with download_artifact(version) as path:
-        for f in sorted(os.listdir(path)):
-            name, ext = f.rsplit(".", 1)
+    # Load the OpenAPI specification file and other JSON files.
+    with open("openapi_spec/json/opensearch.openapi.json", "r") as file:
+        data = json.load(file)
+    with open("openapi_spec/json/parameters/query.json", "r") as query_file:
+        query_data = json.load(query_file)
+    with open("openapi_spec/json/schemas/_common.json", "r") as common_file:
+        common_data = json.load(common_file)
 
-            if ext != "json" or name == "_common":
-                continue
+    list_of_dicts = []
 
-            with open(path / f) as api_def:
-                api = json.load(api_def)[name]
+    # Merge the contents of each file referenced in the "paths" key
+    for path in data["paths"]:
+        if "$ref" in data["paths"][path]:
+            ref_path = data["paths"][path]["$ref"]
+            ref_file = os.path.join(os.path.dirname(file.name), ref_path)
 
+            with open(ref_file, "r") as ref:
+                api_file = json.load(ref)
+
+            data["paths"][path].update(api_file)
+            data["paths"][path].pop("$ref")
+
+            for x in data["paths"][path]:
+                data["paths"][path][x].update({"path": path, "method": x})
+                list_of_dicts.append(data["paths"][path][x])
+
+    # Update parameters  in each endpoint
+    for p in list_of_dicts:
+        if "parameters" in p:
+            parameters = p["parameters"]
+            params = []
+            parts = []
+
+            # Iterate over the list of parameters and update them
+            for x in parameters:
+                if "$ref" in x:
+                    param_ref = x["$ref"].split("#/", 1)[1]
+
+                    if param_ref in query_data:
+                        s = query_data[param_ref]
+
+                        if "$ref" in s["schema"]:
+                            schema_ref = s["schema"]["$ref"].split("#/", 1)[1]
+
+                            if schema_ref in common_data:
+                                s["schema"] = common_data[schema_ref]
+
+                        params.append(s)
+
+                elif "schema" in x:
+                    if "$ref" in x["schema"]:
+                        schema_path_ref = x["schema"]["$ref"].split("#/", 1)[1]
+
+                        if schema_path_ref in common_data:
+                            x["schema"] = common_data[schema_path_ref]
+                            params.append(x)
+                    else:
+                        params.append(x)
+
+            # Iterate over the list of updated parameters to separate "parts" from "params"
+            k = params.copy()
+            for q in k:
+                if q["in"] == "path":
+                    parts.append(q)
+                    params.remove(q)
+
+            # Convert "params" and "parts" into the structure required for generator.
+            params_new = {}
+            parts_new = {}
+
+            for m in params:
+                A = dict(type=m["schema"]["type"], description=m["description"])
+                if "enum" in m["schema"]:
+                    A.update({"type": "enum"})
+                    A.update({"options": m["schema"]["enum"]})
+
+                if "deprecated" in m:
+                    A.update({"deprecated": m["deprecated"]})
+                params_new.update({m["name"]: A})
+
+            # Removing the deprecated "type"
+            if "type" in params_new:
+                params_new.pop("type")
+
+            if bool(params_new):
+                p.update({"params": params_new})
+
+            p.pop("parameters")
+
+            for n in parts:
+                B = dict(type=n["schema"]["type"], description=n["description"])
+                if "deprecated" in n:
+                    B.update({"deprecated": n["deprecated"]})
+
+                    deprecated_new = {}
+                    if "x-deprecation-version" in n:
+                        deprecated_new.update({"version": n["x-deprecation-version"]})
+                    if "x-deprecation-description" in n:
+                        deprecated_new.update(
+                            {"description": n["x-deprecation-description"]}
+                        )
+
+                parts_new.update({n["name"]: B})
+
+            if bool(parts_new):
+                p.update({"parts": parts_new})
+
+    # Sort the input list by the value of the "x-endpoint-group" key
+    list_of_dicts = sorted(list_of_dicts, key=itemgetter("x-endpoint-group"))
+
+    # Group the input list by the value of the "x-endpoint-group" key
+    for key, value in groupby(list_of_dicts, key=itemgetter("x-endpoint-group")):
+        api = {}
+
+        # Extract the namespace and name from the 'x-endpoint-group'
+        if "." in key:
+            namespace, name = key.rsplit(".", 1)
+        else:
             namespace = "__init__"
-            if "." in name:
-                namespace, name = name.rsplit(".", 1)
+            name = key
 
-            # The data_frame API has been changed to transform.
-            if namespace == "data_frame_transform_deprecated":
-                continue
+        # Group the data in the current group by the "path" key
+        paths = []
+        for key2, value2 in groupby(value, key=itemgetter("path")):
+            # Extract the HTTP methods from the data in the current subgroup
+            methods = []
+            parts_final = {}
+            for z in value2:
+                methods.append(z["method"].upper())
 
-            if namespace not in modules:
-                modules[namespace] = Module(namespace)
+                # Update 'api' dictionary
+                if "documentation" not in api:
+                    documentation = {"description": z["description"]}
+                    api.update({"documentation": documentation})
 
-            modules[namespace].add(API(namespace, name, api))
-            modules[namespace].pyi.add(API(namespace, name, api, is_pyi=True))
+                if "params" not in api and "params" in z:
+                    api.update({"params": z["params"]})
+
+                if "body" not in api and "requestBody" in z:
+                    body = {
+                        "description": z["requestBody"]["description"],
+                        "required": z["requestBody"]["required"],
+                    }
+                    api.update({"body": body})
+
+                if "parts" in z:
+                    parts_final.update(z["parts"])
+
+            if "POST" in methods or "PUT" in methods:
+                api.update(
+                    {
+                        "stability": "stable",
+                        "visibility": "public",
+                        "headers": {
+                            "accept": ["application/json"],
+                            "content_type": ["application/json"],
+                        },
+                    }
+                )
+            else:
+                api.update(
+                    {
+                        "stability": "stable",
+                        "visibility": "public",
+                        "headers": {"accept": ["application/json"]},
+                    }
+                )
+
+            if bool(deprecated_new) and bool(parts_final):
+                paths.append(
+                    {
+                        "path": key2,
+                        "methods": methods,
+                        "parts": parts_final,
+                        "deprecated": deprecated_new,
+                    }
+                )
+            elif bool(parts_final):
+                paths.append({"path": key2, "methods": methods, "parts": parts_final})
+            else:
+                paths.append({"path": key2, "methods": methods})
+
+        api.update({"url": {"paths": paths}})
+
+        if namespace not in modules:
+            modules[namespace] = Module(namespace)
+
+        modules[namespace].add(API(namespace, name, api))
+        modules[namespace].pyi.add(API(namespace, name, api, is_pyi=True))
 
     return modules
 
@@ -432,5 +559,4 @@ def dump_modules(modules):
 
 
 if __name__ == "__main__":
-    version = sys.argv[1]
-    dump_modules(read_modules(version))
+    dump_modules(read_modules())
