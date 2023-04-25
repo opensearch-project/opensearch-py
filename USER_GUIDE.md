@@ -5,7 +5,6 @@
     - [Creating an index](#creating-an-index)
     - [Adding a document to an index](#adding-a-document-to-an-index)
     - [Adding documents in bulk](#adding-documents-in-bulk)
-    - [Adding documents in bulk using helper functions](#adding-documents-in-bulk-using-helper-functions)
     - [Searching for a document](#searching-for-a-document)
     - [Deleting a document](#deleting-a-document)
     - [Deleting an index](#deleting-an-index)
@@ -130,38 +129,8 @@ print(response)
 ```
 
 ### Adding documents in bulk
-```python
-docs = '''{"index": {"_index": "index-2022-06-08", "_id": "1"}}
-{"name": "foo"} 
-{"index": {"_index": "index-2022-06-09", "_id": "2"}}
-{"name": "bar"}
-{"index": {"_index": "index-2022-06-10", "_id": "3"}}
-{"name": "baz"}'''
 
-response = client.bulk(docs)
-
-print('\nAdding bulk documents:')
-print(response)
-```
-
-### Adding documents in bulk using helper functions
-```python
-docs = []
-def generate_data():
-    mywords = ['foo', 'bar', 'baz']
-    for index, word in enumerate(mywords):
-        docs.append({
-            "_index": "mywords",
-            "word": word,
-            "_id": index
-        })
-    return docs
-
-response = helpers.bulk(client, generate_data(), max_retries=3)
-
-print('\nAdding bulk documents using helper:')
-print(response)
-```
+Please refer the [bulk guide](guides/bulk.md) to learn how to use the OpenSearch Python Client API to perform bulk operations.
 
 ### Searching for a document
 ```python
