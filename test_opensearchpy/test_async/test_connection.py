@@ -97,6 +97,26 @@ class TestAIOHttpConnection:
         con = AIOHttpConnection(opaque_id="app-1")
         assert con.headers["x-opaque-id"] == "app-1"
 
+    def test_trust_env(self):
+        con = AIOHttpConnection(trust_env=True)
+        assert con.session.connector.trust_env
+
+    async def test_async_opensearch_trust_env(self):
+        # Create an instance of AsyncOpenSearch with trust_env set to True
+        async with AsyncOpenSearch(
+                trust_env=True,
+                headers={"User-Agent": "TestClient"},
+                hosts=["localhost"],
+                port=9200,
+        ) as client:
+            # Check that the connector instance used by the client has trust_env set to True
+            assert isinstance(client.transport.get_connection().connector, aiohttp.TCPConnector)
+            assert client.transport.get_connection().connector._resolve_host == aiohttp.AsyncResolver()
+            assert client.transport.get_connection().connector._limit == 100
+            assert client.transport.get_connection().connector.use_dns_cache is True
+            assert client.transport.get_connection().connector.ssl is None
+            assert client.transport.get_connection().connector.trust_env is True
+
     async def test_no_http_compression(self):
         con = await self._get_mock_connection()
         assert not con.http_compress
@@ -161,45 +181,45 @@ class TestAIOHttpConnection:
     def test_keep_alive_is_on_by_default(self):
         con = AIOHttpConnection()
         assert {
-            "connection": "keep-alive",
-            "content-type": "application/json",
-            "user-agent": con._get_default_user_agent(),
-        } == con.headers
+                   "connection": "keep-alive",
+                   "content-type": "application/json",
+                   "user-agent": con._get_default_user_agent(),
+               } == con.headers
 
     def test_http_auth(self):
         con = AIOHttpConnection(http_auth="username:secret")
         assert {
-            "authorization": "Basic dXNlcm5hbWU6c2VjcmV0",
-            "connection": "keep-alive",
-            "content-type": "application/json",
-            "user-agent": con._get_default_user_agent(),
-        } == con.headers
+                   "authorization": "Basic dXNlcm5hbWU6c2VjcmV0",
+                   "connection": "keep-alive",
+                   "content-type": "application/json",
+                   "user-agent": con._get_default_user_agent(),
+               } == con.headers
 
     def test_http_auth_tuple(self):
         con = AIOHttpConnection(http_auth=("username", "secret"))
         assert {
-            "authorization": "Basic dXNlcm5hbWU6c2VjcmV0",
-            "content-type": "application/json",
-            "connection": "keep-alive",
-            "user-agent": con._get_default_user_agent(),
-        } == con.headers
+                   "authorization": "Basic dXNlcm5hbWU6c2VjcmV0",
+                   "content-type": "application/json",
+                   "connection": "keep-alive",
+                   "user-agent": con._get_default_user_agent(),
+               } == con.headers
 
     def test_http_auth_list(self):
         con = AIOHttpConnection(http_auth=["username", "secret"])
         assert {
-            "authorization": "Basic dXNlcm5hbWU6c2VjcmV0",
-            "content-type": "application/json",
-            "connection": "keep-alive",
-            "user-agent": con._get_default_user_agent(),
-        } == con.headers
+                   "authorization": "Basic dXNlcm5hbWU6c2VjcmV0",
+                   "content-type": "application/json",
+                   "connection": "keep-alive",
+                   "user-agent": con._get_default_user_agent(),
+               } == con.headers
 
     def test_uses_https_if_verify_certs_is_off(self):
         with warnings.catch_warnings(record=True) as w:
             con = AIOHttpConnection(use_ssl=True, verify_certs=False)
             assert 1 == len(w)
             assert (
-                "Connecting to https://localhost:9200 using SSL with verify_certs=False is insecure."
-                == str(w[0].message)
+                    "Connecting to https://localhost:9200 using SSL with verify_certs=False is insecure."
+                    == str(w[0].message)
             )
 
         assert con.use_ssl
@@ -228,12 +248,12 @@ class TestAIOHttpConnection:
 
     def test_warns_if_using_non_default_ssl_kwargs_with_ssl_context(self):
         for kwargs in (
-            {"ssl_show_warn": False},
-            {"ssl_show_warn": True},
-            {"verify_certs": True},
-            {"verify_certs": False},
-            {"ca_certs": "/path/to/certs"},
-            {"ssl_show_warn": True, "ca_certs": "/path/to/certs"},
+                {"ssl_show_warn": False},
+                {"ssl_show_warn": True},
+                {"verify_certs": True},
+                {"verify_certs": False},
+                {"ca_certs": "/path/to/certs"},
+                {"ssl_show_warn": True, "ca_certs": "/path/to/certs"},
         ):
             kwargs["ssl_context"] = ssl.create_default_context()
 
@@ -244,8 +264,8 @@ class TestAIOHttpConnection:
 
                 assert 1 == len(w)
                 assert (
-                    "When using `ssl_context`, all other SSL related kwargs are ignored"
-                    == str(w[0].message)
+                        "When using `ssl_context`, all other SSL related kwargs are ignored"
+                        == str(w[0].message)
                 )
 
     @patch("ssl.SSLContext.load_verify_locations")
