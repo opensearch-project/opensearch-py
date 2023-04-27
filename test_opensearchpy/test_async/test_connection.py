@@ -103,6 +103,7 @@ class TestAIOHttpConnection:
 
     async def test_async_opensearch_trust_env(self):
         # Create an instance of AsyncOpenSearch with trust_env set to True
+        # and check that the connector instance used by the client has trust_env set to Truetest_async
         async with AsyncOpenSearch(
                 trust_env=True,
                 headers={"User-Agent": "TestClient"},
