@@ -101,6 +101,7 @@ class TestAIOHttpConnection:
         con = AIOHttpConnection(trust_env=True)
         assert con.session.connector.trust_env
 
+
     async def test_async_opensearch_trust_env(self):
         # Create an instance of AsyncOpenSearch with trust_env set to True
         async with AsyncOpenSearch(
