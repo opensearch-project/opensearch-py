@@ -18,6 +18,11 @@ $ nox -rs format
 # Run the test suite
 $ nox -rs test
 ```
+Note that unit tests require docker to be installed and httpbin container running. 
+
+```
+docker run --name httpbin -d -p 8000:80 kennethreitz/httpbin
+```
 
 ## Integration Tests
 To run the integration tests locally, run:

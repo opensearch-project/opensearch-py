@@ -312,48 +312,51 @@ class TestConnectionHttpbin:
 
     async def test_aiohttp_connection(self):
         # Defaults
-        conn = AIOHttpConnection("httpbin.org", port=443, use_ssl=True)
+        conn = AIOHttpConnection("localhost", port=8000, use_ssl=False)
         user_agent = conn._get_default_user_agent()
         status, data = await self.httpbin_anything(conn)
         assert status == 200
         assert data["method"] == "GET"
         assert data["headers"] == {
+            "Connection": "keep-alive",
             "Content-Type": "application/json",
-            "Host": "httpbin.org",
+            "Host": "localhost:8000",
             "User-Agent": user_agent,
         }
 
         # http_compress=False
         conn = AIOHttpConnection(
-            "httpbin.org", port=443, use_ssl=True, http_compress=False
+            "localhost", port=8000, use_ssl=False, http_compress=False
         )
         status, data = await self.httpbin_anything(conn)
         assert status == 200
         assert data["method"] == "GET"
         assert data["headers"] == {
+            "Connection": "keep-alive",
             "Content-Type": "application/json",
-            "Host": "httpbin.org",
+            "Host": "localhost:8000",
             "User-Agent": user_agent,
         }
 
         # http_compress=True
         conn = AIOHttpConnection(
-            "httpbin.org", port=443, use_ssl=True, http_compress=True
+            "localhost", port=8000, use_ssl=False, http_compress=True
         )
         status, data = await self.httpbin_anything(conn)
         assert status == 200
         assert data["headers"] == {
             "Accept-Encoding": "gzip,deflate",
+            "Connection": "keep-alive",
             "Content-Type": "application/json",
-            "Host": "httpbin.org",
+            "Host": "localhost:8000",
             "User-Agent": user_agent,
         }
 
         # Headers
         conn = AIOHttpConnection(
-            "httpbin.org",
-            port=443,
-            use_ssl=True,
+            "localhost",
+            port=8000,
+            use_ssl=False,
             http_compress=True,
             headers={"header1": "value1"},
         )
@@ -363,8 +366,9 @@ class TestConnectionHttpbin:
         assert status == 200
         assert data["headers"] == {
             "Accept-Encoding": "gzip,deflate",
+            "Connection": "keep-alive",
             "Content-Type": "application/json",
-            "Host": "httpbin.org",
+            "Host": "localhost:8000",
             "Header1": "override!",
             "Header2": "value2",
             "User-Agent": user_agent,

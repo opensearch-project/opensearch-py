@@ -53,6 +53,10 @@ jobs:
     name: test-${{ matrix.python-version }}
     continue-on-error: ${{ matrix.experimental }}
     steps:
+      - name: Start httpbin container
+        run: docker run --name httpbin -d -p 8000:80 kennethreitz/httpbin 
+      - name: Wait for httpbin to start
+        run: sleep 60
       - name: Checkout Repository
         uses: actions/checkout@v3
       - name: Set Up Python - ${{ matrix.python-version }}

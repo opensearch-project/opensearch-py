@@ -9,6 +9,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - Added 'point in time' APIs to the pyi files in sync and async client ([#378](https://github.com/opensearch-project/opensearch-py/pull/378))
 ### Changed
 - Upgrading pytest-asyncio to latest version - 0.21.0 ([#339](https://github.com/opensearch-project/opensearch-py/pull/339))
+- Fixed flaky CI tests by adding httpbin docker container to the github workflows ([#383](https://github.com/opensearch-project/opensearch-py/pull/383))
 ### Deprecated
 ### Removed
 ### Fixed
