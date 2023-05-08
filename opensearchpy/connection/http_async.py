@@ -56,6 +56,7 @@ class AsyncHttpConnection(AIOHttpConnection):
         super().__init__(
             host=host,
             port=port,
+            http_auth=http_auth,
             use_ssl=use_ssl,
             headers=headers,
             http_compress=http_compress,
@@ -189,11 +190,6 @@ class AsyncHttpConnection(AIOHttpConnection):
         if self.http_compress and body:
             body = self._gzip_compress(body)
             req_headers["content-encoding"] = "gzip"
-
-        req_headers = {
-            **req_headers,
-            **self._http_auth(method, url, query_string, body),
-        }
 
         start = self.loop.time()
         try:
