@@ -1,43 +1,74 @@
 - [Developer Guide](#developer-guide)
-  - [Linter and Test Suite](#linter-and-test-suite)
-  - [Integration Tests](#integration-tests)
-  - [Build the Documentation with Sphinx](#build-the-documentation-with-sphinx)
+  - [Prerequisites](#prerequisites)
+  - [Running Tests](#running-tests)
+  - [Linter](#linter)
+  - [Documentation](#documentation)
 
 # Developer Guide
 
-## Linter and Test Suite 
-Run the linter and test suite to ensure your changes do not break existing code:
+## Prerequisites
+
+Python 3.6 or newer is required.
 
 ```
-# Install Nox for task management
+$ python --version
+Python 3.11.1
+```
+
+Install [Nox](https://nox.thea.codes/en/stable/) for task management.
+
+```
 $ python -m pip install nox
+```
 
-# Auto-format and lint your changes
-$ nox -rs format
+## Running Tests
 
-# Run the test suite
+Tests require a live instance of OpenSearch running in docker.
+
+This will start a new instance and run tests against the latest version of OpenSearch.
+
+```
+./.ci/run-tests
+```
+
+If your OpenSearch docker instance is running, you can execute the test suite directly.
+
+```
 $ nox -rs test
 ```
 
-## Integration Tests
-To run the integration tests locally, run:
+To run tests against different versions of OpenSearch, use `run-tests [with/without security] [version]`:
 
 ```
 ./.ci/run-tests true 1.3.0
 ```
 
-The first argument tells whether to run server with security plugin enabled or not.
-The second argument specifies the version of OpenSearch the tests should run against, if not specified, the tests run against the latest version. 
+The first argument tells whether to run server with security plugin enabled or not. The second argument specifies the version of OpenSearch the tests should run against, if not specified, the tests run against the latest version. You can also run tests against a current SNAPSHOT.
+
+The following example runs tests against the latest SNAPSHOT build of OpenSearch without security.
+
+```
+./.ci/run-tests opensearch false SNAPSHOT
+```
 
 Note that integration tests require docker to be installed and running, and downloads quite a bit of data from over the internet and hence take few minutes to complete.
 
-## Build the Documentation with Sphinx
-This are the steps to build the documentation with [Sphinx](https://www.sphinx-doc.org/):
+## Linter
 
-1. change into the `opensearch-py` directory where `setup.py` is located
-2. install opensearch-py - we recommend [editable mode](https://pip.pypa.io/en/stable/cli/pip_install/#cmdoption-e
-    - with bash: `pip install -e .[docs]`
-    - with zsh: `pip install -e .\[docs]`
-4. change into the `docs` directory
-5. execute `make html`
-6. use your favorite web browser to open the file called `opensearch-py/docs/build/html/index.html`
+Run the linter and test suite to ensure your changes do not break existing code. The following will auto-format your changes.
+
+```
+$ nox -rs format
+```
+
+## Documentation
+
+To build the documentation with [Sphinx](https://www.sphinx-doc.org/).
+
+```
+pip install -e .[docs]
+cd docs
+make html
+```
+
+Open `opensearch-py/docs/build/html/index.html` to see results.
