@@ -1,0 +1,43 @@
+name: Tests
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    strategy:
+      matrix:
+        entry:
+          - { os: 'ubuntu-latest', python-version: "2.7" }
+          - { os: 'ubuntu-20.04', python-version: "3.5" }
+          - { os: 'ubuntu-20.04', python-version: "3.6" }
+          - { os: 'ubuntu-latest', python-version: "3.7" }
+          - { os: 'ubuntu-latest', python-version: "3.8" }
+          - { os: 'ubuntu-latest', python-version: "3.9" }
+          - { os: 'ubuntu-latest', python-version: "3.10" }
+          - { os: 'ubuntu-latest', python-version: "3.11" }
+          - { os: 'macos-latest', python-version: "3.11" }
+          
+    name: test (ruby=${{ matrix.entry.os }}, python=${{ matrix.entry.python-version }})
+    continue-on-error: ${{ matrix.entry.experimental || false }}
+    runs-on: ${{ matrix.entry.os }}
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v3
+      - name: Set Up Python - ${{ matrix.entry.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.entry.python-version }}
+        env:
+          PIP_NO_PYTHON_VERSION_WARNING: 1
+          PIP_DISABLE_PIP_VERSION_CHECK: 1
+      - name: Install Dependencies
+        run: |
+          python -m pip install -r dev-requirements.txt
+      - name: Run Tests
+        run: |
+          python setup.py test
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v2
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./junit/opensearch-py-codecov.xml
