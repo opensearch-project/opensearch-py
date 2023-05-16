@@ -80,7 +80,7 @@ class TestStreamingBulk(OpenSearchTestCase):
                 "settings": {"number_of_shards": 1, "number_of_replicas": 0},
             },
         )
-        self.client.cluster.health(wait_for_status="yellow")
+        self.client.cluster.health(wait_for_status="yellow", timeout=10)
 
         try:
             for ok, item in helpers.streaming_bulk(
@@ -273,7 +273,7 @@ class TestBulk(OpenSearchTestCase):
                 "settings": {"number_of_shards": 1, "number_of_replicas": 0},
             },
         )
-        self.client.cluster.health(wait_for_status="yellow")
+        self.client.cluster.health(wait_for_status="yellow", request_timeout=10)
 
         success, failed = helpers.bulk(
             self.client,
