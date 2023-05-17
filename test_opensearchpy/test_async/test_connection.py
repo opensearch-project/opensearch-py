@@ -42,7 +42,7 @@ from pytest import raises
 from opensearchpy import AIOHttpConnection, AsyncOpenSearch, __versionstr__, serializer
 from opensearchpy.compat import reraise_exceptions
 from opensearchpy.connection import Connection, async_connections
-from opensearchpy.exceptions import ConnectionError
+from opensearchpy.exceptions import ConnectionError, TransportError
 
 pytestmark = pytest.mark.asyncio
 
@@ -53,7 +53,13 @@ def gzip_decompress(data):
 
 
 class TestAIOHttpConnection:
-    async def _get_mock_connection(self, connection_params={}, response_body=b"{}"):
+    async def _get_mock_connection(
+        self,
+        connection_params={},
+        response_code=200,
+        response_body=b"{}",
+        response_headers={},
+    ):
         con = AIOHttpConnection(**connection_params)
         await con._create_aiohttp_session()
 
@@ -69,8 +75,8 @@ class TestAIOHttpConnection:
                     return response_body.decode("utf-8", "surrogatepass")
 
             dummy_response = DummyResponse()
-            dummy_response.headers = CIMultiDict()
-            dummy_response.status = 200
+            dummy_response.headers = CIMultiDict(**response_headers)
+            dummy_response.status = response_code
             _dummy_request.call_args = (args, kwargs)
             return dummy_response
 
@@ -297,6 +303,20 @@ class TestAIOHttpConnection:
         with pytest.raises(exception_cls) as e:
             await conn.perform_request("GET", "/")
         assert str(e.value) == "Wasn't modified!"
+
+    async def test_json_errors_are_parsed(self):
+        con = await self._get_mock_connection(
+            response_code=400,
+            response_body=b'{"error": {"type": "snapshot_in_progress_exception"}}',
+            response_headers={"Content-Type": "application/json;"},
+        )
+        try:
+            with pytest.raises(TransportError) as e:
+                await con.perform_request("POST", "/", body=b'{"some": "json"')
+
+            assert e.value.error == "snapshot_in_progress_exception"
+        finally:
+            await con.close()
 
 
 class TestConnectionHttpbin:

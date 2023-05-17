@@ -7,6 +7,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - Added search.md to guides ([#356](https://github.com/opensearch-project/opensearch-py/pull/356))
 - Added index lifecycle guide ([#362](https://github.com/opensearch-project/opensearch-py/pull/362))
 - Added 'point in time' APIs to the pyi files in sync and async client ([#378](https://github.com/opensearch-project/opensearch-py/pull/378))
+- Added MacOS and Windows CI workflows ([#390](https://github.com/opensearch-project/opensearch-py/pull/390))
 - Compatibility with OpenSearch 2.1.0 - 2.6.0 ([#381](https://github.com/opensearch-project/opensearch-py/pull/381))
 ### Changed
 - Upgrading pytest-asyncio to latest version - 0.21.0 ([#339](https://github.com/opensearch-project/opensearch-py/pull/339))
@@ -15,6 +16,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ### Fixed
 - Fixed import cycle when importing async helpers ([#311](https://github.com/opensearch-project/opensearch-py/pull/311))
 - Fixed userguide for async client ([#340](https://github.com/opensearch-project/opensearch-py/pull/340))
+- Include parsed error info in TransportError in async connections (fixes #225) ([#226](https://github.com/opensearch-project/opensearch-py/pull/226)
 ### Security
 - Fixed CVE-2022-23491 reported in opensearch-dsl-py ([#295](https://github.com/opensearch-project/opensearch-py/pull/295))
 - Update ci workflows ([#318](https://github.com/opensearch-project/opensearch-py/pull/318))
