@@ -165,7 +165,7 @@ def query_params(*opensearch_query_params):
             elif api_key is not None:
                 headers["authorization"] = "ApiKey %s" % (_base64_auth_header(api_key),)
 
-            # don't treat ignore, request_timeout, timeout, and opaque_id as other params to avoid escaping
+            # don't escape ignore, request_timeout, or timeout
             for p in ("ignore", "request_timeout", "timeout"):
                 if p in kwargs:
                     params[p] = kwargs.pop(p)

@@ -71,6 +71,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - Updates `master` to `cluster_manager` to be inclusive ([#242](https://github.com/opensearch-project/opensearch-py/pull/242))
 - Support a custom signing service name for AWS SigV4 ([#268](https://github.com/opensearch-project/opensearch-py/pull/268))
 - Updated CI tests to make them work locally ([#275](https://github.com/opensearch-project/opensearch-py/pull/275))
+- Fix bug with validation of 'timeout' parameter ([#387](Do not escape the "timeout" parameter.))
 ### Deprecated
 
 ### Removed
