@@ -190,10 +190,8 @@ class AsyncHttpConnection(AIOHttpConnection):
             body = self._gzip_compress(body)
             req_headers["content-encoding"] = "gzip"
 
-        req_headers = {
-            **req_headers,
-            **self._http_auth(method, url, query_string, body),
-        }
+        if self._http_auth is not None:
+            req_headers.update(**self._http_auth(method, url, query_string, body))
 
         start = self.loop.time()
         try:
