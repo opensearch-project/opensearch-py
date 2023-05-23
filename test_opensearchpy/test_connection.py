@@ -72,6 +72,9 @@ from pytest import raises
 from opensearchpy import OpenSearch, serializer
 from opensearchpy.connection import connections
 
+if sys.version_info > (3, 0):
+    from test_opensearchpy.TestHttpServer import TestHTTPServer
+
 
 def gzip_decompress(data):
     buf = gzip.GzipFile(fileobj=io.BytesIO(data), mode="rb")
@@ -857,76 +860,87 @@ class TestRequestsConnection(TestCase):
         assert str(e.value) == "Wasn't modified!"
 
 
-class TestConnectionHttpbin:
+@pytest.mark.skipif(
+    sys.version_info < (3, 0),
+    reason="http_server is only available from python 3.x",
+)
+class TestConnectionHttpServer:
     """Tests the HTTP connection implementations against a live server E2E"""
 
-    def httpbin_anything(self, conn, **kwargs):
-        status, headers, data = conn.perform_request("GET", "/anything", **kwargs)
+    @classmethod
+    def setup_class(cls):
+        # Start server
+        cls.server = TestHTTPServer(port=8080)
+        cls.server.start()
+
+    @classmethod
+    def teardown_class(cls):
+        # Stop server
+        cls.server.stop()
+
+    def httpserver(self, conn, **kwargs):
+        status, headers, data = conn.perform_request("GET", "/", **kwargs)
         data = json.loads(data)
-        data["headers"].pop(
-            "X-Amzn-Trace-Id", None
-        )  # Remove this header as it's put there by AWS.
         return (status, data)
 
     def test_urllib3_connection(self):
         # Defaults
-        # httpbin.org can be slow sometimes. Hence the timeout
-        conn = Urllib3HttpConnection("httpbin.org", port=443, use_ssl=True, timeout=60)
+        conn = Urllib3HttpConnection("localhost", port=8080, use_ssl=False, timeout=60)
         user_agent = conn._get_default_user_agent()
-        status, data = self.httpbin_anything(conn)
+        status, data = self.httpserver(conn)
         assert status == 200
         assert data["method"] == "GET"
         assert data["headers"] == {
             "Accept-Encoding": "identity",
             "Content-Type": "application/json",
-            "Host": "httpbin.org",
+            "Host": "localhost:8080",
             "User-Agent": user_agent,
         }
 
         # http_compress=False
         conn = Urllib3HttpConnection(
-            "httpbin.org", port=443, use_ssl=True, http_compress=False, timeout=60
+            "localhost", port=8080, use_ssl=False, http_compress=False, timeout=60
         )
-        status, data = self.httpbin_anything(conn)
+        status, data = self.httpserver(conn)
         assert status == 200
         assert data["method"] == "GET"
         assert data["headers"] == {
             "Accept-Encoding": "identity",
             "Content-Type": "application/json",
-            "Host": "httpbin.org",
+            "Host": "localhost:8080",
             "User-Agent": user_agent,
         }
 
         # http_compress=True
         conn = Urllib3HttpConnection(
-            "httpbin.org", port=443, use_ssl=True, http_compress=True, timeout=60
+            "localhost", port=8080, use_ssl=False, http_compress=True, timeout=60
         )
-        status, data = self.httpbin_anything(conn)
+        status, data = self.httpserver(conn)
         assert status == 200
         assert data["headers"] == {
             "Accept-Encoding": "gzip,deflate",
             "Content-Type": "application/json",
-            "Host": "httpbin.org",
+            "Host": "localhost:8080",
             "User-Agent": user_agent,
         }
 
         # Headers
         conn = Urllib3HttpConnection(
-            "httpbin.org",
-            port=443,
-            use_ssl=True,
+            "localhost",
+            port=8080,
+            use_ssl=False,
             http_compress=True,
             headers={"header1": "value1"},
             timeout=60,
         )
-        status, data = self.httpbin_anything(
+        status, data = self.httpserver(
             conn, headers={"header2": "value2", "header1": "override!"}
         )
         assert status == 200
         assert data["headers"] == {
             "Accept-Encoding": "gzip,deflate",
             "Content-Type": "application/json",
-            "Host": "httpbin.org",
+            "Host": "localhost:8080",
             "Header1": "override!",
             "Header2": "value2",
             "User-Agent": user_agent,
@@ -939,62 +953,62 @@ class TestConnectionHttpbin:
 
     def test_requests_connection(self):
         # Defaults
-        conn = RequestsHttpConnection("httpbin.org", port=443, use_ssl=True, timeout=60)
+        conn = RequestsHttpConnection("localhost", port=8080, use_ssl=False, timeout=60)
         user_agent = conn._get_default_user_agent()
-        status, data = self.httpbin_anything(conn)
+        status, data = self.httpserver(conn)
         assert status == 200
         assert data["method"] == "GET"
         assert data["headers"] == {
             "Accept-Encoding": "identity",
             "Content-Type": "application/json",
-            "Host": "httpbin.org",
+            "Host": "localhost:8080",
             "User-Agent": user_agent,
         }
 
         # http_compress=False
         conn = RequestsHttpConnection(
-            "httpbin.org", port=443, use_ssl=True, http_compress=False, timeout=60
+            "localhost", port=8080, use_ssl=False, http_compress=False, timeout=60
         )
-        status, data = self.httpbin_anything(conn)
+        status, data = self.httpserver(conn)
         assert status == 200
         assert data["method"] == "GET"
         assert data["headers"] == {
             "Accept-Encoding": "identity",
             "Content-Type": "application/json",
-            "Host": "httpbin.org",
+            "Host": "localhost:8080",
             "User-Agent": user_agent,
         }
 
         # http_compress=True
         conn = RequestsHttpConnection(
-            "httpbin.org", port=443, use_ssl=True, http_compress=True, timeout=60
+            "localhost", port=8080, use_ssl=False, http_compress=True, timeout=60
         )
-        status, data = self.httpbin_anything(conn)
+        status, data = self.httpserver(conn)
         assert status == 200
         assert data["headers"] == {
             "Accept-Encoding": "gzip,deflate",
             "Content-Type": "application/json",
-            "Host": "httpbin.org",
+            "Host": "localhost:8080",
             "User-Agent": user_agent,
         }
 
         # Headers
         conn = RequestsHttpConnection(
-            "httpbin.org",
-            port=443,
-            use_ssl=True,
+            "localhost",
+            port=8080,
+            use_ssl=False,
             http_compress=True,
             headers={"header1": "value1"},
             timeout=60,
         )
-        status, data = self.httpbin_anything(
+        status, data = self.httpserver(
             conn, headers={"header2": "value2", "header1": "override!"}
         )
         assert status == 200
         assert data["headers"] == {
             "Accept-Encoding": "gzip,deflate",
             "Content-Type": "application/json",
-            "Host": "httpbin.org",
+            "Host": "localhost:8080",
             "Header1": "override!",
             "Header2": "value2",
             "User-Agent": user_agent,
