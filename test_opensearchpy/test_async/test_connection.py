@@ -43,6 +43,7 @@ from opensearchpy import AIOHttpConnection, AsyncOpenSearch, __versionstr__, ser
 from opensearchpy.compat import reraise_exceptions
 from opensearchpy.connection import Connection, async_connections
 from opensearchpy.exceptions import ConnectionError, TransportError
+from test_opensearchpy.TestHttpServer import TestHTTPServer
 
 pytestmark = pytest.mark.asyncio
 
@@ -319,72 +320,80 @@ class TestAIOHttpConnection:
             await con.close()
 
 
-class TestConnectionHttpbin:
+class TestConnectionHttpServer:
     """Tests the HTTP connection implementations against a live server E2E"""
 
-    async def httpbin_anything(self, conn, **kwargs):
-        status, headers, data = await conn.perform_request("GET", "/anything", **kwargs)
+    @classmethod
+    def setup_class(cls):
+        # Start server
+        cls.server = TestHTTPServer(port=8081)
+        cls.server.start()
+
+    @classmethod
+    def teardown_class(cls):
+        # Stop server
+        cls.server.stop()
+
+    async def httpserver(self, conn, **kwargs):
+        status, headers, data = await conn.perform_request("GET", "/", **kwargs)
         data = json.loads(data)
-        data["headers"].pop(
-            "X-Amzn-Trace-Id", None
-        )  # Remove this header as it's put there by AWS.
         return (status, data)
 
     async def test_aiohttp_connection(self):
         # Defaults
-        conn = AIOHttpConnection("httpbin.org", port=443, use_ssl=True)
+        conn = AIOHttpConnection("localhost", port=8081, use_ssl=False)
         user_agent = conn._get_default_user_agent()
-        status, data = await self.httpbin_anything(conn)
+        status, data = await self.httpserver(conn)
         assert status == 200
         assert data["method"] == "GET"
         assert data["headers"] == {
             "Content-Type": "application/json",
-            "Host": "httpbin.org",
+            "Host": "localhost:8081",
             "User-Agent": user_agent,
         }
 
         # http_compress=False
         conn = AIOHttpConnection(
-            "httpbin.org", port=443, use_ssl=True, http_compress=False
+            "localhost", port=8081, use_ssl=False, http_compress=False
         )
-        status, data = await self.httpbin_anything(conn)
+        status, data = await self.httpserver(conn)
         assert status == 200
         assert data["method"] == "GET"
         assert data["headers"] == {
             "Content-Type": "application/json",
-            "Host": "httpbin.org",
+            "Host": "localhost:8081",
             "User-Agent": user_agent,
         }
 
         # http_compress=True
         conn = AIOHttpConnection(
-            "httpbin.org", port=443, use_ssl=True, http_compress=True
+            "localhost", port=8081, use_ssl=False, http_compress=True
         )
-        status, data = await self.httpbin_anything(conn)
+        status, data = await self.httpserver(conn)
         assert status == 200
         assert data["headers"] == {
             "Accept-Encoding": "gzip,deflate",
             "Content-Type": "application/json",
-            "Host": "httpbin.org",
+            "Host": "localhost:8081",
             "User-Agent": user_agent,
         }
 
         # Headers
         conn = AIOHttpConnection(
-            "httpbin.org",
-            port=443,
-            use_ssl=True,
+            "localhost",
+            port=8081,
+            use_ssl=False,
             http_compress=True,
             headers={"header1": "value1"},
         )
-        status, data = await self.httpbin_anything(
+        status, data = await self.httpserver(
             conn, headers={"header2": "value2", "header1": "override!"}
         )
         assert status == 200
         assert data["headers"] == {
             "Accept-Encoding": "gzip,deflate",
             "Content-Type": "application/json",
-            "Host": "httpbin.org",
+            "Host": "localhost:8081",
             "Header1": "override!",
             "Header2": "value2",
             "User-Agent": user_agent,
