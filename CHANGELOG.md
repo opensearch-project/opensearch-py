@@ -21,6 +21,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ### Security
 - Fixed CVE-2022-23491 reported in opensearch-dsl-py ([#295](https://github.com/opensearch-project/opensearch-py/pull/295))
 - Update ci workflows ([#318](https://github.com/opensearch-project/opensearch-py/pull/318))
+- Fixed CVE-2023-32681 linked to Requests ([#396](https://github.com/opensearch-project/opensearch-py/pull/396))
 ### Dependencies
 - Bumps `sphinx` from <1.7 to <6.3
 

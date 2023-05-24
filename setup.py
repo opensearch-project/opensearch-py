@@ -51,14 +51,14 @@ packages = [
 ]
 install_requires = [
     "urllib3>=1.21.1, <2",
-    "requests>=2.4.0, <3.0.0",
+    "requests>=2.31.0",
     "six",
     "python-dateutil",
     # ipaddress is included in stdlib since python 3.3
     'ipaddress; python_version<"3.3"',
 ]
 tests_require = [
-    "requests>=2.0.0, <3.0.0",
+    "requests>=2.31.0",
     "coverage<7.0.0",
     "mock",
     "pyyaml",
