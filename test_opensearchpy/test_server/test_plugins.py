@@ -13,6 +13,7 @@ from __future__ import unicode_literals
 
 import unittest
 
+from opensearchpy.exceptions import NotFoundError
 from opensearchpy.helpers.test import OPENSEARCH_VERSION
 
 from . import OpenSearchTestCase
@@ -181,3 +182,125 @@ class TestAlertingPlugin(OpenSearchTestCase):
         self.assertIn("monitor_name", response)
         self.assertIn("period_start", response)
         self.assertIn("period_end", response)
+
+
+class TestSecurityPlugin(OpenSearchTestCase):
+    ROLE_NAME = "test-role"
+    ROLE_CONTENT = {
+        "cluster_permissions": ["cluster_monitor"],
+        "index_permissions": [
+            {
+                "index_patterns": ["index", "test-*"],
+                "allowed_actions": [
+                    "data_access",
+                    "indices_monitor",
+                ],
+            }
+        ],
+    }
+
+    USER_NAME = "test-user"
+    USER_CONTENT = {"password": "test_password", "opendistro_security_roles": []}
+
+    def test_create_role(self):
+        # Test to create role
+        response = self.client.security.put_role(self.ROLE_NAME, body=self.ROLE_CONTENT)
+
+        self.assertNotIn("errors", response)
+        self.assertIn("_id", response)
+
+    def test_get_role(self):
+        # Create a role
+        self.test_create_role()
+
+        # Test to fetch the role
+        response = self.client.security.get_role(self.ROLE_NAME)
+
+        self.assertNotIn("errors", response)
+        self.assertIn("_id", response)
+        self.assertEqual(response["_id"], self.ROLE_NAME)
+
+    def test_update_role(self):
+        # Create a role
+        self.test_create_role()
+
+        role_content = self.ROLE_CONTENT.copy()
+        role_content["cluster_permissions"] = ["cluster_all"]
+
+        # Test to update role
+        response = self.client.security.put_role(self.ROLE_NAME, body=role_content)
+
+        self.assertNotIn("errors", response)
+        self.assertIn("_id", response)
+
+    def test_delete_role(self):
+        # Create a role
+        self.test_create_role()
+
+        # Test to delete the role
+        response = self.client.security.delete_role(self.ROLE_NAME)
+
+        self.assertNotIn("errors", response)
+
+        # Try fetching the role
+        with self.assertRaises(NotFoundError):
+            response = self.client.security.get_role(self.ROLE_NAME)
+
+    def test_create_user(self):
+        # Test to create user
+        response = self.client.security.put_user(self.USER_NAME, body=self.USER_CONTENT)
+
+        self.assertNotIn("errors", response)
+        self.assertIn("_id", response)
+
+    def test_create_user_with_role(self):
+        self.test_create_role()
+
+        # Test to create user
+        response = self.client.security.put_user(
+            self.USER_NAME,
+            body={
+                "password": "test_password",
+                "opendistro_security_roles": [self.ROLE_NAME],
+            },
+        )
+
+        self.assertNotIn("errors", response)
+        self.assertIn("_id", response)
+
+    def test_get_user(self):
+        # Create a user
+        self.test_create_user()
+
+        # Test to fetch the user
+        response = self.client.security.get_user(self.USER_NAME)
+
+        self.assertNotIn("errors", response)
+        self.assertIn("_id", response)
+        self.assertEqual(response["_id"], self.USER_NAME)
+
+    def test_update_user(self):
+        # Create a user
+        self.test_create_user()
+
+        user_content = self.USER_CONTENT.copy()
+        user_content["cluster_permissions"] = ["cluster_all"]
+
+        # Test to update user
+        response = self.client.security.put_user(self.USER_NAME, body=user_content)
+
+        self.assertNotIn("errors", response)
+        self.assertIn("_id", response)
+
+    def test_delete_user(self):
+        # Create a user
+        self.test_create_user()
+
+        # Test to delete the user
+        response = self.client.security.delete_user(self.USER_NAME)
+
+        self.assertNotIn("errors", response)
+
+        # Try fetching the user
+        with self.assertRaises(NotFoundError):
+            response = self.client.security.get_user(self.USER_NAME)
