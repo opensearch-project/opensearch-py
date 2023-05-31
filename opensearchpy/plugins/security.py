@@ -535,7 +535,7 @@ class SecurityClient(NamespacedClient):
     @query_params()
     def put_distinguished_names(self, cluster_name, body, params=None, headers=None):
         """
-        Adds or updates the specified distinguished names in the cluster’s or node’s allow list.
+        Adds or updates the specified distinguished names in the cluster's or node's allow list.
         """
         if cluster_name in SKIP_IN_PATH:
             raise ValueError(
@@ -553,7 +553,7 @@ class SecurityClient(NamespacedClient):
     @query_params()
     def delete_distinguished_names(self, cluster_name, params=None, headers=None):
         """
-        Deletes all distinguished names in the specified cluster’s or node’s allow list.
+        Deletes all distinguished names in the specified cluster's or node's allow list.
         """
         if cluster_name in SKIP_IN_PATH:
             raise ValueError(
@@ -570,7 +570,7 @@ class SecurityClient(NamespacedClient):
     @query_params()
     def get_certificates(self, params=None, headers=None):
         """
-        Retrieves the cluster’s security certificates.
+        Retrieves the cluster's security certificates.
         """
         return self.transport.perform_request(
             "GET",
