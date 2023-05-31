@@ -14,7 +14,7 @@ from __future__ import unicode_literals
 import unittest
 
 from opensearchpy.exceptions import NotFoundError
-from opensearchpy.helpers.test import OPENSEARCH_VERSION
+from opensearchpy.helpers.test import OPENSEARCH_VERSION, SECURE_INTEGRATION
 
 from . import OpenSearchTestCase
 
@@ -184,6 +184,10 @@ class TestAlertingPlugin(OpenSearchTestCase):
         self.assertIn("period_end", response)
 
 
+@unittest.skipUnless(
+    SECURE_INTEGRATION,
+    "Security plugin is disbaled",
+)
 class TestSecurityPlugin(OpenSearchTestCase):
     ROLE_NAME = "test-role"
     ROLE_CONTENT = {

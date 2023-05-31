@@ -39,6 +39,8 @@ if "OPENSEARCH_URL" in os.environ:
 else:
     OPENSEARCH_URL = "https://admin:admin@localhost:9200"
 
+SECURE_INTEGRATION = OPENSEARCH_URL.startswith("https")
+
 
 def get_test_client(nowait=False, **kwargs):
     # construct kwargs from the environment
