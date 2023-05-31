@@ -86,8 +86,9 @@ class TestIndexManagement(OpenSearchTestCase):
         self.client.index_management.put_policy(
             "...", params={"if_seq_no": 7, "if_primary_term": 1}
         )
-        self.assert_url_called(
-            "PUT", "/_plugins/_ism/policies/...?if_seq_no=7&if_primary_term=1"
+        self.assertEqual(
+            [({"if_seq_no": 7, "if_primary_term": 1}, {}, None)],
+            self.assert_url_called("PUT", "/_plugins/_ism/policies/..."),
         )
 
     def test_add_policy(self):
@@ -112,7 +113,10 @@ class TestIndexManagement(OpenSearchTestCase):
 
     def test_explain_index(self):
         self.client.index_management.explain_index("...", show_policy=True)
-        self.assert_url_called("GET", "/_plugins/_ism/explain/...?show_policy=true")
+        self.assertEqual(
+            [({"show_policy": b'true'}, {}, None)],
+            self.assert_url_called("GET", "/_plugins/_ism/explain/..."),
+        )
 
     def test_delete_policy(self):
         self.client.index_management.delete_policy("...")
