@@ -35,21 +35,6 @@ docker run -d -p 9200:9200 -p 9600:9600 -e "discovery.type=single-node" opensear
 ```
 
 
-## Install Docker Image
-Integration tests require [docker](https://opensearch.org/docs/latest/install-and-configure/install-opensearch/docker/).
-
-Run the following commands to install the docker image:
-```
-docker pull opensearchproject/opensearch:latest
-
-```
-Integration tests will auto-start the docker image. To start it manually:
-```
-docker run -d -p 9200:9200 -p 9600:9600 -e "discovery.type=single-node" opensearchproject/opensearch:latest
-
-```
-
-
 ## Integration Tests
 To run the integration tests locally, run:
 
