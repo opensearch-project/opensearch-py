@@ -17,6 +17,21 @@ $ nox -rs format
 
 # Run the test suite
 $ nox -rs test
+
+```
+
+## Install Docker Image
+Integration tests require [docker](https://opensearch.org/docs/latest/install-and-configure/install-opensearch/docker/).
+
+Run the following commands to install the docker image:
+```
+docker pull opensearchproject/opensearch:latest
+
+```
+Integration tests will auto-start the docker image. To start it manually:
+```
+docker run -d -p 9200:9200 -p 9600:9600 -e "discovery.type=single-node" opensearchproject/opensearch:latest
+
 ```
 
 ## Integration Tests
@@ -29,7 +44,6 @@ To run the integration tests locally, run:
 The first argument tells whether to run server with security plugin enabled or not.
 The second argument specifies the version of OpenSearch the tests should run against, if not specified, the tests run against the latest version. 
 
-Note that integration tests require docker to be installed and running, and downloads quite a bit of data from over the internet and hence take few minutes to complete.
 
 ## Build the Documentation with Sphinx
 This are the steps to build the documentation with [Sphinx](https://www.sphinx-doc.org/):
