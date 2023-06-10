@@ -10,6 +10,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - Added MacOS and Windows CI workflows ([#390](https://github.com/opensearch-project/opensearch-py/pull/390))
 - Compatibility with OpenSearch 2.1.0 - 2.6.0 ([#381](https://github.com/opensearch-project/opensearch-py/pull/381))
 - Added 'allow_redirects' parameter in perform_request function for RequestsHttpConnection ([#401](https://github.com/opensearch-project/opensearch-py/pull/401))
+- Added `Search#collapse` ([#409](https://github.com/opensearch-project/opensearch-py/issues/409))
 ### Changed
 - Upgrading pytest-asyncio to latest version - 0.21.0 ([#339](https://github.com/opensearch-project/opensearch-py/pull/339))
 - Fixed flaky CI tests by replacing httpbin with a simple http_server ([#395](https://github.com/opensearch-project/opensearch-py/pull/395))
