@@ -14,9 +14,16 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 
 class TestHTTPRequestHandler(BaseHTTPRequestHandler):
     def do_GET(self):
-        self.send_response(200)
         headers = self.headers
-        self.send_header("Content-type", "application/json")
+
+        if self.path == "/redirect":
+            new_location = "http://localhost:8090"
+            self.send_response(302)
+            self.send_header("Location", new_location)
+        else:
+            self.send_response(200)
+            self.send_header("Content-type", "application/json")
+
         self.end_headers()
 
         Headers = {}
