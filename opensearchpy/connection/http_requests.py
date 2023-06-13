@@ -155,7 +155,15 @@ class RequestsHttpConnection(Connection):
             )
 
     def perform_request(
-        self, method, url, params=None, body=None, timeout=None, ignore=(), headers=None
+        self,
+        method,
+        url,
+        params=None,
+        body=None,
+        timeout=None,
+        allow_redirects=True,
+        ignore=(),
+        headers=None,
     ):
         url = self.base_url + url
         headers = headers or {}
@@ -173,7 +181,10 @@ class RequestsHttpConnection(Connection):
         settings = self.session.merge_environment_settings(
             prepared_request.url, {}, None, None, None
         )
-        send_kwargs = {"timeout": timeout or self.timeout}
+        send_kwargs = {
+            "timeout": timeout or self.timeout,
+            "allow_redirects": allow_redirects,
+        }
         send_kwargs.update(settings)
         try:
             response = self.session.send(prepared_request, **send_kwargs)

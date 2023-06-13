@@ -1020,6 +1020,46 @@ class TestConnectionHttpServer:
             conn.perform_request("GET", "/")
 
 
+@pytest.mark.skipif(
+    sys.version_info < (3, 0),
+    reason="http_server is only available from python 3.x",
+)
+class TestRequestsConnectionRedirect:
+    @classmethod
+    def setup_class(cls):
+        # Start servers
+        cls.server1 = TestHTTPServer(port=8080)
+        cls.server1.start()
+        cls.server2 = TestHTTPServer(port=8090)
+        cls.server2.start()
+
+    @classmethod
+    def teardown_class(cls):
+        # Stop servers
+        cls.server2.stop()
+        cls.server1.stop()
+
+    # allow_redirects = False
+    def test_redirect_failure_when_allow_redirect_false(self):
+        conn = RequestsHttpConnection("localhost", port=8080, use_ssl=False, timeout=60)
+        with pytest.raises(TransportError) as e:
+            conn.perform_request("GET", "/redirect", allow_redirects=False)
+        assert e.value.status_code == 302
+
+    # allow_redirects = True (Default)
+    def test_redirect_success_when_allow_redirect_true(self):
+        conn = RequestsHttpConnection("localhost", port=8080, use_ssl=False, timeout=60)
+        user_agent = conn._get_default_user_agent()
+        status, headers, data = conn.perform_request("GET", "/redirect")
+        assert status == 200
+        data = json.loads(data)
+        assert data["headers"] == {
+            "Host": "localhost:8090",
+            "Accept-Encoding": "identity",
+            "User-Agent": user_agent,
+        }
+
+
 def test_default_connection_is_returned_by_default():
     c = connections.Connections()
 
