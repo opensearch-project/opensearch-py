@@ -21,6 +21,11 @@
       - [**Creating a destination**](#creating-a-destination)
       - [**Getting alerts**](#getting-alerts)
       - [**Acknowledge alerts**](#acknowledge-alerts)
+    - [Security plugin](#security-plugin)
+      - [**Creating a role**](#creating-a-role)
+      - [**Getting a role**](#getting-a-role)
+      - [**Creating a user**](#creating-a-user)
+      - [**Getting a user**](#getting-a-user)
   - [Using different authentication methods](#using-different-authentication-methods)
     - [Using IAM credentials](#using-iam-credentials)
       - [Pre-requisites to use `AWSV4SignerAuth`](#pre-requisites-to-use-awsv4signerauth)
@@ -420,6 +425,66 @@ query = {
 response = client.plugins.alerting.acknowledge_alert(query)
 print(response)
 ```
+
+### Security plugin
+
+#### **Creating a role**
+[API definition](https://opensearch.org/docs/latest/security/access-control/api/#create-role)
+```python
+print('\Creating a role:')
+
+role_name = "test-role"
+role_content = {
+  "cluster_permissions": ["cluster_monitor"],
+  "index_permissions": [
+      {
+          "index_patterns": ["index", "test-*"],
+          "allowed_actions": [
+              "data_access",
+              "indices_monitor",
+          ],
+      }
+  ],
+}
+
+response = client.security.put_role(role_name, body=role_content)
+print(response)
+```
+
+#### **Getting a role**
+[API definition](https://opensearch.org/docs/latest/security/access-control/api/#get-role)
+```python
+print('\Getting a role:')
+
+role_name = "test-role"
+
+response = client.security.get_role(role_name)
+print(response)
+```
+
+#### **Creating a user**
+[API definition](https://opensearch.org/docs/latest/security/access-control/api/#create-user)
+```python
+print('\Creating a user:')
+
+user_name = "test-user"
+user_content = {"password": "test_password", "opendistro_security_roles": []}
+
+response = client.security.put_role(user_name, body=user_content)
+print(response)
+```
+
+#### **Getting a user**
+[API definition](https://opensearch.org/docs/latest/security/access-control/api/#get-user)
+```python
+print('\Getting a user:')
+
+user_name = "test-user"
+
+response = client.security.get_user(user_name)
+print(response)
+```
+
 ## Using different authentication methods
 
 It is possible to use different methods for the authentication to OpenSearch. The parameters of `connection_class` and `http_auth` can be used for this. The following examples show how to authenticate using IAM credentials and using Kerberos.
