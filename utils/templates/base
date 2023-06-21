@@ -5,6 +5,7 @@
         {% if api.description %}
         {{ api.description|replace("\n", " ")|wordwrap(wrapstring="\n        ") }}
         {% endif %}
+        
         {% if api.doc_url %}
 
         `<{{ api.doc_url }}>`_
@@ -34,4 +35,3 @@
         {% block request %}
         return await self.transport.perform_request("{{ api.method }}", {% include "url" %}, params=params, headers=headers{% if api.body %}, body=body{% endif %})
         {% endblock %}
-
