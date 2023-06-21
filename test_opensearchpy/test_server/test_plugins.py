@@ -198,7 +198,6 @@ class TestIndexManagementPlugin(OpenSearchTestCase):
                         {
                             "rollover": {
                                 "min_index_age": "1d",
-                                "min_primary_shard_size": "30gb",
                             }
                         }
                     ],

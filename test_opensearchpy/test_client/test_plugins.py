@@ -114,7 +114,7 @@ class TestIndexManagement(OpenSearchTestCase):
     def test_explain_index(self):
         self.client.index_management.explain_index("...", show_policy=True)
         self.assertEqual(
-            [({"show_policy": b'true'}, {}, None)],
+            [({"show_policy": b"true"}, {}, None)],
             self.assert_url_called("GET", "/_plugins/_ism/explain/..."),
         )
 
