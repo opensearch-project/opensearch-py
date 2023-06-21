@@ -15,6 +15,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - Fixed flaky CI tests by replacing httpbin with a simple http_server ([#395](https://github.com/opensearch-project/opensearch-py/pull/395))
 ### Deprecated
 ### Removed
+- Removed tests against Python 2.7 in github workflows ([#421](https://github.com/opensearch-project/opensearch-py/pull/421))
 ### Fixed
 - Fixed import cycle when importing async helpers ([#311](https://github.com/opensearch-project/opensearch-py/pull/311))
 - Fixed userguide for async client ([#340](https://github.com/opensearch-project/opensearch-py/pull/340))
