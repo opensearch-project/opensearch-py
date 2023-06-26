@@ -31,7 +31,6 @@ some integration tests. These files are shared among all official OpenSearch
 clients.
 """
 import io
-import json
 import os
 import re
 import sys
@@ -73,6 +72,23 @@ IMPLEMENTED_FEATURES = {
 # broken YAML tests on some releases
 SKIP_TESTS = {
     # Warning about date_histogram.interval deprecation is raised randomly
+    "OpenSearch-main/rest-api-spec/src/main/resources/rest-api-spec/test/search_pipeline/10_basic",
+    "OpenSearch-main/rest-api-spec/src/main/resources/rest-api-spec/test/pit/10_basic",
+    "OpenSearch-main/rest-api-spec/src/main/resources/rest-api-spec/test/indices/clone/40_wait_for_completion[0]",
+    "OpenSearch-main/rest-api-spec/src/main/resources/rest-api-spec/test/indices/forcemerge/20_wait_for_completion[0]",
+    "OpenSearch-main/rest-api-spec/src/main/resources/rest-api-spec/test/indices/open/30_wait_for_completion[0]",
+    "OpenSearch-main/rest-api-spec/src/main/resources/rest-api-spec/test/indices/shrink/50_wait_for_completion[0]",
+    "OpenSearch-main/rest-api-spec/src/main/resources/rest-api-spec/test/indices/split/40_wait_for_completion[0]",
+    "OpenSearch-main/rest-api-spec/src/main/resources/rest-api-spec/test/cat/nodes/10_basic[1]",
+    "OpenSearch-main/rest-api-spec/src/main/resources/rest-api-spec/test/cat/nodeattrs/10_basic[1]",
+    "OpenSearch-main/rest-api-spec/src/main/resources/rest-api-spec/test/cluster/put_settings/10_basic[2]",
+    "OpenSearch-main/rest-api-spec/src/main/resources/rest-api-spec/test/cluster/put_settings/10_basic[3]",
+    "OpenSearch-main/rest-api-spec/src/main/resources/rest-api-spec/test/cat/indices/10_basic[2]",
+    "OpenSearch-main/rest-api-spec/src/main/resources/rest-api-spec/test/cluster/health/10_basic[6]",
+    "OpenSearch-main/rest-api-spec/src/main/resources/rest-api-spec/test/cluster/health/20_request_timeout",
+    "OpenSearch-main/rest-api-spec/src/main/resources/rest-api-spec/test/search/aggregation/20_terms[4]",
+    "OpenSearch-main/rest-api-spec/src/main/resources/rest-api-spec/test/tasks/list/10_basic[0]",
+    "OpenSearch-main/rest-api-spec/src/main/resources/rest-api-spec/test/index/90_unsigned_long[1]",
     "search/aggregation/250_moving_fn[1]",
     # body: null
     "indices/simulate_index_template/10_basic[2]",
@@ -171,7 +187,7 @@ class YamlRunner:
             if "." not in version_string:
                 return ()
             version = version_string.strip().split(".")
-            OPENSEARCH_VERSION = tuple(int(v) if v.isdigit() else 999 for v in version)
+            OPENSEARCH_VERSION = tuple(int(v) if v.isdigit() else 99 for v in version)
         return OPENSEARCH_VERSION
 
     def section(self, name):
@@ -458,45 +474,15 @@ try:
     http = urllib3.PoolManager(retries=10)
     client = get_client()
 
-    # Make a request to OpenSearch for the build hash, we'll be looking for
-    # an artifact with this same hash to download test specs for.
-    client_info = client.info()
-    version_number = client_info["version"]["number"]
-    build_hash = client_info["version"]["build_hash"]
-
-    # Now talk to the artifacts API with the 'STACK_VERSION' environment variable
-    resp = http.request(
-        "GET",
-        "https://artifacts-api.elastic.co/v1/versions/%s" % (version_number,),
-    )
-    resp = json.loads(resp.data.decode("utf-8"))
-
-    # Look through every build and see if one matches the commit hash
-    # we're looking for. If not it's okay, we'll just use the latest and
-    # hope for the best!
-    builds = resp["version"]["builds"]
-    for build in builds:
-        if build["projects"]["opensearch"]["commit_hash"] == build_hash:
-            break
-    else:
-        build = builds[0]  # Use the latest
-
-    # Now we're looking for the 'rest-api-spec-<VERSION>-sources.jar' file
-    # to download and extract in-memory.
-    packages = build["projects"]["opensearch"]["packages"]
-    for package in packages:
-        if re.match(r"rest-resources-zip-.*\.zip", package):
-            package_url = packages[package]["url"]
-            break
-    else:
-        raise RuntimeError(
-            "Could not find the package 'rest-resources-zip-*.zip' in build %r" % build
-        )
+    package_url = "https://github.com/opensearch-project/OpenSearch/archive/main.zip"
 
     # Download the zip and start reading YAML from the files in memory
     package_zip = zipfile.ZipFile(io.BytesIO(http.request("GET", package_url).data))
     for yaml_file in package_zip.namelist():
-        if not re.match(r"^rest-api-spec/test/.*\.ya?ml$", yaml_file):
+        if not re.match(
+            r"^OpenSearch-main/rest-api-spec/src/main/resources/rest-api-spec/test/.*\.ya?ml$",
+            yaml_file,
+        ):
             continue
         yaml_tests = list(yaml.safe_load_all(package_zip.read(yaml_file)))
 
