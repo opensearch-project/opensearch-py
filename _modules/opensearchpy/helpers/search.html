@@ -413,6 +413,7 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">aggs</span> <span class="o">=</span> <span class="n">AggsProxy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_sort</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_collapse</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_source</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_highlight</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_highlight_opts</span> <span class="o">=</span> <span class="p">{}</span>
@@ -661,6 +662,29 @@
             <span class="n">s</span><span class="o">.</span><span class="n">_sort</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">s</span></div>
 
+<div class="viewcode-block" id="Search.collapse"><a class="viewcode-back" href="../../../api-ref/helpers/search.html#opensearchpy.helpers.search.Search.collapse">[docs]</a>    <span class="k">def</span> <span class="nf">collapse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">field</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">inner_hits</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">max_concurrent_group_searches</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add collapsing information to the search request.</span>
+
+<span class="sd">        If called without providing ``field``, it will remove all collapse</span>
+<span class="sd">        requirements, otherwise it will replace them with the provided</span>
+<span class="sd">        arguments.</span>
+
+<span class="sd">        The API returns a copy of the Search object and can thus be chained.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_clone</span><span class="p">()</span>
+        <span class="n">s</span><span class="o">.</span><span class="n">_collapse</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">if</span> <span class="n">field</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">s</span>
+
+        <span class="n">s</span><span class="o">.</span><span class="n">_collapse</span><span class="p">[</span><span class="s2">&quot;field&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span>
+        <span class="k">if</span> <span class="n">inner_hits</span><span class="p">:</span>
+            <span class="n">s</span><span class="o">.</span><span class="n">_collapse</span><span class="p">[</span><span class="s2">&quot;inner_hits&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">inner_hits</span>
+        <span class="k">if</span> <span class="n">max_concurrent_group_searches</span><span class="p">:</span>
+            <span class="n">s</span><span class="o">.</span><span class="n">_collapse</span><span class="p">[</span><span class="s2">&quot;max_concurrent_group_searches&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">max_concurrent_group_searches</span>
+        <span class="k">return</span> <span class="n">s</span></div>
+
 <div class="viewcode-block" id="Search.highlight_options"><a class="viewcode-back" href="../../../api-ref/helpers/search.html#opensearchpy.helpers.search.Search.highlight_options">[docs]</a>    <span class="k">def</span> <span class="nf">highlight_options</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Update the global highlighting options used for this request. For</span>
@@ -755,6 +779,9 @@
 
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sort</span><span class="p">:</span>
                 <span class="n">d</span><span class="p">[</span><span class="s2">&quot;sort&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sort</span>
+
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_collapse</span><span class="p">:</span>
+                <span class="n">d</span><span class="p">[</span><span class="s2">&quot;collapse&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_collapse</span>
 
             <span class="n">d</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">recursive_to_dict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_extra</span><span class="p">))</span>
 

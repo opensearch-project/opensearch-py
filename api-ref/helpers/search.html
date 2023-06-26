@@ -158,6 +158,16 @@ APIs.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.helpers.search.Search.collapse">
+<span class="sig-name descname"><span class="pre">collapse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inner_hits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_concurrent_group_searches</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/search.html#Search.collapse"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.search.Search.collapse" title="Permalink to this definition"></a></dt>
+<dd><p>Add collapsing information to the search request.</p>
+<p>If called without providing <code class="docutils literal notranslate"><span class="pre">field</span></code>, it will remove all collapse
+requirements, otherwise it will replace them with the provided
+arguments.</p>
+<p>The API returns a copy of the Search object and can thus be chained.</p>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.helpers.search.Search.count">
 <span class="sig-name descname"><span class="pre">count</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/search.html#Search.count"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.search.Search.count" title="Permalink to this definition"></a></dt>
 <dd><p>Return the number of hits matching the query and filters. Note that
