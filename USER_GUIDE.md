@@ -22,10 +22,10 @@
       - [**Getting alerts**](#getting-alerts)
       - [**Acknowledge alerts**](#acknowledge-alerts)
     - [Security plugin](#security-plugin)
-      - [**Creating a role**](#creating-a-role)
-      - [**Getting a role**](#getting-a-role)
-      - [**Creating a user**](#creating-a-user)
-      - [**Getting a user**](#getting-a-user)
+      - [Creating a role](#creating-a-role)
+      - [Getting a role](#getting-a-role)
+      - [Creating a user](#creating-a-user)
+      - [Getting a user](#getting-a-user)
   - [Using different authentication methods](#using-different-authentication-methods)
     - [Using IAM credentials](#using-iam-credentials)
       - [Pre-requisites to use `AWSV4SignerAuth`](#pre-requisites-to-use-awsv4signerauth)
@@ -428,7 +428,7 @@ print(response)
 
 ### Security plugin
 
-#### **Creating a role**
+#### Creating a role
 [API definition](https://opensearch.org/docs/latest/security/access-control/api/#create-role)
 ```python
 print('\Creating a role:')
@@ -451,7 +451,7 @@ response = client.security.put_role(role_name, body=role_content)
 print(response)
 ```
 
-#### **Getting a role**
+#### Getting a role
 [API definition](https://opensearch.org/docs/latest/security/access-control/api/#get-role)
 ```python
 print('\Getting a role:')
@@ -462,7 +462,7 @@ response = client.security.get_role(role_name)
 print(response)
 ```
 
-#### **Creating a user**
+#### Creating a user
 [API definition](https://opensearch.org/docs/latest/security/access-control/api/#create-user)
 ```python
 print('\Creating a user:')
@@ -474,7 +474,7 @@ response = client.security.put_role(user_name, body=user_content)
 print(response)
 ```
 
-#### **Getting a user**
+#### Getting a user
 [API definition](https://opensearch.org/docs/latest/security/access-control/api/#get-user)
 ```python
 print('\Getting a user:')
