@@ -152,8 +152,8 @@ def run_all(argv=None):
         if environ.get("OPENSEARCH_VERSION") == "SNAPSHOT":
             ignores.extend(
                 [
-                    "test_opensearchpy/test_server/test_plugins.py",
-                    "test_opensearchpy/test_async/test_server/test_plugins.py",
+                    "test_opensearchpy/test_server/test_plugins/",
+                    "test_opensearchpy/test_async/test_server/test_plugins/",
                 ]
             )
 
