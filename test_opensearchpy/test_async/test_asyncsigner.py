@@ -9,15 +9,25 @@
 # GitHub history for details.
 
 import sys
+import uuid
 
 import pytest
-
-from ..test_cases import TestCase
+from mock import Mock
 
 pytestmark = pytest.mark.asyncio
 
 
-class TestAsyncSigner(TestCase):
+class TestAsyncSigner:
+    def mock_session(self):
+        access_key = uuid.uuid4().hex
+        secret_key = uuid.uuid4().hex
+        token = uuid.uuid4().hex
+        dummy_session = Mock()
+        dummy_session.access_key = access_key
+        dummy_session.secret_key = secret_key
+        dummy_session.token = token
+        return dummy_session
+
     @pytest.mark.skipif(
         sys.version_info < (3, 6), reason="AWSV4SignerAsyncAuth requires python3.6+"
     )
@@ -27,10 +37,10 @@ class TestAsyncSigner(TestCase):
         from opensearchpy.helpers.asyncsigner import AWSV4SignerAsyncAuth
 
         auth = AWSV4SignerAsyncAuth(self.mock_session(), region)
-        headers = auth("GET", "http://localhost")
-        self.assertIn("Authorization", headers)
-        self.assertIn("X-Amz-Date", headers)
-        self.assertIn("X-Amz-Security-Token", headers)
+        headers = auth("GET", "http://localhost", {}, {})
+        assert "Authorization" in headers
+        assert "X-Amz-Date" in headers
+        assert "X-Amz-Security-Token" in headers
 
     @pytest.mark.skipif(
         sys.version_info < (3, 6), reason="AWSV4SignerAuth requires python3.6+"
@@ -60,9 +70,6 @@ class TestAsyncSigner(TestCase):
             AWSV4SignerAsyncAuth(None, region)
         assert str(e.value) == "Credentials cannot be empty"
 
-        with pytest.raises(ValueError) as e:
-            assert str(e.value) == "Credentials cannot be empty"
-
     @pytest.mark.skipif(
         sys.version_info < (3, 6), reason="AWSV4SignerAsyncAuth requires python3.6+"
     )
@@ -73,8 +80,8 @@ class TestAsyncSigner(TestCase):
         from opensearchpy.helpers.asyncsigner import AWSV4SignerAsyncAuth
 
         auth = AWSV4SignerAsyncAuth(self.mock_session(), region, service)
-        headers = auth("GET", "http://localhost")
-        self.assertIn("Authorization", headers)
-        self.assertIn("X-Amz-Date", headers)
-        self.assertIn("X-Amz-Security-Token", headers)
-        self.assertIn("X-Amz-Content-SHA256", headers)
+        headers = auth("GET", "http://localhost", {}, {})
+        assert "Authorization" in headers
+        assert "X-Amz-Date" in headers
+        assert "X-Amz-Security-Token" in headers
+        assert "X-Amz-Content-SHA256" in headers

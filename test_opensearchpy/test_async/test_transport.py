@@ -259,7 +259,7 @@ class TestTransport:
         assert 1 == len(t.connection_pool.connections)
         assert isinstance(t.connection_pool.connections[0], MyConnection)
 
-    def test_add_connection(self):
+    async def test_add_connection(self):
         t = AsyncTransport([{}], randomize_hosts=False)
         t.add_connection({"host": "google.com", "port": 1234})
 

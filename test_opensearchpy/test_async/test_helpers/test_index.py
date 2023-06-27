@@ -83,7 +83,7 @@ async def test_cloned_index_has_analysis_attribute():
     assert i.to_dict()["settings"]["analysis"] == i2.to_dict()["settings"]["analysis"]
 
 
-def test_settings_are_saved():
+async def test_settings_are_saved():
     i = AsyncIndex("i")
     i.settings(number_of_replicas=0)
     i.settings(number_of_shards=1)

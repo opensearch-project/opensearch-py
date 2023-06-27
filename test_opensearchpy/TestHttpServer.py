@@ -38,6 +38,8 @@ class TestHTTPRequestHandler(BaseHTTPRequestHandler):
 
 
 class TestHTTPServer(HTTPServer):
+    __test__ = False
+
     def __init__(self, host="localhost", port=8080):
         super().__init__((host, port), TestHTTPRequestHandler)
         self._server_thread = None
