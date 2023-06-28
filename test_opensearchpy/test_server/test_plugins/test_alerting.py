@@ -15,7 +15,7 @@ import unittest
 
 from opensearchpy.helpers.test import OPENSEARCH_VERSION
 
-from . import OpenSearchTestCase
+from .. import OpenSearchTestCase
 
 
 class TestAlertingPlugin(OpenSearchTestCase):
