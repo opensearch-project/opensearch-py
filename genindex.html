@@ -170,6 +170,8 @@
 </li>
       <li><a href="api-ref/helpers/faceted_search.html#opensearchpy.helpers.faceted_search.FacetedSearch.add_filter">add_filter() (opensearchpy.helpers.faceted_search.FacetedSearch method)</a>
 </li>
+      <li><a href="api-ref/plugins/index_management_plugin.html#opensearchpy.plugins.index_management.IndexManagementClient.add_policy">add_policy() (opensearchpy.plugins.index_management.IndexManagementClient method)</a>
+</li>
       <li><a href="api-ref/helpers/aggs.html#opensearchpy.helpers.aggs.Agg">Agg (class in opensearchpy.helpers.aggs)</a>
 </li>
       <li><a href="api-ref/helpers/faceted_search.html#opensearchpy.helpers.faceted_search.FacetedSearch.aggregate">aggregate() (opensearchpy.helpers.faceted_search.FacetedSearch method)</a>
@@ -225,6 +227,8 @@
       <li><a href="api-ref/clients/cat_client.html#opensearchpy.client.cat.CatClient">CatClient (class in opensearchpy.client.cat)</a>
 </li>
       <li><a href="api-ref/plugins/security_plugin.html#opensearchpy.plugins.security.SecurityClient.change_password">change_password() (opensearchpy.plugins.security.SecurityClient method)</a>
+</li>
+      <li><a href="api-ref/plugins/index_management_plugin.html#opensearchpy.plugins.index_management.IndexManagementClient.change_policy">change_policy() (opensearchpy.plugins.index_management.IndexManagementClient method)</a>
 </li>
       <li><a href="api-ref/clients/snapshot_client.html#opensearchpy.client.snapshot.SnapshotClient.cleanup_repository">cleanup_repository() (opensearchpy.client.snapshot.SnapshotClient method)</a>
 </li>
@@ -354,10 +358,10 @@
 </li>
       <li><a href="api-ref/clients/dangling_indices_client.html#opensearchpy.client.dangling_indices.DanglingIndicesClient.delete_dangling_index">delete_dangling_index() (opensearchpy.client.dangling_indices.DanglingIndicesClient method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.delete_data_stream">delete_data_stream() (opensearchpy.client.indices.IndicesClient method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api-ref/plugins/alerting_plugin.html#opensearchpy.plugins.alerting.AlertingClient.delete_destination">delete_destination() (opensearchpy.plugins.alerting.AlertingClient method)</a>
 </li>
       <li><a href="api-ref/plugins/security_plugin.html#opensearchpy.plugins.security.SecurityClient.delete_distinguished_names">delete_distinguished_names() (opensearchpy.plugins.security.SecurityClient method)</a>
@@ -369,6 +373,8 @@
       <li><a href="api-ref/clients/ingest_client.html#opensearchpy.client.ingest.IngestClient.delete_pipeline">delete_pipeline() (opensearchpy.client.ingest.IngestClient method)</a>
 </li>
       <li><a href="api-ref/clients/opensearch_client.html#opensearchpy.OpenSearch.delete_point_in_time">delete_point_in_time() (opensearchpy.OpenSearch method)</a>
+</li>
+      <li><a href="api-ref/plugins/index_management_plugin.html#opensearchpy.plugins.index_management.IndexManagementClient.delete_policy">delete_policy() (opensearchpy.plugins.index_management.IndexManagementClient method)</a>
 </li>
       <li><a href="api-ref/clients/snapshot_client.html#opensearchpy.client.snapshot.SnapshotClient.delete_repository">delete_repository() (opensearchpy.client.snapshot.SnapshotClient method)</a>
 </li>
@@ -435,6 +441,8 @@
       <li><a href="api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.exists_template">exists_template() (opensearchpy.client.indices.IndicesClient method)</a>
 </li>
       <li><a href="api-ref/clients/opensearch_client.html#opensearchpy.OpenSearch.explain">explain() (opensearchpy.OpenSearch method)</a>
+</li>
+      <li><a href="api-ref/plugins/index_management_plugin.html#opensearchpy.plugins.index_management.IndexManagementClient.explain_index">explain_index() (opensearchpy.plugins.index_management.IndexManagementClient method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -560,6 +568,8 @@
 </li>
       <li><a href="api-ref/clients/ingest_client.html#opensearchpy.client.ingest.IngestClient.get_pipeline">get_pipeline() (opensearchpy.client.ingest.IngestClient method)</a>
 </li>
+      <li><a href="api-ref/plugins/index_management_plugin.html#opensearchpy.plugins.index_management.IndexManagementClient.get_policy">get_policy() (opensearchpy.plugins.index_management.IndexManagementClient method)</a>
+</li>
       <li><a href="api-ref/clients/snapshot_client.html#opensearchpy.client.snapshot.SnapshotClient.get_repository">get_repository() (opensearchpy.client.snapshot.SnapshotClient method)</a>
 </li>
       <li><a href="api-ref/plugins/security_plugin.html#opensearchpy.plugins.security.SecurityClient.get_role">get_role() (opensearchpy.plugins.security.SecurityClient method)</a>
@@ -646,10 +656,12 @@
 </li>
       <li><a href="api-ref/clients/opensearch_client.html#opensearchpy.OpenSearch.index">index() (opensearchpy.OpenSearch method)</a>
 </li>
-      <li><a href="api-ref/clients/cat_client.html#opensearchpy.client.cat.CatClient.indices">indices() (opensearchpy.client.cat.CatClient method)</a>
+      <li><a href="api-ref/plugins/index_management_plugin.html#opensearchpy.plugins.index_management.IndexManagementClient">IndexManagementClient (class in opensearchpy.plugins.index_management)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api-ref/clients/cat_client.html#opensearchpy.client.cat.CatClient.indices">indices() (opensearchpy.client.cat.CatClient method)</a>
+</li>
       <li><a href="api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient">IndicesClient (class in opensearchpy.client.indices)</a>
 </li>
       <li><a href="api-ref/exceptions.html#opensearchpy.TransportError.info">info (opensearchpy.TransportError property)</a>
@@ -842,6 +854,8 @@
       </ul></li>
       <li><a href="api-ref/clients/ingest_client.html#opensearchpy.client.ingest.IngestClient.put_pipeline">put_pipeline() (opensearchpy.client.ingest.IngestClient method)</a>
 </li>
+      <li><a href="api-ref/plugins/index_management_plugin.html#opensearchpy.plugins.index_management.IndexManagementClient.put_policy">put_policy() (opensearchpy.plugins.index_management.IndexManagementClient method)</a>
+</li>
       <li><a href="api-ref/plugins/security_plugin.html#opensearchpy.plugins.security.SecurityClient.put_role">put_role() (opensearchpy.plugins.security.SecurityClient method)</a>
 </li>
       <li><a href="api-ref/plugins/security_plugin.html#opensearchpy.plugins.security.SecurityClient.put_role_mappings">put_role_mappings() (opensearchpy.plugins.security.SecurityClient method)</a>
@@ -914,6 +928,8 @@
 </li>
       <li><a href="api-ref/clients/remote_client.html#opensearchpy.client.remote.RemoteClient">RemoteClient (class in opensearchpy.client.remote)</a>
 </li>
+      <li><a href="api-ref/plugins/index_management_plugin.html#opensearchpy.plugins.index_management.IndexManagementClient.remove_policy_from_index">remove_policy_from_index() (opensearchpy.plugins.index_management.IndexManagementClient method)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api-ref/clients/opensearch_client.html#opensearchpy.OpenSearch.render_search_template">render_search_template() (opensearchpy.OpenSearch method)</a>
@@ -941,6 +957,8 @@
       <li><a href="api-ref/clients/snapshot_client.html#opensearchpy.client.snapshot.SnapshotClient.restore">restore() (opensearchpy.client.snapshot.SnapshotClient method)</a>
 </li>
       <li><a href="api-ref/connection_pool.html#opensearchpy.ConnectionPool.resurrect">resurrect() (opensearchpy.ConnectionPool method)</a>
+</li>
+      <li><a href="api-ref/plugins/index_management_plugin.html#opensearchpy.plugins.index_management.IndexManagementClient.retry">retry() (opensearchpy.plugins.index_management.IndexManagementClient method)</a>
 </li>
       <li><a href="api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.rollover">rollover() (opensearchpy.client.indices.IndicesClient method)</a>
 </li>
