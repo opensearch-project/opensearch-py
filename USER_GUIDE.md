@@ -15,12 +15,12 @@
     - [Searching for documents with filters](#searching-for-documents-with-filters)
   - [Using plugins](#using-plugins)
     - [Alerting plugin](#alerting-plugin)
-      - [**Searching for monitors**](#searching-for-monitors)
-      - [**Getting a monitor**](#getting-a-monitor)
-      - [**Creating a monitor**](#creating-a-monitor)
-      - [**Creating a destination**](#creating-a-destination)
-      - [**Getting alerts**](#getting-alerts)
-      - [**Acknowledge alerts**](#acknowledge-alerts)
+      - [Searching for monitors](#searching-for-monitors)
+      - [Getting a monitor](#getting-a-monitor)
+      - [Creating a monitor](#creating-a-monitor)
+      - [Creating a destination](#creating-a-destination)
+      - [Getting alerts](#getting-alerts)
+      - [Acknowledge alerts](#acknowledge-alerts)
     - [Index management plugin](#index-management-plugin)
       - [Creating a policy](#creating-a-policy)
       - [Getting a policy](#getting-a-policy)
@@ -283,7 +283,7 @@ Plugin client definitions can be found here --
 
 ### Alerting plugin
 
-#### **Searching for monitors**
+#### Searching for monitors
 [API definition](https://opensearch.org/docs/latest/monitoring-plugins/alerting/api/#search-monitors)
 ```python
 print('\Searching for monitors:')
@@ -300,7 +300,7 @@ response = client.plugins.alerting.search_monitor(query)
 print(response)
 ```
 
-#### **Getting a monitor**
+#### Getting a monitor
 [API definition](https://opensearch.org/docs/latest/monitoring-plugins/alerting/api/#get-monitor)
 ```python
 print('\Getting a monitor:')
@@ -309,7 +309,7 @@ response = client.plugins.alerting.get_monitor("monitorID")
 print(response)
 ```
 
-#### **Creating a monitor**
+#### Creating a monitor
 [API definition](https://opensearch.org/docs/latest/monitoring-plugins/alerting/api/#create-a-bucket-level-monitor)
 ```python
 print('\Creating a bucket level monitor:')
@@ -382,7 +382,7 @@ response = client.plugins.alerting.create_monitor(query)
 print(response)
 ```
 
-#### **Creating a destination**
+#### Creating a destination
 [API definition](https://opensearch.org/docs/latest/monitoring-plugins/alerting/api/#create-destination)
 ```python
 print('\Creating an email destination:')
@@ -409,7 +409,7 @@ response = client.plugins.alerting.create_destination(query)
 print(response)
 ```
 
-#### **Getting alerts**
+#### Getting alerts
 [API definition](https://opensearch.org/docs/latest/monitoring-plugins/alerting/api/#get-alerts)
 ```python
 print('\Getting alerts:')
@@ -418,7 +418,7 @@ response = client.plugins.alerting.get_alerts()
 print(response)
 ```
 
-#### **Acknowledge alerts**
+#### Acknowledge alerts
 [API definition](https://opensearch.org/docs/latest/monitoring-plugins/alerting/api/#acknowledge-alert)
 ```python
 print('\Acknowledge alerts:')
