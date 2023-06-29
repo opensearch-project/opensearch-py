@@ -23,24 +23,3 @@
 #  KIND, either express or implied.  See the License for the
 #  specific language governing permissions and limitations
 #  under the License.
-
-
-from unittest import IsolatedAsyncioTestCase
-
-from opensearchpy._async.helpers.test import get_test_client
-from opensearchpy.connection.async_connections import add_connection
-
-from ...utils import wipe_cluster
-
-
-class AsyncOpenSearchTestCase(IsolatedAsyncioTestCase):
-    async def asyncSetUp(self):
-        self.client = await get_test_client(
-            verify_certs=False, http_auth=("admin", "admin")
-        )
-        await add_connection("default", self.client)
-
-    async def asyncTearDown(self):
-        wipe_cluster(self.client)
-        if self.client:
-            await self.client.close()
