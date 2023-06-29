@@ -65,12 +65,10 @@ class AsyncHttpConnection(AIOHttpConnection):
 
         if http_auth is not None:
             if isinstance(http_auth, (tuple, list)):
-                http_auth = tuple(http_auth)
-            elif isinstance(http_auth, string_types):
-                http_auth = tuple(http_auth.split(":", 1))
-
-            if isinstance(http_auth, tuple):
                 http_auth = aiohttp.BasicAuth(login=http_auth[0], password=http_auth[1])
+            elif isinstance(http_auth, string_types):
+                login, password = http_auth.split(":", 1)
+                http_auth = aiohttp.BasicAuth(login=login, password=password)
 
         # if providing an SSL context, raise error if any other SSL related flag is used
         if ssl_context and (
@@ -193,15 +191,12 @@ class AsyncHttpConnection(AIOHttpConnection):
             body = self._gzip_compress(body)
             req_headers["content-encoding"] = "gzip"
 
-        auth = None
-        if self._http_auth:
-            if isinstance(self._http_auth, tuple):
-                auth = self._http_auth
-            elif callable(self._http_auth):
-                req_headers = {
-                    **req_headers,
-                    **self._http_auth(method, url, query_string, body),
-                }
+        auth = self._http_auth if isinstance(self._http_auth, aiohttp.BasicAuth) else None
+        if callable(self._http_auth):
+            req_headers = {
+                **req_headers,
+                **self._http_auth(method, url, query_string, body),
+            }
 
         start = self.loop.time()
         try:

@@ -38,10 +38,12 @@ import uuid
 import warnings
 from platform import python_version
 
+import aiohttp
 import pytest
 import six
 import urllib3
 from mock import Mock, patch
+from opensearchpy.connection.http_async import AsyncHttpConnection
 from requests.auth import AuthBase
 from urllib3._collections import HTTPHeaderDict
 
@@ -500,6 +502,46 @@ class TestUrllib3Connection(TestCase):
         with pytest.raises(RecursionError) as e:
             conn.perform_request("GET", "/")
         assert str(e.value) == "Wasn't modified!"
+
+
+class TestAsyncHttpConnection(TestCase):
+    def test_auth_as_tuple(self):
+        c = AsyncHttpConnection(http_auth=('username', 'password'))
+        self.assertIsInstance(c._http_auth, aiohttp.BasicAuth)
+        self.assertEqual(c._http_auth.login, 'username')
+        self.assertEqual(c._http_auth.password, 'password')
+
+    def test_auth_as_string(self):
+        c = AsyncHttpConnection(http_auth='username:password')
+        self.assertIsInstance(c._http_auth, aiohttp.BasicAuth)
+        self.assertEqual(c._http_auth.login, 'username')
+        self.assertEqual(c._http_auth.password, 'password')
+
+    def test_auth_as_callable(self):
+        def auth_fn():
+            pass
+
+        c = AsyncHttpConnection(http_auth=auth_fn)
+        self.assertTrue(callable(c._http_auth))
+
+    async def test_basicauth_in_request_session(self):
+        c = AsyncHttpConnection(http_auth=('username', 'password'))
+        mock_request = Mock()
+        c.session = mock_request
+        await c.perform_request('post', 'http://localhost')
+        mock_request.assert_called_with(auth=c._http_auth)
+
+    async def test_callable_in_request_session(self):
+        def auth_fn():
+            return {
+                'Test': 'PASSED'
+            }
+
+        c = AsyncHttpConnection(http_auth=auth_fn)
+        mock_request = Mock()
+        c.session = mock_request
+        await c.perform_request('post', 'http://localhost')
+        mock_request.assert_called_with(auth=None, headers={'Test': 'PASSED'})
 
 
 class TestRequestsConnection(TestCase):
