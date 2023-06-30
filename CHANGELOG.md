@@ -22,7 +22,8 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ### Fixed
 - Fixed import cycle when importing async helpers ([#311](https://github.com/opensearch-project/opensearch-py/pull/311))
 - Fixed userguide for async client ([#340](https://github.com/opensearch-project/opensearch-py/pull/340))
-- Include parsed error info in TransportError in async connections (fixes #225) ([#226](https://github.com/opensearch-project/opensearch-py/pull/226)
+- Include parsed error info in TransportError in async connections (fixes #225) ([#226](https://github.com/opensearch-project/opensearch-py/pull/226))
+- Fix crash when attempting to authenticate with an async connection (fixes #283)) ([#424](https://github.com/opensearch-project/opensearch-py/pull/424))
 ### Security
 - Fixed CVE-2022-23491 reported in opensearch-dsl-py ([#295](https://github.com/opensearch-project/opensearch-py/pull/295))
 - Update ci workflows ([#318](https://github.com/opensearch-project/opensearch-py/pull/318))
