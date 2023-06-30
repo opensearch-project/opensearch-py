@@ -102,11 +102,15 @@ class Module:
 
     def parse_orig(self):
         self.orders = []
-        if self.is_pyi is False:
-            self.header = "from .utils import SKIP_IN_PATH, NamespacedClient, _make_path, query_params \n\n"
-        else:
-            self.header = "from .utils import NamespacedClient\nfrom typing import Any, Collection, MutableMapping, Optional, Tuple, Union\n\n"
-        namespace_new = ''.join(word.capitalize() for word in self.namespace.split('_'))
+        self.header = ""
+        # if self.is_pyi is False:
+        #     self.header = "from .utils import SKIP_IN_PATH, NamespacedClient, _make_path, query_params \n\n"
+        # else:
+        #     self.header = "from .utils import NamespacedClient\nfrom typing import Any, Collection, MutableMapping, Optional, Tuple, Union\n\n"
+        if self.is_pyi is True:
+            self.header = "from typing import Any, Collection, MutableMapping, Optional, Tuple, Union\n\n"
+
+        namespace_new = "".join(word.capitalize() for word in self.namespace.split("_"))
         self.header = (
             self.header + "class " + namespace_new + "Client(NamespacedClient):"
         )
@@ -143,7 +147,11 @@ class Module:
         self.sort()
         update_header = True
         License_position = 0
-
+        print("self.header type1", type(self.header))
+        self.header = "\n".join(
+            line for line in self.header.split("\n") if "from .utils import" not in line
+        )
+        print("self.header type2", type(self.header))
         if os.path.exists(self.filepath):
             with open(self.filepath, "r") as f:
                 content = f.read()
@@ -151,11 +159,17 @@ class Module:
                 update_header = False
             if License_header_end_1 in content:
                 if License_header_end_2 in content:
-                    position = content.find(License_header_end_2) + len(
-                        License_header_end_2)  + 2
+                    position = (
+                        content.find(License_header_end_2)
+                        + len(License_header_end_2)
+                        + 2
+                    )
                 else:
-                    position = content.find(License_header_end_1) + len(
-                        License_header_end_1)  + 2
+                    position = (
+                        content.find(License_header_end_1)
+                        + len(License_header_end_1)
+                        + 2
+                    )
                 License_position = content.rfind("\n", 0, position) + 1
 
         with open(self.filepath, "w") as f:
@@ -174,11 +188,37 @@ class Module:
                     "#  To contribute, please make the necessary changes to either the [Python generator](https://github.com/saimedhi/opensearch-py/blob/Python-Client-Generator/utils/generate-api.py) or the [OpenAPI specifications](https://github.com/opensearch-project/opensearch-api-specification/blob/main/OpenSearch.openapi.json) as needed.\n"
                 )
                 f.write("#</auto-generated-code>\n\n")
+                f.write("#replace_token#\n")
                 f.write(self.header[License_position:])
             else:
                 f.write(self.header)
             for api in self._apis:
                 f.write(api.to_python())
+        utils_imports = ""
+        file_content = ""
+        with open(self.filepath, "r") as f:
+            content = f.read()
+            keywords = [
+                "SKIP_IN_PATH",
+                "_normalize_hosts",
+                "_escape",
+                "_make_path",
+                "query_params",
+                "_bulk_body",
+                "_base64_auth_header",
+                "NamespacedClient",
+                "AddonClient",
+            ]
+            present_keywords = [keyword for keyword in keywords if keyword in content]
+
+            if present_keywords:
+                utils_imports = "from .utils import"
+                result = f"{utils_imports} {', '.join(present_keywords)}"
+                utils_imports = result
+            file_content = content.replace("#replace_token#", utils_imports)
+
+        with open(self.filepath, "w") as f:
+            f.write(file_content)
 
         if not self.is_pyi:
             self.pyi.dump()
