@@ -21,6 +21,10 @@
       - [**Creating a destination**](#creating-a-destination)
       - [**Getting alerts**](#getting-alerts)
       - [**Acknowledge alerts**](#acknowledge-alerts)
+    - [Index management plugin](#index-management-plugin)
+      - [Creating a policy](#creating-a-policy)
+      - [Getting a policy](#getting-a-policy)
+      - [Deleting a policy](#deleting-a-policy)
     - [Security plugin](#security-plugin)
       - [Creating a role](#creating-a-role)
       - [Getting a role](#getting-a-role)
@@ -423,6 +427,73 @@ query = {
 }
 
 response = client.plugins.alerting.acknowledge_alert(query)
+print(response)
+```
+
+### Index management plugin
+
+#### Creating a policy
+[API definition](https://opensearch.org/docs/latest/im-plugin/ism/api/#create-policy)
+```python
+print('\Creating a policy:')
+
+policy_name = "test-policy"
+policy_content = {
+    "policy": {
+        "description": "hot warm delete workflow",
+        "default_state": "hot",
+        "schema_version": 1,
+        "states": [
+            {
+                "name": "hot",
+                "actions": [{"rollover": {"min_index_age": "1d"}}],
+                "transitions": [{"state_name": "warm"}],
+            },
+            {
+                "name": "warm",
+                "actions": [{"replica_count": {"number_of_replicas": 5}}],
+                "transitions": [{"state_name": "delete", "conditions": {"min_index_age": "30d"}}],
+            },
+            {
+                "name": "delete",
+                "actions": [
+                    {
+                        "notification": {
+                            "destination": {"chime": {"url": "<URL>"}},
+                            "message_template": {"source": "The index {{ctx.index}} is being deleted"},
+                        }
+                    },
+                    {"delete": {}},
+                ],
+            },
+        ],
+        "ism_template": {"index_patterns": ["log*"], "priority": 100},
+    }
+}
+
+response = client.index_managment.put_policy(policy_name, body=policy_content)
+print(response)
+```
+
+#### Getting a policy
+[API definition](https://opensearch.org/docs/latest/im-plugin/ism/api/#get-policy)
+```python
+print('\Getting a policy:')
+
+policy_name = "test-policy"
+
+response = client.index_managment.get_policy(policy_name)
+print(response)
+```
+
+#### Deleting a policy
+[API definition](https://opensearch.org/docs/latest/index_managment/access-control/api/#create-user)
+```python
+print('\Deleting a policy:')
+
+policy_name = "test-policy"
+
+response = client.index_managment.delete_policy(policy_name)
 print(response)
 ```
 

@@ -3,6 +3,7 @@
   - [Running Tests](#running-tests)
   - [Linter](#linter)
   - [Documentation](#documentation)
+  - [Running Python Client Generator](#running-python-client-generator)
 
 # Developer Guide
 
@@ -72,3 +73,12 @@ make html
 ```
 
 Open `opensearch-py/docs/build/html/index.html` to see results.
+
+## Running Python Client Generator
+
+The following code executes a python client generator that updates the client by utilizing the [openapi specifications](https://github.com/opensearch-project/opensearch-api-specification/blob/main/OpenSearch.openapi.json) found in the "opensearch-api-specification" repository. This process allows for the automatic generation and synchronization of the client code with the latest API specifications.
+
+```
+cd opensearch-py
+python utils/generate-api.py
+```
