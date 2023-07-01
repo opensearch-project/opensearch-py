@@ -148,6 +148,15 @@ def run_all(argv=None):
                     ]
                 )
 
+        # There are no plugins for unreleased versions of opensearch
+        if environ.get("OPENSEARCH_VERSION") == "SNAPSHOT":
+            ignores.extend(
+                [
+                    "test_opensearchpy/test_server/test_plugins/",
+                    "test_opensearchpy/test_async/test_server/test_plugins/",
+                ]
+            )
+
         if ignores:
             argv.extend(["--ignore=%s" % ignore for ignore in ignores])
 
