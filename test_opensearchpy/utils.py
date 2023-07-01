@@ -27,6 +27,8 @@
 
 import time
 
+from asynctest import CoroutineMock, MagicMock
+
 from opensearchpy import OpenSearch
 
 
@@ -175,3 +177,15 @@ def wait_for_cluster_state_updates_to_finish(client, timeout=30):
     while time.time() < end_time:
         if not client.cluster.pending_tasks().get("tasks", ()):
             break
+
+
+class AsyncContextManagerMock(MagicMock):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        type(self).__aenter__ = CoroutineMock(
+            return_value=MagicMock(
+                text=CoroutineMock(return_value='test'),
+                status=200,
+            )
+        )
+        type(self).__aexit__ = CoroutineMock(return_value=MagicMock())

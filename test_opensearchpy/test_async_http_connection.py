@@ -28,23 +28,12 @@
 from unittest import IsolatedAsyncioTestCase
 
 import pytest
-from asynctest import CoroutineMock, MagicMock, patch
+from asynctest import patch
 
 from opensearchpy import AsyncHttpConnection
 from opensearchpy._async._extra_imports import aiohttp
 from opensearchpy._async.compat import get_running_loop
-
-
-class AsyncContextManagerMock(MagicMock):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        type(self).__aenter__ = CoroutineMock(
-            return_value=MagicMock(
-                text=CoroutineMock(return_value='test'),
-                status=200,
-            )
-        )
-        type(self).__aexit__ = CoroutineMock(return_value=MagicMock())
+from test_opensearchpy.utils import AsyncContextManagerMock
 
 
 @pytest.mark.asyncio
