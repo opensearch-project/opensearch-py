@@ -1,6 +1,8 @@
 - [Developer Guide](#developer-guide)
   - [Prerequisites](#prerequisites)
   - [Running Tests](#running-tests)
+  - [Docker Image Installation](#docker-setup)
+  - [Integration Tests](#integration-tests)
   - [Linter](#linter)
   - [Documentation](#documentation)
   - [Running Python Client Generator](#running-python-client-generator)
@@ -36,6 +38,21 @@ If your OpenSearch docker instance is running, you can execute the test suite di
 
 ```
 $ nox -rs test
+
+```
+
+## Install Docker Image
+Integration tests require [docker](https://opensearch.org/docs/latest/install-and-configure/install-opensearch/docker/).
+
+Run the following commands to install the docker image:
+```
+docker pull opensearchproject/opensearch:latest
+
+```
+Integration tests will auto-start the docker image. To start it manually:
+```
+docker run -d -p 9200:9200 -p 9600:9600 -e "discovery.type=single-node" opensearchproject/opensearch:latest
+
 
 ```
 
@@ -89,7 +106,6 @@ make html
 
 Open `opensearch-py/docs/build/html/index.html` to see results.
 
-Note that integration tests require docker to be installed and running, and downloads quite a bit of data from over the internet and hence take few minutes to complete.
 
 The following code executes a python client generator that updates the client by utilizing the [openapi specifications](https://github.com/opensearch-project/opensearch-api-specification/blob/main/OpenSearch.openapi.json) found in the "opensearch-api-specification" repository. This process allows for the automatic generation and synchronization of the client code with the latest API specifications.
 
