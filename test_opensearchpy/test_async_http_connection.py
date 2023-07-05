@@ -25,8 +25,6 @@
 #  under the License.
 
 
-from unittest import IsolatedAsyncioTestCase
-
 import mock
 import pytest
 from aiohttp.client import _RequestContextManager
@@ -36,9 +34,14 @@ from opensearchpy import AsyncHttpConnection
 from opensearchpy._async._extra_imports import aiohttp
 from opensearchpy._async.compat import get_running_loop
 
+try:
+    from unittest import IsolatedAsyncioTestCase as AsyncTestCase
+except ImportError:
+    from aiounittest import AsyncTestCase
+
 
 @pytest.mark.asyncio
-class TestAsyncHttpConnection(IsolatedAsyncioTestCase):
+class TestAsyncHttpConnection(AsyncTestCase):
     def test_auth_as_tuple(self):
         c = AsyncHttpConnection(http_auth=("username", "password"))
         self.assertIsInstance(c._http_auth, aiohttp.BasicAuth)
