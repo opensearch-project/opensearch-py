@@ -29,9 +29,9 @@ import mock
 import pytest
 from multidict import CIMultiDict
 
-from opensearchpy.connection.http_async import AsyncHttpConnection
 from opensearchpy._async._extra_imports import aiohttp
 from opensearchpy._async.compat import get_running_loop
+from opensearchpy.connection.http_async import AsyncHttpConnection
 
 pytestmark = pytest.mark.asyncio
 
