@@ -29,36 +29,32 @@ import mock
 import pytest
 from multidict import CIMultiDict
 
-from opensearchpy import AsyncHttpConnection
+from opensearchpy.connection.http_async import AsyncHttpConnection
 from opensearchpy._async._extra_imports import aiohttp
 from opensearchpy._async.compat import get_running_loop
 
-try:
-    from unittest import IsolatedAsyncioTestCase as AsyncTestCase
-except ImportError:
-    from aiounittest import AsyncTestCase
+pytestmark = pytest.mark.asyncio
 
 
-@pytest.mark.asyncio
-class TestAsyncHttpConnection(AsyncTestCase):
+class TestAsyncHttpConnection:
     def test_auth_as_tuple(self):
         c = AsyncHttpConnection(http_auth=("username", "password"))
-        self.assertIsInstance(c._http_auth, aiohttp.BasicAuth)
-        self.assertEqual(c._http_auth.login, "username")
-        self.assertEqual(c._http_auth.password, "password")
+        assert isinstance(c._http_auth, aiohttp.BasicAuth)
+        assert c._http_auth.login, "username"
+        assert c._http_auth.password, "password"
 
     def test_auth_as_string(self):
         c = AsyncHttpConnection(http_auth="username:password")
-        self.assertIsInstance(c._http_auth, aiohttp.BasicAuth)
-        self.assertEqual(c._http_auth.login, "username")
-        self.assertEqual(c._http_auth.password, "password")
+        assert isinstance(c._http_auth, aiohttp.BasicAuth)
+        assert c._http_auth.login, "username"
+        assert c._http_auth.password, "password"
 
     def test_auth_as_callable(self):
         def auth_fn():
             pass
 
         c = AsyncHttpConnection(http_auth=auth_fn)
-        self.assertTrue(callable(c._http_auth))
+        assert callable(c._http_auth)
 
     @mock.patch("aiohttp.ClientSession.request", new_callable=mock.Mock)
     async def test_basicauth_in_request_session(self, mock_request):
