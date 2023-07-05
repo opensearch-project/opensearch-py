@@ -184,7 +184,7 @@ class AsyncContextManagerMock(MagicMock):
         super().__init__(*args, **kwargs)
         type(self).__aenter__ = CoroutineMock(
             return_value=MagicMock(
-                text=CoroutineMock(return_value='test'),
+                text=CoroutineMock(return_value="test"),
                 status=200,
             )
         )

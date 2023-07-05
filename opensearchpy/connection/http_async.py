@@ -191,7 +191,9 @@ class AsyncHttpConnection(AIOHttpConnection):
             body = self._gzip_compress(body)
             req_headers["content-encoding"] = "gzip"
 
-        auth = self._http_auth if isinstance(self._http_auth, aiohttp.BasicAuth) else None
+        auth = (
+            self._http_auth if isinstance(self._http_auth, aiohttp.BasicAuth) else None
+        )
         if callable(self._http_auth):
             req_headers = {
                 **req_headers,

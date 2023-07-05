@@ -39,16 +39,16 @@ from test_opensearchpy.utils import AsyncContextManagerMock
 @pytest.mark.asyncio
 class TestAsyncHttpConnection(IsolatedAsyncioTestCase):
     def test_auth_as_tuple(self):
-        c = AsyncHttpConnection(http_auth=('username', 'password'))
+        c = AsyncHttpConnection(http_auth=("username", "password"))
         self.assertIsInstance(c._http_auth, aiohttp.BasicAuth)
-        self.assertEqual(c._http_auth.login, 'username')
-        self.assertEqual(c._http_auth.password, 'password')
+        self.assertEqual(c._http_auth.login, "username")
+        self.assertEqual(c._http_auth.password, "username")
 
     def test_auth_as_string(self):
-        c = AsyncHttpConnection(http_auth='username:password')
+        c = AsyncHttpConnection(http_auth="username:password")
         self.assertIsInstance(c._http_auth, aiohttp.BasicAuth)
-        self.assertEqual(c._http_auth.login, 'username')
-        self.assertEqual(c._http_auth.password, 'password')
+        self.assertEqual(c._http_auth.login, "username")
+        self.assertEqual(c._http_auth.password, "password")
 
     def test_auth_as_callable(self):
         def auth_fn():
@@ -57,38 +57,53 @@ class TestAsyncHttpConnection(IsolatedAsyncioTestCase):
         c = AsyncHttpConnection(http_auth=auth_fn)
         self.assertTrue(callable(c._http_auth))
 
-    @patch('aiohttp.ClientSession.request', new_callable=AsyncContextManagerMock)
+    @patch("aiohttp.ClientSession.request", new_callable=AsyncContextManagerMock)
     async def test_basicauth_in_request_session(self, mock_request):
-        c = AsyncHttpConnection(http_auth=('username', 'password'), loop=get_running_loop())
+        c = AsyncHttpConnection(
+            http_auth=("username", "password"),
+            loop=get_running_loop(),
+        )
         c.headers = {}
-        await c.perform_request('post', '/test')
+        await c.perform_request("post", "/test")
         mock_request.assert_called_with(
-            'post',
-            'http://localhost:9200/test',
+            "post",
+            "http://localhost:9200/test",
             data=None,
             auth=c._http_auth,
             headers={},
-            timeout=aiohttp.ClientTimeout(total=10, connect=None, sock_read=None, sock_connect=None),
+            timeout=aiohttp.ClientTimeout(
+                total=10,
+                connect=None,
+                sock_read=None,
+                sock_connect=None,
+            ),
             fingerprint=None,
         )
 
-    @patch('aiohttp.ClientSession.request', new_callable=AsyncContextManagerMock)
+    @patch("aiohttp.ClientSession.request", new_callable=AsyncContextManagerMock)
     async def test_callable_in_request_session(self, mock_request):
         def auth_fn(*args, **kwargs):
             return {
-                'Test': 'PASSED'
+                "Test": "PASSED",
             }
 
         c = AsyncHttpConnection(http_auth=auth_fn, loop=get_running_loop())
         c.headers = {}
-        await c.perform_request('post', '/test')
+        await c.perform_request("post", "/test")
 
         mock_request.assert_called_with(
-            'post',
-            'http://localhost:9200/test',
+            "post",
+            "http://localhost:9200/test",
             data=None,
             auth=None,
-            headers={'Test': 'PASSED'},
-            timeout=aiohttp.ClientTimeout(total=10, connect=None, sock_read=None, sock_connect=None),
+            headers={
+                "Test": "PASSED",
+            },
+            timeout=aiohttp.ClientTimeout(
+                total=10,
+                connect=None,
+                sock_read=None,
+                sock_connect=None,
+            ),
             fingerprint=None,
         )
