@@ -38,7 +38,7 @@ client.snapshot.create(repository='my_repository', snapshot='my_snapshot', body=
 ```
 
 ### Verify Snapshot Repository
-The `verify_repository` API action allows you to verifies a snapshot repository. Verifying a repository ensures that it is accessible and operational, but it does not validate the integrity of the snapshots stored within the repository. The following example verifies `my_repository`:
+The `verify_repository` API action allows you to verify a snapshot repository. Verifying a repository ensures that it is accessible and operational, but it does not validate the integrity of the snapshots stored within the repository. The following example verifies `my_repository`:
 
 ```python
 response = client.snapshot.verify_repository(repository='my_repository')
