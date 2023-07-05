@@ -1,7 +1,6 @@
 requests>=2, <3
 pytest
 pytest-cov
-asynctest
 coverage
 mock
 sphinx<7.1

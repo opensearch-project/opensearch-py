@@ -27,13 +27,14 @@
 
 from unittest import IsolatedAsyncioTestCase
 
+import mock
 import pytest
-from asynctest import patch
+from aiohttp.client import _RequestContextManager
+from multidict import CIMultiDict
 
 from opensearchpy import AsyncHttpConnection
 from opensearchpy._async._extra_imports import aiohttp
 from opensearchpy._async.compat import get_running_loop
-from test_opensearchpy.utils import AsyncContextManagerMock
 
 
 @pytest.mark.asyncio
@@ -42,7 +43,7 @@ class TestAsyncHttpConnection(IsolatedAsyncioTestCase):
         c = AsyncHttpConnection(http_auth=("username", "password"))
         self.assertIsInstance(c._http_auth, aiohttp.BasicAuth)
         self.assertEqual(c._http_auth.login, "username")
-        self.assertEqual(c._http_auth.password, "username")
+        self.assertEqual(c._http_auth.password, "password")
 
     def test_auth_as_string(self):
         c = AsyncHttpConnection(http_auth="username:password")
@@ -57,8 +58,16 @@ class TestAsyncHttpConnection(IsolatedAsyncioTestCase):
         c = AsyncHttpConnection(http_auth=auth_fn)
         self.assertTrue(callable(c._http_auth))
 
-    @patch("aiohttp.ClientSession.request", new_callable=AsyncContextManagerMock)
+    @mock.patch("aiohttp.ClientSession.request", new_callable=mock.Mock)
     async def test_basicauth_in_request_session(self, mock_request):
+        async def do_request(*args, **kwargs):
+            response_mock = mock.AsyncMock()
+            response_mock.headers = CIMultiDict()
+            response_mock.status = 200
+            return response_mock
+
+        mock_request.return_value = _RequestContextManager(do_request())
+
         c = AsyncHttpConnection(
             http_auth=("username", "password"),
             loop=get_running_loop(),
@@ -80,12 +89,20 @@ class TestAsyncHttpConnection(IsolatedAsyncioTestCase):
             fingerprint=None,
         )
 
-    @patch("aiohttp.ClientSession.request", new_callable=AsyncContextManagerMock)
+    @mock.patch("aiohttp.ClientSession.request", new_callable=mock.Mock)
     async def test_callable_in_request_session(self, mock_request):
         def auth_fn(*args, **kwargs):
             return {
                 "Test": "PASSED",
             }
+
+        async def do_request(*args, **kwargs):
+            response_mock = mock.AsyncMock()
+            response_mock.headers = CIMultiDict()
+            response_mock.status = 200
+            return response_mock
+
+        mock_request.return_value = _RequestContextManager(do_request())
 
         c = AsyncHttpConnection(http_auth=auth_fn, loop=get_running_loop())
         c.headers = {}
