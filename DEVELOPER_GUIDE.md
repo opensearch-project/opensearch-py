@@ -1,7 +1,8 @@
 - [Developer Guide](#developer-guide)
   - [Prerequisites](#prerequisites)
+  - [Docker Image Installation](#docker-setup)
   - [Running Tests](#running-tests)
-  - [Linter](#linter)
+  - [Integration Tests](#integration-tests)
   - [Documentation](#documentation)
   - [Running Python Client Generator](#running-python-client-generator)
 
@@ -20,6 +21,22 @@ Install [Nox](https://nox.thea.codes/en/stable/) for task management.
 
 ```
 $ python -m pip install nox
+```
+
+## Install Docker Image
+
+Integration tests require [docker](https://opensearch.org/docs/latest/install-and-configure/install-opensearch/docker/).
+
+Run the following commands to install the docker image:
+
+```
+docker pull opensearchproject/opensearch:latest
+```
+
+Integration tests will auto-start the docker image. To start it manually:
+
+```
+docker run -d -p 9200:9200 -p 9600:9600 -e "discovery.type=single-node" opensearchproject/opensearch:latest
 ```
 
 ## Running Tests
