@@ -27,7 +27,6 @@
 
 import mock
 import pytest
-from aiohttp.client import _RequestContextManager
 from multidict import CIMultiDict
 
 from opensearchpy import AsyncHttpConnection
@@ -69,7 +68,7 @@ class TestAsyncHttpConnection(AsyncTestCase):
             response_mock.status = 200
             return response_mock
 
-        mock_request.return_value = _RequestContextManager(do_request())
+        mock_request.return_value = aiohttp.client._RequestContextManager(do_request())
 
         c = AsyncHttpConnection(
             http_auth=("username", "password"),
@@ -105,7 +104,7 @@ class TestAsyncHttpConnection(AsyncTestCase):
             response_mock.status = 200
             return response_mock
 
-        mock_request.return_value = _RequestContextManager(do_request())
+        mock_request.return_value = aiohttp.client._RequestContextManager(do_request())
 
         c = AsyncHttpConnection(http_auth=auth_fn, loop=get_running_loop())
         c.headers = {}
