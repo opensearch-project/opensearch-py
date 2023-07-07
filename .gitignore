@@ -141,6 +141,7 @@ cython_debug/
 
 # Pycharm project settings
 .idea
+.DS_Store
 
 # opensearch files
 test_opensearch/cover
