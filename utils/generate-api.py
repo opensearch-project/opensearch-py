@@ -592,6 +592,20 @@ def read_modules():
 
         if namespace not in modules:
             modules[namespace] = Module(namespace)
+        
+
+        if name == "get_all_pits":
+            name="list_all_point_in_time"
+        if name == "create_pit":
+            name="create_point_in_time"
+            print("api ", api)
+            api["params"].pop("allow_partial_pit_creation")
+            api["params"].update({"expand_wildcards":data["components"]["schemas"]["ExpandWildcards"]})
+
+            # api["params"].update({"expand_wildcards": {'type': 'string', "enum": ["open", "closed", "hidden", "none", "all"], 'description': 'Whether to expand wildcard expression to concrete indices that are open, closed or both.  Valid choices: open, closed, hidden, none, all  Default: open'}})
+
+
+            print("printed",data["components"]["schemas"]["ExpandWildcards"])
 
         modules[namespace].add(API(namespace, name, api))
         modules[namespace].pyi.add(API(namespace, name, api, is_pyi=True))
