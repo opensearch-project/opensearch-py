@@ -22,6 +22,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - Removed tests against Python 2.7 in github workflows ([#421](https://github.com/opensearch-project/opensearch-py/pull/421))
 ### Fixed
 - Fixed import cycle when importing async helpers ([#311](https://github.com/opensearch-project/opensearch-py/pull/311))
+- Fixed make docs with sphinx([#433](https://github.com/opensearch-project/opensearch-py/pull/433))
 - Fixed userguide for async client ([#340](https://github.com/opensearch-project/opensearch-py/pull/340))
 - Include parsed error info in TransportError in async connections (fixes #225) ([#226](https://github.com/opensearch-project/opensearch-py/pull/226))
 - Enhanced existing API generator to use OpenSearch OpenAPI spec ([#412](https://github.com/opensearch-project/opensearch-py/pull/412))
