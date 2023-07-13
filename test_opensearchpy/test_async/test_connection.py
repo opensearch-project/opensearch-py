@@ -100,7 +100,7 @@ class TestAIOHttpConnection:
         assert con.use_ssl
         assert con.session.connector._ssl == context
 
-    def test_opaque_id(self):
+    async def test_opaque_id(self):
         con = AIOHttpConnection(opaque_id="app-1")
         assert con.headers["x-opaque-id"] == "app-1"
 
@@ -154,18 +154,18 @@ class TestAIOHttpConnection:
         method, yarl_url = con.session.request.call_args[0]
         assert method == "GET" and str(yarl_url) == "http://localhost:9200/_search/"
 
-    def test_default_user_agent(self):
+    async def test_default_user_agent(self):
         con = AIOHttpConnection()
         assert con._get_default_user_agent() == "opensearch-py/%s (Python %s)" % (
             __versionstr__,
             python_version(),
         )
 
-    def test_timeout_set(self):
+    async def test_timeout_set(self):
         con = AIOHttpConnection(timeout=42)
         assert 42 == con.timeout
 
-    def test_keep_alive_is_on_by_default(self):
+    async def test_keep_alive_is_on_by_default(self):
         con = AIOHttpConnection()
         assert {
             "connection": "keep-alive",
@@ -173,7 +173,7 @@ class TestAIOHttpConnection:
             "user-agent": con._get_default_user_agent(),
         } == con.headers
 
-    def test_http_auth(self):
+    async def test_http_auth(self):
         con = AIOHttpConnection(http_auth="username:secret")
         assert {
             "authorization": "Basic dXNlcm5hbWU6c2VjcmV0",
@@ -182,7 +182,7 @@ class TestAIOHttpConnection:
             "user-agent": con._get_default_user_agent(),
         } == con.headers
 
-    def test_http_auth_tuple(self):
+    async def test_http_auth_tuple(self):
         con = AIOHttpConnection(http_auth=("username", "secret"))
         assert {
             "authorization": "Basic dXNlcm5hbWU6c2VjcmV0",
@@ -191,7 +191,7 @@ class TestAIOHttpConnection:
             "user-agent": con._get_default_user_agent(),
         } == con.headers
 
-    def test_http_auth_list(self):
+    async def test_http_auth_list(self):
         con = AIOHttpConnection(http_auth=["username", "secret"])
         assert {
             "authorization": "Basic dXNlcm5hbWU6c2VjcmV0",
@@ -200,7 +200,7 @@ class TestAIOHttpConnection:
             "user-agent": con._get_default_user_agent(),
         } == con.headers
 
-    def test_uses_https_if_verify_certs_is_off(self):
+    async def test_uses_https_if_verify_certs_is_off(self):
         with warnings.catch_warnings(record=True) as w:
             con = AIOHttpConnection(use_ssl=True, verify_certs=False)
             assert 1 == len(w)
@@ -223,17 +223,17 @@ class TestAIOHttpConnection:
 
         assert isinstance(con.session, aiohttp.ClientSession)
 
-    def test_doesnt_use_https_if_not_specified(self):
+    async def test_doesnt_use_https_if_not_specified(self):
         con = AIOHttpConnection()
         assert not con.use_ssl
 
-    def test_no_warning_when_using_ssl_context(self):
+    async def test_no_warning_when_using_ssl_context(self):
         ctx = ssl.create_default_context()
         with warnings.catch_warnings(record=True) as w:
             AIOHttpConnection(ssl_context=ctx)
             assert w == [], str([x.message for x in w])
 
-    def test_warns_if_using_non_default_ssl_kwargs_with_ssl_context(self):
+    async def test_warns_if_using_non_default_ssl_kwargs_with_ssl_context(self):
         for kwargs in (
             {"ssl_show_warn": False},
             {"ssl_show_warn": True},
@@ -256,21 +256,21 @@ class TestAIOHttpConnection:
                 )
 
     @patch("ssl.SSLContext.load_verify_locations")
-    def test_uses_given_ca_certs(self, load_verify_locations, tmp_path):
+    async def test_uses_given_ca_certs(self, load_verify_locations, tmp_path):
         path = tmp_path / "ca_certs.pem"
         path.touch()
         AIOHttpConnection(use_ssl=True, ca_certs=str(path))
         load_verify_locations.assert_called_once_with(cafile=str(path))
 
     @patch("ssl.SSLContext.load_verify_locations")
-    def test_uses_default_ca_certs(self, load_verify_locations):
+    async def test_uses_default_ca_certs(self, load_verify_locations):
         AIOHttpConnection(use_ssl=True)
         load_verify_locations.assert_called_once_with(
             cafile=Connection.default_ca_certs()
         )
 
     @patch("ssl.SSLContext.load_verify_locations")
-    def test_uses_no_ca_certs(self, load_verify_locations):
+    async def test_uses_no_ca_certs(self, load_verify_locations):
         AIOHttpConnection(use_ssl=True, verify_certs=False)
         load_verify_locations.assert_not_called()
 

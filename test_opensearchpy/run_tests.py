@@ -121,6 +121,7 @@ def run_all(argv=None):
                 "test_opensearchpy/test_server/",
                 "test_opensearchpy/test_server_secured/",
                 "test_opensearchpy/test_async/test_server/",
+                "test_opensearchpy/test_async/test_server_secured/",
             ]
         )
 
@@ -129,6 +130,8 @@ def run_all(argv=None):
             test_dir = abspath(dirname(__file__))
             if secured:
                 argv.append(join(test_dir, "test_server_secured"))
+                if sys.version_info >= (3, 6):
+                    argv.append(join(test_dir, "test_async/test_server_secured"))
                 ignores.extend(
                     [
                         "test_opensearchpy/test_server/",
@@ -144,6 +147,15 @@ def run_all(argv=None):
                         "test_opensearchpy/test_server_secured/",
                     ]
                 )
+
+        # There are no plugins for unreleased versions of opensearch
+        if environ.get("OPENSEARCH_VERSION") == "SNAPSHOT":
+            ignores.extend(
+                [
+                    "test_opensearchpy/test_server/test_plugins/",
+                    "test_opensearchpy/test_async/test_server/test_plugins/",
+                ]
+            )
 
         if ignores:
             argv.extend(["--ignore=%s" % ignore for ignore in ignores])

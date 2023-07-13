@@ -8,18 +8,25 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - Added index lifecycle guide ([#362](https://github.com/opensearch-project/opensearch-py/pull/362))
 - Added 'point in time' APIs to the pyi files in sync and async client ([#378](https://github.com/opensearch-project/opensearch-py/pull/378))
 - Added MacOS and Windows CI workflows ([#390](https://github.com/opensearch-project/opensearch-py/pull/390))
+- Added support for the security plugin ([#399](https://github.com/opensearch-project/opensearch-py/pull/399))
 - Compatibility with OpenSearch 2.1.0 - 2.6.0 ([#381](https://github.com/opensearch-project/opensearch-py/pull/381))
 - Added 'allow_redirects' parameter in perform_request function for RequestsHttpConnection ([#401](https://github.com/opensearch-project/opensearch-py/pull/401))
+- Enhanced YAML test runner to use OpenSearch rest-api-spec YAML tests ([#414](https://github.com/opensearch-project/opensearch-py/pull/414)
+- Added `Search#collapse` ([#409](https://github.com/opensearch-project/opensearch-py/issues/409))
+- Added support for the ISM API ([#398](https://github.com/opensearch-project/opensearch-py/pull/398))
 ### Changed
 - Upgrading pytest-asyncio to latest version - 0.21.0 ([#339](https://github.com/opensearch-project/opensearch-py/pull/339))
 - Fixed flaky CI tests by replacing httpbin with a simple http_server ([#395](https://github.com/opensearch-project/opensearch-py/pull/395))
 ### Deprecated
 ### Removed
+- Removed tests against Python 2.7 in github workflows ([#421](https://github.com/opensearch-project/opensearch-py/pull/421))
 ### Fixed
 - Fixed import cycle when importing async helpers ([#311](https://github.com/opensearch-project/opensearch-py/pull/311))
+- Fixed make docs with sphinx([#433](https://github.com/opensearch-project/opensearch-py/pull/433))
 - Fixed userguide for async client ([#340](https://github.com/opensearch-project/opensearch-py/pull/340))
 - Include parsed error info in TransportError in async connections (fixes #225) ([#226](https://github.com/opensearch-project/opensearch-py/pull/226))
 - Enhanced existing API generator to use OpenSearch OpenAPI spec ([#412](https://github.com/opensearch-project/opensearch-py/pull/412))
+- Fix crash when attempting to authenticate with an async connection (fixes #283)) ([#424](https://github.com/opensearch-project/opensearch-py/pull/424))
 ### Security
 - Fixed CVE-2022-23491 reported in opensearch-dsl-py ([#295](https://github.com/opensearch-project/opensearch-py/pull/295))
 - Update ci workflows ([#318](https://github.com/opensearch-project/opensearch-py/pull/318))

@@ -21,6 +21,15 @@
       - [**Creating a destination**](#creating-a-destination)
       - [**Getting alerts**](#getting-alerts)
       - [**Acknowledge alerts**](#acknowledge-alerts)
+    - [Index management plugin](#index-management-plugin)
+      - [Creating a policy](#creating-a-policy)
+      - [Getting a policy](#getting-a-policy)
+      - [Deleting a policy](#deleting-a-policy)
+    - [Security plugin](#security-plugin)
+      - [Creating a role](#creating-a-role)
+      - [Getting a role](#getting-a-role)
+      - [Creating a user](#creating-a-user)
+      - [Getting a user](#getting-a-user)
   - [Using different authentication methods](#using-different-authentication-methods)
     - [Using IAM credentials](#using-iam-credentials)
       - [Pre-requisites to use `AWSV4SignerAuth`](#pre-requisites-to-use-awsv4signerauth)
@@ -420,6 +429,133 @@ query = {
 response = client.plugins.alerting.acknowledge_alert(query)
 print(response)
 ```
+
+### Index management plugin
+
+#### Creating a policy
+[API definition](https://opensearch.org/docs/latest/im-plugin/ism/api/#create-policy)
+```python
+print('\Creating a policy:')
+
+policy_name = "test-policy"
+policy_content = {
+    "policy": {
+        "description": "hot warm delete workflow",
+        "default_state": "hot",
+        "schema_version": 1,
+        "states": [
+            {
+                "name": "hot",
+                "actions": [{"rollover": {"min_index_age": "1d"}}],
+                "transitions": [{"state_name": "warm"}],
+            },
+            {
+                "name": "warm",
+                "actions": [{"replica_count": {"number_of_replicas": 5}}],
+                "transitions": [{"state_name": "delete", "conditions": {"min_index_age": "30d"}}],
+            },
+            {
+                "name": "delete",
+                "actions": [
+                    {
+                        "notification": {
+                            "destination": {"chime": {"url": "<URL>"}},
+                            "message_template": {"source": "The index {{ctx.index}} is being deleted"},
+                        }
+                    },
+                    {"delete": {}},
+                ],
+            },
+        ],
+        "ism_template": {"index_patterns": ["log*"], "priority": 100},
+    }
+}
+
+response = client.index_managment.put_policy(policy_name, body=policy_content)
+print(response)
+```
+
+#### Getting a policy
+[API definition](https://opensearch.org/docs/latest/im-plugin/ism/api/#get-policy)
+```python
+print('\Getting a policy:')
+
+policy_name = "test-policy"
+
+response = client.index_managment.get_policy(policy_name)
+print(response)
+```
+
+#### Deleting a policy
+[API definition](https://opensearch.org/docs/latest/index_managment/access-control/api/#create-user)
+```python
+print('\Deleting a policy:')
+
+policy_name = "test-policy"
+
+response = client.index_managment.delete_policy(policy_name)
+print(response)
+```
+
+### Security plugin
+
+#### Creating a role
+[API definition](https://opensearch.org/docs/latest/security/access-control/api/#create-role)
+```python
+print('\Creating a role:')
+
+role_name = "test-role"
+role_content = {
+  "cluster_permissions": ["cluster_monitor"],
+  "index_permissions": [
+      {
+          "index_patterns": ["index", "test-*"],
+          "allowed_actions": [
+              "data_access",
+              "indices_monitor",
+          ],
+      }
+  ],
+}
+
+response = client.security.put_role(role_name, body=role_content)
+print(response)
+```
+
+#### Getting a role
+[API definition](https://opensearch.org/docs/latest/security/access-control/api/#get-role)
+```python
+print('\Getting a role:')
+
+role_name = "test-role"
+
+response = client.security.get_role(role_name)
+print(response)
+```
+
+#### Creating a user
+[API definition](https://opensearch.org/docs/latest/security/access-control/api/#create-user)
+```python
+print('\Creating a user:')
+
+user_name = "test-user"
+user_content = {"password": "test_password", "opendistro_security_roles": []}
+
+response = client.security.put_role(user_name, body=user_content)
+print(response)
+```
+
+#### Getting a user
+[API definition](https://opensearch.org/docs/latest/security/access-control/api/#get-user)
+```python
+print('\Getting a user:')
+
+user_name = "test-user"
+
+response = client.security.get_user(user_name)
+print(response)
+```
+
 ## Using different authentication methods
 
 It is possible to use different methods for the authentication to OpenSearch. The parameters of `connection_class` and `http_auth` can be used for this. The following examples show how to authenticate using IAM credentials and using Kerberos.
