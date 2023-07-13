@@ -35,6 +35,7 @@
       - [Pre-requisites to use `AWSV4SignerAuth`](#pre-requisites-to-use-awsv4signerauth)
   - [Using IAM authentication with an async client](#using-iam-authentication-with-an-async-client)
     - [Using Kerberos](#using-kerberos)
+  - [Learn more about other guides](#learn-more) 
 
 # User guide of OpenSearch Python client
 
@@ -686,3 +687,12 @@ client = OpenSearch(
 
 health = client.cluster.health()
 ```
+## Learn more about other guides 
+
+[Index Lifecycle](guides/index_lifecycle.md): This guide covers OpenSearch Python Client API actions for Index Lifecycle. You'll learn how to create, read, update, and delete indices in your OpenSearch cluster. We will also leverage index templates to create default settings and mappings for indices of certain patterns.
+
+[Search](guides/search.md): OpenSearch provides a powerful search API that allows you to search for documents in an index. The search API supports a number of parameters that allow you to customize the search operation. In this guide, we will explore the search API and its parameters.
+
+[Snapshot Actions](guides/snapshot.md): In this guide, we will look at some snapshot actions that allow you to manage and work with snapshots of your indices.
+
+Feel free to click on the links to access the respective guides and explore more about each topic.
