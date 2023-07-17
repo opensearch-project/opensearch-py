@@ -91,6 +91,7 @@ class AIOHttpConnection(AsyncConnection):
         http_compress=None,
         opaque_id=None,
         loop=None,
+        trust_env=False,
         **kwargs
     ):
         """
@@ -219,6 +220,7 @@ class AIOHttpConnection(AsyncConnection):
         self._limit = maxsize
         self._http_auth = http_auth
         self._ssl_context = ssl_context
+        self._trust_env = trust_env
 
     async def perform_request(
         self, method, url, params=None, body=None, timeout=None, ignore=(), headers=None
@@ -367,6 +369,7 @@ class AIOHttpConnection(AsyncConnection):
             connector=aiohttp.TCPConnector(
                 limit=self._limit, use_dns_cache=True, ssl=self._ssl_context
             ),
+            trust_env=self._trust_env,
         )
 
 
