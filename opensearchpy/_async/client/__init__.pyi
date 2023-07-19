@@ -30,6 +30,9 @@ from __future__ import unicode_literals
 import logging
 from typing import Any, Collection, MutableMapping, Optional, Tuple, Type, Union
 
+from ..plugins.alerting import AlertingClient
+from ..plugins.index_management import IndexManagementClient
+from ..plugins.security import SecurityClient
 from ..transport import AsyncTransport
 from .cat import CatClient
 from .cluster import ClusterClient
@@ -56,6 +59,11 @@ class AsyncOpenSearch(object):
     remote: RemoteClient
     snapshot: SnapshotClient
     tasks: TasksClient
+
+    alerting: AlertingClient
+    security: SecurityClient
+    index_management: IndexManagementClient
+
     def __init__(
         self,
         hosts: Any = ...,
