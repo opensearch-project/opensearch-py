@@ -279,7 +279,7 @@ class DslBase(object):
             if default is not None:
                 return cls._classes[default]
             raise UnknownDslObject(
-                "DSL class `{}` does not exist in {}.".format(name, cls._type_name)
+                "DSL class `{}` doesn't exist in {}.".format(name, cls._type_name)
             )
 
     def __init__(self, _expand__to_dot=EXPAND__TO_DOT, **params):
