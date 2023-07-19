@@ -348,6 +348,35 @@ class Search(Request):
     def exclude(self, *args, **kwargs):
         return self.query(Bool(filter=[~Q(*args, **kwargs)]))
 
+    def neuralQuery(self, query, fields, model_id):
+        neural_queries = []
+
+        for field in fields:
+            neural_queries.append(
+                Q(
+                    "script_score",
+                    query=Q(
+                        "neural",
+                        **{
+                            field: {
+                                "query_text": query,
+                                "model_id": model_id,
+                            }
+                        },
+                        script={"source": "_score"}
+                    ),
+                )
+            )
+
+        match_query = Q(
+            "script_score",
+            query=Q("multi_match", query=query, fields=fields),
+            script={"source": "_score"},
+        )
+        queries = neural_queries + [match_query]
+
+        return self.query(Bool(should=queries))
+
     def __iter__(self):
         """
         Iterate over the hits.
