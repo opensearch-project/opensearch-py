@@ -428,6 +428,10 @@ class Match(Query):
     name = "match"
 
 
+class Neural(Query):
+    name = "neural"
+
+
 class MatchPhrase(Query):
     name = "match_phrase"
 
