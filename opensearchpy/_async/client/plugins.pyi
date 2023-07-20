@@ -15,5 +15,4 @@ from .utils import NamespacedClient as NamespacedClient
 class PluginsClient(NamespacedClient):
     alerting: Any
     index_management: Any
-    security: Any
     def __init__(self, client: AsyncOpenSearch) -> None: ...

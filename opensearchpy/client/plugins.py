@@ -12,7 +12,6 @@ import warnings
 
 from ..plugins.alerting import AlertingClient
 from ..plugins.index_management import IndexManagementClient
-from ..plugins.security import SecurityClient
 from .utils import NamespacedClient
 
 
@@ -26,7 +25,6 @@ class PluginsClient(NamespacedClient):
         # self.anomaly_detection = AnomalyDetectionClient(client)
         # self.trace_analytics = TraceAnalyticsClient(client)
         self.index_management = IndexManagementClient(client)
-        self.security = SecurityClient(client)
 
         self._dynamic_lookup(client)
 
@@ -41,7 +39,6 @@ class PluginsClient(NamespacedClient):
             # "anomaly_detection",
             # "trace_analytics",
             "index_management",
-            "security",
         ]
         for plugin in plugins:
             if not hasattr(client, plugin):
