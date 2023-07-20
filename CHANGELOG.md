@@ -14,7 +14,8 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - Enhanced YAML test runner to use OpenSearch rest-api-spec YAML tests ([#414](https://github.com/opensearch-project/opensearch-py/pull/414)
 - Added `Search#collapse` ([#409](https://github.com/opensearch-project/opensearch-py/issues/409))
 - Added support for the ISM API ([#398](https://github.com/opensearch-project/opensearch-py/pull/398))
-- Added `trust_env` to `AIOHttpConnection` ([#398](https://github.com/opensearch-project/opensearch-py/pull/438))
+- Added `trust_env` to `AIOHttpConnection` ([#438](https://github.com/opensearch-project/opensearch-py/pull/438))
+- Added "restore" API in "RemoteStoreClient" ([#443](https://github.com/opensearch-project/opensearch-py/pull/443))
 
 ### Changed
 - Upgrading pytest-asyncio to latest version - 0.21.0 ([#339](https://github.com/opensearch-project/opensearch-py/pull/339))
