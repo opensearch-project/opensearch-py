@@ -35,6 +35,7 @@
       - [Pre-requisites to use `AWSV4SignerAuth`](#pre-requisites-to-use-awsv4signerauth)
   - [Using IAM authentication with an async client](#using-iam-authentication-with-an-async-client)
     - [Using Kerberos](#using-kerberos)
+  - [Using environment settings for proxy configuration](#using-environment-settings-for-proxy-configuration)
 
 # User guide of OpenSearch Python client
 
@@ -685,4 +686,34 @@ client = OpenSearch(
 )
 
 health = client.cluster.health()
+```
+
+## Using environment settings for proxy configuration
+
+Tell connection to get proxy information from `HTTP_PROXY` / `HTTPS_PROXY` environment variables or `~/.netrc` file if present.
+
+```python
+from opensearchpy import OpenSearch, RequestsHttpConnection
+
+
+OpenSearch(
+    hosts=["htps://..."],
+    use_ssl=True,
+    verify_certs=True,
+    connection_class=RequestsHttpConnection,
+    trust_env=True,
+)
+```
+
+
+```python
+from opensearchpy import AsyncOpenSearch, AIOHttpConnection
+
+client = AsyncOpenSearch(
+    hosts=["htps://..."],
+    use_ssl=True,
+    verify_certs=True,
+    connection_class=AIOHttpConnection,
+    trust_env=True,
+)
 ```

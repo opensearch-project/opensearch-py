@@ -274,6 +274,20 @@ class TestAIOHttpConnection:
         AIOHttpConnection(use_ssl=True, verify_certs=False)
         load_verify_locations.assert_not_called()
 
+    async def test_trust_env(self):
+        con = AIOHttpConnection(trust_env=True)
+        await con._create_aiohttp_session()
+
+        assert con._trust_env is True
+        assert con.session.trust_env is True
+
+    async def test_trust_env_default_value_is_false(self):
+        con = AIOHttpConnection()
+        await con._create_aiohttp_session()
+
+        assert con._trust_env is False
+        assert con.session.trust_env is False
+
     @patch("opensearchpy.connection.base.logger")
     async def test_uncompressed_body_logged(self, logger):
         con = await self._get_mock_connection(connection_params={"http_compress": True})
