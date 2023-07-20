@@ -38,7 +38,7 @@ class TestSecurityPlugin(IsolatedAsyncioTestCase):
     }
 
     USER_NAME = "test-user"
-    USER_CONTENT = {"password": "test_password", "opendistro_security_roles": []}
+    USER_CONTENT = {"password": "opensearchpy@123", "opendistro_security_roles": []}
 
     async def asyncSetUp(self):
         self.client = await get_test_client(
@@ -113,7 +113,7 @@ class TestSecurityPlugin(IsolatedAsyncioTestCase):
         response = await self.client.security.put_user(
             self.USER_NAME,
             body={
-                "password": "test_password",
+                "password": "opensearchpy@123",
                 "opendistro_security_roles": [self.ROLE_NAME],
             },
         )
@@ -136,7 +136,7 @@ class TestSecurityPlugin(IsolatedAsyncioTestCase):
         await self.test_create_user()
 
         user_content = self.USER_CONTENT.copy()
-        user_content["password"] = "password_test"
+        user_content["password"] = "123@opensearchpy"
 
         # Test to update user
         response = await self.client.security.put_user(
