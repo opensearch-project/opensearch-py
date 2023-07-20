@@ -98,7 +98,14 @@ class Module:
 
     def parse_orig(self):
         self.orders = []
-        self.header = "class C:"
+        self.header = ""
+        if self.is_pyi is True:
+            self.header = "from typing import Any, Collection, MutableMapping, Optional, Tuple, Union\n\n"
+
+        namespace_new = "".join(word.capitalize() for word in self.namespace.split("_"))
+        self.header = (
+            self.header + "class " + namespace_new + "Client(NamespacedClient):"
+        )
         if os.path.exists(self.filepath):
             with open(self.filepath) as f:
                 content = f.read()
@@ -130,10 +137,135 @@ class Module:
 
     def dump(self):
         self.sort()
+
+        # "CODE IS GENERATED" header is added below the license header in each generated module
+
+        header_separator = "# -----------------------------------------------------"
+        License_header_end_1 = "# GitHub history for details."
+        License_header_end_2 = "#  under the License."
+
+        update_header = True
+        License_position = 0
+        self.header = "\n".join(
+            line for line in self.header.split("\n") if "from .utils import" not in line
+        )
+        if os.path.exists(self.filepath):
+            with open(self.filepath, "r") as f:
+                content = f.read()
+            if header_separator in content:
+                update_header = False
+                header_end_position = (
+                    content.find(header_separator) + len(header_separator) + 2
+                )
+                header_position = content.rfind("\n", 0, header_end_position) + 1
+            if License_header_end_1 in content:
+                if License_header_end_2 in content:
+                    position = (
+                        content.find(License_header_end_2)
+                        + len(License_header_end_2)
+                        + 2
+                    )
+                else:
+                    position = (
+                        content.find(License_header_end_1)
+                        + len(License_header_end_1)
+                        + 2
+                    )
+                License_position = content.rfind("\n", 0, position) + 1
+
         with open(self.filepath, "w") as f:
-            f.write(self.header)
+            if update_header is True:
+                f.write(self.header[:License_position])
+                f.write("\n")
+                f.write("# ----------------------------------------------------\n")
+                f.write("# THIS CODE IS GENERATED. MANUAL EDITS WILL BE LOST. \n")
+                f.write("\n")
+                f.write(
+                    '# To contribute, please make necessary modifications to either "Python generator":\n'
+                )
+                f.write(
+                    "# https://github.com/opensearch-project/opensearch-py/blob/main/utils/generate-api.py\n"
+                )
+                f.write('# or "OpenAPI specs":\n')
+                f.write(
+                    "# https://github.com/opensearch-project/opensearch-api-specification/blob/main/OpenSearch.openapi.json\n"
+                )
+                f.write("# -----------------------------------------------------\n")
+                f.write("\n")
+                f.write("#replace_token#\n")
+                f.write(self.header[License_position:])
+            else:
+                f.write(self.header[:header_position])
+                f.write("\n")
+                f.write("#replace_token#\n")
+                f.write(self.header[header_position:])
             for api in self._apis:
                 f.write(api.to_python())
+
+        # Added "delete point in time" API manually to prevent breaking changes
+
+        delete_pit_exists = False
+        current_path = os.getcwd()
+        init_file_path = current_path + "/opensearchpy/_async/client/__init__.py"
+        with open(init_file_path, "r") as f:
+            content1 = f.read()
+        if "delete_point_in_time" in content1:
+            delete_pit_exists = True
+
+        if delete_pit_exists is False:
+            code_string = '''
+@query_params()
+async def delete_point_in_time(
+    self, body=None, all=False, params=None, headers=None
+):
+    """
+    Delete a point in time
+
+
+    :arg body: a point-in-time id to delete
+    :arg all: set it to `True` to delete all alive point in time.
+    """
+    path = (
+        _make_path("_search", "point_in_time", "_all")
+        if all
+        else _make_path("_search", "point_in_time")
+    )
+    return await self.transport.perform_request(
+        "DELETE", path, params=params, headers=headers, body=body
+    )
+            '''
+            with open(init_file_path, "a+") as f:
+                f.seek(0, 2)
+                f.write("\n")
+                f.write(code_string)
+
+        # Generating imports for each module
+
+        utils_imports = ""
+        file_content = ""
+        with open(self.filepath, "r") as f:
+            content = f.read()
+            keywords = [
+                "SKIP_IN_PATH",
+                "_normalize_hosts",
+                "_escape",
+                "_make_path",
+                "query_params",
+                "_bulk_body",
+                "_base64_auth_header",
+                "NamespacedClient",
+                "AddonClient",
+            ]
+            present_keywords = [keyword for keyword in keywords if keyword in content]
+
+            if present_keywords:
+                utils_imports = "from .utils import"
+                result = f"{utils_imports} {', '.join(present_keywords)}"
+                utils_imports = result
+            file_content = content.replace("#replace_token#", utils_imports)
+
+        with open(self.filepath, "w") as f:
+            f.write(file_content)
 
         if not self.is_pyi:
             self.pyi.dump()
@@ -448,13 +580,17 @@ def read_modules():
                     body = {"required": False}
                     if "required" in z["requestBody"]:
                         body.update({"required": z["requestBody"]["required"]})
-
-                    if "description" in z["requestBody"]:
-                        body.update({"description": z["requestBody"]["description"]})
-
                     q = z["requestBody"]["content"]["application/json"]["schema"][
                         "$ref"
                     ].split("/")[-1]
+                    if "description" in data["components"]["schemas"][q]:
+                        body.update(
+                            {
+                                "description": data["components"]["schemas"][q][
+                                    "description"
+                                ]
+                            }
+                        )
                     if "x-serialize" in data["components"]["schemas"][q]:
                         body.update(
                             {
@@ -507,6 +643,31 @@ def read_modules():
 
         if namespace not in modules:
             modules[namespace] = Module(namespace)
+
+        # "point in time" APIs spec is altered here to prevent breaking changes
+
+        if name == "get_all_pits":
+            name = "list_all_point_in_time"
+        if name == "create_pit":
+            name = "create_point_in_time"
+            api["params"].pop("allow_partial_pit_creation")
+            api["params"].update(
+                {"expand_wildcards": data["components"]["schemas"]["ExpandWildcards"]}
+            )
+            api["params"].update(
+                {
+                    "ignore_unavailable": {
+                        "type": "boolean",
+                        "description": "Whether specified concrete indices should be ignored when unavailable (missing or closed).",
+                    }
+                }
+            )
+            api["url"]["paths"].append(
+                {"path": "/_search/point_in_time", "methods": ["POST"]}
+            )
+
+        if name == "delete_pit" or name == "delete_all_pits":
+            continue
 
         modules[namespace].add(API(namespace, name, api))
         modules[namespace].pyi.add(API(namespace, name, api, is_pyi=True))
