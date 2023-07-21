@@ -34,7 +34,7 @@ class TestSecurityPlugin(TestCase):
     }
 
     USER_NAME = "test-user"
-    USER_CONTENT = {"password": "test_password", "opendistro_security_roles": []}
+    USER_CONTENT = {"password": "opensearchpy@123", "opendistro_security_roles": []}
 
     def setUp(self):
         self.client = get_test_client(verify_certs=False, http_auth=("admin", "admin"))
@@ -101,7 +101,7 @@ class TestSecurityPlugin(TestCase):
         response = self.client.security.put_user(
             self.USER_NAME,
             body={
-                "password": "test_password",
+                "password": "opensearchpy@123",
                 "opendistro_security_roles": [self.ROLE_NAME],
             },
         )
@@ -124,7 +124,7 @@ class TestSecurityPlugin(TestCase):
         self.test_create_user()
 
         user_content = self.USER_CONTENT.copy()
-        user_content["password"] = "password_test"
+        user_content["password"] = "123@opensearchpy"
 
         # Test to update user
         response = self.client.security.put_user(self.USER_NAME, body=user_content)
