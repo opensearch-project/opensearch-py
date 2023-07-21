@@ -28,6 +28,7 @@ clients/ingest_client
 clients/indices_client
 clients/nodes_client
 clients/remote_client
+clients/security_client
 clients/snapshot_client
 clients/tasks_client
 clients/features_client

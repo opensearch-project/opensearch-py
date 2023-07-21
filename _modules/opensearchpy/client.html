@@ -122,6 +122,7 @@
 <span class="kn">from</span> <span class="nn">.nodes</span> <span class="kn">import</span> <span class="n">NodesClient</span>
 <span class="kn">from</span> <span class="nn">.plugins</span> <span class="kn">import</span> <span class="n">PluginsClient</span>
 <span class="kn">from</span> <span class="nn">.remote</span> <span class="kn">import</span> <span class="n">RemoteClient</span>
+<span class="kn">from</span> <span class="nn">.security</span> <span class="kn">import</span> <span class="n">SecurityClient</span>
 <span class="kn">from</span> <span class="nn">.snapshot</span> <span class="kn">import</span> <span class="n">SnapshotClient</span>
 <span class="kn">from</span> <span class="nn">.tasks</span> <span class="kn">import</span> <span class="n">TasksClient</span>
 <span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">SKIP_IN_PATH</span><span class="p">,</span> <span class="n">_bulk_body</span><span class="p">,</span> <span class="n">_make_path</span><span class="p">,</span> <span class="n">_normalize_hosts</span><span class="p">,</span> <span class="n">query_params</span>
@@ -279,6 +280,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">ingest</span> <span class="o">=</span> <span class="n">IngestClient</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span> <span class="o">=</span> <span class="n">NodesClient</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">remote</span> <span class="o">=</span> <span class="n">RemoteClient</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">security</span> <span class="o">=</span> <span class="n">SecurityClient</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">snapshot</span> <span class="o">=</span> <span class="n">SnapshotClient</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tasks</span> <span class="o">=</span> <span class="n">TasksClient</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
