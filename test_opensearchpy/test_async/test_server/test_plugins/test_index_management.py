@@ -11,9 +11,13 @@
 
 from __future__ import unicode_literals
 
+import pytest
+
 from opensearchpy.exceptions import NotFoundError
 
 from .. import AsyncOpenSearchTestCase
+
+pytestmark = pytest.mark.asyncio
 
 
 class TestIndexManagementPlugin(AsyncOpenSearchTestCase):

@@ -13,9 +13,13 @@ from __future__ import unicode_literals
 
 import unittest
 
+import pytest
+
 from opensearchpy.helpers.test import OPENSEARCH_VERSION
 
 from .. import AsyncOpenSearchTestCase
+
+pytestmark = pytest.mark.asyncio
 
 
 class TestAlertingPlugin(AsyncOpenSearchTestCase):

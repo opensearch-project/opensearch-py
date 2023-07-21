@@ -52,7 +52,7 @@ class MetricSearch(AsyncFacetedSearch):
     }
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture(scope="function")
 def commit_search_cls(opensearch_version):
     interval_kwargs = {"fixed_interval": "1d"}
 
@@ -77,7 +77,7 @@ def commit_search_cls(opensearch_version):
     return CommitSearch
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture(scope="function")
 def repo_search_cls(opensearch_version):
     interval_type = "calendar_interval"
 
@@ -98,7 +98,7 @@ def repo_search_cls(opensearch_version):
     return RepoSearch
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture(scope="function")
 def pr_search_cls(opensearch_version):
     interval_type = "calendar_interval"
 
