@@ -39,6 +39,7 @@ from .indices import IndicesClient
 from .ingest import IngestClient
 from .nodes import NodesClient
 from .remote import RemoteClient
+from .security import SecurityClient
 from .snapshot import SnapshotClient
 from .tasks import TasksClient
 
@@ -54,6 +55,7 @@ class OpenSearch(object):
     ingest: IngestClient
     nodes: NodesClient
     remote: RemoteClient
+    security: SecurityClient
     snapshot: SnapshotClient
     tasks: TasksClient
     def __init__(
