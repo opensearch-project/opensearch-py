@@ -348,7 +348,7 @@ class Search(Request):
     def exclude(self, *args, **kwargs):
         return self.query(Bool(filter=[~Q(*args, **kwargs)]))
 
-    def neuralQuery(self, query, fields, model_id):
+    def neuralQuery(self, query, fields):
         neural_queries = []
 
         for field in fields:
@@ -360,7 +360,6 @@ class Search(Request):
                         **{
                             field: {
                                 "query_text": query,
-                                "model_id": model_id,
                             }
                         },
                         script={"source": "_score"}
