@@ -361,9 +361,9 @@ class Search(Request):
                             field: {
                                 "query_text": query,
                             }
-                        },
-                        script={"source": "_score"}
+                        }
                     ),
+                    script={"source": "_score"}
                 )
             )
 
