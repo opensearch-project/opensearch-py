@@ -350,15 +350,17 @@ class Search(Request):
 
     def neuralQuery(self, query, fields):
         neural_queries = []
+        reserved_embedding_field_name_ending = "_retake_embedding"
 
         for field in fields:
+            vector_field = f"{field}{reserved_embedding_field_name_ending}"
             neural_queries.append(
                 Q(
                     "script_score",
                     query=Q(
                         "neural",
                         **{
-                            field: {
+                            vector_field: {
                                 "query_text": query,
                             }
                         }
