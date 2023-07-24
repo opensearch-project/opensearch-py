@@ -1,3 +1,12 @@
+- [Index Lifecycle](#index-lifecycle)
+  - [Setup](#setup)
+  - [Index API Actions](#index-api-actions)
+    - [Create a New Index](#create-a-new-index)
+    - [Update an Index](#update-an-index)
+    - [Get Metadata for an Index](#get-metadata-for-an-index)
+    - [Delete an Index](#delete-an-index)
+  - [Cleanup](#cleanup)
+
 # Index Lifecycle
 
 This guide covers OpenSearch Python Client API actions for Index Lifecycle. You'll learn how to create, read, update, and delete indices in your OpenSearch cluster. We will also leverage index templates to create default settings and mappings for indices of certain patterns.
@@ -29,7 +38,7 @@ print(client.info())  # Check server info and make sure the client is connected
 
 ## Index API Actions
 
-### Create a new index
+### Create a New Index
 
 You can quickly create an index with default settings and mappings by using the `indices.create` API action. The following example creates an index named `paintings` with default settings and mappings:
 

@@ -1,16 +1,29 @@
+- [Search](#search)
+  - [Setup](#setup)
+  - [Search API](#search-api)
+    - [Basic Search](#basic-search)
+    - [Basic Pagination](#basic-pagination)
+    - [Pagination with Scroll](#pagination-with-scroll)
+    - [Pagination with Point in Time](#pagination-with-point-in-time)
+  - [Cleanup](#cleanup)
+
 # Search
+
 OpenSearch provides a powerful search API that allows you to search for documents in an index. The search API supports a number of parameters that allow you to customize the search operation. In this guide, we will explore the search API and its parameters.
 
-# Setup
+## Setup
+
 Let's start by creating an index and adding some documents to it:
 
 ```python
 from opensearchpy import OpenSearch
-# Create an OpenSearch client
+# create an OpenSearch client
 client = OpenSearch(hosts=['localhost'])
-# Create an index
+
+# create an index
 client.indices.create(index='movies')
-# Add 10 documents to the index
+
+# add 10 documents to the index
 for i in range(10):
     client.index(
         index='movies',
@@ -21,7 +34,8 @@ for i in range(10):
             'year': 2008 + i
         }
     )
-# Add additional documents to the index
+
+# add additional documents to the index
 client.index(
     index='movies',
     body={
@@ -30,6 +44,7 @@ client.index(
         'year': 1972
     }
 )
+
 client.index(
     index='movies',
     body={
@@ -38,7 +53,8 @@ client.index(
         'year': 1994
     }
 )
-# Refresh the index to make the documents searchable
+
+# refresh the index to make the documents searchable
 client.indices.refresh(index='movies')
 ```
 
@@ -49,18 +65,20 @@ client.indices.refresh(index='movies')
 The search API allows you to search for documents in an index. The following example searches for ALL documents in the `movies` index:
 
 ```python
-# Search for all documents in the 'movies' index
+# search for all documents in the 'movies' index
 response = client.search(index='movies')
-# Extract the count of hits from the response
+
+# extract the count of hits from the response
 hits_count = response['hits']['total']['value']
-# Print the count of hits
+
+# print the count of hits
 print("Total Hits: ", hits_count)
 ```
 
 You can also search for documents that match a specific query. The following example searches for documents that match the query `dark knight`:
 
 ```python
-# Define the query
+# define the query
 query = {
     "query": {
         "match": {
@@ -68,23 +86,26 @@ query = {
         }
     }
 }
-# Search for documents in the 'movies' index with the given query
+
+# search for documents in the 'movies' index with the given query
 response = client.search(index='movies', body=query)
-# Extract the hits from the response
+
+# extract the hits from the response
 hits = response['hits']['hits']
-# Print the hits
+
+# print the hits
 for hit in hits:
     print(hit)
 ```
 
-OpenSearch query DSL allows you to specify complex queries. Check out the [OpenSearch query DSL documentation](https://opensearch.org/docs/latest/query-dsl/) for more information.
+OpenSearch query DSL allows you to specify more complex queries. Check out the [OpenSearch query DSL documentation](https://opensearch.org/docs/latest/query-dsl/) for more information.
 
 ### Basic Pagination
 
 The search API allows you to paginate through the search results. The following example searches for documents that match the query `dark knight`, sorted by `year` in ascending order, and returns the first 2 results after skipping the first 5 results:
 
 ```python
-# Define the search query with sorting and pagination options
+# define the search query with sorting and pagination options
 search_body = {
     "query": {
         "match": {
@@ -99,17 +120,19 @@ search_body = {
         }
     ]
 }
-# Perform the search operation on the 'movies' index with the defined query and pagination options
+
+# perform the search operation on the 'movies' index with the defined query and pagination options
 response = client.search(
     index='movies',
     size=2,
     from_=5,
     body=search_body
 )
-# Extract the hits from the response
+
+# extract the hits from the response
 hits = response['hits']['hits']
 
-# Print the hits
+# print the hits
 for hit in hits:
     print(hit)
 ```
@@ -117,7 +140,7 @@ for hit in hits:
 With sorting, you can also use the `search_after` parameter to paginate through the search results. Let's say you have already displayed the first page of results, and you want to display the next page. You can use the `search_after` parameter to paginate through the search results. The following example will demonstrate how to get the first 3 pages of results using the search query of the previous example:
 
 ```python
-# Define the search query with sorting and pagination options
+# define the search query with sorting and pagination options
 search_body = {
     "query": {
         "match": {
@@ -133,32 +156,39 @@ search_body = {
     ],
     "size": 2
 }
-# Perform the search operation on the 'movies' index with the defined query and pagination options
+
+# perform the search operation on the 'movies' index with the defined query and pagination options
 response = client.search(
     index='movies',
     body=search_body
 )
-# Extract the hits from the response
+
+# extract the hits from the response
 hits = response['hits']['hits']
-# Get the last sort value from the first page
+
+# get the last sort value from the first page
 search_after = hits[-1]['sort']
-# Fetch page 2
+
+# fetch page 2
 search_body["search_after"] = search_after
 response = client.search(
     index='movies',
     body=search_body
 )
 hits_page_2 = response['hits']['hits']
-# Get the last sort value from page 2
+
+# get the last sort value from page 2
 search_after = hits_page_2[-1]['sort']
-# Fetch page 3
+
+# fetch page 3
 search_body["search_after"] = search_after
 response = client.search(
     index='movies',
     body=search_body
 )
+
 hits_page_3 = response['hits']['hits']
-# Print the hits from each page
+# print the hits from each page
 print("Page 1:")
 for hit in hits:
     print(hit)
@@ -170,13 +200,12 @@ for hit in hits_page_3:
     print(hit)
 ```
 
-
-### Pagination with scroll
+### Pagination with Scroll
 
 When retrieving large amounts of non-real-time data, you can use the `scroll` parameter to paginate through the search results. 
 
 ```python
-# Define the search query with scroll and pagination options
+# define the search query with scroll and pagination options
 search_body = {
     "query": {
         "match": {
@@ -185,40 +214,44 @@ search_body = {
     },
     "size": 2
 }
-# Perform the initial search operation on the 'movies' index with the defined query and scroll options
+
+# perform the initial search operation on the 'movies' index with the defined query and scroll options
 page_1 = client.search(
     index='movies',
     scroll='1m',
     body=search_body
 )
-# Extract the scroll_id from the response
+
+# extract the scroll_id from the response
 scroll_id = page_1['_scroll_id']
-# Perform the scroll operation to get the next page of results
+
+# perform the scroll operation to get the next page of results
 page_2 = client.scroll(
     scroll_id=scroll_id,
     scroll='1m'
 )
-# Extract the scroll_id from the response
+
+# extract the scroll_id from the response
 scroll_id = page_2['_scroll_id']
-# Perform another scroll operation to get the third page of results
+
+# perform another scroll operation to get the third page of results
 page_3 = client.scroll(
     scroll_id=scroll_id,
     scroll='1m'
 )
-# Extract the hits from each page of results
+
+# extract the hits from each page of results
 hits_page_1 = page_1['hits']['hits']
 hits_page_2 = page_2['hits']['hits']
 hits_page_3 = page_3['hits']['hits']
 ```
-
-
 
 ### Pagination with Point in Time
 
 The scroll example above has one weakness: if the index is updated while you are scrolling through the results, they will be paginated inconsistently. To avoid this, you should use the "Point in Time" feature. The following example demonstrates how to use the `point_in_time` and `pit_id` parameters to paginate through the search results:
 
 ```python
-# Define the search query with sorting and pagination options
+# define the search query with sorting and pagination options
 search_body = {
     "query": {
         "match": {
@@ -233,20 +266,24 @@ search_body = {
         }
     ]
 }
+
 # create a point in time
 pit = client.create_point_in_time(
   index = 'movies',
   keep_alive = '1m'
 )
-# Include pit info in the search body
+
+# include pit info in the search body
 search_body.update(
-  {'pit': {
-    'id': pit['pit_id'],
-    'keep_alive': '1m'
-  }
-  })
+    {
+        'pit': {
+            'id': pit['pit_id'],
+            'keep_alive': '1m'
+        }
+    }
+)
 pit_search_body = search_body
-# Get the first 3 pages of results
+# get the first 3 pages of results
 page_1 = client.search(
   size = 2,
   body = pit_search_body
@@ -261,10 +298,12 @@ page_3 = client.search(
   size = 2,
   body = pit_search_body
 )['hits']['hits']
-# Print out the titles of the first 3 pages of results
+
+# print out the titles of the first 3 pages of results
 print([hit['_source']['title'] for hit in page_1])
 print([hit['_source']['title'] for hit in page_2])
 print([hit['_source']['title'] for hit in page_3])
+
 # delete the point in time
 client.delete_point_in_time(body = { 'pit_id': pit['pit_id'] })
 ```
