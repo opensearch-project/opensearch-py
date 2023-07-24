@@ -7,7 +7,6 @@
 # Modifications Copyright OpenSearch Contributors. See
 # GitHub history for details.
 
-import asyncio
 import re
 from datetime import datetime
 
@@ -34,21 +33,14 @@ from test_opensearchpy.test_async.test_server.test_helpers.test_document import 
 pytestmark = pytest.mark.asyncio
 
 
-@pytest.fixture(scope="session")
-def event_loop():
-    loop = asyncio.get_event_loop()
-    yield loop
-    loop.close()
-
-
-@fixture(scope="session")
+@fixture(scope="function")
 async def client():
     client = await get_test_client(verify_certs=False, http_auth=("admin", "admin"))
     await add_connection("default", client)
     return client
 
 
-@fixture(scope="session")
+@fixture(scope="function")
 async def opensearch_version(client):
     info = await client.info()
     print(info)
