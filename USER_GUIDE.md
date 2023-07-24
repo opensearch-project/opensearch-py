@@ -161,4 +161,5 @@ print(response)
 
 - [Security](guides/plugins/security.md) 
 - [Alerting](guides/plugins/alerting.md) 
-- [Index Management](guides/plugins/index_management.md) 
+- [Index Management](guides/plugins/index_management.md)
+- [k-NN](guides/plugins/knn.md)

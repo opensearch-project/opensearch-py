@@ -1,6 +1,10 @@
 #!/usr/bin/env python
 
-# A basic OpenSearch "Hello World" sample that prints the version of the server.
+# SPDX-License-Identifier: Apache-2.0
+#
+# The OpenSearch Contributors require contributions made to
+# this file be licensed under the Apache-2.0 license or a
+# compatible open source license.
 
 from opensearchpy import OpenSearch
 

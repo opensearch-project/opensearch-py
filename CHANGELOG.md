@@ -18,6 +18,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - Added support for latest OpenSearch versions 2.7.0, 2.8.0 ([#445](https://github.com/opensearch-project/opensearch-py/pull/445))
 - Added samples ([#447](https://github.com/opensearch-project/opensearch-py/pull/447))
 - Improved CI performance of integration with unreleased OpenSearch ([#318](https://github.com/opensearch-project/opensearch-py/pull/318))
+- Added k-NN guide and samples ([#449](https://github.com/opensearch-project/opensearch-py/pull/449))
 ### Changed
 - Moved security from `plugins` to `clients` ([#442](https://github.com/opensearch-project/opensearch-py/pull/442))
 ### Deprecated
