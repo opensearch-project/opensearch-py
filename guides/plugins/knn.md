@@ -12,7 +12,7 @@ Short for k-nearest neighbors, the k-NN plugin enables users to search for the k
 
 ## Basic Approximate k-NN
 
-In the following example we create a 5-dimensional k-NN index with random data. You can find this working sample in [samples/knn/knn-basics.py](../../samples/knn/knn-basics.py).
+In the following example we create a 5-dimensional k-NN index with random data. You can find a synchronous version of this working sample in [samples/knn/knn-basics.py](../../samples/knn/knn-basics.py) and an asynchronous one in [samples/knn/knn-async-basics.py](../../samples/knn/knn-async-basics.py).
 
 ```bash
 $ poetry run knn/knn-basics.py

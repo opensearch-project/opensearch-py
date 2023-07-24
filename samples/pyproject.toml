@@ -8,7 +8,7 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.7"
-opensearch-py = { path = "../" }
+opensearch-py = { path = "../", extras=["async"] }
 
 [build-system]
 requires = ["poetry-core"]
