@@ -104,12 +104,12 @@ Searching for [0.08, 0.42, 0.04, 0.76, 0.41] with the 'romance' genre ...
 {'_index': 'my-index', '_id': '2816', '_score': 0.95256233, '_source': {'values': [0.22, 0.36, 0.01, 0.75, 0.57], 'metadata': {'genre': 'romance'}}}
 ```
 
-## Approximate k-NN with a Lucene Filter
+## Approximate k-NN with an Efficient Filter
 
-In [the lucene-filter.py sample](../../samples/knn/knn-lucene-filter.py) we implement the example in [the k-NN documentation](https://opensearch.org/docs/latest/search-plugins/knn/filter-search-knn/), which creates an index that uses the Lucene engine and HNSW as the method in the mapping, containing hotel location and parking data, then search for the top three hotels near the location with the coordinates `[5, 4]` that are rated between 8 and 10, inclusive, and provide parking.
+In [the lucene-filter.py sample](../../samples/knn/knn-efficient-filter.py) we implement the example in [the k-NN documentation](https://opensearch.org/docs/latest/search-plugins/knn/filter-search-knn/), which creates an index that uses the Lucene engine and HNSW as the method in the mapping, containing hotel location and parking data, then search for the top three hotels near the location with the coordinates `[5, 4]` that are rated between 8 and 10, inclusive, and provide parking.
 
 ```bash
-$ poetry run knn/knn-lucene-filter.py
+$ poetry run knn/knn-efficient-filter.py
 
 {'_index': 'hotels-index', '_id': '3', '_score': 0.72992706, '_source': {'location': [4.9, 3.4], 'parking': 'true', 'rating': 9}}
 {'_index': 'hotels-index', '_id': '6', '_score': 0.3012048, '_source': {'location': [6.4, 3.4], 'parking': 'true', 'rating': 9}}
