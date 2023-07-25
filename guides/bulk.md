@@ -24,6 +24,25 @@ docs = '''
 {"name": "baz"}
 '''
 
+response = client.bulk(docs)
+if response["errors"]:
+    print(f"There were errors!")
+else:
+    print(f"Bulk-inserted {len(rc['items'])} items.")
+```
+
+The client can also serialize an array of data into bulk-delimited JSON for you. See [samples/bulk/bulk-array.py](../samples/bulk/bulk-array.py) for a working sample.
+
+```python
+data = [
+    { "index": { "_index": "index-2022-06-08", "_id": 1 }}
+    { "name": "foo"} 
+    { "index": { "_index": "index-2022-06-09", "_id": 2 }}
+    { "name": "bar"}
+    { "index": { "_index": "index-2022-06-10", "_id": 3 }}
+    { "name": "baz"}
+]
+
 response = client.bulk(data)
 if response["errors"]:
     print(f"There were errors!")
