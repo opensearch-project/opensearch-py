@@ -111,58 +111,63 @@ def run_all(argv=None):
         if environ.get("OPENSEARCH_URL", "").startswith("https://"):
             secured = True
 
-        ignores = []
-        # Python 3.6+ is required for async
-        if sys.version_info < (3, 6):
-            ignores.append("test_opensearchpy/test_async/")
+        # check TEST_PATTERN env var for specific test to run
+        test_pattern = environ.get("TEST_PATTERN")
+        if test_pattern:
+            argv.append("-k %s" % test_pattern)
+        else:
+            ignores = []
+            # Python 3.6+ is required for async
+            if sys.version_info < (3, 6):
+                ignores.append("test_opensearchpy/test_async/")
 
-        ignores.extend(
-            [
-                "test_opensearchpy/test_server/",
-                "test_opensearchpy/test_server_secured/",
-                "test_opensearchpy/test_async/test_server/",
-                "test_opensearchpy/test_async/test_server_secured/",
-            ]
-        )
-
-        # Jenkins/Github actions, only run server tests
-        if environ.get("TEST_TYPE") == "server":
-            test_dir = abspath(dirname(__file__))
-            if secured:
-                argv.append(join(test_dir, "test_server_secured"))
-                if sys.version_info >= (3, 6):
-                    argv.append(join(test_dir, "test_async/test_server_secured"))
-                ignores.extend(
-                    [
-                        "test_opensearchpy/test_server/",
-                        "test_opensearchpy/test_async/test_server/",
-                    ]
-                )
-            else:
-                argv.append(join(test_dir, "test_server"))
-                if sys.version_info >= (3, 6):
-                    argv.append(join(test_dir, "test_async/test_server"))
-                ignores.extend(
-                    [
-                        "test_opensearchpy/test_server_secured/",
-                    ]
-                )
-
-        # There are no plugins for unreleased versions of opensearch
-        if environ.get("OPENSEARCH_VERSION") == "SNAPSHOT":
             ignores.extend(
                 [
-                    "test_opensearchpy/test_server/test_plugins/",
-                    "test_opensearchpy/test_async/test_server/test_plugins/",
+                    "test_opensearchpy/test_server/",
+                    "test_opensearchpy/test_server_secured/",
+                    "test_opensearchpy/test_async/test_server/",
+                    "test_opensearchpy/test_async/test_server_secured/",
                 ]
             )
 
-        if ignores:
-            argv.extend(["--ignore=%s" % ignore for ignore in ignores])
+            # Jenkins/Github actions, only run server tests
+            if environ.get("TEST_TYPE") == "server":
+                test_dir = abspath(dirname(__file__))
+                if secured:
+                    argv.append(join(test_dir, "test_server_secured"))
+                    if sys.version_info >= (3, 6):
+                        argv.append(join(test_dir, "test_async/test_server_secured"))
+                    ignores.extend(
+                        [
+                            "test_opensearchpy/test_server/",
+                            "test_opensearchpy/test_async/test_server/",
+                        ]
+                    )
+                else:
+                    argv.append(join(test_dir, "test_server"))
+                    if sys.version_info >= (3, 6):
+                        argv.append(join(test_dir, "test_async/test_server"))
+                    ignores.extend(
+                        [
+                            "test_opensearchpy/test_server_secured/",
+                        ]
+                    )
 
-        # Not in CI, run all tests specified.
-        else:
-            argv.append(abspath(dirname(__file__)))
+            # There are no plugins for unreleased versions of opensearch
+            if environ.get("OPENSEARCH_VERSION") == "SNAPSHOT":
+                ignores.extend(
+                    [
+                        "test_opensearchpy/test_server/test_plugins/",
+                        "test_opensearchpy/test_async/test_server/test_plugins/",
+                    ]
+                )
+
+            if ignores:
+                argv.extend(["--ignore=%s" % ignore for ignore in ignores])
+
+            # Not in CI, run all tests specified.
+            else:
+                argv.append(abspath(dirname(__file__)))
 
     exit_code = 0
     try:

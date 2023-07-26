@@ -17,6 +17,8 @@ $ python --version
 Python 3.11.1
 ```
 
+You can install dev requirements with `pip install -r dev-requirements.txt`, but it's better to use the docker setup described below.
+
 Install [Nox](https://nox.thea.codes/en/stable/) for task management.
 
 ```
@@ -67,6 +69,16 @@ The following example runs tests against the latest SNAPSHOT build of OpenSearch
 
 ```
 ./.ci/run-tests opensearch false SNAPSHOT
+```
+
+You can also run individual tests matching a pattern (`pytest -k [pattern]`). 
+
+```
+./.ci/run-tests true 1.3.0 test_no_http_compression
+
+test_opensearchpy/test_connection.py::TestUrllib3Connection::test_no_http_compression PASSED [ 33%]
+test_opensearchpy/test_connection.py::TestRequestsConnection::test_no_http_compression PASSED [ 66%]
+test_opensearchpy/test_async/test_connection.py::TestAIOHttpConnection::test_no_http_compression PASSED [100%]
 ```
 
 Note that integration tests require docker to be installed and running, and downloads quite a bit of data from over the internet and hence take few minutes to complete.
