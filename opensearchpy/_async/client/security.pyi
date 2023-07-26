@@ -16,8 +16,7 @@ class SecurityClient(NamespacedClient):
     ) -> Any: ...
     async def change_password(
         self,
-        current_password: Any,
-        current_papasswordssword: Any,
+        body: Any,
         params: Union[Any, None] = ...,
         headers: Union[Any, None] = ...,
     ) -> Any: ...
@@ -36,7 +35,7 @@ class SecurityClient(NamespacedClient):
         params: Union[Any, None] = ...,
         headers: Union[Any, None] = ...,
     ) -> Any: ...
-    async def put_action_group(
+    async def create_action_group(
         self,
         action_group: Any,
         body: Any,
@@ -68,7 +67,7 @@ class SecurityClient(NamespacedClient):
         params: Union[Any, None] = ...,
         headers: Union[Any, None] = ...,
     ) -> Any: ...
-    async def put_user(
+    async def create_user(
         self,
         username: Any,
         body: Any,
@@ -94,7 +93,7 @@ class SecurityClient(NamespacedClient):
     async def delete_role(
         self, role: Any, params: Union[Any, None] = ..., headers: Union[Any, None] = ...
     ) -> Any: ...
-    async def put_role(
+    async def create_role(
         self, role: Any, params: Union[Any, None] = ..., headers: Union[Any, None] = ...
     ) -> Any: ...
     async def patch_role(
@@ -109,10 +108,10 @@ class SecurityClient(NamespacedClient):
     async def get_role_mappings(
         self, params: Union[Any, None] = ..., headers: Union[Any, None] = ...
     ) -> Any: ...
-    async def delete_role_mappings(
+    async def delete_role_mapping(
         self, role: Any, params: Union[Any, None] = ..., headers: Union[Any, None] = ...
     ) -> Any: ...
-    async def put_role_mappings(
+    async def create_role_mapping(
         self, role: Any, params: Union[Any, None] = ..., headers: Union[Any, None] = ...
     ) -> Any: ...
     async def patch_role_mapping(
@@ -136,7 +135,7 @@ class SecurityClient(NamespacedClient):
         params: Union[Any, None] = ...,
         headers: Union[Any, None] = ...,
     ) -> Any: ...
-    async def put_tenant(
+    async def create_tenant(
         self,
         tenant: Any,
         body: Any,
@@ -156,7 +155,7 @@ class SecurityClient(NamespacedClient):
     async def get_configuration(
         self, params: Union[Any, None] = ..., headers: Union[Any, None] = ...
     ) -> Any: ...
-    async def put_configuration(
+    async def update_configuration(
         self, body: Any, params: Union[Any, None] = ..., headers: Union[Any, None] = ...
     ) -> Any: ...
     async def patch_configuration(
@@ -168,7 +167,7 @@ class SecurityClient(NamespacedClient):
         params: Union[Any, None] = ...,
         headers: Union[Any, None] = ...,
     ) -> Any: ...
-    async def put_distinguished_names(
+    async def update_distinguished_names(
         self,
         cluster_name: Any,
         body: Any,
@@ -199,7 +198,7 @@ class SecurityClient(NamespacedClient):
     async def get_audit_configuration(
         self, params: Union[Any, None] = ..., headers: Union[Any, None] = ...
     ) -> Any: ...
-    async def put_audit_configuration(
+    async def update_audit_config(
         self, body: Any, params: Union[Any, None] = ..., headers: Union[Any, None] = ...
     ) -> Any: ...
     async def patch_audit_configuration(

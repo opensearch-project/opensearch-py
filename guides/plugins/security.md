@@ -26,7 +26,7 @@ role_content = {
   ],
 }
 
-response = client.security.put_role(role_name, body=role_content)
+response = client.security.create_role(role_name, body=role_content)
 print(response)
 ```
 
@@ -45,7 +45,7 @@ print(response)
 user_name = "test-user"
 user_content = {"password": "test_password", "opendistro_security_roles": []}
 
-response = client.security.put_role(user_name, body=user_content)
+response = client.security.create_user(user_name, body=user_content)
 print(response)
 ```
 

@@ -20,6 +20,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - Improved CI performance of integration with unreleased OpenSearch ([#318](https://github.com/opensearch-project/opensearch-py/pull/318))
 ### Changed
 - Moved security from `plugins` to `clients` ([#442](https://github.com/opensearch-project/opensearch-py/pull/442))
+- Updated Security Client APIs ([#450](https://github.com/opensearch-project/opensearch-py/pull/450))
 ### Deprecated
 ### Removed
 - Removed support for Python 2.7 ([#421](https://github.com/opensearch-project/opensearch-py/pull/421))
