@@ -24,21 +24,19 @@ class SecurityClient(NamespacedClient):
         )
 
     @query_params()
-    async def change_password(
-        self, current_password, password, params=None, headers=None
-    ):
+    async def change_password(self, body, params=None, headers=None):
         """
         Changes the password for the current user.
         """
+        if body in SKIP_IN_PATH:
+            raise ValueError("Empty value passed for a required argument 'body'.")
+
         return await self.transport.perform_request(
             "PUT",
             _make_path("_plugins", "_security", "api", "account"),
             params=params,
             headers=headers,
-            body={
-                "current_password": current_password,
-                "password": password,
-            },
+            body=body,
         )
 
     @query_params()
@@ -88,14 +86,13 @@ class SecurityClient(NamespacedClient):
         )
 
     @query_params()
-    async def put_action_group(self, action_group, body, params=None, headers=None):
+    async def create_action_group(self, action_group, body, params=None, headers=None):
         """
         Creates or replaces the specified action group.
         """
-        if action_group in SKIP_IN_PATH:
-            raise ValueError(
-                "Empty value passed for a required argument 'action-group'."
-            )
+        for param in (action_group, body):
+            if param in SKIP_IN_PATH:
+                raise ValueError("Empty value passed for a required argument.")
 
         return await self.transport.perform_request(
             "PUT",
@@ -110,10 +107,9 @@ class SecurityClient(NamespacedClient):
         """
         Updates individual attributes of an action group.
         """
-        if action_group in SKIP_IN_PATH:
-            raise ValueError(
-                "Empty value passed for a required argument 'action-group'."
-            )
+        for param in (action_group, body):
+            if param in SKIP_IN_PATH:
+                raise ValueError("Empty value passed for a required argument.")
 
         return await self.transport.perform_request(
             "PATCH",
@@ -128,6 +124,9 @@ class SecurityClient(NamespacedClient):
         """
         Creates, updates, or deletes multiple action groups in a single call.
         """
+        if body in SKIP_IN_PATH:
+            raise ValueError("Empty value passed for a required argument 'body'.")
+
         return await self.transport.perform_request(
             "PATCH",
             _make_path("_plugins", "_security", "api", "actiongroups"),
@@ -179,12 +178,13 @@ class SecurityClient(NamespacedClient):
         )
 
     @query_params()
-    async def put_user(self, username, body, params=None, headers=None):
+    async def create_user(self, username, body, params=None, headers=None):
         """
         Creates or replaces the specified user.
         """
-        if username in SKIP_IN_PATH:
-            raise ValueError("Empty value passed for a required argument 'username'.")
+        for param in (username, body):
+            if param in SKIP_IN_PATH:
+                raise ValueError("Empty value passed for a required argument.")
 
         return await self.transport.perform_request(
             "PUT",
@@ -199,8 +199,9 @@ class SecurityClient(NamespacedClient):
         """
         Updates individual attributes of an internal user.
         """
-        if username in SKIP_IN_PATH:
-            raise ValueError("Empty value passed for a required argument 'username'.")
+        for param in (username, body):
+            if param in SKIP_IN_PATH:
+                raise ValueError("Empty value passed for a required argument.")
 
         return await self.transport.perform_request(
             "PATCH",
@@ -215,6 +216,9 @@ class SecurityClient(NamespacedClient):
         """
         Creates, updates, or deletes multiple internal users in a single call.
         """
+        if body in SKIP_IN_PATH:
+            raise ValueError("Empty value passed for a required argument 'body'.")
+
         return await self.transport.perform_request(
             "PATCH",
             _make_path("_plugins", "_security", "api", "internalusers"),
@@ -266,12 +270,13 @@ class SecurityClient(NamespacedClient):
         )
 
     @query_params()
-    async def put_role(self, role, body, params=None, headers=None):
+    async def create_role(self, role, body, params=None, headers=None):
         """
         Creates or replaces the specified role.
         """
-        if role in SKIP_IN_PATH:
-            raise ValueError("Empty value passed for a required argument 'role'.")
+        for param in (role, body):
+            if param in SKIP_IN_PATH:
+                raise ValueError("Empty value passed for a required argument.")
 
         return await self.transport.perform_request(
             "PUT",
@@ -286,8 +291,9 @@ class SecurityClient(NamespacedClient):
         """
         Updates individual attributes of a role.
         """
-        if role in SKIP_IN_PATH:
-            raise ValueError("Empty value passed for a required argument 'role'.")
+        for param in (role, body):
+            if param in SKIP_IN_PATH:
+                raise ValueError("Empty value passed for a required argument.")
 
         return await self.transport.perform_request(
             "PATCH",
@@ -302,6 +308,9 @@ class SecurityClient(NamespacedClient):
         """
         Creates, updates, or deletes multiple roles in a single call.
         """
+        if body in SKIP_IN_PATH:
+            raise ValueError("Empty value passed for a required argument 'body'.")
+
         return await self.transport.perform_request(
             "PATCH",
             _make_path("_plugins", "_security", "api", "roles"),
@@ -338,7 +347,7 @@ class SecurityClient(NamespacedClient):
         )
 
     @query_params()
-    async def delete_role_mappings(self, role, params=None, headers=None):
+    async def delete_role_mapping(self, role, params=None, headers=None):
         """
         Deletes the specified role mapping.
         """
@@ -353,12 +362,13 @@ class SecurityClient(NamespacedClient):
         )
 
     @query_params()
-    async def put_role_mappings(self, role, body, params=None, headers=None):
+    async def create_role_mapping(self, role, body, params=None, headers=None):
         """
         Creates or replaces the specified role mapping.
         """
-        if role in SKIP_IN_PATH:
-            raise ValueError("Empty value passed for a required argument 'role'.")
+        for param in (role, body):
+            if param in SKIP_IN_PATH:
+                raise ValueError("Empty value passed for a required argument.")
 
         return await self.transport.perform_request(
             "PUT",
@@ -373,8 +383,9 @@ class SecurityClient(NamespacedClient):
         """
         Updates individual attributes of a role mapping.
         """
-        if role in SKIP_IN_PATH:
-            raise ValueError("Empty value passed for a required argument 'role'.")
+        for param in (role, body):
+            if param in SKIP_IN_PATH:
+                raise ValueError("Empty value passed for a required argument.")
 
         return await self.transport.perform_request(
             "PATCH",
@@ -389,6 +400,9 @@ class SecurityClient(NamespacedClient):
         """
         Creates or updates multiple role mappings in a single call.
         """
+        if body in SKIP_IN_PATH:
+            raise ValueError("Empty value passed for a required argument 'body'.")
+
         return await self.transport.perform_request(
             "PATCH",
             _make_path("_plugins", "_security", "api", "rolesmapping"),
@@ -440,12 +454,13 @@ class SecurityClient(NamespacedClient):
         )
 
     @query_params()
-    async def put_tenant(self, tenant, body, params=None, headers=None):
+    async def create_tenant(self, tenant, body, params=None, headers=None):
         """
         Creates or replaces the specified tenant.
         """
-        if tenant in SKIP_IN_PATH:
-            raise ValueError("Empty value passed for a required argument 'tenant'.")
+        for param in (tenant, body):
+            if param in SKIP_IN_PATH:
+                raise ValueError("Empty value passed for a required argument.")
 
         return await self.transport.perform_request(
             "PUT",
@@ -460,8 +475,9 @@ class SecurityClient(NamespacedClient):
         """
         Add, delete, or modify a single tenant.
         """
-        if tenant in SKIP_IN_PATH:
-            raise ValueError("Empty value passed for a required argument 'tenant'.")
+        for param in (tenant, body):
+            if param in SKIP_IN_PATH:
+                raise ValueError("Empty value passed for a required argument.")
 
         return await self.transport.perform_request(
             "PATCH",
@@ -476,6 +492,9 @@ class SecurityClient(NamespacedClient):
         """
         Add, delete, or modify multiple tenants in a single call.
         """
+        if body in SKIP_IN_PATH:
+            raise ValueError("Empty value passed for a required argument 'body'.")
+
         return await self.transport.perform_request(
             "PATCH",
             _make_path("_plugins", "_security", "api", "tenants"),
@@ -497,10 +516,13 @@ class SecurityClient(NamespacedClient):
         )
 
     @query_params()
-    async def put_configuration(self, body, params=None, headers=None):
+    async def update_configuration(self, body, params=None, headers=None):
         """
         Retrieves the current Security plugin configuration in JSON format.
         """
+        if body in SKIP_IN_PATH:
+            raise ValueError("Empty value passed for a required argument 'body'.")
+
         return await self.transport.perform_request(
             "PUT",
             _make_path("_plugins", "_security", "api", "securityconfig", "config"),
@@ -514,6 +536,9 @@ class SecurityClient(NamespacedClient):
         """
         Updates the existing configuration using the REST API.
         """
+        if body in SKIP_IN_PATH:
+            raise ValueError("Empty value passed for a required argument 'body'.")
+
         return await self.transport.perform_request(
             "PATCH",
             _make_path("_plugins", "_security", "api", "securityconfig"),
@@ -537,16 +562,15 @@ class SecurityClient(NamespacedClient):
         )
 
     @query_params()
-    async def put_distinguished_names(
+    async def update_distinguished_names(
         self, cluster_name, body, params=None, headers=None
     ):
         """
         Adds or updates the specified distinguished names in the cluster's or node's allow list.
         """
-        if cluster_name in SKIP_IN_PATH:
-            raise ValueError(
-                "Empty value passed for a required argument 'cluster-name'."
-            )
+        for param in (cluster_name, body):
+            if param in SKIP_IN_PATH:
+                raise ValueError("Empty value passed for a required argument.")
 
         return await self.transport.perform_request(
             "PUT",
@@ -648,10 +672,13 @@ class SecurityClient(NamespacedClient):
         )
 
     @query_params()
-    async def put_audit_configuration(self, body, params=None, headers=None):
+    async def update_audit_config(self, body, params=None, headers=None):
         """
         A PUT call updates the audit configuration.
         """
+        if body in SKIP_IN_PATH:
+            raise ValueError("Empty value passed for a required argument 'body'.")
+
         return await self.transport.perform_request(
             "PUT",
             _make_path("_opendistro", "_security", "api", "audit", "config"),
@@ -665,6 +692,9 @@ class SecurityClient(NamespacedClient):
         """
         A PATCH call is used to update specified fields in the audit configuration.
         """
+        if body in SKIP_IN_PATH:
+            raise ValueError("Empty value passed for a required argument 'body'.")
+
         return await self.transport.perform_request(
             "PATCH",
             _make_path("_opendistro", "_security", "api", "audit"),

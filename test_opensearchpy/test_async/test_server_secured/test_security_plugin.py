@@ -52,12 +52,20 @@ class TestSecurityPlugin(IsolatedAsyncioTestCase):
 
     async def test_create_role(self):
         # Test to create role
-        response = await self.client.security.put_role(
+        response = await self.client.security.create_role(
             self.ROLE_NAME, body=self.ROLE_CONTENT
         )
 
         self.assertNotIn("errors", response)
         self.assertIn(response.get("status"), ["CREATED", "OK"])
+
+    async def test_create_role_with_body_param_empty(self):
+        try:
+            await self.client.security.create_role(self.ROLE_NAME, body="")
+        except ValueError as error:
+            assert str(error) == "Empty value passed for a required argument."
+        else:
+            assert False
 
     async def test_get_role(self):
         # Create a role
@@ -77,7 +85,7 @@ class TestSecurityPlugin(IsolatedAsyncioTestCase):
         role_content["cluster_permissions"] = ["cluster_all"]
 
         # Test to update role
-        response = await self.client.security.put_role(
+        response = await self.client.security.create_role(
             self.ROLE_NAME, body=role_content
         )
 
@@ -99,18 +107,26 @@ class TestSecurityPlugin(IsolatedAsyncioTestCase):
 
     async def test_create_user(self):
         # Test to create user
-        response = await self.client.security.put_user(
+        response = await self.client.security.create_user(
             self.USER_NAME, body=self.USER_CONTENT
         )
 
         self.assertNotIn("errors", response)
         self.assertIn(response.get("status"), ["CREATED", "OK"])
 
+    async def test_create_user_with_body_param_empty(self):
+        try:
+            await self.client.security.create_user(self.USER_NAME, body="")
+        except ValueError as error:
+            assert str(error) == "Empty value passed for a required argument."
+        else:
+            assert False
+
     async def test_create_user_with_role(self):
         await self.test_create_role()
 
         # Test to create user
-        response = await self.client.security.put_user(
+        response = await self.client.security.create_user(
             self.USER_NAME,
             body={
                 "password": "opensearchpy@123",
@@ -139,7 +155,7 @@ class TestSecurityPlugin(IsolatedAsyncioTestCase):
         user_content["password"] = "123@opensearchpy"
 
         # Test to update user
-        response = await self.client.security.put_user(
+        response = await self.client.security.create_user(
             self.USER_NAME, body=user_content
         )
 
