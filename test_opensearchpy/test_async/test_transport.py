@@ -34,7 +34,7 @@ import json
 import pytest
 from mock import patch
 
-from opensearchpy import AsyncTransport
+from opensearchpy import AIOHttpConnection, AsyncTransport
 from opensearchpy.connection import Connection
 from opensearchpy.connection_pool import DummyConnectionPool
 from opensearchpy.exceptions import ConnectionError, TransportError
@@ -543,3 +543,43 @@ class TestTransport:
 
         # A lot quicker than 10 seconds defined in 'delay'
         assert duration < 1
+
+    async def test_init_connection_pool_with_many_hosts(self):
+        """
+        Check init of connection pool with multiple connections.
+
+        NOTE: since AsyncTransport performs internal hosts sniffing
+        after building a connection the actual init of connection_class
+        instances is reallocated from AsyncTransport.__init__()
+        to AsyncTransport._async_init
+        """
+        amt_hosts = 4
+        hosts = [{"host": "localhost", "port": 9092}] * amt_hosts
+        t = AsyncTransport(
+            hosts=hosts,
+        )
+        await t._async_init()
+        assert len(t.connection_pool.connections) == amt_hosts
+        await t._async_call()
+
+    async def test_init_pool_with_connection_class_to_many_hosts(self):
+        """
+        Check init of connection pool with user specified connection_class.
+
+        NOTE: since AsyncTransport performs internal hosts sniffing
+        after building a connection the actual init of connection_class
+        instances is reallocated from AsyncTransport.__init__()
+        to AsyncTransport._async_init
+        """
+        amt_hosts = 4
+        hosts = [{"host": "localhost", "port": 9092}] * amt_hosts
+        t = AsyncTransport(
+            hosts=hosts,
+            connection_class=AIOHttpConnection,
+        )
+        await t._async_init()
+        assert len(t.connection_pool.connections) == amt_hosts
+        assert isinstance(
+            t.connection_pool.connections[0],
+            AIOHttpConnection,
+        )
