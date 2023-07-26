@@ -26,11 +26,7 @@ Then import it like any other module:
 from opensearchpy import OpenSearch
 ```
 
-For better performance we recommend the async client. To add the async client to your project, install it using [pip](https://pip.pypa.io/):
-
-```bash
-pip install opensearch-py[async]
-```
+For better performance we recommend the async client. See [Asynchronous I/O](guides/async.md) for more information.
 
 In general, we recommend using a package manager, such as [poetry](https://python-poetry.org/docs/), for your projects. This is the package manager used for [samples](samples).
 
@@ -61,7 +57,7 @@ info = client.info()
 print(f"Welcome to {info['version']['distribution']} {info['version']['number']}!")
 ```
 
-See [hello.py](samples/hello/hello.py) for a working sample, and [guides/ssl](guides/ssl.md) for how to setup SSL certificates.
+See [hello.py](samples/hello/hello.py) for a working synchronous sample, and [guides/ssl](guides/ssl.md) for how to setup SSL certificates.
 
 ### Creating an Index
 
@@ -148,6 +144,7 @@ print(response)
 
 ## Advanced Features
 
+- [Asynchronous I/O](guides/async.md)
 - [Authentication (IAM, SigV4)](guides/auth.md)
 - [Configuring SSL](guides/ssl.md)
 - [Bulk Indexing](guides/bulk.md)
@@ -161,4 +158,5 @@ print(response)
 
 - [Security](guides/plugins/security.md) 
 - [Alerting](guides/plugins/alerting.md) 
-- [Index Management](guides/plugins/index_management.md) 
+- [Index Management](guides/plugins/index_management.md)
+- [k-NN](guides/plugins/knn.md)
