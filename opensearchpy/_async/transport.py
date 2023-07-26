@@ -54,7 +54,6 @@ class AsyncTransport(Transport):
     """
 
     DEFAULT_CONNECTION_CLASS = AIOHttpConnection
-    DEFAULT_HOSTS_PARENT_CLASS_ARG = []
 
     def __init__(
         self,

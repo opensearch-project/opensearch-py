@@ -544,9 +544,6 @@ class TestTransport:
         # A lot quicker than 10 seconds defined in 'delay'
         assert duration < 1
 
-    def __assure_connection_pool_create(self, t: AsyncTransport, amt_connection):
-        assert len(t.connection_pool.connections) == amt_connection
-
     async def test_init_connection_pool_with_many_hosts(self):
         """
         Check init of connection pool with multiple connections.
@@ -562,10 +559,7 @@ class TestTransport:
             hosts=hosts,
         )
         await t._async_init()
-        self.__assure_connection_pool_create(
-            t=t,
-            amt_connection=amt_hosts,
-        )
+        assert len(t.connection_pool.connections) == amt_hosts
         await t._async_call()
 
     async def test_init_pool_with_connection_class_to_many_hosts(self):
@@ -584,10 +578,7 @@ class TestTransport:
             connection_class=AIOHttpConnection,
         )
         await t._async_init()
-        self.__assure_connection_pool_create(
-            t=t,
-            amt_connection=amt_hosts,
-        )
+        assert len(t.connection_pool.connections) == amt_hosts
         assert isinstance(
             t.connection_pool.connections[0],
             AIOHttpConnection,
