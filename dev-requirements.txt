@@ -6,6 +6,7 @@ mock
 sphinx<7.1
 sphinx_rtd_theme
 jinja2
+pytz
 
 # No wheels for Python 3.10 yet!
 numpy; python_version<"3.10"

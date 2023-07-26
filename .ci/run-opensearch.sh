@@ -5,7 +5,7 @@
 #
 # Export the NUMBER_OF_NODES variable to start more than 1 node
 
-script_path=$(dirname $(realpath -s $0))
+script_path=$(dirname $(realpath $0))
 source $script_path/functions/imports.sh
 set -euo pipefail
 
