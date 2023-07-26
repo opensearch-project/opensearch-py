@@ -4,7 +4,7 @@
     - [Index Vectors](#index-vectors)
     - [Search for Nearest Neighbors](#search-for-nearest-neighbors)
   - [Approximate k-NN with a Boolean Filter](#approximate-k-nn-with-a-boolean-filter)
-  - [Approximate k-NN with a Lucene Filter](#approximate-k-nn-with-a-lucene-filter)
+  - [Approximate k-NN with an Efficient Filter](#approximate-k-nn-with-an-efficient-filter)
 
 # k-NN Plugin
 
