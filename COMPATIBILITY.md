@@ -12,6 +12,7 @@ The below matrix shows the compatibility of the [`opensearch-py`](https://pypi.o
 | 2.0.x | 1.0.0-2.8.0 | client works against Opensearch Version 1.x as long as features removed in 2.0 are not used |
 | 2.1.x | 1.0.0-2.8.0 | client works against Opensearch Version 1.x as long as features removed in 2.0 are not used |
 | 2.2.0 | 1.0.0-2.8.0 | client works against Opensearch Version 1.x as long as features removed in 2.0 are not used |
+| 2.3.0 | 1.0.0-2.8.0 | client works against Opensearch Version 1.x as long as features removed in 2.0 are not used |
 
 ## Upgrading
 
