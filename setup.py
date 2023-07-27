@@ -33,6 +33,7 @@ from os.path import abspath, dirname, join
 from setuptools import find_packages, setup
 
 package_name = "opensearch-py"
+published_package_name = "retakesearch-py"
 base_dir = abspath(dirname(__file__))
 
 with open(join(base_dir, package_name.replace("-", ""), "_version.py")) as f:
@@ -77,7 +78,7 @@ docs_require = ["sphinx", "sphinx_rtd_theme", "myst_parser", "sphinx_copybutton"
 generate_require = ["black", "jinja2"]
 
 setup(
-    name=package_name,
+    name=published_package_name,
     description="Python client for OpenSearch",
     license="Apache-2.0",
     url="https://github.com/opensearch-project/opensearch-py",
