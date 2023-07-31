@@ -8,6 +8,8 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ### Removed
 ### Fixed
 ### Security
+### Dependencies
+- Bumps `sphinx` from <7.1 to <7.2
 
 ## [2.3.0]
 ### Added
