@@ -348,33 +348,31 @@ class Search(Request):
     def exclude(self, *args, **kwargs):
         return self.query(Bool(filter=[~Q(*args, **kwargs)]))
 
-    def neuralQuery(self, query, fields):
-        neural_queries = []
+    def _create_semantic_queries(self, query, fields):
         reserved_embedding_field_name_ending = "_retake_embedding"
 
-        for field in fields:
-            vector_field = f"{field}{reserved_embedding_field_name_ending}"
-            neural_queries.append(
-                Q(
-                    "script_score",
-                    query=Q(
-                        "neural",
-                        **{
-                            vector_field: {
-                                "query_text": query,
-                            }
-                        }
-                    ),
-                    script={"source": "_score"}
-                )
+        queries = [
+            Q(
+                "neural",
+                **{
+                    f"{field}{reserved_embedding_field_name_ending}": {
+                        "query_text": query,
+                    }
+                },
             )
+            for field in fields
+        ]
 
-        match_query = Q(
-            "script_score",
-            query=Q("multi_match", query=query, fields=fields),
-            script={"source": "_score"},
-        )
-        queries = neural_queries + [match_query]
+        return queries
+
+    def with_semantic(self, query, fields):
+        queries = self._create_semantic_queries(query, fields)
+
+        return self.query(Bool(should=queries))
+
+    def with_neural(self, query, fields):
+        queries = self._create_semantic_queries(query, fields)
+        queries.append(Q("multi_match", query=query, fields=fields))
 
         return self.query(Bool(should=queries))
 
