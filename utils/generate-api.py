@@ -98,7 +98,14 @@ class Module:
 
     def parse_orig(self):
         self.orders = []
-        self.header = "class C:"
+        self.header = ""
+        if self.is_pyi is True:
+            self.header = "from typing import Any, Collection, MutableMapping, Optional, Tuple, Union\n\n"
+
+        namespace_new = "".join(word.capitalize() for word in self.namespace.split("_"))
+        self.header = (
+            self.header + "class " + namespace_new + "Client(NamespacedClient):"
+        )
         if os.path.exists(self.filepath):
             with open(self.filepath) as f:
                 content = f.read()
@@ -130,10 +137,98 @@ class Module:
 
     def dump(self):
         self.sort()
+
+        # This code snippet adds headers to each generated module indicating that the code is generated.
+        header_separator = "# -----------------------------------------------------"
+        License_header_end_1 = "# GitHub history for details."
+        License_header_end_2 = "#  under the License."
+
+        update_header = True
+        License_position = 0
+
+        # Identifying the insertion point for the "THIS CODE IS GENERATED" header.
+        if os.path.exists(self.filepath):
+            with open(self.filepath, "r") as f:
+                content = f.read()
+            if header_separator in content:
+                update_header = False
+                header_end_position = (
+                    content.find(header_separator) + len(header_separator) + 2
+                )
+                header_position = content.rfind("\n", 0, header_end_position) + 1
+            if License_header_end_1 in content:
+                if License_header_end_2 in content:
+                    position = (
+                        content.find(License_header_end_2)
+                        + len(License_header_end_2)
+                        + 2
+                    )
+                else:
+                    position = (
+                        content.find(License_header_end_1)
+                        + len(License_header_end_1)
+                        + 2
+                    )
+                License_position = content.rfind("\n", 0, position) + 1
+
+        current_script_folder = os.path.dirname(os.path.abspath(__file__))
+        generated_file_header_path = os.path.join(
+            current_script_folder, "generated_file_headers.txt"
+        )
+        with open(generated_file_header_path, "r") as header_file:
+            header_content = header_file.read()
+
+        # Imports are temporarily removed from the header and are regenerated later to ensure imports are updated after code generation.
+        self.header = "\n".join(
+            line for line in self.header.split("\n") if "from .utils import" not in line
+        )
+
         with open(self.filepath, "w") as f:
-            f.write(self.header)
+            if update_header is True:
+                f.write(
+                    self.header[:License_position]
+                    + "\n"
+                    + header_content
+                    + "\n\n"
+                    + "#replace_token#\n"
+                    + self.header[License_position:]
+                )
+            else:
+                f.write(
+                    self.header[:header_position]
+                    + "\n"
+                    + "#replace_token#\n"
+                    + self.header[header_position:]
+                )
             for api in self._apis:
                 f.write(api.to_python())
+
+        # Generating imports for each module
+        utils_imports = ""
+        file_content = ""
+        with open(self.filepath, "r") as f:
+            content = f.read()
+            keywords = [
+                "SKIP_IN_PATH",
+                "_normalize_hosts",
+                "_escape",
+                "_make_path",
+                "query_params",
+                "_bulk_body",
+                "_base64_auth_header",
+                "NamespacedClient",
+                "AddonClient",
+            ]
+            present_keywords = [keyword for keyword in keywords if keyword in content]
+
+            if present_keywords:
+                utils_imports = "from .utils import"
+                result = f"{utils_imports} {', '.join(present_keywords)}"
+                utils_imports = result
+            file_content = content.replace("#replace_token#", utils_imports)
+
+        with open(self.filepath, "w") as f:
+            f.write(file_content)
 
         if not self.is_pyi:
             self.pyi.dump()
@@ -448,13 +543,17 @@ def read_modules():
                     body = {"required": False}
                     if "required" in z["requestBody"]:
                         body.update({"required": z["requestBody"]["required"]})
-
-                    if "description" in z["requestBody"]:
-                        body.update({"description": z["requestBody"]["description"]})
-
                     q = z["requestBody"]["content"]["application/json"]["schema"][
                         "$ref"
                     ].split("/")[-1]
+                    if "description" in data["components"]["schemas"][q]:
+                        body.update(
+                            {
+                                "description": data["components"]["schemas"][q][
+                                    "description"
+                                ]
+                            }
+                        )
                     if "x-serialize" in data["components"]["schemas"][q]:
                         body.update(
                             {

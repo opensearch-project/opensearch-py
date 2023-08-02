@@ -110,4 +110,5 @@ The following code executes a python client generator that updates the client by
 ```
 cd opensearch-py
 python utils/generate-api.py
+nox -rs format
 ```
