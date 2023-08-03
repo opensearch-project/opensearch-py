@@ -367,7 +367,10 @@ class AIOHttpConnection(AsyncConnection):
             cookie_jar=aiohttp.DummyCookieJar(),
             response_class=OpenSearchClientResponse,
             connector=aiohttp.TCPConnector(
-                limit=self._limit, use_dns_cache=True, ssl=self._ssl_context
+                limit=self._limit,
+                use_dns_cache=True,
+                enable_cleanup_closed=True,
+                ssl=self._ssl_context,
             ),
             trust_env=self._trust_env,
         )
