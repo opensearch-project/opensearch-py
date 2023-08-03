@@ -8,6 +8,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ### Deprecated
 ### Removed
 ### Fixed
+- Added `enable_cleanup_closed=True` argument to `aiohttp.TCPConnector` to fix TLS connection leaks ([#468](https://github.com/opensearch-project/opensearch-py/pull/468))
 ### Security
 ### Dependencies
 - Bumps `sphinx` from <7.1 to <7.2
