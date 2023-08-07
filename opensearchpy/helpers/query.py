@@ -432,6 +432,10 @@ class Neural(Query):
     name = "neural"
 
 
+class Knn(Query):
+    name = "knn"
+
+
 class MatchPhrase(Query):
     name = "match_phrase"
 

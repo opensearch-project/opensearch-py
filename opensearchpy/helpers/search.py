@@ -376,6 +376,15 @@ class Search(Request):
 
         return self.query(Bool(should=queries))
 
+    def with_nearest_neighbor(self, vector, field, k, filter=None):
+        body = {"vector": vector, "k": k}
+
+        if filter:
+            body["filter"] = filter.to_dict()
+
+        query = Q("knn", **{field: body})
+        return self.query(query)
+
     def __iter__(self):
         """
         Iterate over the hits.
