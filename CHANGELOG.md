@@ -8,6 +8,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ### Deprecated
 ### Removed
 ### Fixed
+- Fixed race condition in AWSV4SignerAuth & AWSV4SignerAsyncAuth when using refreshable credentials ([#469](https://github.com/opensearch-project/opensearch-py/pull/469))
 ### Security
 ### Dependencies
 - Bumps `sphinx` from <7.1 to <7.2
