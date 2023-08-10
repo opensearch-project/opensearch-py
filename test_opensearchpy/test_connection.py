@@ -345,6 +345,29 @@ class TestUrllib3Connection(TestCase):
     @pytest.mark.skipif(
         sys.version_info < (3, 6), reason="AWSV4SignerAuth requires python3.6+"
     )
+    def test_aws_signer_frozen_credentials_as_http_auth(self):
+        region = "us-west-2"
+
+        import requests
+
+        from opensearchpy.helpers.signer import AWSV4SignerAuth
+
+        mock_session = self.mock_session(disable_get_frozen=False)
+
+        auth = AWSV4SignerAuth(mock_session, region)
+        con = RequestsHttpConnection(http_auth=auth)
+        prepared_request = requests.Request("GET", "http://localhost").prepare()
+        auth(prepared_request)
+        self.assertEqual(auth, con.session.auth)
+        self.assertIn("Authorization", prepared_request.headers)
+        self.assertIn("X-Amz-Date", prepared_request.headers)
+        self.assertIn("X-Amz-Security-Token", prepared_request.headers)
+        self.assertIn("X-Amz-Content-SHA256", prepared_request.headers)
+        mock_session.get_frozen_credentials.assert_called_once()
+
+    @pytest.mark.skipif(
+        sys.version_info < (3, 6), reason="AWSV4SignerAuth requires python3.6+"
+    )
     def test_aws_signer_when_region_is_null(self):
         session = self.mock_session()
 
@@ -394,7 +417,7 @@ class TestUrllib3Connection(TestCase):
         self.assertIn("X-Amz-Date", prepared_request.headers)
         self.assertIn("X-Amz-Security-Token", prepared_request.headers)
 
-    def mock_session(self):
+    def mock_session(self, disable_get_frozen=True):
         access_key = uuid.uuid4().hex
         secret_key = uuid.uuid4().hex
         token = uuid.uuid4().hex
@@ -402,6 +425,13 @@ class TestUrllib3Connection(TestCase):
         dummy_session.access_key = access_key
         dummy_session.secret_key = secret_key
         dummy_session.token = token
+        dummy_session.get_frozen_credentials = Mock(
+            return_value=dummy_session
+        )
+
+        if disable_get_frozen:
+            del dummy_session.get_frozen_credentials
+
         return dummy_session
 
     def test_uses_https_if_verify_certs_is_off(self):
