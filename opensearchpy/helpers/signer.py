@@ -83,7 +83,21 @@ class AWSV4SignerAuth(requests.auth.AuthBase):
             data=prepared_request.body,
         )
 
-        sig_v4_auth = SigV4Auth(self.credentials, self.service, self.region)
+        # credentials objects expose access_key, secret_key and token attributes
+        # via @property annotations that call _refresh() on every access,
+        # creating a race condition if the credentials expire before secret_key
+        # is called but after access_key- the end result is the access_key doesn't
+        # correspond to the secret_key used to sign the request. To avoid this,
+        # get_frozen_credentials() which returns non-refreshing credentials is
+        # called if it exists.
+        credentials = (
+            self.credentials.get_frozen_credentials()
+            if hasattr(self.credentials, "get_frozen_credentials")
+            and callable(self.credentials.get_frozen_credentials)
+            else self.credentials
+        )
+
+        sig_v4_auth = SigV4Auth(credentials, self.service, self.region)
         sig_v4_auth.add_auth(aws_request)
 
         # copy the headers from AWS request object into the prepared_request
