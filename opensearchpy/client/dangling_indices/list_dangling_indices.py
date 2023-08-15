@@ -24,10 +24,15 @@
 #  specific language governing permissions and limitations
 #  under the License.
 
-from opensearchpy.client.utils import NamespacedClient
+from opensearchpy.client.utils import SKIP_IN_PATH, _make_path, query_params
 
 
-class DanglingIndicesClient(NamespacedClient):
-    from .delete_dangling_index import delete_dangling_index
-    from .import_dangling_index import import_dangling_index
-    from .list_dangling_indices import list_dangling_indices
+@query_params()
+def list_dangling_indices(self, params=None, headers=None):
+    """
+    Returns all dangling indices.
+
+    """
+    return self.transport.perform_request(
+        "GET", "/_dangling", params=params, headers=headers
+    )

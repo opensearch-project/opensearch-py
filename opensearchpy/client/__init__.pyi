@@ -50,6 +50,7 @@ class OpenSearch(object):
 
     cat: CatClient
     cluster: ClusterClient
+    dangling_indices: DanglingIndicesClient
     features: FeaturesClient
     indices: IndicesClient
     ingest: IngestClient

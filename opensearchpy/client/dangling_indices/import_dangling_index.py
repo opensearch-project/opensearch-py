@@ -24,10 +24,27 @@
 #  specific language governing permissions and limitations
 #  under the License.
 
-from opensearchpy.client.utils import NamespacedClient
+from opensearchpy.client.utils import SKIP_IN_PATH, _make_path, query_params
 
 
-class DanglingIndicesClient(NamespacedClient):
-    from .delete_dangling_index import delete_dangling_index
-    from .import_dangling_index import import_dangling_index
-    from .list_dangling_indices import list_dangling_indices
+@query_params(
+    "accept_data_loss", "master_timeout", "cluster_manager_timeout", "timeout"
+)
+def import_dangling_index(self, index_uuid, params=None, headers=None):
+    """
+    Imports the specified dangling index
+
+
+    :arg index_uuid: The UUID of the dangling index
+    :arg accept_data_loss: Must be set to true in order to import
+        the dangling index
+    :arg master_timeout (Deprecated: use cluster_manager_timeout): Specify timeout for connection to master
+    :arg cluster_manager_timeout: Specify timeout for connection to cluster_manager
+    :arg timeout: Explicit operation timeout
+    """
+    if index_uuid in SKIP_IN_PATH:
+        raise ValueError("Empty value passed for a required argument 'index_uuid'.")
+
+    return self.transport.perform_request(
+        "POST", _make_path("_dangling", index_uuid), params=params, headers=headers
+    )
