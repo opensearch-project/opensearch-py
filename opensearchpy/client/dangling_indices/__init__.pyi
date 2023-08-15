@@ -26,7 +26,7 @@
 
 from typing import Any, Collection, MutableMapping, Optional, Tuple, Union
 
-from .utils import NamespacedClient
+from opensearchpy.client.utils import NamespacedClient
 
 class DanglingIndicesClient(NamespacedClient):
     def delete_dangling_index(

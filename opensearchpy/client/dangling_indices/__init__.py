@@ -25,7 +25,7 @@
 #  under the License.
 
 
-from .utils import SKIP_IN_PATH, NamespacedClient, _make_path, query_params
+from opensearchpy.client.utils import SKIP_IN_PATH, NamespacedClient, _make_path, query_params
 
 
 class DanglingIndicesClient(NamespacedClient):
