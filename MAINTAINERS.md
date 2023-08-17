@@ -13,6 +13,7 @@ This document contains a list of maintainers in this repo. See [opensearch-proje
 | Denis Zalevskiy           | [deztructor](https://github.com/deztructor)         | Aiven       |
 | Shephali Mittal           | [Shephalimittal](https://github.com/Shephalimittal) | Amazon      |
 | Sai Medhini Reddy Maryada | [saimedhi](https://github.com/saimedhi)             | Amazon      |
+| Florian Vazelle           | [florianvazelle](https://github.com/florianvazelle) | harfanglab  |
 
 ## Emeritus
 
