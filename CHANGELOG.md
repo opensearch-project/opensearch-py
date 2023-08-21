@@ -8,11 +8,20 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ### Deprecated
 ### Removed
 ### Fixed
-- Fixed race condition in AWSV4SignerAuth & AWSV4SignerAsyncAuth when using refreshable credentials ([#470](https://github.com/opensearch-project/opensearch-py/pull/470))
 ### Security
 ### Dependencies
 - Bumps `sphinx` from <7.1 to <7.2
 - Bumps `urllib3` from >=1.21.1, <2 to >=1.21.1 ([#466](https://github.com/opensearch-project/opensearch-py/pull/466))
+
+## [2.3.1]
+### Added
+### Changed
+### Deprecated
+### Removed
+### Fixed
+- Fixed race condition in AWSV4SignerAuth & AWSV4SignerAsyncAuth when using refreshable credentials ([#470](https://github.com/opensearch-project/opensearch-py/pull/470))
+### Security
+### Dependencies
 
 ## [2.3.0]
 ### Added
@@ -111,9 +120,10 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - Fixed DeprecationWarning emitted from urllib3 1.26.13+ ([#246](https://github.com/opensearch-project/opensearch-py/pull/246))
 ### Security
 
-[Unreleased]: https://github.com/opensearch-project/opensearch-py/compare/v2.2.0...HEAD
+[Unreleased]: https://github.com/opensearch-project/opensearch-py/compare/v2.3.1...HEAD
 [2.0.1]: https://github.com/opensearch-project/opensearch-py/compare/v2.0.0...v2.0.1
 [2.1.0]: https://github.com/opensearch-project/opensearch-py/compare/v2.0.1...v2.1.0
 [2.1.1]: https://github.com/opensearch-project/opensearch-py/compare/v2.1.0...v2.1.1
 [2.2.0]: https://github.com/opensearch-project/opensearch-py/compare/v2.1.1...v2.2.0
 [2.3.0]: https://github.com/opensearch-project/opensearch-py/compare/v2.2.0...v2.3.0
+[2.3.1]: https://github.com/opensearch-project/opensearch-py/compare/v2.3.0...v2.3.1
