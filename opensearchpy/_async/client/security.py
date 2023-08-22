@@ -7,7 +7,7 @@
 # Modifications Copyright OpenSearch Contributors. See
 # GitHub history for details.
 
-from ..client.utils import SKIP_IN_PATH, NamespacedClient, _make_path, query_params
+from .utils import SKIP_IN_PATH, NamespacedClient, _make_path, query_params
 
 
 class SecurityClient(NamespacedClient):
@@ -46,7 +46,7 @@ class SecurityClient(NamespacedClient):
         """
         if action_group in SKIP_IN_PATH:
             raise ValueError(
-                "Empty value passed for a required argument 'action-group'."
+                "Empty value passed for a required argument 'action_group'."
             )
 
         return await self.transport.perform_request(
@@ -75,7 +75,7 @@ class SecurityClient(NamespacedClient):
         """
         if action_group in SKIP_IN_PATH:
             raise ValueError(
-                "Empty value passed for a required argument 'action-group'."
+                "Empty value passed for a required argument 'action_group'."
             )
 
         return await self.transport.perform_request(
@@ -587,7 +587,7 @@ class SecurityClient(NamespacedClient):
         """
         if cluster_name in SKIP_IN_PATH:
             raise ValueError(
-                "Empty value passed for a required argument 'cluster-name'."
+                "Empty value passed for a required argument 'cluster_name'."
             )
 
         return await self.transport.perform_request(
@@ -612,13 +612,12 @@ class SecurityClient(NamespacedClient):
     @query_params()
     async def reload_transport_certificates(self, params=None, headers=None):
         """
-        Reloads SSL certificates that are about to expire without restarting the OpenSearch node.
+        Reload transport layer communication certificates.
+
         """
         return await self.transport.perform_request(
             "PUT",
-            _make_path(
-                "_opendistro", "_security", "api", "ssl", "transport", "reloadcerts"
-            ),
+            "/_plugins/_security/api/ssl/transport/reloadcerts",
             params=params,
             headers=headers,
         )
@@ -626,11 +625,12 @@ class SecurityClient(NamespacedClient):
     @query_params()
     async def reload_http_certificates(self, params=None, headers=None):
         """
-        Reloads SSL certificates that are about to expire without restarting the OpenSearch node.
+        Reload HTTP layer communication certificates.
+
         """
         return await self.transport.perform_request(
             "PUT",
-            _make_path("_opendistro", "_security", "api", "ssl", "http", "reloadcerts"),
+            "/_plugins/_security/api/ssl/http/reloadcerts",
             params=params,
             headers=headers,
         )
@@ -648,7 +648,7 @@ class SecurityClient(NamespacedClient):
         )
 
     @query_params()
-    async def health_check(self, params=None, headers=None):
+    async def health(self, params=None, headers=None):
         """
         Checks to see if the Security plugin is up and running.
         """
@@ -665,14 +665,11 @@ class SecurityClient(NamespacedClient):
         A GET call retrieves the audit configuration.
         """
         return await self.transport.perform_request(
-            "GET",
-            _make_path("_opendistro", "_security", "api", "audit"),
-            params=params,
-            headers=headers,
+            "GET", "/_plugins/_security/api/audit", params=params, headers=headers
         )
 
     @query_params()
-    async def update_audit_config(self, body, params=None, headers=None):
+    async def update_audit_configuration(self, body, params=None, headers=None):
         """
         A PUT call updates the audit configuration.
         """
@@ -681,7 +678,7 @@ class SecurityClient(NamespacedClient):
 
         return await self.transport.perform_request(
             "PUT",
-            _make_path("_opendistro", "_security", "api", "audit", "config"),
+            "/_plugins/_security/api/audit/config",
             params=params,
             headers=headers,
             body=body,
@@ -697,7 +694,7 @@ class SecurityClient(NamespacedClient):
 
         return await self.transport.perform_request(
             "PATCH",
-            _make_path("_opendistro", "_security", "api", "audit"),
+            "/_plugins/_security/api/audit",
             params=params,
             headers=headers,
             body=body,

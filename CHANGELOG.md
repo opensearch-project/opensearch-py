@@ -5,6 +5,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ### Added
 - Added generating imports and headers to API generator ([#467](https://github.com/opensearch-project/opensearch-py/pull/467))
 ### Changed
+- Revised Security Client APIs to achieve consistency with other clients ([#483](https://github.com/opensearch-project/opensearch-py/pull/483))
 ### Deprecated
 ### Removed
 ### Fixed
