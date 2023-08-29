@@ -181,3 +181,19 @@ client.snapshot.create(
     }
 )
 ```
+
+### Restore snapshot 
+
+To restore a snapshot of index movies
+
+```python
+client.snapshot.restore(
+    repository=repository_name,
+    snapshot=snapshot_name,
+    body={
+        "indices": "movies",  # Replace with the index name you want to restore
+        "rename_pattern": "movies",  # Optional: Rename the index during restoration
+        "rename_replacement": "restored_movies"  # Optional: New index name
+    }
+)
+```
