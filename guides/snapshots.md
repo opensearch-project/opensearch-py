@@ -134,3 +134,50 @@ Removing multiple indices ('movies,' 'books,' 'movies_clone,' 'bigger_books') to
 ```python
 client.indices.delete(index=['movies', 'books', 'movies_clone', 'bigger_books'])
 ```
+
+## Snapshots
+To use a shared file system as a snapshot repository, add it to opensearch.yml:
+
+```bash
+path.repo: ["/mnt/snapshots"]
+```
+On the RPM and Debian installs, you can then mount the file system. If you’re using the Docker install, add the file system to each node in docker-compose.yml before starting the cluster:
+
+```bash
+volumes:
+  - /Users/jdoe/snapshots:/mnt/snapshots
+```
+
+
+### Create Repository
+Define the repository name and snapshot name and create a repository (if it doesn't exist)
+```python
+repository_name = "my_repository"
+snapshot_name = "my_snapshot"
+
+
+client.snapshot.create_repository(
+    repository=repository_name,
+    body={
+        "type": "fs",  # You can use other repository types like S3
+        "settings": {
+            "location": "/path/to/your/repository"  # Specify the path to your backup repository
+        }
+    }
+)
+```
+
+### Take Snapshot
+
+Take a snapshot of the 'movies' index
+
+```python
+client.snapshot.create(
+    repository=repository_name,
+    snapshot=snapshot_name,
+    body={
+        "indices": "movies",  # Replace with the name of the index you want to snapshot
+        "include_global_state": false   
+    }
+)
+```
