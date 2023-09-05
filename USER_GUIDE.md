@@ -153,7 +153,7 @@ print(response)
 - [Search](guides/search.md)
 - [Point in Time](guides/point_in_time.md)
 - [Using a Proxy](guides/proxy.md)
-- [Advanced index actions](guides/advanced_index_actions.md)
+- [Advanced Index Actions](guides/advanced_index_actions.md)
 
 ## Plugins
 
