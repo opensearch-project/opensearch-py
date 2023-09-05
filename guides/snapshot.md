@@ -3,18 +3,45 @@ In this guide, we will look at some snapshot actions that allow you to manage an
 
 
 ## Setup
-Let's create a client instance, and an index named `movies`:
+Let's create a client instance, and an index named `test-index`:
 ```python
 from opensearchpy import OpenSearch
 
+# connect to OpenSearch
+
+host = 'localhost'
+port = 9200
+auth = ('admin', 'admin') # For testing only. Don't store credentials in code.
+
 client = OpenSearch(
-  hosts=['https://admin:admin@localhost:9200'],
-  use_ssl=True,
-  verify_certs=False
+    hosts = [{'host': host, 'port': port}],
+    http_auth = auth,
+    use_ssl = True,
+    verify_certs = False,
+    ssl_show_warn = False
+)
+
+info = client.info()
+print(f"Welcome to {info['version']['distribution']} {info['version']['number']}!")
+
+# create an index
+
+index_name = 'test-index'
+
+index_body = {
+  'settings': {
+    'index': {
+      'number_of_shards': 4
+    }
+  }
+}
+
+response = client.indices.create(
+  index_name, 
+  body=index_body
 )
 
 print(client.info())  # Check server info and make sure the client is connected
-client.indices.create(index='movies')
 ```
 ## API Actions
 ### Create Snapshot Repository
@@ -34,7 +61,7 @@ client.snapshot.create_repository(repository='my_repository', body=repo_body)
 To create a snapshot of an index, you can use the `create` method from the `snapshot` API. The following example creates a snapshot named `my_snapshot` for the movies index:
 
 ```python
-client.snapshot.create(repository='my_repository', snapshot='my_snapshot', body={"indices": "movies"})
+client.snapshot.create(repository='my_repository', snapshot='my_snapshot', body={"indices": "test-index"})
 ```
 
 ### Verify Snapshot Repository
@@ -100,9 +127,9 @@ response = client.snapshot.repository_analyze(repository='my_repository')
 
 ## Cleanup
 
-Finally, let's delete the `movies` index and clean up all the snapshots and the repository:
+Finally, let's delete the `test-index` index and clean up all the snapshots and the repository:
 ```python
-client.indices.delete(index='movies')
+client.indices.delete(index='test-index')
 client.snapshot.delete(repository='my_repository', snapshot='my_snapshot')
 client.snapshot.delete_repository(repository='my_repository')
 ```
