@@ -6,9 +6,9 @@
     - [Flush Index](#flush-index)
     - [Refresh Index](#refresh-index)
     - [Open/Close Index](#open-close-index)
-    - [Force merge index](#force-merge-index)
-    - [Clone index](#clone-index)
-    - [Split index](#split-index)
+    - [Force Merge Index](#force-merge-index)
+    - [Clone Index](#clone-index)
+    - [Split Index](#split-index)
   - [Cleanup](#cleanup)
 # Advanced Index Actions
 
