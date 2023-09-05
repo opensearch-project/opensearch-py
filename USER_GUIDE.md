@@ -153,6 +153,7 @@ print(response)
 - [Search](guides/search.md)
 - [Point in Time](guides/point_in_time.md)
 - [Using a Proxy](guides/proxy.md)
+- [Taking a Snapshot](guides/snapshot.md)
 
 ## Plugins
 
