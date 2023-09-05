@@ -70,7 +70,7 @@ client.indices.close(index='movies')
 client.indices.open(index='movies')
 ```
 
-### Force merge index
+### Force Merge Index
 
 You can force merge an index or indices to reduce the number of segments in the index. This can be useful if you have a large number of small segments in the index. Merging segments reduces the memory footprint of the index. Do note that this action is resource intensive and it is only recommended for read-only indices. The following example force merges the `movies` index:
 
@@ -78,7 +78,7 @@ You can force merge an index or indices to reduce the number of segments in the 
 client.indices.forcemerge(index='movies')
 ```
 
-### Clone index
+### Clone Index
 
 You can clone an index to create a new index with the same mappings, data, and MOST of the settings. The source index must be in read-only state for cloning. The following example blocks write operations from `movies` index, clones the said index to create a new index named `movies_clone`, then re-enables write:
 
@@ -88,7 +88,7 @@ client.indices.clone(index='movies', target='movies_clone')
 client.indices.put_settings(index='movies', body={'index': {'blocks': {'write': False}}})
 ```
 
-### Split index
+### Split Index
 
 You can split an index into another index with more primary shards. The source index must be in read-only state for splitting. The following example create the read-only `books` index with 30 routing shards and 5 shards (which is divisible by 30), splits index into `bigger_books` with 10 shards (which is also divisible by 30), then re-enables write:
 
