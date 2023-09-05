@@ -1,3 +1,15 @@
+# Advanced Index Actions Guide
+- [Advanced Index Actions](#advanced-index-actions)
+  - [Setup](#setup)
+  - [Api Actions](#api-actions)
+    - [Clear Index Cache](#clear-index-cache)
+    - [Flush Index](#flush-index)
+    - [Refresh Index](#refresh-index)
+    - [Open/Close Index](#open-close-index)
+    - [Force merge index](#force-merge-index)
+    - [Clone index](#clone-index)
+    - [Split index](#split-index)
+  - [Cleanup](#cleanup)
 # Advanced Index Actions
 
 In this guide, we will look at some advanced index actions that are not covered in the [Index Lifecycle](index_lifecycle.md) guide.
@@ -18,7 +30,7 @@ client.indices.create(index='movies')
 
 ## API Actions
 
-### Clear index cache
+### Clear Index Cache
 
 You can clear the cache of an index or indices by using the `indices.clear_cache` API action. The following example clears the cache of the `movies` index:
 
@@ -33,7 +45,7 @@ client.indices.clear_cache(index='movies', query=True)
 client.indices.clear_cache(index='movies', fielddata=True, request=True)
 ```
 
-### Flush index
+### Flush Index
 
 Sometimes you might want to flush an index or indices to make sure that all data in the transaction log is persisted to the index. To flush an index or indices use the `indices.flush` API action. The following example flushes the `movies` index:
 
@@ -41,7 +53,7 @@ Sometimes you might want to flush an index or indices to make sure that all data
 client.indices.flush(index='movies')
 ```
 
-### Refresh index
+### Refresh Index
 
 You can refresh an index or indices to make sure that all changes are available for search. To refresh an index or indices use the `indices.refresh` API action:
 
@@ -49,7 +61,7 @@ You can refresh an index or indices to make sure that all changes are available 
 client.indices.refresh(index='movies')
 ```
 
-### Open/Close index
+### Open/Close Index
 
 You can close an index to prevent read and write operations on the index. A closed index does not have to maintain certain data structures that an opened index require, reducing the memory and disk space required by the index. The following example closes and reopens the `movies` index:
 
