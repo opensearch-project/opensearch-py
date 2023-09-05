@@ -5,7 +5,7 @@
 #
 # Export the NUMBER_OF_NODES variable to start more than 1 node
 
-script_path=$(dirname $(realpath -s $0))
+script_path=$(dirname $(realpath $0))
 source $script_path/functions/imports.sh
 set -euo pipefail
 
@@ -81,7 +81,7 @@ END
     docker run \
       --name "$node_name" \
       --network "$network_name" \
-      --env "ES_JAVA_OPTS=-Xms1g -Xmx1g" \
+      --env "OPENSEARCH_JAVA_OPTS=-Xms1g -Xmx1g" \
       "${environment[@]}" \
       "${volumes[@]}" \
       "${security[@]}" \

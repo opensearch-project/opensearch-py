@@ -42,7 +42,8 @@ from pytest import raises
 from opensearchpy import AIOHttpConnection, AsyncOpenSearch, __versionstr__, serializer
 from opensearchpy.compat import reraise_exceptions
 from opensearchpy.connection import Connection, async_connections
-from opensearchpy.exceptions import ConnectionError
+from opensearchpy.exceptions import ConnectionError, TransportError
+from test_opensearchpy.TestHttpServer import TestHTTPServer
 
 pytestmark = pytest.mark.asyncio
 
@@ -53,7 +54,13 @@ def gzip_decompress(data):
 
 
 class TestAIOHttpConnection:
-    async def _get_mock_connection(self, connection_params={}, response_body=b"{}"):
+    async def _get_mock_connection(
+        self,
+        connection_params={},
+        response_code=200,
+        response_body=b"{}",
+        response_headers={},
+    ):
         con = AIOHttpConnection(**connection_params)
         await con._create_aiohttp_session()
 
@@ -69,8 +76,8 @@ class TestAIOHttpConnection:
                     return response_body.decode("utf-8", "surrogatepass")
 
             dummy_response = DummyResponse()
-            dummy_response.headers = CIMultiDict()
-            dummy_response.status = 200
+            dummy_response.headers = CIMultiDict(**response_headers)
+            dummy_response.status = response_code
             _dummy_request.call_args = (args, kwargs)
             return dummy_response
 
@@ -93,7 +100,7 @@ class TestAIOHttpConnection:
         assert con.use_ssl
         assert con.session.connector._ssl == context
 
-    def test_opaque_id(self):
+    async def test_opaque_id(self):
         con = AIOHttpConnection(opaque_id="app-1")
         assert con.headers["x-opaque-id"] == "app-1"
 
@@ -147,18 +154,18 @@ class TestAIOHttpConnection:
         method, yarl_url = con.session.request.call_args[0]
         assert method == "GET" and str(yarl_url) == "http://localhost:9200/_search/"
 
-    def test_default_user_agent(self):
+    async def test_default_user_agent(self):
         con = AIOHttpConnection()
         assert con._get_default_user_agent() == "opensearch-py/%s (Python %s)" % (
             __versionstr__,
             python_version(),
         )
 
-    def test_timeout_set(self):
+    async def test_timeout_set(self):
         con = AIOHttpConnection(timeout=42)
         assert 42 == con.timeout
 
-    def test_keep_alive_is_on_by_default(self):
+    async def test_keep_alive_is_on_by_default(self):
         con = AIOHttpConnection()
         assert {
             "connection": "keep-alive",
@@ -166,7 +173,7 @@ class TestAIOHttpConnection:
             "user-agent": con._get_default_user_agent(),
         } == con.headers
 
-    def test_http_auth(self):
+    async def test_http_auth(self):
         con = AIOHttpConnection(http_auth="username:secret")
         assert {
             "authorization": "Basic dXNlcm5hbWU6c2VjcmV0",
@@ -175,7 +182,7 @@ class TestAIOHttpConnection:
             "user-agent": con._get_default_user_agent(),
         } == con.headers
 
-    def test_http_auth_tuple(self):
+    async def test_http_auth_tuple(self):
         con = AIOHttpConnection(http_auth=("username", "secret"))
         assert {
             "authorization": "Basic dXNlcm5hbWU6c2VjcmV0",
@@ -184,7 +191,7 @@ class TestAIOHttpConnection:
             "user-agent": con._get_default_user_agent(),
         } == con.headers
 
-    def test_http_auth_list(self):
+    async def test_http_auth_list(self):
         con = AIOHttpConnection(http_auth=["username", "secret"])
         assert {
             "authorization": "Basic dXNlcm5hbWU6c2VjcmV0",
@@ -193,7 +200,7 @@ class TestAIOHttpConnection:
             "user-agent": con._get_default_user_agent(),
         } == con.headers
 
-    def test_uses_https_if_verify_certs_is_off(self):
+    async def test_uses_https_if_verify_certs_is_off(self):
         with warnings.catch_warnings(record=True) as w:
             con = AIOHttpConnection(use_ssl=True, verify_certs=False)
             assert 1 == len(w)
@@ -216,17 +223,17 @@ class TestAIOHttpConnection:
 
         assert isinstance(con.session, aiohttp.ClientSession)
 
-    def test_doesnt_use_https_if_not_specified(self):
+    async def test_doesnt_use_https_if_not_specified(self):
         con = AIOHttpConnection()
         assert not con.use_ssl
 
-    def test_no_warning_when_using_ssl_context(self):
+    async def test_no_warning_when_using_ssl_context(self):
         ctx = ssl.create_default_context()
         with warnings.catch_warnings(record=True) as w:
             AIOHttpConnection(ssl_context=ctx)
             assert w == [], str([x.message for x in w])
 
-    def test_warns_if_using_non_default_ssl_kwargs_with_ssl_context(self):
+    async def test_warns_if_using_non_default_ssl_kwargs_with_ssl_context(self):
         for kwargs in (
             {"ssl_show_warn": False},
             {"ssl_show_warn": True},
@@ -249,23 +256,37 @@ class TestAIOHttpConnection:
                 )
 
     @patch("ssl.SSLContext.load_verify_locations")
-    def test_uses_given_ca_certs(self, load_verify_locations, tmp_path):
+    async def test_uses_given_ca_certs(self, load_verify_locations, tmp_path):
         path = tmp_path / "ca_certs.pem"
         path.touch()
         AIOHttpConnection(use_ssl=True, ca_certs=str(path))
         load_verify_locations.assert_called_once_with(cafile=str(path))
 
     @patch("ssl.SSLContext.load_verify_locations")
-    def test_uses_default_ca_certs(self, load_verify_locations):
+    async def test_uses_default_ca_certs(self, load_verify_locations):
         AIOHttpConnection(use_ssl=True)
         load_verify_locations.assert_called_once_with(
             cafile=Connection.default_ca_certs()
         )
 
     @patch("ssl.SSLContext.load_verify_locations")
-    def test_uses_no_ca_certs(self, load_verify_locations):
+    async def test_uses_no_ca_certs(self, load_verify_locations):
         AIOHttpConnection(use_ssl=True, verify_certs=False)
         load_verify_locations.assert_not_called()
+
+    async def test_trust_env(self):
+        con = AIOHttpConnection(trust_env=True)
+        await con._create_aiohttp_session()
+
+        assert con._trust_env is True
+        assert con.session.trust_env is True
+
+    async def test_trust_env_default_value_is_false(self):
+        con = AIOHttpConnection()
+        await con._create_aiohttp_session()
+
+        assert con._trust_env is False
+        assert con.session.trust_env is False
 
     @patch("opensearchpy.connection.base.logger")
     async def test_uncompressed_body_logged(self, logger):
@@ -298,73 +319,95 @@ class TestAIOHttpConnection:
             await conn.perform_request("GET", "/")
         assert str(e.value) == "Wasn't modified!"
 
+    async def test_json_errors_are_parsed(self):
+        con = await self._get_mock_connection(
+            response_code=400,
+            response_body=b'{"error": {"type": "snapshot_in_progress_exception"}}',
+            response_headers={"Content-Type": "application/json;"},
+        )
+        try:
+            with pytest.raises(TransportError) as e:
+                await con.perform_request("POST", "/", body=b'{"some": "json"')
 
-class TestConnectionHttpbin:
+            assert e.value.error == "snapshot_in_progress_exception"
+        finally:
+            await con.close()
+
+
+class TestConnectionHttpServer:
     """Tests the HTTP connection implementations against a live server E2E"""
 
-    async def httpbin_anything(self, conn, **kwargs):
-        status, headers, data = await conn.perform_request("GET", "/anything", **kwargs)
+    @classmethod
+    def setup_class(cls):
+        # Start server
+        cls.server = TestHTTPServer(port=8081)
+        cls.server.start()
+
+    @classmethod
+    def teardown_class(cls):
+        # Stop server
+        cls.server.stop()
+
+    async def httpserver(self, conn, **kwargs):
+        status, headers, data = await conn.perform_request("GET", "/", **kwargs)
         data = json.loads(data)
-        data["headers"].pop(
-            "X-Amzn-Trace-Id", None
-        )  # Remove this header as it's put there by AWS.
         return (status, data)
 
     async def test_aiohttp_connection(self):
         # Defaults
-        conn = AIOHttpConnection("httpbin.org", port=443, use_ssl=True)
+        conn = AIOHttpConnection("localhost", port=8081, use_ssl=False)
         user_agent = conn._get_default_user_agent()
-        status, data = await self.httpbin_anything(conn)
+        status, data = await self.httpserver(conn)
         assert status == 200
         assert data["method"] == "GET"
         assert data["headers"] == {
             "Content-Type": "application/json",
-            "Host": "httpbin.org",
+            "Host": "localhost:8081",
             "User-Agent": user_agent,
         }
 
         # http_compress=False
         conn = AIOHttpConnection(
-            "httpbin.org", port=443, use_ssl=True, http_compress=False
+            "localhost", port=8081, use_ssl=False, http_compress=False
         )
-        status, data = await self.httpbin_anything(conn)
+        status, data = await self.httpserver(conn)
         assert status == 200
         assert data["method"] == "GET"
         assert data["headers"] == {
             "Content-Type": "application/json",
-            "Host": "httpbin.org",
+            "Host": "localhost:8081",
             "User-Agent": user_agent,
         }
 
         # http_compress=True
         conn = AIOHttpConnection(
-            "httpbin.org", port=443, use_ssl=True, http_compress=True
+            "localhost", port=8081, use_ssl=False, http_compress=True
         )
-        status, data = await self.httpbin_anything(conn)
+        status, data = await self.httpserver(conn)
         assert status == 200
         assert data["headers"] == {
             "Accept-Encoding": "gzip,deflate",
             "Content-Type": "application/json",
-            "Host": "httpbin.org",
+            "Host": "localhost:8081",
             "User-Agent": user_agent,
         }
 
         # Headers
         conn = AIOHttpConnection(
-            "httpbin.org",
-            port=443,
-            use_ssl=True,
+            "localhost",
+            port=8081,
+            use_ssl=False,
             http_compress=True,
             headers={"header1": "value1"},
         )
-        status, data = await self.httpbin_anything(
+        status, data = await self.httpserver(
             conn, headers={"header2": "value2", "header1": "override!"}
         )
         assert status == 200
         assert data["headers"] == {
             "Accept-Encoding": "gzip,deflate",
             "Content-Type": "application/json",
-            "Host": "httpbin.org",
+            "Host": "localhost:8081",
             "Header1": "override!",
             "Header2": "value2",
             "User-Agent": user_agent,

@@ -4,14 +4,16 @@ This document contains a list of maintainers in this repo. See [opensearch-proje
 
 ## Current Maintainers
 
-| Maintainer           | GitHub ID                                           | Affiliation |
-| -------------------- | --------------------------------------------------- | ----------- |
-| Vacha Shah           | [VachaShah](https://github.com/VachaShah)           | Amazon      |
-| Daniel Doubrovkine   | [dblock](https://github.com/dblock)                 | Amazon      |
-| Harsha Vamsi Kalluri | [harshavamsi](https://github.com/harshavamsi)       | Amazon      |
-| Aleksei Atavin       | [axeoman](https://github.com/axeoman)               | Aiven       |
-| Denis Zalevskiy      | [deztructor](https://github.com/deztructor)         | Aiven       |
-| Shephali Mittal      | [Shephalimittal](https://github.com/Shephalimittal) | Amazon      |
+| Maintainer                | GitHub ID                                           | Affiliation |
+| ------------------------- | --------------------------------------------------- | ----------- |
+| Vacha Shah                | [VachaShah](https://github.com/VachaShah)           | Amazon      |
+| Daniel Doubrovkine        | [dblock](https://github.com/dblock)                 | Amazon      |
+| Harsha Vamsi Kalluri      | [harshavamsi](https://github.com/harshavamsi)       | Amazon      |
+| Aleksei Atavin            | [axeoman](https://github.com/axeoman)               | Aiven       |
+| Denis Zalevskiy           | [deztructor](https://github.com/deztructor)         | Aiven       |
+| Shephali Mittal           | [Shephalimittal](https://github.com/Shephalimittal) | Amazon      |
+| Sai Medhini Reddy Maryada | [saimedhi](https://github.com/saimedhi)             | Amazon      |
+| Florian Vazelle           | [florianvazelle](https://github.com/florianvazelle) | harfanglab  |
 
 ## Emeritus
 

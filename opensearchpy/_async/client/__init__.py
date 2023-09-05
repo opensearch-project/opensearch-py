@@ -39,6 +39,7 @@ from .ingest import IngestClient
 from .nodes import NodesClient
 from .plugins import PluginsClient
 from .remote import RemoteClient
+from .security import SecurityClient
 from .snapshot import SnapshotClient
 from .tasks import TasksClient
 from .utils import SKIP_IN_PATH, _bulk_body, _make_path, _normalize_hosts, query_params
@@ -196,11 +197,13 @@ class AsyncOpenSearch(object):
         self.ingest = IngestClient(self)
         self.nodes = NodesClient(self)
         self.remote = RemoteClient(self)
+        self.security = SecurityClient(self)
         self.snapshot = SnapshotClient(self)
         self.tasks = TasksClient(self)
-        self.plugins = PluginsClient(self)
 
         self.features = FeaturesClient(self)
+
+        self.plugins = PluginsClient(self)
 
     def __repr__(self):
         try:

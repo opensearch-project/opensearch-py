@@ -85,6 +85,31 @@ class TestQueryParams(TestCase):
         self.func_to_wrap(headers={"X": "y"})
         self.assertEqual(self.calls[-1], ((), {"params": {}, "headers": {"x": "y"}}))
 
+    def test_non_escaping_params(self):
+        # the query_params decorator doesn't validate "timeout" it simply avoids escaping as it did
+        self.func_to_wrap(simple_param="x", timeout="4s")
+        self.assertEqual(
+            self.calls[-1],
+            ((), {"params": {"simple_param": b"x", "timeout": "4s"}, "headers": {}}),
+        )
+
+        self.func_to_wrap(simple_param="x", timeout=4, ignore=5, request_timeout=6)
+        self.assertEqual(
+            self.calls[-1],
+            (
+                (),
+                {
+                    "params": {
+                        "simple_param": b"x",
+                        "timeout": 4,
+                        "ignore": 5,
+                        "request_timeout": 6,
+                    },
+                    "headers": {},
+                },
+            ),
+        )
+
     def test_per_call_authentication(self):
         self.func_to_wrap(api_key=("name", "key"))
         self.assertEqual(

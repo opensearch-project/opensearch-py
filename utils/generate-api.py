@@ -25,21 +25,15 @@
 #  specific language governing permissions and limitations
 #  under the License.
 
-
-import contextlib
-import io
-import json
 import os
 import re
-import shutil
-import sys
-import tempfile
-import zipfile
 from functools import lru_cache
-from itertools import chain
+from itertools import chain, groupby
+from operator import itemgetter
 from pathlib import Path
 
 import black
+import requests
 import unasync
 import urllib3
 from click.testing import CliRunner
@@ -51,6 +45,8 @@ http = urllib3.PoolManager()
 SEPARATOR = "    # AUTO-GENERATED-API-DEFINITIONS #"
 # global substitutions for python keywords
 SUBSTITUTIONS = {"type": "doc_type", "from": "from_"}
+
+
 # api path(s)
 BRANCH_NAME = "7.x"
 CODE_ROOT = Path(__file__).absolute().parent.parent
@@ -102,7 +98,14 @@ class Module:
 
     def parse_orig(self):
         self.orders = []
-        self.header = "class C:"
+        self.header = ""
+        if self.is_pyi is True:
+            self.header = "from typing import Any, Collection, MutableMapping, Optional, Tuple, Union\n\n"
+
+        namespace_new = "".join(word.capitalize() for word in self.namespace.split("_"))
+        self.header = (
+            self.header + "class " + namespace_new + "Client(NamespacedClient):"
+        )
         if os.path.exists(self.filepath):
             with open(self.filepath) as f:
                 content = f.read()
@@ -134,10 +137,98 @@ class Module:
 
     def dump(self):
         self.sort()
+
+        # This code snippet adds headers to each generated module indicating that the code is generated.
+        header_separator = "# -----------------------------------------------------"
+        License_header_end_1 = "# GitHub history for details."
+        License_header_end_2 = "#  under the License."
+
+        update_header = True
+        License_position = 0
+
+        # Identifying the insertion point for the "THIS CODE IS GENERATED" header.
+        if os.path.exists(self.filepath):
+            with open(self.filepath, "r") as f:
+                content = f.read()
+            if header_separator in content:
+                update_header = False
+                header_end_position = (
+                    content.find(header_separator) + len(header_separator) + 2
+                )
+                header_position = content.rfind("\n", 0, header_end_position) + 1
+            if License_header_end_1 in content:
+                if License_header_end_2 in content:
+                    position = (
+                        content.find(License_header_end_2)
+                        + len(License_header_end_2)
+                        + 2
+                    )
+                else:
+                    position = (
+                        content.find(License_header_end_1)
+                        + len(License_header_end_1)
+                        + 2
+                    )
+                License_position = content.rfind("\n", 0, position) + 1
+
+        current_script_folder = os.path.dirname(os.path.abspath(__file__))
+        generated_file_header_path = os.path.join(
+            current_script_folder, "generated_file_headers.txt"
+        )
+        with open(generated_file_header_path, "r") as header_file:
+            header_content = header_file.read()
+
+        # Imports are temporarily removed from the header and are regenerated later to ensure imports are updated after code generation.
+        self.header = "\n".join(
+            line for line in self.header.split("\n") if "from .utils import" not in line
+        )
+
         with open(self.filepath, "w") as f:
-            f.write(self.header)
+            if update_header is True:
+                f.write(
+                    self.header[:License_position]
+                    + "\n"
+                    + header_content
+                    + "\n\n"
+                    + "#replace_token#\n"
+                    + self.header[License_position:]
+                )
+            else:
+                f.write(
+                    self.header[:header_position]
+                    + "\n"
+                    + "#replace_token#\n"
+                    + self.header[header_position:]
+                )
             for api in self._apis:
                 f.write(api.to_python())
+
+        # Generating imports for each module
+        utils_imports = ""
+        file_content = ""
+        with open(self.filepath, "r") as f:
+            content = f.read()
+            keywords = [
+                "SKIP_IN_PATH",
+                "_normalize_hosts",
+                "_escape",
+                "_make_path",
+                "query_params",
+                "_bulk_body",
+                "_base64_auth_header",
+                "NamespacedClient",
+                "AddonClient",
+            ]
+            present_keywords = [keyword for keyword in keywords if keyword in content]
+
+            if present_keywords:
+                utils_imports = "from .utils import"
+                result = f"{utils_imports} {', '.join(present_keywords)}"
+                utils_imports = result
+            file_content = content.replace("#replace_token#", utils_imports)
+
+        with open(self.filepath, "w") as f:
+            f.write(file_content)
 
         if not self.is_pyi:
             self.pyi.dump()
@@ -333,67 +424,191 @@ class API:
         )
 
 
-@contextlib.contextmanager
-def download_artifact(version):
-    # Download the list of all artifacts for a version
-    # and find the latest build URL for 'rest-resources-zip-*.zip'
-    resp = http.request(
-        "GET", f"https://artifacts-api.elastic.co/v1/versions/{version}"
-    )
-    packages = json.loads(resp.data)["version"]["builds"][0]["projects"][
-        "opensearchpy"
-    ]["packages"]
-    for package in packages:
-        if re.match(r"^rest-resources-zip-.*\.zip$", package):
-            zip_url = packages[package]["url"]
-            break
-    else:
-        raise RuntimeError(
-            "Could not find the package 'rest-resources-zip-*.zip' in build"
-        )
-
-    # Download the .jar file and unzip only the API
-    # .json files into a temporary directory
-    resp = http.request("GET", zip_url)
-
-    tmp = Path(tempfile.mkdtemp())
-    zip = zipfile.ZipFile(io.BytesIO(resp.data))
-    for name in zip.namelist():
-        if not name.endswith(".json") or name == "schema.json":
-            continue
-        with (tmp / name.replace("rest-api-spec/api/", "")).open("wb") as f:
-            f.write(zip.read(name))
-
-    yield tmp
-    shutil.rmtree(tmp)
-
-
-def read_modules(version):
+def read_modules():
     modules = {}
 
-    with download_artifact(version) as path:
-        for f in sorted(os.listdir(path)):
-            name, ext = f.rsplit(".", 1)
+    # Load the OpenAPI specification file
+    response = requests.get(
+        "https://raw.githubusercontent.com/opensearch-project/opensearch-api-specification/main/OpenSearch.openapi.json"
+    )
+    data = response.json()
 
-            if ext != "json" or name == "_common":
-                continue
+    list_of_dicts = []
 
-            with open(path / f) as api_def:
-                api = json.load(api_def)[name]
+    for path in data["paths"]:
+        for x in data["paths"][path]:
+            data["paths"][path][x].update({"path": path, "method": x})
+            list_of_dicts.append(data["paths"][path][x])
 
+    # Update parameters  in each endpoint
+    for p in list_of_dicts:
+        if "parameters" in p:
+            params = []
+            parts = []
+
+            # Iterate over the list of parameters and update them
+            for x in p["parameters"]:
+                if "schema" in x and "$ref" in x["schema"]:
+                    schema_path_ref = x["schema"]["$ref"].split("/")[-1]
+                    x["schema"] = data["components"]["schemas"][schema_path_ref]
+                    params.append(x)
+                else:
+                    params.append(x)
+
+            # Iterate over the list of updated parameters to separate "parts" from "params"
+            k = params.copy()
+            for q in k:
+                if q["in"] == "path":
+                    parts.append(q)
+                    params.remove(q)
+
+            # Convert "params" and "parts" into the structure required for generator.
+            params_new = {}
+            parts_new = {}
+
+            for m in params:
+                A = dict(type=m["schema"]["type"], description=m["description"])
+                if "enum" in m["schema"]:
+                    A.update({"type": "enum"})
+                    A.update({"options": m["schema"]["enum"]})
+
+                if "deprecated" in m:
+                    A.update({"deprecated": m["deprecated"]})
+                params_new.update({m["name"]: A})
+
+            # Removing the deprecated "type"
+            if "type" in params_new:
+                params_new.pop("type")
+
+            if bool(params_new):
+                p.update({"params": params_new})
+
+            p.pop("parameters")
+
+            for n in parts:
+                B = dict(type=n["schema"]["type"])
+
+                if "description" in n:
+                    B.update({"description": n["description"]})
+
+                deprecated_new = {}
+                if "deprecated" in n:
+                    B.update({"deprecated": n["deprecated"]})
+
+                    if "x-deprecation-version" in n:
+                        deprecated_new.update({"version": n["x-deprecation-version"]})
+
+                    if "x-deprecation-description" in n:
+                        deprecated_new.update(
+                            {"description": n["x-deprecation-description"]}
+                        )
+
+                parts_new.update({n["name"]: B})
+
+            if bool(parts_new):
+                p.update({"parts": parts_new})
+
+    # Sort the input list by the value of the "x-operation-group" key
+    list_of_dicts = sorted(list_of_dicts, key=itemgetter("x-operation-group"))
+
+    # Group the input list by the value of the "x-operation-group" key
+    for key, value in groupby(list_of_dicts, key=itemgetter("x-operation-group")):
+        api = {}
+
+        # Extract the namespace and name from the 'x-operation-group'
+        if "." in key:
+            namespace, name = key.rsplit(".", 1)
+        else:
             namespace = "__init__"
-            if "." in name:
-                namespace, name = name.rsplit(".", 1)
+            name = key
 
-            # The data_frame API has been changed to transform.
-            if namespace == "data_frame_transform_deprecated":
-                continue
+        # Group the data in the current group by the "path" key
+        paths = []
+        for key2, value2 in groupby(value, key=itemgetter("path")):
+            # Extract the HTTP methods from the data in the current subgroup
+            methods = []
+            parts_final = {}
+            for z in value2:
+                methods.append(z["method"].upper())
 
-            if namespace not in modules:
-                modules[namespace] = Module(namespace)
+                # Update 'api' dictionary
+                if "documentation" not in api:
+                    documentation = {"description": z["description"]}
+                    api.update({"documentation": documentation})
 
-            modules[namespace].add(API(namespace, name, api))
-            modules[namespace].pyi.add(API(namespace, name, api, is_pyi=True))
+                if "params" not in api and "params" in z:
+                    api.update({"params": z["params"]})
+
+                if "body" not in api and "requestBody" in z:
+                    body = {"required": False}
+                    if "required" in z["requestBody"]:
+                        body.update({"required": z["requestBody"]["required"]})
+                    q = z["requestBody"]["content"]["application/json"]["schema"][
+                        "$ref"
+                    ].split("/")[-1]
+                    if "description" in data["components"]["schemas"][q]:
+                        body.update(
+                            {
+                                "description": data["components"]["schemas"][q][
+                                    "description"
+                                ]
+                            }
+                        )
+                    if "x-serialize" in data["components"]["schemas"][q]:
+                        body.update(
+                            {
+                                "serialize": data["components"]["schemas"][q][
+                                    "x-serialize"
+                                ]
+                            }
+                        )
+
+                    api.update({"body": body})
+
+                if "parts" in z:
+                    parts_final.update(z["parts"])
+
+            if "POST" in methods or "PUT" in methods:
+                api.update(
+                    {
+                        "stability": "stable",
+                        "visibility": "public",
+                        "headers": {
+                            "accept": ["application/json"],
+                            "content_type": ["application/json"],
+                        },
+                    }
+                )
+            else:
+                api.update(
+                    {
+                        "stability": "stable",
+                        "visibility": "public",
+                        "headers": {"accept": ["application/json"]},
+                    }
+                )
+
+            if bool(deprecated_new) and bool(parts_final):
+                paths.append(
+                    {
+                        "path": key2,
+                        "methods": methods,
+                        "parts": parts_final,
+                        "deprecated": deprecated_new,
+                    }
+                )
+            elif bool(parts_final):
+                paths.append({"path": key2, "methods": methods, "parts": parts_final})
+            else:
+                paths.append({"path": key2, "methods": methods})
+
+        api.update({"url": {"paths": paths}})
+
+        if namespace not in modules:
+            modules[namespace] = Module(namespace)
+
+        modules[namespace].add(API(namespace, name, api))
+        modules[namespace].pyi.add(API(namespace, name, api, is_pyi=True))
 
     return modules
 
@@ -432,5 +647,4 @@ def dump_modules(modules):
 
 
 if __name__ == "__main__":
-    version = sys.argv[1]
-    dump_modules(read_modules(version))
+    dump_modules(read_modules())

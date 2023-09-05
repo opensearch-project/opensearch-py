@@ -7,24 +7,23 @@
 # Modifications Copyright OpenSearch Contributors. See
 # GitHub history for details.
 
-import asyncio
 import re
 from datetime import datetime
 
 import pytest
 from pytest import fixture
-from test_data import (
+
+from opensearchpy._async.helpers.actions import async_bulk
+from opensearchpy._async.helpers.test import get_test_client
+from opensearchpy.connection.async_connections import add_connection
+from test_opensearchpy.test_async.test_server.test_helpers.test_data import (
     DATA,
     FLAT_DATA,
     TEST_GIT_DATA,
     create_flat_git_index,
     create_git_index,
 )
-
-from opensearchpy._async.helpers.actions import async_bulk
-from opensearchpy._async.helpers.test import get_test_client
-from opensearchpy.connection.async_connections import add_connection
-from test_opensearchpy.test_server.test_helpers.test_document import (
+from test_opensearchpy.test_async.test_server.test_helpers.test_document import (
     Comment,
     History,
     PullRequest,
@@ -34,21 +33,14 @@ from test_opensearchpy.test_server.test_helpers.test_document import (
 pytestmark = pytest.mark.asyncio
 
 
-@pytest.fixture(scope="session")
-def event_loop():
-    loop = asyncio.get_event_loop()
-    yield loop
-    loop.close()
-
-
-@fixture(scope="session")
+@fixture(scope="function")
 async def client():
     client = await get_test_client(verify_certs=False, http_auth=("admin", "admin"))
     await add_connection("default", client)
     return client
 
 
-@fixture(scope="session")
+@fixture(scope="function")
 async def opensearch_version(client):
     info = await client.info()
     print(info)
@@ -79,8 +71,8 @@ async def data_client(client):
 
 
 @fixture
-def pull_request(write_client):
-    PullRequest.init()
+async def pull_request(write_client):
+    await PullRequest.init()
     pr = PullRequest(
         _id=42,
         comments=[
@@ -98,7 +90,7 @@ def pull_request(write_client):
         ],
         created_at=datetime(2018, 1, 9, 9, 17, 3, 21184),
     )
-    pr.save(refresh=True)
+    await pr.save(refresh=True)
     return pr
 
 

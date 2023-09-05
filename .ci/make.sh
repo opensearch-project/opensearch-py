@@ -24,7 +24,7 @@
 # Bootstrap
 # ------------------------------------------------------- #
 
-script_path=$(dirname "$(realpath -s "$0")")
+script_path=$(dirname "$(realpath "$0")")
 repo=$(realpath "$script_path/../")
 
 # shellcheck disable=SC1090
