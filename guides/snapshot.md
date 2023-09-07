@@ -1,3 +1,19 @@
+# Table of Contents
+- [Snapshot Actions](#snapshot-actions)
+  - [Setup](#setup)
+  - [API Actions](#api-actions)
+    - [Create Snapshot Repository](#create-snapshot-repository)
+    - [Create Snapshot](#create-snapshot)
+    - [Verify Snapshot Repository](#verify-snapshot-repository)
+    - [Delete Snapshot](#delete-snapshot)
+    - [Restore Snapshot](#restore-snapshot)
+    - [Get Snapshot Status](#get-snapshot-status)
+    - [Clone Snapshot](#clone-snapshot)
+    - [Get Snapshot](#get-snapshot)
+    - [Get Repository](#get-repository)
+    - [Repository Analyze](#repository-analyze)
+  - [Cleanup](#cleanup)
+
 # Snapshot Actions
 In this guide, we will look at some snapshot actions that allow you to manage and work with snapshots of your indices.
 
@@ -7,10 +23,16 @@ Let's create a client instance, and an index named `movies`:
 ```python
 from opensearchpy import OpenSearch
 
+host = 'localhost'
+port = 9200
+auth = ('admin', 'admin') # For testing only. Don't store credentials in code.
+
 client = OpenSearch(
-  hosts=['https://admin:admin@localhost:9200'],
-  use_ssl=True,
-  verify_certs=False
+    hosts = [{'host': host, 'port': port}],
+    http_auth = auth,
+    use_ssl = True,
+    verify_certs = False,
+    ssl_show_warn = False
 )
 
 print(client.info())  # Check server info and make sure the client is connected
@@ -27,7 +49,12 @@ repo_body = {
         "location": "/path/to/repo", 
     }
 }
-client.snapshot.create_repository(repository='my_repository', body=repo_body)
+
+# Create the snapshot repository and capture the response
+response = client.snapshot.create_repository(repository='my_repository', body=repo_body)
+
+# Print the response to see the result
+print(response)
 ```
 
 ### Create Snapshot
@@ -42,6 +69,12 @@ The `verify_repository` API action allows you to verify a snapshot repository. V
 
 ```python
 response = client.snapshot.verify_repository(repository='my_repository')
+
+# Print the HTTP status code
+print("HTTP Status Code:", response.status_code)
+
+# Print the response content
+print("Response Content:", response.content)
 ```
 
 ### Delete Snapshot
@@ -82,6 +115,9 @@ response = client.snapshot.get(
     repository='my_repository',
     snapshot='my_snapshot'
 )
+
+# Print the response to see the result
+print(response)
 ```
 
 ## Get Repository
