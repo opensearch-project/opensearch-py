@@ -336,11 +336,64 @@ class TestUrllib3Connection(TestCase):
         con = RequestsHttpConnection(http_auth=auth)
         prepared_request = requests.Request("GET", "http://localhost").prepare()
         auth(prepared_request)
+        self._assert_auth_and_signature_headers(auth, con, prepared_request)
+
+    @pytest.mark.skipif(
+        sys.version_info < (3, 6), reason="AWSV4SignerAuth requires python3.6+"
+    )
+    def test_aws_signer_as_http_auth_with_query_path(self):
+        region = "us-west-2"
+
+        import requests
+
+        from opensearchpy.helpers.signer import AWSV4SignerAuth
+
+        auth = AWSV4SignerAuth(self.mock_session(), region)
+        con = RequestsHttpConnection(http_auth=auth)
+        prepared_request = requests.Request(
+            "GET", "http://localhost?hello=world"
+        ).prepare()
+        auth(prepared_request)
+        self._assert_auth_and_signature_headers(auth, con, prepared_request)
+
+    def _assert_auth_and_signature_headers(self, auth, con, prepared_request):
         self.assertEqual(auth, con.session.auth)
         self.assertIn("Authorization", prepared_request.headers)
         self.assertIn("X-Amz-Date", prepared_request.headers)
         self.assertIn("X-Amz-Security-Token", prepared_request.headers)
         self.assertIn("X-Amz-Content-SHA256", prepared_request.headers)
+
+    @pytest.mark.skipif(
+        sys.version_info < (3, 6), reason="AWSV4SignerAuth requires python3.6+"
+    )
+    def test_aws_signer_as_http_auth_with_sign_port_with_port_on_base_url(self):
+        region = "us-west-2"
+
+        import requests
+
+        from opensearchpy.helpers.signer import AWSV4SignerAuth
+
+        auth = AWSV4SignerAuth(self.mock_session(), region, signature_port=443)
+        con = RequestsHttpConnection(http_auth=auth)
+        prepared_request = requests.Request("GET", "http://localhost:1045").prepare()
+        auth(prepared_request)
+        self._assert_auth_and_signature_headers(auth, con, prepared_request)
+
+    @pytest.mark.skipif(
+        sys.version_info < (3, 6), reason="AWSV4SignerAuth requires python3.6+"
+    )
+    def test_aws_signer_as_http_auth_with_sign_port_but_without_port_on_base_url(self):
+        region = "us-west-2"
+
+        import requests
+
+        from opensearchpy.helpers.signer import AWSV4SignerAuth
+
+        auth = AWSV4SignerAuth(self.mock_session(), region, signature_port=443)
+        con = RequestsHttpConnection(http_auth=auth)
+        prepared_request = requests.Request("GET", "http://localhost").prepare()
+        auth(prepared_request)
+        self._assert_auth_and_signature_headers(auth, con, prepared_request)
 
     @pytest.mark.skipif(
         sys.version_info < (3, 6), reason="AWSV4SignerAuth requires python3.6+"

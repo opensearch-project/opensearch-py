@@ -8,6 +8,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ### Deprecated
 ### Removed
 ### Fixed
+- Fixed allow AWSV4SignerAuth to work with a tunnel ([[#184](https://github.com/opensearch-project/opensearch-py/issues/184)
 ### Security
 ### Dependencies
 - Bumps `sphinx` from <7.1 to <7.3
