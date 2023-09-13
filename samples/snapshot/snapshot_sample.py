@@ -5,6 +5,7 @@
 # this file be licensed under the Apache-2.0 license or a
 # compatible open source license.
 
+import tempfile
 from opensearchpy import OpenSearch
 
 # connect to OpenSearch
@@ -26,12 +27,15 @@ client = OpenSearch(
 index_name = "test-snapshot"
 client.indices.create(index = index_name)
 
-# Create a snapshot repository
+# Create a temporary directory for the snapshot repository
+temp_repo = tempfile.TemporaryDirectory()
+temp_repo_location = temp_repo.name  # Get the path of the temporary directory
 
+# Define the repository body with the temporary location
 repo_body = {
     "type": "fs",  # Replace 'fs' with the appropriate repository type
     "settings": {
-        "location": "/path/to/repo",  # Replace with the desired repository location
+        "location": temp_repo_location,  # Replace with the desired repository location
     }
 }
 
