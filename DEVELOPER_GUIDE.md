@@ -1,8 +1,10 @@
 - [Developer Guide](#developer-guide)
   - [Prerequisites](#prerequisites)
-  - [Docker Image Installation](#docker-setup)
+    - [Install Docker Image](#docker-setup)
+    - [Poetry](#poetry-setup)
+    - [Install Dependencies](#dependencies)
   - [Running Tests](#running-tests)
-  - [Integration Tests](#integration-tests)
+  - [Linter](#linter)
   - [Documentation](#documentation)
   - [Running Python Client Generator](#running-python-client-generator)
 
@@ -25,7 +27,7 @@ Install [Nox](https://nox.thea.codes/en/stable/) for task management.
 $ python -m pip install nox
 ```
 
-## Install Docker Image
+### Install Docker Image
 
 Integration tests require [docker](https://opensearch.org/docs/latest/install-and-configure/install-opensearch/docker/).
 
@@ -40,45 +42,52 @@ Integration tests will auto-start the docker image. To start it manually:
 ```
 docker run -d -p 9200:9200 -p 9600:9600 -e "discovery.type=single-node" opensearchproject/opensearch:latest
 ```
+### Poetry 
 
+This project uses [poetry](https://python-poetry.org/docs/), a modern Python dependency management tool. Poetry provides a simplified and efficient way to manage your project's dependencies, virtual environments, and packaging. It also generates the ever-important `poetry.lock`, which is used to produce deterministic builds. Here's how to get started with Poetry:
+
+```
+$ pip install poetry
+
+$ poetry --version
+Poetry (version 1.6.1)
+```
+
+### Install Dependencies
+
+Install dependencies.
+
+```
+$ poetry install
+Installing dependencies
+Resolving dependencies...
+
+Writing lock file
+```
 ## Running Tests
 
 Tests require a live instance of OpenSearch running in docker.
 
 This will start a new instance and run tests against the latest version of OpenSearch.
 
-```
-./.ci/run-tests
-```
-
-If your OpenSearch docker instance is running, you can execute the test suite directly.
+Run the following while on the ```./opensearch-py``` directory.
 
 ```
-$ nox -rs test
-```
-
-To run tests against different versions of OpenSearch, use `run-tests [with/without security] [version]`:
-
-```
-./.ci/run-tests true 1.3.0
-```
-
-The first argument tells whether to run server with security plugin enabled or not. The second argument specifies the version of OpenSearch the tests should run against, if not specified, the tests run against the latest version. You can also run tests against a current SNAPSHOT.
-
-The following example runs tests against the latest SNAPSHOT build of OpenSearch without security.
-
-```
-./.ci/run-tests opensearch false SNAPSHOT
+$ poetry run pytest
 ```
 
 You can also run individual tests matching a pattern (`pytest -k [pattern]`). 
 
 ```
-./.ci/run-tests true 1.3.0 test_no_http_compression
+$ poetry run pytest test_opensearchpy/test_async/test_server/test_helpers/test_search.py
+============================================ test session starts ====================================================
+platform win32 -- Python 3.9.7, pytest-7.4.2, pluggy-0.13.1
+configfile: setup.cfg
+plugins: anyio-2.2.0, asyncio-0.21.1, cov-4.1.0
+asyncio: mode=auto
+collected 8 items
 
-test_opensearchpy/test_connection.py::TestUrllib3Connection::test_no_http_compression PASSED [ 33%]
-test_opensearchpy/test_connection.py::TestRequestsConnection::test_no_http_compression PASSED [ 66%]
-test_opensearchpy/test_async/test_connection.py::TestAIOHttpConnection::test_no_http_compression PASSED [100%]
+test_opensearchpy\test_async\test_server\test_helpers\test_search.py ........                                 [100%]
 ```
 
 Note that integration tests require docker to be installed and running, and downloads quite a bit of data from over the internet and hence take few minutes to complete.

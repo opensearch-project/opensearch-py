@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "package1"
+version = "0.1.0"
+description = "OpenSearch tests."
+authors = ["Raman Saparkhan <romasaparhan19@gmail.com>"]
+license = "Apache 2.0"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.7"
+opensearch-py = { git = "https://github.com/opensearch-project/opensearch-py.git", branch = "main", extras=["async"] }
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
