@@ -56,6 +56,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - Include parsed error info in `TransportError` in async connections ([#226](https://github.com/opensearch-project/opensearch-py/pull/226))
 - Enhanced existing API generator to use OpenSearch OpenAPI spec ([#412](https://github.com/opensearch-project/opensearch-py/pull/412))
 - Fix crash when attempting to authenticate with an async connection ([#424](https://github.com/opensearch-project/opensearch-py/pull/424))
+- Fixed poetry run issue on Windows machines ([#494](https://github.com/opensearch-project/opensearch-py/pull/494))
 ### Security
 - Fixed CVE-2022-23491 reported in opensearch-dsl-py ([#295](https://github.com/opensearch-project/opensearch-py/pull/295))
 ### Dependencies
