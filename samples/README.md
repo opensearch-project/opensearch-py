@@ -15,5 +15,5 @@ Install [poetry](https://python-poetry.org/docs/).
 
 ```
 poetry install
-poetry run hello/hello.py
+poetry run python hello/hello.py
 ```
