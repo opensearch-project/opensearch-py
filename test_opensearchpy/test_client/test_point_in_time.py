@@ -27,3 +27,20 @@ class TestPointInTime(OpenSearchTestCase):
     def test_list_all_point_in_time(self):
         self.client.list_all_point_in_time()
         self.assert_url_called("GET", "/_search/point_in_time/_all")
+
+    def test_create_pit(self):
+        index_name = "test-index"
+        self.client.create_pit(index=index_name)
+        self.assert_url_called("POST", "/test-index/_search/point_in_time")
+
+    def test_delete_pit(self):
+        self.client.delete_pit(body={"pit_id": ["Sample-PIT-ID"]})
+        self.assert_url_called("DELETE", "/_search/point_in_time")
+
+    def test_delete_all_pits(self):
+        self.client.delete_all_pits()
+        self.assert_url_called("DELETE", "/_search/point_in_time/_all")
+
+    def test_get_all_pits(self):
+        self.client.get_all_pits()
+        self.assert_url_called("GET", "/_search/point_in_time/_all")
