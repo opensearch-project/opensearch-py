@@ -5,6 +5,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ### Added
 - Added generating imports and headers to API generator ([#467](https://github.com/opensearch-project/opensearch-py/pull/467))
 ### Changed
+- Integrated generated `tasks client` APIs into the existing module, ensuring alignment with the server and maintaining backward compatibility ([#508](https://github.com/opensearch-project/opensearch-py/pull/508))
 ### Deprecated
 ### Removed
 ### Fixed
