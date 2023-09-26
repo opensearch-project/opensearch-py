@@ -381,8 +381,31 @@ number of copies for the shard (number of replicas + 1)</p></li>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.OpenSearch.create_pit">
+<span class="sig-name descname"><span class="pre">create_pit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client.html#OpenSearch.create_pit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.OpenSearch.create_pit" title="Permalink to this definition"></a></dt>
+<dd><p>Creates point in time context.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>index</strong> – Comma-separated list of indices; use <cite>_all</cite> or empty
+string to perform the operation on all indices.</p></li>
+<li><p><strong>allow_partial_pit_creation</strong> – Allow if point in time can be
+created with partial failures.</p></li>
+<li><p><strong>expand_wildcards</strong> – Whether to expand wildcard expression to
+concrete indices that are open, closed or both.  Valid choices: all,
+open, closed, hidden, none</p></li>
+<li><p><strong>keep_alive</strong> – Specify the keep alive for point in time.</p></li>
+<li><p><strong>preference</strong> – Specify the node or shard the operation should
+be performed on.</p></li>
+<li><p><strong>routing</strong> – Comma-separated list of specific routing values.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.OpenSearch.create_point_in_time">
-<span class="sig-name descname"><span class="pre">create_point_in_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client.html#OpenSearch.create_point_in_time"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.OpenSearch.create_point_in_time" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">create_point_in_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#opensearchpy.OpenSearch.create_point_in_time" title="Permalink to this definition"></a></dt>
 <dd><p>Create a point in time that can be used in subsequent searches</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -402,6 +425,8 @@ be performed on (default: random)</p></li>
 </ul>
 </dd>
 </dl>
+<p>This API will be removed in a future version
+Use ‘create_pit’ API instead.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -436,6 +461,12 @@ to the total number of copies for the shard (number of replicas + 1)</p></li>
 </ul>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.OpenSearch.delete_all_pits">
+<span class="sig-name descname"><span class="pre">delete_all_pits</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client.html#OpenSearch.delete_all_pits"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.OpenSearch.delete_all_pits" title="Permalink to this definition"></a></dt>
+<dd><p>Deletes all active point in time searches.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -537,8 +568,19 @@ floating sub-requests per second. -1 means set no throttle.</p></li>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.OpenSearch.delete_pit">
+<span class="sig-name descname"><span class="pre">delete_pit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">body</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client.html#OpenSearch.delete_pit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.OpenSearch.delete_pit" title="Permalink to this definition"></a></dt>
+<dd><p>Deletes one or more point in time searches based on the IDs passed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>body</strong> – a point-in-time id to delete</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.OpenSearch.delete_point_in_time">
-<span class="sig-name descname"><span class="pre">delete_point_in_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">body</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">all</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client.html#OpenSearch.delete_point_in_time"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.OpenSearch.delete_point_in_time" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">delete_point_in_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">body</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">all</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#opensearchpy.OpenSearch.delete_point_in_time" title="Permalink to this definition"></a></dt>
 <dd><p>Delete a point in time</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -548,6 +590,8 @@ floating sub-requests per second. -1 means set no throttle.</p></li>
 </ul>
 </dd>
 </dl>
+<p>This API will be removed in a future version
+Use ‘delete_all_pits’ or ‘delete_pit’ API instead.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -724,6 +768,12 @@ internal, external, external_gte, force</p></li>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.OpenSearch.get_all_pits">
+<span class="sig-name descname"><span class="pre">get_all_pits</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client.html#OpenSearch.get_all_pits"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.OpenSearch.get_all_pits" title="Permalink to this definition"></a></dt>
+<dd><p>Lists all active point in time searches.</p>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.OpenSearch.get_script">
 <span class="sig-name descname"><span class="pre">get_script</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client.html#OpenSearch.get_script"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.OpenSearch.get_script" title="Permalink to this definition"></a></dt>
 <dd><p>Returns a script.</p>
@@ -840,8 +890,10 @@ number of copies for the shard (number of replicas + 1)</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.OpenSearch.list_all_point_in_time">
-<span class="sig-name descname"><span class="pre">list_all_point_in_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client.html#OpenSearch.list_all_point_in_time"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.OpenSearch.list_all_point_in_time" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">list_all_point_in_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#opensearchpy.OpenSearch.list_all_point_in_time" title="Permalink to this definition"></a></dt>
 <dd><p>Returns the list of active point in times searches</p>
+<p>This API will be removed in a future version
+Use ‘get_all_pits’ API instead.</p>
 </dd></dl>
 
 <dl class="py method">

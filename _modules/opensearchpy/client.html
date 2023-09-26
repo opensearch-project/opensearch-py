@@ -255,6 +255,12 @@
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
+    <span class="kn">from</span> <span class="nn">._patch</span> <span class="kn">import</span> <span class="p">(</span>
+        <span class="n">create_point_in_time</span><span class="p">,</span>
+        <span class="n">delete_point_in_time</span><span class="p">,</span>
+        <span class="n">list_all_point_in_time</span><span class="p">,</span>
+    <span class="p">)</span>
+
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">hosts</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">transport_class</span><span class="o">=</span><span class="n">Transport</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        :arg hosts: list of nodes, or a single node, we should connect to.</span>
@@ -2037,63 +2043,73 @@
             <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="s2">&quot;/_script_language&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="OpenSearch.list_all_point_in_time"><a class="viewcode-back" href="../../api-ref/clients/opensearch_client.html#opensearchpy.OpenSearch.list_all_point_in_time">[docs]</a>    <span class="nd">@query_params</span><span class="p">()</span>
-    <span class="k">def</span> <span class="nf">list_all_point_in_time</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Returns the list of active point in times searches</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
-            <span class="s2">&quot;GET&quot;</span><span class="p">,</span>
-            <span class="n">_make_path</span><span class="p">(</span><span class="s2">&quot;_search&quot;</span><span class="p">,</span> <span class="s2">&quot;point_in_time&quot;</span><span class="p">,</span> <span class="s2">&quot;_all&quot;</span><span class="p">),</span>
-            <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span>
-            <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
-        <span class="p">)</span></div>
-
-<div class="viewcode-block" id="OpenSearch.delete_point_in_time"><a class="viewcode-back" href="../../api-ref/clients/opensearch_client.html#opensearchpy.OpenSearch.delete_point_in_time">[docs]</a>    <span class="nd">@query_params</span><span class="p">()</span>
-    <span class="k">def</span> <span class="nf">delete_point_in_time</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="nb">all</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Delete a point in time</span>
-
-
-<span class="sd">        :arg body: a point-in-time id to delete</span>
-<span class="sd">        :arg all: set it to `True` to delete all alive point in time.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-
-        <span class="n">path</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="n">_make_path</span><span class="p">(</span><span class="s2">&quot;_search&quot;</span><span class="p">,</span> <span class="s2">&quot;point_in_time&quot;</span><span class="p">,</span> <span class="s2">&quot;_all&quot;</span><span class="p">)</span>
-            <span class="k">if</span> <span class="nb">all</span>
-            <span class="k">else</span> <span class="n">_make_path</span><span class="p">(</span><span class="s2">&quot;_search&quot;</span><span class="p">,</span> <span class="s2">&quot;point_in_time&quot;</span><span class="p">)</span>
-        <span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
-            <span class="s2">&quot;DELETE&quot;</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">body</span>
-        <span class="p">)</span></div>
-
-<div class="viewcode-block" id="OpenSearch.create_point_in_time"><a class="viewcode-back" href="../../api-ref/clients/opensearch_client.html#opensearchpy.OpenSearch.create_point_in_time">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
-        <span class="s2">&quot;expand_wildcards&quot;</span><span class="p">,</span> <span class="s2">&quot;ignore_unavailable&quot;</span><span class="p">,</span> <span class="s2">&quot;keep_alive&quot;</span><span class="p">,</span> <span class="s2">&quot;preference&quot;</span><span class="p">,</span> <span class="s2">&quot;routing&quot;</span>
+<div class="viewcode-block" id="OpenSearch.create_pit"><a class="viewcode-back" href="../../api-ref/clients/opensearch_client.html#opensearchpy.OpenSearch.create_pit">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+        <span class="s2">&quot;allow_partial_pit_creation&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;expand_wildcards&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;keep_alive&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;preference&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;routing&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">create_point_in_time</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">create_pit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Create a point in time that can be used in subsequent searches</span>
+<span class="sd">        Creates point in time context.</span>
 
 
-<span class="sd">        :arg index: A comma-separated list of index names to open point</span>
-<span class="sd">            in time; use `_all` or empty string to perform the operation on all</span>
-<span class="sd">            indices</span>
+<span class="sd">        :arg index: Comma-separated list of indices; use `_all` or empty</span>
+<span class="sd">            string to perform the operation on all indices.</span>
+<span class="sd">        :arg allow_partial_pit_creation: Allow if point in time can be</span>
+<span class="sd">            created with partial failures.</span>
 <span class="sd">        :arg expand_wildcards: Whether to expand wildcard expression to</span>
-<span class="sd">            concrete indices that are open, closed or both.  Valid choices: open,</span>
-<span class="sd">            closed, hidden, none, all  Default: open</span>
-<span class="sd">        :arg ignore_unavailable: Whether specified concrete indices</span>
-<span class="sd">            should be ignored when unavailable (missing or closed)</span>
-<span class="sd">        :arg keep_alive: Specific the time to live for the point in time</span>
+<span class="sd">            concrete indices that are open, closed or both.  Valid choices: all,</span>
+<span class="sd">            open, closed, hidden, none</span>
+<span class="sd">        :arg keep_alive: Specify the keep alive for point in time.</span>
 <span class="sd">        :arg preference: Specify the node or shard the operation should</span>
-<span class="sd">            be performed on (default: random)</span>
-<span class="sd">        :arg routing: Specific routing value</span>
+<span class="sd">            be performed on.</span>
+<span class="sd">        :arg routing: Comma-separated list of specific routing values.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">index</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Empty value passed for a required argument &#39;index&#39;.&quot;</span><span class="p">)</span>
+
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
             <span class="s2">&quot;POST&quot;</span><span class="p">,</span>
             <span class="n">_make_path</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="s2">&quot;_search&quot;</span><span class="p">,</span> <span class="s2">&quot;point_in_time&quot;</span><span class="p">),</span>
             <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span>
             <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="OpenSearch.delete_all_pits"><a class="viewcode-back" href="../../api-ref/clients/opensearch_client.html#opensearchpy.OpenSearch.delete_all_pits">[docs]</a>    <span class="nd">@query_params</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">delete_all_pits</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Deletes all active point in time searches.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
+            <span class="s2">&quot;DELETE&quot;</span><span class="p">,</span> <span class="s2">&quot;/_search/point_in_time/_all&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="OpenSearch.delete_pit"><a class="viewcode-back" href="../../api-ref/clients/opensearch_client.html#opensearchpy.OpenSearch.delete_pit">[docs]</a>    <span class="nd">@query_params</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">delete_pit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Deletes one or more point in time searches based on the IDs passed.</span>
+
+
+<span class="sd">        :arg body: a point-in-time id to delete</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
+            <span class="s2">&quot;DELETE&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;/_search/point_in_time&quot;</span><span class="p">,</span>
+            <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span>
+            <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
+            <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="OpenSearch.get_all_pits"><a class="viewcode-back" href="../../api-ref/clients/opensearch_client.html#opensearchpy.OpenSearch.get_all_pits">[docs]</a>    <span class="nd">@query_params</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">get_all_pits</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Lists all active point in time searches.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
+            <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="s2">&quot;/_search/point_in_time/_all&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="OpenSearch.terms_enum"><a class="viewcode-back" href="../../api-ref/clients/opensearch_client.html#opensearchpy.OpenSearch.terms_enum">[docs]</a>    <span class="nd">@query_params</span><span class="p">()</span>
