@@ -7,10 +7,12 @@
 # Modifications Copyright OpenSearch Contributors. See
 # GitHub history for details.
 
-from ..client.utils import SKIP_IN_PATH, NamespacedClient, _make_path, query_params
+from .utils import SKIP_IN_PATH, NamespacedClient, _make_path, query_params
 
 
 class SecurityClient(NamespacedClient):
+    from ._patch import health_check, update_audit_config
+
     @query_params()
     def get_account_details(self, params=None, headers=None):
         """
@@ -644,15 +646,13 @@ class SecurityClient(NamespacedClient):
         )
 
     @query_params()
-    def health_check(self, params=None, headers=None):
+    def health(self, params=None, headers=None):
         """
         Checks to see if the Security plugin is up and running.
+
         """
         return self.transport.perform_request(
-            "GET",
-            _make_path("_plugins", "_security", "health"),
-            params=params,
-            headers=headers,
+            "GET", "/_plugins/_security/health", params=params, headers=headers
         )
 
     @query_params()
@@ -668,16 +668,17 @@ class SecurityClient(NamespacedClient):
         )
 
     @query_params()
-    def update_audit_config(self, body, params=None, headers=None):
+    def update_audit_configuration(self, body, params=None, headers=None):
         """
-        A PUT call updates the audit configuration.
+        Updates the audit configuration.
+
         """
         if body in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'body'.")
 
         return self.transport.perform_request(
             "PUT",
-            _make_path("_opendistro", "_security", "api", "audit", "config"),
+            "/_plugins/_security/api/audit/config",
             params=params,
             headers=headers,
             body=body,

@@ -120,6 +120,13 @@ class Module:
                     for line in content.split("\n"):
                         header_lines.append(line)
                         if line.startswith("class"):
+                            if (
+                                "security.py" in str(self.filepath)
+                                and not self.filepath.suffix == ".pyi"
+                            ):
+                                header_lines.append(
+                                    "    from ._patch import health_check, update_audit_config"
+                                )
                             break
                 self.header = "\n".join(header_lines)
                 self.orders = re.findall(
@@ -375,8 +382,12 @@ class API:
         # To adhere to the HTTP RFC we shouldn't send
         # bodies in GET requests.
         default_method = self.path["methods"][0]
+        if self.name == "refresh" or self.name == "flush":
+            return "POST"
         if self.body and default_method == "GET" and "POST" in self.path["methods"]:
             return "POST"
+        if "POST" and "PUT" in self.path["methods"] and self.name != "bulk":
+            return "PUT"
         return default_method
 
     @property
@@ -437,8 +448,9 @@ def read_modules():
 
     for path in data["paths"]:
         for x in data["paths"][path]:
-            data["paths"][path][x].update({"path": path, "method": x})
-            list_of_dicts.append(data["paths"][path][x])
+            if "deprecated" not in data["paths"][path][x]:
+                data["paths"][path][x].update({"path": path, "method": x})
+                list_of_dicts.append(data["paths"][path][x])
 
     # Update parameters  in each endpoint
     for p in list_of_dicts:
