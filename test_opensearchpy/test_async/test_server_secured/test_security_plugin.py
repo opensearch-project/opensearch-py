@@ -174,3 +174,55 @@ class TestSecurityPlugin(IsolatedAsyncioTestCase):
         # Try fetching the user
         with self.assertRaises(NotFoundError):
             response = await self.client.security.get_user(self.USER_NAME)
+
+    async def test_health_check(self):
+        response = await self.client.security.health_check()
+        self.assertNotIn("errors", response)
+        self.assertEqual("UP", response.get("status"))
+
+    async def test_health(self):
+        response = await self.client.security.health()
+        self.assertNotIn("errors", response)
+        self.assertEqual("UP", response.get("status"))
+
+    AUDIT_CONFIG_SETTINGS = {
+        "enabled": True,
+        "audit": {
+            "ignore_users": [],
+            "ignore_requests": [],
+            "disabled_rest_categories": ["AUTHENTICATED", "GRANTED_PRIVILEGES"],
+            "disabled_transport_categories": ["AUTHENTICATED", "GRANTED_PRIVILEGES"],
+            "log_request_body": False,
+            "resolve_indices": False,
+            "resolve_bulk_requests": False,
+            "exclude_sensitive_headers": True,
+            "enable_transport": False,
+            "enable_rest": True,
+        },
+        "compliance": {
+            "enabled": True,
+            "write_log_diffs": False,
+            "read_watched_fields": {},
+            "read_ignore_users": [],
+            "write_watched_indices": [],
+            "write_ignore_users": [],
+            "read_metadata_only": True,
+            "write_metadata_only": True,
+            "external_config": False,
+            "internal_config": True,
+        },
+    }
+
+    async def test_update_audit_config(self):
+        response = await self.client.security.update_audit_config(
+            body=self.AUDIT_CONFIG_SETTINGS
+        )
+        self.assertNotIn("errors", response)
+        self.assertEqual("OK", response.get("status"))
+
+    async def test_update_audit_configuration(self):
+        response = await self.client.security.update_audit_configuration(
+            body=self.AUDIT_CONFIG_SETTINGS
+        )
+        self.assertNotIn("errors", response)
+        self.assertEqual("OK", response.get("status"))

@@ -173,6 +173,12 @@ class OpenSearch(object):
 
     """
 
+    from ._patch import (
+        create_point_in_time,
+        delete_point_in_time,
+        list_all_point_in_time,
+    )
+
     def __init__(self, hosts=None, transport_class=Transport, **kwargs):
         """
         :arg hosts: list of nodes, or a single node, we should connect to.
@@ -1955,63 +1961,73 @@ class OpenSearch(object):
             "GET", "/_script_language", params=params, headers=headers
         )
 
-    @query_params()
-    def list_all_point_in_time(self, params=None, headers=None):
-        """
-        Returns the list of active point in times searches
-        """
-        return self.transport.perform_request(
-            "GET",
-            _make_path("_search", "point_in_time", "_all"),
-            params=params,
-            headers=headers,
-        )
-
-    @query_params()
-    def delete_point_in_time(self, body=None, all=False, params=None, headers=None):
-        """
-        Delete a point in time
-
-
-        :arg body: a point-in-time id to delete
-        :arg all: set it to `True` to delete all alive point in time.
-        """
-
-        path = (
-            _make_path("_search", "point_in_time", "_all")
-            if all
-            else _make_path("_search", "point_in_time")
-        )
-        return self.transport.perform_request(
-            "DELETE", path, params=params, headers=headers, body=body
-        )
-
     @query_params(
-        "expand_wildcards", "ignore_unavailable", "keep_alive", "preference", "routing"
+        "allow_partial_pit_creation",
+        "expand_wildcards",
+        "keep_alive",
+        "preference",
+        "routing",
     )
-    def create_point_in_time(self, index=None, params=None, headers=None):
+    def create_pit(self, index, params=None, headers=None):
         """
-        Create a point in time that can be used in subsequent searches
+        Creates point in time context.
 
 
-        :arg index: A comma-separated list of index names to open point
-            in time; use `_all` or empty string to perform the operation on all
-            indices
+        :arg index: Comma-separated list of indices; use `_all` or empty
+            string to perform the operation on all indices.
+        :arg allow_partial_pit_creation: Allow if point in time can be
+            created with partial failures.
         :arg expand_wildcards: Whether to expand wildcard expression to
-            concrete indices that are open, closed or both.  Valid choices: open,
-            closed, hidden, none, all  Default: open
-        :arg ignore_unavailable: Whether specified concrete indices
-            should be ignored when unavailable (missing or closed)
-        :arg keep_alive: Specific the time to live for the point in time
+            concrete indices that are open, closed or both.  Valid choices: all,
+            open, closed, hidden, none
+        :arg keep_alive: Specify the keep alive for point in time.
         :arg preference: Specify the node or shard the operation should
-            be performed on (default: random)
-        :arg routing: Specific routing value
+            be performed on.
+        :arg routing: Comma-separated list of specific routing values.
         """
+        if index in SKIP_IN_PATH:
+            raise ValueError("Empty value passed for a required argument 'index'.")
+
         return self.transport.perform_request(
             "POST",
             _make_path(index, "_search", "point_in_time"),
             params=params,
             headers=headers,
+        )
+
+    @query_params()
+    def delete_all_pits(self, params=None, headers=None):
+        """
+        Deletes all active point in time searches.
+
+        """
+        return self.transport.perform_request(
+            "DELETE", "/_search/point_in_time/_all", params=params, headers=headers
+        )
+
+    @query_params()
+    def delete_pit(self, body=None, params=None, headers=None):
+        """
+        Deletes one or more point in time searches based on the IDs passed.
+
+
+        :arg body: a point-in-time id to delete
+        """
+        return self.transport.perform_request(
+            "DELETE",
+            "/_search/point_in_time",
+            params=params,
+            headers=headers,
+            body=body,
+        )
+
+    @query_params()
+    def get_all_pits(self, params=None, headers=None):
+        """
+        Lists all active point in time searches.
+        """
+        return self.transport.perform_request(
+            "GET", "/_search/point_in_time/_all", params=params, headers=headers
         )
 
     @query_params()

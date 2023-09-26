@@ -4,8 +4,10 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ## [Unreleased]
 ### Added
 - Added generating imports and headers to API generator ([#467](https://github.com/opensearch-project/opensearch-py/pull/467))
+- Added point-in-time APIs (create_pit, delete_pit, delete_all_pits, get_all_pits) and Security Client APIs (health and update_audit_configuration) ([#502](https://github.com/opensearch-project/opensearch-py/pull/502))
 ### Changed
 ### Deprecated
+- Deprecated point-in-time APIs (list_all_point_in_time, create_point_in_time, delete_point_in_time) and Security Client APIs (health_check and update_audit_config) ([#502](https://github.com/opensearch-project/opensearch-py/pull/502))
 ### Removed
 ### Fixed
 ### Security

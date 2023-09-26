@@ -6,9 +6,9 @@
 #
 # Modifications Copyright OpenSearch Contributors. See
 # GitHub history for details.
-from typing import Any, Union
+from typing import Any, Collection, MutableMapping, Optional, Tuple, Union
 
-from ..client.utils import NamespacedClient as NamespacedClient
+from .utils import NamespacedClient as NamespacedClient
 
 class SecurityClient(NamespacedClient):
     async def get_account_details(
@@ -192,14 +192,41 @@ class SecurityClient(NamespacedClient):
     async def flush_cache(
         self, params: Union[Any, None] = ..., headers: Union[Any, None] = ...
     ) -> Any: ...
-    async def health_check(
-        self, params: Union[Any, None] = ..., headers: Union[Any, None] = ...
+    async def health(
+        self,
+        *,
+        pretty: Optional[bool] = ...,
+        human: Optional[bool] = ...,
+        error_trace: Optional[bool] = ...,
+        format: Optional[str] = ...,
+        filter_path: Optional[Union[str, Collection[str]]] = ...,
+        request_timeout: Optional[Union[int, float]] = ...,
+        ignore: Optional[Union[int, Collection[int]]] = ...,
+        opaque_id: Optional[str] = ...,
+        http_auth: Optional[Union[str, Tuple[str, str]]] = ...,
+        api_key: Optional[Union[str, Tuple[str, str]]] = ...,
+        params: Optional[MutableMapping[str, Any]] = ...,
+        headers: Optional[MutableMapping[str, str]] = ...,
     ) -> Any: ...
     async def get_audit_configuration(
         self, params: Union[Any, None] = ..., headers: Union[Any, None] = ...
     ) -> Any: ...
-    async def update_audit_config(
-        self, body: Any, params: Union[Any, None] = ..., headers: Union[Any, None] = ...
+    async def update_audit_configuration(
+        self,
+        *,
+        body: Any,
+        pretty: Optional[bool] = ...,
+        human: Optional[bool] = ...,
+        error_trace: Optional[bool] = ...,
+        format: Optional[str] = ...,
+        filter_path: Optional[Union[str, Collection[str]]] = ...,
+        request_timeout: Optional[Union[int, float]] = ...,
+        ignore: Optional[Union[int, Collection[int]]] = ...,
+        opaque_id: Optional[str] = ...,
+        http_auth: Optional[Union[str, Tuple[str, str]]] = ...,
+        api_key: Optional[Union[str, Tuple[str, str]]] = ...,
+        params: Optional[MutableMapping[str, Any]] = ...,
+        headers: Optional[MutableMapping[str, str]] = ...,
     ) -> Any: ...
     async def patch_audit_configuration(
         self, body: Any, params: Union[Any, None] = ..., headers: Union[Any, None] = ...
