@@ -121,26 +121,21 @@
 <dt class="sig sig-object py" id="opensearchpy.client.tasks.TasksClient.cancel">
 <span class="sig-name descname"><span class="pre">cancel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">task_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/tasks.html#TasksClient.cancel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.tasks.TasksClient.cancel" title="Permalink to this definition"></a></dt>
 <dd><p>Cancels a task, if it can be cancelled through an API.</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>This API is <strong>experimental</strong> so may include breaking changes
-or be removed in a future version</p>
-</div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>task_id</strong> – Cancel the task with specified task id
-(node_id:task_number)</p></li>
-<li><p><strong>actions</strong> – A comma-separated list of actions that should be
+(node_id:task_number).</p></li>
+<li><p><strong>actions</strong> – Comma-separated list of actions that should be
 cancelled. Leave empty to cancel all.</p></li>
-<li><p><strong>nodes</strong> – A comma-separated list of node IDs or names to limit
+<li><p><strong>nodes</strong> – Comma-separated list of node IDs or names to limit
 the returned information; use <cite>_local</cite> to return information from the
-node you’re connecting to, leave empty to get information from all nodes</p></li>
+node you’re connecting to, leave empty to get information from all
+nodes.</p></li>
 <li><p><strong>parent_task_id</strong> – Cancel tasks with specified parent task id
 (node_id:task_number). Set to -1 to cancel all.</p></li>
-<li><p><strong>wait_for_completion</strong> – Should the request block until the
-cancellation of the task and its descendant tasks is completed. Defaults
-to false</p></li>
+<li><p><strong>wait_for_completion</strong> – Should this request wait until the
+operation has completed before returning.</p></li>
 </ul>
 </dd>
 </dl>
@@ -150,19 +145,14 @@ to false</p></li>
 <dt class="sig sig-object py" id="opensearchpy.client.tasks.TasksClient.get">
 <span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">task_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/tasks.html#TasksClient.get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.tasks.TasksClient.get" title="Permalink to this definition"></a></dt>
 <dd><p>Returns information about a task.</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>This API is <strong>experimental</strong> so may include breaking changes
-or be removed in a future version</p>
-</div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>task_id</strong> – Return the task with specified id
-(node_id:task_number)</p></li>
-<li><p><strong>timeout</strong> – Explicit operation timeout</p></li>
-<li><p><strong>wait_for_completion</strong> – Wait for the matching tasks to
-complete (default: false)</p></li>
+(node_id:task_number).</p></li>
+<li><p><strong>timeout</strong> – Operation timeout.</p></li>
+<li><p><strong>wait_for_completion</strong> – Should this request wait until the
+operation has completed before returning.</p></li>
 </ul>
 </dd>
 </dl>
@@ -172,27 +162,23 @@ complete (default: false)</p></li>
 <dt class="sig sig-object py" id="opensearchpy.client.tasks.TasksClient.list">
 <span class="sig-name descname"><span class="pre">list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/tasks.html#TasksClient.list"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.tasks.TasksClient.list" title="Permalink to this definition"></a></dt>
 <dd><p>Returns a list of tasks.</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>This API is <strong>experimental</strong> so may include breaking changes
-or be removed in a future version</p>
-</div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>actions</strong> – A comma-separated list of actions that should be
+<li><p><strong>actions</strong> – Comma-separated list of actions that should be
 returned. Leave empty to return all.</p></li>
-<li><p><strong>detailed</strong> – Return detailed task information (default: false)</p></li>
+<li><p><strong>detailed</strong> – Return detailed task information.</p></li>
 <li><p><strong>group_by</strong> – Group tasks by nodes or parent/child
-relationships  Valid choices: nodes, parents, none  Default: nodes</p></li>
-<li><p><strong>nodes</strong> – A comma-separated list of node IDs or names to limit
+relationships.  Valid choices: nodes, parents, none</p></li>
+<li><p><strong>nodes</strong> – Comma-separated list of node IDs or names to limit
 the returned information; use <cite>_local</cite> to return information from the
-node you’re connecting to, leave empty to get information from all nodes</p></li>
+node you’re connecting to, leave empty to get information from all
+nodes.</p></li>
 <li><p><strong>parent_task_id</strong> – Return tasks with specified parent task id
 (node_id:task_number). Set to -1 to return all.</p></li>
-<li><p><strong>timeout</strong> – Explicit operation timeout</p></li>
-<li><p><strong>wait_for_completion</strong> – Wait for the matching tasks to
-complete (default: false)</p></li>
+<li><p><strong>timeout</strong> – Operation timeout.</p></li>
+<li><p><strong>wait_for_completion</strong> – Should this request wait until the
+operation has completed before returning.</p></li>
 </ul>
 </dd>
 </dl>

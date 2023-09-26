@@ -108,6 +108,16 @@
 <span class="c1">#  under the License.</span>
 
 
+<span class="c1"># ----------------------------------------------------</span>
+<span class="c1"># THIS CODE IS GENERATED AND MANUAL EDITS WILL BE LOST.</span>
+<span class="c1">#</span>
+<span class="c1"># To contribute, kindly make essential modifications through either the &quot;opensearch-py client generator&quot;:</span>
+<span class="c1"># https://github.com/opensearch-project/opensearch-py/blob/main/utils/generate-api.py</span>
+<span class="c1"># or the &quot;OpenSearch API specification&quot; available at:</span>
+<span class="c1"># https://github.com/opensearch-project/opensearch-api-specification/blob/main/OpenSearch.openapi.json</span>
+<span class="c1"># -----------------------------------------------------</span>
+
+
 <span class="kn">import</span> <span class="nn">warnings</span>
 
 <span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">SKIP_IN_PATH</span><span class="p">,</span> <span class="n">NamespacedClient</span><span class="p">,</span> <span class="n">_make_path</span><span class="p">,</span> <span class="n">query_params</span>
@@ -128,24 +138,20 @@
 <span class="sd">        Returns a list of tasks.</span>
 
 
-<span class="sd">        .. warning::</span>
-
-<span class="sd">            This API is **experimental** so may include breaking changes</span>
-<span class="sd">            or be removed in a future version</span>
-
-<span class="sd">        :arg actions: A comma-separated list of actions that should be</span>
+<span class="sd">        :arg actions: Comma-separated list of actions that should be</span>
 <span class="sd">            returned. Leave empty to return all.</span>
-<span class="sd">        :arg detailed: Return detailed task information (default: false)</span>
+<span class="sd">        :arg detailed: Return detailed task information.</span>
 <span class="sd">        :arg group_by: Group tasks by nodes or parent/child</span>
-<span class="sd">            relationships  Valid choices: nodes, parents, none  Default: nodes</span>
-<span class="sd">        :arg nodes: A comma-separated list of node IDs or names to limit</span>
+<span class="sd">            relationships.  Valid choices: nodes, parents, none</span>
+<span class="sd">        :arg nodes: Comma-separated list of node IDs or names to limit</span>
 <span class="sd">            the returned information; use `_local` to return information from the</span>
-<span class="sd">            node you&#39;re connecting to, leave empty to get information from all nodes</span>
+<span class="sd">            node you&#39;re connecting to, leave empty to get information from all</span>
+<span class="sd">            nodes.</span>
 <span class="sd">        :arg parent_task_id: Return tasks with specified parent task id</span>
 <span class="sd">            (node_id:task_number). Set to -1 to return all.</span>
-<span class="sd">        :arg timeout: Explicit operation timeout</span>
-<span class="sd">        :arg wait_for_completion: Wait for the matching tasks to</span>
-<span class="sd">            complete (default: false)</span>
+<span class="sd">        :arg timeout: Operation timeout.</span>
+<span class="sd">        :arg wait_for_completion: Should this request wait until the</span>
+<span class="sd">            operation has completed before returning.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
             <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="s2">&quot;/_tasks&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
@@ -157,23 +163,18 @@
 <span class="sd">        Cancels a task, if it can be cancelled through an API.</span>
 
 
-<span class="sd">        .. warning::</span>
-
-<span class="sd">            This API is **experimental** so may include breaking changes</span>
-<span class="sd">            or be removed in a future version</span>
-
 <span class="sd">        :arg task_id: Cancel the task with specified task id</span>
-<span class="sd">            (node_id:task_number)</span>
-<span class="sd">        :arg actions: A comma-separated list of actions that should be</span>
+<span class="sd">            (node_id:task_number).</span>
+<span class="sd">        :arg actions: Comma-separated list of actions that should be</span>
 <span class="sd">            cancelled. Leave empty to cancel all.</span>
-<span class="sd">        :arg nodes: A comma-separated list of node IDs or names to limit</span>
+<span class="sd">        :arg nodes: Comma-separated list of node IDs or names to limit</span>
 <span class="sd">            the returned information; use `_local` to return information from the</span>
-<span class="sd">            node you&#39;re connecting to, leave empty to get information from all nodes</span>
+<span class="sd">            node you&#39;re connecting to, leave empty to get information from all</span>
+<span class="sd">            nodes.</span>
 <span class="sd">        :arg parent_task_id: Cancel tasks with specified parent task id</span>
 <span class="sd">            (node_id:task_number). Set to -1 to cancel all.</span>
-<span class="sd">        :arg wait_for_completion: Should the request block until the</span>
-<span class="sd">            cancellation of the task and its descendant tasks is completed. Defaults</span>
-<span class="sd">            to false</span>
+<span class="sd">        :arg wait_for_completion: Should this request wait until the</span>
+<span class="sd">            operation has completed before returning.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
             <span class="s2">&quot;POST&quot;</span><span class="p">,</span>
@@ -188,16 +189,11 @@
 <span class="sd">        Returns information about a task.</span>
 
 
-<span class="sd">        .. warning::</span>
-
-<span class="sd">            This API is **experimental** so may include breaking changes</span>
-<span class="sd">            or be removed in a future version</span>
-
 <span class="sd">        :arg task_id: Return the task with specified id</span>
-<span class="sd">            (node_id:task_number)</span>
-<span class="sd">        :arg timeout: Explicit operation timeout</span>
-<span class="sd">        :arg wait_for_completion: Wait for the matching tasks to</span>
-<span class="sd">            complete (default: false)</span>
+<span class="sd">            (node_id:task_number).</span>
+<span class="sd">        :arg timeout: Operation timeout.</span>
+<span class="sd">        :arg wait_for_completion: Should this request wait until the</span>
+<span class="sd">            operation has completed before returning.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">task_id</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
             <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
