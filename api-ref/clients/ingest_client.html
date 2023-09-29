@@ -124,21 +124,16 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>id</strong> – Pipeline ID</p></li>
-<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Explicit operation timeout for connection
-to master node</p></li>
-<li><p><strong>cluster_manager_timeout</strong> – Explicit operation timeout for connection
-to cluster_manager node</p></li>
-<li><p><strong>timeout</strong> – Explicit operation timeout</p></li>
+<li><p><strong>id</strong> – Pipeline ID.</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
+to cluster-manager node.</p></li>
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
+use ‘cluster_manager_timeout’ instead): Operation timeout for connection
+to master node.</p></li>
+<li><p><strong>timeout</strong> – Operation timeout.</p></li>
 </ul>
 </dd>
 </dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="opensearchpy.client.ingest.IngestClient.geo_ip_stats">
-<span class="sig-name descname"><span class="pre">geo_ip_stats</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/ingest.html#IngestClient.geo_ip_stats"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.ingest.IngestClient.geo_ip_stats" title="Permalink to this definition"></a></dt>
-<dd><p>Returns statistical information about geoip databases</p>
 </dd></dl>
 
 <dl class="py method">
@@ -148,14 +143,13 @@ to cluster_manager node</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>id</strong> – Comma separated list of pipeline ids. Wildcards
-supported</p></li>
-<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Explicit operation timeout for connection
-to master node</p></li>
-<li><p><strong>cluster_manager_timeout</strong> – Explicit operation timeout for connection
-to cluster_manager node</p></li>
-<li><p><strong>summary</strong> – Return pipelines without their definitions
-(default: false)</p></li>
+<li><p><strong>id</strong> – Comma-separated list of pipeline ids. Wildcards
+supported.</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
+to cluster-manager node.</p></li>
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
+use ‘cluster_manager_timeout’ instead): Operation timeout for connection
+to master node.</p></li>
 </ul>
 </dd>
 </dl>
@@ -174,13 +168,14 @@ to cluster_manager node</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>id</strong> – Pipeline ID</p></li>
+<li><p><strong>id</strong> – Pipeline ID.</p></li>
 <li><p><strong>body</strong> – The ingest definition</p></li>
-<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Explicit operation timeout for connection
-to master node</p></li>
-<li><p><strong>cluster_manager_timeout</strong> – Explicit operation timeout for connection
-to cluster_manager node</p></li>
-<li><p><strong>timeout</strong> – Explicit operation timeout</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
+to cluster-manager node.</p></li>
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
+use ‘cluster_manager_timeout’ instead): Operation timeout for connection
+to master node.</p></li>
+<li><p><strong>timeout</strong> – Operation timeout.</p></li>
 </ul>
 </dd>
 </dl>
@@ -194,9 +189,9 @@ to cluster_manager node</p></li>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>body</strong> – The simulate definition</p></li>
-<li><p><strong>id</strong> – Pipeline ID</p></li>
+<li><p><strong>id</strong> – Pipeline ID.</p></li>
 <li><p><strong>verbose</strong> – Verbose mode. Display data output for each
-processor in executed pipeline</p></li>
+processor in executed pipeline.</p></li>
 </ul>
 </dd>
 </dl>
