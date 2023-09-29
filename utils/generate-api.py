@@ -448,9 +448,11 @@ def read_modules():
 
     for path in data["paths"]:
         for x in data["paths"][path]:
-            if "deprecated" not in data["paths"][path][x]:
-                data["paths"][path][x].update({"path": path, "method": x})
-                list_of_dicts.append(data["paths"][path][x])
+            if data["paths"][path][x]["x-operation-group"] == "nodes.hot_threads":
+                if "deprecated" in data["paths"][path][x]:
+                    continue
+            data["paths"][path][x].update({"path": path, "method": x})
+            list_of_dicts.append(data["paths"][path][x])
 
     # Update parameters  in each endpoint
     for p in list_of_dicts:
@@ -484,12 +486,15 @@ def read_modules():
                     A.update({"type": "enum"})
                     A.update({"options": m["schema"]["enum"]})
 
-                if "deprecated" in m:
-                    A.update({"deprecated": m["deprecated"]})
+                if "deprecated" in m["schema"]:
+                    A.update({"deprecated": m["schema"]["deprecated"]})
+                    A.update(
+                        {"deprecation_message": m["schema"]["x-deprecation-message"]}
+                    )
                 params_new.update({m["name"]: A})
 
             # Removing the deprecated "type"
-            if "type" in params_new:
+            if p["x-operation-group"] != "nodes.hot_threads" and "type" in params_new:
                 params_new.pop("type")
 
             if bool(params_new):
