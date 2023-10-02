@@ -482,6 +482,10 @@ def read_modules():
 
             for m in params:
                 A = dict(type=m["schema"]["type"], description=m["description"])
+
+                if "default" in m["schema"]:
+                    A.update({"default": m["schema"]["default"]})
+
                 if "enum" in m["schema"]:
                     A.update({"type": "enum"})
                     A.update({"options": m["schema"]["enum"]})
@@ -507,6 +511,9 @@ def read_modules():
 
                 if "description" in n:
                     B.update({"description": n["description"]})
+
+                if "x-enum-options" in n["schema"]:
+                    B.update({"options": n["schema"]["x-enum-options"]})
 
                 deprecated_new = {}
                 if "deprecated" in n:
