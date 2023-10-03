@@ -120,16 +120,19 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.client.dangling_indices.DanglingIndicesClient.delete_dangling_index">
 <span class="sig-name descname"><span class="pre">delete_dangling_index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index_uuid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/dangling_indices.html#DanglingIndicesClient.delete_dangling_index"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.dangling_indices.DanglingIndicesClient.delete_dangling_index" title="Permalink to this definition"></a></dt>
-<dd><p>Deletes the specified dangling index</p>
+<dd><p>Deletes the specified dangling index.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>index_uuid</strong> – The UUID of the dangling index</p></li>
+<li><p><strong>index_uuid</strong> – The UUID of the dangling index.</p></li>
 <li><p><strong>accept_data_loss</strong> – Must be set to true in order to delete
-the dangling index</p></li>
-<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Specify timeout for connection to master</p></li>
-<li><p><strong>cluster_manager_timeout</strong> – Specify timeout for connection to cluster_manager</p></li>
-<li><p><strong>timeout</strong> – Explicit operation timeout</p></li>
+the dangling index.</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
+to cluster-manager node.</p></li>
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
+use ‘cluster_manager_timeout’ instead): Operation timeout for connection
+to master node.</p></li>
+<li><p><strong>timeout</strong> – Operation timeout.</p></li>
 </ul>
 </dd>
 </dl>
@@ -138,16 +141,19 @@ the dangling index</p></li>
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.client.dangling_indices.DanglingIndicesClient.import_dangling_index">
 <span class="sig-name descname"><span class="pre">import_dangling_index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index_uuid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/dangling_indices.html#DanglingIndicesClient.import_dangling_index"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.dangling_indices.DanglingIndicesClient.import_dangling_index" title="Permalink to this definition"></a></dt>
-<dd><p>Imports the specified dangling index</p>
+<dd><p>Imports the specified dangling index.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>index_uuid</strong> – The UUID of the dangling index</p></li>
+<li><p><strong>index_uuid</strong> – The UUID of the dangling index.</p></li>
 <li><p><strong>accept_data_loss</strong> – Must be set to true in order to import
-the dangling index</p></li>
-<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Specify timeout for connection to master</p></li>
-<li><p><strong>cluster_manager_timeout</strong> – Specify timeout for connection to cluster_manager</p></li>
-<li><p><strong>timeout</strong> – Explicit operation timeout</p></li>
+the dangling index.</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
+to cluster-manager node.</p></li>
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
+use ‘cluster_manager_timeout’ instead): Operation timeout for connection
+to master node.</p></li>
+<li><p><strong>timeout</strong> – Operation timeout.</p></li>
 </ul>
 </dd>
 </dl>
