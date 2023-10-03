@@ -126,6 +126,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - Removed patch versions in integration tests for OpenSearch 1.0.0 - 2.3.0 to reduce Github Action jobs ([#262](https://github.com/opensearch-project/opensearch-py/pull/262))
 ### Fixed
 - Fixed DeprecationWarning emitted from urllib3 1.26.13+ ([#246](https://github.com/opensearch-project/opensearch-py/pull/246))
+- Fixed Wrong return type hint in `async_scan` ([520](https://github.com/opensearch-project/opensearch-py/pull/520))
 ### Security
 
 [Unreleased]: https://github.com/opensearch-project/opensearch-py/compare/v2.3.1...HEAD
