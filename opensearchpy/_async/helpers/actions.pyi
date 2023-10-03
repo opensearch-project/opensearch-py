@@ -100,7 +100,7 @@ def async_scan(
     clear_scroll: bool = ...,
     scroll_kwargs: Optional[Mapping[str, Any]] = ...,
     **kwargs: Any
-) -> AsyncGenerator[int, None]: ...
+) -> AsyncGenerator[dict[str, Any], None]: ...
 async def async_reindex(
     client: AsyncOpenSearch,
     source_index: Union[str, Collection[str]],
