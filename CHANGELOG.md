@@ -8,6 +8,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ### Changed
 - Integrated generated `tasks client` APIs into the existing module, ensuring alignment with the server and maintaining backward compatibility ([#508](https://github.com/opensearch-project/opensearch-py/pull/508))
 - Integrated generated `ingest client` APIs into the existing module, ensuring alignment with the server and maintaining backward compatibility ([#513](https://github.com/opensearch-project/opensearch-py/pull/513))
+- Integrated generated `dangling_indices client` APIs into the existing module, ensuring alignment with the server and maintaining backward compatibility ([#511](https://github.com/opensearch-project/opensearch-py/pull/511))
 - Integrated generated `nodes client` APIs into the existing module, ensuring alignment with the server and maintaining backward compatibility ([#514](https://github.com/opensearch-project/opensearch-py/pull/514))
 ### Deprecated
 - Deprecated point-in-time APIs (list_all_point_in_time, create_point_in_time, delete_point_in_time) and Security Client APIs (health_check and update_audit_config) ([#502](https://github.com/opensearch-project/opensearch-py/pull/502))
@@ -17,6 +18,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ### Dependencies
 - Bumps `sphinx` from <7.1 to <7.3
 - Bumps `urllib3` from >=1.21.1, <2 to >=1.21.1 ([#466](https://github.com/opensearch-project/opensearch-py/pull/466))
+- Bumps `urllib3` from >=1.21.1 to >=1.26.9 ([#518](https://github.com/opensearch-project/opensearch-py/pull/518))
 
 ## [2.3.1]
 ### Added
