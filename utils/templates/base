@@ -21,7 +21,8 @@
 
         {% for p, info in api.params %}
         {% filter wordwrap(72, wrapstring="\n            ") %}
-        :arg {{ p }}{% if info.deprecated %} (Deprecated: {{ info['deprecation_message'][:-1] }}){% endif %}: {{ info.description }}{% if info.options %}  Valid choices: {{ info.options|join(", ") }}{% endif %}{% if info.default %}  Default: {{ info.default }}{% endif %}
+        :arg {{ p }}{% if info.deprecated %} (Deprecated: {{ info['deprecation_message'][:-1] }}){% endif %}: {{ info.description }}{% if info.options %}  Valid choices: {{ info.options|join(", ") }}{% endif %}
+        {% if info.default is defined %}{% if info.default is not none %}{% if info.default is sameas(false) %} (default: false){% else %} (default: {{ info.default }}){% endif %}{% endif %}{% endif %}
         {% endfilter %}
 
         {% endfor %}
