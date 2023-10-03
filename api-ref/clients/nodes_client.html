@@ -124,21 +124,21 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>node_id</strong> – A comma-separated list of node IDs or names to
-limit the returned information; use <cite>_local</cite> to return information from
-the node you’re connecting to, leave empty to get information from all
-nodes</p></li>
-<li><p><strong>doc_type</strong> – The type to sample (default: cpu)  Valid choices:
-cpu, wait, block</p></li>
+<li><p><strong>node_id</strong> – Comma-separated list of node IDs or names to limit
+the returned information; use <cite>_local</cite> to return information from the
+node you’re connecting to, leave empty to get information from all
+nodes.</p></li>
+<li><p><strong>doc_type</strong> – The type to sample.  Valid choices: cpu, wait,
+block</p></li>
 <li><p><strong>ignore_idle_threads</strong> – Don’t show threads that are in known-
 idle places, such as waiting on a socket select or pulling from an empty
-task queue (default: true)</p></li>
-<li><p><strong>interval</strong> – The interval for the second sampling of threads</p></li>
-<li><p><strong>snapshots</strong> – Number of samples of thread stacktrace (default:
-10)</p></li>
+task queue. (default: True)</p></li>
+<li><p><strong>interval</strong> – The interval for the second sampling of threads.</p></li>
+<li><p><strong>snapshots</strong> – Number of samples of thread stacktrace.
+(default: 10)</p></li>
 <li><p><strong>threads</strong> – Specify the number of threads to provide
-information for (default: 3)</p></li>
-<li><p><strong>timeout</strong> – Explicit operation timeout</p></li>
+information for. (default: 3)</p></li>
+<li><p><strong>timeout</strong> – Operation timeout.</p></li>
 </ul>
 </dd>
 </dl>
@@ -151,16 +151,16 @@ information for (default: 3)</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>node_id</strong> – A comma-separated list of node IDs or names to
-limit the returned information; use <cite>_local</cite> to return information from
-the node you’re connecting to, leave empty to get information from all
-nodes</p></li>
-<li><p><strong>metric</strong> – A comma-separated list of metrics you wish
-returned. Leave empty to return all.  Valid choices: settings, os,
-process, jvm, thread_pool, transport, http, plugins, ingest</p></li>
-<li><p><strong>flat_settings</strong> – Return settings in flat format (default:
+<li><p><strong>node_id</strong> – Comma-separated list of node IDs or names to limit
+the returned information; use <cite>_local</cite> to return information from the
+node you’re connecting to, leave empty to get information from all
+nodes.</p></li>
+<li><p><strong>metric</strong> – Comma-separated list of metrics you wish returned.
+Leave empty to return all.  Valid choices: settings, os, process, jvm,
+thread_pool, transport, http, plugins, ingest</p></li>
+<li><p><strong>flat_settings</strong> – Return settings in flat format. (default:
 false)</p></li>
-<li><p><strong>timeout</strong> – Explicit operation timeout</p></li>
+<li><p><strong>timeout</strong> – Operation timeout.</p></li>
 </ul>
 </dd>
 </dl>
@@ -173,12 +173,12 @@ false)</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>body</strong> – An object containing the password for the
-opensearch keystore</p></li>
-<li><p><strong>node_id</strong> – A comma-separated list of node IDs to span the
+<li><p><strong>body</strong> – An object containing the password for the opensearch
+keystore</p></li>
+<li><p><strong>node_id</strong> – Comma-separated list of node IDs to span the
 reload/reinit call. Should stay empty because reloading usually involves
 all cluster nodes.</p></li>
-<li><p><strong>timeout</strong> – Explicit operation timeout</p></li>
+<li><p><strong>timeout</strong> – Operation timeout.</p></li>
 </ul>
 </dd>
 </dl>
@@ -191,37 +191,34 @@ all cluster nodes.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>node_id</strong> – A comma-separated list of node IDs or names to
-limit the returned information; use <cite>_local</cite> to return information from
-the node you’re connecting to, leave empty to get information from all
-nodes</p></li>
+<li><p><strong>node_id</strong> – Comma-separated list of node IDs or names to limit
+the returned information; use <cite>_local</cite> to return information from the
+node you’re connecting to, leave empty to get information from all
+nodes.</p></li>
 <li><p><strong>metric</strong> – Limit the information returned to the specified
-metrics  Valid choices: _all, breaker, fs, http, indices, jvm, os,
+metrics.  Valid choices: _all, breaker, fs, http, indices, jvm, os,
 process, thread_pool, transport, discovery, indexing_pressure</p></li>
 <li><p><strong>index_metric</strong> – Limit the information returned for <cite>indices</cite>
 metric to the specific index metrics. Isn’t used if <cite>indices</cite> (or <cite>all</cite>)
-metric isn’t specified.  Valid choices: _all, completion, docs,
-fielddata, query_cache, flush, get, indexing, merge, request_cache,
-refresh, search, segments, store, warmer, suggest</p></li>
-<li><p><strong>completion_fields</strong> – A comma-separated list of fields for
-<cite>fielddata</cite> and <cite>suggest</cite> index metric (supports wildcards)</p></li>
-<li><p><strong>fielddata_fields</strong> – A comma-separated list of fields for
-<cite>fielddata</cite> index metric (supports wildcards)</p></li>
-<li><p><strong>fields</strong> – A comma-separated list of fields for <cite>fielddata</cite>
-and <cite>completion</cite> index metric (supports wildcards)</p></li>
-<li><p><strong>groups</strong> – A comma-separated list of search groups for
-<cite>search</cite> index metric</p></li>
+metric isn’t specified.  Valid choices: _all, store, indexing, get,
+search, merge, flush, refresh, query_cache, fielddata, docs, warmer,
+completion, segments, translog, suggest, request_cache, recovery</p></li>
+<li><p><strong>completion_fields</strong> – Comma-separated list of fields for
+<cite>fielddata</cite> and <cite>suggest</cite> index metric (supports wildcards).</p></li>
+<li><p><strong>fielddata_fields</strong> – Comma-separated list of fields for
+<cite>fielddata</cite> index metric (supports wildcards).</p></li>
+<li><p><strong>fields</strong> – Comma-separated list of fields for <cite>fielddata</cite> and
+<cite>completion</cite> index metric (supports wildcards).</p></li>
+<li><p><strong>groups</strong> – Comma-separated list of search groups for <cite>search</cite>
+index metric.</p></li>
 <li><p><strong>include_segment_file_sizes</strong> – Whether to report the
 aggregated disk usage of each one of the Lucene index files (only
-applies if segment stats are requested)</p></li>
-<li><p><strong>include_unloaded_segments</strong> – If set to true segment stats
-will include stats for segments that are not currently loaded into
-memory</p></li>
+applies if segment stats are requested). (default: false)</p></li>
 <li><p><strong>level</strong> – Return indices stats aggregated at index, node or
-shard level  Valid choices: indices, node, shards  Default: node</p></li>
-<li><p><strong>timeout</strong> – Explicit operation timeout</p></li>
-<li><p><strong>types</strong> – A comma-separated list of document types for the
-<cite>indexing</cite> index metric</p></li>
+shard level.  Valid choices: indices, node, shards</p></li>
+<li><p><strong>timeout</strong> – Operation timeout.</p></li>
+<li><p><strong>types</strong> – Comma-separated list of document types for the
+<cite>indexing</cite> index metric.</p></li>
 </ul>
 </dd>
 </dl>
@@ -234,13 +231,13 @@ shard level  Valid choices: indices, node, shards  Default: node</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>node_id</strong> – A comma-separated list of node IDs or names to
-limit the returned information; use <cite>_local</cite> to return information from
-the node you’re connecting to, leave empty to get information from all
-nodes</p></li>
+<li><p><strong>node_id</strong> – Comma-separated list of node IDs or names to limit
+the returned information; use <cite>_local</cite> to return information from the
+node you’re connecting to, leave empty to get information from all
+nodes.</p></li>
 <li><p><strong>metric</strong> – Limit the information returned to the specified
-metrics  Valid choices: _all, rest_actions</p></li>
-<li><p><strong>timeout</strong> – Explicit operation timeout</p></li>
+metrics.  Valid choices: _all, rest_actions</p></li>
+<li><p><strong>timeout</strong> – Operation timeout.</p></li>
 </ul>
 </dd>
 </dl>
