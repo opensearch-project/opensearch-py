@@ -18,3 +18,6 @@ poetry install
 poetry run richbench . --repeat 1 --times 1
 ```
 
+```
+poetry run richbench . --repeat 1 --times 1 --benchmark sync
+```

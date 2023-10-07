@@ -36,7 +36,8 @@ def test(thread_count = 1, item_count = 1, client_count = 1):
             http_auth = auth,
             use_ssl = True,
             verify_certs = False,
-            ssl_show_warn = False
+            ssl_show_warn = False,
+            pool_maxsize = client_count
         ))
 
     if clients[0].indices.exists(index_name):
@@ -77,5 +78,5 @@ def test_32():
     test(32, item_count, item_count)
 
 __benchmarks__ = [
-    (test_1, test_32, "1 thread vs. more threads (sync)")
+    (test_1, test_32, "1 thread vs. 32 threads (sync)")
 ]
