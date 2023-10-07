@@ -6,29 +6,31 @@
 # this file be licensed under the Apache-2.0 license or a
 # compatible open source license.
 
-import asyncio
+import uuid
 from threading import Thread
-from opensearchpy import OpenSearch, AsyncOpenSearch, RequestsHttpConnection
+from opensearchpy import OpenSearch
 
 host = 'localhost'
 port = 9200
-auth = ('admin', 'admin') # For testing only. Don't store credentials in code.
-count = 1000
+auth = ('admin', 'admin')
+index_name = 'test-index-sync'
+item_count = 100
 
-def test_thread_loop_index_record(client, index_name, i):
-    client.index(
-        index = index_name,
-            body = {
-                'title': f"Moneyball {i}",
-                'director': 'Bennett Miller',
-                'year': '2011'
-            },
-            id = i
-        )
+def index_records(client, item_count):
+    for j in range(item_count):
+        client.index(
+            index = index_name,
+                body = {
+                    'title': f"Moneyball",
+                    'director': 'Bennett Miller',
+                    'year': '2011'
+                },
+                id = uuid.uuid4()
+            )
 
-def test_multithread_loop():
+def test(thread_count = 1, item_count = 1, client_count = 1):
     clients = []
-    for i in range(10):
+    for i in range(client_count):
         clients.append(OpenSearch(
             hosts = [{'host': host, 'port': port}],
             http_auth = auth,
@@ -37,132 +39,43 @@ def test_multithread_loop():
             ssl_show_warn = False
         ))
 
-    index_name = 'test-index-sync'
     if clients[0].indices.exists(index_name):
         clients[0].indices.delete(index_name)
 
     clients[0].indices.create(index_name)
 
-    for i in range(count):
-        threads = []
-        threads.append(
-            Thread(target=test_thread_loop_index_record, args=[
-                clients[i % len(clients)],
-                index_name,
-                i
-            ])
-        )
+    threads = []
+    for thread_id in range(thread_count):
+        thread = Thread(target=index_records, args=[
+            clients[thread_id % len(clients)],
+            item_count
+        ])
+        threads.append(thread)
+        thread.start()
 
-        for t in threads:
-            t.start()
+    for t in threads:
+        t.join()
 
-        for t in threads:
-            t.join()
-    
+    clients[0].indices.refresh(index=index_name)
+    print(clients[0].count(index=index_name))
+
     clients[0].indices.delete(index_name)
 
-def test_thread_loop():
-    sync_client = OpenSearch(
-        hosts = [{'host': host, 'port': port}],
-        http_auth = auth,
-        use_ssl = True,
-        verify_certs = False,
-        ssl_show_warn = False
-    )
+def test_1():
+    test(1, 32 * item_count, item_count)
 
-    index_name = 'test-index-sync'
-    if sync_client.indices.exists(index_name):
-        sync_client.indices.delete(index_name)
+def test_2():
+    test(2, 16 * item_count, item_count)
 
-    sync_client.indices.create(index_name)
+def test_4():
+    test(4, 8 * item_count, item_count)
 
-    for i in range(count):
-        threads = []
-        threads.append(
-            Thread(target=test_thread_loop_index_record, args=[
-                sync_client,
-                index_name,
-                i
-            ])
-        )
+def test_8():
+    test(8, 4 * item_count, item_count)
 
-        for t in threads:
-            t.start()
-
-        for t in threads:
-            t.join()
-    
-    sync_client.indices.delete(index_name)
-
-def test_sync_loop():
-    sync_client = OpenSearch(
-        hosts = [{'host': host, 'port': port}],
-        http_auth = auth,
-        use_ssl = True,
-        verify_certs = False,
-        ssl_show_warn = False,
-        connection_class = RequestsHttpConnection,
-        pool_maxsize = 1
-    )
-
-    index_name = 'test-index-sync'
-    if sync_client.indices.exists(index_name):
-        sync_client.indices.delete(index_name)
-
-    sync_client.indices.create(index_name)
-
-    for i in range(count):
-        sync_client.index(
-            index = index_name,
-                body = {
-                    'title': f"Moneyball {i}",
-                    'director': 'Bennett Miller',
-                    'year': '2011'
-                },
-            id = i
-        )
-    
-    sync_client.indices.delete(index_name)
-
-async def test_info_async():
-    async_client = AsyncOpenSearch(
-        hosts = [{'host': host, 'port': port}],
-        http_auth = auth,
-        use_ssl = True,
-        verify_certs = False,
-        ssl_show_warn = False
-    )
-
-    index_name = 'test-index-async'
-    if await async_client.indices.exists(index_name):
-        await async_client.indices.delete(index_name)
-
-    await async_client.indices.create(index_name)
-
-    await asyncio.gather(*[
-        async_client.index(
-            index = index_name,
-            body = {
-                'title': f"Moneyball {i}",
-                'director': 'Bennett Miller',
-                'year': '2011'
-            },
-            id = i
-        ) for i in range(count)
-    ])
-
-    await async_client.indices.delete(index_name)
-    await async_client.close()
-
-def test_async_loop():
-    loop = asyncio.new_event_loop()
-    asyncio.set_event_loop(loop)
-    loop.run_until_complete(test_info_async())
-    loop.close()
+def test_32():
+    test(32, item_count, item_count)
 
 __benchmarks__ = [
-    #(test_sync_loop, test_thread_loop, "Sync vs. threaded."),
-    #(test_sync_loop, test_async_loop, "Sync vs. async."),
-    (test_multithread_loop, test_async_loop, "Multithread loop vs. async.")
-    
+    (test_1, test_32, "1 thread vs. more threads (sync)")
 ]
