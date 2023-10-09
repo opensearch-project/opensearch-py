@@ -502,6 +502,12 @@ def read_modules():
             if p["x-operation-group"] != "nodes.hot_threads" and "type" in params_new:
                 params_new.pop("type")
 
+            if (
+                p["x-operation-group"] == "cluster.health"
+                and "ensure_node_commissioned" in params_new
+            ):
+                params_new.pop("ensure_node_commissioned")
+
             if bool(params_new):
                 p.update({"params": params_new})
 
