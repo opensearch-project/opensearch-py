@@ -50,7 +50,7 @@ packages = [
     if package == module_dir or package.startswith(module_dir + ".")
 ]
 install_requires = [
-    "urllib3>=1.21.1, <2",
+    "urllib3>=1.26.9",
     "requests>=2.4.0, <3.0.0",
     "six",
     "python-dateutil",
