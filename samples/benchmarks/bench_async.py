@@ -41,7 +41,8 @@ async def test_async(client_count = 1, item_count = 1):
                 use_ssl = True,
                 verify_certs = False,
                 ssl_show_warn = False,
-                connection_class = AsyncHttpConnection
+                connection_class = AsyncHttpConnection,
+                pool_maxsize = client_count
             )
         )
 
@@ -79,6 +80,9 @@ def test_4():
 
 def test_8():
     test(8, 4 * item_count)
+
+def test_16():
+    test(16, 2 * item_count)
 
 def test_32():
     test(32, item_count)
