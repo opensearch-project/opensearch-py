@@ -343,14 +343,14 @@ class AsyncTransport(Transport):
     async def perform_request(self, method, url, headers=None, params=None, body=None):
         """
         Perform the actual request. Retrieve a connection from the connection
-        pool, pass all the information to it's perform_request method and
+        pool, pass all the information to its perform_request method and
         return the data.
 
         If an exception was raised, mark the connection as failed and retry (up
         to `max_retries` times).
 
         If the operation was successful and the connection used was previously
-        marked as dead, mark it as live, resetting it's failure count.
+        marked as dead, mark it as live, resetting its failure count.
 
         :arg method: HTTP method to use
         :arg url: absolute url (without host) to target
@@ -412,7 +412,7 @@ class AsyncTransport(Transport):
                     raise e
 
             else:
-                # connection didn't fail, confirm it's live status
+                # connection didn't fail, confirm its live status
                 self.connection_pool.mark_live(connection)
 
                 if method == "HEAD":
