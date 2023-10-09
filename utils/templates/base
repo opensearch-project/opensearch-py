@@ -28,6 +28,10 @@
         {% endfor %}
         {% endif %}
         """
+        {% if api.deprecation_message %}
+        from warnings import warn
+        warn("Deprecated: {{ api.deprecation_message }}")
+        {% endif %}
         {% include "substitutions" %}
         {% include "required" %}
         {% if api.body.serialize == "bulk" %}
