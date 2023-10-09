@@ -125,22 +125,28 @@ filter and routing infos.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> – A comma-separated list of alias names to return</p></li>
+<li><p><strong>name</strong> – Comma-separated list of alias names.</p></li>
 <li><p><strong>expand_wildcards</strong> – Whether to expand wildcard expression to
-concrete indices that are open, closed or both.  Valid choices: open,
-closed, hidden, none, all  Default: all</p></li>
-<li><p><strong>format</strong> – a short version of the Accept header, e.g. json,
-yaml</p></li>
-<li><p><strong>h</strong> – Comma-separated list of column names to display</p></li>
-<li><p><strong>help</strong> – Return help information</p></li>
+concrete indices that are open, closed or both.  Valid choices: all,
+open, closed, hidden, none</p></li>
+<li><p><strong>format</strong> – A short version of the Accept header, e.g. json,
+yaml.</p></li>
+<li><p><strong>h</strong> – Comma-separated list of column names to display.</p></li>
+<li><p><strong>help</strong> – Return help information. (default: false)</p></li>
 <li><p><strong>local</strong> – Return local information, do not retrieve the state
-from cluster_manager node (default: false)</p></li>
+from cluster-manager node. (default: false)</p></li>
 <li><p><strong>s</strong> – Comma-separated list of column names or column aliases
-to sort by</p></li>
-<li><p><strong>v</strong> – Verbose mode. Display column headers</p></li>
+to sort by.</p></li>
+<li><p><strong>v</strong> – Verbose mode. Display column headers. (default: false)</p></li>
 </ul>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.client.cat.CatClient.all_pit_segments">
+<span class="sig-name descname"><span class="pre">all_pit_segments</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cat.html#CatClient.all_pit_segments"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cat.CatClient.all_pit_segments" title="Permalink to this definition"></a></dt>
+<dd><p>Lists all active point-in-time segments.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -151,23 +157,24 @@ much disk space they are using.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>node_id</strong> – A comma-separated list of node IDs or names to
-limit the returned information</p></li>
-<li><p><strong>bytes</strong> – The unit in which to display byte values  Valid
+<li><p><strong>node_id</strong> – Comma-separated list of node IDs or names to limit
+the returned information.</p></li>
+<li><p><strong>bytes</strong> – The unit in which to display byte values.  Valid
 choices: b, k, kb, m, mb, g, gb, t, tb, p, pb</p></li>
-<li><p><strong>format</strong> – a short version of the Accept header, e.g. json,
-yaml</p></li>
-<li><p><strong>h</strong> – Comma-separated list of column names to display</p></li>
-<li><p><strong>help</strong> – Return help information</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
+to cluster-manager node.</p></li>
+<li><p><strong>format</strong> – A short version of the Accept header, e.g. json,
+yaml.</p></li>
+<li><p><strong>h</strong> – Comma-separated list of column names to display.</p></li>
+<li><p><strong>help</strong> – Return help information. (default: false)</p></li>
 <li><p><strong>local</strong> – Return local information, do not retrieve the state
-from cluster_manager node (default: false)</p></li>
-<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Explicit operation timeout for connection
-to master node</p></li>
-<li><p><strong>cluster_manager_timeout</strong> – Explicit operation timeout for connection
-to cluster_manager node</p></li>
+from cluster-manager node. (default: false)</p></li>
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
+use ‘cluster_manager_timeout’ instead): Operation timeout for connection
+to master node.</p></li>
 <li><p><strong>s</strong> – Comma-separated list of column names or column aliases
-to sort by</p></li>
-<li><p><strong>v</strong> – Verbose mode. Display column headers</p></li>
+to sort by.</p></li>
+<li><p><strong>v</strong> – Verbose mode. Display column headers. (default: false)</p></li>
 </ul>
 </dd>
 </dl>
@@ -176,21 +183,24 @@ to sort by</p></li>
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.client.cat.CatClient.cluster_manager">
 <span class="sig-name descname"><span class="pre">cluster_manager</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cat.html#CatClient.cluster_manager"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cat.CatClient.cluster_manager" title="Permalink to this definition"></a></dt>
-<dd><p>Returns information about the cluster_manager node.</p>
+<dd><p>Returns information about the cluster-manager node.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>format</strong> – a short version of the Accept header, e.g. json,
-yaml</p></li>
-<li><p><strong>h</strong> – Comma-separated list of column names to display</p></li>
-<li><p><strong>help</strong> – Return help information</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
+to cluster-manager node.</p></li>
+<li><p><strong>format</strong> – A short version of the Accept header, e.g. json,
+yaml.</p></li>
+<li><p><strong>h</strong> – Comma-separated list of column names to display.</p></li>
+<li><p><strong>help</strong> – Return help information. (default: false)</p></li>
 <li><p><strong>local</strong> – Return local information, do not retrieve the state
-from cluster_manager node (default: false)</p></li>
-<li><p><strong>cluster_manager_timeout</strong> – Explicit operation timeout for connection
-to cluster_manager node</p></li>
+from cluster-manager node. (default: false)</p></li>
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
+use ‘cluster_manager_timeout’ instead): Operation timeout for connection
+to master node.</p></li>
 <li><p><strong>s</strong> – Comma-separated list of column names or column aliases
-to sort by</p></li>
-<li><p><strong>v</strong> – Verbose mode. Display column headers</p></li>
+to sort by.</p></li>
+<li><p><strong>v</strong> – Verbose mode. Display column headers. (default: false)</p></li>
 </ul>
 </dd>
 </dl>
@@ -204,15 +214,15 @@ individual indices.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>index</strong> – A comma-separated list of index names to limit the
-returned information</p></li>
-<li><p><strong>format</strong> – a short version of the Accept header, e.g. json,
-yaml</p></li>
-<li><p><strong>h</strong> – Comma-separated list of column names to display</p></li>
-<li><p><strong>help</strong> – Return help information</p></li>
+<li><p><strong>index</strong> – Comma-separated list of indices to limit the
+returned information.</p></li>
+<li><p><strong>format</strong> – A short version of the Accept header, e.g. json,
+yaml.</p></li>
+<li><p><strong>h</strong> – Comma-separated list of column names to display.</p></li>
+<li><p><strong>help</strong> – Return help information. (default: false)</p></li>
 <li><p><strong>s</strong> – Comma-separated list of column names or column aliases
-to sort by</p></li>
-<li><p><strong>v</strong> – Verbose mode. Display column headers</p></li>
+to sort by.</p></li>
+<li><p><strong>v</strong> – Verbose mode. Display column headers. (default: false)</p></li>
 </ul>
 </dd>
 </dl>
@@ -226,17 +236,17 @@ node in the cluster.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>fields</strong> – A comma-separated list of fields to return in the
-output</p></li>
-<li><p><strong>bytes</strong> – The unit in which to display byte values  Valid
+<li><p><strong>fields</strong> – Comma-separated list of fields to return in the
+output.</p></li>
+<li><p><strong>bytes</strong> – The unit in which to display byte values.  Valid
 choices: b, k, kb, m, mb, g, gb, t, tb, p, pb</p></li>
-<li><p><strong>format</strong> – a short version of the Accept header, e.g. json,
-yaml</p></li>
-<li><p><strong>h</strong> – Comma-separated list of column names to display</p></li>
-<li><p><strong>help</strong> – Return help information</p></li>
+<li><p><strong>format</strong> – A short version of the Accept header, e.g. json,
+yaml.</p></li>
+<li><p><strong>h</strong> – Comma-separated list of column names to display.</p></li>
+<li><p><strong>help</strong> – Return help information. (default: false)</p></li>
 <li><p><strong>s</strong> – Comma-separated list of column names or column aliases
-to sort by</p></li>
-<li><p><strong>v</strong> – Verbose mode. Display column headers</p></li>
+to sort by.</p></li>
+<li><p><strong>v</strong> – Verbose mode. Display column headers. (default: false)</p></li>
 </ul>
 </dd>
 </dl>
@@ -249,16 +259,16 @@ to sort by</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>format</strong> – a short version of the Accept header, e.g. json,
-yaml</p></li>
-<li><p><strong>h</strong> – Comma-separated list of column names to display</p></li>
-<li><p><strong>help</strong> – Return help information</p></li>
+<li><p><strong>format</strong> – A short version of the Accept header, e.g. json,
+yaml.</p></li>
+<li><p><strong>h</strong> – Comma-separated list of column names to display.</p></li>
+<li><p><strong>help</strong> – Return help information. (default: false)</p></li>
 <li><p><strong>s</strong> – Comma-separated list of column names or column aliases
-to sort by</p></li>
-<li><p><strong>time</strong> – The unit in which to display time values  Valid
+to sort by.</p></li>
+<li><p><strong>time</strong> – The unit in which to display time values.  Valid
 choices: d, h, m, s, ms, micros, nanos</p></li>
-<li><p><strong>ts</strong> – Set to false to disable timestamping  Default: True</p></li>
-<li><p><strong>v</strong> – Verbose mode. Display column headers</p></li>
+<li><p><strong>ts</strong> – Set to false to disable timestamping. (default: True)</p></li>
+<li><p><strong>v</strong> – Verbose mode. Display column headers. (default: false)</p></li>
 </ul>
 </dd>
 </dl>
@@ -271,9 +281,9 @@ choices: d, h, m, s, ms, micros, nanos</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>help</strong> – Return help information</p></li>
+<li><p><strong>help</strong> – Return help information. (default: false)</p></li>
 <li><p><strong>s</strong> – Comma-separated list of column names or column aliases
-to sort by</p></li>
+to sort by.</p></li>
 </ul>
 </dd>
 </dl>
@@ -287,35 +297,37 @@ counts, disk size, …</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>index</strong> – A comma-separated list of index names to limit the
-returned information</p></li>
-<li><p><strong>bytes</strong> – The unit in which to display byte values  Valid
+<li><p><strong>index</strong> – Comma-separated list of indices to limit the
+returned information.</p></li>
+<li><p><strong>bytes</strong> – The unit in which to display byte values.  Valid
 choices: b, k, kb, m, mb, g, gb, t, tb, p, pb</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
+to cluster-manager node.</p></li>
 <li><p><strong>expand_wildcards</strong> – Whether to expand wildcard expression to
-concrete indices that are open, closed or both.  Valid choices: open,
-closed, hidden, none, all  Default: all</p></li>
-<li><p><strong>format</strong> – a short version of the Accept header, e.g. json,
-yaml</p></li>
-<li><p><strong>h</strong> – Comma-separated list of column names to display</p></li>
-<li><p><strong>health</strong> – A health status (“green”, “yellow”, or “red” to
-filter only indices matching the specified health status  Valid choices:
-green, yellow, red</p></li>
-<li><p><strong>help</strong> – Return help information</p></li>
+concrete indices that are open, closed or both.  Valid choices: all,
+open, closed, hidden, none</p></li>
+<li><p><strong>format</strong> – A short version of the Accept header, e.g. json,
+yaml.</p></li>
+<li><p><strong>h</strong> – Comma-separated list of column names to display.</p></li>
+<li><p><strong>health</strong> – Health status (‘green’, ‘yellow’, or ‘red’) to
+filter only indices matching the specified health status.  Valid
+choices: green, yellow, red</p></li>
+<li><p><strong>help</strong> – Return help information. (default: false)</p></li>
 <li><p><strong>include_unloaded_segments</strong> – If set to true segment stats
 will include stats for segments that are not currently loaded into
-memory</p></li>
+memory. (default: false)</p></li>
 <li><p><strong>local</strong> – Return local information, do not retrieve the state
-from cluster_manager node (default: false)</p></li>
-<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Explicit operation timeout for connection
-to master node</p></li>
-<li><p><strong>cluster_manager_timeout</strong> – Explicit operation timeout for connection
-to cluster_manager node</p></li>
-<li><p><strong>pri</strong> – Set to true to return stats only for primary shards</p></li>
+from cluster-manager node. (default: false)</p></li>
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
+use ‘cluster_manager_timeout’ instead): Operation timeout for connection
+to master node.</p></li>
+<li><p><strong>pri</strong> – Set to true to return stats only for primary shards.
+(default: false)</p></li>
 <li><p><strong>s</strong> – Comma-separated list of column names or column aliases
-to sort by</p></li>
-<li><p><strong>time</strong> – The unit in which to display time values  Valid
+to sort by.</p></li>
+<li><p><strong>time</strong> – The unit in which to display time values.  Valid
 choices: d, h, m, s, ms, micros, nanos</p></li>
-<li><p><strong>v</strong> – Verbose mode. Display column headers</p></li>
+<li><p><strong>v</strong> – Verbose mode. Display column headers. (default: false)</p></li>
 </ul>
 </dd>
 </dl>
@@ -324,23 +336,24 @@ choices: d, h, m, s, ms, micros, nanos</p></li>
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.client.cat.CatClient.master">
 <span class="sig-name descname"><span class="pre">master</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cat.html#CatClient.master"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cat.CatClient.master" title="Permalink to this definition"></a></dt>
-<dd><p>Returns information about the master node.</p>
+<dd><p>Returns information about the cluster-manager node.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>format</strong> – a short version of the Accept header, e.g. json,
-yaml</p></li>
-<li><p><strong>h</strong> – Comma-separated list of column names to display</p></li>
-<li><p><strong>help</strong> – Return help information</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
+to cluster-manager node.</p></li>
+<li><p><strong>format</strong> – A short version of the Accept header, e.g. json,
+yaml.</p></li>
+<li><p><strong>h</strong> – Comma-separated list of column names to display.</p></li>
+<li><p><strong>help</strong> – Return help information. (default: false)</p></li>
 <li><p><strong>local</strong> – Return local information, do not retrieve the state
-from cluster_manager node (default: false)</p></li>
-<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Explicit operation timeout for connection
-to master node</p></li>
-<li><p><strong>cluster_manager_timeout</strong> – Explicit operation timeout for connection
-to cluster_manager node</p></li>
+from cluster-manager node. (default: false)</p></li>
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
+use ‘cluster_manager_timeout’ instead): Operation timeout for connection
+to master node.</p></li>
 <li><p><strong>s</strong> – Comma-separated list of column names or column aliases
-to sort by</p></li>
-<li><p><strong>v</strong> – Verbose mode. Display column headers</p></li>
+to sort by.</p></li>
+<li><p><strong>v</strong> – Verbose mode. Display column headers. (default: false)</p></li>
 </ul>
 </dd>
 </dl>
@@ -353,19 +366,20 @@ to sort by</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>format</strong> – a short version of the Accept header, e.g. json,
-yaml</p></li>
-<li><p><strong>h</strong> – Comma-separated list of column names to display</p></li>
-<li><p><strong>help</strong> – Return help information</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
+to cluster-manager node.</p></li>
+<li><p><strong>format</strong> – A short version of the Accept header, e.g. json,
+yaml.</p></li>
+<li><p><strong>h</strong> – Comma-separated list of column names to display.</p></li>
+<li><p><strong>help</strong> – Return help information. (default: false)</p></li>
 <li><p><strong>local</strong> – Return local information, do not retrieve the state
-from cluster_manager node (default: false)</p></li>
-<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Explicit operation timeout for connection
-to master node</p></li>
-<li><p><strong>cluster_manager_timeout</strong> – Explicit operation timeout for connection
-to cluster_manager node</p></li>
+from cluster-manager node. (default: false)</p></li>
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
+use ‘cluster_manager_timeout’ instead): Operation timeout for connection
+to master node.</p></li>
 <li><p><strong>s</strong> – Comma-separated list of column names or column aliases
-to sort by</p></li>
-<li><p><strong>v</strong> – Verbose mode. Display column headers</p></li>
+to sort by.</p></li>
+<li><p><strong>v</strong> – Verbose mode. Display column headers. (default: false)</p></li>
 </ul>
 </dd>
 </dl>
@@ -378,28 +392,27 @@ to sort by</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>bytes</strong> – The unit in which to display byte values  Valid
+<li><p><strong>bytes</strong> – The unit in which to display byte values.  Valid
 choices: b, k, kb, m, mb, g, gb, t, tb, p, pb</p></li>
-<li><p><strong>format</strong> – a short version of the Accept header, e.g. json,
-yaml</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
+to cluster-manager node.</p></li>
+<li><p><strong>format</strong> – A short version of the Accept header, e.g. json,
+yaml.</p></li>
 <li><p><strong>full_id</strong> – Return the full node ID instead of the shortened
-version (default: false)</p></li>
-<li><p><strong>h</strong> – Comma-separated list of column names to display</p></li>
-<li><p><strong>help</strong> – Return help information</p></li>
-<li><p><strong>include_unloaded_segments</strong> – If set to true segment stats
-will include stats for segments that are not currently loaded into
-memory</p></li>
-<li><p><strong>local</strong> – Calculate the selected nodes using the local cluster
-state rather than the state from master node (default: false)</p></li>
-<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Explicit operation timeout for connection
-to master node</p></li>
-<li><p><strong>cluster_manager_timeout</strong> – Explicit operation timeout for connection
-to cluster_manager node</p></li>
+version. (default: false)</p></li>
+<li><p><strong>h</strong> – Comma-separated list of column names to display.</p></li>
+<li><p><strong>help</strong> – Return help information. (default: false)</p></li>
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – This parameter does not cause this API
+to act locally): Return local information, do not retrieve the state
+from cluster-manager node. (default: false)</p></li>
+<li><p><strong>(</strong><strong>Deprecated</strong> – To promote inclusive language,
+use ‘cluster_manager_timeout’ instead): Operation timeout for connection
+to master node.</p></li>
 <li><p><strong>s</strong> – Comma-separated list of column names or column aliases
-to sort by</p></li>
-<li><p><strong>time</strong> – The unit in which to display time values  Valid
+to sort by.</p></li>
+<li><p><strong>time</strong> – The unit in which to display time values.  Valid
 choices: d, h, m, s, ms, micros, nanos</p></li>
-<li><p><strong>v</strong> – Verbose mode. Display column headers</p></li>
+<li><p><strong>v</strong> – Verbose mode. Display column headers. (default: false)</p></li>
 </ul>
 </dd>
 </dl>
@@ -412,22 +425,34 @@ choices: d, h, m, s, ms, micros, nanos</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>format</strong> – a short version of the Accept header, e.g. json,
-yaml</p></li>
-<li><p><strong>h</strong> – Comma-separated list of column names to display</p></li>
-<li><p><strong>help</strong> – Return help information</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
+to cluster-manager node.</p></li>
+<li><p><strong>format</strong> – A short version of the Accept header, e.g. json,
+yaml.</p></li>
+<li><p><strong>h</strong> – Comma-separated list of column names to display.</p></li>
+<li><p><strong>help</strong> – Return help information. (default: false)</p></li>
 <li><p><strong>local</strong> – Return local information, do not retrieve the state
-from cluster_manager node (default: false)</p></li>
-<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Explicit operation timeout for connection
-to master node</p></li>
-<li><p><strong>cluster_manager_timeout</strong> – Explicit operation timeout for connection
-to cluster_manager node</p></li>
+from cluster-manager node. (default: false)</p></li>
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
+use ‘cluster_manager_timeout’ instead): Operation timeout for connection
+to master node.</p></li>
 <li><p><strong>s</strong> – Comma-separated list of column names or column aliases
-to sort by</p></li>
-<li><p><strong>time</strong> – The unit in which to display time values  Valid
+to sort by.</p></li>
+<li><p><strong>time</strong> – The unit in which to display time values.  Valid
 choices: d, h, m, s, ms, micros, nanos</p></li>
-<li><p><strong>v</strong> – Verbose mode. Display column headers</p></li>
+<li><p><strong>v</strong> – Verbose mode. Display column headers. (default: false)</p></li>
 </ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.client.cat.CatClient.pit_segments">
+<span class="sig-name descname"><span class="pre">pit_segments</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">body</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cat.html#CatClient.pit_segments"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cat.CatClient.pit_segments" title="Permalink to this definition"></a></dt>
+<dd><p>List segments for one or several PITs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>body</strong> – </p>
 </dd>
 </dl>
 </dd></dl>
@@ -439,21 +464,20 @@ choices: d, h, m, s, ms, micros, nanos</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>format</strong> – a short version of the Accept header, e.g. json,
-yaml</p></li>
-<li><p><strong>h</strong> – Comma-separated list of column names to display</p></li>
-<li><p><strong>help</strong> – Return help information</p></li>
-<li><p><strong>include_bootstrap</strong> – Include bootstrap plugins in the
-response</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
+to cluster-manager node.</p></li>
+<li><p><strong>format</strong> – A short version of the Accept header, e.g. json,
+yaml.</p></li>
+<li><p><strong>h</strong> – Comma-separated list of column names to display.</p></li>
+<li><p><strong>help</strong> – Return help information. (default: false)</p></li>
 <li><p><strong>local</strong> – Return local information, do not retrieve the state
-from cluster_manager node (default: false)</p></li>
-<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Explicit operation timeout for connection
-to master node</p></li>
-<li><p><strong>cluster_manager_timeout</strong> – Explicit operation timeout for connection
-to cluster_manager node</p></li>
+from cluster-manager node. (default: false)</p></li>
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
+use ‘cluster_manager_timeout’ instead): Operation timeout for connection
+to master node.</p></li>
 <li><p><strong>s</strong> – Comma-separated list of column names or column aliases
-to sort by</p></li>
-<li><p><strong>v</strong> – Verbose mode. Display column headers</p></li>
+to sort by.</p></li>
+<li><p><strong>v</strong> – Verbose mode. Display column headers. (default: false)</p></li>
 </ul>
 </dd>
 </dl>
@@ -467,22 +491,22 @@ to sort by</p></li>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>index</strong> – Comma-separated list or wildcard expression of index
-names to limit the returned information</p></li>
+names to limit the returned information.</p></li>
 <li><p><strong>active_only</strong> – If <cite>true</cite>, the response only includes ongoing
-shard recoveries</p></li>
-<li><p><strong>bytes</strong> – The unit in which to display byte values  Valid
+shard recoveries. (default: false)</p></li>
+<li><p><strong>bytes</strong> – The unit in which to display byte values.  Valid
 choices: b, k, kb, m, mb, g, gb, t, tb, p, pb</p></li>
 <li><p><strong>detailed</strong> – If <cite>true</cite>, the response includes detailed
-information about shard recoveries</p></li>
-<li><p><strong>format</strong> – a short version of the Accept header, e.g. json,
-yaml</p></li>
-<li><p><strong>h</strong> – Comma-separated list of column names to display</p></li>
-<li><p><strong>help</strong> – Return help information</p></li>
+information about shard recoveries. (default: false)</p></li>
+<li><p><strong>format</strong> – A short version of the Accept header, e.g. json,
+yaml.</p></li>
+<li><p><strong>h</strong> – Comma-separated list of column names to display.</p></li>
+<li><p><strong>help</strong> – Return help information. (default: false)</p></li>
 <li><p><strong>s</strong> – Comma-separated list of column names or column aliases
-to sort by</p></li>
-<li><p><strong>time</strong> – The unit in which to display time values  Valid
+to sort by.</p></li>
+<li><p><strong>time</strong> – The unit in which to display time values.  Valid
 choices: d, h, m, s, ms, micros, nanos</p></li>
-<li><p><strong>v</strong> – Verbose mode. Display column headers</p></li>
+<li><p><strong>v</strong> – Verbose mode. Display column headers. (default: false)</p></li>
 </ul>
 </dd>
 </dl>
@@ -495,19 +519,53 @@ choices: d, h, m, s, ms, micros, nanos</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>format</strong> – a short version of the Accept header, e.g. json,
-yaml</p></li>
-<li><p><strong>h</strong> – Comma-separated list of column names to display</p></li>
-<li><p><strong>help</strong> – Return help information</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
+to cluster-manager node.</p></li>
+<li><p><strong>format</strong> – A short version of the Accept header, e.g. json,
+yaml.</p></li>
+<li><p><strong>h</strong> – Comma-separated list of column names to display.</p></li>
+<li><p><strong>help</strong> – Return help information. (default: false)</p></li>
 <li><p><strong>local</strong> – Return local information, do not retrieve the state
-from master node</p></li>
-<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Explicit operation timeout for connection
-to master node</p></li>
-<li><p><strong>cluster_manager_timeout</strong> – Explicit operation timeout for connection
-to cluster_manager node</p></li>
+from cluster-manager node. (default: false)</p></li>
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
+use ‘cluster_manager_timeout’ instead): Operation timeout for connection
+to master node.</p></li>
 <li><p><strong>s</strong> – Comma-separated list of column names or column aliases
-to sort by</p></li>
-<li><p><strong>v</strong> – Verbose mode. Display column headers</p></li>
+to sort by.</p></li>
+<li><p><strong>v</strong> – Verbose mode. Display column headers. (default: false)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.client.cat.CatClient.segment_replication">
+<span class="sig-name descname"><span class="pre">segment_replication</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cat.html#CatClient.segment_replication"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cat.CatClient.segment_replication" title="Permalink to this definition"></a></dt>
+<dd><p>Returns information about both on-going and latest completed Segment
+Replication events.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>index</strong> – Comma-separated list or wildcard expression of index
+names to limit the returned information.</p></li>
+<li><p><strong>active_only</strong> – If <cite>true</cite>, the response only includes ongoing
+segment replication events. (default: false)</p></li>
+<li><p><strong>bytes</strong> – The unit in which to display byte values.  Valid
+choices: b, k, kb, m, mb, g, gb, t, tb, p, pb</p></li>
+<li><p><strong>completed_only</strong> – If <cite>true</cite>, the response only includes
+latest completed segment replication events. (default: false)</p></li>
+<li><p><strong>detailed</strong> – If <cite>true</cite>, the response includes detailed
+information about segment replications. (default: false)</p></li>
+<li><p><strong>format</strong> – A short version of the Accept header, e.g. json,
+yaml.</p></li>
+<li><p><strong>h</strong> – Comma-separated list of column names to display.</p></li>
+<li><p><strong>help</strong> – Return help information. (default: false)</p></li>
+<li><p><strong>s</strong> – Comma-separated list of column names or column aliases
+to sort by.</p></li>
+<li><p><strong>shards</strong> – Comma-separated list of shards to display.</p></li>
+<li><p><strong>time</strong> – The unit in which to display time values.  Valid
+choices: d, h, m, s, ms, micros, nanos</p></li>
+<li><p><strong>v</strong> – Verbose mode. Display column headers. (default: false)</p></li>
 </ul>
 </dd>
 </dl>
@@ -520,17 +578,22 @@ to sort by</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>index</strong> – A comma-separated list of index names to limit the
-returned information</p></li>
-<li><p><strong>bytes</strong> – The unit in which to display byte values  Valid
+<li><p><strong>index</strong> – Comma-separated list of indices to limit the
+returned information.</p></li>
+<li><p><strong>bytes</strong> – The unit in which to display byte values.  Valid
 choices: b, k, kb, m, mb, g, gb, t, tb, p, pb</p></li>
-<li><p><strong>format</strong> – a short version of the Accept header, e.g. json,
-yaml</p></li>
-<li><p><strong>h</strong> – Comma-separated list of column names to display</p></li>
-<li><p><strong>help</strong> – Return help information</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
+to cluster-manager node.</p></li>
+<li><p><strong>format</strong> – A short version of the Accept header, e.g. json,
+yaml.</p></li>
+<li><p><strong>h</strong> – Comma-separated list of column names to display.</p></li>
+<li><p><strong>help</strong> – Return help information. (default: false)</p></li>
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
+use ‘cluster_manager_timeout’ instead): Operation timeout for connection
+to master node.</p></li>
 <li><p><strong>s</strong> – Comma-separated list of column names or column aliases
-to sort by</p></li>
-<li><p><strong>v</strong> – Verbose mode. Display column headers</p></li>
+to sort by.</p></li>
+<li><p><strong>v</strong> – Verbose mode. Display column headers. (default: false)</p></li>
 </ul>
 </dd>
 </dl>
@@ -543,25 +606,26 @@ to sort by</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>index</strong> – A comma-separated list of index names to limit the
-returned information</p></li>
-<li><p><strong>bytes</strong> – The unit in which to display byte values  Valid
+<li><p><strong>index</strong> – Comma-separated list of indices to limit the
+returned information.</p></li>
+<li><p><strong>bytes</strong> – The unit in which to display byte values.  Valid
 choices: b, k, kb, m, mb, g, gb, t, tb, p, pb</p></li>
-<li><p><strong>format</strong> – a short version of the Accept header, e.g. json,
-yaml</p></li>
-<li><p><strong>h</strong> – Comma-separated list of column names to display</p></li>
-<li><p><strong>help</strong> – Return help information</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
+to cluster-manager node.</p></li>
+<li><p><strong>format</strong> – A short version of the Accept header, e.g. json,
+yaml.</p></li>
+<li><p><strong>h</strong> – Comma-separated list of column names to display.</p></li>
+<li><p><strong>help</strong> – Return help information. (default: false)</p></li>
 <li><p><strong>local</strong> – Return local information, do not retrieve the state
-from cluster_manager node (default: false)</p></li>
-<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Explicit operation timeout for connection
-to master node</p></li>
-<li><p><strong>cluster_manager_timeout</strong> – Explicit operation timeout for connection
-to cluster_manager node</p></li>
+from cluster-manager node. (default: false)</p></li>
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
+use ‘cluster_manager_timeout’ instead): Operation timeout for connection
+to master node.</p></li>
 <li><p><strong>s</strong> – Comma-separated list of column names or column aliases
-to sort by</p></li>
-<li><p><strong>time</strong> – The unit in which to display time values  Valid
+to sort by.</p></li>
+<li><p><strong>time</strong> – The unit in which to display time values.  Valid
 choices: d, h, m, s, ms, micros, nanos</p></li>
-<li><p><strong>v</strong> – Verbose mode. Display column headers</p></li>
+<li><p><strong>v</strong> – Verbose mode. Display column headers. (default: false)</p></li>
 </ul>
 </dd>
 </dl>
@@ -574,23 +638,23 @@ choices: d, h, m, s, ms, micros, nanos</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>repository</strong> – Name of repository from which to fetch the
-snapshot information</p></li>
-<li><p><strong>format</strong> – a short version of the Accept header, e.g. json,
-yaml</p></li>
-<li><p><strong>h</strong> – Comma-separated list of column names to display</p></li>
-<li><p><strong>help</strong> – Return help information</p></li>
-<li><p><strong>ignore_unavailable</strong> – Set to true to ignore unavailable
-snapshots</p></li>
-<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Explicit operation timeout for connection
-to master node</p></li>
-<li><p><strong>cluster_manager_timeout</strong> – Explicit operation timeout for connection
-to cluster_manager node</p></li>
+<li><p><strong>repository</strong> – Comma-separated list of repository names.</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
+to cluster-manager node.</p></li>
+<li><p><strong>format</strong> – A short version of the Accept header, e.g. json,
+yaml.</p></li>
+<li><p><strong>h</strong> – Comma-separated list of column names to display.</p></li>
+<li><p><strong>help</strong> – Return help information. (default: false)</p></li>
+<li><p><strong>ignore_unavailable</strong> – Whether specified concrete indices
+should be ignored when unavailable (missing or closed). (default: false)</p></li>
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
+use ‘cluster_manager_timeout’ instead): Operation timeout for connection
+to master node.</p></li>
 <li><p><strong>s</strong> – Comma-separated list of column names or column aliases
-to sort by</p></li>
-<li><p><strong>time</strong> – The unit in which to display time values  Valid
+to sort by.</p></li>
+<li><p><strong>time</strong> – The unit in which to display time values.  Valid
 choices: d, h, m, s, ms, micros, nanos</p></li>
-<li><p><strong>v</strong> – Verbose mode. Display column headers</p></li>
+<li><p><strong>v</strong> – Verbose mode. Display column headers. (default: false)</p></li>
 </ul>
 </dd>
 </dl>
@@ -604,23 +668,25 @@ the cluster.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>actions</strong> – A comma-separated list of actions that should be
+<li><p><strong>actions</strong> – Comma-separated list of actions that should be
 returned. Leave empty to return all.</p></li>
-<li><p><strong>detailed</strong> – Return detailed task information (default: false)</p></li>
-<li><p><strong>format</strong> – a short version of the Accept header, e.g. json,
-yaml</p></li>
-<li><p><strong>h</strong> – Comma-separated list of column names to display</p></li>
-<li><p><strong>help</strong> – Return help information</p></li>
-<li><p><strong>nodes</strong> – A comma-separated list of node IDs or names to limit
+<li><p><strong>detailed</strong> – Return detailed task information. (default:
+false)</p></li>
+<li><p><strong>format</strong> – A short version of the Accept header, e.g. json,
+yaml.</p></li>
+<li><p><strong>h</strong> – Comma-separated list of column names to display.</p></li>
+<li><p><strong>help</strong> – Return help information. (default: false)</p></li>
+<li><p><strong>nodes</strong> – Comma-separated list of node IDs or names to limit
 the returned information; use <cite>_local</cite> to return information from the
-node you’re connecting to, leave empty to get information from all nodes</p></li>
+node you’re connecting to, leave empty to get information from all
+nodes.</p></li>
 <li><p><strong>parent_task_id</strong> – Return tasks with specified parent task id
 (node_id:task_number). Set to -1 to return all.</p></li>
 <li><p><strong>s</strong> – Comma-separated list of column names or column aliases
-to sort by</p></li>
-<li><p><strong>time</strong> – The unit in which to display time values  Valid
+to sort by.</p></li>
+<li><p><strong>time</strong> – The unit in which to display time values.  Valid
 choices: d, h, m, s, ms, micros, nanos</p></li>
-<li><p><strong>v</strong> – Verbose mode. Display column headers</p></li>
+<li><p><strong>v</strong> – Verbose mode. Display column headers. (default: false)</p></li>
 </ul>
 </dd>
 </dl>
@@ -633,20 +699,21 @@ choices: d, h, m, s, ms, micros, nanos</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> – A pattern that returned template names must match</p></li>
-<li><p><strong>format</strong> – a short version of the Accept header, e.g. json,
-yaml</p></li>
-<li><p><strong>h</strong> – Comma-separated list of column names to display</p></li>
-<li><p><strong>help</strong> – Return help information</p></li>
+<li><p><strong>name</strong> – The name of the template.</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
+to cluster-manager node.</p></li>
+<li><p><strong>format</strong> – A short version of the Accept header, e.g. json,
+yaml.</p></li>
+<li><p><strong>h</strong> – Comma-separated list of column names to display.</p></li>
+<li><p><strong>help</strong> – Return help information. (default: false)</p></li>
 <li><p><strong>local</strong> – Return local information, do not retrieve the state
-from cluster_manager node (default: false)</p></li>
-<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Explicit operation timeout for connection
-to master node</p></li>
-<li><p><strong>cluster_manager_timeout</strong> – Explicit operation timeout for connection
-to cluster_manager node</p></li>
+from cluster-manager node. (default: false)</p></li>
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
+use ‘cluster_manager_timeout’ instead): Operation timeout for connection
+to master node.</p></li>
 <li><p><strong>s</strong> – Comma-separated list of column names or column aliases
-to sort by</p></li>
-<li><p><strong>v</strong> – Verbose mode. Display column headers</p></li>
+to sort by.</p></li>
+<li><p><strong>v</strong> – Verbose mode. Display column headers. (default: false)</p></li>
 </ul>
 </dd>
 </dl>
@@ -660,52 +727,23 @@ queue and rejected statistics are returned for all thread pools.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>thread_pool_patterns</strong> – A comma-separated list of regular-
-expressions to filter the thread pools in the output</p></li>
-<li><p><strong>format</strong> – a short version of the Accept header, e.g. json,
-yaml</p></li>
-<li><p><strong>h</strong> – Comma-separated list of column names to display</p></li>
-<li><p><strong>help</strong> – Return help information</p></li>
+<li><p><strong>thread_pool_patterns</strong> – Comma-separated list of regular-
+expressions to filter the thread pools in the output.</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
+to cluster-manager node.</p></li>
+<li><p><strong>format</strong> – A short version of the Accept header, e.g. json,
+yaml.</p></li>
+<li><p><strong>h</strong> – Comma-separated list of column names to display.</p></li>
+<li><p><strong>help</strong> – Return help information. (default: false)</p></li>
 <li><p><strong>local</strong> – Return local information, do not retrieve the state
-from cluster_manager node (default: false)</p></li>
-<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Explicit operation timeout for connection
-to master node</p></li>
-<li><p><strong>cluster_manager_timeout</strong> – Explicit operation timeout for connection
-to cluster_manager node</p></li>
+from cluster-manager node. (default: false)</p></li>
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
+use ‘cluster_manager_timeout’ instead): Operation timeout for connection
+to master node.</p></li>
 <li><p><strong>s</strong> – Comma-separated list of column names or column aliases
-to sort by</p></li>
-<li><p><strong>size</strong> – The multiplier in which to display values  Valid
-choices: , k, m, g, t, p</p></li>
-<li><p><strong>v</strong> – Verbose mode. Display column headers</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="opensearchpy.client.cat.CatClient.transforms">
-<span class="sig-name descname"><span class="pre">transforms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">transform_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cat.html#CatClient.transforms"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cat.CatClient.transforms" title="Permalink to this definition"></a></dt>
-<dd><p>Gets configuration and usage information about transforms.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>transform_id</strong> – The id of the transform for which to get
-stats. ‘_all’ or ‘*’ implies all transforms</p></li>
-<li><p><strong>allow_no_match</strong> – Whether to ignore if a wildcard expression
-matches no transforms. (This includes <cite>_all</cite> string or when no
-transforms have been specified)</p></li>
-<li><p><strong>format</strong> – a short version of the Accept header, e.g. json,
-yaml</p></li>
-<li><p><strong>from</strong> – skips a number of transform configs, defaults to 0</p></li>
-<li><p><strong>h</strong> – Comma-separated list of column names to display</p></li>
-<li><p><strong>help</strong> – Return help information</p></li>
-<li><p><strong>s</strong> – Comma-separated list of column names or column aliases
-to sort by</p></li>
-<li><p><strong>size</strong> – specifies a max number of transforms to get, defaults
-to 100</p></li>
-<li><p><strong>time</strong> – The unit in which to display time values  Valid
-choices: d, h, m, s, ms, micros, nanos</p></li>
-<li><p><strong>v</strong> – Verbose mode. Display column headers</p></li>
+to sort by.</p></li>
+<li><p><strong>size</strong> – The multiplier in which to display values.</p></li>
+<li><p><strong>v</strong> – Verbose mode. Display column headers. (default: false)</p></li>
 </ul>
 </dd>
 </dl>
