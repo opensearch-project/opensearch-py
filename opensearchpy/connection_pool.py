@@ -245,7 +245,7 @@ class ConnectionPool(object):
             self.dead.put((timeout, connection))
             return
 
-        # either we were forced or the connection is elligible to be retried
+        # either we were forced or the connection is eligible to be retried
         self.connections.append(connection)
         logger.info("Resurrecting connection %r (force=%s).", connection, force)
         return connection
