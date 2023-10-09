@@ -263,6 +263,7 @@ class API:
         self.description = ""
         self.doc_url = ""
         self.stability = self._def.get("stability", "stable")
+        self.deprecation_message = self._def.get("deprecation_message")
 
         if isinstance(definition["documentation"], str):
             self.doc_url = definition["documentation"]
@@ -559,6 +560,9 @@ def read_modules():
                 if "documentation" not in api:
                     documentation = {"description": z["description"]}
                     api.update({"documentation": documentation})
+
+                if "deprecation_message" not in api and "x-deprecation-message" in z:
+                    api.update({"deprecation_message": z["x-deprecation-message"]})
 
                 if "params" not in api and "params" in z:
                     api.update({"params": z["params"]})
