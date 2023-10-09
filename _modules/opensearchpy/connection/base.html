@@ -138,7 +138,7 @@
 <div class="viewcode-block" id="Connection"><a class="viewcode-back" href="../../../api-ref/connection.html#opensearchpy.Connection">[docs]</a><span class="k">class</span> <span class="nc">Connection</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Class responsible for maintaining a connection to an OpenSearch node. It</span>
-<span class="sd">    holds persistent connection pool to it and it&#39;s main interface</span>
+<span class="sd">    holds persistent connection pool to it and its main interface</span>
 <span class="sd">    (`perform_request`) is thread-safe.</span>
 
 <span class="sd">    Also responsible for logging.</span>
@@ -240,7 +240,7 @@
         <span class="c1"># Format is: &#39;(number) OpenSearch-(version)-(instance) &quot;(message)&quot;&#39;</span>
         <span class="n">warning_messages</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">header</span> <span class="ow">in</span> <span class="n">warning_headers</span><span class="p">:</span>
-            <span class="c1"># Because &#39;Requests&#39; does it&#39;s own folding of multiple HTTP headers</span>
+            <span class="c1"># Because &#39;Requests&#39; does its own folding of multiple HTTP headers</span>
             <span class="c1"># into one header delimited by commas (totally standard compliant, just</span>
             <span class="c1"># annoying for cases like this) we need to expect there may be</span>
             <span class="c1"># more than one message per &#39;Warning&#39; header.</span>

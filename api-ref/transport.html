@@ -221,12 +221,12 @@ on failure is enabled this will initiate the sniffing process.</p>
 <dt class="sig sig-object py" id="opensearchpy.Transport.perform_request">
 <span class="sig-name descname"><span class="pre">perform_request</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">method</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">body</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opensearchpy/transport.html#Transport.perform_request"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.Transport.perform_request" title="Permalink to this definition"></a></dt>
 <dd><p>Perform the actual request. Retrieve a connection from the connection
-pool, pass all the information to it’s perform_request method and
+pool, pass all the information to its perform_request method and
 return the data.</p>
 <p>If an exception was raised, mark the connection as failed and retry (up
 to <cite>max_retries</cite> times).</p>
 <p>If the operation was successful and the connection used was previously
-marked as dead, mark it as live, resetting it’s failure count.</p>
+marked as dead, mark it as live, resetting its failure count.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">

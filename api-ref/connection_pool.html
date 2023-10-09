@@ -127,7 +127,7 @@ that drives all the actions within <cite>ConnectionPool</cite>.</p>
 connection options, get passed to the <cite>ConnectionSelector</cite> instance for
 future reference.</p>
 <p>Upon each request the <cite>Transport</cite> will ask for a <cite>Connection</cite> via the
-<cite>get_connection</cite> method. If the connection fails (it’s <cite>perform_request</cite>
+<cite>get_connection</cite> method. If the connection fails (its <cite>perform_request</cite>
 raises a <cite>ConnectionError</cite>) it will be marked as dead (via <cite>mark_dead</cite>) and
 put on a timeout (if it fails N times in a row the timeout is exponentially
 longer - the formula is <cite>default_timeout * 2 ** (fail_count - 1)</cite>). When
@@ -138,7 +138,7 @@ succeeds will be marked as live (its fail count will be deleted).</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>connections</strong> – list of tuples containing the
-<a class="reference internal" href="connection.html#opensearchpy.Connection" title="opensearchpy.Connection"><code class="xref py py-class docutils literal notranslate"><span class="pre">Connection</span></code></a> instance and it’s options</p></li>
+<a class="reference internal" href="connection.html#opensearchpy.Connection" title="opensearchpy.Connection"><code class="xref py py-class docutils literal notranslate"><span class="pre">Connection</span></code></a> instance and its options</p></li>
 <li><p><strong>dead_timeout</strong> – number of seconds a connection should be retired for
 after a failure, increases on consecutive failures</p></li>
 <li><p><strong>timeout_cutoff</strong> – number of consecutive failures after which the
@@ -170,7 +170,7 @@ instance.</p>
 <p>It tries to resurrect eligible connections, forces a resurrection when
 no connections are available and passes the list of live connections to
 the selector instance to choose from.</p>
-<p>Returns a connection instance and it’s current fail count.</p>
+<p>Returns a connection instance and its current fail count.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -201,7 +201,7 @@ counter for the connection.</p>
 <dt class="sig sig-object py" id="opensearchpy.ConnectionPool.resurrect">
 <span class="sig-name descname"><span class="pre">resurrect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">force</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opensearchpy/connection_pool.html#ConnectionPool.resurrect"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.ConnectionPool.resurrect" title="Permalink to this definition"></a></dt>
 <dd><p>Attempt to resurrect a connection from the dead pool. It will try to
-locate one (not all) eligible (it’s timeout is over) connection to
+locate one (not all) eligible (its timeout is over) connection to
 return to the live pool. Any resurrected connection is also returned.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -229,8 +229,8 @@ used to construct the Connection object itself. When the Connection was
 created from information retrieved from the cluster via the sniffing
 process it will be the dictionary returned by the <cite>host_info_callback</cite>.</p>
 <p>Example of where this would be useful is a zone-aware selector that would
-only select connections from it’s own zones and only fall back to other
-connections where there would be none in it’s zones.</p>
+only select connections from its own zones and only fall back to other
+connections where there would be none in its zones.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>opts</strong> – dictionary of connection instances and their options</p>

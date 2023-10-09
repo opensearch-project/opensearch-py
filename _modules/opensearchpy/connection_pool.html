@@ -137,8 +137,8 @@
 <span class="sd">    process it will be the dictionary returned by the `host_info_callback`.</span>
 
 <span class="sd">    Example of where this would be useful is a zone-aware selector that would</span>
-<span class="sd">    only select connections from it&#39;s own zones and only fall back to other</span>
-<span class="sd">    connections where there would be none in it&#39;s zones.</span>
+<span class="sd">    only select connections from its own zones and only fall back to other</span>
+<span class="sd">    connections where there would be none in its zones.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">opts</span><span class="p">):</span>
@@ -194,7 +194,7 @@
 <span class="sd">    future reference.</span>
 
 <span class="sd">    Upon each request the `Transport` will ask for a `Connection` via the</span>
-<span class="sd">    `get_connection` method. If the connection fails (it&#39;s `perform_request`</span>
+<span class="sd">    `get_connection` method. If the connection fails (its `perform_request`</span>
 <span class="sd">    raises a `ConnectionError`) it will be marked as dead (via `mark_dead`) and</span>
 <span class="sd">    put on a timeout (if it fails N times in a row the timeout is exponentially</span>
 <span class="sd">    longer - the formula is `default_timeout * 2 ** (fail_count - 1)`). When</span>
@@ -214,7 +214,7 @@
     <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        :arg connections: list of tuples containing the</span>
-<span class="sd">            :class:`~opensearchpy.Connection` instance and it&#39;s options</span>
+<span class="sd">            :class:`~opensearchpy.Connection` instance and its options</span>
 <span class="sd">        :arg dead_timeout: number of seconds a connection should be retired for</span>
 <span class="sd">            after a failure, increases on consecutive failures</span>
 <span class="sd">        :arg timeout_cutoff: number of consecutive failures after which the</span>
@@ -293,7 +293,7 @@
 <div class="viewcode-block" id="ConnectionPool.resurrect"><a class="viewcode-back" href="../../api-ref/connection_pool.html#opensearchpy.ConnectionPool.resurrect">[docs]</a>    <span class="k">def</span> <span class="nf">resurrect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Attempt to resurrect a connection from the dead pool. It will try to</span>
-<span class="sd">        locate one (not all) eligible (it&#39;s timeout is over) connection to</span>
+<span class="sd">        locate one (not all) eligible (its timeout is over) connection to</span>
 <span class="sd">        return to the live pool. Any resurrected connection is also returned.</span>
 
 <span class="sd">        :arg force: resurrect a connection even if there is none eligible (used</span>
@@ -327,7 +327,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">dead</span><span class="o">.</span><span class="n">put</span><span class="p">((</span><span class="n">timeout</span><span class="p">,</span> <span class="n">connection</span><span class="p">))</span>
             <span class="k">return</span>
 
-        <span class="c1"># either we were forced or the connection is elligible to be retried</span>
+        <span class="c1"># either we were forced or the connection is eligible to be retried</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">connections</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">connection</span><span class="p">)</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Resurrecting connection </span><span class="si">%r</span><span class="s2"> (force=</span><span class="si">%s</span><span class="s2">).&quot;</span><span class="p">,</span> <span class="n">connection</span><span class="p">,</span> <span class="n">force</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">connection</span></div>
@@ -341,7 +341,7 @@
 <span class="sd">        no connections are available and passes the list of live connections to</span>
 <span class="sd">        the selector instance to choose from.</span>
 
-<span class="sd">        Returns a connection instance and it&#39;s current fail count.</span>
+<span class="sd">        Returns a connection instance and its current fail count.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">resurrect</span><span class="p">()</span>
         <span class="n">connections</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">connections</span><span class="p">[:]</span>

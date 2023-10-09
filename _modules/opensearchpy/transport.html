@@ -423,14 +423,14 @@
 <div class="viewcode-block" id="Transport.perform_request"><a class="viewcode-back" href="../../api-ref/transport.html#opensearchpy.Transport.perform_request">[docs]</a>    <span class="k">def</span> <span class="nf">perform_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Perform the actual request. Retrieve a connection from the connection</span>
-<span class="sd">        pool, pass all the information to it&#39;s perform_request method and</span>
+<span class="sd">        pool, pass all the information to its perform_request method and</span>
 <span class="sd">        return the data.</span>
 
 <span class="sd">        If an exception was raised, mark the connection as failed and retry (up</span>
 <span class="sd">        to `max_retries` times).</span>
 
 <span class="sd">        If the operation was successful and the connection used was previously</span>
-<span class="sd">        marked as dead, mark it as live, resetting it&#39;s failure count.</span>
+<span class="sd">        marked as dead, mark it as live, resetting its failure count.</span>
 
 <span class="sd">        :arg method: HTTP method to use</span>
 <span class="sd">        :arg url: absolute url (without host) to target</span>
@@ -491,7 +491,7 @@
                     <span class="k">raise</span> <span class="n">e</span>
 
             <span class="k">else</span><span class="p">:</span>
-                <span class="c1"># connection didn&#39;t fail, confirm it&#39;s live status</span>
+                <span class="c1"># connection didn&#39;t fail, confirm its live status</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">connection_pool</span><span class="o">.</span><span class="n">mark_live</span><span class="p">(</span><span class="n">connection</span><span class="p">)</span>
 
                 <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;HEAD&quot;</span><span class="p">:</span>
