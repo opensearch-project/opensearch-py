@@ -55,8 +55,8 @@ class ConnectionSelector(object):
     process it will be the dictionary returned by the `host_info_callback`.
 
     Example of where this would be useful is a zone-aware selector that would
-    only select connections from it's own zones and only fall back to other
-    connections where there would be none in it's zones.
+    only select connections from its own zones and only fall back to other
+    connections where there would be none in its zones.
     """
 
     def __init__(self, opts):
@@ -112,7 +112,7 @@ class ConnectionPool(object):
     future reference.
 
     Upon each request the `Transport` will ask for a `Connection` via the
-    `get_connection` method. If the connection fails (it's `perform_request`
+    `get_connection` method. If the connection fails (its `perform_request`
     raises a `ConnectionError`) it will be marked as dead (via `mark_dead`) and
     put on a timeout (if it fails N times in a row the timeout is exponentially
     longer - the formula is `default_timeout * 2 ** (fail_count - 1)`). When
@@ -132,7 +132,7 @@ class ConnectionPool(object):
     ):
         """
         :arg connections: list of tuples containing the
-            :class:`~opensearchpy.Connection` instance and it's options
+            :class:`~opensearchpy.Connection` instance and its options
         :arg dead_timeout: number of seconds a connection should be retired for
             after a failure, increases on consecutive failures
         :arg timeout_cutoff: number of consecutive failures after which the
@@ -211,7 +211,7 @@ class ConnectionPool(object):
     def resurrect(self, force=False):
         """
         Attempt to resurrect a connection from the dead pool. It will try to
-        locate one (not all) eligible (it's timeout is over) connection to
+        locate one (not all) eligible (its timeout is over) connection to
         return to the live pool. Any resurrected connection is also returned.
 
         :arg force: resurrect a connection even if there is none eligible (used
@@ -245,7 +245,7 @@ class ConnectionPool(object):
             self.dead.put((timeout, connection))
             return
 
-        # either we were forced or the connection is elligible to be retried
+        # either we were forced or the connection is eligible to be retried
         self.connections.append(connection)
         logger.info("Resurrecting connection %r (force=%s).", connection, force)
         return connection
@@ -259,7 +259,7 @@ class ConnectionPool(object):
         no connections are available and passes the list of live connections to
         the selector instance to choose from.
 
-        Returns a connection instance and it's current fail count.
+        Returns a connection instance and its current fail count.
         """
         self.resurrect()
         connections = self.connections[:]

@@ -127,7 +127,7 @@ class TestAlertingPlugin(AsyncOpenSearchTestCase):
         # Create a dummy monitor
         await self.test_create_monitor()
 
-        # Create a monitor search query by it's name
+        # Create a monitor search query by its name
         query = {"query": {"match": {"monitor.name": "test-monitor"}}}
 
         # Perform the search with the above query
@@ -145,7 +145,7 @@ class TestAlertingPlugin(AsyncOpenSearchTestCase):
         # Create a dummy monitor
         await self.test_create_monitor()
 
-        # Create a monitor search query by it's name
+        # Create a monitor search query by its name
         query = {"query": {"match": {"monitor.name": "test-monitor"}}}
 
         # Perform the search with the above query
@@ -169,7 +169,7 @@ class TestAlertingPlugin(AsyncOpenSearchTestCase):
         # Create a dummy monitor
         await self.test_create_monitor()
 
-        # Create a monitor search query by it's name
+        # Create a monitor search query by its name
         query = {"query": {"match": {"monitor.name": "test-monitor"}}}
 
         # Perform the search with the above query
