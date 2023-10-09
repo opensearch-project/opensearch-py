@@ -127,9 +127,9 @@
 <li><p><strong>body</strong> – The index, shard, and primary flag to explain. Empty
 means ‘explain the first unassigned shard’</p></li>
 <li><p><strong>include_disk_info</strong> – Return information about disk usage and
-shard sizes (default: false)</p></li>
+shard sizes. (default: false)</p></li>
 <li><p><strong>include_yes_decisions</strong> – Return ‘YES’ decisions in
-explanation (default: false)</p></li>
+explanation. (default: false)</p></li>
 </ul>
 </dd>
 </dl>
@@ -138,17 +138,26 @@ explanation (default: false)</p></li>
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.client.cluster.ClusterClient.delete_component_template">
 <span class="sig-name descname"><span class="pre">delete_component_template</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cluster.html#ClusterClient.delete_component_template"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cluster.ClusterClient.delete_component_template" title="Permalink to this definition"></a></dt>
-<dd><p>Deletes a component template</p>
+<dd><p>Deletes a component template.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> – The name of the template</p></li>
-<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Specify timeout for connection to master</p></li>
-<li><p><strong>cluster_manager_timeout</strong> – Specify timeout for connection to cluster_manager</p></li>
-<li><p><strong>timeout</strong> – Explicit operation timeout</p></li>
+<li><p><strong>name</strong> – The name of the template.</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
+to cluster-manager node.</p></li>
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
+use ‘cluster_manager_timeout’ instead): Operation timeout for connection
+to master node.</p></li>
+<li><p><strong>timeout</strong> – Operation timeout.</p></li>
 </ul>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.client.cluster.ClusterClient.delete_decommission_awareness">
+<span class="sig-name descname"><span class="pre">delete_decommission_awareness</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cluster.html#ClusterClient.delete_decommission_awareness"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cluster.ClusterClient.delete_decommission_awareness" title="Permalink to this definition"></a></dt>
+<dd><p>Delete any existing decommission.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -159,25 +168,30 @@ explanation (default: false)</p></li>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>wait_for_removal</strong> – Specifies whether to wait for all
 excluded nodes to be removed from the cluster before clearing the voting
-configuration exclusions list.  Default: True</p>
+configuration exclusions list. (default: True)</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.client.cluster.ClusterClient.delete_weighted_routing">
+<span class="sig-name descname"><span class="pre">delete_weighted_routing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cluster.html#ClusterClient.delete_weighted_routing"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cluster.ClusterClient.delete_weighted_routing" title="Permalink to this definition"></a></dt>
+<dd><p>Delete weighted shard routing weights.</p>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.client.cluster.ClusterClient.exists_component_template">
 <span class="sig-name descname"><span class="pre">exists_component_template</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cluster.html#ClusterClient.exists_component_template"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cluster.ClusterClient.exists_component_template" title="Permalink to this definition"></a></dt>
-<dd><p>Returns information about whether a particular component template exist</p>
+<dd><p>Returns information about whether a particular component template exist.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> – The name of the template</p></li>
+<li><p><strong>name</strong> – The name of the template.</p></li>
 <li><p><strong>local</strong> – Return local information, do not retrieve the state
-from cluster_manager node (default: false)</p></li>
-<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Explicit operation timeout for connection
-to master node</p></li>
-<li><p><strong>cluster_manager_timeout</strong> – Explicit operation timeout for connection
-to cluster_manager node</p></li>
+from cluster-manager node. (default: false)</p></li>
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
+use ‘cluster_manager_timeout’ instead): Operation timeout for connection
+to master node.</p></li>
 </ul>
 </dd>
 </dl>
@@ -186,18 +200,30 @@ to cluster_manager node</p></li>
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.client.cluster.ClusterClient.get_component_template">
 <span class="sig-name descname"><span class="pre">get_component_template</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cluster.html#ClusterClient.get_component_template"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cluster.ClusterClient.get_component_template" title="Permalink to this definition"></a></dt>
-<dd><p>Returns one or more component templates</p>
+<dd><p>Returns one or more component templates.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> – The comma separated names of the component templates</p></li>
+<li><p><strong>name</strong> – The Comma-separated names of the component templates.</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
+to cluster-manager node.</p></li>
 <li><p><strong>local</strong> – Return local information, do not retrieve the state
-from cluster_manager node (default: false)</p></li>
-<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Explicit operation timeout for connection
-to master node</p></li>
-<li><p><strong>cluster_manager_timeout</strong> – Explicit operation timeout for connection
-to cluster_manager node</p></li>
+from cluster-manager node. (default: false)</p></li>
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
+use ‘cluster_manager_timeout’ instead): Operation timeout for connection
+to master node.</p></li>
 </ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.client.cluster.ClusterClient.get_decommission_awareness">
+<span class="sig-name descname"><span class="pre">get_decommission_awareness</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">awareness_attribute_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cluster.html#ClusterClient.get_decommission_awareness"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cluster.ClusterClient.get_decommission_awareness" title="Permalink to this definition"></a></dt>
+<dd><p>Get details and status of decommissioned attribute.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>awareness_attribute_name</strong> – Awareness attribute name.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -209,16 +235,28 @@ to cluster_manager node</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>flat_settings</strong> – Return settings in flat format (default:
+<li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
+to cluster-manager node.</p></li>
+<li><p><strong>flat_settings</strong> – Return settings in flat format. (default:
 false)</p></li>
 <li><p><strong>include_defaults</strong> – Whether to return all default clusters
-setting.</p></li>
-<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Explicit operation timeout for connection
-to master node</p></li>
-<li><p><strong>cluster_manager_timeout</strong> – Explicit operation timeout for connection
-to cluster_manager node</p></li>
-<li><p><strong>timeout</strong> – Explicit operation timeout</p></li>
+setting. (default: false)</p></li>
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
+use ‘cluster_manager_timeout’ instead): Operation timeout for connection
+to master node.</p></li>
+<li><p><strong>timeout</strong> – Operation timeout.</p></li>
 </ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.client.cluster.ClusterClient.get_weighted_routing">
+<span class="sig-name descname"><span class="pre">get_weighted_routing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">attribute</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cluster.html#ClusterClient.get_weighted_routing"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cluster.ClusterClient.get_weighted_routing" title="Permalink to this definition"></a></dt>
+<dd><p>Fetches weighted shard routing weights.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>attribute</strong> – Awareness attribute name.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -230,31 +268,35 @@ to cluster_manager node</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>index</strong> – Limit the information returned to a specific index</p></li>
+<li><p><strong>index</strong> – Limit the information returned to specific indicies.</p></li>
+<li><p><strong>awareness_attribute</strong> – The awareness attribute for which the
+health is required.</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
+to cluster-manager node.</p></li>
 <li><p><strong>expand_wildcards</strong> – Whether to expand wildcard expression to
-concrete indices that are open, closed or both.  Valid choices: open,
-closed, hidden, none, all  Default: all</p></li>
-<li><p><strong>level</strong> – Specify the level of detail for returned information
-Valid choices: cluster, indices, shards  Default: cluster</p></li>
+concrete indices that are open, closed or both.  Valid choices: all,
+open, closed, hidden, none</p></li>
+<li><p><strong>level</strong> – Specify the level of detail for returned
+information.  Valid choices: cluster, indices, shards,
+awareness_attributes</p></li>
 <li><p><strong>local</strong> – Return local information, do not retrieve the state
-from cluster_manager node (default: false)</p></li>
-<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Explicit operation timeout for connection
-to master node</p></li>
-<li><p><strong>cluster_manager_timeout</strong> – Explicit operation timeout for connection
-to cluster_manager node</p></li>
-<li><p><strong>timeout</strong> – Explicit operation timeout</p></li>
+from cluster-manager node. (default: false)</p></li>
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
+use ‘cluster_manager_timeout’ instead): Operation timeout for connection
+to master node.</p></li>
+<li><p><strong>timeout</strong> – Operation timeout.</p></li>
 <li><p><strong>wait_for_active_shards</strong> – Wait until the specified number of
-shards is active</p></li>
+shards is active.</p></li>
 <li><p><strong>wait_for_events</strong> – Wait until all currently queued events
-with the given priority are processed  Valid choices: immediate, urgent,
-high, normal, low, languid</p></li>
+with the given priority are processed.  Valid choices: immediate,
+urgent, high, normal, low, languid</p></li>
 <li><p><strong>wait_for_no_initializing_shards</strong> – Whether to wait until
-there are no initializing shards in the cluster</p></li>
+there are no initializing shards in the cluster.</p></li>
 <li><p><strong>wait_for_no_relocating_shards</strong> – Whether to wait until there
-are no relocating shards in the cluster</p></li>
+are no relocating shards in the cluster.</p></li>
 <li><p><strong>wait_for_nodes</strong> – Wait until the specified number of nodes is
-available</p></li>
-<li><p><strong>wait_for_status</strong> – Wait until cluster is in a specific state
+available.</p></li>
+<li><p><strong>wait_for_status</strong> – Wait until cluster is in a specific state.
 Valid choices: green, yellow, red</p></li>
 </ul>
 </dd>
@@ -269,10 +311,13 @@ allocate or fail shard) which have not yet been executed.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
+<li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
+to cluster-manager node.</p></li>
 <li><p><strong>local</strong> – Return local information, do not retrieve the state
-from cluster_manager node (default: false)</p></li>
-<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Specify timeout for connection to master</p></li>
-<li><p><strong>cluster_manager_timeout</strong> – Specify timeout for connection to cluster_manager</p></li>
+from cluster-manager node. (default: false)</p></li>
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
+use ‘cluster_manager_timeout’ instead): Operation timeout for connection
+to master node.</p></li>
 </ul>
 </dd>
 </dl>
@@ -285,13 +330,13 @@ from cluster_manager node (default: false)</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>node_ids</strong> – A comma-separated list of the persistent ids of
-the nodes to exclude from the voting configuration. If specified, you
-may not also specify ?node_names.</p></li>
-<li><p><strong>node_names</strong> – A comma-separated list of the names of the
+<li><p><strong>node_ids</strong> – Comma-separated list of the persistent ids of the
 nodes to exclude from the voting configuration. If specified, you may
-not also specify ?node_ids.</p></li>
-<li><p><strong>timeout</strong> – Explicit operation timeout  Default: 30s</p></li>
+not also specify ?node_names.</p></li>
+<li><p><strong>node_names</strong> – Comma-separated list of the names of the nodes
+to exclude from the voting configuration. If specified, you may not also
+specify ?node_ids.</p></li>
+<li><p><strong>timeout</strong> – Operation timeout.</p></li>
 </ul>
 </dd>
 </dl>
@@ -300,17 +345,34 @@ not also specify ?node_ids.</p></li>
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.client.cluster.ClusterClient.put_component_template">
 <span class="sig-name descname"><span class="pre">put_component_template</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">body</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cluster.html#ClusterClient.put_component_template"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cluster.ClusterClient.put_component_template" title="Permalink to this definition"></a></dt>
-<dd><p>Creates or updates a component template</p>
+<dd><p>Creates or updates a component template.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> – The name of the template</p></li>
+<li><p><strong>name</strong> – The name of the template.</p></li>
 <li><p><strong>body</strong> – The template definition</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
+to cluster-manager node.</p></li>
 <li><p><strong>create</strong> – Whether the index template should only be added if
-new or can also replace an existing one</p></li>
-<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Specify timeout for connection to master</p></li>
-<li><p><strong>cluster_manager_timeout</strong> – Specify timeout for connection to cluster_manager</p></li>
-<li><p><strong>timeout</strong> – Explicit operation timeout</p></li>
+new or can also replace an existing one. (default: false)</p></li>
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
+use ‘cluster_manager_timeout’ instead): Operation timeout for connection
+to master node.</p></li>
+<li><p><strong>timeout</strong> – Operation timeout.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.client.cluster.ClusterClient.put_decommission_awareness">
+<span class="sig-name descname"><span class="pre">put_decommission_awareness</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">awareness_attribute_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">awareness_attribute_value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cluster.html#ClusterClient.put_decommission_awareness"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cluster.ClusterClient.put_decommission_awareness" title="Permalink to this definition"></a></dt>
+<dd><p>Decommissions an awareness attribute.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>awareness_attribute_name</strong> – Awareness attribute name.</p></li>
+<li><p><strong>awareness_attribute_value</strong> – Awareness attribute value.</p></li>
 </ul>
 </dd>
 </dl>
@@ -325,14 +387,26 @@ new or can also replace an existing one</p></li>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>body</strong> – The settings to be updated. Can be either <cite>transient</cite>
 or <cite>persistent</cite> (survives cluster restart).</p></li>
-<li><p><strong>flat_settings</strong> – Return settings in flat format (default:
+<li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
+to cluster-manager node.</p></li>
+<li><p><strong>flat_settings</strong> – Return settings in flat format. (default:
 false)</p></li>
-<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Explicit operation timeout for connection
-to master node</p></li>
-<li><p><strong>cluster_manager_timeout</strong> – Explicit operation timeout for connection
-to cluster_manager node</p></li>
-<li><p><strong>timeout</strong> – Explicit operation timeout</p></li>
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
+use ‘cluster_manager_timeout’ instead): Operation timeout for connection
+to master node.</p></li>
+<li><p><strong>timeout</strong> – Operation timeout.</p></li>
 </ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.client.cluster.ClusterClient.put_weighted_routing">
+<span class="sig-name descname"><span class="pre">put_weighted_routing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">attribute</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cluster.html#ClusterClient.put_weighted_routing"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cluster.ClusterClient.put_weighted_routing" title="Permalink to this definition"></a></dt>
+<dd><p>Updates weighted shard routing weights.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>attribute</strong> – Awareness attribute name.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -352,20 +426,20 @@ to cluster_manager node</p></li>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>body</strong> – The definition of <cite>commands</cite> to perform (<cite>move</cite>,
 <cite>cancel</cite>, <cite>allocate</cite>)</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
+to cluster-manager node.</p></li>
 <li><p><strong>dry_run</strong> – Simulate the operation only and return the
-resulting state</p></li>
+resulting state.</p></li>
 <li><p><strong>explain</strong> – Return an explanation of why the commands can or
-cannot be executed</p></li>
-<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Explicit operation timeout for connection
-to master node</p></li>
-<li><p><strong>cluster_manager_timeout</strong> – Explicit operation timeout for connection
-to cluster_manager node</p></li>
+cannot be executed.</p></li>
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
+use ‘cluster_manager_timeout’ instead): Operation timeout for connection
+to master node.</p></li>
 <li><p><strong>metric</strong> – Limit the information returned to the specified
-metrics. Defaults to all but metadata  Valid choices: _all, blocks,
-metadata, nodes, routing_table, master_node, version</p></li>
+metrics. Defaults to all but metadata.</p></li>
 <li><p><strong>retry_failed</strong> – Retries allocation of shards that are blocked
-due to too many subsequent allocation failures</p></li>
-<li><p><strong>timeout</strong> – Explicit operation timeout</p></li>
+due to too many subsequent allocation failures.</p></li>
+<li><p><strong>timeout</strong> – Operation timeout.</p></li>
 </ul>
 </dd>
 </dl>
@@ -379,28 +453,31 @@ due to too many subsequent allocation failures</p></li>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>metric</strong> – Limit the information returned to the specified
-metrics  Valid choices: _all, blocks, metadata, nodes, routing_table,
-routing_nodes, master_node, version</p></li>
-<li><p><strong>index</strong> – A comma-separated list of index names; use <cite>_all</cite> or
-empty string to perform the operation on all indices</p></li>
+metrics.  Valid choices: _all, blocks, metadata, nodes, routing_table,
+routing_nodes, master_node, cluster_manager_node, version</p></li>
+<li><p><strong>index</strong> – Comma-separated list of indices; use <cite>_all</cite> or empty
+string to perform the operation on all indices.</p></li>
 <li><p><strong>allow_no_indices</strong> – Whether to ignore if a wildcard indices
 expression resolves into no concrete indices. (This includes <cite>_all</cite>
-string or when no indices have been specified)</p></li>
+string or when no indices have been specified).</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
+to cluster-manager node.</p></li>
 <li><p><strong>expand_wildcards</strong> – Whether to expand wildcard expression to
-concrete indices that are open, closed or both.  Valid choices: open,
-closed, hidden, none, all  Default: open</p></li>
-<li><p><strong>flat_settings</strong> – Return settings in flat format (default:
+concrete indices that are open, closed or both.  Valid choices: all,
+open, closed, hidden, none</p></li>
+<li><p><strong>flat_settings</strong> – Return settings in flat format. (default:
 false)</p></li>
 <li><p><strong>ignore_unavailable</strong> – Whether specified concrete indices
-should be ignored when unavailable (missing or closed)</p></li>
+should be ignored when unavailable (missing or closed).</p></li>
 <li><p><strong>local</strong> – Return local information, do not retrieve the state
-from cluster_manager node (default: false)</p></li>
-<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Specify timeout for connection to master</p></li>
-<li><p><strong>cluster_manager_timeout</strong> – Specify timeout for connection to cluster_manager</p></li>
+from cluster-manager node. (default: false)</p></li>
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
+use ‘cluster_manager_timeout’ instead): Operation timeout for connection
+to master node.</p></li>
 <li><p><strong>wait_for_metadata_version</strong> – Wait for the metadata version to
-be equal or greater than the specified metadata version</p></li>
+be equal or greater than the specified metadata version.</p></li>
 <li><p><strong>wait_for_timeout</strong> – The maximum time to wait for
-wait_for_metadata_version before timing out</p></li>
+wait_for_metadata_version before timing out.</p></li>
 </ul>
 </dd>
 </dl>
@@ -413,13 +490,13 @@ wait_for_metadata_version before timing out</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>node_id</strong> – A comma-separated list of node IDs or names to
-limit the returned information; use <cite>_local</cite> to return information from
-the node you’re connecting to, leave empty to get information from all
-nodes</p></li>
-<li><p><strong>flat_settings</strong> – Return settings in flat format (default:
+<li><p><strong>node_id</strong> – Comma-separated list of node IDs or names to limit
+the returned information; use <cite>_local</cite> to return information from the
+node you’re connecting to, leave empty to get information from all
+nodes.</p></li>
+<li><p><strong>flat_settings</strong> – Return settings in flat format. (default:
 false)</p></li>
-<li><p><strong>timeout</strong> – Explicit operation timeout</p></li>
+<li><p><strong>timeout</strong> – Operation timeout.</p></li>
 </ul>
 </dd>
 </dl>
