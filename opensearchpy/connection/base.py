@@ -56,7 +56,7 @@ _WARNING_RE = re.compile(r"\"([^\"]*)\"")
 class Connection(object):
     """
     Class responsible for maintaining a connection to an OpenSearch node. It
-    holds persistent connection pool to it and it's main interface
+    holds persistent connection pool to it and its main interface
     (`perform_request`) is thread-safe.
 
     Also responsible for logging.
@@ -158,7 +158,7 @@ class Connection(object):
         # Format is: '(number) OpenSearch-(version)-(instance) "(message)"'
         warning_messages = []
         for header in warning_headers:
-            # Because 'Requests' does it's own folding of multiple HTTP headers
+            # Because 'Requests' does its own folding of multiple HTTP headers
             # into one header delimited by commas (totally standard compliant, just
             # annoying for cases like this) we need to expect there may be
             # more than one message per 'Warning' header.

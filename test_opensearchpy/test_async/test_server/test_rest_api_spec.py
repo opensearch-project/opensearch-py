@@ -106,7 +106,7 @@ class AsyncYamlRunner(YamlRunner):
                 pass
 
     async def run_code(self, test):
-        """Execute an instruction based on it's type."""
+        """Execute an instruction based on its type."""
         for action in test:
             assert len(action) == 1
             action_type, action = list(action.items())[0]
@@ -126,7 +126,7 @@ class AsyncYamlRunner(YamlRunner):
         assert len(action) == 1
 
         # Remove the x_pack_rest_user authentication
-        # if it's given via headers. We're already authenticated
+        # if its given via headers. We're already authenticated
         # via the 'elastic' user.
         if (
             headers

@@ -123,7 +123,7 @@ class TestAlertingPlugin(OpenSearchTestCase):
         # Create a dummy monitor
         self.test_create_monitor()
 
-        # Create a monitor search query by it's name
+        # Create a monitor search query by its name
         query = {"query": {"match": {"monitor.name": "test-monitor"}}}
 
         # Perform the search with the above query
@@ -141,7 +141,7 @@ class TestAlertingPlugin(OpenSearchTestCase):
         # Create a dummy monitor
         self.test_create_monitor()
 
-        # Create a monitor search query by it's name
+        # Create a monitor search query by its name
         query = {"query": {"match": {"monitor.name": "test-monitor"}}}
 
         # Perform the search with the above query
@@ -165,7 +165,7 @@ class TestAlertingPlugin(OpenSearchTestCase):
         # Create a dummy monitor
         self.test_create_monitor()
 
-        # Create a monitor search query by it's name
+        # Create a monitor search query by its name
         query = {"query": {"match": {"monitor.name": "test-monitor"}}}
 
         # Perform the search with the above query

@@ -205,7 +205,7 @@ class YamlRunner:
                 pass
 
     def run_code(self, test):
-        """Execute an instruction based on it's type."""
+        """Execute an instruction based on its type."""
         for action in test:
             assert len(action) == 1
             action_type, action = list(action.items())[0]

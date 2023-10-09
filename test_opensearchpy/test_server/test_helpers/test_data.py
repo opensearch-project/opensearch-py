@@ -964,7 +964,7 @@ DATA = [
             ],
             "committer": {"name": "Honza Kr\xe1l", "email": "honza.kral@gmail.com"},
             "stats": {"deletions": 0, "insertions": 53, "lines": 53, "files": 2},
-            "description": "From_dict, Q(dict) and bool query parses it's subqueries",
+            "description": "From_dict, Q(dict) and bool query parses its subqueries",
             "author": {"name": "Honza Kr\xe1l", "email": "honza.kral@gmail.com"},
             "parent_shas": ["d407f99d1959b7b862a541c066d9fd737ce913f3"],
             "committed_date": "2014-03-06T20:24:30",
