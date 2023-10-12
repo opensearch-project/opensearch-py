@@ -154,6 +154,7 @@ print(response)
 - [Point in Time](guides/point_in_time.md)
 - [Using a Proxy](guides/proxy.md)
 - [Index Templates](guides/index_template.md)
+- [Connection Classes](guides/connection_classes.md)
 
 ## Plugins
 
