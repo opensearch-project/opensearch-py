@@ -165,6 +165,7 @@
         <span class="n">serializers</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">default_mimetype</span><span class="o">=</span><span class="s2">&quot;application/json&quot;</span><span class="p">,</span>
         <span class="n">max_retries</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+        <span class="n">pool_maxsize</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">retry_on_status</span><span class="o">=</span><span class="p">(</span><span class="mi">502</span><span class="p">,</span> <span class="mi">503</span><span class="p">,</span> <span class="mi">504</span><span class="p">),</span>
         <span class="n">retry_on_timeout</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
         <span class="n">send_get_body_as</span><span class="o">=</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span>
@@ -202,6 +203,8 @@
 <span class="sd">            don&#39;t support passing bodies with GET requests. If you set this to</span>
 <span class="sd">            &#39;POST&#39; a POST method will be used instead, if to &#39;source&#39; then the body</span>
 <span class="sd">            will be serialized and passed as a query parameter `source`.</span>
+<span class="sd">        :arg pool_maxsize: Maximum connection pool size used by pool-manager</span>
+<span class="sd">            For custom connection-pooling on current session</span>
 
 <span class="sd">        Any extra keyword arguments will be passed to the `connection_class`</span>
 <span class="sd">        when creating and instance unless overridden by that connection&#39;s</span>
@@ -221,6 +224,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">deserializer</span> <span class="o">=</span> <span class="n">Deserializer</span><span class="p">(</span><span class="n">_serializers</span><span class="p">,</span> <span class="n">default_mimetype</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">max_retries</span> <span class="o">=</span> <span class="n">max_retries</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pool_maxsize</span> <span class="o">=</span> <span class="n">pool_maxsize</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">retry_on_timeout</span> <span class="o">=</span> <span class="n">retry_on_timeout</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">retry_on_status</span> <span class="o">=</span> <span class="n">retry_on_status</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">send_get_body_as</span> <span class="o">=</span> <span class="n">send_get_body_as</span>
@@ -293,6 +297,8 @@
             <span class="c1"># previously unseen params, create new connection</span>
             <span class="n">kwargs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
             <span class="n">kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">host</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">pool_maxsize</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pool_maxsize</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+                <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;pool_maxsize&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pool_maxsize</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">connection_class</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
         <span class="n">connections</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="n">_create_connection</span><span class="p">,</span> <span class="n">hosts</span><span class="p">)</span>

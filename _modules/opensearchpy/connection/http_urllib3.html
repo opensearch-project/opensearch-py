@@ -168,7 +168,7 @@
 <span class="sd">        ``ssl`` module for exact options for your environment).</span>
 <span class="sd">    :arg ssl_assert_hostname: use hostname verification if not `False`</span>
 <span class="sd">    :arg ssl_assert_fingerprint: verify the supplied certificate fingerprint if not `None`</span>
-<span class="sd">    :arg maxsize: the number of connections which will be kept open to this</span>
+<span class="sd">    :arg pool_maxsize: the number of connections which will be kept open to this</span>
 <span class="sd">        host. See https://urllib3.readthedocs.io/en/1.4/pools.html#api for more</span>
 <span class="sd">        information.</span>
 <span class="sd">    :arg headers: any custom http headers to be add to requests</span>
@@ -191,7 +191,7 @@
         <span class="n">ssl_version</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">ssl_assert_hostname</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">ssl_assert_fingerprint</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">maxsize</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+        <span class="n">pool_maxsize</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">ssl_context</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">http_compress</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -285,8 +285,11 @@
                 <span class="k">if</span> <span class="ow">not</span> <span class="n">ssl_show_warn</span><span class="p">:</span>
                     <span class="n">urllib3</span><span class="o">.</span><span class="n">disable_warnings</span><span class="p">()</span>
 
+        <span class="k">if</span> <span class="n">pool_maxsize</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">pool_maxsize</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+            <span class="n">kw</span><span class="p">[</span><span class="s2">&quot;maxsize&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pool_maxsize</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">pool</span> <span class="o">=</span> <span class="n">pool_class</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">hostname</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">timeout</span><span class="p">,</span> <span class="n">maxsize</span><span class="o">=</span><span class="n">maxsize</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">hostname</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">timeout</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span>
         <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">perform_request</span><span class="p">(</span>
