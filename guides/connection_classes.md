@@ -7,7 +7,7 @@
 
 # Connection Classes
 
-The OpenSearch Python synchrnous client supports both the `Urllib3HttpConnection` connection class (default) from the [urllib3](https://pypi.org/project/urllib3/) library, and `RequestsHttpConnection` from the [requests](https://pypi.org/project/requests/) library. We recommend you use the default, unless your application is standardized on `requests`. 
+The OpenSearch Python synchronous client supports both the `Urllib3HttpConnection` connection class (default) from the [urllib3](https://pypi.org/project/urllib3/) library, and `RequestsHttpConnection` from the [requests](https://pypi.org/project/requests/) library. We recommend you use the default, unless your application is standardized on `requests`.
 
 The faster, asynchronous client, implements a class called `AsyncHttpConnection`, which uses [aiohttp](https://pypi.org/project/aiohttp/).
 
