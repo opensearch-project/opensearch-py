@@ -10,6 +10,7 @@ readme = "README.md"
 python = "^3.7"
 opensearch-py = { path = "../..", develop=true, extras=["async"] }
 richbench = "*"
+orjson = "*"
 
 [build-system]
 requires = ["poetry-core"]
