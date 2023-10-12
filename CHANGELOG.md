@@ -40,6 +40,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - Fixed race condition in AWSV4SignerAuth & AWSV4SignerAsyncAuth when using refreshable credentials ([#470](https://github.com/opensearch-project/opensearch-py/pull/470))
 ### Security
 ### Dependencies
+- Bumps `urllib3` from >= 1.26.9 to >= 1.26.17 [#533](https://github.com/opensearch-project/opensearch-py/pull/533)
 
 ## [2.3.0]
 ### Added
@@ -66,6 +67,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ### Deprecated
 ### Removed
 - Removed support for Python 2.7 ([#421](https://github.com/opensearch-project/opensearch-py/pull/421))
+- Removed support for Python 3.5 ([#533](https://github.com/opensearch-project/opensearch-py/pull/533))
 ### Fixed
 - Fixed flaky CI tests by replacing httpbin with a simple http_server ([#395](https://github.com/opensearch-project/opensearch-py/pull/395))
 - Fixed import cycle when importing async helpers ([#311](https://github.com/opensearch-project/opensearch-py/pull/311))
