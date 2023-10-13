@@ -222,7 +222,7 @@ class DslMeta(type):
 
     It then uses the information from that registry (as well as `name` and
     `shortcut` attributes from the base class) to construct any subclass based
-    on it's name.
+    on its name.
 
     For typical use see `QueryMeta` and `Query` in `opensearchpy.query`.
     """
@@ -235,7 +235,7 @@ class DslMeta(type):
         if not hasattr(cls, "_type_shortcut"):
             return
         if cls.name is None:
-            # abstract base class, register it's shortcut
+            # abstract base class, register its shortcut
             cls._types[cls._type_name] = cls._type_shortcut
             # and create a registry for subclasses
             if not hasattr(cls, "_classes"):
@@ -264,7 +264,7 @@ class DslBase(object):
         - to_dict method to serialize into dict (to be sent via opensearch-py)
         - basic logical operators (&, | and ~) using a Bool(Filter|Query) TODO:
           move into a class specific for Query/Filter
-        - respects the definition of the class and (de)serializes it's
+        - respects the definition of the class and (de)serializes its
           attributes based on the `_param_defs` definition (for example turning
           all values in the `must` attribute into Query objects)
     """

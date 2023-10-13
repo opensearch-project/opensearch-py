@@ -113,7 +113,6 @@ client = OpenSearch(
     ['htps://...'],
     use_ssl=True,
     verify_certs=True,
-    connection_class=RequestsHttpConnection,
     http_auth=HTTPKerberosAuth(mutual_authentication=OPTIONAL)
 )
 

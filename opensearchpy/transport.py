@@ -83,6 +83,7 @@ class Transport(object):
         serializers=None,
         default_mimetype="application/json",
         max_retries=3,
+        pool_maxsize=None,
         retry_on_status=(502, 503, 504),
         retry_on_timeout=False,
         send_get_body_as="GET",
@@ -120,6 +121,8 @@ class Transport(object):
             don't support passing bodies with GET requests. If you set this to
             'POST' a POST method will be used instead, if to 'source' then the body
             will be serialized and passed as a query parameter `source`.
+        :arg pool_maxsize: Maximum connection pool size used by pool-manager
+            For custom connection-pooling on current session
 
         Any extra keyword arguments will be passed to the `connection_class`
         when creating and instance unless overridden by that connection's
@@ -139,6 +142,7 @@ class Transport(object):
         self.deserializer = Deserializer(_serializers, default_mimetype)
 
         self.max_retries = max_retries
+        self.pool_maxsize = pool_maxsize
         self.retry_on_timeout = retry_on_timeout
         self.retry_on_status = retry_on_status
         self.send_get_body_as = send_get_body_as
@@ -211,6 +215,8 @@ class Transport(object):
             # previously unseen params, create new connection
             kwargs = self.kwargs.copy()
             kwargs.update(host)
+            if self.pool_maxsize and isinstance(self.pool_maxsize, int):
+                kwargs["pool_maxsize"] = self.pool_maxsize
             return self.connection_class(**kwargs)
 
         connections = map(_create_connection, hosts)
@@ -341,14 +347,14 @@ class Transport(object):
     def perform_request(self, method, url, headers=None, params=None, body=None):
         """
         Perform the actual request. Retrieve a connection from the connection
-        pool, pass all the information to it's perform_request method and
+        pool, pass all the information to its perform_request method and
         return the data.
 
         If an exception was raised, mark the connection as failed and retry (up
         to `max_retries` times).
 
         If the operation was successful and the connection used was previously
-        marked as dead, mark it as live, resetting it's failure count.
+        marked as dead, mark it as live, resetting its failure count.
 
         :arg method: HTTP method to use
         :arg url: absolute url (without host) to target
@@ -409,7 +415,7 @@ class Transport(object):
                     raise e
 
             else:
-                # connection didn't fail, confirm it's live status
+                # connection didn't fail, confirm its live status
                 self.connection_pool.mark_live(connection)
 
                 if method == "HEAD":
