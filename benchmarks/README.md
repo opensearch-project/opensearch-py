@@ -28,8 +28,12 @@ Benchmarks use the code in this repository by specifying the dependency as `open
 Run all benchmarks available as follows.
 
 ```
-$ poetry run richbench . --repeat 1 --times 1
+poetry run richbench . --repeat 1 --times 1
+```
 
+Outputs results from all the runs.
+
+```
                                              Benchmarks, repeat=1, number=1                                              
 ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━┳━━━━━━━━━┳━━━━━━━━━┳━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━┓
 ┃                         Benchmark ┃ Min     ┃ Max     ┃ Mean    ┃ Min (+)         ┃ Max (+)         ┃ Mean (+)        ┃
@@ -44,8 +48,12 @@ $ poetry run richbench . --repeat 1 --times 1
 Run a specific benchmark, e.g. [bench_sync.py](bench_sync.py) by specifying `--benchmark [name]`.
 
 ```
-$ poetry run richbench . --repeat 1 --times 1 --benchmark sync
+poetry run richbench . --repeat 1 --times 1 --benchmark sync
+```
 
+Outputs results from one benchmark.
+
+```
                                             Benchmarks, repeat=1, number=1                                            
 ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━┳━━━━━━━━━┳━━━━━━━━━┳━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━┓
 ┃                      Benchmark ┃ Min     ┃ Max     ┃ Mean    ┃ Min (+)         ┃ Max (+)         ┃ Mean (+)        ┃

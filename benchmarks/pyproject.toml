@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "package"
 version = "0.1.0"
-description = "OpenSearch samples."
+description = "OpenSearch Python client benchmarks."
 authors = ["Daniel Doubrovkine <dblock@dblock.org>"]
 license = "Apache 2.0"
 readme = "README.md"
