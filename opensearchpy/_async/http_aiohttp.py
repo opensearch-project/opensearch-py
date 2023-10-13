@@ -85,7 +85,7 @@ class AIOHttpConnection(AsyncConnection):
         client_key=None,
         ssl_version=None,
         ssl_assert_fingerprint=None,
-        pool_maxsize=None,
+        maxsize=10,
         headers=None,
         ssl_context=None,
         http_compress=None,
@@ -217,7 +217,7 @@ class AIOHttpConnection(AsyncConnection):
         self.session = None
 
         # Parameters for creating an aiohttp.ClientSession later.
-        self._limit = pool_maxsize
+        self._limit = maxsize
         self._http_auth = http_auth
         self._ssl_context = ssl_context
         self._trust_env = trust_env

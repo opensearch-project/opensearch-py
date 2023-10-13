@@ -421,7 +421,7 @@ class OpenSearch(object):
             headers=headers,
             body=body,
         )
-    
+
     @query_params()
     def clear_scroll(self, body=None, scroll_id=None, params=None, headers=None):
         """
