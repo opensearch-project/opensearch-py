@@ -6,6 +6,8 @@
 # this file be licensed under the Apache-2.0 license or a
 # compatible open source license.
 
+import logging
+import sys
 import time
 
 from thread_with_return_value import ThreadWithReturnValue
@@ -17,18 +19,16 @@ port = 9200
 auth = ("admin", "admin")
 request_count = 250
 
-# import logging
-# import sys
 
-# root = logging.getLogger()
-# # root.setLevel(logging.DEBUG)
-# # logging.getLogger("urllib3.connectionpool").setLevel(logging.DEBUG)
+root = logging.getLogger()
+# root.setLevel(logging.DEBUG)
+# logging.getLogger("urllib3.connectionpool").setLevel(logging.DEBUG)
 
-# handler = logging.StreamHandler(sys.stdout)
-# handler.setLevel(logging.DEBUG)
-# formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-# handler.setFormatter(formatter)
-# root.addHandler(handler)
+handler = logging.StreamHandler(sys.stdout)
+handler.setLevel(logging.DEBUG)
+formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+handler.setFormatter(formatter)
+root.addHandler(handler)
 
 
 def get_info(client, request_count):

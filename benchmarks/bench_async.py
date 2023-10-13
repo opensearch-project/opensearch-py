@@ -7,11 +7,9 @@
 # compatible open source license.
 
 import asyncio
-import math
 import uuid
-from threading import Thread
 
-from opensearchpy import AsyncHttpConnection, AsyncOpenSearch, OpenSearch
+from opensearchpy import AsyncHttpConnection, AsyncOpenSearch
 
 host = "localhost"
 port = 9200
