@@ -117,7 +117,7 @@ class IngestClient(NamespacedClient):
         :arg body: The simulate definition
         :arg id: Pipeline ID.
         :arg verbose: Verbose mode. Display data output for each
-            processor in executed pipeline.
+            processor in executed pipeline. (default: false)
         """
         if body in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'body'.")
