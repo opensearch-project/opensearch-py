@@ -156,6 +156,7 @@ print(response)
 - [Working with Snapshots](guides/snapshot.md)
 - [Index Templates](guides/index_template.md)
 - [Advanced Index Actions](guides/advanced_index_actions.md)
+- [Making Raw JSON REST Requests](guides/json.md)
 - [Connection Classes](guides/connection_classes.md)
 
 ## Plugins
