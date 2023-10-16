@@ -155,6 +155,7 @@ print(response)
 - [Using a Proxy](guides/proxy.md)
 - [Working with Snapshots](guides/snapshot.md)
 - [Index Templates](guides/index_template.md)
+- [Advanced Index Actions](guides/advanced_index_actions.md)
 - [Connection Classes](guides/connection_classes.md)
 
 ## Plugins
