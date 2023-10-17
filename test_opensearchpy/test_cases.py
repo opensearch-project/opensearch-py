@@ -88,5 +88,35 @@ class TestOpenSearchTestCase(OpenSearchTestCase):
             [({}, None, "body")], self.assert_url_called("DELETE", "/42", 1)
         )
 
+    def test_get(self):
+        self.client._get("/")
+        self.assert_call_count_equals(1)
+        self.assertEqual([(None, None, None)], self.assert_url_called("GET", "/", 1))
+
+    def test_head(self):
+        self.client._head("/")
+        self.assert_call_count_equals(1)
+        self.assertEqual([(None, None, None)], self.assert_url_called("HEAD", "/", 1))
+
+    def test_put(self):
+        self.client._put("/xyz", {"X": "Y"}, "body")
+        self.assert_call_count_equals(1)
+        self.assertEqual(
+            [("body", {"X": "Y"}, None)], self.assert_url_called("PUT", "/xyz", 1)
+        )
+
+    def test_post(self):
+        self.client._post("/xyz", {"X": "Y"}, "body")
+        self.assert_call_count_equals(1)
+        self.assertEqual(
+            [("body", {"X": "Y"}, None)], self.assert_url_called("POST", "/xyz", 1)
+        )
+
+    def test_delete(self):
+        self.client._delete("/xyz", {"X": "Y"}, "body")
+        self.assert_call_count_equals(1)
+        self.assertEqual(
+            [("body", {"X": "Y"}, None)], self.assert_url_called("DELETE", "/xyz", 1)
+        )
 
 __all__ = ["SkipTest", "TestCase"]
