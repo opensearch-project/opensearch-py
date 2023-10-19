@@ -30,6 +30,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ### Deprecated
 ### Removed
 ### Fixed
+- Fixed allow AWSV4SignerAuth to work with a tunnel ([[#184](https://github.com/opensearch-project/opensearch-py/issues/184)
 ### Security
 ### Dependencies
 - Bumps `urllib3` from >=1.21.1, <2 to >=1.26.9 ([#518](https://github.com/opensearch-project/opensearch-py/pull/518))

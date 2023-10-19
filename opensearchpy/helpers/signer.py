@@ -6,7 +6,6 @@
 #
 # Modifications Copyright OpenSearch Contributors. See
 # GitHub history for details.
-
 import sys
 
 import requests
@@ -43,12 +42,22 @@ def fetch_url(prepared_request):  # type: ignore
     return url.scheme + "://" + location + path + querystring
 
 
+def derive_signature_url(original_url: str, singing_port: int) -> str:
+    url = urlparse(original_url)
+    if url.hostname is None:
+        raise RuntimeError("Cannot use derive_signature_url on urls without hostname.")
+    else:
+        return url._replace(netloc=url.hostname + ":" + str(singing_port)).geturl()
+
+
 class AWSV4SignerAuth(requests.auth.AuthBase):
     """
     AWS V4 Request Signer for Requests.
     """
 
-    def __init__(self, credentials, region, service="es"):  # type: ignore
+    def __init__(self, credentials, region, service="es", signature_port=None):  # type: ignore
+        # can be used to sign the request for a different port than the request, e.g. due to a tunnel being used
+        self.signature_port = signature_port
         if not credentials:
             raise ValueError("Credentials cannot be empty")
         self.credentials = credentials
@@ -79,7 +88,9 @@ class AWSV4SignerAuth(requests.auth.AuthBase):
         # create an AWS request object and sign it using SigV4Auth
         aws_request = AWSRequest(
             method=prepared_request.method.upper(),
-            url=url,
+            url=derive_signature_url(url, self.signature_port)
+            if self.signature_port is not None
+            else url,
             data=prepared_request.body,
         )
 
