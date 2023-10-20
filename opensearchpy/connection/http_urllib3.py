@@ -130,9 +130,6 @@ class Urllib3HttpConnection(Connection):
             **kwargs
         )
 
-        pool_class = urllib3.HTTPConnectionPool
-        kw = {}
-
         self.http_auth = http_auth
         if self.http_auth is not None:
             if isinstance(self.http_auth, Callable):
@@ -143,6 +140,9 @@ class Urllib3HttpConnection(Connection):
                 )
             else:
                 self.headers.update(urllib3.make_headers(basic_auth=http_auth))
+
+        pool_class = urllib3.HTTPConnectionPool
+        kw = {}
 
         # if providing an SSL context, raise error if any other SSL related flag is used
         if ssl_context and (
@@ -251,7 +251,7 @@ class Urllib3HttpConnection(Connection):
 
             if self.http_auth is not None:
                 if isinstance(self.http_auth, Callable):
-                    request_headers.update(self.http_auth(method, url, body))
+                    request_headers.update(self.http_auth(method, full_url, body))
 
             response = self.pool.urlopen(
                 method, url, body, retries=Retry(False), headers=request_headers, **kw

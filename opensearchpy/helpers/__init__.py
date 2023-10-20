@@ -39,7 +39,7 @@ from .actions import (
 )
 from .asyncsigner import AWSV4SignerAsyncAuth
 from .errors import BulkIndexError, ScanError
-from .signer import AWSV4SignerAuth
+from .signer import AWSV4SignerAuth, RequestsAWSV4SignerAuth, UrlLib3AWSV4SignerAuth
 
 __all__ = [
     "BulkIndexError",
@@ -54,6 +54,8 @@ __all__ = [
     "_process_bulk_chunk",
     "AWSV4SignerAuth",
     "AWSV4SignerAsyncAuth",
+    "RequestsAWSV4SignerAuth",
+    "UrlLib3AWSV4SignerAuth",
 ]
 
 

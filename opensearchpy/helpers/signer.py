@@ -8,7 +8,7 @@
 # GitHub history for details.
 
 import sys
-from typing import Callable
+from typing import Any, Callable
 
 import requests
 
@@ -44,12 +44,12 @@ def fetch_url(prepared_request):  # type: ignore
     return url.scheme + "://" + location + path + querystring
 
 
-class RequestsAWSV4SignerAuth(requests.auth.AuthBase):
+class AuthSigner:
     """
-    AWS V4 Request Signer for Requests.
+    Generic AWS V4 Request Signer.
     """
 
-    def __init__(self, credentials, region, service="es"):  # type: ignore
+    def __init__(self, credentials, region: str, service: str = "es") -> Any:  # type: ignore
         if not credentials:
             raise ValueError("Credentials cannot be empty")
         self.credentials = credentials
@@ -62,96 +62,22 @@ class RequestsAWSV4SignerAuth(requests.auth.AuthBase):
             raise ValueError("Service name cannot be empty")
         self.service = service
 
-    def __call__(self, request):  # type: ignore
-        return self._sign_request(request)  # type: ignore
+    def sign(self, method: str, url: str, body: Any) -> dict[str, str]:
+        print(f"SIGN: {method}: {url} ({body})")
 
-    def _sign_request(self, prepared_request):  # type: ignore
         """
-        This method helps in signing the request by injecting the required headers.
-        :param prepared_request: unsigned request
-        :return: signed request
-        """
-
-        from botocore.auth import SigV4Auth
-        from botocore.awsrequest import AWSRequest
-
-        url = fetch_url(prepared_request)  # type: ignore
-
-        # create an AWS request object and sign it using SigV4Auth
-        aws_request = AWSRequest(
-            method=prepared_request.method.upper(),
-            url=url,
-            data=prepared_request.body,
-        )
-
-        # credentials objects expose access_key, secret_key and token attributes
-        # via @property annotations that call _refresh() on every access,
-        # creating a race condition if the credentials expire before secret_key
-        # is called but after access_key- the end result is the access_key doesn't
-        # correspond to the secret_key used to sign the request. To avoid this,
-        # get_frozen_credentials() which returns non-refreshing credentials is
-        # called if it exists.
-        credentials = (
-            self.credentials.get_frozen_credentials()
-            if hasattr(self.credentials, "get_frozen_credentials")
-            and callable(self.credentials.get_frozen_credentials)
-            else self.credentials
-        )
-
-        sig_v4_auth = SigV4Auth(credentials, self.service, self.region)
-        sig_v4_auth.add_auth(aws_request)
-
-        # copy the headers from AWS request object into the prepared_request
-        prepared_request.headers.update(dict(aws_request.headers.items()))
-        prepared_request.headers["X-Amz-Content-SHA256"] = sig_v4_auth.payload(
-            aws_request
-        )
-
-        return prepared_request
-
-
-# Deprecated: use RequestsAWSV4SignerAuth
-class AWSV4SignerAuth(RequestsAWSV4SignerAuth):
-    pass
-
-
-class UrlLib3AWSV4SignerAuth(Callable):  # type: ignore
-    """
-    AWS V4 Request Signer for UrLLib3.
-    """
-
-    def __init__(self, credentials, region, service="es"):  # type: ignore
-        if not credentials:
-            raise ValueError("Credentials cannot be empty")
-        self.credentials = credentials
-
-        if not region:
-            raise ValueError("Region cannot be empty")
-        self.region = region
-
-        if not service:
-            raise ValueError("Service name cannot be empty")
-        self.service = service
-
-    def __call__(self, method, url, body):  # type: ignore
-        return self._sign_request(method, url, body)  # type: ignore
-
-    def _sign_request(self, method, url, body):  # type: ignore
-        """
-        This method helps in signing the request by injecting the required headers.
-        :param prepared_request: unsigned request
-        :return: signed request
+        This method signs the request and returns headers.
+        :param method: HTTP method
+        :param url: url
+        :param body: body
+        :return: headers
         """
 
         from botocore.auth import SigV4Auth
         from botocore.awsrequest import AWSRequest
 
         # create an AWS request object and sign it using SigV4Auth
-        aws_request = AWSRequest(
-            method=method.upper(),
-            url=url,
-            data=body,
-        )
+        aws_request = AWSRequest(method=method.upper(), url=url, data=body)
 
         # credentials objects expose access_key, secret_key and token attributes
         # via @property annotations that call _refresh() on every access,
@@ -175,3 +101,45 @@ class UrlLib3AWSV4SignerAuth(Callable):  # type: ignore
         headers["X-Amz-Content-SHA256"] = sig_v4_auth.payload(aws_request)
 
         return headers
+
+
+class RequestsAWSV4SignerAuth(requests.auth.AuthBase):
+    """
+    AWS V4 Request Signer for Requests.
+    """
+
+    def __init__(self, credentials, region, service="es"):  # type: ignore
+        self.signer = AuthSigner(credentials, region, service)
+
+    def __call__(self, request):  # type: ignore
+        return self._sign_request(request)  # type: ignore
+
+    def _sign_request(self, prepared_request):  # type: ignore
+        """
+        This method helps in signing the request by injecting the required headers.
+        :param prepared_request: unsigned request
+        :return: signed request
+        """
+
+        prepared_request.headers.update(
+            self.signer.sign(
+                prepared_request.method,
+                fetch_url(prepared_request),  # type: ignore
+                prepared_request.body,
+            )
+        )
+
+        return prepared_request
+
+
+# Deprecated: use RequestsAWSV4SignerAuth
+class AWSV4SignerAuth(RequestsAWSV4SignerAuth):
+    pass
+
+
+class UrlLib3AWSV4SignerAuth(Callable):  # type: ignore
+    def __init__(self, credentials, region, service="es"):  # type: ignore
+        self.signer = AuthSigner(credentials, region, service)
+
+    def __call__(self, method: str, url: str, body: Any) -> dict[str, str]:
+        return self.signer.sign(method, url, body)
