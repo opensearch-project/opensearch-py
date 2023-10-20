@@ -328,19 +328,14 @@ class TestUrllib3Connection(TestCase):
     def test_aws_signer_as_http_auth(self):
         region = "us-west-2"
 
-        import requests
+        from opensearchpy.helpers.signer import UrlLib3AWSV4SignerAuth
 
-        from opensearchpy.helpers.signer import AWSV4SignerAuth
-
-        auth = AWSV4SignerAuth(self.mock_session(), region)
-        con = RequestsHttpConnection(http_auth=auth)
-        prepared_request = requests.Request("GET", "http://localhost").prepare()
-        auth(prepared_request)
-        self.assertEqual(auth, con.session.auth)
-        self.assertIn("Authorization", prepared_request.headers)
-        self.assertIn("X-Amz-Date", prepared_request.headers)
-        self.assertIn("X-Amz-Security-Token", prepared_request.headers)
-        self.assertIn("X-Amz-Content-SHA256", prepared_request.headers)
+        auth = UrlLib3AWSV4SignerAuth(self.mock_session(), region)
+        headers = auth("GET", "http://localhost", None)
+        self.assertIn("Authorization", headers)
+        self.assertIn("X-Amz-Date", headers)
+        self.assertIn("X-Amz-Security-Token", headers)
+        self.assertIn("X-Amz-Content-SHA256", headers)
 
     @pytest.mark.skipif(
         sys.version_info < (3, 6), reason="AWSV4SignerAuth requires python3.6+"
@@ -381,18 +376,13 @@ class TestUrllib3Connection(TestCase):
         region = "us-west-1"
         service = "aoss"
 
-        import requests
+        from opensearchpy.helpers.signer import UrlLib3AWSV4SignerAuth
 
-        from opensearchpy.helpers.signer import AWSV4SignerAuth
-
-        auth = AWSV4SignerAuth(self.mock_session(), region, service)
-        con = RequestsHttpConnection(http_auth=auth)
-        prepared_request = requests.Request("GET", "http://localhost").prepare()
-        auth(prepared_request)
-        self.assertEqual(auth, con.session.auth)
-        self.assertIn("Authorization", prepared_request.headers)
-        self.assertIn("X-Amz-Date", prepared_request.headers)
-        self.assertIn("X-Amz-Security-Token", prepared_request.headers)
+        auth = UrlLib3AWSV4SignerAuth(self.mock_session(), region, service)
+        headers = auth("GET", "http://localhost", None)
+        self.assertIn("Authorization", headers)
+        self.assertIn("X-Amz-Date", headers)
+        self.assertIn("X-Amz-Security-Token", headers)
 
     def mock_session(self):
         access_key = uuid.uuid4().hex
@@ -520,7 +510,25 @@ class TestSignerWithFrozenCredentials(TestUrllib3Connection):
     @pytest.mark.skipif(
         sys.version_info < (3, 6), reason="AWSV4SignerAuth requires python3.6+"
     )
-    def test_aws_signer_frozen_credentials_as_http_auth(self):
+    def test_urllib3_http_connection_aws_signer_frozen_credentials_as_http_auth(self):
+        region = "us-west-2"
+
+        from opensearchpy.helpers.signer import UrlLib3AWSV4SignerAuth
+
+        mock_session = self.mock_session()
+
+        auth = UrlLib3AWSV4SignerAuth(mock_session, region)
+        headers = auth("GET", "http://localhost", None)
+        self.assertIn("Authorization", headers)
+        self.assertIn("X-Amz-Date", headers)
+        self.assertIn("X-Amz-Security-Token", headers)
+        self.assertIn("X-Amz-Content-SHA256", headers)
+        mock_session.get_frozen_credentials.assert_called_once()
+
+    @pytest.mark.skipif(
+        sys.version_info < (3, 6), reason="AWSV4SignerAuth requires python3.6+"
+    )
+    def test_requests_http_connection_aws_signer_frozen_credentials_as_http_auth(self):
         region = "us-west-2"
 
         import requests
@@ -541,7 +549,7 @@ class TestSignerWithFrozenCredentials(TestUrllib3Connection):
         mock_session.get_frozen_credentials.assert_called_once()
 
 
-class TestRequestsConnection(TestCase):
+class TestRequestsHttpConnection(TestCase):
     def _get_mock_connection(
         self, connection_params={}, status_code=200, response_body=b"{}"
     ):
@@ -897,6 +905,58 @@ class TestRequestsConnection(TestCase):
         with pytest.raises(RecursionError) as e:
             conn.perform_request("GET", "/")
         assert str(e.value) == "Wasn't modified!"
+
+    def mock_session(self):
+        access_key = uuid.uuid4().hex
+        secret_key = uuid.uuid4().hex
+        token = uuid.uuid4().hex
+        dummy_session = Mock()
+        dummy_session.access_key = access_key
+        dummy_session.secret_key = secret_key
+        dummy_session.token = token
+        del dummy_session.get_frozen_credentials
+
+        return dummy_session
+
+    @pytest.mark.skipif(
+        sys.version_info < (3, 6), reason="AWSV4SignerAuth requires python3.6+"
+    )
+    def test_aws_signer_as_http_auth(self):
+        region = "us-west-2"
+
+        import requests
+
+        from opensearchpy.helpers.signer import AWSV4SignerAuth
+
+        auth = AWSV4SignerAuth(self.mock_session(), region)
+        con = RequestsHttpConnection(http_auth=auth)
+        prepared_request = requests.Request("GET", "http://localhost").prepare()
+        auth(prepared_request)
+        self.assertEqual(auth, con.session.auth)
+        self.assertIn("Authorization", prepared_request.headers)
+        self.assertIn("X-Amz-Date", prepared_request.headers)
+        self.assertIn("X-Amz-Security-Token", prepared_request.headers)
+        self.assertIn("X-Amz-Content-SHA256", prepared_request.headers)
+
+    @pytest.mark.skipif(
+        sys.version_info < (3, 6), reason="AWSV4SignerAuth requires python3.6+"
+    )
+    def test_aws_signer_when_service_is_specified(self):
+        region = "us-west-1"
+        service = "aoss"
+
+        import requests
+
+        from opensearchpy.helpers.signer import AWSV4SignerAuth
+
+        auth = AWSV4SignerAuth(self.mock_session(), region, service)
+        con = RequestsHttpConnection(http_auth=auth)
+        prepared_request = requests.Request("GET", "http://localhost").prepare()
+        auth(prepared_request)
+        self.assertEqual(auth, con.session.auth)
+        self.assertIn("Authorization", prepared_request.headers)
+        self.assertIn("X-Amz-Date", prepared_request.headers)
+        self.assertIn("X-Amz-Security-Token", prepared_request.headers)
 
 
 @pytest.mark.skipif(
