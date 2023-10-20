@@ -75,7 +75,7 @@ from .helpers import (
     AWSV4SignerAsyncAuth,
     AWSV4SignerAuth,
     RequestsAWSV4SignerAuth,
-    UrlLib3AWSV4SignerAuth,
+    Urllib3AWSV4SignerAuth,
 )
 from .helpers.aggs import A
 from .helpers.analysis import analyzer, char_filter, normalizer, token_filter, tokenizer
@@ -171,7 +171,7 @@ __all__ = [
     "OpenSearchWarning",
     "OpenSearchDeprecationWarning",
     "AWSV4SignerAuth",
-    "UrlLib3AWSV4SignerAuth",
+    "Urllib3AWSV4SignerAuth",
     "RequestsAWSV4SignerAuth",
     "AWSV4SignerAsyncAuth",
     "A",

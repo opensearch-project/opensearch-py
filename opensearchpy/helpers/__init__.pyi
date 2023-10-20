@@ -48,6 +48,6 @@ try:
     from .._async.helpers.actions import async_streaming_bulk as async_streaming_bulk
     from .asyncsigner import AWSV4SignerAsyncAuth as AWSV4SignerAsyncAuth
     from .signer import AWSV4SignerAuth as AWSV4SignerAuth
-    from .signer import RequestsAWSV4SignerAuth, UrlLib3AWSV4SignerAuth
+    from .signer import RequestsAWSV4SignerAuth, Urllib3AWSV4SignerAuth
 except (ImportError, SyntaxError):
     pass

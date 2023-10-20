@@ -8,7 +8,7 @@
 # GitHub history for details.
 
 import sys
-from typing import Any, Callable
+from typing import Any, Callable, Dict
 
 import requests
 
@@ -62,9 +62,7 @@ class AuthSigner:
             raise ValueError("Service name cannot be empty")
         self.service = service
 
-    def sign(self, method: str, url: str, body: Any) -> dict[str, str]:
-        print(f"SIGN: {method}: {url} ({body})")
-
+    def sign(self, method: str, url: str, body: Any) -> Dict[str, str]:
         """
         This method signs the request and returns headers.
         :param method: HTTP method
@@ -137,9 +135,9 @@ class AWSV4SignerAuth(RequestsAWSV4SignerAuth):
     pass
 
 
-class UrlLib3AWSV4SignerAuth(Callable):  # type: ignore
+class Urllib3AWSV4SignerAuth(Callable):  # type: ignore
     def __init__(self, credentials, region, service="es"):  # type: ignore
         self.signer = AuthSigner(credentials, region, service)
 
-    def __call__(self, method: str, url: str, body: Any) -> dict[str, str]:
+    def __call__(self, method: str, url: str, body: Any) -> Dict[str, str]:
         return self.signer.sign(method, url, body)

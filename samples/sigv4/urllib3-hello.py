@@ -14,7 +14,7 @@ from time import sleep
 from urllib.parse import urlparse
 
 from boto3 import Session
-from opensearchpy import UrlLib3AWSV4SignerAuth, OpenSearch, Urllib3HttpConnection
+from opensearchpy import Urllib3AWSV4SignerAuth, OpenSearch, Urllib3HttpConnection
 
 # verbose logging
 logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.INFO)
@@ -26,7 +26,7 @@ service = environ.get('SERVICE', 'es')
 
 credentials = Session().get_credentials()
 
-auth = UrlLib3AWSV4SignerAuth(credentials, region, service)
+auth = Urllib3AWSV4SignerAuth(credentials, region, service)
 
 client = OpenSearch(
   hosts=[{

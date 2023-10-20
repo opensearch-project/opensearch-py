@@ -88,7 +88,7 @@ You can also run individual tests matching a pattern (`pytest -k [pattern]`).
 ```
 ./.ci/run-tests true 1.3.0 test_no_http_compression
 
-test_opensearchpy/test_connection.py::TestUrllib3Connection::test_no_http_compression PASSED [ 33%]
+test_opensearchpy/test_connection.py::TestUrllib3HttpConnection::test_no_http_compression PASSED [ 33%]
 test_opensearchpy/test_connection.py::TestRequestsConnection::test_no_http_compression PASSED [ 66%]
 test_opensearchpy/test_async/test_connection.py::TestAIOHttpConnection::test_no_http_compression PASSED [100%]
 ```
