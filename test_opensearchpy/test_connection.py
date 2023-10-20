@@ -214,7 +214,7 @@ class TestUrllib3HttpConnection(TestCase):
             # it means SSLContext is not available for that version of python
             # and we should skip this test.
             raise SkipTest(
-                "Test test_ssl_context is skipped cause SSLContext is not available for this version of ptyhon"
+                "Test test_ssl_context is skipped cause SSLContext is not available for this version of python"
             )
 
         con = Urllib3HttpConnection(use_ssl=True, ssl_context=context)
@@ -323,7 +323,7 @@ class TestUrllib3HttpConnection(TestCase):
         )
 
     @pytest.mark.skipif(
-        sys.version_info < (3, 6), reason="RequestsAWSV4SignerAuth requires python3.6+"
+        sys.version_info < (3, 6), reason="Urllib3AWSV4SignerAuth requires python3.6+"
     )
     def test_aws_signer_as_http_auth(self):
         region = "us-west-2"
@@ -338,35 +338,35 @@ class TestUrllib3HttpConnection(TestCase):
         self.assertIn("X-Amz-Content-SHA256", headers)
 
     @pytest.mark.skipif(
-        sys.version_info < (3, 6), reason="RequestsAWSV4SignerAuth requires python3.6+"
+        sys.version_info < (3, 6), reason="Urllib3AWSV4SignerAuth requires python3.6+"
     )
     def test_aws_signer_when_region_is_null(self):
         session = self.mock_session()
 
-        from opensearchpy.helpers.signer import RequestsAWSV4SignerAuth
+        from opensearchpy.helpers.signer import Urllib3AWSV4SignerAuth
 
         with pytest.raises(ValueError) as e:
-            RequestsAWSV4SignerAuth(session, None)
+            Urllib3AWSV4SignerAuth(session, None)
         assert str(e.value) == "Region cannot be empty"
 
         with pytest.raises(ValueError) as e:
-            RequestsAWSV4SignerAuth(session, "")
+            Urllib3AWSV4SignerAuth(session, "")
         assert str(e.value) == "Region cannot be empty"
 
     @pytest.mark.skipif(
-        sys.version_info < (3, 6), reason="RequestsAWSV4SignerAuth requires python3.6+"
+        sys.version_info < (3, 6), reason="Urllib3AWSV4SignerAuth requires python3.6+"
     )
     def test_aws_signer_when_credentials_is_null(self):
         region = "us-west-1"
 
-        from opensearchpy.helpers.signer import RequestsAWSV4SignerAuth
+        from opensearchpy.helpers.signer import Urllib3AWSV4SignerAuth
 
         with pytest.raises(ValueError) as e:
-            RequestsAWSV4SignerAuth(None, region)
+            Urllib3AWSV4SignerAuth(None, region)
         assert str(e.value) == "Credentials cannot be empty"
 
         with pytest.raises(ValueError) as e:
-            RequestsAWSV4SignerAuth("", region)
+            Urllib3AWSV4SignerAuth("", region)
         assert str(e.value) == "Credentials cannot be empty"
 
     @pytest.mark.skipif(
@@ -508,7 +508,7 @@ class TestSignerWithFrozenCredentials(TestUrllib3HttpConnection):
         return dummy_session
 
     @pytest.mark.skipif(
-        sys.version_info < (3, 6), reason="RequestsAWSV4SignerAuth requires python3.6+"
+        sys.version_info < (3, 6), reason="Urllib3AWSV4SignerAuth requires python3.6+"
     )
     def test_urllib3_http_connection_aws_signer_frozen_credentials_as_http_auth(self):
         region = "us-west-2"
