@@ -9,6 +9,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - Added `pool_maxsize` for `Urllib3HttpConnection` ([#535](https://github.com/opensearch-project/opensearch-py/pull/535))
 - Added benchmarks ([#537](https://github.com/opensearch-project/opensearch-py/pull/537))
 - Added guide on making raw JSON REST requests ([#542](https://github.com/opensearch-project/opensearch-py/pull/542))
+- Added support for AWS SigV4 for urllib3 ([#547](https://github.com/opensearch-project/opensearch-py/pull/547))
 ### Changed
 - Generate `tasks` client from API specs ([#508](https://github.com/opensearch-project/opensearch-py/pull/508))
 - Generate `ingest` client from API specs ([#513](https://github.com/opensearch-project/opensearch-py/pull/513))
