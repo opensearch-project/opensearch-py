@@ -18,32 +18,6 @@ if PY3:
     from urllib.parse import parse_qs, urlencode, urlparse
 
 
-def fetch_url(prepared_request):  # type: ignore
-    """
-    This is a util method that helps in reconstructing the request url.
-    :param prepared_request: unsigned request
-    :return: reconstructed url
-    """
-    url = urlparse(prepared_request.url)
-    path = url.path or "/"
-
-    # fetch the query string if present in the request
-    querystring = ""
-    if url.query:
-        querystring = "?" + urlencode(
-            parse_qs(url.query, keep_blank_values=True), doseq=True
-        )
-
-    # fetch the host information from headers
-    headers = dict(
-        (key.lower(), value) for key, value in prepared_request.headers.items()
-    )
-    location = headers.get("host") or url.netloc
-
-    # construct the url and return
-    return url.scheme + "://" + location + path + querystring
-
-
 class AWSV4Signer:
     """
     Generic AWS V4 Request Signer.
@@ -122,12 +96,37 @@ class RequestsAWSV4SignerAuth(requests.auth.AuthBase):
         prepared_request.headers.update(
             self.signer.sign(
                 prepared_request.method,
-                fetch_url(prepared_request),  # type: ignore
+                self._fetch_url(prepared_request),  # type: ignore
                 prepared_request.body,
             )
         )
 
         return prepared_request
+
+    def _fetch_url(self, prepared_request):  # type: ignore
+        """
+        This is a util method that helps in reconstructing the request url.
+        :param prepared_request: unsigned request
+        :return: reconstructed url
+        """
+        url = urlparse(prepared_request.url)
+        path = url.path or "/"
+
+        # fetch the query string if present in the request
+        querystring = ""
+        if url.query:
+            querystring = "?" + urlencode(
+                parse_qs(url.query, keep_blank_values=True), doseq=True
+            )
+
+        # fetch the host information from headers
+        headers = dict(
+            (key.lower(), value) for key, value in prepared_request.headers.items()
+        )
+        location = headers.get("host") or url.netloc
+
+        # construct the url and return
+        return url.scheme + "://" + location + path + querystring
 
 
 # Deprecated: use RequestsAWSV4SignerAuth
