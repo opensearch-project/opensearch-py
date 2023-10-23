@@ -11,7 +11,7 @@ export AWS_REGION=us-west-2
 export SERVICE=es # use "aoss" for OpenSearch Serverless.
 export ENDPOINT=https://....us-west-2.es.amazonaws.com
 
-poetry run sigv4/requests-hello.py
+poetry run aws/search-urllib.py
 ```
 
 This will output the version of OpenSearch and a search result.
