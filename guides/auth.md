@@ -1,5 +1,6 @@
 - [Authentication](#authentication)
   - [IAM Authentication](#iam-authentication)
+  - [IAM Authentication with a Synchronous Client](#iam-authentication-with-a-synchronous-client)
   - [IAM Authentication with an Async Client](#iam-authentication-with-an-async-client)
   - [Kerberos](#kerberos)
 
@@ -9,7 +10,11 @@ OpenSearch allows you to use different methods for the authentication via `conne
 
 ## IAM Authentication
 
-Opensearch-py supports IAM-based authentication via `RequestsAWSV4SignerAuth` and `Urllib3AWSV4SignerAuth`, which use `RequestHttpConnection` and `Urllib3HttpConnection` respectively, as the transport classes for communicating with OpenSearch clusters running in Amazon Managed OpenSearch and OpenSearch Serverless, and works in conjunction with [botocore](https://pypi.org/project/botocore/).
+This library supports IAM-based authentication when communicating with OpenSearch clusters running in Amazon Managed OpenSearch and OpenSearch Serverless.
+
+## IAM Authentication with a Synchronous Client
+
+For `Urllib3HttpConnection` use `Urllib3AWSV4SignerAuth`, and for `RequestHttpConnection` use `RequestsAWSV4SignerAuth`.
 
 ```python
 from opensearchpy import OpenSearch, Urllib3HttpConnection, Urllib3AWSV4SignerAuth
