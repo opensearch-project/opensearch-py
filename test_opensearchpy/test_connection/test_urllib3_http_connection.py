@@ -182,6 +182,29 @@ class TestUrllib3HttpConnection(TestCase):
     @pytest.mark.skipif(
         sys.version_info < (3, 6), reason="Urllib3AWSV4SignerAuth requires python3.6+"
     )
+    @patch(
+        "urllib3.HTTPConnectionPool.urlopen",
+        return_value=Mock(status=200, headers=HTTPHeaderDict({}), data=b"{}"),
+    )
+    def test_aws_signer_as_http_auth_adds_headers(self, mock_open):
+        from opensearchpy.helpers.signer import Urllib3AWSV4SignerAuth
+
+        auth = Urllib3AWSV4SignerAuth(self.mock_session(), "us-west-2")
+        con = Urllib3HttpConnection(http_auth=auth, headers={"x": "y"})
+        con.perform_request("GET", "/")
+        self.assertEqual(mock_open.call_count, 1)
+        headers = mock_open.call_args[1]["headers"]
+        self.assertEqual(headers["x"], "y")
+        self.assertTrue(
+            headers["Authorization"].startswith("AWS4-HMAC-SHA256 Credential=")
+        )
+        self.assertIn("X-Amz-Date", headers)
+        self.assertIn("X-Amz-Security-Token", headers)
+        self.assertIn("X-Amz-Content-SHA256", headers)
+
+    @pytest.mark.skipif(
+        sys.version_info < (3, 6), reason="Urllib3AWSV4SignerAuth requires python3.6+"
+    )
     def test_aws_signer_as_http_auth(self):
         region = "us-west-2"
 
