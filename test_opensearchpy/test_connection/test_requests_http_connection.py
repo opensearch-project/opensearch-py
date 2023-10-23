@@ -460,6 +460,29 @@ class TestRequestsHttpConnection(TestCase):
         self.assertIn("X-Amz-Date", prepared_request.headers)
         self.assertIn("X-Amz-Security-Token", prepared_request.headers)
 
+    @pytest.mark.skipif(
+        sys.version_info < (3, 6), reason="RequestsAWSV4SignerAuth requires python3.6+"
+    )
+    @patch("opensearchpy.helpers.signer.AWSV4Signer.sign")
+    def test_aws_signer_signs_with_query_string(self, mock_sign):
+        region = "us-west-1"
+        service = "aoss"
+
+        import requests
+
+        from opensearchpy.helpers.signer import RequestsAWSV4SignerAuth
+
+        auth = RequestsAWSV4SignerAuth(self.mock_session(), region, service)
+        prepared_request = requests.Request(
+            "GET", "http://localhost", params={"key1": "value1", "key2": "value2"}
+        ).prepare()
+        auth(prepared_request)
+        self.assertEqual(mock_sign.call_count, 1)
+        self.assertEqual(
+            mock_sign.call_args[0],
+            ("GET", "http://localhost/?key1=value1&key2=value2", None),
+        )
+
 
 @pytest.mark.skipif(
     sys.version_info < (3, 0),
