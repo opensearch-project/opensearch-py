@@ -48,11 +48,6 @@ from test_opensearchpy.TestHttpServer import TestHTTPServer
 pytestmark = pytest.mark.asyncio
 
 
-def gzip_decompress(data):
-    buf = gzip.GzipFile(fileobj=io.BytesIO(data), mode="rb")
-    return buf.read()
-
-
 class TestAIOHttpConnection:
     async def _get_mock_connection(
         self,
@@ -130,7 +125,8 @@ class TestAIOHttpConnection:
 
         _, kwargs = con.session.request.call_args
 
-        assert gzip_decompress(kwargs["data"]) == b"{}"
+        buf = gzip.GzipFile(fileobj=io.BytesIO(kwargs["data"]), mode="rb")
+        assert buf.read() == b"{}"
         assert kwargs["headers"]["accept-encoding"] == "gzip,deflate"
         assert kwargs["headers"]["content-encoding"] == "gzip"
 
