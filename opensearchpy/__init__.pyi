@@ -27,6 +27,10 @@
 import sys
 from typing import Tuple
 
+from ._async.client import AsyncOpenSearch as AsyncOpenSearch
+from ._async.http_aiohttp import AIOHttpConnection as AIOHttpConnection
+from ._async.http_aiohttp import AsyncConnection as AsyncConnection
+from ._async.transport import AsyncTransport as AsyncTransport
 from .client import OpenSearch as OpenSearch
 from .connection import AsyncHttpConnection as AsyncHttpConnection
 from .connection import Connection as Connection
@@ -54,6 +58,8 @@ from .exceptions import SSLError as SSLError
 from .exceptions import TransportError as TransportError
 from .exceptions import UnknownDslObject as UnknownDslObject
 from .exceptions import ValidationException as ValidationException
+from .helpers import AWSV4SignerAsyncAuth as AWSV4SignerAsyncAuth
+from .helpers import AWSV4SignerAuth as AWSV4SignerAuth
 from .helpers.aggs import A as A
 from .helpers.analysis import Analyzer, CharFilter, Normalizer, TokenFilter, Tokenizer
 from .helpers.document import Document as Document
@@ -119,19 +125,6 @@ from .helpers.utils import DslBase as DslBase
 from .helpers.wrappers import Range as Range
 from .serializer import JSONSerializer as JSONSerializer
 from .transport import Transport as Transport
-
-try:
-    if sys.version_info < (3, 6):
-        raise ImportError
-
-    from ._async.client import AsyncOpenSearch as AsyncOpenSearch
-    from ._async.http_aiohttp import AIOHttpConnection as AIOHttpConnection
-    from ._async.http_aiohttp import AsyncConnection as AsyncConnection
-    from ._async.transport import AsyncTransport as AsyncTransport
-    from .helpers import AWSV4SignerAsyncAuth as AWSV4SignerAsyncAuth
-    from .helpers import AWSV4SignerAuth as AWSV4SignerAuth
-except (ImportError, SyntaxError):
-    pass
 
 VERSION: Tuple[int, int, int]
 __version__: Tuple[int, int, int]

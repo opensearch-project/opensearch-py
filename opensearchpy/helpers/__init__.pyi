@@ -26,6 +26,10 @@
 
 import sys
 
+from .._async.helpers.actions import async_bulk as async_bulk
+from .._async.helpers.actions import async_reindex as async_reindex
+from .._async.helpers.actions import async_scan as async_scan
+from .._async.helpers.actions import async_streaming_bulk as async_streaming_bulk
 from .actions import _chunk_actions as _chunk_actions
 from .actions import _process_bulk_chunk as _process_bulk_chunk
 from .actions import bulk as bulk
@@ -34,20 +38,8 @@ from .actions import parallel_bulk as parallel_bulk
 from .actions import reindex as reindex
 from .actions import scan as scan
 from .actions import streaming_bulk as streaming_bulk
+from .asyncsigner import AWSV4SignerAsyncAuth as AWSV4SignerAsyncAuth
 from .errors import BulkIndexError as BulkIndexError
 from .errors import ScanError as ScanError
-
-try:
-    # Asyncio only supported on Python 3.6+
-    if sys.version_info < (3, 6):
-        raise ImportError
-
-    from .._async.helpers.actions import async_bulk as async_bulk
-    from .._async.helpers.actions import async_reindex as async_reindex
-    from .._async.helpers.actions import async_scan as async_scan
-    from .._async.helpers.actions import async_streaming_bulk as async_streaming_bulk
-    from .asyncsigner import AWSV4SignerAsyncAuth as AWSV4SignerAsyncAuth
-    from .signer import AWSV4SignerAuth as AWSV4SignerAuth
-    from .signer import RequestsAWSV4SignerAuth, Urllib3AWSV4SignerAuth
-except (ImportError, SyntaxError):
-    pass
+from .signer import AWSV4SignerAuth as AWSV4SignerAuth
+from .signer import RequestsAWSV4SignerAuth, Urllib3AWSV4SignerAuth
