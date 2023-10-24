@@ -264,9 +264,9 @@ class IndicesClient(NamespacedClient):
     ) -> bool: ...
     async def put_mapping(
         self,
-        index: Any,
         *,
         body: Any,
+        index: Optional[Any] = ...,
         allow_no_indices: Optional[Any] = ...,
         cluster_manager_timeout: Optional[Any] = ...,
         expand_wildcards: Optional[Any] = ...,

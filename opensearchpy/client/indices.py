@@ -381,14 +381,14 @@ class IndicesClient(NamespacedClient):
         "timeout",
         "write_index_only",
     )
-    def put_mapping(self, index, body, params=None, headers=None):
+    def put_mapping(self, body, index=None, params=None, headers=None):
         """
         Updates the index mappings.
 
 
+        :arg body: The mapping definition
         :arg index: Comma-separated list of indices; use `_all` or empty
             string to perform the operation on all indices.
-        :arg body: The mapping definition
         :arg allow_no_indices: Whether to ignore if a wildcard indices
             expression resolves into no concrete indices. (This includes `_all`
             string or when no indices have been specified).
@@ -406,9 +406,8 @@ class IndicesClient(NamespacedClient):
         :arg write_index_only: When true, applies mappings only to the
             write index of an alias or data stream. Default is false.
         """
-        for param in (index, body):
-            if param in SKIP_IN_PATH:
-                raise ValueError("Empty value passed for a required argument.")
+        if body in SKIP_IN_PATH:
+            raise ValueError("Empty value passed for a required argument 'body'.")
 
         if index in SKIP_IN_PATH:
             index = "_all"

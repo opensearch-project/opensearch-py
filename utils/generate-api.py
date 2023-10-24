@@ -25,6 +25,7 @@
 #  specific language governing permissions and limitations
 #  under the License.
 
+import json
 import os
 import re
 from functools import lru_cache
@@ -33,6 +34,7 @@ from operator import itemgetter
 from pathlib import Path
 
 import black
+import deepmerge
 import requests
 import unasync
 import urllib3
@@ -301,9 +303,10 @@ class API:
             parts.update(url.get("parts", {}))
 
         for p in parts:
-            parts[p]["required"] = all(
-                p in url.get("parts", {}) for url in self._def["url"]["paths"]
-            )
+            if "required" not in parts[p]:
+                parts[p]["required"] = all(
+                    p in url.get("parts", {}) for url in self._def["url"]["paths"]
+                )
             parts[p]["type"] = "Any"
 
             # This piece of logic corresponds to calling
@@ -637,6 +640,15 @@ def read_modules():
                 paths.append({"path": key2, "methods": methods})
 
         api.update({"url": {"paths": paths}})
+
+        # override a spec
+        override_file_path = (
+            CODE_ROOT / "utils/templates/overrides" / namespace / f"{name}.json"
+        )
+        if os.path.exists(override_file_path):
+            with open(override_file_path) as f:
+                override_json = json.load(f)
+                api = deepmerge.always_merger.merge(api, override_json)
 
         if namespace not in modules:
             modules[namespace] = Module(namespace)
