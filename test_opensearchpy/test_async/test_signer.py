@@ -8,7 +8,6 @@
 # Modifications Copyright OpenSearch Contributors. See
 # GitHub history for details.
 
-import sys
 import uuid
 
 import pytest
@@ -42,9 +41,6 @@ class TestAsyncSigner:
         assert "X-Amz-Date" in headers
         assert "X-Amz-Security-Token" in headers
 
-    @pytest.mark.skipif(
-        sys.version_info < (3, 6), reason="AWSV4SignerAuth requires python3.6+"
-    )
     async def test_aws_signer_async_when_region_is_null(self):
         session = self.mock_session()
 
@@ -58,9 +54,6 @@ class TestAsyncSigner:
             AWSV4SignerAsyncAuth(session, "")
         assert str(e.value) == "Region cannot be empty"
 
-    @pytest.mark.skipif(
-        sys.version_info < (3, 6), reason="AWSV4SignerAuth requires python3.6+"
-    )
     async def test_aws_signer_async_when_credentials_is_null(self):
         region = "us-west-1"
 
@@ -70,9 +63,6 @@ class TestAsyncSigner:
             AWSV4SignerAsyncAuth(None, region)
         assert str(e.value) == "Credentials cannot be empty"
 
-    @pytest.mark.skipif(
-        sys.version_info < (3, 6), reason="AWSV4SignerAsyncAuth requires python3.6+"
-    )
     async def test_aws_signer_async_when_service_is_specified(self):
         region = "us-west-2"
         service = "aoss"
@@ -100,9 +90,6 @@ class TestAsyncSignerWithFrozenCredentials(TestAsyncSigner):
 
         return dummy_session
 
-    @pytest.mark.skipif(
-        sys.version_info < (3, 6), reason="AWSV4SignerAsyncAuth requires python3.6+"
-    )
     async def test_aws_signer_async_frozen_credentials_as_http_auth(self):
         region = "us-west-2"
 

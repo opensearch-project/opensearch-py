@@ -248,22 +248,15 @@ __all__ = [
     "tokenizer",
 ]
 
-try:
-    # Asyncio only supported on Python 3.6+
-    if sys.version_info < (3, 6):
-        raise ImportError
+from ._async.client import AsyncOpenSearch
+from ._async.http_aiohttp import AIOHttpConnection, AsyncConnection
+from ._async.transport import AsyncTransport
+from .connection import AsyncHttpConnection
 
-    from ._async.client import AsyncOpenSearch
-    from ._async.http_aiohttp import AIOHttpConnection, AsyncConnection
-    from ._async.transport import AsyncTransport
-    from .connection import AsyncHttpConnection
-
-    __all__ += [
-        "AIOHttpConnection",
-        "AsyncConnection",
-        "AsyncTransport",
-        "AsyncOpenSearch",
-        "AsyncHttpConnection",
-    ]
-except (ImportError, SyntaxError):
-    pass
+__all__ += [
+    "AIOHttpConnection",
+    "AsyncConnection",
+    "AsyncTransport",
+    "AsyncOpenSearch",
+    "AsyncHttpConnection",
+]

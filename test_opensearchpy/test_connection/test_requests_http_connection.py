@@ -28,7 +28,6 @@
 
 import json
 import re
-import sys
 import uuid
 import warnings
 
@@ -36,7 +35,6 @@ import pytest
 from mock import Mock, patch
 from requests.auth import AuthBase
 
-from opensearchpy.compat import reraise_exceptions
 from opensearchpy.connection import Connection, RequestsHttpConnection
 from opensearchpy.exceptions import (
     ConflictError,
@@ -44,11 +42,9 @@ from opensearchpy.exceptions import (
     RequestError,
     TransportError,
 )
+from test_opensearchpy.TestHttpServer import TestHTTPServer
 
 from ..test_cases import TestCase
-
-if sys.version_info > (3, 0):
-    from test_opensearchpy.TestHttpServer import TestHTTPServer
 
 
 class TestRequestsHttpConnection(TestCase):
@@ -393,9 +389,6 @@ class TestRequestsHttpConnection(TestCase):
         status, headers, data = con.perform_request("GET", "/")
         self.assertEqual(u"你好\uda6a", data)  # fmt: skip
 
-    @pytest.mark.skipif(
-        not reraise_exceptions, reason="RecursionError isn't defined in Python <3.5"
-    )
     def test_recursion_error_reraised(self):
         conn = RequestsHttpConnection()
 
@@ -420,9 +413,6 @@ class TestRequestsHttpConnection(TestCase):
 
         return dummy_session
 
-    @pytest.mark.skipif(
-        sys.version_info < (3, 6), reason="RequestsAWSV4SignerAuth requires python3.6+"
-    )
     def test_aws_signer_as_http_auth(self):
         region = "us-west-2"
 
@@ -440,9 +430,6 @@ class TestRequestsHttpConnection(TestCase):
         self.assertIn("X-Amz-Security-Token", prepared_request.headers)
         self.assertIn("X-Amz-Content-SHA256", prepared_request.headers)
 
-    @pytest.mark.skipif(
-        sys.version_info < (3, 6), reason="RequestsAWSV4SignerAuth requires python3.6+"
-    )
     def test_aws_signer_when_service_is_specified(self):
         region = "us-west-1"
         service = "aoss"
@@ -460,9 +447,6 @@ class TestRequestsHttpConnection(TestCase):
         self.assertIn("X-Amz-Date", prepared_request.headers)
         self.assertIn("X-Amz-Security-Token", prepared_request.headers)
 
-    @pytest.mark.skipif(
-        sys.version_info < (3, 6), reason="RequestsAWSV4SignerAuth requires python3.6+"
-    )
     @patch("opensearchpy.helpers.signer.AWSV4Signer.sign")
     def test_aws_signer_signs_with_query_string(self, mock_sign):
         region = "us-west-1"
@@ -484,10 +468,6 @@ class TestRequestsHttpConnection(TestCase):
         )
 
 
-@pytest.mark.skipif(
-    sys.version_info < (3, 0),
-    reason="http_server is only available from python 3.x",
-)
 class TestRequestsConnectionRedirect:
     @classmethod
     def setup_class(cls):
@@ -537,9 +517,6 @@ class TestSignerWithFrozenCredentials(TestRequestsHttpConnection):
 
         return dummy_session
 
-    @pytest.mark.skipif(
-        sys.version_info < (3, 6), reason="RequestsAWSV4SignerAuth requires python3.6+"
-    )
     def test_requests_http_connection_aws_signer_frozen_credentials_as_http_auth(self):
         region = "us-west-2"
 
