@@ -33,7 +33,6 @@ clients.
 import io
 import os
 import re
-import sys
 import warnings
 import zipfile
 
@@ -135,8 +134,7 @@ SKIP_TESTS = {
 
 OPENSEARCH_VERSION = None
 RUN_ASYNC_REST_API_TESTS = (
-    sys.version_info >= (3, 6)
-    and os.environ.get("PYTHON_CONNECTION_CLASS") == "RequestsHttpConnection"
+    os.environ.get("PYTHON_CONNECTION_CLASS") == "RequestsHttpConnection"
 )
 
 FALSEY_VALUES = ("", None, False, 0, 0.0)

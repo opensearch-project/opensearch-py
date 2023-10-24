@@ -27,7 +27,6 @@
 
 
 import ssl
-import sys
 import uuid
 import warnings
 from gzip import GzipFile
@@ -40,7 +39,6 @@ from mock import Mock, patch
 from urllib3._collections import HTTPHeaderDict
 
 from opensearchpy import __versionstr__
-from opensearchpy.compat import reraise_exceptions
 from opensearchpy.connection import Connection, Urllib3HttpConnection
 
 from ..test_cases import SkipTest, TestCase
@@ -179,9 +177,6 @@ class TestUrllib3HttpConnection(TestCase):
             con.headers,
         )
 
-    @pytest.mark.skipif(
-        sys.version_info < (3, 6), reason="Urllib3AWSV4SignerAuth requires python3.6+"
-    )
     @patch(
         "urllib3.HTTPConnectionPool.urlopen",
         return_value=Mock(status=200, headers=HTTPHeaderDict({}), data=b"{}"),
@@ -202,9 +197,6 @@ class TestUrllib3HttpConnection(TestCase):
         self.assertIn("X-Amz-Security-Token", headers)
         self.assertIn("X-Amz-Content-SHA256", headers)
 
-    @pytest.mark.skipif(
-        sys.version_info < (3, 6), reason="Urllib3AWSV4SignerAuth requires python3.6+"
-    )
     def test_aws_signer_as_http_auth(self):
         region = "us-west-2"
 
@@ -217,9 +209,6 @@ class TestUrllib3HttpConnection(TestCase):
         self.assertIn("X-Amz-Security-Token", headers)
         self.assertIn("X-Amz-Content-SHA256", headers)
 
-    @pytest.mark.skipif(
-        sys.version_info < (3, 6), reason="Urllib3AWSV4SignerAuth requires python3.6+"
-    )
     def test_aws_signer_when_region_is_null(self):
         session = self.mock_session()
 
@@ -233,9 +222,6 @@ class TestUrllib3HttpConnection(TestCase):
             Urllib3AWSV4SignerAuth(session, "")
         assert str(e.value) == "Region cannot be empty"
 
-    @pytest.mark.skipif(
-        sys.version_info < (3, 6), reason="Urllib3AWSV4SignerAuth requires python3.6+"
-    )
     def test_aws_signer_when_credentials_is_null(self):
         region = "us-west-1"
 
@@ -249,9 +235,6 @@ class TestUrllib3HttpConnection(TestCase):
             Urllib3AWSV4SignerAuth("", region)
         assert str(e.value) == "Credentials cannot be empty"
 
-    @pytest.mark.skipif(
-        sys.version_info < (3, 6), reason="Urllib3AWSV4SignerAuth requires python3.6+"
-    )
     def test_aws_signer_when_service_is_specified(self):
         region = "us-west-1"
         service = "aoss"
@@ -358,9 +341,6 @@ class TestUrllib3HttpConnection(TestCase):
         status, headers, data = con.perform_request("GET", "/")
         self.assertEqual(u"你好\uda6a", data)  # fmt: skip
 
-    @pytest.mark.skipif(
-        not reraise_exceptions, reason="RecursionError isn't defined in Python <3.5"
-    )
     def test_recursion_error_reraised(self):
         conn = Urllib3HttpConnection()
 
@@ -387,9 +367,6 @@ class TestSignerWithFrozenCredentials(TestUrllib3HttpConnection):
 
         return dummy_session
 
-    @pytest.mark.skipif(
-        sys.version_info < (3, 6), reason="Urllib3AWSV4SignerAuth requires python3.6+"
-    )
     def test_urllib3_http_connection_aws_signer_frozen_credentials_as_http_auth(self):
         region = "us-west-2"
 

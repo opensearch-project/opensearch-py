@@ -25,7 +25,6 @@
 #  under the License.
 
 import base64
-import sys
 from datetime import datetime
 from ipaddress import ip_address
 
@@ -150,7 +149,6 @@ def test_scaled_float():
     assert f.to_dict() == {"scaling_factor": 123, "type": "scaled_float"}
 
 
-@pytest.mark.skipif(sys.version_info < (3, 6), reason="requires python3.6 or higher")
 def test_ipaddress():
     f = field.Ip()
     assert f.deserialize("127.0.0.1") == ip_address("127.0.0.1")

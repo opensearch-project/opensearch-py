@@ -27,7 +27,6 @@
 
 
 import re
-import sys
 from os.path import abspath, dirname, join
 
 from setuptools import find_packages, setup
@@ -54,8 +53,7 @@ install_requires = [
     "requests>=2.4.0, <3.0.0",
     "six",
     "python-dateutil",
-    # ipaddress is included in stdlib since python 3.3
-    'ipaddress; python_version<"3.3"',
+    "certifi>=2022.12.07",
 ]
 tests_require = [
     "requests>=2.0.0, <3.0.0",
@@ -65,11 +63,9 @@ tests_require = [
     "pytest>=3.0.0",
     "pytest-cov",
     "pytz",
-    "botocore;python_version>='3.6'",
+    "botocore",
+    "pytest-mock<4.0.0",
 ]
-if sys.version_info >= (3, 6):
-    tests_require.append("pytest-mock<4.0.0")
-    install_requires.append("certifi>=2022.12.07")
 
 async_require = ["aiohttp>=3,<4"]
 
@@ -103,11 +99,6 @@ setup(
         "Intended Audience :: Developers",
         "Operating System :: OS Independent",
         "Programming Language :: Python",
-        "Programming Language :: Python :: 2",
-        "Programming Language :: Python :: 2.7",
-        "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.4",
-        "Programming Language :: Python :: 3.5",
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
