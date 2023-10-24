@@ -6,6 +6,7 @@
 #
 # Modifications Copyright OpenSearch Contributors. See
 # GitHub history for details.
+
 from typing import Any, Collection, MutableMapping, Optional, Tuple, Type, Union
 
 def list_all_point_in_time(
