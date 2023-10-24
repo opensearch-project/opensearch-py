@@ -37,6 +37,8 @@
 
 from .utils import SKIP_IN_PATH, NamespacedClient, _make_path, query_params
 
+# replace_token#
+
 
 class IndicesClient(NamespacedClient):
     @query_params()
@@ -379,16 +381,15 @@ class IndicesClient(NamespacedClient):
         "ignore_unavailable",
         "master_timeout",
         "timeout",
-        "write_index_only",
     )
-    def put_mapping(self, body, index=None, params=None, headers=None):
+    def add_block(self, index, block, params=None, headers=None):
         """
-        Updates the index mappings.
+        Adds a block to an index.
 
 
-        :arg body: The mapping definition
-        :arg index: Comma-separated list of indices; use `_all` or empty
-            string to perform the operation on all indices.
+        :arg index: Comma-separated list of indices to add a block to.
+        :arg block: The block to add (one of read, write, read_only or
+            metadata).
         :arg allow_no_indices: Whether to ignore if a wildcard indices
             expression resolves into no concrete indices. (This includes `_all`
             string or when no indices have been specified).
@@ -403,56 +404,313 @@ class IndicesClient(NamespacedClient):
             use 'cluster_manager_timeout' instead.): Operation timeout for
             connection to master node.
         :arg timeout: Operation timeout.
-        :arg write_index_only: When true, applies mappings only to the
-            write index of an alias or data stream. Default is false.
         """
-        if body in SKIP_IN_PATH:
-            raise ValueError("Empty value passed for a required argument 'body'.")
+        for param in (index, block):
+            if param in SKIP_IN_PATH:
+                raise ValueError("Empty value passed for a required argument.")
 
-        if index in SKIP_IN_PATH:
-            index = "_all"
+        return self.transport.perform_request(
+            "PUT", _make_path(index, "_block", block), params=params, headers=headers
+        )
+
+    @query_params(
+        "allow_no_indices",
+        "expand_wildcards",
+        "fielddata",
+        "fields",
+        "ignore_unavailable",
+        "query",
+        "request",
+    )
+    def clear_cache(self, index=None, params=None, headers=None):
+        """
+        Clears all or specific caches for one or more indices.
+
+
+        :arg index: Comma-separated list of indices; use `_all` or empty
+            string to perform the operation on all indices.
+        :arg allow_no_indices: Whether to ignore if a wildcard indices
+            expression resolves into no concrete indices. (This includes `_all`
+            string or when no indices have been specified).
+        :arg expand_wildcards: Whether to expand wildcard expression to
+            concrete indices that are open, closed or both. Valid choices are all,
+            open, closed, hidden, none.
+        :arg fielddata: Clear field data.
+        :arg fields: Comma-separated list of fields to clear when using
+            the `fielddata` parameter (default: all).
+        :arg ignore_unavailable: Whether specified concrete indices
+            should be ignored when unavailable (missing or closed).
+        :arg query: Clear query caches.
+        :arg request: Clear request cache.
+        """
+        return self.transport.perform_request(
+            "POST", _make_path(index, "_cache", "clear"), params=params, headers=headers
+        )
+
+    @query_params()
+    def create_data_stream(self, name, body=None, params=None, headers=None):
+        """
+        Creates or updates a data stream.
+
+
+        :arg name: The name of the data stream.
+        :arg body: The data stream definition
+        """
+        if name in SKIP_IN_PATH:
+            raise ValueError("Empty value passed for a required argument 'name'.")
 
         return self.transport.perform_request(
             "PUT",
-            _make_path(index, "_mapping"),
+            _make_path("_data_stream", name),
             params=params,
             headers=headers,
             body=body,
         )
 
-    @query_params(
-        "allow_no_indices",
-        "cluster_manager_timeout",
-        "expand_wildcards",
-        "ignore_unavailable",
-        "local",
-        "master_timeout",
-    )
-    def get_mapping(self, index=None, params=None, headers=None):
+    @query_params()
+    def data_streams_stats(self, name=None, params=None, headers=None):
         """
-        Returns mappings for one or more indices.
+        Provides statistics on operations happening in a data stream.
 
 
-        :arg index: Comma-separated list of indices.
+        :arg name: Comma-separated list of data streams; use `_all` or
+            empty string to perform the operation on all data streams.
+        """
+        return self.transport.perform_request(
+            "GET",
+            _make_path("_data_stream", name, "_stats"),
+            params=params,
+            headers=headers,
+        )
+
+    @query_params("cluster_manager_timeout", "master_timeout", "timeout")
+    def delete_alias(self, index, name, params=None, headers=None):
+        """
+        Deletes an alias.
+
+
+        :arg index: Comma-separated list of indices; use `_all` or empty
+            string to perform the operation on all indices.
+        :arg name: Comma-separated list of aliases to delete (supports
+            wildcards); use `_all` to delete all aliases for the specified indices.
+        :arg cluster_manager_timeout: Operation timeout for connection
+            to cluster-manager node.
+        :arg master_timeout (Deprecated: To promote inclusive language,
+            use 'cluster_manager_timeout' instead.): Operation timeout for
+            connection to master node.
+        :arg timeout: Operation timeout.
+        """
+        for param in (index, name):
+            if param in SKIP_IN_PATH:
+                raise ValueError("Empty value passed for a required argument.")
+
+        return self.transport.perform_request(
+            "DELETE", _make_path(index, "_alias", name), params=params, headers=headers
+        )
+
+    @query_params()
+    def delete_data_stream(self, name, params=None, headers=None):
+        """
+        Deletes a data stream.
+
+
+        :arg name: Comma-separated list of data streams; use `_all` or
+            empty string to perform the operation on all data streams.
+        """
+        if name in SKIP_IN_PATH:
+            raise ValueError("Empty value passed for a required argument 'name'.")
+
+        return self.transport.perform_request(
+            "DELETE", _make_path("_data_stream", name), params=params, headers=headers
+        )
+
+    @query_params("cluster_manager_timeout", "master_timeout", "timeout")
+    def delete_index_template(self, name, params=None, headers=None):
+        """
+        Deletes an index template.
+
+
+        :arg name: The name of the template.
+        :arg cluster_manager_timeout: Operation timeout for connection
+            to cluster-manager node.
+        :arg master_timeout (Deprecated: To promote inclusive language,
+            use 'cluster_manager_timeout' instead.): Operation timeout for
+            connection to master node.
+        :arg timeout: Operation timeout.
+        """
+        if name in SKIP_IN_PATH:
+            raise ValueError("Empty value passed for a required argument 'name'.")
+
+        return self.transport.perform_request(
+            "DELETE",
+            _make_path("_index_template", name),
+            params=params,
+            headers=headers,
+        )
+
+    @query_params("cluster_manager_timeout", "master_timeout", "timeout")
+    def delete_template(self, name, params=None, headers=None):
+        """
+        Deletes an index template.
+
+
+        :arg name: The name of the template.
+        :arg cluster_manager_timeout: Operation timeout for connection
+            to cluster-manager node.
+        :arg master_timeout (Deprecated: To promote inclusive language,
+            use 'cluster_manager_timeout' instead.): Operation timeout for
+            connection to master node.
+        :arg timeout: Operation timeout.
+        """
+        if name in SKIP_IN_PATH:
+            raise ValueError("Empty value passed for a required argument 'name'.")
+
+        return self.transport.perform_request(
+            "DELETE", _make_path("_template", name), params=params, headers=headers
+        )
+
+    @query_params("allow_no_indices", "expand_wildcards", "ignore_unavailable", "local")
+    def exists_alias(self, name, index=None, params=None, headers=None):
+        """
+        Returns information about whether a particular alias exists.
+
+
+        :arg name: Comma-separated list of alias names.
+        :arg index: Comma-separated list of indices to filter aliases.
         :arg allow_no_indices: Whether to ignore if a wildcard indices
             expression resolves into no concrete indices. (This includes `_all`
             string or when no indices have been specified).
-        :arg cluster_manager_timeout: Operation timeout for connection
-            to cluster-manager node.
         :arg expand_wildcards: Whether to expand wildcard expression to
             concrete indices that are open, closed or both. Valid choices are all,
             open, closed, hidden, none.
         :arg ignore_unavailable: Whether specified concrete indices
             should be ignored when unavailable (missing or closed).
-        :arg local (Deprecated: This parameter is a no-op and field
-            mappings are always retrieved locally.): Return local information, do
-            not retrieve the state from cluster-manager node. Default is false.
+        :arg local: Return local information, do not retrieve the state
+            from cluster-manager node. Default is false.
+        """
+        if name in SKIP_IN_PATH:
+            raise ValueError("Empty value passed for a required argument 'name'.")
+
+        return self.transport.perform_request(
+            "HEAD", _make_path(index, "_alias", name), params=params, headers=headers
+        )
+
+    @query_params("cluster_manager_timeout", "flat_settings", "local", "master_timeout")
+    def exists_index_template(self, name, params=None, headers=None):
+        """
+        Returns information about whether a particular index template exists.
+
+
+        :arg name: The name of the template.
+        :arg cluster_manager_timeout: Operation timeout for connection
+            to cluster-manager node.
+        :arg flat_settings: Return settings in flat format. Default is
+            false.
+        :arg local: Return local information, do not retrieve the state
+            from cluster-manager node. Default is false.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Operation timeout for
             connection to master node.
         """
+        if name in SKIP_IN_PATH:
+            raise ValueError("Empty value passed for a required argument 'name'.")
+
         return self.transport.perform_request(
-            "GET", _make_path(index, "_mapping"), params=params, headers=headers
+            "HEAD", _make_path("_index_template", name), params=params, headers=headers
+        )
+
+    @query_params("cluster_manager_timeout", "flat_settings", "local", "master_timeout")
+    def exists_template(self, name, params=None, headers=None):
+        """
+        Returns information about whether a particular index template exists.
+
+
+        :arg name: Comma-separated names of the index templates.
+        :arg cluster_manager_timeout: Operation timeout for connection
+            to cluster-manager node.
+        :arg flat_settings: Return settings in flat format. Default is
+            false.
+        :arg local: Return local information, do not retrieve the state
+            from cluster-manager node. Default is false.
+        :arg master_timeout (Deprecated: To promote inclusive language,
+            use 'cluster_manager_timeout' instead.): Operation timeout for
+            connection to master node.
+        """
+        if name in SKIP_IN_PATH:
+            raise ValueError("Empty value passed for a required argument 'name'.")
+
+        return self.transport.perform_request(
+            "HEAD", _make_path("_template", name), params=params, headers=headers
+        )
+
+    @query_params(
+        "allow_no_indices",
+        "expand_wildcards",
+        "flush",
+        "ignore_unavailable",
+        "max_num_segments",
+        "only_expunge_deletes",
+    )
+    def forcemerge(self, index=None, params=None, headers=None):
+        """
+        Performs the force merge operation on one or more indices.
+
+
+        :arg index: Comma-separated list of indices; use `_all` or empty
+            string to perform the operation on all indices.
+        :arg allow_no_indices: Whether to ignore if a wildcard indices
+            expression resolves into no concrete indices. (This includes `_all`
+            string or when no indices have been specified).
+        :arg expand_wildcards: Whether to expand wildcard expression to
+            concrete indices that are open, closed or both. Valid choices are all,
+            open, closed, hidden, none.
+        :arg flush: Specify whether the index should be flushed after
+            performing the operation. Default is True.
+        :arg ignore_unavailable: Whether specified concrete indices
+            should be ignored when unavailable (missing or closed).
+        :arg max_num_segments: The number of segments the index should
+            be merged into (default: dynamic).
+        :arg only_expunge_deletes: Specify whether the operation should
+            only expunge deleted documents.
+        """
+        return self.transport.perform_request(
+            "POST", _make_path(index, "_forcemerge"), params=params, headers=headers
+        )
+
+    @query_params("allow_no_indices", "expand_wildcards", "ignore_unavailable", "local")
+    def get_alias(self, index=None, name=None, params=None, headers=None):
+        """
+        Returns an alias.
+
+
+        :arg index: Comma-separated list of indices to filter aliases.
+        :arg name: Comma-separated list of alias names.
+        :arg allow_no_indices: Whether to ignore if a wildcard indices
+            expression resolves into no concrete indices. (This includes `_all`
+            string or when no indices have been specified).
+        :arg expand_wildcards: Whether to expand wildcard expression to
+            concrete indices that are open, closed or both. Valid choices are all,
+            open, closed, hidden, none.
+        :arg ignore_unavailable: Whether specified concrete indices
+            should be ignored when unavailable (missing or closed).
+        :arg local: Return local information, do not retrieve the state
+            from cluster-manager node. Default is false.
+        """
+        return self.transport.perform_request(
+            "GET", _make_path(index, "_alias", name), params=params, headers=headers
+        )
+
+    @query_params()
+    def get_data_stream(self, name=None, params=None, headers=None):
+        """
+        Returns data streams.
+
+
+        :arg name: Comma-separated list of data streams; use `_all` or
+            empty string to perform the operation on all data streams.
+        """
+        return self.transport.perform_request(
+            "GET", _make_path("_data_stream", name), params=params, headers=headers
         )
 
     @query_params(
@@ -492,188 +750,8 @@ class IndicesClient(NamespacedClient):
             headers=headers,
         )
 
-    @query_params("cluster_manager_timeout", "master_timeout", "timeout")
-    def put_alias(self, index, name, body=None, params=None, headers=None):
-        """
-        Creates or updates an alias.
-
-
-        :arg index: Comma-separated list of indices; use `_all` or empty
-            string to perform the operation on all indices.
-        :arg name: The name of the alias to be created or updated.
-        :arg body: The settings for the alias, such as `routing` or
-            `filter`
-        :arg cluster_manager_timeout: Operation timeout for connection
-            to cluster-manager node.
-        :arg master_timeout (Deprecated: To promote inclusive language,
-            use 'cluster_manager_timeout' instead.): Operation timeout for
-            connection to master node.
-        :arg timeout: Operation timeout.
-        """
-        for param in (index, name):
-            if param in SKIP_IN_PATH:
-                raise ValueError("Empty value passed for a required argument.")
-
-        return self.transport.perform_request(
-            "PUT",
-            _make_path(index, "_alias", name),
-            params=params,
-            headers=headers,
-            body=body,
-        )
-
-    @query_params("allow_no_indices", "expand_wildcards", "ignore_unavailable", "local")
-    def exists_alias(self, name, index=None, params=None, headers=None):
-        """
-        Returns information about whether a particular alias exists.
-
-
-        :arg name: Comma-separated list of alias names.
-        :arg index: Comma-separated list of indices to filter aliases.
-        :arg allow_no_indices: Whether to ignore if a wildcard indices
-            expression resolves into no concrete indices. (This includes `_all`
-            string or when no indices have been specified).
-        :arg expand_wildcards: Whether to expand wildcard expression to
-            concrete indices that are open, closed or both. Valid choices are all,
-            open, closed, hidden, none.
-        :arg ignore_unavailable: Whether specified concrete indices
-            should be ignored when unavailable (missing or closed).
-        :arg local: Return local information, do not retrieve the state
-            from cluster-manager node. Default is false.
-        """
-        if name in SKIP_IN_PATH:
-            raise ValueError("Empty value passed for a required argument 'name'.")
-
-        return self.transport.perform_request(
-            "HEAD", _make_path(index, "_alias", name), params=params, headers=headers
-        )
-
-    @query_params("allow_no_indices", "expand_wildcards", "ignore_unavailable", "local")
-    def get_alias(self, index=None, name=None, params=None, headers=None):
-        """
-        Returns an alias.
-
-
-        :arg index: Comma-separated list of indices to filter aliases.
-        :arg name: Comma-separated list of alias names.
-        :arg allow_no_indices: Whether to ignore if a wildcard indices
-            expression resolves into no concrete indices. (This includes `_all`
-            string or when no indices have been specified).
-        :arg expand_wildcards: Whether to expand wildcard expression to
-            concrete indices that are open, closed or both. Valid choices are all,
-            open, closed, hidden, none.
-        :arg ignore_unavailable: Whether specified concrete indices
-            should be ignored when unavailable (missing or closed).
-        :arg local: Return local information, do not retrieve the state
-            from cluster-manager node. Default is false.
-        """
-        return self.transport.perform_request(
-            "GET", _make_path(index, "_alias", name), params=params, headers=headers
-        )
-
-    @query_params("cluster_manager_timeout", "master_timeout", "timeout")
-    def update_aliases(self, body, params=None, headers=None):
-        """
-        Updates index aliases.
-
-
-        :arg body: The definition of `actions` to perform
-        :arg cluster_manager_timeout: Operation timeout for connection
-            to cluster-manager node.
-        :arg master_timeout (Deprecated: To promote inclusive language,
-            use 'cluster_manager_timeout' instead.): Operation timeout for
-            connection to master node.
-        :arg timeout: Operation timeout.
-        """
-        if body in SKIP_IN_PATH:
-            raise ValueError("Empty value passed for a required argument 'body'.")
-
-        return self.transport.perform_request(
-            "POST", "/_aliases", params=params, headers=headers, body=body
-        )
-
-    @query_params("cluster_manager_timeout", "master_timeout", "timeout")
-    def delete_alias(self, index, name, params=None, headers=None):
-        """
-        Deletes an alias.
-
-
-        :arg index: Comma-separated list of indices; use `_all` or empty
-            string to perform the operation on all indices.
-        :arg name: Comma-separated list of aliases to delete (supports
-            wildcards); use `_all` to delete all aliases for the specified indices.
-        :arg cluster_manager_timeout: Operation timeout for connection
-            to cluster-manager node.
-        :arg master_timeout (Deprecated: To promote inclusive language,
-            use 'cluster_manager_timeout' instead.): Operation timeout for
-            connection to master node.
-        :arg timeout: Operation timeout.
-        """
-        for param in (index, name):
-            if param in SKIP_IN_PATH:
-                raise ValueError("Empty value passed for a required argument.")
-
-        return self.transport.perform_request(
-            "DELETE", _make_path(index, "_alias", name), params=params, headers=headers
-        )
-
-    @query_params("cluster_manager_timeout", "create", "master_timeout", "order")
-    def put_template(self, name, body, params=None, headers=None):
-        """
-        Creates or updates an index template.
-
-
-        :arg name: The name of the template.
-        :arg body: The template definition
-        :arg cluster_manager_timeout: Operation timeout for connection
-            to cluster-manager node.
-        :arg create: Whether the index template should only be added if
-            new or can also replace an existing one. Default is false.
-        :arg master_timeout (Deprecated: To promote inclusive language,
-            use 'cluster_manager_timeout' instead.): Operation timeout for
-            connection to master node.
-        :arg order: The order for this template when merging multiple
-            matching ones (higher numbers are merged later, overriding the lower
-            numbers).
-        """
-        for param in (name, body):
-            if param in SKIP_IN_PATH:
-                raise ValueError("Empty value passed for a required argument.")
-
-        return self.transport.perform_request(
-            "PUT",
-            _make_path("_template", name),
-            params=params,
-            headers=headers,
-            body=body,
-        )
-
     @query_params("cluster_manager_timeout", "flat_settings", "local", "master_timeout")
-    def exists_template(self, name, params=None, headers=None):
-        """
-        Returns information about whether a particular index template exists.
-
-
-        :arg name: Comma-separated names of the index templates.
-        :arg cluster_manager_timeout: Operation timeout for connection
-            to cluster-manager node.
-        :arg flat_settings: Return settings in flat format. Default is
-            false.
-        :arg local: Return local information, do not retrieve the state
-            from cluster-manager node. Default is false.
-        :arg master_timeout (Deprecated: To promote inclusive language,
-            use 'cluster_manager_timeout' instead.): Operation timeout for
-            connection to master node.
-        """
-        if name in SKIP_IN_PATH:
-            raise ValueError("Empty value passed for a required argument 'name'.")
-
-        return self.transport.perform_request(
-            "HEAD", _make_path("_template", name), params=params, headers=headers
-        )
-
-    @query_params("cluster_manager_timeout", "flat_settings", "local", "master_timeout")
-    def get_template(self, name=None, params=None, headers=None):
+    def get_index_template(self, name=None, params=None, headers=None):
         """
         Returns an index template.
 
@@ -690,28 +768,42 @@ class IndicesClient(NamespacedClient):
             connection to master node.
         """
         return self.transport.perform_request(
-            "GET", _make_path("_template", name), params=params, headers=headers
+            "GET", _make_path("_index_template", name), params=params, headers=headers
         )
 
-    @query_params("cluster_manager_timeout", "master_timeout", "timeout")
-    def delete_template(self, name, params=None, headers=None):
+    @query_params(
+        "allow_no_indices",
+        "cluster_manager_timeout",
+        "expand_wildcards",
+        "ignore_unavailable",
+        "local",
+        "master_timeout",
+    )
+    def get_mapping(self, index=None, params=None, headers=None):
         """
-        Deletes an index template.
+        Returns mappings for one or more indices.
 
 
-        :arg name: The name of the template.
+        :arg index: Comma-separated list of indices.
+        :arg allow_no_indices: Whether to ignore if a wildcard indices
+            expression resolves into no concrete indices. (This includes `_all`
+            string or when no indices have been specified).
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
+        :arg expand_wildcards: Whether to expand wildcard expression to
+            concrete indices that are open, closed or both. Valid choices are all,
+            open, closed, hidden, none.
+        :arg ignore_unavailable: Whether specified concrete indices
+            should be ignored when unavailable (missing or closed).
+        :arg local (Deprecated: This parameter is a no-op and field
+            mappings are always retrieved locally.): Return local information, do
+            not retrieve the state from cluster-manager node. Default is false.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Operation timeout for
             connection to master node.
-        :arg timeout: Operation timeout.
         """
-        if name in SKIP_IN_PATH:
-            raise ValueError("Empty value passed for a required argument 'name'.")
-
         return self.transport.perform_request(
-            "DELETE", _make_path("_template", name), params=params, headers=headers
+            "GET", _make_path(index, "_mapping"), params=params, headers=headers
         )
 
     @query_params(
@@ -754,6 +846,156 @@ class IndicesClient(NamespacedClient):
         """
         return self.transport.perform_request(
             "GET", _make_path(index, "_settings", name), params=params, headers=headers
+        )
+
+    @query_params("cluster_manager_timeout", "flat_settings", "local", "master_timeout")
+    def get_template(self, name=None, params=None, headers=None):
+        """
+        Returns an index template.
+
+
+        :arg name: Comma-separated names of the index templates.
+        :arg cluster_manager_timeout: Operation timeout for connection
+            to cluster-manager node.
+        :arg flat_settings: Return settings in flat format. Default is
+            false.
+        :arg local: Return local information, do not retrieve the state
+            from cluster-manager node. Default is false.
+        :arg master_timeout (Deprecated: To promote inclusive language,
+            use 'cluster_manager_timeout' instead.): Operation timeout for
+            connection to master node.
+        """
+        return self.transport.perform_request(
+            "GET", _make_path("_template", name), params=params, headers=headers
+        )
+
+    @query_params("allow_no_indices", "expand_wildcards", "ignore_unavailable")
+    def get_upgrade(self, index=None, params=None, headers=None):
+        """
+        The _upgrade API is no longer useful and will be removed.
+
+
+        :arg index: Comma-separated list of indices; use `_all` or empty
+            string to perform the operation on all indices.
+        :arg allow_no_indices: Whether to ignore if a wildcard indices
+            expression resolves into no concrete indices. (This includes `_all`
+            string or when no indices have been specified).
+        :arg expand_wildcards: Whether to expand wildcard expression to
+            concrete indices that are open, closed or both. Valid choices are all,
+            open, closed, hidden, none.
+        :arg ignore_unavailable: Whether specified concrete indices
+            should be ignored when unavailable (missing or closed).
+        """
+        return self.transport.perform_request(
+            "GET", _make_path(index, "_upgrade"), params=params, headers=headers
+        )
+
+    @query_params("cluster_manager_timeout", "master_timeout", "timeout")
+    def put_alias(self, index, name, body=None, params=None, headers=None):
+        """
+        Creates or updates an alias.
+
+
+        :arg index: Comma-separated list of indices; use `_all` or empty
+            string to perform the operation on all indices.
+        :arg name: The name of the alias to be created or updated.
+        :arg body: The settings for the alias, such as `routing` or
+            `filter`
+        :arg cluster_manager_timeout: Operation timeout for connection
+            to cluster-manager node.
+        :arg master_timeout (Deprecated: To promote inclusive language,
+            use 'cluster_manager_timeout' instead.): Operation timeout for
+            connection to master node.
+        :arg timeout: Operation timeout.
+        """
+        for param in (index, name):
+            if param in SKIP_IN_PATH:
+                raise ValueError("Empty value passed for a required argument.")
+
+        return self.transport.perform_request(
+            "PUT",
+            _make_path(index, "_alias", name),
+            params=params,
+            headers=headers,
+            body=body,
+        )
+
+    @query_params("cause", "cluster_manager_timeout", "create", "master_timeout")
+    def put_index_template(self, name, body, params=None, headers=None):
+        """
+        Creates or updates an index template.
+
+
+        :arg name: The name of the template.
+        :arg body: The template definition
+        :arg cause: User defined reason for creating/updating the index
+            template. Default is false.
+        :arg cluster_manager_timeout: Operation timeout for connection
+            to cluster-manager node.
+        :arg create: Whether the index template should only be added if
+            new or can also replace an existing one. Default is false.
+        :arg master_timeout (Deprecated: To promote inclusive language,
+            use 'cluster_manager_timeout' instead.): Operation timeout for
+            connection to master node.
+        """
+        for param in (name, body):
+            if param in SKIP_IN_PATH:
+                raise ValueError("Empty value passed for a required argument.")
+
+        return self.transport.perform_request(
+            "PUT",
+            _make_path("_index_template", name),
+            params=params,
+            headers=headers,
+            body=body,
+        )
+
+    @query_params(
+        "allow_no_indices",
+        "cluster_manager_timeout",
+        "expand_wildcards",
+        "ignore_unavailable",
+        "master_timeout",
+        "timeout",
+        "write_index_only",
+    )
+    def put_mapping(self, body, index=None, params=None, headers=None):
+        """
+        Updates the index mappings.
+
+
+        :arg body: The mapping definition
+        :arg index: Comma-separated list of indices; use `_all` or empty
+            string to perform the operation on all indices.
+        :arg allow_no_indices: Whether to ignore if a wildcard indices
+            expression resolves into no concrete indices. (This includes `_all`
+            string or when no indices have been specified).
+        :arg cluster_manager_timeout: Operation timeout for connection
+            to cluster-manager node.
+        :arg expand_wildcards: Whether to expand wildcard expression to
+            concrete indices that are open, closed or both. Valid choices are all,
+            open, closed, hidden, none.
+        :arg ignore_unavailable: Whether specified concrete indices
+            should be ignored when unavailable (missing or closed).
+        :arg master_timeout (Deprecated: To promote inclusive language,
+            use 'cluster_manager_timeout' instead.): Operation timeout for
+            connection to master node.
+        :arg timeout: Operation timeout.
+        :arg write_index_only: When true, applies mappings only to the
+            write index of an alias or data stream. Default is false.
+        """
+        if body in SKIP_IN_PATH:
+            raise ValueError("Empty value passed for a required argument 'body'.")
+
+        if index in SKIP_IN_PATH:
+            index = "_all"
+
+        return self.transport.perform_request(
+            "PUT",
+            _make_path(index, "_mapping"),
+            params=params,
+            headers=headers,
+            body=body,
         )
 
     @query_params(
@@ -800,6 +1042,304 @@ class IndicesClient(NamespacedClient):
         return self.transport.perform_request(
             "PUT",
             _make_path(index, "_settings"),
+            params=params,
+            headers=headers,
+            body=body,
+        )
+
+    @query_params("cluster_manager_timeout", "create", "master_timeout", "order")
+    def put_template(self, name, body, params=None, headers=None):
+        """
+        Creates or updates an index template.
+
+
+        :arg name: The name of the template.
+        :arg body: The template definition
+        :arg cluster_manager_timeout: Operation timeout for connection
+            to cluster-manager node.
+        :arg create: Whether the index template should only be added if
+            new or can also replace an existing one. Default is false.
+        :arg master_timeout (Deprecated: To promote inclusive language,
+            use 'cluster_manager_timeout' instead.): Operation timeout for
+            connection to master node.
+        :arg order: The order for this template when merging multiple
+            matching ones (higher numbers are merged later, overriding the lower
+            numbers).
+        """
+        for param in (name, body):
+            if param in SKIP_IN_PATH:
+                raise ValueError("Empty value passed for a required argument.")
+
+        return self.transport.perform_request(
+            "PUT",
+            _make_path("_template", name),
+            params=params,
+            headers=headers,
+            body=body,
+        )
+
+    @query_params("active_only", "detailed")
+    def recovery(self, index=None, params=None, headers=None):
+        """
+        Returns information about ongoing index shard recoveries.
+
+
+        :arg index: Comma-separated list of indices; use `_all` or empty
+            string to perform the operation on all indices.
+        :arg active_only: Display only those recoveries that are
+            currently on-going. Default is false.
+        :arg detailed: Whether to display detailed information about
+            shard recovery. Default is false.
+        """
+        return self.transport.perform_request(
+            "GET", _make_path(index, "_recovery"), params=params, headers=headers
+        )
+
+    @query_params("expand_wildcards")
+    def resolve_index(self, name, params=None, headers=None):
+        """
+        Returns information about any matching indices, aliases, and data streams.
+
+
+        :arg name: Comma-separated list of names or wildcard
+            expressions.
+        :arg expand_wildcards: Whether to expand wildcard expression to
+            concrete indices that are open, closed or both. Valid choices are all,
+            open, closed, hidden, none.
+        """
+        if name in SKIP_IN_PATH:
+            raise ValueError("Empty value passed for a required argument 'name'.")
+
+        return self.transport.perform_request(
+            "GET", _make_path("_resolve", "index", name), params=params, headers=headers
+        )
+
+    @query_params(
+        "cluster_manager_timeout",
+        "dry_run",
+        "master_timeout",
+        "timeout",
+        "wait_for_active_shards",
+    )
+    def rollover(self, alias, body=None, new_index=None, params=None, headers=None):
+        """
+        Updates an alias to point to a new index when the existing index is considered
+        to be too large or too old.
+
+
+        :arg alias: The name of the alias to rollover.
+        :arg body: The conditions that needs to be met for executing
+            rollover
+        :arg new_index: The name of the rollover index.
+        :arg cluster_manager_timeout: Operation timeout for connection
+            to cluster-manager node.
+        :arg dry_run: If set to true the rollover action will only be
+            validated but not actually performed even if a condition matches.
+            Default is false.
+        :arg master_timeout (Deprecated: To promote inclusive language,
+            use 'cluster_manager_timeout' instead.): Operation timeout for
+            connection to master node.
+        :arg timeout: Operation timeout.
+        :arg wait_for_active_shards: Set the number of active shards to
+            wait for on the newly created rollover index before the operation
+            returns.
+        """
+        if alias in SKIP_IN_PATH:
+            raise ValueError("Empty value passed for a required argument 'alias'.")
+
+        return self.transport.perform_request(
+            "POST",
+            _make_path(alias, "_rollover", new_index),
+            params=params,
+            headers=headers,
+            body=body,
+        )
+
+    @query_params(
+        "allow_no_indices", "expand_wildcards", "ignore_unavailable", "verbose"
+    )
+    def segments(self, index=None, params=None, headers=None):
+        """
+        Provides low-level information about segments in a Lucene index.
+
+
+        :arg index: Comma-separated list of indices; use `_all` or empty
+            string to perform the operation on all indices.
+        :arg allow_no_indices: Whether to ignore if a wildcard indices
+            expression resolves into no concrete indices. (This includes `_all`
+            string or when no indices have been specified).
+        :arg expand_wildcards: Whether to expand wildcard expression to
+            concrete indices that are open, closed or both. Valid choices are all,
+            open, closed, hidden, none.
+        :arg ignore_unavailable: Whether specified concrete indices
+            should be ignored when unavailable (missing or closed).
+        :arg verbose: Includes detailed memory usage by Lucene. Default
+            is false.
+        """
+        return self.transport.perform_request(
+            "GET", _make_path(index, "_segments"), params=params, headers=headers
+        )
+
+    @query_params(
+        "allow_no_indices", "expand_wildcards", "ignore_unavailable", "status"
+    )
+    def shard_stores(self, index=None, params=None, headers=None):
+        """
+        Provides store information for shard copies of indices.
+
+
+        :arg index: Comma-separated list of indices; use `_all` or empty
+            string to perform the operation on all indices.
+        :arg allow_no_indices: Whether to ignore if a wildcard indices
+            expression resolves into no concrete indices. (This includes `_all`
+            string or when no indices have been specified).
+        :arg expand_wildcards: Whether to expand wildcard expression to
+            concrete indices that are open, closed or both. Valid choices are all,
+            open, closed, hidden, none.
+        :arg ignore_unavailable: Whether specified concrete indices
+            should be ignored when unavailable (missing or closed).
+        :arg status: Comma-separated list of statuses used to filter on
+            shards to get store information for.
+        """
+        return self.transport.perform_request(
+            "GET", _make_path(index, "_shard_stores"), params=params, headers=headers
+        )
+
+    @query_params(
+        "cluster_manager_timeout",
+        "copy_settings",
+        "master_timeout",
+        "timeout",
+        "wait_for_active_shards",
+    )
+    def shrink(self, index, target, body=None, params=None, headers=None):
+        """
+        Allow to shrink an existing index into a new index with fewer primary shards.
+
+
+        :arg index: The name of the source index to shrink.
+        :arg target: The name of the target index.
+        :arg body: The configuration for the target index (`settings`
+            and `aliases`)
+        :arg cluster_manager_timeout: Operation timeout for connection
+            to cluster-manager node.
+        :arg copy_settings: whether or not to copy settings from the
+            source index. Default is false.
+        :arg master_timeout (Deprecated: To promote inclusive language,
+            use 'cluster_manager_timeout' instead.): Operation timeout for
+            connection to master node.
+        :arg timeout: Operation timeout.
+        :arg wait_for_active_shards: Set the number of active shards to
+            wait for on the shrunken index before the operation returns.
+        """
+        for param in (index, target):
+            if param in SKIP_IN_PATH:
+                raise ValueError("Empty value passed for a required argument.")
+
+        return self.transport.perform_request(
+            "PUT",
+            _make_path(index, "_shrink", target),
+            params=params,
+            headers=headers,
+            body=body,
+        )
+
+    @query_params("cause", "cluster_manager_timeout", "create", "master_timeout")
+    def simulate_index_template(self, name, body=None, params=None, headers=None):
+        """
+        Simulate matching the given index name against the index templates in the
+        system.
+
+
+        :arg name: The name of the index (it must be a concrete index
+            name).
+        :arg body: New index template definition, which will be included
+            in the simulation, as if it already exists in the system
+        :arg cause: User defined reason for dry-run creating the new
+            template for simulation purposes. Default is false.
+        :arg cluster_manager_timeout: Operation timeout for connection
+            to cluster-manager node.
+        :arg create: Whether the index template we optionally defined in
+            the body should only be dry-run added if new or can also replace an
+            existing one. Default is false.
+        :arg master_timeout (Deprecated: To promote inclusive language,
+            use 'cluster_manager_timeout' instead.): Operation timeout for
+            connection to master node.
+        """
+        if name in SKIP_IN_PATH:
+            raise ValueError("Empty value passed for a required argument 'name'.")
+
+        return self.transport.perform_request(
+            "POST",
+            _make_path("_index_template", "_simulate_index", name),
+            params=params,
+            headers=headers,
+            body=body,
+        )
+
+    @query_params("cause", "cluster_manager_timeout", "create", "master_timeout")
+    def simulate_template(self, body=None, name=None, params=None, headers=None):
+        """
+        Simulate resolving the given template name or body.
+
+
+        :arg body: New index template definition to be simulated, if no
+            index template name is specified
+        :arg name: The name of the template.
+        :arg cause: User defined reason for dry-run creating the new
+            template for simulation purposes. Default is false.
+        :arg cluster_manager_timeout: Operation timeout for connection
+            to cluster-manager node.
+        :arg create: Whether the index template we optionally defined in
+            the body should only be dry-run added if new or can also replace an
+            existing one. Default is false.
+        :arg master_timeout (Deprecated: To promote inclusive language,
+            use 'cluster_manager_timeout' instead.): Operation timeout for
+            connection to master node.
+        """
+        return self.transport.perform_request(
+            "POST",
+            _make_path("_index_template", "_simulate", name),
+            params=params,
+            headers=headers,
+            body=body,
+        )
+
+    @query_params(
+        "cluster_manager_timeout",
+        "copy_settings",
+        "master_timeout",
+        "timeout",
+        "wait_for_active_shards",
+    )
+    def split(self, index, target, body=None, params=None, headers=None):
+        """
+        Allows you to split an existing index into a new index with more primary
+        shards.
+
+
+        :arg index: The name of the source index to split.
+        :arg target: The name of the target index.
+        :arg body: The configuration for the target index (`settings`
+            and `aliases`)
+        :arg cluster_manager_timeout: Operation timeout for connection
+            to cluster-manager node.
+        :arg copy_settings: whether or not to copy settings from the
+            source index. Default is false.
+        :arg master_timeout (Deprecated: To promote inclusive language,
+            use 'cluster_manager_timeout' instead.): Operation timeout for
+            connection to master node.
+        :arg timeout: Operation timeout.
+        :arg wait_for_active_shards: Set the number of active shards to
+            wait for on the shrunken index before the operation returns.
+        """
+        for param in (index, target):
+            if param in SKIP_IN_PATH:
+                raise ValueError("Empty value passed for a required argument.")
+
+        return self.transport.perform_request(
+            "PUT",
+            _make_path(index, "_split", target),
             params=params,
             headers=headers,
             body=body,
@@ -854,12 +1394,37 @@ class IndicesClient(NamespacedClient):
             "GET", _make_path(index, "_stats", metric), params=params, headers=headers
         )
 
-    @query_params(
-        "allow_no_indices", "expand_wildcards", "ignore_unavailable", "verbose"
-    )
-    def segments(self, index=None, params=None, headers=None):
+    @query_params("cluster_manager_timeout", "master_timeout", "timeout")
+    def update_aliases(self, body, params=None, headers=None):
         """
-        Provides low-level information about segments in a Lucene index.
+        Updates index aliases.
+
+
+        :arg body: The definition of `actions` to perform
+        :arg cluster_manager_timeout: Operation timeout for connection
+            to cluster-manager node.
+        :arg master_timeout (Deprecated: To promote inclusive language,
+            use 'cluster_manager_timeout' instead.): Operation timeout for
+            connection to master node.
+        :arg timeout: Operation timeout.
+        """
+        if body in SKIP_IN_PATH:
+            raise ValueError("Empty value passed for a required argument 'body'.")
+
+        return self.transport.perform_request(
+            "POST", "/_aliases", params=params, headers=headers, body=body
+        )
+
+    @query_params(
+        "allow_no_indices",
+        "expand_wildcards",
+        "ignore_unavailable",
+        "only_ancient_segments",
+        "wait_for_completion",
+    )
+    def upgrade(self, index=None, params=None, headers=None):
+        """
+        The _upgrade API is no longer useful and will be removed.
 
 
         :arg index: Comma-separated list of indices; use `_all` or empty
@@ -872,11 +1437,13 @@ class IndicesClient(NamespacedClient):
             open, closed, hidden, none.
         :arg ignore_unavailable: Whether specified concrete indices
             should be ignored when unavailable (missing or closed).
-        :arg verbose: Includes detailed memory usage by Lucene. Default
-            is false.
+        :arg only_ancient_segments: If true, only ancient (an older
+            Lucene major release) segments will be upgraded.
+        :arg wait_for_completion: Should this request wait until the
+            operation has completed before returning. Default is false.
         """
         return self.transport.perform_request(
-            "GET", _make_path(index, "_segments"), params=params, headers=headers
+            "POST", _make_path(index, "_upgrade"), params=params, headers=headers
         )
 
     @query_params(
@@ -931,569 +1498,4 @@ class IndicesClient(NamespacedClient):
             params=params,
             headers=headers,
             body=body,
-        )
-
-    @query_params(
-        "allow_no_indices",
-        "expand_wildcards",
-        "fielddata",
-        "fields",
-        "ignore_unavailable",
-        "query",
-        "request",
-    )
-    def clear_cache(self, index=None, params=None, headers=None):
-        """
-        Clears all or specific caches for one or more indices.
-
-
-        :arg index: Comma-separated list of indices; use `_all` or empty
-            string to perform the operation on all indices.
-        :arg allow_no_indices: Whether to ignore if a wildcard indices
-            expression resolves into no concrete indices. (This includes `_all`
-            string or when no indices have been specified).
-        :arg expand_wildcards: Whether to expand wildcard expression to
-            concrete indices that are open, closed or both. Valid choices are all,
-            open, closed, hidden, none.
-        :arg fielddata: Clear field data.
-        :arg fields: Comma-separated list of fields to clear when using
-            the `fielddata` parameter (default: all).
-        :arg ignore_unavailable: Whether specified concrete indices
-            should be ignored when unavailable (missing or closed).
-        :arg query: Clear query caches.
-        :arg request: Clear request cache.
-        """
-        return self.transport.perform_request(
-            "POST", _make_path(index, "_cache", "clear"), params=params, headers=headers
-        )
-
-    @query_params("active_only", "detailed")
-    def recovery(self, index=None, params=None, headers=None):
-        """
-        Returns information about ongoing index shard recoveries.
-
-
-        :arg index: Comma-separated list of indices; use `_all` or empty
-            string to perform the operation on all indices.
-        :arg active_only: Display only those recoveries that are
-            currently on-going. Default is false.
-        :arg detailed: Whether to display detailed information about
-            shard recovery. Default is false.
-        """
-        return self.transport.perform_request(
-            "GET", _make_path(index, "_recovery"), params=params, headers=headers
-        )
-
-    @query_params(
-        "allow_no_indices",
-        "expand_wildcards",
-        "ignore_unavailable",
-        "only_ancient_segments",
-        "wait_for_completion",
-    )
-    def upgrade(self, index=None, params=None, headers=None):
-        """
-        The _upgrade API is no longer useful and will be removed.
-
-
-        :arg index: Comma-separated list of indices; use `_all` or empty
-            string to perform the operation on all indices.
-        :arg allow_no_indices: Whether to ignore if a wildcard indices
-            expression resolves into no concrete indices. (This includes `_all`
-            string or when no indices have been specified).
-        :arg expand_wildcards: Whether to expand wildcard expression to
-            concrete indices that are open, closed or both. Valid choices are all,
-            open, closed, hidden, none.
-        :arg ignore_unavailable: Whether specified concrete indices
-            should be ignored when unavailable (missing or closed).
-        :arg only_ancient_segments: If true, only ancient (an older
-            Lucene major release) segments will be upgraded.
-        :arg wait_for_completion: Should this request wait until the
-            operation has completed before returning. Default is false.
-        """
-        return self.transport.perform_request(
-            "POST", _make_path(index, "_upgrade"), params=params, headers=headers
-        )
-
-    @query_params("allow_no_indices", "expand_wildcards", "ignore_unavailable")
-    def get_upgrade(self, index=None, params=None, headers=None):
-        """
-        The _upgrade API is no longer useful and will be removed.
-
-
-        :arg index: Comma-separated list of indices; use `_all` or empty
-            string to perform the operation on all indices.
-        :arg allow_no_indices: Whether to ignore if a wildcard indices
-            expression resolves into no concrete indices. (This includes `_all`
-            string or when no indices have been specified).
-        :arg expand_wildcards: Whether to expand wildcard expression to
-            concrete indices that are open, closed or both. Valid choices are all,
-            open, closed, hidden, none.
-        :arg ignore_unavailable: Whether specified concrete indices
-            should be ignored when unavailable (missing or closed).
-        """
-        return self.transport.perform_request(
-            "GET", _make_path(index, "_upgrade"), params=params, headers=headers
-        )
-
-    @query_params(
-        "allow_no_indices", "expand_wildcards", "ignore_unavailable", "status"
-    )
-    def shard_stores(self, index=None, params=None, headers=None):
-        """
-        Provides store information for shard copies of indices.
-
-
-        :arg index: Comma-separated list of indices; use `_all` or empty
-            string to perform the operation on all indices.
-        :arg allow_no_indices: Whether to ignore if a wildcard indices
-            expression resolves into no concrete indices. (This includes `_all`
-            string or when no indices have been specified).
-        :arg expand_wildcards: Whether to expand wildcard expression to
-            concrete indices that are open, closed or both. Valid choices are all,
-            open, closed, hidden, none.
-        :arg ignore_unavailable: Whether specified concrete indices
-            should be ignored when unavailable (missing or closed).
-        :arg status: Comma-separated list of statuses used to filter on
-            shards to get store information for.
-        """
-        return self.transport.perform_request(
-            "GET", _make_path(index, "_shard_stores"), params=params, headers=headers
-        )
-
-    @query_params(
-        "allow_no_indices",
-        "expand_wildcards",
-        "flush",
-        "ignore_unavailable",
-        "max_num_segments",
-        "only_expunge_deletes",
-    )
-    def forcemerge(self, index=None, params=None, headers=None):
-        """
-        Performs the force merge operation on one or more indices.
-
-
-        :arg index: Comma-separated list of indices; use `_all` or empty
-            string to perform the operation on all indices.
-        :arg allow_no_indices: Whether to ignore if a wildcard indices
-            expression resolves into no concrete indices. (This includes `_all`
-            string or when no indices have been specified).
-        :arg expand_wildcards: Whether to expand wildcard expression to
-            concrete indices that are open, closed or both. Valid choices are all,
-            open, closed, hidden, none.
-        :arg flush: Specify whether the index should be flushed after
-            performing the operation. Default is True.
-        :arg ignore_unavailable: Whether specified concrete indices
-            should be ignored when unavailable (missing or closed).
-        :arg max_num_segments: The number of segments the index should
-            be merged into (default: dynamic).
-        :arg only_expunge_deletes: Specify whether the operation should
-            only expunge deleted documents.
-        """
-        return self.transport.perform_request(
-            "POST", _make_path(index, "_forcemerge"), params=params, headers=headers
-        )
-
-    @query_params(
-        "cluster_manager_timeout",
-        "copy_settings",
-        "master_timeout",
-        "timeout",
-        "wait_for_active_shards",
-    )
-    def shrink(self, index, target, body=None, params=None, headers=None):
-        """
-        Allow to shrink an existing index into a new index with fewer primary shards.
-
-
-        :arg index: The name of the source index to shrink.
-        :arg target: The name of the target index.
-        :arg body: The configuration for the target index (`settings`
-            and `aliases`)
-        :arg cluster_manager_timeout: Operation timeout for connection
-            to cluster-manager node.
-        :arg copy_settings: whether or not to copy settings from the
-            source index. Default is false.
-        :arg master_timeout (Deprecated: To promote inclusive language,
-            use 'cluster_manager_timeout' instead.): Operation timeout for
-            connection to master node.
-        :arg timeout: Operation timeout.
-        :arg wait_for_active_shards: Set the number of active shards to
-            wait for on the shrunken index before the operation returns.
-        """
-        for param in (index, target):
-            if param in SKIP_IN_PATH:
-                raise ValueError("Empty value passed for a required argument.")
-
-        return self.transport.perform_request(
-            "PUT",
-            _make_path(index, "_shrink", target),
-            params=params,
-            headers=headers,
-            body=body,
-        )
-
-    @query_params(
-        "cluster_manager_timeout",
-        "copy_settings",
-        "master_timeout",
-        "timeout",
-        "wait_for_active_shards",
-    )
-    def split(self, index, target, body=None, params=None, headers=None):
-        """
-        Allows you to split an existing index into a new index with more primary
-        shards.
-
-
-        :arg index: The name of the source index to split.
-        :arg target: The name of the target index.
-        :arg body: The configuration for the target index (`settings`
-            and `aliases`)
-        :arg cluster_manager_timeout: Operation timeout for connection
-            to cluster-manager node.
-        :arg copy_settings: whether or not to copy settings from the
-            source index. Default is false.
-        :arg master_timeout (Deprecated: To promote inclusive language,
-            use 'cluster_manager_timeout' instead.): Operation timeout for
-            connection to master node.
-        :arg timeout: Operation timeout.
-        :arg wait_for_active_shards: Set the number of active shards to
-            wait for on the shrunken index before the operation returns.
-        """
-        for param in (index, target):
-            if param in SKIP_IN_PATH:
-                raise ValueError("Empty value passed for a required argument.")
-
-        return self.transport.perform_request(
-            "PUT",
-            _make_path(index, "_split", target),
-            params=params,
-            headers=headers,
-            body=body,
-        )
-
-    @query_params(
-        "cluster_manager_timeout",
-        "dry_run",
-        "master_timeout",
-        "timeout",
-        "wait_for_active_shards",
-    )
-    def rollover(self, alias, body=None, new_index=None, params=None, headers=None):
-        """
-        Updates an alias to point to a new index when the existing index is considered
-        to be too large or too old.
-
-
-        :arg alias: The name of the alias to rollover.
-        :arg body: The conditions that needs to be met for executing
-            rollover
-        :arg new_index: The name of the rollover index.
-        :arg cluster_manager_timeout: Operation timeout for connection
-            to cluster-manager node.
-        :arg dry_run: If set to true the rollover action will only be
-            validated but not actually performed even if a condition matches.
-            Default is false.
-        :arg master_timeout (Deprecated: To promote inclusive language,
-            use 'cluster_manager_timeout' instead.): Operation timeout for
-            connection to master node.
-        :arg timeout: Operation timeout.
-        :arg wait_for_active_shards: Set the number of active shards to
-            wait for on the newly created rollover index before the operation
-            returns.
-        """
-        if alias in SKIP_IN_PATH:
-            raise ValueError("Empty value passed for a required argument 'alias'.")
-
-        return self.transport.perform_request(
-            "POST",
-            _make_path(alias, "_rollover", new_index),
-            params=params,
-            headers=headers,
-            body=body,
-        )
-
-    @query_params()
-    def create_data_stream(self, name, body=None, params=None, headers=None):
-        """
-        Creates or updates a data stream.
-
-
-        :arg name: The name of the data stream.
-        :arg body: The data stream definition
-        """
-        if name in SKIP_IN_PATH:
-            raise ValueError("Empty value passed for a required argument 'name'.")
-
-        return self.transport.perform_request(
-            "PUT",
-            _make_path("_data_stream", name),
-            params=params,
-            headers=headers,
-            body=body,
-        )
-
-    @query_params()
-    def delete_data_stream(self, name, params=None, headers=None):
-        """
-        Deletes a data stream.
-
-
-        :arg name: Comma-separated list of data streams; use `_all` or
-            empty string to perform the operation on all data streams.
-        """
-        if name in SKIP_IN_PATH:
-            raise ValueError("Empty value passed for a required argument 'name'.")
-
-        return self.transport.perform_request(
-            "DELETE", _make_path("_data_stream", name), params=params, headers=headers
-        )
-
-    @query_params("cluster_manager_timeout", "master_timeout", "timeout")
-    def delete_index_template(self, name, params=None, headers=None):
-        """
-        Deletes an index template.
-
-
-        :arg name: The name of the template.
-        :arg cluster_manager_timeout: Operation timeout for connection
-            to cluster-manager node.
-        :arg master_timeout (Deprecated: To promote inclusive language,
-            use 'cluster_manager_timeout' instead.): Operation timeout for
-            connection to master node.
-        :arg timeout: Operation timeout.
-        """
-        if name in SKIP_IN_PATH:
-            raise ValueError("Empty value passed for a required argument 'name'.")
-
-        return self.transport.perform_request(
-            "DELETE",
-            _make_path("_index_template", name),
-            params=params,
-            headers=headers,
-        )
-
-    @query_params("cluster_manager_timeout", "flat_settings", "local", "master_timeout")
-    def exists_index_template(self, name, params=None, headers=None):
-        """
-        Returns information about whether a particular index template exists.
-
-
-        :arg name: The name of the template.
-        :arg cluster_manager_timeout: Operation timeout for connection
-            to cluster-manager node.
-        :arg flat_settings: Return settings in flat format. Default is
-            false.
-        :arg local: Return local information, do not retrieve the state
-            from cluster-manager node. Default is false.
-        :arg master_timeout (Deprecated: To promote inclusive language,
-            use 'cluster_manager_timeout' instead.): Operation timeout for
-            connection to master node.
-        """
-        if name in SKIP_IN_PATH:
-            raise ValueError("Empty value passed for a required argument 'name'.")
-
-        return self.transport.perform_request(
-            "HEAD", _make_path("_index_template", name), params=params, headers=headers
-        )
-
-    @query_params("cluster_manager_timeout", "flat_settings", "local", "master_timeout")
-    def get_index_template(self, name=None, params=None, headers=None):
-        """
-        Returns an index template.
-
-
-        :arg name: Comma-separated names of the index templates.
-        :arg cluster_manager_timeout: Operation timeout for connection
-            to cluster-manager node.
-        :arg flat_settings: Return settings in flat format. Default is
-            false.
-        :arg local: Return local information, do not retrieve the state
-            from cluster-manager node. Default is false.
-        :arg master_timeout (Deprecated: To promote inclusive language,
-            use 'cluster_manager_timeout' instead.): Operation timeout for
-            connection to master node.
-        """
-        return self.transport.perform_request(
-            "GET", _make_path("_index_template", name), params=params, headers=headers
-        )
-
-    @query_params("cause", "cluster_manager_timeout", "create", "master_timeout")
-    def put_index_template(self, name, body, params=None, headers=None):
-        """
-        Creates or updates an index template.
-
-
-        :arg name: The name of the template.
-        :arg body: The template definition
-        :arg cause: User defined reason for creating/updating the index
-            template. Default is false.
-        :arg cluster_manager_timeout: Operation timeout for connection
-            to cluster-manager node.
-        :arg create: Whether the index template should only be added if
-            new or can also replace an existing one. Default is false.
-        :arg master_timeout (Deprecated: To promote inclusive language,
-            use 'cluster_manager_timeout' instead.): Operation timeout for
-            connection to master node.
-        """
-        for param in (name, body):
-            if param in SKIP_IN_PATH:
-                raise ValueError("Empty value passed for a required argument.")
-
-        return self.transport.perform_request(
-            "PUT",
-            _make_path("_index_template", name),
-            params=params,
-            headers=headers,
-            body=body,
-        )
-
-    @query_params("cause", "cluster_manager_timeout", "create", "master_timeout")
-    def simulate_index_template(self, name, body=None, params=None, headers=None):
-        """
-        Simulate matching the given index name against the index templates in the
-        system.
-
-
-        :arg name: The name of the index (it must be a concrete index
-            name).
-        :arg body: New index template definition, which will be included
-            in the simulation, as if it already exists in the system
-        :arg cause: User defined reason for dry-run creating the new
-            template for simulation purposes. Default is false.
-        :arg cluster_manager_timeout: Operation timeout for connection
-            to cluster-manager node.
-        :arg create: Whether the index template we optionally defined in
-            the body should only be dry-run added if new or can also replace an
-            existing one. Default is false.
-        :arg master_timeout (Deprecated: To promote inclusive language,
-            use 'cluster_manager_timeout' instead.): Operation timeout for
-            connection to master node.
-        """
-        if name in SKIP_IN_PATH:
-            raise ValueError("Empty value passed for a required argument 'name'.")
-
-        return self.transport.perform_request(
-            "POST",
-            _make_path("_index_template", "_simulate_index", name),
-            params=params,
-            headers=headers,
-            body=body,
-        )
-
-    @query_params()
-    def get_data_stream(self, name=None, params=None, headers=None):
-        """
-        Returns data streams.
-
-
-        :arg name: Comma-separated list of data streams; use `_all` or
-            empty string to perform the operation on all data streams.
-        """
-        return self.transport.perform_request(
-            "GET", _make_path("_data_stream", name), params=params, headers=headers
-        )
-
-    @query_params("cause", "cluster_manager_timeout", "create", "master_timeout")
-    def simulate_template(self, body=None, name=None, params=None, headers=None):
-        """
-        Simulate resolving the given template name or body.
-
-
-        :arg body: New index template definition to be simulated, if no
-            index template name is specified
-        :arg name: The name of the template.
-        :arg cause: User defined reason for dry-run creating the new
-            template for simulation purposes. Default is false.
-        :arg cluster_manager_timeout: Operation timeout for connection
-            to cluster-manager node.
-        :arg create: Whether the index template we optionally defined in
-            the body should only be dry-run added if new or can also replace an
-            existing one. Default is false.
-        :arg master_timeout (Deprecated: To promote inclusive language,
-            use 'cluster_manager_timeout' instead.): Operation timeout for
-            connection to master node.
-        """
-        return self.transport.perform_request(
-            "POST",
-            _make_path("_index_template", "_simulate", name),
-            params=params,
-            headers=headers,
-            body=body,
-        )
-
-    @query_params("expand_wildcards")
-    def resolve_index(self, name, params=None, headers=None):
-        """
-        Returns information about any matching indices, aliases, and data streams.
-
-
-        :arg name: Comma-separated list of names or wildcard
-            expressions.
-        :arg expand_wildcards: Whether to expand wildcard expression to
-            concrete indices that are open, closed or both. Valid choices are all,
-            open, closed, hidden, none.
-        """
-        if name in SKIP_IN_PATH:
-            raise ValueError("Empty value passed for a required argument 'name'.")
-
-        return self.transport.perform_request(
-            "GET", _make_path("_resolve", "index", name), params=params, headers=headers
-        )
-
-    @query_params(
-        "allow_no_indices",
-        "cluster_manager_timeout",
-        "expand_wildcards",
-        "ignore_unavailable",
-        "master_timeout",
-        "timeout",
-    )
-    def add_block(self, index, block, params=None, headers=None):
-        """
-        Adds a block to an index.
-
-
-        :arg index: Comma-separated list of indices to add a block to.
-        :arg block: The block to add (one of read, write, read_only or
-            metadata).
-        :arg allow_no_indices: Whether to ignore if a wildcard indices
-            expression resolves into no concrete indices. (This includes `_all`
-            string or when no indices have been specified).
-        :arg cluster_manager_timeout: Operation timeout for connection
-            to cluster-manager node.
-        :arg expand_wildcards: Whether to expand wildcard expression to
-            concrete indices that are open, closed or both. Valid choices are all,
-            open, closed, hidden, none.
-        :arg ignore_unavailable: Whether specified concrete indices
-            should be ignored when unavailable (missing or closed).
-        :arg master_timeout (Deprecated: To promote inclusive language,
-            use 'cluster_manager_timeout' instead.): Operation timeout for
-            connection to master node.
-        :arg timeout: Operation timeout.
-        """
-        for param in (index, block):
-            if param in SKIP_IN_PATH:
-                raise ValueError("Empty value passed for a required argument.")
-
-        return self.transport.perform_request(
-            "PUT", _make_path(index, "_block", block), params=params, headers=headers
-        )
-
-    @query_params()
-    def data_streams_stats(self, name=None, params=None, headers=None):
-        """
-        Provides statistics on operations happening in a data stream.
-
-
-        :arg name: Comma-separated list of data streams; use `_all` or
-            empty string to perform the operation on all data streams.
-        """
-        return self.transport.perform_request(
-            "GET",
-            _make_path("_data_stream", name, "_stats"),
-            params=params,
-            headers=headers,
         )

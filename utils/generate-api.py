@@ -34,7 +34,7 @@ from operator import itemgetter
 from pathlib import Path
 
 import black
-import deepmerge
+import jsonmerge
 import requests
 import unasync
 import urllib3
@@ -648,7 +648,7 @@ def read_modules():
         if os.path.exists(override_file_path):
             with open(override_file_path) as f:
                 override_json = json.load(f)
-                api = deepmerge.always_merger.merge(api, override_json)
+                api = jsonmerge.merge(api, override_json)
 
         if namespace not in modules:
             modules[namespace] = Module(namespace)
