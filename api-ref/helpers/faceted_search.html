@@ -58,10 +58,7 @@
 <li class="toctree-l3"><a class="reference internal" href="aggs.html">aggs</a></li>
 <li class="toctree-l3"><a class="reference internal" href="analysis.html">analysis</a></li>
 <li class="toctree-l3"><a class="reference internal" href="document.html">document</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">faceted_search</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#opensearchpy.helpers.faceted_search.FacetedSearch"><code class="docutils literal notranslate"><span class="pre">FacetedSearch</span></code></a></li>
-</ul>
-</li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">faceted_search</a></li>
 <li class="toctree-l3"><a class="reference internal" href="field.html">field</a></li>
 <li class="toctree-l3"><a class="reference internal" href="function.html">function</a></li>
 <li class="toctree-l3"><a class="reference internal" href="index.html">index</a></li>
@@ -113,118 +110,6 @@
              
   <section id="faceted-search">
 <h1>faceted_search<a class="headerlink" href="#faceted-search" title="Permalink to this heading"></a></h1>
-<dl class="py class">
-<dt class="sig sig-object py" id="opensearchpy.helpers.faceted_search.FacetedSearch">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opensearchpy.helpers.faceted_search.</span></span><span class="sig-name descname"><span class="pre">FacetedSearch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sort</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/faceted_search.html#FacetedSearch"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.faceted_search.FacetedSearch" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
-<p>Abstraction for creating faceted navigation searches that takes care of
-composing the queries, aggregations and filters as needed as well as
-presenting the results in an easy-to-consume fashion:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">BlogSearch</span><span class="p">(</span><span class="n">FacetedSearch</span><span class="p">):</span>
-    <span class="n">index</span> <span class="o">=</span> <span class="s1">&#39;blogs&#39;</span>
-    <span class="n">doc_types</span> <span class="o">=</span> <span class="p">[</span><span class="n">Blog</span><span class="p">,</span> <span class="n">Post</span><span class="p">]</span>
-    <span class="n">fields</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;title^5&#39;</span><span class="p">,</span> <span class="s1">&#39;category&#39;</span><span class="p">,</span> <span class="s1">&#39;description&#39;</span><span class="p">,</span> <span class="s1">&#39;body&#39;</span><span class="p">]</span>
-
-    <span class="n">facets</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="n">TermsFacet</span><span class="p">(</span><span class="n">field</span><span class="o">=</span><span class="s1">&#39;_type&#39;</span><span class="p">),</span>
-        <span class="s1">&#39;category&#39;</span><span class="p">:</span> <span class="n">TermsFacet</span><span class="p">(</span><span class="n">field</span><span class="o">=</span><span class="s1">&#39;category&#39;</span><span class="p">),</span>
-        <span class="s1">&#39;weekly_posts&#39;</span><span class="p">:</span> <span class="n">DateHistogramFacet</span><span class="p">(</span><span class="n">field</span><span class="o">=</span><span class="s1">&#39;published_from&#39;</span><span class="p">,</span> <span class="n">interval</span><span class="o">=</span><span class="s1">&#39;week&#39;</span><span class="p">)</span>
-    <span class="p">}</span>
-
-    <span class="k">def</span> <span class="nf">search</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="s1">&#39; Override search to add your own filters &#39;</span>
-        <span class="n">s</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">BlogSearch</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">search</span><span class="p">()</span>
-        <span class="k">return</span> <span class="n">s</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="s1">&#39;term&#39;</span><span class="p">,</span> <span class="n">published</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
-<span class="c1"># when using:</span>
-<span class="n">blog_search</span> <span class="o">=</span> <span class="n">BlogSearch</span><span class="p">(</span><span class="s2">&quot;web framework&quot;</span><span class="p">,</span> <span class="n">filters</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;category&quot;</span><span class="p">:</span> <span class="s2">&quot;python&quot;</span><span class="p">})</span>
-
-<span class="c1"># supports pagination</span>
-<span class="n">blog_search</span><span class="p">[</span><span class="mi">10</span><span class="p">:</span><span class="mi">20</span><span class="p">]</span>
-
-<span class="n">response</span> <span class="o">=</span> <span class="n">blog_search</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span>
-
-<span class="c1"># easy access to aggregation results:</span>
-<span class="k">for</span> <span class="n">category</span><span class="p">,</span> <span class="n">hit_count</span><span class="p">,</span> <span class="n">is_selected</span> <span class="ow">in</span> <span class="n">response</span><span class="o">.</span><span class="n">facets</span><span class="o">.</span><span class="n">category</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span>
-        <span class="s2">&quot;Category </span><span class="si">%s</span><span class="s2"> has </span><span class="si">%d</span><span class="s2"> hits</span><span class="si">%s</span><span class="s2">.&quot;</span> <span class="o">%</span> <span class="p">(</span>
-            <span class="n">category</span><span class="p">,</span>
-            <span class="n">hit_count</span><span class="p">,</span>
-            <span class="s1">&#39; and is chosen&#39;</span> <span class="k">if</span> <span class="n">is_selected</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span>
-        <span class="p">)</span>
-    <span class="p">)</span>
-</pre></div>
-</div>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>query</strong> – the text to search for</p></li>
-<li><p><strong>filters</strong> – facet values to filter</p></li>
-<li><p><strong>sort</strong> – sort information to be passed to <code class="xref py py-class docutils literal notranslate"><span class="pre">Search</span></code></p></li>
-</ul>
-</dd>
-</dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="opensearchpy.helpers.faceted_search.FacetedSearch.add_filter">
-<span class="sig-name descname"><span class="pre">add_filter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter_values</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/faceted_search.html#FacetedSearch.add_filter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.faceted_search.FacetedSearch.add_filter" title="Permalink to this definition"></a></dt>
-<dd><p>Add a filter for a facet.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="opensearchpy.helpers.faceted_search.FacetedSearch.aggregate">
-<span class="sig-name descname"><span class="pre">aggregate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">search</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/faceted_search.html#FacetedSearch.aggregate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.faceted_search.FacetedSearch.aggregate" title="Permalink to this definition"></a></dt>
-<dd><p>Add aggregations representing the facets selected, including potential
-filters.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="opensearchpy.helpers.faceted_search.FacetedSearch.build_search">
-<span class="sig-name descname"><span class="pre">build_search</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/faceted_search.html#FacetedSearch.build_search"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.faceted_search.FacetedSearch.build_search" title="Permalink to this definition"></a></dt>
-<dd><p>Construct the <code class="docutils literal notranslate"><span class="pre">Search</span></code> object.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="opensearchpy.helpers.faceted_search.FacetedSearch.execute">
-<span class="sig-name descname"><span class="pre">execute</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/faceted_search.html#FacetedSearch.execute"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.faceted_search.FacetedSearch.execute" title="Permalink to this definition"></a></dt>
-<dd><p>Execute the search and return the response.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="opensearchpy.helpers.faceted_search.FacetedSearch.filter">
-<span class="sig-name descname"><span class="pre">filter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">search</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/faceted_search.html#FacetedSearch.filter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.faceted_search.FacetedSearch.filter" title="Permalink to this definition"></a></dt>
-<dd><p>Add a <code class="docutils literal notranslate"><span class="pre">post_filter</span></code> to the search request narrowing the results based
-on the facet filters.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="opensearchpy.helpers.faceted_search.FacetedSearch.highlight">
-<span class="sig-name descname"><span class="pre">highlight</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">search</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/faceted_search.html#FacetedSearch.highlight"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.faceted_search.FacetedSearch.highlight" title="Permalink to this definition"></a></dt>
-<dd><p>Add highlighting for all the fields</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="opensearchpy.helpers.faceted_search.FacetedSearch.query">
-<span class="sig-name descname"><span class="pre">query</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">search</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/faceted_search.html#FacetedSearch.query"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.faceted_search.FacetedSearch.query" title="Permalink to this definition"></a></dt>
-<dd><p>Add query part to <code class="docutils literal notranslate"><span class="pre">search</span></code>.</p>
-<p>Override this if you wish to customize the query used.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="opensearchpy.helpers.faceted_search.FacetedSearch.search">
-<span class="sig-name descname"><span class="pre">search</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/faceted_search.html#FacetedSearch.search"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.faceted_search.FacetedSearch.search" title="Permalink to this definition"></a></dt>
-<dd><p>Returns the base Search object to which the facets are added.</p>
-<p>You can customize the query by overriding this method and returning a
-modified search object.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="opensearchpy.helpers.faceted_search.FacetedSearch.sort">
-<span class="sig-name descname"><span class="pre">sort</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">search</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/faceted_search.html#FacetedSearch.sort"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.faceted_search.FacetedSearch.sort" title="Permalink to this definition"></a></dt>
-<dd><p>Add sorting information to the request.</p>
-</dd></dl>
-
-</dd></dl>
-
 </section>
 
 
