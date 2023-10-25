@@ -35,8 +35,6 @@ In general, we recommend using a package manager, such as [poetry](https://pytho
 In the example below, we create a client, create an index with non-default settings, insert a 
 document into the index, search for the document, delete the document, and finally delete the index.
 
-You can more find information on the full document lifecycle in [guides/document_lifecycle.md](guides/document_lifecycle.md).
-
 You can find working versions of the code below that can be run with a local instance of OpenSearch in [samples](samples).
 
 ### Creating a Client
@@ -159,6 +157,7 @@ print(response)
 - [Advanced Index Actions](guides/advanced_index_actions.md)
 - [Making Raw JSON REST Requests](guides/json.md)
 - [Connection Classes](guides/connection_classes.md)
+- [Document Lifcycle](guides/document_lifecycle.md)
 
 ## Plugins
 

@@ -69,7 +69,7 @@ client.index(index=index, id=2, body={'title': 'The Lion King', 'year': 1994})
 You can also create a new document with an auto-generated ID by omitting the `id` parameter. The following code creates documents with an auto-generated IDs in the `movies` index:
 
 ```python
-OR client.index(index=index, body={"title": "The Lion King 2", "year": 1998})
+client.index(index=index, body={"title": "The Lion King 2", "year": 1998})
 ```
 
 In this case, the ID of the created document in the `result` field of the response body:
