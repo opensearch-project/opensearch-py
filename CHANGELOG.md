@@ -5,9 +5,12 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ### Added
 - Added generating imports and headers to API generator ([#467](https://github.com/opensearch-project/opensearch-py/pull/467))
 - Added point-in-time APIs (create_pit, delete_pit, delete_all_pits, get_all_pits) and Security Client APIs (health and update_audit_configuration) ([#502](https://github.com/opensearch-project/opensearch-py/pull/502))
-- Added new guide for using index templates with the client ([#531](https://github.com/opensearch-project/opensearch-py/pull/531))
+- Added guide on using index templates ([#531](https://github.com/opensearch-project/opensearch-py/pull/531))
 - Added `pool_maxsize` for `Urllib3HttpConnection` ([#535](https://github.com/opensearch-project/opensearch-py/pull/535))
 - Added benchmarks ([#537](https://github.com/opensearch-project/opensearch-py/pull/537))
+- Added guide on making raw JSON REST requests ([#542](https://github.com/opensearch-project/opensearch-py/pull/542))
+- Added guide on the document lifecycle API(s) ([#545](https://github.com/opensearch-project/opensearch-py/pull/545))
+- Added support for AWS SigV4 for urllib3 ([#547](https://github.com/opensearch-project/opensearch-py/pull/547))
 ### Changed
 - Generate `tasks` client from API specs ([#508](https://github.com/opensearch-project/opensearch-py/pull/508))
 - Generate `ingest` client from API specs ([#513](https://github.com/opensearch-project/opensearch-py/pull/513))
@@ -18,6 +21,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ### Deprecated
 - Deprecated point-in-time APIs (list_all_point_in_time, create_point_in_time, delete_point_in_time) and Security Client APIs (health_check and update_audit_config) ([#502](https://github.com/opensearch-project/opensearch-py/pull/502))
 ### Removed
+- Removed leftover support for Python 2.7 ([#548](https://github.com/opensearch-project/opensearch-py/pull/548))
 ### Fixed
 ### Security
 ### Dependencies

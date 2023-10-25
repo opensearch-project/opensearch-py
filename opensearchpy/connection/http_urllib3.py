@@ -27,6 +27,7 @@
 import ssl
 import time
 import warnings
+from typing import Callable
 
 import urllib3  # type: ignore
 from urllib3.exceptions import ReadTimeoutError
@@ -128,10 +129,17 @@ class Urllib3HttpConnection(Connection):
             opaque_id=opaque_id,
             **kwargs
         )
-        if http_auth is not None:
-            if isinstance(http_auth, (tuple, list)):
-                http_auth = ":".join(http_auth)
-            self.headers.update(urllib3.make_headers(basic_auth=http_auth))
+
+        self.http_auth = http_auth
+        if self.http_auth is not None:
+            if isinstance(self.http_auth, Callable):
+                pass
+            elif isinstance(self.http_auth, (tuple, list)):
+                self.headers.update(
+                    urllib3.make_headers(basic_auth=":".join(http_auth))
+                )
+            else:
+                self.headers.update(urllib3.make_headers(basic_auth=http_auth))
 
         pool_class = urllib3.HTTPConnectionPool
         kw = {}
@@ -218,6 +226,7 @@ class Urllib3HttpConnection(Connection):
             url = "%s?%s" % (url, urlencode(params))
 
         full_url = self.host + url
+
         start = time.time()
         orig_body = body
         try:
@@ -239,6 +248,10 @@ class Urllib3HttpConnection(Connection):
             if self.http_compress and body:
                 body = self._gzip_compress(body)
                 request_headers["content-encoding"] = "gzip"
+
+            if self.http_auth is not None:
+                if isinstance(self.http_auth, Callable):
+                    request_headers.update(self.http_auth(method, full_url, body))
 
             response = self.pool.urlopen(
                 method, url, body, retries=Retry(False), headers=request_headers, **kw

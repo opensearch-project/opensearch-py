@@ -71,7 +71,12 @@ from .exceptions import (
     UnknownDslObject,
     ValidationException,
 )
-from .helpers import AWSV4SignerAsyncAuth, AWSV4SignerAuth
+from .helpers import (
+    AWSV4SignerAsyncAuth,
+    AWSV4SignerAuth,
+    RequestsAWSV4SignerAuth,
+    Urllib3AWSV4SignerAuth,
+)
 from .helpers.aggs import A
 from .helpers.analysis import analyzer, char_filter, normalizer, token_filter, tokenizer
 from .helpers.document import Document, InnerDoc, MetaField
@@ -166,6 +171,8 @@ __all__ = [
     "OpenSearchWarning",
     "OpenSearchDeprecationWarning",
     "AWSV4SignerAuth",
+    "Urllib3AWSV4SignerAuth",
+    "RequestsAWSV4SignerAuth",
     "AWSV4SignerAsyncAuth",
     "A",
     "AttrDict",
@@ -241,22 +248,15 @@ __all__ = [
     "tokenizer",
 ]
 
-try:
-    # Asyncio only supported on Python 3.6+
-    if sys.version_info < (3, 6):
-        raise ImportError
+from ._async.client import AsyncOpenSearch
+from ._async.http_aiohttp import AIOHttpConnection, AsyncConnection
+from ._async.transport import AsyncTransport
+from .connection import AsyncHttpConnection
 
-    from ._async.client import AsyncOpenSearch
-    from ._async.http_aiohttp import AIOHttpConnection, AsyncConnection
-    from ._async.transport import AsyncTransport
-    from .connection import AsyncHttpConnection
-
-    __all__ += [
-        "AIOHttpConnection",
-        "AsyncConnection",
-        "AsyncTransport",
-        "AsyncOpenSearch",
-        "AsyncHttpConnection",
-    ]
-except (ImportError, SyntaxError):
-    pass
+__all__ += [
+    "AIOHttpConnection",
+    "AsyncConnection",
+    "AsyncTransport",
+    "AsyncOpenSearch",
+    "AsyncHttpConnection",
+]

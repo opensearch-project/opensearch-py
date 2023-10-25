@@ -45,7 +45,19 @@ docker run -d -p 9200:9200 -p 9600:9600 -e "discovery.type=single-node" opensear
 
 Tests require a live instance of OpenSearch running in docker.
 
-This will start a new instance and run tests against the latest version of OpenSearch.
+If you have one running.
+
+```
+python setup.py test
+```
+
+To run tests in a specific test file.
+
+```
+python setup.py test -s test_opensearchpy/test_connection.py
+```
+
+If you want to auto-start one, the following will start a new instance and run tests against the latest version of OpenSearch.
 
 ```
 ./.ci/run-tests
@@ -76,7 +88,7 @@ You can also run individual tests matching a pattern (`pytest -k [pattern]`).
 ```
 ./.ci/run-tests true 1.3.0 test_no_http_compression
 
-test_opensearchpy/test_connection.py::TestUrllib3Connection::test_no_http_compression PASSED [ 33%]
+test_opensearchpy/test_connection.py::TestUrllib3HttpConnection::test_no_http_compression PASSED [ 33%]
 test_opensearchpy/test_connection.py::TestRequestsConnection::test_no_http_compression PASSED [ 66%]
 test_opensearchpy/test_async/test_connection.py::TestAIOHttpConnection::test_no_http_compression PASSED [100%]
 ```

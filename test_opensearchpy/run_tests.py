@@ -116,27 +116,19 @@ def run_all(argv=None):
         if test_pattern:
             argv.append("-k %s" % test_pattern)
         else:
-            ignores = []
-            # Python 3.6+ is required for async
-            if sys.version_info < (3, 6):
-                ignores.append("test_opensearchpy/test_async/")
-
-            ignores.extend(
-                [
-                    "test_opensearchpy/test_server/",
-                    "test_opensearchpy/test_server_secured/",
-                    "test_opensearchpy/test_async/test_server/",
-                    "test_opensearchpy/test_async/test_server_secured/",
-                ]
-            )
+            ignores = [
+                "test_opensearchpy/test_server/",
+                "test_opensearchpy/test_server_secured/",
+                "test_opensearchpy/test_async/test_server/",
+                "test_opensearchpy/test_async/test_server_secured/",
+            ]
 
             # Jenkins/Github actions, only run server tests
             if environ.get("TEST_TYPE") == "server":
                 test_dir = abspath(dirname(__file__))
                 if secured:
                     argv.append(join(test_dir, "test_server_secured"))
-                    if sys.version_info >= (3, 6):
-                        argv.append(join(test_dir, "test_async/test_server_secured"))
+                    argv.append(join(test_dir, "test_async/test_server_secured"))
                     ignores.extend(
                         [
                             "test_opensearchpy/test_server/",
@@ -145,8 +137,7 @@ def run_all(argv=None):
                     )
                 else:
                     argv.append(join(test_dir, "test_server"))
-                    if sys.version_info >= (3, 6):
-                        argv.append(join(test_dir, "test_async/test_server"))
+                    argv.append(join(test_dir, "test_async/test_server"))
                     ignores.extend(
                         [
                             "test_opensearchpy/test_server_secured/",

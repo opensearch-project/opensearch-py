@@ -25,8 +25,12 @@
 #  under the License.
 
 
-import sys
-
+from .._async.helpers.actions import (
+    async_bulk,
+    async_reindex,
+    async_scan,
+    async_streaming_bulk,
+)
 from .actions import (
     _chunk_actions,
     _process_bulk_chunk,
@@ -39,7 +43,7 @@ from .actions import (
 )
 from .asyncsigner import AWSV4SignerAsyncAuth
 from .errors import BulkIndexError, ScanError
-from .signer import AWSV4SignerAuth
+from .signer import AWSV4SignerAuth, RequestsAWSV4SignerAuth, Urllib3AWSV4SignerAuth
 
 __all__ = [
     "BulkIndexError",
@@ -54,16 +58,10 @@ __all__ = [
     "_process_bulk_chunk",
     "AWSV4SignerAuth",
     "AWSV4SignerAsyncAuth",
+    "RequestsAWSV4SignerAuth",
+    "Urllib3AWSV4SignerAuth",
+    "async_scan",
+    "async_bulk",
+    "async_reindex",
+    "async_streaming_bulk",
 ]
-
-
-# Asyncio only supported on Python 3.6+
-if sys.version_info >= (3, 6):
-    from .._async.helpers.actions import (
-        async_bulk,
-        async_reindex,
-        async_scan,
-        async_streaming_bulk,
-    )
-
-    __all__ += ["async_scan", "async_bulk", "async_reindex", "async_streaming_bulk"]
