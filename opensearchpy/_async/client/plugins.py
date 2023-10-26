@@ -44,7 +44,7 @@ class PluginsClient(NamespacedClient):
                 setattr(client, plugin, getattr(self, plugin))
             else:
                 warnings.warn(
-                    f"Cannot load `{plugin}` directly to AsyncOpenSearch. `{plugin}` already exists in AsyncOpenSearch. Please use `AsyncOpenSearch.plugin.{plugin}` instead.",
+                    f"Cannot load `{plugin}` directly to {self.client.__class__.__name__} as it already exists. Use `{self.client.__class__.__name__}.plugin.{plugin}` instead.",
                     category=RuntimeWarning,
                     stacklevel=2,
                 )
