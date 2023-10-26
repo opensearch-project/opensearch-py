@@ -87,3 +87,10 @@ def docs(session):
         "-rdev-requirements.txt", "sphinx-rtd-theme", "sphinx-autodoc-typehints"
     )
     session.run("python", "-m", "pip", "install", "sphinx-autodoc-typehints")
+
+
+@nox.session()
+def generate(session):
+    session.install("-rdev-requirements.txt")
+    session.run("python", "utils/generate-api.py")
+    format(session)
