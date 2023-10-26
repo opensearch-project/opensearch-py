@@ -11,6 +11,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - Added guide on making raw JSON REST requests ([#542](https://github.com/opensearch-project/opensearch-py/pull/542))
 - Added support for AWS SigV4 for urllib3 ([#547](https://github.com/opensearch-project/opensearch-py/pull/547))
 - Added `remote store` client APIs ([#552](https://github.com/opensearch-project/opensearch-py/pull/552))
+- Added `nox -rs generate` ([#554](https://github.com/opensearch-project/opensearch-py/pull/554))
 ### Changed
 - Generate `tasks` client from API specs ([#508](https://github.com/opensearch-project/opensearch-py/pull/508))
 - Generate `ingest` client from API specs ([#513](https://github.com/opensearch-project/opensearch-py/pull/513))
