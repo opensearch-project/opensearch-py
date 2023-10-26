@@ -301,9 +301,10 @@ class API:
             parts.update(url.get("parts", {}))
 
         for p in parts:
-            parts[p]["required"] = all(
-                p in url.get("parts", {}) for url in self._def["url"]["paths"]
-            )
+            if "required" not in parts[p]:
+                parts[p]["required"] = all(
+                    p in url.get("parts", {}) for url in self._def["url"]["paths"]
+                )
             parts[p]["type"] = "Any"
 
             # This piece of logic corresponds to calling
@@ -555,6 +556,8 @@ def read_modules():
 
         # Group the data in the current group by the "path" key
         paths = []
+        all_paths_have_deprecation = True
+
         for key2, value2 in groupby(value, key=itemgetter("path")):
             # Extract the HTTP methods from the data in the current subgroup
             methods = []
@@ -567,8 +570,10 @@ def read_modules():
                     documentation = {"description": z["description"]}
                     api.update({"documentation": documentation})
 
-                if "deprecation_message" not in api and "x-deprecation-message" in z:
-                    api.update({"deprecation_message": z["x-deprecation-message"]})
+                if "x-deprecation-message" in z:
+                    x_deprecation_message = z["x-deprecation-message"]
+                else:
+                    all_paths_have_deprecation = False
 
                 if "params" not in api and "params" in z:
                     api.update({"params": z["params"]})
@@ -637,6 +642,11 @@ def read_modules():
                 paths.append({"path": key2, "methods": methods})
 
         api.update({"url": {"paths": paths}})
+        if all_paths_have_deprecation and x_deprecation_message is not None:
+            api.update({"deprecation_message": x_deprecation_message})
+
+        if namespace == "indices" and name == "put_mapping":
+            api["url"]["paths"][0]["parts"]["index"].update({"required": False})
 
         if namespace not in modules:
             modules[namespace] = Module(namespace)

@@ -300,6 +300,7 @@ class ClusterClient(NamespacedClient):
         self,
         name: Any,
         *,
+        cluster_manager_timeout: Optional[Any] = ...,
         local: Optional[Any] = ...,
         master_timeout: Optional[Any] = ...,
         pretty: Optional[bool] = ...,
