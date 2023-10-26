@@ -25,6 +25,15 @@
 #  specific language governing permissions and limitations
 #  under the License.
 
+# ----------------------------------------------------
+# THIS CODE IS GENERATED AND MANUAL EDITS WILL BE LOST.
+#
+# To contribute, kindly make essential modifications through either the "opensearch-py client generator":
+# https://github.com/opensearch-project/opensearch-py/blob/main/utils/generate-api.py
+# or the "OpenSearch API specification" available at:
+# https://github.com/opensearch-project/opensearch-api-specification/blob/main/OpenSearch.openapi.json
+# -----------------------------------------------------
+
 from __future__ import unicode_literals
 
 import logging
@@ -59,7 +68,10 @@ class OpenSearch(object):
     snapshot: SnapshotClient
     tasks: TasksClient
     def __init__(
-        self, hosts: Any = ..., transport_class: Type[Transport] = ..., **kwargs: Any
+        self,
+        hosts: Any = ...,
+        transport_class: Type[Transport] = ...,
+        **kwargs: Any,
     ) -> None: ...
     def __repr__(self) -> str: ...
     def __enter__(self) -> "OpenSearch": ...
@@ -330,8 +342,8 @@ class OpenSearch(object):
         self,
         id: Any,
         *,
-        master_timeout: Optional[Any] = ...,
         cluster_manager_timeout: Optional[Any] = ...,
+        master_timeout: Optional[Any] = ...,
         timeout: Optional[Any] = ...,
         pretty: Optional[bool] = ...,
         human: Optional[bool] = ...,
@@ -487,8 +499,8 @@ class OpenSearch(object):
         self,
         id: Any,
         *,
-        master_timeout: Optional[Any] = ...,
         cluster_manager_timeout: Optional[Any] = ...,
+        master_timeout: Optional[Any] = ...,
         pretty: Optional[bool] = ...,
         human: Optional[bool] = ...,
         error_trace: Optional[bool] = ...,
@@ -639,8 +651,8 @@ class OpenSearch(object):
         *,
         body: Any,
         context: Optional[Any] = ...,
-        master_timeout: Optional[Any] = ...,
         cluster_manager_timeout: Optional[Any] = ...,
+        master_timeout: Optional[Any] = ...,
         timeout: Optional[Any] = ...,
         pretty: Optional[bool] = ...,
         human: Optional[bool] = ...,
@@ -799,7 +811,6 @@ class OpenSearch(object):
         ignore_unavailable: Optional[Any] = ...,
         lenient: Optional[Any] = ...,
         max_concurrent_shard_requests: Optional[Any] = ...,
-        min_compatible_shard_node: Optional[Any] = ...,
         pre_filter_shard_size: Optional[Any] = ...,
         preference: Optional[Any] = ...,
         q: Optional[Any] = ...,
@@ -988,7 +999,6 @@ class OpenSearch(object):
         terminate_after: Optional[Any] = ...,
         timeout: Optional[Any] = ...,
         version: Optional[Any] = ...,
-        version_type: Optional[Any] = ...,
         wait_for_active_shards: Optional[Any] = ...,
         wait_for_completion: Optional[Any] = ...,
         pretty: Optional[bool] = ...,
@@ -1112,24 +1122,6 @@ class OpenSearch(object):
     def get_all_pits(
         self,
         *,
-        pretty: Optional[bool] = ...,
-        human: Optional[bool] = ...,
-        error_trace: Optional[bool] = ...,
-        format: Optional[str] = ...,
-        filter_path: Optional[Union[str, Collection[str]]] = ...,
-        request_timeout: Optional[Union[int, float]] = ...,
-        ignore: Optional[Union[int, Collection[int]]] = ...,
-        opaque_id: Optional[str] = ...,
-        http_auth: Optional[Union[str, Tuple[str, str]]] = ...,
-        api_key: Optional[Union[str, Tuple[str, str]]] = ...,
-        params: Optional[MutableMapping[str, Any]] = ...,
-        headers: Optional[MutableMapping[str, str]] = ...,
-    ) -> Any: ...
-    def terms_enum(
-        self,
-        index: Any,
-        *,
-        body: Optional[Any] = ...,
         pretty: Optional[bool] = ...,
         human: Optional[bool] = ...,
         error_trace: Optional[bool] = ...,

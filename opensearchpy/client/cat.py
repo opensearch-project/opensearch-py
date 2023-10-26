@@ -48,17 +48,17 @@ class CatClient(NamespacedClient):
 
         :arg name: Comma-separated list of alias names.
         :arg expand_wildcards: Whether to expand wildcard expression to
-            concrete indices that are open, closed or both.  Valid choices: all,
-            open, closed, hidden, none
+            concrete indices that are open, closed or both. Valid choices are all,
+            open, closed, hidden, none.
         :arg format: A short version of the Accept header, e.g. json,
             yaml.
         :arg h: Comma-separated list of column names to display.
-        :arg help: Return help information. (default: false)
+        :arg help: Return help information. Default is false.
         :arg local: Return local information, do not retrieve the state
-            from cluster-manager node. (default: false)
+            from cluster-manager node. Default is false.
         :arg s: Comma-separated list of column names or column aliases
             to sort by.
-        :arg v: Verbose mode. Display column headers. (default: false)
+        :arg v: Verbose mode. Display column headers. Default is false.
         """
         return self.transport.perform_request(
             "GET", _make_path("_cat", "aliases", name), params=params, headers=headers
@@ -83,22 +83,22 @@ class CatClient(NamespacedClient):
 
         :arg node_id: Comma-separated list of node IDs or names to limit
             the returned information.
-        :arg bytes: The unit in which to display byte values.  Valid
-            choices: b, k, kb, m, mb, g, gb, t, tb, p, pb
+        :arg bytes: The unit in which to display byte values. Valid
+            choices are b, k, kb, m, mb, g, gb, t, tb, p, pb.
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
         :arg format: A short version of the Accept header, e.g. json,
             yaml.
         :arg h: Comma-separated list of column names to display.
-        :arg help: Return help information. (default: false)
+        :arg help: Return help information. Default is false.
         :arg local: Return local information, do not retrieve the state
-            from cluster-manager node. (default: false)
+            from cluster-manager node. Default is false.
         :arg master_timeout (Deprecated: To promote inclusive language,
-            use 'cluster_manager_timeout' instead): Operation timeout for connection
-            to master node.
+            use 'cluster_manager_timeout' instead.): Operation timeout for
+            connection to master node.
         :arg s: Comma-separated list of column names or column aliases
             to sort by.
-        :arg v: Verbose mode. Display column headers. (default: false)
+        :arg v: Verbose mode. Display column headers. Default is false.
         """
         return self.transport.perform_request(
             "GET",
@@ -119,10 +119,10 @@ class CatClient(NamespacedClient):
         :arg format: A short version of the Accept header, e.g. json,
             yaml.
         :arg h: Comma-separated list of column names to display.
-        :arg help: Return help information. (default: false)
+        :arg help: Return help information. Default is false.
         :arg s: Comma-separated list of column names or column aliases
             to sort by.
-        :arg v: Verbose mode. Display column headers. (default: false)
+        :arg v: Verbose mode. Display column headers. Default is false.
         """
         return self.transport.perform_request(
             "GET", _make_path("_cat", "count", index), params=params, headers=headers
@@ -137,13 +137,13 @@ class CatClient(NamespacedClient):
         :arg format: A short version of the Accept header, e.g. json,
             yaml.
         :arg h: Comma-separated list of column names to display.
-        :arg help: Return help information. (default: false)
+        :arg help: Return help information. Default is false.
         :arg s: Comma-separated list of column names or column aliases
             to sort by.
-        :arg time: The unit in which to display time values.  Valid
-            choices: d, h, m, s, ms, micros, nanos
-        :arg ts: Set to false to disable timestamping. (default: True)
-        :arg v: Verbose mode. Display column headers. (default: false)
+        :arg time: The unit in which to display time values. Valid
+            choices are d, h, m, s, ms, micros, nanos.
+        :arg ts: Set to false to disable timestamping. Default is True.
+        :arg v: Verbose mode. Display column headers. Default is false.
         """
         return self.transport.perform_request(
             "GET", "/_cat/health", params=params, headers=headers
@@ -155,7 +155,7 @@ class CatClient(NamespacedClient):
         Returns help for the Cat APIs.
 
 
-        :arg help: Return help information. (default: false)
+        :arg help: Return help information. Default is false.
         :arg s: Comma-separated list of column names or column aliases
             to sort by.
         """
@@ -187,35 +187,35 @@ class CatClient(NamespacedClient):
 
         :arg index: Comma-separated list of indices to limit the
             returned information.
-        :arg bytes: The unit in which to display byte values.  Valid
-            choices: b, k, kb, m, mb, g, gb, t, tb, p, pb
+        :arg bytes: The unit in which to display byte values. Valid
+            choices are b, k, kb, m, mb, g, gb, t, tb, p, pb.
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
         :arg expand_wildcards: Whether to expand wildcard expression to
-            concrete indices that are open, closed or both.  Valid choices: all,
-            open, closed, hidden, none
+            concrete indices that are open, closed or both. Valid choices are all,
+            open, closed, hidden, none.
         :arg format: A short version of the Accept header, e.g. json,
             yaml.
         :arg h: Comma-separated list of column names to display.
         :arg health: Health status ('green', 'yellow', or 'red') to
-            filter only indices matching the specified health status.  Valid
-            choices: green, yellow, red
-        :arg help: Return help information. (default: false)
+            filter only indices matching the specified health status. Valid choices
+            are green, yellow, red.
+        :arg help: Return help information. Default is false.
         :arg include_unloaded_segments: If set to true segment stats
             will include stats for segments that are not currently loaded into
-            memory. (default: false)
+            memory. Default is false.
         :arg local: Return local information, do not retrieve the state
-            from cluster-manager node. (default: false)
+            from cluster-manager node. Default is false.
         :arg master_timeout (Deprecated: To promote inclusive language,
-            use 'cluster_manager_timeout' instead): Operation timeout for connection
-            to master node.
+            use 'cluster_manager_timeout' instead.): Operation timeout for
+            connection to master node.
         :arg pri: Set to true to return stats only for primary shards.
-            (default: false)
+            Default is false.
         :arg s: Comma-separated list of column names or column aliases
             to sort by.
-        :arg time: The unit in which to display time values.  Valid
-            choices: d, h, m, s, ms, micros, nanos
-        :arg v: Verbose mode. Display column headers. (default: false)
+        :arg time: The unit in which to display time values. Valid
+            choices are d, h, m, s, ms, micros, nanos.
+        :arg v: Verbose mode. Display column headers. Default is false.
         """
         return self.transport.perform_request(
             "GET", _make_path("_cat", "indices", index), params=params, headers=headers
@@ -241,15 +241,15 @@ class CatClient(NamespacedClient):
         :arg format: A short version of the Accept header, e.g. json,
             yaml.
         :arg h: Comma-separated list of column names to display.
-        :arg help: Return help information. (default: false)
+        :arg help: Return help information. Default is false.
         :arg local: Return local information, do not retrieve the state
-            from cluster-manager node. (default: false)
+            from cluster-manager node. Default is false.
         :arg master_timeout (Deprecated: To promote inclusive language,
-            use 'cluster_manager_timeout' instead): Operation timeout for connection
-            to master node.
+            use 'cluster_manager_timeout' instead.): Operation timeout for
+            connection to master node.
         :arg s: Comma-separated list of column names or column aliases
             to sort by.
-        :arg v: Verbose mode. Display column headers. (default: false)
+        :arg v: Verbose mode. Display column headers. Default is false.
         """
         from warnings import warn
 
@@ -280,15 +280,15 @@ class CatClient(NamespacedClient):
         :arg format: A short version of the Accept header, e.g. json,
             yaml.
         :arg h: Comma-separated list of column names to display.
-        :arg help: Return help information. (default: false)
+        :arg help: Return help information. Default is false.
         :arg local: Return local information, do not retrieve the state
-            from cluster-manager node. (default: false)
+            from cluster-manager node. Default is false.
         :arg master_timeout (Deprecated: To promote inclusive language,
-            use 'cluster_manager_timeout' instead): Operation timeout for connection
-            to master node.
+            use 'cluster_manager_timeout' instead.): Operation timeout for
+            connection to master node.
         :arg s: Comma-separated list of column names or column aliases
             to sort by.
-        :arg v: Verbose mode. Display column headers. (default: false)
+        :arg v: Verbose mode. Display column headers. Default is false.
         """
         return self.transport.perform_request(
             "GET", "/_cat/cluster_manager", params=params, headers=headers
@@ -312,27 +312,27 @@ class CatClient(NamespacedClient):
         Returns basic statistics about performance of cluster nodes.
 
 
-        :arg bytes: The unit in which to display byte values.  Valid
-            choices: b, k, kb, m, mb, g, gb, t, tb, p, pb
+        :arg bytes: The unit in which to display byte values. Valid
+            choices are b, k, kb, m, mb, g, gb, t, tb, p, pb.
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
         :arg format: A short version of the Accept header, e.g. json,
             yaml.
         :arg full_id: Return the full node ID instead of the shortened
-            version. (default: false)
+            version. Default is false.
         :arg h: Comma-separated list of column names to display.
-        :arg help: Return help information. (default: false)
+        :arg help: Return help information. Default is false.
         :arg local (Deprecated: This parameter does not cause this API
-            to act locally): Return local information, do not retrieve the state
-            from cluster-manager node. (default: false)
+            to act locally.): Return local information, do not retrieve the state
+            from cluster-manager node. Default is false.
         :arg master_timeout (Deprecated: To promote inclusive language,
-            use 'cluster_manager_timeout' instead): Operation timeout for connection
-            to master node.
+            use 'cluster_manager_timeout' instead.): Operation timeout for
+            connection to master node.
         :arg s: Comma-separated list of column names or column aliases
             to sort by.
-        :arg time: The unit in which to display time values.  Valid
-            choices: d, h, m, s, ms, micros, nanos
-        :arg v: Verbose mode. Display column headers. (default: false)
+        :arg time: The unit in which to display time values. Valid
+            choices are d, h, m, s, ms, micros, nanos.
+        :arg v: Verbose mode. Display column headers. Default is false.
         """
         return self.transport.perform_request(
             "GET", "/_cat/nodes", params=params, headers=headers
@@ -349,20 +349,20 @@ class CatClient(NamespacedClient):
         :arg index: Comma-separated list or wildcard expression of index
             names to limit the returned information.
         :arg active_only: If `true`, the response only includes ongoing
-            shard recoveries. (default: false)
-        :arg bytes: The unit in which to display byte values.  Valid
-            choices: b, k, kb, m, mb, g, gb, t, tb, p, pb
+            shard recoveries. Default is false.
+        :arg bytes: The unit in which to display byte values. Valid
+            choices are b, k, kb, m, mb, g, gb, t, tb, p, pb.
         :arg detailed: If `true`, the response includes detailed
-            information about shard recoveries. (default: false)
+            information about shard recoveries. Default is false.
         :arg format: A short version of the Accept header, e.g. json,
             yaml.
         :arg h: Comma-separated list of column names to display.
-        :arg help: Return help information. (default: false)
+        :arg help: Return help information. Default is false.
         :arg s: Comma-separated list of column names or column aliases
             to sort by.
-        :arg time: The unit in which to display time values.  Valid
-            choices: d, h, m, s, ms, micros, nanos
-        :arg v: Verbose mode. Display column headers. (default: false)
+        :arg time: The unit in which to display time values. Valid
+            choices are d, h, m, s, ms, micros, nanos.
+        :arg v: Verbose mode. Display column headers. Default is false.
         """
         return self.transport.perform_request(
             "GET", _make_path("_cat", "recovery", index), params=params, headers=headers
@@ -387,24 +387,24 @@ class CatClient(NamespacedClient):
 
         :arg index: Comma-separated list of indices to limit the
             returned information.
-        :arg bytes: The unit in which to display byte values.  Valid
-            choices: b, k, kb, m, mb, g, gb, t, tb, p, pb
+        :arg bytes: The unit in which to display byte values. Valid
+            choices are b, k, kb, m, mb, g, gb, t, tb, p, pb.
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
         :arg format: A short version of the Accept header, e.g. json,
             yaml.
         :arg h: Comma-separated list of column names to display.
-        :arg help: Return help information. (default: false)
+        :arg help: Return help information. Default is false.
         :arg local: Return local information, do not retrieve the state
-            from cluster-manager node. (default: false)
+            from cluster-manager node. Default is false.
         :arg master_timeout (Deprecated: To promote inclusive language,
-            use 'cluster_manager_timeout' instead): Operation timeout for connection
-            to master node.
+            use 'cluster_manager_timeout' instead.): Operation timeout for
+            connection to master node.
         :arg s: Comma-separated list of column names or column aliases
             to sort by.
-        :arg time: The unit in which to display time values.  Valid
-            choices: d, h, m, s, ms, micros, nanos
-        :arg v: Verbose mode. Display column headers. (default: false)
+        :arg time: The unit in which to display time values. Valid
+            choices are d, h, m, s, ms, micros, nanos.
+        :arg v: Verbose mode. Display column headers. Default is false.
         """
         return self.transport.perform_request(
             "GET", _make_path("_cat", "shards", index), params=params, headers=headers
@@ -427,20 +427,20 @@ class CatClient(NamespacedClient):
 
         :arg index: Comma-separated list of indices to limit the
             returned information.
-        :arg bytes: The unit in which to display byte values.  Valid
-            choices: b, k, kb, m, mb, g, gb, t, tb, p, pb
+        :arg bytes: The unit in which to display byte values. Valid
+            choices are b, k, kb, m, mb, g, gb, t, tb, p, pb.
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
         :arg format: A short version of the Accept header, e.g. json,
             yaml.
         :arg h: Comma-separated list of column names to display.
-        :arg help: Return help information. (default: false)
+        :arg help: Return help information. Default is false.
         :arg master_timeout (Deprecated: To promote inclusive language,
-            use 'cluster_manager_timeout' instead): Operation timeout for connection
-            to master node.
+            use 'cluster_manager_timeout' instead.): Operation timeout for
+            connection to master node.
         :arg s: Comma-separated list of column names or column aliases
             to sort by.
-        :arg v: Verbose mode. Display column headers. (default: false)
+        :arg v: Verbose mode. Display column headers. Default is false.
         """
         return self.transport.perform_request(
             "GET", _make_path("_cat", "segments", index), params=params, headers=headers
@@ -467,17 +467,17 @@ class CatClient(NamespacedClient):
         :arg format: A short version of the Accept header, e.g. json,
             yaml.
         :arg h: Comma-separated list of column names to display.
-        :arg help: Return help information. (default: false)
+        :arg help: Return help information. Default is false.
         :arg local: Return local information, do not retrieve the state
-            from cluster-manager node. (default: false)
+            from cluster-manager node. Default is false.
         :arg master_timeout (Deprecated: To promote inclusive language,
-            use 'cluster_manager_timeout' instead): Operation timeout for connection
-            to master node.
+            use 'cluster_manager_timeout' instead.): Operation timeout for
+            connection to master node.
         :arg s: Comma-separated list of column names or column aliases
             to sort by.
-        :arg time: The unit in which to display time values.  Valid
-            choices: d, h, m, s, ms, micros, nanos
-        :arg v: Verbose mode. Display column headers. (default: false)
+        :arg time: The unit in which to display time values. Valid
+            choices are d, h, m, s, ms, micros, nanos.
+        :arg v: Verbose mode. Display column headers. Default is false.
         """
         return self.transport.perform_request(
             "GET", "/_cat/pending_tasks", params=params, headers=headers
@@ -507,16 +507,16 @@ class CatClient(NamespacedClient):
         :arg format: A short version of the Accept header, e.g. json,
             yaml.
         :arg h: Comma-separated list of column names to display.
-        :arg help: Return help information. (default: false)
+        :arg help: Return help information. Default is false.
         :arg local: Return local information, do not retrieve the state
-            from cluster-manager node. (default: false)
+            from cluster-manager node. Default is false.
         :arg master_timeout (Deprecated: To promote inclusive language,
-            use 'cluster_manager_timeout' instead): Operation timeout for connection
-            to master node.
+            use 'cluster_manager_timeout' instead.): Operation timeout for
+            connection to master node.
         :arg s: Comma-separated list of column names or column aliases
             to sort by.
         :arg size: The multiplier in which to display values.
-        :arg v: Verbose mode. Display column headers. (default: false)
+        :arg v: Verbose mode. Display column headers. Default is false.
         """
         return self.transport.perform_request(
             "GET",
@@ -534,15 +534,15 @@ class CatClient(NamespacedClient):
 
         :arg fields: Comma-separated list of fields to return in the
             output.
-        :arg bytes: The unit in which to display byte values.  Valid
-            choices: b, k, kb, m, mb, g, gb, t, tb, p, pb
+        :arg bytes: The unit in which to display byte values. Valid
+            choices are b, k, kb, m, mb, g, gb, t, tb, p, pb.
         :arg format: A short version of the Accept header, e.g. json,
             yaml.
         :arg h: Comma-separated list of column names to display.
-        :arg help: Return help information. (default: false)
+        :arg help: Return help information. Default is false.
         :arg s: Comma-separated list of column names or column aliases
             to sort by.
-        :arg v: Verbose mode. Display column headers. (default: false)
+        :arg v: Verbose mode. Display column headers. Default is false.
         """
         return self.transport.perform_request(
             "GET",
@@ -571,15 +571,15 @@ class CatClient(NamespacedClient):
         :arg format: A short version of the Accept header, e.g. json,
             yaml.
         :arg h: Comma-separated list of column names to display.
-        :arg help: Return help information. (default: false)
+        :arg help: Return help information. Default is false.
         :arg local: Return local information, do not retrieve the state
-            from cluster-manager node. (default: false)
+            from cluster-manager node. Default is false.
         :arg master_timeout (Deprecated: To promote inclusive language,
-            use 'cluster_manager_timeout' instead): Operation timeout for connection
-            to master node.
+            use 'cluster_manager_timeout' instead.): Operation timeout for
+            connection to master node.
         :arg s: Comma-separated list of column names or column aliases
             to sort by.
-        :arg v: Verbose mode. Display column headers. (default: false)
+        :arg v: Verbose mode. Display column headers. Default is false.
         """
         return self.transport.perform_request(
             "GET", "/_cat/plugins", params=params, headers=headers
@@ -605,15 +605,15 @@ class CatClient(NamespacedClient):
         :arg format: A short version of the Accept header, e.g. json,
             yaml.
         :arg h: Comma-separated list of column names to display.
-        :arg help: Return help information. (default: false)
+        :arg help: Return help information. Default is false.
         :arg local: Return local information, do not retrieve the state
-            from cluster-manager node. (default: false)
+            from cluster-manager node. Default is false.
         :arg master_timeout (Deprecated: To promote inclusive language,
-            use 'cluster_manager_timeout' instead): Operation timeout for connection
-            to master node.
+            use 'cluster_manager_timeout' instead.): Operation timeout for
+            connection to master node.
         :arg s: Comma-separated list of column names or column aliases
             to sort by.
-        :arg v: Verbose mode. Display column headers. (default: false)
+        :arg v: Verbose mode. Display column headers. Default is false.
         """
         return self.transport.perform_request(
             "GET", "/_cat/nodeattrs", params=params, headers=headers
@@ -639,15 +639,15 @@ class CatClient(NamespacedClient):
         :arg format: A short version of the Accept header, e.g. json,
             yaml.
         :arg h: Comma-separated list of column names to display.
-        :arg help: Return help information. (default: false)
+        :arg help: Return help information. Default is false.
         :arg local: Return local information, do not retrieve the state
-            from cluster-manager node. (default: false)
+            from cluster-manager node. Default is false.
         :arg master_timeout (Deprecated: To promote inclusive language,
-            use 'cluster_manager_timeout' instead): Operation timeout for connection
-            to master node.
+            use 'cluster_manager_timeout' instead.): Operation timeout for
+            connection to master node.
         :arg s: Comma-separated list of column names or column aliases
             to sort by.
-        :arg v: Verbose mode. Display column headers. (default: false)
+        :arg v: Verbose mode. Display column headers. Default is false.
         """
         return self.transport.perform_request(
             "GET", "/_cat/repositories", params=params, headers=headers
@@ -675,17 +675,18 @@ class CatClient(NamespacedClient):
         :arg format: A short version of the Accept header, e.g. json,
             yaml.
         :arg h: Comma-separated list of column names to display.
-        :arg help: Return help information. (default: false)
+        :arg help: Return help information. Default is false.
         :arg ignore_unavailable: Whether specified concrete indices
-            should be ignored when unavailable (missing or closed). (default: false)
+            should be ignored when unavailable (missing or closed). Default is
+            false.
         :arg master_timeout (Deprecated: To promote inclusive language,
-            use 'cluster_manager_timeout' instead): Operation timeout for connection
-            to master node.
+            use 'cluster_manager_timeout' instead.): Operation timeout for
+            connection to master node.
         :arg s: Comma-separated list of column names or column aliases
             to sort by.
-        :arg time: The unit in which to display time values.  Valid
-            choices: d, h, m, s, ms, micros, nanos
-        :arg v: Verbose mode. Display column headers. (default: false)
+        :arg time: The unit in which to display time values. Valid
+            choices are d, h, m, s, ms, micros, nanos.
+        :arg v: Verbose mode. Display column headers. Default is false.
         """
         return self.transport.perform_request(
             "GET",
@@ -714,12 +715,12 @@ class CatClient(NamespacedClient):
 
         :arg actions: Comma-separated list of actions that should be
             returned. Leave empty to return all.
-        :arg detailed: Return detailed task information. (default:
-            false)
+        :arg detailed: Return detailed task information. Default is
+            false.
         :arg format: A short version of the Accept header, e.g. json,
             yaml.
         :arg h: Comma-separated list of column names to display.
-        :arg help: Return help information. (default: false)
+        :arg help: Return help information. Default is false.
         :arg nodes: Comma-separated list of node IDs or names to limit
             the returned information; use `_local` to return information from the
             node you're connecting to, leave empty to get information from all
@@ -728,9 +729,9 @@ class CatClient(NamespacedClient):
             (node_id:task_number). Set to -1 to return all.
         :arg s: Comma-separated list of column names or column aliases
             to sort by.
-        :arg time: The unit in which to display time values.  Valid
-            choices: d, h, m, s, ms, micros, nanos
-        :arg v: Verbose mode. Display column headers. (default: false)
+        :arg time: The unit in which to display time values. Valid
+            choices are d, h, m, s, ms, micros, nanos.
+        :arg v: Verbose mode. Display column headers. Default is false.
         """
         return self.transport.perform_request(
             "GET", "/_cat/tasks", params=params, headers=headers
@@ -757,15 +758,15 @@ class CatClient(NamespacedClient):
         :arg format: A short version of the Accept header, e.g. json,
             yaml.
         :arg h: Comma-separated list of column names to display.
-        :arg help: Return help information. (default: false)
+        :arg help: Return help information. Default is false.
         :arg local: Return local information, do not retrieve the state
-            from cluster-manager node. (default: false)
+            from cluster-manager node. Default is false.
         :arg master_timeout (Deprecated: To promote inclusive language,
-            use 'cluster_manager_timeout' instead): Operation timeout for connection
-            to master node.
+            use 'cluster_manager_timeout' instead.): Operation timeout for
+            connection to master node.
         :arg s: Comma-separated list of column names or column aliases
             to sort by.
-        :arg v: Verbose mode. Display column headers. (default: false)
+        :arg v: Verbose mode. Display column headers. Default is false.
         """
         return self.transport.perform_request(
             "GET", _make_path("_cat", "templates", name), params=params, headers=headers
@@ -787,7 +788,6 @@ class CatClient(NamespacedClient):
         List segments for one or several PITs.
 
 
-        :arg body:
         """
         return self.transport.perform_request(
             "GET", "/_cat/pit_segments", params=params, headers=headers, body=body
@@ -815,23 +815,23 @@ class CatClient(NamespacedClient):
         :arg index: Comma-separated list or wildcard expression of index
             names to limit the returned information.
         :arg active_only: If `true`, the response only includes ongoing
-            segment replication events. (default: false)
-        :arg bytes: The unit in which to display byte values.  Valid
-            choices: b, k, kb, m, mb, g, gb, t, tb, p, pb
+            segment replication events. Default is false.
+        :arg bytes: The unit in which to display byte values. Valid
+            choices are b, k, kb, m, mb, g, gb, t, tb, p, pb.
         :arg completed_only: If `true`, the response only includes
-            latest completed segment replication events. (default: false)
+            latest completed segment replication events. Default is false.
         :arg detailed: If `true`, the response includes detailed
-            information about segment replications. (default: false)
+            information about segment replications. Default is false.
         :arg format: A short version of the Accept header, e.g. json,
             yaml.
         :arg h: Comma-separated list of column names to display.
-        :arg help: Return help information. (default: false)
+        :arg help: Return help information. Default is false.
         :arg s: Comma-separated list of column names or column aliases
             to sort by.
         :arg shards: Comma-separated list of shards to display.
-        :arg time: The unit in which to display time values.  Valid
-            choices: d, h, m, s, ms, micros, nanos
-        :arg v: Verbose mode. Display column headers. (default: false)
+        :arg time: The unit in which to display time values. Valid
+            choices are d, h, m, s, ms, micros, nanos.
+        :arg v: Verbose mode. Display column headers. Default is false.
         """
         return self.transport.perform_request(
             "GET",
