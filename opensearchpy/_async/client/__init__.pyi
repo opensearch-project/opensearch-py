@@ -48,6 +48,7 @@ from .indices import IndicesClient
 from .ingest import IngestClient
 from .nodes import NodesClient
 from .remote import RemoteClient
+from .remote_store import RemoteStoreClient
 from .security import SecurityClient
 from .snapshot import SnapshotClient
 from .tasks import TasksClient
@@ -67,6 +68,7 @@ class AsyncOpenSearch(object):
     security: SecurityClient
     snapshot: SnapshotClient
     tasks: TasksClient
+    remote_store: RemoteStoreClient
     def __init__(
         self,
         hosts: Any = ...,
