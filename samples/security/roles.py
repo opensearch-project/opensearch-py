@@ -1,11 +1,13 @@
 #!/usr/bin/env python
-
 # -*- coding: utf-8 -*-
 # SPDX-License-Identifier: Apache-2.0
 #
 # The OpenSearch Contributors require contributions made to
 # this file be licensed under the Apache-2.0 license or a
 # compatible open source license.
+#
+# Modifications Copyright OpenSearch Contributors. See
+# GitHub history for details.
 
 
 # A basic OpenSearch sample that create and manage roles.
@@ -14,16 +16,16 @@ from opensearchpy import OpenSearch
 
 # connect to OpenSearch
 
-host = 'localhost'
+host = "localhost"
 port = 9200
-auth = ('admin', 'admin') # For testing only. Don't store credentials in code.
+auth = ("admin", "admin")  # For testing only. Don't store credentials in code.
 
 client = OpenSearch(
-    hosts = [{'host': host, 'port': port}],
-    http_auth = auth,
-    use_ssl = True,
-    verify_certs = False,
-    ssl_show_warn = False
+    hosts=[{"host": host, "port": port}],
+    http_auth=auth,
+    use_ssl=True,
+    verify_certs=False,
+    ssl_show_warn=False,
 )
 
 # Create a Role
@@ -31,16 +33,16 @@ client = OpenSearch(
 role_name = "test-role"
 
 role_content = {
-  "cluster_permissions": ["cluster_monitor"],
-  "index_permissions": [
-      {
-          "index_patterns": ["index", "test-*"],
-          "allowed_actions": [
-              "data_access",
-              "indices_monitor",
-          ],
-      }
-  ],
+    "cluster_permissions": ["cluster_monitor"],
+    "index_permissions": [
+        {
+            "index_patterns": ["index", "test-*"],
+            "allowed_actions": [
+                "data_access",
+                "indices_monitor",
+            ],
+        }
+    ],
 }
 
 response = client.security.create_role(role_name, body=role_content)
