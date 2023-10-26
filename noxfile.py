@@ -41,7 +41,7 @@ SOURCE_FILES = (
 
 
 @nox.session(python=["3.6", "3.7", "3.8", "3.9", "3.10", "3.11"])
-def test(session):
+def test(session) -> None:
     session.install(".")
     session.install("-r", "dev-requirements.txt")
 
@@ -49,7 +49,7 @@ def test(session):
 
 
 @nox.session()
-def format(session):
+def format(session) -> None:
     session.install("black", "isort")
 
     session.run("isort", "--profile=black", *SOURCE_FILES)
@@ -60,8 +60,17 @@ def format(session):
 
 
 @nox.session()
-def lint(session):
-    session.install("flake8", "black", "mypy", "isort", "types-requests", "types-six")
+def lint(session) -> None:
+    session.install(
+        "flake8",
+        "black",
+        "mypy",
+        "isort",
+        "types-requests",
+        "types-six",
+        "types-simplejson",
+        "types-python-dateutil",
+    )
 
     session.run("isort", "--check", "--profile=black", *SOURCE_FILES)
     session.run("black", "--target-version=py33", "--check", *SOURCE_FILES)
@@ -85,7 +94,7 @@ def lint(session):
 
 
 @nox.session()
-def docs(session):
+def docs(session) -> None:
     session.install(".")
     session.install(
         "-rdev-requirements.txt", "sphinx-rtd-theme", "sphinx-autodoc-typehints"
@@ -94,7 +103,7 @@ def docs(session):
 
 
 @nox.session()
-def generate(session):
+def generate(session) -> None:
     session.install("-rdev-requirements.txt")
     session.run("python", "utils/generate-api.py")
     format(session)

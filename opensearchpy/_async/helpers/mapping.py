@@ -8,12 +8,11 @@
 # Modifications Copyright OpenSearch Contributors. See
 # GitHub history for details.
 
-try:
-    import collections.abc as collections_abc  # only works on python 3.3+
-except ImportError:
-    import collections as collections_abc
+from __future__ import annotations
 
+import collections.abc as collections_abc
 from itertools import chain
+from typing import Any, Optional
 
 from six import iteritems
 
@@ -23,25 +22,28 @@ from opensearchpy.helpers.mapping import META_FIELDS, Properties
 
 
 class AsyncMapping(object):
-    def __init__(self):
+    _meta: Any
+    properties: Properties
+
+    def __init__(self) -> None:
         self.properties = Properties()
         self._meta = {}
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return "Mapping()"
 
-    def _clone(self):
+    def _clone(self) -> Any:
         m = AsyncMapping()
         m.properties._params = self.properties._params.copy()
         return m
 
     @classmethod
-    async def from_opensearch(cls, index, using="default"):
+    async def from_opensearch(cls, index: Any, using: str = "default") -> Any:
         m = cls()
         await m.update_from_opensearch(index, using)
         return m
 
-    def resolve_nested(self, field_path):
+    def resolve_nested(self, field_path: str) -> Any:
         field = self
         nested = []
         parts = field_path.split(".")
@@ -54,18 +56,18 @@ class AsyncMapping(object):
                 nested.append(".".join(parts[: i + 1]))
         return nested, field
 
-    def resolve_field(self, field_path):
+    def resolve_field(self, field_path: Any) -> Optional[AsyncMapping]:
         field = self
         for step in field_path.split("."):
             try:
                 field = field[step]
             except KeyError:
-                return
+                return None
         return field
 
-    def _collect_analysis(self):
-        analysis = {}
-        fields = []
+    def _collect_analysis(self) -> Any:
+        analysis: Any = {}
+        fields: Any = []
         if "_all" in self._meta:
             fields.append(Text(**self._meta["_all"]))
 
@@ -91,20 +93,20 @@ class AsyncMapping(object):
 
         return analysis
 
-    async def save(self, index, using="default"):
+    async def save(self, index: Any, using: str = "default") -> Any:
         from opensearchpy._async.helpers.index import AsyncIndex
 
         index = AsyncIndex(index, using=using)
         index.mapping(self)
         return await index.save()
 
-    async def update_from_opensearch(self, index, using="default"):
+    async def update_from_opensearch(self, index: Any, using: str = "default") -> None:
         opensearch = await get_connection(using)
         raw = await opensearch.indices.get_mapping(index=index)
         _, raw = raw.popitem()
         self._update_from_dict(raw["mappings"])
 
-    def _update_from_dict(self, raw):
+    def _update_from_dict(self, raw: Any) -> None:
         for name, definition in iteritems(raw.get("properties", {})):
             self.field(name, definition)
 
@@ -116,7 +118,7 @@ class AsyncMapping(object):
                 else:
                     self.meta(name, value)
 
-    def update(self, mapping, update_only=False):
+    def update(self, mapping: Any, update_only: bool = False) -> None:
         for name in mapping:
             if update_only and name in self:
                 # nested and inner objects, merge recursively
@@ -133,20 +135,20 @@ class AsyncMapping(object):
         else:
             self._meta.update(mapping._meta)
 
-    def __contains__(self, name):
+    def __contains__(self, name: Any) -> bool:
         return name in self.properties.properties
 
-    def __getitem__(self, name):
+    def __getitem__(self, name: Any) -> Any:
         return self.properties.properties[name]
 
-    def __iter__(self):
+    def __iter__(self) -> Any:
         return iter(self.properties.properties)
 
-    def field(self, *args, **kwargs):
+    def field(self, *args: Any, **kwargs: Any) -> "AsyncMapping":
         self.properties.field(*args, **kwargs)
         return self
 
-    def meta(self, name, params=None, **kwargs):
+    def meta(self, name: Any, params: Any = None, **kwargs: Any) -> "AsyncMapping":
         if not name.startswith("_") and name not in META_FIELDS:
             name = "_" + name
 
@@ -156,7 +158,7 @@ class AsyncMapping(object):
         self._meta[name] = kwargs if params is None else params
         return self
 
-    def to_dict(self):
+    def to_dict(self) -> Any:
         meta = self._meta
 
         # hard coded serialization of analyzers in _all

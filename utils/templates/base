@@ -1,6 +1,6 @@
 
-    @query_params({{ api.query_params|map("tojson")|join(", ")}})
-    async def {{ api.name }}(self, {% include "func_params" %}):
+    @query_params({{ api.query_params|map("tojson")|join(", ")}})   
+    async def {{ api.name }}(self, {% include "func_params" %}) -> {% if api.method == 'HEAD' %}bool{% else %}Any{% endif %}:
         """
         {% if api.description %}
         {{ api.description|replace("\n", " ")|wordwrap(wrapstring="\n        ") }}

@@ -12,12 +12,13 @@
 from __future__ import unicode_literals
 
 import pytest
+from _pytest.mark.structures import MarkDecorator
 
 from opensearchpy.exceptions import NotFoundError
 
 from .. import AsyncOpenSearchTestCase
 
-pytestmark = pytest.mark.asyncio
+pytestmark: MarkDecorator = pytest.mark.asyncio
 
 
 class TestIndexManagementPlugin(AsyncOpenSearchTestCase):
@@ -68,7 +69,7 @@ class TestIndexManagementPlugin(AsyncOpenSearchTestCase):
         }
     }
 
-    async def test_create_policy(self):
+    async def test_create_policy(self) -> None:
         # Test to create policy
         response = await self.client.index_management.put_policy(
             policy=self.POLICY_NAME, body=self.POLICY_CONTENT
@@ -77,7 +78,7 @@ class TestIndexManagementPlugin(AsyncOpenSearchTestCase):
         self.assertNotIn("errors", response)
         self.assertIn("_id", response)
 
-    async def test_get_policy(self):
+    async def test_get_policy(self) -> None:
         # Create a policy
         await self.test_create_policy()
 
@@ -88,7 +89,7 @@ class TestIndexManagementPlugin(AsyncOpenSearchTestCase):
         self.assertIn("_id", response)
         self.assertEqual(response["_id"], self.POLICY_NAME)
 
-    async def test_update_policy(self):
+    async def test_update_policy(self) -> None:
         # Create a policy
         await self.test_create_policy()
 
@@ -110,7 +111,7 @@ class TestIndexManagementPlugin(AsyncOpenSearchTestCase):
         self.assertNotIn("errors", response)
         self.assertIn("_id", response)
 
-    async def test_delete_policy(self):
+    async def test_delete_policy(self) -> None:
         # Create a policy
         await self.test_create_policy()
 

@@ -32,6 +32,18 @@
 
 import asyncio
 import logging
+from typing import (
+    Any,
+    AsyncGenerator,
+    AsyncIterable,
+    Collection,
+    Iterable,
+    List,
+    Optional,
+    Tuple,
+    TypeVar,
+    Union,
+)
 
 from ...compat import map
 from ...exceptions import TransportError
@@ -43,10 +55,16 @@ from ...helpers.actions import (
 )
 from ...helpers.errors import ScanError
 
-logger = logging.getLogger("opensearchpy.helpers")
+# from opensearchpy._async.client import Any
+# from opensearchpy.serializer import Serializer
 
 
-async def _chunk_actions(actions, chunk_size, max_chunk_bytes, serializer):
+logger: logging.Logger = logging.getLogger("opensearchpy.helpers")
+
+
+async def _chunk_actions(
+    actions: Any, chunk_size: int, max_chunk_bytes: int, serializer: Any
+) -> AsyncGenerator[Any, None]:
     """
     Split actions into chunks by number or size, serialize them into strings in
     the process.
@@ -64,15 +82,15 @@ async def _chunk_actions(actions, chunk_size, max_chunk_bytes, serializer):
 
 
 async def _process_bulk_chunk(
-    client,
-    bulk_actions,
-    bulk_data,
-    raise_on_exception=True,
-    raise_on_error=True,
-    ignore_status=(),
-    *args,
-    **kwargs
-):
+    client: Any,
+    bulk_actions: Any,
+    bulk_data: Any,
+    raise_on_exception: bool = True,
+    raise_on_error: bool = True,
+    ignore_status: Any = (),
+    *args: Any,
+    **kwargs: Any
+) -> AsyncGenerator[Tuple[bool, Any], None]:
     """
     Send a bulk request to opensearch and process the output.
     """
@@ -101,21 +119,26 @@ async def _process_bulk_chunk(
         yield item
 
 
-def aiter(x):
+T = TypeVar("T")
+
+
+def aiter(x: Union[Iterable[T], AsyncIterable[T]]) -> Any:
     """Turns an async iterable or iterable into an async iterator"""
     if hasattr(x, "__anext__"):
         return x
     elif hasattr(x, "__aiter__"):
         return x.__aiter__()
 
-    async def f():
+    async def f() -> Any:
         for item in x:
             yield item
 
     return f().__aiter__()
 
 
-async def azip(*iterables):
+async def azip(
+    *iterables: Union[Iterable[T], AsyncIterable[T]]
+) -> AsyncGenerator[Tuple[T, ...], None]:
     """Zips async iterables and iterables into an async iterator
     with the same behavior as zip()
     """
@@ -128,21 +151,21 @@ async def azip(*iterables):
 
 
 async def async_streaming_bulk(
-    client,
-    actions,
-    chunk_size=500,
-    max_chunk_bytes=100 * 1024 * 1024,
-    raise_on_error=True,
-    expand_action_callback=expand_action,
-    raise_on_exception=True,
-    max_retries=0,
-    initial_backoff=2,
-    max_backoff=600,
-    yield_ok=True,
-    ignore_status=(),
-    *args,
-    **kwargs
-):
+    client: Any,
+    actions: Any,
+    chunk_size: int = 500,
+    max_chunk_bytes: int = 100 * 1024 * 1024,
+    raise_on_error: bool = True,
+    expand_action_callback: Any = expand_action,
+    raise_on_exception: bool = True,
+    max_retries: int = 0,
+    initial_backoff: Union[float, int] = 2,
+    max_backoff: Union[float, int] = 600,
+    yield_ok: bool = True,
+    ignore_status: Any = (),
+    *args: Any,
+    **kwargs: Any
+) -> AsyncGenerator[Tuple[bool, Any], None]:
     """
     Streaming bulk consumes actions from the iterable passed in and yields
     results per action. For non-streaming usecases use
@@ -156,7 +179,7 @@ async def async_streaming_bulk(
     every subsequent rejection for the same chunk, for double the time every
     time up to ``max_backoff`` seconds.
 
-    :arg client: instance of :class:`~opensearchpy.AsyncOpenSearch` to use
+    :arg client: instance of :class:`~opensearchpy.Any` to use
     :arg actions: iterable or async iterable containing the actions to be executed
     :arg chunk_size: number of docs in one chunk sent to client (default: 500)
     :arg max_chunk_bytes: the maximum size of the request in bytes (default: 100MB)
@@ -177,7 +200,7 @@ async def async_streaming_bulk(
     :arg ignore_status: list of HTTP status code that you want to ignore
     """
 
-    async def map_actions():
+    async def map_actions() -> Any:
         async for item in aiter(actions):
             yield expand_action_callback(item)
 
@@ -185,7 +208,8 @@ async def async_streaming_bulk(
         map_actions(), chunk_size, max_chunk_bytes, client.transport.serializer
     ):
         for attempt in range(max_retries + 1):
-            to_retry, to_retry_data = [], []
+            to_retry: Any = []
+            to_retry_data: Any = []
             if attempt:
                 await asyncio.sleep(
                     min(max_backoff, initial_backoff * 2 ** (attempt - 1))
@@ -237,10 +261,15 @@ async def async_streaming_bulk(
 
 
 async def async_bulk(
-    client, actions, stats_only=False, ignore_status=(), *args, **kwargs
-):
+    client: Any,
+    actions: Union[Iterable[Any], AsyncIterable[Any]],
+    stats_only: bool = False,
+    ignore_status: Optional[Union[int, Collection[int]]] = (),
+    *args: Any,
+    **kwargs: Any
+) -> Tuple[int, Union[int, List[Any]]]:
     """
-    Helper for the :meth:`~opensearchpy.AsyncOpenSearch.bulk` api that provides
+    Helper for the :meth:`~opensearchpy.Any.bulk` api that provides
     a more human friendly interface - it consumes an iterator of actions and
     sends them to opensearch in chunks. It returns a tuple with summary
     information - number of successfully executed actions and either list of
@@ -256,7 +285,7 @@ async def async_bulk(
     just return the errors and not store them in memory.
 
 
-    :arg client: instance of :class:`~opensearchpy.AsyncOpenSearch` to use
+    :arg client: instance of :class:`~opensearchpy.Any` to use
     :arg actions: iterator containing the actions
     :arg stats_only: if `True` only report number of successful/failed
         operations instead of just number of successful and a list of error responses
@@ -275,7 +304,7 @@ async def async_bulk(
     # make streaming_bulk yield successful results so we can count them
     kwargs["yield_ok"] = True
     async for ok, item in async_streaming_bulk(
-        client, actions, ignore_status=ignore_status, *args, **kwargs
+        client, actions, ignore_status=ignore_status, *args, **kwargs  # type: ignore
     ):
         # go through request-response pairs and detect failures
         if not ok:
@@ -289,20 +318,20 @@ async def async_bulk(
 
 
 async def async_scan(
-    client,
-    query=None,
-    scroll="5m",
-    raise_on_error=True,
-    preserve_order=False,
-    size=1000,
-    request_timeout=None,
-    clear_scroll=True,
-    scroll_kwargs=None,
-    **kwargs
-):
+    client: Any,
+    query: Any = None,
+    scroll: str = "5m",
+    raise_on_error: bool = True,
+    preserve_order: bool = False,
+    size: int = 1000,
+    request_timeout: Any = None,
+    clear_scroll: bool = True,
+    scroll_kwargs: Any = None,
+    **kwargs: Any
+) -> AsyncGenerator[dict[str, Any], None]:
     """
     Simple abstraction on top of the
-    :meth:`~opensearchpy.AsyncOpenSearch.scroll` api - a simple iterator that
+    :meth:`~opensearchpy.Any.scroll` api - a simple iterator that
     yields all hits as returned by underlining scroll requests.
 
     By default scan does not return results in any pre-determined order. To
@@ -311,8 +340,8 @@ async def async_scan(
     may be an expensive operation and will negate the performance benefits of
     using ``scan``.
 
-    :arg client: instance of :class:`~opensearchpy.AsyncOpenSearch` to use
-    :arg query: body for the :meth:`~opensearchpy.AsyncOpenSearch.search` api
+    :arg client: instance of :class:`~opensearchpy.Any` to use
+    :arg query: body for the :meth:`~opensearchpy.Any.search` api
     :arg scroll: Specify how long a consistent view of the index should be
         maintained for scrolled search
     :arg raise_on_error: raises an exception (``ScanError``) if an error is
@@ -327,10 +356,10 @@ async def async_scan(
         scroll API at the end of the method on completion or error, defaults
         to true.
     :arg scroll_kwargs: additional kwargs to be passed to
-        :meth:`~opensearchpy.AsyncOpenSearch.scroll`
+        :meth:`~opensearchpy.Any.scroll`
 
     Any additional keyword arguments will be passed to the initial
-    :meth:`~opensearchpy.AsyncOpenSearch.search` call::
+    :meth:`~opensearchpy.Any.search` call::
 
         async_scan(client,
             query={"query": {"match": {"title": "python"}}},
@@ -409,22 +438,22 @@ async def async_scan(
 
 
 async def async_reindex(
-    client,
-    source_index,
-    target_index,
-    query=None,
-    target_client=None,
-    chunk_size=500,
-    scroll="5m",
-    scan_kwargs={},
-    bulk_kwargs={},
-):
+    client: Any,
+    source_index: Union[str, Collection[str]],
+    target_index: str,
+    query: Any = None,
+    target_client: Any = None,
+    chunk_size: int = 500,
+    scroll: str = "5m",
+    scan_kwargs: Any = {},
+    bulk_kwargs: Any = {},
+) -> Tuple[int, Union[int, List[Any]]]:
     """
     Reindex all documents from one index that satisfy a given query
     to another, potentially (if `target_client` is specified) on a different cluster.
     If you don't specify the query you will reindex all the documents.
 
-    Since ``2.3`` a :meth:`~opensearchpy.AsyncOpenSearch.reindex` api is
+    Since ``2.3`` a :meth:`~opensearchpy.Any.reindex` api is
     available as part of opensearch itself. It is recommended to use the api
     instead of this helper wherever possible. The helper is here mostly for
     backwards compatibility and for situations where more flexibility is
@@ -434,11 +463,11 @@ async def async_reindex(
 
         This helper doesn't transfer mappings, just the data.
 
-    :arg client: instance of :class:`~opensearchpy.AsyncOpenSearch` to use (for
+    :arg client: instance of :class:`~opensearchpy.Any` to use (for
         read if `target_client` is specified as well)
     :arg source_index: index (or list of indices) to read documents from
     :arg target_index: name of the index in the target cluster to populate
-    :arg query: body for the :meth:`~opensearchpy.AsyncOpenSearch.search` api
+    :arg query: body for the :meth:`~opensearchpy.Any.search` api
     :arg target_client: optional, is specified will be used for writing (thus
         enabling reindex between clusters)
     :arg chunk_size: number of docs in one chunk sent to client (default: 500)
@@ -454,7 +483,7 @@ async def async_reindex(
         client, query=query, index=source_index, scroll=scroll, **scan_kwargs
     )
 
-    async def _change_doc_index(hits, index):
+    async def _change_doc_index(hits: Any, index: Any) -> Any:
         async for h in hits:
             h["_index"] = index
             if "fields" in h:

@@ -8,6 +8,8 @@
 # Modifications Copyright OpenSearch Contributors. See
 # GitHub history for details.
 
+from typing import Any
+
 from six import string_types
 
 import opensearchpy
@@ -21,11 +23,11 @@ class AsyncConnections(object):
     singleton in this module.
     """
 
-    def __init__(self):
-        self._kwargs = {}
-        self._conns = {}
+    def __init__(self) -> None:
+        self._kwargs: Any = {}
+        self._conns: Any = {}
 
-    async def configure(self, **kwargs):
+    async def configure(self, **kwargs: Any) -> None:
         """
         Configure multiple connections at once, useful for passing in config
         dictionaries obtained from other sources, like Django's settings or a
@@ -48,13 +50,13 @@ class AsyncConnections(object):
             del self._conns[k]
         self._kwargs = kwargs
 
-    async def add_connection(self, alias, conn):
+    async def add_connection(self, alias: str, conn: Any) -> None:
         """
         Add a connection object, it will be passed through as-is.
         """
         self._conns[alias] = conn
 
-    async def remove_connection(self, alias):
+    async def remove_connection(self, alias: str) -> None:
         """
         Remove connection from the registry. Raises ``KeyError`` if connection
         wasn't found.
@@ -69,7 +71,7 @@ class AsyncConnections(object):
         if errors == 2:
             raise KeyError("There is no connection with alias %r." % alias)
 
-    async def create_connection(self, alias="default", **kwargs):
+    async def create_connection(self, alias: str = "default", **kwargs: Any) -> Any:
         """
         Construct an instance of ``opensearchpy.AsyncOpenSearch`` and register
         it under given alias.
@@ -78,7 +80,7 @@ class AsyncConnections(object):
         conn = self._conns[alias] = opensearchpy.AsyncOpenSearch(**kwargs)
         return conn
 
-    async def get_connection(self, alias="default"):
+    async def get_connection(self, alias: str = "default") -> Any:
         """
         Retrieve a connection, construct it if necessary (only configuration
         was passed to us). If a non-string alias has been passed through we

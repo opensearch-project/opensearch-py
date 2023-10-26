@@ -129,7 +129,7 @@ class Host(document.Document):
         name = "test-host"
 
 
-def test_range_serializes_properly():
+def test_range_serializes_properly() -> None:
     class D(document.Document):
         lr = field.LongRange()
 
@@ -142,7 +142,7 @@ def test_range_serializes_properly():
     assert {"lr": {"lt": 42}} == d.to_dict()
 
 
-def test_range_deserializes_properly():
+def test_range_deserializes_properly() -> None:
     class D(document.InnerDoc):
         lr = field.LongRange()
 
@@ -152,13 +152,13 @@ def test_range_deserializes_properly():
     assert 47 not in d.lr
 
 
-def test_resolve_nested():
+def test_resolve_nested() -> None:
     nested, field = NestedSecret._index.resolve_nested("secrets.title")
     assert nested == ["secrets"]
     assert field is NestedSecret._doc_type.mapping["secrets"]["title"]
 
 
-def test_conflicting_mapping_raises_error_in_index_to_dict():
+def test_conflicting_mapping_raises_error_in_index_to_dict() -> None:
     class A(document.Document):
         name = field.Text()
 
@@ -173,18 +173,18 @@ def test_conflicting_mapping_raises_error_in_index_to_dict():
         i.to_dict()
 
 
-def test_ip_address_serializes_properly():
+def test_ip_address_serializes_properly() -> None:
     host = Host(ip=ipaddress.IPv4Address("10.0.0.1"))
 
     assert {"ip": "10.0.0.1"} == host.to_dict()
 
 
-def test_matches_uses_index():
+def test_matches_uses_index() -> None:
     assert SimpleCommit._matches({"_index": "test-git"})
     assert not SimpleCommit._matches({"_index": "not-test-git"})
 
 
-def test_matches_with_no_name_always_matches():
+def test_matches_with_no_name_always_matches() -> None:
     class D(document.Document):
         pass
 
@@ -192,7 +192,7 @@ def test_matches_with_no_name_always_matches():
     assert D._matches({"_index": "whatever"})
 
 
-def test_matches_accepts_wildcards():
+def test_matches_accepts_wildcards() -> None:
     class MyDoc(document.Document):
         class Index:
             name = "my-*"
@@ -201,7 +201,7 @@ def test_matches_accepts_wildcards():
     assert not MyDoc._matches({"_index": "not-my-index"})
 
 
-def test_assigning_attrlist_to_field():
+def test_assigning_attrlist_to_field() -> None:
     sc = SimpleCommit()
     ls = ["README", "README.rst"]
     sc.files = utils.AttrList(ls)
@@ -209,13 +209,13 @@ def test_assigning_attrlist_to_field():
     assert sc.to_dict()["files"] is ls
 
 
-def test_optional_inner_objects_are_not_validated_if_missing():
+def test_optional_inner_objects_are_not_validated_if_missing() -> None:
     d = OptionalObjectWithRequiredField()
 
     assert d.full_clean() is None
 
 
-def test_custom_field():
+def test_custom_field() -> None:
     s = SecretDoc(title=Secret("Hello"))
 
     assert {"title": "Uryyb"} == s.to_dict()
@@ -226,13 +226,13 @@ def test_custom_field():
     assert isinstance(s.title, Secret)
 
 
-def test_custom_field_mapping():
+def test_custom_field_mapping() -> None:
     assert {
         "properties": {"title": {"index": "no", "type": "text"}}
     } == SecretDoc._doc_type.mapping.to_dict()
 
 
-def test_custom_field_in_nested():
+def test_custom_field_in_nested() -> None:
     s = NestedSecret()
     s.secrets.append(SecretDoc(title=Secret("Hello")))
 
@@ -240,7 +240,7 @@ def test_custom_field_in_nested():
     assert s.secrets[0].title == "Hello"
 
 
-def test_multi_works_after_doc_has_been_saved():
+def test_multi_works_after_doc_has_been_saved() -> None:
     c = SimpleCommit()
     c.full_clean()
     c.files.append("setup.py")
@@ -248,7 +248,7 @@ def test_multi_works_after_doc_has_been_saved():
     assert c.to_dict() == {"files": ["setup.py"]}
 
 
-def test_multi_works_in_nested_after_doc_has_been_serialized():
+def test_multi_works_in_nested_after_doc_has_been_serialized() -> None:
     # Issue #359
     c = DocWithNested(comments=[Comment(title="First!")])
 
@@ -257,7 +257,7 @@ def test_multi_works_in_nested_after_doc_has_been_serialized():
     assert [] == c.comments[0].tags
 
 
-def test_null_value_for_object():
+def test_null_value_for_object() -> None:
     d = MyDoc(inner=None)
 
     assert d.inner is None
@@ -313,21 +313,21 @@ def test_to_dict_with_meta_includes_custom_index():
     assert {"_index": "other-index", "_source": {"title": "hello"}} == d.to_dict(True)
 
 
-def test_to_dict_without_skip_empty_will_include_empty_fields():
+def test_to_dict_without_skip_empty_will_include_empty_fields() -> None:
     d = MySubDoc(tags=[], title=None, inner={})
 
     assert {} == d.to_dict()
     assert {"tags": [], "title": None, "inner": {}} == d.to_dict(skip_empty=False)
 
 
-def test_attribute_can_be_removed():
+def test_attribute_can_be_removed() -> None:
     d = MyDoc(title="hello")
 
     del d.title
     assert "title" not in d._d_
 
 
-def test_doc_type_can_be_correctly_pickled():
+def test_doc_type_can_be_correctly_pickled() -> None:
     d = DocWithNested(
         title="Hello World!", comments=[Comment(title="hellp")], meta={"id": 42}
     )
@@ -342,7 +342,7 @@ def test_doc_type_can_be_correctly_pickled():
     assert isinstance(d2.comments[0], Comment)
 
 
-def test_meta_is_accessible_even_on_empty_doc():
+def test_meta_is_accessible_even_on_empty_doc() -> None:
     d = MyDoc()
     d.meta
 
@@ -369,7 +369,7 @@ def test_meta_field_mapping():
     } == User._doc_type.mapping.to_dict()
 
 
-def test_multi_value_fields():
+def test_multi_value_fields() -> None:
     class Blog(document.Document):
         tags = field.Keyword(multi=True)
 
@@ -380,7 +380,7 @@ def test_multi_value_fields():
     assert ["search", "python"] == b.tags
 
 
-def test_docs_with_properties():
+def test_docs_with_properties() -> None:
     class User(document.Document):
         pwd_hash = field.Text()
 
@@ -408,7 +408,7 @@ def test_docs_with_properties():
         u.password
 
 
-def test_nested_can_be_assigned_to():
+def test_nested_can_be_assigned_to() -> None:
     d1 = DocWithNested(comments=[Comment(title="First!")])
     d2 = DocWithNested()
 
@@ -419,13 +419,13 @@ def test_nested_can_be_assigned_to():
     assert isinstance(d2.comments[0], Comment)
 
 
-def test_nested_can_be_none():
+def test_nested_can_be_none() -> None:
     d = DocWithNested(comments=None, title="Hello World!")
 
     assert {"title": "Hello World!"} == d.to_dict()
 
 
-def test_nested_defaults_to_list_and_can_be_updated():
+def test_nested_defaults_to_list_and_can_be_updated() -> None:
     md = DocWithNested()
 
     assert [] == md.comments
@@ -446,7 +446,7 @@ def test_to_dict_is_recursive_and_can_cope_with_multi_values():
     } == md.to_dict()
 
 
-def test_to_dict_ignores_empty_collections():
+def test_to_dict_ignores_empty_collections() -> None:
     md = MySubDoc(name="", address={}, count=0, valid=False, tags=[])
 
     assert {"name": "", "count": 0, "valid": False} == md.to_dict()
@@ -500,7 +500,7 @@ def test_document_can_be_created_dynamically():
     } == md.to_dict()
 
 
-def test_invalid_date_will_raise_exception():
+def test_invalid_date_will_raise_exception() -> None:
     md = MyDoc()
     md.created_at = "not-a-date"
     with raises(ValidationException):
@@ -539,7 +539,7 @@ def test_child_class_can_override_parent():
     } == B._doc_type.mapping.to_dict()
 
 
-def test_meta_fields_are_stored_in_meta_and_ignored_by_to_dict():
+def test_meta_fields_are_stored_in_meta_and_ignored_by_to_dict() -> None:
     md = MySubDoc(meta={"id": 42}, name="My First doc!")
 
     md.meta.index = "my-index"
@@ -566,32 +566,32 @@ def test_index_inheritance():
     } == MyMultiSubDoc._doc_type.mapping.to_dict()
 
 
-def test_meta_fields_can_be_set_directly_in_init():
+def test_meta_fields_can_be_set_directly_in_init() -> None:
     p = object()
     md = MyDoc(_id=p, title="Hello World!")
 
     assert md.meta.id is p
 
 
-def test_save_no_index(mock_client):
+def test_save_no_index(mock_client) -> None:
     md = MyDoc()
     with raises(ValidationException):
         md.save(using="mock")
 
 
-def test_delete_no_index(mock_client):
+def test_delete_no_index(mock_client) -> None:
     md = MyDoc()
     with raises(ValidationException):
         md.delete(using="mock")
 
 
-def test_update_no_fields():
+def test_update_no_fields() -> None:
     md = MyDoc()
     with raises(IllegalOperation):
         md.update()
 
 
-def test_search_with_custom_alias_and_index(mock_client):
+def test_search_with_custom_alias_and_index(mock_client) -> None:
     search_object = MyDoc.search(
         using="staging", index=["custom_index1", "custom_index2"]
     )

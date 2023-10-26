@@ -52,7 +52,7 @@ def set_tmp_dir():
     tmp_dir = None
 
 
-def run(*argv, expect_exit_code=0):
+def run(*argv, expect_exit_code: int = 0) -> None:
     global tmp_dir
     if tmp_dir is None:
         os.chdir(base_dir)
@@ -70,7 +70,7 @@ def run(*argv, expect_exit_code=0):
         exit(exit_code or 1)
 
 
-def test_dist(dist):
+def test_dist(dist) -> None:
     with set_tmp_dir() as tmp_dir:
         dist_name = re.match(
             r"^(opensearchpy\d*)-",
@@ -180,7 +180,7 @@ def test_dist(dist):
         )
 
 
-def main():
+def main() -> None:
     run("git", "checkout", "--", "setup.py", "opensearchpy/")
     run("rm", "-rf", "build/", "dist/*", "*.egg-info", ".eggs")
     run("python", "setup.py", "sdist", "bdist_wheel")

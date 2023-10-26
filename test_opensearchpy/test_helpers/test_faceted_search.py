@@ -49,7 +49,7 @@ class BlogSearch(FacetedSearch):
     }
 
 
-def test_query_is_created_properly():
+def test_query_is_created_properly() -> None:
     bs = BlogSearch("python search")
     s = bs.build_search()
 
@@ -153,7 +153,7 @@ def test_filters_are_applied_to_search_ant_relevant_facets():
     } == d
 
 
-def test_date_histogram_facet_with_1970_01_01_date():
+def test_date_histogram_facet_with_1970_01_01_date() -> None:
     dhf = DateHistogramFacet()
     assert dhf.get_value({"key": None}) == datetime(1970, 1, 1, 0, 0)
     assert dhf.get_value({"key": 0}) == datetime(1970, 1, 1, 0, 0)
@@ -186,7 +186,7 @@ def test_date_histogram_facet_with_1970_01_01_date():
         ("fixed_interval", "1h"),
     ],
 )
-def test_date_histogram_interval_types(interval_type, interval):
+def test_date_histogram_interval_types(interval_type, interval) -> None:
     dhf = DateHistogramFacet(field="@timestamp", **{interval_type: interval})
     assert dhf.get_aggregation().to_dict() == {
         "date_histogram": {
@@ -198,7 +198,7 @@ def test_date_histogram_interval_types(interval_type, interval):
     dhf.get_value_filter(datetime.now())
 
 
-def test_date_histogram_no_interval_keyerror():
+def test_date_histogram_no_interval_keyerror() -> None:
     dhf = DateHistogramFacet(field="@timestamp")
     with pytest.raises(KeyError) as e:
         dhf.get_value_filter(datetime.now())

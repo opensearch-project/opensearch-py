@@ -31,7 +31,7 @@ import time
 from opensearchpy import OpenSearch
 
 
-def wipe_cluster(client):
+def wipe_cluster(client) -> None:
     """Wipes a cluster clean between test cases"""
     close_after_wipe = False
     try:
@@ -59,7 +59,7 @@ def wipe_cluster(client):
         client.close()
 
 
-def wipe_cluster_settings(client):
+def wipe_cluster_settings(client) -> None:
     settings = client.cluster.get_settings()
     new_settings = {}
     for name, value in settings.items():
@@ -96,14 +96,14 @@ def wipe_snapshots(client):
     assert in_progress_snapshots == []
 
 
-def wipe_data_streams(client):
+def wipe_data_streams(client) -> None:
     try:
         client.indices.delete_data_stream(name="*", expand_wildcards="all")
     except Exception:
         client.indices.delete_data_stream(name="*")
 
 
-def wipe_indices(client):
+def wipe_indices(client) -> None:
     client.indices.delete(
         index="*,-.ds-ilm-history-*",
         expand_wildcards="all",
@@ -111,7 +111,7 @@ def wipe_indices(client):
     )
 
 
-def wipe_searchable_snapshot_indices(client):
+def wipe_searchable_snapshot_indices(client) -> None:
     cluster_metadata = client.cluster.state(
         metric="metadata",
         filter_path="metadata.indices.*.settings.index.store.snapshot",
@@ -121,17 +121,17 @@ def wipe_searchable_snapshot_indices(client):
             client.indices.delete(index=index)
 
 
-def wipe_slm_policies(client):
+def wipe_slm_policies(client) -> None:
     for policy in client.slm.get_lifecycle():
         client.slm.delete_lifecycle(policy_id=policy["name"])
 
 
-def wipe_auto_follow_patterns(client):
+def wipe_auto_follow_patterns(client) -> None:
     for pattern in client.ccr.get_auto_follow_pattern()["patterns"]:
         client.ccr.delete_auto_follow_pattern(name=pattern["name"])
 
 
-def wipe_node_shutdown_metadata(client):
+def wipe_node_shutdown_metadata(client) -> None:
     shutdown_status = client.shutdown.get_node()
     # If response contains these two keys the feature flag isn't enabled
     # on this cluster so skip this step now.
@@ -143,14 +143,14 @@ def wipe_node_shutdown_metadata(client):
         client.shutdown.delete_node(node_id=node_id)
 
 
-def wipe_tasks(client):
+def wipe_tasks(client) -> None:
     tasks = client.tasks.list()
     for node_name, node in tasks.get("node", {}).items():
         for task_id in node.get("tasks", ()):
             client.tasks.cancel(task_id=task_id, wait_for_completion=True)
 
 
-def wait_for_pending_tasks(client, filter, timeout=30):
+def wait_for_pending_tasks(client, filter, timeout: int = 30) -> None:
     end_time = time.time() + timeout
     while time.time() < end_time:
         tasks = client.cat.tasks(detailed=True).split("\n")
@@ -158,7 +158,7 @@ def wait_for_pending_tasks(client, filter, timeout=30):
             break
 
 
-def wait_for_pending_datafeeds_and_jobs(client, timeout=30):
+def wait_for_pending_datafeeds_and_jobs(client, timeout: int = 30) -> None:
     end_time = time.time() + timeout
     while time.time() < end_time:
         if (
@@ -171,7 +171,7 @@ def wait_for_pending_datafeeds_and_jobs(client, timeout=30):
             break
 
 
-def wait_for_cluster_state_updates_to_finish(client, timeout=30):
+def wait_for_cluster_state_updates_to_finish(client, timeout: int = 30) -> None:
     end_time = time.time() + timeout
     while time.time() < end_time:
         if not client.cluster.pending_tasks().get("tasks", ()):

@@ -30,18 +30,18 @@ from test_opensearchpy.test_cases import OpenSearchTestCase
 
 
 class TestCluster(OpenSearchTestCase):
-    def test_stats_without_node_id(self):
+    def test_stats_without_node_id(self) -> None:
         self.client.cluster.stats()
         self.assert_url_called("GET", "/_cluster/stats")
 
-    def test_stats_with_node_id(self):
+    def test_stats_with_node_id(self) -> None:
         self.client.cluster.stats("node-1")
         self.assert_url_called("GET", "/_cluster/stats/nodes/node-1")
 
         self.client.cluster.stats(node_id="node-2")
         self.assert_url_called("GET", "/_cluster/stats/nodes/node-2")
 
-    def test_state_with_index_without_metric_defaults_to_all(self):
+    def test_state_with_index_without_metric_defaults_to_all(self) -> None:
         self.client.cluster.state()
         self.assert_url_called("GET", "/_cluster/state")
 

@@ -27,6 +27,7 @@
 
 
 import asyncio
+from typing import Tuple
 
 import pytest
 from mock import MagicMock, patch
@@ -48,8 +49,11 @@ class AsyncMock(MagicMock):
 
 class FailingBulkClient(object):
     def __init__(
-        self, client, fail_at=(2,), fail_with=TransportError(599, "Error!", {})
-    ):
+        self,
+        client,
+        fail_at: Tuple[int] = (2,),
+        fail_with=TransportError(599, "Error!", {}),
+    ) -> None:
         self.client = client
         self._called = 0
         self._fail_at = fail_at
@@ -64,7 +68,7 @@ class FailingBulkClient(object):
 
 
 class TestStreamingBulk(object):
-    async def test_actions_remain_unchanged(self, async_client):
+    async def test_actions_remain_unchanged(self, async_client) -> None:
         actions1 = [{"_id": 1}, {"_id": 2}]
         async for ok, item in actions.async_streaming_bulk(
             async_client, actions1, index="test-index"
@@ -72,7 +76,7 @@ class TestStreamingBulk(object):
             assert ok
         assert [{"_id": 1}, {"_id": 2}] == actions1
 
-    async def test_all_documents_get_inserted(self, async_client):
+    async def test_all_documents_get_inserted(self, async_client) -> None:
         docs = [{"answer": x, "_id": x} for x in range(100)]
         async for ok, item in actions.async_streaming_bulk(
             async_client, docs, index="test-index", refresh=True
@@ -118,7 +122,9 @@ class TestStreamingBulk(object):
             "_source"
         ]
 
-    async def test_all_errors_from_chunk_are_raised_on_failure(self, async_client):
+    async def test_all_errors_from_chunk_are_raised_on_failure(
+        self, async_client
+    ) -> None:
         await async_client.indices.create(
             "i",
             {
@@ -187,7 +193,7 @@ class TestStreamingBulk(object):
             }
         } == results[1][1]
 
-    async def test_rejected_documents_are_retried(self, async_client):
+    async def test_rejected_documents_are_retried(self, async_client) -> None:
         failing_client = FailingBulkClient(
             async_client, fail_with=TransportError(429, "Rejected!", {})
         )
@@ -217,7 +223,7 @@ class TestStreamingBulk(object):
 
     async def test_rejected_documents_are_retried_at_most_max_retries_times(
         self, async_client
-    ):
+    ) -> None:
         failing_client = FailingBulkClient(
             async_client, fail_at=(1, 2), fail_with=TransportError(429, "Rejected!", {})
         )
@@ -246,7 +252,9 @@ class TestStreamingBulk(object):
         assert {"value": 2, "relation": "eq"} == res["hits"]["total"]
         assert 4 == failing_client._called
 
-    async def test_transport_error_is_raised_with_max_retries(self, async_client):
+    async def test_transport_error_is_raised_with_max_retries(
+        self, async_client
+    ) -> None:
         failing_client = FailingBulkClient(
             async_client,
             fail_at=(1, 2, 3, 4),
@@ -272,7 +280,7 @@ class TestStreamingBulk(object):
 
 
 class TestBulk(object):
-    async def test_bulk_works_with_single_item(self, async_client):
+    async def test_bulk_works_with_single_item(self, async_client) -> None:
         docs = [{"answer": 42, "_id": 1}]
         success, failed = await actions.async_bulk(
             async_client, docs, index="test-index", refresh=True
@@ -285,7 +293,7 @@ class TestBulk(object):
             "_source"
         ]
 
-    async def test_all_documents_get_inserted(self, async_client):
+    async def test_all_documents_get_inserted(self, async_client) -> None:
         docs = [{"answer": x, "_id": x} for x in range(100)]
         success, failed = await actions.async_bulk(
             async_client, docs, index="test-index", refresh=True
@@ -298,7 +306,7 @@ class TestBulk(object):
             "_source"
         ]
 
-    async def test_stats_only_reports_numbers(self, async_client):
+    async def test_stats_only_reports_numbers(self, async_client) -> None:
         docs = [{"answer": x} for x in range(100)]
         success, failed = await actions.async_bulk(
             async_client, docs, index="test-index", refresh=True, stats_only=True
@@ -402,7 +410,7 @@ class TestBulk(object):
 
 
 class MockScroll:
-    def __init__(self):
+    def __init__(self) -> None:
         self.calls = []
 
     async def __call__(self, *args, **kwargs):
@@ -424,7 +432,7 @@ class MockScroll:
 
 
 class MockResponse:
-    def __init__(self, resp):
+    def __init__(self, resp) -> None:
         self.resp = resp
 
     async def __call__(self, *args, **kwargs):
@@ -564,7 +572,7 @@ class TestScan(object):
                         assert data == [{"search_data": 1}]
                         assert mock_scroll.calls == []
 
-    async def test_no_scroll_id_fast_route(self, async_client, scan_teardown):
+    async def test_no_scroll_id_fast_route(self, async_client, scan_teardown) -> None:
         with patch.object(async_client, "search", MockResponse({"no": "_scroll_id"})):
             with patch.object(async_client, "scroll") as scroll_mock:
                 with patch.object(async_client, "clear_scroll") as clear_mock:
@@ -776,7 +784,7 @@ async def reindex_setup(async_client):
 class TestReindex(object):
     async def test_reindex_passes_kwargs_to_scan_and_bulk(
         self, async_client, reindex_setup
-    ):
+    ) -> None:
         await actions.async_reindex(
             async_client,
             "test_index",
@@ -795,7 +803,7 @@ class TestReindex(object):
             await async_client.get(index="prod_index", id=42)
         )["_source"]
 
-    async def test_reindex_accepts_a_query(self, async_client, reindex_setup):
+    async def test_reindex_accepts_a_query(self, async_client, reindex_setup) -> None:
         await actions.async_reindex(
             async_client,
             "test_index",
@@ -814,7 +822,7 @@ class TestReindex(object):
             await async_client.get(index="prod_index", id=42)
         )["_source"]
 
-    async def test_all_documents_get_moved(self, async_client, reindex_setup):
+    async def test_all_documents_get_moved(self, async_client, reindex_setup) -> None:
         await actions.async_reindex(async_client, "test_index", "prod_index")
         await async_client.indices.refresh()
 

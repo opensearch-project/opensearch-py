@@ -25,51 +25,51 @@
 #  specific language governing permissions and limitations
 #  under the License.
 
+from typing import Any
+
 from ..utils import AttrDict, AttrList, _wrap
 from .hit import Hit, HitMeta
 
-__all__ = ["Response", "AggResponse", "UpdateByQueryResponse", "Hit", "HitMeta"]
-
 
 class Response(AttrDict):
-    def __init__(self, search, response, doc_class=None):
+    def __init__(self, search: Any, response: Any, doc_class: Any = None) -> None:
         super(AttrDict, self).__setattr__("_search", search)
         super(AttrDict, self).__setattr__("_doc_class", doc_class)
         super(Response, self).__init__(response)
 
-    def __iter__(self):
+    def __iter__(self) -> Any:
         return iter(self.hits)
 
-    def __getitem__(self, key):
+    def __getitem__(self, key: Any) -> Any:
         if isinstance(key, (slice, int)):
             # for slicing etc
             return self.hits[key]
         return super(Response, self).__getitem__(key)
 
-    def __nonzero__(self):
+    def __nonzero__(self) -> Any:
         return bool(self.hits)
 
     __bool__ = __nonzero__
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return "<Response: %r>" % (self.hits or self.aggregations)
 
-    def __len__(self):
+    def __len__(self) -> int:
         return len(self.hits)
 
-    def __getstate__(self):
+    def __getstate__(self) -> Any:
         return self._d_, self._search, self._doc_class
 
-    def __setstate__(self, state):
+    def __setstate__(self, state: Any) -> None:
         super(AttrDict, self).__setattr__("_d_", state[0])
         super(AttrDict, self).__setattr__("_search", state[1])
         super(AttrDict, self).__setattr__("_doc_class", state[2])
 
-    def success(self):
+    def success(self) -> bool:
         return self._shards.total == self._shards.successful and not self.timed_out
 
     @property
-    def hits(self):
+    def hits(self) -> Any:
         if not hasattr(self, "_hits"):
             h = self._d_["hits"]
 
@@ -86,11 +86,11 @@ class Response(AttrDict):
         return self._hits
 
     @property
-    def aggregations(self):
+    def aggregations(self) -> Any:
         return self.aggs
 
     @property
-    def aggs(self):
+    def aggs(self) -> Any:
         if not hasattr(self, "_aggs"):
             aggs = AggResponse(
                 self._search.aggs, self._search, self._d_.get("aggregations", {})
@@ -102,27 +102,30 @@ class Response(AttrDict):
 
 
 class AggResponse(AttrDict):
-    def __init__(self, aggs, search, data):
+    def __init__(self, aggs: Any, search: Any, data: Any) -> None:
         super(AttrDict, self).__setattr__("_meta", {"search": search, "aggs": aggs})
         super(AggResponse, self).__init__(data)
 
-    def __getitem__(self, attr_name):
+    def __getitem__(self, attr_name: Any) -> Any:
         if attr_name in self._meta["aggs"]:
             # don't do self._meta['aggs'][attr_name] to avoid copying
             agg = self._meta["aggs"].aggs[attr_name]
             return agg.result(self._meta["search"], self._d_[attr_name])
         return super(AggResponse, self).__getitem__(attr_name)
 
-    def __iter__(self):
+    def __iter__(self) -> Any:
         for name in self._meta["aggs"]:
             yield self[name]
 
 
 class UpdateByQueryResponse(AttrDict):
-    def __init__(self, search, response, doc_class=None):
+    def __init__(self, search: Any, response: Any, doc_class: Any = None) -> None:
         super(AttrDict, self).__setattr__("_search", search)
         super(AttrDict, self).__setattr__("_doc_class", doc_class)
         super(UpdateByQueryResponse, self).__init__(response)
 
-    def success(self):
+    def success(self) -> bool:
         return not self.timed_out and not self.failures
+
+
+__all__ = ["Response", "AggResponse", "UpdateByQueryResponse", "Hit", "HitMeta"]

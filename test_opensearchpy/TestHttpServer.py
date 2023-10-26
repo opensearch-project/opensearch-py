@@ -41,18 +41,18 @@ class TestHTTPRequestHandler(BaseHTTPRequestHandler):
 class TestHTTPServer(HTTPServer):
     __test__ = False
 
-    def __init__(self, host="localhost", port=8080):
+    def __init__(self, host: str = "localhost", port: int = 8080) -> None:
         super().__init__((host, port), TestHTTPRequestHandler)
         self._server_thread = None
 
-    def start(self):
+    def start(self) -> None:
         if self._server_thread is not None:
             return
 
         self._server_thread = threading.Thread(target=self.serve_forever)
         self._server_thread.start()
 
-    def stop(self):
+    def stop(self) -> None:
         if self._server_thread is None:
             return
         self.socket.close()

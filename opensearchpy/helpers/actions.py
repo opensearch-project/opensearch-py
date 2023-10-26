@@ -29,6 +29,7 @@
 import logging
 import time
 from operator import methodcaller
+from typing import Any, Optional
 
 from ..compat import Mapping, Queue, map, string_types
 from ..exceptions import TransportError
@@ -37,7 +38,7 @@ from .errors import BulkIndexError, ScanError
 logger = logging.getLogger("opensearchpy.helpers")
 
 
-def expand_action(data):
+def expand_action(data: Any) -> Any:
     """
     From one document or action definition passed in by the user extract the
     action/data lines needed for opensearch's
@@ -50,7 +51,7 @@ def expand_action(data):
     # make sure we don't alter the action
     data = data.copy()
     op_type = data.pop("_op_type", "index")
-    action = {op_type: {}}
+    action: Any = {op_type: {}}
 
     # If '_source' is a dict use it for source
     # otherwise if op_type == 'update' then
@@ -105,17 +106,17 @@ def expand_action(data):
 
 
 class _ActionChunker:
-    def __init__(self, chunk_size, max_chunk_bytes, serializer):
+    def __init__(self, chunk_size: int, max_chunk_bytes: int, serializer: Any) -> None:
         self.chunk_size = chunk_size
         self.max_chunk_bytes = max_chunk_bytes
         self.serializer = serializer
 
         self.size = 0
         self.action_count = 0
-        self.bulk_actions = []
-        self.bulk_data = []
+        self.bulk_actions: Any = []
+        self.bulk_data: Any = []
 
-    def feed(self, action, data):
+    def feed(self, action: Any, data: Any) -> Any:
         ret = None
         raw_data, raw_action = data, action
         action = self.serializer.dumps(action)
@@ -146,7 +147,7 @@ class _ActionChunker:
         self.action_count += 1
         return ret
 
-    def flush(self):
+    def flush(self) -> Any:
         ret = None
         if self.bulk_actions:
             ret = (self.bulk_data, self.bulk_actions)
@@ -154,7 +155,9 @@ class _ActionChunker:
         return ret
 
 
-def _chunk_actions(actions, chunk_size, max_chunk_bytes, serializer):
+def _chunk_actions(
+    actions: Any, chunk_size: int, max_chunk_bytes: int, serializer: Any
+) -> Any:
     """
     Split actions into chunks by number or size, serialize them into strings in
     the process.
@@ -171,7 +174,9 @@ def _chunk_actions(actions, chunk_size, max_chunk_bytes, serializer):
         yield ret
 
 
-def _process_bulk_chunk_success(resp, bulk_data, ignore_status, raise_on_error=True):
+def _process_bulk_chunk_success(
+    resp: Any, bulk_data: Any, ignore_status: Any = (), raise_on_error: bool = True
+) -> Any:
     # if raise on error is set, we need to collect errors per chunk before raising them
     errors = []
 
@@ -198,8 +203,12 @@ def _process_bulk_chunk_success(resp, bulk_data, ignore_status, raise_on_error=T
 
 
 def _process_bulk_chunk_error(
-    error, bulk_data, ignore_status, raise_on_exception=True, raise_on_error=True
-):
+    error: Any,
+    bulk_data: Any,
+    ignore_status: Any = (),
+    raise_on_exception: bool = True,
+    raise_on_error: bool = True,
+) -> Any:
     # default behavior - just propagate exception
     if raise_on_exception and error.status_code not in ignore_status:
         raise error
@@ -228,15 +237,15 @@ def _process_bulk_chunk_error(
 
 
 def _process_bulk_chunk(
-    client,
-    bulk_actions,
-    bulk_data,
-    raise_on_exception=True,
-    raise_on_error=True,
-    ignore_status=(),
-    *args,
-    **kwargs
-):
+    client: Any,
+    bulk_actions: Any,
+    bulk_data: Any,
+    raise_on_exception: bool = True,
+    raise_on_error: bool = True,
+    ignore_status: Any = (),
+    *args: Any,
+    **kwargs: Any
+) -> Any:
     """
     Send a bulk request to opensearch and process the output.
     """
@@ -266,21 +275,21 @@ def _process_bulk_chunk(
 
 
 def streaming_bulk(
-    client,
-    actions,
-    chunk_size=500,
-    max_chunk_bytes=100 * 1024 * 1024,
-    raise_on_error=True,
-    expand_action_callback=expand_action,
-    raise_on_exception=True,
-    max_retries=0,
-    initial_backoff=2,
-    max_backoff=600,
-    yield_ok=True,
-    ignore_status=(),
-    *args,
-    **kwargs
-):
+    client: Any,
+    actions: Any,
+    chunk_size: int = 500,
+    max_chunk_bytes: int = 100 * 1024 * 1024,
+    raise_on_error: bool = True,
+    expand_action_callback: Any = expand_action,
+    raise_on_exception: bool = True,
+    max_retries: int = 0,
+    initial_backoff: int = 2,
+    max_backoff: int = 600,
+    yield_ok: bool = True,
+    ignore_status: Any = (),
+    *args: Any,
+    **kwargs: Any
+) -> Any:
     """
     Streaming bulk consumes actions from the iterable passed in and yields
     results per action. For non-streaming usecases use
@@ -320,7 +329,8 @@ def streaming_bulk(
         actions, chunk_size, max_chunk_bytes, client.transport.serializer
     ):
         for attempt in range(max_retries + 1):
-            to_retry, to_retry_data = [], []
+            to_retry: Any = []
+            to_retry_data: Any = []
             if attempt:
                 time.sleep(min(max_backoff, initial_backoff * 2 ** (attempt - 1)))
 
@@ -369,7 +379,14 @@ def streaming_bulk(
                 bulk_actions, bulk_data = to_retry, to_retry_data
 
 
-def bulk(client, actions, stats_only=False, ignore_status=(), *args, **kwargs):
+def bulk(
+    client: Any,
+    actions: Any,
+    stats_only: bool = False,
+    ignore_status: Any = (),
+    *args: Any,
+    **kwargs: Any
+) -> Any:
     """
     Helper for the :meth:`~opensearchpy.OpenSearch.bulk` api that provides
     a more human friendly interface - it consumes an iterator of actions and
@@ -405,9 +422,7 @@ def bulk(client, actions, stats_only=False, ignore_status=(), *args, **kwargs):
 
     # make streaming_bulk yield successful results so we can count them
     kwargs["yield_ok"] = True
-    for ok, item in streaming_bulk(
-        client, actions, ignore_status=ignore_status, *args, **kwargs
-    ):
+    for ok, item in streaming_bulk(client, actions, ignore_status, *args, **kwargs):
         # go through request-response pairs and detect failures
         if not ok:
             if not stats_only:
@@ -420,17 +435,17 @@ def bulk(client, actions, stats_only=False, ignore_status=(), *args, **kwargs):
 
 
 def parallel_bulk(
-    client,
-    actions,
-    thread_count=4,
-    chunk_size=500,
-    max_chunk_bytes=100 * 1024 * 1024,
-    queue_size=4,
-    expand_action_callback=expand_action,
-    ignore_status=(),
-    *args,
-    **kwargs
-):
+    client: Any,
+    actions: Any,
+    thread_count: int = 4,
+    chunk_size: int = 500,
+    max_chunk_bytes: int = 100 * 1024 * 1024,
+    queue_size: int = 4,
+    expand_action_callback: Any = expand_action,
+    ignore_status: Any = (),
+    *args: Any,
+    **kwargs: Any
+) -> Any:
     """
     Parallel version of the bulk helper run in multiple threads at once.
 
@@ -457,11 +472,11 @@ def parallel_bulk(
     actions = map(expand_action_callback, actions)
 
     class BlockingPool(ThreadPool):
-        def _setup_queues(self):
+        def _setup_queues(self) -> None:
             super(BlockingPool, self)._setup_queues()  # type: ignore
             # The queue must be at least the size of the number of threads to
             # prevent hanging when inserting sentinel values during teardown.
-            self._inqueue = Queue(max(queue_size, thread_count))
+            self._inqueue: Any = Queue(max(queue_size, thread_count))
             self._quick_put = self._inqueue.put
 
     pool = BlockingPool(thread_count)
@@ -470,12 +485,7 @@ def parallel_bulk(
         for result in pool.imap(
             lambda bulk_chunk: list(
                 _process_bulk_chunk(
-                    client,
-                    bulk_chunk[1],
-                    bulk_chunk[0],
-                    ignore_status=ignore_status,
-                    *args,
-                    **kwargs
+                    client, bulk_chunk[1], bulk_chunk[0], ignore_status, *args, **kwargs
                 )
             ),
             _chunk_actions(
@@ -491,17 +501,17 @@ def parallel_bulk(
 
 
 def scan(
-    client,
-    query=None,
-    scroll="5m",
-    raise_on_error=True,
-    preserve_order=False,
-    size=1000,
-    request_timeout=None,
-    clear_scroll=True,
-    scroll_kwargs=None,
-    **kwargs
-):
+    client: Any,
+    query: Any = None,
+    scroll: str = "5m",
+    raise_on_error: bool = True,
+    preserve_order: bool = False,
+    size: int = 1000,
+    request_timeout: Optional[int] = None,
+    clear_scroll: bool = True,
+    scroll_kwargs: Any = None,
+    **kwargs: Any
+) -> Any:
     """
     Simple abstraction on top of the
     :meth:`~opensearchpy.OpenSearch.scroll` api - a simple iterator that
@@ -609,16 +619,16 @@ def scan(
 
 
 def reindex(
-    client,
-    source_index,
-    target_index,
-    query=None,
-    target_client=None,
-    chunk_size=500,
-    scroll="5m",
-    scan_kwargs={},
-    bulk_kwargs={},
-):
+    client: Any,
+    source_index: Any,
+    target_index: Any,
+    query: Any = None,
+    target_client: Any = None,
+    chunk_size: int = 500,
+    scroll: str = "5m",
+    scan_kwargs: Any = {},
+    bulk_kwargs: Any = {},
+) -> Any:
     """
     Reindex all documents from one index that satisfy a given query
     to another, potentially (if `target_client` is specified) on a different cluster.
@@ -652,7 +662,7 @@ def reindex(
     target_client = client if target_client is None else target_client
     docs = scan(client, query=query, index=source_index, scroll=scroll, **scan_kwargs)
 
-    def _change_doc_index(hits, index):
+    def _change_doc_index(hits: Any, index: Any) -> Any:
         for h in hits:
             h["_index"] = index
             if "fields" in h:

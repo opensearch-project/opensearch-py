@@ -26,12 +26,14 @@
 #  under the License.
 
 
+from typing import Any
+
 from .utils import NamespacedClient, query_params
 
 
 class FeaturesClient(NamespacedClient):
     @query_params("master_timeout", "cluster_manager_timeout")
-    async def get_features(self, params=None, headers=None):
+    async def get_features(self, params: Any = None, headers: Any = None) -> Any:
         """
         Gets a list of features which can be included in snapshots using the
         feature_states field when creating a snapshot
@@ -47,7 +49,7 @@ class FeaturesClient(NamespacedClient):
         )
 
     @query_params()
-    async def reset_features(self, params=None, headers=None):
+    async def reset_features(self, params: Any = None, headers: Any = None) -> Any:
         """
         Resets the internal state of features, usually by deleting system indices
 

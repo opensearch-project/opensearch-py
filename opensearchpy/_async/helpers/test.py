@@ -10,18 +10,22 @@
 
 import os
 import time
+from typing import Any
 from unittest import SkipTest
+
+from _typeshed import Incomplete
 
 from opensearchpy import AsyncOpenSearch
 from opensearchpy.exceptions import ConnectionError
 
+OPENSEARCH_URL: Incomplete
 if "OPENSEARCH_URL" in os.environ:
     OPENSEARCH_URL = os.environ["OPENSEARCH_URL"]
 else:
     OPENSEARCH_URL = "https://admin:admin@localhost:9200"
 
 
-async def get_test_client(nowait=False, **kwargs):
+async def get_test_client(nowait: bool = False, **kwargs: Any) -> Any:
     # construct kwargs from the environment
     kw = {"timeout": 30}
 
@@ -32,7 +36,7 @@ async def get_test_client(nowait=False, **kwargs):
         kw["connection_class"] = getattr(async_connection, "AIOHttpConnection")
 
     kw.update(kwargs)
-    client = AsyncOpenSearch(OPENSEARCH_URL, **kw)
+    client = AsyncOpenSearch(OPENSEARCH_URL, **kw)  # type: ignore
 
     # wait for yellow status
     for _ in range(1 if nowait else 100):

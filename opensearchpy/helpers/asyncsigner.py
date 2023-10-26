@@ -8,9 +8,7 @@
 # Modifications Copyright OpenSearch Contributors. See
 # GitHub history for details.
 
-import sys
-
-PY3 = sys.version_info[0] == 3
+from typing import Dict, Union
 
 
 class AWSV4SignerAsyncAuth:
@@ -18,7 +16,7 @@ class AWSV4SignerAsyncAuth:
     AWS V4 Request Signer for Async Requests.
     """
 
-    def __init__(self, credentials, region, service="es"):  # type: ignore
+    def __init__(self, credentials, region: str, service: str = "es") -> None:  # type: ignore
         if not credentials:
             raise ValueError("Credentials cannot be empty")
         self.credentials = credentials
@@ -31,10 +29,14 @@ class AWSV4SignerAsyncAuth:
             raise ValueError("Service name cannot be empty")
         self.service = service
 
-    def __call__(self, method, url, query_string, body):  # type: ignore
-        return self._sign_request(method, url, query_string, body)  # type: ignore
+    def __call__(
+        self, method: str, url: str, query_string: str, body: Union[str, bytes]
+    ) -> Dict[str, str]:
+        return self._sign_request(method, url, query_string, body)
 
-    def _sign_request(self, method, url, query_string, body):
+    def _sign_request(
+        self, method: str, url: str, query_string: str, body: Union[str, bytes]
+    ) -> Dict[str, str]:
         """
         This method helps in signing the request by injecting the required headers.
         :param prepared_request: unsigned headers

@@ -25,17 +25,20 @@
 #  specific language governing permissions and limitations
 #  under the License.
 
+from typing import Any, Optional
+
 import six
 
 from opensearchpy.connection.connections import get_connection
-from opensearchpy.helpers.utils import AttrDict, DslBase, merge
 
-__all__ = ["tokenizer", "analyzer", "char_filter", "token_filter", "normalizer"]
+from .utils import AttrDict, DslBase, merge
 
 
 class AnalysisBase(object):
     @classmethod
-    def _type_shortcut(cls, name_or_instance, type=None, **kwargs):
+    def _type_shortcut(
+        cls: Any, name_or_instance: Any, type: Any = None, **kwargs: Any
+    ) -> Any:
         if isinstance(name_or_instance, cls):
             if type or kwargs:
                 raise ValueError("%s() cannot accept parameters." % cls.__name__)
@@ -50,29 +53,31 @@ class AnalysisBase(object):
 
 
 class CustomAnalysis(object):
-    name = "custom"
+    name: Optional[str] = "custom"
 
-    def __init__(self, filter_name, builtin_type="custom", **kwargs):
+    def __init__(
+        self, filter_name: str, builtin_type: str = "custom", **kwargs: Any
+    ) -> None:
         self._builtin_type = builtin_type
         self._name = filter_name
         super(CustomAnalysis, self).__init__(**kwargs)
 
-    def to_dict(self):
+    def to_dict(self) -> Any:
         # only name to present in lists
         return self._name
 
-    def get_definition(self):
-        d = super(CustomAnalysis, self).to_dict()
+    def get_definition(self) -> Any:
+        d = super(CustomAnalysis, self).to_dict()  # type: ignore
         d = d.pop(self.name)
         d["type"] = self._builtin_type
         return d
 
 
 class CustomAnalysisDefinition(CustomAnalysis):
-    def get_analysis_definition(self):
+    def get_analysis_definition(self: Any) -> Any:
         out = {self._type_name: {self._name: self.get_definition()}}
 
-        t = getattr(self, "tokenizer", None)
+        t: Any = getattr(self, "tokenizer", None)
         if "tokenizer" in self._param_defs and hasattr(t, "get_definition"):
             out["tokenizer"] = {t._name: t.get_definition()}
 
@@ -103,24 +108,24 @@ class CustomAnalysisDefinition(CustomAnalysis):
 
 
 class BuiltinAnalysis(object):
-    name = "builtin"
+    name: Optional[str] = "builtin"
 
-    def __init__(self, name):
+    def __init__(self, name: Any) -> None:
         self._name = name
         super(BuiltinAnalysis, self).__init__()
 
-    def to_dict(self):
+    def to_dict(self) -> Any:
         # only name to present in lists
         return self._name
 
 
 class Analyzer(AnalysisBase, DslBase):
-    _type_name = "analyzer"
-    name = None
+    _type_name: str = "analyzer"
+    name: Optional[str] = None
 
 
 class BuiltinAnalyzer(BuiltinAnalysis, Analyzer):
-    def get_analysis_definition(self):
+    def get_analysis_definition(self) -> Any:
         return {}
 
 
@@ -131,7 +136,13 @@ class CustomAnalyzer(CustomAnalysisDefinition, Analyzer):
         "tokenizer": {"type": "tokenizer"},
     }
 
-    def simulate(self, text, using="default", explain=False, attributes=None):
+    def simulate(
+        self,
+        text: Any,
+        using: str = "default",
+        explain: bool = False,
+        attributes: Any = None,
+    ) -> Any:
         """
         Use the Analyze API of opensearch to test the outcome of this analyzer.
 
@@ -172,12 +183,12 @@ class CustomAnalyzer(CustomAnalysisDefinition, Analyzer):
 
 
 class Normalizer(AnalysisBase, DslBase):
-    _type_name = "normalizer"
-    name = None
+    _type_name: str = "normalizer"
+    name: Optional[str] = None
 
 
 class BuiltinNormalizer(BuiltinAnalysis, Normalizer):
-    def get_analysis_definition(self):
+    def get_analysis_definition(self) -> Any:
         return {}
 
 
@@ -189,8 +200,8 @@ class CustomNormalizer(CustomAnalysisDefinition, Normalizer):
 
 
 class Tokenizer(AnalysisBase, DslBase):
-    _type_name = "tokenizer"
-    name = None
+    _type_name: str = "tokenizer"
+    name: Optional[str] = None
 
 
 class BuiltinTokenizer(BuiltinAnalysis, Tokenizer):
@@ -202,8 +213,8 @@ class CustomTokenizer(CustomAnalysis, Tokenizer):
 
 
 class TokenFilter(AnalysisBase, DslBase):
-    _type_name = "token_filter"
-    name = None
+    _type_name: str = "token_filter"
+    name: Optional[str] = None
 
 
 class BuiltinTokenFilter(BuiltinAnalysis, TokenFilter):
@@ -217,7 +228,7 @@ class CustomTokenFilter(CustomAnalysis, TokenFilter):
 class MultiplexerTokenFilter(CustomTokenFilter):
     name = "multiplexer"
 
-    def get_definition(self):
+    def get_definition(self) -> Any:
         d = super(CustomTokenFilter, self).get_definition()
 
         if "filters" in d:
@@ -230,11 +241,11 @@ class MultiplexerTokenFilter(CustomTokenFilter):
             ]
         return d
 
-    def get_analysis_definition(self):
+    def get_analysis_definition(self) -> Any:
         if not hasattr(self, "filters"):
             return {}
 
-        fs = {}
+        fs: Any = {}
         d = {"filter": fs}
         for filters in self.filters:
             if isinstance(filters, six.string_types):
@@ -252,7 +263,7 @@ class MultiplexerTokenFilter(CustomTokenFilter):
 class ConditionalTokenFilter(CustomTokenFilter):
     name = "condition"
 
-    def get_definition(self):
+    def get_definition(self) -> Any:
         d = super(CustomTokenFilter, self).get_definition()
         if "filter" in d:
             d["filter"] = [
@@ -260,7 +271,7 @@ class ConditionalTokenFilter(CustomTokenFilter):
             ]
         return d
 
-    def get_analysis_definition(self):
+    def get_analysis_definition(self) -> Any:
         if not hasattr(self, "filter"):
             return {}
 
@@ -274,8 +285,8 @@ class ConditionalTokenFilter(CustomTokenFilter):
 
 
 class CharFilter(AnalysisBase, DslBase):
-    _type_name = "char_filter"
-    name = None
+    _type_name: str = "char_filter"
+    name: Optional[str] = None
 
 
 class BuiltinCharFilter(BuiltinAnalysis, CharFilter):
@@ -292,3 +303,5 @@ tokenizer = Tokenizer._type_shortcut
 token_filter = TokenFilter._type_shortcut
 char_filter = CharFilter._type_shortcut
 normalizer = Normalizer._type_shortcut
+
+__all__ = ["tokenizer", "analyzer", "char_filter", "token_filter", "normalizer"]

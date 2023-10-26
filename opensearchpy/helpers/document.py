@@ -25,12 +25,11 @@
 #  specific language governing permissions and limitations
 #  under the License.
 
-try:
-    import collections.abc as collections_abc  # only works on python 3.3+
-except ImportError:
-    import collections as collections_abc
+from __future__ import annotations
 
+import collections.abc as collections_abc
 from fnmatch import fnmatch
+from typing import Any, Tuple, Type, Union
 
 from six import add_metaclass, iteritems
 
@@ -46,15 +45,20 @@ from .utils import DOC_META_FIELDS, META_FIELDS, ObjectBase, merge
 
 
 class MetaField(object):
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
         self.args, self.kwargs = args, kwargs
 
 
 class DocumentMeta(type):
-    def __new__(cls, name, bases, attrs):
+    def __new__(
+        cls: Union[Type[DocumentMeta], Type[IndexMeta]],
+        name: str,
+        bases: Tuple[Type[ObjectBase]],
+        attrs: Any,
+    ) -> Any:
         # DocumentMeta filters attrs in place
         attrs["_doc_type"] = DocumentOptions(name, bases, attrs)
-        return super(DocumentMeta, cls).__new__(cls, name, bases, attrs)
+        return super(DocumentMeta, cls).__new__(cls, name, bases, attrs)  # type: ignore
 
 
 class IndexMeta(DocumentMeta):
@@ -62,7 +66,12 @@ class IndexMeta(DocumentMeta):
     # class, only user defined subclasses should have an _index attr
     _document_initialized = False
 
-    def __new__(cls, name, bases, attrs):
+    def __new__(
+        cls: Type[IndexMeta],
+        name: str,
+        bases: Tuple[Type[ObjectBase]],
+        attrs: Any,
+    ) -> Any:
         new_cls = super(IndexMeta, cls).__new__(cls, name, bases, attrs)
         if cls._document_initialized:
             index_opts = attrs.pop("Index", None)
@@ -73,7 +82,7 @@ class IndexMeta(DocumentMeta):
         return new_cls
 
     @classmethod
-    def construct_index(cls, opts, bases):
+    def construct_index(cls, opts: Any, bases: Any) -> Any:
         if opts is None:
             for b in bases:
                 if hasattr(b, "_index"):
@@ -91,7 +100,12 @@ class IndexMeta(DocumentMeta):
 
 
 class DocumentOptions(object):
-    def __init__(self, name, bases, attrs):
+    def __init__(
+        self,
+        name: str,
+        bases: Tuple[Type[ObjectBase]],
+        attrs: Any,
+    ) -> None:
         meta = attrs.pop("Meta", None)
 
         # create the mapping instance
@@ -115,7 +129,7 @@ class DocumentOptions(object):
                 self.mapping.update(b._doc_type.mapping, update_only=True)
 
     @property
-    def name(self):
+    def name(self) -> Any:
         return self.mapping.properties.name
 
 
@@ -126,7 +140,7 @@ class InnerDoc(ObjectBase):
     """
 
     @classmethod
-    def from_opensearch(cls, data, data_only=False):
+    def from_opensearch(cls, data: Any, data_only: bool = False) -> Any:
         if data_only:
             data = {"_source": data}
         return super(InnerDoc, cls).from_opensearch(data)
@@ -139,25 +153,25 @@ class Document(ObjectBase):
     """
 
     @classmethod
-    def _matches(cls, hit):
+    def _matches(cls: Any, hit: Any) -> Any:
         if cls._index._name is None:
             return True
         return fnmatch(hit.get("_index", ""), cls._index._name)
 
     @classmethod
-    def _get_using(cls, using=None):
+    def _get_using(cls: Any, using: Any = None) -> Any:
         return using or cls._index._using
 
     @classmethod
-    def _get_connection(cls, using=None):
+    def _get_connection(cls, using: Any = None) -> Any:
         return get_connection(cls._get_using(using))
 
     @classmethod
-    def _default_index(cls, index=None):
+    def _default_index(cls: Any, index: Any = None) -> Any:
         return index or cls._index._name
 
     @classmethod
-    def init(cls, index=None, using=None):
+    def init(cls: Any, index: Any = None, using: Any = None) -> None:
         """
         Create the index and populate the mappings in opensearch.
         """
@@ -166,7 +180,7 @@ class Document(ObjectBase):
             i = i.clone(name=index)
         i.save(using=using)
 
-    def _get_index(self, index=None, required=True):
+    def _get_index(self, index: Any = None, required: bool = True) -> Any:
         if index is None:
             index = getattr(self.meta, "index", None)
         if index is None:
@@ -177,7 +191,7 @@ class Document(ObjectBase):
             raise ValidationException("You cannot write to a wildcard index.")
         return index
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return "{}({})".format(
             self.__class__.__name__,
             ", ".join(
@@ -188,7 +202,7 @@ class Document(ObjectBase):
         )
 
     @classmethod
-    def search(cls, using=None, index=None):
+    def search(cls, using: Any = None, index: Any = None) -> Any:
         """
         Create an :class:`~opensearchpy.Search` instance that will search
         over this ``Document``.
@@ -198,7 +212,7 @@ class Document(ObjectBase):
         )
 
     @classmethod
-    def get(cls, id, using=None, index=None, **kwargs):
+    def get(cls: Any, id: Any, using: Any = None, index: Any = None, **kwargs: Any) -> Any:  # type: ignore
         """
         Retrieve a single document from opensearch using its ``id``.
 
@@ -217,7 +231,9 @@ class Document(ObjectBase):
         return cls.from_opensearch(doc)
 
     @classmethod
-    def exists(cls, id, using=None, index=None, **kwargs):
+    def exists(
+        cls, id: Any, using: Any = None, index: Any = None, **kwargs: Any
+    ) -> Any:
         """
         check if exists a single document from opensearch using its ``id``.
 
@@ -234,13 +250,19 @@ class Document(ObjectBase):
 
     @classmethod
     def mget(
-        cls, docs, using=None, index=None, raise_on_error=True, missing="none", **kwargs
-    ):
-        r"""
-        Retrieve multiple document by their ``id``\s. Returns a list of instances
+        cls,
+        docs: Any,
+        using: Any = None,
+        index: Any = None,
+        raise_on_error: bool = True,
+        missing: str = "none",
+        **kwargs: Any
+    ) -> Any:
+        """
+        Retrieve multiple document by their ``id``'s. Returns a list of instances
         in the same order as requested.
 
-        :arg docs: list of ``id``\s of the documents to be retrieved or a list
+        :arg docs: list of ``id``'s of the documents to be retrieved or a list
             of document specifications as per
             https://opensearch.org/docs/latest/opensearch/rest-api/document-apis/multi-get/
         :arg index: opensearch index to use, if the ``Document`` is
@@ -264,7 +286,9 @@ class Document(ObjectBase):
         }
         results = opensearch.mget(body, index=cls._default_index(index), **kwargs)
 
-        objs, error_docs, missing_docs = [], [], []
+        objs: Any = []
+        error_docs: Any = []
+        missing_docs: Any = []
         for doc in results["docs"]:
             if doc.get("found"):
                 if error_docs or missing_docs:
@@ -297,7 +321,7 @@ class Document(ObjectBase):
             raise NotFoundError(404, message, {"docs": missing_docs})
         return objs
 
-    def delete(self, using=None, index=None, **kwargs):
+    def delete(self, using: Any = None, index: Any = None, **kwargs: Any) -> Any:
         """
         Delete the instance in opensearch.
 
@@ -320,7 +344,7 @@ class Document(ObjectBase):
         doc_meta.update(kwargs)
         opensearch.delete(index=self._get_index(index), **doc_meta)
 
-    def to_dict(self, include_meta=False, skip_empty=True):
+    def to_dict(self, include_meta: bool = False, skip_empty: bool = True) -> Any:  # type: ignore
         """
         Serialize the instance into a dictionary so that it can be saved in opensearch.
 
@@ -348,19 +372,19 @@ class Document(ObjectBase):
 
     def update(
         self,
-        using=None,
-        index=None,
-        detect_noop=True,
-        doc_as_upsert=False,
-        refresh=False,
-        retry_on_conflict=None,
-        script=None,
-        script_id=None,
-        scripted_upsert=False,
-        upsert=None,
-        return_doc_meta=False,
-        **fields
-    ):
+        using: Any = None,
+        index: Any = None,
+        detect_noop: bool = True,
+        doc_as_upsert: bool = False,
+        refresh: bool = False,
+        retry_on_conflict: Any = None,
+        script: Any = None,
+        script_id: Any = None,
+        scripted_upsert: bool = False,
+        upsert: Any = None,
+        return_doc_meta: bool = False,
+        **fields: Any,
+    ) -> Any:
         """
         Partial update of the document, specify fields you wish to update and
         both the instance and the document in opensearch will be updated::
@@ -389,7 +413,7 @@ class Document(ObjectBase):
 
         :return operation result noop/updated
         """
-        body = {
+        body: Any = {
             "doc_as_upsert": doc_as_upsert,
             "detect_noop": detect_noop,
         }
@@ -453,13 +477,13 @@ class Document(ObjectBase):
 
     def save(
         self,
-        using=None,
-        index=None,
-        validate=True,
-        skip_empty=True,
-        return_doc_meta=False,
-        **kwargs
-    ):
+        using: Any = None,
+        index: Any = None,
+        validate: bool = True,
+        skip_empty: bool = True,
+        return_doc_meta: bool = False,
+        **kwargs: Any,
+    ) -> Any:
         """
         Save the document into opensearch. If the document doesn't exist it
         is created, it is overwritten otherwise. Returns ``True`` if this
@@ -496,7 +520,7 @@ class Document(ObjectBase):
         meta = opensearch.index(
             index=self._get_index(index),
             body=self.to_dict(skip_empty=skip_empty),
-            **doc_meta
+            **doc_meta,
         )
         # update meta information from OpenSearch
         for k in META_FIELDS:

@@ -35,13 +35,13 @@ from ...utils import wipe_cluster
 
 
 class AsyncOpenSearchTestCase(IsolatedAsyncioTestCase):
-    async def asyncSetUp(self):
+    async def asyncSetUp(self) -> None:
         self.client = await get_test_client(
             verify_certs=False, http_auth=("admin", "admin")
         )
         await add_connection("default", self.client)
 
-    async def asyncTearDown(self):
+    async def asyncTearDown(self) -> None:
         wipe_cluster(self.client)
         if self.client:
             await self.client.close()

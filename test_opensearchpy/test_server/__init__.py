@@ -60,7 +60,7 @@ def get_client(**kwargs):
     return new_client
 
 
-def setup_module():
+def setup_module() -> None:
     get_client()
 
 

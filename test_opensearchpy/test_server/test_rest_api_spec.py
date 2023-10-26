@@ -142,7 +142,7 @@ FALSEY_VALUES = ("", None, False, 0, 0.0)
 
 
 class YamlRunner:
-    def __init__(self, client):
+    def __init__(self, client) -> None:
         self.client = client
         self.last_response = None
 
@@ -151,7 +151,7 @@ class YamlRunner:
         self._teardown_code = None
         self._state = {}
 
-    def use_spec(self, test_spec):
+    def use_spec(self, test_spec) -> None:
         self._setup_code = test_spec.pop("setup", None)
         self._run_code = test_spec.pop("run", None)
         self._teardown_code = test_spec.pop("teardown", None)
@@ -174,7 +174,7 @@ class YamlRunner:
         if self._setup_code:
             self.run_code(self._setup_code)
 
-    def teardown(self):
+    def teardown(self) -> None:
         if self._teardown_code:
             self.section("teardown")
             self.run_code(self._teardown_code)
@@ -189,10 +189,10 @@ class YamlRunner:
             OPENSEARCH_VERSION = tuple(int(v) if v.isdigit() else 99 for v in version)
         return OPENSEARCH_VERSION
 
-    def section(self, name):
+    def section(self, name) -> None:
         print(("=" * 10) + " " + name + " " + ("=" * 10))
 
-    def run(self):
+    def run(self) -> None:
         try:
             self.setup()
             self.section("test")
@@ -203,7 +203,7 @@ class YamlRunner:
             except Exception:
                 pass
 
-    def run_code(self, test):
+    def run_code(self, test) -> None:
         """Execute an instruction based on its type."""
         for action in test:
             assert len(action) == 1
@@ -215,7 +215,7 @@ class YamlRunner:
             else:
                 raise RuntimeError("Invalid action type %r" % (action_type,))
 
-    def run_do(self, action):
+    def run_do(self, action) -> None:
         api = self.client
         headers = action.pop("headers", None)
         catch = action.pop("catch", None)
@@ -281,7 +281,7 @@ class YamlRunner:
                 % (warn, caught_warnings)
             )
 
-    def run_catch(self, catch, exception):
+    def run_catch(self, catch, exception) -> None:
         if catch == "param":
             assert isinstance(exception, TypeError)
             return
@@ -296,7 +296,7 @@ class YamlRunner:
             ) is not None
         self.last_response = exception.info
 
-    def run_skip(self, skip):
+    def run_skip(self, skip) -> None:
         global IMPLEMENTED_FEATURES
 
         if "features" in skip:
@@ -318,32 +318,32 @@ class YamlRunner:
             if min_version <= (self.opensearch_version()) <= max_version:
                 pytest.skip(reason)
 
-    def run_gt(self, action):
+    def run_gt(self, action) -> None:
         for key, value in action.items():
             value = self._resolve(value)
             assert self._lookup(key) > value
 
-    def run_gte(self, action):
+    def run_gte(self, action) -> None:
         for key, value in action.items():
             value = self._resolve(value)
             assert self._lookup(key) >= value
 
-    def run_lt(self, action):
+    def run_lt(self, action) -> None:
         for key, value in action.items():
             value = self._resolve(value)
             assert self._lookup(key) < value
 
-    def run_lte(self, action):
+    def run_lte(self, action) -> None:
         for key, value in action.items():
             value = self._resolve(value)
             assert self._lookup(key) <= value
 
-    def run_set(self, action):
+    def run_set(self, action) -> None:
         for key, value in action.items():
             value = self._resolve(value)
             self._state[value] = self._lookup(key)
 
-    def run_is_false(self, action):
+    def run_is_false(self, action) -> None:
         try:
             value = self._lookup(action)
         except AssertionError:
@@ -351,17 +351,17 @@ class YamlRunner:
         else:
             assert value in FALSEY_VALUES
 
-    def run_is_true(self, action):
+    def run_is_true(self, action) -> None:
         value = self._lookup(action)
         assert value not in FALSEY_VALUES
 
-    def run_length(self, action):
+    def run_length(self, action) -> None:
         for path, expected in action.items():
             value = self._lookup(path)
             expected = self._resolve(expected)
             assert expected == len(value)
 
-    def run_match(self, action):
+    def run_match(self, action) -> None:
         for path, expected in action.items():
             value = self._lookup(path)
             expected = self._resolve(expected)
@@ -379,7 +379,7 @@ class YamlRunner:
             else:
                 self._assert_match_equals(value, expected)
 
-    def run_contains(self, action):
+    def run_contains(self, action) -> None:
         for path, expected in action.items():
             value = self._lookup(path)  # list[dict[str,str]] is returned
             expected = self._resolve(expected)  # dict[str, str]
@@ -387,7 +387,7 @@ class YamlRunner:
             if expected not in value:
                 raise AssertionError("%s is not contained by %s" % (expected, value))
 
-    def run_transform_and_set(self, action):
+    def run_transform_and_set(self, action) -> None:
         for key, value in action.items():
             # Convert #base64EncodeCredentials(id,api_key) to ["id", "api_key"]
             if "#base64EncodeCredentials" in value:
@@ -449,10 +449,10 @@ class YamlRunner:
             value = value[step]
         return value
 
-    def _feature_enabled(self, name):
+    def _feature_enabled(self, name) -> bool:
         return False
 
-    def _assert_match_equals(self, a, b):
+    def _assert_match_equals(self, a, b) -> None:
         # Handle for large floating points with 'E'
         if isinstance(b, string_types) and isinstance(a, float) and "e" in repr(a):
             a = repr(a).replace("e+", "E")
@@ -533,7 +533,7 @@ except Exception as e:
 if not RUN_ASYNC_REST_API_TESTS:
 
     @pytest.mark.parametrize("test_spec", YAML_TEST_SPECS)
-    def test_rest_api_spec(test_spec, sync_runner):
+    def test_rest_api_spec(test_spec, sync_runner) -> None:
         if test_spec.get("skip", False):
             pytest.skip("Manually skipped in 'SKIP_TESTS'")
         sync_runner.use_spec(test_spec)

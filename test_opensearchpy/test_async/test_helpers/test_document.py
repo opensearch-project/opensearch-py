@@ -17,6 +17,7 @@ from datetime import datetime
 from hashlib import sha256
 
 import pytest
+from _pytest.mark.structures import MarkDecorator
 from pytest import raises
 
 from opensearchpy import InnerDoc, MetaField, Range, analyzer
@@ -26,7 +27,7 @@ from opensearchpy._async.helpers.mapping import AsyncMapping
 from opensearchpy.exceptions import IllegalOperation, ValidationException
 from opensearchpy.helpers import field, utils
 
-pytestmark = pytest.mark.asyncio
+pytestmark: MarkDecorator = pytest.mark.asyncio
 
 
 class MyInner(InnerDoc):
@@ -118,7 +119,7 @@ class Host(document.AsyncDocument):
         name = "test-host"
 
 
-async def test_range_serializes_properly():
+async def test_range_serializes_properly() -> None:
     class D(document.AsyncDocument):
         lr = field.LongRange()
 
@@ -131,7 +132,7 @@ async def test_range_serializes_properly():
     assert {"lr": {"lt": 42}} == d.to_dict()
 
 
-async def test_range_deserializes_properly():
+async def test_range_deserializes_properly() -> None:
     class D(InnerDoc):
         lr = field.LongRange()
 
@@ -141,13 +142,13 @@ async def test_range_deserializes_properly():
     assert 47 not in d.lr
 
 
-async def test_resolve_nested():
+async def test_resolve_nested() -> None:
     nested, field = NestedSecret._index.resolve_nested("secrets.title")
     assert nested == ["secrets"]
     assert field is NestedSecret._doc_type.mapping["secrets"]["title"]
 
 
-async def test_conflicting_mapping_raises_error_in_index_to_dict():
+async def test_conflicting_mapping_raises_error_in_index_to_dict() -> None:
     class A(document.AsyncDocument):
         name = field.Text()
 
@@ -162,18 +163,18 @@ async def test_conflicting_mapping_raises_error_in_index_to_dict():
         i.to_dict()
 
 
-async def test_ip_address_serializes_properly():
+async def test_ip_address_serializes_properly() -> None:
     host = Host(ip=ipaddress.IPv4Address("10.0.0.1"))
 
     assert {"ip": "10.0.0.1"} == host.to_dict()
 
 
-async def test_matches_uses_index():
+async def test_matches_uses_index() -> None:
     assert SimpleCommit._matches({"_index": "test-git"})
     assert not SimpleCommit._matches({"_index": "not-test-git"})
 
 
-async def test_matches_with_no_name_always_matches():
+async def test_matches_with_no_name_always_matches() -> None:
     class D(document.AsyncDocument):
         pass
 
@@ -181,7 +182,7 @@ async def test_matches_with_no_name_always_matches():
     assert D._matches({"_index": "whatever"})
 
 
-async def test_matches_accepts_wildcards():
+async def test_matches_accepts_wildcards() -> None:
     class MyDoc(document.AsyncDocument):
         class Index:
             name = "my-*"
@@ -190,7 +191,7 @@ async def test_matches_accepts_wildcards():
     assert not MyDoc._matches({"_index": "not-my-index"})
 
 
-async def test_assigning_attrlist_to_field():
+async def test_assigning_attrlist_to_field() -> None:
     sc = SimpleCommit()
     ls = ["README", "README.rst"]
     sc.files = utils.AttrList(ls)
@@ -198,13 +199,13 @@ async def test_assigning_attrlist_to_field():
     assert sc.to_dict()["files"] is ls
 
 
-async def test_optional_inner_objects_are_not_validated_if_missing():
+async def test_optional_inner_objects_are_not_validated_if_missing() -> None:
     d = OptionalObjectWithRequiredField()
 
     assert d.full_clean() is None
 
 
-async def test_custom_field():
+async def test_custom_field() -> None:
     s = SecretDoc(title=Secret("Hello"))
 
     assert {"title": "Uryyb"} == s.to_dict()
@@ -215,13 +216,13 @@ async def test_custom_field():
     assert isinstance(s.title, Secret)
 
 
-async def test_custom_field_mapping():
+async def test_custom_field_mapping() -> None:
     assert {
         "properties": {"title": {"index": "no", "type": "text"}}
     } == SecretDoc._doc_type.mapping.to_dict()
 
 
-async def test_custom_field_in_nested():
+async def test_custom_field_in_nested() -> None:
     s = NestedSecret()
     s.secrets.append(SecretDoc(title=Secret("Hello")))
 
@@ -229,7 +230,7 @@ async def test_custom_field_in_nested():
     assert s.secrets[0].title == "Hello"
 
 
-async def test_multi_works_after_doc_has_been_saved():
+async def test_multi_works_after_doc_has_been_saved() -> None:
     c = SimpleCommit()
     c.full_clean()
     c.files.append("setup.py")
@@ -237,7 +238,7 @@ async def test_multi_works_after_doc_has_been_saved():
     assert c.to_dict() == {"files": ["setup.py"]}
 
 
-async def test_multi_works_in_nested_after_doc_has_been_serialized():
+async def test_multi_works_in_nested_after_doc_has_been_serialized() -> None:
     # Issue #359
     c = DocWithNested(comments=[Comment(title="First!")])
 
@@ -246,7 +247,7 @@ async def test_multi_works_in_nested_after_doc_has_been_serialized():
     assert [] == c.comments[0].tags
 
 
-async def test_null_value_for_object():
+async def test_null_value_for_object() -> None:
     d = MyDoc(inner=None)
 
     assert d.inner is None
@@ -302,21 +303,21 @@ async def test_to_dict_with_meta_includes_custom_index():
     assert {"_index": "other-index", "_source": {"title": "hello"}} == d.to_dict(True)
 
 
-async def test_to_dict_without_skip_empty_will_include_empty_fields():
+async def test_to_dict_without_skip_empty_will_include_empty_fields() -> None:
     d = MySubDoc(tags=[], title=None, inner={})
 
     assert {} == d.to_dict()
     assert {"tags": [], "title": None, "inner": {}} == d.to_dict(skip_empty=False)
 
 
-async def test_attribute_can_be_removed():
+async def test_attribute_can_be_removed() -> None:
     d = MyDoc(title="hello")
 
     del d.title
     assert "title" not in d._d_
 
 
-async def test_doc_type_can_be_correctly_pickled():
+async def test_doc_type_can_be_correctly_pickled() -> None:
     d = DocWithNested(
         title="Hello World!", comments=[Comment(title="hellp")], meta={"id": 42}
     )
@@ -331,7 +332,7 @@ async def test_doc_type_can_be_correctly_pickled():
     assert isinstance(d2.comments[0], Comment)
 
 
-async def test_meta_is_accessible_even_on_empty_doc():
+async def test_meta_is_accessible_even_on_empty_doc() -> None:
     d = MyDoc()
     d.meta
 
@@ -358,7 +359,7 @@ async def test_meta_field_mapping():
     } == User._doc_type.mapping.to_dict()
 
 
-async def test_multi_value_fields():
+async def test_multi_value_fields() -> None:
     class Blog(document.AsyncDocument):
         tags = field.Keyword(multi=True)
 
@@ -369,7 +370,7 @@ async def test_multi_value_fields():
     assert ["search", "python"] == b.tags
 
 
-async def test_docs_with_properties():
+async def test_docs_with_properties() -> None:
     class User(document.AsyncDocument):
         pwd_hash = field.Text()
 
@@ -397,7 +398,7 @@ async def test_docs_with_properties():
         u.password
 
 
-async def test_nested_can_be_assigned_to():
+async def test_nested_can_be_assigned_to() -> None:
     d1 = DocWithNested(comments=[Comment(title="First!")])
     d2 = DocWithNested()
 
@@ -408,13 +409,13 @@ async def test_nested_can_be_assigned_to():
     assert isinstance(d2.comments[0], Comment)
 
 
-async def test_nested_can_be_none():
+async def test_nested_can_be_none() -> None:
     d = DocWithNested(comments=None, title="Hello World!")
 
     assert {"title": "Hello World!"} == d.to_dict()
 
 
-async def test_nested_defaults_to_list_and_can_be_updated():
+async def test_nested_defaults_to_list_and_can_be_updated() -> None:
     md = DocWithNested()
 
     assert [] == md.comments
@@ -435,7 +436,7 @@ async def test_to_dict_is_recursive_and_can_cope_with_multi_values():
     } == md.to_dict()
 
 
-async def test_to_dict_ignores_empty_collections():
+async def test_to_dict_ignores_empty_collections() -> None:
     md = MySubDoc(name="", address={}, count=0, valid=False, tags=[])
 
     assert {"name": "", "count": 0, "valid": False} == md.to_dict()
@@ -489,7 +490,7 @@ async def test_document_can_be_created_dynamically():
     } == md.to_dict()
 
 
-async def test_invalid_date_will_raise_exception():
+async def test_invalid_date_will_raise_exception() -> None:
     md = MyDoc()
     md.created_at = "not-a-date"
     with raises(ValidationException):
@@ -528,7 +529,7 @@ async def test_child_class_can_override_parent():
     } == B._doc_type.mapping.to_dict()
 
 
-async def test_meta_fields_are_stored_in_meta_and_ignored_by_to_dict():
+async def test_meta_fields_are_stored_in_meta_and_ignored_by_to_dict() -> None:
     md = MySubDoc(meta={"id": 42}, name="My First doc!")
 
     md.meta.index = "my-index"
@@ -555,32 +556,32 @@ async def test_index_inheritance():
     } == MyMultiSubDoc._doc_type.mapping.to_dict()
 
 
-async def test_meta_fields_can_be_set_directly_in_init():
+async def test_meta_fields_can_be_set_directly_in_init() -> None:
     p = object()
     md = MyDoc(_id=p, title="Hello World!")
 
     assert md.meta.id is p
 
 
-async def test_save_no_index(mock_client):
+async def test_save_no_index(mock_client) -> None:
     md = MyDoc()
     with raises(ValidationException):
         await md.save(using="mock")
 
 
-async def test_delete_no_index(mock_client):
+async def test_delete_no_index(mock_client) -> None:
     md = MyDoc()
     with raises(ValidationException):
         await md.delete(using="mock")
 
 
-async def test_update_no_fields():
+async def test_update_no_fields() -> None:
     md = MyDoc()
     with raises(IllegalOperation):
         await md.update()
 
 
-async def test_search_with_custom_alias_and_index(mock_client):
+async def test_search_with_custom_alias_and_index(mock_client) -> None:
     search_object = MyDoc.search(
         using="staging", index=["custom_index1", "custom_index2"]
     )

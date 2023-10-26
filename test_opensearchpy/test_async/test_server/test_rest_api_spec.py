@@ -35,6 +35,7 @@ import inspect
 import warnings
 
 import pytest
+from _pytest.mark.structures import MarkDecorator
 
 from opensearchpy import OpenSearchWarning
 from opensearchpy.helpers.test import _get_version
@@ -47,7 +48,7 @@ from ...test_server.test_rest_api_spec import (
     YamlRunner,
 )
 
-pytestmark = pytest.mark.asyncio
+pytestmark: MarkDecorator = pytest.mark.asyncio
 
 OPENSEARCH_VERSION = None
 
@@ -77,7 +78,7 @@ class AsyncYamlRunner(YamlRunner):
         if self._setup_code:
             await self.run_code(self._setup_code)
 
-    async def teardown(self):
+    async def teardown(self) -> None:
         if self._teardown_code:
             self.section("teardown")
             await self.run_code(self._teardown_code)
@@ -92,10 +93,10 @@ class AsyncYamlRunner(YamlRunner):
             OPENSEARCH_VERSION = tuple(int(v) if v.isdigit() else 999 for v in version)
         return OPENSEARCH_VERSION
 
-    def section(self, name):
+    def section(self, name) -> None:
         print(("=" * 10) + " " + name + " " + ("=" * 10))
 
-    async def run(self):
+    async def run(self) -> None:
         try:
             await self.setup()
             self.section("test")
@@ -106,7 +107,7 @@ class AsyncYamlRunner(YamlRunner):
             except Exception:
                 pass
 
-    async def run_code(self, test):
+    async def run_code(self, test) -> None:
         """Execute an instruction based on its type."""
         for action in test:
             assert len(action) == 1
@@ -118,7 +119,7 @@ class AsyncYamlRunner(YamlRunner):
             else:
                 raise RuntimeError("Invalid action type %r" % (action_type,))
 
-    async def run_do(self, action):
+    async def run_do(self, action) -> None:
         api = self.client
         headers = action.pop("headers", None)
         catch = action.pop("catch", None)
@@ -184,7 +185,7 @@ class AsyncYamlRunner(YamlRunner):
                 % (warn, caught_warnings)
             )
 
-    async def run_skip(self, skip):
+    async def run_skip(self, skip) -> None:
         if "features" in skip:
             features = skip["features"]
             if not isinstance(features, (tuple, list)):
@@ -204,7 +205,7 @@ class AsyncYamlRunner(YamlRunner):
             if min_version <= (await self.opensearch_version()) <= max_version:
                 pytest.skip(reason)
 
-    async def _feature_enabled(self, name):
+    async def _feature_enabled(self, name) -> bool:
         return False
 
 
@@ -216,7 +217,7 @@ def async_runner(async_client):
 if RUN_ASYNC_REST_API_TESTS:
 
     @pytest.mark.parametrize("test_spec", YAML_TEST_SPECS)
-    async def test_rest_api_spec(test_spec, async_runner):
+    async def test_rest_api_spec(test_spec, async_runner) -> None:
         if test_spec.get("skip", False):
             pytest.skip("Manually skipped in 'SKIP_TESTS'")
         async_runner.use_spec(test_spec)

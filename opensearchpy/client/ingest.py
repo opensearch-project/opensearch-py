@@ -36,12 +36,19 @@
 # -----------------------------------------------------
 
 
+from typing import Any, MutableMapping, Optional
+
 from .utils import SKIP_IN_PATH, NamespacedClient, _make_path, query_params
 
 
 class IngestClient(NamespacedClient):
     @query_params("cluster_manager_timeout", "master_timeout")
-    def get_pipeline(self, id=None, params=None, headers=None):
+    def get_pipeline(
+        self,
+        id: Any = None,
+        params: Optional[MutableMapping[str, Any]] = None,
+        headers: Optional[MutableMapping[str, str]] = None,
+    ) -> Any:
         """
         Returns a pipeline.
 
@@ -59,7 +66,13 @@ class IngestClient(NamespacedClient):
         )
 
     @query_params("cluster_manager_timeout", "master_timeout", "timeout")
-    def put_pipeline(self, id, body, params=None, headers=None):
+    def put_pipeline(
+        self,
+        id: Any,
+        body: Any,
+        params: Optional[MutableMapping[str, Any]] = None,
+        headers: Optional[MutableMapping[str, str]] = None,
+    ) -> Any:
         """
         Creates or updates a pipeline.
 
@@ -86,7 +99,12 @@ class IngestClient(NamespacedClient):
         )
 
     @query_params("cluster_manager_timeout", "master_timeout", "timeout")
-    def delete_pipeline(self, id, params=None, headers=None):
+    def delete_pipeline(
+        self,
+        id: Any,
+        params: Optional[MutableMapping[str, Any]] = None,
+        headers: Optional[MutableMapping[str, str]] = None,
+    ) -> Any:
         """
         Deletes a pipeline.
 
@@ -110,7 +128,13 @@ class IngestClient(NamespacedClient):
         )
 
     @query_params("verbose")
-    def simulate(self, body, id=None, params=None, headers=None):
+    def simulate(
+        self,
+        body: Any,
+        id: Any = None,
+        params: Optional[MutableMapping[str, Any]] = None,
+        headers: Optional[MutableMapping[str, str]] = None,
+    ) -> Any:
         """
         Allows to simulate a pipeline with example documents.
 
@@ -132,7 +156,11 @@ class IngestClient(NamespacedClient):
         )
 
     @query_params()
-    def processor_grok(self, params=None, headers=None):
+    def processor_grok(
+        self,
+        params: Optional[MutableMapping[str, Any]] = None,
+        headers: Optional[MutableMapping[str, str]] = None,
+    ) -> Any:
         """
         Returns a list of the built-in patterns.
 

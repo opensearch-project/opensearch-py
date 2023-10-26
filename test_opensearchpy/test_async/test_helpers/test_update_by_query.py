@@ -11,15 +11,16 @@
 from copy import deepcopy
 
 import pytest
+from _pytest.mark.structures import MarkDecorator
 
 from opensearchpy import Q
 from opensearchpy._async.helpers import update_by_query
 from opensearchpy.helpers.response import UpdateByQueryResponse
 
-pytestmark = pytest.mark.asyncio
+pytestmark: MarkDecorator = pytest.mark.asyncio
 
 
-async def test_ubq_starts_with_no_query():
+async def test_ubq_starts_with_no_query() -> None:
     ubq = update_by_query.AsyncUpdateByQuery()
 
     assert ubq.query._proxied is None
@@ -81,7 +82,7 @@ async def test_complex_example():
     } == ubq.to_dict()
 
 
-async def test_exclude():
+async def test_exclude() -> None:
     ubq = update_by_query.AsyncUpdateByQuery()
     ubq = ubq.exclude("match", title="python")
 
@@ -130,7 +131,7 @@ async def test_reverse():
     assert d == ubq.to_dict()
 
 
-async def test_from_dict_doesnt_need_query():
+async def test_from_dict_doesnt_need_query() -> None:
     ubq = update_by_query.AsyncUpdateByQuery.from_dict({"script": {"source": "test"}})
 
     assert {"script": {"source": "test"}} == ubq.to_dict()
@@ -152,7 +153,7 @@ async def test_overwrite_script():
     assert {"script": {"source": "ctx._source.likes++"}} == ubq.to_dict()
 
 
-async def test_update_by_query_response_success():
+async def test_update_by_query_response_success() -> None:
     ubqr = UpdateByQueryResponse({}, {"timed_out": False, "failures": []})
     assert ubqr.success()
 
