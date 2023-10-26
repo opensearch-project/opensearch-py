@@ -39,6 +39,7 @@ from .ingest import IngestClient
 from .nodes import NodesClient
 from .plugins import PluginsClient
 from .remote import RemoteClient
+from .remote_store import RemoteStoreClient
 from .security import SecurityClient
 from .snapshot import SnapshotClient
 from .tasks import TasksClient
@@ -206,6 +207,7 @@ class AsyncOpenSearch(object):
         self.security = SecurityClient(self)
         self.snapshot = SnapshotClient(self)
         self.tasks = TasksClient(self)
+        self.remote_store = RemoteStoreClient(self)
 
         self.features = FeaturesClient(self)
 
