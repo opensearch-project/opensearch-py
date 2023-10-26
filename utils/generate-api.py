@@ -25,6 +25,7 @@
 #  specific language governing permissions and limitations
 #  under the License.
 
+import json
 import os
 import re
 from functools import lru_cache
@@ -33,6 +34,7 @@ from operator import itemgetter
 from pathlib import Path
 
 import black
+import deepmerge
 import requests
 import unasync
 import urllib3
@@ -645,8 +647,7 @@ def read_modules():
         if all_paths_have_deprecation and x_deprecation_message is not None:
             api.update({"deprecation_message": x_deprecation_message})
 
-        if namespace == "indices" and name == "put_mapping":
-            api["url"]["paths"][0]["parts"]["index"].update({"required": False})
+        api = apply_patch(namespace, name, api)
 
         if namespace not in modules:
             modules[namespace] = Module(namespace)
@@ -655,6 +656,17 @@ def read_modules():
         modules[namespace].pyi.add(API(namespace, name, api, is_pyi=True))
 
     return modules
+
+
+def apply_patch(namespace, name, api):
+    override_file_path = (
+        CODE_ROOT / "utils/templates/overrides" / namespace / f"{name}.json"
+    )
+    if os.path.exists(override_file_path):
+        with open(override_file_path) as f:
+            override_json = json.load(f)
+            api = deepmerge.always_merger.merge(api, override_json)
+    return api
 
 
 def dump_modules(modules):

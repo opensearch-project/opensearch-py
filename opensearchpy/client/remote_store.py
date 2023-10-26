@@ -30,7 +30,7 @@ class RemoteStoreClient(NamespacedClient):
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
         :arg wait_for_completion: Should this request wait until the
-            operation has completed before returning. (default: false)
+            operation has completed before returning. Default is false.
         """
         if body in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'body'.")
