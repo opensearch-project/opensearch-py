@@ -6,8 +6,13 @@
 # The OpenSearch Contributors require contributions made to
 # this file be licensed under the Apache-2.0 license or a
 # compatible open source license.
+#
+# Modifications Copyright OpenSearch Contributors. See
+# GitHub history for details.
 
 import json
+import logging
+import sys
 import time
 import uuid
 
@@ -20,9 +25,6 @@ port = 9200
 auth = ("admin", "admin")
 index_name = "test-index-sync"
 item_count = 1000
-
-import logging
-import sys
 
 root = logging.getLogger()
 # root.setLevel(logging.DEBUG)
