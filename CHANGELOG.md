@@ -13,6 +13,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - Added `remote store` client APIs ([#552](https://github.com/opensearch-project/opensearch-py/pull/552))
 - Added `nox -rs generate` ([#554](https://github.com/opensearch-project/opensearch-py/pull/554))
 - Added a utf-8 header to all .py files ([#557](https://github.com/opensearch-project/opensearch-py/pull/557))
+- Added `samples`, `benchmarks` and `docs` to `nox -rs format` ([#556](https://github.com/opensearch-project/opensearch-py/pull/556))
 ### Changed
 - Generate `tasks` client from API specs ([#508](https://github.com/opensearch-project/opensearch-py/pull/508))
 - Generate `ingest` client from API specs ([#513](https://github.com/opensearch-project/opensearch-py/pull/513))
