@@ -34,6 +34,9 @@ SOURCE_FILES = (
     "opensearchpy/",
     "test_opensearchpy/",
     "utils/",
+    "samples/",
+    "benchmarks/",
+    "docs/",
 )
 
 
