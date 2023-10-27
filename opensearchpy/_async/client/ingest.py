@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # SPDX-License-Identifier: Apache-2.0
 #
 # The OpenSearch Contributors require contributions made to
@@ -50,8 +51,8 @@ class IngestClient(NamespacedClient):
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
         :arg master_timeout (Deprecated: To promote inclusive language,
-            use 'cluster_manager_timeout' instead): Operation timeout for connection
-            to master node.
+            use 'cluster_manager_timeout' instead.): Operation timeout for
+            connection to master node.
         """
         return await self.transport.perform_request(
             "GET", _make_path("_ingest", "pipeline", id), params=params, headers=headers
@@ -68,8 +69,8 @@ class IngestClient(NamespacedClient):
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
         :arg master_timeout (Deprecated: To promote inclusive language,
-            use 'cluster_manager_timeout' instead): Operation timeout for connection
-            to master node.
+            use 'cluster_manager_timeout' instead.): Operation timeout for
+            connection to master node.
         :arg timeout: Operation timeout.
         """
         for param in (id, body):
@@ -94,8 +95,8 @@ class IngestClient(NamespacedClient):
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
         :arg master_timeout (Deprecated: To promote inclusive language,
-            use 'cluster_manager_timeout' instead): Operation timeout for connection
-            to master node.
+            use 'cluster_manager_timeout' instead.): Operation timeout for
+            connection to master node.
         :arg timeout: Operation timeout.
         """
         if id in SKIP_IN_PATH:
@@ -117,7 +118,7 @@ class IngestClient(NamespacedClient):
         :arg body: The simulate definition
         :arg id: Pipeline ID.
         :arg verbose: Verbose mode. Display data output for each
-            processor in executed pipeline.
+            processor in executed pipeline. Default is false.
         """
         if body in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'body'.")

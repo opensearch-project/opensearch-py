@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # SPDX-License-Identifier: Apache-2.0
 #
 # The OpenSearch Contributors require contributions made to
@@ -53,8 +54,8 @@ class DanglingIndicesClient(NamespacedClient):
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
         :arg master_timeout (Deprecated: To promote inclusive language,
-            use 'cluster_manager_timeout' instead): Operation timeout for connection
-            to master node.
+            use 'cluster_manager_timeout' instead.): Operation timeout for
+            connection to master node.
         :arg timeout: Operation timeout.
         """
         if index_uuid in SKIP_IN_PATH:
@@ -81,8 +82,8 @@ class DanglingIndicesClient(NamespacedClient):
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
         :arg master_timeout (Deprecated: To promote inclusive language,
-            use 'cluster_manager_timeout' instead): Operation timeout for connection
-            to master node.
+            use 'cluster_manager_timeout' instead.): Operation timeout for
+            connection to master node.
         :arg timeout: Operation timeout.
         """
         if index_uuid in SKIP_IN_PATH:

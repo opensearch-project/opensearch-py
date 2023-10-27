@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # SPDX-License-Identifier: Apache-2.0
 #
 # The OpenSearch Contributors require contributions made to
@@ -300,6 +301,7 @@ class ClusterClient(NamespacedClient):
         self,
         name: Any,
         *,
+        cluster_manager_timeout: Optional[Any] = ...,
         local: Optional[Any] = ...,
         master_timeout: Optional[Any] = ...,
         pretty: Optional[bool] = ...,

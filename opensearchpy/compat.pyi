@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # SPDX-License-Identifier: Apache-2.0
 #
 # The OpenSearch Contributors require contributions made to
@@ -27,7 +28,6 @@
 import sys
 from typing import Callable, Tuple, Type, Union
 
-PY2: bool
 string_types: Tuple[type, ...]
 
 to_str: Callable[[Union[str, bytes]], str]

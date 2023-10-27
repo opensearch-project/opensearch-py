@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # SPDX-License-Identifier: Apache-2.0
 #
 # The OpenSearch Contributors require contributions made to
@@ -6,6 +7,7 @@
 #
 # Modifications Copyright OpenSearch Contributors. See
 # GitHub history for details.
+
 from typing import Any, Collection, MutableMapping, Optional, Tuple, Type, Union
 
 def list_all_point_in_time(

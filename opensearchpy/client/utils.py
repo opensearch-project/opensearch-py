@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # SPDX-License-Identifier: Apache-2.0
 #
 # The OpenSearch Contributors require contributions made to
@@ -32,7 +33,7 @@ import weakref
 from datetime import date, datetime
 from functools import wraps
 
-from ..compat import PY2, quote, string_types, to_bytes, to_str, unquote, urlparse
+from ..compat import quote, string_types, to_bytes, to_str, unquote, urlparse
 
 # parts of URL to be omitted
 SKIP_IN_PATH = (None, "", b"", [], ())
@@ -107,9 +108,7 @@ def _escape(value):
 
     # encode strings to utf-8
     if isinstance(value, string_types):
-        if PY2 and isinstance(value, unicode):  # noqa: F821
-            return value.encode("utf-8")
-        if not PY2 and isinstance(value, str):
+        if isinstance(value, str):
             return value.encode("utf-8")
 
     return str(value)

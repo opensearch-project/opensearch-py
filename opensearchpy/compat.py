@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # SPDX-License-Identifier: Apache-2.0
 #
 # The OpenSearch Contributors require contributions made to
@@ -25,41 +26,23 @@
 #  under the License.
 
 
-import sys
+from queue import Queue
+from urllib.parse import quote, quote_plus, unquote, urlencode, urlparse
 
-PY2 = sys.version_info[0] == 2
+string_types = str, bytes
+map = map
 
-if PY2:
-    string_types = (basestring,)  # noqa: F821
-    from itertools import imap as map
-    from urllib import quote, quote_plus, unquote, urlencode
 
-    from Queue import Queue
-    from urlparse import urlparse
+def to_str(x, encoding="ascii"):
+    if not isinstance(x, str):
+        return x.decode(encoding)
+    return x
 
-    def to_str(x, encoding="ascii"):
-        if not isinstance(x, str):
-            return x.encode(encoding)
-        return x
 
-    to_bytes = to_str
-
-else:
-    string_types = str, bytes
-    from urllib.parse import quote, quote_plus, unquote, urlencode, urlparse
-
-    map = map
-    from queue import Queue
-
-    def to_str(x, encoding="ascii"):
-        if not isinstance(x, str):
-            return x.decode(encoding)
-        return x
-
-    def to_bytes(x, encoding="ascii"):
-        if not isinstance(x, bytes):
-            return x.encode(encoding)
-        return x
+def to_bytes(x, encoding="ascii"):
+    if not isinstance(x, bytes):
+        return x.encode(encoding)
+    return x
 
 
 try:

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # SPDX-License-Identifier: Apache-2.0
 #
 # The OpenSearch Contributors require contributions made to
@@ -65,22 +66,22 @@ class ClusterClient(NamespacedClient):
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
         :arg expand_wildcards: Whether to expand wildcard expression to
-            concrete indices that are open, closed or both.  Valid choices: all,
-            open, closed, hidden, none
+            concrete indices that are open, closed or both. Valid choices are all,
+            open, closed, hidden, none.
         :arg level: Specify the level of detail for returned
-            information.  Valid choices: cluster, indices, shards,
-            awareness_attributes
+            information. Valid choices are cluster, indices, shards,
+            awareness_attributes.
         :arg local: Return local information, do not retrieve the state
-            from cluster-manager node. (default: false)
+            from cluster-manager node. Default is false.
         :arg master_timeout (Deprecated: To promote inclusive language,
-            use 'cluster_manager_timeout' instead): Operation timeout for connection
-            to master node.
+            use 'cluster_manager_timeout' instead.): Operation timeout for
+            connection to master node.
         :arg timeout: Operation timeout.
         :arg wait_for_active_shards: Wait until the specified number of
             shards is active.
         :arg wait_for_events: Wait until all currently queued events
-            with the given priority are processed.  Valid choices: immediate,
-            urgent, high, normal, low, languid
+            with the given priority are processed. Valid choices are immediate,
+            urgent, high, normal, low, languid.
         :arg wait_for_no_initializing_shards: Whether to wait until
             there are no initializing shards in the cluster.
         :arg wait_for_no_relocating_shards: Whether to wait until there
@@ -88,7 +89,7 @@ class ClusterClient(NamespacedClient):
         :arg wait_for_nodes: Wait until the specified number of nodes is
             available.
         :arg wait_for_status: Wait until cluster is in a specific state.
-            Valid choices: green, yellow, red
+            Valid choices are green, yellow, red.
         """
         return self.transport.perform_request(
             "GET",
@@ -107,10 +108,10 @@ class ClusterClient(NamespacedClient):
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
         :arg local: Return local information, do not retrieve the state
-            from cluster-manager node. (default: false)
+            from cluster-manager node. Default is false.
         :arg master_timeout (Deprecated: To promote inclusive language,
-            use 'cluster_manager_timeout' instead): Operation timeout for connection
-            to master node.
+            use 'cluster_manager_timeout' instead.): Operation timeout for
+            connection to master node.
         """
         return self.transport.perform_request(
             "GET", "/_cluster/pending_tasks", params=params, headers=headers
@@ -133,8 +134,8 @@ class ClusterClient(NamespacedClient):
 
 
         :arg metric: Limit the information returned to the specified
-            metrics.  Valid choices: _all, blocks, metadata, nodes, routing_table,
-            routing_nodes, master_node, cluster_manager_node, version
+            metrics. Valid choices are _all, blocks, metadata, nodes, routing_table,
+            routing_nodes, master_node, cluster_manager_node, version.
         :arg index: Comma-separated list of indices; use `_all` or empty
             string to perform the operation on all indices.
         :arg allow_no_indices: Whether to ignore if a wildcard indices
@@ -143,17 +144,17 @@ class ClusterClient(NamespacedClient):
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
         :arg expand_wildcards: Whether to expand wildcard expression to
-            concrete indices that are open, closed or both.  Valid choices: all,
-            open, closed, hidden, none
-        :arg flat_settings: Return settings in flat format. (default:
-            false)
+            concrete indices that are open, closed or both. Valid choices are all,
+            open, closed, hidden, none.
+        :arg flat_settings: Return settings in flat format. Default is
+            false.
         :arg ignore_unavailable: Whether specified concrete indices
             should be ignored when unavailable (missing or closed).
         :arg local: Return local information, do not retrieve the state
-            from cluster-manager node. (default: false)
+            from cluster-manager node. Default is false.
         :arg master_timeout (Deprecated: To promote inclusive language,
-            use 'cluster_manager_timeout' instead): Operation timeout for connection
-            to master node.
+            use 'cluster_manager_timeout' instead.): Operation timeout for
+            connection to master node.
         :arg wait_for_metadata_version: Wait for the metadata version to
             be equal or greater than the specified metadata version.
         :arg wait_for_timeout: The maximum time to wait for
@@ -179,8 +180,8 @@ class ClusterClient(NamespacedClient):
             the returned information; use `_local` to return information from the
             node you're connecting to, leave empty to get information from all
             nodes.
-        :arg flat_settings: Return settings in flat format. (default:
-            false)
+        :arg flat_settings: Return settings in flat format. Default is
+            false.
         :arg timeout: Operation timeout.
         """
         return self.transport.perform_request(
@@ -215,8 +216,8 @@ class ClusterClient(NamespacedClient):
         :arg explain: Return an explanation of why the commands can or
             cannot be executed.
         :arg master_timeout (Deprecated: To promote inclusive language,
-            use 'cluster_manager_timeout' instead): Operation timeout for connection
-            to master node.
+            use 'cluster_manager_timeout' instead.): Operation timeout for
+            connection to master node.
         :arg metric: Limit the information returned to the specified
             metrics. Defaults to all but metadata.
         :arg retry_failed: Retries allocation of shards that are blocked
@@ -241,13 +242,13 @@ class ClusterClient(NamespacedClient):
 
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
-        :arg flat_settings: Return settings in flat format. (default:
-            false)
+        :arg flat_settings: Return settings in flat format. Default is
+            false.
         :arg include_defaults: Whether to return all default clusters
-            setting. (default: false)
+            setting. Default is false.
         :arg master_timeout (Deprecated: To promote inclusive language,
-            use 'cluster_manager_timeout' instead): Operation timeout for connection
-            to master node.
+            use 'cluster_manager_timeout' instead.): Operation timeout for
+            connection to master node.
         :arg timeout: Operation timeout.
         """
         return self.transport.perform_request(
@@ -266,11 +267,11 @@ class ClusterClient(NamespacedClient):
             or `persistent` (survives cluster restart).
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
-        :arg flat_settings: Return settings in flat format. (default:
-            false)
+        :arg flat_settings: Return settings in flat format. Default is
+            false.
         :arg master_timeout (Deprecated: To promote inclusive language,
-            use 'cluster_manager_timeout' instead): Operation timeout for connection
-            to master node.
+            use 'cluster_manager_timeout' instead.): Operation timeout for
+            connection to master node.
         :arg timeout: Operation timeout.
         """
         if body in SKIP_IN_PATH:
@@ -299,9 +300,9 @@ class ClusterClient(NamespacedClient):
         :arg body: The index, shard, and primary flag to explain. Empty
             means 'explain the first unassigned shard'
         :arg include_disk_info: Return information about disk usage and
-            shard sizes. (default: false)
+            shard sizes. Default is false.
         :arg include_yes_decisions: Return 'YES' decisions in
-            explanation. (default: false)
+            explanation. Default is false.
         """
         return self.transport.perform_request(
             "POST",
@@ -321,8 +322,8 @@ class ClusterClient(NamespacedClient):
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
         :arg master_timeout (Deprecated: To promote inclusive language,
-            use 'cluster_manager_timeout' instead): Operation timeout for connection
-            to master node.
+            use 'cluster_manager_timeout' instead.): Operation timeout for
+            connection to master node.
         :arg timeout: Operation timeout.
         """
         if name in SKIP_IN_PATH:
@@ -345,10 +346,10 @@ class ClusterClient(NamespacedClient):
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
         :arg local: Return local information, do not retrieve the state
-            from cluster-manager node. (default: false)
+            from cluster-manager node. Default is false.
         :arg master_timeout (Deprecated: To promote inclusive language,
-            use 'cluster_manager_timeout' instead): Operation timeout for connection
-            to master node.
+            use 'cluster_manager_timeout' instead.): Operation timeout for
+            connection to master node.
         """
         return self.transport.perform_request(
             "GET",
@@ -368,10 +369,10 @@ class ClusterClient(NamespacedClient):
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
         :arg create: Whether the index template should only be added if
-            new or can also replace an existing one. (default: false)
+            new or can also replace an existing one. Default is false.
         :arg master_timeout (Deprecated: To promote inclusive language,
-            use 'cluster_manager_timeout' instead): Operation timeout for connection
-            to master node.
+            use 'cluster_manager_timeout' instead.): Operation timeout for
+            connection to master node.
         :arg timeout: Operation timeout.
         """
         for param in (name, body):
@@ -386,18 +387,20 @@ class ClusterClient(NamespacedClient):
             body=body,
         )
 
-    @query_params("local", "master_timeout")
+    @query_params("cluster_manager_timeout", "local", "master_timeout")
     def exists_component_template(self, name, params=None, headers=None):
         """
         Returns information about whether a particular component template exist.
 
 
         :arg name: The name of the template.
+        :arg cluster_manager_timeout: Operation timeout for connection
+            to cluster-manager node.
         :arg local: Return local information, do not retrieve the state
-            from cluster-manager node. (default: false)
+            from cluster-manager node. Default is false.
         :arg master_timeout (Deprecated: To promote inclusive language,
-            use 'cluster_manager_timeout' instead): Operation timeout for connection
-            to master node.
+            use 'cluster_manager_timeout' instead.): Operation timeout for
+            connection to master node.
         """
         if name in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'name'.")
@@ -417,7 +420,7 @@ class ClusterClient(NamespacedClient):
 
         :arg wait_for_removal: Specifies whether to wait for all
             excluded nodes to be removed from the cluster before clearing the voting
-            configuration exclusions list. (default: True)
+            configuration exclusions list. Default is True.
         """
         return self.transport.perform_request(
             "DELETE",

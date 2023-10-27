@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # SPDX-License-Identifier: Apache-2.0
 #
 # The OpenSearch Contributors require contributions made to
@@ -6,7 +7,6 @@
 #
 # Modifications Copyright OpenSearch Contributors. See
 # GitHub history for details.
-
 
 import warnings
 
@@ -45,9 +45,7 @@ class PluginsClient(NamespacedClient):
                 setattr(client, plugin, getattr(self, plugin))
             else:
                 warnings.warn(
-                    "Cannot load `{plugin}` directly to OpenSearch. `{plugin}` already exists in OpenSearch. Please use `OpenSearch.plugin.{plugin}` instead.".format(
-                        plugin=plugin
-                    ),
+                    f"Cannot load `{plugin}` directly to {self.client.__class__.__name__} as it already exists. Use `{self.client.__class__.__name__}.plugin.{plugin}` instead.",
                     category=RuntimeWarning,
                     stacklevel=2,
                 )

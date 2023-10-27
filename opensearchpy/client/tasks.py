@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # SPDX-License-Identifier: Apache-2.0
 #
 # The OpenSearch Contributors require contributions made to
@@ -57,9 +58,10 @@ class TasksClient(NamespacedClient):
 
         :arg actions: Comma-separated list of actions that should be
             returned. Leave empty to return all.
-        :arg detailed: Return detailed task information.
+        :arg detailed: Return detailed task information. Default is
+            false.
         :arg group_by: Group tasks by nodes or parent/child
-            relationships.  Valid choices: nodes, parents, none
+            relationships. Valid choices are nodes, parents, none.
         :arg nodes: Comma-separated list of node IDs or names to limit
             the returned information; use `_local` to return information from the
             node you're connecting to, leave empty to get information from all
@@ -68,7 +70,7 @@ class TasksClient(NamespacedClient):
             (node_id:task_number). Set to -1 to return all.
         :arg timeout: Operation timeout.
         :arg wait_for_completion: Should this request wait until the
-            operation has completed before returning.
+            operation has completed before returning. Default is false.
         """
         return self.transport.perform_request(
             "GET", "/_tasks", params=params, headers=headers
@@ -91,7 +93,7 @@ class TasksClient(NamespacedClient):
         :arg parent_task_id: Cancel tasks with specified parent task id
             (node_id:task_number). Set to -1 to cancel all.
         :arg wait_for_completion: Should this request wait until the
-            operation has completed before returning.
+            operation has completed before returning. Default is false.
         """
         return self.transport.perform_request(
             "POST",
@@ -110,7 +112,7 @@ class TasksClient(NamespacedClient):
             (node_id:task_number).
         :arg timeout: Operation timeout.
         :arg wait_for_completion: Should this request wait until the
-            operation has completed before returning.
+            operation has completed before returning. Default is false.
         """
         if task_id in SKIP_IN_PATH:
             warnings.warn(

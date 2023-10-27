@@ -18,6 +18,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - Generate `cluster` client from API specs ([#530](https://github.com/opensearch-project/opensearch-py/pull/530))
 - Generate `nodes` client from API specs ([#514](https://github.com/opensearch-project/opensearch-py/pull/514))
 - Generate `cat` client from API specs ([#529](https://github.com/opensearch-project/opensearch-py/pull/529))
+- Use API generator for all APIs ([#551](https://github.com/opensearch-project/opensearch-py/pull/551))
 ### Deprecated
 - Deprecated point-in-time APIs (list_all_point_in_time, create_point_in_time, delete_point_in_time) and Security Client APIs (health_check and update_audit_config) ([#502](https://github.com/opensearch-project/opensearch-py/pull/502))
 ### Removed

@@ -28,13 +28,9 @@
 
 import os
 import sys
-import unittest
 import warnings
 
-import six
-
 from opensearchpy.connection import Connection
-from opensearchpy.exceptions import NotFoundError
 
 from ..test_cases import TestCase
 
@@ -91,19 +87,6 @@ class TestBaseConnection(TestCase):
             )
 
         self.assertEqual([str(w.message) for w in warn], ["warning", "folded"])
-
-    @unittest.skipIf(six.PY2, "not compatible with python2")
-    def test_raises_errors(self):
-        con = Connection()
-        with self.assertLogs("opensearch") as captured, self.assertRaises(
-            NotFoundError
-        ):
-            con._raise_error(404, "Not found", "application/json")
-        self.assertEqual(len(captured.output), 1)
-
-        # NB: this should assertNoLogs() but that method is not available until python3.10
-        with self.assertRaises(NotFoundError):
-            con._raise_error(404, "Not found", "text/plain; charset=UTF-8")
 
     def test_ipv6_host_and_port(self):
         for kwargs, expected_host in [

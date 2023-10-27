@@ -1,10 +1,14 @@
 #!/usr/bin/env python
 
+# -*- coding: utf-8 -*-
 # SPDX-License-Identifier: Apache-2.0
 #
 # The OpenSearch Contributors require contributions made to
 # this file be licensed under the Apache-2.0 license or a
 # compatible open source license.
+#
+# Modifications Copyright OpenSearch Contributors. See
+# GitHub history for details.
 
 import asyncio
 import uuid
@@ -24,7 +28,7 @@ async def index_records(client, item_count):
             client.index(
                 index=index_name,
                 body={
-                    "title": f"Moneyball",
+                    "title": "Moneyball",
                     "director": "Bennett Miller",
                     "year": "2011",
                 },

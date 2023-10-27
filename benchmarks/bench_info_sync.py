@@ -1,10 +1,15 @@
 #!/usr/bin/env python
 
+# -*- coding: utf-8 -*-
 # SPDX-License-Identifier: Apache-2.0
 #
 # The OpenSearch Contributors require contributions made to
 # this file be licensed under the Apache-2.0 license or a
 # compatible open source license.
+#
+# Modifications Copyright OpenSearch Contributors. See
+# GitHub history for details.
+
 
 import logging
 import sys
@@ -35,7 +40,7 @@ def get_info(client, request_count):
     tt = 0
     for n in range(request_count):
         start = time.time() * 1000
-        rc = client.info()
+        client.info()
         total_time = time.time() * 1000 - start
         tt += total_time
     return tt
