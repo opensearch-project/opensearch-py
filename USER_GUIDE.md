@@ -157,6 +157,7 @@ print(response)
 - [Advanced Index Actions](guides/advanced_index_actions.md)
 - [Making Raw JSON REST Requests](guides/json.md)
 - [Connection Classes](guides/connection_classes.md)
+- [Document Lifecycle](guides/document_lifecycle.md)
 
 ## Plugins
 
