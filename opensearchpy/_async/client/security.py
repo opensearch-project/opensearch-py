@@ -18,7 +18,7 @@
 # -----------------------------------------------------
 
 
-from typing import Any, Optional
+from typing import Any
 
 from .utils import SKIP_IN_PATH, NamespacedClient, _make_path, query_params
 
@@ -801,7 +801,7 @@ class SecurityClient(NamespacedClient):
     @query_params()
     async def get_distinguished_names(
         self,
-        cluster_name: Optional[Any] = None,
+        cluster_name: Any = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:

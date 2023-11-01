@@ -7,7 +7,8 @@
 {% endif %}
 
 {% for p, info in api.all_parts.items() %}
-  {% if not info.required and info.type == 'Any' %}{{ p }}: Optional[{{ info.type }}]=None, {% endif %}
+  {% if not info.required and not info.type == 'Any' %}{{ p }}: Optional[{{ info.type }}]=None, {% endif %}
+  {% if not info.required and info.type == 'Any' %}{{ p }}: {{ info.type }}=None, {% endif %}
 {% endfor %}
 
 params: Any=None,

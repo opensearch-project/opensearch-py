@@ -36,7 +36,7 @@
 # -----------------------------------------------------
 
 
-from typing import Any, Optional
+from typing import Any
 
 from .utils import SKIP_IN_PATH, NamespacedClient, _make_path, query_params
 
@@ -59,7 +59,7 @@ class ClusterClient(NamespacedClient):
     )
     def health(
         self,
-        index: Optional[Any] = None,
+        index: Any = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -141,8 +141,8 @@ class ClusterClient(NamespacedClient):
     )
     def state(
         self,
-        metric: Optional[Any] = None,
-        index: Optional[Any] = None,
+        metric: Any = None,
+        index: Any = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -190,7 +190,7 @@ class ClusterClient(NamespacedClient):
     @query_params("flat_settings", "timeout")
     def stats(
         self,
-        node_id: Optional[Any] = None,
+        node_id: Any = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -389,7 +389,7 @@ class ClusterClient(NamespacedClient):
     @query_params("cluster_manager_timeout", "local", "master_timeout")
     def get_component_template(
         self,
-        name: Optional[Any] = None,
+        name: Any = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:

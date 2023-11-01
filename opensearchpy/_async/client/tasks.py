@@ -37,7 +37,7 @@
 
 
 import warnings
-from typing import Any, Optional
+from typing import Any
 
 from .utils import SKIP_IN_PATH, NamespacedClient, _make_path, query_params
 
@@ -84,7 +84,7 @@ class TasksClient(NamespacedClient):
     @query_params("actions", "nodes", "parent_task_id", "wait_for_completion")
     async def cancel(
         self,
-        task_id: Optional[Any] = None,
+        task_id: Any = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -115,7 +115,7 @@ class TasksClient(NamespacedClient):
     @query_params("timeout", "wait_for_completion")
     async def get(
         self,
-        task_id: Optional[Any] = None,
+        task_id: Any = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:

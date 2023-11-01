@@ -36,7 +36,7 @@
 # -----------------------------------------------------
 
 
-from typing import Any, Optional
+from typing import Any
 
 from .utils import NamespacedClient, _make_path, query_params
 
@@ -45,7 +45,7 @@ class CatClient(NamespacedClient):
     @query_params("expand_wildcards", "format", "h", "help", "local", "s", "v")
     def aliases(
         self,
-        name: Optional[Any] = None,
+        name: Any = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -99,7 +99,7 @@ class CatClient(NamespacedClient):
     )
     def allocation(
         self,
-        node_id: Optional[Any] = None,
+        node_id: Any = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -175,7 +175,7 @@ class CatClient(NamespacedClient):
     @query_params("format", "h", "help", "s", "v")
     def count(
         self,
-        index: Optional[Any] = None,
+        index: Any = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -201,7 +201,7 @@ class CatClient(NamespacedClient):
     @query_params("bytes", "format", "h", "help", "s", "v")
     def fielddata(
         self,
-        fields: Optional[Any] = None,
+        fields: Any = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -290,7 +290,7 @@ class CatClient(NamespacedClient):
     )
     def indices(
         self,
-        index: Optional[Any] = None,
+        index: Any = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -564,7 +564,7 @@ class CatClient(NamespacedClient):
     )
     def recovery(
         self,
-        index: Optional[Any] = None,
+        index: Any = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -647,7 +647,7 @@ class CatClient(NamespacedClient):
     )
     def segment_replication(
         self,
-        index: Optional[Any] = None,
+        index: Any = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -696,7 +696,7 @@ class CatClient(NamespacedClient):
     )
     def segments(
         self,
-        index: Optional[Any] = None,
+        index: Any = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -739,7 +739,7 @@ class CatClient(NamespacedClient):
     )
     def shards(
         self,
-        index: Optional[Any] = None,
+        index: Any = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -785,7 +785,7 @@ class CatClient(NamespacedClient):
     )
     def thread_pool(
         self,
-        thread_pool_patterns: Optional[Any] = None,
+        thread_pool_patterns: Any = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -832,7 +832,7 @@ class CatClient(NamespacedClient):
     )
     def snapshots(
         self,
-        repository: Optional[Any] = None,
+        repository: Any = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -924,7 +924,7 @@ class CatClient(NamespacedClient):
     )
     def templates(
         self,
-        name: Optional[Any] = None,
+        name: Any = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:

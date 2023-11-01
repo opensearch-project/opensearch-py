@@ -36,7 +36,7 @@
 # -----------------------------------------------------
 
 
-from typing import Any, Optional
+from typing import Any
 
 from .utils import SKIP_IN_PATH, NamespacedClient, _make_path, query_params
 
@@ -180,7 +180,7 @@ class SnapshotClient(NamespacedClient):
     @query_params("cluster_manager_timeout", "local", "master_timeout")
     async def get_repository(
         self,
-        repository: Optional[Any] = None,
+        repository: Any = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -274,8 +274,8 @@ class SnapshotClient(NamespacedClient):
     @query_params("cluster_manager_timeout", "ignore_unavailable", "master_timeout")
     async def status(
         self,
-        repository: Optional[Any] = None,
-        snapshot: Optional[Any] = None,
+        repository: Any = None,
+        snapshot: Any = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:

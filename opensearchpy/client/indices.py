@@ -36,7 +36,7 @@
 # -----------------------------------------------------
 
 
-from typing import Any, Optional
+from typing import Any
 
 from .utils import SKIP_IN_PATH, NamespacedClient, _make_path, query_params
 
@@ -46,7 +46,7 @@ class IndicesClient(NamespacedClient):
     def analyze(
         self,
         body: Any = None,
-        index: Optional[Any] = None,
+        index: Any = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -70,7 +70,7 @@ class IndicesClient(NamespacedClient):
     @query_params("allow_no_indices", "expand_wildcards", "ignore_unavailable")
     def refresh(
         self,
-        index: Optional[Any] = None,
+        index: Any = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -102,7 +102,7 @@ class IndicesClient(NamespacedClient):
     )
     def flush(
         self,
-        index: Optional[Any] = None,
+        index: Any = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -441,7 +441,7 @@ class IndicesClient(NamespacedClient):
     def put_mapping(
         self,
         body: Any,
-        index: Optional[Any] = None,
+        index: Any = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -493,7 +493,7 @@ class IndicesClient(NamespacedClient):
     )
     def get_mapping(
         self,
-        index: Optional[Any] = None,
+        index: Any = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -533,7 +533,7 @@ class IndicesClient(NamespacedClient):
     def get_field_mapping(
         self,
         fields: Any,
-        index: Optional[Any] = None,
+        index: Any = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -607,7 +607,7 @@ class IndicesClient(NamespacedClient):
     def exists_alias(
         self,
         name: Any,
-        index: Optional[Any] = None,
+        index: Any = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -638,8 +638,8 @@ class IndicesClient(NamespacedClient):
     @query_params("allow_no_indices", "expand_wildcards", "ignore_unavailable", "local")
     def get_alias(
         self,
-        index: Optional[Any] = None,
-        name: Optional[Any] = None,
+        index: Any = None,
+        name: Any = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -790,7 +790,7 @@ class IndicesClient(NamespacedClient):
     @query_params("cluster_manager_timeout", "flat_settings", "local", "master_timeout")
     def get_template(
         self,
-        name: Optional[Any] = None,
+        name: Any = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -851,8 +851,8 @@ class IndicesClient(NamespacedClient):
     )
     def get_settings(
         self,
-        index: Optional[Any] = None,
-        name: Optional[Any] = None,
+        index: Any = None,
+        name: Any = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -900,7 +900,7 @@ class IndicesClient(NamespacedClient):
     def put_settings(
         self,
         body: Any,
-        index: Optional[Any] = None,
+        index: Any = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -955,8 +955,8 @@ class IndicesClient(NamespacedClient):
     )
     def stats(
         self,
-        index: Optional[Any] = None,
-        metric: Optional[Any] = None,
+        index: Any = None,
+        metric: Any = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -1002,7 +1002,7 @@ class IndicesClient(NamespacedClient):
     )
     def segments(
         self,
-        index: Optional[Any] = None,
+        index: Any = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -1044,7 +1044,7 @@ class IndicesClient(NamespacedClient):
     def validate_query(
         self,
         body: Any = None,
-        index: Optional[Any] = None,
+        index: Any = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -1098,7 +1098,7 @@ class IndicesClient(NamespacedClient):
     )
     def clear_cache(
         self,
-        index: Optional[Any] = None,
+        index: Any = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -1129,7 +1129,7 @@ class IndicesClient(NamespacedClient):
     @query_params("active_only", "detailed")
     def recovery(
         self,
-        index: Optional[Any] = None,
+        index: Any = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -1157,7 +1157,7 @@ class IndicesClient(NamespacedClient):
     )
     def upgrade(
         self,
-        index: Optional[Any] = None,
+        index: Any = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -1187,7 +1187,7 @@ class IndicesClient(NamespacedClient):
     @query_params("allow_no_indices", "expand_wildcards", "ignore_unavailable")
     def get_upgrade(
         self,
-        index: Optional[Any] = None,
+        index: Any = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -1215,7 +1215,7 @@ class IndicesClient(NamespacedClient):
     )
     def shard_stores(
         self,
-        index: Optional[Any] = None,
+        index: Any = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -1250,7 +1250,7 @@ class IndicesClient(NamespacedClient):
     )
     def forcemerge(
         self,
-        index: Optional[Any] = None,
+        index: Any = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -1383,7 +1383,7 @@ class IndicesClient(NamespacedClient):
         self,
         alias: Any,
         body: Any = None,
-        new_index: Optional[Any] = None,
+        new_index: Any = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -1528,7 +1528,7 @@ class IndicesClient(NamespacedClient):
     @query_params("cluster_manager_timeout", "flat_settings", "local", "master_timeout")
     def get_index_template(
         self,
-        name: Optional[Any] = None,
+        name: Any = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -1629,7 +1629,7 @@ class IndicesClient(NamespacedClient):
     @query_params()
     def get_data_stream(
         self,
-        name: Optional[Any] = None,
+        name: Any = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -1648,7 +1648,7 @@ class IndicesClient(NamespacedClient):
     def simulate_template(
         self,
         body: Any = None,
-        name: Optional[Any] = None,
+        name: Any = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -1750,7 +1750,7 @@ class IndicesClient(NamespacedClient):
     @query_params()
     def data_streams_stats(
         self,
-        name: Optional[Any] = None,
+        name: Any = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:

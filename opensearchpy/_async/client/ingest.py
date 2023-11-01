@@ -36,7 +36,7 @@
 # -----------------------------------------------------
 
 
-from typing import Any, Optional
+from typing import Any
 
 from .utils import SKIP_IN_PATH, NamespacedClient, _make_path, query_params
 
@@ -45,7 +45,7 @@ class IngestClient(NamespacedClient):
     @query_params("cluster_manager_timeout", "master_timeout")
     async def get_pipeline(
         self,
-        id: Optional[Any] = None,
+        id: Any = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -131,7 +131,7 @@ class IngestClient(NamespacedClient):
     async def simulate(
         self,
         body: Any,
-        id: Optional[Any] = None,
+        id: Any = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
