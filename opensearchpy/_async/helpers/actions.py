@@ -265,7 +265,7 @@ async def async_bulk(
     **kwargs: Any
 ) -> Tuple[int, Union[int, List[Any]]]:
     """
-    Helper for the :meth:`~opensearchpy.Any.bulk` api that provides
+    Helper for the :meth:`~opensearchpy.AsyncOpenSearch.bulk` api that provides
     a more human friendly interface - it consumes an iterator of actions and
     sends them to opensearch in chunks. It returns a tuple with summary
     information - number of successfully executed actions and either list of
@@ -327,7 +327,7 @@ async def async_scan(
 ) -> Any:
     """
     Simple abstraction on top of the
-    :meth:`~opensearchpy.Any.scroll` api - a simple iterator that
+    :meth:`~opensearchpy.AsyncOpenSearch.scroll` api - a simple iterator that
     yields all hits as returned by underlining scroll requests.
 
     By default scan does not return results in any pre-determined order. To
@@ -352,10 +352,10 @@ async def async_scan(
         scroll API at the end of the method on completion or error, defaults
         to true.
     :arg scroll_kwargs: additional kwargs to be passed to
-        :meth:`~opensearchpy.Any.scroll`
+        :meth:`~opensearchpy.AsyncOpenSearch.scroll`
 
     Any additional keyword arguments will be passed to the initial
-    :meth:`~opensearchpy.Any.search` call::
+    :meth:`~opensearchpy.AsyncOpenSearch.search` call::
 
         async_scan(client,
             query={"query": {"match": {"title": "python"}}},
@@ -449,7 +449,7 @@ async def async_reindex(
     to another, potentially (if `target_client` is specified) on a different cluster.
     If you don't specify the query you will reindex all the documents.
 
-    Since ``2.3`` a :meth:`~opensearchpy.Any.reindex` api is
+    Since ``2.3`` a :meth:`~opensearchpy.AsyncOpenSearch.reindex` api is
     available as part of opensearch itself. It is recommended to use the api
     instead of this helper wherever possible. The helper is here mostly for
     backwards compatibility and for situations where more flexibility is
@@ -463,7 +463,7 @@ async def async_reindex(
         read if `target_client` is specified as well)
     :arg source_index: index (or list of indices) to read documents from
     :arg target_index: name of the index in the target cluster to populate
-    :arg query: body for the :meth:`~opensearchpy.Any.search` api
+    :arg query: body for the :meth:`~opensearchpy.AsyncOpenSearch.search` api
     :arg target_client: optional, is specified will be used for writing (thus
         enabling reindex between clusters)
     :arg chunk_size: number of docs in one chunk sent to client (default: 500)
