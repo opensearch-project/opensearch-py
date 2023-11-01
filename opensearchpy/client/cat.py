@@ -26,12 +26,7 @@
 #  under the License.
 
 
-# -----------------------------------------------------
-
-from typing import Any, Optional
-
-from .utils import NamespacedClient, _make_path, query_params
-
+# ----------------------------------------------------
 # THIS CODE IS GENERATED AND MANUAL EDITS WILL BE LOST.
 #
 # To contribute, kindly make essential modifications through either the "opensearch-py client generator":
@@ -39,6 +34,11 @@ from .utils import NamespacedClient, _make_path, query_params
 # or the "OpenSearch API specification" available at:
 # https://github.com/opensearch-project/opensearch-api-specification/blob/main/OpenSearch.openapi.json
 # -----------------------------------------------------
+
+
+from typing import Any, Optional
+
+from .utils import NamespacedClient, _make_path, query_params
 
 
 class CatClient(NamespacedClient):

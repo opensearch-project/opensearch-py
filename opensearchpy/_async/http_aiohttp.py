@@ -30,10 +30,6 @@ import asyncio
 import os
 import ssl
 import warnings
-
-# sentinel value for `verify_certs`.
-# This is used to detect if a user is passing in a value
-# for SSL kwargs if also using an SSLContext.
 from typing import Any, Collection, Mapping, Optional, Union
 
 import urllib3
