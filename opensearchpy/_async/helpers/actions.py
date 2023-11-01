@@ -175,7 +175,7 @@ async def async_streaming_bulk(
     every subsequent rejection for the same chunk, for double the time every
     time up to ``max_backoff`` seconds.
 
-    :arg client: instance of :class:`~opensearchpy.Any` to use
+    :arg client: instance of :class:`~opensearchpy.AsyncOpenSearch` to use
     :arg actions: iterable or async iterable containing the actions to be executed
     :arg chunk_size: number of docs in one chunk sent to client (default: 500)
     :arg max_chunk_bytes: the maximum size of the request in bytes (default: 100MB)
@@ -281,7 +281,7 @@ async def async_bulk(
     just return the errors and not store them in memory.
 
 
-    :arg client: instance of :class:`~opensearchpy.Any` to use
+    :arg client: instance of :class:`~opensearchpy.AsyncOpenSearch` to use
     :arg actions: iterator containing the actions
     :arg stats_only: if `True` only report number of successful/failed
         operations instead of just number of successful and a list of error responses
@@ -336,8 +336,8 @@ async def async_scan(
     may be an expensive operation and will negate the performance benefits of
     using ``scan``.
 
-    :arg client: instance of :class:`~opensearchpy.Any` to use
-    :arg query: body for the :meth:`~opensearchpy.Any.search` api
+    :arg client: instance of :class:`~opensearchpy.AsyncOpenSearch` to use
+    :arg query: body for the :meth:`~opensearchpy.AsyncOpenSearch.search` api
     :arg scroll: Specify how long a consistent view of the index should be
         maintained for scrolled search
     :arg raise_on_error: raises an exception (``ScanError``) if an error is
@@ -459,7 +459,7 @@ async def async_reindex(
 
         This helper doesn't transfer mappings, just the data.
 
-    :arg client: instance of :class:`~opensearchpy.Any` to use (for
+    :arg client: instance of :class:`~opensearchpy.AsyncOpenSearch` to use (for
         read if `target_client` is specified as well)
     :arg source_index: index (or list of indices) to read documents from
     :arg target_index: name of the index in the target cluster to populate
