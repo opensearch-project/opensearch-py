@@ -30,7 +30,7 @@ import asyncio
 import logging
 import sys
 from itertools import chain
-from typing import Any, Collection, Mapping, Optional, Tuple, Type, Union
+from typing import Any, Collection, Mapping, Optional, Type, Union
 
 from opensearchpy.connection.base import Connection
 from opensearchpy.serializer import Serializer
@@ -76,7 +76,7 @@ class AsyncTransport(Transport):
         serializers: Any = None,
         default_mimetype: str = "application/json",
         max_retries: int = 3,
-        retry_on_status: Tuple[int, ...] = (502, 503, 504),
+        retry_on_status: Any = (502, 503, 504),
         retry_on_timeout: bool = False,
         send_get_body_as: str = "GET",
         **kwargs: Any
@@ -440,7 +440,7 @@ class AsyncTransport(Transport):
                     )
                 return data
 
-    async def close(self) -> None:  # type: ignore
+    async def close(self) -> None:
         """
         Explicitly closes connections
         """

@@ -507,7 +507,7 @@ def scan(
     raise_on_error: bool = True,
     preserve_order: bool = False,
     size: int = 1000,
-    request_timeout: Optional[int] = None,
+    request_timeout: Optional[float] = None,
     clear_scroll: bool = True,
     scroll_kwargs: Any = None,
     **kwargs: Any

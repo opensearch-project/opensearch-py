@@ -59,7 +59,7 @@ def format(session) -> None:
     lint(session)
 
 
-@nox.session()
+@nox.session(python=["3.7"])
 def lint(session) -> None:
     session.install(
         "flake8",
