@@ -55,10 +55,6 @@ from ...helpers.actions import (
 )
 from ...helpers.errors import ScanError
 
-# from opensearchpy._async.client import Any
-# from opensearchpy.serializer import Serializer
-
-
 logger: logging.Logger = logging.getLogger("opensearchpy.helpers")
 
 
