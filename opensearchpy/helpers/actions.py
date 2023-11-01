@@ -422,7 +422,7 @@ def bulk(
 
     # make streaming_bulk yield successful results so we can count them
     kwargs["yield_ok"] = True
-    for ok, item in streaming_bulk(client, actions, ignore_status, *args, **kwargs):
+    for ok, item in streaming_bulk(client, actions, ignore_status=ignore_status, *args, **kwargs):  # type: ignore
         # go through request-response pairs and detect failures
         if not ok:
             if not stats_only:
