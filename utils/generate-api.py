@@ -100,7 +100,7 @@ class Module:
 
     def parse_orig(self):
         self.orders = []
-        self.header = "from typing import Any, Collection, MutableMapping, Optional, Tuple, Union\n\n"
+        self.header = "from typing import Any, Collection, Optional, Tuple, Union\n\n"
 
         namespace_new = "".join(word.capitalize() for word in self.namespace.split("_"))
         self.header += "class " + namespace_new + "Client(NamespacedClient):"
@@ -119,8 +119,9 @@ class Module:
                         header_lines.append(line)
                         if line.startswith("class"):
                             if "security.py" in str(self.filepath):
+                                # TODO: FIXME, import code
                                 header_lines.append(
-                                    "    from ._patch import health_check, update_audit_config"
+                                    "    from ._patch import health_check, update_audit_config  # type: ignore"
                                 )
                             break
                 self.header = "\n".join(header_lines)

@@ -36,7 +36,7 @@
 # -----------------------------------------------------
 
 
-from typing import Any, MutableMapping, Optional
+from typing import Any, Optional
 
 from .utils import SKIP_IN_PATH, NamespacedClient, _make_path, query_params
 
@@ -48,8 +48,8 @@ class SnapshotClient(NamespacedClient):
         repository: Any,
         snapshot: Any,
         body: Any = None,
-        params: Optional[MutableMapping[str, Any]] = None,
-        headers: Optional[MutableMapping[str, str]] = None,
+        params: Any = None,
+        headers: Any = None,
     ) -> Any:
         """
         Creates a snapshot in a repository.
@@ -83,8 +83,8 @@ class SnapshotClient(NamespacedClient):
         self,
         repository: Any,
         snapshot: Any,
-        params: Optional[MutableMapping[str, Any]] = None,
-        headers: Optional[MutableMapping[str, str]] = None,
+        params: Any = None,
+        headers: Any = None,
     ) -> Any:
         """
         Deletes a snapshot.
@@ -116,8 +116,8 @@ class SnapshotClient(NamespacedClient):
         self,
         repository: Any,
         snapshot: Any,
-        params: Optional[MutableMapping[str, Any]] = None,
-        headers: Optional[MutableMapping[str, str]] = None,
+        params: Any = None,
+        headers: Any = None,
     ) -> Any:
         """
         Returns information about a snapshot.
@@ -151,8 +151,8 @@ class SnapshotClient(NamespacedClient):
     def delete_repository(
         self,
         repository: Any,
-        params: Optional[MutableMapping[str, Any]] = None,
-        headers: Optional[MutableMapping[str, str]] = None,
+        params: Any = None,
+        headers: Any = None,
     ) -> Any:
         """
         Deletes a repository.
@@ -180,9 +180,9 @@ class SnapshotClient(NamespacedClient):
     @query_params("cluster_manager_timeout", "local", "master_timeout")
     def get_repository(
         self,
-        repository: Any = None,
-        params: Optional[MutableMapping[str, Any]] = None,
-        headers: Optional[MutableMapping[str, str]] = None,
+        repository: Optional[Any] = None,
+        params: Any = None,
+        headers: Any = None,
     ) -> Any:
         """
         Returns information about a repository.
@@ -206,8 +206,8 @@ class SnapshotClient(NamespacedClient):
         self,
         repository: Any,
         body: Any,
-        params: Optional[MutableMapping[str, Any]] = None,
-        headers: Optional[MutableMapping[str, str]] = None,
+        params: Any = None,
+        headers: Any = None,
     ) -> Any:
         """
         Creates a repository.
@@ -241,8 +241,8 @@ class SnapshotClient(NamespacedClient):
         repository: Any,
         snapshot: Any,
         body: Any = None,
-        params: Optional[MutableMapping[str, Any]] = None,
-        headers: Optional[MutableMapping[str, str]] = None,
+        params: Any = None,
+        headers: Any = None,
     ) -> Any:
         """
         Restores a snapshot.
@@ -274,10 +274,10 @@ class SnapshotClient(NamespacedClient):
     @query_params("cluster_manager_timeout", "ignore_unavailable", "master_timeout")
     def status(
         self,
-        repository: Any = None,
-        snapshot: Any = None,
-        params: Optional[MutableMapping[str, Any]] = None,
-        headers: Optional[MutableMapping[str, str]] = None,
+        repository: Optional[Any] = None,
+        snapshot: Optional[Any] = None,
+        params: Any = None,
+        headers: Any = None,
     ) -> Any:
         """
         Returns information about the status of a snapshot.
@@ -305,8 +305,8 @@ class SnapshotClient(NamespacedClient):
     def verify_repository(
         self,
         repository: Any,
-        params: Optional[MutableMapping[str, Any]] = None,
-        headers: Optional[MutableMapping[str, str]] = None,
+        params: Any = None,
+        headers: Any = None,
     ) -> Any:
         """
         Verifies a repository.
@@ -334,8 +334,8 @@ class SnapshotClient(NamespacedClient):
     def cleanup_repository(
         self,
         repository: Any,
-        params: Optional[MutableMapping[str, Any]] = None,
-        headers: Optional[MutableMapping[str, str]] = None,
+        params: Any = None,
+        headers: Any = None,
     ) -> Any:
         """
         Removes stale data from repository.
@@ -366,8 +366,8 @@ class SnapshotClient(NamespacedClient):
         snapshot: Any,
         target_snapshot: Any,
         body: Any,
-        params: Optional[MutableMapping[str, Any]] = None,
-        headers: Optional[MutableMapping[str, str]] = None,
+        params: Any = None,
+        headers: Any = None,
     ) -> Any:
         """
         Clones indices from one snapshot into another snapshot in the same repository.

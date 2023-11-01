@@ -36,7 +36,7 @@
 # -----------------------------------------------------
 
 
-from typing import Any, MutableMapping, Optional
+from typing import Any
 
 from .utils import SKIP_IN_PATH, NamespacedClient, query_params
 
@@ -46,8 +46,8 @@ class RemoteStoreClient(NamespacedClient):
     async def restore(
         self,
         body: Any,
-        params: Optional[MutableMapping[str, Any]] = None,
-        headers: Optional[MutableMapping[str, str]] = None,
+        params: Any = None,
+        headers: Any = None,
     ) -> Any:
         """
         Restores from remote store.

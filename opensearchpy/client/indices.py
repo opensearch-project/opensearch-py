@@ -36,7 +36,7 @@
 # -----------------------------------------------------
 
 
-from typing import Any, MutableMapping, Optional
+from typing import Any, Optional
 
 from .utils import SKIP_IN_PATH, NamespacedClient, _make_path, query_params
 
@@ -46,9 +46,9 @@ class IndicesClient(NamespacedClient):
     def analyze(
         self,
         body: Any = None,
-        index: Any = None,
-        params: Optional[MutableMapping[str, Any]] = None,
-        headers: Optional[MutableMapping[str, str]] = None,
+        index: Optional[Any] = None,
+        params: Any = None,
+        headers: Any = None,
     ) -> Any:
         """
         Performs the analysis process on a text and return the tokens breakdown of the
@@ -70,9 +70,9 @@ class IndicesClient(NamespacedClient):
     @query_params("allow_no_indices", "expand_wildcards", "ignore_unavailable")
     def refresh(
         self,
-        index: Any = None,
-        params: Optional[MutableMapping[str, Any]] = None,
-        headers: Optional[MutableMapping[str, str]] = None,
+        index: Optional[Any] = None,
+        params: Any = None,
+        headers: Any = None,
     ) -> Any:
         """
         Performs the refresh operation in one or more indices.
@@ -102,9 +102,9 @@ class IndicesClient(NamespacedClient):
     )
     def flush(
         self,
-        index: Any = None,
-        params: Optional[MutableMapping[str, Any]] = None,
-        headers: Optional[MutableMapping[str, str]] = None,
+        index: Optional[Any] = None,
+        params: Any = None,
+        headers: Any = None,
     ) -> Any:
         """
         Performs the flush operation on one or more indices.
@@ -141,8 +141,8 @@ class IndicesClient(NamespacedClient):
         self,
         index: Any,
         body: Any = None,
-        params: Optional[MutableMapping[str, Any]] = None,
-        headers: Optional[MutableMapping[str, str]] = None,
+        params: Any = None,
+        headers: Any = None,
     ) -> Any:
         """
         Creates an index with optional settings and mappings.
@@ -175,8 +175,8 @@ class IndicesClient(NamespacedClient):
         index: Any,
         target: Any,
         body: Any = None,
-        params: Optional[MutableMapping[str, Any]] = None,
-        headers: Optional[MutableMapping[str, str]] = None,
+        params: Any = None,
+        headers: Any = None,
     ) -> Any:
         """
         Clones an index.
@@ -220,8 +220,8 @@ class IndicesClient(NamespacedClient):
     def get(
         self,
         index: Any,
-        params: Optional[MutableMapping[str, Any]] = None,
-        headers: Optional[MutableMapping[str, str]] = None,
+        params: Any = None,
+        headers: Any = None,
     ) -> Any:
         """
         Returns information about one or more indices.
@@ -268,8 +268,8 @@ class IndicesClient(NamespacedClient):
     def open(
         self,
         index: Any,
-        params: Optional[MutableMapping[str, Any]] = None,
-        headers: Optional[MutableMapping[str, str]] = None,
+        params: Any = None,
+        headers: Any = None,
     ) -> Any:
         """
         Opens an index.
@@ -312,8 +312,8 @@ class IndicesClient(NamespacedClient):
     def close(
         self,
         index: Any,
-        params: Optional[MutableMapping[str, Any]] = None,
-        headers: Optional[MutableMapping[str, str]] = None,
+        params: Any = None,
+        headers: Any = None,
     ) -> Any:
         """
         Closes an index.
@@ -355,8 +355,8 @@ class IndicesClient(NamespacedClient):
     def delete(
         self,
         index: Any,
-        params: Optional[MutableMapping[str, Any]] = None,
-        headers: Optional[MutableMapping[str, str]] = None,
+        params: Any = None,
+        headers: Any = None,
     ) -> Any:
         """
         Deletes an index.
@@ -398,8 +398,8 @@ class IndicesClient(NamespacedClient):
     def exists(
         self,
         index: Any,
-        params: Optional[MutableMapping[str, Any]] = None,
-        headers: Optional[MutableMapping[str, str]] = None,
+        params: Any = None,
+        headers: Any = None,
     ) -> Any:
         """
         Returns information about whether a particular index exists.
@@ -441,9 +441,9 @@ class IndicesClient(NamespacedClient):
     def put_mapping(
         self,
         body: Any,
-        index: Any = None,
-        params: Optional[MutableMapping[str, Any]] = None,
-        headers: Optional[MutableMapping[str, str]] = None,
+        index: Optional[Any] = None,
+        params: Any = None,
+        headers: Any = None,
     ) -> Any:
         """
         Updates the index mappings.
@@ -493,9 +493,9 @@ class IndicesClient(NamespacedClient):
     )
     def get_mapping(
         self,
-        index: Any = None,
-        params: Optional[MutableMapping[str, Any]] = None,
-        headers: Optional[MutableMapping[str, str]] = None,
+        index: Optional[Any] = None,
+        params: Any = None,
+        headers: Any = None,
     ) -> Any:
         """
         Returns mappings for one or more indices.
@@ -533,9 +533,9 @@ class IndicesClient(NamespacedClient):
     def get_field_mapping(
         self,
         fields: Any,
-        index: Any = None,
-        params: Optional[MutableMapping[str, Any]] = None,
-        headers: Optional[MutableMapping[str, str]] = None,
+        index: Optional[Any] = None,
+        params: Any = None,
+        headers: Any = None,
     ) -> Any:
         """
         Returns mapping for one or more fields.
@@ -572,8 +572,8 @@ class IndicesClient(NamespacedClient):
         index: Any,
         name: Any,
         body: Any = None,
-        params: Optional[MutableMapping[str, Any]] = None,
-        headers: Optional[MutableMapping[str, str]] = None,
+        params: Any = None,
+        headers: Any = None,
     ) -> Any:
         """
         Creates or updates an alias.
@@ -607,9 +607,9 @@ class IndicesClient(NamespacedClient):
     def exists_alias(
         self,
         name: Any,
-        index: Any = None,
-        params: Optional[MutableMapping[str, Any]] = None,
-        headers: Optional[MutableMapping[str, str]] = None,
+        index: Optional[Any] = None,
+        params: Any = None,
+        headers: Any = None,
     ) -> Any:
         """
         Returns information about whether a particular alias exists.
@@ -638,10 +638,10 @@ class IndicesClient(NamespacedClient):
     @query_params("allow_no_indices", "expand_wildcards", "ignore_unavailable", "local")
     def get_alias(
         self,
-        index: Any = None,
-        name: Any = None,
-        params: Optional[MutableMapping[str, Any]] = None,
-        headers: Optional[MutableMapping[str, str]] = None,
+        index: Optional[Any] = None,
+        name: Optional[Any] = None,
+        params: Any = None,
+        headers: Any = None,
     ) -> Any:
         """
         Returns an alias.
@@ -668,8 +668,8 @@ class IndicesClient(NamespacedClient):
     def update_aliases(
         self,
         body: Any,
-        params: Optional[MutableMapping[str, Any]] = None,
-        headers: Optional[MutableMapping[str, str]] = None,
+        params: Any = None,
+        headers: Any = None,
     ) -> Any:
         """
         Updates index aliases.
@@ -695,8 +695,8 @@ class IndicesClient(NamespacedClient):
         self,
         index: Any,
         name: Any,
-        params: Optional[MutableMapping[str, Any]] = None,
-        headers: Optional[MutableMapping[str, str]] = None,
+        params: Any = None,
+        headers: Any = None,
     ) -> Any:
         """
         Deletes an alias.
@@ -726,8 +726,8 @@ class IndicesClient(NamespacedClient):
         self,
         name: Any,
         body: Any,
-        params: Optional[MutableMapping[str, Any]] = None,
-        headers: Optional[MutableMapping[str, str]] = None,
+        params: Any = None,
+        headers: Any = None,
     ) -> Any:
         """
         Creates or updates an index template.
@@ -762,8 +762,8 @@ class IndicesClient(NamespacedClient):
     def exists_template(
         self,
         name: Any,
-        params: Optional[MutableMapping[str, Any]] = None,
-        headers: Optional[MutableMapping[str, str]] = None,
+        params: Any = None,
+        headers: Any = None,
     ) -> Any:
         """
         Returns information about whether a particular index template exists.
@@ -790,9 +790,9 @@ class IndicesClient(NamespacedClient):
     @query_params("cluster_manager_timeout", "flat_settings", "local", "master_timeout")
     def get_template(
         self,
-        name: Any = None,
-        params: Optional[MutableMapping[str, Any]] = None,
-        headers: Optional[MutableMapping[str, str]] = None,
+        name: Optional[Any] = None,
+        params: Any = None,
+        headers: Any = None,
     ) -> Any:
         """
         Returns an index template.
@@ -817,8 +817,8 @@ class IndicesClient(NamespacedClient):
     def delete_template(
         self,
         name: Any,
-        params: Optional[MutableMapping[str, Any]] = None,
-        headers: Optional[MutableMapping[str, str]] = None,
+        params: Any = None,
+        headers: Any = None,
     ) -> Any:
         """
         Deletes an index template.
@@ -851,10 +851,10 @@ class IndicesClient(NamespacedClient):
     )
     def get_settings(
         self,
-        index: Any = None,
-        name: Any = None,
-        params: Optional[MutableMapping[str, Any]] = None,
-        headers: Optional[MutableMapping[str, str]] = None,
+        index: Optional[Any] = None,
+        name: Optional[Any] = None,
+        params: Any = None,
+        headers: Any = None,
     ) -> Any:
         """
         Returns settings for one or more indices.
@@ -900,9 +900,9 @@ class IndicesClient(NamespacedClient):
     def put_settings(
         self,
         body: Any,
-        index: Any = None,
-        params: Optional[MutableMapping[str, Any]] = None,
-        headers: Optional[MutableMapping[str, str]] = None,
+        index: Optional[Any] = None,
+        params: Any = None,
+        headers: Any = None,
     ) -> Any:
         """
         Updates the index settings.
@@ -955,10 +955,10 @@ class IndicesClient(NamespacedClient):
     )
     def stats(
         self,
-        index: Any = None,
-        metric: Any = None,
-        params: Optional[MutableMapping[str, Any]] = None,
-        headers: Optional[MutableMapping[str, str]] = None,
+        index: Optional[Any] = None,
+        metric: Optional[Any] = None,
+        params: Any = None,
+        headers: Any = None,
     ) -> Any:
         """
         Provides statistics on operations happening in an index.
@@ -1002,9 +1002,9 @@ class IndicesClient(NamespacedClient):
     )
     def segments(
         self,
-        index: Any = None,
-        params: Optional[MutableMapping[str, Any]] = None,
-        headers: Optional[MutableMapping[str, str]] = None,
+        index: Optional[Any] = None,
+        params: Any = None,
+        headers: Any = None,
     ) -> Any:
         """
         Provides low-level information about segments in a Lucene index.
@@ -1044,9 +1044,9 @@ class IndicesClient(NamespacedClient):
     def validate_query(
         self,
         body: Any = None,
-        index: Any = None,
-        params: Optional[MutableMapping[str, Any]] = None,
-        headers: Optional[MutableMapping[str, str]] = None,
+        index: Optional[Any] = None,
+        params: Any = None,
+        headers: Any = None,
     ) -> Any:
         """
         Allows a user to validate a potentially expensive query without executing it.
@@ -1098,9 +1098,9 @@ class IndicesClient(NamespacedClient):
     )
     def clear_cache(
         self,
-        index: Any = None,
-        params: Optional[MutableMapping[str, Any]] = None,
-        headers: Optional[MutableMapping[str, str]] = None,
+        index: Optional[Any] = None,
+        params: Any = None,
+        headers: Any = None,
     ) -> Any:
         """
         Clears all or specific caches for one or more indices.
@@ -1129,9 +1129,9 @@ class IndicesClient(NamespacedClient):
     @query_params("active_only", "detailed")
     def recovery(
         self,
-        index: Any = None,
-        params: Optional[MutableMapping[str, Any]] = None,
-        headers: Optional[MutableMapping[str, str]] = None,
+        index: Optional[Any] = None,
+        params: Any = None,
+        headers: Any = None,
     ) -> Any:
         """
         Returns information about ongoing index shard recoveries.
@@ -1157,9 +1157,9 @@ class IndicesClient(NamespacedClient):
     )
     def upgrade(
         self,
-        index: Any = None,
-        params: Optional[MutableMapping[str, Any]] = None,
-        headers: Optional[MutableMapping[str, str]] = None,
+        index: Optional[Any] = None,
+        params: Any = None,
+        headers: Any = None,
     ) -> Any:
         """
         The _upgrade API is no longer useful and will be removed.
@@ -1187,9 +1187,9 @@ class IndicesClient(NamespacedClient):
     @query_params("allow_no_indices", "expand_wildcards", "ignore_unavailable")
     def get_upgrade(
         self,
-        index: Any = None,
-        params: Optional[MutableMapping[str, Any]] = None,
-        headers: Optional[MutableMapping[str, str]] = None,
+        index: Optional[Any] = None,
+        params: Any = None,
+        headers: Any = None,
     ) -> Any:
         """
         The _upgrade API is no longer useful and will be removed.
@@ -1215,9 +1215,9 @@ class IndicesClient(NamespacedClient):
     )
     def shard_stores(
         self,
-        index: Any = None,
-        params: Optional[MutableMapping[str, Any]] = None,
-        headers: Optional[MutableMapping[str, str]] = None,
+        index: Optional[Any] = None,
+        params: Any = None,
+        headers: Any = None,
     ) -> Any:
         """
         Provides store information for shard copies of indices.
@@ -1250,9 +1250,9 @@ class IndicesClient(NamespacedClient):
     )
     def forcemerge(
         self,
-        index: Any = None,
-        params: Optional[MutableMapping[str, Any]] = None,
-        headers: Optional[MutableMapping[str, str]] = None,
+        index: Optional[Any] = None,
+        params: Any = None,
+        headers: Any = None,
     ) -> Any:
         """
         Performs the force merge operation on one or more indices.
@@ -1291,8 +1291,8 @@ class IndicesClient(NamespacedClient):
         index: Any,
         target: Any,
         body: Any = None,
-        params: Optional[MutableMapping[str, Any]] = None,
-        headers: Optional[MutableMapping[str, str]] = None,
+        params: Any = None,
+        headers: Any = None,
     ) -> Any:
         """
         Allow to shrink an existing index into a new index with fewer primary shards.
@@ -1337,8 +1337,8 @@ class IndicesClient(NamespacedClient):
         index: Any,
         target: Any,
         body: Any = None,
-        params: Optional[MutableMapping[str, Any]] = None,
-        headers: Optional[MutableMapping[str, str]] = None,
+        params: Any = None,
+        headers: Any = None,
     ) -> Any:
         """
         Allows you to split an existing index into a new index with more primary
@@ -1383,9 +1383,9 @@ class IndicesClient(NamespacedClient):
         self,
         alias: Any,
         body: Any = None,
-        new_index: Any = None,
-        params: Optional[MutableMapping[str, Any]] = None,
-        headers: Optional[MutableMapping[str, str]] = None,
+        new_index: Optional[Any] = None,
+        params: Any = None,
+        headers: Any = None,
     ) -> Any:
         """
         Updates an alias to point to a new index when the existing index is considered
@@ -1425,8 +1425,8 @@ class IndicesClient(NamespacedClient):
         self,
         name: Any,
         body: Any = None,
-        params: Optional[MutableMapping[str, Any]] = None,
-        headers: Optional[MutableMapping[str, str]] = None,
+        params: Any = None,
+        headers: Any = None,
     ) -> Any:
         """
         Creates or updates a data stream.
@@ -1450,8 +1450,8 @@ class IndicesClient(NamespacedClient):
     def delete_data_stream(
         self,
         name: Any,
-        params: Optional[MutableMapping[str, Any]] = None,
-        headers: Optional[MutableMapping[str, str]] = None,
+        params: Any = None,
+        headers: Any = None,
     ) -> Any:
         """
         Deletes a data stream.
@@ -1471,8 +1471,8 @@ class IndicesClient(NamespacedClient):
     def delete_index_template(
         self,
         name: Any,
-        params: Optional[MutableMapping[str, Any]] = None,
-        headers: Optional[MutableMapping[str, str]] = None,
+        params: Any = None,
+        headers: Any = None,
     ) -> Any:
         """
         Deletes an index template.
@@ -1500,8 +1500,8 @@ class IndicesClient(NamespacedClient):
     def exists_index_template(
         self,
         name: Any,
-        params: Optional[MutableMapping[str, Any]] = None,
-        headers: Optional[MutableMapping[str, str]] = None,
+        params: Any = None,
+        headers: Any = None,
     ) -> Any:
         """
         Returns information about whether a particular index template exists.
@@ -1528,9 +1528,9 @@ class IndicesClient(NamespacedClient):
     @query_params("cluster_manager_timeout", "flat_settings", "local", "master_timeout")
     def get_index_template(
         self,
-        name: Any = None,
-        params: Optional[MutableMapping[str, Any]] = None,
-        headers: Optional[MutableMapping[str, str]] = None,
+        name: Optional[Any] = None,
+        params: Any = None,
+        headers: Any = None,
     ) -> Any:
         """
         Returns an index template.
@@ -1556,8 +1556,8 @@ class IndicesClient(NamespacedClient):
         self,
         name: Any,
         body: Any,
-        params: Optional[MutableMapping[str, Any]] = None,
-        headers: Optional[MutableMapping[str, str]] = None,
+        params: Any = None,
+        headers: Any = None,
     ) -> Any:
         """
         Creates or updates an index template.
@@ -1592,8 +1592,8 @@ class IndicesClient(NamespacedClient):
         self,
         name: Any,
         body: Any = None,
-        params: Optional[MutableMapping[str, Any]] = None,
-        headers: Optional[MutableMapping[str, str]] = None,
+        params: Any = None,
+        headers: Any = None,
     ) -> Any:
         """
         Simulate matching the given index name against the index templates in the
@@ -1629,9 +1629,9 @@ class IndicesClient(NamespacedClient):
     @query_params()
     def get_data_stream(
         self,
-        name: Any = None,
-        params: Optional[MutableMapping[str, Any]] = None,
-        headers: Optional[MutableMapping[str, str]] = None,
+        name: Optional[Any] = None,
+        params: Any = None,
+        headers: Any = None,
     ) -> Any:
         """
         Returns data streams.
@@ -1648,9 +1648,9 @@ class IndicesClient(NamespacedClient):
     def simulate_template(
         self,
         body: Any = None,
-        name: Any = None,
-        params: Optional[MutableMapping[str, Any]] = None,
-        headers: Optional[MutableMapping[str, str]] = None,
+        name: Optional[Any] = None,
+        params: Any = None,
+        headers: Any = None,
     ) -> Any:
         """
         Simulate resolving the given template name or body.
@@ -1682,8 +1682,8 @@ class IndicesClient(NamespacedClient):
     def resolve_index(
         self,
         name: Any,
-        params: Optional[MutableMapping[str, Any]] = None,
-        headers: Optional[MutableMapping[str, str]] = None,
+        params: Any = None,
+        headers: Any = None,
     ) -> Any:
         """
         Returns information about any matching indices, aliases, and data streams.
@@ -1714,8 +1714,8 @@ class IndicesClient(NamespacedClient):
         self,
         index: Any,
         block: Any,
-        params: Optional[MutableMapping[str, Any]] = None,
-        headers: Optional[MutableMapping[str, str]] = None,
+        params: Any = None,
+        headers: Any = None,
     ) -> Any:
         """
         Adds a block to an index.
@@ -1750,9 +1750,9 @@ class IndicesClient(NamespacedClient):
     @query_params()
     def data_streams_stats(
         self,
-        name: Any = None,
-        params: Optional[MutableMapping[str, Any]] = None,
-        headers: Optional[MutableMapping[str, str]] = None,
+        name: Optional[Any] = None,
+        params: Any = None,
+        headers: Any = None,
     ) -> Any:
         """
         Provides statistics on operations happening in a data stream.

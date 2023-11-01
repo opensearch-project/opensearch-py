@@ -36,7 +36,7 @@
 # -----------------------------------------------------
 
 
-from typing import Any, MutableMapping, Optional
+from typing import Any, Optional
 
 from .utils import SKIP_IN_PATH, NamespacedClient, _make_path, query_params
 
@@ -45,9 +45,9 @@ class IngestClient(NamespacedClient):
     @query_params("cluster_manager_timeout", "master_timeout")
     async def get_pipeline(
         self,
-        id: Any = None,
-        params: Optional[MutableMapping[str, Any]] = None,
-        headers: Optional[MutableMapping[str, str]] = None,
+        id: Optional[Any] = None,
+        params: Any = None,
+        headers: Any = None,
     ) -> Any:
         """
         Returns a pipeline.
@@ -70,8 +70,8 @@ class IngestClient(NamespacedClient):
         self,
         id: Any,
         body: Any,
-        params: Optional[MutableMapping[str, Any]] = None,
-        headers: Optional[MutableMapping[str, str]] = None,
+        params: Any = None,
+        headers: Any = None,
     ) -> Any:
         """
         Creates or updates a pipeline.
@@ -102,8 +102,8 @@ class IngestClient(NamespacedClient):
     async def delete_pipeline(
         self,
         id: Any,
-        params: Optional[MutableMapping[str, Any]] = None,
-        headers: Optional[MutableMapping[str, str]] = None,
+        params: Any = None,
+        headers: Any = None,
     ) -> Any:
         """
         Deletes a pipeline.
@@ -131,9 +131,9 @@ class IngestClient(NamespacedClient):
     async def simulate(
         self,
         body: Any,
-        id: Any = None,
-        params: Optional[MutableMapping[str, Any]] = None,
-        headers: Optional[MutableMapping[str, str]] = None,
+        id: Optional[Any] = None,
+        params: Any = None,
+        headers: Any = None,
     ) -> Any:
         """
         Allows to simulate a pipeline with example documents.
@@ -158,8 +158,8 @@ class IngestClient(NamespacedClient):
     @query_params()
     async def processor_grok(
         self,
-        params: Optional[MutableMapping[str, Any]] = None,
-        headers: Optional[MutableMapping[str, str]] = None,
+        params: Any = None,
+        headers: Any = None,
     ) -> Any:
         """
         Returns a list of the built-in patterns.

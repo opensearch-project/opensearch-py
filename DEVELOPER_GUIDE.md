@@ -66,8 +66,10 @@ If you want to auto-start one, the following will start a new instance and run t
 If your OpenSearch docker instance is running, you can execute the test suite directly.
 
 ```
-$ nox -rs test
+$ nox -rs test-3.9
 ```
+
+Substitute `3.9` with your Python version above, or use `nox -rs test` to run with multiple.
 
 To run tests against different versions of OpenSearch, use `run-tests [with/without security] [version]`:
 

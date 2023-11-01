@@ -37,7 +37,7 @@
 
 
 import warnings
-from typing import Any, MutableMapping, Optional
+from typing import Any, Optional
 
 from .utils import SKIP_IN_PATH, NamespacedClient, _make_path, query_params
 
@@ -54,8 +54,8 @@ class TasksClient(NamespacedClient):
     )
     async def list(
         self,
-        params: Optional[MutableMapping[str, Any]] = None,
-        headers: Optional[MutableMapping[str, str]] = None,
+        params: Any = None,
+        headers: Any = None,
     ) -> Any:
         """
         Returns a list of tasks.
@@ -84,9 +84,9 @@ class TasksClient(NamespacedClient):
     @query_params("actions", "nodes", "parent_task_id", "wait_for_completion")
     async def cancel(
         self,
-        task_id: Any = None,
-        params: Optional[MutableMapping[str, Any]] = None,
-        headers: Optional[MutableMapping[str, str]] = None,
+        task_id: Optional[Any] = None,
+        params: Any = None,
+        headers: Any = None,
     ) -> Any:
         """
         Cancels a task, if it can be cancelled through an API.
@@ -115,9 +115,9 @@ class TasksClient(NamespacedClient):
     @query_params("timeout", "wait_for_completion")
     async def get(
         self,
-        task_id: Any = None,
-        params: Optional[MutableMapping[str, Any]] = None,
-        headers: Optional[MutableMapping[str, str]] = None,
+        task_id: Optional[Any] = None,
+        params: Any = None,
+        headers: Any = None,
     ) -> Any:
         """
         Returns information about a task.

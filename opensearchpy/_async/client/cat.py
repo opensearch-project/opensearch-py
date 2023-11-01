@@ -35,7 +35,7 @@
 # -----------------------------------------------------
 
 
-from typing import Any, MutableMapping, Optional
+from typing import Any, Optional
 
 from .utils import NamespacedClient, _make_path, query_params
 
@@ -44,9 +44,9 @@ class CatClient(NamespacedClient):
     @query_params("expand_wildcards", "format", "h", "help", "local", "s", "v")
     async def aliases(
         self,
-        name: Any = None,
-        params: Optional[MutableMapping[str, Any]] = None,
-        headers: Optional[MutableMapping[str, str]] = None,
+        name: Optional[Any] = None,
+        params: Any = None,
+        headers: Any = None,
     ) -> Any:
         """
         Shows information about currently configured aliases to indices including
@@ -74,8 +74,8 @@ class CatClient(NamespacedClient):
     @query_params()
     async def all_pit_segments(
         self,
-        params: Optional[MutableMapping[str, Any]] = None,
-        headers: Optional[MutableMapping[str, str]] = None,
+        params: Any = None,
+        headers: Any = None,
     ) -> Any:
         """
         Lists all active point-in-time segments.
@@ -98,9 +98,9 @@ class CatClient(NamespacedClient):
     )
     async def allocation(
         self,
-        node_id: Any = None,
-        params: Optional[MutableMapping[str, Any]] = None,
-        headers: Optional[MutableMapping[str, str]] = None,
+        node_id: Optional[Any] = None,
+        params: Any = None,
+        headers: Any = None,
     ) -> Any:
         """
         Provides a snapshot of how many shards are allocated to each data node and how
@@ -145,8 +145,8 @@ class CatClient(NamespacedClient):
     )
     async def cluster_manager(
         self,
-        params: Optional[MutableMapping[str, Any]] = None,
-        headers: Optional[MutableMapping[str, str]] = None,
+        params: Any = None,
+        headers: Any = None,
     ) -> Any:
         """
         Returns information about the cluster-manager node.
@@ -174,9 +174,9 @@ class CatClient(NamespacedClient):
     @query_params("format", "h", "help", "s", "v")
     async def count(
         self,
-        index: Any = None,
-        params: Optional[MutableMapping[str, Any]] = None,
-        headers: Optional[MutableMapping[str, str]] = None,
+        index: Optional[Any] = None,
+        params: Any = None,
+        headers: Any = None,
     ) -> Any:
         """
         Provides quick access to the document count of the entire cluster, or
@@ -200,9 +200,9 @@ class CatClient(NamespacedClient):
     @query_params("bytes", "format", "h", "help", "s", "v")
     async def fielddata(
         self,
-        fields: Any = None,
-        params: Optional[MutableMapping[str, Any]] = None,
-        headers: Optional[MutableMapping[str, str]] = None,
+        fields: Optional[Any] = None,
+        params: Any = None,
+        headers: Any = None,
     ) -> Any:
         """
         Shows how much heap memory is currently being used by fielddata on every data
@@ -231,8 +231,8 @@ class CatClient(NamespacedClient):
     @query_params("format", "h", "help", "s", "time", "ts", "v")
     async def health(
         self,
-        params: Optional[MutableMapping[str, Any]] = None,
-        headers: Optional[MutableMapping[str, str]] = None,
+        params: Any = None,
+        headers: Any = None,
     ) -> Any:
         """
         Returns a concise representation of the cluster health.
@@ -256,8 +256,8 @@ class CatClient(NamespacedClient):
     @query_params("help", "s")
     async def help(
         self,
-        params: Optional[MutableMapping[str, Any]] = None,
-        headers: Optional[MutableMapping[str, str]] = None,
+        params: Any = None,
+        headers: Any = None,
     ) -> Any:
         """
         Returns help for the Cat APIs.
@@ -289,9 +289,9 @@ class CatClient(NamespacedClient):
     )
     async def indices(
         self,
-        index: Any = None,
-        params: Optional[MutableMapping[str, Any]] = None,
-        headers: Optional[MutableMapping[str, str]] = None,
+        index: Optional[Any] = None,
+        params: Any = None,
+        headers: Any = None,
     ) -> Any:
         """
         Returns information about indices: number of primaries and replicas, document
@@ -346,8 +346,8 @@ class CatClient(NamespacedClient):
     )
     async def master(
         self,
-        params: Optional[MutableMapping[str, Any]] = None,
-        headers: Optional[MutableMapping[str, str]] = None,
+        params: Any = None,
+        headers: Any = None,
     ) -> Any:
         """
         Returns information about the cluster-manager node.
@@ -389,8 +389,8 @@ class CatClient(NamespacedClient):
     )
     async def nodeattrs(
         self,
-        params: Optional[MutableMapping[str, Any]] = None,
-        headers: Optional[MutableMapping[str, str]] = None,
+        params: Any = None,
+        headers: Any = None,
     ) -> Any:
         """
         Returns information about custom node attributes.
@@ -430,8 +430,8 @@ class CatClient(NamespacedClient):
     )
     async def nodes(
         self,
-        params: Optional[MutableMapping[str, Any]] = None,
-        headers: Optional[MutableMapping[str, str]] = None,
+        params: Any = None,
+        headers: Any = None,
     ) -> Any:
         """
         Returns basic statistics about performance of cluster nodes.
@@ -476,8 +476,8 @@ class CatClient(NamespacedClient):
     )
     async def pending_tasks(
         self,
-        params: Optional[MutableMapping[str, Any]] = None,
-        headers: Optional[MutableMapping[str, str]] = None,
+        params: Any = None,
+        headers: Any = None,
     ) -> Any:
         """
         Returns a concise representation of the cluster pending tasks.
@@ -508,8 +508,8 @@ class CatClient(NamespacedClient):
     async def pit_segments(
         self,
         body: Any = None,
-        params: Optional[MutableMapping[str, Any]] = None,
-        headers: Optional[MutableMapping[str, str]] = None,
+        params: Any = None,
+        headers: Any = None,
     ) -> Any:
         """
         List segments for one or several PITs.
@@ -532,8 +532,8 @@ class CatClient(NamespacedClient):
     )
     async def plugins(
         self,
-        params: Optional[MutableMapping[str, Any]] = None,
-        headers: Optional[MutableMapping[str, str]] = None,
+        params: Any = None,
+        headers: Any = None,
     ) -> Any:
         """
         Returns information about installed plugins across nodes node.
@@ -563,9 +563,9 @@ class CatClient(NamespacedClient):
     )
     async def recovery(
         self,
-        index: Any = None,
-        params: Optional[MutableMapping[str, Any]] = None,
-        headers: Optional[MutableMapping[str, str]] = None,
+        index: Optional[Any] = None,
+        params: Any = None,
+        headers: Any = None,
     ) -> Any:
         """
         Returns information about index shard recoveries, both on-going completed.
@@ -605,8 +605,8 @@ class CatClient(NamespacedClient):
     )
     async def repositories(
         self,
-        params: Optional[MutableMapping[str, Any]] = None,
-        headers: Optional[MutableMapping[str, str]] = None,
+        params: Any = None,
+        headers: Any = None,
     ) -> Any:
         """
         Returns information about snapshot repositories registered in the cluster.
@@ -646,9 +646,9 @@ class CatClient(NamespacedClient):
     )
     async def segment_replication(
         self,
-        index: Any = None,
-        params: Optional[MutableMapping[str, Any]] = None,
-        headers: Optional[MutableMapping[str, str]] = None,
+        index: Optional[Any] = None,
+        params: Any = None,
+        headers: Any = None,
     ) -> Any:
         """
         Returns information about both on-going and latest completed Segment
@@ -695,9 +695,9 @@ class CatClient(NamespacedClient):
     )
     async def segments(
         self,
-        index: Any = None,
-        params: Optional[MutableMapping[str, Any]] = None,
-        headers: Optional[MutableMapping[str, str]] = None,
+        index: Optional[Any] = None,
+        params: Any = None,
+        headers: Any = None,
     ) -> Any:
         """
         Provides low-level information about the segments in the shards of an index.
@@ -738,9 +738,9 @@ class CatClient(NamespacedClient):
     )
     async def shards(
         self,
-        index: Any = None,
-        params: Optional[MutableMapping[str, Any]] = None,
-        headers: Optional[MutableMapping[str, str]] = None,
+        index: Optional[Any] = None,
+        params: Any = None,
+        headers: Any = None,
     ) -> Any:
         """
         Provides a detailed view of shard allocation on nodes.
@@ -784,9 +784,9 @@ class CatClient(NamespacedClient):
     )
     async def thread_pool(
         self,
-        thread_pool_patterns: Any = None,
-        params: Optional[MutableMapping[str, Any]] = None,
-        headers: Optional[MutableMapping[str, str]] = None,
+        thread_pool_patterns: Optional[Any] = None,
+        params: Any = None,
+        headers: Any = None,
     ) -> Any:
         """
         Returns cluster-wide thread pool statistics per node. By default the active,
@@ -831,9 +831,9 @@ class CatClient(NamespacedClient):
     )
     async def snapshots(
         self,
-        repository: Any = None,
-        params: Optional[MutableMapping[str, Any]] = None,
-        headers: Optional[MutableMapping[str, str]] = None,
+        repository: Optional[Any] = None,
+        params: Any = None,
+        headers: Any = None,
     ) -> Any:
         """
         Returns all snapshots in a specific repository.
@@ -879,8 +879,8 @@ class CatClient(NamespacedClient):
     )
     async def tasks(
         self,
-        params: Optional[MutableMapping[str, Any]] = None,
-        headers: Optional[MutableMapping[str, str]] = None,
+        params: Any = None,
+        headers: Any = None,
     ) -> Any:
         """
         Returns information about the tasks currently executing on one or more nodes in
@@ -923,9 +923,9 @@ class CatClient(NamespacedClient):
     )
     async def templates(
         self,
-        name: Any = None,
-        params: Optional[MutableMapping[str, Any]] = None,
-        headers: Optional[MutableMapping[str, str]] = None,
+        name: Optional[Any] = None,
+        params: Any = None,
+        headers: Any = None,
     ) -> Any:
         """
         Returns information about existing templates.

@@ -60,7 +60,7 @@ def _normalize_hosts(hosts: Any) -> Any:
     for host in hosts:
         if isinstance(host, string_types):
             if "://" not in host:
-                host = "//%r" % host
+                host = "//%s" % host  # type: ignore
 
             parsed_url = urlparse(host)
             h = {"host": parsed_url.hostname}

@@ -39,7 +39,7 @@
 from __future__ import unicode_literals
 
 import logging
-from typing import Any, Type
+from typing import Any, Optional, Type
 
 from ..transport import Transport, TransportError
 from .cat import CatClient
@@ -186,6 +186,7 @@ class OpenSearch(Client):
 
     """
 
+    # include PIT functions inside _patch.py
     from ._patch import (  # type: ignore
         create_point_in_time,
         delete_point_in_time,
@@ -243,7 +244,7 @@ class OpenSearch(Client):
             # probably operating on custom transport and connection_pool, ignore
             return super(OpenSearch, self).__repr__()
 
-    def __enter__(self) -> "OpenSearch":
+    def __enter__(self) -> Any:
         if hasattr(self.transport, "_async_call"):
             self.transport._async_call()
         return self
@@ -356,7 +357,7 @@ class OpenSearch(Client):
         self,
         index: Any,
         body: Any,
-        id: Any = None,
+        id: Optional[Any] = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -419,7 +420,7 @@ class OpenSearch(Client):
     def bulk(
         self,
         body: Any,
-        index: Any = None,
+        index: Optional[Any] = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -469,7 +470,7 @@ class OpenSearch(Client):
     def clear_scroll(
         self,
         body: Any = None,
-        scroll_id: Any = None,
+        scroll_id: Optional[Any] = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -511,7 +512,7 @@ class OpenSearch(Client):
     def count(
         self,
         body: Any = None,
-        index: Any = None,
+        index: Optional[Any] = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -969,7 +970,7 @@ class OpenSearch(Client):
     def field_caps(
         self,
         body: Any = None,
-        index: Any = None,
+        index: Optional[Any] = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -1142,7 +1143,7 @@ class OpenSearch(Client):
     def mget(
         self,
         body: Any,
-        index: Any = None,
+        index: Optional[Any] = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -1193,7 +1194,7 @@ class OpenSearch(Client):
     def msearch(
         self,
         body: Any,
-        index: Any = None,
+        index: Optional[Any] = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -1251,7 +1252,7 @@ class OpenSearch(Client):
     def msearch_template(
         self,
         body: Any,
-        index: Any = None,
+        index: Optional[Any] = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -1305,7 +1306,7 @@ class OpenSearch(Client):
     def mtermvectors(
         self,
         body: Any = None,
-        index: Any = None,
+        index: Optional[Any] = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -1360,7 +1361,7 @@ class OpenSearch(Client):
         self,
         id: Any,
         body: Any,
-        context: Any = None,
+        context: Optional[Any] = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -1396,7 +1397,7 @@ class OpenSearch(Client):
     def rank_eval(
         self,
         body: Any,
-        index: Any = None,
+        index: Optional[Any] = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -1511,7 +1512,7 @@ class OpenSearch(Client):
     def render_search_template(
         self,
         body: Any = None,
-        id: Any = None,
+        id: Optional[Any] = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -1555,7 +1556,7 @@ class OpenSearch(Client):
     def scroll(
         self,
         body: Any = None,
-        scroll_id: Any = None,
+        scroll_id: Optional[Any] = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -1630,7 +1631,7 @@ class OpenSearch(Client):
     def search(
         self,
         body: Any = None,
-        index: Any = None,
+        index: Optional[Any] = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -1755,7 +1756,7 @@ class OpenSearch(Client):
     )
     def search_shards(
         self,
-        index: Any = None,
+        index: Optional[Any] = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -1802,7 +1803,7 @@ class OpenSearch(Client):
     def search_template(
         self,
         body: Any,
-        index: Any = None,
+        index: Optional[Any] = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -1871,7 +1872,7 @@ class OpenSearch(Client):
         self,
         index: Any,
         body: Any = None,
-        id: Any = None,
+        id: Optional[Any] = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:

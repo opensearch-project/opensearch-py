@@ -147,7 +147,7 @@ class AsyncDocument(ObjectBase):
         id: str,
         using: Optional[AsyncOpenSearch] = None,
         index: Optional[str] = None,
-        **kwargs: Any
+        **kwargs: Any,
     ) -> Any:
         """
         Retrieve a single document from opensearch using its ``id``.
@@ -172,7 +172,7 @@ class AsyncDocument(ObjectBase):
         id: str,
         using: Optional[AsyncOpenSearch] = None,
         index: Optional[str] = None,
-        **kwargs: Any
+        **kwargs: Any,
     ) -> Any:
         """
         check if exists a single document from opensearch using its ``id``.
@@ -196,7 +196,7 @@ class AsyncDocument(ObjectBase):
         index: Optional[str] = None,
         raise_on_error: Optional[bool] = True,
         missing: Optional[str] = "none",
-        **kwargs: Any
+        **kwargs: Any,
     ) -> Any:
         """
         Retrieve multiple document by their ``id``'s. Returns a list of instances
@@ -265,7 +265,7 @@ class AsyncDocument(ObjectBase):
         self,
         using: Optional[AsyncOpenSearch] = None,
         index: Optional[str] = None,
-        **kwargs: Any
+        **kwargs: Any,
     ) -> Any:
         """
         Delete the instance in opensearch.
@@ -329,7 +329,7 @@ class AsyncDocument(ObjectBase):
         scripted_upsert: Optional[bool] = False,
         upsert: Optional[bool] = None,
         return_doc_meta: Optional[bool] = False,
-        **fields: Any
+        **fields: Any,
     ) -> Any:
         """
         Partial update of the document, specify fields you wish to update and
@@ -428,7 +428,7 @@ class AsyncDocument(ObjectBase):
         validate: Optional[bool] = True,
         skip_empty: Optional[bool] = True,
         return_doc_meta: Optional[bool] = False,
-        **kwargs: Any
+        **kwargs: Any,
     ) -> Any:
         """
         Save the document into opensearch. If the document doesn't exist it
@@ -466,7 +466,7 @@ class AsyncDocument(ObjectBase):
         meta = await opensearch.index(
             index=self._get_index(index),
             body=self.to_dict(skip_empty=skip_empty),
-            **doc_meta
+            **doc_meta,
         )
         # update meta information from OpenSearch
         for k in META_FIELDS:

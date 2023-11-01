@@ -36,7 +36,7 @@
 # -----------------------------------------------------
 
 
-from typing import Any
+from typing import Any, Optional
 
 from .utils import NamespacedClient, _make_path, query_params
 
@@ -46,7 +46,7 @@ class NodesClient(NamespacedClient):
     def reload_secure_settings(
         self,
         body: Any = None,
-        node_id: Any = None,
+        node_id: Optional[Any] = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -72,8 +72,8 @@ class NodesClient(NamespacedClient):
     @query_params("flat_settings", "timeout")
     def info(
         self,
-        node_id: Any = None,
-        metric: Any = None,
+        node_id: Optional[Any] = None,
+        metric: Optional[Any] = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -108,9 +108,9 @@ class NodesClient(NamespacedClient):
     )
     def stats(
         self,
-        node_id: Any = None,
-        metric: Any = None,
-        index_metric: Any = None,
+        node_id: Optional[Any] = None,
+        metric: Optional[Any] = None,
+        index_metric: Optional[Any] = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -159,7 +159,7 @@ class NodesClient(NamespacedClient):
     )
     def hot_threads(
         self,
-        node_id: Any = None,
+        node_id: Optional[Any] = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -197,8 +197,8 @@ class NodesClient(NamespacedClient):
     @query_params("timeout")
     def usage(
         self,
-        node_id: Any = None,
-        metric: Any = None,
+        node_id: Optional[Any] = None,
+        metric: Optional[Any] = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:

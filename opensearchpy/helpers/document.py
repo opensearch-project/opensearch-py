@@ -256,7 +256,7 @@ class Document(ObjectBase):
         index: Any = None,
         raise_on_error: bool = True,
         missing: str = "none",
-        **kwargs: Any
+        **kwargs: Any,
     ) -> Any:
         """
         Retrieve multiple document by their ``id``'s. Returns a list of instances

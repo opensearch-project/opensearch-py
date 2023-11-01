@@ -36,7 +36,7 @@
 # -----------------------------------------------------
 
 
-from typing import Any, MutableMapping, Optional
+from typing import Any
 
 from .utils import SKIP_IN_PATH, NamespacedClient, _make_path, query_params
 
@@ -48,8 +48,8 @@ class DanglingIndicesClient(NamespacedClient):
     async def delete_dangling_index(
         self,
         index_uuid: Any,
-        params: Optional[MutableMapping[str, Any]] = None,
-        headers: Optional[MutableMapping[str, str]] = None,
+        params: Any = None,
+        headers: Any = None,
     ) -> Any:
         """
         Deletes the specified dangling index.
@@ -81,8 +81,8 @@ class DanglingIndicesClient(NamespacedClient):
     async def import_dangling_index(
         self,
         index_uuid: Any,
-        params: Optional[MutableMapping[str, Any]] = None,
-        headers: Optional[MutableMapping[str, str]] = None,
+        params: Any = None,
+        headers: Any = None,
     ) -> Any:
         """
         Imports the specified dangling index.
@@ -108,8 +108,8 @@ class DanglingIndicesClient(NamespacedClient):
     @query_params()
     async def list_dangling_indices(
         self,
-        params: Optional[MutableMapping[str, Any]] = None,
-        headers: Optional[MutableMapping[str, str]] = None,
+        params: Any = None,
+        headers: Any = None,
     ) -> Any:
         """
         Returns all dangling indices.
