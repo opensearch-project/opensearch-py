@@ -8,11 +8,9 @@
 # Modifications Copyright OpenSearch Contributors. See
 # GitHub history for details.
 
-from __future__ import annotations
-
 import collections.abc as collections_abc
 from itertools import chain
-from typing import Any, Optional
+from typing import Any
 
 from six import iteritems
 
@@ -56,7 +54,7 @@ class AsyncMapping(object):
                 nested.append(".".join(parts[: i + 1]))
         return nested, field
 
-    def resolve_field(self, field_path: Any) -> Optional[AsyncMapping]:
+    def resolve_field(self, field_path: Any) -> Any:
         field = self
         for step in field_path.split("."):
             try:

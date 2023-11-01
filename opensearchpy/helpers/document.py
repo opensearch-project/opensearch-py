@@ -25,11 +25,9 @@
 #  specific language governing permissions and limitations
 #  under the License.
 
-from __future__ import annotations
-
 import collections.abc as collections_abc
 from fnmatch import fnmatch
-from typing import Any, Tuple, Type, Union
+from typing import Any, Tuple, Type
 
 from six import add_metaclass, iteritems
 
@@ -51,14 +49,14 @@ class MetaField(object):
 
 class DocumentMeta(type):
     def __new__(
-        cls: Union[Type[DocumentMeta], Type[IndexMeta]],
+        cls: Any,
         name: str,
         bases: Tuple[Type[ObjectBase]],
         attrs: Any,
     ) -> Any:
         # DocumentMeta filters attrs in place
         attrs["_doc_type"] = DocumentOptions(name, bases, attrs)
-        return super(DocumentMeta, cls).__new__(cls, name, bases, attrs)  # type: ignore
+        return super(DocumentMeta, cls).__new__(cls, name, bases, attrs)
 
 
 class IndexMeta(DocumentMeta):
@@ -67,7 +65,7 @@ class IndexMeta(DocumentMeta):
     _document_initialized = False
 
     def __new__(
-        cls: Type[IndexMeta],
+        cls: Any,
         name: str,
         bases: Tuple[Type[ObjectBase]],
         attrs: Any,

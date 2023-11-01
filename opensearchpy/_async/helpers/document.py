@@ -8,8 +8,6 @@
 # Modifications Copyright OpenSearch Contributors. See
 # GitHub history for details.
 
-from __future__ import annotations
-
 import collections.abc as collections_abc
 from fnmatch import fnmatch
 from typing import Any, Optional, Sequence, Tuple, Type

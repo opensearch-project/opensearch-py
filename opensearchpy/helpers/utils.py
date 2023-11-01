@@ -25,7 +25,7 @@
 #  specific language governing permissions and limitations
 #  under the License.
 
-from __future__ import annotations, unicode_literals
+from __future__ import unicode_literals
 
 import collections.abc as collections_abc
 from copy import copy
@@ -229,9 +229,7 @@ class DslMeta(type):
 
     _types: Dict[str, Any] = {}
 
-    def __init__(
-        cls: Any, name: str, bases: tuple[type, ...], attrs: Dict[str, Any]
-    ) -> None:
+    def __init__(cls: Any, name: str, bases: Any, attrs: Any) -> None:
         # TODO: why is it calling itself?!
         super(DslMeta, cls).__init__(name, bases, attrs)
         # skip for DslBase
