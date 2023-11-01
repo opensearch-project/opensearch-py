@@ -188,9 +188,13 @@ def main() -> None:
     # Grab the major version to be used as a suffix.
     version_path = os.path.join(base_dir, "opensearchpy/_version.py")
     with open(version_path) as f:
-        version = re.search(
-            r"^__versionstr__\s+=\s+[\"\']([^\"\']+)[\"\']", f.read(), re.M
-        ).group(1)
+        data = f.read()
+        m = re.search(r"^__versionstr__: str\s+=\s+[\"\']([^\"\']+)[\"\']", data, re.M)
+        if m:
+            version = m.group(1)
+        else:
+            raise Exception(f"Invalid version {data}")
+
     major_version = version.split(".")[0]
 
     # If we're handed a version from the build manager we
