@@ -82,7 +82,7 @@ def lint(session) -> None:
 
     # Run mypy on the package and then the type examples separately for
     # the two different mypy use-cases, ourselves and our users.
-    session.run("mypy", "--strict", "opensearchpy/")
+    session.run("mypy", "--strict", *SOURCE_FILES)
     session.run("mypy", "--strict", "test_opensearchpy/test_types/sync_types.py")
     session.run("mypy", "--strict", "test_opensearchpy/test_types/async_types.py")
 
