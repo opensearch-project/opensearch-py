@@ -48,7 +48,7 @@ def find_files_to_fix(sources: List[str]) -> Iterator[str]:
 
 
 def does_file_need_fix(filepath: str) -> bool:
-    if not re.search(r"\.pyi?$", filepath):
+    if not re.search(r"\.py$", filepath):
         return False
     existing_header = ""
     with open(filepath, mode="r") as f:
@@ -78,7 +78,7 @@ def add_header_to_file(filepath: str) -> None:
     print(f"Fixed {os.path.relpath(filepath, os.getcwd())}")
 
 
-def main():
+def main() -> None:
     mode = sys.argv[1]
     assert mode in ("fix", "check")
     sources = [os.path.abspath(x) for x in sys.argv[2:]]

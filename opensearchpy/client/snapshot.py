@@ -36,12 +36,21 @@
 # -----------------------------------------------------
 
 
+from typing import Any
+
 from .utils import SKIP_IN_PATH, NamespacedClient, _make_path, query_params
 
 
 class SnapshotClient(NamespacedClient):
     @query_params("cluster_manager_timeout", "master_timeout", "wait_for_completion")
-    def create(self, repository, snapshot, body=None, params=None, headers=None):
+    def create(
+        self,
+        repository: Any,
+        snapshot: Any,
+        body: Any = None,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Creates a snapshot in a repository.
 
@@ -70,7 +79,13 @@ class SnapshotClient(NamespacedClient):
         )
 
     @query_params("cluster_manager_timeout", "master_timeout")
-    def delete(self, repository, snapshot, params=None, headers=None):
+    def delete(
+        self,
+        repository: Any,
+        snapshot: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Deletes a snapshot.
 
@@ -97,7 +112,13 @@ class SnapshotClient(NamespacedClient):
     @query_params(
         "cluster_manager_timeout", "ignore_unavailable", "master_timeout", "verbose"
     )
-    def get(self, repository, snapshot, params=None, headers=None):
+    def get(
+        self,
+        repository: Any,
+        snapshot: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Returns information about a snapshot.
 
@@ -127,7 +148,12 @@ class SnapshotClient(NamespacedClient):
         )
 
     @query_params("cluster_manager_timeout", "master_timeout", "timeout")
-    def delete_repository(self, repository, params=None, headers=None):
+    def delete_repository(
+        self,
+        repository: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Deletes a repository.
 
@@ -152,7 +178,12 @@ class SnapshotClient(NamespacedClient):
         )
 
     @query_params("cluster_manager_timeout", "local", "master_timeout")
-    def get_repository(self, repository=None, params=None, headers=None):
+    def get_repository(
+        self,
+        repository: Any = None,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Returns information about a repository.
 
@@ -171,7 +202,13 @@ class SnapshotClient(NamespacedClient):
         )
 
     @query_params("cluster_manager_timeout", "master_timeout", "timeout", "verify")
-    def create_repository(self, repository, body, params=None, headers=None):
+    def create_repository(
+        self,
+        repository: Any,
+        body: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Creates a repository.
 
@@ -199,7 +236,14 @@ class SnapshotClient(NamespacedClient):
         )
 
     @query_params("cluster_manager_timeout", "master_timeout", "wait_for_completion")
-    def restore(self, repository, snapshot, body=None, params=None, headers=None):
+    def restore(
+        self,
+        repository: Any,
+        snapshot: Any,
+        body: Any = None,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Restores a snapshot.
 
@@ -228,7 +272,13 @@ class SnapshotClient(NamespacedClient):
         )
 
     @query_params("cluster_manager_timeout", "ignore_unavailable", "master_timeout")
-    def status(self, repository=None, snapshot=None, params=None, headers=None):
+    def status(
+        self,
+        repository: Any = None,
+        snapshot: Any = None,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Returns information about the status of a snapshot.
 
@@ -252,7 +302,12 @@ class SnapshotClient(NamespacedClient):
         )
 
     @query_params("cluster_manager_timeout", "master_timeout", "timeout")
-    def verify_repository(self, repository, params=None, headers=None):
+    def verify_repository(
+        self,
+        repository: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Verifies a repository.
 
@@ -276,7 +331,12 @@ class SnapshotClient(NamespacedClient):
         )
 
     @query_params("cluster_manager_timeout", "master_timeout", "timeout")
-    def cleanup_repository(self, repository, params=None, headers=None):
+    def cleanup_repository(
+        self,
+        repository: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Removes stale data from repository.
 
@@ -301,8 +361,14 @@ class SnapshotClient(NamespacedClient):
 
     @query_params("cluster_manager_timeout", "master_timeout")
     def clone(
-        self, repository, snapshot, target_snapshot, body, params=None, headers=None
-    ):
+        self,
+        repository: Any,
+        snapshot: Any,
+        target_snapshot: Any,
+        body: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Clones indices from one snapshot into another snapshot in the same repository.
 

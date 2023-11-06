@@ -60,7 +60,7 @@ class TestParallelBulk(TestCase):
         "opensearchpy.helpers.actions._process_bulk_chunk",
         side_effect=mock_process_bulk_chunk,
     )
-    def test_all_chunks_sent(self, _process_bulk_chunk):
+    def test_all_chunks_sent(self, _process_bulk_chunk) -> None:
         actions = ({"x": i} for i in range(100))
         list(helpers.parallel_bulk(OpenSearch(), actions, chunk_size=2))
 
@@ -74,7 +74,7 @@ class TestParallelBulk(TestCase):
             (True, time.sleep(0.001) or threading.current_thread().ident)
         ],
     )
-    def test_chunk_sent_from_different_threads(self, _process_bulk_chunk):
+    def test_chunk_sent_from_different_threads(self, _process_bulk_chunk) -> None:
         actions = ({"x": i} for i in range(100))
         results = list(
             helpers.parallel_bulk(OpenSearch(), actions, thread_count=10, chunk_size=2)
@@ -83,10 +83,10 @@ class TestParallelBulk(TestCase):
 
 
 class TestChunkActions(TestCase):
-    def setup_method(self, _):
+    def setup_method(self, _) -> None:
         self.actions = [({"index": {}}, {"some": u"datá", "i": i}) for i in range(100)]  # fmt: skip
 
-    def test_expand_action(self):
+    def test_expand_action(self) -> None:
         self.assertEqual(helpers.expand_action({}), ({"index": {}}, {}))
         self.assertEqual(
             helpers.expand_action({"key": "val"}), ({"index": {}}, {"key": "val"})
@@ -123,7 +123,7 @@ class TestChunkActions(TestCase):
             ({"create": {"_id": "id", "_index": "index"}}, {"key": "val"}),
         )
 
-    def test_expand_action_options(self):
+    def test_expand_action_options(self) -> None:
         for option in (
             "_id",
             "_index",
@@ -182,7 +182,7 @@ class TestChunkActions(TestCase):
             ({"update": {}}, {"key2": "val2"}),
         )
 
-    def test_chunks_are_chopped_by_byte_size(self):
+    def test_chunks_are_chopped_by_byte_size(self) -> None:
         self.assertEqual(
             100,
             len(
@@ -190,7 +190,7 @@ class TestChunkActions(TestCase):
             ),
         )
 
-    def test_chunks_are_chopped_by_chunk_size(self):
+    def test_chunks_are_chopped_by_chunk_size(self) -> None:
         self.assertEqual(
             10,
             len(
@@ -200,7 +200,7 @@ class TestChunkActions(TestCase):
             ),
         )
 
-    def test_chunks_are_chopped_by_byte_size_properly(self):
+    def test_chunks_are_chopped_by_byte_size_properly(self) -> None:
         max_byte_size = 170
         chunks = list(
             helpers._chunk_actions(
@@ -215,7 +215,7 @@ class TestChunkActions(TestCase):
 
 
 class TestExpandActions(TestCase):
-    def test_string_actions_are_marked_as_simple_inserts(self):
+    def test_string_actions_are_marked_as_simple_inserts(self) -> None:
         self.assertEqual(
             ('{"index":{}}', "whatever"), helpers.expand_action("whatever")
         )

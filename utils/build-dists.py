@@ -52,7 +52,7 @@ def set_tmp_dir():
     tmp_dir = None
 
 
-def run(*argv, expect_exit_code=0):
+def run(*argv, expect_exit_code: int = 0) -> None:
     global tmp_dir
     if tmp_dir is None:
         os.chdir(base_dir)
@@ -70,7 +70,7 @@ def run(*argv, expect_exit_code=0):
         exit(exit_code or 1)
 
 
-def test_dist(dist):
+def test_dist(dist) -> None:
     with set_tmp_dir() as tmp_dir:
         dist_name = re.match(
             r"^(opensearchpy\d*)-",
@@ -180,7 +180,7 @@ def test_dist(dist):
         )
 
 
-def main():
+def main() -> None:
     run("git", "checkout", "--", "setup.py", "opensearchpy/")
     run("rm", "-rf", "build/", "dist/*", "*.egg-info", ".eggs")
     run("python", "setup.py", "sdist", "bdist_wheel")
@@ -188,9 +188,13 @@ def main():
     # Grab the major version to be used as a suffix.
     version_path = os.path.join(base_dir, "opensearchpy/_version.py")
     with open(version_path) as f:
-        version = re.search(
-            r"^__versionstr__\s+=\s+[\"\']([^\"\']+)[\"\']", f.read(), re.M
-        ).group(1)
+        data = f.read()
+        m = re.search(r"^__versionstr__: str\s+=\s+[\"\']([^\"\']+)[\"\']", data, re.M)
+        if m:
+            version = m.group(1)
+        else:
+            raise Exception(f"Invalid version {data}")
+
     major_version = version.split(".")[0]
 
     # If we're handed a version from the build manager we

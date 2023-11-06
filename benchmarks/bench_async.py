@@ -22,7 +22,7 @@ index_name = "test-index-async"
 item_count = 100
 
 
-async def index_records(client, item_count):
+async def index_records(client, item_count) -> None:
     await asyncio.gather(
         *[
             client.index(
@@ -71,34 +71,34 @@ async def test_async(client_count=1, item_count=1):
     await asyncio.gather(*[client.close() for client in clients])
 
 
-def test(item_count=1, client_count=1):
+def test(item_count: int = 1, client_count: int = 1) -> None:
     loop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
     loop.run_until_complete(test_async(item_count, client_count))
     loop.close()
 
 
-def test_1():
+def test_1() -> None:
     test(1, 32 * item_count)
 
 
-def test_2():
+def test_2() -> None:
     test(2, 16 * item_count)
 
 
-def test_4():
+def test_4() -> None:
     test(4, 8 * item_count)
 
 
-def test_8():
+def test_8() -> None:
     test(8, 4 * item_count)
 
 
-def test_16():
+def test_16() -> None:
     test(16, 2 * item_count)
 
 
-def test_32():
+def test_32() -> None:
     test(32, item_count)
 
 

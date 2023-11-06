@@ -75,23 +75,23 @@ def test(thread_count=1, request_count=1, client_count=1):
     print(f"latency={latency}")
 
 
-def test_1():
+def test_1() -> None:
     test(1, 32 * request_count, 1)
 
 
-def test_2():
+def test_2() -> None:
     test(2, 16 * request_count, 2)
 
 
-def test_4():
+def test_4() -> None:
     test(4, 8 * request_count, 3)
 
 
-def test_8():
+def test_8() -> None:
     test(8, 4 * request_count, 8)
 
 
-def test_32():
+def test_32() -> None:
     test(32, request_count, 32)
 
 

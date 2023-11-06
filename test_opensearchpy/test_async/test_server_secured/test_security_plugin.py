@@ -14,12 +14,13 @@ from __future__ import unicode_literals
 from unittest import IsolatedAsyncioTestCase
 
 import pytest
+from _pytest.mark.structures import MarkDecorator
 
 from opensearchpy._async.helpers.test import get_test_client
 from opensearchpy.connection.async_connections import add_connection
 from opensearchpy.exceptions import NotFoundError
 
-pytestmark = pytest.mark.asyncio
+pytestmark: MarkDecorator = pytest.mark.asyncio
 
 
 class TestSecurityPlugin(IsolatedAsyncioTestCase):
@@ -40,17 +41,17 @@ class TestSecurityPlugin(IsolatedAsyncioTestCase):
     USER_NAME = "test-user"
     USER_CONTENT = {"password": "opensearchpy@123", "opendistro_security_roles": []}
 
-    async def asyncSetUp(self):
+    async def asyncSetUp(self) -> None:
         self.client = await get_test_client(
             verify_certs=False, http_auth=("admin", "admin")
         )
         await add_connection("default", self.client)
 
-    async def asyncTearDown(self):
+    async def asyncTearDown(self) -> None:
         if self.client:
             await self.client.close()
 
-    async def test_create_role(self):
+    async def test_create_role(self) -> None:
         # Test to create role
         response = await self.client.security.create_role(
             self.ROLE_NAME, body=self.ROLE_CONTENT
@@ -59,7 +60,7 @@ class TestSecurityPlugin(IsolatedAsyncioTestCase):
         self.assertNotIn("errors", response)
         self.assertIn(response.get("status"), ["CREATED", "OK"])
 
-    async def test_create_role_with_body_param_empty(self):
+    async def test_create_role_with_body_param_empty(self) -> None:
         try:
             await self.client.security.create_role(self.ROLE_NAME, body="")
         except ValueError as error:
@@ -67,7 +68,7 @@ class TestSecurityPlugin(IsolatedAsyncioTestCase):
         else:
             assert False
 
-    async def test_get_role(self):
+    async def test_get_role(self) -> None:
         # Create a role
         await self.test_create_role()
 
@@ -77,7 +78,7 @@ class TestSecurityPlugin(IsolatedAsyncioTestCase):
         self.assertNotIn("errors", response)
         self.assertIn(self.ROLE_NAME, response)
 
-    async def test_update_role(self):
+    async def test_update_role(self) -> None:
         # Create a role
         await self.test_create_role()
 
@@ -92,7 +93,7 @@ class TestSecurityPlugin(IsolatedAsyncioTestCase):
         self.assertNotIn("errors", response)
         self.assertEqual("OK", response.get("status"))
 
-    async def test_delete_role(self):
+    async def test_delete_role(self) -> None:
         # Create a role
         await self.test_create_role()
 
@@ -105,7 +106,7 @@ class TestSecurityPlugin(IsolatedAsyncioTestCase):
         with self.assertRaises(NotFoundError):
             response = await self.client.security.get_role(self.ROLE_NAME)
 
-    async def test_create_user(self):
+    async def test_create_user(self) -> None:
         # Test to create user
         response = await self.client.security.create_user(
             self.USER_NAME, body=self.USER_CONTENT
@@ -114,7 +115,7 @@ class TestSecurityPlugin(IsolatedAsyncioTestCase):
         self.assertNotIn("errors", response)
         self.assertIn(response.get("status"), ["CREATED", "OK"])
 
-    async def test_create_user_with_body_param_empty(self):
+    async def test_create_user_with_body_param_empty(self) -> None:
         try:
             await self.client.security.create_user(self.USER_NAME, body="")
         except ValueError as error:
@@ -137,7 +138,7 @@ class TestSecurityPlugin(IsolatedAsyncioTestCase):
         self.assertNotIn("errors", response)
         self.assertIn(response.get("status"), ["CREATED", "OK"])
 
-    async def test_get_user(self):
+    async def test_get_user(self) -> None:
         # Create a user
         await self.test_create_user()
 
@@ -147,7 +148,7 @@ class TestSecurityPlugin(IsolatedAsyncioTestCase):
         self.assertNotIn("errors", response)
         self.assertIn(self.USER_NAME, response)
 
-    async def test_update_user(self):
+    async def test_update_user(self) -> None:
         # Create a user
         await self.test_create_user()
 
@@ -162,7 +163,7 @@ class TestSecurityPlugin(IsolatedAsyncioTestCase):
         self.assertNotIn("errors", response)
         self.assertEqual("OK", response.get("status"))
 
-    async def test_delete_user(self):
+    async def test_delete_user(self) -> None:
         # Create a user
         await self.test_create_user()
 
@@ -175,12 +176,12 @@ class TestSecurityPlugin(IsolatedAsyncioTestCase):
         with self.assertRaises(NotFoundError):
             response = await self.client.security.get_user(self.USER_NAME)
 
-    async def test_health_check(self):
+    async def test_health_check(self) -> None:
         response = await self.client.security.health_check()
         self.assertNotIn("errors", response)
         self.assertEqual("UP", response.get("status"))
 
-    async def test_health(self):
+    async def test_health(self) -> None:
         response = await self.client.security.health()
         self.assertNotIn("errors", response)
         self.assertEqual("UP", response.get("status"))
@@ -213,14 +214,14 @@ class TestSecurityPlugin(IsolatedAsyncioTestCase):
         },
     }
 
-    async def test_update_audit_config(self):
+    async def test_update_audit_config(self) -> None:
         response = await self.client.security.update_audit_config(
             body=self.AUDIT_CONFIG_SETTINGS
         )
         self.assertNotIn("errors", response)
         self.assertEqual("OK", response.get("status"))
 
-    async def test_update_audit_configuration(self):
+    async def test_update_audit_configuration(self) -> None:
         response = await self.client.security.update_audit_configuration(
             body=self.AUDIT_CONFIG_SETTINGS
         )

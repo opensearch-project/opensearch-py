@@ -39,7 +39,7 @@ class TestAlertingPlugin(OpenSearchTestCase):
         (OPENSEARCH_VERSION) and (OPENSEARCH_VERSION < (2, 0, 0)),
         "Plugin not supported for opensearch version",
     )
-    def test_get_destination(self):
+    def test_get_destination(self) -> None:
         # Create a dummy destination
         self.test_create_destination()
 
@@ -119,7 +119,7 @@ class TestAlertingPlugin(OpenSearchTestCase):
         (OPENSEARCH_VERSION) and (OPENSEARCH_VERSION < (2, 0, 0)),
         "Plugin not supported for opensearch version",
     )
-    def test_search_monitor(self):
+    def test_search_monitor(self) -> None:
         # Create a dummy monitor
         self.test_create_monitor()
 
@@ -137,7 +137,7 @@ class TestAlertingPlugin(OpenSearchTestCase):
         (OPENSEARCH_VERSION) and (OPENSEARCH_VERSION < (2, 0, 0)),
         "Plugin not supported for opensearch version",
     )
-    def test_get_monitor(self):
+    def test_get_monitor(self) -> None:
         # Create a dummy monitor
         self.test_create_monitor()
 
@@ -161,7 +161,7 @@ class TestAlertingPlugin(OpenSearchTestCase):
         (OPENSEARCH_VERSION) and (OPENSEARCH_VERSION < (2, 0, 0)),
         "Plugin not supported for opensearch version",
     )
-    def test_run_monitor(self):
+    def test_run_monitor(self) -> None:
         # Create a dummy monitor
         self.test_create_monitor()
 

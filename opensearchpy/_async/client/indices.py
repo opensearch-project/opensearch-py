@@ -36,12 +36,20 @@
 # -----------------------------------------------------
 
 
+from typing import Any
+
 from .utils import SKIP_IN_PATH, NamespacedClient, _make_path, query_params
 
 
 class IndicesClient(NamespacedClient):
     @query_params()
-    async def analyze(self, body=None, index=None, params=None, headers=None):
+    async def analyze(
+        self,
+        body: Any = None,
+        index: Any = None,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Performs the analysis process on a text and return the tokens breakdown of the
         text.
@@ -60,7 +68,12 @@ class IndicesClient(NamespacedClient):
         )
 
     @query_params("allow_no_indices", "expand_wildcards", "ignore_unavailable")
-    async def refresh(self, index=None, params=None, headers=None):
+    async def refresh(
+        self,
+        index: Any = None,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Performs the refresh operation in one or more indices.
 
@@ -87,7 +100,12 @@ class IndicesClient(NamespacedClient):
         "ignore_unavailable",
         "wait_if_ongoing",
     )
-    async def flush(self, index=None, params=None, headers=None):
+    async def flush(
+        self,
+        index: Any = None,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Performs the flush operation on one or more indices.
 
@@ -119,7 +137,13 @@ class IndicesClient(NamespacedClient):
     @query_params(
         "cluster_manager_timeout", "master_timeout", "timeout", "wait_for_active_shards"
     )
-    async def create(self, index, body=None, params=None, headers=None):
+    async def create(
+        self,
+        index: Any,
+        body: Any = None,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Creates an index with optional settings and mappings.
 
@@ -146,7 +170,14 @@ class IndicesClient(NamespacedClient):
     @query_params(
         "cluster_manager_timeout", "master_timeout", "timeout", "wait_for_active_shards"
     )
-    async def clone(self, index, target, body=None, params=None, headers=None):
+    async def clone(
+        self,
+        index: Any,
+        target: Any,
+        body: Any = None,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Clones an index.
 
@@ -186,7 +217,12 @@ class IndicesClient(NamespacedClient):
         "local",
         "master_timeout",
     )
-    async def get(self, index, params=None, headers=None):
+    async def get(
+        self,
+        index: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Returns information about one or more indices.
 
@@ -229,7 +265,12 @@ class IndicesClient(NamespacedClient):
         "timeout",
         "wait_for_active_shards",
     )
-    async def open(self, index, params=None, headers=None):
+    async def open(
+        self,
+        index: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Opens an index.
 
@@ -268,7 +309,12 @@ class IndicesClient(NamespacedClient):
         "timeout",
         "wait_for_active_shards",
     )
-    async def close(self, index, params=None, headers=None):
+    async def close(
+        self,
+        index: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Closes an index.
 
@@ -306,7 +352,12 @@ class IndicesClient(NamespacedClient):
         "master_timeout",
         "timeout",
     )
-    async def delete(self, index, params=None, headers=None):
+    async def delete(
+        self,
+        index: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Deletes an index.
 
@@ -344,7 +395,12 @@ class IndicesClient(NamespacedClient):
         "include_defaults",
         "local",
     )
-    async def exists(self, index, params=None, headers=None):
+    async def exists(
+        self,
+        index: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Returns information about whether a particular index exists.
 
@@ -382,7 +438,13 @@ class IndicesClient(NamespacedClient):
         "timeout",
         "write_index_only",
     )
-    async def put_mapping(self, body, index=None, params=None, headers=None):
+    async def put_mapping(
+        self,
+        body: Any,
+        index: Any = None,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Updates the index mappings.
 
@@ -429,7 +491,12 @@ class IndicesClient(NamespacedClient):
         "local",
         "master_timeout",
     )
-    async def get_mapping(self, index=None, params=None, headers=None):
+    async def get_mapping(
+        self,
+        index: Any = None,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Returns mappings for one or more indices.
 
@@ -463,7 +530,13 @@ class IndicesClient(NamespacedClient):
         "include_defaults",
         "local",
     )
-    async def get_field_mapping(self, fields, index=None, params=None, headers=None):
+    async def get_field_mapping(
+        self,
+        fields: Any,
+        index: Any = None,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Returns mapping for one or more fields.
 
@@ -494,7 +567,14 @@ class IndicesClient(NamespacedClient):
         )
 
     @query_params("cluster_manager_timeout", "master_timeout", "timeout")
-    async def put_alias(self, index, name, body=None, params=None, headers=None):
+    async def put_alias(
+        self,
+        index: Any,
+        name: Any,
+        body: Any = None,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Creates or updates an alias.
 
@@ -524,7 +604,13 @@ class IndicesClient(NamespacedClient):
         )
 
     @query_params("allow_no_indices", "expand_wildcards", "ignore_unavailable", "local")
-    async def exists_alias(self, name, index=None, params=None, headers=None):
+    async def exists_alias(
+        self,
+        name: Any,
+        index: Any = None,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Returns information about whether a particular alias exists.
 
@@ -550,7 +636,13 @@ class IndicesClient(NamespacedClient):
         )
 
     @query_params("allow_no_indices", "expand_wildcards", "ignore_unavailable", "local")
-    async def get_alias(self, index=None, name=None, params=None, headers=None):
+    async def get_alias(
+        self,
+        index: Any = None,
+        name: Any = None,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Returns an alias.
 
@@ -573,7 +665,12 @@ class IndicesClient(NamespacedClient):
         )
 
     @query_params("cluster_manager_timeout", "master_timeout", "timeout")
-    async def update_aliases(self, body, params=None, headers=None):
+    async def update_aliases(
+        self,
+        body: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Updates index aliases.
 
@@ -594,7 +691,13 @@ class IndicesClient(NamespacedClient):
         )
 
     @query_params("cluster_manager_timeout", "master_timeout", "timeout")
-    async def delete_alias(self, index, name, params=None, headers=None):
+    async def delete_alias(
+        self,
+        index: Any,
+        name: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Deletes an alias.
 
@@ -619,7 +722,13 @@ class IndicesClient(NamespacedClient):
         )
 
     @query_params("cluster_manager_timeout", "create", "master_timeout", "order")
-    async def put_template(self, name, body, params=None, headers=None):
+    async def put_template(
+        self,
+        name: Any,
+        body: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Creates or updates an index template.
 
@@ -650,7 +759,12 @@ class IndicesClient(NamespacedClient):
         )
 
     @query_params("cluster_manager_timeout", "flat_settings", "local", "master_timeout")
-    async def exists_template(self, name, params=None, headers=None):
+    async def exists_template(
+        self,
+        name: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Returns information about whether a particular index template exists.
 
@@ -674,7 +788,12 @@ class IndicesClient(NamespacedClient):
         )
 
     @query_params("cluster_manager_timeout", "flat_settings", "local", "master_timeout")
-    async def get_template(self, name=None, params=None, headers=None):
+    async def get_template(
+        self,
+        name: Any = None,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Returns an index template.
 
@@ -695,7 +814,12 @@ class IndicesClient(NamespacedClient):
         )
 
     @query_params("cluster_manager_timeout", "master_timeout", "timeout")
-    async def delete_template(self, name, params=None, headers=None):
+    async def delete_template(
+        self,
+        name: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Deletes an index template.
 
@@ -725,7 +849,13 @@ class IndicesClient(NamespacedClient):
         "local",
         "master_timeout",
     )
-    async def get_settings(self, index=None, name=None, params=None, headers=None):
+    async def get_settings(
+        self,
+        index: Any = None,
+        name: Any = None,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Returns settings for one or more indices.
 
@@ -767,7 +897,13 @@ class IndicesClient(NamespacedClient):
         "preserve_existing",
         "timeout",
     )
-    async def put_settings(self, body, index=None, params=None, headers=None):
+    async def put_settings(
+        self,
+        body: Any,
+        index: Any = None,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Updates the index settings.
 
@@ -817,7 +953,13 @@ class IndicesClient(NamespacedClient):
         "include_unloaded_segments",
         "level",
     )
-    async def stats(self, index=None, metric=None, params=None, headers=None):
+    async def stats(
+        self,
+        index: Any = None,
+        metric: Any = None,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Provides statistics on operations happening in an index.
 
@@ -858,7 +1000,12 @@ class IndicesClient(NamespacedClient):
     @query_params(
         "allow_no_indices", "expand_wildcards", "ignore_unavailable", "verbose"
     )
-    async def segments(self, index=None, params=None, headers=None):
+    async def segments(
+        self,
+        index: Any = None,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Provides low-level information about segments in a Lucene index.
 
@@ -894,7 +1041,13 @@ class IndicesClient(NamespacedClient):
         "q",
         "rewrite",
     )
-    async def validate_query(self, body=None, index=None, params=None, headers=None):
+    async def validate_query(
+        self,
+        body: Any = None,
+        index: Any = None,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Allows a user to validate a potentially expensive query without executing it.
 
@@ -943,7 +1096,12 @@ class IndicesClient(NamespacedClient):
         "query",
         "request",
     )
-    async def clear_cache(self, index=None, params=None, headers=None):
+    async def clear_cache(
+        self,
+        index: Any = None,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Clears all or specific caches for one or more indices.
 
@@ -969,7 +1127,12 @@ class IndicesClient(NamespacedClient):
         )
 
     @query_params("active_only", "detailed")
-    async def recovery(self, index=None, params=None, headers=None):
+    async def recovery(
+        self,
+        index: Any = None,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Returns information about ongoing index shard recoveries.
 
@@ -992,7 +1155,12 @@ class IndicesClient(NamespacedClient):
         "only_ancient_segments",
         "wait_for_completion",
     )
-    async def upgrade(self, index=None, params=None, headers=None):
+    async def upgrade(
+        self,
+        index: Any = None,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         The _upgrade API is no longer useful and will be removed.
 
@@ -1017,7 +1185,12 @@ class IndicesClient(NamespacedClient):
         )
 
     @query_params("allow_no_indices", "expand_wildcards", "ignore_unavailable")
-    async def get_upgrade(self, index=None, params=None, headers=None):
+    async def get_upgrade(
+        self,
+        index: Any = None,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         The _upgrade API is no longer useful and will be removed.
 
@@ -1040,7 +1213,12 @@ class IndicesClient(NamespacedClient):
     @query_params(
         "allow_no_indices", "expand_wildcards", "ignore_unavailable", "status"
     )
-    async def shard_stores(self, index=None, params=None, headers=None):
+    async def shard_stores(
+        self,
+        index: Any = None,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Provides store information for shard copies of indices.
 
@@ -1070,7 +1248,12 @@ class IndicesClient(NamespacedClient):
         "max_num_segments",
         "only_expunge_deletes",
     )
-    async def forcemerge(self, index=None, params=None, headers=None):
+    async def forcemerge(
+        self,
+        index: Any = None,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Performs the force merge operation on one or more indices.
 
@@ -1103,7 +1286,14 @@ class IndicesClient(NamespacedClient):
         "timeout",
         "wait_for_active_shards",
     )
-    async def shrink(self, index, target, body=None, params=None, headers=None):
+    async def shrink(
+        self,
+        index: Any,
+        target: Any,
+        body: Any = None,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Allow to shrink an existing index into a new index with fewer primary shards.
 
@@ -1142,7 +1332,14 @@ class IndicesClient(NamespacedClient):
         "timeout",
         "wait_for_active_shards",
     )
-    async def split(self, index, target, body=None, params=None, headers=None):
+    async def split(
+        self,
+        index: Any,
+        target: Any,
+        body: Any = None,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Allows you to split an existing index into a new index with more primary
         shards.
@@ -1183,8 +1380,13 @@ class IndicesClient(NamespacedClient):
         "wait_for_active_shards",
     )
     async def rollover(
-        self, alias, body=None, new_index=None, params=None, headers=None
-    ):
+        self,
+        alias: Any,
+        body: Any = None,
+        new_index: Any = None,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Updates an alias to point to a new index when the existing index is considered
         to be too large or too old.
@@ -1219,7 +1421,13 @@ class IndicesClient(NamespacedClient):
         )
 
     @query_params()
-    async def create_data_stream(self, name, body=None, params=None, headers=None):
+    async def create_data_stream(
+        self,
+        name: Any,
+        body: Any = None,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Creates or updates a data stream.
 
@@ -1239,7 +1447,12 @@ class IndicesClient(NamespacedClient):
         )
 
     @query_params()
-    async def delete_data_stream(self, name, params=None, headers=None):
+    async def delete_data_stream(
+        self,
+        name: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Deletes a data stream.
 
@@ -1255,7 +1468,12 @@ class IndicesClient(NamespacedClient):
         )
 
     @query_params("cluster_manager_timeout", "master_timeout", "timeout")
-    async def delete_index_template(self, name, params=None, headers=None):
+    async def delete_index_template(
+        self,
+        name: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Deletes an index template.
 
@@ -1279,7 +1497,12 @@ class IndicesClient(NamespacedClient):
         )
 
     @query_params("cluster_manager_timeout", "flat_settings", "local", "master_timeout")
-    async def exists_index_template(self, name, params=None, headers=None):
+    async def exists_index_template(
+        self,
+        name: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Returns information about whether a particular index template exists.
 
@@ -1303,7 +1526,12 @@ class IndicesClient(NamespacedClient):
         )
 
     @query_params("cluster_manager_timeout", "flat_settings", "local", "master_timeout")
-    async def get_index_template(self, name=None, params=None, headers=None):
+    async def get_index_template(
+        self,
+        name: Any = None,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Returns an index template.
 
@@ -1324,7 +1552,13 @@ class IndicesClient(NamespacedClient):
         )
 
     @query_params("cause", "cluster_manager_timeout", "create", "master_timeout")
-    async def put_index_template(self, name, body, params=None, headers=None):
+    async def put_index_template(
+        self,
+        name: Any,
+        body: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Creates or updates an index template.
 
@@ -1354,7 +1588,13 @@ class IndicesClient(NamespacedClient):
         )
 
     @query_params("cause", "cluster_manager_timeout", "create", "master_timeout")
-    async def simulate_index_template(self, name, body=None, params=None, headers=None):
+    async def simulate_index_template(
+        self,
+        name: Any,
+        body: Any = None,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Simulate matching the given index name against the index templates in the
         system.
@@ -1387,7 +1627,12 @@ class IndicesClient(NamespacedClient):
         )
 
     @query_params()
-    async def get_data_stream(self, name=None, params=None, headers=None):
+    async def get_data_stream(
+        self,
+        name: Any = None,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Returns data streams.
 
@@ -1400,7 +1645,13 @@ class IndicesClient(NamespacedClient):
         )
 
     @query_params("cause", "cluster_manager_timeout", "create", "master_timeout")
-    async def simulate_template(self, body=None, name=None, params=None, headers=None):
+    async def simulate_template(
+        self,
+        body: Any = None,
+        name: Any = None,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Simulate resolving the given template name or body.
 
@@ -1428,7 +1679,12 @@ class IndicesClient(NamespacedClient):
         )
 
     @query_params("expand_wildcards")
-    async def resolve_index(self, name, params=None, headers=None):
+    async def resolve_index(
+        self,
+        name: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Returns information about any matching indices, aliases, and data streams.
 
@@ -1454,7 +1710,13 @@ class IndicesClient(NamespacedClient):
         "master_timeout",
         "timeout",
     )
-    async def add_block(self, index, block, params=None, headers=None):
+    async def add_block(
+        self,
+        index: Any,
+        block: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Adds a block to an index.
 
@@ -1486,7 +1748,12 @@ class IndicesClient(NamespacedClient):
         )
 
     @query_params()
-    async def data_streams_stats(self, name=None, params=None, headers=None):
+    async def data_streams_stats(
+        self,
+        name: Any = None,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Provides statistics on operations happening in a data stream.
 

@@ -25,21 +25,19 @@
 #  specific language governing permissions and limitations
 #  under the License.
 
-try:
-    import collections.abc as collections_abc  # only works on python 3.3+
-except ImportError:
-    import collections as collections_abc
+import collections.abc as collections_abc
+from typing import Any, Optional
 
 from .utils import DslBase
 
 
-def SF(name_or_sf, **params):
+def SF(name_or_sf: Any, **params: Any) -> Any:
     # {"script_score": {"script": "_score"}, "filter": {}}
     if isinstance(name_or_sf, collections_abc.Mapping):
         if params:
             raise ValueError("SF() cannot accept parameters when passing in a dict.")
         kwargs = {}
-        sf = name_or_sf.copy()
+        sf = name_or_sf.copy()  # type: ignore
         for k in ScoreFunction._param_defs:
             if k in name_or_sf:
                 kwargs[k] = sf.pop(k)
@@ -74,16 +72,16 @@ def SF(name_or_sf, **params):
 
 
 class ScoreFunction(DslBase):
-    _type_name = "score_function"
+    _type_name: str = "score_function"
     _type_shortcut = staticmethod(SF)
     _param_defs = {
         "query": {"type": "query"},
         "filter": {"type": "query"},
         "weight": {},
     }
-    name = None
+    name: Optional[str] = None
 
-    def to_dict(self):
+    def to_dict(self) -> Any:
         d = super(ScoreFunction, self).to_dict()
         # filter and query dicts should be at the same level as us
         for k in self._param_defs:
@@ -99,7 +97,7 @@ class ScriptScore(ScoreFunction):
 class BoostFactor(ScoreFunction):
     name = "boost_factor"
 
-    def to_dict(self):
+    def to_dict(self) -> Any:
         d = super(BoostFactor, self).to_dict()
         if "value" in d[self.name]:
             d[self.name] = d[self.name].pop("value")

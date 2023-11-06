@@ -7,6 +7,7 @@
 #
 # Modifications Copyright OpenSearch Contributors. See
 # GitHub history for details.
+
 # ----------------------------------------------------
 # THIS CODE IS GENERATED AND MANUAL EDITS WILL BE LOST.
 #
@@ -17,12 +18,19 @@
 # -----------------------------------------------------
 
 
+from typing import Any
+
 from .utils import SKIP_IN_PATH, NamespacedClient, query_params
 
 
 class RemoteStoreClient(NamespacedClient):
     @query_params("cluster_manager_timeout", "wait_for_completion")
-    def restore(self, body, params=None, headers=None):
+    def restore(
+        self,
+        body: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Restores from remote store.
 

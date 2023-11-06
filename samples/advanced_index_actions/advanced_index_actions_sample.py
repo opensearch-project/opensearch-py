@@ -18,7 +18,7 @@ from opensearchpy import OpenSearch
 # urllib3.disable_warnings()
 
 
-def test_opensearch_examples():
+def test_opensearch_examples() -> None:
     # Set up
     client = OpenSearch(
         hosts=["https://localhost:9200"],

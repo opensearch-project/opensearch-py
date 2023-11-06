@@ -14,7 +14,7 @@ from opensearchpy import OpenSearch, RequestsHttpConnection
 
 
 class TestRequests(TestCase):
-    def test_connection_class(self):
+    def test_connection_class(self) -> None:
         client = OpenSearch(connection_class=RequestsHttpConnection)
         self.assertEqual(client.transport.pool_maxsize, None)
         self.assertEqual(client.transport.connection_class, RequestsHttpConnection)
@@ -22,7 +22,7 @@ class TestRequests(TestCase):
             client.transport.connection_pool.connections[0], RequestsHttpConnection
         )
 
-    def test_pool_maxsize(self):
+    def test_pool_maxsize(self) -> None:
         client = OpenSearch(connection_class=RequestsHttpConnection, pool_maxsize=42)
         self.assertEqual(client.transport.pool_maxsize, 42)
         self.assertEqual(

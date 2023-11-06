@@ -62,7 +62,7 @@ class Commit(Document):
         name = "flat-git"
 
 
-def test_filters_aggregation_buckets_are_accessible(data_client):
+def test_filters_aggregation_buckets_are_accessible(data_client) -> None:
     has_tests_query = Q("term", files="test_opensearchpy/test_dsl")
     s = Commit.search()[0:0]
     s.aggs.bucket("top_authors", "terms", field="author.name.raw").bucket(
@@ -83,7 +83,7 @@ def test_filters_aggregation_buckets_are_accessible(data_client):
     )
 
 
-def test_top_hits_are_wrapped_in_response(data_client):
+def test_top_hits_are_wrapped_in_response(data_client) -> None:
     s = Commit.search()[0:0]
     s.aggs.bucket("top_authors", "terms", field="author.name.raw").metric(
         "top_commits", "top_hits", size=5
@@ -99,7 +99,7 @@ def test_top_hits_are_wrapped_in_response(data_client):
     assert isinstance(hits[0], Commit)
 
 
-def test_inner_hits_are_wrapped_in_response(data_client):
+def test_inner_hits_are_wrapped_in_response(data_client) -> None:
     s = Search(index="git")[0:1].query(
         "has_parent", parent_type="repo", inner_hits={}, query=Q("match_all")
     )
@@ -110,7 +110,7 @@ def test_inner_hits_are_wrapped_in_response(data_client):
     assert repr(commit.meta.inner_hits.repo[0]).startswith("<Hit(git/opensearch-py): ")
 
 
-def test_scan_respects_doc_types(data_client):
+def test_scan_respects_doc_types(data_client) -> None:
     repos = list(Repository.search().scan())
 
     assert 1 == len(repos)
@@ -118,7 +118,7 @@ def test_scan_respects_doc_types(data_client):
     assert repos[0].organization == "opensearch"
 
 
-def test_scan_iterates_through_all_docs(data_client):
+def test_scan_iterates_through_all_docs(data_client) -> None:
     s = Search(index="flat-git")
 
     commits = list(s.scan())
@@ -127,7 +127,7 @@ def test_scan_iterates_through_all_docs(data_client):
     assert {d["_id"] for d in FLAT_DATA} == {c.meta.id for c in commits}
 
 
-def test_response_is_cached(data_client):
+def test_response_is_cached(data_client) -> None:
     s = Repository.search()
     repos = list(s)
 
@@ -135,7 +135,7 @@ def test_response_is_cached(data_client):
     assert s._response.hits == repos
 
 
-def test_multi_search(data_client):
+def test_multi_search(data_client) -> None:
     s1 = Repository.search()
     s2 = Search(index="flat-git")
 
@@ -152,7 +152,7 @@ def test_multi_search(data_client):
     assert r2._search is s2
 
 
-def test_multi_missing(data_client):
+def test_multi_missing(data_client) -> None:
     s1 = Repository.search()
     s2 = Search(index="flat-git")
     s3 = Search(index="does_not_exist")
@@ -175,7 +175,7 @@ def test_multi_missing(data_client):
     assert r3 is None
 
 
-def test_raw_subfield_can_be_used_in_aggs(data_client):
+def test_raw_subfield_can_be_used_in_aggs(data_client) -> None:
     s = Search(index="git")[0:0]
     s.aggs.bucket("authors", "terms", field="author.name.raw", size=1)
 

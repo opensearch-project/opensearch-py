@@ -11,6 +11,7 @@
 from datetime import datetime
 
 import pytest
+from _pytest.mark.structures import MarkDecorator
 
 from opensearchpy import A, Boolean, Date, Keyword
 from opensearchpy._async.helpers.document import AsyncDocument
@@ -25,7 +26,7 @@ from test_opensearchpy.test_async.test_server.test_helpers.test_document import 
     PullRequest,
 )
 
-pytestmark = pytest.mark.asyncio
+pytestmark: MarkDecorator = pytest.mark.asyncio
 
 
 class Repos(AsyncDocument):
@@ -118,7 +119,7 @@ def pr_search_cls(opensearch_version):
     return PRSearch
 
 
-async def test_facet_with_custom_metric(data_client):
+async def test_facet_with_custom_metric(data_client) -> None:
     ms = MetricSearch()
     r = await ms.execute()
 
@@ -127,7 +128,7 @@ async def test_facet_with_custom_metric(data_client):
     assert dates[0] == 1399038439000
 
 
-async def test_nested_facet(pull_request, pr_search_cls):
+async def test_nested_facet(pull_request, pr_search_cls) -> None:
     prs = pr_search_cls()
     r = await prs.execute()
 
@@ -135,7 +136,7 @@ async def test_nested_facet(pull_request, pr_search_cls):
     assert [(datetime(2018, 1, 1, 0, 0), 1, False)] == r.facets.comments
 
 
-async def test_nested_facet_with_filter(pull_request, pr_search_cls):
+async def test_nested_facet_with_filter(pull_request, pr_search_cls) -> None:
     prs = pr_search_cls(filters={"comments": datetime(2018, 1, 1, 0, 0)})
     r = await prs.execute()
 
@@ -147,7 +148,7 @@ async def test_nested_facet_with_filter(pull_request, pr_search_cls):
     assert not r.hits
 
 
-async def test_datehistogram_facet(data_client, repo_search_cls):
+async def test_datehistogram_facet(data_client, repo_search_cls) -> None:
     rs = repo_search_cls()
     r = await rs.execute()
 
@@ -155,7 +156,7 @@ async def test_datehistogram_facet(data_client, repo_search_cls):
     assert [(datetime(2014, 3, 1, 0, 0), 1, False)] == r.facets.created
 
 
-async def test_boolean_facet(data_client, repo_search_cls):
+async def test_boolean_facet(data_client, repo_search_cls) -> None:
     rs = repo_search_cls()
     r = await rs.execute()
 
@@ -167,7 +168,7 @@ async def test_boolean_facet(data_client, repo_search_cls):
 
 async def test_empty_search_finds_everything(
     data_client, opensearch_version, commit_search_cls
-):
+) -> None:
     cs = commit_search_cls()
     r = await cs.execute()
     assert r.hits.total.value == 52
@@ -213,7 +214,7 @@ async def test_empty_search_finds_everything(
 
 async def test_term_filters_are_shown_as_selected_and_data_is_filtered(
     data_client, commit_search_cls
-):
+) -> None:
     cs = commit_search_cls(filters={"files": "test_opensearchpy/test_dsl"})
 
     r = await cs.execute()
@@ -259,7 +260,7 @@ async def test_term_filters_are_shown_as_selected_and_data_is_filtered(
 
 async def test_range_filters_are_shown_as_selected_and_data_is_filtered(
     data_client, commit_search_cls
-):
+) -> None:
     cs = commit_search_cls(filters={"deletions": "better"})
 
     r = await cs.execute()
@@ -267,7 +268,7 @@ async def test_range_filters_are_shown_as_selected_and_data_is_filtered(
     assert 19 == r.hits.total.value
 
 
-async def test_pagination(data_client, commit_search_cls):
+async def test_pagination(data_client, commit_search_cls) -> None:
     cs = commit_search_cls()
     cs = cs[0:20]
 

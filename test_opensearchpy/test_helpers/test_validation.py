@@ -46,7 +46,7 @@ class Author(InnerDoc):
     name = Text(required=True)
     email = Text(required=True)
 
-    def clean(self):
+    def clean(self) -> None:
         print(self, type(self), self.name)
         if self.name.lower() not in self.email:
             raise ValidationException("Invalid email!")
@@ -74,7 +74,7 @@ class Log(Document):
     data = Text()
 
 
-def test_required_int_can_be_0():
+def test_required_int_can_be_0() -> None:
     class DT(Document):
         i = Integer(required=True)
 
@@ -82,7 +82,7 @@ def test_required_int_can_be_0():
     assert dt.full_clean() is None
 
 
-def test_required_field_cannot_be_empty_list():
+def test_required_field_cannot_be_empty_list() -> None:
     class DT(Document):
         i = Integer(required=True)
 
@@ -91,7 +91,7 @@ def test_required_field_cannot_be_empty_list():
         dt.full_clean()
 
 
-def test_validation_works_for_lists_of_values():
+def test_validation_works_for_lists_of_values() -> None:
     class DT(Document):
         i = Date(required=True)
 
@@ -103,21 +103,21 @@ def test_validation_works_for_lists_of_values():
     assert None is dt.full_clean()
 
 
-def test_field_with_custom_clean():
+def test_field_with_custom_clean() -> None:
     ls = Log()
     ls.full_clean()
 
     assert isinstance(ls.timestamp, datetime)
 
 
-def test_empty_object():
+def test_empty_object() -> None:
     d = BlogPost(authors=[{"name": "Guian", "email": "guiang@bitquilltech.com"}])
     d.inner = {}
 
     d.full_clean()
 
 
-def test_missing_required_field_raises_validation_exception():
+def test_missing_required_field_raises_validation_exception() -> None:
     d = BlogPost()
     with raises(ValidationException):
         d.full_clean()
@@ -132,7 +132,7 @@ def test_missing_required_field_raises_validation_exception():
     d.full_clean()
 
 
-def test_boolean_doesnt_treat_false_as_empty():
+def test_boolean_doesnt_treat_false_as_empty() -> None:
     d = BlogPostWithStatus()
     with raises(ValidationException):
         d.full_clean()
@@ -142,7 +142,7 @@ def test_boolean_doesnt_treat_false_as_empty():
     d.full_clean()
 
 
-def test_custom_validation_on_nested_gets_run():
+def test_custom_validation_on_nested_gets_run() -> None:
     d = BlogPost(authors=[Author(name="Guian", email="king@example.com")], created=None)
 
     assert isinstance(d.authors[0], Author)
@@ -151,7 +151,7 @@ def test_custom_validation_on_nested_gets_run():
         d.full_clean()
 
 
-def test_accessing_known_fields_returns_empty_value():
+def test_accessing_known_fields_returns_empty_value() -> None:
     d = BlogPost()
 
     assert [] == d.authors
@@ -161,7 +161,7 @@ def test_accessing_known_fields_returns_empty_value():
     assert None is d.authors[0].email
 
 
-def test_empty_values_are_not_serialized():
+def test_empty_values_are_not_serialized() -> None:
     d = BlogPost(
         authors=[{"name": "Guian", "email": "guiang@bitquilltech.com"}], created=None
     )

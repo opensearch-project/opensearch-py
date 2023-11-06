@@ -39,7 +39,7 @@ from os import environ
 from os.path import abspath, dirname, exists, join, pardir
 
 
-def fetch_opensearch_repo():
+def fetch_opensearch_repo() -> None:
     # user is manually setting YAML dir, don't tamper with it
     if "TEST_OPENSEARCH_YAML_DIR" in environ:
         return
@@ -88,7 +88,7 @@ def fetch_opensearch_repo():
     subprocess.check_call("cd %s && git fetch origin %s" % (repo_path, sha), shell=True)
 
 
-def run_all(argv=None):
+def run_all(argv: None = None) -> None:
     sys.exitfunc = lambda: sys.stderr.write("Shutting down....\n")
     # fetch yaml tests anywhere that's not GitHub Actions
     if "GITHUB_ACTION" not in environ:

@@ -34,7 +34,7 @@ from opensearchpy import OpenSearch
 
 
 class DummyTransport(object):
-    def __init__(self, hosts, responses=None, **kwargs):
+    def __init__(self, hosts, responses=None, **kwargs) -> None:
         self.hosts = hosts
         self.responses = responses
         self.call_count = 0
@@ -50,14 +50,14 @@ class DummyTransport(object):
 
 
 class OpenSearchTestCase(TestCase):
-    def setUp(self):
+    def setUp(self) -> None:
         super(OpenSearchTestCase, self).setUp()
         self.client = OpenSearch(transport_class=DummyTransport)
 
-    def assert_call_count_equals(self, count):
+    def assert_call_count_equals(self, count) -> None:
         self.assertEqual(count, self.client.transport.call_count)
 
-    def assert_url_called(self, method, url, count=1):
+    def assert_url_called(self, method, url, count: int = 1):
         self.assertIn((method, url), self.client.transport.calls)
         calls = self.client.transport.calls[(method, url)]
         self.assertEqual(count, len(calls))
@@ -65,13 +65,13 @@ class OpenSearchTestCase(TestCase):
 
 
 class TestOpenSearchTestCase(OpenSearchTestCase):
-    def test_our_transport_used(self):
+    def test_our_transport_used(self) -> None:
         self.assertIsInstance(self.client.transport, DummyTransport)
 
-    def test_start_with_0_call(self):
+    def test_start_with_0_call(self) -> None:
         self.assert_call_count_equals(0)
 
-    def test_each_call_is_recorded(self):
+    def test_each_call_is_recorded(self) -> None:
         self.client.transport.perform_request("GET", "/")
         self.client.transport.perform_request("DELETE", "/42", params={}, body="body")
         self.assert_call_count_equals(2)

@@ -28,29 +28,30 @@
 
 import mock
 import pytest
+from _pytest.mark.structures import MarkDecorator
 from multidict import CIMultiDict
 
 from opensearchpy._async._extra_imports import aiohttp
 from opensearchpy._async.compat import get_running_loop
 from opensearchpy.connection.http_async import AsyncHttpConnection
 
-pytestmark = pytest.mark.asyncio
+pytestmark: MarkDecorator = pytest.mark.asyncio
 
 
 class TestAsyncHttpConnection:
-    def test_auth_as_tuple(self):
+    def test_auth_as_tuple(self) -> None:
         c = AsyncHttpConnection(http_auth=("username", "password"))
         assert isinstance(c._http_auth, aiohttp.BasicAuth)
         assert c._http_auth.login, "username"
         assert c._http_auth.password, "password"
 
-    def test_auth_as_string(self):
+    def test_auth_as_string(self) -> None:
         c = AsyncHttpConnection(http_auth="username:password")
         assert isinstance(c._http_auth, aiohttp.BasicAuth)
         assert c._http_auth.login, "username"
         assert c._http_auth.password, "password"
 
-    def test_auth_as_callable(self):
+    def test_auth_as_callable(self) -> None:
         def auth_fn():
             pass
 
@@ -58,7 +59,7 @@ class TestAsyncHttpConnection:
         assert callable(c._http_auth)
 
     @mock.patch("aiohttp.ClientSession.request", new_callable=mock.Mock)
-    async def test_basicauth_in_request_session(self, mock_request):
+    async def test_basicauth_in_request_session(self, mock_request) -> None:
         async def do_request(*args, **kwargs):
             response_mock = mock.AsyncMock()
             response_mock.headers = CIMultiDict()
@@ -89,7 +90,7 @@ class TestAsyncHttpConnection:
         )
 
     @mock.patch("aiohttp.ClientSession.request", new_callable=mock.Mock)
-    async def test_callable_in_request_session(self, mock_request):
+    async def test_callable_in_request_session(self, mock_request) -> None:
         def auth_fn(*args, **kwargs):
             return {
                 "Test": "PASSED",

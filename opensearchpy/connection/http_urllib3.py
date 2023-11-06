@@ -28,12 +28,12 @@
 import ssl
 import time
 import warnings
-from typing import Callable
+from typing import Any, Callable, Collection, Mapping, Optional, Union
 
-import urllib3  # type: ignore
+import urllib3
 from urllib3.exceptions import ReadTimeoutError
-from urllib3.exceptions import SSLError as UrllibSSLError  # type: ignore
-from urllib3.util.retry import Retry  # type: ignore
+from urllib3.exceptions import SSLError as UrllibSSLError
+from urllib3.util.retry import Retry
 
 from ..compat import reraise_exceptions, urlencode
 from ..exceptions import (
@@ -51,7 +51,7 @@ VERIFY_CERTS_DEFAULT = object()
 SSL_SHOW_WARN_DEFAULT = object()
 
 
-def create_ssl_context(**kwargs):
+def create_ssl_context(**kwargs: Any) -> Any:
     """
     A helper function around creating an SSL context
 
@@ -99,25 +99,25 @@ class Urllib3HttpConnection(Connection):
 
     def __init__(
         self,
-        host="localhost",
-        port=None,
-        http_auth=None,
-        use_ssl=False,
-        verify_certs=VERIFY_CERTS_DEFAULT,
-        ssl_show_warn=SSL_SHOW_WARN_DEFAULT,
-        ca_certs=None,
-        client_cert=None,
-        client_key=None,
-        ssl_version=None,
-        ssl_assert_hostname=None,
-        ssl_assert_fingerprint=None,
-        pool_maxsize=None,
-        headers=None,
-        ssl_context=None,
-        http_compress=None,
-        opaque_id=None,
-        **kwargs
-    ):
+        host: str = "localhost",
+        port: Optional[int] = None,
+        http_auth: Any = None,
+        use_ssl: bool = False,
+        verify_certs: Any = VERIFY_CERTS_DEFAULT,
+        ssl_show_warn: Any = SSL_SHOW_WARN_DEFAULT,
+        ca_certs: Any = None,
+        client_cert: Any = None,
+        client_key: Any = None,
+        ssl_version: Any = None,
+        ssl_assert_hostname: Any = None,
+        ssl_assert_fingerprint: Any = None,
+        pool_maxsize: Any = None,
+        headers: Any = None,
+        ssl_context: Any = None,
+        http_compress: Any = None,
+        opaque_id: Any = None,
+        **kwargs: Any
+    ) -> None:
         # Initialize headers before calling super().__init__().
         self.headers = urllib3.make_headers(keep_alive=True)
 
@@ -133,7 +133,7 @@ class Urllib3HttpConnection(Connection):
 
         self.http_auth = http_auth
         if self.http_auth is not None:
-            if isinstance(self.http_auth, Callable):
+            if isinstance(self.http_auth, Callable):  # type: ignore
                 pass
             elif isinstance(self.http_auth, (tuple, list)):
                 self.headers.update(
@@ -142,7 +142,7 @@ class Urllib3HttpConnection(Connection):
             else:
                 self.headers.update(urllib3.make_headers(basic_auth=http_auth))
 
-        pool_class = urllib3.HTTPConnectionPool
+        pool_class: Any = urllib3.HTTPConnectionPool
         kw = {}
 
         # if providing an SSL context, raise error if any other SSL related flag is used
@@ -220,8 +220,15 @@ class Urllib3HttpConnection(Connection):
         )
 
     def perform_request(
-        self, method, url, params=None, body=None, timeout=None, ignore=(), headers=None
-    ):
+        self,
+        method: str,
+        url: str,
+        params: Optional[Mapping[str, Any]] = None,
+        body: Optional[bytes] = None,
+        timeout: Optional[Union[int, float]] = None,
+        ignore: Collection[int] = (),
+        headers: Optional[Mapping[str, str]] = None,
+    ) -> Any:
         url = self.url_prefix + url
         if params:
             url = "%s?%s" % (url, urlencode(params))
@@ -251,7 +258,7 @@ class Urllib3HttpConnection(Connection):
                 request_headers["content-encoding"] = "gzip"
 
             if self.http_auth is not None:
-                if isinstance(self.http_auth, Callable):
+                if isinstance(self.http_auth, Callable):  # type: ignore
                     request_headers.update(self.http_auth(method, full_url, body))
 
             response = self.pool.urlopen(
@@ -292,10 +299,10 @@ class Urllib3HttpConnection(Connection):
 
         return response.status, response.headers, raw_data
 
-    def get_response_headers(self, response):
+    def get_response_headers(self, response: Any) -> Any:
         return {header.lower(): value for header, value in response.headers.items()}
 
-    def close(self):
+    def close(self) -> None:
         """
         Explicitly closes connection
         """
