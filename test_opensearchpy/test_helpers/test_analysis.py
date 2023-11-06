@@ -30,7 +30,7 @@ from pytest import raises
 from opensearchpy.helpers import analysis
 
 
-def test_analyzer_serializes_as_name():
+def test_analyzer_serializes_as_name() -> None:
     a = analysis.analyzer("my_analyzer")
 
     assert "my_analyzer" == a.to_dict()
@@ -144,7 +144,7 @@ def test_conditional_token_filter():
     } == a.get_analysis_definition()
 
 
-def test_conflicting_nested_filters_cause_error():
+def test_conflicting_nested_filters_cause_error() -> None:
     a = analysis.analyzer(
         "my_cond",
         tokenizer=analysis.tokenizer("keyword"),
@@ -166,7 +166,7 @@ def test_conflicting_nested_filters_cause_error():
         a.get_analysis_definition()
 
 
-def test_normalizer_serializes_as_name():
+def test_normalizer_serializes_as_name() -> None:
     n = analysis.normalizer("my_normalizer")
 
     assert "my_normalizer" == n.to_dict()
@@ -184,7 +184,7 @@ def test_normalizer_has_definition():
     } == n.get_definition()
 
 
-def test_tokenizer():
+def test_tokenizer() -> None:
     t = analysis.tokenizer("trigram", "nGram", min_gram=3, max_gram=3)
 
     assert t.to_dict() == "trigram"
@@ -218,7 +218,7 @@ def test_custom_analyzer_can_collect_custom_items():
     } == a.get_analysis_definition()
 
 
-def test_stemmer_analyzer_can_pass_name():
+def test_stemmer_analyzer_can_pass_name() -> None:
     t = analysis.token_filter(
         "my_english_filter", name="minimal_english", type="stemmer"
     )

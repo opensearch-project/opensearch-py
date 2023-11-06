@@ -29,7 +29,7 @@ from opensearchpy.helpers.search import Q
 from opensearchpy.helpers.update_by_query import UpdateByQuery
 
 
-def test_update_by_query_no_script(write_client, setup_ubq_tests):
+def test_update_by_query_no_script(write_client, setup_ubq_tests) -> None:
     index = setup_ubq_tests
 
     ubq = (
@@ -48,7 +48,7 @@ def test_update_by_query_no_script(write_client, setup_ubq_tests):
     assert response.success()
 
 
-def test_update_by_query_with_script(write_client, setup_ubq_tests):
+def test_update_by_query_with_script(write_client, setup_ubq_tests) -> None:
     index = setup_ubq_tests
 
     ubq = (
@@ -65,7 +65,7 @@ def test_update_by_query_with_script(write_client, setup_ubq_tests):
     assert response.version_conflicts == 0
 
 
-def test_delete_by_query_with_script(write_client, setup_ubq_tests):
+def test_delete_by_query_with_script(write_client, setup_ubq_tests) -> None:
     index = setup_ubq_tests
 
     ubq = (

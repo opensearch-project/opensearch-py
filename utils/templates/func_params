@@ -1,14 +1,15 @@
 {% for p, info in api.all_parts.items() %}
-  {% if info.required %}{{ p }}, {% endif %}
+  {% if info.required %}{{ p }}: {{ info.type }}, {% endif %}
 {% endfor %}
 
 {% if api.body %}
-  body{% if not api.body.required %}=None{% endif %},
+  body{% if not api.body.required %}: Any=None{% else %}: Any{% endif %},
 {% endif %}
 
 {% for p, info in api.all_parts.items() %}
-  {% if not info.required %}{{ p }}=None, {% endif %}
+  {% if not info.required and not info.type == 'Any' %}{{ p }}: Optional[{{ info.type }}]=None, {% endif %}
+  {% if not info.required and info.type == 'Any' %}{{ p }}: {{ info.type }}=None, {% endif %}
 {% endfor %}
 
-params=None,
-headers=None
+params: Any=None,
+headers: Any=None,

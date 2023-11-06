@@ -28,7 +28,7 @@
 from opensearchpy import analyzer, token_filter, tokenizer
 
 
-def test_simulate_with_just__builtin_tokenizer(client):
+def test_simulate_with_just__builtin_tokenizer(client) -> None:
     a = analyzer("my-analyzer", tokenizer="keyword")
     tokens = a.simulate("Hello World!", using=client).tokens
 
@@ -36,7 +36,7 @@ def test_simulate_with_just__builtin_tokenizer(client):
     assert tokens[0].token == "Hello World!"
 
 
-def test_simulate_complex(client):
+def test_simulate_complex(client) -> None:
     a = analyzer(
         "my-analyzer",
         tokenizer=tokenizer("split_words", "simple_pattern_split", pattern=":"),
@@ -49,7 +49,7 @@ def test_simulate_complex(client):
     assert ["this", "works"] == [t.token for t in tokens]
 
 
-def test_simulate_builtin(client):
+def test_simulate_builtin(client) -> None:
     a = analyzer("my-analyzer", "english")
     tokens = a.simulate("fixes running").tokens
 

@@ -11,11 +11,12 @@
 from datetime import datetime
 
 import pytest
+from _pytest.mark.structures import MarkDecorator
 
 from opensearchpy._async.helpers.faceted_search import AsyncFacetedSearch
 from opensearchpy.helpers.faceted_search import DateHistogramFacet, TermsFacet
 
-pytestmark = pytest.mark.asyncio
+pytestmark: MarkDecorator = pytest.mark.asyncio
 
 
 class BlogSearch(AsyncFacetedSearch):
@@ -31,7 +32,7 @@ class BlogSearch(AsyncFacetedSearch):
     }
 
 
-async def test_query_is_created_properly():
+async def test_query_is_created_properly() -> None:
     bs = BlogSearch("python search")
     s = bs.build_search()
 
@@ -135,7 +136,7 @@ async def test_filters_are_applied_to_search_ant_relevant_facets():
     } == d
 
 
-async def test_date_histogram_facet_with_1970_01_01_date():
+async def test_date_histogram_facet_with_1970_01_01_date() -> None:
     dhf = DateHistogramFacet()
     assert dhf.get_value({"key": None}) == datetime(1970, 1, 1, 0, 0)
     assert dhf.get_value({"key": 0}) == datetime(1970, 1, 1, 0, 0)
@@ -168,7 +169,7 @@ async def test_date_histogram_facet_with_1970_01_01_date():
         ("fixed_interval", "1h"),
     ],
 )
-async def test_date_histogram_interval_types(interval_type, interval):
+async def test_date_histogram_interval_types(interval_type, interval) -> None:
     dhf = DateHistogramFacet(field="@timestamp", **{interval_type: interval})
     assert dhf.get_aggregation().to_dict() == {
         "date_histogram": {
@@ -180,7 +181,7 @@ async def test_date_histogram_interval_types(interval_type, interval):
     dhf.get_value_filter(datetime.now())
 
 
-async def test_date_histogram_no_interval_keyerror():
+async def test_date_histogram_no_interval_keyerror() -> None:
     dhf = DateHistogramFacet(field="@timestamp")
     with pytest.raises(KeyError) as e:
         dhf.get_value_filter(datetime.now())

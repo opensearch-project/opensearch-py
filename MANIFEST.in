@@ -5,7 +5,7 @@ include LICENSE
 include MANIFEST.in
 include README.md
 include setup.py
-recursive-include opensearch* py.typed *.pyi
+recursive-include opensearch* py.typed
 
 prune test_opensearch
 recursive-exclude * __pycache__

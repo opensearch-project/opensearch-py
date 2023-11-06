@@ -15,7 +15,7 @@ from opensearchpy._async.helpers import mapping
 from opensearchpy.helpers import analysis
 
 
-async def test_mapping_can_has_fields():
+async def test_mapping_can_has_fields() -> None:
     m = mapping.AsyncMapping()
     m.field("name", "text").field("tags", "keyword")
 
@@ -57,7 +57,7 @@ async def test_mapping_update_is_recursive():
     } == m1.to_dict()
 
 
-async def test_properties_can_iterate_over_all_the_fields():
+async def test_properties_can_iterate_over_all_the_fields() -> None:
     m = mapping.AsyncMapping()
     m.field("f1", "text", test_attr="f1", fields={"f2": Keyword(test_attr="f2")})
     m.field("f3", Nested(test_attr="f3", properties={"f4": Text(test_attr="f4")}))
@@ -186,7 +186,7 @@ async def test_mapping_can_collect_multiple_analyzers():
     } == m._collect_analysis()
 
 
-async def test_even_non_custom_analyzers_can_have_params():
+async def test_even_non_custom_analyzers_can_have_params() -> None:
     a1 = analysis.analyzer("whitespace", type="pattern", pattern=r"\\s+")
     m = mapping.AsyncMapping()
     m.field("title", "text", analyzer=a1)
@@ -196,14 +196,14 @@ async def test_even_non_custom_analyzers_can_have_params():
     } == m._collect_analysis()
 
 
-async def test_resolve_field_can_resolve_multifields():
+async def test_resolve_field_can_resolve_multifields() -> None:
     m = mapping.AsyncMapping()
     m.field("title", "text", fields={"keyword": Keyword()})
 
     assert isinstance(m.resolve_field("title.keyword"), Keyword)
 
 
-async def test_resolve_nested():
+async def test_resolve_nested() -> None:
     m = mapping.AsyncMapping()
     m.field("n1", "nested", properties={"n2": Nested(properties={"k1": Keyword()})})
     m.field("k2", "keyword")

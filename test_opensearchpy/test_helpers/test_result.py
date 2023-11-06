@@ -41,7 +41,7 @@ def agg_response(aggs_search, aggs_data):
     return response.Response(aggs_search, aggs_data)
 
 
-def test_agg_response_is_pickleable(agg_response):
+def test_agg_response_is_pickleable(agg_response) -> None:
     agg_response.hits
     r = pickle.loads(pickle.dumps(agg_response))
 
@@ -50,7 +50,7 @@ def test_agg_response_is_pickleable(agg_response):
     assert r.hits == agg_response.hits
 
 
-def test_response_is_pickleable(dummy_response):
+def test_response_is_pickleable(dummy_response) -> None:
     res = response.Response(Search(), dummy_response)
     res.hits
     r = pickle.loads(pickle.dumps(res))
@@ -60,7 +60,7 @@ def test_response_is_pickleable(dummy_response):
     assert r.hits == res.hits
 
 
-def test_hit_is_pickleable(dummy_response):
+def test_hit_is_pickleable(dummy_response) -> None:
     res = response.Response(Search(), dummy_response)
     hits = pickle.loads(pickle.dumps(res.hits))
 
@@ -68,14 +68,14 @@ def test_hit_is_pickleable(dummy_response):
     assert hits[0].meta == res.hits[0].meta
 
 
-def test_response_stores_search(dummy_response):
+def test_response_stores_search(dummy_response) -> None:
     s = Search()
     r = response.Response(s, dummy_response)
 
     assert r._search is s
 
 
-def test_interactive_helpers(dummy_response):
+def test_interactive_helpers(dummy_response) -> None:
     res = response.Response(Search(), dummy_response)
     hits = res.hits
     h = hits[0]
@@ -98,19 +98,19 @@ def test_interactive_helpers(dummy_response):
     ] == repr(h)
 
 
-def test_empty_response_is_false(dummy_response):
+def test_empty_response_is_false(dummy_response) -> None:
     dummy_response["hits"]["hits"] = []
     res = response.Response(Search(), dummy_response)
 
     assert not res
 
 
-def test_len_response(dummy_response):
+def test_len_response(dummy_response) -> None:
     res = response.Response(Search(), dummy_response)
     assert len(res) == 4
 
 
-def test_iterating_over_response_gives_you_hits(dummy_response):
+def test_iterating_over_response_gives_you_hits(dummy_response) -> None:
     res = response.Response(Search(), dummy_response)
     hits = list(h for h in res)
 
@@ -127,7 +127,7 @@ def test_iterating_over_response_gives_you_hits(dummy_response):
     assert hits[1].meta.routing == "opensearch"
 
 
-def test_hits_get_wrapped_to_contain_additional_attrs(dummy_response):
+def test_hits_get_wrapped_to_contain_additional_attrs(dummy_response) -> None:
     res = response.Response(Search(), dummy_response)
     hits = res.hits
 
@@ -135,7 +135,7 @@ def test_hits_get_wrapped_to_contain_additional_attrs(dummy_response):
     assert 12.0 == hits.max_score
 
 
-def test_hits_provide_dot_and_bracket_access_to_attrs(dummy_response):
+def test_hits_provide_dot_and_bracket_access_to_attrs(dummy_response) -> None:
     res = response.Response(Search(), dummy_response)
     h = res.hits[0]
 
@@ -151,30 +151,30 @@ def test_hits_provide_dot_and_bracket_access_to_attrs(dummy_response):
         h.not_there
 
 
-def test_slicing_on_response_slices_on_hits(dummy_response):
+def test_slicing_on_response_slices_on_hits(dummy_response) -> None:
     res = response.Response(Search(), dummy_response)
 
     assert res[0] is res.hits[0]
     assert res[::-1] == res.hits[::-1]
 
 
-def test_aggregation_base(agg_response):
+def test_aggregation_base(agg_response) -> None:
     assert agg_response.aggs is agg_response.aggregations
     assert isinstance(agg_response.aggs, response.AggResponse)
 
 
-def test_metric_agg_works(agg_response):
+def test_metric_agg_works(agg_response) -> None:
     assert 25052.0 == agg_response.aggs.sum_lines.value
 
 
-def test_aggregations_can_be_iterated_over(agg_response):
+def test_aggregations_can_be_iterated_over(agg_response) -> None:
     aggs = [a for a in agg_response.aggs]
 
     assert len(aggs) == 3
     assert all(map(lambda a: isinstance(a, AggResponse), aggs))
 
 
-def test_aggregations_can_be_retrieved_by_name(agg_response, aggs_search):
+def test_aggregations_can_be_retrieved_by_name(agg_response, aggs_search) -> None:
     a = agg_response.aggs["popular_files"]
 
     assert isinstance(a, BucketData)
@@ -182,7 +182,7 @@ def test_aggregations_can_be_retrieved_by_name(agg_response, aggs_search):
     assert a._meta["aggs"] is aggs_search.aggs.aggs["popular_files"]
 
 
-def test_bucket_response_can_be_iterated_over(agg_response):
+def test_bucket_response_can_be_iterated_over(agg_response) -> None:
     popular_files = agg_response.aggregations.popular_files
 
     buckets = [b for b in popular_files]
@@ -190,7 +190,7 @@ def test_bucket_response_can_be_iterated_over(agg_response):
     assert buckets == popular_files.buckets
 
 
-def test_bucket_keys_get_deserialized(aggs_data, aggs_search):
+def test_bucket_keys_get_deserialized(aggs_data, aggs_search) -> None:
     class Commit(Document):
         info = Object(properties={"committed_date": Date()})
 

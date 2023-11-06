@@ -14,7 +14,7 @@ from ...test_cases import TestCase
 
 
 class TestPluginsClient(TestCase):
-    def test_plugins_client(self):
+    def test_plugins_client(self) -> None:
         with self.assertWarns(Warning) as w:
             client = OpenSearch()
             client.plugins.__init__(client)  # double-init

@@ -161,7 +161,7 @@ def test_serialization(write_client):
     }
 
 
-def test_nested_inner_hits_are_wrapped_properly(pull_request):
+def test_nested_inner_hits_are_wrapped_properly(pull_request) -> None:
     history_query = Q(
         "nested",
         path="comments.history",
@@ -189,7 +189,7 @@ def test_nested_inner_hits_are_wrapped_properly(pull_request):
     assert "score" in history.meta
 
 
-def test_nested_inner_hits_are_deserialized_properly(pull_request):
+def test_nested_inner_hits_are_deserialized_properly(pull_request) -> None:
     s = PullRequest.search().query(
         "nested",
         inner_hits={},
@@ -204,7 +204,7 @@ def test_nested_inner_hits_are_deserialized_properly(pull_request):
     assert isinstance(pr.comments[0].created_at, datetime)
 
 
-def test_nested_top_hits_are_wrapped_properly(pull_request):
+def test_nested_top_hits_are_wrapped_properly(pull_request) -> None:
     s = PullRequest.search()
     s.aggs.bucket("comments", "nested", path="comments").metric(
         "hits", "top_hits", size=1
@@ -216,7 +216,7 @@ def test_nested_top_hits_are_wrapped_properly(pull_request):
     assert isinstance(r.aggregations.comments.hits.hits[0], Comment)
 
 
-def test_update_object_field(write_client):
+def test_update_object_field(write_client) -> None:
     Wiki.init()
     w = Wiki(
         owner=User(name="Honza Kral"),
@@ -236,7 +236,7 @@ def test_update_object_field(write_client):
     assert w.ranked == {"test1": 0.1, "topic2": 0.2}
 
 
-def test_update_script(write_client):
+def test_update_script(write_client) -> None:
     Wiki.init()
     w = Wiki(owner=User(name="Honza Kral"), _id="opensearch-py", views=42)
     w.save()
@@ -246,7 +246,7 @@ def test_update_script(write_client):
     assert w.views == 47
 
 
-def test_update_retry_on_conflict(write_client):
+def test_update_retry_on_conflict(write_client) -> None:
     Wiki.init()
     w = Wiki(owner=User(name="Honza Kral"), _id="opensearch-py", views=42)
     w.save()
@@ -261,7 +261,7 @@ def test_update_retry_on_conflict(write_client):
 
 
 @pytest.mark.parametrize("retry_on_conflict", [None, 0])
-def test_update_conflicting_version(write_client, retry_on_conflict):
+def test_update_conflicting_version(write_client, retry_on_conflict) -> None:
     Wiki.init()
     w = Wiki(owner=User(name="Honza Kral"), _id="opensearch-py", views=42)
     w.save()
@@ -278,7 +278,7 @@ def test_update_conflicting_version(write_client, retry_on_conflict):
         )
 
 
-def test_save_and_update_return_doc_meta(write_client):
+def test_save_and_update_return_doc_meta(write_client) -> None:
     Wiki.init()
     w = Wiki(owner=User(name="Honza Kral"), _id="opensearch-py", views=42)
     resp = w.save(return_doc_meta=True)
@@ -302,31 +302,31 @@ def test_save_and_update_return_doc_meta(write_client):
     assert resp.keys().__contains__("_version")
 
 
-def test_init(write_client):
+def test_init(write_client) -> None:
     Repository.init(index="test-git")
 
     assert write_client.indices.exists(index="test-git")
 
 
-def test_get_raises_404_on_index_missing(data_client):
+def test_get_raises_404_on_index_missing(data_client) -> None:
     with raises(NotFoundError):
         Repository.get("opensearch-dsl-php", index="not-there")
 
 
-def test_get_raises_404_on_non_existent_id(data_client):
+def test_get_raises_404_on_non_existent_id(data_client) -> None:
     with raises(NotFoundError):
         Repository.get("opensearch-dsl-php")
 
 
-def test_get_returns_none_if_404_ignored(data_client):
+def test_get_returns_none_if_404_ignored(data_client) -> None:
     assert None is Repository.get("opensearch-dsl-php", ignore=404)
 
 
-def test_get_returns_none_if_404_ignored_and_index_doesnt_exist(data_client):
+def test_get_returns_none_if_404_ignored_and_index_doesnt_exist(data_client) -> None:
     assert None is Repository.get("42", index="not-there", ignore=404)
 
 
-def test_get(data_client):
+def test_get(data_client) -> None:
     opensearch_repo = Repository.get("opensearch-py")
 
     assert isinstance(opensearch_repo, Repository)
@@ -334,15 +334,15 @@ def test_get(data_client):
     assert datetime(2014, 3, 3) == opensearch_repo.created_at
 
 
-def test_exists_return_true(data_client):
+def test_exists_return_true(data_client) -> None:
     assert Repository.exists("opensearch-py")
 
 
-def test_exists_false(data_client):
+def test_exists_false(data_client) -> None:
     assert not Repository.exists("opensearch-dsl-php")
 
 
-def test_get_with_tz_date(data_client):
+def test_get_with_tz_date(data_client) -> None:
     first_commit = Commit.get(
         id="3ca6e1e73a071a705b4babd2f581c91a2a3e5037", routing="opensearch-py"
     )
@@ -354,7 +354,7 @@ def test_get_with_tz_date(data_client):
     )
 
 
-def test_save_with_tz_date(data_client):
+def test_save_with_tz_date(data_client) -> None:
     tzinfo = timezone("Europe/Prague")
     first_commit = Commit.get(
         id="3ca6e1e73a071a705b4babd2f581c91a2a3e5037", routing="opensearch-py"
@@ -381,7 +381,7 @@ COMMIT_DOCS_WITH_MISSING = [
 ]
 
 
-def test_mget(data_client):
+def test_mget(data_client) -> None:
     commits = Commit.mget(COMMIT_DOCS_WITH_MISSING)
     assert commits[0] is None
     assert commits[1].meta.id == "3ca6e1e73a071a705b4babd2f581c91a2a3e5037"
@@ -389,23 +389,23 @@ def test_mget(data_client):
     assert commits[3].meta.id == "eb3e543323f189fd7b698e66295427204fff5755"
 
 
-def test_mget_raises_exception_when_missing_param_is_invalid(data_client):
+def test_mget_raises_exception_when_missing_param_is_invalid(data_client) -> None:
     with raises(ValueError):
         Commit.mget(COMMIT_DOCS_WITH_MISSING, missing="raj")
 
 
-def test_mget_raises_404_when_missing_param_is_raise(data_client):
+def test_mget_raises_404_when_missing_param_is_raise(data_client) -> None:
     with raises(NotFoundError):
         Commit.mget(COMMIT_DOCS_WITH_MISSING, missing="raise")
 
 
-def test_mget_ignores_missing_docs_when_missing_param_is_skip(data_client):
+def test_mget_ignores_missing_docs_when_missing_param_is_skip(data_client) -> None:
     commits = Commit.mget(COMMIT_DOCS_WITH_MISSING, missing="skip")
     assert commits[0].meta.id == "3ca6e1e73a071a705b4babd2f581c91a2a3e5037"
     assert commits[1].meta.id == "eb3e543323f189fd7b698e66295427204fff5755"
 
 
-def test_update_works_from_search_response(data_client):
+def test_update_works_from_search_response(data_client) -> None:
     opensearch_repo = Repository.search().execute()[0]
 
     opensearch_repo.update(owner={"other_name": "opensearchpy"})
@@ -416,7 +416,7 @@ def test_update_works_from_search_response(data_client):
     assert "opensearch" == new_version.owner.name
 
 
-def test_update(data_client):
+def test_update(data_client) -> None:
     opensearch_repo = Repository.get("opensearch-py")
     v = opensearch_repo.meta.version
 
@@ -440,7 +440,7 @@ def test_update(data_client):
     assert "primary_term" in new_version.meta
 
 
-def test_save_updates_existing_doc(data_client):
+def test_save_updates_existing_doc(data_client) -> None:
     opensearch_repo = Repository.get("opensearch-py")
 
     opensearch_repo.new_field = "testing-save"
@@ -453,7 +453,7 @@ def test_save_updates_existing_doc(data_client):
     assert new_repo["_seq_no"] == opensearch_repo.meta.seq_no
 
 
-def test_save_automatically_uses_seq_no_and_primary_term(data_client):
+def test_save_automatically_uses_seq_no_and_primary_term(data_client) -> None:
     opensearch_repo = Repository.get("opensearch-py")
     opensearch_repo.meta.seq_no += 1
 
@@ -461,7 +461,7 @@ def test_save_automatically_uses_seq_no_and_primary_term(data_client):
         opensearch_repo.save()
 
 
-def test_delete_automatically_uses_seq_no_and_primary_term(data_client):
+def test_delete_automatically_uses_seq_no_and_primary_term(data_client) -> None:
     opensearch_repo = Repository.get("opensearch-py")
     opensearch_repo.meta.seq_no += 1
 
@@ -469,7 +469,7 @@ def test_delete_automatically_uses_seq_no_and_primary_term(data_client):
         opensearch_repo.delete()
 
 
-def assert_doc_equals(expected, actual):
+def assert_doc_equals(expected, actual) -> None:
     for f in expected:
         assert f in actual
         assert actual[f] == expected[f]
@@ -490,7 +490,7 @@ def test_can_save_to_different_index(write_client):
     )
 
 
-def test_save_without_skip_empty_will_include_empty_fields(write_client):
+def test_save_without_skip_empty_will_include_empty_fields(write_client) -> None:
     test_repo = Repository(field_1=[], field_2=None, field_3={}, meta={"id": 42})
     assert test_repo.save(index="test-document", skip_empty=False)
 
@@ -505,7 +505,7 @@ def test_save_without_skip_empty_will_include_empty_fields(write_client):
     )
 
 
-def test_delete(write_client):
+def test_delete(write_client) -> None:
     write_client.create(
         index="test-document",
         id="opensearch-py",
@@ -526,11 +526,11 @@ def test_delete(write_client):
     )
 
 
-def test_search(data_client):
+def test_search(data_client) -> None:
     assert Repository.search().count() == 1
 
 
-def test_search_returns_proper_doc_classes(data_client):
+def test_search_returns_proper_doc_classes(data_client) -> None:
     result = Repository.search().execute()
 
     opensearch_repo = result.hits[0]
@@ -539,7 +539,7 @@ def test_search_returns_proper_doc_classes(data_client):
     assert opensearch_repo.owner.name == "opensearch"
 
 
-def test_refresh_mapping(data_client):
+def test_refresh_mapping(data_client) -> None:
     class Commit(Document):
         class Index:
             name = "git"
@@ -553,7 +553,7 @@ def test_refresh_mapping(data_client):
     assert isinstance(Commit._index._mapping["committed_date"], Date)
 
 
-def test_highlight_in_meta(data_client):
+def test_highlight_in_meta(data_client) -> None:
     commit = (
         Commit.search()
         .query("match", description="inverting")

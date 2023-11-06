@@ -38,7 +38,7 @@ class Post(Document):
     published_from = Date()
 
 
-def test_multiple_doc_types_will_combine_mappings():
+def test_multiple_doc_types_will_combine_mappings() -> None:
     class User(Document):
         username = Text()
 
@@ -56,14 +56,14 @@ def test_multiple_doc_types_will_combine_mappings():
     } == i.to_dict()
 
 
-def test_search_is_limited_to_index_name():
+def test_search_is_limited_to_index_name() -> None:
     i = Index("my-index")
     s = i.search()
 
     assert s._index == ["my-index"]
 
 
-def test_cloned_index_has_copied_settings_and_using():
+def test_cloned_index_has_copied_settings_and_using() -> None:
     client = object()
     i = Index("my-index", using=client)
     i.settings(number_of_shards=1)
@@ -76,7 +76,7 @@ def test_cloned_index_has_copied_settings_and_using():
     assert i._settings is not i2._settings
 
 
-def test_cloned_index_has_analysis_attribute():
+def test_cloned_index_has_analysis_attribute() -> None:
     """
     Regression test for Issue #582 in which `Index.clone()` was not copying
     over the `_analysis` attribute.
@@ -96,7 +96,7 @@ def test_cloned_index_has_analysis_attribute():
     assert i.to_dict()["settings"]["analysis"] == i2.to_dict()["settings"]["analysis"]
 
 
-def test_settings_are_saved():
+def test_settings_are_saved() -> None:
     i = Index("i")
     i.settings(number_of_replicas=0)
     i.settings(number_of_shards=1)
@@ -104,7 +104,7 @@ def test_settings_are_saved():
     assert {"settings": {"number_of_shards": 1, "number_of_replicas": 0}} == i.to_dict()
 
 
-def test_registered_doc_type_included_in_to_dict():
+def test_registered_doc_type_included_in_to_dict() -> None:
     i = Index("i", using="alias")
     i.document(Post)
 
@@ -118,7 +118,7 @@ def test_registered_doc_type_included_in_to_dict():
     } == i.to_dict()
 
 
-def test_registered_doc_type_included_in_search():
+def test_registered_doc_type_included_in_search() -> None:
     i = Index("i", using="alias")
     i.document(Post)
 
@@ -127,7 +127,7 @@ def test_registered_doc_type_included_in_search():
     assert s._doc_type == [Post]
 
 
-def test_aliases_add_to_object():
+def test_aliases_add_to_object() -> None:
     random_alias = "".join((choice(string.ascii_letters) for _ in range(100)))
     alias_dict = {random_alias: {}}
 
@@ -137,7 +137,7 @@ def test_aliases_add_to_object():
     assert index._aliases == alias_dict
 
 
-def test_aliases_returned_from_to_dict():
+def test_aliases_returned_from_to_dict() -> None:
     random_alias = "".join((choice(string.ascii_letters) for _ in range(100)))
     alias_dict = {random_alias: {}}
 
@@ -176,7 +176,7 @@ def test_analyzers_returned_from_to_dict():
     ] == {"filter": ["standard"], "type": "custom", "tokenizer": "standard"}
 
 
-def test_conflicting_analyzer_raises_error():
+def test_conflicting_analyzer_raises_error() -> None:
     i = Index("i")
     i.analyzer("my_analyzer", tokenizer="whitespace", filter=["lowercase", "stop"])
 
@@ -191,7 +191,7 @@ def test_index_template_can_have_order():
     assert {"index_patterns": ["i-*"], "order": 2} == it.to_dict()
 
 
-def test_index_template_save_result(mock_client):
+def test_index_template_save_result(mock_client) -> None:
     it = IndexTemplate("test-template", "test-*")
 
     assert it.save(using="mock") == mock_client.indices.put_template()

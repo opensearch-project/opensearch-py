@@ -131,7 +131,7 @@ def pr_search_cls(opensearch_version):
     return PRSearch
 
 
-def test_facet_with_custom_metric(data_client):
+def test_facet_with_custom_metric(data_client) -> None:
     ms = MetricSearch()
     r = ms.execute()
 
@@ -140,7 +140,7 @@ def test_facet_with_custom_metric(data_client):
     assert dates[0] == 1399038439000
 
 
-def test_nested_facet(pull_request, pr_search_cls):
+def test_nested_facet(pull_request, pr_search_cls) -> None:
     prs = pr_search_cls()
     r = prs.execute()
 
@@ -148,7 +148,7 @@ def test_nested_facet(pull_request, pr_search_cls):
     assert [(datetime(2018, 1, 1, 0, 0), 1, False)] == r.facets.comments
 
 
-def test_nested_facet_with_filter(pull_request, pr_search_cls):
+def test_nested_facet_with_filter(pull_request, pr_search_cls) -> None:
     prs = pr_search_cls(filters={"comments": datetime(2018, 1, 1, 0, 0)})
     r = prs.execute()
 
@@ -160,7 +160,7 @@ def test_nested_facet_with_filter(pull_request, pr_search_cls):
     assert not r.hits
 
 
-def test_datehistogram_facet(data_client, repo_search_cls):
+def test_datehistogram_facet(data_client, repo_search_cls) -> None:
     rs = repo_search_cls()
     r = rs.execute()
 
@@ -168,7 +168,7 @@ def test_datehistogram_facet(data_client, repo_search_cls):
     assert [(datetime(2014, 3, 1, 0, 0), 1, False)] == r.facets.created
 
 
-def test_boolean_facet(data_client, repo_search_cls):
+def test_boolean_facet(data_client, repo_search_cls) -> None:
     rs = repo_search_cls()
     r = rs.execute()
 
@@ -180,7 +180,7 @@ def test_boolean_facet(data_client, repo_search_cls):
 
 def test_empty_search_finds_everything(
     data_client, opensearch_version, commit_search_cls
-):
+) -> None:
     cs = commit_search_cls()
     r = cs.execute()
     assert r.hits.total.value == 52
@@ -226,7 +226,7 @@ def test_empty_search_finds_everything(
 
 def test_term_filters_are_shown_as_selected_and_data_is_filtered(
     data_client, commit_search_cls
-):
+) -> None:
     cs = commit_search_cls(filters={"files": "test_opensearchpy/test_dsl"})
 
     r = cs.execute()
@@ -272,7 +272,7 @@ def test_term_filters_are_shown_as_selected_and_data_is_filtered(
 
 def test_range_filters_are_shown_as_selected_and_data_is_filtered(
     data_client, commit_search_cls
-):
+) -> None:
     cs = commit_search_cls(filters={"deletions": "better"})
 
     r = cs.execute()
@@ -280,7 +280,7 @@ def test_range_filters_are_shown_as_selected_and_data_is_filtered(
     assert 19 == r.hits.total.value
 
 
-def test_pagination(data_client, commit_search_cls):
+def test_pagination(data_client, commit_search_cls) -> None:
     cs = commit_search_cls()
     cs = cs[0:20]
 

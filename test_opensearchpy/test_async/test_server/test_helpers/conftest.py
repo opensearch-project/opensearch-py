@@ -96,7 +96,7 @@ async def pull_request(write_client):
 
 
 @fixture
-async def setup_ubq_tests(client):
+async def setup_ubq_tests(client) -> str:
     index = "test-git"
     await create_git_index(client, index)
     await async_bulk(client, TEST_GIT_DATA, raise_on_error=True, refresh=True)

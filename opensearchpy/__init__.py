@@ -31,21 +31,25 @@ from __future__ import absolute_import
 
 import logging
 import re
-import sys
 import warnings
 
 from ._version import __versionstr__
 
 _major, _minor, _patch = [
-    int(x) for x in re.search(r"^(\d+)\.(\d+)\.(\d+)", __versionstr__).groups()
+    int(x) for x in re.search(r"^(\d+)\.(\d+)\.(\d+)", __versionstr__).groups()  # type: ignore
 ]
+
 VERSION = __version__ = (_major, _minor, _patch)
 
 logger = logging.getLogger("opensearch")
 logger.addHandler(logging.NullHandler())
 
+from ._async.client import AsyncOpenSearch
+from ._async.http_aiohttp import AIOHttpConnection, AsyncConnection
+from ._async.transport import AsyncTransport
 from .client import OpenSearch
 from .connection import (
+    AsyncHttpConnection,
     Connection,
     RequestsHttpConnection,
     Urllib3HttpConnection,
@@ -247,14 +251,6 @@ __all__ = [
     "normalizer",
     "token_filter",
     "tokenizer",
-]
-
-from ._async.client import AsyncOpenSearch
-from ._async.http_aiohttp import AIOHttpConnection, AsyncConnection
-from ._async.transport import AsyncTransport
-from .connection import AsyncHttpConnection
-
-__all__ += [
     "AIOHttpConnection",
     "AsyncConnection",
     "AsyncTransport",

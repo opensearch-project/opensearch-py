@@ -8,15 +8,13 @@
 # Modifications Copyright OpenSearch Contributors. See
 # GitHub history for details.
 
-try:
-    import collections.abc as collections_abc  # only works on python 3.3+
-except ImportError:
-    import collections as collections_abc
-
+import collections.abc as collections_abc
 from fnmatch import fnmatch
+from typing import Any, Optional, Sequence, Tuple, Type
 
 from six import add_metaclass
 
+from opensearchpy._async.client import AsyncOpenSearch
 from opensearchpy._async.helpers.index import AsyncIndex
 from opensearchpy._async.helpers.search import AsyncSearch
 from opensearchpy.connection.async_connections import get_connection
@@ -35,7 +33,12 @@ class AsyncIndexMeta(DocumentMeta):
     # class, only user defined subclasses should have an _index attr
     _document_initialized = False
 
-    def __new__(cls, name, bases, attrs):
+    def __new__(
+        cls,
+        name: str,
+        bases: Tuple[Type[ObjectBase]],
+        attrs: Any,
+    ) -> Any:
         new_cls = super(AsyncIndexMeta, cls).__new__(cls, name, bases, attrs)
         if cls._document_initialized:
             index_opts = attrs.pop("Index", None)
@@ -46,7 +49,7 @@ class AsyncIndexMeta(DocumentMeta):
         return new_cls
 
     @classmethod
-    def construct_index(cls, opts, bases):
+    def construct_index(cls, opts: Any, bases: Any) -> Any:
         if opts is None:
             for b in bases:
                 if hasattr(b, "_index"):
@@ -72,25 +75,27 @@ class AsyncDocument(ObjectBase):
     """
 
     @classmethod
-    def _matches(cls, hit):
+    def _matches(cls: Any, hit: Any) -> bool:
         if cls._index._name is None:
             return True
         return fnmatch(hit.get("_index", ""), cls._index._name)
 
     @classmethod
-    def _get_using(cls, using=None):
+    def _get_using(cls: Any, using: Any = None) -> Any:
         return using or cls._index._using
 
     @classmethod
-    async def _get_connection(cls, using=None):
+    async def _get_connection(cls, using: Optional[AsyncOpenSearch] = None) -> Any:
         return await get_connection(cls._get_using(using))
 
     @classmethod
-    def _default_index(cls, index=None):
+    def _default_index(cls: Any, index: Any = None) -> Any:
         return index or cls._index._name
 
     @classmethod
-    async def init(cls, index=None, using=None):
+    async def init(
+        cls: Any, index: Optional[str] = None, using: Optional[AsyncOpenSearch] = None
+    ) -> None:
         """
         Create the index and populate the mappings in opensearch.
         """
@@ -99,7 +104,9 @@ class AsyncDocument(ObjectBase):
             i = i.clone(name=index)
         await i.save(using=using)
 
-    def _get_index(self, index=None, required=True):
+    def _get_index(
+        self, index: Optional[str] = None, required: Optional[bool] = True
+    ) -> Any:
         if index is None:
             index = getattr(self.meta, "index", None)
         if index is None:
@@ -110,7 +117,7 @@ class AsyncDocument(ObjectBase):
             raise ValidationException("You cannot write to a wildcard index.")
         return index
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return "{}({})".format(
             self.__class__.__name__,
             ", ".join(
@@ -121,7 +128,9 @@ class AsyncDocument(ObjectBase):
         )
 
     @classmethod
-    def search(cls, using=None, index=None):
+    def search(
+        cls, using: Optional[AsyncOpenSearch] = None, index: Optional[str] = None
+    ) -> AsyncSearch:
         """
         Create an :class:`~opensearchpy.AsyncSearch` instance that will search
         over this ``Document``.
@@ -131,7 +140,13 @@ class AsyncDocument(ObjectBase):
         )
 
     @classmethod
-    async def get(cls, id, using=None, index=None, **kwargs):
+    async def get(  # type: ignore
+        cls,
+        id: str,
+        using: Optional[AsyncOpenSearch] = None,
+        index: Optional[str] = None,
+        **kwargs: Any,
+    ) -> Any:
         """
         Retrieve a single document from opensearch using its ``id``.
 
@@ -150,7 +165,13 @@ class AsyncDocument(ObjectBase):
         return cls.from_opensearch(doc)
 
     @classmethod
-    async def exists(cls, id, using=None, index=None, **kwargs):
+    async def exists(
+        cls,
+        id: str,
+        using: Optional[AsyncOpenSearch] = None,
+        index: Optional[str] = None,
+        **kwargs: Any,
+    ) -> Any:
         """
         check if exists a single document from opensearch using its ``id``.
 
@@ -167,13 +188,19 @@ class AsyncDocument(ObjectBase):
 
     @classmethod
     async def mget(
-        cls, docs, using=None, index=None, raise_on_error=True, missing="none", **kwargs
-    ):
-        r"""
-        Retrieve multiple document by their ``id``\s. Returns a list of instances
+        cls,
+        docs: Sequence[str],
+        using: Optional[AsyncOpenSearch] = None,
+        index: Optional[str] = None,
+        raise_on_error: Optional[bool] = True,
+        missing: Optional[str] = "none",
+        **kwargs: Any,
+    ) -> Any:
+        """
+        Retrieve multiple document by their ``id``'s. Returns a list of instances
         in the same order as requested.
 
-        :arg docs: list of ``id``\s of the documents to be retrieved or a list
+        :arg docs: list of ``id``'s of the documents to be retrieved or a list
             of document specifications as per
             https://opensearch.org/docs/latest/opensearch/rest-api/document-apis/multi-get/
         :arg index: opensearch index to use, if the ``Document`` is
@@ -197,7 +224,9 @@ class AsyncDocument(ObjectBase):
         }
         results = await opensearch.mget(body, index=cls._default_index(index), **kwargs)
 
-        objs, error_docs, missing_docs = [], [], []
+        objs: Any = []
+        error_docs: Any = []
+        missing_docs: Any = []
         for doc in results["docs"]:
             if doc.get("found"):
                 if error_docs or missing_docs:
@@ -230,7 +259,12 @@ class AsyncDocument(ObjectBase):
             raise NotFoundError(404, message, {"docs": missing_docs})
         return objs
 
-    async def delete(self, using=None, index=None, **kwargs):
+    async def delete(
+        self,
+        using: Optional[AsyncOpenSearch] = None,
+        index: Optional[str] = None,
+        **kwargs: Any,
+    ) -> Any:
         """
         Delete the instance in opensearch.
 
@@ -253,7 +287,9 @@ class AsyncDocument(ObjectBase):
         doc_meta.update(kwargs)
         await opensearch.delete(index=self._get_index(index), **doc_meta)
 
-    def to_dict(self, include_meta=False, skip_empty=True):
+    def to_dict(  # type: ignore
+        self, include_meta: Optional[bool] = False, skip_empty: Optional[bool] = True
+    ) -> Any:
         """
         Serialize the instance into a dictionary so that it can be saved in opensearch.
 
@@ -264,7 +300,7 @@ class AsyncDocument(ObjectBase):
             ``[]``, ``{}``) to be left on the document. Those values will be
             stripped out otherwise as they make no difference in opensearch.
         """
-        d = super(AsyncDocument, self).to_dict(skip_empty=skip_empty)
+        d = super(AsyncDocument, self).to_dict(skip_empty)
         if not include_meta:
             return d
 
@@ -280,19 +316,19 @@ class AsyncDocument(ObjectBase):
 
     async def update(
         self,
-        using=None,
-        index=None,
-        detect_noop=True,
-        doc_as_upsert=False,
-        refresh=False,
-        retry_on_conflict=None,
-        script=None,
-        script_id=None,
-        scripted_upsert=False,
-        upsert=None,
-        return_doc_meta=False,
-        **fields
-    ):
+        using: Optional[AsyncOpenSearch] = None,
+        index: Optional[str] = None,
+        detect_noop: Optional[bool] = True,
+        doc_as_upsert: Optional[bool] = False,
+        refresh: Optional[bool] = False,
+        retry_on_conflict: Optional[bool] = None,
+        script: Any = None,
+        script_id: Optional[str] = None,
+        scripted_upsert: Optional[bool] = False,
+        upsert: Optional[bool] = None,
+        return_doc_meta: Optional[bool] = False,
+        **fields: Any,
+    ) -> Any:
         """
         Partial update of the document, specify fields you wish to update and
         both the instance and the document in opensearch will be updated::
@@ -321,7 +357,7 @@ class AsyncDocument(ObjectBase):
 
         :return operation result noop/updated
         """
-        body = {
+        body: Any = {
             "doc_as_upsert": doc_as_upsert,
             "detect_noop": detect_noop,
         }
@@ -385,13 +421,13 @@ class AsyncDocument(ObjectBase):
 
     async def save(
         self,
-        using=None,
-        index=None,
-        validate=True,
-        skip_empty=True,
-        return_doc_meta=False,
-        **kwargs
-    ):
+        using: Optional[AsyncOpenSearch] = None,
+        index: Optional[str] = None,
+        validate: Optional[bool] = True,
+        skip_empty: Optional[bool] = True,
+        return_doc_meta: Optional[bool] = False,
+        **kwargs: Any,
+    ) -> Any:
         """
         Save the document into opensearch. If the document doesn't exist it
         is created, it is overwritten otherwise. Returns ``True`` if this
@@ -428,7 +464,7 @@ class AsyncDocument(ObjectBase):
         meta = await opensearch.index(
             index=self._get_index(index),
             body=self.to_dict(skip_empty=skip_empty),
-            **doc_meta
+            **doc_meta,
         )
         # update meta information from OpenSearch
         for k in META_FIELDS:

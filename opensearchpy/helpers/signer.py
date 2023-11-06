@@ -8,15 +8,10 @@
 # Modifications Copyright OpenSearch Contributors. See
 # GitHub history for details.
 
-import sys
 from typing import Any, Callable, Dict
+from urllib.parse import parse_qs, urlencode, urlparse
 
 import requests
-
-PY3 = sys.version_info[0] == 3
-
-if PY3:
-    from urllib.parse import parse_qs, urlencode, urlparse
 
 
 class AWSV4Signer:
@@ -81,7 +76,7 @@ class RequestsAWSV4SignerAuth(requests.auth.AuthBase):
     AWS V4 Request Signer for Requests.
     """
 
-    def __init__(self, credentials, region, service="es"):  # type: ignore
+    def __init__(self, credentials, region, service: str = "es") -> None:  # type: ignore
         self.signer = AWSV4Signer(credentials, region, service)
 
     def __call__(self, request):  # type: ignore
@@ -136,7 +131,7 @@ class AWSV4SignerAuth(RequestsAWSV4SignerAuth):
 
 
 class Urllib3AWSV4SignerAuth(Callable):  # type: ignore
-    def __init__(self, credentials, region, service="es"):  # type: ignore
+    def __init__(self, credentials, region, service: str = "es") -> None:  # type: ignore
         self.signer = AWSV4Signer(credentials, region, service)
 
     def __call__(self, method: str, url: str, body: Any) -> Dict[str, str]:

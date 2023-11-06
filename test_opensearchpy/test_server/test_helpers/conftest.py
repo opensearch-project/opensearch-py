@@ -30,6 +30,7 @@ from datetime import datetime
 
 from pytest import fixture
 
+from opensearchpy.client import OpenSearch
 from opensearchpy.connection.connections import add_connection
 from opensearchpy.helpers import bulk
 from opensearchpy.helpers.test import get_test_client
@@ -45,7 +46,7 @@ from .test_document import Comment, History, PullRequest, User
 
 
 @fixture(scope="session")
-def client():
+def client() -> OpenSearch:
     client = get_test_client(verify_certs=False, http_auth=("admin", "admin"))
     add_connection("default", client)
     return client
@@ -106,7 +107,7 @@ def pull_request(write_client):
 
 
 @fixture
-def setup_ubq_tests(client):
+def setup_ubq_tests(client) -> str:
     index = "test-git"
     create_git_index(client, index)
     bulk(client, TEST_GIT_DATA, raise_on_error=True, refresh=True)

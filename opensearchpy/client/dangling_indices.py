@@ -36,6 +36,8 @@
 # -----------------------------------------------------
 
 
+from typing import Any
+
 from .utils import SKIP_IN_PATH, NamespacedClient, _make_path, query_params
 
 
@@ -43,7 +45,12 @@ class DanglingIndicesClient(NamespacedClient):
     @query_params(
         "accept_data_loss", "cluster_manager_timeout", "master_timeout", "timeout"
     )
-    def delete_dangling_index(self, index_uuid, params=None, headers=None):
+    def delete_dangling_index(
+        self,
+        index_uuid: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Deletes the specified dangling index.
 
@@ -71,7 +78,12 @@ class DanglingIndicesClient(NamespacedClient):
     @query_params(
         "accept_data_loss", "cluster_manager_timeout", "master_timeout", "timeout"
     )
-    def import_dangling_index(self, index_uuid, params=None, headers=None):
+    def import_dangling_index(
+        self,
+        index_uuid: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Imports the specified dangling index.
 
@@ -94,7 +106,11 @@ class DanglingIndicesClient(NamespacedClient):
         )
 
     @query_params()
-    def list_dangling_indices(self, params=None, headers=None):
+    def list_dangling_indices(
+        self,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Returns all dangling indices.
 

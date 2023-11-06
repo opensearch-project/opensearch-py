@@ -14,8 +14,9 @@ import asyncio
 import os
 import ssl
 import warnings
+from typing import Any, Collection, Mapping, Optional, Union
 
-from .._async._extra_imports import aiohttp, aiohttp_exceptions
+from .._async._extra_imports import aiohttp, aiohttp_exceptions  # type: ignore
 from .._async.compat import get_running_loop
 from .._async.http_aiohttp import AIOHttpConnection
 from ..compat import reraise_exceptions, string_types, urlencode
@@ -31,27 +32,29 @@ SSL_SHOW_WARN_DEFAULT = object()
 
 
 class AsyncHttpConnection(AIOHttpConnection):
+    session: Optional[aiohttp.ClientSession]
+
     def __init__(
         self,
-        host="localhost",
-        port=None,
-        http_auth=None,
-        use_ssl=False,
-        verify_certs=VERIFY_CERTS_DEFAULT,
-        ssl_show_warn=SSL_SHOW_WARN_DEFAULT,
-        ca_certs=None,
-        client_cert=None,
-        client_key=None,
-        ssl_version=None,
-        ssl_assert_fingerprint=None,
-        maxsize=10,
-        headers=None,
-        ssl_context=None,
-        http_compress=None,
-        opaque_id=None,
-        loop=None,
-        **kwargs
-    ):
+        host: str = "localhost",
+        port: Optional[int] = None,
+        http_auth: Any = None,
+        use_ssl: bool = False,
+        verify_certs: Any = VERIFY_CERTS_DEFAULT,
+        ssl_show_warn: Any = SSL_SHOW_WARN_DEFAULT,
+        ca_certs: Any = None,
+        client_cert: Any = None,
+        client_key: Any = None,
+        ssl_version: Any = None,
+        ssl_assert_fingerprint: Any = None,
+        maxsize: Optional[int] = 10,
+        headers: Optional[Mapping[str, str]] = None,
+        ssl_context: Any = None,
+        http_compress: Optional[bool] = None,
+        opaque_id: Optional[str] = None,
+        loop: Any = None,
+        **kwargs: Any
+    ) -> None:
         self.headers = {}
 
         super().__init__(
@@ -68,7 +71,7 @@ class AsyncHttpConnection(AIOHttpConnection):
             if isinstance(http_auth, (tuple, list)):
                 http_auth = aiohttp.BasicAuth(login=http_auth[0], password=http_auth[1])
             elif isinstance(http_auth, string_types):
-                login, password = http_auth.split(":", 1)
+                login, password = http_auth.split(":", 1)  # type: ignore
                 http_auth = aiohttp.BasicAuth(login=login, password=password)
 
         # if providing an SSL context, raise error if any other SSL related flag is used
@@ -146,8 +149,15 @@ class AsyncHttpConnection(AIOHttpConnection):
         self._ssl_context = ssl_context
 
     async def perform_request(
-        self, method, url, params=None, body=None, timeout=None, ignore=(), headers=None
-    ):
+        self,
+        method: str,
+        url: str,
+        params: Optional[Mapping[str, Any]] = None,
+        body: Optional[bytes] = None,
+        timeout: Optional[Union[int, float]] = None,
+        ignore: Collection[int] = (),
+        headers: Optional[Mapping[str, str]] = None,
+    ) -> Any:
         if self.session is None:
             await self._create_aiohttp_session()
         assert self.session is not None
@@ -262,14 +272,14 @@ class AsyncHttpConnection(AIOHttpConnection):
 
         return response.status, response.headers, raw_data
 
-    async def close(self):
+    async def close(self) -> Any:
         """
         Explicitly closes connection
         """
         if self.session:
             await self.session.close()
 
-    async def _create_aiohttp_session(self):
+    async def _create_aiohttp_session(self) -> Any:
         """Creates an aiohttp.ClientSession(). This is delayed until
         the first call to perform_request() so that AsyncTransport has
         a chance to set AIOHttpConnection.loop
@@ -289,9 +299,9 @@ class AsyncHttpConnection(AIOHttpConnection):
         )
 
 
-class OpenSearchClientResponse(aiohttp.ClientResponse):
-    async def text(self, encoding=None, errors="strict"):
+class OpenSearchClientResponse(aiohttp.ClientResponse):  # type: ignore
+    async def text(self, encoding: Any = None, errors: str = "strict") -> Any:
         if self._body is None:
             await self.read()
 
-        return self._body.decode("utf-8", "surrogatepass")
+        return self._body.decode("utf-8", "surrogatepass")  # type: ignore

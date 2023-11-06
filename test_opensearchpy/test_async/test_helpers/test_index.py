@@ -12,13 +12,14 @@ import string
 from random import choice
 
 import pytest
+from _pytest.mark.structures import MarkDecorator
 from pytest import raises
 
 from opensearchpy import Date, Text, analyzer
 from opensearchpy._async.helpers.document import AsyncDocument
 from opensearchpy._async.helpers.index import AsyncIndex
 
-pytestmark = pytest.mark.asyncio
+pytestmark: MarkDecorator = pytest.mark.asyncio
 
 
 class Post(AsyncDocument):
@@ -26,7 +27,7 @@ class Post(AsyncDocument):
     published_from = Date()
 
 
-async def test_multiple_doc_types_will_combine_mappings():
+async def test_multiple_doc_types_will_combine_mappings() -> None:
     class User(AsyncDocument):
         username = Text()
 
@@ -44,14 +45,14 @@ async def test_multiple_doc_types_will_combine_mappings():
     } == i.to_dict()
 
 
-async def test_search_is_limited_to_index_name():
+async def test_search_is_limited_to_index_name() -> None:
     i = AsyncIndex("my-index")
     s = i.search()
 
     assert s._index == ["my-index"]
 
 
-async def test_cloned_index_has_copied_settings_and_using():
+async def test_cloned_index_has_copied_settings_and_using() -> None:
     client = object()
     i = AsyncIndex("my-index", using=client)
     i.settings(number_of_shards=1)
@@ -64,7 +65,7 @@ async def test_cloned_index_has_copied_settings_and_using():
     assert i._settings is not i2._settings
 
 
-async def test_cloned_index_has_analysis_attribute():
+async def test_cloned_index_has_analysis_attribute() -> None:
     """
     Regression test for Issue #582 in which `Index.clone()` was not copying
     over the `_analysis` attribute.
@@ -84,7 +85,7 @@ async def test_cloned_index_has_analysis_attribute():
     assert i.to_dict()["settings"]["analysis"] == i2.to_dict()["settings"]["analysis"]
 
 
-async def test_settings_are_saved():
+async def test_settings_are_saved() -> None:
     i = AsyncIndex("i")
     i.settings(number_of_replicas=0)
     i.settings(number_of_shards=1)
@@ -92,7 +93,7 @@ async def test_settings_are_saved():
     assert {"settings": {"number_of_shards": 1, "number_of_replicas": 0}} == i.to_dict()
 
 
-async def test_registered_doc_type_included_in_to_dict():
+async def test_registered_doc_type_included_in_to_dict() -> None:
     i = AsyncIndex("i", using="alias")
     i.document(Post)
 
@@ -106,7 +107,7 @@ async def test_registered_doc_type_included_in_to_dict():
     } == i.to_dict()
 
 
-async def test_registered_doc_type_included_in_search():
+async def test_registered_doc_type_included_in_search() -> None:
     i = AsyncIndex("i", using="alias")
     i.document(Post)
 
@@ -115,7 +116,7 @@ async def test_registered_doc_type_included_in_search():
     assert s._doc_type == [Post]
 
 
-async def test_aliases_add_to_object():
+async def test_aliases_add_to_object() -> None:
     random_alias = "".join((choice(string.ascii_letters) for _ in range(100)))
     alias_dict = {random_alias: {}}
 
@@ -125,7 +126,7 @@ async def test_aliases_add_to_object():
     assert index._aliases == alias_dict
 
 
-async def test_aliases_returned_from_to_dict():
+async def test_aliases_returned_from_to_dict() -> None:
     random_alias = "".join((choice(string.ascii_letters) for _ in range(100)))
     alias_dict = {random_alias: {}}
 
@@ -164,7 +165,7 @@ async def test_analyzers_returned_from_to_dict():
     ] == {"filter": ["standard"], "type": "custom", "tokenizer": "standard"}
 
 
-async def test_conflicting_analyzer_raises_error():
+async def test_conflicting_analyzer_raises_error() -> None:
     i = AsyncIndex("i")
     i.analyzer("my_analyzer", tokenizer="whitespace", filter=["lowercase", "stop"])
 

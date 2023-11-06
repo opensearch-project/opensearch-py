@@ -31,7 +31,7 @@ from opensearchpy import exceptions
 from opensearchpy.helpers import analysis, mapping
 
 
-def test_mapping_saved_into_opensearch(write_client):
+def test_mapping_saved_into_opensearch(write_client) -> None:
     m = mapping.Mapping()
     m.field(
         "name", "text", analyzer=analysis.analyzer("my_analyzer", tokenizer="keyword")
@@ -51,7 +51,9 @@ def test_mapping_saved_into_opensearch(write_client):
     } == write_client.indices.get_mapping(index="test-mapping")
 
 
-def test_mapping_saved_into_opensearch_when_index_already_exists_closed(write_client):
+def test_mapping_saved_into_opensearch_when_index_already_exists_closed(
+    write_client,
+) -> None:
     m = mapping.Mapping()
     m.field(
         "name", "text", analyzer=analysis.analyzer("my_analyzer", tokenizer="keyword")
@@ -76,7 +78,7 @@ def test_mapping_saved_into_opensearch_when_index_already_exists_closed(write_cl
 
 def test_mapping_saved_into_opensearch_when_index_already_exists_with_analysis(
     write_client,
-):
+) -> None:
     m = mapping.Mapping()
     analyzer = analysis.analyzer("my_analyzer", tokenizer="keyword")
     m.field("name", "text", analyzer=analyzer)

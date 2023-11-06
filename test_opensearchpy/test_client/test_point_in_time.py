@@ -12,36 +12,36 @@ from test_opensearchpy.test_cases import OpenSearchTestCase
 
 
 class TestPointInTime(OpenSearchTestCase):
-    def test_create_one_point_in_time(self):
+    def test_create_one_point_in_time(self) -> None:
         index_name = "test-index"
         self.client.create_point_in_time(index=index_name)
         self.assert_url_called("POST", "/test-index/_search/point_in_time")
 
-    def test_delete_one_point_in_time(self):
+    def test_delete_one_point_in_time(self) -> None:
         self.client.delete_point_in_time(body={"pit_id": ["Sample-PIT-ID"]})
         self.assert_url_called("DELETE", "/_search/point_in_time")
 
-    def test_delete_all_point_in_time(self):
+    def test_delete_all_point_in_time(self) -> None:
         self.client.delete_point_in_time(all=True)
         self.assert_url_called("DELETE", "/_search/point_in_time/_all")
 
-    def test_list_all_point_in_time(self):
+    def test_list_all_point_in_time(self) -> None:
         self.client.list_all_point_in_time()
         self.assert_url_called("GET", "/_search/point_in_time/_all")
 
-    def test_create_pit(self):
+    def test_create_pit(self) -> None:
         index_name = "test-index"
         self.client.create_pit(index=index_name)
         self.assert_url_called("POST", "/test-index/_search/point_in_time")
 
-    def test_delete_pit(self):
+    def test_delete_pit(self) -> None:
         self.client.delete_pit(body={"pit_id": ["Sample-PIT-ID"]})
         self.assert_url_called("DELETE", "/_search/point_in_time")
 
-    def test_delete_all_pits(self):
+    def test_delete_all_pits(self) -> None:
         self.client.delete_all_pits()
         self.assert_url_called("DELETE", "/_search/point_in_time/_all")
 
-    def test_get_all_pits(self):
+    def test_get_all_pits(self) -> None:
         self.client.get_all_pits()
         self.assert_url_called("GET", "/_search/point_in_time/_all")

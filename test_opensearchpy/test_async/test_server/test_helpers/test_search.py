@@ -11,6 +11,7 @@
 from __future__ import unicode_literals
 
 import pytest
+from _pytest.mark.structures import MarkDecorator
 from pytest import raises
 
 from opensearchpy import Date, Keyword, Q, Text, TransportError
@@ -19,7 +20,7 @@ from opensearchpy._async.helpers.search import AsyncMultiSearch, AsyncSearch
 from opensearchpy.helpers.response import aggs
 from test_opensearchpy.test_async.test_server.test_helpers.test_data import FLAT_DATA
 
-pytestmark = pytest.mark.asyncio
+pytestmark: MarkDecorator = pytest.mark.asyncio
 
 
 class Repository(AsyncDocument):
@@ -40,7 +41,7 @@ class Commit(AsyncDocument):
         name = "flat-git"
 
 
-async def test_filters_aggregation_buckets_are_accessible(data_client):
+async def test_filters_aggregation_buckets_are_accessible(data_client) -> None:
     has_tests_query = Q("term", files="test_opensearchpy/test_dsl")
     s = Commit.search()[0:0]
     s.aggs.bucket("top_authors", "terms", field="author.name.raw").bucket(
@@ -61,7 +62,7 @@ async def test_filters_aggregation_buckets_are_accessible(data_client):
     )
 
 
-async def test_top_hits_are_wrapped_in_response(data_client):
+async def test_top_hits_are_wrapped_in_response(data_client) -> None:
     s = Commit.search()[0:0]
     s.aggs.bucket("top_authors", "terms", field="author.name.raw").metric(
         "top_commits", "top_hits", size=5
@@ -77,7 +78,7 @@ async def test_top_hits_are_wrapped_in_response(data_client):
     assert isinstance(hits[0], Commit)
 
 
-async def test_inner_hits_are_wrapped_in_response(data_client):
+async def test_inner_hits_are_wrapped_in_response(data_client) -> None:
     s = AsyncSearch(index="git")[0:1].query(
         "has_parent", parent_type="repo", inner_hits={}, query=Q("match_all")
     )
@@ -88,7 +89,7 @@ async def test_inner_hits_are_wrapped_in_response(data_client):
     assert repr(commit.meta.inner_hits.repo[0]).startswith("<Hit(git/opensearch-py): ")
 
 
-async def test_scan_respects_doc_types(data_client):
+async def test_scan_respects_doc_types(data_client) -> None:
     result = Repository.search().scan()
     repos = await get_result(result)
 
@@ -97,7 +98,7 @@ async def test_scan_respects_doc_types(data_client):
     assert repos[0].organization == "opensearch"
 
 
-async def test_scan_iterates_through_all_docs(data_client):
+async def test_scan_iterates_through_all_docs(data_client) -> None:
     s = AsyncSearch(index="flat-git")
     result = s.scan()
     commits = await get_result(result)
@@ -113,7 +114,7 @@ async def get_result(b):
     return a
 
 
-async def test_multi_search(data_client):
+async def test_multi_search(data_client) -> None:
     s1 = Repository.search()
     s2 = AsyncSearch(index="flat-git")
 
@@ -130,7 +131,7 @@ async def test_multi_search(data_client):
     assert r2._search is s2
 
 
-async def test_multi_missing(data_client):
+async def test_multi_missing(data_client) -> None:
     s1 = Repository.search()
     s2 = AsyncSearch(index="flat-git")
     s3 = AsyncSearch(index="does_not_exist")
@@ -153,7 +154,7 @@ async def test_multi_missing(data_client):
     assert r3 is None
 
 
-async def test_raw_subfield_can_be_used_in_aggs(data_client):
+async def test_raw_subfield_can_be_used_in_aggs(data_client) -> None:
     s = AsyncSearch(index="git")[0:0]
     s.aggs.bucket("authors", "terms", field="author.name.raw", size=1)
     r = await s.execute()

@@ -10,12 +10,13 @@
 
 
 import pytest
+from _pytest.mark.structures import MarkDecorator
 from mock import Mock
 from pytest import fixture
 
 from opensearchpy.connection.async_connections import add_connection, async_connections
 
-pytestmark = pytest.mark.asyncio
+pytestmark: MarkDecorator = pytest.mark.asyncio
 
 
 @fixture

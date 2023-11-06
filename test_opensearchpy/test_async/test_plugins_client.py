@@ -14,7 +14,7 @@ from opensearchpy._async.client import AsyncOpenSearch
 
 
 class TestPluginsClient(TestCase):
-    async def test_plugins_client(self):
+    async def test_plugins_client(self) -> None:
         with self.assertWarns(Warning) as w:
             client = AsyncOpenSearch()
             client.plugins.__init__(client)  # double-init

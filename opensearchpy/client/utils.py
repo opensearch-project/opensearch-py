@@ -32,14 +32,17 @@ import base64
 import weakref
 from datetime import date, datetime
 from functools import wraps
+from typing import Any, Callable
+
+from opensearchpy.serializer import Serializer
 
 from ..compat import quote, string_types, to_bytes, to_str, unquote, urlparse
 
 # parts of URL to be omitted
-SKIP_IN_PATH = (None, "", b"", [], ())
+SKIP_IN_PATH: Any = (None, "", b"", [], ())
 
 
-def _normalize_hosts(hosts):
+def _normalize_hosts(hosts: Any) -> Any:
     """
     Helper function to transform hosts argument to
     :class:`~opensearchpy.OpenSearch` to a list of dicts.
@@ -57,7 +60,7 @@ def _normalize_hosts(hosts):
     for host in hosts:
         if isinstance(host, string_types):
             if "://" not in host:
-                host = "//%s" % host
+                host = "//%s" % host  # type: ignore
 
             parsed_url = urlparse(host)
             h = {"host": parsed_url.hostname}
@@ -84,7 +87,7 @@ def _normalize_hosts(hosts):
     return out
 
 
-def _escape(value):
+def _escape(value: Any) -> Any:
     """
     Escape a single value of a URL string or a query parameter. If it is a list
     or tuple, turn it into a comma-separated string first.
@@ -114,7 +117,7 @@ def _escape(value):
     return str(value)
 
 
-def _make_path(*parts):
+def _make_path(*parts: Any) -> str:
     """
     Create a URL string from parts, omit all `None` values and empty strings.
     Convert lists and tuples to comma separated values.
@@ -132,15 +135,15 @@ def _make_path(*parts):
 GLOBAL_PARAMS = ("pretty", "human", "error_trace", "format", "filter_path")
 
 
-def query_params(*opensearch_query_params):
+def query_params(*opensearch_query_params: Any) -> Callable:  # type: ignore
     """
     Decorator that pops all accepted parameters from method's kwargs and puts
     them in the params argument.
     """
 
-    def _wrapper(func):
+    def _wrapper(func: Any) -> Any:
         @wraps(func)
-        def _wrapped(*args, **kwargs):
+        def _wrapped(*args: Any, **kwargs: Any) -> Any:
             params = (kwargs.pop("params", None) or {}).copy()
             headers = {
                 k.lower(): v
@@ -182,7 +185,7 @@ def query_params(*opensearch_query_params):
     return _wrapper
 
 
-def _bulk_body(serializer, body):
+def _bulk_body(serializer: Serializer, body: str) -> str:
     # if not passed in a string, serialize items and join by newline
     if not isinstance(body, string_types):
         body = "\n".join(map(serializer.dumps, body))
@@ -197,7 +200,7 @@ def _bulk_body(serializer, body):
     return body
 
 
-def _base64_auth_header(auth_value):
+def _base64_auth_header(auth_value: Any) -> str:
     """Takes either a 2-tuple or a base64-encoded string
     and returns a base64-encoded string to be used
     as an HTTP authorization header.
@@ -208,17 +211,17 @@ def _base64_auth_header(auth_value):
 
 
 class NamespacedClient(object):
-    def __init__(self, client):
+    def __init__(self, client: Any) -> None:
         self.client = client
 
     @property
-    def transport(self):
+    def transport(self) -> Any:
         return self.client.transport
 
 
 class AddonClient(NamespacedClient):
     @classmethod
-    def infect_client(cls, client):
+    def infect_client(cls: Any, client: NamespacedClient) -> NamespacedClient:
         addon = cls(weakref.proxy(client))
         setattr(client, cls.namespace, addon)
         return client

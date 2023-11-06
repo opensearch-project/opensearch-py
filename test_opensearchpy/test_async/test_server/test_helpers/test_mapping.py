@@ -9,16 +9,17 @@
 # GitHub history for details.
 
 import pytest
+from _pytest.mark.structures import MarkDecorator
 from pytest import raises
 
 from opensearchpy import exceptions
 from opensearchpy._async.helpers import mapping
 from opensearchpy.helpers import analysis
 
-pytestmark = pytest.mark.asyncio
+pytestmark: MarkDecorator = pytest.mark.asyncio
 
 
-async def test_mapping_saved_into_opensearch(write_client):
+async def test_mapping_saved_into_opensearch(write_client) -> None:
     m = mapping.AsyncMapping()
     m.field(
         "name", "text", analyzer=analysis.analyzer("my_analyzer", tokenizer="keyword")
@@ -40,7 +41,7 @@ async def test_mapping_saved_into_opensearch(write_client):
 
 async def test_mapping_saved_into_opensearch_when_index_already_exists_closed(
     write_client,
-):
+) -> None:
     m = mapping.AsyncMapping()
     m.field(
         "name", "text", analyzer=analysis.analyzer("my_analyzer", tokenizer="keyword")
@@ -65,7 +66,7 @@ async def test_mapping_saved_into_opensearch_when_index_already_exists_closed(
 
 async def test_mapping_saved_into_opensearch_when_index_already_exists_with_analysis(
     write_client,
-):
+) -> None:
     m = mapping.AsyncMapping()
     analyzer = analysis.analyzer("my_analyzer", tokenizer="keyword")
     m.field("name", "text", analyzer=analyzer)
