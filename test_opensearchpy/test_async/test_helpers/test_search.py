@@ -9,6 +9,7 @@
 # GitHub history for details.
 
 from copy import deepcopy
+from typing import Any
 
 import pytest
 from _pytest.mark.structures import MarkDecorator
@@ -71,7 +72,7 @@ async def test_query_can_be_assigned_to() -> None:
     assert s.query._proxied is q
 
 
-async def test_query_can_be_wrapped():
+async def test_query_can_be_wrapped() -> None:
     s = search.AsyncSearch().query("match", title="python")
 
     s.query = Q("function_score", query=s.query, field_value_factor={"field": "rating"})
@@ -142,7 +143,7 @@ async def test_aggs_allow_two_metric() -> None:
     }
 
 
-async def test_aggs_get_copied_on_change():
+async def test_aggs_get_copied_on_change() -> None:
     s = search.AsyncSearch().query("match_all")
     s.aggs.bucket("per_tag", "terms", field="f").metric(
         "max_score", "max", field="score"
@@ -155,7 +156,7 @@ async def test_aggs_get_copied_on_change():
     s4 = s3._clone()
     s4.aggs.metric("max_score", "max", field="score")
 
-    d = {
+    d: Any = {
         "query": {"match_all": {}},
         "aggs": {
             "per_tag": {
@@ -218,7 +219,7 @@ async def test_doc_type_document_class() -> None:
     assert s._doc_type_map == {}
 
 
-async def test_sort():
+async def test_sort() -> None:
     s = search.AsyncSearch()
     s = s.sort("fielda", "-fieldb")
 
@@ -254,7 +255,7 @@ async def test_index() -> None:
     assert {"from": 3, "size": 1} == s[3].to_dict()
 
 
-async def test_search_to_dict():
+async def test_search_to_dict() -> None:
     s = search.AsyncSearch()
     assert {} == s.to_dict()
 
@@ -283,7 +284,7 @@ async def test_search_to_dict():
     assert {"size": 5, "from": 42} == s.to_dict()
 
 
-async def test_complex_example():
+async def test_complex_example() -> None:
     s = search.AsyncSearch()
     s = (
         s.query("match", title="python")
@@ -334,7 +335,7 @@ async def test_complex_example():
     } == s.to_dict()
 
 
-async def test_reverse():
+async def test_reverse() -> None:
     d = {
         "query": {
             "filtered": {
@@ -406,7 +407,7 @@ async def test_source() -> None:
     ).source(["f1", "f2"]).to_dict()
 
 
-async def test_source_on_clone():
+async def test_source_on_clone() -> None:
     assert {
         "_source": {"includes": ["foo.bar.*"], "excludes": ["foo.one"]},
         "query": {"bool": {"filter": [{"term": {"title": "python"}}]}},
@@ -431,7 +432,7 @@ async def test_source_on_clear() -> None:
     )
 
 
-async def test_suggest_accepts_global_text():
+async def test_suggest_accepts_global_text() -> None:
     s = search.AsyncSearch.from_dict(
         {
             "suggest": {
@@ -453,7 +454,7 @@ async def test_suggest_accepts_global_text():
     } == s.to_dict()
 
 
-async def test_suggest():
+async def test_suggest() -> None:
     s = search.AsyncSearch()
     s = s.suggest("my_suggestion", "pyhton", term={"field": "title"})
 
@@ -475,7 +476,7 @@ async def test_exclude() -> None:
     } == s.to_dict()
 
 
-async def test_update_from_dict():
+async def test_update_from_dict() -> None:
     s = search.AsyncSearch()
     s.update_from_dict({"indices_boost": [{"important-documents": 2}]})
     s.update_from_dict({"_source": ["id", "name"]})
@@ -486,7 +487,7 @@ async def test_update_from_dict():
     } == s.to_dict()
 
 
-async def test_rescore_query_to_dict():
+async def test_rescore_query_to_dict() -> None:
     s = search.AsyncSearch(index="index-name")
 
     positive_query = Q(

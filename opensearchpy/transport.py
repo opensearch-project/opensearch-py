@@ -373,7 +373,7 @@ class Transport(object):
         method: str,
         url: str,
         params: Optional[Mapping[str, Any]] = None,
-        body: Optional[bytes] = None,
+        body: Any = None,
         timeout: Optional[Union[int, float]] = None,
         ignore: Collection[int] = (),
         headers: Optional[Mapping[str, str]] = None,

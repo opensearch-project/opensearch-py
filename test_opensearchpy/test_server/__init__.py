@@ -26,15 +26,16 @@
 #  under the License.
 
 
+from typing import Any
 from unittest import SkipTest
 
 from opensearchpy.helpers import test
-from opensearchpy.helpers.test import OpenSearchTestCase as BaseTestCase
+from test_opensearchpy.test_cases import OpenSearchTestCase as BaseTestCase
 
 client = None
 
 
-def get_client(**kwargs):
+def get_client(**kwargs: Any) -> Any:
     global client
     if client is False:
         raise SkipTest("No client is available")
@@ -49,7 +50,7 @@ def get_client(**kwargs):
     except ImportError:
         # fallback to using vanilla client
         try:
-            new_client = test.get_test_client(**kwargs)
+            new_client = test.get_test_client(**kwargs)  # type: ignore
         except SkipTest:
             client = False
             raise
@@ -66,5 +67,5 @@ def setup_module() -> None:
 
 class OpenSearchTestCase(BaseTestCase):
     @staticmethod
-    def _get_client(**kwargs):
+    def _get_client(**kwargs: Any) -> Any:
         return get_client(**kwargs)

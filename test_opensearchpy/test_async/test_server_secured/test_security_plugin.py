@@ -123,7 +123,7 @@ class TestSecurityPlugin(IsolatedAsyncioTestCase):
         else:
             assert False
 
-    async def test_create_user_with_role(self):
+    async def test_create_user_with_role(self) -> None:
         await self.test_create_role()
 
         # Test to create user

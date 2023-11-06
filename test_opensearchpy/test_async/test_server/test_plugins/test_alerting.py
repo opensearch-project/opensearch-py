@@ -16,7 +16,7 @@ import unittest
 import pytest
 from _pytest.mark.structures import MarkDecorator
 
-from opensearchpy.helpers.test import OPENSEARCH_VERSION
+from opensearchpy.helpers.test import OPENSEARCH_VERSION  # type: ignore
 
 from .. import AsyncOpenSearchTestCase
 
@@ -28,7 +28,7 @@ class TestAlertingPlugin(AsyncOpenSearchTestCase):
         (OPENSEARCH_VERSION) and (OPENSEARCH_VERSION < (2, 0, 0)),
         "Plugin not supported for opensearch version",
     )
-    async def test_create_destination(self):
+    async def test_create_destination(self) -> None:
         # Test to create alert destination
         dummy_destination = {
             "name": "my-destination",
@@ -59,7 +59,7 @@ class TestAlertingPlugin(AsyncOpenSearchTestCase):
         (OPENSEARCH_VERSION) and (OPENSEARCH_VERSION < (2, 0, 0)),
         "Plugin not supported for opensearch version",
     )
-    async def test_create_monitor(self):
+    async def test_create_monitor(self) -> None:
         # Create a dummy destination
         await self.test_create_destination()
 

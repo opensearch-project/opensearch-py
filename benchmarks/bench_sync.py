@@ -15,6 +15,7 @@ import logging
 import sys
 import time
 import uuid
+from typing import Any
 
 from thread_with_return_value import ThreadWithReturnValue
 
@@ -37,10 +38,10 @@ handler.setFormatter(formatter)
 root.addHandler(handler)
 
 
-def index_records(client, item_count):
+def index_records(client: Any, item_count: int) -> Any:
     tt = 0
     for n in range(10):
-        data = []
+        data: Any = []
         for i in range(item_count):
             data.append(
                 json.dumps({"index": {"_index": index_name, "_id": str(uuid.uuid4())}})
@@ -63,7 +64,7 @@ def index_records(client, item_count):
     return tt
 
 
-def test(thread_count=1, item_count=1, client_count=1):
+def test(thread_count: int = 1, item_count: int = 1, client_count: int = 1) -> None:
     clients = []
     for i in range(client_count):
         clients.append(

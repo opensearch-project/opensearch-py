@@ -69,7 +69,7 @@ class AsyncConnection(Connection):
 
 
 class AIOHttpConnection(AsyncConnection):
-    session: Optional[aiohttp.ClientSession]
+    session: aiohttp.ClientSession
     ssl_assert_fingerprint: Optional[str]
 
     def __init__(

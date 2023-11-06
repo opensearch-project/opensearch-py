@@ -15,7 +15,7 @@ from unittest import TestCase
 
 from opensearchpy.connection.connections import add_connection
 from opensearchpy.exceptions import NotFoundError
-from opensearchpy.helpers.test import get_test_client
+from opensearchpy.helpers.test import get_test_client  # type: ignore
 
 
 class TestSecurityPlugin(TestCase):
@@ -114,7 +114,7 @@ class TestSecurityPlugin(TestCase):
         else:
             assert False
 
-    def test_create_user_with_role(self):
+    def test_create_user_with_role(self) -> None:
         self.test_create_role()
 
         # Test to create user

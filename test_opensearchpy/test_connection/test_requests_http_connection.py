@@ -30,6 +30,7 @@ import json
 import re
 import uuid
 import warnings
+from typing import Any
 
 import pytest
 from mock import Mock, patch
@@ -49,24 +50,27 @@ from ..test_cases import TestCase
 
 class TestRequestsHttpConnection(TestCase):
     def _get_mock_connection(
-        self, connection_params={}, status_code: int = 200, response_body: bytes = b"{}"
-    ):
+        self,
+        connection_params: Any = {},
+        status_code: int = 200,
+        response_body: bytes = b"{}",
+    ) -> Any:
         con = RequestsHttpConnection(**connection_params)
 
-        def _dummy_send(*args, **kwargs):
+        def _dummy_send(*args: Any, **kwargs: Any) -> Any:
             dummy_response = Mock()
             dummy_response.headers = {}
             dummy_response.status_code = status_code
             dummy_response.content = response_body
             dummy_response.request = args[0]
             dummy_response.cookies = {}
-            _dummy_send.call_args = (args, kwargs)
+            _dummy_send.call_args = (args, kwargs)  # type: ignore
             return dummy_response
 
-        con.session.send = _dummy_send
+        con.session.send = _dummy_send  # type: ignore
         return con
 
-    def _get_request(self, connection, *args, **kwargs):
+    def _get_request(self, connection: Any, *args: Any, **kwargs: Any) -> Any:
         if "body" in kwargs:
             kwargs["body"] = kwargs["body"].encode("utf-8")
 
@@ -237,14 +241,14 @@ class TestRequestsHttpConnection(TestCase):
         self.assertRaises(RequestError, con.perform_request, "GET", "/", {}, "")
 
     @patch("opensearchpy.connection.base.logger")
-    def test_head_with_404_doesnt_get_logged(self, logger) -> None:
+    def test_head_with_404_doesnt_get_logged(self, logger: Any) -> None:
         con = self._get_mock_connection(status_code=404)
         self.assertRaises(NotFoundError, con.perform_request, "HEAD", "/", {}, "")
         self.assertEqual(0, logger.warning.call_count)
 
     @patch("opensearchpy.connection.base.tracer")
     @patch("opensearchpy.connection.base.logger")
-    def test_failed_request_logs_and_traces(self, logger, tracer) -> None:
+    def test_failed_request_logs_and_traces(self, logger: Any, tracer: Any) -> None:
         con = self._get_mock_connection(
             response_body=b'{"answer": 42}', status_code=500
         )
@@ -272,7 +276,7 @@ class TestRequestsHttpConnection(TestCase):
 
     @patch("opensearchpy.connection.base.tracer")
     @patch("opensearchpy.connection.base.logger")
-    def test_success_logs_and_traces(self, logger, tracer) -> None:
+    def test_success_logs_and_traces(self, logger: Any, tracer: Any) -> None:
         con = self._get_mock_connection(response_body=b"""{"answer": "that's it!"}""")
         status, headers, data = con.perform_request(
             "GET",
@@ -311,7 +315,7 @@ class TestRequestsHttpConnection(TestCase):
         self.assertEqual('< {"answer": "that\'s it!"}', resp[0][0] % resp[0][1:])
 
     @patch("opensearchpy.connection.base.logger")
-    def test_uncompressed_body_logged(self, logger) -> None:
+    def test_uncompressed_body_logged(self, logger: Any) -> None:
         con = self._get_mock_connection(connection_params={"http_compress": True})
         con.perform_request("GET", "/", body=b'{"example": "body"}')
 
@@ -366,7 +370,7 @@ class TestRequestsHttpConnection(TestCase):
         self.assertEqual(request.headers["authorization"], "Basic dXNlcm5hbWU6c2VjcmV0")
 
     @patch("opensearchpy.connection.base.tracer")
-    def test_url_prefix(self, tracer) -> None:
+    def test_url_prefix(self, tracer: Any) -> None:
         con = self._get_mock_connection({"url_prefix": "/some-prefix/"})
         request = self._get_request(
             con, "GET", "/_search", body='{"answer": 42}', timeout=0.1
@@ -392,16 +396,16 @@ class TestRequestsHttpConnection(TestCase):
     def test_recursion_error_reraised(self) -> None:
         conn = RequestsHttpConnection()
 
-        def send_raise(*_, **__):
+        def send_raise(*_: Any, **__: Any) -> Any:
             raise RecursionError("Wasn't modified!")
 
-        conn.session.send = send_raise
+        conn.session.send = send_raise  # type: ignore
 
         with pytest.raises(RecursionError) as e:
             conn.perform_request("GET", "/")
         assert str(e.value) == "Wasn't modified!"
 
-    def mock_session(self):
+    def mock_session(self) -> Any:
         access_key = uuid.uuid4().hex
         secret_key = uuid.uuid4().hex
         token = uuid.uuid4().hex
@@ -448,7 +452,7 @@ class TestRequestsHttpConnection(TestCase):
         self.assertIn("X-Amz-Security-Token", prepared_request.headers)
 
     @patch("opensearchpy.helpers.signer.AWSV4Signer.sign")
-    def test_aws_signer_signs_with_query_string(self, mock_sign) -> None:
+    def test_aws_signer_signs_with_query_string(self, mock_sign: Any) -> None:
         region = "us-west-1"
         service = "aoss"
 
@@ -469,6 +473,9 @@ class TestRequestsHttpConnection(TestCase):
 
 
 class TestRequestsConnectionRedirect:
+    server1: TestHTTPServer
+    server2: TestHTTPServer
+
     @classmethod
     def setup_class(cls) -> None:
         # Start servers
@@ -505,7 +512,7 @@ class TestRequestsConnectionRedirect:
 
 
 class TestSignerWithFrozenCredentials(TestRequestsHttpConnection):
-    def mock_session(self):
+    def mock_session(self) -> Any:
         access_key = uuid.uuid4().hex
         secret_key = uuid.uuid4().hex
         token = uuid.uuid4().hex

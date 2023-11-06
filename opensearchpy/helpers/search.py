@@ -864,3 +864,6 @@ class MultiSearch(Request):
             self._response = out
 
         return self._response
+
+
+__all__ = ["Q"]

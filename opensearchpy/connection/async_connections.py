@@ -18,6 +18,8 @@ from opensearchpy.serializer import serializer
 
 
 class AsyncConnections(object):
+    _conns: Any
+
     """
     Class responsible for holding connections to different clusters. Used as a
     singleton in this module.

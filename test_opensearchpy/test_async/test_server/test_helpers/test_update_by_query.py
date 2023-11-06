@@ -8,6 +8,8 @@
 # Modifications Copyright OpenSearch Contributors. See
 # GitHub history for details.
 
+from typing import Any
+
 import pytest
 from _pytest.mark.structures import MarkDecorator
 
@@ -17,7 +19,9 @@ from opensearchpy.helpers.search import Q
 pytestmark: MarkDecorator = pytest.mark.asyncio
 
 
-async def test_update_by_query_no_script(write_client, setup_ubq_tests) -> None:
+async def test_update_by_query_no_script(
+    write_client: Any, setup_ubq_tests: Any
+) -> None:
     index = setup_ubq_tests
 
     ubq = (
@@ -36,7 +40,9 @@ async def test_update_by_query_no_script(write_client, setup_ubq_tests) -> None:
     assert response.success()
 
 
-async def test_update_by_query_with_script(write_client, setup_ubq_tests) -> None:
+async def test_update_by_query_with_script(
+    write_client: Any, setup_ubq_tests: Any
+) -> None:
     index = setup_ubq_tests
 
     ubq = (
@@ -53,7 +59,9 @@ async def test_update_by_query_with_script(write_client, setup_ubq_tests) -> Non
     assert response.version_conflicts == 0
 
 
-async def test_delete_by_query_with_script(write_client, setup_ubq_tests) -> None:
+async def test_delete_by_query_with_script(
+    write_client: Any, setup_ubq_tests: Any
+) -> None:
     index = setup_ubq_tests
 
     ubq = (

@@ -55,7 +55,7 @@ def test_attrlist_slice() -> None:
     assert isinstance(ls[:][0], MyAttrDict)
 
 
-def test_merge():
+def test_merge() -> None:
     a = utils.AttrDict({"a": {"b": 42, "c": 47}})
     b = {"a": {"b": 123, "d": -12}, "e": [1, 2, 3]}
 
@@ -101,7 +101,7 @@ def test_serializer_deals_with_Attr_versions() -> None:
 
 def test_serializer_deals_with_objects_with_to_dict() -> None:
     class MyClass(object):
-        def to_dict(self):
+        def to_dict(self) -> int:
             return 42
 
     assert serializer.serializer.dumps(MyClass()) == "42"

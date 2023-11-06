@@ -32,7 +32,7 @@ import base64
 import weakref
 from datetime import date, datetime
 from functools import wraps
-from typing import Any, Callable
+from typing import Any, Callable, Optional
 
 from opensearchpy.serializer import Serializer
 
@@ -185,16 +185,16 @@ def query_params(*opensearch_query_params: Any) -> Callable:  # type: ignore
     return _wrapper
 
 
-def _bulk_body(serializer: Serializer, body: str) -> str:
+def _bulk_body(serializer: Optional[Serializer], body: Any) -> Any:
     # if not passed in a string, serialize items and join by newline
-    if not isinstance(body, string_types):
+    if serializer and not isinstance(body, str):
         body = "\n".join(map(serializer.dumps, body))
 
     # bulk body must end with a newline
     if isinstance(body, bytes):
         if not body.endswith(b"\n"):
             body += b"\n"
-    elif isinstance(body, string_types) and not body.endswith("\n"):
+    elif isinstance(body, str) and not body.endswith("\n"):
         body += "\n"
 
     return body

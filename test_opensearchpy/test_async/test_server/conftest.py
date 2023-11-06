@@ -27,27 +27,28 @@
 
 
 import asyncio
+from typing import Any
 
 import pytest
 from _pytest.mark.structures import MarkDecorator
 
 import opensearchpy
-from opensearchpy.helpers.test import OPENSEARCH_URL
+from opensearchpy.helpers.test import OPENSEARCH_URL  # type: ignore
 
 from ...utils import wipe_cluster
 
 pytestmark: MarkDecorator = pytest.mark.asyncio
 
 
-@pytest.fixture(scope="function")
-async def async_client():
+@pytest.fixture(scope="function")  # type: ignore
+async def async_client() -> Any:
     client = None
     try:
         if not hasattr(opensearchpy, "AsyncOpenSearch"):
             pytest.skip("test requires 'AsyncOpenSearch'")
 
         kw = {"timeout": 3}
-        client = opensearchpy.AsyncOpenSearch(OPENSEARCH_URL, **kw)
+        client = opensearchpy.AsyncOpenSearch(OPENSEARCH_URL, **kw)  # type: ignore
 
         # wait for yellow status
         for _ in range(100):

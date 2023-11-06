@@ -32,6 +32,7 @@ import warnings
 from gzip import GzipFile
 from io import BytesIO
 from platform import python_version
+from typing import Any
 
 import pytest
 import urllib3
@@ -45,15 +46,17 @@ from ..test_cases import SkipTest, TestCase
 
 
 class TestUrllib3HttpConnection(TestCase):
-    def _get_mock_connection(self, connection_params={}, response_body: bytes = b"{}"):
+    def _get_mock_connection(
+        self, connection_params: Any = {}, response_body: bytes = b"{}"
+    ) -> Any:
         con = Urllib3HttpConnection(**connection_params)
 
-        def _dummy_urlopen(*args, **kwargs):
+        def _dummy_urlopen(*args: Any, **kwargs: Any) -> Any:
             dummy_response = Mock()
             dummy_response.headers = HTTPHeaderDict({})
             dummy_response.status = 200
             dummy_response.data = response_body
-            _dummy_urlopen.call_args = (args, kwargs)
+            _dummy_urlopen.call_args = (args, kwargs)  # type: ignore
             return dummy_response
 
         con.pool.urlopen = _dummy_urlopen
@@ -181,7 +184,7 @@ class TestUrllib3HttpConnection(TestCase):
         "urllib3.HTTPConnectionPool.urlopen",
         return_value=Mock(status=200, headers=HTTPHeaderDict({}), data=b"{}"),
     )
-    def test_aws_signer_as_http_auth_adds_headers(self, mock_open) -> None:
+    def test_aws_signer_as_http_auth_adds_headers(self, mock_open: Any) -> None:
         from opensearchpy.helpers.signer import Urllib3AWSV4SignerAuth
 
         auth = Urllib3AWSV4SignerAuth(self.mock_session(), "us-west-2")
@@ -247,7 +250,7 @@ class TestUrllib3HttpConnection(TestCase):
         self.assertIn("X-Amz-Date", headers)
         self.assertIn("X-Amz-Security-Token", headers)
 
-    def mock_session(self):
+    def mock_session(self) -> Any:
         access_key = uuid.uuid4().hex
         secret_key = uuid.uuid4().hex
         token = uuid.uuid4().hex
@@ -290,6 +293,7 @@ class TestUrllib3HttpConnection(TestCase):
             self.assertEqual(0, len(w))
 
     def test_warns_if_using_non_default_ssl_kwargs_with_ssl_context(self) -> None:
+        kwargs: Any
         for kwargs in (
             {"ssl_show_warn": False},
             {"ssl_show_warn": True},
@@ -325,7 +329,7 @@ class TestUrllib3HttpConnection(TestCase):
         self.assertIsNone(c.pool.ca_certs)
 
     @patch("opensearchpy.connection.base.logger")
-    def test_uncompressed_body_logged(self, logger) -> None:
+    def test_uncompressed_body_logged(self, logger: Any) -> None:
         con = self._get_mock_connection(connection_params={"http_compress": True})
         con.perform_request("GET", "/", body=b'{"example": "body"}')
 
@@ -344,7 +348,7 @@ class TestUrllib3HttpConnection(TestCase):
     def test_recursion_error_reraised(self) -> None:
         conn = Urllib3HttpConnection()
 
-        def urlopen_raise(*_, **__):
+        def urlopen_raise(*_: Any, **__: Any) -> Any:
             raise RecursionError("Wasn't modified!")
 
         conn.pool.urlopen = urlopen_raise
@@ -355,7 +359,7 @@ class TestUrllib3HttpConnection(TestCase):
 
 
 class TestSignerWithFrozenCredentials(TestUrllib3HttpConnection):
-    def mock_session(self):
+    def mock_session(self) -> Any:
         access_key = uuid.uuid4().hex
         secret_key = uuid.uuid4().hex
         token = uuid.uuid4().hex

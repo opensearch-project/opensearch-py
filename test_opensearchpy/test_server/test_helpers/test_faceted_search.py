@@ -26,6 +26,7 @@
 #  under the License.
 
 from datetime import datetime
+from typing import Any
 
 import pytest
 
@@ -66,8 +67,8 @@ class MetricSearch(FacetedSearch):
     }
 
 
-@pytest.fixture(scope="session")
-def commit_search_cls(opensearch_version):
+@pytest.fixture(scope="session")  # type: ignore
+def commit_search_cls(opensearch_version: Any) -> Any:
     interval_kwargs = {"fixed_interval": "1d"}
 
     class CommitSearch(FacetedSearch):
@@ -91,8 +92,8 @@ def commit_search_cls(opensearch_version):
     return CommitSearch
 
 
-@pytest.fixture(scope="session")
-def repo_search_cls(opensearch_version):
+@pytest.fixture(scope="session")  # type: ignore
+def repo_search_cls(opensearch_version: Any) -> Any:
     interval_type = "calendar_interval"
 
     class RepoSearch(FacetedSearch):
@@ -105,15 +106,15 @@ def repo_search_cls(opensearch_version):
             ),
         }
 
-        def search(self):
+        def search(self) -> Any:
             s = super(RepoSearch, self).search()
             return s.filter("term", commit_repo="repo")
 
     return RepoSearch
 
 
-@pytest.fixture(scope="session")
-def pr_search_cls(opensearch_version):
+@pytest.fixture(scope="session")  # type: ignore
+def pr_search_cls(opensearch_version: Any) -> Any:
     interval_type = "calendar_interval"
 
     class PRSearch(FacetedSearch):
@@ -131,7 +132,7 @@ def pr_search_cls(opensearch_version):
     return PRSearch
 
 
-def test_facet_with_custom_metric(data_client) -> None:
+def test_facet_with_custom_metric(data_client: Any) -> None:
     ms = MetricSearch()
     r = ms.execute()
 
@@ -140,7 +141,7 @@ def test_facet_with_custom_metric(data_client) -> None:
     assert dates[0] == 1399038439000
 
 
-def test_nested_facet(pull_request, pr_search_cls) -> None:
+def test_nested_facet(pull_request: Any, pr_search_cls: Any) -> None:
     prs = pr_search_cls()
     r = prs.execute()
 
@@ -148,7 +149,7 @@ def test_nested_facet(pull_request, pr_search_cls) -> None:
     assert [(datetime(2018, 1, 1, 0, 0), 1, False)] == r.facets.comments
 
 
-def test_nested_facet_with_filter(pull_request, pr_search_cls) -> None:
+def test_nested_facet_with_filter(pull_request: Any, pr_search_cls: Any) -> None:
     prs = pr_search_cls(filters={"comments": datetime(2018, 1, 1, 0, 0)})
     r = prs.execute()
 
@@ -160,7 +161,7 @@ def test_nested_facet_with_filter(pull_request, pr_search_cls) -> None:
     assert not r.hits
 
 
-def test_datehistogram_facet(data_client, repo_search_cls) -> None:
+def test_datehistogram_facet(data_client: Any, repo_search_cls: Any) -> None:
     rs = repo_search_cls()
     r = rs.execute()
 
@@ -168,7 +169,7 @@ def test_datehistogram_facet(data_client, repo_search_cls) -> None:
     assert [(datetime(2014, 3, 1, 0, 0), 1, False)] == r.facets.created
 
 
-def test_boolean_facet(data_client, repo_search_cls) -> None:
+def test_boolean_facet(data_client: Any, repo_search_cls: Any) -> None:
     rs = repo_search_cls()
     r = rs.execute()
 
@@ -179,7 +180,7 @@ def test_boolean_facet(data_client, repo_search_cls) -> None:
 
 
 def test_empty_search_finds_everything(
-    data_client, opensearch_version, commit_search_cls
+    data_client: Any, opensearch_version: Any, commit_search_cls: Any
 ) -> None:
     cs = commit_search_cls()
     r = cs.execute()
@@ -225,7 +226,7 @@ def test_empty_search_finds_everything(
 
 
 def test_term_filters_are_shown_as_selected_and_data_is_filtered(
-    data_client, commit_search_cls
+    data_client: Any, commit_search_cls: Any
 ) -> None:
     cs = commit_search_cls(filters={"files": "test_opensearchpy/test_dsl"})
 
@@ -271,7 +272,7 @@ def test_term_filters_are_shown_as_selected_and_data_is_filtered(
 
 
 def test_range_filters_are_shown_as_selected_and_data_is_filtered(
-    data_client, commit_search_cls
+    data_client: Any, commit_search_cls: Any
 ) -> None:
     cs = commit_search_cls(filters={"deletions": "better"})
 
@@ -280,7 +281,7 @@ def test_range_filters_are_shown_as_selected_and_data_is_filtered(
     assert 19 == r.hits.total.value
 
 
-def test_pagination(data_client, commit_search_cls) -> None:
+def test_pagination(data_client: Any, commit_search_cls: Any) -> None:
     cs = commit_search_cls()
     cs = cs[0:20]
 

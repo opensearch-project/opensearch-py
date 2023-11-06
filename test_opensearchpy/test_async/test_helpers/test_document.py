@@ -15,6 +15,7 @@ import ipaddress
 import pickle
 from datetime import datetime
 from hashlib import sha256
+from typing import Any
 
 import pytest
 from _pytest.mark.structures import MarkDecorator
@@ -31,25 +32,25 @@ pytestmark: MarkDecorator = pytest.mark.asyncio
 
 
 class MyInner(InnerDoc):
-    old_field = field.Text()
+    old_field: Any = field.Text()
 
 
 class MyDoc(document.AsyncDocument):
-    title = field.Keyword()
-    name = field.Text()
-    created_at = field.Date()
-    inner = field.Object(MyInner)
+    title: Any = field.Keyword()
+    name: Any = field.Text()
+    created_at: Any = field.Date()
+    inner: Any = field.Object(MyInner)
 
 
 class MySubDoc(MyDoc):
-    name = field.Keyword()
+    name: Any = field.Keyword()
 
     class Index:
         name = "default-index"
 
 
 class MyDoc2(document.AsyncDocument):
-    extra = field.Long()
+    extra: Any = field.Long()
 
 
 class MyMultiSubDoc(MyDoc2, MySubDoc):
@@ -57,19 +58,19 @@ class MyMultiSubDoc(MyDoc2, MySubDoc):
 
 
 class Comment(InnerDoc):
-    title = field.Text()
-    tags = field.Keyword(multi=True)
+    title: Any = field.Text()
+    tags: Any = field.Keyword(multi=True)
 
 
 class DocWithNested(document.AsyncDocument):
-    comments = field.Nested(Comment)
+    comments: Any = field.Nested(Comment)
 
     class Index:
         name = "test-doc-with-nested"
 
 
 class SimpleCommit(document.AsyncDocument):
-    files = field.Text(multi=True)
+    files: Any = field.Text(multi=True)
 
     class Index:
         name = "test-git"
@@ -80,48 +81,54 @@ class Secret(str):
 
 
 class SecretField(field.CustomField):
-    builtin_type = "text"
+    builtin_type: Any = "text"
 
-    def _serialize(self, data):
+    def _serialize(self, data: Any) -> Any:
         return codecs.encode(data, "rot_13")
 
-    def _deserialize(self, data):
+    def _deserialize(self, data: Any) -> Any:
         if isinstance(data, Secret):
             return data
         return Secret(codecs.decode(data, "rot_13"))
 
 
 class SecretDoc(document.AsyncDocument):
-    title = SecretField(index="no")
+    title: Any = SecretField(index="no")
 
     class Index:
         name = "test-secret-doc"
 
 
 class NestedSecret(document.AsyncDocument):
-    secrets = field.Nested(SecretDoc)
+    secrets: Any = field.Nested(SecretDoc)
 
     class Index:
         name = "test-nested-secret"
 
+    _index: Any
+
 
 class OptionalObjectWithRequiredField(document.AsyncDocument):
-    comments = field.Nested(properties={"title": field.Keyword(required=True)})
+    comments: Any = field.Nested(properties={"title": field.Keyword(required=True)})
 
     class Index:
         name = "test-required"
 
+    _index: Any
+
 
 class Host(document.AsyncDocument):
-    ip = field.Ip()
+    ip: Any = field.Ip()
 
     class Index:
         name = "test-host"
 
+    _index: Any
+
 
 async def test_range_serializes_properly() -> None:
     class D(document.AsyncDocument):
-        lr = field.LongRange()
+        lr: Any = field.LongRange()
 
     d = D(lr=Range(lt=42))
     assert 40 in d.lr
@@ -200,7 +207,7 @@ async def test_assigning_attrlist_to_field() -> None:
 
 
 async def test_optional_inner_objects_are_not_validated_if_missing() -> None:
-    d = OptionalObjectWithRequiredField()
+    d: Any = OptionalObjectWithRequiredField()
 
     assert d.full_clean() is None
 
@@ -253,13 +260,15 @@ async def test_null_value_for_object() -> None:
     assert d.inner is None
 
 
-async def test_inherited_doc_types_can_override_index():
+async def test_inherited_doc_types_can_override_index() -> None:
     class MyDocDifferentIndex(MySubDoc):
+        _index: Any
+
         class Index:
-            name = "not-default-index"
-            settings = {"number_of_replicas": 0}
-            aliases = {"a": {}}
-            analyzers = [analyzer("my_analizer", tokenizer="keyword")]
+            name: Any = "not-default-index"
+            settings: Any = {"number_of_replicas": 0}
+            aliases: Any = {"a": {}}
+            analyzers: Any = [analyzer("my_analizer", tokenizer="keyword")]
 
     assert MyDocDifferentIndex._index._name == "not-default-index"
     assert MyDocDifferentIndex()._get_index() == "not-default-index"
@@ -285,7 +294,7 @@ async def test_inherited_doc_types_can_override_index():
     }
 
 
-async def test_to_dict_with_meta():
+async def test_to_dict_with_meta() -> None:
     d = MySubDoc(title="hello")
     d.meta.routing = "some-parent"
 
@@ -296,7 +305,7 @@ async def test_to_dict_with_meta():
     } == d.to_dict(True)
 
 
-async def test_to_dict_with_meta_includes_custom_index():
+async def test_to_dict_with_meta_includes_custom_index() -> None:
     d = MySubDoc(title="hello")
     d.meta.index = "other-index"
 
@@ -340,7 +349,7 @@ async def test_meta_is_accessible_even_on_empty_doc() -> None:
     d.meta
 
 
-async def test_meta_field_mapping():
+async def test_meta_field_mapping() -> None:
     class User(document.AsyncDocument):
         username = field.Text()
 
@@ -372,17 +381,17 @@ async def test_multi_value_fields() -> None:
 
 async def test_docs_with_properties() -> None:
     class User(document.AsyncDocument):
-        pwd_hash = field.Text()
+        pwd_hash: Any = field.Text()
 
-        def check_password(self, pwd):
+        def check_password(self, pwd: Any) -> Any:
             return sha256(pwd).hexdigest() == self.pwd_hash
 
         @property
-        def password(self):
+        def password(self) -> Any:
             raise AttributeError("readonly")
 
         @password.setter
-        def password(self, pwd):
+        def password(self, pwd: Any) -> None:
             self.pwd_hash = sha256(pwd).hexdigest()
 
     u = User(pwd_hash=sha256(b"secret").hexdigest())
@@ -424,8 +433,8 @@ async def test_nested_defaults_to_list_and_can_be_updated() -> None:
     assert {"comments": [{"title": "hello World!"}]} == md.to_dict()
 
 
-async def test_to_dict_is_recursive_and_can_cope_with_multi_values():
-    md = MyDoc(name=["a", "b", "c"])
+async def test_to_dict_is_recursive_and_can_cope_with_multi_values() -> None:
+    md: Any = MyDoc(name=["a", "b", "c"])
     md.inner = [MyInner(old_field="of1"), MyInner(old_field="of2")]
 
     assert isinstance(md.inner[0], MyInner)
@@ -437,12 +446,12 @@ async def test_to_dict_is_recursive_and_can_cope_with_multi_values():
 
 
 async def test_to_dict_ignores_empty_collections() -> None:
-    md = MySubDoc(name="", address={}, count=0, valid=False, tags=[])
+    md: Any = MySubDoc(name="", address={}, count=0, valid=False, tags=[])
 
     assert {"name": "", "count": 0, "valid": False} == md.to_dict()
 
 
-async def test_declarative_mapping_definition():
+async def test_declarative_mapping_definition() -> None:
     assert issubclass(MyDoc, document.AsyncDocument)
     assert hasattr(MyDoc, "_doc_type")
     assert {
@@ -455,7 +464,7 @@ async def test_declarative_mapping_definition():
     } == MyDoc._doc_type.mapping.to_dict()
 
 
-async def test_you_can_supply_own_mapping_instance():
+async def test_you_can_supply_own_mapping_instance() -> None:
     class MyD(document.AsyncDocument):
         title = field.Text()
 
@@ -469,9 +478,9 @@ async def test_you_can_supply_own_mapping_instance():
     } == MyD._doc_type.mapping.to_dict()
 
 
-async def test_document_can_be_created_dynamically():
+async def test_document_can_be_created_dynamically() -> None:
     n = datetime.now()
-    md = MyDoc(title="hello")
+    md: Any = MyDoc(title="hello")
     md.name = "My Fancy Document!"
     md.created_at = n
 
@@ -491,13 +500,13 @@ async def test_document_can_be_created_dynamically():
 
 
 async def test_invalid_date_will_raise_exception() -> None:
-    md = MyDoc()
+    md: Any = MyDoc()
     md.created_at = "not-a-date"
     with raises(ValidationException):
         md.full_clean()
 
 
-async def test_document_inheritance():
+async def test_document_inheritance() -> None:
     assert issubclass(MySubDoc, MyDoc)
     assert issubclass(MySubDoc, document.AsyncDocument)
     assert hasattr(MySubDoc, "_doc_type")
@@ -511,7 +520,7 @@ async def test_document_inheritance():
     } == MySubDoc._doc_type.mapping.to_dict()
 
 
-async def test_child_class_can_override_parent():
+async def test_child_class_can_override_parent() -> None:
     class A(document.AsyncDocument):
         o = field.Object(dynamic=False, properties={"a": field.Text()})
 
@@ -530,7 +539,7 @@ async def test_child_class_can_override_parent():
 
 
 async def test_meta_fields_are_stored_in_meta_and_ignored_by_to_dict() -> None:
-    md = MySubDoc(meta={"id": 42}, name="My First doc!")
+    md: Any = MySubDoc(meta={"id": 42}, name="My First doc!")
 
     md.meta.index = "my-index"
     assert md.meta.index == "my-index"
@@ -539,7 +548,7 @@ async def test_meta_fields_are_stored_in_meta_and_ignored_by_to_dict() -> None:
     assert {"id": 42, "index": "my-index"} == md.meta.to_dict()
 
 
-async def test_index_inheritance():
+async def test_index_inheritance() -> None:
     assert issubclass(MyMultiSubDoc, MySubDoc)
     assert issubclass(MyMultiSubDoc, MyDoc2)
     assert issubclass(MyMultiSubDoc, document.AsyncDocument)
@@ -558,31 +567,31 @@ async def test_index_inheritance():
 
 async def test_meta_fields_can_be_set_directly_in_init() -> None:
     p = object()
-    md = MyDoc(_id=p, title="Hello World!")
+    md: Any = MyDoc(_id=p, title="Hello World!")
 
     assert md.meta.id is p
 
 
-async def test_save_no_index(mock_client) -> None:
-    md = MyDoc()
+async def test_save_no_index(mock_client: Any) -> None:
+    md: Any = MyDoc()
     with raises(ValidationException):
         await md.save(using="mock")
 
 
-async def test_delete_no_index(mock_client) -> None:
-    md = MyDoc()
+async def test_delete_no_index(mock_client: Any) -> None:
+    md: Any = MyDoc()
     with raises(ValidationException):
         await md.delete(using="mock")
 
 
 async def test_update_no_fields() -> None:
-    md = MyDoc()
+    md: Any = MyDoc()
     with raises(IllegalOperation):
         await md.update()
 
 
-async def test_search_with_custom_alias_and_index(mock_client) -> None:
-    search_object = MyDoc.search(
+async def test_search_with_custom_alias_and_index(mock_client: Any) -> None:
+    search_object: Any = MyDoc.search(
         using="staging", index=["custom_index1", "custom_index2"]
     )
 
@@ -590,8 +599,8 @@ async def test_search_with_custom_alias_and_index(mock_client) -> None:
     assert search_object._index == ["custom_index1", "custom_index2"]
 
 
-async def test_from_opensearch_respects_underscored_non_meta_fields():
-    doc = {
+async def test_from_opensearch_respects_underscored_non_meta_fields() -> None:
+    doc: Any = {
         "_index": "test-index",
         "_id": "opensearch",
         "_score": 12.0,
@@ -614,11 +623,11 @@ async def test_from_opensearch_respects_underscored_non_meta_fields():
     assert c._tagline == "You know, for search"
 
 
-async def test_nested_and_object_inner_doc():
+async def test_nested_and_object_inner_doc() -> None:
     class MySubDocWithNested(MyDoc):
         nested_inner = field.Nested(MyInner)
 
-    props = MySubDocWithNested._doc_type.mapping.to_dict()["properties"]
+    props: Any = MySubDocWithNested._doc_type.mapping.to_dict()["properties"]
     assert props == {
         "created_at": {"type": "date"},
         "inner": {"properties": {"old_field": {"type": "text"}}, "type": "object"},

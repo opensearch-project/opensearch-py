@@ -268,9 +268,7 @@ class Date(Field):
     name: Optional[str] = "date"
     _coerce: bool = True
 
-    def __init__(
-        self, default_timezone: None = None, *args: Any, **kwargs: Any
-    ) -> None:
+    def __init__(self, default_timezone: Any = None, *args: Any, **kwargs: Any) -> None:
         """
         :arg default_timezone: timezone that will be automatically used for tz-naive values
             May be instance of `datetime.tzinfo` or string containing TZ offset

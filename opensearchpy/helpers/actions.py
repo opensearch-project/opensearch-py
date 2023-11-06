@@ -503,12 +503,12 @@ def parallel_bulk(
 def scan(
     client: Any,
     query: Any = None,
-    scroll: str = "5m",
-    raise_on_error: bool = True,
-    preserve_order: bool = False,
-    size: int = 1000,
+    scroll: Optional[str] = "5m",
+    raise_on_error: Optional[bool] = True,
+    preserve_order: Optional[bool] = False,
+    size: Optional[int] = 1000,
     request_timeout: Optional[float] = None,
-    clear_scroll: bool = True,
+    clear_scroll: Optional[bool] = True,
     scroll_kwargs: Any = None,
     **kwargs: Any
 ) -> Any:

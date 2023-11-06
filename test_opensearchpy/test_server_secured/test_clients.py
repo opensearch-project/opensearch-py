@@ -11,7 +11,7 @@
 from unittest import TestCase
 
 from opensearchpy import OpenSearch
-from opensearchpy.helpers.test import OPENSEARCH_URL
+from opensearchpy.helpers.test import OPENSEARCH_URL  # type: ignore
 
 
 class TestSecurity(TestCase):

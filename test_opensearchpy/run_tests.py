@@ -37,6 +37,7 @@ import subprocess
 import sys
 from os import environ
 from os.path import abspath, dirname, exists, join, pardir
+from typing import Any
 
 
 def fetch_opensearch_repo() -> None:
@@ -88,8 +89,8 @@ def fetch_opensearch_repo() -> None:
     subprocess.check_call("cd %s && git fetch origin %s" % (repo_path, sha), shell=True)
 
 
-def run_all(argv: None = None) -> None:
-    sys.exitfunc = lambda: sys.stderr.write("Shutting down....\n")
+def run_all(argv: Any = None) -> None:
+    sys.exitfunc = lambda: sys.stderr.write("Shutting down....\n")  # type: ignore
     # fetch yaml tests anywhere that's not GitHub Actions
     if "GITHUB_ACTION" not in environ:
         fetch_opensearch_repo()

@@ -26,6 +26,7 @@
 #  under the License.
 
 from datetime import datetime, timedelta
+from typing import Any
 
 import pytest
 
@@ -43,8 +44,8 @@ from opensearchpy import Range
         ({"lte": 4, "gte": 2}, 2),
         ({"gt": datetime.now() - timedelta(seconds=10)}, datetime.now()),
     ],
-)
-def test_range_contains(kwargs, item) -> None:
+)  # type: ignore
+def test_range_contains(kwargs: Any, item: Any) -> None:
     assert item in Range(**kwargs)
 
 
@@ -57,8 +58,8 @@ def test_range_contains(kwargs, item) -> None:
         ({"lte": 4, "gte": 2}, 1),
         ({"lte": datetime.now() - timedelta(seconds=10)}, datetime.now()),
     ],
-)
-def test_range_not_contains(kwargs, item):
+)  # type: ignore
+def test_range_not_contains(kwargs: Any, item: Any) -> None:
     assert item not in Range(**kwargs)
 
 
@@ -71,8 +72,8 @@ def test_range_not_contains(kwargs, item):
         ((), {"lt": 1, "lte": 1}),
         ((), {"gt": 1, "gte": 1}),
     ],
-)
-def test_range_raises_value_error_on_wrong_params(args, kwargs) -> None:
+)  # type: ignore
+def test_range_raises_value_error_on_wrong_params(args: Any, kwargs: Any) -> None:
     with pytest.raises(ValueError):
         Range(*args, **kwargs)
 
@@ -85,8 +86,8 @@ def test_range_raises_value_error_on_wrong_params(args, kwargs) -> None:
         (Range(), None, False),
         (Range(lt=42), None, False),
     ],
-)
-def test_range_lower(range, lower, inclusive) -> None:
+)  # type: ignore
+def test_range_lower(range: Any, lower: Any, inclusive: Any) -> None:
     assert (lower, inclusive) == range.lower
 
 
@@ -98,6 +99,6 @@ def test_range_lower(range, lower, inclusive) -> None:
         (Range(), None, False),
         (Range(gt=42), None, False),
     ],
-)
-def test_range_upper(range, upper, inclusive) -> None:
+)  # type: ignore
+def test_range_upper(range: Any, upper: Any, inclusive: Any) -> None:
     assert (upper, inclusive) == range.upper

@@ -26,7 +26,7 @@
 #  under the License.
 
 
-from typing import Tuple
+from typing import Any
 
 from mock import patch
 
@@ -40,9 +40,9 @@ from .. import OpenSearchTestCase
 class FailingBulkClient(object):
     def __init__(
         self,
-        client,
-        fail_at: Tuple[int] = (2,),
-        fail_with=TransportError(599, "Error!", {}),
+        client: Any,
+        fail_at: Any = (2,),
+        fail_with: Any = TransportError(599, "Error!", {}),
     ) -> None:
         self.client = client
         self._called = 0
@@ -50,7 +50,7 @@ class FailingBulkClient(object):
         self.transport = client.transport
         self._fail_with = fail_with
 
-    def bulk(self, *args, **kwargs):
+    def bulk(self, *args: Any, **kwargs: Any) -> Any:
         self._called += 1
         if self._called in self._fail_at:
             raise self._fail_with
@@ -98,8 +98,8 @@ class TestStreamingBulk(OpenSearchTestCase):
         else:
             assert False, "exception should have been raised"
 
-    def test_different_op_types(self):
-        if self.opensearch_version() < (0, 90, 1):
+    def test_different_op_types(self) -> Any:
+        if self.opensearch_version() < (0, 90, 1):  # type: ignore
             raise SkipTest("update supported since 0.90.1")
         self.client.index(index="i", id=45, body={})
         self.client.index(index="i", id=42, body={})
@@ -218,7 +218,7 @@ class TestStreamingBulk(OpenSearchTestCase):
             fail_with=TransportError(429, "Rejected!", {}),
         )
 
-        def streaming_bulk():
+        def streaming_bulk() -> Any:
             results = list(
                 helpers.streaming_bulk(
                     failing_client,
@@ -271,7 +271,7 @@ class TestBulk(OpenSearchTestCase):
         self.assertEqual(0, failed)
         self.assertEqual(100, self.client.count(index="test-index")["count"])
 
-    def test_errors_are_reported_correctly(self):
+    def test_errors_are_reported_correctly(self) -> None:
         self.client.indices.create(
             "i",
             {
@@ -316,7 +316,7 @@ class TestBulk(OpenSearchTestCase):
             index="i",
         )
 
-    def test_ignore_error_if_raised(self):
+    def test_ignore_error_if_raised(self) -> None:
         # ignore the status code 400 in tuple
         helpers.bulk(
             self.client, [{"a": 42}, {"a": "c"}], index="i", ignore_status=(400,)
@@ -349,7 +349,7 @@ class TestBulk(OpenSearchTestCase):
         failing_client = FailingBulkClient(self.client)
         helpers.bulk(failing_client, [{"a": 42}], index="i", ignore_status=(599,))
 
-    def test_errors_are_collected_properly(self):
+    def test_errors_are_collected_properly(self) -> None:
         self.client.indices.create(
             "i",
             {
@@ -384,12 +384,12 @@ class TestScan(OpenSearchTestCase):
         },
     ]
 
-    def teardown_method(self, m) -> None:
+    def teardown_method(self, m: Any) -> None:
         self.client.transport.perform_request("DELETE", "/_search/scroll/_all")
-        super(TestScan, self).teardown_method(m)
+        super(TestScan, self).teardown_method(m)  # type: ignore
 
-    def test_order_can_be_preserved(self):
-        bulk = []
+    def test_order_can_be_preserved(self) -> None:
+        bulk: Any = []
         for x in range(100):
             bulk.append({"index": {"_index": "test_index", "_id": x}})
             bulk.append({"answer": x, "correct": x == 42})
@@ -408,8 +408,8 @@ class TestScan(OpenSearchTestCase):
         self.assertEqual(list(map(str, range(100))), list(d["_id"] for d in docs))
         self.assertEqual(list(range(100)), list(d["_source"]["answer"] for d in docs))
 
-    def test_all_documents_are_read(self):
-        bulk = []
+    def test_all_documents_are_read(self) -> None:
+        bulk: Any = []
         for x in range(100):
             bulk.append({"index": {"_index": "test_index", "_id": x}})
             bulk.append({"answer": x, "correct": x == 42})
@@ -421,8 +421,8 @@ class TestScan(OpenSearchTestCase):
         self.assertEqual(set(map(str, range(100))), set(d["_id"] for d in docs))
         self.assertEqual(set(range(100)), set(d["_source"]["answer"] for d in docs))
 
-    def test_scroll_error(self):
-        bulk = []
+    def test_scroll_error(self) -> None:
+        bulk: Any = []
         for x in range(4):
             bulk.append({"index": {"_index": "test_index"}})
             bulk.append({"value": x})
@@ -456,7 +456,7 @@ class TestScan(OpenSearchTestCase):
             self.assertEqual(len(data), 3)
             self.assertEqual(data[-1], {"scroll_data": 42})
 
-    def test_initial_search_error(self):
+    def test_initial_search_error(self) -> None:
         with patch.object(self, "client") as client_mock:
             client_mock.search.return_value = {
                 "_scroll_id": "dummy_id",
@@ -491,7 +491,7 @@ class TestScan(OpenSearchTestCase):
             client_mock.scroll.assert_not_called()
             client_mock.clear_scroll.assert_not_called()
 
-    def test_scan_auth_kwargs_forwarded(self):
+    def test_scan_auth_kwargs_forwarded(self) -> None:
         for key, val in {
             "api_key": ("name", "value"),
             "http_auth": ("username", "password"),
@@ -510,7 +510,11 @@ class TestScan(OpenSearchTestCase):
                 }
                 client_mock.clear_scroll.return_value = {}
 
-                data = list(helpers.scan(self.client, index="test_index", **{key: val}))
+                data = list(
+                    helpers.scan(
+                        self.client, index="test_index", scroll_kwargs={key: val}
+                    )
+                )
 
                 self.assertEqual(data, [{"search_data": 1}])
 
@@ -523,7 +527,7 @@ class TestScan(OpenSearchTestCase):
                 ):
                     self.assertEqual(api_mock.call_args[1][key], val)
 
-    def test_scan_auth_kwargs_favor_scroll_kwargs_option(self):
+    def test_scan_auth_kwargs_favor_scroll_kwargs_option(self) -> None:
         with patch.object(self, "client") as client_mock:
             client_mock.search.return_value = {
                 "_scroll_id": "scroll_id",
@@ -555,8 +559,8 @@ class TestScan(OpenSearchTestCase):
             self.assertEqual(client_mock.scroll.call_args[1]["sort"], "asc")
 
     @patch("opensearchpy.helpers.actions.logger")
-    def test_logger(self, logger_mock):
-        bulk = []
+    def test_logger(self, logger_mock: Any) -> None:
+        bulk: Any = []
         for x in range(4):
             bulk.append({"index": {"_index": "test_index"}})
             bulk.append({"value": x})
@@ -590,8 +594,8 @@ class TestScan(OpenSearchTestCase):
                 pass
             logger_mock.warning.assert_called()
 
-    def test_clear_scroll(self):
-        bulk = []
+    def test_clear_scroll(self) -> None:
+        bulk: Any = []
         for x in range(4):
             bulk.append({"index": {"_index": "test_index"}})
             bulk.append({"value": x})
@@ -617,7 +621,7 @@ class TestScan(OpenSearchTestCase):
             )
             spy.assert_not_called()
 
-    def test_shards_no_skipped_field(self):
+    def test_shards_no_skipped_field(self) -> None:
         with patch.object(self, "client") as client_mock:
             client_mock.search.return_value = {
                 "_scroll_id": "dummy_id",
@@ -646,8 +650,8 @@ class TestScan(OpenSearchTestCase):
 
 
 class TestReindex(OpenSearchTestCase):
-    def setup_method(self, _):
-        bulk = []
+    def setup_method(self, _: Any) -> None:
+        bulk: Any = []
         for x in range(100):
             bulk.append({"index": {"_index": "test_index", "_id": x}})
             bulk.append(
@@ -716,7 +720,7 @@ class TestReindex(OpenSearchTestCase):
 
 
 class TestParentChildReindex(OpenSearchTestCase):
-    def setup_method(self, _):
+    def setup_method(self, _: Any) -> None:
         body = {
             "settings": {"number_of_shards": 1, "number_of_replicas": 0},
             "mappings": {

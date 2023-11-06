@@ -37,6 +37,7 @@ from functools import lru_cache
 from itertools import chain, groupby
 from operator import itemgetter
 from pathlib import Path
+from typing import Any, Dict
 
 import black
 import deepmerge
@@ -78,27 +79,27 @@ jinja_env = Environment(
 )
 
 
-def blacken(filename) -> None:
+def blacken(filename: Any) -> None:
     runner = CliRunner()
     result = runner.invoke(black.main, [str(filename)])
     assert result.exit_code == 0, result.output
 
 
 @lru_cache()
-def is_valid_url(url):
+def is_valid_url(url: str) -> bool:
     return 200 <= http.request("HEAD", url).status < 400
 
 
 class Module:
-    def __init__(self, namespace) -> None:
-        self.namespace = namespace
-        self._apis = []
+    def __init__(self, namespace: str) -> None:
+        self.namespace: Any = namespace
+        self._apis: Any = []
         self.parse_orig()
 
-    def add(self, api) -> None:
+    def add(self, api: Any) -> None:
         self._apis.append(api)
 
-    def parse_orig(self):
+    def parse_orig(self) -> None:
         self.orders = []
         self.header = "from typing import Any, Collection, Optional, Tuple, Union\n\n"
 
@@ -129,7 +130,7 @@ class Module:
                     r"\n    (?:async )?def ([a-z_]+)\(", content, re.MULTILINE
                 )
 
-    def _position(self, api):
+    def _position(self, api: Any) -> Any:
         try:
             return self.orders.index(api.name)
         except ValueError:
@@ -234,12 +235,12 @@ class Module:
             f.write(file_content)
 
     @property
-    def filepath(self):
+    def filepath(self) -> Any:
         return CODE_ROOT / f"opensearchpy/_async/client/{self.namespace}.py"
 
 
 class API:
-    def __init__(self, namespace, name, definition) -> None:
+    def __init__(self, namespace: str, name: str, definition: Any) -> None:
         self.namespace = namespace
         self.name = name
 
@@ -284,7 +285,7 @@ class API:
                     print(f"URL {revised_url!r}, falling back on {self.doc_url!r}")
 
     @property
-    def all_parts(self):
+    def all_parts(self) -> Dict[str, str]:
         parts = {}
         for url in self._def["url"]["paths"]:
             parts.update(url.get("parts", {}))
@@ -309,7 +310,7 @@ class API:
 
         dynamic, components = self.url_parts
 
-        def ind(item):
+        def ind(item: Any) -> Any:
             try:
                 return components.index(item[0])
             except ValueError:
@@ -319,29 +320,29 @@ class API:
         return parts
 
     @property
-    def params(self):
+    def params(self) -> Any:
         parts = self.all_parts
         params = self._def.get("params", {})
         return chain(
-            ((p, parts[p]) for p in parts if parts[p]["required"]),
+            ((p, parts[p]) for p in parts if parts[p]["required"]),  # type: ignore
             (("body", self.body),) if self.body else (),
             (
                 (p, parts[p])
                 for p in parts
-                if not parts[p]["required"] and p not in params
+                if not parts[p]["required"] and p not in params  # type: ignore
             ),
             sorted(params.items(), key=lambda x: (x[0] not in parts, x[0])),
         )
 
     @property
-    def body(self):
+    def body(self) -> Any:
         b = self._def.get("body", {})
         if b:
             b.setdefault("required", False)
         return b
 
     @property
-    def query_params(self):
+    def query_params(self) -> Any:
         return (
             k
             for k in sorted(self._def.get("params", {}).keys())
@@ -349,7 +350,7 @@ class API:
         )
 
     @property
-    def all_func_params(self):
+    def all_func_params(self) -> Any:
         """Parameters that will be in the '@query_params' decorator list
         and parameters that will be in the function signature.
         This doesn't include
@@ -362,14 +363,14 @@ class API:
         return params
 
     @property
-    def path(self):
+    def path(self) -> Any:
         return max(
             (path for path in self._def["url"]["paths"]),
             key=lambda p: len(re.findall(r"\{([^}]+)\}", p["path"])),
         )
 
     @property
-    def method(self):
+    def method(self) -> Any:
         # To adhere to the HTTP RFC we shouldn't send
         # bodies in GET requests.
         default_method = self.path["methods"][0]
@@ -382,7 +383,7 @@ class API:
         return default_method
 
     @property
-    def url_parts(self):
+    def url_parts(self) -> Any:
         path = self.path["path"]
 
         dynamic = "{" in path
@@ -403,14 +404,14 @@ class API:
         return dynamic, parts
 
     @property
-    def required_parts(self):
+    def required_parts(self) -> Any:
         parts = self.all_parts
-        required = [p for p in parts if parts[p]["required"]]
+        required = [p for p in parts if parts[p]["required"]]  # type: ignore
         if self.body.get("required"):
             required.append("body")
         return required
 
-    def to_python(self):
+    def to_python(self) -> Any:
         try:
             t = jinja_env.get_template(f"overrides/{self.namespace}/{self.name}")
         except TemplateNotFound:
@@ -423,7 +424,7 @@ class API:
         )
 
 
-def read_modules():
+def read_modules() -> Any:
     modules = {}
 
     # Load the OpenAPI specification file
@@ -596,8 +597,8 @@ def read_modules():
             if "POST" in methods or "PUT" in methods:
                 api.update(
                     {
-                        "stability": "stable",
-                        "visibility": "public",
+                        "stability": "stable",  # type: ignore
+                        "visibility": "public",  # type: ignore
                         "headers": {
                             "accept": ["application/json"],
                             "content_type": ["application/json"],
@@ -607,8 +608,8 @@ def read_modules():
             else:
                 api.update(
                     {
-                        "stability": "stable",
-                        "visibility": "public",
+                        "stability": "stable",  # type: ignore
+                        "visibility": "public",  # type: ignore
                         "headers": {"accept": ["application/json"]},
                     }
                 )
@@ -641,7 +642,7 @@ def read_modules():
     return modules
 
 
-def apply_patch(namespace, name, api):
+def apply_patch(namespace: str, name: str, api: Any) -> Any:
     override_file_path = (
         CODE_ROOT / "utils/templates/overrides" / namespace / f"{name}.json"
     )
@@ -652,7 +653,7 @@ def apply_patch(namespace, name, api):
     return api
 
 
-def dump_modules(modules):
+def dump_modules(modules: Any) -> None:
     for mod in modules.values():
         mod.dump()
 

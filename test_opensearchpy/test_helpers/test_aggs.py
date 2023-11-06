@@ -37,7 +37,7 @@ def test_repr() -> None:
     assert "Terms(aggs={'max_score': Max(field='score')}, field='tags')" == repr(a)
 
 
-def test_meta():
+def test_meta() -> None:
     max_score = aggs.Max(field="score")
     a = aggs.A(
         "terms", field="tags", aggs={"max_score": max_score}, meta={"some": "metadata"}
@@ -66,7 +66,7 @@ def test_A_creates_proper_agg() -> None:
     assert a._params == {"field": "tags"}
 
 
-def test_A_handles_nested_aggs_properly():
+def test_A_handles_nested_aggs_properly() -> None:
     max_score = aggs.Max(field="score")
     a = aggs.A("terms", field="tags", aggs={"max_score": max_score})
 
@@ -79,7 +79,7 @@ def test_A_passes_aggs_through() -> None:
     assert aggs.A(a) is a
 
 
-def test_A_from_dict():
+def test_A_from_dict() -> None:
     d = {
         "terms": {"field": "tags"},
         "aggs": {"per_author": {"terms": {"field": "author.raw"}}},
@@ -95,7 +95,7 @@ def test_A_from_dict():
     assert a.aggs.per_author == aggs.A("terms", field="author.raw")
 
 
-def test_A_fails_with_incorrect_dict():
+def test_A_fails_with_incorrect_dict() -> None:
     correct_d = {
         "terms": {"field": "tags"},
         "aggs": {"per_author": {"terms": {"field": "author.raw"}}},
@@ -148,7 +148,7 @@ def test_buckets_equals_counts_subaggs() -> None:
     assert a != b
 
 
-def test_buckets_to_dict():
+def test_buckets_to_dict() -> None:
     a = aggs.Terms(field="tags")
     a.bucket("per_author", "terms", field="author.raw")
 
@@ -189,7 +189,7 @@ def test_filter_can_be_instantiated_using_positional_args() -> None:
     assert a == aggs.A("filter", query.Q("term", f=42))
 
 
-def test_filter_aggregation_as_nested_agg():
+def test_filter_aggregation_as_nested_agg() -> None:
     a = aggs.Terms(field="tags")
     a.bucket("filtered", "filter", query.Q("term", f=42))
 
@@ -199,7 +199,7 @@ def test_filter_aggregation_as_nested_agg():
     } == a.to_dict()
 
 
-def test_filter_aggregation_with_nested_aggs():
+def test_filter_aggregation_with_nested_aggs() -> None:
     a = aggs.Filter(query.Q("term", f=42))
     a.bucket("testing", "terms", field="tags")
 
@@ -229,7 +229,7 @@ def test_filters_correctly_identifies_the_hash() -> None:
     assert a.filters.group_a == query.Q("term", group="a")
 
 
-def test_bucket_sort_agg():
+def test_bucket_sort_agg() -> None:
     bucket_sort_agg = aggs.BucketSort(sort=[{"total_sales": {"order": "desc"}}], size=3)
     assert bucket_sort_agg.to_dict() == {
         "bucket_sort": {"sort": [{"total_sales": {"order": "desc"}}], "size": 3}
@@ -254,7 +254,7 @@ def test_bucket_sort_agg():
     } == a.to_dict()
 
 
-def test_bucket_sort_agg_only_trnunc():
+def test_bucket_sort_agg_only_trnunc() -> None:
     bucket_sort_agg = aggs.BucketSort(**{"from": 1, "size": 1})
     assert bucket_sort_agg.to_dict() == {"bucket_sort": {"from": 1, "size": 1}}
 
@@ -284,7 +284,7 @@ def test_boxplot_aggregation() -> None:
     assert {"boxplot": {"field": "load_time"}} == a.to_dict()
 
 
-def test_rare_terms_aggregation():
+def test_rare_terms_aggregation() -> None:
     a = aggs.RareTerms(field="the-field")
     a.bucket("total_sales", "sum", field="price")
     a.bucket(
@@ -316,7 +316,7 @@ def test_median_absolute_deviation_aggregation() -> None:
     assert {"median_absolute_deviation": {"field": "rating"}} == a.to_dict()
 
 
-def test_t_test_aggregation():
+def test_t_test_aggregation() -> None:
     a = aggs.TTest(
         a={"field": "startup_time_before"},
         b={"field": "startup_time_after"},
@@ -332,14 +332,14 @@ def test_t_test_aggregation():
     } == a.to_dict()
 
 
-def test_inference_aggregation():
+def test_inference_aggregation() -> None:
     a = aggs.Inference(model_id="model-id", buckets_path={"agg_name": "agg_name"})
     assert {
         "inference": {"buckets_path": {"agg_name": "agg_name"}, "model_id": "model-id"}
     } == a.to_dict()
 
 
-def test_moving_percentiles_aggregation():
+def test_moving_percentiles_aggregation() -> None:
     a = aggs.DateHistogram()
     a.bucket("the_percentile", "percentiles", field="price", percents=[1.0, 99.0])
     a.pipeline(
