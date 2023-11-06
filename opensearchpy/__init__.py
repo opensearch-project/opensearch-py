@@ -146,7 +146,7 @@ from .helpers.wrappers import Range
 from .serializer import JSONSerializer
 from .transport import Transport
 
-# Only raise one warning per deprecation message so
+# Only raise one warning per deprecation message so as not
 # to spam up the user if the same action is done multiple times.
 warnings.simplefilter("default", category=OpenSearchDeprecationWarning, append=True)
 
