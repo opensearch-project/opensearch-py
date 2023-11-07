@@ -678,14 +678,14 @@ class TestScan(object):
             ]
             spy.assert_not_called()
 
-    @pytest.mark.parametrize(
+    @pytest.mark.parametrize(  # type: ignore
         "kwargs",
         [
             {"api_key": ("name", "value")},
             {"http_auth": ("username", "password")},
             {"headers": {"custom", "header"}},
         ],
-    )  # type: ignore
+    )
     async def test_scan_auth_kwargs_forwarded(
         self, async_client: Any, scan_teardown: Any, kwargs: Any
     ) -> None:

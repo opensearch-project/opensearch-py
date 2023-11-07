@@ -143,7 +143,7 @@ async def test_date_histogram_facet_with_1970_01_01_date() -> None:
     assert dhf.get_value({"key": 0}) == datetime(1970, 1, 1, 0, 0)
 
 
-@pytest.mark.parametrize(
+@pytest.mark.parametrize(  # type: ignore
     ["interval_type", "interval"],
     [
         ("interval", "year"),
@@ -169,7 +169,7 @@ async def test_date_histogram_facet_with_1970_01_01_date() -> None:
         ("interval", "1h"),
         ("fixed_interval", "1h"),
     ],
-)  # type: ignore
+)
 async def test_date_histogram_interval_types(interval_type: Any, interval: Any) -> None:
     dhf = DateHistogramFacet(field="@timestamp", **{interval_type: interval})
     assert dhf.get_aggregation().to_dict() == {
