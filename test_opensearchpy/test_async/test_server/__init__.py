@@ -26,7 +26,7 @@
 #  under the License.
 
 
-from unittest import IsolatedAsyncioTestCase
+from unittest import IsolatedAsyncioTestCase  # type: ignore
 
 from opensearchpy._async.helpers.test import get_test_client
 from opensearchpy.connection.async_connections import add_connection
@@ -34,7 +34,7 @@ from opensearchpy.connection.async_connections import add_connection
 from ...utils import wipe_cluster
 
 
-class AsyncOpenSearchTestCase(IsolatedAsyncioTestCase):
+class AsyncOpenSearchTestCase(IsolatedAsyncioTestCase):  # type: ignore
     async def asyncSetUp(self) -> None:
         self.client = await get_test_client(
             verify_certs=False, http_auth=("admin", "admin")

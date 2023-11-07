@@ -45,7 +45,7 @@ tmp_dir = None
 
 
 @contextlib.contextmanager  # type: ignore
-def set_tmp_dir() -> None:  # type: ignore
+def set_tmp_dir() -> None:
     global tmp_dir
     tmp_dir = tempfile.mkdtemp()
     yield tmp_dir
