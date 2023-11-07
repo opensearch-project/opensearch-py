@@ -33,7 +33,7 @@ from typing import Any
 import pytest
 
 import opensearchpy
-from opensearchpy.helpers.test import OPENSEARCH_URL  # type: ignore
+from opensearchpy.helpers.test import OPENSEARCH_URL
 
 from ..utils import wipe_cluster
 

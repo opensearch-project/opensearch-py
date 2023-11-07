@@ -13,7 +13,7 @@ from __future__ import unicode_literals
 
 import unittest
 
-from opensearchpy.helpers.test import OPENSEARCH_VERSION  # type: ignore
+from opensearchpy.helpers.test import OPENSEARCH_VERSION
 
 from .. import OpenSearchTestCase
 

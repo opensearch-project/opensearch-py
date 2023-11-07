@@ -30,7 +30,7 @@ from typing import Any
 from unittest import SkipTest
 
 from opensearchpy.helpers import test
-from test_opensearchpy.test_cases import OpenSearchTestCase as BaseTestCase
+from opensearchpy.helpers.test import OpenSearchTestCase as BaseTestCase
 
 client = None
 
@@ -50,7 +50,7 @@ def get_client(**kwargs: Any) -> Any:
     except ImportError:
         # fallback to using vanilla client
         try:
-            new_client = test.get_test_client(**kwargs)  # type: ignore
+            new_client = test.get_test_client(**kwargs)
         except SkipTest:
             client = False
             raise

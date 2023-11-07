@@ -99,7 +99,7 @@ class TestStreamingBulk(OpenSearchTestCase):
             assert False, "exception should have been raised"
 
     def test_different_op_types(self) -> Any:
-        if self.opensearch_version() < (0, 90, 1):  # type: ignore
+        if self.opensearch_version() < (0, 90, 1):
             raise SkipTest("update supported since 0.90.1")
         self.client.index(index="i", id=45, body={})
         self.client.index(index="i", id=42, body={})
@@ -386,7 +386,7 @@ class TestScan(OpenSearchTestCase):
 
     def teardown_method(self, m: Any) -> None:
         self.client.transport.perform_request("DELETE", "/_search/scroll/_all")
-        super(TestScan, self).teardown_method(m)  # type: ignore
+        super(TestScan, self).teardown_method(m)
 
     def test_order_can_be_preserved(self) -> None:
         bulk: Any = []

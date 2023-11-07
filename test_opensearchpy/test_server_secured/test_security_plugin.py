@@ -15,7 +15,7 @@ from unittest import TestCase
 
 from opensearchpy.connection.connections import add_connection
 from opensearchpy.exceptions import NotFoundError
-from opensearchpy.helpers.test import get_test_client  # type: ignore
+from opensearchpy.helpers.test import get_test_client
 
 
 class TestSecurityPlugin(TestCase):

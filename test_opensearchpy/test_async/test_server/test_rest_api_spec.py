@@ -39,7 +39,7 @@ import pytest
 from _pytest.mark.structures import MarkDecorator
 
 from opensearchpy import OpenSearchWarning
-from opensearchpy.helpers.test import _get_version  # type: ignore
+from opensearchpy.helpers.test import _get_version
 
 from ...test_server.test_rest_api_spec import (
     IMPLEMENTED_FEATURES,

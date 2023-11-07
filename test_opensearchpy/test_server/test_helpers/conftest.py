@@ -33,7 +33,7 @@ from pytest import fixture
 
 from opensearchpy.connection.connections import add_connection
 from opensearchpy.helpers import bulk
-from opensearchpy.helpers.test import get_test_client  # type: ignore
+from opensearchpy.helpers.test import get_test_client
 
 from .test_data import (
     DATA,

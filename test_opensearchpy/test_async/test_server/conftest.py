@@ -33,7 +33,7 @@ import pytest
 from _pytest.mark.structures import MarkDecorator
 
 import opensearchpy
-from opensearchpy.helpers.test import OPENSEARCH_URL  # type: ignore
+from opensearchpy.helpers.test import OPENSEARCH_URL
 
 from ...utils import wipe_cluster
 

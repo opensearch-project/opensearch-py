@@ -16,7 +16,7 @@ import unittest
 import pytest
 from _pytest.mark.structures import MarkDecorator
 
-from opensearchpy.helpers.test import OPENSEARCH_VERSION  # type: ignore
+from opensearchpy.helpers.test import OPENSEARCH_VERSION
 
 from .. import AsyncOpenSearchTestCase
 
