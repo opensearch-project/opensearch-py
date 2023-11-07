@@ -187,15 +187,15 @@ def query_params(*opensearch_query_params: Any) -> Callable:  # type: ignore
 
 def _bulk_body(serializer: Optional[Serializer], body: Any) -> Any:
     # if not passed in a string, serialize items and join by newline
-    if serializer and not isinstance(body, str):
-        body = "\n".join(map(serializer.dumps, body))
+    if not isinstance(body, string_types):
+        body = "\n".join(map(serializer.dumps, body))  # type: ignore
 
     # bulk body must end with a newline
     if isinstance(body, bytes):
         if not body.endswith(b"\n"):
             body += b"\n"
-    elif isinstance(body, str) and not body.endswith("\n"):
-        body += "\n"
+    elif isinstance(body, string_types) and not body.endswith("\n"):  # type: ignore
+        body += "\n"  # type: ignore
 
     return body
 
