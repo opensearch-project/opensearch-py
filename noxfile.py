@@ -50,7 +50,7 @@ def test(session: Any) -> None:
     session.run("python", "setup.py", "test")
 
 
-@nox.session()  # type: ignore
+@nox.session(python=["3.7"])  # type: ignore
 def format(session: Any) -> None:
     session.install("black", "isort")
 

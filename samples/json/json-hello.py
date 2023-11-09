@@ -27,7 +27,7 @@ client = OpenSearch(
     ssl_show_warn=False,
 )
 
-info = client._get("/")
+info = client.http.get("/")
 print(f"Welcome to {info['version']['distribution']} {info['version']['number']}!")
 
 # create an index
@@ -36,7 +36,7 @@ index_name = "movies"
 
 index_body = {"settings": {"index": {"number_of_shards": 4}}}
 
-print(client._put(f"/{index_name}", body=index_body))
+print(client.http.put(f"/{index_name}", body=index_body))
 
 # add a document to the index
 
@@ -44,7 +44,7 @@ document = {"title": "Moneyball", "director": "Bennett Miller", "year": "2011"}
 
 id = "1"
 
-print(client._put(f"/{index_name}/_doc/{id}?refresh=true", body=document))
+print(client.http.put(f"/{index_name}/_doc/{id}?refresh=true", body=document))
 
 # search for a document
 
@@ -55,12 +55,12 @@ query = {
     "query": {"multi_match": {"query": q, "fields": ["title^2", "director"]}},
 }
 
-print(client._post(f"/{index_name}/_search", body=query))
+print(client.http.post(f"/{index_name}/_search", body=query))
 
 # delete the document
 
-print(client._delete(f"/{index_name}/_doc/{id}"))
+print(client.http.delete(f"/{index_name}/_doc/{id}"))
 
 # delete the index
 
-print(client._delete(f"/{index_name}"))
+print(client.http.delete(f"/{index_name}"))

@@ -6,7 +6,7 @@
 
 # Making Raw JSON REST Requests
 
-The OpenSearch client implements many high-level REST DSLs that invoke OpenSearch APIs. However you may find yourself in a situation that requires you to invoke an API that is not supported by the client. Use `client._get`, `_head` , `._put`, `_post`, and `_delete` in order versions to do so. See [samples/json](../samples/json) for a complete working sample.
+The OpenSearch client implements many high-level REST DSLs that invoke OpenSearch APIs. However you may find yourself in a situation that requires you to invoke an API that is not supported by the client. Use `client.http.get`, `head` , `put`, `post`, and `delete` in order versions to do so. See [samples/json](../samples/json) for a complete working sample.
 
 ## GET
 
@@ -22,7 +22,7 @@ Note that the client will parse the response as JSON when appropriate.
 These methods are also available in the asynchronous client.
 
 ```python
-info = await client._get("/")
+info = await client.http.get("/")
 print(f"Welcome to {info["version"]["distribution"]} {info["version"]["number"]}!")
 ```
 
@@ -46,7 +46,7 @@ index_body = {
   }
 }
 
-client._put("/movies", body=index_body)
+client.http.put("/movies", body=index_body)
 ```
 
 Note that the client will raise errors automatically. For example, if the index already exists, an `opensearchpy.exceptions.RequestError: RequestError(400, "resource_already_exists_exception",` will be thrown.
@@ -68,7 +68,7 @@ query = {
   }
 }
 
-client._post("/movies/_search", body = query)
+client.http.post("/movies/_search", body = query)
 ```
 
 ## DELETE
@@ -76,5 +76,5 @@ client._post("/movies/_search", body = query)
 The following example deletes an index.
 
 ```python
-client._delete("/movies")
+client.http.delete("/movies")
 ```

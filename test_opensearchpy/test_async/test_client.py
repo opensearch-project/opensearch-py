@@ -27,23 +27,34 @@
 
 
 from collections import defaultdict
+from typing import Any, Collection, Mapping, Optional, Union
 
 import pytest
 
 from opensearchpy import AsyncOpenSearch
+from opensearchpy._async.transport import AsyncTransport
 
 pytestmark = pytest.mark.asyncio
 
 
-class DummyTransport(object):
-    def __init__(self, hosts, responses=None, **kwargs):
+class DummyTransport(AsyncTransport):
+    def __init__(self, hosts: Any, responses: Any = None, **kwargs: Any) -> None:
         self.hosts = hosts
         self.responses = responses
         self.call_count = 0
-        self.calls = defaultdict(list)
+        self.calls: Any = defaultdict(list)
 
-    async def perform_request(self, method, url, params=None, headers=None, body=None):
-        resp = 200, {}
+    async def perform_request(
+        self,
+        method: str,
+        url: str,
+        params: Optional[Mapping[str, Any]] = None,
+        body: Optional[bytes] = None,
+        timeout: Optional[Union[int, float]] = None,
+        ignore: Collection[int] = (),
+        headers: Optional[Mapping[str, str]] = None,
+    ) -> Any:
+        resp: Any = (200, {})
         if self.responses:
             resp = self.responses[self.call_count]
         self.call_count += 1
@@ -51,59 +62,33 @@ class DummyTransport(object):
         return resp
 
 
-class OpenSearchTestCase:
-    def assert_call_count_equals(self, count):
+class OpenSearchTestCaseWithDummyTransport:
+    def assert_call_count_equals(self, count: int) -> None:
+        assert isinstance(self.client.transport, DummyTransport)
         assert count == self.client.transport.call_count
 
-    def assert_url_called(self, method, url, count=1):
+    def assert_url_called(self, method: str, url: str, count: int = 1) -> Any:
+        assert isinstance(self.client.transport, DummyTransport)
         assert (method, url) in self.client.transport.calls
         calls = self.client.transport.calls[(method, url)]
         assert count == len(calls)
         return calls
 
-
-class TestOpenSearchTestCase(OpenSearchTestCase):
-    def setup_method(self):
+    def setup_method(self, method: Any) -> None:
         self.client = AsyncOpenSearch(transport_class=DummyTransport)
 
-    async def test_our_transport_used(self):
+
+class TestClient(OpenSearchTestCaseWithDummyTransport):
+    async def test_our_transport_used(self) -> None:
         assert isinstance(self.client.transport, DummyTransport)
 
-    async def test_start_with_0_call(self):
+    async def test_start_with_0_call(self) -> None:
         self.assert_call_count_equals(0)
 
-    async def test_each_call_is_recorded(self):
+    async def test_each_call_is_recorded(self) -> None:
         await self.client.transport.perform_request("GET", "/")
         await self.client.transport.perform_request(
             "DELETE", "/42", params={}, body="body"
         )
         self.assert_call_count_equals(2)
         assert [({}, None, "body")] == self.assert_url_called("DELETE", "/42", 1)
-
-    @pytest.mark.asyncio
-    async def test_get(self):
-        await self.client._get("/")
-        self.assert_call_count_equals(1)
-        assert [(None, None, None)] == self.assert_url_called("GET", "/", 1)
-
-    async def test_head(self):
-        await self.client._head("/")
-        self.assert_call_count_equals(1)
-        assert [(None, None, None)] == self.assert_url_called("HEAD", "/", 1)
-
-    async def test_put(self):
-        await self.client._put("/xyz", {"X": "Y"}, "body")
-        self.assert_call_count_equals(1)
-        assert [("body", {"X": " =="}, None)], self.assert_url_called("PUT", "/xyz", 1)
-
-    async def test_post(self):
-        await self.client._post("/xyz", {"X": "Y"}, "body")
-        self.assert_call_count_equals(1)
-        assert [("body", {"X": " =="}, None)], self.assert_url_called("POST", "/xyz", 1)
-
-    async def test_delete(self):
-        await self.client._delete("/xyz", {"X": "Y"}, "body")
-        self.assert_call_count_equals(1)
-        assert [("body", {"X": " =="}, None)], self.assert_url_called(
-            "DELETE", "/xyz", 1
-        )
