@@ -84,7 +84,7 @@ class AsyncOpenSearch(Client):
         # create connection to localhost using the ThriftConnection
         client = OpenSearch(connection_class=ThriftConnection)
 
-    If you want to turn on :ref:`sniffing` you have several options (described
+    If you want to turn on sniffing you have several options (described
     in :class:`~opensearchpy.Transport`)::
 
         # create connection that will automatically inspect the cluster to get

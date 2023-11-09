@@ -101,10 +101,9 @@ def lint(session: Any) -> None:
 @nox.session()  # type: ignore
 def docs(session: Any) -> None:
     session.install(".")
-    session.install(
-        "-rdev-requirements.txt", "sphinx-rtd-theme", "sphinx-autodoc-typehints"
-    )
-    session.run("python", "-m", "pip", "install", "sphinx-autodoc-typehints")
+    session.install(".[docs]")
+    with session.chdir("docs"):
+        session.run("make", "html")
 
 
 @nox.session()  # type: ignore
