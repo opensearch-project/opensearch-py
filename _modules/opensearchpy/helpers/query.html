@@ -113,12 +113,11 @@
 
 <span class="c1"># &#39;SF&#39; looks unused but the test suite assumes it&#39;s available</span>
 <span class="c1"># from this module so others are liable to do so as well.</span>
-<span class="kn">from</span> <span class="nn">..helpers.function</span> <span class="kn">import</span> <span class="n">SF</span>  <span class="c1"># noqa: F401</span>
-<span class="kn">from</span> <span class="nn">..helpers.function</span> <span class="kn">import</span> <span class="n">ScoreFunction</span>
+<span class="kn">from</span> <span class="nn">..helpers.function</span> <span class="kn">import</span> <span class="n">SF</span><span class="p">,</span> <span class="n">ScoreFunction</span>
 <span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">DslBase</span>
 
 
-<span class="k">def</span> <span class="nf">Q</span><span class="p">(</span><span class="n">name_or_query</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;match_all&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">Q</span><span class="p">(</span><span class="n">name_or_query</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="s2">&quot;match_all&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
     <span class="c1"># {&quot;match&quot;: {&quot;title&quot;: &quot;python&quot;}}</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">name_or_query</span><span class="p">,</span> <span class="n">collections_abc</span><span class="o">.</span><span class="n">Mapping</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">params</span><span class="p">:</span>
@@ -603,6 +602,9 @@
 
 <span class="k">class</span> <span class="nc">Wrapper</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;wrapper&quot;</span>
+
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;SF&quot;</span><span class="p">]</span>
 </pre></div>
 
            </div>
