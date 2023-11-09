@@ -1,4 +1,4 @@
-# Compact and aligned text (HTTP) Client
+# Http Client
 
 ```{eval-rst}
 .. autoclass:: opensearchpy.client.http.HttpClient
