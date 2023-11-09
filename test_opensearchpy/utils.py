@@ -27,11 +27,12 @@
 
 
 import time
+from typing import Any
 
 from opensearchpy import OpenSearch
 
 
-def wipe_cluster(client) -> None:
+def wipe_cluster(client: Any) -> None:
     """Wipes a cluster clean between test cases"""
     close_after_wipe = False
     try:
@@ -59,9 +60,9 @@ def wipe_cluster(client) -> None:
         client.close()
 
 
-def wipe_cluster_settings(client) -> None:
+def wipe_cluster_settings(client: Any) -> None:
     settings = client.cluster.get_settings()
-    new_settings = {}
+    new_settings: Any = {}
     for name, value in settings.items():
         if value:
             new_settings.setdefault(name, {})
@@ -71,7 +72,7 @@ def wipe_cluster_settings(client) -> None:
         client.cluster.put_settings(body=new_settings)
 
 
-def wipe_snapshots(client):
+def wipe_snapshots(client: Any) -> None:
     """Deletes all the snapshots and repositories from the cluster"""
     in_progress_snapshots = []
 
@@ -96,14 +97,14 @@ def wipe_snapshots(client):
     assert in_progress_snapshots == []
 
 
-def wipe_data_streams(client) -> None:
+def wipe_data_streams(client: Any) -> None:
     try:
         client.indices.delete_data_stream(name="*", expand_wildcards="all")
     except Exception:
         client.indices.delete_data_stream(name="*")
 
 
-def wipe_indices(client) -> None:
+def wipe_indices(client: Any) -> None:
     client.indices.delete(
         index="*,-.ds-ilm-history-*",
         expand_wildcards="all",
@@ -111,7 +112,7 @@ def wipe_indices(client) -> None:
     )
 
 
-def wipe_searchable_snapshot_indices(client) -> None:
+def wipe_searchable_snapshot_indices(client: Any) -> None:
     cluster_metadata = client.cluster.state(
         metric="metadata",
         filter_path="metadata.indices.*.settings.index.store.snapshot",
@@ -121,17 +122,17 @@ def wipe_searchable_snapshot_indices(client) -> None:
             client.indices.delete(index=index)
 
 
-def wipe_slm_policies(client) -> None:
+def wipe_slm_policies(client: Any) -> None:
     for policy in client.slm.get_lifecycle():
         client.slm.delete_lifecycle(policy_id=policy["name"])
 
 
-def wipe_auto_follow_patterns(client) -> None:
+def wipe_auto_follow_patterns(client: Any) -> None:
     for pattern in client.ccr.get_auto_follow_pattern()["patterns"]:
         client.ccr.delete_auto_follow_pattern(name=pattern["name"])
 
 
-def wipe_node_shutdown_metadata(client) -> None:
+def wipe_node_shutdown_metadata(client: Any) -> None:
     shutdown_status = client.shutdown.get_node()
     # If response contains these two keys the feature flag isn't enabled
     # on this cluster so skip this step now.
@@ -143,14 +144,14 @@ def wipe_node_shutdown_metadata(client) -> None:
         client.shutdown.delete_node(node_id=node_id)
 
 
-def wipe_tasks(client) -> None:
+def wipe_tasks(client: Any) -> None:
     tasks = client.tasks.list()
     for node_name, node in tasks.get("node", {}).items():
         for task_id in node.get("tasks", ()):
             client.tasks.cancel(task_id=task_id, wait_for_completion=True)
 
 
-def wait_for_pending_tasks(client, filter, timeout: int = 30) -> None:
+def wait_for_pending_tasks(client: Any, filter: Any, timeout: int = 30) -> None:
     end_time = time.time() + timeout
     while time.time() < end_time:
         tasks = client.cat.tasks(detailed=True).split("\n")
@@ -158,7 +159,7 @@ def wait_for_pending_tasks(client, filter, timeout: int = 30) -> None:
             break
 
 
-def wait_for_pending_datafeeds_and_jobs(client, timeout: int = 30) -> None:
+def wait_for_pending_datafeeds_and_jobs(client: Any, timeout: int = 30) -> None:
     end_time = time.time() + timeout
     while time.time() < end_time:
         if (
@@ -171,7 +172,7 @@ def wait_for_pending_datafeeds_and_jobs(client, timeout: int = 30) -> None:
             break
 
 
-def wait_for_cluster_state_updates_to_finish(client, timeout: int = 30) -> None:
+def wait_for_cluster_state_updates_to_finish(client: Any, timeout: int = 30) -> None:
     end_time = time.time() + timeout
     while time.time() < end_time:
         if not client.cluster.pending_tasks().get("tasks", ()):

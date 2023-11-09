@@ -17,7 +17,8 @@ class TestPluginsClient(TestCase):
     async def test_plugins_client(self) -> None:
         with self.assertWarns(Warning) as w:
             client = AsyncOpenSearch()
-            client.plugins.__init__(client)  # double-init
+            # testing double-init here
+            client.plugins.__init__(client)  # type: ignore
             self.assertEqual(
                 str(w.warnings[0].message),
                 "Cannot load `alerting` directly to AsyncOpenSearch as it already exists. Use `AsyncOpenSearch.plugin.alerting` instead.",

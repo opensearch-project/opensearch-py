@@ -32,6 +32,7 @@ import json
 import ssl
 import warnings
 from platform import python_version
+from typing import Any
 
 import aiohttp
 import pytest
@@ -52,29 +53,29 @@ pytestmark: MarkDecorator = pytest.mark.asyncio
 class TestAIOHttpConnection:
     async def _get_mock_connection(
         self,
-        connection_params={},
+        connection_params: Any = {},
         response_code: int = 200,
         response_body: bytes = b"{}",
-        response_headers={},
-    ):
+        response_headers: Any = {},
+    ) -> Any:
         con = AIOHttpConnection(**connection_params)
         await con._create_aiohttp_session()
 
-        def _dummy_request(*args, **kwargs):
+        def _dummy_request(*args: Any, **kwargs: Any) -> Any:
             class DummyResponse:
-                async def __aenter__(self, *_, **__):
+                async def __aenter__(self, *_: Any, **__: Any) -> Any:
                     return self
 
-                async def __aexit__(self, *_, **__):
+                async def __aexit__(self, *_: Any, **__: Any) -> None:
                     pass
 
-                async def text(self):
+                async def text(self) -> Any:
                     return response_body.decode("utf-8", "surrogatepass")
 
-            dummy_response = DummyResponse()
+            dummy_response: Any = DummyResponse()
             dummy_response.headers = CIMultiDict(**response_headers)
             dummy_response.status = response_code
-            _dummy_request.call_args = (args, kwargs)
+            _dummy_request.call_args = (args, kwargs)  # type: ignore
             return dummy_response
 
         con.session.request = _dummy_request
@@ -231,6 +232,7 @@ class TestAIOHttpConnection:
             assert w == [], str([x.message for x in w])
 
     async def test_warns_if_using_non_default_ssl_kwargs_with_ssl_context(self) -> None:
+        kwargs: Any
         for kwargs in (
             {"ssl_show_warn": False},
             {"ssl_show_warn": True},
@@ -253,26 +255,28 @@ class TestAIOHttpConnection:
                 )
 
     @patch("ssl.SSLContext.load_verify_locations")
-    async def test_uses_given_ca_certs(self, load_verify_locations, tmp_path) -> None:
+    async def test_uses_given_ca_certs(
+        self, load_verify_locations: Any, tmp_path: Any
+    ) -> None:
         path = tmp_path / "ca_certs.pem"
         path.touch()
         AIOHttpConnection(use_ssl=True, ca_certs=str(path))
         load_verify_locations.assert_called_once_with(cafile=str(path))
 
     @patch("ssl.SSLContext.load_verify_locations")
-    async def test_uses_default_ca_certs(self, load_verify_locations) -> None:
+    async def test_uses_default_ca_certs(self, load_verify_locations: Any) -> None:
         AIOHttpConnection(use_ssl=True)
         load_verify_locations.assert_called_once_with(
             cafile=Connection.default_ca_certs()
         )
 
     @patch("ssl.SSLContext.load_verify_locations")
-    async def test_uses_no_ca_certs(self, load_verify_locations) -> None:
+    async def test_uses_no_ca_certs(self, load_verify_locations: Any) -> None:
         AIOHttpConnection(use_ssl=True, verify_certs=False)
         load_verify_locations.assert_not_called()
 
     async def test_trust_env(self) -> None:
-        con = AIOHttpConnection(trust_env=True)
+        con: Any = AIOHttpConnection(trust_env=True)
         await con._create_aiohttp_session()
 
         assert con._trust_env is True
@@ -286,7 +290,7 @@ class TestAIOHttpConnection:
         assert con.session.trust_env is False
 
     @patch("opensearchpy.connection.base.logger")
-    async def test_uncompressed_body_logged(self, logger) -> None:
+    async def test_uncompressed_body_logged(self, logger: Any) -> None:
         con = await self._get_mock_connection(connection_params={"http_compress": True})
         await con.perform_request("GET", "/", body=b'{"example": "body"}')
 
@@ -302,11 +306,11 @@ class TestAIOHttpConnection:
         status, headers, data = await con.perform_request("GET", "/")
         assert u"你好\uda6a" == data  # fmt: skip
 
-    @pytest.mark.parametrize("exception_cls", reraise_exceptions)
-    async def test_recursion_error_reraised(self, exception_cls) -> None:
+    @pytest.mark.parametrize("exception_cls", reraise_exceptions)  # type: ignore
+    async def test_recursion_error_reraised(self, exception_cls: Any) -> None:
         conn = AIOHttpConnection()
 
-        def request_raise(*_, **__):
+        def request_raise(*_: Any, **__: Any) -> Any:
             raise exception_cls("Wasn't modified!")
 
         await conn._create_aiohttp_session()
@@ -334,6 +338,8 @@ class TestAIOHttpConnection:
 class TestConnectionHttpServer:
     """Tests the HTTP connection implementations against a live server E2E"""
 
+    server: Any
+
     @classmethod
     def setup_class(cls) -> None:
         # Start server
@@ -345,7 +351,7 @@ class TestConnectionHttpServer:
         # Stop server
         cls.server.stop()
 
-    async def httpserver(self, conn, **kwargs):
+    async def httpserver(self, conn: Any, **kwargs: Any) -> Any:
         status, headers, data = await conn.perform_request("GET", "/", **kwargs)
         data = json.loads(data)
         return (status, data)

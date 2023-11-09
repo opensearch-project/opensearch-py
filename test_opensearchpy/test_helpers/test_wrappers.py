@@ -26,13 +26,14 @@
 #  under the License.
 
 from datetime import datetime, timedelta
+from typing import Any
 
 import pytest
 
 from opensearchpy import Range
 
 
-@pytest.mark.parametrize(
+@pytest.mark.parametrize(  # type: ignore
     "kwargs, item",
     [
         ({}, 1),
@@ -44,11 +45,11 @@ from opensearchpy import Range
         ({"gt": datetime.now() - timedelta(seconds=10)}, datetime.now()),
     ],
 )
-def test_range_contains(kwargs, item) -> None:
+def test_range_contains(kwargs: Any, item: Any) -> None:
     assert item in Range(**kwargs)
 
 
-@pytest.mark.parametrize(
+@pytest.mark.parametrize(  # type: ignore
     "kwargs, item",
     [
         ({"gt": -1}, -1),
@@ -58,11 +59,11 @@ def test_range_contains(kwargs, item) -> None:
         ({"lte": datetime.now() - timedelta(seconds=10)}, datetime.now()),
     ],
 )
-def test_range_not_contains(kwargs, item):
+def test_range_not_contains(kwargs: Any, item: Any) -> None:
     assert item not in Range(**kwargs)
 
 
-@pytest.mark.parametrize(
+@pytest.mark.parametrize(  # type: ignore
     "args,kwargs",
     [
         (({},), {"lt": 42}),
@@ -72,12 +73,12 @@ def test_range_not_contains(kwargs, item):
         ((), {"gt": 1, "gte": 1}),
     ],
 )
-def test_range_raises_value_error_on_wrong_params(args, kwargs) -> None:
+def test_range_raises_value_error_on_wrong_params(args: Any, kwargs: Any) -> None:
     with pytest.raises(ValueError):
         Range(*args, **kwargs)
 
 
-@pytest.mark.parametrize(
+@pytest.mark.parametrize(  # type: ignore
     "range,lower,inclusive",
     [
         (Range(gt=1), 1, False),
@@ -86,11 +87,11 @@ def test_range_raises_value_error_on_wrong_params(args, kwargs) -> None:
         (Range(lt=42), None, False),
     ],
 )
-def test_range_lower(range, lower, inclusive) -> None:
+def test_range_lower(range: Any, lower: Any, inclusive: Any) -> None:
     assert (lower, inclusive) == range.lower
 
 
-@pytest.mark.parametrize(
+@pytest.mark.parametrize(  # type: ignore
     "range,upper,inclusive",
     [
         (Range(lt=1), 1, False),
@@ -99,5 +100,5 @@ def test_range_lower(range, lower, inclusive) -> None:
         (Range(gt=42), None, False),
     ],
 )
-def test_range_upper(range, upper, inclusive) -> None:
+def test_range_upper(range: Any, upper: Any, inclusive: Any) -> None:
     assert (upper, inclusive) == range.upper

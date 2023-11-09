@@ -28,17 +28,19 @@
 
 from __future__ import unicode_literals
 
+from typing import Any
+
 from opensearchpy.client.utils import _bulk_body, _escape, _make_path, query_params
 
 from ..test_cases import TestCase
 
 
 class TestQueryParams(TestCase):
-    def setup_method(self, _) -> None:
-        self.calls = []
+    def setup_method(self, _: Any) -> None:
+        self.calls: Any = []
 
     @query_params("simple_param")
-    def func_to_wrap(self, *args, **kwargs) -> None:
+    def func_to_wrap(self, *args: Any, **kwargs: Any) -> None:
         self.calls.append((args, kwargs))
 
     def test_handles_params(self) -> None:

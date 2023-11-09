@@ -38,13 +38,14 @@ import shlex
 import shutil
 import sys
 import tempfile
+from typing import Any
 
 base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 tmp_dir = None
 
 
-@contextlib.contextmanager
-def set_tmp_dir():
+@contextlib.contextmanager  # type: ignore
+def set_tmp_dir() -> None:
     global tmp_dir
     tmp_dir = tempfile.mkdtemp()
     yield tmp_dir
@@ -52,7 +53,7 @@ def set_tmp_dir():
     tmp_dir = None
 
 
-def run(*argv, expect_exit_code: int = 0) -> None:
+def run(*argv: Any, expect_exit_code: int = 0) -> None:
     global tmp_dir
     if tmp_dir is None:
         os.chdir(base_dir)
@@ -70,9 +71,9 @@ def run(*argv, expect_exit_code: int = 0) -> None:
         exit(exit_code or 1)
 
 
-def test_dist(dist) -> None:
-    with set_tmp_dir() as tmp_dir:
-        dist_name = re.match(
+def test_dist(dist: Any) -> None:
+    with set_tmp_dir() as tmp_dir:  # type: ignore
+        dist_name = re.match(  # type: ignore
             r"^(opensearchpy\d*)-",
             os.path.basename(dist)
             .replace("opensearch-py", "opensearchpy")
@@ -216,7 +217,7 @@ def main() -> None:
             # alpha/beta/rc -> aN/bN/rcN
             else:
                 pre_number = re.search(r"-(a|b|rc)(?:lpha|eta|)(\d+)$", expect_version)
-                version = version + pre_number.group(1) + pre_number.group(2)
+                version = version + pre_number.group(1) + pre_number.group(2)  # type: ignore
 
             expect_version = re.sub(
                 r"(?:-(?:SNAPSHOT|alpha\d+|beta\d+|rc\d+))+$", "", expect_version

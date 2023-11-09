@@ -12,6 +12,7 @@
 
 
 import os
+from typing import Any
 
 from opensearchpy import OpenSearch
 
@@ -45,7 +46,7 @@ if not client.indices.exists(index_name):
     )
 
 # index data
-data = []
+data: Any = []
 for i in range(100):
     data.append({"index": {"_index": index_name, "_id": i}})
     data.append({"value": i})

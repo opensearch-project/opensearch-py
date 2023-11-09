@@ -26,11 +26,9 @@
 #  under the License.
 
 
-# type: ignore
-
 import os
 import time
-from typing import Any, Tuple
+from typing import Any
 from unittest import SkipTest, TestCase
 
 import opensearchpy.client
@@ -52,7 +50,7 @@ def get_test_client(nowait: bool = False, **kwargs: Any) -> OpenSearch:
         )
 
     kw.update(kwargs)
-    client = OpenSearch(OPENSEARCH_URL, **kw)
+    client = OpenSearch(OPENSEARCH_URL, **kw)  # type: ignore
 
     # wait for yellow status
     for _ in range(1 if nowait else 100):
@@ -67,6 +65,8 @@ def get_test_client(nowait: bool = False, **kwargs: Any) -> OpenSearch:
 
 
 class OpenSearchTestCase(TestCase):
+    client: Any
+
     @staticmethod
     def _get_client() -> OpenSearch:
         return get_test_client()
@@ -86,20 +86,20 @@ class OpenSearchTestCase(TestCase):
         )
         self.client.indices.delete_template(name="*", ignore=404)
 
-    def opensearch_version(self) -> Tuple[int, ...]:
+    def opensearch_version(self) -> Any:
         if not hasattr(self, "_opensearch_version"):
             self._opensearch_version = opensearch_version(self.client)
         return self._opensearch_version
 
 
-def _get_version(version_string: str) -> Tuple[int, ...]:
+def _get_version(version_string: str) -> Any:
     if "." not in version_string:
         return ()
     version = version_string.strip().split(".")
     return tuple(int(v) if v.isdigit() else 999 for v in version)
 
 
-def opensearch_version(client: opensearchpy.client.OpenSearch) -> Tuple[int, int, int]:
+def opensearch_version(client: opensearchpy.client.OpenSearch) -> Any:
     return _get_version(client.info()["version"]["number"])
 
 
@@ -111,3 +111,5 @@ else:
         verify_certs=False,
     )
     OPENSEARCH_VERSION = opensearch_version(client)
+
+__all__ = ["OpenSearchTestCase"]

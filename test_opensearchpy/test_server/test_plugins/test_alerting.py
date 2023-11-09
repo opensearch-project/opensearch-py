@@ -23,7 +23,7 @@ class TestAlertingPlugin(OpenSearchTestCase):
         (OPENSEARCH_VERSION) and (OPENSEARCH_VERSION < (2, 0, 0)),
         "Plugin not supported for opensearch version",
     )
-    def test_create_destination(self):
+    def test_create_destination(self) -> None:
         # Test to create alert destination
         dummy_destination = {
             "name": "my-destination",
@@ -54,7 +54,7 @@ class TestAlertingPlugin(OpenSearchTestCase):
         (OPENSEARCH_VERSION) and (OPENSEARCH_VERSION < (2, 0, 0)),
         "Plugin not supported for opensearch version",
     )
-    def test_create_monitor(self):
+    def test_create_monitor(self) -> None:
         # Create a dummy destination
         self.test_create_destination()
 

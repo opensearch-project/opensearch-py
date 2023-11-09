@@ -11,7 +11,7 @@
 
 from __future__ import unicode_literals
 
-from unittest import IsolatedAsyncioTestCase
+from unittest import IsolatedAsyncioTestCase  # type: ignore
 
 import pytest
 from _pytest.mark.structures import MarkDecorator
@@ -23,7 +23,7 @@ from opensearchpy.exceptions import NotFoundError
 pytestmark: MarkDecorator = pytest.mark.asyncio
 
 
-class TestSecurityPlugin(IsolatedAsyncioTestCase):
+class TestSecurityPlugin(IsolatedAsyncioTestCase):  # type: ignore
     ROLE_NAME = "test-role"
     ROLE_CONTENT = {
         "cluster_permissions": ["cluster_monitor"],
@@ -123,7 +123,7 @@ class TestSecurityPlugin(IsolatedAsyncioTestCase):
         else:
             assert False
 
-    async def test_create_user_with_role(self):
+    async def test_create_user_with_role(self) -> None:
         await self.test_create_role()
 
         # Test to create user

@@ -11,10 +11,11 @@
 import json
 import threading
 from http.server import BaseHTTPRequestHandler, HTTPServer
+from typing import Any
 
 
 class TestHTTPRequestHandler(BaseHTTPRequestHandler):
-    def do_GET(self):
+    def do_GET(self) -> None:
         headers = self.headers
 
         if self.path == "/redirect":
@@ -40,6 +41,7 @@ class TestHTTPRequestHandler(BaseHTTPRequestHandler):
 
 class TestHTTPServer(HTTPServer):
     __test__ = False
+    _server_thread: Any
 
     def __init__(self, host: str = "localhost", port: int = 8080) -> None:
         super().__init__((host, port), TestHTTPRequestHandler)

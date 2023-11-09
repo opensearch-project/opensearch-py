@@ -18,7 +18,7 @@ pytestmark: MarkDecorator = pytest.mark.asyncio
 
 
 class TestAsyncSigner:
-    def mock_session(self):
+    def mock_session(self) -> Mock:
         access_key = uuid.uuid4().hex
         secret_key = uuid.uuid4().hex
         token = uuid.uuid4().hex
@@ -37,7 +37,7 @@ class TestAsyncSigner:
         from opensearchpy.helpers.asyncsigner import AWSV4SignerAsyncAuth
 
         auth = AWSV4SignerAsyncAuth(self.mock_session(), region)
-        headers = auth("GET", "http://localhost", {}, {})
+        headers = auth("GET", "http://localhost")
         assert "Authorization" in headers
         assert "X-Amz-Date" in headers
         assert "X-Amz-Security-Token" in headers
@@ -48,7 +48,7 @@ class TestAsyncSigner:
         from opensearchpy.helpers.asyncsigner import AWSV4SignerAsyncAuth
 
         with pytest.raises(ValueError) as e:
-            AWSV4SignerAsyncAuth(session, None)
+            AWSV4SignerAsyncAuth(session, None)  # type: ignore
         assert str(e.value) == "Region cannot be empty"
 
         with pytest.raises(ValueError) as e:
@@ -71,7 +71,7 @@ class TestAsyncSigner:
         from opensearchpy.helpers.asyncsigner import AWSV4SignerAsyncAuth
 
         auth = AWSV4SignerAsyncAuth(self.mock_session(), region, service)
-        headers = auth("GET", "http://localhost", {}, {})
+        headers = auth("GET", "http://localhost")
         assert "Authorization" in headers
         assert "X-Amz-Date" in headers
         assert "X-Amz-Security-Token" in headers
@@ -79,7 +79,7 @@ class TestAsyncSigner:
 
 
 class TestAsyncSignerWithFrozenCredentials(TestAsyncSigner):
-    def mock_session(self, disable_get_frozen: bool = True):
+    def mock_session(self, disable_get_frozen: bool = True) -> Mock:
         access_key = uuid.uuid4().hex
         secret_key = uuid.uuid4().hex
         token = uuid.uuid4().hex
@@ -99,7 +99,7 @@ class TestAsyncSignerWithFrozenCredentials(TestAsyncSigner):
         mock_session = self.mock_session()
 
         auth = AWSV4SignerAsyncAuth(mock_session, region)
-        headers = auth("GET", "http://localhost", {}, {})
+        headers = auth("GET", "http://localhost")
         assert "Authorization" in headers
         assert "X-Amz-Date" in headers
         assert "X-Amz-Security-Token" in headers

@@ -26,6 +26,7 @@
 #  under the License.
 
 from datetime import datetime
+from typing import Any
 
 import pytest
 
@@ -72,7 +73,7 @@ def test_query_is_created_properly() -> None:
     } == s.to_dict()
 
 
-def test_query_is_created_properly_with_sort_tuple():
+def test_query_is_created_properly_with_sort_tuple() -> None:
     bs = BlogSearch("python search", sort=("category", "-title"))
     s = bs.build_search()
 
@@ -96,7 +97,7 @@ def test_query_is_created_properly_with_sort_tuple():
     } == s.to_dict()
 
 
-def test_filter_is_applied_to_search_but_not_relevant_facet():
+def test_filter_is_applied_to_search_but_not_relevant_facet() -> None:
     bs = BlogSearch("python search", filters={"category": "opensearch"})
     s = bs.build_search()
 
@@ -119,7 +120,7 @@ def test_filter_is_applied_to_search_but_not_relevant_facet():
     } == s.to_dict()
 
 
-def test_filters_are_applied_to_search_ant_relevant_facets():
+def test_filters_are_applied_to_search_ant_relevant_facets() -> None:
     bs = BlogSearch(
         "python search",
         filters={"category": "opensearch", "tags": ["python", "django"]},
@@ -159,7 +160,7 @@ def test_date_histogram_facet_with_1970_01_01_date() -> None:
     assert dhf.get_value({"key": 0}) == datetime(1970, 1, 1, 0, 0)
 
 
-@pytest.mark.parametrize(
+@pytest.mark.parametrize(  # type: ignore
     ["interval_type", "interval"],
     [
         ("interval", "year"),
@@ -186,7 +187,7 @@ def test_date_histogram_facet_with_1970_01_01_date() -> None:
         ("fixed_interval", "1h"),
     ],
 )
-def test_date_histogram_interval_types(interval_type, interval) -> None:
+def test_date_histogram_interval_types(interval_type: Any, interval: Any) -> None:
     dhf = DateHistogramFacet(field="@timestamp", **{interval_type: interval})
     assert dhf.get_aggregation().to_dict() == {
         "date_histogram": {

@@ -28,6 +28,7 @@
 import base64
 from datetime import datetime
 from ipaddress import ip_address
+from typing import Any
 
 import pytest
 from dateutil import tz
@@ -59,7 +60,7 @@ def test_boolean_deserialization() -> None:
 
 
 def test_date_field_can_have_default_tz() -> None:
-    f = field.Date(default_timezone="UTC")
+    f: Any = field.Date(default_timezone="UTC")
     now = datetime.now()
 
     now_with_tz = f._deserialize(now)
@@ -76,7 +77,7 @@ def test_date_field_can_have_default_tz() -> None:
 def test_custom_field_car_wrap_other_field() -> None:
     class MyField(field.CustomField):
         @property
-        def builtin_type(self):
+        def builtin_type(self) -> Any:
             return field.Text(**self._params)
 
     assert {"type": "text", "index": "not_analyzed"} == MyField(
@@ -91,7 +92,7 @@ def test_field_from_dict() -> None:
     assert {"type": "text", "index": "not_analyzed"} == f.to_dict()
 
 
-def test_multi_fields_are_accepted_and_parsed():
+def test_multi_fields_are_accepted_and_parsed() -> None:
     f = field.construct_field(
         "text",
         fields={"raw": {"type": "keyword"}, "eng": field.Text(analyzer="english")},
@@ -123,7 +124,7 @@ def test_field_supports_multiple_analyzers() -> None:
     } == f.to_dict()
 
 
-def test_multifield_supports_multiple_analyzers():
+def test_multifield_supports_multiple_analyzers() -> None:
     f = field.Text(
         fields={
             "f1": field.Text(search_analyzer="keyword", analyzer="snowball"),
@@ -145,8 +146,8 @@ def test_multifield_supports_multiple_analyzers():
 
 def test_scaled_float() -> None:
     with pytest.raises(TypeError):
-        field.ScaledFloat()
-    f = field.ScaledFloat(123)
+        field.ScaledFloat()  # type: ignore
+    f: Any = field.ScaledFloat(scaling_factor=123)
     assert f.to_dict() == {"scaling_factor": 123, "type": "scaled_float"}
 
 
@@ -204,7 +205,7 @@ def test_object_disabled() -> None:
     assert f.to_dict() == {"type": "object", "enabled": False}
 
 
-def test_object_constructor():
+def test_object_constructor() -> None:
     expected = {"type": "object", "properties": {"inner_int": {"type": "integer"}}}
 
     class Inner(InnerDoc):

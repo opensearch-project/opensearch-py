@@ -25,6 +25,8 @@
 #  specific language governing permissions and limitations
 #  under the License.
 
+from typing import Any
+
 from pytest import raises
 
 from opensearchpy.helpers import function, query
@@ -122,8 +124,8 @@ def test_other_and_bool_appends_other_to_must() -> None:
 
 
 def test_bool_and_other_appends_other_to_must() -> None:
-    q1 = query.Match(f="value1")
-    qb = query.Bool()
+    q1: Any = query.Match(f="value1")
+    qb: Any = query.Bool()
 
     q = qb & q1
     assert q is not qb
@@ -463,7 +465,7 @@ def test_function_score_with_functions() -> None:
     } == q.to_dict()
 
 
-def test_function_score_with_no_function_is_boost_factor():
+def test_function_score_with_no_function_is_boost_factor() -> None:
     q = query.Q(
         "function_score",
         functions=[query.SF({"weight": 20, "filter": query.Q("term", f=42)})],
@@ -474,7 +476,7 @@ def test_function_score_with_no_function_is_boost_factor():
     } == q.to_dict()
 
 
-def test_function_score_to_dict():
+def test_function_score_to_dict() -> None:
     q = query.Q(
         "function_score",
         query=query.Q("match", title="python"),
@@ -503,7 +505,7 @@ def test_function_score_to_dict():
     assert d == q.to_dict()
 
 
-def test_function_score_with_single_function():
+def test_function_score_with_single_function() -> None:
     d = {
         "function_score": {
             "filter": {"term": {"tags": "python"}},
@@ -521,7 +523,7 @@ def test_function_score_with_single_function():
     assert "doc['comment_count'] * _score" == sf.script
 
 
-def test_function_score_from_dict():
+def test_function_score_from_dict() -> None:
     d = {
         "function_score": {
             "filter": {"term": {"tags": "python"}},
