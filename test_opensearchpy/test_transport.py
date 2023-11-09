@@ -30,6 +30,7 @@ from __future__ import unicode_literals
 
 import json
 import time
+from typing import Any
 
 from mock import patch
 
@@ -42,14 +43,14 @@ from .test_cases import TestCase
 
 
 class DummyConnection(Connection):
-    def __init__(self, **kwargs):
+    def __init__(self, **kwargs: Any) -> None:
         self.exception = kwargs.pop("exception", None)
         self.status, self.data = kwargs.pop("status", 200), kwargs.pop("data", "{}")
         self.headers = kwargs.pop("headers", {})
-        self.calls = []
+        self.calls: Any = []
         super(DummyConnection, self).__init__(**kwargs)
 
-    def perform_request(self, *args, **kwargs):
+    def perform_request(self, *args: Any, **kwargs: Any) -> Any:
         self.calls.append((args, kwargs))
         if self.exception:
             raise self.exception
@@ -108,7 +109,7 @@ CLUSTER_NODES_7x_PUBLISH_HOST = """{
 
 
 class TestHostsInfoCallback(TestCase):
-    def test_cluster_manager_only_nodes_are_ignored(self):
+    def test_cluster_manager_only_nodes_are_ignored(self) -> None:
         nodes = [
             {"roles": ["cluster_manager"]},
             {"roles": ["cluster_manager", "data", "ingest"]},
@@ -119,20 +120,20 @@ class TestHostsInfoCallback(TestCase):
         chosen = [
             i
             for i, node_info in enumerate(nodes)
-            if get_host_info(node_info, i) is not None
+            if get_host_info(node_info, i) is not None  # type: ignore
         ]
         self.assertEqual([1, 2, 3, 4], chosen)
 
 
 class TestTransport(TestCase):
-    def test_single_connection_uses_dummy_connection_pool(self):
-        t = Transport([{}])
-        self.assertIsInstance(t.connection_pool, DummyConnectionPool)
-        t = Transport([{"host": "localhost"}])
-        self.assertIsInstance(t.connection_pool, DummyConnectionPool)
+    def test_single_connection_uses_dummy_connection_pool(self) -> None:
+        t1: Any = Transport([{}])
+        self.assertIsInstance(t1.connection_pool, DummyConnectionPool)
+        t2: Any = Transport([{"host": "localhost"}])
+        self.assertIsInstance(t2.connection_pool, DummyConnectionPool)
 
-    def test_request_timeout_extracted_from_params_and_passed(self):
-        t = Transport([{}], connection_class=DummyConnection)
+    def test_request_timeout_extracted_from_params_and_passed(self) -> None:
+        t: Any = Transport([{}], connection_class=DummyConnection)
 
         t.perform_request("GET", "/", params={"request_timeout": 42})
         self.assertEqual(1, len(t.get_connection().calls))
@@ -142,8 +143,8 @@ class TestTransport(TestCase):
             t.get_connection().calls[0][1],
         )
 
-    def test_timeout_extracted_from_params_and_passed(self):
-        t = Transport([{}], connection_class=DummyConnection)
+    def test_timeout_extracted_from_params_and_passed(self) -> None:
+        t: Any = Transport([{}], connection_class=DummyConnection)
 
         t.perform_request("GET", "/", params={"timeout": 84})
         self.assertEqual(1, len(t.get_connection().calls))
@@ -153,8 +154,8 @@ class TestTransport(TestCase):
             t.get_connection().calls[0][1],
         )
 
-    def test_opaque_id(self):
-        t = Transport([{}], opaque_id="app-1", connection_class=DummyConnection)
+    def test_opaque_id(self) -> None:
+        t: Any = Transport([{}], opaque_id="app-1", connection_class=DummyConnection)
 
         t.perform_request("GET", "/")
         self.assertEqual(1, len(t.get_connection().calls))
@@ -173,8 +174,8 @@ class TestTransport(TestCase):
             t.get_connection().calls[1][1],
         )
 
-    def test_request_with_custom_user_agent_header(self):
-        t = Transport([{}], connection_class=DummyConnection)
+    def test_request_with_custom_user_agent_header(self) -> None:
+        t: Any = Transport([{}], connection_class=DummyConnection)
 
         t.perform_request("GET", "/", headers={"user-agent": "my-custom-value/1.2.3"})
         self.assertEqual(1, len(t.get_connection().calls))
@@ -187,8 +188,10 @@ class TestTransport(TestCase):
             t.get_connection().calls[0][1],
         )
 
-    def test_send_get_body_as_source(self):
-        t = Transport([{}], send_get_body_as="source", connection_class=DummyConnection)
+    def test_send_get_body_as_source(self) -> None:
+        t: Any = Transport(
+            [{}], send_get_body_as="source", connection_class=DummyConnection
+        )
 
         t.perform_request("GET", "/", body={})
         self.assertEqual(1, len(t.get_connection().calls))
@@ -196,15 +199,17 @@ class TestTransport(TestCase):
             ("GET", "/", {"source": "{}"}, None), t.get_connection().calls[0][0]
         )
 
-    def test_send_get_body_as_post(self):
-        t = Transport([{}], send_get_body_as="POST", connection_class=DummyConnection)
+    def test_send_get_body_as_post(self) -> None:
+        t: Any = Transport(
+            [{}], send_get_body_as="POST", connection_class=DummyConnection
+        )
 
         t.perform_request("GET", "/", body={})
         self.assertEqual(1, len(t.get_connection().calls))
         self.assertEqual(("POST", "/", None, b"{}"), t.get_connection().calls[0][0])
 
-    def test_body_gets_encoded_into_bytes(self):
-        t = Transport([{}], connection_class=DummyConnection)
+    def test_body_gets_encoded_into_bytes(self) -> None:
+        t: Any = Transport([{}], connection_class=DummyConnection)
 
         t.perform_request("GET", "/", body="你好")
         self.assertEqual(1, len(t.get_connection().calls))
@@ -213,16 +218,16 @@ class TestTransport(TestCase):
             t.get_connection().calls[0][0],
         )
 
-    def test_body_bytes_get_passed_untouched(self):
-        t = Transport([{}], connection_class=DummyConnection)
+    def test_body_bytes_get_passed_untouched(self) -> None:
+        t: Any = Transport([{}], connection_class=DummyConnection)
 
         body = b"\xe4\xbd\xa0\xe5\xa5\xbd"
         t.perform_request("GET", "/", body=body)
         self.assertEqual(1, len(t.get_connection().calls))
         self.assertEqual(("GET", "/", None, body), t.get_connection().calls[0][0])
 
-    def test_body_surrogates_replaced_encoded_into_bytes(self):
-        t = Transport([{}], connection_class=DummyConnection)
+    def test_body_surrogates_replaced_encoded_into_bytes(self) -> None:
+        t: Any = Transport([{}], connection_class=DummyConnection)
 
         t.perform_request("GET", "/", body="你好\uda6a")
         self.assertEqual(1, len(t.get_connection().calls))
@@ -231,27 +236,27 @@ class TestTransport(TestCase):
             t.get_connection().calls[0][0],
         )
 
-    def test_kwargs_passed_on_to_connections(self):
-        t = Transport([{"host": "google.com"}], port=123)
+    def test_kwargs_passed_on_to_connections(self) -> None:
+        t: Any = Transport([{"host": "google.com"}], port=123)
         self.assertEqual(1, len(t.connection_pool.connections))
         self.assertEqual("http://google.com:123", t.connection_pool.connections[0].host)
 
-    def test_kwargs_passed_on_to_connection_pool(self):
+    def test_kwargs_passed_on_to_connection_pool(self) -> None:
         dt = object()
-        t = Transport([{}, {}], dead_timeout=dt)
+        t: Any = Transport([{}, {}], dead_timeout=dt)
         self.assertIs(dt, t.connection_pool.dead_timeout)
 
-    def test_custom_connection_class(self):
-        class MyConnection(object):
-            def __init__(self, **kwargs):
+    def test_custom_connection_class(self) -> None:
+        class MyConnection(Connection):
+            def __init__(self, **kwargs: Any) -> None:
                 self.kwargs = kwargs
 
-        t = Transport([{}], connection_class=MyConnection)
+        t: Any = Transport([{}], connection_class=MyConnection)
         self.assertEqual(1, len(t.connection_pool.connections))
         self.assertIsInstance(t.connection_pool.connections[0], MyConnection)
 
-    def test_add_connection(self):
-        t = Transport([{}], randomize_hosts=False)
+    def test_add_connection(self) -> None:
+        t: Any = Transport([{}], randomize_hosts=False)
         t.add_connection({"host": "google.com", "port": 1234})
 
         self.assertEqual(2, len(t.connection_pool.connections))
@@ -259,8 +264,8 @@ class TestTransport(TestCase):
             "http://google.com:1234", t.connection_pool.connections[1].host
         )
 
-    def test_request_will_fail_after_X_retries(self):
-        t = Transport(
+    def test_request_will_fail_after_X_retries(self) -> None:
+        t: Any = Transport(
             [{"exception": ConnectionError("abandon ship")}],
             connection_class=DummyConnection,
         )
@@ -268,8 +273,8 @@ class TestTransport(TestCase):
         self.assertRaises(ConnectionError, t.perform_request, "GET", "/")
         self.assertEqual(4, len(t.get_connection().calls))
 
-    def test_failed_connection_will_be_marked_as_dead(self):
-        t = Transport(
+    def test_failed_connection_will_be_marked_as_dead(self) -> None:
+        t: Any = Transport(
             [{"exception": ConnectionError("abandon ship")}] * 2,
             connection_class=DummyConnection,
         )
@@ -277,9 +282,9 @@ class TestTransport(TestCase):
         self.assertRaises(ConnectionError, t.perform_request, "GET", "/")
         self.assertEqual(0, len(t.connection_pool.connections))
 
-    def test_resurrected_connection_will_be_marked_as_live_on_success(self):
+    def test_resurrected_connection_will_be_marked_as_live_on_success(self) -> None:
         for method in ("GET", "HEAD"):
-            t = Transport([{}, {}], connection_class=DummyConnection)
+            t: Any = Transport([{}, {}], connection_class=DummyConnection)
             con1 = t.connection_pool.get_connection()
             con2 = t.connection_pool.get_connection()
             t.connection_pool.mark_dead(con1)
@@ -289,16 +294,16 @@ class TestTransport(TestCase):
             self.assertEqual(1, len(t.connection_pool.connections))
             self.assertEqual(1, len(t.connection_pool.dead_count))
 
-    def test_sniff_will_use_seed_connections(self):
-        t = Transport([{"data": CLUSTER_NODES}], connection_class=DummyConnection)
+    def test_sniff_will_use_seed_connections(self) -> None:
+        t: Any = Transport([{"data": CLUSTER_NODES}], connection_class=DummyConnection)
         t.set_connections([{"data": "invalid"}])
 
         t.sniff_hosts()
         self.assertEqual(1, len(t.connection_pool.connections))
         self.assertEqual("http://1.1.1.1:123", t.get_connection().host)
 
-    def test_sniff_on_start_fetches_and_uses_nodes_list(self):
-        t = Transport(
+    def test_sniff_on_start_fetches_and_uses_nodes_list(self) -> None:
+        t: Any = Transport(
             [{"data": CLUSTER_NODES}],
             connection_class=DummyConnection,
             sniff_on_start=True,
@@ -306,8 +311,8 @@ class TestTransport(TestCase):
         self.assertEqual(1, len(t.connection_pool.connections))
         self.assertEqual("http://1.1.1.1:123", t.get_connection().host)
 
-    def test_sniff_on_start_ignores_sniff_timeout(self):
-        t = Transport(
+    def test_sniff_on_start_ignores_sniff_timeout(self) -> None:
+        t: Any = Transport(
             [{"data": CLUSTER_NODES}],
             connection_class=DummyConnection,
             sniff_on_start=True,
@@ -318,8 +323,8 @@ class TestTransport(TestCase):
             t.seed_connections[0].calls[0],
         )
 
-    def test_sniff_uses_sniff_timeout(self):
-        t = Transport(
+    def test_sniff_uses_sniff_timeout(self) -> None:
+        t: Any = Transport(
             [{"data": CLUSTER_NODES}],
             connection_class=DummyConnection,
             sniff_timeout=42,
@@ -330,8 +335,8 @@ class TestTransport(TestCase):
             t.seed_connections[0].calls[0],
         )
 
-    def test_sniff_reuses_connection_instances_if_possible(self):
-        t = Transport(
+    def test_sniff_reuses_connection_instances_if_possible(self) -> None:
+        t: Any = Transport(
             [{"data": CLUSTER_NODES}, {"host": "1.1.1.1", "port": 123}],
             connection_class=DummyConnection,
             randomize_hosts=False,
@@ -342,8 +347,8 @@ class TestTransport(TestCase):
         self.assertEqual(1, len(t.connection_pool.connections))
         self.assertIs(connection, t.get_connection())
 
-    def test_sniff_on_fail_triggers_sniffing_on_fail(self):
-        t = Transport(
+    def test_sniff_on_fail_triggers_sniffing_on_fail(self) -> None:
+        t: Any = Transport(
             [{"exception": ConnectionError("abandon ship")}, {"data": CLUSTER_NODES}],
             connection_class=DummyConnection,
             sniff_on_connection_fail=True,
@@ -356,9 +361,11 @@ class TestTransport(TestCase):
         self.assertEqual("http://1.1.1.1:123", t.get_connection().host)
 
     @patch("opensearchpy.transport.Transport.sniff_hosts")
-    def test_sniff_on_fail_failing_does_not_prevent_retires(self, sniff_hosts):
+    def test_sniff_on_fail_failing_does_not_prevent_retires(
+        self, sniff_hosts: Any
+    ) -> None:
         sniff_hosts.side_effect = [TransportError("sniff failed")]
-        t = Transport(
+        t: Any = Transport(
             [{"exception": ConnectionError("abandon ship")}, {"data": CLUSTER_NODES}],
             connection_class=DummyConnection,
             sniff_on_connection_fail=True,
@@ -373,8 +380,8 @@ class TestTransport(TestCase):
         self.assertEqual(1, len(conn_err.calls))
         self.assertEqual(1, len(conn_data.calls))
 
-    def test_sniff_after_n_seconds(self):
-        t = Transport(
+    def test_sniff_after_n_seconds(self) -> None:
+        t: Any = Transport(
             [{"data": CLUSTER_NODES}],
             connection_class=DummyConnection,
             sniffer_timeout=5,
@@ -391,10 +398,10 @@ class TestTransport(TestCase):
         self.assertEqual("http://1.1.1.1:123", t.get_connection().host)
         self.assertTrue(time.time() - 1 < t.last_sniff < time.time() + 0.01)
 
-    def test_sniff_7x_publish_host(self):
+    def test_sniff_7x_publish_host(self) -> None:
         # Test the response shaped when a 7.x node has publish_host set
         # and the returend data is shaped in the fqdn/ip:port format.
-        t = Transport(
+        t: Any = Transport(
             [{"data": CLUSTER_NODES_7x_PUBLISH_HOST}],
             connection_class=DummyConnection,
             sniff_timeout=42,

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # SPDX-License-Identifier: Apache-2.0
 #
 # The OpenSearch Contributors require contributions made to
@@ -24,6 +25,8 @@
 #  specific language governing permissions and limitations
 #  under the License.
 
+from typing import Any
+
 from six import string_types
 
 import opensearchpy
@@ -36,11 +39,11 @@ class Connections(object):
     singleton in this module.
     """
 
-    def __init__(self):
-        self._kwargs = {}
-        self._conns = {}
+    def __init__(self) -> None:
+        self._kwargs: Any = {}
+        self._conns: Any = {}
 
-    def configure(self, **kwargs):
+    def configure(self, **kwargs: Any) -> None:
         """
         Configure multiple connections at once, useful for passing in config
         dictionaries obtained from other sources, like Django's settings or a
@@ -63,13 +66,13 @@ class Connections(object):
             del self._conns[k]
         self._kwargs = kwargs
 
-    def add_connection(self, alias, conn):
+    def add_connection(self, alias: str, conn: Any) -> None:
         """
         Add a connection object, it will be passed through as-is.
         """
         self._conns[alias] = conn
 
-    def remove_connection(self, alias):
+    def remove_connection(self, alias: str) -> None:
         """
         Remove connection from the registry. Raises ``KeyError`` if connection
         wasn't found.
@@ -84,7 +87,7 @@ class Connections(object):
         if errors == 2:
             raise KeyError("There is no connection with alias %r." % alias)
 
-    def create_connection(self, alias="default", **kwargs):
+    def create_connection(self, alias: str = "default", **kwargs: Any) -> Any:
         """
         Construct an instance of ``opensearchpy.OpenSearch`` and register
         it under given alias.
@@ -93,7 +96,7 @@ class Connections(object):
         conn = self._conns[alias] = opensearchpy.OpenSearch(**kwargs)
         return conn
 
-    def get_connection(self, alias="default"):
+    def get_connection(self, alias: str = "default") -> Any:
         """
         Retrieve a connection, construct it if necessary (only configuration
         was passed to us). If a non-string alias has been passed through we

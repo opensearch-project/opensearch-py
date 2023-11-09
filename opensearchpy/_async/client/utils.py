@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # SPDX-License-Identifier: Apache-2.0
 #
 # The OpenSearch Contributors require contributions made to
@@ -34,3 +35,13 @@ from ...client.utils import (  # noqa
     _normalize_hosts,
     query_params,
 )
+
+__all__ = [
+    "SKIP_IN_PATH",
+    "NamespacedClient",
+    "_make_path",
+    "query_params",
+    "_bulk_body",
+    "_escape",
+    "_normalize_hosts",
+]

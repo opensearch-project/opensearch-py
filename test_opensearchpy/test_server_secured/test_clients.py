@@ -15,7 +15,7 @@ from opensearchpy.helpers.test import OPENSEARCH_URL
 
 
 class TestSecurity(TestCase):
-    def test_security(self):
+    def test_security(self) -> None:
         client = OpenSearch(
             OPENSEARCH_URL,
             http_auth=("admin", "admin"),

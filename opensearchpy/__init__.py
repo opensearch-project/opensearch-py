@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # SPDX-License-Identifier: Apache-2.0
 #
 # The OpenSearch Contributors require contributions made to
@@ -30,21 +31,25 @@ from __future__ import absolute_import
 
 import logging
 import re
-import sys
 import warnings
 
 from ._version import __versionstr__
 
 _major, _minor, _patch = [
-    int(x) for x in re.search(r"^(\d+)\.(\d+)\.(\d+)", __versionstr__).groups()
+    int(x) for x in re.search(r"^(\d+)\.(\d+)\.(\d+)", __versionstr__).groups()  # type: ignore
 ]
+
 VERSION = __version__ = (_major, _minor, _patch)
 
 logger = logging.getLogger("opensearch")
 logger.addHandler(logging.NullHandler())
 
+from ._async.client import AsyncOpenSearch
+from ._async.http_aiohttp import AIOHttpConnection, AsyncConnection
+from ._async.transport import AsyncTransport
 from .client import OpenSearch
 from .connection import (
+    AsyncHttpConnection,
     Connection,
     RequestsHttpConnection,
     Urllib3HttpConnection,
@@ -71,7 +76,12 @@ from .exceptions import (
     UnknownDslObject,
     ValidationException,
 )
-from .helpers import AWSV4SignerAsyncAuth, AWSV4SignerAuth
+from .helpers import (
+    AWSV4SignerAsyncAuth,
+    AWSV4SignerAuth,
+    RequestsAWSV4SignerAuth,
+    Urllib3AWSV4SignerAuth,
+)
 from .helpers.aggs import A
 from .helpers.analysis import analyzer, char_filter, normalizer, token_filter, tokenizer
 from .helpers.document import Document, InnerDoc, MetaField
@@ -166,6 +176,8 @@ __all__ = [
     "OpenSearchWarning",
     "OpenSearchDeprecationWarning",
     "AWSV4SignerAuth",
+    "Urllib3AWSV4SignerAuth",
+    "RequestsAWSV4SignerAuth",
     "AWSV4SignerAsyncAuth",
     "A",
     "AttrDict",
@@ -239,24 +251,10 @@ __all__ = [
     "normalizer",
     "token_filter",
     "tokenizer",
+    "AIOHttpConnection",
+    "AsyncConnection",
+    "AsyncTransport",
+    "AsyncOpenSearch",
+    "AsyncHttpConnection",
+    "__versionstr__",
 ]
-
-try:
-    # Asyncio only supported on Python 3.6+
-    if sys.version_info < (3, 6):
-        raise ImportError
-
-    from ._async.client import AsyncOpenSearch
-    from ._async.http_aiohttp import AIOHttpConnection, AsyncConnection
-    from ._async.transport import AsyncTransport
-    from .connection import AsyncHttpConnection
-
-    __all__ += [
-        "AIOHttpConnection",
-        "AsyncConnection",
-        "AsyncTransport",
-        "AsyncOpenSearch",
-        "AsyncHttpConnection",
-    ]
-except (ImportError, SyntaxError):
-    pass

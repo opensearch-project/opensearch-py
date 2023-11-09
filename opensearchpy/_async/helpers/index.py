@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # SPDX-License-Identifier: Apache-2.0
 #
 # The OpenSearch Contributors require contributions made to
@@ -6,6 +7,8 @@
 #
 # Modifications Copyright OpenSearch Contributors. See
 # GitHub history for details.
+
+from typing import Any
 
 from opensearchpy._async.helpers.mapping import AsyncMapping
 from opensearchpy._async.helpers.search import AsyncSearch
@@ -17,7 +20,14 @@ from opensearchpy.helpers.utils import merge
 
 
 class AsyncIndexTemplate(object):
-    def __init__(self, name, template, index=None, order=None, **kwargs):
+    def __init__(
+        self,
+        name: Any,
+        template: Any,
+        index: Any = None,
+        order: Any = None,
+        **kwargs: Any
+    ) -> None:
         if index is None:
             self._index = AsyncIndex(template, **kwargs)
         else:
@@ -31,17 +41,17 @@ class AsyncIndexTemplate(object):
         self._template_name = name
         self.order = order
 
-    def __getattr__(self, attr_name):
+    def __getattr__(self, attr_name: Any) -> Any:
         return getattr(self._index, attr_name)
 
-    def to_dict(self):
+    def to_dict(self) -> Any:
         d = self._index.to_dict()
         d["index_patterns"] = [self._index._name]
         if self.order is not None:
             d["order"] = self.order
         return d
 
-    async def save(self, using=None):
+    async def save(self, using: Any = None) -> Any:
         opensearch = await get_connection(using or self._index._using)
         return await opensearch.indices.put_template(
             name=self._template_name, body=self.to_dict()
@@ -49,25 +59,27 @@ class AsyncIndexTemplate(object):
 
 
 class AsyncIndex(object):
-    def __init__(self, name, using="default"):
+    def __init__(self, name: Any, using: Any = "default") -> None:
         """
         :arg name: name of the index
         :arg using: connection alias to use, defaults to ``'default'``
         """
         self._name = name
-        self._doc_types = []
+        self._doc_types: Any = []
         self._using = using
-        self._settings = {}
-        self._aliases = {}
-        self._analysis = {}
-        self._mapping = None
+        self._settings: Any = {}
+        self._aliases: Any = {}
+        self._analysis: Any = {}
+        self._mapping: Any = None
 
-    def get_or_create_mapping(self):
+    def get_or_create_mapping(self) -> Any:
         if self._mapping is None:
             self._mapping = AsyncMapping()
         return self._mapping
 
-    def as_template(self, template_name, pattern=None, order=None):
+    def as_template(
+        self, template_name: Any, pattern: Any = None, order: Any = None
+    ) -> Any:
         # TODO: should we allow pattern to be a top-level arg?
         # or maybe have an IndexPattern that allows for it and have
         # AsyncDocument._index be that?
@@ -75,7 +87,7 @@ class AsyncIndex(object):
             template_name, pattern or self._name, index=self, order=order
         )
 
-    def resolve_nested(self, field_path):
+    def resolve_nested(self, field_path: Any) -> Any:
         for doc in self._doc_types:
             nested, field = doc._doc_type.mapping.resolve_nested(field_path)
             if field is not None:
@@ -84,7 +96,7 @@ class AsyncIndex(object):
             return self._mapping.resolve_nested(field_path)
         return (), None
 
-    def resolve_field(self, field_path):
+    def resolve_field(self, field_path: Any) -> Any:
         for doc in self._doc_types:
             field = doc._doc_type.mapping.resolve_field(field_path)
             if field is not None:
@@ -93,12 +105,12 @@ class AsyncIndex(object):
             return self._mapping.resolve_field(field_path)
         return None
 
-    async def load_mappings(self, using=None):
+    async def load_mappings(self, using: Any = None) -> None:
         await self.get_or_create_mapping().update_from_opensearch(
             self._name, using=using or self._using
         )
 
-    def clone(self, name=None, using=None):
+    def clone(self, name: Any = None, using: Any = None) -> Any:
         """
         Create a copy of the instance with another name or connection alias.
         Useful for creating multiple indices with shared configuration::
@@ -122,14 +134,14 @@ class AsyncIndex(object):
             i._mapping = self._mapping._clone()
         return i
 
-    async def _get_connection(self, using=None):
+    async def _get_connection(self, using: Any = None) -> Any:
         if self._name is None:
             raise ValueError("You cannot perform API calls on the default index.")
         return await get_connection(using or self._using)
 
     connection = property(_get_connection)
 
-    def mapping(self, mapping):
+    def mapping(self, mapping: Any) -> None:
         """
         Associate a mapping (an instance of
         :class:`~opensearchpy.AsyncMapping`) with this index.
@@ -138,7 +150,7 @@ class AsyncIndex(object):
         """
         self.get_or_create_mapping().update(mapping)
 
-    def document(self, document):
+    def document(self, document: Any) -> Any:
         """
         Associate a :class:`~opensearchpy.AsyncDocument` subclass with an index.
         This means that, when this index is created, it will contain the
@@ -169,7 +181,7 @@ class AsyncIndex(object):
 
         return document
 
-    def settings(self, **kwargs):
+    def settings(self, **kwargs: Any) -> "AsyncIndex":
         """
         Add settings to the index::
 
@@ -182,7 +194,7 @@ class AsyncIndex(object):
         self._settings.update(kwargs)
         return self
 
-    def aliases(self, **kwargs):
+    def aliases(self, **kwargs: Any) -> "AsyncIndex":
         """
         Add aliases to the index definition::
 
@@ -192,7 +204,7 @@ class AsyncIndex(object):
         self._aliases.update(kwargs)
         return self
 
-    def analyzer(self, *args, **kwargs):
+    def analyzer(self, *args: Any, **kwargs: Any) -> Any:
         """
         Explicitly add an analyzer to an index. Note that all custom analyzers
         defined in mappings will also be created. This is useful for search analyzers.
@@ -219,14 +231,14 @@ class AsyncIndex(object):
         # merge the definition
         merge(self._analysis, d, True)
 
-    def to_dict(self):
+    def to_dict(self) -> Any:
         out = {}
         if self._settings:
             out["settings"] = self._settings
         if self._aliases:
             out["aliases"] = self._aliases
-        mappings = self._mapping.to_dict() if self._mapping else {}
-        analysis = self._mapping._collect_analysis() if self._mapping else {}
+        mappings: Any = self._mapping.to_dict() if self._mapping else {}
+        analysis: Any = self._mapping._collect_analysis() if self._mapping else {}
         for d in self._doc_types:
             mapping = d._doc_type.mapping
             merge(mappings, mapping.to_dict(), True)
@@ -238,7 +250,7 @@ class AsyncIndex(object):
             out.setdefault("settings", {})["analysis"] = analysis
         return out
 
-    def search(self, using=None):
+    def search(self, using: Any = None) -> Any:
         """
         Return a :class:`~opensearchpy.AsyncSearch` object searching over the
         index (or all the indices belonging to this template) and its
@@ -248,7 +260,7 @@ class AsyncIndex(object):
             using=using or self._using, index=self._name, doc_type=self._doc_types
         )
 
-    def updateByQuery(self, using=None):
+    def updateByQuery(self, using: Any = None) -> Any:
         """
         Return a :class:`~opensearchpy.AsyncUpdateByQuery` object searching over the index
         (or all the indices belonging to this template) and updating Documents that match
@@ -262,7 +274,7 @@ class AsyncIndex(object):
             index=self._name,
         )
 
-    async def create(self, using=None, **kwargs):
+    async def create(self, using: Any = None, **kwargs: Any) -> Any:
         """
         Creates the index in opensearch.
 
@@ -273,13 +285,13 @@ class AsyncIndex(object):
             index=self._name, body=self.to_dict(), **kwargs
         )
 
-    async def is_closed(self, using=None):
+    async def is_closed(self, using: Any = None) -> Any:
         state = await (await self._get_connection(using)).cluster.state(
             index=self._name, metric="metadata"
         )
         return state["metadata"]["indices"][self._name]["state"] == "close"
 
-    async def save(self, using=None):
+    async def save(self, using: Any = None) -> Any:
         """
         Sync the index definition with opensearch, creating the index if it
         doesn't exist and updating its settings and mappings if it does.
@@ -333,7 +345,7 @@ class AsyncIndex(object):
         if mappings:
             await self.put_mapping(using=using, body=mappings)
 
-    async def analyze(self, using=None, **kwargs):
+    async def analyze(self, using: Any = None, **kwargs: Any) -> Any:
         """
         Perform the analysis process on a text and return the tokens breakdown
         of the text.
@@ -345,7 +357,7 @@ class AsyncIndex(object):
             index=self._name, **kwargs
         )
 
-    async def refresh(self, using=None, **kwargs):
+    async def refresh(self, using: Any = None, **kwargs: Any) -> Any:
         """
         Performs a refresh operation on the index.
 
@@ -356,7 +368,7 @@ class AsyncIndex(object):
             index=self._name, **kwargs
         )
 
-    async def flush(self, using=None, **kwargs):
+    async def flush(self, using: Any = None, **kwargs: Any) -> Any:
         """
         Performs a flush operation on the index.
 
@@ -367,7 +379,7 @@ class AsyncIndex(object):
             index=self._name, **kwargs
         )
 
-    async def get(self, using=None, **kwargs):
+    async def get(self, using: Any = None, **kwargs: Any) -> Any:
         """
         The get index API allows to retrieve information about the index.
 
@@ -378,7 +390,7 @@ class AsyncIndex(object):
             index=self._name, **kwargs
         )
 
-    async def open(self, using=None, **kwargs):
+    async def open(self, using: Any = None, **kwargs: Any) -> Any:
         """
         Opens the index in opensearch.
 
@@ -389,7 +401,7 @@ class AsyncIndex(object):
             index=self._name, **kwargs
         )
 
-    async def close(self, using=None, **kwargs):
+    async def close(self, using: Any = None, **kwargs: Any) -> Any:
         """
         Closes the index in opensearch.
 
@@ -400,7 +412,7 @@ class AsyncIndex(object):
             index=self._name, **kwargs
         )
 
-    async def delete(self, using=None, **kwargs):
+    async def delete(self, using: Any = None, **kwargs: Any) -> Any:
         """
         Deletes the index in opensearch.
 
@@ -411,7 +423,7 @@ class AsyncIndex(object):
             index=self._name, **kwargs
         )
 
-    async def exists(self, using=None, **kwargs):
+    async def exists(self, using: Any = None, **kwargs: Any) -> Any:
         """
         Returns ``True`` if the index already exists in opensearch.
 
@@ -422,7 +434,7 @@ class AsyncIndex(object):
             index=self._name, **kwargs
         )
 
-    async def put_mapping(self, using=None, **kwargs):
+    async def put_mapping(self, using: Any = None, **kwargs: Any) -> Any:
         """
         Register specific mapping definition for a specific type.
 
@@ -433,7 +445,7 @@ class AsyncIndex(object):
             index=self._name, **kwargs
         )
 
-    async def get_mapping(self, using=None, **kwargs):
+    async def get_mapping(self, using: Any = None, **kwargs: Any) -> Any:
         """
         Retrieve specific mapping definition for a specific type.
 
@@ -444,7 +456,7 @@ class AsyncIndex(object):
             index=self._name, **kwargs
         )
 
-    async def get_field_mapping(self, using=None, **kwargs):
+    async def get_field_mapping(self, using: Any = None, **kwargs: Any) -> Any:
         """
         Retrieve mapping definition of a specific field.
 
@@ -455,7 +467,7 @@ class AsyncIndex(object):
             index=self._name, **kwargs
         )
 
-    async def put_alias(self, using=None, **kwargs):
+    async def put_alias(self, using: Any = None, **kwargs: Any) -> Any:
         """
         Create an alias for the index.
 
@@ -466,7 +478,7 @@ class AsyncIndex(object):
             index=self._name, **kwargs
         )
 
-    async def exists_alias(self, using=None, **kwargs):
+    async def exists_alias(self, using: Any = None, **kwargs: Any) -> Any:
         """
         Return a boolean indicating whether given alias exists for this index.
 
@@ -477,7 +489,7 @@ class AsyncIndex(object):
             index=self._name, **kwargs
         )
 
-    async def get_alias(self, using=None, **kwargs):
+    async def get_alias(self, using: Any = None, **kwargs: Any) -> Any:
         """
         Retrieve a specified alias.
 
@@ -488,7 +500,7 @@ class AsyncIndex(object):
             index=self._name, **kwargs
         )
 
-    async def delete_alias(self, using=None, **kwargs):
+    async def delete_alias(self, using: Any = None, **kwargs: Any) -> Any:
         """
         Delete specific alias.
 
@@ -499,7 +511,7 @@ class AsyncIndex(object):
             index=self._name, **kwargs
         )
 
-    async def get_settings(self, using=None, **kwargs):
+    async def get_settings(self, using: Any = None, **kwargs: Any) -> Any:
         """
         Retrieve settings for the index.
 
@@ -510,7 +522,7 @@ class AsyncIndex(object):
             index=self._name, **kwargs
         )
 
-    async def put_settings(self, using=None, **kwargs):
+    async def put_settings(self, using: Any = None, **kwargs: Any) -> Any:
         """
         Change specific index level settings in real time.
 
@@ -521,7 +533,7 @@ class AsyncIndex(object):
             index=self._name, **kwargs
         )
 
-    async def stats(self, using=None, **kwargs):
+    async def stats(self, using: Any = None, **kwargs: Any) -> Any:
         """
         Retrieve statistics on different operations happening on the index.
 
@@ -532,7 +544,7 @@ class AsyncIndex(object):
             index=self._name, **kwargs
         )
 
-    async def segments(self, using=None, **kwargs):
+    async def segments(self, using: Any = None, **kwargs: Any) -> Any:
         """
         Provide low level segments information that a Lucene index (shard
         level) is built with.
@@ -544,7 +556,7 @@ class AsyncIndex(object):
             index=self._name, **kwargs
         )
 
-    async def validate_query(self, using=None, **kwargs):
+    async def validate_query(self, using: Any = None, **kwargs: Any) -> Any:
         """
         Validate a potentially expensive query without executing it.
 
@@ -555,7 +567,7 @@ class AsyncIndex(object):
             index=self._name, **kwargs
         )
 
-    async def clear_cache(self, using=None, **kwargs):
+    async def clear_cache(self, using: Any = None, **kwargs: Any) -> Any:
         """
         Clear all caches or specific cached associated with the index.
 
@@ -566,7 +578,7 @@ class AsyncIndex(object):
             index=self._name, **kwargs
         )
 
-    async def recovery(self, using=None, **kwargs):
+    async def recovery(self, using: Any = None, **kwargs: Any) -> Any:
         """
         The indices recovery API provides insight into on-going shard
         recoveries for the index.
@@ -578,7 +590,7 @@ class AsyncIndex(object):
             index=self._name, **kwargs
         )
 
-    async def upgrade(self, using=None, **kwargs):
+    async def upgrade(self, using: Any = None, **kwargs: Any) -> Any:
         """
         Upgrade the index to the latest format.
 
@@ -589,7 +601,7 @@ class AsyncIndex(object):
             index=self._name, **kwargs
         )
 
-    async def get_upgrade(self, using=None, **kwargs):
+    async def get_upgrade(self, using: Any = None, **kwargs: Any) -> Any:
         """
         Monitor how much of the index is upgraded.
 
@@ -600,7 +612,7 @@ class AsyncIndex(object):
             index=self._name, **kwargs
         )
 
-    async def shard_stores(self, using=None, **kwargs):
+    async def shard_stores(self, using: Any = None, **kwargs: Any) -> Any:
         """
         Provides store information for shard copies of the index. Store
         information reports on which nodes shard copies exist, the shard copy
@@ -614,7 +626,7 @@ class AsyncIndex(object):
             index=self._name, **kwargs
         )
 
-    async def forcemerge(self, using=None, **kwargs):
+    async def forcemerge(self, using: Any = None, **kwargs: Any) -> Any:
         """
         The force merge API allows to force merging of the index through an
         API. The merge relates to the number of segments a Lucene index holds
@@ -632,7 +644,7 @@ class AsyncIndex(object):
             index=self._name, **kwargs
         )
 
-    async def shrink(self, using=None, **kwargs):
+    async def shrink(self, using: Any = None, **kwargs: Any) -> Any:
         """
         The shrink index API allows you to shrink an existing index into a new
         index with fewer primary shards. The number of primary shards in the

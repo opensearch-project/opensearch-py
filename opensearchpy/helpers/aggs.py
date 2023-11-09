@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # SPDX-License-Identifier: Apache-2.0
 #
 # The OpenSearch Contributors require contributions made to
@@ -24,16 +25,15 @@
 #  specific language governing permissions and limitations
 #  under the License.
 
-try:
-    import collections.abc as collections_abc  # only works on python 3.3+
-except ImportError:
-    import collections as collections_abc
+
+import collections.abc as collections_abc
+from typing import Any, Optional
 
 from .response.aggs import AggResponse, BucketData, FieldBucketData, TopHitsData
 from .utils import DslBase
 
 
-def A(name_or_agg, filter=None, **params):
+def A(name_or_agg: Any, filter: Any = None, **params: Any) -> Any:
     if filter is not None:
         if name_or_agg != "filter":
             raise ValueError(
@@ -47,7 +47,7 @@ def A(name_or_agg, filter=None, **params):
         if params:
             raise ValueError("A() cannot accept parameters when passing in a dict.")
         # copy to avoid modifying in-place
-        agg = name_or_agg.copy()
+        agg = name_or_agg.copy()  # type: ignore
         # pop out nested aggs
         aggs = agg.pop("aggs", None)
         # pop out meta data
@@ -80,20 +80,20 @@ def A(name_or_agg, filter=None, **params):
 
 
 class Agg(DslBase):
-    _type_name = "agg"
+    _type_name: str = "agg"
     _type_shortcut = staticmethod(A)
-    name = None
+    name: Optional[str] = None
 
-    def __contains__(self, key):
+    def __contains__(self, key: Any) -> bool:
         return False
 
-    def to_dict(self):
+    def to_dict(self) -> Any:
         d = super(Agg, self).to_dict()
         if "meta" in d[self.name]:
             d["meta"] = d[self.name].pop("meta")
         return d
 
-    def result(self, search, data):
+    def result(self, search: Any, data: Any) -> Any:
         return AggResponse(self, search, data)
 
 
@@ -102,10 +102,10 @@ class AggBase(object):
         "aggs": {"type": "agg", "hash": True},
     }
 
-    def __contains__(self, key):
+    def __contains__(self: Any, key: Any) -> bool:
         return key in self._params.get("aggs", {})
 
-    def __getitem__(self, agg_name):
+    def __getitem__(self: Any, agg_name: Any) -> Any:
         agg = self._params.setdefault("aggs", {})[agg_name]  # propagate KeyError
 
         # make sure we're not mutating a shared state - whenever accessing a
@@ -117,13 +117,15 @@ class AggBase(object):
 
         return agg
 
-    def __setitem__(self, agg_name, agg):
+    def __setitem__(self: Any, agg_name: str, agg: Any) -> None:
         self.aggs[agg_name] = A(agg)
 
-    def __iter__(self):
+    def __iter__(self: Any) -> Any:
         return iter(self.aggs)
 
-    def _agg(self, bucket, name, agg_type, *args, **params):
+    def _agg(
+        self: Any, bucket: Any, name: Any, agg_type: Any, *args: Any, **params: Any
+    ) -> Any:
         agg = self[name] = A(agg_type, *args, **params)
 
         # For chaining - when creating new buckets return them...
@@ -133,26 +135,26 @@ class AggBase(object):
         else:
             return self._base
 
-    def metric(self, name, agg_type, *args, **params):
+    def metric(self: Any, name: Any, agg_type: Any, *args: Any, **params: Any) -> Any:
         return self._agg(False, name, agg_type, *args, **params)
 
-    def bucket(self, name, agg_type, *args, **params):
+    def bucket(self: Any, name: Any, agg_type: Any, *args: Any, **params: Any) -> Any:
         return self._agg(True, name, agg_type, *args, **params)
 
-    def pipeline(self, name, agg_type, *args, **params):
+    def pipeline(self: Any, name: Any, agg_type: Any, *args: Any, **params: Any) -> Any:
         return self._agg(False, name, agg_type, *args, **params)
 
-    def result(self, search, data):
+    def result(self: Any, search: Any, data: Any) -> Any:
         return BucketData(self, search, data)
 
 
 class Bucket(AggBase, Agg):
-    def __init__(self, **params):
+    def __init__(self, **params: Any) -> None:
         super(Bucket, self).__init__(**params)
         # remember self for chaining
         self._base = self
 
-    def to_dict(self):
+    def to_dict(self) -> Any:
         d = super(AggBase, self).to_dict()
         if "aggs" in d[self.name]:
             d["aggs"] = d[self.name].pop("aggs")
@@ -160,18 +162,18 @@ class Bucket(AggBase, Agg):
 
 
 class Filter(Bucket):
-    name = "filter"
+    name: Optional[str] = "filter"
     _param_defs = {
         "filter": {"type": "query"},
         "aggs": {"type": "agg", "hash": True},
     }
 
-    def __init__(self, filter=None, **params):
+    def __init__(self, filter: Any = None, **params: Any) -> None:
         if filter is not None:
             params["filter"] = filter
         super(Filter, self).__init__(**params)
 
-    def to_dict(self):
+    def to_dict(self) -> Any:
         d = super(Filter, self).to_dict()
         d[self.name].update(d[self.name].pop("filter", {}))
         return d
@@ -183,7 +185,7 @@ class Pipeline(Agg):
 
 # bucket aggregations
 class Filters(Bucket):
-    name = "filters"
+    name: str = "filters"
     _param_defs = {
         "filters": {"type": "query", "hash": True},
         "aggs": {"type": "agg", "hash": True},
@@ -201,7 +203,7 @@ class Parent(Bucket):
 class DateHistogram(Bucket):
     name = "date_histogram"
 
-    def result(self, search, data):
+    def result(self, search: Any, data: Any) -> Any:
         return FieldBucketData(self, search, data)
 
 
@@ -236,7 +238,7 @@ class Global(Bucket):
 class Histogram(Bucket):
     name = "histogram"
 
-    def result(self, search, data):
+    def result(self, search: Any, data: Any) -> Any:
         return FieldBucketData(self, search, data)
 
 
@@ -259,7 +261,7 @@ class Range(Bucket):
 class RareTerms(Bucket):
     name = "rare_terms"
 
-    def result(self, search, data):
+    def result(self, search: Any, data: Any) -> Any:
         return FieldBucketData(self, search, data)
 
 
@@ -278,7 +280,7 @@ class SignificantText(Bucket):
 class Terms(Bucket):
     name = "terms"
 
-    def result(self, search, data):
+    def result(self, search: Any, data: Any) -> Any:
         return FieldBucketData(self, search, data)
 
 
@@ -301,7 +303,7 @@ class Composite(Bucket):
 class VariableWidthHistogram(Bucket):
     name = "variable_width_histogram"
 
-    def result(self, search, data):
+    def result(self, search: Any, data: Any) -> Any:
         return FieldBucketData(self, search, data)
 
 
@@ -309,7 +311,7 @@ class VariableWidthHistogram(Bucket):
 class TopHits(Agg):
     name = "top_hits"
 
-    def result(self, search, data):
+    def result(self, search: Any, data: Any) -> Any:
         return TopHitsData(self, search, data)
 
 

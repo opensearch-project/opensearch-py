@@ -14,12 +14,13 @@ from __future__ import unicode_literals
 import unittest
 
 import pytest
+from _pytest.mark.structures import MarkDecorator
 
 from opensearchpy.helpers.test import OPENSEARCH_VERSION
 
 from .. import AsyncOpenSearchTestCase
 
-pytestmark = pytest.mark.asyncio
+pytestmark: MarkDecorator = pytest.mark.asyncio
 
 
 class TestAlertingPlugin(AsyncOpenSearchTestCase):
@@ -27,7 +28,7 @@ class TestAlertingPlugin(AsyncOpenSearchTestCase):
         (OPENSEARCH_VERSION) and (OPENSEARCH_VERSION < (2, 0, 0)),
         "Plugin not supported for opensearch version",
     )
-    async def test_create_destination(self):
+    async def test_create_destination(self) -> None:
         # Test to create alert destination
         dummy_destination = {
             "name": "my-destination",
@@ -43,7 +44,7 @@ class TestAlertingPlugin(AsyncOpenSearchTestCase):
         (OPENSEARCH_VERSION) and (OPENSEARCH_VERSION < (2, 0, 0)),
         "Plugin not supported for opensearch version",
     )
-    async def test_get_destination(self):
+    async def test_get_destination(self) -> None:
         # Create a dummy destination
         await self.test_create_destination()
 
@@ -58,7 +59,7 @@ class TestAlertingPlugin(AsyncOpenSearchTestCase):
         (OPENSEARCH_VERSION) and (OPENSEARCH_VERSION < (2, 0, 0)),
         "Plugin not supported for opensearch version",
     )
-    async def test_create_monitor(self):
+    async def test_create_monitor(self) -> None:
         # Create a dummy destination
         await self.test_create_destination()
 
@@ -123,11 +124,11 @@ class TestAlertingPlugin(AsyncOpenSearchTestCase):
         (OPENSEARCH_VERSION) and (OPENSEARCH_VERSION < (2, 0, 0)),
         "Plugin not supported for opensearch version",
     )
-    async def test_search_monitor(self):
+    async def test_search_monitor(self) -> None:
         # Create a dummy monitor
         await self.test_create_monitor()
 
-        # Create a monitor search query by it's name
+        # Create a monitor search query by its name
         query = {"query": {"match": {"monitor.name": "test-monitor"}}}
 
         # Perform the search with the above query
@@ -141,11 +142,11 @@ class TestAlertingPlugin(AsyncOpenSearchTestCase):
         (OPENSEARCH_VERSION) and (OPENSEARCH_VERSION < (2, 0, 0)),
         "Plugin not supported for opensearch version",
     )
-    async def test_get_monitor(self):
+    async def test_get_monitor(self) -> None:
         # Create a dummy monitor
         await self.test_create_monitor()
 
-        # Create a monitor search query by it's name
+        # Create a monitor search query by its name
         query = {"query": {"match": {"monitor.name": "test-monitor"}}}
 
         # Perform the search with the above query
@@ -165,11 +166,11 @@ class TestAlertingPlugin(AsyncOpenSearchTestCase):
         (OPENSEARCH_VERSION) and (OPENSEARCH_VERSION < (2, 0, 0)),
         "Plugin not supported for opensearch version",
     )
-    async def test_run_monitor(self):
+    async def test_run_monitor(self) -> None:
         # Create a dummy monitor
         await self.test_create_monitor()
 
-        # Create a monitor search query by it's name
+        # Create a monitor search query by its name
         query = {"query": {"match": {"monitor.name": "test-monitor"}}}
 
         # Perform the search with the above query

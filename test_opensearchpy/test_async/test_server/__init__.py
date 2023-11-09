@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # SPDX-License-Identifier: Apache-2.0
 #
 # The OpenSearch Contributors require contributions made to
@@ -25,7 +26,7 @@
 #  under the License.
 
 
-from unittest import IsolatedAsyncioTestCase
+from unittest import IsolatedAsyncioTestCase  # type: ignore
 
 from opensearchpy._async.helpers.test import get_test_client
 from opensearchpy.connection.async_connections import add_connection
@@ -33,14 +34,14 @@ from opensearchpy.connection.async_connections import add_connection
 from ...utils import wipe_cluster
 
 
-class AsyncOpenSearchTestCase(IsolatedAsyncioTestCase):
-    async def asyncSetUp(self):
+class AsyncOpenSearchTestCase(IsolatedAsyncioTestCase):  # type: ignore
+    async def asyncSetUp(self) -> None:
         self.client = await get_test_client(
             verify_certs=False, http_auth=("admin", "admin")
         )
         await add_connection("default", self.client)
 
-    async def asyncTearDown(self):
+    async def asyncTearDown(self) -> None:
         wipe_cluster(self.client)
         if self.client:
             await self.client.close()

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # SPDX-License-Identifier: Apache-2.0
 #
 # The OpenSearch Contributors require contributions made to
@@ -7,6 +8,8 @@
 # Modifications Copyright OpenSearch Contributors. See
 # GitHub history for details.
 
+
+from typing import Any
 
 from six import iteritems, itervalues
 
@@ -57,38 +60,38 @@ class AsyncFacetedSearch(object):
 
     """
 
-    index = None
-    doc_types = None
-    fields = None
-    facets = {}
-    using = "default"
+    index: Any = None
+    doc_types: Any = None
+    fields: Any = None
+    facets: Any = {}
+    using: str = "default"
 
-    def __init__(self, query=None, filters={}, sort=()):
+    def __init__(self, query: Any = None, filters: Any = {}, sort: Any = ()) -> None:
         """
         :arg query: the text to search for
         :arg filters: facet values to filter
         :arg sort: sort information to be passed to :class:`~opensearchpy.AsyncSearch`
         """
         self._query = query
-        self._filters = {}
+        self._filters: Any = {}
         self._sort = sort
-        self.filter_values = {}
+        self.filter_values: Any = {}
         for name, value in iteritems(filters):
             self.add_filter(name, value)
 
         self._s = self.build_search()
 
-    async def count(self):
+    async def count(self) -> Any:
         return await self._s.count()
 
-    def __getitem__(self, k):
+    def __getitem__(self, k: Any) -> Any:
         self._s = self._s[k]
         return self
 
-    def __iter__(self):
+    def __iter__(self) -> Any:
         return iter(self._s)
 
-    def add_filter(self, name, filter_values):
+    def add_filter(self, name: Any, filter_values: Any) -> None:
         """
         Add a filter for a facet.
         """
@@ -110,7 +113,7 @@ class AsyncFacetedSearch(object):
 
         self._filters[name] = f
 
-    def search(self):
+    def search(self) -> Any:
         """
         Returns the base Search object to which the facets are added.
 
@@ -120,7 +123,7 @@ class AsyncFacetedSearch(object):
         s = AsyncSearch(doc_type=self.doc_types, index=self.index, using=self.using)
         return s.response_class(FacetedResponse)
 
-    def query(self, search, query):
+    def query(self, search: Any, query: Any) -> Any:
         """
         Add query part to ``search``.
 
@@ -133,7 +136,7 @@ class AsyncFacetedSearch(object):
                 return search.query("multi_match", query=query)
         return search
 
-    def aggregate(self, search):
+    def aggregate(self, search: Any) -> Any:
         """
         Add aggregations representing the facets selected, including potential
         filters.
@@ -149,7 +152,7 @@ class AsyncFacetedSearch(object):
                 f, agg
             )
 
-    def filter(self, search):
+    def filter(self, search: Any) -> Any:
         """
         Add a ``post_filter`` to the search request narrowing the results based
         on the facet filters.
@@ -162,7 +165,7 @@ class AsyncFacetedSearch(object):
             post_filter &= f
         return search.post_filter(post_filter)
 
-    def highlight(self, search):
+    def highlight(self, search: Any) -> Any:
         """
         Add highlighting for all the fields
         """
@@ -170,7 +173,7 @@ class AsyncFacetedSearch(object):
             *(f if "^" not in f else f.split("^", 1)[0] for f in self.fields)
         )
 
-    def sort(self, search):
+    def sort(self, search: Any) -> Any:
         """
         Add sorting information to the request.
         """
@@ -178,7 +181,7 @@ class AsyncFacetedSearch(object):
             search = search.sort(*self._sort)
         return search
 
-    def build_search(self):
+    def build_search(self) -> Any:
         """
         Construct the ``AsyncSearch`` object.
         """
@@ -191,7 +194,7 @@ class AsyncFacetedSearch(object):
         self.aggregate(s)
         return s
 
-    async def execute(self):
+    async def execute(self) -> Any:
         """
         Execute the search and return the response.
         """

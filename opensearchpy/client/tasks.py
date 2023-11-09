@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # SPDX-License-Identifier: Apache-2.0
 #
 # The OpenSearch Contributors require contributions made to
@@ -25,7 +26,18 @@
 #  under the License.
 
 
+# ----------------------------------------------------
+# THIS CODE IS GENERATED AND MANUAL EDITS WILL BE LOST.
+#
+# To contribute, kindly make essential modifications through either the "opensearch-py client generator":
+# https://github.com/opensearch-project/opensearch-py/blob/main/utils/generate-api.py
+# or the "OpenSearch API specification" available at:
+# https://github.com/opensearch-project/opensearch-api-specification/blob/main/OpenSearch.openapi.json
+# -----------------------------------------------------
+
+
 import warnings
+from typing import Any
 
 from .utils import SKIP_IN_PATH, NamespacedClient, _make_path, query_params
 
@@ -40,57 +52,58 @@ class TasksClient(NamespacedClient):
         "timeout",
         "wait_for_completion",
     )
-    def list(self, params=None, headers=None):
+    def list(
+        self,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Returns a list of tasks.
 
 
-        .. warning::
-
-            This API is **experimental** so may include breaking changes
-            or be removed in a future version
-
-        :arg actions: A comma-separated list of actions that should be
+        :arg actions: Comma-separated list of actions that should be
             returned. Leave empty to return all.
-        :arg detailed: Return detailed task information (default: false)
+        :arg detailed: Return detailed task information. Default is
+            false.
         :arg group_by: Group tasks by nodes or parent/child
-            relationships  Valid choices: nodes, parents, none  Default: nodes
-        :arg nodes: A comma-separated list of node IDs or names to limit
+            relationships. Valid choices are nodes, parents, none.
+        :arg nodes: Comma-separated list of node IDs or names to limit
             the returned information; use `_local` to return information from the
-            node you're connecting to, leave empty to get information from all nodes
+            node you're connecting to, leave empty to get information from all
+            nodes.
         :arg parent_task_id: Return tasks with specified parent task id
             (node_id:task_number). Set to -1 to return all.
-        :arg timeout: Explicit operation timeout
-        :arg wait_for_completion: Wait for the matching tasks to
-            complete (default: false)
+        :arg timeout: Operation timeout.
+        :arg wait_for_completion: Should this request wait until the
+            operation has completed before returning. Default is false.
         """
         return self.transport.perform_request(
             "GET", "/_tasks", params=params, headers=headers
         )
 
     @query_params("actions", "nodes", "parent_task_id", "wait_for_completion")
-    def cancel(self, task_id=None, params=None, headers=None):
+    def cancel(
+        self,
+        task_id: Any = None,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Cancels a task, if it can be cancelled through an API.
 
 
-        .. warning::
-
-            This API is **experimental** so may include breaking changes
-            or be removed in a future version
-
         :arg task_id: Cancel the task with specified task id
-            (node_id:task_number)
-        :arg actions: A comma-separated list of actions that should be
+            (node_id:task_number).
+        :arg actions: Comma-separated list of actions that should be
             cancelled. Leave empty to cancel all.
-        :arg nodes: A comma-separated list of node IDs or names to limit
+        :arg nodes: Comma-separated list of node IDs or names to limit
             the returned information; use `_local` to return information from the
-            node you're connecting to, leave empty to get information from all nodes
+            node you're connecting to, leave empty to get information from all
+            nodes.
         :arg parent_task_id: Cancel tasks with specified parent task id
             (node_id:task_number). Set to -1 to cancel all.
-        :arg wait_for_completion: Should the request block until the
-            cancellation of the task and its descendant tasks is completed. Defaults
-            to false
+        :arg wait_for_completion: Should this request wait until the
+            operation has completed before returning. Default is false.
         """
         return self.transport.perform_request(
             "POST",
@@ -100,21 +113,21 @@ class TasksClient(NamespacedClient):
         )
 
     @query_params("timeout", "wait_for_completion")
-    def get(self, task_id=None, params=None, headers=None):
+    def get(
+        self,
+        task_id: Any = None,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Returns information about a task.
 
 
-        .. warning::
-
-            This API is **experimental** so may include breaking changes
-            or be removed in a future version
-
         :arg task_id: Return the task with specified id
-            (node_id:task_number)
-        :arg timeout: Explicit operation timeout
-        :arg wait_for_completion: Wait for the matching tasks to
-            complete (default: false)
+            (node_id:task_number).
+        :arg timeout: Operation timeout.
+        :arg wait_for_completion: Should this request wait until the
+            operation has completed before returning. Default is false.
         """
         if task_id in SKIP_IN_PATH:
             warnings.warn(

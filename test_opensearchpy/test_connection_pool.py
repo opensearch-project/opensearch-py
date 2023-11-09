@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # SPDX-License-Identifier: Apache-2.0
 #
 # The OpenSearch Contributors require contributions made to
@@ -26,6 +27,7 @@
 
 
 import time
+from typing import Any
 
 from opensearchpy.connection import Connection
 from opensearchpy.connection_pool import (
@@ -39,16 +41,16 @@ from .test_cases import TestCase
 
 
 class TestConnectionPool(TestCase):
-    def test_dummy_cp_raises_exception_on_more_connections(self):
+    def test_dummy_cp_raises_exception_on_more_connections(self) -> None:
         self.assertRaises(ImproperlyConfigured, DummyConnectionPool, [])
         self.assertRaises(
             ImproperlyConfigured, DummyConnectionPool, [object(), object()]
         )
 
-    def test_raises_exception_when_no_connections_defined(self):
+    def test_raises_exception_when_no_connections_defined(self) -> None:
         self.assertRaises(ImproperlyConfigured, ConnectionPool, [])
 
-    def test_default_round_robin(self):
+    def test_default_round_robin(self) -> None:
         pool = ConnectionPool([(x, {}) for x in range(100)])
 
         connections = set()
@@ -56,7 +58,7 @@ class TestConnectionPool(TestCase):
             connections.add(pool.get_connection())
         self.assertEqual(connections, set(range(100)))
 
-    def test_disable_shuffling(self):
+    def test_disable_shuffling(self) -> None:
         pool = ConnectionPool([(x, {}) for x in range(100)], randomize_hosts=False)
 
         connections = []
@@ -64,9 +66,9 @@ class TestConnectionPool(TestCase):
             connections.append(pool.get_connection())
         self.assertEqual(connections, list(range(100)))
 
-    def test_selectors_have_access_to_connection_opts(self):
+    def test_selectors_have_access_to_connection_opts(self) -> None:
         class MySelector(RoundRobinSelector):
-            def select(self, connections):
+            def select(self, connections: Any) -> Any:
                 return self.connection_opts[
                     super(MySelector, self).select(connections)
                 ]["actual"]
@@ -82,7 +84,7 @@ class TestConnectionPool(TestCase):
             connections.append(pool.get_connection())
         self.assertEqual(connections, [x * x for x in range(100)])
 
-    def test_dead_nodes_are_removed_from_active_connections(self):
+    def test_dead_nodes_are_removed_from_active_connections(self) -> None:
         pool = ConnectionPool([(x, {}) for x in range(100)])
 
         now = time.time()
@@ -91,7 +93,7 @@ class TestConnectionPool(TestCase):
         self.assertEqual(1, pool.dead.qsize())
         self.assertEqual((now + 60, 42), pool.dead.get())
 
-    def test_connection_is_skipped_when_dead(self):
+    def test_connection_is_skipped_when_dead(self) -> None:
         pool = ConnectionPool([(x, {}) for x in range(2)])
         pool.mark_dead(0)
 
@@ -100,7 +102,7 @@ class TestConnectionPool(TestCase):
             [pool.get_connection(), pool.get_connection(), pool.get_connection()],
         )
 
-    def test_new_connection_is_not_marked_dead(self):
+    def test_new_connection_is_not_marked_dead(self) -> None:
         # Create 10 connections
         pool = ConnectionPool([(Connection(), {}) for _ in range(10)])
 
@@ -111,7 +113,9 @@ class TestConnectionPool(TestCase):
         # Nothing should be marked dead
         self.assertEqual(0, len(pool.dead_count))
 
-    def test_connection_is_forcibly_resurrected_when_no_live_ones_are_availible(self):
+    def test_connection_is_forcibly_resurrected_when_no_live_ones_are_availible(
+        self,
+    ) -> None:
         pool = ConnectionPool([(x, {}) for x in range(2)])
         pool.dead_count[0] = 1
         pool.mark_dead(0)  # failed twice, longer timeout
@@ -121,7 +125,7 @@ class TestConnectionPool(TestCase):
         self.assertEqual(1, pool.get_connection())
         self.assertEqual([1], pool.connections)
 
-    def test_connection_is_resurrected_after_its_timeout(self):
+    def test_connection_is_resurrected_after_its_timeout(self) -> None:
         pool = ConnectionPool([(x, {}) for x in range(100)])
 
         now = time.time()
@@ -130,7 +134,7 @@ class TestConnectionPool(TestCase):
         self.assertEqual(42, pool.connections[-1])
         self.assertEqual(100, len(pool.connections))
 
-    def test_force_resurrect_always_returns_a_connection(self):
+    def test_force_resurrect_always_returns_a_connection(self) -> None:
         pool = ConnectionPool([(0, {})])
 
         pool.connections = []
@@ -138,7 +142,7 @@ class TestConnectionPool(TestCase):
         self.assertEqual([], pool.connections)
         self.assertTrue(pool.dead.empty())
 
-    def test_already_failed_connection_has_longer_timeout(self):
+    def test_already_failed_connection_has_longer_timeout(self) -> None:
         pool = ConnectionPool([(x, {}) for x in range(100)])
         now = time.time()
         pool.dead_count[42] = 2
@@ -147,7 +151,7 @@ class TestConnectionPool(TestCase):
         self.assertEqual(3, pool.dead_count[42])
         self.assertEqual((now + 4 * 60, 42), pool.dead.get())
 
-    def test_timeout_for_failed_connections_is_limitted(self):
+    def test_timeout_for_failed_connections_is_limitted(self) -> None:
         pool = ConnectionPool([(x, {}) for x in range(100)])
         now = time.time()
         pool.dead_count[42] = 245
@@ -156,7 +160,7 @@ class TestConnectionPool(TestCase):
         self.assertEqual(246, pool.dead_count[42])
         self.assertEqual((now + 32 * 60, 42), pool.dead.get())
 
-    def test_dead_count_is_wiped_clean_for_connection_if_marked_live(self):
+    def test_dead_count_is_wiped_clean_for_connection_if_marked_live(self) -> None:
         pool = ConnectionPool([(x, {}) for x in range(100)])
         now = time.time()
         pool.dead_count[42] = 2

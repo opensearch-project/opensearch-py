@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # SPDX-License-Identifier: Apache-2.0
 #
 # The OpenSearch Contributors require contributions made to
@@ -25,22 +26,19 @@
 #  under the License.
 
 
-# type: ignore
-
 import os
 import time
+from typing import Any
 from unittest import SkipTest, TestCase
 
+import opensearchpy.client
 from opensearchpy import OpenSearch
 from opensearchpy.exceptions import ConnectionError
 
-if "OPENSEARCH_URL" in os.environ:
-    OPENSEARCH_URL = os.environ["OPENSEARCH_URL"]
-else:
-    OPENSEARCH_URL = "https://admin:admin@localhost:9200"
+OPENSEARCH_URL = os.environ.get("OPENSEARCH_URL", "https://admin:admin@localhost:9200")
 
 
-def get_test_client(nowait=False, **kwargs):
+def get_test_client(nowait: bool = False, **kwargs: Any) -> OpenSearch:
     # construct kwargs from the environment
     kw = {"timeout": 30}
 
@@ -52,7 +50,7 @@ def get_test_client(nowait=False, **kwargs):
         )
 
     kw.update(kwargs)
-    client = OpenSearch(OPENSEARCH_URL, **kw)
+    client = OpenSearch(OPENSEARCH_URL, **kw)  # type: ignore
 
     # wait for yellow status
     for _ in range(1 if nowait else 100):
@@ -67,15 +65,17 @@ def get_test_client(nowait=False, **kwargs):
 
 
 class OpenSearchTestCase(TestCase):
+    client: Any
+
     @staticmethod
-    def _get_client():
+    def _get_client() -> OpenSearch:
         return get_test_client()
 
     @classmethod
-    def setup_class(cls):
+    def setup_class(cls) -> None:
         cls.client = cls._get_client()
 
-    def teardown_method(self, _):
+    def teardown_method(self, _: Any) -> None:
         # Hidden indices expanded in wildcards in OpenSearch 7.7
         expand_wildcards = ["open", "closed"]
         if self.opensearch_version() >= (1, 0):
@@ -86,20 +86,20 @@ class OpenSearchTestCase(TestCase):
         )
         self.client.indices.delete_template(name="*", ignore=404)
 
-    def opensearch_version(self):
+    def opensearch_version(self) -> Any:
         if not hasattr(self, "_opensearch_version"):
             self._opensearch_version = opensearch_version(self.client)
         return self._opensearch_version
 
 
-def _get_version(version_string):
+def _get_version(version_string: str) -> Any:
     if "." not in version_string:
         return ()
     version = version_string.strip().split(".")
     return tuple(int(v) if v.isdigit() else 999 for v in version)
 
 
-def opensearch_version(client):
+def opensearch_version(client: opensearchpy.client.OpenSearch) -> Any:
     return _get_version(client.info()["version"]["number"])
 
 
@@ -111,3 +111,5 @@ else:
         verify_certs=False,
     )
     OPENSEARCH_VERSION = opensearch_version(client)
+
+__all__ = ["OpenSearchTestCase"]

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # SPDX-License-Identifier: Apache-2.0
 #
 # The OpenSearch Contributors require contributions made to
@@ -24,4 +25,4 @@
 #  specific language governing permissions and limitations
 #  under the License.
 
-__versionstr__ = "2.3.0"
+__versionstr__: str = "2.3.2"

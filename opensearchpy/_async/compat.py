@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # SPDX-License-Identifier: Apache-2.0
 #
 # The OpenSearch Contributors require contributions made to
@@ -38,7 +39,7 @@ try:
     from asyncio import get_running_loop
 except ImportError:
 
-    def get_running_loop():
+    def get_running_loop() -> asyncio.AbstractEventLoop:
         loop = asyncio.get_event_loop()
         if not loop.is_running():
             raise RuntimeError("no running event loop")

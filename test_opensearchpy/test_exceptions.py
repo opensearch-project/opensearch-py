@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # SPDX-License-Identifier: Apache-2.0
 #
 # The OpenSearch Contributors require contributions made to
@@ -31,7 +32,7 @@ from .test_cases import TestCase
 
 
 class TestTransformError(TestCase):
-    def test_transform_error_parse_with_error_reason(self):
+    def test_transform_error_parse_with_error_reason(self) -> None:
         e = TransportError(
             500,
             "InternalServerError",
@@ -42,7 +43,7 @@ class TestTransformError(TestCase):
             str(e), "TransportError(500, 'InternalServerError', 'error reason')"
         )
 
-    def test_transform_error_parse_with_error_string(self):
+    def test_transform_error_parse_with_error_string(self) -> None:
         e = TransportError(
             500, "InternalServerError", {"error": "something error message"}
         )

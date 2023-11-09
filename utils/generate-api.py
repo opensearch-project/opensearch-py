@@ -7,6 +7,11 @@
 #
 # Modifications Copyright OpenSearch Contributors. See
 # GitHub history for details.
+
+
+#
+# Modifications Copyright OpenSearch Contributors. See
+# GitHub history for details.
 #
 #  Licensed to Elasticsearch B.V. under one or more contributor
 #  license agreements. See the NOTICE file distributed with
@@ -25,14 +30,17 @@
 #  specific language governing permissions and limitations
 #  under the License.
 
+import json
 import os
 import re
 from functools import lru_cache
 from itertools import chain, groupby
 from operator import itemgetter
 from pathlib import Path
+from typing import Any, Dict
 
 import black
+import deepmerge
 import requests
 import unasync
 import urllib3
@@ -71,41 +79,32 @@ jinja_env = Environment(
 )
 
 
-def blacken(filename):
+def blacken(filename: Any) -> None:
     runner = CliRunner()
     result = runner.invoke(black.main, [str(filename)])
     assert result.exit_code == 0, result.output
 
 
 @lru_cache()
-def is_valid_url(url):
+def is_valid_url(url: str) -> bool:
     return 200 <= http.request("HEAD", url).status < 400
 
 
 class Module:
-    def __init__(self, namespace, is_pyi=False):
-        self.namespace = namespace
-        self.is_pyi = is_pyi
-        self._apis = []
+    def __init__(self, namespace: str) -> None:
+        self.namespace: Any = namespace
+        self._apis: Any = []
         self.parse_orig()
 
-        if not is_pyi:
-            self.pyi = Module(namespace, is_pyi=True)
-            self.pyi.orders = self.orders[:]
-
-    def add(self, api):
+    def add(self, api: Any) -> None:
         self._apis.append(api)
 
-    def parse_orig(self):
+    def parse_orig(self) -> None:
         self.orders = []
-        self.header = ""
-        if self.is_pyi is True:
-            self.header = "from typing import Any, Collection, MutableMapping, Optional, Tuple, Union\n\n"
+        self.header = "from typing import Any, Collection, Optional, Tuple, Union\n\n"
 
         namespace_new = "".join(word.capitalize() for word in self.namespace.split("_"))
-        self.header = (
-            self.header + "class " + namespace_new + "Client(NamespacedClient):"
-        )
+        self.header += "class " + namespace_new + "Client(NamespacedClient):"
         if os.path.exists(self.filepath):
             with open(self.filepath) as f:
                 content = f.read()
@@ -120,22 +119,27 @@ class Module:
                     for line in content.split("\n"):
                         header_lines.append(line)
                         if line.startswith("class"):
+                            if "security.py" in str(self.filepath):
+                                # TODO: FIXME, import code
+                                header_lines.append(
+                                    "    from ._patch import health_check, update_audit_config  # type: ignore"
+                                )
                             break
                 self.header = "\n".join(header_lines)
                 self.orders = re.findall(
                     r"\n    (?:async )?def ([a-z_]+)\(", content, re.MULTILINE
                 )
 
-    def _position(self, api):
+    def _position(self, api: Any) -> Any:
         try:
             return self.orders.index(api.name)
         except ValueError:
             return len(self.orders)
 
-    def sort(self):
+    def sort(self) -> None:
         self._apis.sort(key=self._position)
 
-    def dump(self):
+    def dump(self) -> None:
         self.sort()
 
         # This code snippet adds headers to each generated module indicating that the code is generated.
@@ -230,22 +234,15 @@ class Module:
         with open(self.filepath, "w") as f:
             f.write(file_content)
 
-        if not self.is_pyi:
-            self.pyi.dump()
-
     @property
-    def filepath(self):
-        return (
-            CODE_ROOT
-            / f"opensearchpy/_async/client/{self.namespace}.py{'i' if self.is_pyi else ''}"
-        )
+    def filepath(self) -> Any:
+        return CODE_ROOT / f"opensearchpy/_async/client/{self.namespace}.py"
 
 
 class API:
-    def __init__(self, namespace, name, definition, is_pyi=False):
+    def __init__(self, namespace: str, name: str, definition: Any) -> None:
         self.namespace = namespace
         self.name = name
-        self.is_pyi = is_pyi
 
         # overwrite the dict to maintain key order
         definition["params"] = {
@@ -256,6 +253,7 @@ class API:
         self.description = ""
         self.doc_url = ""
         self.stability = self._def.get("stability", "stable")
+        self.deprecation_message = self._def.get("deprecation_message")
 
         if isinstance(definition["documentation"], str):
             self.doc_url = definition["documentation"]
@@ -287,15 +285,16 @@ class API:
                     print(f"URL {revised_url!r}, falling back on {self.doc_url!r}")
 
     @property
-    def all_parts(self):
+    def all_parts(self) -> Dict[str, str]:
         parts = {}
         for url in self._def["url"]["paths"]:
             parts.update(url.get("parts", {}))
 
         for p in parts:
-            parts[p]["required"] = all(
-                p in url.get("parts", {}) for url in self._def["url"]["paths"]
-            )
+            if "required" not in parts[p]:
+                parts[p]["required"] = all(
+                    p in url.get("parts", {}) for url in self._def["url"]["paths"]
+                )
             parts[p]["type"] = "Any"
 
             # This piece of logic corresponds to calling
@@ -311,7 +310,7 @@ class API:
 
         dynamic, components = self.url_parts
 
-        def ind(item):
+        def ind(item: Any) -> Any:
             try:
                 return components.index(item[0])
             except ValueError:
@@ -321,29 +320,29 @@ class API:
         return parts
 
     @property
-    def params(self):
+    def params(self) -> Any:
         parts = self.all_parts
         params = self._def.get("params", {})
         return chain(
-            ((p, parts[p]) for p in parts if parts[p]["required"]),
+            ((p, parts[p]) for p in parts if parts[p]["required"]),  # type: ignore
             (("body", self.body),) if self.body else (),
             (
                 (p, parts[p])
                 for p in parts
-                if not parts[p]["required"] and p not in params
+                if not parts[p]["required"] and p not in params  # type: ignore
             ),
             sorted(params.items(), key=lambda x: (x[0] not in parts, x[0])),
         )
 
     @property
-    def body(self):
+    def body(self) -> Any:
         b = self._def.get("body", {})
         if b:
             b.setdefault("required", False)
         return b
 
     @property
-    def query_params(self):
+    def query_params(self) -> Any:
         return (
             k
             for k in sorted(self._def.get("params", {}).keys())
@@ -351,7 +350,7 @@ class API:
         )
 
     @property
-    def all_func_params(self):
+    def all_func_params(self) -> Any:
         """Parameters that will be in the '@query_params' decorator list
         and parameters that will be in the function signature.
         This doesn't include
@@ -364,23 +363,27 @@ class API:
         return params
 
     @property
-    def path(self):
+    def path(self) -> Any:
         return max(
             (path for path in self._def["url"]["paths"]),
             key=lambda p: len(re.findall(r"\{([^}]+)\}", p["path"])),
         )
 
     @property
-    def method(self):
+    def method(self) -> Any:
         # To adhere to the HTTP RFC we shouldn't send
         # bodies in GET requests.
         default_method = self.path["methods"][0]
+        if self.name == "refresh" or self.name == "flush":
+            return "POST"
         if self.body and default_method == "GET" and "POST" in self.path["methods"]:
             return "POST"
+        if "POST" and "PUT" in self.path["methods"] and self.name != "bulk":
+            return "PUT"
         return default_method
 
     @property
-    def url_parts(self):
+    def url_parts(self) -> Any:
         path = self.path["path"]
 
         dynamic = "{" in path
@@ -401,21 +404,18 @@ class API:
         return dynamic, parts
 
     @property
-    def required_parts(self):
+    def required_parts(self) -> Any:
         parts = self.all_parts
-        required = [p for p in parts if parts[p]["required"]]
+        required = [p for p in parts if parts[p]["required"]]  # type: ignore
         if self.body.get("required"):
             required.append("body")
         return required
 
-    def to_python(self):
-        if self.is_pyi:
-            t = jinja_env.get_template("base_pyi")
-        else:
-            try:
-                t = jinja_env.get_template(f"overrides/{self.namespace}/{self.name}")
-            except TemplateNotFound:
-                t = jinja_env.get_template("base")
+    def to_python(self) -> Any:
+        try:
+            t = jinja_env.get_template(f"overrides/{self.namespace}/{self.name}")
+        except TemplateNotFound:
+            t = jinja_env.get_template("base")
 
         return t.render(
             api=self,
@@ -424,7 +424,7 @@ class API:
         )
 
 
-def read_modules():
+def read_modules() -> Any:
     modules = {}
 
     # Load the OpenAPI specification file
@@ -437,6 +437,9 @@ def read_modules():
 
     for path in data["paths"]:
         for x in data["paths"][path]:
+            if data["paths"][path][x]["x-operation-group"] == "nodes.hot_threads":
+                if "deprecated" in data["paths"][path][x]:
+                    continue
             data["paths"][path][x].update({"path": path, "method": x})
             list_of_dicts.append(data["paths"][path][x])
 
@@ -468,17 +471,30 @@ def read_modules():
 
             for m in params:
                 A = dict(type=m["schema"]["type"], description=m["description"])
+
+                if "default" in m["schema"]:
+                    A.update({"default": m["schema"]["default"]})
+
                 if "enum" in m["schema"]:
                     A.update({"type": "enum"})
                     A.update({"options": m["schema"]["enum"]})
 
-                if "deprecated" in m:
-                    A.update({"deprecated": m["deprecated"]})
+                if "deprecated" in m["schema"]:
+                    A.update({"deprecated": m["schema"]["deprecated"]})
+                    A.update(
+                        {"deprecation_message": m["schema"]["x-deprecation-message"]}
+                    )
                 params_new.update({m["name"]: A})
 
             # Removing the deprecated "type"
-            if "type" in params_new:
+            if p["x-operation-group"] != "nodes.hot_threads" and "type" in params_new:
                 params_new.pop("type")
+
+            if (
+                p["x-operation-group"] == "cluster.health"
+                and "ensure_node_commissioned" in params_new
+            ):
+                params_new.pop("ensure_node_commissioned")
 
             if bool(params_new):
                 p.update({"params": params_new})
@@ -490,6 +506,9 @@ def read_modules():
 
                 if "description" in n:
                     B.update({"description": n["description"]})
+
+                if "x-enum-options" in n["schema"]:
+                    B.update({"options": n["schema"]["x-enum-options"]})
 
                 deprecated_new = {}
                 if "deprecated" in n:
@@ -524,6 +543,8 @@ def read_modules():
 
         # Group the data in the current group by the "path" key
         paths = []
+        all_paths_have_deprecation = True
+
         for key2, value2 in groupby(value, key=itemgetter("path")):
             # Extract the HTTP methods from the data in the current subgroup
             methods = []
@@ -535,6 +556,11 @@ def read_modules():
                 if "documentation" not in api:
                     documentation = {"description": z["description"]}
                     api.update({"documentation": documentation})
+
+                if "x-deprecation-message" in z:
+                    x_deprecation_message = z["x-deprecation-message"]
+                else:
+                    all_paths_have_deprecation = False
 
                 if "params" not in api and "params" in z:
                     api.update({"params": z["params"]})
@@ -571,8 +597,8 @@ def read_modules():
             if "POST" in methods or "PUT" in methods:
                 api.update(
                     {
-                        "stability": "stable",
-                        "visibility": "public",
+                        "stability": "stable",  # type: ignore
+                        "visibility": "public",  # type: ignore
                         "headers": {
                             "accept": ["application/json"],
                             "content_type": ["application/json"],
@@ -582,8 +608,8 @@ def read_modules():
             else:
                 api.update(
                     {
-                        "stability": "stable",
-                        "visibility": "public",
+                        "stability": "stable",  # type: ignore
+                        "visibility": "public",  # type: ignore
                         "headers": {"accept": ["application/json"]},
                     }
                 )
@@ -603,17 +629,31 @@ def read_modules():
                 paths.append({"path": key2, "methods": methods})
 
         api.update({"url": {"paths": paths}})
+        if all_paths_have_deprecation and x_deprecation_message is not None:
+            api.update({"deprecation_message": x_deprecation_message})
+
+        api = apply_patch(namespace, name, api)
 
         if namespace not in modules:
             modules[namespace] = Module(namespace)
 
         modules[namespace].add(API(namespace, name, api))
-        modules[namespace].pyi.add(API(namespace, name, api, is_pyi=True))
 
     return modules
 
 
-def dump_modules(modules):
+def apply_patch(namespace: str, name: str, api: Any) -> Any:
+    override_file_path = (
+        CODE_ROOT / "utils/templates/overrides" / namespace / f"{name}.json"
+    )
+    if os.path.exists(override_file_path):
+        with open(override_file_path) as f:
+            override_json = json.load(f)
+            api = deepmerge.always_merger.merge(api, override_json)
+    return api
+
+
+def dump_modules(modules: Any) -> None:
     for mod in modules.values():
         mod.dump()
 
@@ -636,10 +676,9 @@ def dump_modules(modules):
     filepaths = []
     for root, _, filenames in os.walk(CODE_ROOT / "opensearchpy/_async"):
         for filename in filenames:
-            if filename.rpartition(".")[-1] in (
-                "py",
-                "pyi",
-            ) and not filename.startswith("utils.py"):
+            if filename.rpartition(".")[-1] in ("py",) and not filename.startswith(
+                "utils.py"
+            ):
                 filepaths.append(os.path.join(root, filename))
 
     unasync.unasync_files(filepaths, rules)

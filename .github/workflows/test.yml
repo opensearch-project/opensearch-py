@@ -7,7 +7,6 @@ jobs:
     strategy:
       matrix:
         entry:
-          - { os: 'ubuntu-20.04', python-version: "3.5" }
           - { os: 'ubuntu-20.04', python-version: "3.6" }
           - { os: 'ubuntu-latest', python-version: "3.7" }
           - { os: 'ubuntu-latest', python-version: "3.8" }
@@ -16,7 +15,7 @@ jobs:
           - { os: 'ubuntu-latest', python-version: "3.11" }
           - { os: 'macos-latest', python-version: "3.11" }
           
-    name: test (ruby=${{ matrix.entry.os }}, python=${{ matrix.entry.python-version }})
+    name: test (os=${{ matrix.entry.os }}, python=${{ matrix.entry.python-version }})
     continue-on-error: ${{ matrix.entry.experimental || false }}
     runs-on: ${{ matrix.entry.os }}
     steps:

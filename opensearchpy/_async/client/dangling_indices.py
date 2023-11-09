@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # SPDX-License-Identifier: Apache-2.0
 #
 # The OpenSearch Contributors require contributions made to
@@ -25,24 +26,44 @@
 #  under the License.
 
 
+# ----------------------------------------------------
+# THIS CODE IS GENERATED AND MANUAL EDITS WILL BE LOST.
+#
+# To contribute, kindly make essential modifications through either the "opensearch-py client generator":
+# https://github.com/opensearch-project/opensearch-py/blob/main/utils/generate-api.py
+# or the "OpenSearch API specification" available at:
+# https://github.com/opensearch-project/opensearch-api-specification/blob/main/OpenSearch.openapi.json
+# -----------------------------------------------------
+
+
+from typing import Any
+
 from .utils import SKIP_IN_PATH, NamespacedClient, _make_path, query_params
 
 
 class DanglingIndicesClient(NamespacedClient):
     @query_params(
-        "accept_data_loss", "master_timeout", "cluster_manager_timeout", "timeout"
+        "accept_data_loss", "cluster_manager_timeout", "master_timeout", "timeout"
     )
-    async def delete_dangling_index(self, index_uuid, params=None, headers=None):
+    async def delete_dangling_index(
+        self,
+        index_uuid: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
-        Deletes the specified dangling index
+        Deletes the specified dangling index.
 
 
-        :arg index_uuid: The UUID of the dangling index
+        :arg index_uuid: The UUID of the dangling index.
         :arg accept_data_loss: Must be set to true in order to delete
-            the dangling index
-        :arg master_timeout (Deprecated: use cluster_manager_timeout): Specify timeout for connection to master
-        :arg cluster_manager_timeout: Specify timeout for connection to cluster_manager
-        :arg timeout: Explicit operation timeout
+            the dangling index.
+        :arg cluster_manager_timeout: Operation timeout for connection
+            to cluster-manager node.
+        :arg master_timeout (Deprecated: To promote inclusive language,
+            use 'cluster_manager_timeout' instead.): Operation timeout for
+            connection to master node.
+        :arg timeout: Operation timeout.
         """
         if index_uuid in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'index_uuid'.")
@@ -55,19 +76,27 @@ class DanglingIndicesClient(NamespacedClient):
         )
 
     @query_params(
-        "accept_data_loss", "master_timeout", "cluster_manager_timeout", "timeout"
+        "accept_data_loss", "cluster_manager_timeout", "master_timeout", "timeout"
     )
-    async def import_dangling_index(self, index_uuid, params=None, headers=None):
+    async def import_dangling_index(
+        self,
+        index_uuid: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
-        Imports the specified dangling index
+        Imports the specified dangling index.
 
 
-        :arg index_uuid: The UUID of the dangling index
+        :arg index_uuid: The UUID of the dangling index.
         :arg accept_data_loss: Must be set to true in order to import
-            the dangling index
-        :arg master_timeout (Deprecated: use cluster_manager_timeout): Specify timeout for connection to master
-        :arg cluster_manager_timeout: Specify timeout for connection to cluster_manager
-        :arg timeout: Explicit operation timeout
+            the dangling index.
+        :arg cluster_manager_timeout: Operation timeout for connection
+            to cluster-manager node.
+        :arg master_timeout (Deprecated: To promote inclusive language,
+            use 'cluster_manager_timeout' instead.): Operation timeout for
+            connection to master node.
+        :arg timeout: Operation timeout.
         """
         if index_uuid in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'index_uuid'.")
@@ -77,7 +106,11 @@ class DanglingIndicesClient(NamespacedClient):
         )
 
     @query_params()
-    async def list_dangling_indices(self, params=None, headers=None):
+    async def list_dangling_indices(
+        self,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Returns all dangling indices.
 

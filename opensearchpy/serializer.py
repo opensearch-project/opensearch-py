@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # SPDX-License-Identifier: Apache-2.0
 #
 # The OpenSearch Contributors require contributions made to
@@ -25,10 +26,12 @@
 #  under the License.
 
 
+from typing import Any, Dict, Optional
+
 try:
     import simplejson as json
 except ImportError:
-    import json
+    import json  # type: ignore
 
 import uuid
 from datetime import date, datetime
@@ -44,22 +47,22 @@ TIME_TYPES = (date, datetime)
 
 
 class Serializer(object):
-    mimetype = ""
+    mimetype: str = ""
 
-    def loads(self, s):
+    def loads(self, s: str) -> Any:
         raise NotImplementedError()
 
-    def dumps(self, data):
+    def dumps(self, data: Any) -> Any:
         raise NotImplementedError()
 
 
 class TextSerializer(Serializer):
-    mimetype = "text/plain"
+    mimetype: str = "text/plain"
 
-    def loads(self, s):
+    def loads(self, s: str) -> Any:
         return s
 
-    def dumps(self, data):
+    def dumps(self, data: Any) -> Any:
         if isinstance(data, string_types):
             return data
 
@@ -67,9 +70,9 @@ class TextSerializer(Serializer):
 
 
 class JSONSerializer(Serializer):
-    mimetype = "application/json"
+    mimetype: str = "application/json"
 
-    def default(self, data):
+    def default(self, data: Any) -> Any:
         if isinstance(data, TIME_TYPES):
             # Little hack to avoid importing pandas but to not
             # return 'NaT' string for pd.NaT as that's not a valid
@@ -141,13 +144,13 @@ class JSONSerializer(Serializer):
 
         raise TypeError("Unable to serialize %r (type: %s)" % (data, type(data)))
 
-    def loads(self, s):
+    def loads(self, s: str) -> Any:
         try:
             return json.loads(s)
         except (ValueError, TypeError) as e:
             raise SerializationError(s, e)
 
-    def dumps(self, data):
+    def dumps(self, data: Any) -> Any:
         # don't serialize strings
         if isinstance(data, string_types):
             return data
@@ -160,14 +163,18 @@ class JSONSerializer(Serializer):
             raise SerializationError(data, e)
 
 
-DEFAULT_SERIALIZERS = {
+DEFAULT_SERIALIZERS: Dict[str, Serializer] = {
     JSONSerializer.mimetype: JSONSerializer(),
     TextSerializer.mimetype: TextSerializer(),
 }
 
 
 class Deserializer(object):
-    def __init__(self, serializers, default_mimetype="application/json"):
+    def __init__(
+        self,
+        serializers: Dict[str, Serializer],
+        default_mimetype: str = "application/json",
+    ) -> None:
         try:
             self.default = serializers[default_mimetype]
         except KeyError:
@@ -176,7 +183,7 @@ class Deserializer(object):
             )
         self.serializers = serializers
 
-    def loads(self, s, mimetype=None):
+    def loads(self, s: str, mimetype: Optional[str] = None) -> Any:
         if not mimetype:
             deserializer = self.default
         else:
@@ -198,7 +205,7 @@ class Deserializer(object):
 
 
 class AttrJSONSerializer(JSONSerializer):
-    def default(self, data):
+    def default(self, data: Any) -> Any:
         if isinstance(data, AttrList):
             return data._l_
         if hasattr(data, "to_dict"):

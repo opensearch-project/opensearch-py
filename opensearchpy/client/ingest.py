@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # SPDX-License-Identifier: Apache-2.0
 #
 # The OpenSearch Contributors require contributions made to
@@ -25,42 +26,65 @@
 #  under the License.
 
 
+# ----------------------------------------------------
+# THIS CODE IS GENERATED AND MANUAL EDITS WILL BE LOST.
+#
+# To contribute, kindly make essential modifications through either the "opensearch-py client generator":
+# https://github.com/opensearch-project/opensearch-py/blob/main/utils/generate-api.py
+# or the "OpenSearch API specification" available at:
+# https://github.com/opensearch-project/opensearch-api-specification/blob/main/OpenSearch.openapi.json
+# -----------------------------------------------------
+
+
+from typing import Any
+
 from .utils import SKIP_IN_PATH, NamespacedClient, _make_path, query_params
 
 
 class IngestClient(NamespacedClient):
-    @query_params("master_timeout", "cluster_manager_timeout", "summary")
-    def get_pipeline(self, id=None, params=None, headers=None):
+    @query_params("cluster_manager_timeout", "master_timeout")
+    def get_pipeline(
+        self,
+        id: Any = None,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Returns a pipeline.
 
 
-        :arg id: Comma separated list of pipeline ids. Wildcards
-            supported
-        :arg master_timeout (Deprecated: use cluster_manager_timeout): Explicit operation timeout for connection
-            to master node
-        :arg cluster_manager_timeout: Explicit operation timeout for connection
-            to cluster_manager node
-        :arg summary: Return pipelines without their definitions
-            (default: false)
+        :arg id: Comma-separated list of pipeline ids. Wildcards
+            supported.
+        :arg cluster_manager_timeout: Operation timeout for connection
+            to cluster-manager node.
+        :arg master_timeout (Deprecated: To promote inclusive language,
+            use 'cluster_manager_timeout' instead.): Operation timeout for
+            connection to master node.
         """
         return self.transport.perform_request(
             "GET", _make_path("_ingest", "pipeline", id), params=params, headers=headers
         )
 
-    @query_params("master_timeout", "cluster_manager_timeout", "timeout")
-    def put_pipeline(self, id, body, params=None, headers=None):
+    @query_params("cluster_manager_timeout", "master_timeout", "timeout")
+    def put_pipeline(
+        self,
+        id: Any,
+        body: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Creates or updates a pipeline.
 
 
-        :arg id: Pipeline ID
+        :arg id: Pipeline ID.
         :arg body: The ingest definition
-        :arg master_timeout (Deprecated: use cluster_manager_timeout): Explicit operation timeout for connection
-            to master node
-        :arg cluster_manager_timeout: Explicit operation timeout for connection
-            to cluster_manager node
-        :arg timeout: Explicit operation timeout
+        :arg cluster_manager_timeout: Operation timeout for connection
+            to cluster-manager node.
+        :arg master_timeout (Deprecated: To promote inclusive language,
+            use 'cluster_manager_timeout' instead.): Operation timeout for
+            connection to master node.
+        :arg timeout: Operation timeout.
         """
         for param in (id, body):
             if param in SKIP_IN_PATH:
@@ -74,18 +98,24 @@ class IngestClient(NamespacedClient):
             body=body,
         )
 
-    @query_params("master_timeout", "cluster_manager_timeout", "timeout")
-    def delete_pipeline(self, id, params=None, headers=None):
+    @query_params("cluster_manager_timeout", "master_timeout", "timeout")
+    def delete_pipeline(
+        self,
+        id: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Deletes a pipeline.
 
 
-        :arg id: Pipeline ID
-        :arg master_timeout (Deprecated: use cluster_manager_timeout): Explicit operation timeout for connection
-            to master node
-        :arg cluster_manager_timeout: Explicit operation timeout for connection
-            to cluster_manager node
-        :arg timeout: Explicit operation timeout
+        :arg id: Pipeline ID.
+        :arg cluster_manager_timeout: Operation timeout for connection
+            to cluster-manager node.
+        :arg master_timeout (Deprecated: To promote inclusive language,
+            use 'cluster_manager_timeout' instead.): Operation timeout for
+            connection to master node.
+        :arg timeout: Operation timeout.
         """
         if id in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'id'.")
@@ -98,15 +128,21 @@ class IngestClient(NamespacedClient):
         )
 
     @query_params("verbose")
-    def simulate(self, body, id=None, params=None, headers=None):
+    def simulate(
+        self,
+        body: Any,
+        id: Any = None,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Allows to simulate a pipeline with example documents.
 
 
         :arg body: The simulate definition
-        :arg id: Pipeline ID
+        :arg id: Pipeline ID.
         :arg verbose: Verbose mode. Display data output for each
-            processor in executed pipeline
+            processor in executed pipeline. Default is false.
         """
         if body in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'body'.")
@@ -120,21 +156,15 @@ class IngestClient(NamespacedClient):
         )
 
     @query_params()
-    def processor_grok(self, params=None, headers=None):
+    def processor_grok(
+        self,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Returns a list of the built-in patterns.
 
         """
         return self.transport.perform_request(
             "GET", "/_ingest/processor/grok", params=params, headers=headers
-        )
-
-    @query_params()
-    def geo_ip_stats(self, params=None, headers=None):
-        """
-        Returns statistical information about geoip databases
-
-        """
-        return self.transport.perform_request(
-            "GET", "/_ingest/geoip/stats", params=params, headers=headers
         )

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # SPDX-License-Identifier: Apache-2.0
 #
 # The OpenSearch Contributors require contributions made to
@@ -24,6 +25,8 @@
 #  specific language governing permissions and limitations
 #  under the License.
 
+
+from typing import Any, Dict, Type, Union
 
 __all__ = [
     "ImproperlyConfigured",
@@ -75,32 +78,33 @@ class TransportError(OpenSearchException):
     """
 
     @property
-    def status_code(self):
+    def status_code(self) -> Union[str, int]:
         """
         The HTTP status code of the response that precipitated the error or
         ``'N/A'`` if not applicable.
         """
-        return self.args[0]
+        return self.args[0]  # type: ignore
 
     @property
-    def error(self):
+    def error(self) -> str:
         """A string error message."""
-        return self.args[1]
+        return self.args[1]  # type: ignore
 
     @property
-    def info(self):
+    def info(self) -> Union[Dict[str, Any], Exception, Any]:
         """
         Dict of returned error info from OpenSearch, where available, underlying
         exception when not.
         """
         return self.args[2]
 
-    def __str__(self):
+    def __str__(self) -> str:
         cause = ""
         try:
-            if self.info and "error" in self.info:
-                if isinstance(self.info["error"], dict):
-                    root_cause = self.info["error"]["root_cause"][0]
+            if self.info and isinstance(self.info, dict) and "error" in self.info:
+                error = self.info["error"]
+                if isinstance(error, dict):
+                    root_cause = error["root_cause"][0]
                     cause = ", ".join(
                         filter(
                             None,
@@ -127,7 +131,7 @@ class ConnectionError(TransportError):
     implementation is available as ``.info``.
     """
 
-    def __str__(self):
+    def __str__(self) -> str:
         return "ConnectionError(%s) caused by: %s(%s)" % (
             self.error,
             self.info.__class__.__name__,
@@ -142,7 +146,7 @@ class SSLError(ConnectionError):
 class ConnectionTimeout(ConnectionError):
     """A network timeout. Doesn't cause a node retry by default."""
 
-    def __str__(self):
+    def __str__(self) -> str:
         return "ConnectionTimeout caused by - %s(%s)" % (
             self.info.__class__.__name__,
             self.info,
@@ -198,7 +202,7 @@ OpenSearchDeprecationWarning = OpenSearchWarning
 
 
 # more generic mappings from status_code to python exceptions
-HTTP_EXCEPTIONS = {
+HTTP_EXCEPTIONS: Dict[int, Type[OpenSearchException]] = {
     400: RequestError,
     401: AuthenticationException,
     403: AuthorizationException,

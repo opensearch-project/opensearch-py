@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # SPDX-License-Identifier: Apache-2.0
 #
 # The OpenSearch Contributors require contributions made to
@@ -6,24 +7,6 @@
 #
 # Modifications Copyright OpenSearch Contributors. See
 # GitHub history for details.
-#
-#  Licensed to Elasticsearch B.V. under one or more contributor
-#  license agreements. See the NOTICE file distributed with
-#  this work for additional information regarding copyright
-#  ownership. Elasticsearch B.V. licenses this file to you under
-#  the Apache License, Version 2.0 (the "License"); you may
-#  not use this file except in compliance with the License.
-#  You may obtain a copy of the License at
-#
-# 	http://www.apache.org/licenses/LICENSE-2.0
-#
-#  Unless required by applicable law or agreed to in writing,
-#  software distributed under the License is distributed on an
-#  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-#  KIND, either express or implied.  See the License for the
-#  specific language governing permissions and limitations
-#  under the License.
-
 
 """Script which verifies that all source files have a license header.
 Has two modes: 'fix' and 'check'. 'fix' fixes problems, 'check' will
@@ -33,20 +16,20 @@ error out if 'fix' would have changed the file.
 import os
 import re
 import sys
-from itertools import chain
 from typing import Iterator, List
 
-lines_to_keep = ["# -*- coding: utf-8 -*-\n", "#!/usr/bin/env python\n"]
-license_header_lines = [
-    "# SPDX-License-Identifier: Apache-2.0\n",
-    "#\n",
-    "# The OpenSearch Contributors require contributions made to\n",
-    "# this file be licensed under the Apache-2.0 license or a\n",
-    "# compatible open source license.\n",
-    "#\n",
-    "# Modifications Copyright OpenSearch Contributors. See\n",
-    "# GitHub history for details.\n",
-]
+lines_to_keep = ["# -*- coding: utf-8 -*-", "#!/usr/bin/env python"]
+
+license_header = """
+# SPDX-License-Identifier: Apache-2.0
+#
+# The OpenSearch Contributors require contributions made to
+# this file be licensed under the Apache-2.0 license or a
+# compatible open source license.
+#
+# Modifications Copyright OpenSearch Contributors. See
+# GitHub history for details.
+""".strip()
 
 
 def find_files_to_fix(sources: List[str]) -> Iterator[str]:
@@ -65,22 +48,20 @@ def find_files_to_fix(sources: List[str]) -> Iterator[str]:
 
 
 def does_file_need_fix(filepath: str) -> bool:
-    if not re.search(r"\.pyi?$", filepath):
+    if not re.search(r"\.py$", filepath):
         return False
+    existing_header = ""
     with open(filepath, mode="r") as f:
-        first_license_line = None
         for line in f:
-            if line == license_header_lines[0]:
-                first_license_line = line
+            line = line.strip()
+            if len(line) == 0 or line in lines_to_keep:
+                pass
+            elif line[0] == "#":
+                existing_header += line
+                existing_header += "\n"
+            else:
                 break
-            elif line not in lines_to_keep:
-                return True
-        for header_line, line in zip(
-            license_header_lines, chain((first_license_line,), f)
-        ):
-            if line != header_line:
-                return True
-    return False
+    return not existing_header.startswith(license_header)
 
 
 def add_header_to_file(filepath: str) -> None:
@@ -88,16 +69,16 @@ def add_header_to_file(filepath: str) -> None:
         lines = list(f)
     i = 0
     for i, line in enumerate(lines):
-        if line not in lines_to_keep:
+        if len(line) > 0 and line not in lines_to_keep:
             break
-    lines = lines[:i] + license_header_lines + lines[i:]
+    lines = lines[:i] + [license_header] + lines[i:]
     with open(filepath, mode="w") as f:
         f.truncate()
         f.write("".join(lines))
     print(f"Fixed {os.path.relpath(filepath, os.getcwd())}")
 
 
-def main():
+def main() -> None:
     mode = sys.argv[1]
     assert mode in ("fix", "check")
     sources = [os.path.abspath(x) for x in sys.argv[2:]]

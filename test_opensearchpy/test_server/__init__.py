@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # SPDX-License-Identifier: Apache-2.0
 #
 # The OpenSearch Contributors require contributions made to
@@ -25,6 +26,7 @@
 #  under the License.
 
 
+from typing import Any
 from unittest import SkipTest
 
 from opensearchpy.helpers import test
@@ -33,7 +35,7 @@ from opensearchpy.helpers.test import OpenSearchTestCase as BaseTestCase
 client = None
 
 
-def get_client(**kwargs):
+def get_client(**kwargs: Any) -> Any:
     global client
     if client is False:
         raise SkipTest("No client is available")
@@ -59,11 +61,11 @@ def get_client(**kwargs):
     return new_client
 
 
-def setup_module():
+def setup_module() -> None:
     get_client()
 
 
 class OpenSearchTestCase(BaseTestCase):
     @staticmethod
-    def _get_client(**kwargs):
+    def _get_client(**kwargs: Any) -> Any:
         return get_client(**kwargs)

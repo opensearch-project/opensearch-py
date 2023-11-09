@@ -28,6 +28,7 @@
 
 import threading
 import time
+from typing import Any
 
 import mock
 import pytest
@@ -40,19 +41,19 @@ from ..test_cases import TestCase
 lock_side_effect = threading.Lock()
 
 
-def mock_process_bulk_chunk(*args, **kwargs):
+def mock_process_bulk_chunk(*args: Any, **kwargs: Any) -> Any:
     """
     Threadsafe way of mocking process bulk chunk:
     https://stackoverflow.com/questions/39332139/thread-safe-version-of-mock-call-count
     """
 
     with lock_side_effect:
-        mock_process_bulk_chunk.call_count += 1
+        mock_process_bulk_chunk.call_count += 1  # type: ignore
     time.sleep(0.1)
     return []
 
 
-mock_process_bulk_chunk.call_count = 0
+mock_process_bulk_chunk.call_count = 0  # type: ignore
 
 
 class TestParallelBulk(TestCase):
@@ -60,21 +61,21 @@ class TestParallelBulk(TestCase):
         "opensearchpy.helpers.actions._process_bulk_chunk",
         side_effect=mock_process_bulk_chunk,
     )
-    def test_all_chunks_sent(self, _process_bulk_chunk):
+    def test_all_chunks_sent(self, _process_bulk_chunk: Any) -> None:
         actions = ({"x": i} for i in range(100))
         list(helpers.parallel_bulk(OpenSearch(), actions, chunk_size=2))
 
-        self.assertEqual(50, mock_process_bulk_chunk.call_count)
+        self.assertEqual(50, mock_process_bulk_chunk.call_count)  # type: ignore
 
-    @pytest.mark.skip
+    @pytest.mark.skip  # type: ignore
     @mock.patch(
         "opensearchpy.helpers.actions._process_bulk_chunk",
         # make sure we spend some time in the thread
         side_effect=lambda *a: [
-            (True, time.sleep(0.001) or threading.current_thread().ident)
+            (True, time.sleep(0.001) or threading.current_thread().ident)  # type: ignore
         ],
     )
-    def test_chunk_sent_from_different_threads(self, _process_bulk_chunk):
+    def test_chunk_sent_from_different_threads(self, _process_bulk_chunk: Any) -> None:
         actions = ({"x": i} for i in range(100))
         results = list(
             helpers.parallel_bulk(OpenSearch(), actions, thread_count=10, chunk_size=2)
@@ -83,16 +84,16 @@ class TestParallelBulk(TestCase):
 
 
 class TestChunkActions(TestCase):
-    def setup_method(self, _):
-        self.actions = [({"index": {}}, {"some": u"datá", "i": i}) for i in range(100)]  # fmt: skip
+    def setup_method(self, _: Any) -> None:
+        self.actions: Any = [({"index": {}}, {"some": u"datá", "i": i}) for i in range(100)]  # fmt: skip
 
-    def test_expand_action(self):
+    def test_expand_action(self) -> None:
         self.assertEqual(helpers.expand_action({}), ({"index": {}}, {}))
         self.assertEqual(
             helpers.expand_action({"key": "val"}), ({"index": {}}, {"key": "val"})
         )
 
-    def test_expand_action_actions(self):
+    def test_expand_action_actions(self) -> None:
         self.assertEqual(
             helpers.expand_action(
                 {"_op_type": "delete", "_id": "id", "_index": "index"}
@@ -123,7 +124,7 @@ class TestChunkActions(TestCase):
             ({"create": {"_id": "id", "_index": "index"}}, {"key": "val"}),
         )
 
-    def test_expand_action_options(self):
+    def test_expand_action_options(self) -> None:
         for option in (
             "_id",
             "_index",
@@ -154,7 +155,7 @@ class TestChunkActions(TestCase):
                 ({"index": {action_option: 0}}, {"key": "val"}),
             )
 
-    def test__source_metadata_or_source(self):
+    def test__source_metadata_or_source(self) -> None:
         self.assertEqual(
             helpers.expand_action({"_source": {"key": "val"}}),
             ({"index": {}}, {"key": "val"}),
@@ -182,7 +183,7 @@ class TestChunkActions(TestCase):
             ({"update": {}}, {"key2": "val2"}),
         )
 
-    def test_chunks_are_chopped_by_byte_size(self):
+    def test_chunks_are_chopped_by_byte_size(self) -> None:
         self.assertEqual(
             100,
             len(
@@ -190,7 +191,7 @@ class TestChunkActions(TestCase):
             ),
         )
 
-    def test_chunks_are_chopped_by_chunk_size(self):
+    def test_chunks_are_chopped_by_chunk_size(self) -> None:
         self.assertEqual(
             10,
             len(
@@ -200,7 +201,7 @@ class TestChunkActions(TestCase):
             ),
         )
 
-    def test_chunks_are_chopped_by_byte_size_properly(self):
+    def test_chunks_are_chopped_by_byte_size_properly(self) -> None:
         max_byte_size = 170
         chunks = list(
             helpers._chunk_actions(
@@ -215,7 +216,7 @@ class TestChunkActions(TestCase):
 
 
 class TestExpandActions(TestCase):
-    def test_string_actions_are_marked_as_simple_inserts(self):
+    def test_string_actions_are_marked_as_simple_inserts(self) -> None:
         self.assertEqual(
             ('{"index":{}}', "whatever"), helpers.expand_action("whatever")
         )

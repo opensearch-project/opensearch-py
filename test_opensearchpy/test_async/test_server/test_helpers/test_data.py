@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # SPDX-License-Identifier: Apache-2.0
 #
 # The OpenSearch Contributors require contributions made to
@@ -9,8 +10,10 @@
 
 from __future__ import unicode_literals
 
+from typing import Any, Dict
 
-async def create_flat_git_index(client, index):
+
+async def create_flat_git_index(client: Any, index: Any) -> None:
     # we will use user on several places
     user_mapping = {
         "properties": {"name": {"type": "text", "fields": {"raw": {"type": "keyword"}}}}
@@ -53,7 +56,7 @@ async def create_flat_git_index(client, index):
     )
 
 
-async def create_git_index(client, index):
+async def create_git_index(client: Any, index: Any) -> None:
     # we will use user on several places
     user_mapping = {
         "properties": {"name": {"type": "text", "fields": {"raw": {"type": "keyword"}}}}
@@ -947,7 +950,7 @@ DATA = [
             ],
             "committer": {"name": "Honza Kr\xe1l", "email": "honza.kral@gmail.com"},
             "stats": {"deletions": 0, "insertions": 53, "lines": 53, "files": 2},
-            "description": "From_dict, Q(dict) and bool query parses it's subqueries",
+            "description": "From_dict, Q(dict) and bool query parses its subqueries",
             "author": {"name": "Honza Kr\xe1l", "email": "honza.kral@gmail.com"},
             "parent_shas": ["d407f99d1959b7b862a541c066d9fd737ce913f3"],
             "committed_date": "2014-03-06T20:24:30",
@@ -1075,7 +1078,7 @@ DATA = [
 ]
 
 
-def flatten_doc(d):
+def flatten_doc(d: Any) -> Dict[str, Any]:
     src = d["_source"].copy()
     del src["commit_repo"]
     return {"_index": "flat-git", "_id": d["_id"], "_source": src}
@@ -1084,7 +1087,7 @@ def flatten_doc(d):
 FLAT_DATA = [flatten_doc(d) for d in DATA if "routing" in d]
 
 
-def create_test_git_data(d):
+def create_test_git_data(d: Any) -> Dict[str, Any]:
     src = d["_source"].copy()
     return {
         "_index": "test-git",

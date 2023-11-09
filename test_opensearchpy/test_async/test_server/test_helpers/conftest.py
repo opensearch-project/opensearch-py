@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # SPDX-License-Identifier: Apache-2.0
 #
 # The OpenSearch Contributors require contributions made to
@@ -9,6 +10,7 @@
 
 import re
 from datetime import datetime
+from typing import Any
 
 import pytest
 from pytest import fixture
@@ -33,32 +35,32 @@ from test_opensearchpy.test_async.test_server.test_helpers.test_document import 
 pytestmark = pytest.mark.asyncio
 
 
-@fixture(scope="function")
-async def client():
+@fixture(scope="function")  # type: ignore
+async def client() -> Any:
     client = await get_test_client(verify_certs=False, http_auth=("admin", "admin"))
     await add_connection("default", client)
     return client
 
 
-@fixture(scope="function")
-async def opensearch_version(client):
+@fixture(scope="function")  # type: ignore
+async def opensearch_version(client: Any) -> Any:
     info = await client.info()
     print(info)
     yield tuple(
         int(x)
-        for x in re.match(r"^([0-9.]+)", info["version"]["number"]).group(1).split(".")
+        for x in re.match(r"^([0-9.]+)", info["version"]["number"]).group(1).split(".")  # type: ignore
     )
 
 
-@fixture
-async def write_client(client):
+@fixture  # type: ignore
+async def write_client(client: Any) -> Any:
     yield client
     await client.indices.delete("test-*", ignore=404)
     await client.indices.delete_template("test-template", ignore=404)
 
 
-@fixture
-async def data_client(client):
+@fixture  # type: ignore
+async def data_client(client: Any) -> Any:
     # create mappings
     await create_git_index(client, "git")
     await create_flat_git_index(client, "flat-git")
@@ -70,8 +72,8 @@ async def data_client(client):
     await client.indices.delete("flat-git", ignore=404)
 
 
-@fixture
-async def pull_request(write_client):
+@fixture  # type: ignore
+async def pull_request(write_client: Any) -> Any:
     await PullRequest.init()
     pr = PullRequest(
         _id=42,
@@ -94,8 +96,8 @@ async def pull_request(write_client):
     return pr
 
 
-@fixture
-async def setup_ubq_tests(client):
+@fixture  # type: ignore
+async def setup_ubq_tests(client: Any) -> str:
     index = "test-git"
     await create_git_index(client, index)
     await async_bulk(client, TEST_GIT_DATA, raise_on_error=True, refresh=True)

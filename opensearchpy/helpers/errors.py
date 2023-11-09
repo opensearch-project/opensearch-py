@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # SPDX-License-Identifier: Apache-2.0
 #
 # The OpenSearch Contributors require contributions made to
@@ -25,17 +26,21 @@
 #  under the License.
 
 
+from typing import Any, List
+
 from ..exceptions import OpenSearchException
 
 
 class BulkIndexError(OpenSearchException):
     @property
-    def errors(self):
+    def errors(self) -> List[Any]:
         """List of errors from execution of the last chunk."""
-        return self.args[1]
+        return self.args[1]  # type: ignore
 
 
 class ScanError(OpenSearchException):
-    def __init__(self, scroll_id, *args, **kwargs):
-        super(ScanError, self).__init__(*args, **kwargs)  # type: ignore
+    scroll_id: str
+
+    def __init__(self, scroll_id: str, *args: Any, **kwargs: Any) -> None:
+        super(ScanError, self).__init__(*args, **kwargs)
         self.scroll_id = scroll_id

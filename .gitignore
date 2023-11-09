@@ -148,6 +148,9 @@ test_opensearch/cover
 test_opensearch/local.py
 .ci/output
 
-#Vi text editor
+# vi text editor
 .*.swp
 *~
+
+# Visual Studio Code
+.vscode

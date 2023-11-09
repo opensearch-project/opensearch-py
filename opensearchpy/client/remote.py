@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # SPDX-License-Identifier: Apache-2.0
 #
 # The OpenSearch Contributors require contributions made to
@@ -25,12 +26,14 @@
 #  under the License.
 
 
+from typing import Any
+
 from .utils import NamespacedClient, query_params
 
 
 class RemoteClient(NamespacedClient):
     @query_params()
-    def info(self, params=None, headers=None):
+    def info(self, params: Any = None, headers: Any = None) -> Any:
         return self.transport.perform_request(
             "GET", "/_remote/info", params=params, headers=headers
         )

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # SPDX-License-Identifier: Apache-2.0
 #
 # The OpenSearch Contributors require contributions made to
@@ -25,9 +26,9 @@
 #  under the License.
 
 import base64
-import sys
 from datetime import datetime
 from ipaddress import ip_address
+from typing import Any
 
 import pytest
 from dateutil import tz
@@ -36,7 +37,7 @@ from opensearchpy import InnerDoc, Range, ValidationException
 from opensearchpy.helpers import field
 
 
-def test_date_range_deserialization():
+def test_date_range_deserialization() -> None:
     data = {"lt": "2018-01-01T00:30:10"}
 
     r = field.DateRange().deserialize(data)
@@ -45,7 +46,7 @@ def test_date_range_deserialization():
     assert r.lt == datetime(2018, 1, 1, 0, 30, 10)
 
 
-def test_boolean_deserialization():
+def test_boolean_deserialization() -> None:
     bf = field.Boolean()
 
     assert not bf.deserialize("false")
@@ -58,8 +59,8 @@ def test_boolean_deserialization():
     assert bf.deserialize(1)
 
 
-def test_date_field_can_have_default_tz():
-    f = field.Date(default_timezone="UTC")
+def test_date_field_can_have_default_tz() -> None:
+    f: Any = field.Date(default_timezone="UTC")
     now = datetime.now()
 
     now_with_tz = f._deserialize(now)
@@ -73,10 +74,10 @@ def test_date_field_can_have_default_tz():
     assert now.isoformat() + "+00:00" == now_with_tz.isoformat()
 
 
-def test_custom_field_car_wrap_other_field():
+def test_custom_field_car_wrap_other_field() -> None:
     class MyField(field.CustomField):
         @property
-        def builtin_type(self):
+        def builtin_type(self) -> Any:
             return field.Text(**self._params)
 
     assert {"type": "text", "index": "not_analyzed"} == MyField(
@@ -84,14 +85,14 @@ def test_custom_field_car_wrap_other_field():
     ).to_dict()
 
 
-def test_field_from_dict():
+def test_field_from_dict() -> None:
     f = field.construct_field({"type": "text", "index": "not_analyzed"})
 
     assert isinstance(f, field.Text)
     assert {"type": "text", "index": "not_analyzed"} == f.to_dict()
 
 
-def test_multi_fields_are_accepted_and_parsed():
+def test_multi_fields_are_accepted_and_parsed() -> None:
     f = field.construct_field(
         "text",
         fields={"raw": {"type": "keyword"}, "eng": field.Text(analyzer="english")},
@@ -107,14 +108,14 @@ def test_multi_fields_are_accepted_and_parsed():
     } == f.to_dict()
 
 
-def test_nested_provides_direct_access_to_its_fields():
+def test_nested_provides_direct_access_to_its_fields() -> None:
     f = field.Nested(properties={"name": {"type": "text", "index": "not_analyzed"}})
 
     assert "name" in f
     assert f["name"] == field.Text(index="not_analyzed")
 
 
-def test_field_supports_multiple_analyzers():
+def test_field_supports_multiple_analyzers() -> None:
     f = field.Text(analyzer="snowball", search_analyzer="keyword")
     assert {
         "analyzer": "snowball",
@@ -123,7 +124,7 @@ def test_field_supports_multiple_analyzers():
     } == f.to_dict()
 
 
-def test_multifield_supports_multiple_analyzers():
+def test_multifield_supports_multiple_analyzers() -> None:
     f = field.Text(
         fields={
             "f1": field.Text(search_analyzer="keyword", analyzer="snowball"),
@@ -143,15 +144,14 @@ def test_multifield_supports_multiple_analyzers():
     } == f.to_dict()
 
 
-def test_scaled_float():
+def test_scaled_float() -> None:
     with pytest.raises(TypeError):
-        field.ScaledFloat()
-    f = field.ScaledFloat(123)
+        field.ScaledFloat()  # type: ignore
+    f: Any = field.ScaledFloat(scaling_factor=123)
     assert f.to_dict() == {"scaling_factor": 123, "type": "scaled_float"}
 
 
-@pytest.mark.skipif(sys.version_info < (3, 6), reason="requires python3.6 or higher")
-def test_ipaddress():
+def test_ipaddress() -> None:
     f = field.Ip()
     assert f.deserialize("127.0.0.1") == ip_address("127.0.0.1")
     assert f.deserialize("::1") == ip_address("::1")
@@ -161,7 +161,7 @@ def test_ipaddress():
         assert f.deserialize("not_an_ipaddress")
 
 
-def test_float():
+def test_float() -> None:
     f = field.Float()
     assert f.deserialize("42") == 42.0
     assert f.deserialize(None) is None
@@ -169,7 +169,7 @@ def test_float():
         assert f.deserialize("not_a_float")
 
 
-def test_integer():
+def test_integer() -> None:
     f = field.Integer()
     assert f.deserialize("42") == 42
     assert f.deserialize(None) is None
@@ -177,35 +177,35 @@ def test_integer():
         assert f.deserialize("not_an_integer")
 
 
-def test_binary():
+def test_binary() -> None:
     f = field.Binary()
     assert f.deserialize(base64.b64encode(b"42")) == b"42"
     assert f.deserialize(f.serialize(b"42")) == b"42"
     assert f.deserialize(None) is None
 
 
-def test_constant_keyword():
+def test_constant_keyword() -> None:
     f = field.ConstantKeyword()
     assert f.to_dict() == {"type": "constant_keyword"}
 
 
-def test_rank_features():
+def test_rank_features() -> None:
     f = field.RankFeatures()
     assert f.to_dict() == {"type": "rank_features"}
 
 
-def test_object_dynamic_values():
+def test_object_dynamic_values() -> None:
     for dynamic in True, False, "strict":
         f = field.Object(dynamic=dynamic)
         assert f.to_dict()["dynamic"] == dynamic
 
 
-def test_object_disabled():
+def test_object_disabled() -> None:
     f = field.Object(enabled=False)
     assert f.to_dict() == {"type": "object", "enabled": False}
 
 
-def test_object_constructor():
+def test_object_constructor() -> None:
     expected = {"type": "object", "properties": {"inner_int": {"type": "integer"}}}
 
     class Inner(InnerDoc):

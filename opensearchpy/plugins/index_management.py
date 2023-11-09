@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # SPDX-License-Identifier: Apache-2.0
 #
 # The OpenSearch Contributors require contributions made to
@@ -8,12 +9,16 @@
 # GitHub history for details.
 
 
+from typing import Any
+
 from ..client.utils import SKIP_IN_PATH, NamespacedClient, _make_path, query_params
 
 
 class IndexManagementClient(NamespacedClient):
     @query_params()
-    def put_policy(self, policy, body=None, params=None, headers=None):
+    def put_policy(
+        self, policy: Any, body: Any = None, params: Any = None, headers: Any = None
+    ) -> Any:
         """
         Creates, or updates, a policy.
 
@@ -31,7 +36,9 @@ class IndexManagementClient(NamespacedClient):
         )
 
     @query_params()
-    def add_policy(self, index, body=None, params=None, headers=None):
+    def add_policy(
+        self, index: Any, body: Any = None, params: Any = None, headers: Any = None
+    ) -> Any:
         """
         Adds a policy to an index. This operation does not change the policy if the index already has one.
 
@@ -49,7 +56,7 @@ class IndexManagementClient(NamespacedClient):
         )
 
     @query_params()
-    def get_policy(self, policy, params=None, headers=None):
+    def get_policy(self, policy: Any, params: Any = None, headers: Any = None) -> Any:
         """
         Gets the policy by `policy_id`.
 
@@ -66,7 +73,9 @@ class IndexManagementClient(NamespacedClient):
         )
 
     @query_params()
-    def remove_policy_from_index(self, index, params=None, headers=None):
+    def remove_policy_from_index(
+        self, index: Any, params: Any = None, headers: Any = None
+    ) -> Any:
         """
         Removes any ISM policy from the index.
 
@@ -83,7 +92,9 @@ class IndexManagementClient(NamespacedClient):
         )
 
     @query_params()
-    def change_policy(self, index, body=None, params=None, headers=None):
+    def change_policy(
+        self, index: Any, body: Any = None, params: Any = None, headers: Any = None
+    ) -> Any:
         """
         Updates the managed index policy to a new policy (or to a new version of the policy).
 
@@ -101,7 +112,9 @@ class IndexManagementClient(NamespacedClient):
         )
 
     @query_params()
-    def retry(self, index, body=None, params=None, headers=None):
+    def retry(
+        self, index: Any, body: Any = None, params: Any = None, headers: Any = None
+    ) -> Any:
         """
         Retries the failed action for an index.
 
@@ -119,7 +132,7 @@ class IndexManagementClient(NamespacedClient):
         )
 
     @query_params("show_policy")
-    def explain_index(self, index, params=None, headers=None):
+    def explain_index(self, index: Any, params: Any = None, headers: Any = None) -> Any:
         """
         Gets the current state of the index.
 
@@ -136,7 +149,9 @@ class IndexManagementClient(NamespacedClient):
         )
 
     @query_params()
-    def delete_policy(self, policy, params=None, headers=None):
+    def delete_policy(
+        self, policy: Any, params: Any = None, headers: Any = None
+    ) -> Any:
         """
         Deletes the policy by `policy_id`.
 

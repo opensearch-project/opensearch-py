@@ -4,15 +4,57 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ## [Unreleased]
 ### Added
 - Added generating imports and headers to API generator ([#467](https://github.com/opensearch-project/opensearch-py/pull/467))
+- Added point-in-time APIs (create_pit, delete_pit, delete_all_pits, get_all_pits) and Security Client APIs (health and update_audit_configuration) ([#502](https://github.com/opensearch-project/opensearch-py/pull/502))
+- Added guide on using index templates ([#531](https://github.com/opensearch-project/opensearch-py/pull/531))
+- Added `pool_maxsize` for `Urllib3HttpConnection` ([#535](https://github.com/opensearch-project/opensearch-py/pull/535))
+- Added benchmarks ([#537](https://github.com/opensearch-project/opensearch-py/pull/537))
+- Added guide on making raw JSON REST requests ([#542](https://github.com/opensearch-project/opensearch-py/pull/542))
+- Added support for AWS SigV4 for urllib3 ([#547](https://github.com/opensearch-project/opensearch-py/pull/547))
+- Added `remote store` client APIs ([#552](https://github.com/opensearch-project/opensearch-py/pull/552))
+- Added `nox -rs generate` ([#554](https://github.com/opensearch-project/opensearch-py/pull/554))
+- Added a utf-8 header to all .py files ([#557](https://github.com/opensearch-project/opensearch-py/pull/557))
+- Added `samples`, `benchmarks` and `docs` to `nox -rs format` ([#556](https://github.com/opensearch-project/opensearch-py/pull/556))
+- Added guide on the document lifecycle API(s) ([#559](https://github.com/opensearch-project/opensearch-py/pull/559))
+### Changed
+- Generate `tasks` client from API specs ([#508](https://github.com/opensearch-project/opensearch-py/pull/508))
+- Generate `ingest` client from API specs ([#513](https://github.com/opensearch-project/opensearch-py/pull/513))
+- Generate `dangling_indices` client from API specs ([#511](https://github.com/opensearch-project/opensearch-py/pull/511))
+- Generate `cluster` client from API specs ([#530](https://github.com/opensearch-project/opensearch-py/pull/530))
+- Generate `nodes` client from API specs ([#514](https://github.com/opensearch-project/opensearch-py/pull/514))
+- Generate `cat` client from API specs ([#529](https://github.com/opensearch-project/opensearch-py/pull/529))
+- Use API generator for all APIs ([#551](https://github.com/opensearch-project/opensearch-py/pull/551))
+- Merge `.pyi` type stubs inline ([#563](https://github.com/opensearch-project/opensearch-py/pull/563))
+- Expanded type coverage to benchmarks, samples and tests ([#566](https://github.com/opensearch-project/opensearch-py/pull/566))
+- Defaulted `enable_cleanup_closed=True` in `aiohttp.TCPConnector` to prevent TLS connection leaks ([#468](https://github.com/opensearch-project/opensearch-py/pull/468))
+### Deprecated
+- Deprecated point-in-time APIs (list_all_point_in_time, create_point_in_time, delete_point_in_time) and Security Client APIs (health_check and update_audit_config) ([#502](https://github.com/opensearch-project/opensearch-py/pull/502))
+### Removed
+- Removed leftover support for Python 2.7 ([#548](https://github.com/opensearch-project/opensearch-py/pull/548))
+### Fixed
+### Security
+### Dependencies
+- Bumps `sphinx` from <7.1 to <7.3
+
+## [2.3.2]
+### Added
 ### Changed
 ### Deprecated
 ### Removed
 ### Fixed
-- Added `enable_cleanup_closed=True` argument to `aiohttp.TCPConnector` to fix TLS connection leaks ([#468](https://github.com/opensearch-project/opensearch-py/pull/468))
 ### Security
 ### Dependencies
-- Bumps `sphinx` from <7.1 to <7.2
-- Bumps `urllib3` from >=1.21.1, <2 to >=1.21.1 ([#466](https://github.com/opensearch-project/opensearch-py/pull/466))
+- Bumps `urllib3` from >=1.21.1, <2 to >=1.26.9 ([#518](https://github.com/opensearch-project/opensearch-py/pull/518))
+
+## [2.3.1]
+### Added
+### Changed
+### Deprecated
+### Removed
+### Fixed
+- Fixed race condition in AWSV4SignerAuth & AWSV4SignerAsyncAuth when using refreshable credentials ([#470](https://github.com/opensearch-project/opensearch-py/pull/470))
+### Security
+### Dependencies
+- Bumps `urllib3` from >= 1.26.9 to >= 1.26.17 [#533](https://github.com/opensearch-project/opensearch-py/pull/533)
 
 ## [2.3.0]
 ### Added
@@ -24,7 +66,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - Added support for the security plugin ([#399](https://github.com/opensearch-project/opensearch-py/pull/399))
 - Supports OpenSearch 2.1.0 - 2.6.0 ([#381](https://github.com/opensearch-project/opensearch-py/pull/381))
 - Added `allow_redirects` to `RequestsHttpConnection#perform_request` ([#401](https://github.com/opensearch-project/opensearch-py/pull/401))
-- Enhanced YAML test runner to use OpenSearch `rest-api-spec` YAML tests ([#414](https://github.com/opensearch-project/opensearch-py/pull/414)
+- Enhanced YAML test runner to use OpenSearch `rest-api-spec` YAML tests ([#414](https://github.com/opensearch-project/opensearch-py/pull/414))
 - Added `Search#collapse` ([#409](https://github.com/opensearch-project/opensearch-py/issues/409))
 - Added support for the ISM API ([#398](https://github.com/opensearch-project/opensearch-py/pull/398))
 - Added `trust_env` to `AIOHttpConnection` ([#398](https://github.com/opensearch-project/opensearch-py/pull/438))
@@ -39,6 +81,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ### Deprecated
 ### Removed
 - Removed support for Python 2.7 ([#421](https://github.com/opensearch-project/opensearch-py/pull/421))
+- Removed support for Python 3.5 ([#533](https://github.com/opensearch-project/opensearch-py/pull/533))
 ### Fixed
 - Fixed flaky CI tests by replacing httpbin with a simple http_server ([#395](https://github.com/opensearch-project/opensearch-py/pull/395))
 - Fixed import cycle when importing async helpers ([#311](https://github.com/opensearch-project/opensearch-py/pull/311))
@@ -47,6 +90,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - Include parsed error info in `TransportError` in async connections ([#226](https://github.com/opensearch-project/opensearch-py/pull/226))
 - Enhanced existing API generator to use OpenSearch OpenAPI spec ([#412](https://github.com/opensearch-project/opensearch-py/pull/412))
 - Fix crash when attempting to authenticate with an async connection ([#424](https://github.com/opensearch-project/opensearch-py/pull/424))
+- Fixed poetry run command issue on Windows/Mac machines ([#494](https://github.com/opensearch-project/opensearch-py/pull/494))
 ### Security
 - Fixed CVE-2022-23491 reported in opensearch-dsl-py ([#295](https://github.com/opensearch-project/opensearch-py/pull/295))
 ### Dependencies
@@ -109,11 +153,14 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - Removed patch versions in integration tests for OpenSearch 1.0.0 - 2.3.0 to reduce Github Action jobs ([#262](https://github.com/opensearch-project/opensearch-py/pull/262))
 ### Fixed
 - Fixed DeprecationWarning emitted from urllib3 1.26.13+ ([#246](https://github.com/opensearch-project/opensearch-py/pull/246))
+- Fixed Wrong return type hint in `async_scan` ([520](https://github.com/opensearch-project/opensearch-py/pull/520))
 ### Security
 
-[Unreleased]: https://github.com/opensearch-project/opensearch-py/compare/v2.2.0...HEAD
+[Unreleased]: https://github.com/opensearch-project/opensearch-py/compare/v2.3.2...HEAD
 [2.0.1]: https://github.com/opensearch-project/opensearch-py/compare/v2.0.0...v2.0.1
 [2.1.0]: https://github.com/opensearch-project/opensearch-py/compare/v2.0.1...v2.1.0
 [2.1.1]: https://github.com/opensearch-project/opensearch-py/compare/v2.1.0...v2.1.1
 [2.2.0]: https://github.com/opensearch-project/opensearch-py/compare/v2.1.1...v2.2.0
 [2.3.0]: https://github.com/opensearch-project/opensearch-py/compare/v2.2.0...v2.3.0
+[2.3.1]: https://github.com/opensearch-project/opensearch-py/compare/v2.3.0...v2.3.1
+[2.3.2]: https://github.com/opensearch-project/opensearch-py/compare/v2.3.1...v2.3.2

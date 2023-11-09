@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # SPDX-License-Identifier: Apache-2.0
 #
 # The OpenSearch Contributors require contributions made to
@@ -37,13 +38,14 @@ import shlex
 import shutil
 import sys
 import tempfile
+from typing import Any
 
 base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 tmp_dir = None
 
 
-@contextlib.contextmanager
-def set_tmp_dir():
+@contextlib.contextmanager  # type: ignore
+def set_tmp_dir() -> None:
     global tmp_dir
     tmp_dir = tempfile.mkdtemp()
     yield tmp_dir
@@ -51,7 +53,7 @@ def set_tmp_dir():
     tmp_dir = None
 
 
-def run(*argv, expect_exit_code=0):
+def run(*argv: Any, expect_exit_code: int = 0) -> None:
     global tmp_dir
     if tmp_dir is None:
         os.chdir(base_dir)
@@ -69,9 +71,9 @@ def run(*argv, expect_exit_code=0):
         exit(exit_code or 1)
 
 
-def test_dist(dist):
-    with set_tmp_dir() as tmp_dir:
-        dist_name = re.match(
+def test_dist(dist: Any) -> None:
+    with set_tmp_dir() as tmp_dir:  # type: ignore
+        dist_name = re.match(  # type: ignore
             r"^(opensearchpy\d*)-",
             os.path.basename(dist)
             .replace("opensearch-py", "opensearchpy")
@@ -179,7 +181,7 @@ def test_dist(dist):
         )
 
 
-def main():
+def main() -> None:
     run("git", "checkout", "--", "setup.py", "opensearchpy/")
     run("rm", "-rf", "build/", "dist/*", "*.egg-info", ".eggs")
     run("python", "setup.py", "sdist", "bdist_wheel")
@@ -187,9 +189,13 @@ def main():
     # Grab the major version to be used as a suffix.
     version_path = os.path.join(base_dir, "opensearchpy/_version.py")
     with open(version_path) as f:
-        version = re.search(
-            r"^__versionstr__\s+=\s+[\"\']([^\"\']+)[\"\']", f.read(), re.M
-        ).group(1)
+        data = f.read()
+        m = re.search(r"^__versionstr__: str\s+=\s+[\"\']([^\"\']+)[\"\']", data, re.M)
+        if m:
+            version = m.group(1)
+        else:
+            raise Exception(f"Invalid version {data}")
+
     major_version = version.split(".")[0]
 
     # If we're handed a version from the build manager we
@@ -211,7 +217,7 @@ def main():
             # alpha/beta/rc -> aN/bN/rcN
             else:
                 pre_number = re.search(r"-(a|b|rc)(?:lpha|eta|)(\d+)$", expect_version)
-                version = version + pre_number.group(1) + pre_number.group(2)
+                version = version + pre_number.group(1) + pre_number.group(2)  # type: ignore
 
             expect_version = re.sub(
                 r"(?:-(?:SNAPSHOT|alpha\d+|beta\d+|rc\d+))+$", "", expect_version
