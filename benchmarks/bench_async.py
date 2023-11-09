@@ -12,6 +12,7 @@
 
 import asyncio
 import uuid
+from typing import Any
 
 from opensearchpy import AsyncHttpConnection, AsyncOpenSearch
 
@@ -22,7 +23,7 @@ index_name = "test-index-async"
 item_count = 100
 
 
-async def index_records(client, item_count) -> None:
+async def index_records(client: Any, item_count: int) -> None:
     await asyncio.gather(
         *[
             client.index(
@@ -39,7 +40,7 @@ async def index_records(client, item_count) -> None:
     )
 
 
-async def test_async(client_count=1, item_count=1):
+async def test_async(client_count: int = 1, item_count: int = 1) -> None:
     clients = []
     for i in range(client_count):
         clients.append(

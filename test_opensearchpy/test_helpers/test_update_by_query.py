@@ -26,6 +26,7 @@
 #  under the License.
 
 from copy import deepcopy
+from typing import Any
 
 from opensearchpy import Q, UpdateByQuery
 from opensearchpy.helpers.response import UpdateByQueryResponse
@@ -37,7 +38,7 @@ def test_ubq_starts_with_no_query() -> None:
     assert ubq.query._proxied is None
 
 
-def test_ubq_to_dict():
+def test_ubq_to_dict() -> None:
     ubq = UpdateByQuery()
     assert {} == ubq.to_dict()
 
@@ -53,7 +54,7 @@ def test_ubq_to_dict():
     assert {"extra_q": {"term": {"category": "conference"}}} == ubq.to_dict()
 
 
-def test_complex_example():
+def test_complex_example() -> None:
     ubq = UpdateByQuery()
     ubq = (
         ubq.query("match", title="python")
@@ -104,7 +105,7 @@ def test_exclude() -> None:
     } == ubq.to_dict()
 
 
-def test_reverse():
+def test_reverse() -> None:
     d = {
         "query": {
             "filtered": {
@@ -146,7 +147,7 @@ def test_from_dict_doesnt_need_query() -> None:
     assert {"script": {"source": "test"}} == ubq.to_dict()
 
 
-def test_params_being_passed_to_search(mock_client) -> None:
+def test_params_being_passed_to_search(mock_client: Any) -> None:
     ubq = UpdateByQuery(using="mock")
     ubq = ubq.params(routing="42")
     ubq.execute()
@@ -156,7 +157,7 @@ def test_params_being_passed_to_search(mock_client) -> None:
     )
 
 
-def test_overwrite_script():
+def test_overwrite_script() -> None:
     ubq = UpdateByQuery()
     ubq = ubq.script(
         source="ctx._source.likes += params.f", lang="painless", params={"f": 3}

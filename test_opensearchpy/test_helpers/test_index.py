@@ -27,6 +27,7 @@
 
 import string
 from random import choice
+from typing import Any
 
 from pytest import raises
 
@@ -65,7 +66,7 @@ def test_search_is_limited_to_index_name() -> None:
 
 def test_cloned_index_has_copied_settings_and_using() -> None:
     client = object()
-    i = Index("my-index", using=client)
+    i: Any = Index("my-index", using=client)
     i.settings(number_of_shards=1)
 
     i2 = i.clone("my-other-index")
@@ -82,7 +83,7 @@ def test_cloned_index_has_analysis_attribute() -> None:
     over the `_analysis` attribute.
     """
     client = object()
-    i = Index("my-index", using=client)
+    i: Any = Index("my-index", using=client)
 
     random_analyzer_name = "".join((choice(string.ascii_letters) for _ in range(100)))
     random_analyzer = analyzer(
@@ -97,7 +98,7 @@ def test_cloned_index_has_analysis_attribute() -> None:
 
 
 def test_settings_are_saved() -> None:
-    i = Index("i")
+    i: Any = Index("i")
     i.settings(number_of_replicas=0)
     i.settings(number_of_shards=1)
 
@@ -105,7 +106,7 @@ def test_settings_are_saved() -> None:
 
 
 def test_registered_doc_type_included_in_to_dict() -> None:
-    i = Index("i", using="alias")
+    i: Any = Index("i", using="alias")
     i.document(Post)
 
     assert {
@@ -119,7 +120,7 @@ def test_registered_doc_type_included_in_to_dict() -> None:
 
 
 def test_registered_doc_type_included_in_search() -> None:
-    i = Index("i", using="alias")
+    i: Any = Index("i", using="alias")
     i.document(Post)
 
     s = i.search()
@@ -129,9 +130,9 @@ def test_registered_doc_type_included_in_search() -> None:
 
 def test_aliases_add_to_object() -> None:
     random_alias = "".join((choice(string.ascii_letters) for _ in range(100)))
-    alias_dict = {random_alias: {}}
+    alias_dict: Any = {random_alias: {}}
 
-    index = Index("i", using="alias")
+    index: Any = Index("i", using="alias")
     index.aliases(**alias_dict)
 
     assert index._aliases == alias_dict
@@ -139,21 +140,21 @@ def test_aliases_add_to_object() -> None:
 
 def test_aliases_returned_from_to_dict() -> None:
     random_alias = "".join((choice(string.ascii_letters) for _ in range(100)))
-    alias_dict = {random_alias: {}}
+    alias_dict: Any = {random_alias: {}}
 
-    index = Index("i", using="alias")
+    index: Any = Index("i", using="alias")
     index.aliases(**alias_dict)
 
     assert index._aliases == index.to_dict()["aliases"] == alias_dict
 
 
-def test_analyzers_added_to_object():
+def test_analyzers_added_to_object() -> None:
     random_analyzer_name = "".join((choice(string.ascii_letters) for _ in range(100)))
     random_analyzer = analyzer(
         random_analyzer_name, tokenizer="standard", filter="standard"
     )
 
-    index = Index("i", using="alias")
+    index: Any = Index("i", using="alias")
     index.analyzer(random_analyzer)
 
     assert index._analysis["analyzer"][random_analyzer_name] == {
@@ -163,12 +164,12 @@ def test_analyzers_added_to_object():
     }
 
 
-def test_analyzers_returned_from_to_dict():
+def test_analyzers_returned_from_to_dict() -> None:
     random_analyzer_name = "".join((choice(string.ascii_letters) for _ in range(100)))
     random_analyzer = analyzer(
         random_analyzer_name, tokenizer="standard", filter="standard"
     )
-    index = Index("i", using="alias")
+    index: Any = Index("i", using="alias")
     index.analyzer(random_analyzer)
 
     assert index.to_dict()["settings"]["analysis"]["analyzer"][
@@ -177,21 +178,21 @@ def test_analyzers_returned_from_to_dict():
 
 
 def test_conflicting_analyzer_raises_error() -> None:
-    i = Index("i")
+    i: Any = Index("i")
     i.analyzer("my_analyzer", tokenizer="whitespace", filter=["lowercase", "stop"])
 
     with raises(ValueError):
         i.analyzer("my_analyzer", tokenizer="keyword", filter=["lowercase", "stop"])
 
 
-def test_index_template_can_have_order():
-    i = Index("i-*")
+def test_index_template_can_have_order() -> None:
+    i: Any = Index("i-*")
     it = i.as_template("i", order=2)
 
     assert {"index_patterns": ["i-*"], "order": 2} == it.to_dict()
 
 
-def test_index_template_save_result(mock_client) -> None:
-    it = IndexTemplate("test-template", "test-*")
+def test_index_template_save_result(mock_client: Any) -> None:
+    it: Any = IndexTemplate("test-template", "test-*")
 
     assert it.save(using="mock") == mock_client.indices.put_template()

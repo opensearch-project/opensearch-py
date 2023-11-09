@@ -28,6 +28,8 @@
 
 from __future__ import unicode_literals
 
+from typing import Any
+
 import pytest
 from _pytest.mark.structures import MarkDecorator
 
@@ -35,19 +37,19 @@ pytestmark: MarkDecorator = pytest.mark.asyncio
 
 
 class TestUnicode:
-    async def test_indices_analyze(self, async_client) -> None:
+    async def test_indices_analyze(self, async_client: Any) -> None:
         await async_client.indices.analyze(body='{"text": "привет"}')
 
 
 class TestBulk:
-    async def test_bulk_works_with_string_body(self, async_client) -> None:
+    async def test_bulk_works_with_string_body(self, async_client: Any) -> None:
         docs = '{ "index" : { "_index" : "bulk_test_index", "_id" : "1" } }\n{"answer": 42}'
         response = await async_client.bulk(body=docs)
 
         assert response["errors"] is False
         assert len(response["items"]) == 1
 
-    async def test_bulk_works_with_bytestring_body(self, async_client) -> None:
+    async def test_bulk_works_with_bytestring_body(self, async_client: Any) -> None:
         docs = b'{ "index" : { "_index" : "bulk_test_index", "_id" : "2" } }\n{"answer": 42}'
         response = await async_client.bulk(body=docs)
 
@@ -57,7 +59,7 @@ class TestBulk:
 
 class TestYarlMissing:
     async def test_aiohttp_connection_works_without_yarl(
-        self, async_client, monkeypatch
+        self, async_client: Any, monkeypatch: Any
     ) -> None:
         # This is a defensive test case for if aiohttp suddenly stops using yarl.
         from opensearchpy._async import http_aiohttp

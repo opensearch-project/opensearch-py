@@ -14,6 +14,7 @@
 import logging
 import sys
 import time
+from typing import Any
 
 from thread_with_return_value import ThreadWithReturnValue
 
@@ -36,8 +37,8 @@ handler.setFormatter(formatter)
 root.addHandler(handler)
 
 
-def get_info(client, request_count):
-    tt = 0
+def get_info(client: Any, request_count: int) -> float:
+    tt: float = 0
     for n in range(request_count):
         start = time.time() * 1000
         client.info()
@@ -46,7 +47,7 @@ def get_info(client, request_count):
     return tt
 
 
-def test(thread_count=1, request_count=1, client_count=1):
+def test(thread_count: int = 1, request_count: int = 1, client_count: int = 1) -> None:
     clients = []
     for i in range(client_count):
         clients.append(

@@ -26,6 +26,7 @@
 #  under the License.
 
 from datetime import datetime
+from typing import Any
 
 from pytest import raises
 
@@ -43,8 +44,8 @@ from opensearchpy.exceptions import ValidationException
 
 
 class Author(InnerDoc):
-    name = Text(required=True)
-    email = Text(required=True)
+    name: Any = Text(required=True)
+    email: Any = Text(required=True)
 
     def clean(self) -> None:
         print(self, type(self), self.name)
@@ -63,7 +64,7 @@ class BlogPostWithStatus(Document):
 
 
 class AutoNowDate(Date):
-    def clean(self, data):
+    def clean(self, data: Any) -> Any:
         if data is None:
             data = datetime.now()
         return super(AutoNowDate, self).clean(data)
@@ -78,7 +79,7 @@ def test_required_int_can_be_0() -> None:
     class DT(Document):
         i = Integer(required=True)
 
-    dt = DT(i=0)
+    dt: Any = DT(i=0)
     assert dt.full_clean() is None
 
 
@@ -95,12 +96,12 @@ def test_validation_works_for_lists_of_values() -> None:
     class DT(Document):
         i = Date(required=True)
 
-    dt = DT(i=[datetime.now(), "not date"])
+    dt1: Any = DT(i=[datetime.now(), "not date"])
     with raises(ValidationException):
-        dt.full_clean()
+        dt1.full_clean()
 
-    dt = DT(i=[datetime.now(), datetime.now()])
-    assert None is dt.full_clean()
+    dt2: Any = DT(i=[datetime.now(), datetime.now()])
+    assert None is dt2.full_clean()
 
 
 def test_field_with_custom_clean() -> None:
@@ -111,29 +112,29 @@ def test_field_with_custom_clean() -> None:
 
 
 def test_empty_object() -> None:
-    d = BlogPost(authors=[{"name": "Guian", "email": "guiang@bitquilltech.com"}])
+    d: Any = BlogPost(authors=[{"name": "Guian", "email": "guiang@bitquilltech.com"}])
     d.inner = {}
 
     d.full_clean()
 
 
 def test_missing_required_field_raises_validation_exception() -> None:
-    d = BlogPost()
+    d1: Any = BlogPost()
     with raises(ValidationException):
-        d.full_clean()
+        d1.full_clean()
 
-    d = BlogPost()
-    d.authors.append({"name": "Guian"})
+    d2: Any = BlogPost()
+    d2.authors.append({"name": "Guian"})
     with raises(ValidationException):
-        d.full_clean()
+        d2.full_clean()
 
-    d = BlogPost()
-    d.authors.append({"name": "Guian", "email": "guiang@bitquilltech.com"})
-    d.full_clean()
+    d3: Any = BlogPost()
+    d3.authors.append({"name": "Guian", "email": "guiang@bitquilltech.com"})
+    d3.full_clean()
 
 
 def test_boolean_doesnt_treat_false_as_empty() -> None:
-    d = BlogPostWithStatus()
+    d: Any = BlogPostWithStatus()
     with raises(ValidationException):
         d.full_clean()
     d.published = False
@@ -143,7 +144,9 @@ def test_boolean_doesnt_treat_false_as_empty() -> None:
 
 
 def test_custom_validation_on_nested_gets_run() -> None:
-    d = BlogPost(authors=[Author(name="Guian", email="king@example.com")], created=None)
+    d: Any = BlogPost(
+        authors=[Author(name="Guian", email="king@example.com")], created=None
+    )
 
     assert isinstance(d.authors[0], Author)
 
@@ -152,7 +155,7 @@ def test_custom_validation_on_nested_gets_run() -> None:
 
 
 def test_accessing_known_fields_returns_empty_value() -> None:
-    d = BlogPost()
+    d: Any = BlogPost()
 
     assert [] == d.authors
 
@@ -162,7 +165,7 @@ def test_accessing_known_fields_returns_empty_value() -> None:
 
 
 def test_empty_values_are_not_serialized() -> None:
-    d = BlogPost(
+    d: Any = BlogPost(
         authors=[{"name": "Guian", "email": "guiang@bitquilltech.com"}], created=None
     )
 

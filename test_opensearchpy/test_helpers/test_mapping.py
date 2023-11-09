@@ -40,7 +40,7 @@ def test_mapping_can_has_fields() -> None:
     } == m.to_dict()
 
 
-def test_mapping_update_is_recursive():
+def test_mapping_update_is_recursive() -> None:
     m1 = mapping.Mapping()
     m1.field("title", "text")
     m1.field("author", "object")
@@ -83,7 +83,7 @@ def test_properties_can_iterate_over_all_the_fields() -> None:
     }
 
 
-def test_mapping_can_collect_all_analyzers_and_normalizers():
+def test_mapping_can_collect_all_analyzers_and_normalizers() -> None:
     a1 = analysis.analyzer(
         "my_analyzer1",
         tokenizer="keyword",
@@ -156,7 +156,7 @@ def test_mapping_can_collect_all_analyzers_and_normalizers():
     assert json.loads(json.dumps(m.to_dict())) == m.to_dict()
 
 
-def test_mapping_can_collect_multiple_analyzers():
+def test_mapping_can_collect_multiple_analyzers() -> None:
     a1 = analysis.analyzer(
         "my_analyzer1",
         tokenizer="keyword",

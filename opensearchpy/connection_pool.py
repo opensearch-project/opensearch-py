@@ -124,7 +124,7 @@ class ConnectionPool(object):
     connections: Any
     orig_connections: Tuple[Connection, ...]
     dead: Any
-    dead_count: Dict[Connection, int]
+    dead_count: Dict[Any, int]
     dead_timeout: float
     timeout_cutoff: int
     selector: Any
@@ -173,7 +173,7 @@ class ConnectionPool(object):
 
         self.selector = selector_class(dict(connections))  # type: ignore
 
-    def mark_dead(self, connection: Connection, now: Optional[float] = None) -> None:
+    def mark_dead(self, connection: Any, now: Optional[float] = None) -> None:
         """
         Mark the connection as dead (failed). Remove it from the live pool and
         put it on a timeout.
@@ -203,7 +203,7 @@ class ConnectionPool(object):
                 timeout,
             )
 
-    def mark_live(self, connection: Connection) -> None:
+    def mark_live(self, connection: Any) -> None:
         """
         Mark connection as healthy after a resurrection. Resets the fail
         counter for the connection.

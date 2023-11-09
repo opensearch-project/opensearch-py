@@ -88,7 +88,7 @@ class TestBaseConnection(TestCase):
 
         self.assertEqual([str(w.message) for w in warn], ["warning", "folded"])
 
-    def test_ipv6_host_and_port(self):
+    def test_ipv6_host_and_port(self) -> None:
         for kwargs, expected_host in [
             ({"host": "::1"}, "http://[::1]:9200"),
             ({"host": "::1", "port": 443}, "http://[::1]:443"),
@@ -96,7 +96,7 @@ class TestBaseConnection(TestCase):
             ({"host": "127.0.0.1", "port": 1234}, "http://127.0.0.1:1234"),
             ({"host": "localhost", "use_ssl": True}, "https://localhost:9200"),
         ]:
-            conn = Connection(**kwargs)
+            conn = Connection(**kwargs)  # type: ignore
             assert conn.host == expected_host
 
     def test_compatibility_accept_header(self) -> None:

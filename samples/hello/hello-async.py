@@ -16,7 +16,7 @@ import asyncio
 from opensearchpy import AsyncOpenSearch
 
 
-async def main():
+async def main() -> None:
     # connect to OpenSearch
     host = "localhost"
     port = 9200

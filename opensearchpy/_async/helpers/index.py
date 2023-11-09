@@ -59,7 +59,7 @@ class AsyncIndexTemplate(object):
 
 
 class AsyncIndex(object):
-    def __init__(self, name: Any, using: str = "default") -> None:
+    def __init__(self, name: Any, using: Any = "default") -> None:
         """
         :arg name: name of the index
         :arg using: connection alias to use, defaults to ``'default'``

@@ -27,6 +27,7 @@
 
 
 import time
+from typing import Any
 
 from opensearchpy.connection import Connection
 from opensearchpy.connection_pool import (
@@ -57,7 +58,7 @@ class TestConnectionPool(TestCase):
             connections.add(pool.get_connection())
         self.assertEqual(connections, set(range(100)))
 
-    def test_disable_shuffling(self):
+    def test_disable_shuffling(self) -> None:
         pool = ConnectionPool([(x, {}) for x in range(100)], randomize_hosts=False)
 
         connections = []
@@ -65,9 +66,9 @@ class TestConnectionPool(TestCase):
             connections.append(pool.get_connection())
         self.assertEqual(connections, list(range(100)))
 
-    def test_selectors_have_access_to_connection_opts(self):
+    def test_selectors_have_access_to_connection_opts(self) -> None:
         class MySelector(RoundRobinSelector):
-            def select(self, connections):
+            def select(self, connections: Any) -> Any:
                 return self.connection_opts[
                     super(MySelector, self).select(connections)
                 ]["actual"]

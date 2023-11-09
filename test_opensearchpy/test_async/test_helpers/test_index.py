@@ -10,6 +10,7 @@
 
 import string
 from random import choice
+from typing import Any
 
 import pytest
 from _pytest.mark.structures import MarkDecorator
@@ -118,7 +119,7 @@ async def test_registered_doc_type_included_in_search() -> None:
 
 async def test_aliases_add_to_object() -> None:
     random_alias = "".join((choice(string.ascii_letters) for _ in range(100)))
-    alias_dict = {random_alias: {}}
+    alias_dict: Any = {random_alias: {}}
 
     index = AsyncIndex("i", using="alias")
     index.aliases(**alias_dict)
@@ -128,7 +129,7 @@ async def test_aliases_add_to_object() -> None:
 
 async def test_aliases_returned_from_to_dict() -> None:
     random_alias = "".join((choice(string.ascii_letters) for _ in range(100)))
-    alias_dict = {random_alias: {}}
+    alias_dict: Any = {random_alias: {}}
 
     index = AsyncIndex("i", using="alias")
     index.aliases(**alias_dict)
@@ -136,7 +137,7 @@ async def test_aliases_returned_from_to_dict() -> None:
     assert index._aliases == index.to_dict()["aliases"] == alias_dict
 
 
-async def test_analyzers_added_to_object():
+async def test_analyzers_added_to_object() -> None:
     random_analyzer_name = "".join((choice(string.ascii_letters) for _ in range(100)))
     random_analyzer = analyzer(
         random_analyzer_name, tokenizer="standard", filter="standard"
@@ -152,7 +153,7 @@ async def test_analyzers_added_to_object():
     }
 
 
-async def test_analyzers_returned_from_to_dict():
+async def test_analyzers_returned_from_to_dict() -> None:
     random_analyzer_name = "".join((choice(string.ascii_letters) for _ in range(100)))
     random_analyzer = analyzer(
         random_analyzer_name, tokenizer="standard", filter="standard"
@@ -173,7 +174,7 @@ async def test_conflicting_analyzer_raises_error() -> None:
         i.analyzer("my_analyzer", tokenizer="keyword", filter=["lowercase", "stop"])
 
 
-async def test_index_template_can_have_order():
+async def test_index_template_can_have_order() -> None:
     i = AsyncIndex("i-*")
     it = i.as_template("i", order=2)
 

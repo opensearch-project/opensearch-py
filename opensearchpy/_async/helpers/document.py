@@ -10,7 +10,7 @@
 
 import collections.abc as collections_abc
 from fnmatch import fnmatch
-from typing import Any, Optional, Sequence, Tuple, Type
+from typing import Any, Optional, Tuple, Type
 
 from six import add_metaclass
 
@@ -128,9 +128,7 @@ class AsyncDocument(ObjectBase):
         )
 
     @classmethod
-    def search(
-        cls, using: Optional[AsyncOpenSearch] = None, index: Optional[str] = None
-    ) -> AsyncSearch:
+    def search(cls, using: Any = None, index: Any = None) -> AsyncSearch:
         """
         Create an :class:`~opensearchpy.AsyncSearch` instance that will search
         over this ``Document``.
@@ -142,9 +140,9 @@ class AsyncDocument(ObjectBase):
     @classmethod
     async def get(  # type: ignore
         cls,
-        id: str,
-        using: Optional[AsyncOpenSearch] = None,
-        index: Optional[str] = None,
+        id: Any,
+        using: Any = None,
+        index: Any = None,
         **kwargs: Any,
     ) -> Any:
         """
@@ -189,7 +187,7 @@ class AsyncDocument(ObjectBase):
     @classmethod
     async def mget(
         cls,
-        docs: Sequence[str],
+        docs: Any,
         using: Optional[AsyncOpenSearch] = None,
         index: Optional[str] = None,
         raise_on_error: Optional[bool] = True,

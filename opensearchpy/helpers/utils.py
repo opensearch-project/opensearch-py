@@ -284,7 +284,7 @@ class DslBase(object):
                 "DSL class `{}` does not exist in {}.".format(name, cls._type_name)
             )
 
-    def __init__(self, _expand__to_dot: bool = EXPAND__TO_DOT, **params: Any) -> None:
+    def __init__(self, _expand__to_dot: Any = EXPAND__TO_DOT, **params: Any) -> None:
         self._params = {}
         for pname, pvalue in iteritems(params):
             if "__" in pname and _expand__to_dot:
@@ -438,6 +438,8 @@ class HitMeta(AttrDict):
 
 
 class ObjectBase(AttrDict):
+    _doc_type: Any
+
     def __init__(self, meta: Any = None, **kwargs: Any) -> None:
         meta = meta or {}
         for k in list(kwargs):

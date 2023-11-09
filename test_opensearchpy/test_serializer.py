@@ -30,6 +30,7 @@ import sys
 import uuid
 from datetime import datetime
 from decimal import Decimal
+from typing import Any
 
 try:
     import numpy as np
@@ -212,7 +213,7 @@ class TestTextSerializer(TestCase):
 
 
 class TestDeserializer(TestCase):
-    def setup_method(self, _) -> None:
+    def setup_method(self, _: Any) -> None:
         self.de = Deserializer(DEFAULT_SERIALIZERS)
 
     def test_deserializes_json_by_default(self) -> None:

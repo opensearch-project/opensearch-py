@@ -114,7 +114,7 @@ class TestSecurityPlugin(TestCase):
         else:
             assert False
 
-    def test_create_user_with_role(self):
+    def test_create_user_with_role(self) -> None:
         self.test_create_role()
 
         # Test to create user

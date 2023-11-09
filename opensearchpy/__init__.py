@@ -256,4 +256,5 @@ __all__ = [
     "AsyncTransport",
     "AsyncOpenSearch",
     "AsyncHttpConnection",
+    "__versionstr__",
 ]

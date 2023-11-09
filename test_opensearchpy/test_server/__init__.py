@@ -26,6 +26,7 @@
 #  under the License.
 
 
+from typing import Any
 from unittest import SkipTest
 
 from opensearchpy.helpers import test
@@ -34,7 +35,7 @@ from opensearchpy.helpers.test import OpenSearchTestCase as BaseTestCase
 client = None
 
 
-def get_client(**kwargs):
+def get_client(**kwargs: Any) -> Any:
     global client
     if client is False:
         raise SkipTest("No client is available")
@@ -66,5 +67,5 @@ def setup_module() -> None:
 
 class OpenSearchTestCase(BaseTestCase):
     @staticmethod
-    def _get_client(**kwargs):
+    def _get_client(**kwargs: Any) -> Any:
         return get_client(**kwargs)
