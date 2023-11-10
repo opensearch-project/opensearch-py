@@ -183,7 +183,9 @@ class AIOHttpConnection(AsyncConnection):
                 ssl_context.check_hostname = False
                 ssl_context.verify_mode = ssl.CERT_NONE
 
-            ca_certs = self.default_ca_certs() if ca_certs is None else ca_certs
+            if ca_certs is None:
+                ca_certs = self.default_ca_certs()
+
             if verify_certs:
                 if not ca_certs:
                     raise ImproperlyConfigured(

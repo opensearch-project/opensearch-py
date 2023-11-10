@@ -15,6 +15,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - Added a utf-8 header to all .py files ([#557](https://github.com/opensearch-project/opensearch-py/pull/557))
 - Added `samples`, `benchmarks` and `docs` to `nox -rs format` ([#556](https://github.com/opensearch-project/opensearch-py/pull/556))
 - Added guide on the document lifecycle API(s) ([#559](https://github.com/opensearch-project/opensearch-py/pull/559))
+- Added Windows CI ([#569](https://github.com/opensearch-project/opensearch-py/pull/569))
 ### Changed
 - Generate `tasks` client from API specs ([#508](https://github.com/opensearch-project/opensearch-py/pull/508))
 - Generate `ingest` client from API specs ([#513](https://github.com/opensearch-project/opensearch-py/pull/513))
