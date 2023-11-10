@@ -113,7 +113,7 @@ setup(
     tests_require=tests_require,
     extras_require={
         "develop": tests_require + docs_require + generate_require,
-        "docs": docs_require,
+        "docs": docs_require + async_require,
         "async": async_require,
         "kerberos": ["requests_kerberos"],
     },
