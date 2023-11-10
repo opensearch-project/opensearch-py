@@ -266,7 +266,7 @@ class TestTransport(TestCase):
 
     def test_request_will_fail_after_X_retries(self) -> None:
         t: Any = Transport(
-            [{"exception": ConnectionError("abandon ship")}],
+            [{"exception": ConnectionError(None, "abandon ship", Exception())}],
             connection_class=DummyConnection,
         )
 
@@ -275,7 +275,7 @@ class TestTransport(TestCase):
 
     def test_failed_connection_will_be_marked_as_dead(self) -> None:
         t: Any = Transport(
-            [{"exception": ConnectionError("abandon ship")}] * 2,
+            [{"exception": ConnectionError(None, "abandon ship", Exception())}] * 2,
             connection_class=DummyConnection,
         )
 
@@ -349,7 +349,10 @@ class TestTransport(TestCase):
 
     def test_sniff_on_fail_triggers_sniffing_on_fail(self) -> None:
         t: Any = Transport(
-            [{"exception": ConnectionError("abandon ship")}, {"data": CLUSTER_NODES}],
+            [
+                {"exception": ConnectionError(None, "abandon ship", Exception())},
+                {"data": CLUSTER_NODES},
+            ],
             connection_class=DummyConnection,
             sniff_on_connection_fail=True,
             max_retries=0,
@@ -366,7 +369,10 @@ class TestTransport(TestCase):
     ) -> None:
         sniff_hosts.side_effect = [TransportError("sniff failed")]
         t: Any = Transport(
-            [{"exception": ConnectionError("abandon ship")}, {"data": CLUSTER_NODES}],
+            [
+                {"exception": ConnectionError(None, "abandon ship", Exception())},
+                {"data": CLUSTER_NODES},
+            ],
             connection_class=DummyConnection,
             sniff_on_connection_fail=True,
             max_retries=3,

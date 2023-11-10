@@ -183,7 +183,9 @@ class AIOHttpConnection(AsyncConnection):
                 ssl_context.check_hostname = False
                 ssl_context.verify_mode = ssl.CERT_NONE
 
-            ca_certs = self.default_ca_certs() if ca_certs is None else ca_certs
+            if ca_certs is None:
+                ca_certs = self.default_ca_certs()
+
             if verify_certs:
                 if not ca_certs:
                     raise ImproperlyConfigured(
@@ -376,7 +378,10 @@ class AIOHttpConnection(AsyncConnection):
             cookie_jar=aiohttp.DummyCookieJar(),
             response_class=OpenSearchClientResponse,
             connector=aiohttp.TCPConnector(
-                limit=self._limit, use_dns_cache=True, ssl=self._ssl_context
+                limit=self._limit,
+                use_dns_cache=True,
+                enable_cleanup_closed=True,
+                ssl=self._ssl_context,
             ),
             trust_env=self._trust_env,
         )
