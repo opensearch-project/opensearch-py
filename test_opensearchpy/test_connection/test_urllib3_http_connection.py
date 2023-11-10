@@ -36,25 +36,29 @@ from typing import Any
 
 import pytest
 import urllib3
-from mock import Mock, patch
+from mock import MagicMock, Mock, patch
 from urllib3._collections import HTTPHeaderDict
 
 from opensearchpy import __versionstr__
 from opensearchpy.connection import Connection, Urllib3HttpConnection
+from opensearchpy.exceptions import NotFoundError
 
 from ..test_cases import SkipTest, TestCase
 
 
 class TestUrllib3HttpConnection(TestCase):
     def _get_mock_connection(
-        self, connection_params: Any = {}, response_body: bytes = b"{}"
+        self,
+        connection_params: Any = {},
+        response_body: bytes = b"{}",
+        response_code: int = 200,
     ) -> Any:
         con = Urllib3HttpConnection(**connection_params)
 
         def _dummy_urlopen(*args: Any, **kwargs: Any) -> Any:
             dummy_response = Mock()
             dummy_response.headers = HTTPHeaderDict({})
-            dummy_response.status = 200
+            dummy_response.status = response_code
             dummy_response.data = response_body
             _dummy_urlopen.call_args = (args, kwargs)  # type: ignore
             return dummy_response
@@ -219,11 +223,11 @@ class TestUrllib3HttpConnection(TestCase):
 
         with pytest.raises(ValueError) as e:
             Urllib3AWSV4SignerAuth(session, None)
-        assert str(e.value) == "Region cannot be empty"
+        self.assertEqual(str(e.value), "Region cannot be empty")
 
         with pytest.raises(ValueError) as e:
             Urllib3AWSV4SignerAuth(session, "")
-        assert str(e.value) == "Region cannot be empty"
+        self.assertEqual(str(e.value), "Region cannot be empty")
 
     def test_aws_signer_when_credentials_is_null(self) -> None:
         region = "us-west-1"
@@ -232,11 +236,11 @@ class TestUrllib3HttpConnection(TestCase):
 
         with pytest.raises(ValueError) as e:
             Urllib3AWSV4SignerAuth(None, region)
-        assert str(e.value) == "Credentials cannot be empty"
+        self.assertEqual(str(e.value), "Credentials cannot be empty")
 
         with pytest.raises(ValueError) as e:
             Urllib3AWSV4SignerAuth("", region)
-        assert str(e.value) == "Credentials cannot be empty"
+        self.assertEqual(str(e.value), "Credentials cannot be empty")
 
     def test_aws_signer_when_service_is_specified(self) -> None:
         region = "us-west-1"
@@ -339,6 +343,41 @@ class TestUrllib3HttpConnection(TestCase):
         self.assertEqual('> {"example": "body"}', req[0][0] % req[0][1:])
         self.assertEqual("< {}", resp[0][0] % resp[0][1:])
 
+    @patch("opensearchpy.connection.base.logger", return_value=MagicMock())
+    def test_body_not_logged(self, logger: Any) -> None:
+        logger.isEnabledFor.return_value = False
+
+        con = self._get_mock_connection()
+        con.perform_request("GET", "/", body=b'{"example": "body"}')
+
+        self.assertEqual(logger.isEnabledFor.call_count, 1)
+        self.assertEqual(logger.debug.call_count, 0)
+
+    @patch("opensearchpy.connection.base.logger")
+    def test_failure_body_logged(self, logger: Any) -> None:
+        con = self._get_mock_connection(response_code=404)
+        with pytest.raises(NotFoundError) as e:
+            con.perform_request("GET", "/invalid", body=b'{"example": "body"}')
+        self.assertEqual(str(e.value), "NotFoundError(404, '{}')")
+
+        self.assertEqual(2, logger.debug.call_count)
+        req, resp = logger.debug.call_args_list
+
+        self.assertEqual('> {"example": "body"}', req[0][0] % req[0][1:])
+        self.assertEqual("< {}", resp[0][0] % resp[0][1:])
+
+    @patch("opensearchpy.connection.base.logger", return_value=MagicMock())
+    def test_failure_body_not_logged(self, logger: Any) -> None:
+        logger.isEnabledFor.return_value = False
+
+        con = self._get_mock_connection(response_code=404)
+        with pytest.raises(NotFoundError) as e:
+            con.perform_request("GET", "/invalid")
+        self.assertEqual(str(e.value), "NotFoundError(404, '{}')")
+
+        self.assertEqual(logger.isEnabledFor.call_count, 1)
+        self.assertEqual(logger.debug.call_count, 0)
+
     def test_surrogatepass_into_bytes(self) -> None:
         buf = b"\xe4\xbd\xa0\xe5\xa5\xbd\xed\xa9\xaa"
         con = self._get_mock_connection(response_body=buf)
@@ -355,7 +394,7 @@ class TestUrllib3HttpConnection(TestCase):
 
         with pytest.raises(RecursionError) as e:
             conn.perform_request("GET", "/")
-        assert str(e.value) == "Wasn't modified!"
+        self.assertEqual(str(e.value), "Wasn't modified!")
 
 
 class TestSignerWithFrozenCredentials(TestUrllib3HttpConnection):
