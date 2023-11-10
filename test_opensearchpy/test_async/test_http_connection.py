@@ -30,14 +30,11 @@ from typing import Any
 
 import mock
 import pytest
-from _pytest.mark.structures import MarkDecorator
 from multidict import CIMultiDict
 
 from opensearchpy._async._extra_imports import aiohttp  # type: ignore
 from opensearchpy._async.compat import get_running_loop
 from opensearchpy.connection.http_async import AsyncHttpConnection
-
-pytestmark: MarkDecorator = pytest.mark.asyncio
 
 
 class TestAsyncHttpConnection:
@@ -60,6 +57,7 @@ class TestAsyncHttpConnection:
         c = AsyncHttpConnection(http_auth=auth_fn)
         assert callable(c._http_auth)
 
+    @pytest.mark.asyncio  # type: ignore
     @mock.patch("aiohttp.ClientSession.request", new_callable=mock.Mock)
     async def test_basicauth_in_request_session(self, mock_request: Any) -> None:
         async def do_request(*args: Any, **kwargs: Any) -> Any:
@@ -91,6 +89,7 @@ class TestAsyncHttpConnection:
             fingerprint=None,
         )
 
+    @pytest.mark.asyncio  # type: ignore
     @mock.patch("aiohttp.ClientSession.request", new_callable=mock.Mock)
     async def test_callable_in_request_session(self, mock_request: Any) -> None:
         def auth_fn(*args: Any, **kwargs: Any) -> Any:
