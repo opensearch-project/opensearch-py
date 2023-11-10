@@ -27,6 +27,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - Merge `.pyi` type stubs inline ([#563](https://github.com/opensearch-project/opensearch-py/pull/563))
 - Expanded type coverage to benchmarks, samples and tests ([#566](https://github.com/opensearch-project/opensearch-py/pull/566))
 - Defaulted `enable_cleanup_closed=True` in `aiohttp.TCPConnector` to prevent TLS connection leaks ([#468](https://github.com/opensearch-project/opensearch-py/pull/468))
+- Expanded `nox -rs docs` to generate docs ([#568](https://github.com/opensearch-project/opensearch-py/pull/568))
 ### Deprecated
 - Deprecated point-in-time APIs (list_all_point_in_time, create_point_in_time, delete_point_in_time) and Security Client APIs (health_check and update_audit_config) ([#502](https://github.com/opensearch-project/opensearch-py/pull/502))
 ### Removed

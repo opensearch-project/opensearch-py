@@ -21,8 +21,8 @@ def list_all_point_in_time(self: Any, params: Any = None, headers: Any = None) -
 
     .. warning::
 
-    This API will be removed in a future version
-    Use 'get_all_pits' API instead.
+        This API will be removed in a future version.
+        Use 'get_all_pits' API instead.
 
     """
     warnings.warn(
@@ -58,8 +58,8 @@ def create_point_in_time(
 
     .. warning::
 
-    This API will be removed in a future version
-    Use 'create_pit' API instead.
+        This API will be removed in a future version.
+        Use 'create_pit' API instead.
 
     """
     warnings.warn(
@@ -87,8 +87,8 @@ def delete_point_in_time(
 
     .. warning::
 
-    This API will be removed in a future version
-    Use 'delete_all_pits' or 'delete_pit' API instead.
+        This API will be removed in a future version.
+        Use 'delete_all_pits' or 'delete_pit' API instead.
 
     """
     warnings.warn(
@@ -109,8 +109,8 @@ def health_check(self: Any, params: Any = None, headers: Any = None) -> Any:
 
     .. warning::
 
-    This API will be removed in a future version
-    Use 'health' API instead.
+        This API will be removed in a future version.
+        Use 'health' API instead.
 
     """
     warnings.warn(
@@ -130,8 +130,8 @@ def update_audit_config(
 
     .. warning::
 
-    This API will be removed in a future version
-    Use 'update_audit_configuration' API instead.
+        This API will be removed in a future version.
+        Use 'update_audit_configuration' API instead.
 
     """
     warnings.warn(

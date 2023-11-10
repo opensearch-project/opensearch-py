@@ -110,12 +110,10 @@ $ nox -rs format
 To build the documentation with [Sphinx](https://www.sphinx-doc.org/).
 
 ```
-pip install -e .[docs]
-cd docs
-make html
+$ nox -rs docs
 ```
 
-Open `opensearch-py/docs/build/html/index.html` to see results.
+Open `docs/build/html/index.html` to see results.
 
 ## Client Code Generator
 
