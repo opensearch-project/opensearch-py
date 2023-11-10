@@ -14,6 +14,7 @@ jobs:
           - { os: 'ubuntu-latest', python-version: "3.10" }
           - { os: 'ubuntu-latest', python-version: "3.11" }
           - { os: 'macos-latest', python-version: "3.11" }
+          - { os: 'windows-latest', python-version: "3.11" }
           
     name: test (os=${{ matrix.entry.os }}, python=${{ matrix.entry.python-version }})
     continue-on-error: ${{ matrix.entry.experimental || false }}

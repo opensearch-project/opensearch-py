@@ -138,6 +138,11 @@ class Connection(object):
             raise TypeError("Unsupported equality check for %s and %s" % (self, other))
         return self.__hash__() == other.__hash__()
 
+    def __lt__(self, other: object) -> bool:
+        if not isinstance(other, Connection):
+            raise TypeError("Unsupported lt check for %s and %s" % (self, other))
+        return self.__hash__() < other.__hash__()
+
     def __hash__(self) -> int:
         return id(self)
 

@@ -37,7 +37,7 @@ from typing import Any
 import aiohttp
 import pytest
 from _pytest.mark.structures import MarkDecorator
-from mock import patch
+from mock import MagicMock, patch
 from multidict import CIMultiDict
 from pytest import raises
 
@@ -254,26 +254,29 @@ class TestAIOHttpConnection:
                     == str(w[0].message)
                 )
 
-    @patch("ssl.SSLContext.load_verify_locations")
-    async def test_uses_given_ca_certs(
-        self, load_verify_locations: Any, tmp_path: Any
-    ) -> None:
+    @patch("ssl.SSLContext", return_value=MagicMock())
+    async def test_uses_given_ca_certs(self, ssl_context: Any, tmp_path: Any) -> None:
         path = tmp_path / "ca_certs.pem"
         path.touch()
+        ssl_context.return_value.load_verify_locations.return_value = None
         AIOHttpConnection(use_ssl=True, ca_certs=str(path))
-        load_verify_locations.assert_called_once_with(cafile=str(path))
+        ssl_context.return_value.load_verify_locations.assert_called_once_with(
+            cafile=str(path)
+        )
 
-    @patch("ssl.SSLContext.load_verify_locations")
-    async def test_uses_default_ca_certs(self, load_verify_locations: Any) -> None:
+    @patch("ssl.SSLContext", return_value=MagicMock())
+    async def test_uses_default_ca_certs(self, ssl_context: Any) -> None:
+        ssl_context.return_value.load_verify_locations.return_value = None
         AIOHttpConnection(use_ssl=True)
-        load_verify_locations.assert_called_once_with(
+        ssl_context.return_value.load_verify_locations.assert_called_once_with(
             cafile=Connection.default_ca_certs()
         )
 
-    @patch("ssl.SSLContext.load_verify_locations")
-    async def test_uses_no_ca_certs(self, load_verify_locations: Any) -> None:
+    @patch("ssl.SSLContext", return_value=MagicMock())
+    async def test_uses_no_ca_certs(self, ssl_context: Any) -> None:
+        ssl_context.return_value.load_verify_locations.return_value = None
         AIOHttpConnection(use_ssl=True, verify_certs=False)
-        load_verify_locations.assert_not_called()
+        ssl_context.return_value.load_verify_locations.assert_not_called()
 
     async def test_trust_env(self) -> None:
         con: Any = AIOHttpConnection(trust_env=True)
