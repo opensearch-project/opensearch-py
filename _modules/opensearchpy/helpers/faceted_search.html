@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>opensearchpy.helpers.faceted_search &mdash; OpenSearch Python Client  documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/sphinx_highlight.js"></script>
+        <script src="../../../_static/clipboard.min.js"></script>
+        <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            OpenSearch Python Client
+              <img src="../../../_static/OpenSearch.svg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api-ref.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../genindex.html">Index</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/opensearch-project/opensearch-py/blob/main/LICENSE.txt">License</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/opensearch-project/opensearch-py/blob/main/CONTRIBUTING.md">Contributing</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/opensearch-project/opensearch-py/blob/main/CODE_OF_CONDUCT.md">Code of Conduct</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/opensearch-project/opensearch-py/blob/main/DEVELOPER_GUIDE.md">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/opensearch-project/opensearch-py">GitHub Repository</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">OpenSearch Python Client</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">opensearchpy.helpers.faceted_search</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for opensearchpy.helpers.faceted_search</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1"># SPDX-License-Identifier: Apache-2.0</span>
+<span class="c1">#</span>
+<span class="c1"># The OpenSearch Contributors require contributions made to</span>
+<span class="c1"># this file be licensed under the Apache-2.0 license or a</span>
+<span class="c1"># compatible open source license.</span>
+<span class="c1">#</span>
+<span class="c1"># Modifications Copyright OpenSearch Contributors. See</span>
+<span class="c1"># GitHub history for details.</span>
+<span class="c1">#</span>
+<span class="c1">#  Licensed to Elasticsearch B.V. under one or more contributor</span>
+<span class="c1">#  license agreements. See the NOTICE file distributed with</span>
+<span class="c1">#  this work for additional information regarding copyright</span>
+<span class="c1">#  ownership. Elasticsearch B.V. licenses this file to you under</span>
+<span class="c1">#  the Apache License, Version 2.0 (the &quot;License&quot;); you may</span>
+<span class="c1">#  not use this file except in compliance with the License.</span>
+<span class="c1">#  You may obtain a copy of the License at</span>
+<span class="c1">#</span>
+<span class="c1"># 	http://www.apache.org/licenses/LICENSE-2.0</span>
+<span class="c1">#</span>
+<span class="c1">#  Unless required by applicable law or agreed to in writing,</span>
+<span class="c1">#  software distributed under the License is distributed on an</span>
+<span class="c1">#  &quot;AS IS&quot; BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY</span>
+<span class="c1">#  KIND, either express or implied.  See the License for the</span>
+<span class="c1">#  specific language governing permissions and limitations</span>
+<span class="c1">#  under the License.</span>
+
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">timedelta</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Optional</span>
+
+<span class="kn">from</span> <span class="nn">six</span> <span class="kn">import</span> <span class="n">iteritems</span><span class="p">,</span> <span class="n">itervalues</span>
+
+<span class="kn">from</span> <span class="nn">opensearchpy.helpers.aggs</span> <span class="kn">import</span> <span class="n">A</span>
+
+<span class="kn">from</span> <span class="nn">.query</span> <span class="kn">import</span> <span class="n">MatchAll</span><span class="p">,</span> <span class="n">Nested</span><span class="p">,</span> <span class="n">Range</span><span class="p">,</span> <span class="n">Terms</span>
+<span class="kn">from</span> <span class="nn">.response</span> <span class="kn">import</span> <span class="n">Response</span>
+<span class="kn">from</span> <span class="nn">.search</span> <span class="kn">import</span> <span class="n">Search</span>
+<span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">AttrDict</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;FacetedSearch&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;HistogramFacet&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;TermsFacet&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;DateHistogramFacet&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;RangeFacet&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;NestedFacet&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+
+
+<span class="k">class</span> <span class="nc">Facet</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A facet on faceted search. Wraps and aggregation and provides functionality</span>
+<span class="sd">    to create a filter for selected values and return a list of facet values</span>
+<span class="sd">    from the result of the aggregation.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">agg_type</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">metric</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">metric_sort</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;desc&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">filter_values</span> <span class="o">=</span> <span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_params</span> <span class="o">=</span> <span class="n">kwargs</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_metric</span> <span class="o">=</span> <span class="n">metric</span>
+        <span class="k">if</span> <span class="n">metric</span> <span class="ow">and</span> <span class="n">metric_sort</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_params</span><span class="p">[</span><span class="s2">&quot;order&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;metric&quot;</span><span class="p">:</span> <span class="n">metric_sort</span><span class="p">}</span>
+
+    <span class="k">def</span> <span class="nf">get_aggregation</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the aggregation object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">agg</span> <span class="o">=</span> <span class="n">A</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">agg_type</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">_params</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_metric</span><span class="p">:</span>
+            <span class="n">agg</span><span class="o">.</span><span class="n">metric</span><span class="p">(</span><span class="s2">&quot;metric&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_metric</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">agg</span>
+
+    <span class="k">def</span> <span class="nf">add_filter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filter_values</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Construct a filter.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">filter_values</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="n">f</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_value_filter</span><span class="p">(</span><span class="n">filter_values</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">filter_values</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
+            <span class="n">f</span> <span class="o">|=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_value_filter</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">f</span>
+
+    <span class="k">def</span> <span class="nf">get_value_filter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filter_value</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Construct a filter for an individual value</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span>
+
+    <span class="k">def</span> <span class="nf">is_filtered</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">filter_values</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Is a filter active on the given key.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">filter_values</span>
+
+    <span class="k">def</span> <span class="nf">get_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bucket</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        return a value representing a bucket. Its key as default.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">bucket</span><span class="p">[</span><span class="s2">&quot;key&quot;</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">get_metric</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bucket</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a metric, by default doc_count for a bucket.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_metric</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">bucket</span><span class="p">[</span><span class="s2">&quot;metric&quot;</span><span class="p">][</span><span class="s2">&quot;value&quot;</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">bucket</span><span class="p">[</span><span class="s2">&quot;doc_count&quot;</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">get_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">filter_values</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Turn the raw bucket data into a list of tuples containing the key,</span>
+<span class="sd">        number of documents and a flag indicating whether this value has been</span>
+<span class="sd">        selected or not.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">bucket</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">buckets</span><span class="p">:</span>
+            <span class="n">key</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_value</span><span class="p">(</span><span class="n">bucket</span><span class="p">)</span>
+            <span class="n">out</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_metric</span><span class="p">(</span><span class="n">bucket</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_filtered</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">filter_values</span><span class="p">))</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="n">out</span>
+
+
+<span class="k">class</span> <span class="nc">TermsFacet</span><span class="p">(</span><span class="n">Facet</span><span class="p">):</span>
+    <span class="n">agg_type</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;terms&quot;</span>
+
+    <span class="k">def</span> <span class="nf">add_filter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filter_values</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a terms filter instead of bool containing term filters.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">filter_values</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">Terms</span><span class="p">(</span>
+                <span class="n">_expand__to_dot</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="p">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_params</span><span class="p">[</span><span class="s2">&quot;field&quot;</span><span class="p">]:</span> <span class="n">filter_values</span><span class="p">}</span>
+            <span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">RangeFacet</span><span class="p">(</span><span class="n">Facet</span><span class="p">):</span>
+    <span class="n">agg_type</span> <span class="o">=</span> <span class="s2">&quot;range&quot;</span>
+
+    <span class="k">def</span> <span class="nf">_range_to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">range</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+        <span class="n">key</span><span class="p">,</span> <span class="nb">range</span> <span class="o">=</span> <span class="nb">range</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;key&quot;</span><span class="p">:</span> <span class="n">key</span><span class="p">}</span>
+        <span class="k">if</span> <span class="nb">range</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">out</span><span class="p">[</span><span class="s2">&quot;from&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">range</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">if</span> <span class="nb">range</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">out</span><span class="p">[</span><span class="s2">&quot;to&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">range</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">out</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ranges</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">RangeFacet</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_params</span><span class="p">[</span><span class="s2">&quot;ranges&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_range_to_dict</span><span class="p">,</span> <span class="n">ranges</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_params</span><span class="p">[</span><span class="s2">&quot;keyed&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ranges</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">ranges</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">get_value_filter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filter_value</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+        <span class="n">f</span><span class="p">,</span> <span class="n">t</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ranges</span><span class="p">[</span><span class="n">filter_value</span><span class="p">]</span>
+        <span class="n">limits</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">if</span> <span class="n">f</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">limits</span><span class="p">[</span><span class="s2">&quot;gte&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">f</span>
+        <span class="k">if</span> <span class="n">t</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">limits</span><span class="p">[</span><span class="s2">&quot;lt&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">t</span>
+
+        <span class="k">return</span> <span class="n">Range</span><span class="p">(</span><span class="n">_expand__to_dot</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="p">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_params</span><span class="p">[</span><span class="s2">&quot;field&quot;</span><span class="p">]:</span> <span class="n">limits</span><span class="p">})</span>
+
+
+<span class="k">class</span> <span class="nc">HistogramFacet</span><span class="p">(</span><span class="n">Facet</span><span class="p">):</span>
+    <span class="n">agg_type</span> <span class="o">=</span> <span class="s2">&quot;histogram&quot;</span>
+
+    <span class="k">def</span> <span class="nf">get_value_filter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filter_value</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">Range</span><span class="p">(</span>
+            <span class="n">_expand__to_dot</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="o">**</span><span class="p">{</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_params</span><span class="p">[</span><span class="s2">&quot;field&quot;</span><span class="p">]:</span> <span class="p">{</span>
+                    <span class="s2">&quot;gte&quot;</span><span class="p">:</span> <span class="n">filter_value</span><span class="p">,</span>
+                    <span class="s2">&quot;lt&quot;</span><span class="p">:</span> <span class="n">filter_value</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_params</span><span class="p">[</span><span class="s2">&quot;interval&quot;</span><span class="p">],</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_date_interval_year</span><span class="p">(</span><span class="n">d</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">d</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span>
+        <span class="n">year</span><span class="o">=</span><span class="n">d</span><span class="o">.</span><span class="n">year</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="p">(</span><span class="mi">28</span> <span class="k">if</span> <span class="n">d</span><span class="o">.</span><span class="n">month</span> <span class="o">==</span> <span class="mi">2</span> <span class="ow">and</span> <span class="n">d</span><span class="o">.</span><span class="n">day</span> <span class="o">==</span> <span class="mi">29</span> <span class="k">else</span> <span class="n">d</span><span class="o">.</span><span class="n">day</span><span class="p">)</span>
+    <span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_date_interval_month</span><span class="p">(</span><span class="n">d</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">d</span> <span class="o">+</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">32</span><span class="p">))</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">day</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_date_interval_week</span><span class="p">(</span><span class="n">d</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">d</span> <span class="o">+</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_date_interval_day</span><span class="p">(</span><span class="n">d</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">d</span> <span class="o">+</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_date_interval_hour</span><span class="p">(</span><span class="n">d</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">d</span> <span class="o">+</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">hours</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">DateHistogramFacet</span><span class="p">(</span><span class="n">Facet</span><span class="p">):</span>
+    <span class="n">agg_type</span> <span class="o">=</span> <span class="s2">&quot;date_histogram&quot;</span>
+
+    <span class="n">DATE_INTERVALS</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;year&quot;</span><span class="p">:</span> <span class="n">_date_interval_year</span><span class="p">,</span>
+        <span class="s2">&quot;1Y&quot;</span><span class="p">:</span> <span class="n">_date_interval_year</span><span class="p">,</span>
+        <span class="s2">&quot;month&quot;</span><span class="p">:</span> <span class="n">_date_interval_month</span><span class="p">,</span>
+        <span class="s2">&quot;1M&quot;</span><span class="p">:</span> <span class="n">_date_interval_month</span><span class="p">,</span>
+        <span class="s2">&quot;week&quot;</span><span class="p">:</span> <span class="n">_date_interval_week</span><span class="p">,</span>
+        <span class="s2">&quot;1w&quot;</span><span class="p">:</span> <span class="n">_date_interval_week</span><span class="p">,</span>
+        <span class="s2">&quot;day&quot;</span><span class="p">:</span> <span class="n">_date_interval_day</span><span class="p">,</span>
+        <span class="s2">&quot;1d&quot;</span><span class="p">:</span> <span class="n">_date_interval_day</span><span class="p">,</span>
+        <span class="s2">&quot;hour&quot;</span><span class="p">:</span> <span class="n">_date_interval_hour</span><span class="p">,</span>
+        <span class="s2">&quot;1h&quot;</span><span class="p">:</span> <span class="n">_date_interval_hour</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">kwargs</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;min_doc_count&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">DateHistogramFacet</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">get_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bucket</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">bucket</span><span class="p">[</span><span class="s2">&quot;key&quot;</span><span class="p">],</span> <span class="n">datetime</span><span class="p">):</span>
+            <span class="c1"># OpenSearch returns key=None instead of 0 for date 1970-01-01,</span>
+            <span class="c1"># so we need to set key to 0 to avoid TypeError exception</span>
+            <span class="k">if</span> <span class="n">bucket</span><span class="p">[</span><span class="s2">&quot;key&quot;</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">bucket</span><span class="p">[</span><span class="s2">&quot;key&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="c1"># Preserve milliseconds in the datetime</span>
+            <span class="k">return</span> <span class="n">datetime</span><span class="o">.</span><span class="n">utcfromtimestamp</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">bucket</span><span class="p">[</span><span class="s2">&quot;key&quot;</span><span class="p">])</span> <span class="o">/</span> <span class="mf">1000.0</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">bucket</span><span class="p">[</span><span class="s2">&quot;key&quot;</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">get_value_filter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filter_value</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">interval_type</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;calendar_interval&quot;</span><span class="p">,</span> <span class="s2">&quot;fixed_interval&quot;</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">interval_type</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_params</span><span class="p">:</span>
+                <span class="k">break</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">interval_type</span> <span class="o">=</span> <span class="s2">&quot;interval&quot;</span>
+
+        <span class="k">return</span> <span class="n">Range</span><span class="p">(</span>
+            <span class="n">_expand__to_dot</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="o">**</span><span class="p">{</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_params</span><span class="p">[</span><span class="s2">&quot;field&quot;</span><span class="p">]:</span> <span class="p">{</span>
+                    <span class="s2">&quot;gte&quot;</span><span class="p">:</span> <span class="n">filter_value</span><span class="p">,</span>
+                    <span class="s2">&quot;lt&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">DATE_INTERVALS</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_params</span><span class="p">[</span><span class="n">interval_type</span><span class="p">]](</span>
+                        <span class="n">filter_value</span>
+                    <span class="p">),</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">NestedFacet</span><span class="p">(</span><span class="n">Facet</span><span class="p">):</span>
+    <span class="n">agg_type</span> <span class="o">=</span> <span class="s2">&quot;nested&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">nested_facet</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_path</span> <span class="o">=</span> <span class="n">path</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_inner</span> <span class="o">=</span> <span class="n">nested_facet</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">NestedFacet</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="n">path</span><span class="o">=</span><span class="n">path</span><span class="p">,</span> <span class="n">aggs</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;inner&quot;</span><span class="p">:</span> <span class="n">nested_facet</span><span class="o">.</span><span class="n">get_aggregation</span><span class="p">()}</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">get_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">filter_values</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_inner</span><span class="o">.</span><span class="n">get_values</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">inner</span><span class="p">,</span> <span class="n">filter_values</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">add_filter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filter_values</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+        <span class="n">inner_q</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_inner</span><span class="o">.</span><span class="n">add_filter</span><span class="p">(</span><span class="n">filter_values</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">inner_q</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">Nested</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_path</span><span class="p">,</span> <span class="n">query</span><span class="o">=</span><span class="n">inner_q</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">FacetedResponse</span><span class="p">(</span><span class="n">Response</span><span class="p">):</span>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">query_string</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_faceted_search</span><span class="o">.</span><span class="n">_query</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">facets</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_facets&quot;</span><span class="p">):</span>
+            <span class="nb">super</span><span class="p">(</span><span class="n">AttrDict</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__setattr__</span><span class="p">(</span><span class="s2">&quot;_facets&quot;</span><span class="p">,</span> <span class="n">AttrDict</span><span class="p">({}))</span>
+            <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">facet</span> <span class="ow">in</span> <span class="n">iteritems</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_faceted_search</span><span class="o">.</span><span class="n">facets</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_facets</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">facet</span><span class="o">.</span><span class="n">get_values</span><span class="p">(</span>
+                    <span class="nb">getattr</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">aggregations</span><span class="p">,</span> <span class="s2">&quot;_filter_&quot;</span> <span class="o">+</span> <span class="n">name</span><span class="p">),</span> <span class="n">name</span><span class="p">),</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_faceted_search</span><span class="o">.</span><span class="n">filter_values</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="p">()),</span>
+                <span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_facets</span>
+
+
+<div class="viewcode-block" id="FacetedSearch"><a class="viewcode-back" href="../../../api-ref/helpers/faceted_search.html#opensearchpy.helpers.faceted_search.FacetedSearch">[docs]</a><span class="k">class</span> <span class="nc">FacetedSearch</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Abstraction for creating faceted navigation searches that takes care of</span>
+<span class="sd">    composing the queries, aggregations and filters as needed as well as</span>
+<span class="sd">    presenting the results in an easy-to-consume fashion::</span>
+
+<span class="sd">        class BlogSearch(FacetedSearch):</span>
+<span class="sd">            index = &#39;blogs&#39;</span>
+<span class="sd">            doc_types = [Blog, Post]</span>
+<span class="sd">            fields = [&#39;title^5&#39;, &#39;category&#39;, &#39;description&#39;, &#39;body&#39;]</span>
+
+<span class="sd">            facets = {</span>
+<span class="sd">                &#39;type&#39;: TermsFacet(field=&#39;_type&#39;),</span>
+<span class="sd">                &#39;category&#39;: TermsFacet(field=&#39;category&#39;),</span>
+<span class="sd">                &#39;weekly_posts&#39;: DateHistogramFacet(field=&#39;published_from&#39;, interval=&#39;week&#39;)</span>
+<span class="sd">            }</span>
+
+<span class="sd">            def search(self):</span>
+<span class="sd">                &#39; Override search to add your own filters &#39;</span>
+<span class="sd">                s = super(BlogSearch, self).search()</span>
+<span class="sd">                return s.filter(&#39;term&#39;, published=True)</span>
+
+<span class="sd">        # when using:</span>
+<span class="sd">        blog_search = BlogSearch(&quot;web framework&quot;, filters={&quot;category&quot;: &quot;python&quot;})</span>
+
+<span class="sd">        # supports pagination</span>
+<span class="sd">        blog_search[10:20]</span>
+
+<span class="sd">        response = blog_search.execute()</span>
+
+<span class="sd">        # easy access to aggregation results:</span>
+<span class="sd">        for category, hit_count, is_selected in response.facets.category:</span>
+<span class="sd">            print(</span>
+<span class="sd">                &quot;Category %s has %d hits%s.&quot; % (</span>
+<span class="sd">                    category,</span>
+<span class="sd">                    hit_count,</span>
+<span class="sd">                    &#39; and is chosen&#39; if is_selected else &#39;&#39;</span>
+<span class="sd">                )</span>
+<span class="sd">            )</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">index</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">doc_types</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">fields</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">facets</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">using</span> <span class="o">=</span> <span class="s2">&quot;default&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">filters</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="p">{},</span> <span class="n">sort</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="p">())</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :arg query: the text to search for</span>
+<span class="sd">        :arg filters: facet values to filter</span>
+<span class="sd">        :arg sort: sort information to be passed to :class:`~opensearchpy.Search`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_query</span> <span class="o">=</span> <span class="n">query</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_filters</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_sort</span> <span class="o">=</span> <span class="n">sort</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">filter_values</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">iteritems</span><span class="p">(</span><span class="n">filters</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add_filter</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">build_search</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">count</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_s</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_s</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">iter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_s</span><span class="p">)</span>
+
+<div class="viewcode-block" id="FacetedSearch.add_filter"><a class="viewcode-back" href="../../../api-ref/helpers/faceted_search.html#opensearchpy.helpers.faceted_search.FacetedSearch.add_filter">[docs]</a>    <span class="k">def</span> <span class="nf">add_filter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">filter_values</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add a filter for a facet.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># normalize the value into a list</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">filter_values</span><span class="p">,</span> <span class="p">(</span><span class="nb">tuple</span><span class="p">,</span> <span class="nb">list</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="n">filter_values</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">return</span>
+            <span class="n">filter_values</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="n">filter_values</span><span class="p">,</span>
+            <span class="p">]</span>
+
+        <span class="c1"># remember the filter values for use in FacetedResponse</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">filter_values</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">filter_values</span>
+
+        <span class="c1"># get the filter from the facet</span>
+        <span class="n">f</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">facets</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">add_filter</span><span class="p">(</span><span class="n">filter_values</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">f</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_filters</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">f</span></div>
+
+<div class="viewcode-block" id="FacetedSearch.search"><a class="viewcode-back" href="../../../api-ref/helpers/faceted_search.html#opensearchpy.helpers.faceted_search.FacetedSearch.search">[docs]</a>    <span class="k">def</span> <span class="nf">search</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the base Search object to which the facets are added.</span>
+
+<span class="sd">        You can customize the query by overriding this method and returning a</span>
+<span class="sd">        modified search object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="n">Search</span><span class="p">(</span><span class="n">doc_type</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">doc_types</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">using</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">using</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">s</span><span class="o">.</span><span class="n">response_class</span><span class="p">(</span><span class="n">FacetedResponse</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="FacetedSearch.query"><a class="viewcode-back" href="../../../api-ref/helpers/faceted_search.html#opensearchpy.helpers.faceted_search.FacetedSearch.query">[docs]</a>    <span class="k">def</span> <span class="nf">query</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">search</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">query</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add query part to ``search``.</span>
+
+<span class="sd">        Override this if you wish to customize the query used.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">query</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">fields</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">search</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;multi_match&quot;</span><span class="p">,</span> <span class="n">fields</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">fields</span><span class="p">,</span> <span class="n">query</span><span class="o">=</span><span class="n">query</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">search</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;multi_match&quot;</span><span class="p">,</span> <span class="n">query</span><span class="o">=</span><span class="n">query</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">search</span></div>
+
+<div class="viewcode-block" id="FacetedSearch.aggregate"><a class="viewcode-back" href="../../../api-ref/helpers/faceted_search.html#opensearchpy.helpers.faceted_search.FacetedSearch.aggregate">[docs]</a>    <span class="k">def</span> <span class="nf">aggregate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">search</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add aggregations representing the facets selected, including potential</span>
+<span class="sd">        filters.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">f</span><span class="p">,</span> <span class="n">facet</span> <span class="ow">in</span> <span class="n">iteritems</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">facets</span><span class="p">):</span>
+            <span class="n">agg</span> <span class="o">=</span> <span class="n">facet</span><span class="o">.</span><span class="n">get_aggregation</span><span class="p">()</span>
+            <span class="n">agg_filter</span> <span class="o">=</span> <span class="n">MatchAll</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">field</span><span class="p">,</span> <span class="nb">filter</span> <span class="ow">in</span> <span class="n">iteritems</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_filters</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">f</span> <span class="o">==</span> <span class="n">field</span><span class="p">:</span>
+                    <span class="k">continue</span>
+                <span class="n">agg_filter</span> <span class="o">&amp;=</span> <span class="nb">filter</span>
+            <span class="n">search</span><span class="o">.</span><span class="n">aggs</span><span class="o">.</span><span class="n">bucket</span><span class="p">(</span><span class="s2">&quot;_filter_&quot;</span> <span class="o">+</span> <span class="n">f</span><span class="p">,</span> <span class="s2">&quot;filter&quot;</span><span class="p">,</span> <span class="nb">filter</span><span class="o">=</span><span class="n">agg_filter</span><span class="p">)</span><span class="o">.</span><span class="n">bucket</span><span class="p">(</span>
+                <span class="n">f</span><span class="p">,</span> <span class="n">agg</span>
+            <span class="p">)</span></div>
+
+<div class="viewcode-block" id="FacetedSearch.filter"><a class="viewcode-back" href="../../../api-ref/helpers/faceted_search.html#opensearchpy.helpers.faceted_search.FacetedSearch.filter">[docs]</a>    <span class="k">def</span> <span class="nf">filter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">search</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add a ``post_filter`` to the search request narrowing the results based</span>
+<span class="sd">        on the facet filters.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_filters</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">search</span>
+
+        <span class="n">post_filter</span> <span class="o">=</span> <span class="n">MatchAll</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">itervalues</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_filters</span><span class="p">):</span>
+            <span class="n">post_filter</span> <span class="o">&amp;=</span> <span class="n">f</span>
+        <span class="k">return</span> <span class="n">search</span><span class="o">.</span><span class="n">post_filter</span><span class="p">(</span><span class="n">post_filter</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="FacetedSearch.highlight"><a class="viewcode-back" href="../../../api-ref/helpers/faceted_search.html#opensearchpy.helpers.faceted_search.FacetedSearch.highlight">[docs]</a>    <span class="k">def</span> <span class="nf">highlight</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">search</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add highlighting for all the fields</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">search</span><span class="o">.</span><span class="n">highlight</span><span class="p">(</span>
+            <span class="o">*</span><span class="p">(</span><span class="n">f</span> <span class="k">if</span> <span class="s2">&quot;^&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">f</span> <span class="k">else</span> <span class="n">f</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;^&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">fields</span><span class="p">)</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="FacetedSearch.sort"><a class="viewcode-back" href="../../../api-ref/helpers/faceted_search.html#opensearchpy.helpers.faceted_search.FacetedSearch.sort">[docs]</a>    <span class="k">def</span> <span class="nf">sort</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">search</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add sorting information to the request.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sort</span><span class="p">:</span>
+            <span class="n">search</span> <span class="o">=</span> <span class="n">search</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">_sort</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">search</span></div>
+
+<div class="viewcode-block" id="FacetedSearch.build_search"><a class="viewcode-back" href="../../../api-ref/helpers/faceted_search.html#opensearchpy.helpers.faceted_search.FacetedSearch.build_search">[docs]</a>    <span class="k">def</span> <span class="nf">build_search</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Construct the ``Search`` object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">search</span><span class="p">()</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_query</span><span class="p">)</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">fields</span><span class="p">:</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">highlight</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">aggregate</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">s</span></div>
+
+<div class="viewcode-block" id="FacetedSearch.execute"><a class="viewcode-back" href="../../../api-ref/helpers/faceted_search.html#opensearchpy.helpers.faceted_search.FacetedSearch.execute">[docs]</a>    <span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Execute the search and return the response.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_s</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span>
+        <span class="n">r</span><span class="o">.</span><span class="n">_faceted_search</span> <span class="o">=</span> <span class="bp">self</span>
+        <span class="k">return</span> <span class="n">r</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright OpenSearch Project Contributors.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

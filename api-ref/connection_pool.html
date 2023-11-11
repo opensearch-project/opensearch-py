@@ -52,7 +52,26 @@
 <li class="toctree-l1 current"><a class="reference internal" href="../api-ref.html">API Reference</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="client.html">Clients</a></li>
 <li class="toctree-l2"><a class="reference internal" href="connection.html">connection</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">connection_pool</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">connection_pool</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#opensearchpy.ConnectionPool"><code class="docutils literal notranslate"><span class="pre">ConnectionPool</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#opensearchpy.ConnectionPool.__repr__"><code class="docutils literal notranslate"><span class="pre">ConnectionPool.__repr__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#opensearchpy.ConnectionPool.close"><code class="docutils literal notranslate"><span class="pre">ConnectionPool.close()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#opensearchpy.ConnectionPool.get_connection"><code class="docutils literal notranslate"><span class="pre">ConnectionPool.get_connection()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#opensearchpy.ConnectionPool.mark_dead"><code class="docutils literal notranslate"><span class="pre">ConnectionPool.mark_dead()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#opensearchpy.ConnectionPool.mark_live"><code class="docutils literal notranslate"><span class="pre">ConnectionPool.mark_live()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#opensearchpy.ConnectionPool.resurrect"><code class="docutils literal notranslate"><span class="pre">ConnectionPool.resurrect()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#opensearchpy.ConnectionSelector"><code class="docutils literal notranslate"><span class="pre">ConnectionSelector</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#opensearchpy.ConnectionSelector.select"><code class="docutils literal notranslate"><span class="pre">ConnectionSelector.select()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#opensearchpy.RoundRobinSelector"><code class="docutils literal notranslate"><span class="pre">RoundRobinSelector</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#opensearchpy.RoundRobinSelector.select"><code class="docutils literal notranslate"><span class="pre">RoundRobinSelector.select()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="exceptions.html">exceptions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="helpers.html">helpers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="plugins.html">Plugins</a></li>
@@ -95,6 +114,222 @@
              
   <section id="connection-pool">
 <h1>connection_pool<a class="headerlink" href="#connection-pool" title="Permalink to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="opensearchpy.ConnectionPool">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opensearchpy.</span></span><span class="sig-name descname"><span class="pre">ConnectionPool</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">connections</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dead_timeout=60</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout_cutoff=5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">selector_class=&lt;class</span> <span class="pre">'opensearchpy.connection_pool.RoundRobinSelector'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">randomize_hosts=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opensearchpy/connection_pool.html#ConnectionPool"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.ConnectionPool" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Container holding the <a class="reference internal" href="connection.html#opensearchpy.Connection" title="opensearchpy.Connection"><code class="xref py py-class docutils literal notranslate"><span class="pre">Connection</span></code></a> instances,
+managing the selection process (via a
+<a class="reference internal" href="#opensearchpy.ConnectionSelector" title="opensearchpy.ConnectionSelector"><code class="xref py py-class docutils literal notranslate"><span class="pre">ConnectionSelector</span></code></a>) and dead connections.</p>
+<p>It’s only interactions are with the <a class="reference internal" href="transport.html#opensearchpy.Transport" title="opensearchpy.Transport"><code class="xref py py-class docutils literal notranslate"><span class="pre">Transport</span></code></a> class
+that drives all the actions within <cite>ConnectionPool</cite>.</p>
+<p>Initially connections are stored on the class as a list and, along with the
+connection options, get passed to the <cite>ConnectionSelector</cite> instance for
+future reference.</p>
+<p>Upon each request the <cite>Transport</cite> will ask for a <cite>Connection</cite> via the
+<cite>get_connection</cite> method. If the connection fails (its <cite>perform_request</cite>
+raises a <cite>ConnectionError</cite>) it will be marked as dead (via <cite>mark_dead</cite>) and
+put on a timeout (if it fails N times in a row the timeout is exponentially
+longer - the formula is <cite>default_timeout * 2 ** (fail_count - 1)</cite>). When
+the timeout is over the connection will be resurrected and returned to the
+live pool. A connection that has been previously marked as dead and
+succeeds will be marked as live (its fail count will be deleted).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>connections</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – list of tuples containing the
+<a class="reference internal" href="connection.html#opensearchpy.Connection" title="opensearchpy.Connection"><code class="xref py py-class docutils literal notranslate"><span class="pre">Connection</span></code></a> instance and its options</p></li>
+<li><p><strong>dead_timeout</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a>) – number of seconds a connection should be retired for
+after a failure, increases on consecutive failures</p></li>
+<li><p><strong>timeout_cutoff</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – number of consecutive failures after which the
+timeout doesn’t increase</p></li>
+<li><p><strong>selector_class</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Type" title="(in Python v3.12)"><em>Type</em></a><em>[</em><a class="reference internal" href="#opensearchpy.ConnectionSelector" title="opensearchpy.connection_pool.ConnectionSelector"><em>ConnectionSelector</em></a><em>]</em>) – <a class="reference internal" href="#opensearchpy.ConnectionSelector" title="opensearchpy.ConnectionSelector"><code class="xref py py-class docutils literal notranslate"><span class="pre">ConnectionSelector</span></code></a>
+subclass to use if more than one connection is live</p></li>
+<li><p><strong>randomize_hosts</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>) – shuffle the list of connections upon arrival to
+avoid dog piling effect across processes</p></li>
+<li><p><strong>connections</strong> – </p></li>
+<li><p><strong>dead_timeout</strong> – </p></li>
+<li><p><strong>timeout_cutoff</strong> – </p></li>
+<li><p><strong>selector_class</strong> – </p></li>
+<li><p><strong>randomize_hosts</strong> – </p></li>
+<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.ConnectionPool.__repr__">
+<span class="sig-name descname"><span class="pre">__repr__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opensearchpy/connection_pool.html#ConnectionPool.__repr__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.ConnectionPool.__repr__" title="Permalink to this definition"></a></dt>
+<dd><p>Return repr(self).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.ConnectionPool.close">
+<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opensearchpy/connection_pool.html#ConnectionPool.close"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.ConnectionPool.close" title="Permalink to this definition"></a></dt>
+<dd><p>Explicitly closes connections</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.ConnectionPool.get_connection">
+<span class="sig-name descname"><span class="pre">get_connection</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opensearchpy/connection_pool.html#ConnectionPool.get_connection"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.ConnectionPool.get_connection" title="Permalink to this definition"></a></dt>
+<dd><p>Return a connection from the pool using the <cite>ConnectionSelector</cite>
+instance.</p>
+<p>It tries to resurrect eligible connections, forces a resurrection when
+no connections are available and passes the list of live connections to
+the selector instance to choose from.</p>
+<p>Returns a connection instance and its current fail count.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.ConnectionPool.mark_dead">
+<span class="sig-name descname"><span class="pre">mark_dead</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">connection</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">now</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opensearchpy/connection_pool.html#ConnectionPool.mark_dead"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.ConnectionPool.mark_dead" title="Permalink to this definition"></a></dt>
+<dd><p>Mark the connection as dead (failed). Remove it from the live pool and
+put it on a timeout.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>connection</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – the failed instance</p></li>
+<li><p><strong>connection</strong> – </p></li>
+<li><p><strong>now</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.12)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a><em>]</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.ConnectionPool.mark_live">
+<span class="sig-name descname"><span class="pre">mark_live</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">connection</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opensearchpy/connection_pool.html#ConnectionPool.mark_live"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.ConnectionPool.mark_live" title="Permalink to this definition"></a></dt>
+<dd><p>Mark connection as healthy after a resurrection. Resets the fail
+counter for the connection.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>connection</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – the connection to redeem</p></li>
+<li><p><strong>connection</strong> – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.ConnectionPool.resurrect">
+<span class="sig-name descname"><span class="pre">resurrect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">force</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opensearchpy/connection_pool.html#ConnectionPool.resurrect"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.ConnectionPool.resurrect" title="Permalink to this definition"></a></dt>
+<dd><p>Attempt to resurrect a connection from the dead pool. It will try to
+locate one (not all) eligible (its timeout is over) connection to
+return to the live pool. Any resurrected connection is also returned.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>force</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>) – resurrect a connection even if there is none eligible (used
+when we have no live connections). If force is specified resurrect
+always returns a connection.</p></li>
+<li><p><strong>force</strong> – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="opensearchpy.ConnectionSelector">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opensearchpy.</span></span><span class="sig-name descname"><span class="pre">ConnectionSelector</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">opts</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opensearchpy/connection_pool.html#ConnectionSelector"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.ConnectionSelector" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Simple class used to select a connection from a list of currently live
+connection instances. In init time it is passed a dictionary containing all
+the connections’ options which it can then use during the selection
+process. When the <cite>select</cite> method is called it is given a list of
+<em>currently</em> live connections to choose from.</p>
+<p>The options dictionary is the one that has been passed to
+<a class="reference internal" href="transport.html#opensearchpy.Transport" title="opensearchpy.Transport"><code class="xref py py-class docutils literal notranslate"><span class="pre">Transport</span></code></a> as <cite>hosts</cite> param and the same that is
+used to construct the Connection object itself. When the Connection was
+created from information retrieved from the cluster via the sniffing
+process it will be the dictionary returned by the <cite>host_info_callback</cite>.</p>
+<p>Example of where this would be useful is a zone-aware selector that would
+only select connections from its own zones and only fall back to other
+connections where there would be none in its zones.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>opts</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.12)"><em>Sequence</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.12)"><em>Tuple</em></a><em>[</em><a class="reference internal" href="connection.html#opensearchpy.Connection" title="opensearchpy.connection.base.Connection"><em>Connection</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a><em>]</em><em>]</em>) – dictionary of connection instances and their options</p></li>
+<li><p><strong>opts</strong> – </p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.ConnectionSelector.select">
+<span class="sig-name descname"><span class="pre">select</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">connections</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opensearchpy/connection_pool.html#ConnectionSelector.select"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.ConnectionSelector.select" title="Permalink to this definition"></a></dt>
+<dd><p>Select a connection from the given list.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>connections</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.12)"><em>Sequence</em></a><em>[</em><a class="reference internal" href="connection.html#opensearchpy.Connection" title="opensearchpy.connection.base.Connection"><em>Connection</em></a><em>]</em>) – list of live connections to choose from</p></li>
+<li><p><strong>connections</strong> – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="opensearchpy.RoundRobinSelector">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opensearchpy.</span></span><span class="sig-name descname"><span class="pre">RoundRobinSelector</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">opts</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opensearchpy/connection_pool.html#RoundRobinSelector"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.RoundRobinSelector" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#opensearchpy.ConnectionSelector" title="opensearchpy.connection_pool.ConnectionSelector"><code class="xref py py-class docutils literal notranslate"><span class="pre">ConnectionSelector</span></code></a></p>
+<p>Selector using round-robin.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>opts</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.12)"><em>Sequence</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.12)"><em>Tuple</em></a><em>[</em><a class="reference internal" href="connection.html#opensearchpy.Connection" title="opensearchpy.connection.base.Connection"><em>Connection</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a><em>]</em><em>]</em>) – dictionary of connection instances and their options</p></li>
+<li><p><strong>opts</strong> – </p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.RoundRobinSelector.select">
+<span class="sig-name descname"><span class="pre">select</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">connections</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opensearchpy/connection_pool.html#RoundRobinSelector.select"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.RoundRobinSelector.select" title="Permalink to this definition"></a></dt>
+<dd><p>Select a connection from the given list.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>connections</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.12)"><em>Sequence</em></a><em>[</em><a class="reference internal" href="connection.html#opensearchpy.Connection" title="opensearchpy.connection.base.Connection"><em>Connection</em></a><em>]</em>) – list of live connections to choose from</p></li>
+<li><p><strong>connections</strong> – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
 </section>
 
 
