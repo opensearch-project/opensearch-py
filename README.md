@@ -18,7 +18,7 @@ OpenSearch Python Client
 - [License](https://github.com/opensearch-project/opensearch-py#license)
 - [Copyright](https://github.com/opensearch-project/opensearch-py#copyright)
 
-## Welcome!
+# Welcome!
 
 **opensearch-py** is [a community-driven, open source fork](https://aws.amazon.com/blogs/opensource/introducing-opensearch/)
 of elasticsearch-py licensed under the [Apache v2.0 License](https://github.com/opensearch-project/opensearch-py/blob/main/LICENSE.txt). 

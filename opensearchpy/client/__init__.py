@@ -373,7 +373,7 @@ class OpenSearch(Client):
         :arg if_seq_no: only perform the operation if the last operation
             that has changed the document has the specified sequence number.
         :arg op_type: Explicit operation type. Defaults to `index` for
-            requests with an explicit document ID, and to `create`for requests
+            requests with an explicit document ID, and to `create` for requests
             without an explicit document ID. Valid choices are index, create.
         :arg pipeline: The pipeline id to preprocess incoming documents
             with.
