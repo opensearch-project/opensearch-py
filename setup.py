@@ -50,7 +50,7 @@ packages = [
     if package == module_dir or package.startswith(module_dir + ".")
 ]
 install_requires = [
-    "urllib3>=1.26.17",
+    "urllib3>=1.26.18",
     "requests>=2.4.0, <3.0.0",
     "six",
     "python-dateutil",
@@ -113,7 +113,7 @@ setup(
     tests_require=tests_require,
     extras_require={
         "develop": tests_require + docs_require + generate_require,
-        "docs": docs_require,
+        "docs": docs_require + async_require,
         "async": async_require,
         "kerberos": ["requests_kerberos"],
     },

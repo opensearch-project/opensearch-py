@@ -32,7 +32,9 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - Deprecated point-in-time APIs (list_all_point_in_time, create_point_in_time, delete_point_in_time) and Security Client APIs (health_check and update_audit_config) ([#502](https://github.com/opensearch-project/opensearch-py/pull/502))
 ### Removed
 - Removed leftover support for Python 2.7 ([#548](https://github.com/opensearch-project/opensearch-py/pull/548))
+- Removed leftover support for Python 3.6 ([#576](https://github.com/opensearch-project/opensearch-py/pull/576))
 ### Fixed
+- Fixed automatically built and deployed docs ([575](https://github.com/opensearch-project/opensearch-py/pull/575))
 - Avoid decoding request body unless it needs to be logged ([#571](https://github.com/opensearch-project/opensearch-py/pull/571))
 ### Security
 ### Dependencies
@@ -47,6 +49,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ### Security
 ### Dependencies
 - Bumps `urllib3` from >=1.21.1, <2 to >=1.26.9 ([#518](https://github.com/opensearch-project/opensearch-py/pull/518))
+- Bumps `urllib3` from >=1.26.17 to >=1.26.18 ([#576](https://github.com/opensearch-project/opensearch-py/pull/576))
 
 ## [2.3.1]
 ### Added

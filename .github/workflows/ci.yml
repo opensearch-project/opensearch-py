@@ -52,22 +52,3 @@ jobs:
       - name: Check with Twine
         working-directory: dist
         run: twine check *
-
-  test-docs-build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v3
-      - name: Set up Python 3.7
-        uses: actions/setup-python@v4
-        with:
-          python-version: 3.7
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-      - name: Check if Sphinx docs are built
-        run: |
-          pip install -e .[docs]
-          cd docs
-          make html
-          

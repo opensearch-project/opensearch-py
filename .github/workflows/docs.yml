@@ -1,10 +1,5 @@
-name: Build & Deploy Doc
-on:
-  push:
-    branches: [ main ]
-
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
+name: Build & Deploy Docs
+on: [push, pull_request, workflow_dispatch]
 
 jobs:
   build-and-deploy:
@@ -15,19 +10,17 @@ jobs:
       with:
         python-version: 3.7
 
-    - name: Install
+    - name: Install Dependencies
       run: |
-        python -m pip install -U pip
-        pip install --progress-bar off -U .[docs]
+        python3.7 -m pip install nox
 
     - name: Make
       run: |
-        cd docs
-        make html
-        cd ..
+        nox -rs docs
 
     - name: Deploy
       uses: peaceiris/actions-gh-pages@v3
+      if: github.ref == 'refs/heads/main'
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./docs/build/html
