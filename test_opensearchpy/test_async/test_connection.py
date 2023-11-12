@@ -44,7 +44,7 @@ from pytest import raises
 from opensearchpy import AIOHttpConnection, AsyncOpenSearch, __versionstr__, serializer
 from opensearchpy.compat import reraise_exceptions
 from opensearchpy.connection import Connection, async_connections
-from opensearchpy.exceptions import ConnectionError, TransportError
+from opensearchpy.exceptions import ConnectionError, NotFoundError, TransportError
 from test_opensearchpy.TestHttpServer import TestHTTPServer
 
 pytestmark: MarkDecorator = pytest.mark.asyncio
@@ -302,6 +302,41 @@ class TestAIOHttpConnection:
 
         assert '> {"example": "body"}' == req[0][0] % req[0][1:]
         assert "< {}" == resp[0][0] % resp[0][1:]
+
+    @patch("opensearchpy.connection.base.logger", return_value=MagicMock())
+    async def test_body_not_logged(self, logger: Any) -> None:
+        logger.isEnabledFor.return_value = False
+
+        con = await self._get_mock_connection()
+        await con.perform_request("GET", "/", body=b'{"example": "body"}')
+
+        assert logger.isEnabledFor.call_count == 1
+        assert logger.debug.call_count == 0
+
+    @patch("opensearchpy.connection.base.logger")
+    async def test_failure_body_logged(self, logger: Any) -> None:
+        con = await self._get_mock_connection(response_code=404)
+        with pytest.raises(NotFoundError) as e:
+            await con.perform_request("GET", "/invalid", body=b'{"example": "body"}')
+        assert str(e.value) == "NotFoundError(404, '{}')"
+
+        assert 2 == logger.debug.call_count
+        req, resp = logger.debug.call_args_list
+
+        assert '> {"example": "body"}' == req[0][0] % req[0][1:]
+        assert "< {}" == resp[0][0] % resp[0][1:]
+
+    @patch("opensearchpy.connection.base.logger", return_value=MagicMock())
+    async def test_failure_body_not_logged(self, logger: Any) -> None:
+        logger.isEnabledFor.return_value = False
+
+        con = await self._get_mock_connection(response_code=404)
+        with pytest.raises(NotFoundError) as e:
+            await con.perform_request("GET", "/invalid")
+        assert str(e.value) == "NotFoundError(404, '{}')"
+
+        assert logger.isEnabledFor.call_count == 1
+        assert logger.debug.call_count == 0
 
     async def test_surrogatepass_into_bytes(self) -> None:
         buf = b"\xe4\xbd\xa0\xe5\xa5\xbd\xed\xa9\xaa"

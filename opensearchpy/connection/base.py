@@ -189,6 +189,16 @@ class Connection(object):
             # non-json data or a bulk request
             return data  # type: ignore
 
+    def _log_request_response(
+        self, body: Optional[Union[str, bytes]], response: Optional[str]
+    ) -> None:
+        if logger.isEnabledFor(logging.DEBUG):
+            if body and isinstance(body, bytes):
+                body = body.decode("utf-8", "ignore")
+            logger.debug("> %s", body)
+            if response is not None:
+                logger.debug("< %s", response)
+
     def _log_trace(
         self,
         method: str,
@@ -246,17 +256,11 @@ class Connection(object):
         """Log a successful API call."""
         #  TODO: optionally pass in params instead of full_url and do urlencode only when needed
 
-        # body has already been serialized to utf-8, deserialize it for logging
-        # TODO: find a better way to avoid (de)encoding the body back and forth
-        if body and isinstance(body, bytes):
-            body = body.decode("utf-8", "ignore")
-
         logger.info(
             "%s %s [status:%s request:%.3fs]", method, full_url, status_code, duration
         )
-        logger.debug("> %s", body)
-        logger.debug("< %s", response)
 
+        self._log_request_response(body, response)
         self._log_trace(method, path, body, status_code, response, duration)
 
     def log_request_fail(
@@ -283,17 +287,8 @@ class Connection(object):
             exc_info=exception is not None,
         )
 
-        # body has already been serialized to utf-8, deserialize it for logging
-        # TODO: find a better way to avoid (de)encoding the body back and forth
-        if body and isinstance(body, bytes):
-            body = body.decode("utf-8", "ignore")
-
-        logger.debug("> %s", body)
-
+        self._log_request_response(body, response)
         self._log_trace(method, path, body, status_code, response, duration)
-
-        if response is not None:
-            logger.debug("< %s", response)
 
     def _raise_error(
         self,
