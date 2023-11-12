@@ -34,6 +34,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - Removed leftover support for Python 2.7 ([#548](https://github.com/opensearch-project/opensearch-py/pull/548))
 ### Fixed
 - Fixed automatically built and deployed docs ([575](https://github.com/opensearch-project/opensearch-py/pull/575))
+- Avoid decoding request body unless it needs to be logged ([#571](https://github.com/opensearch-project/opensearch-py/pull/571))
 ### Security
 ### Dependencies
 - Bumps `sphinx` from <7.1 to <7.3

@@ -315,7 +315,7 @@ class AIOHttpConnection(AsyncConnection):
         except Exception as e:
             self.log_request_fail(
                 method,
-                str(url),
+                url,
                 url_path,
                 orig_body,
                 self.loop.time() - start,
@@ -337,7 +337,7 @@ class AIOHttpConnection(AsyncConnection):
         if not (200 <= response.status < 300) and response.status not in ignore:
             self.log_request_fail(
                 method,
-                str(url),
+                url,
                 url_path,
                 orig_body,
                 duration,
@@ -351,7 +351,7 @@ class AIOHttpConnection(AsyncConnection):
             )
 
         self.log_request_success(
-            method, str(url), url_path, orig_body, response.status, raw_data, duration
+            method, url, url_path, orig_body, response.status, raw_data, duration
         )
 
         return response.status, response.headers, raw_data

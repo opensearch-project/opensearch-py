@@ -33,7 +33,7 @@ import warnings
 from typing import Any
 
 import pytest
-from mock import Mock, patch
+from mock import MagicMock, Mock, patch
 from requests.auth import AuthBase
 
 from opensearchpy.connection import Connection, RequestsHttpConnection
@@ -52,7 +52,7 @@ class TestRequestsHttpConnection(TestCase):
     def _get_mock_connection(
         self,
         connection_params: Any = {},
-        status_code: int = 200,
+        response_code: int = 200,
         response_body: bytes = b"{}",
     ) -> Any:
         con = RequestsHttpConnection(**connection_params)
@@ -60,7 +60,7 @@ class TestRequestsHttpConnection(TestCase):
         def _dummy_send(*args: Any, **kwargs: Any) -> Any:
             dummy_response = Mock()
             dummy_response.headers = {}
-            dummy_response.status_code = status_code
+            dummy_response.status_code = response_code
             dummy_response.content = response_body
             dummy_response.request = args[0]
             dummy_response.cookies = {}
@@ -229,20 +229,20 @@ class TestRequestsHttpConnection(TestCase):
         )
 
     def test_conflict_error_is_returned_on_409(self) -> None:
-        con = self._get_mock_connection(status_code=409)
+        con = self._get_mock_connection(response_code=409)
         self.assertRaises(ConflictError, con.perform_request, "GET", "/", {}, "")
 
     def test_not_found_error_is_returned_on_404(self) -> None:
-        con = self._get_mock_connection(status_code=404)
+        con = self._get_mock_connection(response_code=404)
         self.assertRaises(NotFoundError, con.perform_request, "GET", "/", {}, "")
 
     def test_request_error_is_returned_on_400(self) -> None:
-        con = self._get_mock_connection(status_code=400)
+        con = self._get_mock_connection(response_code=400)
         self.assertRaises(RequestError, con.perform_request, "GET", "/", {}, "")
 
     @patch("opensearchpy.connection.base.logger")
     def test_head_with_404_doesnt_get_logged(self, logger: Any) -> None:
-        con = self._get_mock_connection(status_code=404)
+        con = self._get_mock_connection(response_code=404)
         self.assertRaises(NotFoundError, con.perform_request, "HEAD", "/", {}, "")
         self.assertEqual(0, logger.warning.call_count)
 
@@ -250,7 +250,7 @@ class TestRequestsHttpConnection(TestCase):
     @patch("opensearchpy.connection.base.logger")
     def test_failed_request_logs_and_traces(self, logger: Any, tracer: Any) -> None:
         con = self._get_mock_connection(
-            response_body=b'{"answer": 42}', status_code=500
+            response_body=b'{"answer": 42}', response_code=500
         )
         self.assertRaises(
             TransportError,
@@ -326,7 +326,7 @@ class TestRequestsHttpConnection(TestCase):
 
         con = self._get_mock_connection(
             connection_params={"http_compress": True},
-            status_code=500,
+            response_code=500,
             response_body=b'{"hello":"world"}',
         )
         with pytest.raises(TransportError):
@@ -336,6 +336,41 @@ class TestRequestsHttpConnection(TestCase):
         _, _, req, resp = logger.debug.call_args_list
         self.assertEqual('> {"example": "body2"}', req[0][0] % req[0][1:])
         self.assertEqual('< {"hello":"world"}', resp[0][0] % resp[0][1:])
+
+    @patch("opensearchpy.connection.base.logger", return_value=MagicMock())
+    def test_body_not_logged(self, logger: Any) -> None:
+        logger.isEnabledFor.return_value = False
+
+        con = self._get_mock_connection()
+        con.perform_request("GET", "/", body=b'{"example": "body"}')
+
+        self.assertEqual(logger.isEnabledFor.call_count, 1)
+        self.assertEqual(logger.debug.call_count, 0)
+
+    @patch("opensearchpy.connection.base.logger")
+    def test_failure_body_logged(self, logger: Any) -> None:
+        con = self._get_mock_connection(response_code=404)
+        with pytest.raises(NotFoundError) as e:
+            con.perform_request("GET", "/invalid", body=b'{"example": "body"}')
+        self.assertEqual(str(e.value), "NotFoundError(404, '{}')")
+
+        self.assertEqual(2, logger.debug.call_count)
+        req, resp = logger.debug.call_args_list
+
+        self.assertEqual('> {"example": "body"}', req[0][0] % req[0][1:])
+        self.assertEqual("< {}", resp[0][0] % resp[0][1:])
+
+    @patch("opensearchpy.connection.base.logger", return_value=MagicMock())
+    def test_failure_body_not_logged(self, logger: Any) -> None:
+        logger.isEnabledFor.return_value = False
+
+        con = self._get_mock_connection(response_code=404)
+        with pytest.raises(NotFoundError) as e:
+            con.perform_request("GET", "/invalid")
+        self.assertEqual(str(e.value), "NotFoundError(404, '{}')")
+
+        self.assertEqual(logger.isEnabledFor.call_count, 1)
+        self.assertEqual(logger.debug.call_count, 0)
 
     def test_defaults(self) -> None:
         con = self._get_mock_connection()
@@ -403,7 +438,7 @@ class TestRequestsHttpConnection(TestCase):
 
         with pytest.raises(RecursionError) as e:
             conn.perform_request("GET", "/")
-        assert str(e.value) == "Wasn't modified!"
+        self.assertEqual(str(e.value), "Wasn't modified!")
 
     def mock_session(self) -> Any:
         access_key = uuid.uuid4().hex
@@ -472,7 +507,7 @@ class TestRequestsHttpConnection(TestCase):
         )
 
 
-class TestRequestsConnectionRedirect:
+class TestRequestsConnectionRedirect(TestCase):
     server1: TestHTTPServer
     server2: TestHTTPServer
 
@@ -495,20 +530,23 @@ class TestRequestsConnectionRedirect:
         conn = RequestsHttpConnection("localhost", port=8080, use_ssl=False, timeout=60)
         with pytest.raises(TransportError) as e:
             conn.perform_request("GET", "/redirect", allow_redirects=False)
-        assert e.value.status_code == 302
+        self.assertEqual(e.value.status_code, 302)
 
     # allow_redirects = True (Default)
     def test_redirect_success_when_allow_redirect_true(self) -> None:
         conn = RequestsHttpConnection("localhost", port=8080, use_ssl=False, timeout=60)
         user_agent = conn._get_default_user_agent()
         status, headers, data = conn.perform_request("GET", "/redirect")
-        assert status == 200
+        self.assertEqual(status, 200)
         data = json.loads(data)
-        assert data["headers"] == {
-            "Host": "localhost:8090",
-            "Accept-Encoding": "identity",
-            "User-Agent": user_agent,
-        }
+        self.assertEqual(
+            data["headers"],
+            {
+                "Host": "localhost:8090",
+                "Accept-Encoding": "identity",
+                "User-Agent": user_agent,
+            },
+        )
 
 
 class TestSignerWithFrozenCredentials(TestRequestsHttpConnection):
