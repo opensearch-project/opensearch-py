@@ -58,7 +58,7 @@ install_requires = [
 ]
 tests_require = [
     "requests>=2.0.0, <3.0.0",
-    "coverage<7.0.0",
+    "coverage<8.0.0",
     "mock",
     "pyyaml",
     "pytest>=3.0.0",
