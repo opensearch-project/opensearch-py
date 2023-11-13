@@ -1,0 +1,106 @@
+[tool.poetry]
+name = "opensearchpy"
+version = "2.3.2"
+description = "Python client for OpenSearch."
+authors = ["OpenSearch Contributors <opensearch@opensearch.org>"]
+license = "Apache 2.0"
+homepage = "https://github.com/opensearch-project/opensearch-py"
+repository = "https://github.com/opensearch-project/opensearch-py"
+documentation = "https://opensearch.org/docs/clients/python"
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "License :: OSI Approved :: Apache Software License",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3.6",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Programming Language :: Python :: Implementation :: PyPy",
+]
+packages = [
+    { include = 'opensearchpy' }
+]
+readme = "README.md"
+
+[tool.poetry.urls]
+"Issue Tracker" = "https://github.com/opensearch-project/opensearch-py/issues"
+
+[tool.poetry.dependencies]
+python = "^3.7"
+urllib3 = ">= 1.26.18"
+requests = ">= 2.4.0, <3.0.0"
+six = "*"
+python-dateutil = "*"
+certifi = ">=2022.12.07"
+
+[tool.poetry.dev-dependencies]
+nox = ">=2023.4.22"
+
+[tool.poetry.group.test.dependencies]
+coverage = "<8.0.0"
+mock = "*"
+pyyaml = "*"
+pytest = ">=3.0.0"
+pytest-cov = "*"
+pytz = "*"
+botocore = "*"
+pytest-mock = "<4.0.0"
+
+[tool.poetry.group.docs.dependencies]
+sphinx = "*"
+sphinx_rtd_theme = "*"
+myst_parser = "*"
+sphinx_copybutton = "*"
+
+[tool.poetry.group.async.dependencies]
+aiohttp = ">=3, <4"
+pytest-asyncio = "<=0.21.1"
+unasync = "*"
+
+[tool.poetry.group.kerberos.dependencies]
+requests_kerberos = "*"
+
+[tool.poetry.group.mypy.dependencies]
+types-requests = "*"
+types-six = "*"
+types-simplejson = "*"
+types-python-dateutil = "*"
+types-PyYAML = "*"
+types-mock = "*"
+types-pytz = "*"
+
+[tool.poetry.group.generate.dependencies]
+black = "*"
+jinja2 = "*"
+
+[tool.isort]
+profile = "black"
+known_first_party = "poetry"
+
+[tool.black]
+target-version = ['py33']
+extend-exclude = "protobuf"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+pythonpath = ["src", "tests"]
+log_cli = true
+log_cli_level = "INFO"
+testpaths = ["tests"]
+asyncio_mode = "auto"
+junit_family = "legacy"
+
+[tool.mypy]
+python_version = 3.7
+disallow_untyped_defs = true
+warn_return_any = true
+ignore_missing_imports = true
+
+[tool.poetry.extras]
+async = ["aiohttp"]

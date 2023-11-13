@@ -31,7 +31,6 @@ from typing import Any
 import nox
 
 SOURCE_FILES = (
-    "setup.py",
     "noxfile.py",
     "opensearchpy/",
     "test_opensearchpy/",
@@ -41,21 +40,23 @@ SOURCE_FILES = (
     "docs/",
 )
 
+def setup(session: Any) -> None:
+    session.install("poetry")
+    session.run("poetry", "install")
+    
 
 @nox.session(python=["3.6", "3.7", "3.8", "3.9", "3.10", "3.11"])  # type: ignore
 def test(session: Any) -> None:
-    session.install(".")
-    session.install("-r", "dev-requirements.txt")
-
-    session.run("python", "setup.py", "test")
+    setup(session)
+    session.run("poetry", "run", "pytest")
 
 
 @nox.session()  # type: ignore
 def format(session: Any) -> None:
-    session.install("black", "isort")
+    setup(session)
 
-    session.run("isort", "--profile=black", *SOURCE_FILES)
-    session.run("black", "--target-version=py33", *SOURCE_FILES)
+    session.run("poetry", "run", "isort", *SOURCE_FILES)
+    session.run("poetry", "run", "black", *SOURCE_FILES)
     session.run("python", "utils/license-headers.py", "fix", *SOURCE_FILES)
 
     lint(session)
@@ -63,22 +64,10 @@ def format(session: Any) -> None:
 
 @nox.session(python=["3.7"])  # type: ignore
 def lint(session: Any) -> None:
-    session.install(
-        "flake8",
-        "black",
-        "mypy",
-        "isort",
-        "types-requests",
-        "types-six",
-        "types-simplejson",
-        "types-python-dateutil",
-        "types-PyYAML",
-        "types-mock",
-        "types-pytz",
-    )
+    setup(session)
 
-    session.run("isort", "--check", "--profile=black", *SOURCE_FILES)
-    session.run("black", "--target-version=py33", "--check", *SOURCE_FILES)
+    session.run("poetry", "run", "isort", "--check", *SOURCE_FILES)
+    session.run("poetry", "run", "black", "--check", *SOURCE_FILES)
     session.run("flake8", *SOURCE_FILES)
     session.run("python", "utils/license-headers.py", "check", *SOURCE_FILES)
 
@@ -100,14 +89,16 @@ def lint(session: Any) -> None:
 
 @nox.session()  # type: ignore
 def docs(session: Any) -> None:
-    session.install(".")
-    session.install(".[docs]")
+    setup(session)
+
     with session.chdir("docs"):
         session.run("make", "html")
 
 
 @nox.session()  # type: ignore
 def generate(session: Any) -> None:
-    session.install("-rdev-requirements.txt")
+    setup(session)
+
     session.run("python", "utils/generate-api.py")
+
     format(session)

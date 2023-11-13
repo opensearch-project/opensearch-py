@@ -8,24 +8,57 @@
 
 # Developer Guide
 
-## Prerequisites
+## Forking and Cloning
 
-Python 3.6 or newer is required.
+Fork this repository on GitHub, and clone locally with `git clone`.
+
+
+## Building
+
+### Install Pyenv
+
+Use pyenv to manage multiple versions of Python. This can be installed with [pyenv-installer](https://github.com/pyenv/pyenv-installer) on Linux and MacOS, and [pyenv-win](https://github.com/pyenv-win/pyenv-win#installation) on Windows.
+
+```
+curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash
+```
+
+### Install Python 3.6 or Newer
+
+Python projects in this repository use at a minimum Python 3.6, but 3.9 is recommended for development. See the [Python Beginners Guide](https://wiki.python.org/moin/BeginnersGuide) if you have never worked with the language.
 
 ```
 $ python --version
-Python 3.11.1
+Python 3.9.16
 ```
 
-You can install dev requirements with `pip install -r dev-requirements.txt`, but it's better to use the docker setup described below.
-
-Install [Nox](https://nox.thea.codes/en/stable/) for task management.
+If you are using pyenv.
 
 ```
-$ python -m pip install nox
+pyenv install 3.9
+pyenv global 3.9
 ```
 
-## Install Docker Image
+### Install Poetry
+
+This project uses [poetry](https://python-poetry.org/), which is typically installed with `curl -sSL https://install.python-poetry.org | python3 -`. Poetry automatically creates and manages a virtualenv for your projects, as well as adds/removes packages from your `pyproject.toml` as you install/uninstall packages. It also generates the ever-important `poetry.lock`, which is used to produce deterministic builds.
+
+```
+$ python -m pip install poetry
+
+$ poetry --version
+Poetry (version 1.5.1)
+```
+
+### Install Dependencies
+
+```
+poetry install
+```
+
+## Testing
+
+### Install Docker Image
 
 Integration tests require [docker](https://opensearch.org/docs/latest/install-and-configure/install-opensearch/docker/).
 
@@ -41,21 +74,15 @@ Integration tests will auto-start the docker image. To start it manually:
 docker run -d -p 9200:9200 -p 9600:9600 -e "discovery.type=single-node" opensearchproject/opensearch:latest
 ```
 
-## Running Tests
+### Run Tests
 
-Tests require a live instance of OpenSearch running in docker.
-
-If you have one running.
+Run tests and ensure they pass.
 
 ```
-python setup.py test
+poetry run pytest -v
 ```
 
-To run tests in a specific test file.
-
-```
-python setup.py test -s test_opensearchpy/test_connection.py
-```
+Warnings such as `urllib3.exceptions.SSLError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1129)` are expected.
 
 If you want to auto-start one, the following will start a new instance and run tests against the latest version of OpenSearch.
 
