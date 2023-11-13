@@ -31,7 +31,7 @@ async def main() -> None:
     )
 
     try:
-        info = await client.transport.perform_request("GET", "/")
+        info = await client.http.get("/")
         print(
             f"Welcome to {info['version']['distribution']} {info['version']['number']}!"
         )
@@ -42,11 +42,7 @@ async def main() -> None:
 
         index_body = {"settings": {"index": {"number_of_shards": 4}}}
 
-        print(
-            await client.transport.perform_request(
-                "PUT", f"/{index_name}", body=index_body
-            )
-        )
+        print(await client.http.put(f"/{index_name}", body=index_body))
 
         # add a document to the index
 
@@ -55,8 +51,8 @@ async def main() -> None:
         id = "1"
 
         print(
-            await client.transport.perform_request(
-                "PUT", f"/{index_name}/_doc/{id}?refresh=true", body=document
+            await client.http.put(
+                f"/{index_name}/_doc/{id}?refresh=true", body=document
             )
         )
 
@@ -69,21 +65,15 @@ async def main() -> None:
             "query": {"multi_match": {"query": q, "fields": ["title^2", "director"]}},
         }
 
-        print(
-            await client.transport.perform_request(
-                "POST", f"/{index_name}/_search", body=query
-            )
-        )
+        print(await client.http.post(f"/{index_name}/_search", body=query))
 
         # delete the document
 
-        print(
-            await client.transport.perform_request("DELETE", f"/{index_name}/_doc/{id}")
-        )
+        print(await client.http.delete(f"/{index_name}/_doc/{id}"))
 
         # delete the index
 
-        print(await client.transport.perform_request("DELETE", f"/{index_name}"))
+        print(await client.http.delete(f"/{index_name}"))
 
     finally:
         await client.close()
