@@ -38,6 +38,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ### Security
 ### Dependencies
 - Bumps `sphinx` from <7.1 to <7.3
+- Bumps `coverage` from <7.0.0 to <8.0.0
 
 ## [2.3.2]
 ### Added
