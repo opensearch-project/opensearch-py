@@ -21,6 +21,7 @@ titlesonly:
 maxdepth: 1
 ---
 
+clients/http_client
 clients/cat_client
 clients/cluster_client
 clients/dangling_indices_client

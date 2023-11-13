@@ -129,6 +129,7 @@
 <span class="kn">from</span> <span class="nn">.cluster</span> <span class="kn">import</span> <span class="n">ClusterClient</span>
 <span class="kn">from</span> <span class="nn">.dangling_indices</span> <span class="kn">import</span> <span class="n">DanglingIndicesClient</span>
 <span class="kn">from</span> <span class="nn">.features</span> <span class="kn">import</span> <span class="n">FeaturesClient</span>
+<span class="kn">from</span> <span class="nn">.http</span> <span class="kn">import</span> <span class="n">HttpClient</span>
 <span class="kn">from</span> <span class="nn">.indices</span> <span class="kn">import</span> <span class="n">IndicesClient</span>
 <span class="kn">from</span> <span class="nn">.ingest</span> <span class="kn">import</span> <span class="n">IngestClient</span>
 <span class="kn">from</span> <span class="nn">.nodes</span> <span class="kn">import</span> <span class="n">NodesClient</span>
@@ -311,8 +312,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">remote_store</span> <span class="o">=</span> <span class="n">RemoteStoreClient</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">features</span> <span class="o">=</span> <span class="n">FeaturesClient</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-
         <span class="bp">self</span><span class="o">.</span><span class="n">plugins</span> <span class="o">=</span> <span class="n">PluginsClient</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">http</span> <span class="o">=</span> <span class="n">HttpClient</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
 <div class="viewcode-block" id="OpenSearch.__repr__"><a class="viewcode-back" href="../../api-ref/clients/opensearch_client.html#opensearchpy.OpenSearch.__repr__">[docs]</a>    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="k">try</span><span class="p">:</span>
