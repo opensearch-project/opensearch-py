@@ -6,7 +6,7 @@
 
 # Making Raw JSON REST Requests
 
-The OpenSearch client implements many high-level REST DSLs that invoke OpenSearch APIs. However you may find yourself in a situation that requires you to invoke an API that is not supported by the client. Use `client.http.get`, `head` , `put`, `post`, and `delete` in older versions to do so. See [samples/json](../samples/json) for a complete working sample.
+The OpenSearch client implements many high-level REST DSLs that invoke OpenSearch APIs. However you may find yourself in a situation that requires you to invoke an API that is not supported by the client. Use `client.http.get`, `head` , `put`, `post`, and `delete` to do so. See [samples/json](../samples/json) for a complete working sample.
 
 ## GET
 
@@ -26,7 +26,7 @@ info = await client.http.get("/")
 print(f"Welcome to {info["version"]["distribution"]} {info["version"]["number"]}!")
 ```
 
-Use `perform_request` in older versions of opensearch-py.
+Use `perform_request` in older versions (<= 2.3.x), and `client.http.get` and others in newer ones.
 
 ```python
 info = client.transport.perform_request("GET", "/")
