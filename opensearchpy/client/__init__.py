@@ -47,6 +47,7 @@ from .client import Client
 from .cluster import ClusterClient
 from .dangling_indices import DanglingIndicesClient
 from .features import FeaturesClient
+from .http import HttpClient
 from .indices import IndicesClient
 from .ingest import IngestClient
 from .nodes import NodesClient
@@ -229,8 +230,8 @@ class OpenSearch(Client):
         self.remote_store = RemoteStoreClient(self)
 
         self.features = FeaturesClient(self)
-
         self.plugins = PluginsClient(self)
+        self.http = HttpClient(self)
 
     def __repr__(self) -> Any:
         try:
