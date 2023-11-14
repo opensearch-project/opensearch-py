@@ -1,7 +1,7 @@
 # CHANGELOG
 Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
-## [Unreleased]
+## [2.4.0]
 ### Added
 - Added generating imports and headers to API generator ([#467](https://github.com/opensearch-project/opensearch-py/pull/467))
 - Added point-in-time APIs (create_pit, delete_pit, delete_all_pits, get_all_pits) and Security Client APIs (health and update_audit_configuration) ([#502](https://github.com/opensearch-project/opensearch-py/pull/502))
