@@ -279,7 +279,9 @@ class Index(object):
             using=using or self._using, index=self._name, doc_type=self._doc_types
         )
 
-    def updateByQuery(self, using: Optional[OpenSearch] = None) -> UpdateByQuery:
+    def updateByQuery(  # pylint: disable=invalid-name
+        self, using: Optional[OpenSearch] = None
+    ) -> UpdateByQuery:
         """
         Return a :class:`~opensearchpy.UpdateByQuery` object searching over the index
         (or all the indices belonging to this template) and updating Documents that match

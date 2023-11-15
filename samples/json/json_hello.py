@@ -13,10 +13,10 @@
 
 from opensearchpy import OpenSearch
 
-# connect to OpenSearch
-
 
 def main() -> None:
+    # connect to OpenSearch
+
     host = "localhost"
     port = 9200
     auth = ("admin", "admin")  # For testing only. Don't store credentials in code.
@@ -29,18 +29,16 @@ def main() -> None:
         ssl_show_warn=False,
     )
 
-    info = client.info()
+    info = client.http.get("/")
     print(f"Welcome to {info['version']['distribution']} {info['version']['number']}!")
 
     # create an index
 
-    index_name = "test-index"
+    index_name = "movies"
 
     index_body = {"settings": {"index": {"number_of_shards": 4}}}
 
-    response = client.indices.create(index_name, body=index_body)
-
-    print(response)
+    print(client.http.put(f"/{index_name}", body=index_body))
 
     # add a document to the index
 
@@ -48,9 +46,7 @@ def main() -> None:
 
     id = "1"
 
-    response = client.index(index=index_name, body=document, id=id, refresh=True)
-
-    print(response)
+    print(client.http.put(f"/{index_name}/_doc/{id}?refresh=true", body=document))
 
     # search for a document
 
@@ -61,21 +57,15 @@ def main() -> None:
         "query": {"multi_match": {"query": q, "fields": ["title^2", "director"]}},
     }
 
-    response = client.search(body=query, index=index_name)
-
-    print(response)
+    print(client.http.post(f"/{index_name}/_search", body=query))
 
     # delete the document
 
-    response = client.delete(index=index_name, id=id)
-
-    print(response)
+    print(client.http.delete(f"/{index_name}/_doc/{id}"))
 
     # delete the index
 
-    response = client.indices.delete(index=index_name)
-
-    print(response)
+    print(client.http.delete(f"/{index_name}"))
 
 
 if __name__ == "__main__":

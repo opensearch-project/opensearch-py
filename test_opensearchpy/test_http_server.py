@@ -15,7 +15,9 @@ from typing import Any
 
 
 class TestHTTPRequestHandler(BaseHTTPRequestHandler):
-    def do_GET(self) -> None:
+    __test__ = False
+
+    def do_GET(self) -> None:  # pylint: disable=invalid-name
         headers = self.headers
 
         if self.path == "/redirect":
@@ -28,14 +30,14 @@ class TestHTTPRequestHandler(BaseHTTPRequestHandler):
 
         self.end_headers()
 
-        Headers = {}
+        capitalized_headers = {}
         for header, value in headers.items():
             capitalized_header = "-".join([word.title() for word in header.split("-")])
-            Headers.update({capitalized_header: value})
-        if "Connection" in Headers:
-            Headers.pop("Connection")
+            capitalized_headers.update({capitalized_header: value})
+        if "Connection" in capitalized_headers:
+            capitalized_headers.pop("Connection")
 
-        data = {"method": "GET", "headers": Headers}
+        data = {"method": "GET", "headers": capitalized_headers}
         self.wfile.write(json.dumps(data).encode("utf-8"))
 
 

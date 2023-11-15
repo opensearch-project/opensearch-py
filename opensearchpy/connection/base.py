@@ -46,9 +46,9 @@ logger = logging.getLogger("opensearch")
 
 # create the opensearchpy.trace logger, but only set propagate to False if the
 # logger hasn't already been configured
-_tracer_already_configured = "opensearchpy.trace" in logging.Logger.manager.loggerDict
+TRACER_ALREADY_CONFIGURED = "opensearchpy.trace" in logging.Logger.manager.loggerDict
 tracer = logging.getLogger("opensearchpy.trace")
-if not _tracer_already_configured:
+if not TRACER_ALREADY_CONFIGURED:
     tracer.propagate = False
 
 _WARNING_RE = re.compile(r"\"([^\"]*)\"")

@@ -18,7 +18,7 @@ from opensearchpy import OpenSearch
 # urllib3.disable_warnings()
 
 
-def test_opensearch_examples() -> None:
+def main() -> None:
     # Set up
     client = OpenSearch(
         hosts=["https://localhost:9200"],
@@ -101,4 +101,4 @@ def test_opensearch_examples() -> None:
 
 
 if __name__ == "__main__":
-    test_opensearch_examples()
+    main()

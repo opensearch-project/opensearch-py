@@ -18,9 +18,9 @@ import re
 import sys
 from typing import Iterator, List
 
-lines_to_keep = ["# -*- coding: utf-8 -*-", "#!/usr/bin/env python"]
+LINES_TO_KEEP = ["# -*- coding: utf-8 -*-", "#!/usr/bin/env python"]
 
-license_header = """
+LICENSE_HEADER = """
 # SPDX-License-Identifier: Apache-2.0
 #
 # The OpenSearch Contributors require contributions made to
@@ -54,14 +54,14 @@ def does_file_need_fix(filepath: str) -> bool:
     with open(filepath, mode="r") as f:
         for line in f:
             line = line.strip()
-            if len(line) == 0 or line in lines_to_keep:
+            if len(line) == 0 or line in LINES_TO_KEEP:
                 pass
             elif line[0] == "#":
                 existing_header += line
                 existing_header += "\n"
             else:
                 break
-    return not existing_header.startswith(license_header)
+    return not existing_header.startswith(LICENSE_HEADER)
 
 
 def add_header_to_file(filepath: str) -> None:
@@ -69,9 +69,9 @@ def add_header_to_file(filepath: str) -> None:
         lines = list(f)
     i = 0
     for i, line in enumerate(lines):
-        if len(line) > 0 and line not in lines_to_keep:
+        if len(line) > 0 and line not in LINES_TO_KEEP:
             break
-    lines = lines[:i] + [license_header] + lines[i:]
+    lines = lines[:i] + [LICENSE_HEADER] + lines[i:]
     with open(filepath, mode="w") as f:
         f.truncate()
         f.write("".join(lines))

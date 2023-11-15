@@ -21,24 +21,8 @@ from thread_with_return_value import ThreadWithReturnValue
 
 from opensearchpy import OpenSearch, Urllib3HttpConnection
 
-host = "localhost"
-port = 9200
-auth = ("admin", "admin")
-index_name = "test-index-sync"
-item_count = 1000
 
-root = logging.getLogger()
-# root.setLevel(logging.DEBUG)
-# logging.getLogger("urllib3.connectionpool").setLevel(logging.DEBUG)
-
-handler = logging.StreamHandler(sys.stdout)
-handler.setLevel(logging.DEBUG)
-formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
-handler.setFormatter(formatter)
-root.addHandler(handler)
-
-
-def index_records(client: Any, item_count: int) -> Any:
+def index_records(client: Any, index_name: str, item_count: int) -> Any:
     tt = 0
     for n in range(10):
         data: Any = []
@@ -65,6 +49,23 @@ def index_records(client: Any, item_count: int) -> Any:
 
 
 def test(thread_count: int = 1, item_count: int = 1, client_count: int = 1) -> None:
+    host = "localhost"
+    port = 9200
+    auth = ("admin", "admin")
+    index_name = "test-index-sync"
+
+    root = logging.getLogger()
+    # root.setLevel(logging.DEBUG)
+    # logging.getLogger("urllib3.connectionpool").setLevel(logging.DEBUG)
+
+    handler = logging.StreamHandler(sys.stdout)
+    handler.setLevel(logging.DEBUG)
+    formatter = logging.Formatter(
+        "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+    )
+    handler.setFormatter(formatter)
+    root.addHandler(handler)
+
     clients = []
     for i in range(client_count):
         clients.append(
@@ -96,7 +97,8 @@ def test(thread_count: int = 1, item_count: int = 1, client_count: int = 1) -> N
     threads = []
     for thread_id in range(thread_count):
         thread = ThreadWithReturnValue(
-            target=index_records, args=[clients[thread_id % len(clients)], item_count]
+            target=index_records,
+            args=[clients[thread_id % len(clients)], index_name, item_count],
         )
         threads.append(thread)
         thread.start()
@@ -113,24 +115,27 @@ def test(thread_count: int = 1, item_count: int = 1, client_count: int = 1) -> N
     print(f"{count}, latency={latency}")
 
 
+ITEM_COUNT = 1000
+
+
 def test_1() -> None:
-    test(1, 32 * item_count, 1)
+    test(1, 32 * ITEM_COUNT, 1)
 
 
 def test_2() -> None:
-    test(2, 16 * item_count, 2)
+    test(2, 16 * ITEM_COUNT, 2)
 
 
 def test_4() -> None:
-    test(4, 8 * item_count, 3)
+    test(4, 8 * ITEM_COUNT, 3)
 
 
 def test_8() -> None:
-    test(8, 4 * item_count, 8)
+    test(8, 4 * ITEM_COUNT, 8)
 
 
 def test_32() -> None:
-    test(32, item_count, 32)
+    test(32, ITEM_COUNT, 32)
 
 
 __benchmarks__ = [(test_1, test_32, "1 thread vs. 32 threads (sync)")]

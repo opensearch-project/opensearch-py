@@ -3,7 +3,7 @@
     - [Create an Index](#create-an-index)
     - [Index Vectors](#index-vectors)
     - [Search for Nearest Neighbors](#search-for-nearest-neighbors)
-  - [Approximate k-NN with a Boolean Filter](#approximate-k-nn-with-a-boolean-filter)
+  - [Approximate k-NN with a Boolean Filter](#approximate-k-nn-with-a-boolean_filter)
   - [Approximate k-NN with an Efficient Filter](#approximate-k-nn-with-an-efficient-filter)
 
 # k-NN Plugin
@@ -12,10 +12,10 @@ Short for k-nearest neighbors, the k-NN plugin enables users to search for the k
 
 ## Basic Approximate k-NN
 
-In the following example we create a 5-dimensional k-NN index with random data. You can find a synchronous version of this working sample in [samples/knn/knn-basics.py](../../samples/knn/knn-basics.py) and an asynchronous one in [samples/knn/knn-async-basics.py](../../samples/knn/knn-async-basics.py).
+In the following example we create a 5-dimensional k-NN index with random data. You can find a synchronous version of this working sample in [samples/knn/knn_basics.py](../../samples/knn/knn_basics.py) and an asynchronous one in [samples/knn/knn_async_basics.py](../../samples/knn/knn_async_basics.py).
 
 ```bash
-$ poetry run python knn/knn-basics.py
+$ poetry run python knn/knn_basics.py
 
 Searching for [0.61, 0.05, 0.16, 0.75, 0.49] ...
 {'_index': 'my-index', '_id': '3', '_score': 0.9252405, '_source': {'values': [0.64, 0.3, 0.27, 0.68, 0.51]}}
@@ -93,10 +93,10 @@ for hit in results["hits"]["hits"]:
 
 ## Approximate k-NN with a Boolean Filter
 
-In [the boolean-filter.py sample](../../samples/knn/knn-boolean-filter.py) we create a 5-dimensional k-NN index with random data and a `metadata` field that contains a book genre (e.g. `fiction`). The search query is a k-NN search filtered by genre. The filter clause is outside the k-NN query clause and is applied after the k-NN search.
+In [the knn_boolean_filter.py sample](../../samples/knn/knn_boolean_filter.py) we create a 5-dimensional k-NN index with random data and a `metadata` field that contains a book genre (e.g. `fiction`). The search query is a k-NN search filtered by genre. The filter clause is outside the k-NN query clause and is applied after the k-NN search.
 
 ```bash
-$ poetry run python knn/knn-boolean-filter.py 
+$ poetry run python knn/knn_boolean_filter.py 
 
 Searching for [0.08, 0.42, 0.04, 0.76, 0.41] with the 'romance' genre ...
 
@@ -106,10 +106,10 @@ Searching for [0.08, 0.42, 0.04, 0.76, 0.41] with the 'romance' genre ...
 
 ## Approximate k-NN with an Efficient Filter
 
-In [the lucene-filter.py sample](../../samples/knn/knn-efficient-filter.py) we implement the example in [the k-NN documentation](https://opensearch.org/docs/latest/search-plugins/knn/filter-search-knn/), which creates an index that uses the Lucene engine and HNSW as the method in the mapping, containing hotel location and parking data, then search for the top three hotels near the location with the coordinates `[5, 4]` that are rated between 8 and 10, inclusive, and provide parking.
+In [the knn_efficient_filter.py sample](../../samples/knn/knn_efficient_filter.py) we implement the example in [the k-NN documentation](https://opensearch.org/docs/latest/search-plugins/knn/filter-search-knn/), which creates an index that uses the Lucene engine and HNSW as the method in the mapping, containing hotel location and parking data, then search for the top three hotels near the location with the coordinates `[5, 4]` that are rated between 8 and 10, inclusive, and provide parking.
 
 ```bash
-$ poetry run python knn/knn-efficient-filter.py
+$ poetry run python knn/knn_efficient_filter.py
 
 {'_index': 'hotels-index', '_id': '3', '_score': 0.72992706, '_source': {'location': [4.9, 3.4], 'parking': 'true', 'rating': 9}}
 {'_index': 'hotels-index', '_id': '6', '_score': 0.3012048, '_source': {'location': [6.4, 3.4], 'parking': 'true', 'rating': 9}}

@@ -16,14 +16,8 @@ from typing import Any
 
 from opensearchpy import AsyncHttpConnection, AsyncOpenSearch
 
-host = "localhost"
-port = 9200
-auth = ("admin", "admin")
-index_name = "test-index-async"
-item_count = 100
 
-
-async def index_records(client: Any, item_count: int) -> None:
+async def index_records(client: Any, index_name: str, item_count: int) -> None:
     await asyncio.gather(
         *[
             client.index(
@@ -41,6 +35,11 @@ async def index_records(client: Any, item_count: int) -> None:
 
 
 async def test_async(client_count: int = 1, item_count: int = 1) -> None:
+    host = "localhost"
+    port = 9200
+    auth = ("admin", "admin")
+    index_name = "test-index-async"
+
     clients = []
     for i in range(client_count):
         clients.append(
@@ -61,7 +60,10 @@ async def test_async(client_count: int = 1, item_count: int = 1) -> None:
     await clients[0].indices.create(index_name)
 
     await asyncio.gather(
-        *[index_records(clients[i], item_count) for i in range(client_count)]
+        *[
+            index_records(clients[i], index_name, item_count)
+            for i in range(client_count)
+        ]
     )
 
     await clients[0].indices.refresh(index=index_name)
@@ -79,28 +81,31 @@ def test(item_count: int = 1, client_count: int = 1) -> None:
     loop.close()
 
 
+ITEM_COUNT = 100
+
+
 def test_1() -> None:
-    test(1, 32 * item_count)
+    test(1, 32 * ITEM_COUNT)
 
 
 def test_2() -> None:
-    test(2, 16 * item_count)
+    test(2, 16 * ITEM_COUNT)
 
 
 def test_4() -> None:
-    test(4, 8 * item_count)
+    test(4, 8 * ITEM_COUNT)
 
 
 def test_8() -> None:
-    test(8, 4 * item_count)
+    test(8, 4 * ITEM_COUNT)
 
 
 def test_16() -> None:
-    test(16, 2 * item_count)
+    test(16, 2 * ITEM_COUNT)
 
 
 def test_32() -> None:
-    test(32, item_count)
+    test(32, ITEM_COUNT)
 
 
 __benchmarks__ = [(test_1, test_8, "1 client vs. more clients (async)")]

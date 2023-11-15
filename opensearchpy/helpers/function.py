@@ -31,7 +31,7 @@ from typing import Any, Optional
 from .utils import DslBase
 
 
-def SF(name_or_sf: Any, **params: Any) -> Any:
+def SF(name_or_sf: Any, **params: Any) -> Any:  # pylint: disable=invalid-name
     # {"script_score": {"script": "_score"}, "filter": {}}
     if isinstance(name_or_sf, collections_abc.Mapping):
         if params:

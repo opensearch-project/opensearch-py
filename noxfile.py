@@ -65,7 +65,7 @@ def format(session: Any) -> None:
 
     session.run("isort", *SOURCE_FILES)
     session.run("black", *SOURCE_FILES)
-    session.run("python", "utils/license-headers.py", "fix", *SOURCE_FILES)
+    session.run("python", "utils/license_headers.py", "fix", *SOURCE_FILES)
 
     lint(session)
 
@@ -91,7 +91,7 @@ def lint(session: Any) -> None:
     session.run("black", "--check", *SOURCE_FILES)
     session.run("flake8", *SOURCE_FILES)
     session.run("pylint", *SOURCE_FILES)
-    session.run("python", "utils/license-headers.py", "check", *SOURCE_FILES)
+    session.run("python", "utils/license_headers.py", "check", *SOURCE_FILES)
 
     # Workaround to make '-r' to still work despite uninstalling aiohttp below.
     session.run("python", "-m", "pip", "install", "aiohttp")
@@ -120,5 +120,5 @@ def docs(session: Any) -> None:
 @nox.session()  # type: ignore
 def generate(session: Any) -> None:
     session.install("-rdev-requirements.txt")
-    session.run("python", "utils/generate-api.py")
+    session.run("python", "utils/generate_api.py")
     format(session)
