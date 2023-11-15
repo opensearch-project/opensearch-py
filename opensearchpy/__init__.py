@@ -44,12 +44,8 @@ VERSION = __version__ = (_major, _minor, _patch)
 logger = logging.getLogger("opensearch")
 logger.addHandler(logging.NullHandler())
 
-from ._async.client import AsyncOpenSearch
-from ._async.http_aiohttp import AIOHttpConnection, AsyncConnection
-from ._async.transport import AsyncTransport
 from .client import OpenSearch
 from .connection import (
-    AsyncHttpConnection,
     Connection,
     RequestsHttpConnection,
     Urllib3HttpConnection,
@@ -76,12 +72,7 @@ from .exceptions import (
     UnknownDslObject,
     ValidationException,
 )
-from .helpers import (
-    AWSV4SignerAsyncAuth,
-    AWSV4SignerAuth,
-    RequestsAWSV4SignerAuth,
-    Urllib3AWSV4SignerAuth,
-)
+from .helpers import AWSV4SignerAuth, RequestsAWSV4SignerAuth, Urllib3AWSV4SignerAuth
 from .helpers.aggs import A
 from .helpers.analysis import analyzer, char_filter, normalizer, token_filter, tokenizer
 from .helpers.document import Document, InnerDoc, MetaField
@@ -159,7 +150,6 @@ __all__ = [
     "JSONSerializer",
     "Connection",
     "RequestsHttpConnection",
-    "AsyncHttpConnection",
     "Urllib3HttpConnection",
     "ImproperlyConfigured",
     "OpenSearchException",
@@ -178,7 +168,6 @@ __all__ = [
     "AWSV4SignerAuth",
     "Urllib3AWSV4SignerAuth",
     "RequestsAWSV4SignerAuth",
-    "AWSV4SignerAsyncAuth",
     "A",
     "AttrDict",
     "AttrList",
@@ -251,10 +240,23 @@ __all__ = [
     "normalizer",
     "token_filter",
     "tokenizer",
-    "AIOHttpConnection",
-    "AsyncConnection",
-    "AsyncTransport",
-    "AsyncOpenSearch",
-    "AsyncHttpConnection",
     "__versionstr__",
 ]
+
+try:
+    from ._async.client import AsyncOpenSearch
+    from ._async.http_aiohttp import AIOHttpConnection, AsyncConnection
+    from ._async.transport import AsyncTransport
+    from .connection import AsyncHttpConnection
+    from .helpers import AWSV4SignerAsyncAuth
+
+    __all__ += [
+        "AIOHttpConnection",
+        "AsyncConnection",
+        "AsyncTransport",
+        "AsyncOpenSearch",
+        "AsyncHttpConnection",
+        "AWSV4SignerAsyncAuth",
+    ]
+except (ImportError, SyntaxError):
+    pass

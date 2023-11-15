@@ -45,10 +45,15 @@ SOURCE_FILES = (
 @nox.session(python=["3.6", "3.7", "3.8", "3.9", "3.10", "3.11"])  # type: ignore
 def test(session: Any) -> None:
     session.install(".")
+    # ensure client can be imported without aiohttp
+    session.run("python", "-c", "import opensearchpy\nprint(opensearchpy.OpenSearch())")
+    # ensure client can be imported with aiohttp
+    session.install(".[async]")
+    session.run("python", "-c", "import opensearchpy\nprint(opensearchpy.AsyncOpenSearch())")
+
     session.install("-r", "dev-requirements.txt")
 
     session.run("python", "setup.py", "test")
-
 
 @nox.session(python=["3.7"])  # type: ignore
 def format(session: Any) -> None:
