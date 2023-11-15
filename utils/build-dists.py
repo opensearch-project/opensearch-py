@@ -194,7 +194,7 @@ def main() -> None:
         if m:
             version = m.group(1)
         else:
-            raise Exception(f"Invalid version {data}")
+            raise Exception(f"Invalid version: {data}")
 
     major_version = version.split(".")[0]
 
@@ -258,8 +258,8 @@ def main() -> None:
         with open(version_path) as f:
             version_data = f.read()
         version_data = re.sub(
-            r"__versionstr__ = \"[^\"]+\"",
-            '__versionstr__ = "%s"' % version,
+            r"__versionstr__: str = \"[^\"]+\"",
+            '__versionstr__: str = "%s"' % version,
             version_data,
         )
         with open(version_path, "w") as f:
