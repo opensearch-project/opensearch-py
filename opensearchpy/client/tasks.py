@@ -129,7 +129,7 @@ class TasksClient(NamespacedClient):
         :arg wait_for_completion: Should this request wait until the
             operation has completed before returning. Default is false.
         """
-        if task_id in SKIP_IN_PATH:
+        if task_id not in SKIP_IN_PATH:
             warnings.warn(
                 "Calling client.tasks.get() without a task_id is deprecated "
                 "and will be removed in v8.0. Use client.tasks.list() instead.",
