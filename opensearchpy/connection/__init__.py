@@ -27,7 +27,6 @@
 
 
 from .base import Connection
-from .http_async import AsyncHttpConnection
 from .http_requests import RequestsHttpConnection
 from .http_urllib3 import Urllib3HttpConnection, create_ssl_context
 
@@ -36,5 +35,13 @@ __all__ = [
     "RequestsHttpConnection",
     "Urllib3HttpConnection",
     "create_ssl_context",
-    "AsyncHttpConnection",
 ]
+
+try:
+    from .http_async import AsyncHttpConnection
+
+    __all__ += [
+        "AsyncHttpConnection",
+    ]
+except (ImportError, SyntaxError):
+    pass
