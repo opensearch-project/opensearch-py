@@ -143,14 +143,15 @@ class Module:
         self.sort()
 
         # This code snippet adds headers to each generated module indicating that the code is generated.
-        header_separator = "# -----------------------------------------------------"
+        # The separator is the last line in the "THIS CODE IS AUTOMATICALLY GENERATED" header.
+        header_separator = "# -----------------------------------------------------------------------------------------+"
         license_header_end_1 = "# GitHub history for details."
         license_header_end_2 = "#  under the License."
 
         update_header = True
         license_position = 0
 
-        # Identifying the insertion point for the "THIS CODE IS GENERATED" header.
+        # Identifying the insertion point for the "THIS CODE IS AUTOMATICALLY GENERATED" header.
         if os.path.exists(self.filepath):
             with open(self.filepath, "r") as f:
                 content = f.read()
