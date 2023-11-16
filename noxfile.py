@@ -49,11 +49,14 @@ def test(session: Any) -> None:
     session.run("python", "-c", "import opensearchpy\nprint(opensearchpy.OpenSearch())")
     # ensure client can be imported with aiohttp
     session.install(".[async]")
-    session.run("python", "-c", "import opensearchpy\nprint(opensearchpy.AsyncOpenSearch())")
+    session.run(
+        "python", "-c", "import opensearchpy\nprint(opensearchpy.AsyncOpenSearch())"
+    )
 
     session.install("-r", "dev-requirements.txt")
 
     session.run("python", "setup.py", "test")
+
 
 @nox.session(python=["3.7"])  # type: ignore
 def format(session: Any) -> None:
