@@ -1,6 +1,15 @@
 # CHANGELOG
 Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
+## [2.4.1]
+### Added
+### Changed
+### Deprecated
+### Removed
+### Fixed
+- Fix dependency on `aiohttp` ([#594](https://github.com/opensearch-project/opensearch-py/pull/594))
+### Security
+
 ## [2.4.0]
 ### Added
 - Added generating imports and headers to API generator ([#467](https://github.com/opensearch-project/opensearch-py/pull/467))
