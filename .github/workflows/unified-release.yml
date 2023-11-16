@@ -9,7 +9,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        stack_version: ['2.4.1']
+        stack_version: ['2.4.2']
 
     steps:
       - name: Checkout
