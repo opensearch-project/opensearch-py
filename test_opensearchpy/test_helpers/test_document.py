@@ -32,7 +32,7 @@ import ipaddress
 import pickle
 from datetime import datetime
 from hashlib import sha256
-from typing import Any
+from typing import Any, Union
 
 from pytest import raises
 
@@ -648,3 +648,28 @@ def test_nested_and_object_inner_doc() -> None:
         },
         "title": {"type": "keyword"},
     }
+
+
+def test_save_double(mock_client: Any) -> None:
+    class MyDocumentWithDouble(MyDoc):
+        a_double: Union[float, field.Double] = field.Double()
+
+        def save(
+            self,
+            using: Any = None,
+            index: Any = None,
+            validate: bool = True,
+            skip_empty: bool = True,
+            return_doc_meta: bool = False,
+            **kwargs: Any,
+        ) -> Any:
+            if not self.a_double:
+                self.a_double = 3.14159265359
+            return super().save(
+                using, index, validate, skip_empty, return_doc_meta, **kwargs
+            )
+
+    md: Any = MyDocumentWithDouble()
+    with raises(ValidationException):
+        md.save(using="mock")
+    assert md.a_double == 3.14159265359
