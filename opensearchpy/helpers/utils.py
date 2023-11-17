@@ -309,7 +309,7 @@ class DslBase(object):
     def __ne__(self, other: Any) -> bool:
         return not self == other
 
-    def __setattr__(self, name: str, value: Optional[bool]) -> None:
+    def __setattr__(self, name: str, value: Any) -> None:
         if name.startswith("_"):
             return super(DslBase, self).__setattr__(name, value)
         return self._setattr(name, value)
