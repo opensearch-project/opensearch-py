@@ -46,6 +46,8 @@ data = [
 response = client.bulk(data)
 if response["errors"]:
     print(f"There were errors!")
+    for item in response["items"]:
+        print(f"{item['index']['status']}: {item['index']['error']['type']}")
 else:
     print(f"Bulk-inserted {len(rc['items'])} items.")
 ```
@@ -69,3 +71,29 @@ response = helpers.bulk(client, docs, max_retries=3)
 print(response)
 ```
 
+Bulk helpers support `parallel_bulk` which has options to turn off exceptions, chunk size, etc.
+
+```python
+succeeded = []
+failed = []
+for success, item in helpers.parallel_bulk(client, 
+    actions=data, 
+    chunk_size=10, 
+    raise_on_error=False,
+    raise_on_exception=False,
+    max_chunk_bytes=20 * 1024 * 1024,
+    request_timeout=60):
+    
+    if success:
+        succeeded.append(item)
+    else:
+        failed.append(item)
+
+if len(failed) > 0:
+    print(f"There were {len(failed)} errors:")
+    for item in failed:
+        print(f"{item['index']['error']}: {item['index']['exception']}")
+
+if len(succeeded) > 0:
+    print(f"Bulk-inserted {len(succeeded)} items.")
+```
