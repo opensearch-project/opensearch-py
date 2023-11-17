@@ -27,27 +27,31 @@
 
 
 from collections import defaultdict
-from typing import Any, Mapping, Optional, Sequence
-from unittest import SkipTest, TestCase
+from typing import Any, Collection, Mapping, Optional, Union
 
-from opensearchpy import OpenSearch
+import pytest
+
+from opensearchpy import AsyncOpenSearch
+from opensearchpy._async.transport import AsyncTransport
+
+pytestmark = pytest.mark.asyncio
 
 
-class DummyTransport(object):
-    def __init__(
-        self, hosts: Sequence[str], responses: Any = None, **kwargs: Any
-    ) -> None:
+class DummyTransport(AsyncTransport):
+    def __init__(self, hosts: Any, responses: Any = None, **kwargs: Any) -> None:
         self.hosts = hosts
         self.responses = responses
-        self.call_count: int = 0
+        self.call_count = 0
         self.calls: Any = defaultdict(list)
 
-    def perform_request(
+    async def perform_request(
         self,
         method: str,
         url: str,
         params: Optional[Mapping[str, Any]] = None,
         body: Optional[bytes] = None,
+        timeout: Optional[Union[int, float]] = None,
+        ignore: Collection[int] = (),
         headers: Optional[Mapping[str, str]] = None,
     ) -> Any:
         resp: Any = (200, {})
@@ -58,35 +62,33 @@ class DummyTransport(object):
         return resp
 
 
-class OpenSearchTestCase(TestCase):
-    def setUp(self) -> None:
-        super(OpenSearchTestCase, self).setUp()
-        self.client: Any = OpenSearch(transport_class=DummyTransport)  # type: ignore
-
+class OpenSearchTestCaseWithDummyTransport:
     def assert_call_count_equals(self, count: int) -> None:
-        self.assertEqual(count, self.client.transport.call_count)
+        assert isinstance(self.client.transport, DummyTransport)
+        assert count == self.client.transport.call_count
 
     def assert_url_called(self, method: str, url: str, count: int = 1) -> Any:
-        self.assertIn((method, url), self.client.transport.calls)
+        assert isinstance(self.client.transport, DummyTransport)
+        assert (method, url) in self.client.transport.calls
         calls = self.client.transport.calls[(method, url)]
-        self.assertEqual(count, len(calls))
+        assert count == len(calls)
         return calls
 
+    def setup_method(self, method: Any) -> None:
+        self.client = AsyncOpenSearch(transport_class=DummyTransport)
 
-class TestOpenSearchTestCase(OpenSearchTestCase):
-    def test_our_transport_used(self) -> None:
-        self.assertIsInstance(self.client.transport, DummyTransport)
 
-    def test_start_with_0_call(self) -> None:
+class TestClient(OpenSearchTestCaseWithDummyTransport):
+    async def test_our_transport_used(self) -> None:
+        assert isinstance(self.client.transport, DummyTransport)
+
+    async def test_start_with_0_call(self) -> None:
         self.assert_call_count_equals(0)
 
-    def test_each_call_is_recorded(self) -> None:
-        self.client.transport.perform_request("GET", "/")
-        self.client.transport.perform_request("DELETE", "/42", params={}, body="body")
-        self.assert_call_count_equals(2)
-        self.assertEqual(
-            [({}, None, "body")], self.assert_url_called("DELETE", "/42", 1)
+    async def test_each_call_is_recorded(self) -> None:
+        await self.client.transport.perform_request("GET", "/")
+        await self.client.transport.perform_request(
+            "DELETE", "/42", params={}, body="body"
         )
-
-
-__all__ = ["SkipTest", "TestCase"]
+        self.assert_call_count_equals(2)
+        assert [({}, None, "body")] == self.assert_url_called("DELETE", "/42", 1)

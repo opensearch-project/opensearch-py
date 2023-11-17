@@ -36,9 +36,12 @@ package_version = ""
 base_dir = abspath(dirname(__file__))
 
 with open(join(base_dir, package_name.replace("-", ""), "_version.py")) as f:
-    m = re.search(r"__versionstr__\s+=\s+[\"\']([^\"\']+)[\"\']", f.read())
+    data = f.read()
+    m = re.search(r"^__versionstr__: str\s+=\s+[\"\']([^\"\']+)[\"\']", data, re.M)
     if m:
         package_version = m.group(1)
+    else:
+        raise Exception(f"Invalid version: {data}")
 
 with open(join(base_dir, "README.md")) as f:
     long_description = f.read().strip()
@@ -58,7 +61,7 @@ install_requires = [
 ]
 tests_require = [
     "requests>=2.0.0, <3.0.0",
-    "coverage<7.0.0",
+    "coverage<8.0.0",
     "mock",
     "pyyaml",
     "pytest>=3.0.0",

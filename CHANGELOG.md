@@ -3,6 +3,23 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 ## [Unreleased]
 ### Added
+### Changed
+### Deprecated
+### Removed
+### Fixed
+### Security
+
+## [2.4.1]
+### Added
+### Changed
+### Deprecated
+### Removed
+### Fixed
+- Fix dependency on `aiohttp` ([#594](https://github.com/opensearch-project/opensearch-py/pull/594))
+### Security
+
+## [2.4.0]
+### Added
 - Added generating imports and headers to API generator ([#467](https://github.com/opensearch-project/opensearch-py/pull/467))
 - Added point-in-time APIs (create_pit, delete_pit, delete_all_pits, get_all_pits) and Security Client APIs (health and update_audit_configuration) ([#502](https://github.com/opensearch-project/opensearch-py/pull/502))
 - Added guide on using index templates ([#531](https://github.com/opensearch-project/opensearch-py/pull/531))
@@ -16,7 +33,8 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - Added `samples`, `benchmarks` and `docs` to `nox -rs format` ([#556](https://github.com/opensearch-project/opensearch-py/pull/556))
 - Added guide on the document lifecycle API(s) ([#559](https://github.com/opensearch-project/opensearch-py/pull/559))
 - Added Windows CI ([#569](https://github.com/opensearch-project/opensearch-py/pull/569))
-- Added guide on using a Python logging integration with OpenSearch logs ([#]())
+- Added `client.http` JSON REST request API helpers ([#544](https://github.com/opensearch-project/opensearch-py/pull/544))
+- Added guide on using a Python logging integration with OpenSearch logs ([#579](https://github.com/opensearch-project/opensearch-py/pull/579))
 ### Changed
 - Generate `tasks` client from API specs ([#508](https://github.com/opensearch-project/opensearch-py/pull/508))
 - Generate `ingest` client from API specs ([#513](https://github.com/opensearch-project/opensearch-py/pull/513))
@@ -39,6 +57,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ### Security
 ### Dependencies
 - Bumps `sphinx` from <7.1 to <7.3
+- Bumps `coverage` from <7.0.0 to <8.0.0
 
 ## [2.3.2]
 ### Added
