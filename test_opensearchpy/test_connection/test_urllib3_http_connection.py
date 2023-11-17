@@ -192,6 +192,7 @@ class TestUrllib3HttpConnection(TestCase):
         from opensearchpy.helpers.signer import Urllib3AWSV4SignerAuth
 
         auth = Urllib3AWSV4SignerAuth(self.mock_session(), "us-west-2")
+        self.assertEqual(auth.service, "es")
         con = Urllib3HttpConnection(http_auth=auth, headers={"x": "y"})
         con.perform_request("GET", "/")
         self.assertEqual(mock_open.call_count, 1)
@@ -249,6 +250,7 @@ class TestUrllib3HttpConnection(TestCase):
         from opensearchpy.helpers.signer import Urllib3AWSV4SignerAuth
 
         auth = Urllib3AWSV4SignerAuth(self.mock_session(), region, service)
+        self.assertEqual(auth.service, service)
         headers = auth("GET", "http://localhost", None)
         self.assertIn("Authorization", headers)
         self.assertIn("X-Amz-Date", headers)
