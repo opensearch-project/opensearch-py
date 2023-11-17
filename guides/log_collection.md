@@ -23,75 +23,82 @@ from opensearchpy import OpenSearch
 from logging.handlers import QueueHandler, QueueListener
 ```
 
-# Setup Connection with OpenSearch Cluster
-Let's create a client instance:
+# Setup Connection with OpenSearch
 
+Run the following commands to install the docker image:
+```
+docker pull opensearchproject/opensearch:latest
+```
+
+Create a client instance:
 ```python
-opensearch_client = OpenSearch(
-  "https://admin:admin@localhost:9200",
-  use_ssl=True,
-  verify_certs=False,
-  ssl_show_warn=False,
-  http_auth=("admin", "admin")
+client = OpenSearch(
+		hosts=['https://@localhost:9200'],
+		use_ssl=True,
+		verify_certs=False,
+		http_auth=('admin', 'admin')
 )
 ```
 
 # Initialize Logger
-Now, let's initialize a logger named "OpenSearchLogs" for OpenSearch and set the log level to INFO:
+Set the OpenSearch logger level top INFO:
 
 ```python
 # Initialize a logger named "OpenSearchLogs" for OpenSearch & set log level to INFO
 print("Initializing logger...")
 os_logger = logging.getLogger("OpenSearchLogs")
 os_logger.setLevel(logging.INFO)
+
+# Create a console handler
+console_handler = logging.StreamHandler()
+console_handler.setLevel(logging.INFO)
+
+# Add console handler to the logger
+os_logger.addHandler(console_handler)
 ```
 
-# Define Custom Handler for OpenSearch
-Next, let's define a custom handler that logs to OpenSearch:
+# Custom Handler For Logs
+Define a custom handler that logs to OpenSearch:
 
 ```python
-# Define a custom handler that logs to OpenSearch
 class OpenSearchHandler(logging.Handler):
-  # Initializer / Instance attributes
-  def __init__(self, opensearch_client):
-      logging.Handler.__init__(self)
-      self.os_client = opensearch_client
+    # Initializer / Instance attributes
+    def __init__(self, opensearch_client):
+        logging.Handler.__init__(self)
+        self.os_client = opensearch_client
 
-  # Build index name (e.g., "logs-YYYY-MM-DD")
-  def _build_index_name(self):
-      return f"logs-{datetime.date(datetime.now())}"
-  
-  # Emit logs to the OpenSearch cluster
-  def emit(self, record):
-      document = {
-          "timestamp": datetime.fromtimestamp(record.created).isoformat(),
-          "name": record.name,
-          "level": record.levelname,
-          "message": record.getMessage(),
-          "source": {
-              "file": record.pathname,
-              "line": record.lineno,
-              "function": record.funcName
-          },
-          "process": {
-              "id": record.process,
-              "name": record.processName
-          },
-          "thread": {
-              "id": record.thread,
-              "name": record.threadName
-          }
-      }
-      
-      # Write the log entry to OpenSearch, handle exceptions
-      try:
-          self.os_client.index(index="movies", id=1, body={'title': 'Beauty and the Beast', 'year': 1991})
-      except Exception as e:
-          print(f"Failed to send log to OpenSearch: {e}")
+    # Build index name (e.g., "logs-YYYY-MM-DD")
+    def _build_index_name(self):
+        return f"logs-{datetime.date(datetime.now())}"
+
+    # Emit logs to the OpenSearch cluster
+	def emit(self, record):
+        document = {
+            "timestamp": datetime.fromtimestamp(record.created).isoformat(),
+            "name": record.name,
+            "level": record.levelname,
+            "message": record.getMessage(),
+            "source": {
+                "file": record.pathname,
+                "line": record.lineno,
+                "function": record.funcName,
+            },
+            "process": {"id": record.process, "name": record.processName},
+            "thread": {"id": record.thread, "name": record.threadName},
+        }
+
+        # Write the log entry to OpenSearch, handle exceptions
+        try:
+            self.os_client.index(
+                index=self._build_index_name(),
+                body=document,
+            )
+        except Exception as e:
+            print(f"Failed to send log to OpenSearch: {e}")
 ```
 
 # Create OpenSearch Handler and Add to Logger
-Now, let's create an instance of OpenSearchHandler and add it to the logger:
+Create an instance of OpenSearchHandler and add it to the logger:
 
 ```python
 print("Creating an instance of OpenSearchHandler and adding it to the logger...")
@@ -128,4 +135,19 @@ print("Log Collection Guide has completed running")
 ```
 
 # Sample Code
-See [log_collection_sample.py](/samples/logging/log_collection_sample.py) for a working sample of the concepts in this guide.
+See [log_collection_sample.py](/samples/logging/log_collection_sample.py) for a working sample of the concepts in this guide. This Python script is a guide for setting up and running a custom log collection system using the OpenSearch service. The script will create a logger named "OpenSearchLogs" and set the log level to INFO. It will then create an instance of OpenSearchHandler and add it to the logger. Finally, it will setup asynchronous logging using Queues and send a test log to the OpenSearch cluster.
+
+Exptected Output From Running [log_collection_sample.py](/samples/logging/log_collection_sample.py):
+```python
+"""
+	Running Log Collection Guide
+	Setting up connection with OpenSearch cluster...
+	Initializing logger...
+	Creating an instance of OpenSearchHandler and adding it to the logger...
+	Setting up asynchronous logging using Queues...
+	Logger is set up and listener has started. Sending a test log...
+	This is a test log message
+	Cleaning up...
+	Log Collection Guide has completed running
+"""
+```

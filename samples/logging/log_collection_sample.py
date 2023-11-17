@@ -10,11 +10,13 @@
 # Modifications Copyright OpenSearch Contributors. See
 # GitHub history for details.
 
-from datetime import datetime
 import logging
 import queue
-from opensearchpy import OpenSearch
+from datetime import datetime
 from logging.handlers import QueueHandler, QueueListener
+from typing import Any
+
+from opensearchpy import OpenSearch
 
 # For cleaner output, comment in the two lines below to disable warnings and informational messages
 # import urllib3
@@ -24,9 +26,13 @@ from logging.handlers import QueueHandler, QueueListener
 def run_log_collection_guide() -> None:
     print("Running Log Collection Guide")
 
+    # Create a console handler
+    console_handler: logging.StreamHandler = logging.StreamHandler()  # type: ignore
+    console_handler.setLevel(logging.INFO)
+
     # Setup connection with the OpenSearch cluster
     print("Setting up connection with OpenSearch cluster...")
-    opensearch_client = OpenSearch(
+    opensearch_client: Any = OpenSearch(
         "https://admin:admin@localhost:9200",
         use_ssl=True,
         verify_certs=False,
@@ -36,22 +42,25 @@ def run_log_collection_guide() -> None:
 
     # Initialize a logger named "OpenSearchLogs" for OpenSearch
     print("Initializing logger...")
-    os_logger = logging.getLogger("OpenSearchLogs")
+    os_logger: logging.Logger = logging.getLogger("OpenSearchLogs")
     os_logger.setLevel(logging.INFO)
+
+    # Add console handler to the logger
+    os_logger.addHandler(console_handler)
 
     # Define a custom handler that logs to OpenSearch
     class OpenSearchHandler(logging.Handler):
         # Initializer / Instance attributes
-        def __init__(self, opensearch_client):
-            logging.Handler.__init__(self)
+        def __init__(self, opensearch_client: Any) -> None:
+            super().__init__()
             self.os_client = opensearch_client
 
         # Build index name (e.g., "logs-YYYY-MM-DD")
-        def _build_index_name(self):
+        def _build_index_name(self) -> str:
             return f"logs-{datetime.date(datetime.now())}"
 
         # Emit logs to the OpenSearch cluster
-        def emit(self, record):
+        def emit(self, record: logging.LogRecord) -> None:
             document = {
                 "timestamp": datetime.fromtimestamp(record.created).isoformat(),
                 "name": record.name,
@@ -66,26 +75,24 @@ def run_log_collection_guide() -> None:
                 "thread": {"id": record.thread, "name": record.threadName},
             }
 
-            # Write the log entry to OpenSearch, handle exceptions
             try:
                 self.os_client.index(
-                    index="movies",
-                    id=1,
-                    body={"title": "Beauty and the Beast", "year": 1991},
+                    index=self._build_index_name(),
+                    body=document,
                 )
             except Exception as e:
                 print(f"Failed to send log to OpenSearch: {e}")
 
     print("Creating an instance of OpenSearchHandler and adding it to the logger...")
     # Create an instance of OpenSearchHandler and add it to the logger
-    os_handler = OpenSearchHandler(opensearch_client)
+    os_handler: OpenSearchHandler = OpenSearchHandler(opensearch_client)
     os_logger.addHandler(os_handler)
 
     print("Setting up asynchronous logging using Queues...")
     # Setup asynchronous logging using Queues
-    log_queue = queue.Queue(-1)  # no limit on size
-    os_queue_handler = QueueHandler(log_queue)
-    os_queue_listener = QueueListener(log_queue, os_handler)
+    log_queue: queue.Queue[logging.LogRecord] = queue.Queue(-1)  # no limit on size
+    os_queue_handler: logging.Handler = QueueHandler(log_queue)
+    os_queue_listener: QueueListener = QueueListener(log_queue, os_handler)
 
     # Add queue handler to the logger
     os_logger.addHandler(os_queue_handler)
