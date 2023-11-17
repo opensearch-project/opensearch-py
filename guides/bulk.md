@@ -1,6 +1,8 @@
 - [Bulk Indexing](#bulk-indexing)
   - [Line-Delimited JSON](#line-delimited-json)
   - [Bulk Helper](#bulk-helper)
+  - [Parallel Bulk](#parallel-bulk)
+  - [Data Generator](#data-generator)
 
 # Bulk Indexing
 
@@ -71,6 +73,8 @@ response = helpers.bulk(client, docs, max_retries=3)
 print(response)
 ```
 
+## Parallel Bulk
+
 Bulk helpers support `parallel_bulk` which has options to turn off exceptions, chunk size, etc.
 
 ```python
@@ -96,4 +100,30 @@ if len(failed) > 0:
 
 if len(succeeded) > 0:
     print(f"Bulk-inserted {len(succeeded)} items.")
+```
+
+## Data Generator
+
+Use a data generator function with bulk helpers instead of building arrays.
+
+```python
+def _generate_data():
+    for i in range(100):
+        yield {"_index": index_name, "_id": i, "value": i}
+
+succeeded = []
+failed = []
+for success, item in helpers.parallel_bulk(client, actions=_generate_data()):
+    if success:
+        succeeded.append(item)
+    else:
+        failed.append(item)
+
+if len(failed) > 0:
+    print(f"There were {len(failed)} errors:")
+    for item in failed:
+        print(item["index"]["error"])
+
+if len(succeeded) > 0:
+    print(f"Bulk-inserted {len(succeeded)} items (streaming_bulk).")
 ```

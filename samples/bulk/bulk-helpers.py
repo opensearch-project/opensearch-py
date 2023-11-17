@@ -12,6 +12,7 @@
 
 
 import os
+from typing import Any
 
 from opensearchpy import OpenSearch, helpers
 
@@ -51,7 +52,7 @@ for i in range(100):
 
 # serialized bulk raising an exception on error
 rc = helpers.bulk(client, data)
-print(f"Bulk-inserted {rc[0]} items.")
+print(f"Bulk-inserted {rc[0]} items (bulk).")
 
 # parallel bulk with explicit error checking
 succeeded = []
@@ -76,7 +77,30 @@ if len(failed) > 0:
         print(item["index"]["error"])
 
 if len(succeeded) > 0:
-    print(f"Bulk-inserted {len(succeeded)} items.")
+    print(f"Bulk-inserted {len(succeeded)} items (parallel_bulk).")
+
+
+# streaming bulk with a data generator
+def _generate_data() -> Any:
+    for i in range(100):
+        yield {"_index": index_name, "_id": i, "value": i}
+
+
+succeeded = []
+failed = []
+for success, item in helpers.streaming_bulk(client, actions=_generate_data()):
+    if success:
+        succeeded.append(item)
+    else:
+        failed.append(item)
+
+if len(failed) > 0:
+    print(f"There were {len(failed)} errors:")
+    for item in failed:
+        print(item["index"]["error"])
+
+if len(succeeded) > 0:
+    print(f"Bulk-inserted {len(succeeded)} items (streaming_bulk).")
 
 # delete index
 client.indices.delete(index=index_name)
