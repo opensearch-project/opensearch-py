@@ -2,6 +2,6 @@
 # THIS CODE IS AUTOMATICALLY GENERATED AND MANUAL EDITS WILL BE LOST
 #
 # To contribute, kindly make modifications in the opensearch-py client generator
-# and run `nox -rs generate`, or in the OpenSearch API specification. See DEVELOPER_GUIDE.md
+# or in the OpenSearch API specification, and run `nox -rs generate`. See DEVELOPER_GUIDE.md
 # and https://github.com/opensearch-project/opensearch-api-specification for details.
 # -----------------------------------------------------------------------------------------+
