@@ -460,6 +460,7 @@ class TestRequestsHttpConnection(TestCase):
         from opensearchpy.helpers.signer import RequestsAWSV4SignerAuth
 
         auth = RequestsAWSV4SignerAuth(self.mock_session(), region)
+        self.assertEqual(auth.service, "es")
         con = RequestsHttpConnection(http_auth=auth)
         prepared_request = requests.Request("GET", "http://localhost").prepare()
         auth(prepared_request)
@@ -478,6 +479,7 @@ class TestRequestsHttpConnection(TestCase):
         from opensearchpy.helpers.signer import RequestsAWSV4SignerAuth
 
         auth = RequestsAWSV4SignerAuth(self.mock_session(), region, service)
+        self.assertEqual(auth.service, service)
         con = RequestsHttpConnection(http_auth=auth)
         prepared_request = requests.Request("GET", "http://localhost").prepare()
         auth(prepared_request)
