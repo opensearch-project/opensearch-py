@@ -442,6 +442,8 @@ def parallel_bulk(
     max_chunk_bytes: int = 100 * 1024 * 1024,
     queue_size: int = 4,
     expand_action_callback: Any = expand_action,
+    raise_on_exception: bool = True,
+    raise_on_error: bool = True,
     ignore_status: Any = (),
     *args: Any,
     **kwargs: Any
@@ -485,7 +487,14 @@ def parallel_bulk(
         for result in pool.imap(
             lambda bulk_chunk: list(
                 _process_bulk_chunk(
-                    client, bulk_chunk[1], bulk_chunk[0], ignore_status, *args, **kwargs
+                    client,
+                    bulk_chunk[1],
+                    bulk_chunk[0],
+                    raise_on_exception,
+                    raise_on_error,
+                    ignore_status,
+                    *args,
+                    **kwargs
                 )
             ),
             _chunk_actions(
