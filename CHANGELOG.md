@@ -3,6 +3,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 ## [Unreleased]
 ### Added
+- Added a log collection guide ([#579](https://github.com/opensearch-project/opensearch-py/pull/579))
 ### Changed
 ### Deprecated
 ### Removed
@@ -37,7 +38,6 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - Added guide on the document lifecycle API(s) ([#559](https://github.com/opensearch-project/opensearch-py/pull/559))
 - Added Windows CI ([#569](https://github.com/opensearch-project/opensearch-py/pull/569))
 - Added `client.http` JSON REST request API helpers ([#544](https://github.com/opensearch-project/opensearch-py/pull/544))
-- Added guide on using a custom Python logging integration with OpenSearch logs ([#579](https://github.com/opensearch-project/opensearch-py/pull/579))
 ### Changed
 - Generate `tasks` client from API specs ([#508](https://github.com/opensearch-project/opensearch-py/pull/508))
 - Generate `ingest` client from API specs ([#513](https://github.com/opensearch-project/opensearch-py/pull/513))

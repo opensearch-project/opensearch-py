@@ -16,15 +16,15 @@ from datetime import datetime
 from logging.handlers import QueueHandler, QueueListener
 from typing import Any
 
+import urllib3
+
 from opensearchpy import OpenSearch
 
-# For cleaner output, comment in the two lines below to disable warnings and informational messages
-# import urllib3
-# urllib3.disable_warnings()
+urllib3.disable_warnings()
 
 
-def run_log_collection_guide() -> None:
-    print("Running Log Collection Guide")
+def main() -> None:
+    print("Collecting logs.")
 
     # Create a console handler
     console_handler: logging.StreamHandler = logging.StreamHandler()  # type: ignore
@@ -82,6 +82,8 @@ def run_log_collection_guide() -> None:
                 )
             except Exception as e:
                 print(f"Failed to send log to OpenSearch: {e}")
+                logging.warning(f"Failed to send log to OpenSearch: {e}")
+                raise
 
     print("Creating an instance of OpenSearchHandler and adding it to the logger...")
     # Create an instance of OpenSearchHandler and add it to the logger
@@ -111,4 +113,4 @@ def run_log_collection_guide() -> None:
 
 
 if __name__ == "__main__":
-    run_log_collection_guide()
+    main()
