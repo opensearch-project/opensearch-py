@@ -67,11 +67,62 @@ class TestParallelBulk(TestCase):
 
         self.assertEqual(50, mock_process_bulk_chunk.call_count)  # type: ignore
 
+    @mock.patch("opensearchpy.OpenSearch.bulk")
+    def test_with_all_options(self, _bulk: Any) -> None:
+        actions = ({"x": i} for i in range(100))
+        list(
+            helpers.parallel_bulk(
+                OpenSearch(),
+                actions=actions,
+                chunk_size=2,
+                raise_on_error=False,
+                raise_on_exception=False,
+                max_chunk_bytes=20 * 1024 * 1024,
+                request_timeout=160,
+                ignore_status=(123),
+            )
+        )
+
+        self.assertEqual(50, _bulk.call_count)
+        _bulk.assert_called_with(
+            '{"index":{}}\n{"x":98}\n{"index":{}}\n{"x":99}\n', request_timeout=160
+        )
+
+    @mock.patch("opensearchpy.helpers.actions._process_bulk_chunk")
+    def test_process_bulk_chunk_with_all_options(
+        self, _process_bulk_chunk: Any
+    ) -> None:
+        actions = ({"x": i} for i in range(100))
+        client = OpenSearch()
+        list(
+            helpers.parallel_bulk(
+                client,
+                actions=actions,
+                chunk_size=2,
+                raise_on_error=True,
+                raise_on_exception=True,
+                max_chunk_bytes=20 * 1024 * 1024,
+                request_timeout=160,
+                ignore_status=(123),
+            )
+        )
+
+        self.assertEqual(50, _process_bulk_chunk.call_count)
+        _process_bulk_chunk.assert_called_with(
+            client,
+            ['{"index":{}}', '{"x":98}', '{"index":{}}', '{"x":99}'],
+            [({"index": {}}, {"x": 98}), ({"index": {}}, {"x": 99})],
+            True,
+            True,
+            123,
+            request_timeout=160,
+        )
+
     @pytest.mark.skip  # type: ignore
     @mock.patch(
         "opensearchpy.helpers.actions._process_bulk_chunk",
         # make sure we spend some time in the thread
-        side_effect=lambda *a: [
+        side_effect=lambda *args, **kwargs: [
             (True, time.sleep(0.001) or threading.current_thread().ident)  # type: ignore
         ],
     )

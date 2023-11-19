@@ -78,6 +78,7 @@ class RequestsAWSV4SignerAuth(requests.auth.AuthBase):
 
     def __init__(self, credentials, region, service: str = "es") -> None:  # type: ignore
         self.signer = AWSV4Signer(credentials, region, service)
+        self.service = service  # tools like LangChain rely on this, see https://github.com/opensearch-project/opensearch-py/issues/600
 
     def __call__(self, request):  # type: ignore
         return self._sign_request(request)  # type: ignore
@@ -133,6 +134,7 @@ class AWSV4SignerAuth(RequestsAWSV4SignerAuth):
 class Urllib3AWSV4SignerAuth(Callable):  # type: ignore
     def __init__(self, credentials, region, service: str = "es") -> None:  # type: ignore
         self.signer = AWSV4Signer(credentials, region, service)
+        self.service = service  # tools like LangChain rely on this, see https://github.com/opensearch-project/opensearch-py/issues/600
 
     def __call__(self, method: str, url: str, body: Any) -> Dict[str, str]:
         return self.signer.sign(method, url, body)
