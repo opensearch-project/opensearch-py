@@ -7,6 +7,14 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ### Deprecated
 ### Removed
 ### Fixed
+### Security
+
+## [2.4.2]
+### Added
+### Changed
+### Deprecated
+### Removed
+### Fixed
 - Fix `TypeError` on `parallel_bulk` ([#601](https://github.com/opensearch-project/opensearch-py/pull/601))
 - Fix Amazon OpenSearch Serverless integration with LangChain ([#603](https://github.com/opensearch-project/opensearch-py/pull/603))
 - Fix type of `Field.__setattr__` ([604](https://github.com/opensearch-project/opensearch-py/pull/604))
@@ -184,11 +192,14 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - Fixed Wrong return type hint in `async_scan` ([520](https://github.com/opensearch-project/opensearch-py/pull/520))
 ### Security
 
-[Unreleased]: https://github.com/opensearch-project/opensearch-py/compare/v2.3.2...HEAD
-[2.0.1]: https://github.com/opensearch-project/opensearch-py/compare/v2.0.0...v2.0.1
-[2.1.0]: https://github.com/opensearch-project/opensearch-py/compare/v2.0.1...v2.1.0
-[2.1.1]: https://github.com/opensearch-project/opensearch-py/compare/v2.1.0...v2.1.1
-[2.2.0]: https://github.com/opensearch-project/opensearch-py/compare/v2.1.1...v2.2.0
-[2.3.0]: https://github.com/opensearch-project/opensearch-py/compare/v2.2.0...v2.3.0
-[2.3.1]: https://github.com/opensearch-project/opensearch-py/compare/v2.3.0...v2.3.1
+[Unreleased]: https://github.com/opensearch-project/opensearch-py/compare/v2.4.2...HEAD
+[2.4.2]: https://github.com/opensearch-project/opensearch-py/compare/v2.4.0...v2.4.2
+[2.4.1]: https://github.com/opensearch-project/opensearch-py/compare/v2.4.0...v2.4.1
+[2.4.0]: https://github.com/opensearch-project/opensearch-py/compare/v2.3.2...v2.4.0
 [2.3.2]: https://github.com/opensearch-project/opensearch-py/compare/v2.3.1...v2.3.2
+[2.3.1]: https://github.com/opensearch-project/opensearch-py/compare/v2.3.0...v2.3.1
+[2.3.0]: https://github.com/opensearch-project/opensearch-py/compare/v2.2.0...v2.3.0
+[2.2.0]: https://github.com/opensearch-project/opensearch-py/compare/v2.1.1...v2.2.0
+[2.1.1]: https://github.com/opensearch-project/opensearch-py/compare/v2.1.0...v2.1.1
+[2.1.0]: https://github.com/opensearch-project/opensearch-py/compare/v2.0.1...v2.1.0
+[2.0.1]: https://github.com/opensearch-project/opensearch-py/compare/v2.0.0...v2.0.1
