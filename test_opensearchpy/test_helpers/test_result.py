@@ -43,7 +43,7 @@ def agg_response(aggs_search: Any, aggs_data: Any) -> Any:
 
 
 def test_agg_response_is_pickleable(agg_response: Any) -> None:
-    agg_response.hits
+    assert agg_response.hits == []
     r = pickle.loads(pickle.dumps(agg_response))
 
     assert r == agg_response
@@ -53,7 +53,7 @@ def test_agg_response_is_pickleable(agg_response: Any) -> None:
 
 def test_response_is_pickleable(dummy_response: Any) -> None:
     res = response.Response(Search(), dummy_response)
-    res.hits
+    assert res.hits
     r = pickle.loads(pickle.dumps(res))
 
     assert r == res
@@ -146,10 +146,10 @@ def test_hits_provide_dot_and_bracket_access_to_attrs(dummy_response: Any) -> No
     assert "Honza" == res.hits[2].name.first
 
     with raises(KeyError):
-        h["not_there"]
+        assert h["not_there"]
 
     with raises(AttributeError):
-        h.not_there
+        assert h.not_there
 
 
 def test_slicing_on_response_slices_on_hits(dummy_response: Any) -> None:

@@ -343,10 +343,10 @@ async def test_doc_type_can_be_correctly_pickled() -> None:
 
 async def test_meta_is_accessible_even_on_empty_doc() -> None:
     d = MyDoc()
-    d.meta
+    assert d.meta == {}
 
     d = MyDoc(title="aaa")
-    d.meta
+    assert d.meta == {}
 
 
 async def test_meta_field_mapping() -> None:
@@ -404,7 +404,7 @@ async def test_docs_with_properties() -> None:
     assert u.check_password(b"not-secret")
 
     with raises(AttributeError):
-        u.password
+        assert u.password
 
 
 async def test_nested_can_be_assigned_to() -> None:
