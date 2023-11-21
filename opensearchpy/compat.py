@@ -32,7 +32,7 @@ from typing import Tuple, Type, Union
 from urllib.parse import quote, quote_plus, unquote, urlencode, urlparse
 
 string_types = str, bytes
-map = map
+map = map  # pylint: disable=invalid-name
 
 
 def to_str(x: Union[str, bytes], encoding: str = "ascii") -> str:

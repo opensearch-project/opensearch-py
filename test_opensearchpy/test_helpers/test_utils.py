@@ -91,7 +91,7 @@ def test_attrlist_items_get_wrapped_during_iteration() -> None:
     assert isinstance(ls[3], utils.AttrDict)
 
 
-def test_serializer_deals_with_Attr_versions() -> None:
+def test_serializer_deals_with_attr_versions() -> None:
     d = utils.AttrDict({"key": utils.AttrList([1, 2, 3])})
 
     assert serializer.serializer.dumps(d) == serializer.serializer.dumps(

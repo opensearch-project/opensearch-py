@@ -35,7 +35,9 @@ from ..helpers.function import SF, ScoreFunction
 from .utils import DslBase
 
 
-def Q(name_or_query: Any = "match_all", **params: Any) -> Any:
+def Q(  # pylint: disable=invalid-name
+    name_or_query: Any = "match_all", **params: Any
+) -> Any:
     # {"match": {"title": "python"}}
     if isinstance(name_or_query, collections_abc.Mapping):
         if params:

@@ -33,7 +33,9 @@ from .response.aggs import AggResponse, BucketData, FieldBucketData, TopHitsData
 from .utils import DslBase
 
 
-def A(name_or_agg: Any, filter: Any = None, **params: Any) -> Any:
+def A(  # pylint: disable=invalid-name
+    name_or_agg: Any, filter: Any = None, **params: Any
+) -> Any:
     if filter is not None:
         if name_or_agg != "filter":
             raise ValueError(

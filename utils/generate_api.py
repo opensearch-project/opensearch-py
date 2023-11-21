@@ -13,10 +13,10 @@
 # Modifications Copyright OpenSearch Contributors. See
 # GitHub history for details.
 #
-#  Licensed to Elasticsearch B.V. under one or more contributor
+#  Licensed to Elasticsearch b.V. under one or more contributor
 #  license agreements. See the NOTICE file distributed with
 #  this work for additional information regarding copyright
-#  ownership. Elasticsearch B.V. licenses this file to you under
+#  ownership. Elasticsearch b.V. licenses this file to you under
 #  the Apache License, Version 2.0 (the "License"); you may
 #  not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
@@ -143,14 +143,15 @@ class Module:
         self.sort()
 
         # This code snippet adds headers to each generated module indicating that the code is generated.
-        header_separator = "# -----------------------------------------------------"
-        License_header_end_1 = "# GitHub history for details."
-        License_header_end_2 = "#  under the License."
+        # The separator is the last line in the "THIS CODE IS AUTOMATICALLY GENERATED" header.
+        header_separator = "# -----------------------------------------------------------------------------------------+"
+        license_header_end_1 = "# GitHub history for details."
+        license_header_end_2 = "#  under the License."
 
         update_header = True
-        License_position = 0
+        license_position = 0
 
-        # Identifying the insertion point for the "THIS CODE IS GENERATED" header.
+        # Identifying the insertion point for the "THIS CODE IS AUTOMATICALLY GENERATED" header.
         if os.path.exists(self.filepath):
             with open(self.filepath, "r") as f:
                 content = f.read()
@@ -160,20 +161,20 @@ class Module:
                     content.find(header_separator) + len(header_separator) + 2
                 )
                 header_position = content.rfind("\n", 0, header_end_position) + 1
-            if License_header_end_1 in content:
-                if License_header_end_2 in content:
+            if license_header_end_1 in content:
+                if license_header_end_2 in content:
                     position = (
-                        content.find(License_header_end_2)
-                        + len(License_header_end_2)
+                        content.find(license_header_end_2)
+                        + len(license_header_end_2)
                         + 2
                     )
                 else:
                     position = (
-                        content.find(License_header_end_1)
-                        + len(License_header_end_1)
+                        content.find(license_header_end_1)
+                        + len(license_header_end_1)
                         + 2
                     )
-                License_position = content.rfind("\n", 0, position) + 1
+                license_position = content.rfind("\n", 0, position) + 1
 
         current_script_folder = os.path.dirname(os.path.abspath(__file__))
         generated_file_header_path = os.path.join(
@@ -190,12 +191,12 @@ class Module:
         with open(self.filepath, "w") as f:
             if update_header is True:
                 f.write(
-                    self.header[:License_position]
+                    self.header[:license_position]
                     + "\n"
                     + header_content
                     + "\n\n"
                     + "#replace_token#\n"
-                    + self.header[License_position:]
+                    + self.header[license_position:]
                 )
             else:
                 f.write(
@@ -470,21 +471,21 @@ def read_modules() -> Any:
             parts_new = {}
 
             for m in params:
-                A = dict(type=m["schema"]["type"], description=m["description"])
+                a = dict(type=m["schema"]["type"], description=m["description"])
 
                 if "default" in m["schema"]:
-                    A.update({"default": m["schema"]["default"]})
+                    a.update({"default": m["schema"]["default"]})
 
                 if "enum" in m["schema"]:
-                    A.update({"type": "enum"})
-                    A.update({"options": m["schema"]["enum"]})
+                    a.update({"type": "enum"})
+                    a.update({"options": m["schema"]["enum"]})
 
                 if "deprecated" in m["schema"]:
-                    A.update({"deprecated": m["schema"]["deprecated"]})
-                    A.update(
+                    a.update({"deprecated": m["schema"]["deprecated"]})
+                    a.update(
                         {"deprecation_message": m["schema"]["x-deprecation-message"]}
                     )
-                params_new.update({m["name"]: A})
+                params_new.update({m["name"]: a})
 
             # Removing the deprecated "type"
             if p["x-operation-group"] != "nodes.hot_threads" and "type" in params_new:
@@ -502,17 +503,17 @@ def read_modules() -> Any:
             p.pop("parameters")
 
             for n in parts:
-                B = dict(type=n["schema"]["type"])
+                b = dict(type=n["schema"]["type"])
 
                 if "description" in n:
-                    B.update({"description": n["description"]})
+                    b.update({"description": n["description"]})
 
                 if "x-enum-options" in n["schema"]:
-                    B.update({"options": n["schema"]["x-enum-options"]})
+                    b.update({"options": n["schema"]["x-enum-options"]})
 
                 deprecated_new = {}
                 if "deprecated" in n:
-                    B.update({"deprecated": n["deprecated"]})
+                    b.update({"deprecated": n["deprecated"]})
 
                     if "x-deprecation-version" in n:
                         deprecated_new.update({"version": n["x-deprecation-version"]})
@@ -522,7 +523,7 @@ def read_modules() -> Any:
                             {"description": n["x-deprecation-description"]}
                         )
 
-                parts_new.update({n["name"]: B})
+                parts_new.update({n["name"]: b})
 
             if bool(parts_new):
                 p.update({"parts": parts_new})

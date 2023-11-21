@@ -137,23 +137,23 @@ class Host(document.Document):
 
 
 def test_range_serializes_properly() -> None:
-    class D(document.Document):
+    class DocumentD(document.Document):
         lr = field.LongRange()
 
-    d: Any = D(lr=Range(lt=42))
+    d: Any = DocumentD(lr=Range(lt=42))
     assert 40 in d.lr
     assert 47 not in d.lr
     assert {"lr": {"lt": 42}} == d.to_dict()
 
-    d = D(lr={"lt": 42})
+    d = DocumentD(lr={"lt": 42})
     assert {"lr": {"lt": 42}} == d.to_dict()
 
 
 def test_range_deserializes_properly() -> None:
-    class D(document.InnerDoc):
+    class DocumentD(document.InnerDoc):
         lr = field.LongRange()
 
-    d: Any = D.from_opensearch({"lr": {"lt": 42}}, True)
+    d: Any = DocumentD.from_opensearch({"lr": {"lt": 42}}, True)
     assert isinstance(d.lr, Range)
     assert 40 in d.lr
     assert 47 not in d.lr
@@ -166,15 +166,15 @@ def test_resolve_nested() -> None:
 
 
 def test_conflicting_mapping_raises_error_in_index_to_dict() -> None:
-    class A(document.Document):
+    class DocumentA(document.Document):
         name = field.Text()
 
-    class B(document.Document):
+    class DocumentB(document.Document):
         name = field.Keyword()
 
     i: Any = Index("i")
-    i.document(A)
-    i.document(B)
+    i.document(DocumentA)
+    i.document(DocumentB)
 
     with raises(ValueError):
         i.to_dict()
@@ -192,11 +192,11 @@ def test_matches_uses_index() -> None:
 
 
 def test_matches_with_no_name_always_matches() -> None:
-    class D(document.Document):
+    class DocumentD(document.Document):
         pass
 
-    assert D._matches({})
-    assert D._matches({"_index": "whatever"})
+    assert DocumentD._matches({})
+    assert DocumentD._matches({"_index": "whatever"})
 
 
 def test_matches_accepts_wildcards() -> None:
@@ -531,10 +531,10 @@ def test_document_inheritance() -> None:
 
 
 def test_child_class_can_override_parent() -> None:
-    class A(document.Document):
+    class DocumentA(document.Document):
         o = field.Object(dynamic=False, properties={"a": field.Text()})
 
-    class B(A):
+    class DocumentB(DocumentA):
         o = field.Object(dynamic="strict", properties={"b": field.Text()})
 
     assert {
@@ -545,7 +545,7 @@ def test_child_class_can_override_parent() -> None:
                 "type": "object",
             }
         }
-    } == B._doc_type.mapping.to_dict()
+    } == DocumentB._doc_type.mapping.to_dict()
 
 
 def test_meta_fields_are_stored_in_meta_and_ignored_by_to_dict() -> None:

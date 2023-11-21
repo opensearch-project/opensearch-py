@@ -31,26 +31,26 @@ from os.path import abspath, dirname, join
 
 from setuptools import find_packages, setup
 
-package_name = "opensearch-py"
-package_version = ""
-base_dir = abspath(dirname(__file__))
+PACKAGE_NAME = "opensearch-py"
+PACKAGE_VERSION = ""
+BASE_DIR = abspath(dirname(__file__))
 
-with open(join(base_dir, package_name.replace("-", ""), "_version.py")) as f:
+with open(join(BASE_DIR, PACKAGE_NAME.replace("-", ""), "_version.py")) as f:
     data = f.read()
     m = re.search(r"^__versionstr__: str\s+=\s+[\"\']([^\"\']+)[\"\']", data, re.M)
     if m:
-        package_version = m.group(1)
+        PACKAGE_VERSION = m.group(1)
     else:
         raise Exception(f"Invalid version: {data}")
 
-with open(join(base_dir, "README.md")) as f:
+with open(join(BASE_DIR, "README.md")) as f:
     long_description = f.read().strip()
 
-module_dir = package_name.replace("-", "")
+MODULE_DIR = PACKAGE_NAME.replace("-", "")
 packages = [
     package
     for package in find_packages(where=".", exclude=("test_opensearchpy*",))
-    if package == module_dir or package.startswith(module_dir + ".")
+    if package == MODULE_DIR or package.startswith(MODULE_DIR + ".")
 ]
 install_requires = [
     "urllib3>=1.26.18",
@@ -77,13 +77,13 @@ docs_require = ["sphinx", "sphinx_rtd_theme", "myst_parser", "sphinx_copybutton"
 generate_require = ["black", "jinja2"]
 
 setup(
-    name=package_name,
+    name=PACKAGE_NAME,
     description="Python client for OpenSearch",
     license="Apache-2.0",
     url="https://github.com/opensearch-project/opensearch-py",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    version=package_version,
+    version=PACKAGE_VERSION,
     author="Aleksei Atavin, Denis Zalevskiy, Rushi Agrawal, Shephali Mittal",
     author_email="axeo@aiven.io, dez@aiven.io, rushi.agr@gmail.com, shephalm@amazon.com",
     maintainer="Aleksei Atavin, Denis Zalevskiy, Rushi Agrawal, Shephali Mittal",

@@ -260,7 +260,7 @@ class AsyncIndex(object):
             using=using or self._using, index=self._name, doc_type=self._doc_types
         )
 
-    def updateByQuery(self, using: Any = None) -> Any:
+    def updateByQuery(self, using: Any = None) -> Any:  # pylint: disable=invalid-name
         """
         Return a :class:`~opensearchpy.AsyncUpdateByQuery` object searching over the index
         (or all the indices belonging to this template) and updating Documents that match

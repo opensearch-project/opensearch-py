@@ -59,14 +59,14 @@ def test_meta_from_dict() -> None:
     assert aggs.A(a.to_dict()) == a
 
 
-def test_A_creates_proper_agg() -> None:
+def test_aggs_creates_proper_agg() -> None:
     a = aggs.A("terms", field="tags")
 
     assert isinstance(a, aggs.Terms)
     assert a._params == {"field": "tags"}
 
 
-def test_A_handles_nested_aggs_properly() -> None:
+def test_aggs_handles_nested_aggs_properly() -> None:
     max_score = aggs.Max(field="score")
     a = aggs.A("terms", field="tags", aggs={"max_score": max_score})
 
@@ -74,12 +74,12 @@ def test_A_handles_nested_aggs_properly() -> None:
     assert a._params == {"field": "tags", "aggs": {"max_score": max_score}}
 
 
-def test_A_passes_aggs_through() -> None:
+def test_aggs_passes_aggs_through() -> None:
     a = aggs.A("terms", field="tags")
     assert aggs.A(a) is a
 
 
-def test_A_from_dict() -> None:
+def test_aggs_from_dict() -> None:
     d = {
         "terms": {"field": "tags"},
         "aggs": {"per_author": {"terms": {"field": "author.raw"}}},
@@ -95,7 +95,7 @@ def test_A_from_dict() -> None:
     assert a.aggs.per_author == aggs.A("terms", field="author.raw")
 
 
-def test_A_fails_with_incorrect_dict() -> None:
+def test_aggs_fails_with_incorrect_dict() -> None:
     correct_d = {
         "terms": {"field": "tags"},
         "aggs": {"per_author": {"terms": {"field": "author.raw"}}},
@@ -115,7 +115,7 @@ def test_A_fails_with_incorrect_dict() -> None:
         aggs.A(d)
 
 
-def test_A_fails_with_agg_and_params() -> None:
+def test_aggs_fails_with_agg_and_params() -> None:
     a = aggs.A("terms", field="tags")
 
     with raises(Exception):

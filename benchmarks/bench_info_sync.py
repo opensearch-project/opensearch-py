@@ -20,22 +20,6 @@ from thread_with_return_value import ThreadWithReturnValue
 
 from opensearchpy import OpenSearch
 
-host = "localhost"
-port = 9200
-auth = ("admin", "admin")
-request_count = 250
-
-
-root = logging.getLogger()
-# root.setLevel(logging.DEBUG)
-# logging.getLogger("urllib3.connectionpool").setLevel(logging.DEBUG)
-
-handler = logging.StreamHandler(sys.stdout)
-handler.setLevel(logging.DEBUG)
-formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
-handler.setFormatter(formatter)
-root.addHandler(handler)
-
 
 def get_info(client: Any, request_count: int) -> float:
     tt: float = 0
@@ -48,6 +32,22 @@ def get_info(client: Any, request_count: int) -> float:
 
 
 def test(thread_count: int = 1, request_count: int = 1, client_count: int = 1) -> None:
+    host = "localhost"
+    port = 9200
+    auth = ("admin", "admin")
+
+    root = logging.getLogger()
+    # root.setLevel(logging.DEBUG)
+    # logging.getLogger("urllib3.connectionpool").setLevel(logging.DEBUG)
+
+    handler = logging.StreamHandler(sys.stdout)
+    handler.setLevel(logging.DEBUG)
+    formatter = logging.Formatter(
+        "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+    )
+    handler.setFormatter(formatter)
+    root.addHandler(handler)
+
     clients = []
     for i in range(client_count):
         clients.append(
@@ -76,24 +76,27 @@ def test(thread_count: int = 1, request_count: int = 1, client_count: int = 1) -
     print(f"latency={latency}")
 
 
+REQUEST_COUNT = 250
+
+
 def test_1() -> None:
-    test(1, 32 * request_count, 1)
+    test(1, 32 * REQUEST_COUNT, 1)
 
 
 def test_2() -> None:
-    test(2, 16 * request_count, 2)
+    test(2, 16 * REQUEST_COUNT, 2)
 
 
 def test_4() -> None:
-    test(4, 8 * request_count, 3)
+    test(4, 8 * REQUEST_COUNT, 3)
 
 
 def test_8() -> None:
-    test(8, 4 * request_count, 8)
+    test(8, 4 * REQUEST_COUNT, 8)
 
 
 def test_32() -> None:
-    test(32, request_count, 32)
+    test(32, REQUEST_COUNT, 32)
 
 
 __benchmarks__ = [(test_1, test_32, "1 thread vs. 32 threads (sync)")]
