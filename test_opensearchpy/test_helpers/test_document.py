@@ -353,10 +353,10 @@ def test_doc_type_can_be_correctly_pickled() -> None:
 
 def test_meta_is_accessible_even_on_empty_doc() -> None:
     d1: Any = MyDoc()
-    d1.meta
+    assert d1.meta == {}
 
     d2: Any = MyDoc(title="aaa")
-    d2.meta
+    assert d2.meta == {}
 
 
 def test_meta_field_mapping() -> None:
@@ -414,7 +414,7 @@ def test_docs_with_properties() -> None:
     assert u.check_password(b"not-secret")
 
     with raises(AttributeError):
-        u.password
+        assert u.password
 
 
 def test_nested_can_be_assigned_to() -> None:
