@@ -99,7 +99,15 @@ Note that integration tests require docker to be installed and running, and down
 
 ## Linter
 
-Run the linter and test suite to ensure your changes do not break existing code. The following will auto-format your changes.
+This library uses a combination of [pylint](https://github.com/pylint-dev/pylint), [black](https://github.com/psf/black), and [isort](https://github.com/PyCQA/isort) to enforce some consistency in code formatting or naming conventions. 
+
+Run the linters to ensure your changes do not break existing conventions. 
+
+```
+$ nox -rs lint
+```
+
+Use a formatter to auto-correct some common problems.
 
 ```
 $ nox -rs format

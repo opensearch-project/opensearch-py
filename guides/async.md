@@ -11,7 +11,7 @@
 
 # Asynchronous I/O
 
-This client supports asynchronous I/O that improves performance and increases throughput. See [hello-async.py](../samples/hello/hello-async.py) or [knn-async-basics.py](../samples/knn/knn-async-basics.py) for a working asynchronous sample.
+This client supports asynchronous I/O that improves performance and increases throughput. See [hello_async.py](../samples/hello/hello_async.py) or [knn_async_basics.py](../samples/knn/knn_async_basics.py) for a working asynchronous sample.
 
 ## Setup
 

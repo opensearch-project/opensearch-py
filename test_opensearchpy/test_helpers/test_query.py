@@ -32,7 +32,7 @@ from pytest import raises
 from opensearchpy.helpers import function, query
 
 
-def test_empty_Q_is_match_all() -> None:
+def test_empty_query_is_match_all() -> None:
     q = query.Q()
 
     assert isinstance(q, query.MatchAll)
@@ -389,57 +389,57 @@ def test_defining_query_registers_it() -> None:
     assert query.Query._classes["my_query"] is MyQuery
 
 
-def test_Q_passes_query_through() -> None:
+def test_query_passes_query_through() -> None:
     q = query.Match(f="value1")
 
     assert query.Q(q) is q
 
 
-def test_Q_constructs_query_by_name() -> None:
+def test_query_constructs_query_by_name() -> None:
     q = query.Q("match", f="value")
 
     assert isinstance(q, query.Match)
     assert {"f": "value"} == q._params
 
 
-def test_Q_translates_double_underscore_to_dots_in_param_names() -> None:
+def test_query_translates_double_underscore_to_dots_in_param_names() -> None:
     q = query.Q("match", comment__author="honza")
 
     assert {"comment.author": "honza"} == q._params
 
 
-def test_Q_doesn_translate_double_underscore_to_dots_in_param_names() -> None:
+def test_query_doesn_translate_double_underscore_to_dots_in_param_names() -> None:
     q = query.Q("match", comment__author="honza", _expand__to_dot=False)
 
     assert {"comment__author": "honza"} == q._params
 
 
-def test_Q_constructs_simple_query_from_dict() -> None:
+def test_query_constructs_simple_query_from_dict() -> None:
     q = query.Q({"match": {"f": "value"}})
 
     assert isinstance(q, query.Match)
     assert {"f": "value"} == q._params
 
 
-def test_Q_constructs_compound_query_from_dict() -> None:
+def test_query_constructs_compound_query_from_dict() -> None:
     q = query.Q({"bool": {"must": [{"match": {"f": "value"}}]}})
 
     assert q == query.Bool(must=[query.Match(f="value")])
 
 
-def test_Q_raises_error_when_passed_in_dict_and_params() -> None:
+def test_query_raises_error_when_passed_in_dict_and_params() -> None:
     with raises(Exception):
         query.Q({"match": {"f": "value"}}, f="value")
 
 
-def test_Q_raises_error_when_passed_in_query_and_params() -> None:
+def test_query_raises_error_when_passed_in_query_and_params() -> None:
     q = query.Match(f="value1")
 
     with raises(Exception):
         query.Q(q, f="value")
 
 
-def test_Q_raises_error_on_unknown_query() -> None:
+def test_query_raises_error_on_unknown_query() -> None:
     with raises(Exception):
         query.Q("not a query", f="value")
 

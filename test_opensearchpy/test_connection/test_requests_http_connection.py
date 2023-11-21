@@ -43,7 +43,7 @@ from opensearchpy.exceptions import (
     RequestError,
     TransportError,
 )
-from test_opensearchpy.TestHttpServer import TestHTTPServer
+from test_opensearchpy.test_http_server import TestHTTPServer
 
 from ..test_cases import TestCase
 

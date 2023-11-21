@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "package"
+name = "opensearch-py-benchmarks"
 version = "0.1.0"
 description = "OpenSearch Python client benchmarks."
 authors = ["Daniel Doubrovkine <dblock@dblock.org>"]

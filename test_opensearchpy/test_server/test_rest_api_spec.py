@@ -469,68 +469,75 @@ def sync_runner(sync_client: Any) -> Any:
 
 YAML_TEST_SPECS = []
 
-# Try loading the REST API test specs from the Elastic Artifacts API
-try:
-    # Construct the HTTP and OpenSearch client
-    http = urllib3.PoolManager(retries=10)
-    client = get_client()
+client = get_client()
 
-    package_url = "https://github.com/opensearch-project/OpenSearch/archive/main.zip"
 
-    # Download the zip and start reading YAML from the files in memory
-    package_zip = zipfile.ZipFile(io.BytesIO(http.request("GET", package_url).data))
-    for yaml_file in package_zip.namelist():
-        if not re.match(
-            r"^OpenSearch-main/rest-api-spec/src/main/resources/rest-api-spec/test/.*\.ya?ml$",
-            yaml_file,
-        ):
-            continue
-        yaml_tests = list(yaml.safe_load_all(package_zip.read(yaml_file)))
+def load_rest_api_tests() -> None:
+    # Try loading the REST API test specs from OpenSearch core.
+    try:
+        # Construct the HTTP and OpenSearch client
+        http = urllib3.PoolManager(retries=10)
 
-        # Each file may have a "test" named 'setup' or 'teardown',
-        # these sets of steps should be run at the beginning and end
-        # of every other test within the file so we do one pass to capture those.
-        setup_steps = teardown_steps = None
-        test_numbers_and_steps = []
-        test_number = 0
+        package_url = (
+            "https://github.com/opensearch-project/OpenSearch/archive/main.zip"
+        )
 
-        for yaml_test in yaml_tests:
-            test_name, test_step = yaml_test.popitem()
-            if test_name == "setup":
-                setup_steps = test_step
-            elif test_name == "teardown":
-                teardown_steps = test_step
-            else:
-                test_numbers_and_steps.append((test_number, test_step))
-                test_number += 1
+        # Download the zip and start reading YAML from the files in memory
+        package_zip = zipfile.ZipFile(io.BytesIO(http.request("GET", package_url).data))
+        for yaml_file in package_zip.namelist():
+            if not re.match(
+                r"^OpenSearch-main/rest-api-spec/src/main/resources/rest-api-spec/test/.*\.ya?ml$",
+                yaml_file,
+            ):
+                continue
+            yaml_tests = list(yaml.safe_load_all(package_zip.read(yaml_file)))
 
-        # Now we combine setup, teardown, and test_steps into
-        # a set of pytest.param() instances
-        for test_number, test_step in test_numbers_and_steps:
-            # Build the id from the name of the YAML file and
-            # the number within that file. Most important step
-            # is to remove most of the file path prefixes and
-            # the .yml suffix.
-            pytest_test_name = yaml_file.rpartition(".")[0].replace(".", "/")
-            for prefix in ("rest-api-spec/", "test/", "oss/"):
-                if pytest_test_name.startswith(prefix):
-                    pytest_test_name = pytest_test_name[len(prefix) :]
-            pytest_param_id = "%s[%d]" % (pytest_test_name, test_number)
+            # Each file may have a "test" named 'setup' or 'teardown',
+            # these sets of steps should be run at the beginning and end
+            # of every other test within the file so we do one pass to capture those.
+            setup_steps = teardown_steps = None
+            test_numbers_and_steps = []
+            test_number = 0
 
-            pytest_param = {
-                "setup": setup_steps,
-                "run": test_step,
-                "teardown": teardown_steps,
-            }
-            # Skip either 'test_name' or 'test_name[x]'
-            if pytest_test_name in SKIP_TESTS or pytest_param_id in SKIP_TESTS:
-                pytest_param["skip"] = True
+            for yaml_test in yaml_tests:
+                test_name, test_step = yaml_test.popitem()
+                if test_name == "setup":
+                    setup_steps = test_step
+                elif test_name == "teardown":
+                    teardown_steps = test_step
+                else:
+                    test_numbers_and_steps.append((test_number, test_step))
+                    test_number += 1
 
-            YAML_TEST_SPECS.append(pytest.param(pytest_param, id=pytest_param_id))
+            # Now we combine setup, teardown, and test_steps into
+            # a set of pytest.param() instances
+            for test_number, test_step in test_numbers_and_steps:
+                # Build the id from the name of the YAML file and
+                # the number within that file. Most important step
+                # is to remove most of the file path prefixes and
+                # the .yml suffix.
+                pytest_test_name = yaml_file.rpartition(".")[0].replace(".", "/")
+                for prefix in ("rest-api-spec/", "test/", "oss/"):
+                    if pytest_test_name.startswith(prefix):
+                        pytest_test_name = pytest_test_name[len(prefix) :]
+                pytest_param_id = "%s[%d]" % (pytest_test_name, test_number)
 
-except Exception as e:
-    warnings.warn("Could not load REST API tests: %s" % (str(e),))
+                pytest_param = {
+                    "setup": setup_steps,
+                    "run": test_step,
+                    "teardown": teardown_steps,
+                }
+                # Skip either 'test_name' or 'test_name[x]'
+                if pytest_test_name in SKIP_TESTS or pytest_param_id in SKIP_TESTS:
+                    pytest_param["skip"] = True
 
+                YAML_TEST_SPECS.append(pytest.param(pytest_param, id=pytest_param_id))
+
+    except Exception as e:
+        warnings.warn("Could not load REST API tests: %s" % (str(e),))
+
+
+load_rest_api_tests()
 
 if not RUN_ASYNC_REST_API_TESTS:
 
