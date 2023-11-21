@@ -40,25 +40,25 @@ import sys
 import tempfile
 from typing import Any
 
-base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-tmp_dir = None
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+TMP_DIR = None
 
 
 @contextlib.contextmanager  # type: ignore
 def set_tmp_dir() -> None:
-    global tmp_dir
-    tmp_dir = tempfile.mkdtemp()
-    yield tmp_dir
-    shutil.rmtree(tmp_dir)
-    tmp_dir = None
+    global TMP_DIR
+    TMP_DIR = tempfile.mkdtemp()
+    yield TMP_DIR
+    shutil.rmtree(TMP_DIR)
+    TMP_DIR = None
 
 
 def run(*argv: Any, expect_exit_code: int = 0) -> None:
-    global tmp_dir
-    if tmp_dir is None:
-        os.chdir(base_dir)
+    global TMP_DIR
+    if TMP_DIR is None:
+        os.chdir(BASE_DIR)
     else:
-        os.chdir(tmp_dir)
+        os.chdir(TMP_DIR)
 
     cmd = " ".join(shlex.quote(x) for x in argv)
     print("$ " + cmd)
@@ -132,7 +132,7 @@ def test_dist(dist: Any) -> None:
                 "-m",
                 "mypy",
                 "--strict",
-                os.path.join(base_dir, "test_opensearchpy/test_types/async_types.py"),
+                os.path.join(BASE_DIR, "test_opensearchpy/test_types/async_types.py"),
             )
 
         # Ensure that the namespaces are correct for the dist
@@ -153,7 +153,7 @@ def test_dist(dist: Any) -> None:
                 "-m",
                 "mypy",
                 "--strict",
-                os.path.join(base_dir, "test_opensearchpy/test_types/sync_types.py"),
+                os.path.join(BASE_DIR, "test_opensearchpy/test_types/sync_types.py"),
             )
         else:
             run(
@@ -161,7 +161,7 @@ def test_dist(dist: Any) -> None:
                 "-m",
                 "mypy",
                 "--strict",
-                os.path.join(base_dir, "test_opensearchpy/test_types/aliased_types.py"),
+                os.path.join(BASE_DIR, "test_opensearchpy/test_types/aliased_types.py"),
             )
 
         # Uninstall the dist, see that we can't import things anymore
@@ -187,7 +187,7 @@ def main() -> None:
     run("python", "setup.py", "sdist", "bdist_wheel")
 
     # Grab the major version to be used as a suffix.
-    version_path = os.path.join(base_dir, "opensearchpy/_version.py")
+    version_path = os.path.join(BASE_DIR, "opensearchpy/_version.py")
     with open(version_path) as f:
         data = f.read()
         m = re.search(r"^__versionstr__: str\s+=\s+[\"\']([^\"\']+)[\"\']", data, re.M)
@@ -249,12 +249,12 @@ def main() -> None:
 
         # Rename the module to fit the suffix.
         shutil.move(
-            os.path.join(base_dir, "opensearchpy"),
-            os.path.join(base_dir, "opensearchpy%s" % suffix),
+            os.path.join(BASE_DIR, "opensearchpy"),
+            os.path.join(BASE_DIR, "opensearchpy%s" % suffix),
         )
 
         # Ensure that the version within 'opensearchpy/_version.py' is correct.
-        version_path = os.path.join(base_dir, f"opensearchpy{suffix}/_version.py")
+        version_path = os.path.join(BASE_DIR, f"opensearchpy{suffix}/_version.py")
         with open(version_path) as f:
             version_data = f.read()
         version_data = re.sub(
@@ -267,16 +267,16 @@ def main() -> None:
             f.write(version_data)
 
         # Rewrite setup.py with the new name.
-        setup_py_path = os.path.join(base_dir, "setup.py")
+        setup_py_path = os.path.join(BASE_DIR, "setup.py")
         with open(setup_py_path) as f:
             setup_py = f.read()
         with open(setup_py_path, "w") as f:
             f.truncate()
-            assert 'package_name = "opensearch-py"' in setup_py
+            assert 'PACKAGE_NAME = "opensearch-py"' in setup_py
             f.write(
                 setup_py.replace(
-                    'package_name = "opensearch-py"',
-                    'package_name = "opensearch-py%s"' % suffix,
+                    'PACKAGE_NAME = "opensearch-py"',
+                    'PACKAGE_NAME = "opensearch-py%s"' % suffix,
                 )
             )
 
@@ -289,10 +289,10 @@ def main() -> None:
             run("rm", "-rf", "opensearchpy%s/" % suffix)
 
     # Test everything that got created
-    dists = os.listdir(os.path.join(base_dir, "dist"))
+    dists = os.listdir(os.path.join(BASE_DIR, "dist"))
     assert len(dists) == 4
     for dist in dists:
-        test_dist(os.path.join(base_dir, "dist", dist))
+        test_dist(os.path.join(BASE_DIR, "dist", dist))
     os.system("chmod a+w dist/*")
 
     # After this run 'python -m twine upload dist/*'

@@ -10,7 +10,7 @@ The [Bulk API](https://opensearch.org/docs/latest/api-reference/document-apis/bu
 
 ## Line-Delimited JSON
 
-The `bulk` API accepts line-delimited JSON. This method requires the caller to evaluate the return value and parse errors in the case of a failure or partial success. See [samples/bulk/bulk-ld.py](../samples/bulk/bulk-ld.py) for a working sample.
+The `bulk` API accepts line-delimited JSON. This method requires the caller to evaluate the return value and parse errors in the case of a failure or partial success. See [samples/bulk/bulk_ld.py](../samples/bulk/bulk_ld.py) for a working sample.
 
 ```python
 from opensearchpy import OpenSearch
@@ -33,7 +33,7 @@ else:
     print(f"Bulk-inserted {len(rc['items'])} items.")
 ```
 
-The client can also serialize an array of data into bulk-delimited JSON for you. See [samples/bulk/bulk-array.py](../samples/bulk/bulk-array.py) for a working sample.
+The client can also serialize an array of data into bulk-delimited JSON for you. See [samples/bulk/bulk_array.py](../samples/bulk/bulk_array.py) for a working sample.
 
 ```python
 data = [
@@ -56,7 +56,7 @@ else:
 
 ## Bulk Helper
 
-A helper can generate the line-delimited JSON for you from a Python array that contains `_index` and `_id` fields, and parse errors. The `helpers.bulk` implementation will raise `BulkIndexError` if any error occurs. This may indicate a partially successful result. See [samples/bulk/bulk-helpers.py](../samples/bulk/bulk-helpers.py) for a working sample.
+A helper can generate the line-delimited JSON for you from a Python array that contains `_index` and `_id` fields, and parse errors. The `helpers.bulk` implementation will raise `BulkIndexError` if any error occurs. This may indicate a partially successful result. See [samples/bulk/bulk_helpers.py](../samples/bulk/bulk_helpers.py) for a working sample.
 
 ```python
 from opensearchpy import OpenSearch, helpers

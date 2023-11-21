@@ -26,9 +26,9 @@
 #  under the License.
 
 
-from ...client.utils import (  # noqa
+from ...client.utils import NamespacedClient  # noqa
+from ...client.utils import (
     SKIP_IN_PATH,
-    NamespacedClient,
     _bulk_body,
     _escape,
     _make_path,

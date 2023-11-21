@@ -82,7 +82,7 @@ CLUSTER_NODES = """{
   }
 }"""
 
-CLUSTER_NODES_7x_PUBLISH_HOST = """{
+CLUSTER_NODES_7X_PUBLISH_HOST = """{
   "_nodes" : {
     "total" : 1,
     "successful" : 1,
@@ -264,7 +264,7 @@ class TestTransport(TestCase):
             "http://google.com:1234", t.connection_pool.connections[1].host
         )
 
-    def test_request_will_fail_after_X_retries(self) -> None:
+    def test_request_will_fail_after_x_retries(self) -> None:
         t: Any = Transport(
             [{"exception": ConnectionError(None, "abandon ship", Exception())}],
             connection_class=DummyConnection,
@@ -408,7 +408,7 @@ class TestTransport(TestCase):
         # Test the response shaped when a 7.x node has publish_host set
         # and the returend data is shaped in the fqdn/ip:port format.
         t: Any = Transport(
-            [{"data": CLUSTER_NODES_7x_PUBLISH_HOST}],
+            [{"data": CLUSTER_NODES_7X_PUBLISH_HOST}],
             connection_class=DummyConnection,
             sniff_timeout=42,
         )

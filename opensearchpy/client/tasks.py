@@ -26,14 +26,13 @@
 #  under the License.
 
 
-# ----------------------------------------------------
-# THIS CODE IS GENERATED AND MANUAL EDITS WILL BE LOST.
+# ------------------------------------------------------------------------------------------
+# THIS CODE IS AUTOMATICALLY GENERATED AND MANUAL EDITS WILL BE LOST
 #
-# To contribute, kindly make essential modifications through either the "opensearch-py client generator":
-# https://github.com/opensearch-project/opensearch-py/blob/main/utils/generate-api.py
-# or the "OpenSearch API specification" available at:
-# https://github.com/opensearch-project/opensearch-api-specification/blob/main/OpenSearch.openapi.json
-# -----------------------------------------------------
+# To contribute, kindly make modifications in the opensearch-py client generator
+# or in the OpenSearch API specification, and run `nox -rs generate`. See DEVELOPER_GUIDE.md
+# and https://github.com/opensearch-project/opensearch-api-specification for details.
+# -----------------------------------------------------------------------------------------+
 
 
 import warnings

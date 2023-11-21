@@ -60,11 +60,12 @@ def test(session: Any) -> None:
 
 @nox.session(python=["3.7"])  # type: ignore
 def format(session: Any) -> None:
+    session.install(".")
     session.install("black", "isort")
 
-    session.run("isort", "--profile=black", *SOURCE_FILES)
-    session.run("black", "--target-version=py33", *SOURCE_FILES)
-    session.run("python", "utils/license-headers.py", "fix", *SOURCE_FILES)
+    session.run("isort", *SOURCE_FILES)
+    session.run("black", *SOURCE_FILES)
+    session.run("python", "utils/license_headers.py", "fix", *SOURCE_FILES)
 
     lint(session)
 
@@ -76,6 +77,7 @@ def lint(session: Any) -> None:
         "black",
         "mypy",
         "isort",
+        "pylint",
         "types-requests",
         "types-six",
         "types-simplejson",
@@ -85,10 +87,11 @@ def lint(session: Any) -> None:
         "types-pytz",
     )
 
-    session.run("isort", "--check", "--profile=black", *SOURCE_FILES)
-    session.run("black", "--target-version=py33", "--check", *SOURCE_FILES)
+    session.run("isort", "--check", *SOURCE_FILES)
+    session.run("black", "--check", *SOURCE_FILES)
     session.run("flake8", *SOURCE_FILES)
-    session.run("python", "utils/license-headers.py", "check", *SOURCE_FILES)
+    session.run("pylint", *SOURCE_FILES)
+    session.run("python", "utils/license_headers.py", "check", *SOURCE_FILES)
 
     # Workaround to make '-r' to still work despite uninstalling aiohttp below.
     session.run("python", "-m", "pip", "install", "aiohttp")
@@ -117,5 +120,5 @@ def docs(session: Any) -> None:
 @nox.session()  # type: ignore
 def generate(session: Any) -> None:
     session.install("-rdev-requirements.txt")
-    session.run("python", "utils/generate-api.py")
+    session.run("python", "utils/generate_api.py")
     format(session)

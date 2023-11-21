@@ -131,7 +131,7 @@ if [[ "$CMD" == "assemble" ]]; then
   docker run \
     --rm -v $repo/.ci/output:/code/opensearch-py/dist \
     $product \
-    /bin/bash -c "python /code/opensearch-py/utils/build-dists.py $VERSION"
+    /bin/bash -c "python /code/opensearch-py/utils/build_dists.py $VERSION"
 
   # Verify that there are dists in .ci/output
 	if compgen -G ".ci/output/*" > /dev/null; then

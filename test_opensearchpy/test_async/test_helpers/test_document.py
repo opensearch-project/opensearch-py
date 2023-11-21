@@ -127,23 +127,23 @@ class Host(document.AsyncDocument):
 
 
 async def test_range_serializes_properly() -> None:
-    class D(document.AsyncDocument):
+    class DocumentD(document.AsyncDocument):
         lr: Any = field.LongRange()
 
-    d = D(lr=Range(lt=42))
+    d = DocumentD(lr=Range(lt=42))
     assert 40 in d.lr
     assert 47 not in d.lr
     assert {"lr": {"lt": 42}} == d.to_dict()
 
-    d = D(lr={"lt": 42})
+    d = DocumentD(lr={"lt": 42})
     assert {"lr": {"lt": 42}} == d.to_dict()
 
 
 async def test_range_deserializes_properly() -> None:
-    class D(InnerDoc):
+    class DocumentD(InnerDoc):
         lr = field.LongRange()
 
-    d = D.from_opensearch({"lr": {"lt": 42}}, True)
+    d = DocumentD.from_opensearch({"lr": {"lt": 42}}, True)
     assert isinstance(d.lr, Range)
     assert 40 in d.lr
     assert 47 not in d.lr
@@ -156,15 +156,15 @@ async def test_resolve_nested() -> None:
 
 
 async def test_conflicting_mapping_raises_error_in_index_to_dict() -> None:
-    class A(document.AsyncDocument):
+    class DocumentA(document.AsyncDocument):
         name = field.Text()
 
-    class B(document.AsyncDocument):
+    class DocumentB(document.AsyncDocument):
         name = field.Keyword()
 
     i = AsyncIndex("i")
-    i.document(A)
-    i.document(B)
+    i.document(DocumentA)
+    i.document(DocumentB)
 
     with raises(ValueError):
         i.to_dict()
@@ -182,11 +182,11 @@ async def test_matches_uses_index() -> None:
 
 
 async def test_matches_with_no_name_always_matches() -> None:
-    class D(document.AsyncDocument):
+    class DocumentD(document.AsyncDocument):
         pass
 
-    assert D._matches({})
-    assert D._matches({"_index": "whatever"})
+    assert DocumentD._matches({})
+    assert DocumentD._matches({"_index": "whatever"})
 
 
 async def test_matches_accepts_wildcards() -> None:
@@ -343,10 +343,10 @@ async def test_doc_type_can_be_correctly_pickled() -> None:
 
 async def test_meta_is_accessible_even_on_empty_doc() -> None:
     d = MyDoc()
-    d.meta
+    assert d.meta == {}
 
     d = MyDoc(title="aaa")
-    d.meta
+    assert d.meta == {}
 
 
 async def test_meta_field_mapping() -> None:
@@ -404,7 +404,7 @@ async def test_docs_with_properties() -> None:
     assert u.check_password(b"not-secret")
 
     with raises(AttributeError):
-        u.password
+        assert u.password
 
 
 async def test_nested_can_be_assigned_to() -> None:
@@ -521,10 +521,10 @@ async def test_document_inheritance() -> None:
 
 
 async def test_child_class_can_override_parent() -> None:
-    class A(document.AsyncDocument):
+    class DocumentA(document.AsyncDocument):
         o = field.Object(dynamic=False, properties={"a": field.Text()})
 
-    class B(A):
+    class DocumentB(DocumentA):
         o = field.Object(dynamic="strict", properties={"b": field.Text()})
 
     assert {
@@ -535,7 +535,7 @@ async def test_child_class_can_override_parent() -> None:
                 "type": "object",
             }
         }
-    } == B._doc_type.mapping.to_dict()
+    } == DocumentB._doc_type.mapping.to_dict()
 
 
 async def test_meta_fields_are_stored_in_meta_and_ignored_by_to_dict() -> None:

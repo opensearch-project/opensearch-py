@@ -45,7 +45,7 @@ from opensearchpy import AIOHttpConnection, AsyncOpenSearch, __versionstr__, ser
 from opensearchpy.compat import reraise_exceptions
 from opensearchpy.connection import Connection, async_connections
 from opensearchpy.exceptions import ConnectionError, NotFoundError, TransportError
-from test_opensearchpy.TestHttpServer import TestHTTPServer
+from test_opensearchpy.test_http_server import TestHTTPServer
 
 pytestmark: MarkDecorator = pytest.mark.asyncio
 
