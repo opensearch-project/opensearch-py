@@ -32,14 +32,6 @@ jobs:
       - name: Build project for distribution
         run: |
           python -m build
-          tar -zvcf artifacts.tar.gz dist
-      - name: Release
-        uses: softprops/action-gh-release@v1
-        with:
-          draft: true
-          generate_release_notes: true
-          files: |
-            artifacts.tar.gz
       - name: upload windows dists
         uses: actions/upload-artifact@v3
         with:
@@ -52,11 +44,21 @@ jobs:
       - draft-a-release
     permissions:
       id-token: write
+      contents: write
     steps:
       - name: Retrieve release distributions
         uses: actions/download-artifact@v3
         with:
           name: release-dists
           path: dist
+      - name: Generate the artifacts
+        run: |
+          tar -zvcf artifacts.tar.gz dist
       - name: Publish package distributions to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          generate_release_notes: true
+          files: |
+            artifacts.tar.gz
