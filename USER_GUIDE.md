@@ -159,6 +159,7 @@ print(response)
 - [Making Raw JSON REST Requests](guides/json.md)
 - [Connection Classes](guides/connection_classes.md)
 - [Document Lifecycle](guides/document_lifecycle.md)
+- [Collecting Logs](guides/log_collection.md)
 
 ## Plugins
 
