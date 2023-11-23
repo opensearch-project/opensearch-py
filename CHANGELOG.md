@@ -6,6 +6,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - Added pylint `line-too-long` and `invalid-name` ([#590](https://github.com/opensearch-project/opensearch-py/pull/590))
 - Added pylint `pointless-statement` ([#611](https://github.com/opensearch-project/opensearch-py/pull/611))
 - Added a log collection guide ([#579](https://github.com/opensearch-project/opensearch-py/pull/579))
+- Added GHA release ([#614](https://github.com/opensearch-project/opensearch-py/pull/614))
 ### Changed
 ### Deprecated
 ### Removed
