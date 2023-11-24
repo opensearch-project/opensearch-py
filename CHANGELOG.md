@@ -10,6 +10,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ### Changed
 ### Deprecated
 ### Removed
+- Removed Unnecessary `# -*- coding: utf-8 -*-` headers from .py files
 ### Fixed
 ### Security
 
