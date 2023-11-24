@@ -10,7 +10,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ### Changed
 ### Deprecated
 ### Removed
-- Removed Unnecessary `# -*- coding: utf-8 -*-` headers from .py files
+- Removed unnecessary `# -*- coding: utf-8 -*-` headers from .py files ([#615](https://github.com/opensearch-project/opensearch-py/pull/615))
 ### Fixed
 ### Security
 
