@@ -586,14 +586,17 @@ def scan(
     scroll_id = resp.get("_scroll_id")
 
     try:
-        while scroll_id and resp["hits"]["hits"]:
-            for hit in resp["hits"]["hits"]:
+        while scroll_id and resp.get("hits", {}).get("hits"):
+            for hit in resp.get("hits", {}).get("hits", []):
                 yield hit
 
-            # Default to 0 if the value isn't included in the response
-            shards_successful = resp["_shards"].get("successful", 0)
-            shards_skipped = resp["_shards"].get("skipped", 0)
-            shards_total = resp["_shards"].get("total", 0)
+            _shards = resp.get("_shards")
+
+            if _shards:
+                # Default to 0 if the value isn't included in the response
+                shards_successful = _shards.get("successful", 0)
+                shards_skipped = _shards.get("skipped", 0)
+                shards_total = _shards.get("total", 0)
 
             # check if we have any errors
             if (shards_successful + shards_skipped) < shards_total:
@@ -614,6 +617,7 @@ def scan(
                             shards_total,
                         ),
                     )
+
             resp = client.scroll(
                 body={"scroll_id": scroll_id, "scroll": scroll}, **scroll_kwargs
             )
