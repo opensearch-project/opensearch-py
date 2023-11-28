@@ -18,7 +18,7 @@ import re
 import sys
 from typing import Iterator, List
 
-LINES_TO_KEEP = ["# -*- coding: utf-8 -*-", "#!/usr/bin/env python"]
+LINES_TO_KEEP = ["#!/usr/bin/env python"]
 
 LICENSE_HEADER = """
 # SPDX-License-Identifier: Apache-2.0
