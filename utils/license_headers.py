@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # SPDX-License-Identifier: Apache-2.0
 #
 # The OpenSearch Contributors require contributions made to
@@ -18,7 +17,7 @@ import re
 import sys
 from typing import Iterator, List
 
-LINES_TO_KEEP = ["# -*- coding: utf-8 -*-", "#!/usr/bin/env python"]
+LINES_TO_KEEP = ["#!/usr/bin/env python"]
 
 LICENSE_HEADER = """
 # SPDX-License-Identifier: Apache-2.0
