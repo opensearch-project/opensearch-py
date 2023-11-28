@@ -1,0 +1,26 @@
+name: Build & Deploy Docs
+on: [push, pull_request, workflow_dispatch]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-python@v2
+      with:
+        python-version: 3.7
+
+    - name: Install Dependencies
+      run: |
+        python3.7 -m pip install nox
+
+    - name: Make
+      run: |
+        nox -rs docs
+
+    - name: Deploy
+      uses: peaceiris/actions-gh-pages@v3
+      if: github.ref == 'refs/heads/main'
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./docs/build/html

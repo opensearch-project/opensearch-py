@@ -25,17 +25,17 @@
 #  under the License.
 
 
-# ----------------------------------------------------
-# THIS CODE IS GENERATED AND MANUAL EDITS WILL BE LOST.
+# ------------------------------------------------------------------------------------------
+# THIS CODE IS AUTOMATICALLY GENERATED AND MANUAL EDITS WILL BE LOST
 #
-# To contribute, kindly make essential modifications through either the "opensearch-py client generator":
-# https://github.com/opensearch-project/opensearch-py/blob/main/utils/generate-api.py
-# or the "OpenSearch API specification" available at:
-# https://github.com/opensearch-project/opensearch-api-specification/blob/main/OpenSearch.openapi.json
-# -----------------------------------------------------
+# To contribute, kindly make modifications in the opensearch-py client generator
+# or in the OpenSearch API specification, and run `nox -rs generate`. See DEVELOPER_GUIDE.md
+# and https://github.com/opensearch-project/opensearch-api-specification for details.
+# -----------------------------------------------------------------------------------------+
 
 
 import warnings
+from typing import Any
 
 from .utils import SKIP_IN_PATH, NamespacedClient, _make_path, query_params
 
@@ -50,16 +50,21 @@ class TasksClient(NamespacedClient):
         "timeout",
         "wait_for_completion",
     )
-    async def list(self, params=None, headers=None):
+    async def list(
+        self,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Returns a list of tasks.
 
 
         :arg actions: Comma-separated list of actions that should be
             returned. Leave empty to return all.
-        :arg detailed: Return detailed task information.
+        :arg detailed: Return detailed task information. Default is
+            false.
         :arg group_by: Group tasks by nodes or parent/child
-            relationships.  Valid choices: nodes, parents, none
+            relationships. Valid choices are nodes, parents, none.
         :arg nodes: Comma-separated list of node IDs or names to limit
             the returned information; use `_local` to return information from the
             node you're connecting to, leave empty to get information from all
@@ -68,14 +73,19 @@ class TasksClient(NamespacedClient):
             (node_id:task_number). Set to -1 to return all.
         :arg timeout: Operation timeout.
         :arg wait_for_completion: Should this request wait until the
-            operation has completed before returning.
+            operation has completed before returning. Default is false.
         """
         return await self.transport.perform_request(
             "GET", "/_tasks", params=params, headers=headers
         )
 
     @query_params("actions", "nodes", "parent_task_id", "wait_for_completion")
-    async def cancel(self, task_id=None, params=None, headers=None):
+    async def cancel(
+        self,
+        task_id: Any = None,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Cancels a task, if it can be cancelled through an API.
 
@@ -91,7 +101,7 @@ class TasksClient(NamespacedClient):
         :arg parent_task_id: Cancel tasks with specified parent task id
             (node_id:task_number). Set to -1 to cancel all.
         :arg wait_for_completion: Should this request wait until the
-            operation has completed before returning.
+            operation has completed before returning. Default is false.
         """
         return await self.transport.perform_request(
             "POST",
@@ -101,7 +111,12 @@ class TasksClient(NamespacedClient):
         )
 
     @query_params("timeout", "wait_for_completion")
-    async def get(self, task_id=None, params=None, headers=None):
+    async def get(
+        self,
+        task_id: Any = None,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Returns information about a task.
 
@@ -110,7 +125,7 @@ class TasksClient(NamespacedClient):
             (node_id:task_number).
         :arg timeout: Operation timeout.
         :arg wait_for_completion: Should this request wait until the
-            operation has completed before returning.
+            operation has completed before returning. Default is false.
         """
         if task_id in SKIP_IN_PATH:
             warnings.warn(

@@ -7,17 +7,20 @@
 # Modifications Copyright OpenSearch Contributors. See
 # GitHub history for details.
 
+from typing import Any
+
 import pytest
+from _pytest.mark.structures import MarkDecorator
 from pytest import raises
 
 from opensearchpy import exceptions
 from opensearchpy._async.helpers import mapping
 from opensearchpy.helpers import analysis
 
-pytestmark = pytest.mark.asyncio
+pytestmark: MarkDecorator = pytest.mark.asyncio
 
 
-async def test_mapping_saved_into_opensearch(write_client):
+async def test_mapping_saved_into_opensearch(write_client: Any) -> None:
     m = mapping.AsyncMapping()
     m.field(
         "name", "text", analyzer=analysis.analyzer("my_analyzer", tokenizer="keyword")
@@ -38,8 +41,8 @@ async def test_mapping_saved_into_opensearch(write_client):
 
 
 async def test_mapping_saved_into_opensearch_when_index_already_exists_closed(
-    write_client,
-):
+    write_client: Any,
+) -> None:
     m = mapping.AsyncMapping()
     m.field(
         "name", "text", analyzer=analysis.analyzer("my_analyzer", tokenizer="keyword")
@@ -63,8 +66,8 @@ async def test_mapping_saved_into_opensearch_when_index_already_exists_closed(
 
 
 async def test_mapping_saved_into_opensearch_when_index_already_exists_with_analysis(
-    write_client,
-):
+    write_client: Any,
+) -> None:
     m = mapping.AsyncMapping()
     analyzer = analysis.analyzer("my_analyzer", tokenizer="keyword")
     m.field("name", "text", analyzer=analyzer)
@@ -93,7 +96,7 @@ async def test_mapping_saved_into_opensearch_when_index_already_exists_with_anal
     } == await write_client.indices.get_mapping(index="test-mapping")
 
 
-async def test_mapping_gets_updated_from_opensearch(write_client):
+async def test_mapping_gets_updated_from_opensearch(write_client: Any) -> None:
     await write_client.indices.create(
         index="test-mapping",
         body={

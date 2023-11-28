@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # SPDX-License-Identifier: Apache-2.0
 #
 # The OpenSearch Contributors require contributions made to
@@ -27,49 +26,49 @@
 
 
 import re
-import sys
 from os.path import abspath, dirname, join
 
 from setuptools import find_packages, setup
 
-package_name = "opensearch-py"
-base_dir = abspath(dirname(__file__))
+PACKAGE_NAME = "opensearch-py"
+PACKAGE_VERSION = ""
+BASE_DIR = abspath(dirname(__file__))
 
-with open(join(base_dir, package_name.replace("-", ""), "_version.py")) as f:
-    package_version = re.search(
-        r"__versionstr__\s+=\s+[\"\']([^\"\']+)[\"\']", f.read()
-    ).group(1)
+with open(join(BASE_DIR, PACKAGE_NAME.replace("-", ""), "_version.py")) as f:
+    data = f.read()
+    m = re.search(r"^__versionstr__: str\s+=\s+[\"\']([^\"\']+)[\"\']", data, re.M)
+    if m:
+        PACKAGE_VERSION = m.group(1)
+    else:
+        raise Exception(f"Invalid version: {data}")
 
-with open(join(base_dir, "README.md")) as f:
+with open(join(BASE_DIR, "README.md")) as f:
     long_description = f.read().strip()
 
-module_dir = package_name.replace("-", "")
+MODULE_DIR = PACKAGE_NAME.replace("-", "")
 packages = [
     package
     for package in find_packages(where=".", exclude=("test_opensearchpy*",))
-    if package == module_dir or package.startswith(module_dir + ".")
+    if package == MODULE_DIR or package.startswith(MODULE_DIR + ".")
 ]
 install_requires = [
-    "urllib3>=1.26.9",
+    "urllib3>=1.26.18",
     "requests>=2.4.0, <3.0.0",
     "six",
     "python-dateutil",
-    # ipaddress is included in stdlib since python 3.3
-    'ipaddress; python_version<"3.3"',
+    "certifi>=2022.12.07",
 ]
 tests_require = [
     "requests>=2.0.0, <3.0.0",
-    "coverage<7.0.0",
+    "coverage<8.0.0",
     "mock",
     "pyyaml",
     "pytest>=3.0.0",
     "pytest-cov",
     "pytz",
-    "botocore;python_version>='3.6'",
+    "botocore",
+    "pytest-mock<4.0.0",
 ]
-if sys.version_info >= (3, 6):
-    tests_require.append("pytest-mock<4.0.0")
-    install_requires.append("certifi>=2022.12.07")
 
 async_require = ["aiohttp>=3,<4"]
 
@@ -77,13 +76,13 @@ docs_require = ["sphinx", "sphinx_rtd_theme", "myst_parser", "sphinx_copybutton"
 generate_require = ["black", "jinja2"]
 
 setup(
-    name=package_name,
+    name=PACKAGE_NAME,
     description="Python client for OpenSearch",
     license="Apache-2.0",
     url="https://github.com/opensearch-project/opensearch-py",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    version=package_version,
+    version=PACKAGE_VERSION,
     author="Aleksei Atavin, Denis Zalevskiy, Rushi Agrawal, Shephali Mittal",
     author_email="axeo@aiven.io, dez@aiven.io, rushi.agr@gmail.com, shephalm@amazon.com",
     maintainer="Aleksei Atavin, Denis Zalevskiy, Rushi Agrawal, Shephali Mittal",
@@ -94,7 +93,7 @@ setup(
         "Issue Tracker": "https://github.com/opensearch-project/opensearch-py/issues",
     },
     packages=packages,
-    package_data={"opensearchpy": ["py.typed", "*.pyi"]},
+    package_data={"opensearchpy": ["py.typed"]},
     include_package_data=True,
     zip_safe=False,
     classifiers=[
@@ -103,11 +102,6 @@ setup(
         "Intended Audience :: Developers",
         "Operating System :: OS Independent",
         "Programming Language :: Python",
-        "Programming Language :: Python :: 2",
-        "Programming Language :: Python :: 2.7",
-        "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.4",
-        "Programming Language :: Python :: 3.5",
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
@@ -121,7 +115,7 @@ setup(
     tests_require=tests_require,
     extras_require={
         "develop": tests_require + docs_require + generate_require,
-        "docs": docs_require,
+        "docs": docs_require + async_require,
         "async": async_require,
         "kerberos": ["requests_kerberos"],
     },

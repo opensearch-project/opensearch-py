@@ -27,6 +27,7 @@
 
 import os
 import time
+from typing import Any
 
 import pytest
 
@@ -39,11 +40,11 @@ from ..utils import wipe_cluster
 # Used for
 OPENSEARCH_VERSION = ""
 OPENSEARCH_BUILD_HASH = ""
-OPENSEARCH_REST_API_TESTS = []
+OPENSEARCH_REST_API_TESTS: Any = []
 
 
-@pytest.fixture(scope="session")
-def sync_client_factory():
+@pytest.fixture(scope="session")  # type: ignore
+def sync_client_factory() -> Any:
     client = None
     try:
         # Configure the client optionally with an HTTP conn class
@@ -62,7 +63,7 @@ def sync_client_factory():
         # We do this little dance with the URL to force
         # Requests to respect 'headers: None' within rest API spec tests.
         client = opensearchpy.OpenSearch(
-            OPENSEARCH_URL.replace("elastic:changeme@", ""), **kw
+            OPENSEARCH_URL.replace("elastic:changeme@", ""), **kw  # type: ignore
         )
 
         # Wait for the cluster to report a status of 'yellow'
@@ -82,8 +83,8 @@ def sync_client_factory():
             client.close()
 
 
-@pytest.fixture(scope="function")
-def sync_client(sync_client_factory):
+@pytest.fixture(scope="function")  # type: ignore
+def sync_client(sync_client_factory: Any) -> Any:
     try:
         yield sync_client_factory
     finally:

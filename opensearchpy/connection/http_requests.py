@@ -27,6 +27,7 @@
 
 import time
 import warnings
+from typing import Any, Collection, Mapping, Optional, Union
 
 try:
     import requests
@@ -72,21 +73,21 @@ class RequestsHttpConnection(Connection):
 
     def __init__(
         self,
-        host="localhost",
-        port=None,
-        http_auth=None,
-        use_ssl=False,
-        verify_certs=True,
-        ssl_show_warn=True,
-        ca_certs=None,
-        client_cert=None,
-        client_key=None,
-        headers=None,
-        http_compress=None,
-        opaque_id=None,
-        pool_maxsize=None,
-        **kwargs
-    ):
+        host: str = "localhost",
+        port: Optional[int] = None,
+        http_auth: Any = None,
+        use_ssl: bool = False,
+        verify_certs: bool = True,
+        ssl_show_warn: bool = True,
+        ca_certs: Any = None,
+        client_cert: Any = None,
+        client_key: Any = None,
+        headers: Any = None,
+        http_compress: Any = None,
+        opaque_id: Any = None,
+        pool_maxsize: Any = None,
+        **kwargs: Any
+    ) -> None:
         if not REQUESTS_AVAILABLE:
             raise ImproperlyConfigured(
                 "Please install requests to use RequestsHttpConnection."
@@ -115,13 +116,13 @@ class RequestsHttpConnection(Connection):
 
         if not self.http_compress:
             # Need to set this to 'None' otherwise Requests adds its own.
-            self.session.headers["accept-encoding"] = None
+            self.session.headers["accept-encoding"] = None  # type: ignore
 
         if http_auth is not None:
             if isinstance(http_auth, (tuple, list)):
                 http_auth = tuple(http_auth)
             elif isinstance(http_auth, string_types):
-                http_auth = tuple(http_auth.split(":", 1))
+                http_auth = tuple(http_auth.split(":", 1))  # type: ignore
             self.session.auth = http_auth
 
         self.base_url = "%s%s" % (
@@ -146,7 +147,7 @@ class RequestsHttpConnection(Connection):
                 self.session.verify = ca_certs
 
         if not ssl_show_warn:
-            requests.packages.urllib3.disable_warnings()
+            requests.packages.urllib3.disable_warnings()  # type: ignore
 
         if self.use_ssl and not verify_certs and ssl_show_warn:
             warnings.warn(
@@ -154,17 +155,17 @@ class RequestsHttpConnection(Connection):
                 % self.host
             )
 
-    def perform_request(
+    def perform_request(  # type: ignore
         self,
-        method,
-        url,
-        params=None,
-        body=None,
-        timeout=None,
-        allow_redirects=True,
-        ignore=(),
-        headers=None,
-    ):
+        method: str,
+        url: str,
+        params: Optional[Mapping[str, Any]] = None,
+        body: Optional[bytes] = None,
+        timeout: Optional[Union[int, float]] = None,
+        allow_redirects: Optional[bool] = True,
+        ignore: Collection[int] = (),
+        headers: Optional[Mapping[str, str]] = None,
+    ) -> Any:
         url = self.base_url + url
         headers = headers or {}
         if params:
@@ -173,7 +174,7 @@ class RequestsHttpConnection(Connection):
         orig_body = body
         if self.http_compress and body:
             body = self._gzip_compress(body)
-            headers["content-encoding"] = "gzip"
+            headers["content-encoding"] = "gzip"  # type: ignore
 
         start = time.time()
         request = requests.Request(method=method, headers=headers, url=url, data=body)
@@ -181,7 +182,7 @@ class RequestsHttpConnection(Connection):
         settings = self.session.merge_environment_settings(
             prepared_request.url, {}, None, None, None
         )
-        send_kwargs = {
+        send_kwargs: Any = {
             "timeout": timeout or self.timeout,
             "allow_redirects": allow_redirects,
         }
@@ -246,10 +247,10 @@ class RequestsHttpConnection(Connection):
         return response.status_code, response.headers, raw_data
 
     @property
-    def headers(self):
+    def headers(self) -> Any:  # type: ignore
         return self.session.headers
 
-    def close(self):
+    def close(self) -> None:
         """
         Explicitly closes connections
         """

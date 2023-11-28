@@ -37,4 +37,4 @@ The release process is standard across repositories in this org and is run by a 
 1. The [release-drafter.yml](.github/workflows/release-drafter.yml) will be automatically kicked off and a draft release will be created.
 1. This draft release triggers the [jenkins release workflow](https://build.ci.opensearch.org/job/opensearch-py-release/) as a result of which opensearch-py client is released on [PyPi](https://pypi.org/project/opensearch-py/).
 1. Once the above release workflow is successful, the drafted release on GitHub is published automatically.
-1. Increment "version" in [_version.py](./opensearchpy/_version.py) to the next patch release, e.g. v2.1.1. See [example](https://github.com/opensearch-project/opensearch-py/pull/167).
+1. Add an "Unreleased" section to CHANGELOG, and increment version to the next patch release, e.g. v2.1.1. See [example](https://github.com/opensearch-project/opensearch-py/pull/593).

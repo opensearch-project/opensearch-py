@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # SPDX-License-Identifier: Apache-2.0
 #
 # The OpenSearch Contributors require contributions made to
@@ -30,8 +29,10 @@ from __future__ import unicode_literals
 
 import asyncio
 import json
+from typing import Any
 
 import pytest
+from _pytest.mark.structures import MarkDecorator
 from mock import patch
 
 from opensearchpy import AIOHttpConnection, AsyncTransport
@@ -39,20 +40,20 @@ from opensearchpy.connection import Connection
 from opensearchpy.connection_pool import DummyConnectionPool
 from opensearchpy.exceptions import ConnectionError, TransportError
 
-pytestmark = pytest.mark.asyncio
+pytestmark: MarkDecorator = pytest.mark.asyncio
 
 
 class DummyConnection(Connection):
-    def __init__(self, **kwargs):
+    def __init__(self, **kwargs: Any) -> None:
         self.exception = kwargs.pop("exception", None)
         self.status, self.data = kwargs.pop("status", 200), kwargs.pop("data", "{}")
         self.headers = kwargs.pop("headers", {})
         self.delay = kwargs.pop("delay", 0)
-        self.calls = []
+        self.calls: Any = []
         self.closed = False
         super(DummyConnection, self).__init__(**kwargs)
 
-    async def perform_request(self, *args, **kwargs):
+    async def perform_request(self, *args: Any, **kwargs: Any) -> Any:
         if self.closed:
             raise RuntimeError("This connection is closed")
         if self.delay:
@@ -62,7 +63,7 @@ class DummyConnection(Connection):
             raise self.exception
         return self.status, self.headers, self.data
 
-    async def close(self):
+    async def close(self) -> None:
         if self.closed:
             raise RuntimeError("This connection is already closed")
         self.closed = True
@@ -93,7 +94,7 @@ CLUSTER_NODES = """{
   }
 }"""
 
-CLUSTER_NODES_7x_PUBLISH_HOST = """{
+CLUSTER_NODES_7X_PUBLISH_HOST = """{
   "_nodes" : {
     "total" : 1,
     "successful" : 1,
@@ -120,16 +121,16 @@ CLUSTER_NODES_7x_PUBLISH_HOST = """{
 
 
 class TestTransport:
-    async def test_single_connection_uses_dummy_connection_pool(self):
-        t = AsyncTransport([{}])
-        await t._async_call()
-        assert isinstance(t.connection_pool, DummyConnectionPool)
-        t = AsyncTransport([{"host": "localhost"}])
-        await t._async_call()
-        assert isinstance(t.connection_pool, DummyConnectionPool)
+    async def test_single_connection_uses_dummy_connection_pool(self) -> None:
+        t1: Any = AsyncTransport([{}])
+        await t1._async_call()
+        assert isinstance(t1.connection_pool, DummyConnectionPool)
+        t2: Any = AsyncTransport([{"host": "localhost"}])
+        await t2._async_call()
+        assert isinstance(t2.connection_pool, DummyConnectionPool)
 
-    async def test_request_timeout_extracted_from_params_and_passed(self):
-        t = AsyncTransport([{}], connection_class=DummyConnection)
+    async def test_request_timeout_extracted_from_params_and_passed(self) -> None:
+        t: Any = AsyncTransport([{}], connection_class=DummyConnection)
 
         await t.perform_request("GET", "/", params={"request_timeout": 42})
         assert 1 == len(t.get_connection().calls)
@@ -140,8 +141,8 @@ class TestTransport:
             "headers": None,
         } == t.get_connection().calls[0][1]
 
-    async def test_timeout_extracted_from_params_and_passed(self):
-        t = AsyncTransport([{}], connection_class=DummyConnection)
+    async def test_timeout_extracted_from_params_and_passed(self) -> None:
+        t: Any = AsyncTransport([{}], connection_class=DummyConnection)
 
         await t.perform_request("GET", "/", params={"timeout": 84})
         assert 1 == len(t.get_connection().calls)
@@ -152,8 +153,10 @@ class TestTransport:
             "headers": None,
         } == t.get_connection().calls[0][1]
 
-    async def test_opaque_id(self):
-        t = AsyncTransport([{}], opaque_id="app-1", connection_class=DummyConnection)
+    async def test_opaque_id(self) -> None:
+        t: Any = AsyncTransport(
+            [{}], opaque_id="app-1", connection_class=DummyConnection
+        )
 
         await t.perform_request("GET", "/")
         assert 1 == len(t.get_connection().calls)
@@ -174,8 +177,8 @@ class TestTransport:
             "headers": {"x-opaque-id": "request-1"},
         } == t.get_connection().calls[1][1]
 
-    async def test_request_with_custom_user_agent_header(self):
-        t = AsyncTransport([{}], connection_class=DummyConnection)
+    async def test_request_with_custom_user_agent_header(self) -> None:
+        t: Any = AsyncTransport([{}], connection_class=DummyConnection)
 
         await t.perform_request(
             "GET", "/", headers={"user-agent": "my-custom-value/1.2.3"}
@@ -187,8 +190,8 @@ class TestTransport:
             "headers": {"user-agent": "my-custom-value/1.2.3"},
         } == t.get_connection().calls[0][1]
 
-    async def test_send_get_body_as_source(self):
-        t = AsyncTransport(
+    async def test_send_get_body_as_source(self) -> None:
+        t: Any = AsyncTransport(
             [{}], send_get_body_as="source", connection_class=DummyConnection
         )
 
@@ -196,8 +199,8 @@ class TestTransport:
         assert 1 == len(t.get_connection().calls)
         assert ("GET", "/", {"source": "{}"}, None) == t.get_connection().calls[0][0]
 
-    async def test_send_get_body_as_post(self):
-        t = AsyncTransport(
+    async def test_send_get_body_as_post(self) -> None:
+        t: Any = AsyncTransport(
             [{}], send_get_body_as="POST", connection_class=DummyConnection
         )
 
@@ -205,8 +208,8 @@ class TestTransport:
         assert 1 == len(t.get_connection().calls)
         assert ("POST", "/", None, b"{}") == t.get_connection().calls[0][0]
 
-    async def test_body_gets_encoded_into_bytes(self):
-        t = AsyncTransport([{}], connection_class=DummyConnection)
+    async def test_body_gets_encoded_into_bytes(self) -> None:
+        t: Any = AsyncTransport([{}], connection_class=DummyConnection)
 
         await t.perform_request("GET", "/", body="你好")
         assert 1 == len(t.get_connection().calls)
@@ -217,16 +220,16 @@ class TestTransport:
             b"\xe4\xbd\xa0\xe5\xa5\xbd",
         ) == t.get_connection().calls[0][0]
 
-    async def test_body_bytes_get_passed_untouched(self):
-        t = AsyncTransport([{}], connection_class=DummyConnection)
+    async def test_body_bytes_get_passed_untouched(self) -> None:
+        t: Any = AsyncTransport([{}], connection_class=DummyConnection)
 
         body = b"\xe4\xbd\xa0\xe5\xa5\xbd"
         await t.perform_request("GET", "/", body=body)
         assert 1 == len(t.get_connection().calls)
         assert ("GET", "/", None, body) == t.get_connection().calls[0][0]
 
-    async def test_body_surrogates_replaced_encoded_into_bytes(self):
-        t = AsyncTransport([{}], connection_class=DummyConnection)
+    async def test_body_surrogates_replaced_encoded_into_bytes(self) -> None:
+        t: Any = AsyncTransport([{}], connection_class=DummyConnection)
 
         await t.perform_request("GET", "/", body="你好\uda6a")
         assert 1 == len(t.get_connection().calls)
@@ -237,38 +240,38 @@ class TestTransport:
             b"\xe4\xbd\xa0\xe5\xa5\xbd\xed\xa9\xaa",
         ) == t.get_connection().calls[0][0]
 
-    async def test_kwargs_passed_on_to_connections(self):
-        t = AsyncTransport([{"host": "google.com"}], port=123)
+    async def test_kwargs_passed_on_to_connections(self) -> None:
+        t: Any = AsyncTransport([{"host": "google.com"}], port=123)
         await t._async_call()
         assert 1 == len(t.connection_pool.connections)
         assert "http://google.com:123" == t.connection_pool.connections[0].host
 
-    async def test_kwargs_passed_on_to_connection_pool(self):
+    async def test_kwargs_passed_on_to_connection_pool(self) -> None:
         dt = object()
-        t = AsyncTransport([{}, {}], dead_timeout=dt)
+        t: Any = AsyncTransport([{}, {}], dead_timeout=dt)
         await t._async_call()
         assert dt is t.connection_pool.dead_timeout
 
-    async def test_custom_connection_class(self):
+    async def test_custom_connection_class(self) -> None:
         class MyConnection(object):
-            def __init__(self, **kwargs):
+            def __init__(self, **kwargs: Any) -> None:
                 self.kwargs = kwargs
 
-        t = AsyncTransport([{}], connection_class=MyConnection)
+        t: Any = AsyncTransport([{}], connection_class=MyConnection)
         await t._async_call()
         assert 1 == len(t.connection_pool.connections)
         assert isinstance(t.connection_pool.connections[0], MyConnection)
 
-    async def test_add_connection(self):
-        t = AsyncTransport([{}], randomize_hosts=False)
+    async def test_add_connection(self) -> None:
+        t: Any = AsyncTransport([{}], randomize_hosts=False)
         t.add_connection({"host": "google.com", "port": 1234})
 
         assert 2 == len(t.connection_pool.connections)
         assert "http://google.com:1234" == t.connection_pool.connections[1].host
 
-    async def test_request_will_fail_after_X_retries(self):
-        t = AsyncTransport(
-            [{"exception": ConnectionError("abandon ship")}],
+    async def test_request_will_fail_after_x_retries(self) -> None:
+        t: Any = AsyncTransport(
+            [{"exception": ConnectionError(None, "abandon ship", Exception())}],
             connection_class=DummyConnection,
         )
 
@@ -281,9 +284,9 @@ class TestTransport:
         assert connection_error
         assert 4 == len(t.get_connection().calls)
 
-    async def test_failed_connection_will_be_marked_as_dead(self):
-        t = AsyncTransport(
-            [{"exception": ConnectionError("abandon ship")}] * 2,
+    async def test_failed_connection_will_be_marked_as_dead(self) -> None:
+        t: Any = AsyncTransport(
+            [{"exception": ConnectionError(None, "abandon ship", Exception())}] * 2,
             connection_class=DummyConnection,
         )
 
@@ -296,9 +299,11 @@ class TestTransport:
         assert connection_error
         assert 0 == len(t.connection_pool.connections)
 
-    async def test_resurrected_connection_will_be_marked_as_live_on_success(self):
+    async def test_resurrected_connection_will_be_marked_as_live_on_success(
+        self,
+    ) -> None:
         for method in ("GET", "HEAD"):
-            t = AsyncTransport([{}, {}], connection_class=DummyConnection)
+            t: Any = AsyncTransport([{}, {}], connection_class=DummyConnection)
             await t._async_call()
             con1 = t.connection_pool.get_connection()
             con2 = t.connection_pool.get_connection()
@@ -309,8 +314,10 @@ class TestTransport:
             assert 1 == len(t.connection_pool.connections)
             assert 1 == len(t.connection_pool.dead_count)
 
-    async def test_sniff_will_use_seed_connections(self):
-        t = AsyncTransport([{"data": CLUSTER_NODES}], connection_class=DummyConnection)
+    async def test_sniff_will_use_seed_connections(self) -> None:
+        t: Any = AsyncTransport(
+            [{"data": CLUSTER_NODES}], connection_class=DummyConnection
+        )
         await t._async_call()
         t.set_connections([{"data": "invalid"}])
 
@@ -318,8 +325,8 @@ class TestTransport:
         assert 1 == len(t.connection_pool.connections)
         assert "http://1.1.1.1:123" == t.get_connection().host
 
-    async def test_sniff_on_start_fetches_and_uses_nodes_list(self):
-        t = AsyncTransport(
+    async def test_sniff_on_start_fetches_and_uses_nodes_list(self) -> None:
+        t: Any = AsyncTransport(
             [{"data": CLUSTER_NODES}],
             connection_class=DummyConnection,
             sniff_on_start=True,
@@ -330,8 +337,8 @@ class TestTransport:
         assert 1 == len(t.connection_pool.connections)
         assert "http://1.1.1.1:123" == t.get_connection().host
 
-    async def test_sniff_on_start_ignores_sniff_timeout(self):
-        t = AsyncTransport(
+    async def test_sniff_on_start_ignores_sniff_timeout(self) -> None:
+        t: Any = AsyncTransport(
             [{"data": CLUSTER_NODES}],
             connection_class=DummyConnection,
             sniff_on_start=True,
@@ -344,8 +351,8 @@ class TestTransport:
             0
         ].calls[0]
 
-    async def test_sniff_uses_sniff_timeout(self):
-        t = AsyncTransport(
+    async def test_sniff_uses_sniff_timeout(self) -> None:
+        t: Any = AsyncTransport(
             [{"data": CLUSTER_NODES}],
             connection_class=DummyConnection,
             sniff_timeout=42,
@@ -357,8 +364,8 @@ class TestTransport:
             0
         ].calls[0]
 
-    async def test_sniff_reuses_connection_instances_if_possible(self):
-        t = AsyncTransport(
+    async def test_sniff_reuses_connection_instances_if_possible(self) -> None:
+        t: Any = AsyncTransport(
             [{"data": CLUSTER_NODES}, {"host": "1.1.1.1", "port": 123}],
             connection_class=DummyConnection,
             randomize_hosts=False,
@@ -371,9 +378,12 @@ class TestTransport:
         assert 1 == len(t.connection_pool.connections)
         assert connection is t.get_connection()
 
-    async def test_sniff_on_fail_triggers_sniffing_on_fail(self):
-        t = AsyncTransport(
-            [{"exception": ConnectionError("abandon ship")}, {"data": CLUSTER_NODES}],
+    async def test_sniff_on_fail_triggers_sniffing_on_fail(self) -> None:
+        t: Any = AsyncTransport(
+            [
+                {"exception": ConnectionError(None, "abandon ship", Exception())},
+                {"data": CLUSTER_NODES},
+            ],
             connection_class=DummyConnection,
             sniff_on_connection_fail=True,
             max_retries=0,
@@ -394,10 +404,15 @@ class TestTransport:
         assert "http://1.1.1.1:123" == t.get_connection().host
 
     @patch("opensearchpy._async.transport.AsyncTransport.sniff_hosts")
-    async def test_sniff_on_fail_failing_does_not_prevent_retires(self, sniff_hosts):
+    async def test_sniff_on_fail_failing_does_not_prevent_retires(
+        self, sniff_hosts: Any
+    ) -> None:
         sniff_hosts.side_effect = [TransportError("sniff failed")]
-        t = AsyncTransport(
-            [{"exception": ConnectionError("abandon ship")}, {"data": CLUSTER_NODES}],
+        t: Any = AsyncTransport(
+            [
+                {"exception": ConnectionError(None, "abandon ship", Exception())},
+                {"data": CLUSTER_NODES},
+            ],
             connection_class=DummyConnection,
             sniff_on_connection_fail=True,
             max_retries=3,
@@ -412,8 +427,8 @@ class TestTransport:
         assert 1 == len(conn_err.calls)
         assert 1 == len(conn_data.calls)
 
-    async def test_sniff_after_n_seconds(self, event_loop):
-        t = AsyncTransport(
+    async def test_sniff_after_n_seconds(self, event_loop: Any) -> None:
+        t: Any = AsyncTransport(
             [{"data": CLUSTER_NODES}],
             connection_class=DummyConnection,
             sniffer_timeout=5,
@@ -433,11 +448,11 @@ class TestTransport:
         assert "http://1.1.1.1:123" == t.get_connection().host
         assert event_loop.time() - 1 < t.last_sniff < event_loop.time() + 0.01
 
-    async def test_sniff_7x_publish_host(self):
+    async def test_sniff_7x_publish_host(self) -> None:
         # Test the response shaped when a 7.x node has publish_host set
         # and the returend data is shaped in the fqdn/ip:port format.
-        t = AsyncTransport(
-            [{"data": CLUSTER_NODES_7x_PUBLISH_HOST}],
+        t: Any = AsyncTransport(
+            [{"data": CLUSTER_NODES_7X_PUBLISH_HOST}],
             connection_class=DummyConnection,
             sniff_timeout=42,
         )
@@ -449,23 +464,25 @@ class TestTransport:
             "port": 123,
         }
 
-    async def test_transport_close_closes_all_pool_connections(self):
-        t = AsyncTransport([{}], connection_class=DummyConnection)
-        await t._async_call()
+    async def test_transport_close_closes_all_pool_connections(self) -> None:
+        t1: Any = AsyncTransport([{}], connection_class=DummyConnection)
+        await t1._async_call()
 
-        assert not any([conn.closed for conn in t.connection_pool.connections])
-        await t.close()
-        assert all([conn.closed for conn in t.connection_pool.connections])
+        assert not any([conn.closed for conn in t1.connection_pool.connections])
+        await t1.close()
+        assert all([conn.closed for conn in t1.connection_pool.connections])
 
-        t = AsyncTransport([{}, {}], connection_class=DummyConnection)
-        await t._async_call()
+        t2: Any = AsyncTransport([{}, {}], connection_class=DummyConnection)
+        await t2._async_call()
 
-        assert not any([conn.closed for conn in t.connection_pool.connections])
-        await t.close()
-        assert all([conn.closed for conn in t.connection_pool.connections])
+        assert not any([conn.closed for conn in t2.connection_pool.connections])
+        await t2.close()
+        assert all([conn.closed for conn in t2.connection_pool.connections])
 
-    async def test_sniff_on_start_error_if_no_sniffed_hosts(self, event_loop):
-        t = AsyncTransport(
+    async def test_sniff_on_start_error_if_no_sniffed_hosts(
+        self, event_loop: Any
+    ) -> None:
+        t: Any = AsyncTransport(
             [
                 {"data": ""},
                 {"data": ""},
@@ -481,8 +498,10 @@ class TestTransport:
             await t._async_call()
         assert str(e.value) == "TransportError(N/A, 'Unable to sniff hosts.')"
 
-    async def test_sniff_on_start_waits_for_sniff_to_complete(self, event_loop):
-        t = AsyncTransport(
+    async def test_sniff_on_start_waits_for_sniff_to_complete(
+        self, event_loop: Any
+    ) -> None:
+        t: Any = AsyncTransport(
             [
                 {"delay": 1, "data": ""},
                 {"delay": 1, "data": ""},
@@ -517,8 +536,10 @@ class TestTransport:
         # and then resolved immediately after.
         assert 1 <= duration < 2
 
-    async def test_sniff_on_start_close_unlocks_async_calls(self, event_loop):
-        t = AsyncTransport(
+    async def test_sniff_on_start_close_unlocks_async_calls(
+        self, event_loop: Any
+    ) -> None:
+        t: Any = AsyncTransport(
             [
                 {"delay": 10, "data": CLUSTER_NODES},
             ],
@@ -544,7 +565,7 @@ class TestTransport:
         # A lot quicker than 10 seconds defined in 'delay'
         assert duration < 1
 
-    async def test_init_connection_pool_with_many_hosts(self):
+    async def test_init_connection_pool_with_many_hosts(self) -> None:
         """
         Check init of connection pool with multiple connections.
 
@@ -555,14 +576,14 @@ class TestTransport:
         """
         amt_hosts = 4
         hosts = [{"host": "localhost", "port": 9092}] * amt_hosts
-        t = AsyncTransport(
+        t: Any = AsyncTransport(
             hosts=hosts,
         )
         await t._async_init()
         assert len(t.connection_pool.connections) == amt_hosts
         await t._async_call()
 
-    async def test_init_pool_with_connection_class_to_many_hosts(self):
+    async def test_init_pool_with_connection_class_to_many_hosts(self) -> None:
         """
         Check init of connection pool with user specified connection_class.
 
@@ -573,7 +594,7 @@ class TestTransport:
         """
         amt_hosts = 4
         hosts = [{"host": "localhost", "port": 9092}] * amt_hosts
-        t = AsyncTransport(
+        t: Any = AsyncTransport(
             hosts=hosts,
             connection_class=AIOHttpConnection,
         )

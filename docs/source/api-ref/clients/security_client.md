@@ -1,5 +1,5 @@
 # Security Client
 
 ```{eval-rst}
-.. autoclass:: opensearchpy.clients.security.SecurityClient
+.. autoclass:: opensearchpy.client.security.SecurityClient
 ```

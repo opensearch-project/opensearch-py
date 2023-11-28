@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "opensearch-py-benchmarks"
+version = "0.1.0"
+description = "OpenSearch Python client benchmarks."
+authors = ["Daniel Doubrovkine <dblock@dblock.org>"]
+license = "Apache 2.0"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.7"
+opensearch-py = { path = "..", develop=true, extras=["async"] }
+richbench = "*"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

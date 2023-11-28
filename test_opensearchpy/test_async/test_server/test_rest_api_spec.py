@@ -26,14 +26,16 @@
 
 
 """
-Dynamically generated set of TestCases based on set of yaml files decribing
+Dynamically generated set of TestCases based on set of yaml files describing
 some integration tests. These files are shared among all official OpenSearch
 clients.
 """
 import inspect
 import warnings
+from typing import Any
 
 import pytest
+from _pytest.mark.structures import MarkDecorator
 
 from opensearchpy import OpenSearchWarning
 from opensearchpy.helpers.test import _get_version
@@ -46,19 +48,19 @@ from ...test_server.test_rest_api_spec import (
     YamlRunner,
 )
 
-pytestmark = pytest.mark.asyncio
+pytestmark: MarkDecorator = pytest.mark.asyncio
 
 OPENSEARCH_VERSION = None
 
 
-async def await_if_coro(x):
+async def await_if_coro(x: Any) -> Any:
     if inspect.iscoroutine(x):
         return await x
     return x
 
 
 class AsyncYamlRunner(YamlRunner):
-    async def setup(self):
+    async def setup(self) -> None:
         # Pull skips from individual tests to not do unnecessary setup.
         skip_code = []
         for action in self._run_code:
@@ -76,12 +78,12 @@ class AsyncYamlRunner(YamlRunner):
         if self._setup_code:
             await self.run_code(self._setup_code)
 
-    async def teardown(self):
+    async def teardown(self) -> Any:
         if self._teardown_code:
             self.section("teardown")
             await self.run_code(self._teardown_code)
 
-    async def opensearch_version(self):
+    async def opensearch_version(self) -> Any:
         global OPENSEARCH_VERSION
         if OPENSEARCH_VERSION is None:
             version_string = (await self.client.info())["version"]["number"]
@@ -91,10 +93,10 @@ class AsyncYamlRunner(YamlRunner):
             OPENSEARCH_VERSION = tuple(int(v) if v.isdigit() else 999 for v in version)
         return OPENSEARCH_VERSION
 
-    def section(self, name):
+    def section(self, name: str) -> None:
         print(("=" * 10) + " " + name + " " + ("=" * 10))
 
-    async def run(self):
+    async def run(self) -> Any:
         try:
             await self.setup()
             self.section("test")
@@ -105,8 +107,8 @@ class AsyncYamlRunner(YamlRunner):
             except Exception:
                 pass
 
-    async def run_code(self, test):
-        """Execute an instruction based on it's type."""
+    async def run_code(self, test: Any) -> Any:
+        """Execute an instruction based on its type."""
         for action in test:
             assert len(action) == 1
             action_type, action = list(action.items())[0]
@@ -117,7 +119,7 @@ class AsyncYamlRunner(YamlRunner):
             else:
                 raise RuntimeError("Invalid action type %r" % (action_type,))
 
-    async def run_do(self, action):
+    async def run_do(self, action: Any) -> Any:
         api = self.client
         headers = action.pop("headers", None)
         catch = action.pop("catch", None)
@@ -126,7 +128,7 @@ class AsyncYamlRunner(YamlRunner):
         assert len(action) == 1
 
         # Remove the x_pack_rest_user authentication
-        # if it's given via headers. We're already authenticated
+        # if its given via headers. We're already authenticated
         # via the 'elastic' user.
         if (
             headers
@@ -169,7 +171,7 @@ class AsyncYamlRunner(YamlRunner):
 
         # Filter out warnings raised by other components.
         caught_warnings = [
-            str(w.message)
+            str(w.message)  # type: ignore
             for w in caught_warnings
             if w.category == OpenSearchWarning
             and str(w.message) not in allowed_warnings
@@ -177,13 +179,13 @@ class AsyncYamlRunner(YamlRunner):
 
         # Sorting removes the issue with order raised. We only care about
         # if all warnings are raised in the single API call.
-        if warn and sorted(warn) != sorted(caught_warnings):
+        if warn and sorted(warn) != sorted(caught_warnings):  # type: ignore
             raise AssertionError(
                 "Expected warnings not equal to actual warnings: expected=%r actual=%r"
                 % (warn, caught_warnings)
             )
 
-    async def run_skip(self, skip):
+    async def run_skip(self, skip: Any) -> Any:
         if "features" in skip:
             features = skip["features"]
             if not isinstance(features, (tuple, list)):
@@ -203,19 +205,19 @@ class AsyncYamlRunner(YamlRunner):
             if min_version <= (await self.opensearch_version()) <= max_version:
                 pytest.skip(reason)
 
-    async def _feature_enabled(self, name):
+    async def _feature_enabled(self, name: str) -> Any:
         return False
 
 
-@pytest.fixture(scope="function")
-def async_runner(async_client):
+@pytest.fixture(scope="function")  # type: ignore
+def async_runner(async_client: Any) -> AsyncYamlRunner:
     return AsyncYamlRunner(async_client)
 
 
 if RUN_ASYNC_REST_API_TESTS:
 
-    @pytest.mark.parametrize("test_spec", YAML_TEST_SPECS)
-    async def test_rest_api_spec(test_spec, async_runner):
+    @pytest.mark.parametrize("test_spec", YAML_TEST_SPECS)  # type: ignore
+    async def test_rest_api_spec(test_spec: Any, async_runner: Any) -> None:
         if test_spec.get("skip", False):
             pytest.skip("Manually skipped in 'SKIP_TESTS'")
         async_runner.use_spec(test_spec)

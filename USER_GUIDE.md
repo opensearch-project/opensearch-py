@@ -153,6 +153,12 @@ print(response)
 - [Search](guides/search.md)
 - [Point in Time](guides/point_in_time.md)
 - [Using a Proxy](guides/proxy.md)
+- [Index Templates](guides/index_template.md)
+- [Advanced Index Actions](guides/advanced_index_actions.md)
+- [Making Raw JSON REST Requests](guides/json.md)
+- [Connection Classes](guides/connection_classes.md)
+- [Document Lifecycle](guides/document_lifecycle.md)
+- [Collecting Logs](guides/log_collection.md)
 
 ## Plugins
 

@@ -13,7 +13,6 @@ OpenSearch(
     hosts=["htps://..."],
     use_ssl=True,
     verify_certs=True,
-    connection_class=RequestsHttpConnection,
     trust_env=True,
 )
 ```

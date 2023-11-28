@@ -25,15 +25,11 @@
 #  under the License.
 
 import base64
+import collections.abc as collections_abc
 import copy
 import ipaddress
-
-try:
-    import collections.abc as collections_abc  # only works on python 3.3+
-except ImportError:
-    import collections as collections_abc
-
 from datetime import date, datetime
+from typing import Any, Optional, Type
 
 from dateutil import parser, tz
 from six import integer_types, iteritems, string_types
@@ -44,17 +40,17 @@ from .query import Q
 from .utils import AttrDict, AttrList, DslBase
 from .wrappers import Range
 
-unicode = type("")
+unicode: Type[str] = type("")
 
 
-def construct_field(name_or_field, **params):
+def construct_field(name_or_field: Any, **params: Any) -> Any:
     # {"type": "text", "analyzer": "snowball"}
     if isinstance(name_or_field, collections_abc.Mapping):
         if params:
             raise ValueError(
                 "construct_field() cannot accept parameters when passing in a dict."
             )
-        params = name_or_field.copy()
+        params = name_or_field.copy()  # type: ignore
         if "type" not in params:
             # inner object can be implicitly defined
             if "properties" in params:
@@ -79,14 +75,16 @@ def construct_field(name_or_field, **params):
 
 
 class Field(DslBase):
-    _type_name = "field"
+    _type_name: str = "field"
     _type_shortcut = staticmethod(construct_field)
     # all fields can be multifields
     _param_defs = {"fields": {"type": "field", "hash": True}}
-    name = None
-    _coerce = False
+    name: Optional[str] = None
+    _coerce: bool = False
 
-    def __init__(self, multi=False, required=False, *args, **kwargs):
+    def __init__(
+        self, multi: bool = False, required: bool = False, *args: Any, **kwargs: Any
+    ) -> None:
         """
         :arg bool multi: specifies whether field can contain array of values
         :arg bool required: specifies whether field is required
@@ -95,29 +93,29 @@ class Field(DslBase):
         self._required = required
         super(Field, self).__init__(*args, **kwargs)
 
-    def __getitem__(self, subfield):
+    def __getitem__(self, subfield: Any) -> Any:
         return self._params.get("fields", {})[subfield]
 
-    def _serialize(self, data):
+    def _serialize(self, data: Any) -> Any:
         return data
 
-    def _deserialize(self, data):
+    def _deserialize(self, data: Any) -> Any:
         return data
 
-    def _empty(self):
+    def _empty(self) -> None:
         return None
 
-    def empty(self):
+    def empty(self) -> Any:
         if self._multi:
             return AttrList([])
         return self._empty()
 
-    def serialize(self, data):
+    def serialize(self, data: Any) -> Any:
         if isinstance(data, (list, AttrList, tuple)):
             return list(map(self._serialize, data))
         return self._serialize(data)
 
-    def deserialize(self, data):
+    def deserialize(self, data: Any) -> Any:
         if isinstance(data, (list, AttrList, tuple)):
             data = [None if d is None else self._deserialize(d) for d in data]
             return data
@@ -125,14 +123,14 @@ class Field(DslBase):
             return None
         return self._deserialize(data)
 
-    def clean(self, data):
+    def clean(self, data: Any) -> Any:
         if data is not None:
             data = self.deserialize(data)
         if data in (None, [], {}) and self._required:
             raise ValidationException("Value required for this field.")
         return data
 
-    def to_dict(self):
+    def to_dict(self) -> Any:
         d = super(Field, self).to_dict()
         name, value = d.popitem()
         value["type"] = name
@@ -143,7 +141,7 @@ class CustomField(Field):
     name = "custom"
     _coerce = True
 
-    def to_dict(self):
+    def to_dict(self) -> Any:
         if isinstance(self.builtin_type, Field):
             return self.builtin_type.to_dict()
 
@@ -153,10 +151,16 @@ class CustomField(Field):
 
 
 class Object(Field):
-    name = "object"
-    _coerce = True
+    name: Optional[str] = "object"
+    _coerce: bool = True
 
-    def __init__(self, doc_class=None, dynamic=None, properties=None, **kwargs):
+    def __init__(
+        self,
+        doc_class: Any = None,
+        dynamic: Any = None,
+        properties: Any = None,
+        **kwargs: Any
+    ) -> None:
         """
         :arg document.InnerDoc doc_class: base doc class that handles mapping.
             If no `doc_class` is provided, new instance of `InnerDoc` will be created,
@@ -172,7 +176,7 @@ class Object(Field):
                 "doc_class and properties/dynamic should not be provided together"
             )
         if doc_class:
-            self._doc_class = doc_class
+            self._doc_class: Any = doc_class
         else:
             # FIXME import
             from opensearchpy.helpers.document import InnerDoc
@@ -180,39 +184,39 @@ class Object(Field):
             # no InnerDoc subclass, creating one instead...
             self._doc_class = type("InnerDoc", (InnerDoc,), {})
             for name, field in iteritems(properties or {}):
-                self._doc_class._doc_type.mapping.field(name, field)
+                self._doc_class._doc_type.mapping.field(name, field)  # type: ignore
             if dynamic is not None:
-                self._doc_class._doc_type.mapping.meta("dynamic", dynamic)
+                self._doc_class._doc_type.mapping.meta("dynamic", dynamic)  # type: ignore
 
         self._mapping = copy.deepcopy(self._doc_class._doc_type.mapping)
         super(Object, self).__init__(**kwargs)
 
-    def __getitem__(self, name):
+    def __getitem__(self, name: Any) -> Any:
         return self._mapping[name]
 
-    def __contains__(self, name):
+    def __contains__(self, name: Any) -> bool:
         return name in self._mapping
 
-    def _empty(self):
+    def _empty(self) -> Any:
         return self._wrap({})
 
-    def _wrap(self, data):
+    def _wrap(self, data: Any) -> Any:
         return self._doc_class.from_opensearch(data, data_only=True)
 
-    def empty(self):
+    def empty(self) -> Any:
         if self._multi:
             return AttrList([], self._wrap)
         return self._empty()
 
-    def to_dict(self):
+    def to_dict(self) -> Any:
         d = self._mapping.to_dict()
         d.update(super(Object, self).to_dict())
         return d
 
-    def _collect_fields(self):
+    def _collect_fields(self) -> Any:
         return self._mapping.properties._collect_fields()
 
-    def _deserialize(self, data):
+    def _deserialize(self, data: Any) -> Any:
         # don't wrap already wrapped data
         if isinstance(data, self._doc_class):
             return data
@@ -222,7 +226,7 @@ class Object(Field):
 
         return self._wrap(data)
 
-    def _serialize(self, data):
+    def _serialize(self, data: Any) -> Any:
         if data is None:
             return None
 
@@ -232,7 +236,7 @@ class Object(Field):
 
         return data.to_dict()
 
-    def clean(self, data):
+    def clean(self, data: Any) -> Any:
         data = super(Object, self).clean(data)
         if data is None:
             return None
@@ -243,7 +247,7 @@ class Object(Field):
             data.full_clean()
         return data
 
-    def update(self, other, update_only=False):
+    def update(self, other: "Object", update_only: bool = False) -> None:
         if not isinstance(other, Object):
             # not an inner/nested object, no merge possible
             return
@@ -252,18 +256,18 @@ class Object(Field):
 
 
 class Nested(Object):
-    name = "nested"
+    name: Optional[str] = "nested"
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
         kwargs.setdefault("multi", True)
         super(Nested, self).__init__(*args, **kwargs)
 
 
 class Date(Field):
-    name = "date"
-    _coerce = True
+    name: Optional[str] = "date"
+    _coerce: bool = True
 
-    def __init__(self, default_timezone=None, *args, **kwargs):
+    def __init__(self, default_timezone: Any = None, *args: Any, **kwargs: Any) -> None:
         """
         :arg default_timezone: timezone that will be automatically used for tz-naive values
             May be instance of `datetime.tzinfo` or string containing TZ offset
@@ -273,7 +277,7 @@ class Date(Field):
             self._default_timezone = tz.gettz(self._default_timezone)
         super(Date, self).__init__(*args, **kwargs)
 
-    def _deserialize(self, data):
+    def _deserialize(self, data: Any) -> Any:
         if isinstance(data, string_types):
             try:
                 data = parser.parse(data)
@@ -302,7 +306,7 @@ class Text(Field):
         "search_analyzer": {"type": "analyzer"},
         "search_quote_analyzer": {"type": "analyzer"},
     }
-    name = "text"
+    name: Optional[str] = "text"
 
 
 class SearchAsYouType(Field):
@@ -311,7 +315,7 @@ class SearchAsYouType(Field):
         "search_analyzer": {"type": "analyzer"},
         "search_quote_analyzer": {"type": "analyzer"},
     }
-    name = "search_as_you_type"
+    name: Optional[str] = "search_as_you_type"
 
 
 class Keyword(Field):
@@ -320,23 +324,23 @@ class Keyword(Field):
         "search_analyzer": {"type": "analyzer"},
         "normalizer": {"type": "normalizer"},
     }
-    name = "keyword"
+    name: Optional[str] = "keyword"
 
 
 class ConstantKeyword(Keyword):
-    name = "constant_keyword"
+    name: Optional[str] = "constant_keyword"
 
 
 class Boolean(Field):
-    name = "boolean"
-    _coerce = True
+    name: Optional[str] = "boolean"
+    _coerce: bool = True
 
-    def _deserialize(self, data):
+    def _deserialize(self, data: Any) -> Any:
         if data == "false":
             return False
         return bool(data)
 
-    def clean(self, data):
+    def clean(self, data: Any) -> Any:
         if data is not None:
             data = self.deserialize(data)
         if data is None and self._required:
@@ -345,108 +349,108 @@ class Boolean(Field):
 
 
 class Float(Field):
-    name = "float"
-    _coerce = True
+    name: Optional[str] = "float"
+    _coerce: bool = True
 
-    def _deserialize(self, data):
+    def _deserialize(self, data: Any) -> Any:
         return float(data)
 
 
 class DenseVector(Float):
-    name = "dense_vector"
+    name: Optional[str] = "dense_vector"
 
-    def __init__(self, dims, **kwargs):
+    def __init__(self, dims: Any, **kwargs: Any) -> None:
         kwargs["multi"] = True
         super(DenseVector, self).__init__(dims=dims, **kwargs)
 
 
 class SparseVector(Field):
-    name = "sparse_vector"
+    name: Optional[str] = "sparse_vector"
 
 
 class HalfFloat(Float):
-    name = "half_float"
+    name: Optional[str] = "half_float"
 
 
 class ScaledFloat(Float):
-    name = "scaled_float"
+    name: Optional[str] = "scaled_float"
 
-    def __init__(self, scaling_factor, *args, **kwargs):
+    def __init__(self, scaling_factor: Any, *args: Any, **kwargs: Any) -> None:
         super(ScaledFloat, self).__init__(
             scaling_factor=scaling_factor, *args, **kwargs
         )
 
 
 class Double(Float):
-    name = "double"
+    name: Optional[str] = "double"
 
 
 class RankFeature(Float):
-    name = "rank_feature"
+    name: Optional[str] = "rank_feature"
 
 
 class RankFeatures(Field):
-    name = "rank_features"
+    name: Optional[str] = "rank_features"
 
 
 class Integer(Field):
-    name = "integer"
-    _coerce = True
+    name: Optional[str] = "integer"
+    _coerce: bool = True
 
-    def _deserialize(self, data):
+    def _deserialize(self, data: Any) -> Any:
         return int(data)
 
 
 class Byte(Integer):
-    name = "byte"
+    name: Optional[str] = "byte"
 
 
 class Short(Integer):
-    name = "short"
+    name: Optional[str] = "short"
 
 
 class Long(Integer):
-    name = "long"
+    name: Optional[str] = "long"
 
 
 class Ip(Field):
-    name = "ip"
-    _coerce = True
+    name: Optional[str] = "ip"
+    _coerce: bool = True
 
-    def _deserialize(self, data):
+    def _deserialize(self, data: Any) -> Any:
         # the ipaddress library for pypy only accepts unicode.
         return ipaddress.ip_address(unicode(data))
 
-    def _serialize(self, data):
+    def _serialize(self, data: Any) -> Any:
         if data is None:
             return None
         return str(data)
 
 
 class Binary(Field):
-    name = "binary"
-    _coerce = True
+    name: Optional[str] = "binary"
+    _coerce: bool = True
 
-    def clean(self, data):
+    def clean(self, data: Any) -> Any:
         # Binary fields are opaque, so there's not much cleaning
         # that can be done.
         return data
 
-    def _deserialize(self, data):
+    def _deserialize(self, data: Any) -> Any:
         return base64.b64decode(data)
 
-    def _serialize(self, data):
+    def _serialize(self, data: Any) -> Any:
         if data is None:
             return None
         return base64.b64encode(data).decode()
 
 
 class GeoPoint(Field):
-    name = "geo_point"
+    name: Optional[str] = "geo_point"
 
 
 class GeoShape(Field):
-    name = "geo_shape"
+    name: Optional[str] = "geo_shape"
 
 
 class Completion(Field):
@@ -458,29 +462,29 @@ class Completion(Field):
 
 
 class Percolator(Field):
-    name = "percolator"
-    _coerce = True
+    name: Optional[str] = "percolator"
+    _coerce: bool = True
 
-    def _deserialize(self, data):
+    def _deserialize(self, data: Any) -> Any:
         return Q(data)
 
-    def _serialize(self, data):
+    def _serialize(self, data: Any) -> Any:
         if data is None:
             return None
         return data.to_dict()
 
 
 class RangeField(Field):
-    _coerce = True
-    _core_field = None
+    _coerce: bool = True
+    _core_field: Any = None
 
-    def _deserialize(self, data):
+    def _deserialize(self, data: Any) -> Any:
         if isinstance(data, Range):
             return data
         data = dict((k, self._core_field.deserialize(v)) for k, v in iteritems(data))
         return Range(data)
 
-    def _serialize(self, data):
+    def _serialize(self, data: Any) -> Any:
         if data is None:
             return None
         if not isinstance(data, collections_abc.Mapping):
@@ -489,42 +493,42 @@ class RangeField(Field):
 
 
 class IntegerRange(RangeField):
-    name = "integer_range"
-    _core_field = Integer()
+    name: Optional[str] = "integer_range"
+    _core_field: Any = Integer()
 
 
 class FloatRange(RangeField):
-    name = "float_range"
-    _core_field = Float()
+    name: Optional[str] = "float_range"
+    _core_field: Any = Float()
 
 
 class LongRange(RangeField):
-    name = "long_range"
-    _core_field = Long()
+    name: Optional[str] = "long_range"
+    _core_field: Any = Long()
 
 
 class DoubleRange(RangeField):
-    name = "double_range"
-    _core_field = Double()
+    name: Optional[str] = "double_range"
+    _core_field: Any = Double()
 
 
 class DateRange(RangeField):
-    name = "date_range"
-    _core_field = Date()
+    name: Optional[str] = "date_range"
+    _core_field: Any = Date()
 
 
 class IpRange(Field):
     # not a RangeField since ip_range supports CIDR ranges
-    name = "ip_range"
+    name: Optional[str] = "ip_range"
 
 
 class Join(Field):
-    name = "join"
+    name: Optional[str] = "join"
 
 
 class TokenCount(Field):
-    name = "token_count"
+    name: Optional[str] = "token_count"
 
 
 class Murmur3(Field):
-    name = "murmur3"
+    name: Optional[str] = "murmur3"

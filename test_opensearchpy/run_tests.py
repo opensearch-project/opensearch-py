@@ -7,6 +7,11 @@
 #
 # Modifications Copyright OpenSearch Contributors. See
 # GitHub history for details.
+
+
+#
+# Modifications Copyright OpenSearch Contributors. See
+# GitHub history for details.
 #
 #  Licensed to Elasticsearch B.V. under one or more contributor
 #  license agreements. See the NOTICE file distributed with
@@ -32,9 +37,10 @@ import subprocess
 import sys
 from os import environ
 from os.path import abspath, dirname, exists, join, pardir
+from typing import Any
 
 
-def fetch_opensearch_repo():
+def fetch_opensearch_repo() -> None:
     # user is manually setting YAML dir, don't tamper with it
     if "TEST_OPENSEARCH_YAML_DIR" in environ:
         return
@@ -83,8 +89,8 @@ def fetch_opensearch_repo():
     subprocess.check_call("cd %s && git fetch origin %s" % (repo_path, sha), shell=True)
 
 
-def run_all(argv=None):
-    sys.exitfunc = lambda: sys.stderr.write("Shutting down....\n")
+def run_all(argv: Any = None) -> None:
+    sys.exitfunc = lambda: sys.stderr.write("Shutting down....\n")  # type: ignore
     # fetch yaml tests anywhere that's not GitHub Actions
     if "GITHUB_ACTION" not in environ:
         fetch_opensearch_repo()
@@ -116,27 +122,19 @@ def run_all(argv=None):
         if test_pattern:
             argv.append("-k %s" % test_pattern)
         else:
-            ignores = []
-            # Python 3.6+ is required for async
-            if sys.version_info < (3, 6):
-                ignores.append("test_opensearchpy/test_async/")
-
-            ignores.extend(
-                [
-                    "test_opensearchpy/test_server/",
-                    "test_opensearchpy/test_server_secured/",
-                    "test_opensearchpy/test_async/test_server/",
-                    "test_opensearchpy/test_async/test_server_secured/",
-                ]
-            )
+            ignores = [
+                "test_opensearchpy/test_server/",
+                "test_opensearchpy/test_server_secured/",
+                "test_opensearchpy/test_async/test_server/",
+                "test_opensearchpy/test_async/test_server_secured/",
+            ]
 
             # Jenkins/Github actions, only run server tests
             if environ.get("TEST_TYPE") == "server":
                 test_dir = abspath(dirname(__file__))
                 if secured:
                     argv.append(join(test_dir, "test_server_secured"))
-                    if sys.version_info >= (3, 6):
-                        argv.append(join(test_dir, "test_async/test_server_secured"))
+                    argv.append(join(test_dir, "test_async/test_server_secured"))
                     ignores.extend(
                         [
                             "test_opensearchpy/test_server/",
@@ -145,8 +143,7 @@ def run_all(argv=None):
                     )
                 else:
                     argv.append(join(test_dir, "test_server"))
-                    if sys.version_info >= (3, 6):
-                        argv.append(join(test_dir, "test_async/test_server"))
+                    argv.append(join(test_dir, "test_async/test_server"))
                     ignores.extend(
                         [
                             "test_opensearchpy/test_server_secured/",

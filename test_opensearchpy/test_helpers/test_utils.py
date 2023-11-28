@@ -32,21 +32,21 @@ from opensearchpy import Q, serializer
 from opensearchpy.helpers import utils
 
 
-def test_attrdict_pickle():
+def test_attrdict_pickle() -> None:
     ad = utils.AttrDict({})
 
     pickled_ad = pickle.dumps(ad)
     assert ad == pickle.loads(pickled_ad)
 
 
-def test_attrlist_pickle():
+def test_attrlist_pickle() -> None:
     al = utils.AttrList([])
 
     pickled_al = pickle.dumps(al)
     assert al == pickle.loads(pickled_al)
 
 
-def test_attrlist_slice():
+def test_attrlist_slice() -> None:
     class MyAttrDict(utils.AttrDict):
         pass
 
@@ -54,7 +54,7 @@ def test_attrlist_slice():
     assert isinstance(ls[:][0], MyAttrDict)
 
 
-def test_merge():
+def test_merge() -> None:
     a = utils.AttrDict({"a": {"b": 42, "c": 47}})
     b = {"a": {"b": 123, "d": -12}, "e": [1, 2, 3]}
 
@@ -63,7 +63,7 @@ def test_merge():
     assert a == {"a": {"b": 123, "c": 47, "d": -12}, "e": [1, 2, 3]}
 
 
-def test_merge_conflict():
+def test_merge_conflict() -> None:
     for d in (
         {"a": 42},
         {"a": {"b": 47}},
@@ -73,7 +73,7 @@ def test_merge_conflict():
             utils.merge({"a": {"b": 42}}, d, True)
 
 
-def test_attrdict_bool():
+def test_attrdict_bool() -> None:
     d = utils.AttrDict({})
 
     assert not d
@@ -81,7 +81,7 @@ def test_attrdict_bool():
     assert d
 
 
-def test_attrlist_items_get_wrapped_during_iteration():
+def test_attrlist_items_get_wrapped_during_iteration() -> None:
     al = utils.AttrList([1, object(), [1], {}])
 
     ls = list(iter(al))
@@ -90,7 +90,7 @@ def test_attrlist_items_get_wrapped_during_iteration():
     assert isinstance(ls[3], utils.AttrDict)
 
 
-def test_serializer_deals_with_Attr_versions():
+def test_serializer_deals_with_attr_versions() -> None:
     d = utils.AttrDict({"key": utils.AttrList([1, 2, 3])})
 
     assert serializer.serializer.dumps(d) == serializer.serializer.dumps(
@@ -98,21 +98,21 @@ def test_serializer_deals_with_Attr_versions():
     )
 
 
-def test_serializer_deals_with_objects_with_to_dict():
+def test_serializer_deals_with_objects_with_to_dict() -> None:
     class MyClass(object):
-        def to_dict(self):
+        def to_dict(self) -> int:
             return 42
 
     assert serializer.serializer.dumps(MyClass()) == "42"
 
 
-def test_recursive_to_dict():
+def test_recursive_to_dict() -> None:
     assert utils.recursive_to_dict({"k": [1, (1.0, {"v": Q("match", key="val")})]}) == {
         "k": [1, (1.0, {"v": {"match": {"key": "val"}}})]
     }
 
 
-def test_attrdict_get():
+def test_attrdict_get() -> None:
     a = utils.AttrDict({"a": {"b": 42, "c": 47}})
     assert a.get("a", {}).get("b", 0) == 42
     assert a.get("a", {}).get("e", 0) == 0

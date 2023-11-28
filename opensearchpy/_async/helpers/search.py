@@ -8,6 +8,7 @@
 # GitHub history for details.
 
 import copy
+from typing import Any, Sequence
 
 from six import iteritems, string_types
 
@@ -25,7 +26,7 @@ class AsyncSearch(Request):
     query = ProxyDescriptor("query")
     post_filter = ProxyDescriptor("post_filter")
 
-    def __init__(self, **kwargs):
+    def __init__(self, **kwargs: Any) -> None:
         """
         Search request to opensearch.
 
@@ -39,24 +40,24 @@ class AsyncSearch(Request):
         super(AsyncSearch, self).__init__(**kwargs)
 
         self.aggs = AggsProxy(self)
-        self._sort = []
-        self._source = None
-        self._highlight = {}
-        self._highlight_opts = {}
-        self._suggest = {}
-        self._script_fields = {}
-        self._response_class = Response
+        self._sort: Sequence[Any] = []
+        self._source: Any = None
+        self._highlight: Any = {}
+        self._highlight_opts: Any = {}
+        self._suggest: Any = {}
+        self._script_fields: Any = {}
+        self._response_class: Any = Response
 
         self._query_proxy = QueryProxy(self, "query")
         self._post_filter_proxy = QueryProxy(self, "post_filter")
 
-    def filter(self, *args, **kwargs):
+    def filter(self, *args: Any, **kwargs: Any) -> Any:
         return self.query(Bool(filter=[Q(*args, **kwargs)]))
 
-    def exclude(self, *args, **kwargs):
+    def exclude(self, *args: Any, **kwargs: Any) -> Any:
         return self.query(Bool(filter=[~Q(*args, **kwargs)]))
 
-    def __getitem__(self, n):
+    def __getitem__(self, n: Any) -> Any:
         """
         Support slicing the `AsyncSearch` instance for pagination.
 
@@ -91,7 +92,7 @@ class AsyncSearch(Request):
             return s
 
     @classmethod
-    def from_dict(cls, d):
+    def from_dict(cls, d: Any) -> Any:
         """
         Construct a new `AsyncSearch` instance from a raw dict containing the search
         body. Useful when migrating from raw dictionaries.
@@ -112,7 +113,7 @@ class AsyncSearch(Request):
         s.update_from_dict(d)
         return s
 
-    def _clone(self):
+    def _clone(self) -> Any:
         """
         Return a clone of the current search request. Performs a shallow copy
         of all the underlying objects. Used internally by most state modifying
@@ -135,7 +136,7 @@ class AsyncSearch(Request):
             s.aggs._params = {"aggs": self.aggs._params["aggs"].copy()}
         return s
 
-    def response_class(self, cls):
+    def response_class(self, cls: Any) -> Any:
         """
         Override the default wrapper used for the response.
         """
@@ -143,7 +144,7 @@ class AsyncSearch(Request):
         s._response_class = cls
         return s
 
-    def update_from_dict(self, d):
+    def update_from_dict(self, d: Any) -> "AsyncSearch":
         """
         Apply options from a serialized body to the current instance. Modifies
         the object in-place. Used mostly by ``from_dict``.
@@ -178,7 +179,7 @@ class AsyncSearch(Request):
         self._extra.update(d)
         return self
 
-    def script_fields(self, **kwargs):
+    def script_fields(self, **kwargs: Any) -> Any:
         """
         Define script fields to be calculated on hits.
 
@@ -204,7 +205,7 @@ class AsyncSearch(Request):
         s._script_fields.update(kwargs)
         return s
 
-    def source(self, fields=None, **kwargs):
+    def source(self, fields: Any = None, **kwargs: Any) -> Any:
         """
         Selectively control how the _source field is returned.
 
@@ -249,7 +250,7 @@ class AsyncSearch(Request):
 
         return s
 
-    def sort(self, *keys):
+    def sort(self, *keys: Any) -> Any:
         """
         Add sorting information to the search request. If called without
         arguments it will remove all sort requirements. Otherwise it will
@@ -282,7 +283,7 @@ class AsyncSearch(Request):
             s._sort.append(k)
         return s
 
-    def highlight_options(self, **kwargs):
+    def highlight_options(self, **kwargs: Any) -> Any:
         """
         Update the global highlighting options used for this request. For
         example::
@@ -294,7 +295,7 @@ class AsyncSearch(Request):
         s._highlight_opts.update(kwargs)
         return s
 
-    def highlight(self, *fields, **kwargs):
+    def highlight(self, *fields: Any, **kwargs: Any) -> Any:
         """
         Request highlighting of some fields. All keyword arguments passed in will be
         used as parameters for all the fields in the ``fields`` parameter. Example::
@@ -334,7 +335,7 @@ class AsyncSearch(Request):
             s._highlight[f] = kwargs
         return s
 
-    def suggest(self, name, text, **kwargs):
+    def suggest(self, name: str, text: str, **kwargs: Any) -> Any:
         """
         Add a suggestions request to the search.
 
@@ -351,7 +352,7 @@ class AsyncSearch(Request):
         s._suggest[name].update(kwargs)
         return s
 
-    def to_dict(self, count=False, **kwargs):
+    def to_dict(self, count: bool = False, **kwargs: Any) -> Any:
         """
         Serialize the search into the dictionary that will be sent over as the
         request's body.
@@ -395,7 +396,7 @@ class AsyncSearch(Request):
         d.update(recursive_to_dict(kwargs))
         return d
 
-    async def count(self):
+    async def count(self) -> Any:
         """
         Return the number of hits matching the query and filters. Note that
         only the actual number is returned.
@@ -411,7 +412,7 @@ class AsyncSearch(Request):
             "count"
         ]
 
-    async def execute(self, ignore_cache=False):
+    async def execute(self, ignore_cache: bool = False) -> Any:
         """
         Execute the search and return an instance of ``Response`` wrapping all
         the data.
@@ -430,7 +431,7 @@ class AsyncSearch(Request):
             )
         return self._response
 
-    async def scan(self):
+    async def scan(self) -> Any:
         """
         Turn the search into a scan search and return a generator that will
         iterate over all the documents matching the query.
@@ -448,7 +449,7 @@ class AsyncSearch(Request):
         ):
             yield self._get_result(hit)
 
-    async def delete(self):
+    async def delete(self) -> Any:
         """
         delete() executes the query by delegating to delete_by_query()
         """
@@ -468,22 +469,22 @@ class AsyncMultiSearch(Request):
     request.
     """
 
-    def __init__(self, **kwargs):
+    def __init__(self, **kwargs: Any) -> None:
         super(AsyncMultiSearch, self).__init__(**kwargs)
-        self._searches = []
+        self._searches: Any = []
 
-    def __getitem__(self, key):
+    def __getitem__(self, key: Any) -> Any:
         return self._searches[key]
 
-    def __iter__(self):
+    def __iter__(self) -> Any:
         return iter(self._searches)
 
-    def _clone(self):
+    def _clone(self) -> Any:
         ms = super(AsyncMultiSearch, self)._clone()
         ms._searches = self._searches[:]
         return ms
 
-    def add(self, search):
+    def add(self, search: Any) -> Any:
         """
         Adds a new :class:`~opensearchpy.AsyncSearch` object to the request::
 
@@ -495,7 +496,7 @@ class AsyncMultiSearch(Request):
         ms._searches.append(search)
         return ms
 
-    def to_dict(self):
+    def to_dict(self) -> Any:
         out = []
         for s in self._searches:
             meta = {}
@@ -508,7 +509,9 @@ class AsyncMultiSearch(Request):
 
         return out
 
-    async def execute(self, ignore_cache=False, raise_on_error=True):
+    async def execute(
+        self, ignore_cache: bool = False, raise_on_error: bool = True
+    ) -> Any:
         """
         Execute the multi search request and return a list of search results.
         """

@@ -25,6 +25,8 @@
 #  under the License.
 
 
+from typing import Any
+
 from .base import Connection
 
 try:
@@ -34,6 +36,8 @@ except ImportError:
 
 
 class PoolingConnection(Connection):
+    _free_connections: queue.Queue[Connection]
+
     """
     Base connection class for connections that use libraries without thread
     safety and no capacity for connection pooling. To use this just implement a
@@ -41,23 +45,23 @@ class PoolingConnection(Connection):
     it.
     """
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
         self._free_connections = queue.Queue()
         super(PoolingConnection, self).__init__(*args, **kwargs)
 
-    def _make_connection(self):
+    def _make_connection(self) -> Connection:
         raise NotImplementedError
 
-    def _get_connection(self):
+    def _get_connection(self) -> Connection:
         try:
             return self._free_connections.get_nowait()
         except queue.Empty:
             return self._make_connection()
 
-    def _release_connection(self, con):
+    def _release_connection(self, con: Connection) -> None:
         self._free_connections.put(con)
 
-    def close(self):
+    def close(self) -> None:
         """
         Explicitly close connection
         """

@@ -24,6 +24,9 @@
 #  specific language governing permissions and limitations
 #  under the License.
 
+from typing import Any, Optional
+
+from opensearchpy.client import OpenSearch
 from opensearchpy.connection.connections import get_connection
 from opensearchpy.helpers import analysis
 
@@ -35,7 +38,14 @@ from .utils import merge
 
 
 class IndexTemplate(object):
-    def __init__(self, name, template, index=None, order=None, **kwargs):
+    def __init__(
+        self,
+        name: Any,
+        template: Any,
+        index: Any = None,
+        order: Any = None,
+        **kwargs: Any
+    ) -> None:
         if index is None:
             self._index = Index(template, **kwargs)
         else:
@@ -49,17 +59,17 @@ class IndexTemplate(object):
         self._template_name = name
         self.order = order
 
-    def __getattr__(self, attr_name):
+    def __getattr__(self, attr_name: Any) -> Any:
         return getattr(self._index, attr_name)
 
-    def to_dict(self):
+    def to_dict(self) -> Any:
         d = self._index.to_dict()
         d["index_patterns"] = [self._index._name]
         if self.order is not None:
             d["order"] = self.order
         return d
 
-    def save(self, using=None):
+    def save(self, using: Any = None) -> Any:
         opensearch = get_connection(using or self._index._using)
         return opensearch.indices.put_template(
             name=self._template_name, body=self.to_dict()
@@ -67,25 +77,27 @@ class IndexTemplate(object):
 
 
 class Index(object):
-    def __init__(self, name, using="default"):
+    def __init__(self, name: Any, using: Any = "default") -> None:
         """
         :arg name: name of the index
         :arg using: connection alias to use, defaults to ``'default'``
         """
         self._name = name
-        self._doc_types = []
+        self._doc_types: Any = []
         self._using = using
-        self._settings = {}
-        self._aliases = {}
-        self._analysis = {}
-        self._mapping = None
+        self._settings: Any = {}
+        self._aliases: Any = {}
+        self._analysis: Any = {}
+        self._mapping: Any = None
 
-    def get_or_create_mapping(self):
+    def get_or_create_mapping(self) -> Any:
         if self._mapping is None:
             self._mapping = Mapping()
         return self._mapping
 
-    def as_template(self, template_name, pattern=None, order=None):
+    def as_template(
+        self, template_name: Any, pattern: Any = None, order: Any = None
+    ) -> Any:
         # TODO: should we allow pattern to be a top-level arg?
         # or maybe have an IndexPattern that allows for it and have
         # Document._index be that?
@@ -93,7 +105,7 @@ class Index(object):
             template_name, pattern or self._name, index=self, order=order
         )
 
-    def resolve_nested(self, field_path):
+    def resolve_nested(self, field_path: Any) -> Any:
         for doc in self._doc_types:
             nested, field = doc._doc_type.mapping.resolve_nested(field_path)
             if field is not None:
@@ -102,7 +114,7 @@ class Index(object):
             return self._mapping.resolve_nested(field_path)
         return (), None
 
-    def resolve_field(self, field_path):
+    def resolve_field(self, field_path: Any) -> Any:
         for doc in self._doc_types:
             field = doc._doc_type.mapping.resolve_field(field_path)
             if field is not None:
@@ -111,12 +123,12 @@ class Index(object):
             return self._mapping.resolve_field(field_path)
         return None
 
-    def load_mappings(self, using=None):
+    def load_mappings(self, using: Optional[OpenSearch] = None) -> None:
         self.get_or_create_mapping().update_from_opensearch(
             self._name, using=using or self._using
         )
 
-    def clone(self, name=None, using=None):
+    def clone(self, name: Any = None, using: Any = None) -> Any:
         """
         Create a copy of the instance with another name or connection alias.
         Useful for creating multiple indices with shared configuration::
@@ -140,14 +152,14 @@ class Index(object):
             i._mapping = self._mapping._clone()
         return i
 
-    def _get_connection(self, using=None):
+    def _get_connection(self, using: Any = None) -> Any:
         if self._name is None:
             raise ValueError("You cannot perform API calls on the default index.")
         return get_connection(using or self._using)
 
     connection = property(_get_connection)
 
-    def mapping(self, mapping):
+    def mapping(self, mapping: Any) -> Any:
         """
         Associate a mapping (an instance of
         :class:`~opensearchpy.Mapping`) with this index.
@@ -156,7 +168,7 @@ class Index(object):
         """
         self.get_or_create_mapping().update(mapping)
 
-    def document(self, document):
+    def document(self, document: Any) -> Any:
         """
         Associate a :class:`~opensearchpy.Document` subclass with an index.
         This means that, when this index is created, it will contain the
@@ -187,7 +199,7 @@ class Index(object):
 
         return document
 
-    def settings(self, **kwargs):
+    def settings(self, **kwargs: Any) -> Any:
         """
         Add settings to the index::
 
@@ -200,7 +212,7 @@ class Index(object):
         self._settings.update(kwargs)
         return self
 
-    def aliases(self, **kwargs):
+    def aliases(self, **kwargs: Any) -> Any:
         """
         Add aliases to the index definition::
 
@@ -210,7 +222,7 @@ class Index(object):
         self._aliases.update(kwargs)
         return self
 
-    def analyzer(self, *args, **kwargs):
+    def analyzer(self, *args: Any, **kwargs: Any) -> Any:
         """
         Explicitly add an analyzer to an index. Note that all custom analyzers
         defined in mappings will also be created. This is useful for search analyzers.
@@ -237,14 +249,14 @@ class Index(object):
         # merge the definition
         merge(self._analysis, d, True)
 
-    def to_dict(self):
+    def to_dict(self) -> Any:
         out = {}
         if self._settings:
             out["settings"] = self._settings
         if self._aliases:
             out["aliases"] = self._aliases
-        mappings = self._mapping.to_dict() if self._mapping else {}
-        analysis = self._mapping._collect_analysis() if self._mapping else {}
+        mappings: Any = self._mapping.to_dict() if self._mapping else {}
+        analysis: Any = self._mapping._collect_analysis() if self._mapping else {}
         for d in self._doc_types:
             mapping = d._doc_type.mapping
             merge(mappings, mapping.to_dict(), True)
@@ -256,7 +268,7 @@ class Index(object):
             out.setdefault("settings", {})["analysis"] = analysis
         return out
 
-    def search(self, using=None):
+    def search(self, using: Optional[OpenSearch] = None) -> Search:
         """
         Return a :class:`~opensearchpy.Search` object searching over the
         index (or all the indices belonging to this template) and its
@@ -266,7 +278,9 @@ class Index(object):
             using=using or self._using, index=self._name, doc_type=self._doc_types
         )
 
-    def updateByQuery(self, using=None):
+    def updateByQuery(  # pylint: disable=invalid-name
+        self, using: Optional[OpenSearch] = None
+    ) -> UpdateByQuery:
         """
         Return a :class:`~opensearchpy.UpdateByQuery` object searching over the index
         (or all the indices belonging to this template) and updating Documents that match
@@ -280,7 +294,7 @@ class Index(object):
             index=self._name,
         )
 
-    def create(self, using=None, **kwargs):
+    def create(self, using: Optional[OpenSearch] = None, **kwargs: Any) -> Any:
         """
         Creates the index in opensearch.
 
@@ -291,13 +305,13 @@ class Index(object):
             index=self._name, body=self.to_dict(), **kwargs
         )
 
-    def is_closed(self, using=None):
+    def is_closed(self, using: Optional[OpenSearch] = None) -> Any:
         state = self._get_connection(using).cluster.state(
             index=self._name, metric="metadata"
         )
         return state["metadata"]["indices"][self._name]["state"] == "close"
 
-    def save(self, using=None):
+    def save(self, using: Optional[OpenSearch] = None) -> Any:
         """
         Sync the index definition with opensearch, creating the index if it
         doesn't exist and updating its settings and mappings if it does.
@@ -351,7 +365,7 @@ class Index(object):
         if mappings:
             self.put_mapping(using=using, body=mappings)
 
-    def analyze(self, using=None, **kwargs):
+    def analyze(self, using: Optional[OpenSearch] = None, **kwargs: Any) -> Any:
         """
         Perform the analysis process on a text and return the tokens breakdown
         of the text.
@@ -361,7 +375,7 @@ class Index(object):
         """
         return self._get_connection(using).indices.analyze(index=self._name, **kwargs)
 
-    def refresh(self, using=None, **kwargs):
+    def refresh(self, using: Optional[OpenSearch] = None, **kwargs: Any) -> Any:
         """
         Performs a refresh operation on the index.
 
@@ -370,7 +384,7 @@ class Index(object):
         """
         return self._get_connection(using).indices.refresh(index=self._name, **kwargs)
 
-    def flush(self, using=None, **kwargs):
+    def flush(self, using: Optional[OpenSearch] = None, **kwargs: Any) -> Any:
         """
         Performs a flush operation on the index.
 
@@ -379,7 +393,7 @@ class Index(object):
         """
         return self._get_connection(using).indices.flush(index=self._name, **kwargs)
 
-    def get(self, using=None, **kwargs):
+    def get(self, using: Optional[OpenSearch] = None, **kwargs: Any) -> Any:
         """
         The get index API allows to retrieve information about the index.
 
@@ -388,7 +402,7 @@ class Index(object):
         """
         return self._get_connection(using).indices.get(index=self._name, **kwargs)
 
-    def open(self, using=None, **kwargs):
+    def open(self, using: Optional[OpenSearch] = None, **kwargs: Any) -> Any:
         """
         Opens the index in opensearch.
 
@@ -397,7 +411,7 @@ class Index(object):
         """
         return self._get_connection(using).indices.open(index=self._name, **kwargs)
 
-    def close(self, using=None, **kwargs):
+    def close(self, using: Optional[OpenSearch] = None, **kwargs: Any) -> Any:
         """
         Closes the index in opensearch.
 
@@ -406,7 +420,7 @@ class Index(object):
         """
         return self._get_connection(using).indices.close(index=self._name, **kwargs)
 
-    def delete(self, using=None, **kwargs):
+    def delete(self, using: Optional[OpenSearch] = None, **kwargs: Any) -> Any:
         """
         Deletes the index in opensearch.
 
@@ -415,7 +429,7 @@ class Index(object):
         """
         return self._get_connection(using).indices.delete(index=self._name, **kwargs)
 
-    def exists(self, using=None, **kwargs):
+    def exists(self, using: Optional[OpenSearch] = None, **kwargs: Any) -> Any:
         """
         Returns ``True`` if the index already exists in opensearch.
 
@@ -424,7 +438,7 @@ class Index(object):
         """
         return self._get_connection(using).indices.exists(index=self._name, **kwargs)
 
-    def put_mapping(self, using=None, **kwargs):
+    def put_mapping(self, using: Optional[OpenSearch] = None, **kwargs: Any) -> Any:
         """
         Register specific mapping definition for a specific type.
 
@@ -435,7 +449,7 @@ class Index(object):
             index=self._name, **kwargs
         )
 
-    def get_mapping(self, using=None, **kwargs):
+    def get_mapping(self, using: Optional[OpenSearch] = None, **kwargs: Any) -> Any:
         """
         Retrieve specific mapping definition for a specific type.
 
@@ -446,7 +460,9 @@ class Index(object):
             index=self._name, **kwargs
         )
 
-    def get_field_mapping(self, using=None, **kwargs):
+    def get_field_mapping(
+        self, using: Optional[OpenSearch] = None, **kwargs: Any
+    ) -> Any:
         """
         Retrieve mapping definition of a specific field.
 
@@ -457,7 +473,7 @@ class Index(object):
             index=self._name, **kwargs
         )
 
-    def put_alias(self, using=None, **kwargs):
+    def put_alias(self, using: Optional[OpenSearch] = None, **kwargs: Any) -> Any:
         """
         Create an alias for the index.
 
@@ -466,7 +482,7 @@ class Index(object):
         """
         return self._get_connection(using).indices.put_alias(index=self._name, **kwargs)
 
-    def exists_alias(self, using=None, **kwargs):
+    def exists_alias(self, using: Optional[OpenSearch] = None, **kwargs: Any) -> Any:
         """
         Return a boolean indicating whether given alias exists for this index.
 
@@ -477,7 +493,7 @@ class Index(object):
             index=self._name, **kwargs
         )
 
-    def get_alias(self, using=None, **kwargs):
+    def get_alias(self, using: Optional[OpenSearch] = None, **kwargs: Any) -> Any:
         """
         Retrieve a specified alias.
 
@@ -486,7 +502,7 @@ class Index(object):
         """
         return self._get_connection(using).indices.get_alias(index=self._name, **kwargs)
 
-    def delete_alias(self, using=None, **kwargs):
+    def delete_alias(self, using: Optional[OpenSearch] = None, **kwargs: Any) -> Any:
         """
         Delete specific alias.
 
@@ -497,7 +513,7 @@ class Index(object):
             index=self._name, **kwargs
         )
 
-    def get_settings(self, using=None, **kwargs):
+    def get_settings(self, using: Optional[OpenSearch] = None, **kwargs: Any) -> Any:
         """
         Retrieve settings for the index.
 
@@ -508,7 +524,7 @@ class Index(object):
             index=self._name, **kwargs
         )
 
-    def put_settings(self, using=None, **kwargs):
+    def put_settings(self, using: Optional[OpenSearch] = None, **kwargs: Any) -> Any:
         """
         Change specific index level settings in real time.
 
@@ -519,7 +535,7 @@ class Index(object):
             index=self._name, **kwargs
         )
 
-    def stats(self, using=None, **kwargs):
+    def stats(self, using: Optional[OpenSearch] = None, **kwargs: Any) -> Any:
         """
         Retrieve statistics on different operations happening on the index.
 
@@ -528,7 +544,7 @@ class Index(object):
         """
         return self._get_connection(using).indices.stats(index=self._name, **kwargs)
 
-    def segments(self, using=None, **kwargs):
+    def segments(self, using: Optional[OpenSearch] = None, **kwargs: Any) -> Any:
         """
         Provide low level segments information that a Lucene index (shard
         level) is built with.
@@ -538,7 +554,7 @@ class Index(object):
         """
         return self._get_connection(using).indices.segments(index=self._name, **kwargs)
 
-    def validate_query(self, using=None, **kwargs):
+    def validate_query(self, using: Optional[OpenSearch] = None, **kwargs: Any) -> Any:
         """
         Validate a potentially expensive query without executing it.
 
@@ -549,7 +565,7 @@ class Index(object):
             index=self._name, **kwargs
         )
 
-    def clear_cache(self, using=None, **kwargs):
+    def clear_cache(self, using: Optional[OpenSearch] = None, **kwargs: Any) -> Any:
         """
         Clear all caches or specific cached associated with the index.
 
@@ -560,7 +576,7 @@ class Index(object):
             index=self._name, **kwargs
         )
 
-    def recovery(self, using=None, **kwargs):
+    def recovery(self, using: Optional[OpenSearch] = None, **kwargs: Any) -> Any:
         """
         The indices recovery API provides insight into on-going shard
         recoveries for the index.
@@ -570,7 +586,7 @@ class Index(object):
         """
         return self._get_connection(using).indices.recovery(index=self._name, **kwargs)
 
-    def upgrade(self, using=None, **kwargs):
+    def upgrade(self, using: Optional[OpenSearch] = None, **kwargs: Any) -> Any:
         """
         Upgrade the index to the latest format.
 
@@ -579,7 +595,7 @@ class Index(object):
         """
         return self._get_connection(using).indices.upgrade(index=self._name, **kwargs)
 
-    def get_upgrade(self, using=None, **kwargs):
+    def get_upgrade(self, using: Optional[OpenSearch] = None, **kwargs: Any) -> Any:
         """
         Monitor how much of the index is upgraded.
 
@@ -590,7 +606,7 @@ class Index(object):
             index=self._name, **kwargs
         )
 
-    def shard_stores(self, using=None, **kwargs):
+    def shard_stores(self, using: Optional[OpenSearch] = None, **kwargs: Any) -> Any:
         """
         Provides store information for shard copies of the index. Store
         information reports on which nodes shard copies exist, the shard copy
@@ -604,7 +620,7 @@ class Index(object):
             index=self._name, **kwargs
         )
 
-    def forcemerge(self, using=None, **kwargs):
+    def forcemerge(self, using: Optional[OpenSearch] = None, **kwargs: Any) -> Any:
         """
         The force merge API allows to force merging of the index through an
         API. The merge relates to the number of segments a Lucene index holds
@@ -622,7 +638,7 @@ class Index(object):
             index=self._name, **kwargs
         )
 
-    def shrink(self, using=None, **kwargs):
+    def shrink(self, using: Optional[OpenSearch] = None, **kwargs: Any) -> Any:
         """
         The shrink index API allows you to shrink an existing index into a new
         index with fewer primary shards. The number of primary shards in the

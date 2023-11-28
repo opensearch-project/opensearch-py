@@ -25,6 +25,8 @@
 #  under the License.
 
 
+from typing import Any
+
 import nox
 
 SOURCE_FILES = (
@@ -33,43 +35,69 @@ SOURCE_FILES = (
     "opensearchpy/",
     "test_opensearchpy/",
     "utils/",
+    "samples/",
+    "benchmarks/",
+    "docs/",
 )
 
 
-@nox.session(python=["2.7", "3.5", "3.6", "3.7", "3.8", "3.9", "3.10", "3.11"])
-def test(session):
+@nox.session(python=["3.6", "3.7", "3.8", "3.9", "3.10", "3.11"])  # type: ignore
+def test(session: Any) -> None:
     session.install(".")
+    # ensure client can be imported without aiohttp
+    session.run("python", "-c", "import opensearchpy\nprint(opensearchpy.OpenSearch())")
+    # ensure client can be imported with aiohttp
+    session.install(".[async]")
+    session.run(
+        "python", "-c", "import opensearchpy\nprint(opensearchpy.AsyncOpenSearch())"
+    )
+
     session.install("-r", "dev-requirements.txt")
 
     session.run("python", "setup.py", "test")
 
 
-@nox.session()
-def format(session):
+@nox.session(python=["3.7"])  # type: ignore
+def format(session: Any) -> None:
+    session.install(".")
     session.install("black", "isort")
 
-    session.run("isort", "--profile=black", *SOURCE_FILES)
-    session.run("black", "--target-version=py33", *SOURCE_FILES)
-    session.run("python", "utils/license-headers.py", "fix", *SOURCE_FILES)
+    session.run("isort", *SOURCE_FILES)
+    session.run("black", *SOURCE_FILES)
+    session.run("python", "utils/license_headers.py", "fix", *SOURCE_FILES)
 
     lint(session)
 
 
-@nox.session()
-def lint(session):
-    session.install("flake8", "black", "mypy", "isort", "types-requests", "types-six")
+@nox.session(python=["3.7"])  # type: ignore
+def lint(session: Any) -> None:
+    session.install(
+        "flake8",
+        "black",
+        "mypy",
+        "isort",
+        "pylint",
+        "types-requests",
+        "types-six",
+        "types-simplejson",
+        "types-python-dateutil",
+        "types-PyYAML",
+        "types-mock",
+        "types-pytz",
+    )
 
-    session.run("isort", "--check", "--profile=black", *SOURCE_FILES)
-    session.run("black", "--target-version=py33", "--check", *SOURCE_FILES)
+    session.run("isort", "--check", *SOURCE_FILES)
+    session.run("black", "--check", *SOURCE_FILES)
     session.run("flake8", *SOURCE_FILES)
-    session.run("python", "utils/license-headers.py", "check", *SOURCE_FILES)
+    session.run("pylint", *SOURCE_FILES)
+    session.run("python", "utils/license_headers.py", "check", *SOURCE_FILES)
 
     # Workaround to make '-r' to still work despite uninstalling aiohttp below.
     session.run("python", "-m", "pip", "install", "aiohttp")
 
     # Run mypy on the package and then the type examples separately for
     # the two different mypy use-cases, ourselves and our users.
-    session.run("mypy", "--strict", "opensearchpy/")
+    session.run("mypy", "--strict", *SOURCE_FILES)
     session.run("mypy", "--strict", "test_opensearchpy/test_types/sync_types.py")
     session.run("mypy", "--strict", "test_opensearchpy/test_types/async_types.py")
 
@@ -80,10 +108,16 @@ def lint(session):
     session.run("mypy", "--strict", "test_opensearchpy/test_types/sync_types.py")
 
 
-@nox.session()
-def docs(session):
+@nox.session()  # type: ignore
+def docs(session: Any) -> None:
     session.install(".")
-    session.install(
-        "-rdev-requirements.txt", "sphinx-rtd-theme", "sphinx-autodoc-typehints"
-    )
-    session.run("python", "-m", "pip", "install", "sphinx-autodoc-typehints")
+    session.install(".[docs]")
+    with session.chdir("docs"):
+        session.run("make", "html")
+
+
+@nox.session()  # type: ignore
+def generate(session: Any) -> None:
+    session.install("-rdev-requirements.txt")
+    session.run("python", "utils/generate_api.py")
+    format(session)
