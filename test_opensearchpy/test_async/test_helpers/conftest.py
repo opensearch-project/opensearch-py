@@ -8,27 +8,30 @@
 # GitHub history for details.
 
 
+from typing import Any
+
 import pytest
+from _pytest.mark.structures import MarkDecorator
 from mock import Mock
 from pytest import fixture
 
 from opensearchpy.connection.async_connections import add_connection, async_connections
 
-pytestmark = pytest.mark.asyncio
+pytestmark: MarkDecorator = pytest.mark.asyncio
 
 
-@fixture
-async def mock_client(dummy_response):
+@fixture  # type: ignore
+async def mock_client(dummy_response: Any) -> Any:
     client = Mock()
     client.search.return_value = dummy_response
     await add_connection("mock", client)
     yield client
-    async_connections._conn = {}
+    async_connections._conns = {}
     async_connections._kwargs = {}
 
 
-@fixture
-def dummy_response():
+@fixture  # type: ignore
+def dummy_response() -> Any:
     return {
         "_shards": {"failed": 0, "successful": 10, "total": 10},
         "hits": {
@@ -76,8 +79,8 @@ def dummy_response():
     }
 
 
-@fixture
-def aggs_search():
+@fixture  # type: ignore
+def aggs_search() -> Any:
     from opensearchpy._async.helpers.search import AsyncSearch
 
     s = AsyncSearch(index="flat-git")
@@ -91,8 +94,8 @@ def aggs_search():
     return s
 
 
-@fixture
-def aggs_data():
+@fixture  # type: ignore
+def aggs_data() -> Any:
     return {
         "took": 4,
         "timed_out": False,

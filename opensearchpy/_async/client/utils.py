@@ -25,12 +25,22 @@
 #  under the License.
 
 
-from ...client.utils import (  # noqa
+from ...client.utils import NamespacedClient  # noqa
+from ...client.utils import (
     SKIP_IN_PATH,
-    NamespacedClient,
     _bulk_body,
     _escape,
     _make_path,
     _normalize_hosts,
     query_params,
 )
+
+__all__ = [
+    "SKIP_IN_PATH",
+    "NamespacedClient",
+    "_make_path",
+    "query_params",
+    "_bulk_body",
+    "_escape",
+    "_normalize_hosts",
+]

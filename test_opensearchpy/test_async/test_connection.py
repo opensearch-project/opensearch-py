@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # SPDX-License-Identifier: Apache-2.0
 #
 # The OpenSearch Contributors require contributions made to
@@ -32,59 +31,56 @@ import json
 import ssl
 import warnings
 from platform import python_version
+from typing import Any
 
 import aiohttp
 import pytest
-from mock import patch
+from _pytest.mark.structures import MarkDecorator
+from mock import MagicMock, patch
 from multidict import CIMultiDict
 from pytest import raises
 
 from opensearchpy import AIOHttpConnection, AsyncOpenSearch, __versionstr__, serializer
 from opensearchpy.compat import reraise_exceptions
 from opensearchpy.connection import Connection, async_connections
-from opensearchpy.exceptions import ConnectionError, TransportError
-from test_opensearchpy.TestHttpServer import TestHTTPServer
+from opensearchpy.exceptions import ConnectionError, NotFoundError, TransportError
+from test_opensearchpy.test_http_server import TestHTTPServer
 
-pytestmark = pytest.mark.asyncio
-
-
-def gzip_decompress(data):
-    buf = gzip.GzipFile(fileobj=io.BytesIO(data), mode="rb")
-    return buf.read()
+pytestmark: MarkDecorator = pytest.mark.asyncio
 
 
 class TestAIOHttpConnection:
     async def _get_mock_connection(
         self,
-        connection_params={},
-        response_code=200,
-        response_body=b"{}",
-        response_headers={},
-    ):
+        connection_params: Any = {},
+        response_code: int = 200,
+        response_body: bytes = b"{}",
+        response_headers: Any = {},
+    ) -> Any:
         con = AIOHttpConnection(**connection_params)
         await con._create_aiohttp_session()
 
-        def _dummy_request(*args, **kwargs):
+        def _dummy_request(*args: Any, **kwargs: Any) -> Any:
             class DummyResponse:
-                async def __aenter__(self, *_, **__):
+                async def __aenter__(self, *_: Any, **__: Any) -> Any:
                     return self
 
-                async def __aexit__(self, *_, **__):
+                async def __aexit__(self, *_: Any, **__: Any) -> None:
                     pass
 
-                async def text(self):
+                async def text(self) -> Any:
                     return response_body.decode("utf-8", "surrogatepass")
 
-            dummy_response = DummyResponse()
+            dummy_response: Any = DummyResponse()
             dummy_response.headers = CIMultiDict(**response_headers)
             dummy_response.status = response_code
-            _dummy_request.call_args = (args, kwargs)
+            _dummy_request.call_args = (args, kwargs)  # type: ignore
             return dummy_response
 
         con.session.request = _dummy_request
         return con
 
-    async def test_ssl_context(self):
+    async def test_ssl_context(self) -> None:
         try:
             context = ssl.create_default_context()
         except AttributeError:
@@ -100,11 +96,11 @@ class TestAIOHttpConnection:
         assert con.use_ssl
         assert con.session.connector._ssl == context
 
-    async def test_opaque_id(self):
+    async def test_opaque_id(self) -> None:
         con = AIOHttpConnection(opaque_id="app-1")
         assert con.headers["x-opaque-id"] == "app-1"
 
-    async def test_no_http_compression(self):
+    async def test_no_http_compression(self) -> None:
         con = await self._get_mock_connection()
         assert not con.http_compress
         assert "accept-encoding" not in con.headers
@@ -117,7 +113,7 @@ class TestAIOHttpConnection:
         assert "accept-encoding" not in kwargs["headers"]
         assert "content-encoding" not in kwargs["headers"]
 
-    async def test_http_compression(self):
+    async def test_http_compression(self) -> None:
         con = await self._get_mock_connection({"http_compress": True})
         assert con.http_compress
         assert con.headers["accept-encoding"] == "gzip,deflate"
@@ -130,7 +126,8 @@ class TestAIOHttpConnection:
 
         _, kwargs = con.session.request.call_args
 
-        assert gzip_decompress(kwargs["data"]) == b"{}"
+        buf = gzip.GzipFile(fileobj=io.BytesIO(kwargs["data"]), mode="rb")
+        assert buf.read() == b"{}"
         assert kwargs["headers"]["accept-encoding"] == "gzip,deflate"
         assert kwargs["headers"]["content-encoding"] == "gzip"
 
@@ -142,7 +139,7 @@ class TestAIOHttpConnection:
         assert kwargs["headers"]["accept-encoding"] == "gzip,deflate"
         assert "content-encoding" not in kwargs["headers"]
 
-    async def test_url_prefix(self):
+    async def test_url_prefix(self) -> None:
         con = await self._get_mock_connection(
             connection_params={"url_prefix": "/_search/"}
         )
@@ -154,18 +151,18 @@ class TestAIOHttpConnection:
         method, yarl_url = con.session.request.call_args[0]
         assert method == "GET" and str(yarl_url) == "http://localhost:9200/_search/"
 
-    async def test_default_user_agent(self):
+    async def test_default_user_agent(self) -> None:
         con = AIOHttpConnection()
         assert con._get_default_user_agent() == "opensearch-py/%s (Python %s)" % (
             __versionstr__,
             python_version(),
         )
 
-    async def test_timeout_set(self):
+    async def test_timeout_set(self) -> None:
         con = AIOHttpConnection(timeout=42)
         assert 42 == con.timeout
 
-    async def test_keep_alive_is_on_by_default(self):
+    async def test_keep_alive_is_on_by_default(self) -> None:
         con = AIOHttpConnection()
         assert {
             "connection": "keep-alive",
@@ -173,7 +170,7 @@ class TestAIOHttpConnection:
             "user-agent": con._get_default_user_agent(),
         } == con.headers
 
-    async def test_http_auth(self):
+    async def test_http_auth(self) -> None:
         con = AIOHttpConnection(http_auth="username:secret")
         assert {
             "authorization": "Basic dXNlcm5hbWU6c2VjcmV0",
@@ -182,7 +179,7 @@ class TestAIOHttpConnection:
             "user-agent": con._get_default_user_agent(),
         } == con.headers
 
-    async def test_http_auth_tuple(self):
+    async def test_http_auth_tuple(self) -> None:
         con = AIOHttpConnection(http_auth=("username", "secret"))
         assert {
             "authorization": "Basic dXNlcm5hbWU6c2VjcmV0",
@@ -191,7 +188,7 @@ class TestAIOHttpConnection:
             "user-agent": con._get_default_user_agent(),
         } == con.headers
 
-    async def test_http_auth_list(self):
+    async def test_http_auth_list(self) -> None:
         con = AIOHttpConnection(http_auth=["username", "secret"])
         assert {
             "authorization": "Basic dXNlcm5hbWU6c2VjcmV0",
@@ -200,7 +197,7 @@ class TestAIOHttpConnection:
             "user-agent": con._get_default_user_agent(),
         } == con.headers
 
-    async def test_uses_https_if_verify_certs_is_off(self):
+    async def test_uses_https_if_verify_certs_is_off(self) -> None:
         with warnings.catch_warnings(record=True) as w:
             con = AIOHttpConnection(use_ssl=True, verify_certs=False)
             assert 1 == len(w)
@@ -213,7 +210,7 @@ class TestAIOHttpConnection:
         assert con.scheme == "https"
         assert con.host == "https://localhost:9200"
 
-    async def test_nowarn_when_test_uses_https_if_verify_certs_is_off(self):
+    async def test_nowarn_when_test_uses_https_if_verify_certs_is_off(self) -> None:
         with warnings.catch_warnings(record=True) as w:
             con = AIOHttpConnection(
                 use_ssl=True, verify_certs=False, ssl_show_warn=False
@@ -223,17 +220,18 @@ class TestAIOHttpConnection:
 
         assert isinstance(con.session, aiohttp.ClientSession)
 
-    async def test_doesnt_use_https_if_not_specified(self):
+    async def test_doesnt_use_https_if_not_specified(self) -> None:
         con = AIOHttpConnection()
         assert not con.use_ssl
 
-    async def test_no_warning_when_using_ssl_context(self):
+    async def test_no_warning_when_using_ssl_context(self) -> None:
         ctx = ssl.create_default_context()
         with warnings.catch_warnings(record=True) as w:
             AIOHttpConnection(ssl_context=ctx)
             assert w == [], str([x.message for x in w])
 
-    async def test_warns_if_using_non_default_ssl_kwargs_with_ssl_context(self):
+    async def test_warns_if_using_non_default_ssl_kwargs_with_ssl_context(self) -> None:
+        kwargs: Any
         for kwargs in (
             {"ssl_show_warn": False},
             {"ssl_show_warn": True},
@@ -255,33 +253,38 @@ class TestAIOHttpConnection:
                     == str(w[0].message)
                 )
 
-    @patch("ssl.SSLContext.load_verify_locations")
-    async def test_uses_given_ca_certs(self, load_verify_locations, tmp_path):
+    @patch("ssl.SSLContext", return_value=MagicMock())
+    async def test_uses_given_ca_certs(self, ssl_context: Any, tmp_path: Any) -> None:
         path = tmp_path / "ca_certs.pem"
         path.touch()
+        ssl_context.return_value.load_verify_locations.return_value = None
         AIOHttpConnection(use_ssl=True, ca_certs=str(path))
-        load_verify_locations.assert_called_once_with(cafile=str(path))
+        ssl_context.return_value.load_verify_locations.assert_called_once_with(
+            cafile=str(path)
+        )
 
-    @patch("ssl.SSLContext.load_verify_locations")
-    async def test_uses_default_ca_certs(self, load_verify_locations):
+    @patch("ssl.SSLContext", return_value=MagicMock())
+    async def test_uses_default_ca_certs(self, ssl_context: Any) -> None:
+        ssl_context.return_value.load_verify_locations.return_value = None
         AIOHttpConnection(use_ssl=True)
-        load_verify_locations.assert_called_once_with(
+        ssl_context.return_value.load_verify_locations.assert_called_once_with(
             cafile=Connection.default_ca_certs()
         )
 
-    @patch("ssl.SSLContext.load_verify_locations")
-    async def test_uses_no_ca_certs(self, load_verify_locations):
+    @patch("ssl.SSLContext", return_value=MagicMock())
+    async def test_uses_no_ca_certs(self, ssl_context: Any) -> None:
+        ssl_context.return_value.load_verify_locations.return_value = None
         AIOHttpConnection(use_ssl=True, verify_certs=False)
-        load_verify_locations.assert_not_called()
+        ssl_context.return_value.load_verify_locations.assert_not_called()
 
-    async def test_trust_env(self):
-        con = AIOHttpConnection(trust_env=True)
+    async def test_trust_env(self) -> None:
+        con: Any = AIOHttpConnection(trust_env=True)
         await con._create_aiohttp_session()
 
         assert con._trust_env is True
         assert con.session.trust_env is True
 
-    async def test_trust_env_default_value_is_false(self):
+    async def test_trust_env_default_value_is_false(self) -> None:
         con = AIOHttpConnection()
         await con._create_aiohttp_session()
 
@@ -289,7 +292,7 @@ class TestAIOHttpConnection:
         assert con.session.trust_env is False
 
     @patch("opensearchpy.connection.base.logger")
-    async def test_uncompressed_body_logged(self, logger):
+    async def test_uncompressed_body_logged(self, logger: Any) -> None:
         con = await self._get_mock_connection(connection_params={"http_compress": True})
         await con.perform_request("GET", "/", body=b'{"example": "body"}')
 
@@ -299,17 +302,52 @@ class TestAIOHttpConnection:
         assert '> {"example": "body"}' == req[0][0] % req[0][1:]
         assert "< {}" == resp[0][0] % resp[0][1:]
 
-    async def test_surrogatepass_into_bytes(self):
+    @patch("opensearchpy.connection.base.logger", return_value=MagicMock())
+    async def test_body_not_logged(self, logger: Any) -> None:
+        logger.isEnabledFor.return_value = False
+
+        con = await self._get_mock_connection()
+        await con.perform_request("GET", "/", body=b'{"example": "body"}')
+
+        assert logger.isEnabledFor.call_count == 1
+        assert logger.debug.call_count == 0
+
+    @patch("opensearchpy.connection.base.logger")
+    async def test_failure_body_logged(self, logger: Any) -> None:
+        con = await self._get_mock_connection(response_code=404)
+        with pytest.raises(NotFoundError) as e:
+            await con.perform_request("GET", "/invalid", body=b'{"example": "body"}')
+        assert str(e.value) == "NotFoundError(404, '{}')"
+
+        assert 2 == logger.debug.call_count
+        req, resp = logger.debug.call_args_list
+
+        assert '> {"example": "body"}' == req[0][0] % req[0][1:]
+        assert "< {}" == resp[0][0] % resp[0][1:]
+
+    @patch("opensearchpy.connection.base.logger", return_value=MagicMock())
+    async def test_failure_body_not_logged(self, logger: Any) -> None:
+        logger.isEnabledFor.return_value = False
+
+        con = await self._get_mock_connection(response_code=404)
+        with pytest.raises(NotFoundError) as e:
+            await con.perform_request("GET", "/invalid")
+        assert str(e.value) == "NotFoundError(404, '{}')"
+
+        assert logger.isEnabledFor.call_count == 1
+        assert logger.debug.call_count == 0
+
+    async def test_surrogatepass_into_bytes(self) -> None:
         buf = b"\xe4\xbd\xa0\xe5\xa5\xbd\xed\xa9\xaa"
         con = await self._get_mock_connection(response_body=buf)
         status, headers, data = await con.perform_request("GET", "/")
         assert u"你好\uda6a" == data  # fmt: skip
 
-    @pytest.mark.parametrize("exception_cls", reraise_exceptions)
-    async def test_recursion_error_reraised(self, exception_cls):
+    @pytest.mark.parametrize("exception_cls", reraise_exceptions)  # type: ignore
+    async def test_recursion_error_reraised(self, exception_cls: Any) -> None:
         conn = AIOHttpConnection()
 
-        def request_raise(*_, **__):
+        def request_raise(*_: Any, **__: Any) -> Any:
             raise exception_cls("Wasn't modified!")
 
         await conn._create_aiohttp_session()
@@ -319,7 +357,7 @@ class TestAIOHttpConnection:
             await conn.perform_request("GET", "/")
         assert str(e.value) == "Wasn't modified!"
 
-    async def test_json_errors_are_parsed(self):
+    async def test_json_errors_are_parsed(self) -> None:
         con = await self._get_mock_connection(
             response_code=400,
             response_body=b'{"error": {"type": "snapshot_in_progress_exception"}}',
@@ -337,23 +375,25 @@ class TestAIOHttpConnection:
 class TestConnectionHttpServer:
     """Tests the HTTP connection implementations against a live server E2E"""
 
+    server: Any
+
     @classmethod
-    def setup_class(cls):
+    def setup_class(cls) -> None:
         # Start server
         cls.server = TestHTTPServer(port=8081)
         cls.server.start()
 
     @classmethod
-    def teardown_class(cls):
+    def teardown_class(cls) -> None:
         # Stop server
         cls.server.stop()
 
-    async def httpserver(self, conn, **kwargs):
+    async def httpserver(self, conn: Any, **kwargs: Any) -> Any:
         status, headers, data = await conn.perform_request("GET", "/", **kwargs)
         data = json.loads(data)
         return (status, data)
 
-    async def test_aiohttp_connection(self):
+    async def test_aiohttp_connection(self) -> None:
         # Defaults
         conn = AIOHttpConnection("localhost", port=8081, use_ssl=False)
         user_agent = conn._get_default_user_agent()
@@ -413,13 +453,13 @@ class TestConnectionHttpServer:
             "User-Agent": user_agent,
         }
 
-    async def test_aiohttp_connection_error(self):
+    async def test_aiohttp_connection_error(self) -> None:
         conn = AIOHttpConnection("not.a.host.name")
         with pytest.raises(ConnectionError):
             await conn.perform_request("GET", "/")
 
 
-async def test_default_connection_is_returned_by_default():
+async def test_default_connection_is_returned_by_default() -> None:
     c = async_connections.AsyncConnections()
 
     con, con2 = object(), object()
@@ -430,7 +470,7 @@ async def test_default_connection_is_returned_by_default():
     assert await c.get_connection() is con
 
 
-async def test_get_connection_created_connection_if_needed():
+async def test_get_connection_created_connection_if_needed() -> None:
     c = async_connections.AsyncConnections()
     await c.configure(
         default={"hosts": ["opensearch.com"]}, local={"hosts": ["localhost"]}
@@ -443,7 +483,7 @@ async def test_get_connection_created_connection_if_needed():
     assert [{"host": "localhost"}] == local.transport.hosts
 
 
-async def test_configure_preserves_unchanged_connections():
+async def test_configure_preserves_unchanged_connections() -> None:
     c = async_connections.AsyncConnections()
 
     await c.configure(
@@ -462,7 +502,7 @@ async def test_configure_preserves_unchanged_connections():
     assert new_default is not default
 
 
-async def test_remove_connection_removes_both_conn_and_conf():
+async def test_remove_connection_removes_both_conn_and_conf() -> None:
     c = async_connections.AsyncConnections()
 
     await c.configure(
@@ -479,7 +519,7 @@ async def test_remove_connection_removes_both_conn_and_conf():
         await c.get_connection("default")
 
 
-async def test_create_connection_constructs_client():
+async def test_create_connection_constructs_client() -> None:
     c = async_connections.AsyncConnections()
     await c.create_connection("testing", hosts=["opensearch.com"])
 
@@ -487,7 +527,7 @@ async def test_create_connection_constructs_client():
     assert [{"host": "opensearch.com"}] == con.transport.hosts
 
 
-async def test_create_connection_adds_our_serializer():
+async def test_create_connection_adds_our_serializer() -> None:
     c = async_connections.AsyncConnections()
     await c.create_connection("testing", hosts=["opensearch.com"])
     result = await c.get_connection("testing")

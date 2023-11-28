@@ -25,15 +25,16 @@
 #  under the License.
 
 
-# ----------------------------------------------------
-# THIS CODE IS GENERATED AND MANUAL EDITS WILL BE LOST.
+# ------------------------------------------------------------------------------------------
+# THIS CODE IS AUTOMATICALLY GENERATED AND MANUAL EDITS WILL BE LOST
 #
-# To contribute, kindly make essential modifications through either the "opensearch-py client generator":
-# https://github.com/opensearch-project/opensearch-py/blob/main/utils/generate-api.py
-# or the "OpenSearch API specification" available at:
-# https://github.com/opensearch-project/opensearch-api-specification/blob/main/OpenSearch.openapi.json
-# -----------------------------------------------------
+# To contribute, kindly make modifications in the opensearch-py client generator
+# or in the OpenSearch API specification, and run `nox -rs generate`. See DEVELOPER_GUIDE.md
+# and https://github.com/opensearch-project/opensearch-api-specification for details.
+# -----------------------------------------------------------------------------------------+
 
+
+from typing import Any
 
 from .utils import SKIP_IN_PATH, NamespacedClient, _make_path, query_params
 
@@ -42,7 +43,12 @@ class DanglingIndicesClient(NamespacedClient):
     @query_params(
         "accept_data_loss", "cluster_manager_timeout", "master_timeout", "timeout"
     )
-    def delete_dangling_index(self, index_uuid, params=None, headers=None):
+    def delete_dangling_index(
+        self,
+        index_uuid: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Deletes the specified dangling index.
 
@@ -53,8 +59,8 @@ class DanglingIndicesClient(NamespacedClient):
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
         :arg master_timeout (Deprecated: To promote inclusive language,
-            use 'cluster_manager_timeout' instead): Operation timeout for connection
-            to master node.
+            use 'cluster_manager_timeout' instead.): Operation timeout for
+            connection to master node.
         :arg timeout: Operation timeout.
         """
         if index_uuid in SKIP_IN_PATH:
@@ -70,7 +76,12 @@ class DanglingIndicesClient(NamespacedClient):
     @query_params(
         "accept_data_loss", "cluster_manager_timeout", "master_timeout", "timeout"
     )
-    def import_dangling_index(self, index_uuid, params=None, headers=None):
+    def import_dangling_index(
+        self,
+        index_uuid: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Imports the specified dangling index.
 
@@ -81,8 +92,8 @@ class DanglingIndicesClient(NamespacedClient):
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
         :arg master_timeout (Deprecated: To promote inclusive language,
-            use 'cluster_manager_timeout' instead): Operation timeout for connection
-            to master node.
+            use 'cluster_manager_timeout' instead.): Operation timeout for
+            connection to master node.
         :arg timeout: Operation timeout.
         """
         if index_uuid in SKIP_IN_PATH:
@@ -93,7 +104,11 @@ class DanglingIndicesClient(NamespacedClient):
         )
 
     @query_params()
-    def list_dangling_indices(self, params=None, headers=None):
+    def list_dangling_indices(
+        self,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Returns all dangling indices.
 

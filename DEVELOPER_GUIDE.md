@@ -1,10 +1,10 @@
 - [Developer Guide](#developer-guide)
   - [Prerequisites](#prerequisites)
-  - [Docker Image Installation](#docker-setup)
+  - [Install Docker Image](#install-docker-image)
   - [Running Tests](#running-tests)
-  - [Integration Tests](#integration-tests)
+  - [Linter](#linter)
   - [Documentation](#documentation)
-  - [Running Python Client Generator](#running-python-client-generator)
+  - [Client Code Generator](#client-code-generator)
 
 # Developer Guide
 
@@ -45,7 +45,19 @@ docker run -d -p 9200:9200 -p 9600:9600 -e "discovery.type=single-node" opensear
 
 Tests require a live instance of OpenSearch running in docker.
 
-This will start a new instance and run tests against the latest version of OpenSearch.
+If you have one running.
+
+```
+python setup.py test
+```
+
+To run tests in a specific test file.
+
+```
+python setup.py test -s test_opensearchpy/test_connection.py
+```
+
+If you want to auto-start one, the following will start a new instance and run tests against the latest version of OpenSearch.
 
 ```
 ./.ci/run-tests
@@ -54,8 +66,10 @@ This will start a new instance and run tests against the latest version of OpenS
 If your OpenSearch docker instance is running, you can execute the test suite directly.
 
 ```
-$ nox -rs test
+$ nox -rs test-3.9
 ```
+
+Substitute `3.9` with your Python version above, or use `nox -rs test` to run with multiple.
 
 To run tests against different versions of OpenSearch, use `run-tests [with/without security] [version]`:
 
@@ -76,7 +90,7 @@ You can also run individual tests matching a pattern (`pytest -k [pattern]`).
 ```
 ./.ci/run-tests true 1.3.0 test_no_http_compression
 
-test_opensearchpy/test_connection.py::TestUrllib3Connection::test_no_http_compression PASSED [ 33%]
+test_opensearchpy/test_connection.py::TestUrllib3HttpConnection::test_no_http_compression PASSED [ 33%]
 test_opensearchpy/test_connection.py::TestRequestsConnection::test_no_http_compression PASSED [ 66%]
 test_opensearchpy/test_async/test_connection.py::TestAIOHttpConnection::test_no_http_compression PASSED [100%]
 ```
@@ -85,7 +99,15 @@ Note that integration tests require docker to be installed and running, and down
 
 ## Linter
 
-Run the linter and test suite to ensure your changes do not break existing code. The following will auto-format your changes.
+This library uses a combination of [pylint](https://github.com/pylint-dev/pylint), [black](https://github.com/psf/black), and [isort](https://github.com/PyCQA/isort) to enforce some consistency in code formatting or naming conventions. 
+
+Run the linters to ensure your changes do not break existing conventions. 
+
+```
+$ nox -rs lint
+```
+
+Use a formatter to auto-correct some common problems.
 
 ```
 $ nox -rs format
@@ -96,19 +118,15 @@ $ nox -rs format
 To build the documentation with [Sphinx](https://www.sphinx-doc.org/).
 
 ```
-pip install -e .[docs]
-cd docs
-make html
+$ nox -rs docs
 ```
 
-Open `opensearch-py/docs/build/html/index.html` to see results.
+Open `docs/build/html/index.html` to see results.
 
-## Running Python Client Generator
+## Client Code Generator
 
-The following code executes a python client generator that updates the client by utilizing the [openapi specifications](https://github.com/opensearch-project/opensearch-api-specification/blob/main/OpenSearch.openapi.json) found in the "opensearch-api-specification" repository. This process allows for the automatic generation and synchronization of the client code with the latest API specifications.
+OpenSearch publishes an [OpenAPI specification](https://github.com/opensearch-project/opensearch-api-specification/blob/main/OpenSearch.openapi.json) in the [opensearch-api-specification](https://github.com/opensearch-project/opensearch-api-specification) repository, which is used to auto-generate the less interesting parts of the client.
 
 ```
-cd opensearch-py
-python utils/generate-api.py
-nox -rs format
+nox -rs generate
 ```

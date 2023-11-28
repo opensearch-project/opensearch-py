@@ -1,5 +1,6 @@
 - [Authentication](#authentication)
   - [IAM Authentication](#iam-authentication)
+  - [IAM Authentication with a Synchronous Client](#iam-authentication-with-a-synchronous-client)
   - [IAM Authentication with an Async Client](#iam-authentication-with-an-async-client)
   - [Kerberos](#kerberos)
 
@@ -9,24 +10,28 @@ OpenSearch allows you to use different methods for the authentication via `conne
 
 ## IAM Authentication
 
-Opensearch-py supports IAM-based authentication via `AWSV4SignerAuth`, which uses `RequestHttpConnection` as the transport class for communicating with OpenSearch clusters running in Amazon Managed OpenSearch and OpenSearch Serverless, and works in conjunction with [botocore](https://pypi.org/project/botocore/).
+This library supports IAM-based authentication when communicating with OpenSearch clusters running in Amazon Managed OpenSearch and OpenSearch Serverless.
+
+## IAM Authentication with a Synchronous Client
+
+For `Urllib3HttpConnection` use `Urllib3AWSV4SignerAuth`, and for `RequestHttpConnection` use `RequestsAWSV4SignerAuth`.
 
 ```python
-from opensearchpy import OpenSearch, RequestsHttpConnection, AWSV4SignerAuth
+from opensearchpy import OpenSearch, Urllib3HttpConnection, Urllib3AWSV4SignerAuth
 import boto3
 
 host = '' # cluster endpoint, for example: my-test-domain.us-east-1.es.amazonaws.com
 region = 'us-west-2'
 service = 'es' # 'aoss' for OpenSearch Serverless
 credentials = boto3.Session().get_credentials()
-auth = AWSV4SignerAuth(credentials, region, service)
+auth = Urllib3AWSV4SignerAuth(credentials, region, service)
 
 client = OpenSearch(
     hosts = [{'host': host, 'port': 443}],
     http_auth = auth,
     use_ssl = True,
     verify_certs = True,
-    connection_class = RequestsHttpConnection,
+    connection_class = Urllib3HttpConnection,
     pool_maxsize = 20
 )
 
@@ -113,7 +118,6 @@ client = OpenSearch(
     ['htps://...'],
     use_ssl=True,
     verify_certs=True,
-    connection_class=RequestsHttpConnection,
     http_auth=HTTPKerberosAuth(mutual_authentication=OPTIONAL)
 )
 

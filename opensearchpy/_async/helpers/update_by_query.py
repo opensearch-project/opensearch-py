@@ -7,6 +7,8 @@
 # Modifications Copyright OpenSearch Contributors. See
 # GitHub history for details.
 
+from typing import Any
+
 from opensearchpy.connection.async_connections import get_connection
 from opensearchpy.helpers.query import Bool, Q
 from opensearchpy.helpers.response import UpdateByQueryResponse
@@ -17,7 +19,7 @@ from opensearchpy.helpers.utils import recursive_to_dict
 class AsyncUpdateByQuery(Request):
     query = ProxyDescriptor("query")
 
-    def __init__(self, **kwargs):
+    def __init__(self, **kwargs: Any) -> None:
         """
         Update by query request to opensearch.
 
@@ -31,17 +33,17 @@ class AsyncUpdateByQuery(Request):
         """
         super(AsyncUpdateByQuery, self).__init__(**kwargs)
         self._response_class = UpdateByQueryResponse
-        self._script = {}
+        self._script: Any = {}
         self._query_proxy = QueryProxy(self, "query")
 
-    def filter(self, *args, **kwargs):
+    def filter(self, *args: Any, **kwargs: Any) -> Any:
         return self.query(Bool(filter=[Q(*args, **kwargs)]))
 
-    def exclude(self, *args, **kwargs):
+    def exclude(self, *args: Any, **kwargs: Any) -> Any:
         return self.query(Bool(filter=[~Q(*args, **kwargs)]))
 
     @classmethod
-    def from_dict(cls, d):
+    def from_dict(cls, d: Any) -> Any:
         """
         Construct a new `AsyncUpdateByQuery` instance from a raw dict containing the search
         body. Useful when migrating from raw dictionaries.
@@ -62,7 +64,7 @@ class AsyncUpdateByQuery(Request):
         u.update_from_dict(d)
         return u
 
-    def _clone(self):
+    def _clone(self) -> Any:
         """
         Return a clone of the current search request. Performs a shallow copy
         of all the underlying objects. Used internally by most state modifying
@@ -75,7 +77,7 @@ class AsyncUpdateByQuery(Request):
         ubq.query._proxied = self.query._proxied
         return ubq
 
-    def response_class(self, cls):
+    def response_class(self, cls: Any) -> Any:
         """
         Override the default wrapper used for the response.
         """
@@ -83,7 +85,7 @@ class AsyncUpdateByQuery(Request):
         ubq._response_class = cls
         return ubq
 
-    def update_from_dict(self, d):
+    def update_from_dict(self, d: Any) -> "AsyncUpdateByQuery":
         """
         Apply options from a serialized body to the current instance. Modifies
         the object in-place. Used mostly by ``from_dict``.
@@ -96,7 +98,7 @@ class AsyncUpdateByQuery(Request):
         self._extra.update(d)
         return self
 
-    def script(self, **kwargs):
+    def script(self, **kwargs: Any) -> Any:
         """
         Define update action to take:
 
@@ -117,7 +119,7 @@ class AsyncUpdateByQuery(Request):
         ubq._script.update(kwargs)
         return ubq
 
-    def to_dict(self, **kwargs):
+    def to_dict(self, **kwargs: Any) -> Any:
         """
         Serialize the search into the dictionary that will be sent over as the
         request'ubq body.
@@ -135,7 +137,7 @@ class AsyncUpdateByQuery(Request):
         d.update(recursive_to_dict(kwargs))
         return d
 
-    async def execute(self):
+    async def execute(self) -> Any:
         """
         Execute the search and return an instance of ``Response`` wrapping all
         the data.

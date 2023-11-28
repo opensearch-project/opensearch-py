@@ -24,17 +24,19 @@
 #  specific language governing permissions and limitations
 #  under the License.
 
+from typing import Any
+
 from ..utils import AttrDict, AttrList
 from . import AggResponse, Response
 
 
 class Bucket(AggResponse):
-    def __init__(self, aggs, search, data, field=None):
+    def __init__(self, aggs: Any, search: Any, data: Any, field: Any = None) -> None:
         super(Bucket, self).__init__(aggs, search, data)
 
 
 class FieldBucket(Bucket):
-    def __init__(self, aggs, search, data, field=None):
+    def __init__(self, aggs: Any, search: Any, data: Any, field: Any = None) -> None:
         if field:
             data["key"] = field.deserialize(data["key"])
         super(FieldBucket, self).__init__(aggs, search, data, field)
@@ -43,7 +45,7 @@ class FieldBucket(Bucket):
 class BucketData(AggResponse):
     _bucket_class = Bucket
 
-    def _wrap_bucket(self, data):
+    def _wrap_bucket(self, data: Any) -> Any:
         return self._bucket_class(
             self._meta["aggs"],
             self._meta["search"],
@@ -51,19 +53,19 @@ class BucketData(AggResponse):
             field=self._meta.get("field"),
         )
 
-    def __iter__(self):
+    def __iter__(self) -> Any:
         return iter(self.buckets)
 
-    def __len__(self):
+    def __len__(self) -> int:
         return len(self.buckets)
 
-    def __getitem__(self, key):
+    def __getitem__(self, key: Any) -> Any:
         if isinstance(key, (int, slice)):
             return self.buckets[key]
         return super(BucketData, self).__getitem__(key)
 
     @property
-    def buckets(self):
+    def buckets(self) -> Any:
         if not hasattr(self, "_buckets"):
             field = getattr(self._meta["aggs"], "field", None)
             if field:
@@ -82,8 +84,11 @@ class FieldBucketData(BucketData):
 
 
 class TopHitsData(Response):
-    def __init__(self, agg, search, data):
+    def __init__(self, agg: Any, search: Any, data: Any) -> None:
         super(AttrDict, self).__setattr__(
             "meta", AttrDict({"agg": agg, "search": search})
         )
         super(TopHitsData, self).__init__(search, data)
+
+
+__all__ = ["AggResponse"]

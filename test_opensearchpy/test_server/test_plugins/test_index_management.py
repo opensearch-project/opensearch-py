@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # SPDX-License-Identifier: Apache-2.0
 #
 # The OpenSearch Contributors require contributions made to
@@ -64,7 +63,7 @@ class TestIndexManagementPlugin(OpenSearchTestCase):
         }
     }
 
-    def test_create_policy(self):
+    def test_create_policy(self) -> None:
         # Test to create policy
         response = self.client.index_management.put_policy(
             policy=self.POLICY_NAME, body=self.POLICY_CONTENT
@@ -73,7 +72,7 @@ class TestIndexManagementPlugin(OpenSearchTestCase):
         self.assertNotIn("errors", response)
         self.assertIn("_id", response)
 
-    def test_get_policy(self):
+    def test_get_policy(self) -> None:
         # Create a policy
         self.test_create_policy()
 
@@ -84,7 +83,7 @@ class TestIndexManagementPlugin(OpenSearchTestCase):
         self.assertIn("_id", response)
         self.assertEqual(response["_id"], self.POLICY_NAME)
 
-    def test_update_policy(self):
+    def test_update_policy(self) -> None:
         # Create a policy
         self.test_create_policy()
 
@@ -106,7 +105,7 @@ class TestIndexManagementPlugin(OpenSearchTestCase):
         self.assertNotIn("errors", response)
         self.assertIn("_id", response)
 
-    def test_delete_policy(self):
+    def test_delete_policy(self) -> None:
         # Create a policy
         self.test_create_policy()
 

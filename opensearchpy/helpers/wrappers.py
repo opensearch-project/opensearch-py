@@ -25,12 +25,11 @@
 #  under the License.
 
 import operator
+from typing import Any
 
 from six import iteritems, string_types
 
 from .utils import AttrDict
-
-__all__ = ["Range"]
 
 
 class Range(AttrDict):
@@ -41,7 +40,7 @@ class Range(AttrDict):
         "gte": operator.ge,
     }
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
         if args and (len(args) > 1 or kwargs or not isinstance(args[0], dict)):
             raise ValueError(
                 "Range accepts a single dictionary or a set of keyword arguments."
@@ -60,10 +59,10 @@ class Range(AttrDict):
 
         super(Range, self).__init__(args[0] if args else kwargs)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return "Range(%s)" % ", ".join("%s=%r" % op for op in iteritems(self._d_))
 
-    def __contains__(self, item):
+    def __contains__(self, item: Any) -> bool:
         if isinstance(item, string_types):
             return super(Range, self).__contains__(item)
 
@@ -73,7 +72,7 @@ class Range(AttrDict):
         return True
 
     @property
-    def upper(self):
+    def upper(self) -> Any:
         if "lt" in self._d_:
             return self._d_["lt"], False
         if "lte" in self._d_:
@@ -81,9 +80,12 @@ class Range(AttrDict):
         return None, False
 
     @property
-    def lower(self):
+    def lower(self) -> Any:
         if "gt" in self._d_:
             return self._d_["gt"], False
         if "gte" in self._d_:
             return self._d_["gte"], True
         return None, False
+
+
+__all__ = ["Range"]

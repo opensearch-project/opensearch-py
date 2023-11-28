@@ -7,48 +7,76 @@
 # Modifications Copyright OpenSearch Contributors. See
 # GitHub history for details.
 
+# ------------------------------------------------------------------------------------------
+# THIS CODE IS AUTOMATICALLY GENERATED AND MANUAL EDITS WILL BE LOST
+#
+# To contribute, kindly make modifications in the opensearch-py client generator
+# or in the OpenSearch API specification, and run `nox -rs generate`. See DEVELOPER_GUIDE.md
+# and https://github.com/opensearch-project/opensearch-api-specification for details.
+# -----------------------------------------------------------------------------------------+
+
+
+from typing import Any
+
 from .utils import SKIP_IN_PATH, NamespacedClient, _make_path, query_params
 
 
 class SecurityClient(NamespacedClient):
-    from ._patch import health_check, update_audit_config
+    from ._patch import health_check, update_audit_config  # type: ignore
 
     @query_params()
-    def get_account_details(self, params=None, headers=None):
+    def get_account_details(
+        self,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Returns account details for the current user.
+
         """
         return self.transport.perform_request(
-            "GET",
-            _make_path("_plugins", "_security", "api", "account"),
-            params=params,
-            headers=headers,
+            "GET", "/_plugins/_security/api/account", params=params, headers=headers
         )
 
     @query_params()
-    def change_password(self, body, params=None, headers=None):
+    def change_password(
+        self,
+        body: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Changes the password for the current user.
+
+
         """
         if body in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'body'.")
 
         return self.transport.perform_request(
             "PUT",
-            _make_path("_plugins", "_security", "api", "account"),
+            "/_plugins/_security/api/account",
             params=params,
             headers=headers,
             body=body,
         )
 
     @query_params()
-    def get_action_group(self, action_group, params=None, headers=None):
+    def get_action_group(
+        self,
+        action_group: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Retrieves one action group.
+
+
+        :arg action_group: Action group to retrieve.
         """
         if action_group in SKIP_IN_PATH:
             raise ValueError(
-                "Empty value passed for a required argument 'action-group'."
+                "Empty value passed for a required argument 'action_group'."
             )
 
         return self.transport.perform_request(
@@ -59,25 +87,38 @@ class SecurityClient(NamespacedClient):
         )
 
     @query_params()
-    def get_action_groups(self, params=None, headers=None):
+    def get_action_groups(
+        self,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Retrieves all action groups.
+
         """
         return self.transport.perform_request(
             "GET",
-            _make_path("_plugins", "_security", "api", "actiongroups"),
+            "/_plugins/_security/api/actiongroups/",
             params=params,
             headers=headers,
         )
 
     @query_params()
-    def delete_action_group(self, action_group, params=None, headers=None):
+    def delete_action_group(
+        self,
+        action_group: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
-        Deletes the specified action group.
+        Delete a specified action group.
+
+
+        :arg action_group: Action group to delete.
         """
         if action_group in SKIP_IN_PATH:
             raise ValueError(
-                "Empty value passed for a required argument 'action-group'."
+                "Empty value passed for a required argument 'action_group'."
             )
 
         return self.transport.perform_request(
@@ -88,9 +129,19 @@ class SecurityClient(NamespacedClient):
         )
 
     @query_params()
-    def create_action_group(self, action_group, body, params=None, headers=None):
+    def create_action_group(
+        self,
+        action_group: Any,
+        body: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Creates or replaces the specified action group.
+
+
+        :arg action_group: The name of the action group to create or
+            replace
         """
         for param in (action_group, body):
             if param in SKIP_IN_PATH:
@@ -105,9 +156,17 @@ class SecurityClient(NamespacedClient):
         )
 
     @query_params()
-    def patch_action_group(self, action_group, body, params=None, headers=None):
+    def patch_action_group(
+        self,
+        action_group: Any,
+        body: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Updates individual attributes of an action group.
+
+
         """
         for param in (action_group, body):
             if param in SKIP_IN_PATH:
@@ -122,25 +181,39 @@ class SecurityClient(NamespacedClient):
         )
 
     @query_params()
-    def patch_action_groups(self, body, params=None, headers=None):
+    def patch_action_groups(
+        self,
+        body: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Creates, updates, or deletes multiple action groups in a single call.
+
+
         """
         if body in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'body'.")
 
         return self.transport.perform_request(
             "PATCH",
-            _make_path("_plugins", "_security", "api", "actiongroups"),
+            "/_plugins/_security/api/actiongroups",
             params=params,
             headers=headers,
             body=body,
         )
 
     @query_params()
-    def get_user(self, username, params=None, headers=None):
+    def get_user(
+        self,
+        username: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
-        Retrieves one user.
+        Retrieve one internal user.
+
+
         """
         if username in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'username'.")
@@ -153,21 +226,33 @@ class SecurityClient(NamespacedClient):
         )
 
     @query_params()
-    def get_users(self, params=None, headers=None):
+    def get_users(
+        self,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
-        Retrieves all users.
+        Retrieve all internal users.
+
         """
         return self.transport.perform_request(
             "GET",
-            _make_path("_plugins", "_security", "api", "internalusers"),
+            "/_plugins/_security/api/internalusers",
             params=params,
             headers=headers,
         )
 
     @query_params()
-    def delete_user(self, username, params=None, headers=None):
+    def delete_user(
+        self,
+        username: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
-        Deletes the specified user.
+        Delete the specified user.
+
+
         """
         if username in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'username'.")
@@ -180,9 +265,17 @@ class SecurityClient(NamespacedClient):
         )
 
     @query_params()
-    def create_user(self, username, body, params=None, headers=None):
+    def create_user(
+        self,
+        username: Any,
+        body: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Creates or replaces the specified user.
+
+
         """
         for param in (username, body):
             if param in SKIP_IN_PATH:
@@ -197,9 +290,17 @@ class SecurityClient(NamespacedClient):
         )
 
     @query_params()
-    def patch_user(self, username, body, params=None, headers=None):
+    def patch_user(
+        self,
+        username: Any,
+        body: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Updates individual attributes of an internal user.
+
+
         """
         for param in (username, body):
             if param in SKIP_IN_PATH:
@@ -214,25 +315,39 @@ class SecurityClient(NamespacedClient):
         )
 
     @query_params()
-    def patch_users(self, body, params=None, headers=None):
+    def patch_users(
+        self,
+        body: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Creates, updates, or deletes multiple internal users in a single call.
+
+
         """
         if body in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'body'.")
 
         return self.transport.perform_request(
             "PATCH",
-            _make_path("_plugins", "_security", "api", "internalusers"),
+            "/_plugins/_security/api/internalusers",
             params=params,
             headers=headers,
             body=body,
         )
 
     @query_params()
-    def get_role(self, role, params=None, headers=None):
+    def get_role(
+        self,
+        role: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Retrieves one role.
+
+
         """
         if role in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'role'.")
@@ -245,21 +360,30 @@ class SecurityClient(NamespacedClient):
         )
 
     @query_params()
-    def get_roles(self, params=None, headers=None):
+    def get_roles(
+        self,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Retrieves all roles.
+
         """
         return self.transport.perform_request(
-            "GET",
-            _make_path("_plugins", "_security", "api", "roles"),
-            params=params,
-            headers=headers,
+            "GET", "/_plugins/_security/api/roles/", params=params, headers=headers
         )
 
     @query_params()
-    def delete_role(self, role, params=None, headers=None):
+    def delete_role(
+        self,
+        role: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
-        Deletes the specified role.
+        Delete the specified role.
+
+
         """
         if role in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'role'.")
@@ -272,9 +396,17 @@ class SecurityClient(NamespacedClient):
         )
 
     @query_params()
-    def create_role(self, role, body, params=None, headers=None):
+    def create_role(
+        self,
+        role: Any,
+        body: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Creates or replaces the specified role.
+
+
         """
         for param in (role, body):
             if param in SKIP_IN_PATH:
@@ -289,9 +421,17 @@ class SecurityClient(NamespacedClient):
         )
 
     @query_params()
-    def patch_role(self, role, body, params=None, headers=None):
+    def patch_role(
+        self,
+        role: Any,
+        body: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Updates individual attributes of a role.
+
+
         """
         for param in (role, body):
             if param in SKIP_IN_PATH:
@@ -306,25 +446,39 @@ class SecurityClient(NamespacedClient):
         )
 
     @query_params()
-    def patch_roles(self, body, params=None, headers=None):
+    def patch_roles(
+        self,
+        body: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Creates, updates, or deletes multiple roles in a single call.
+
+
         """
         if body in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'body'.")
 
         return self.transport.perform_request(
             "PATCH",
-            _make_path("_plugins", "_security", "api", "roles"),
+            "/_plugins/_security/api/roles",
             params=params,
             headers=headers,
             body=body,
         )
 
     @query_params()
-    def get_role_mapping(self, role, params=None, headers=None):
+    def get_role_mapping(
+        self,
+        role: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Retrieves one role mapping.
+
+
         """
         if role in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'role'.")
@@ -337,21 +491,33 @@ class SecurityClient(NamespacedClient):
         )
 
     @query_params()
-    def get_role_mappings(self, params=None, headers=None):
+    def get_role_mappings(
+        self,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Retrieves all role mappings.
+
         """
         return self.transport.perform_request(
             "GET",
-            _make_path("_plugins", "_security", "api", "rolesmapping"),
+            "/_plugins/_security/api/rolesmapping",
             params=params,
             headers=headers,
         )
 
     @query_params()
-    def delete_role_mapping(self, role, params=None, headers=None):
+    def delete_role_mapping(
+        self,
+        role: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Deletes the specified role mapping.
+
+
         """
         if role in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'role'.")
@@ -364,9 +530,17 @@ class SecurityClient(NamespacedClient):
         )
 
     @query_params()
-    def create_role_mapping(self, role, body, params=None, headers=None):
+    def create_role_mapping(
+        self,
+        role: Any,
+        body: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Creates or replaces the specified role mapping.
+
+
         """
         for param in (role, body):
             if param in SKIP_IN_PATH:
@@ -381,9 +555,17 @@ class SecurityClient(NamespacedClient):
         )
 
     @query_params()
-    def patch_role_mapping(self, role, body, params=None, headers=None):
+    def patch_role_mapping(
+        self,
+        role: Any,
+        body: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Updates individual attributes of a role mapping.
+
+
         """
         for param in (role, body):
             if param in SKIP_IN_PATH:
@@ -398,25 +580,39 @@ class SecurityClient(NamespacedClient):
         )
 
     @query_params()
-    def patch_role_mappings(self, body, params=None, headers=None):
+    def patch_role_mappings(
+        self,
+        body: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Creates or updates multiple role mappings in a single call.
+
+
         """
         if body in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'body'.")
 
         return self.transport.perform_request(
             "PATCH",
-            _make_path("_plugins", "_security", "api", "rolesmapping"),
+            "/_plugins/_security/api/rolesmapping",
             params=params,
             headers=headers,
             body=body,
         )
 
     @query_params()
-    def get_tenant(self, tenant, params=None, headers=None):
+    def get_tenant(
+        self,
+        tenant: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Retrieves one tenant.
+
+
         """
         if tenant in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'tenant'.")
@@ -429,21 +625,30 @@ class SecurityClient(NamespacedClient):
         )
 
     @query_params()
-    def get_tenants(self, params=None, headers=None):
+    def get_tenants(
+        self,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Retrieves all tenants.
+
         """
         return self.transport.perform_request(
-            "GET",
-            _make_path("_plugins", "_security", "api", "tenants"),
-            params=params,
-            headers=headers,
+            "GET", "/_plugins/_security/api/tenants/", params=params, headers=headers
         )
 
     @query_params()
-    def delete_tenant(self, tenant, params=None, headers=None):
+    def delete_tenant(
+        self,
+        tenant: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
-        Deletes the specified tenant.
+        Delete the specified tenant.
+
+
         """
         if tenant in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'tenant'.")
@@ -456,9 +661,17 @@ class SecurityClient(NamespacedClient):
         )
 
     @query_params()
-    def create_tenant(self, tenant, body, params=None, headers=None):
+    def create_tenant(
+        self,
+        tenant: Any,
+        body: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Creates or replaces the specified tenant.
+
+
         """
         for param in (tenant, body):
             if param in SKIP_IN_PATH:
@@ -473,9 +686,17 @@ class SecurityClient(NamespacedClient):
         )
 
     @query_params()
-    def patch_tenant(self, tenant, body, params=None, headers=None):
+    def patch_tenant(
+        self,
+        tenant: Any,
+        body: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Add, delete, or modify a single tenant.
+
+
         """
         for param in (tenant, body):
             if param in SKIP_IN_PATH:
@@ -490,69 +711,102 @@ class SecurityClient(NamespacedClient):
         )
 
     @query_params()
-    def patch_tenants(self, body, params=None, headers=None):
+    def patch_tenants(
+        self,
+        body: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Add, delete, or modify multiple tenants in a single call.
+
+
         """
         if body in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'body'.")
 
         return self.transport.perform_request(
             "PATCH",
-            _make_path("_plugins", "_security", "api", "tenants"),
+            "/_plugins/_security/api/tenants/",
             params=params,
             headers=headers,
             body=body,
         )
 
     @query_params()
-    def get_configuration(self, params=None, headers=None):
+    def get_configuration(
+        self,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
-        Retrieves the current Security plugin configuration in JSON format.
+        Returns the current Security plugin configuration in JSON format.
+
         """
         return self.transport.perform_request(
             "GET",
-            _make_path("_plugins", "_security", "api", "securityconfig"),
+            "/_plugins/_security/api/securityconfig",
             params=params,
             headers=headers,
         )
 
     @query_params()
-    def update_configuration(self, body, params=None, headers=None):
+    def update_configuration(
+        self,
+        body: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
-        Retrieves the current Security plugin configuration in JSON format.
+        Adds or updates the existing configuration using the REST API.
+
+
         """
         if body in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'body'.")
 
         return self.transport.perform_request(
             "PUT",
-            _make_path("_plugins", "_security", "api", "securityconfig", "config"),
+            "/_plugins/_security/api/securityconfig/config",
             params=params,
             headers=headers,
             body=body,
         )
 
     @query_params()
-    def patch_configuration(self, body, params=None, headers=None):
+    def patch_configuration(
+        self,
+        body: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
-        Updates the existing configuration using the REST API.
+        A PATCH call is used to update the existing configuration using the REST API.
+
+
         """
         if body in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'body'.")
 
         return self.transport.perform_request(
             "PATCH",
-            _make_path("_plugins", "_security", "api", "securityconfig"),
+            "/_plugins/_security/api/securityconfig",
             params=params,
             headers=headers,
             body=body,
         )
 
     @query_params()
-    def get_distinguished_names(self, cluster_name=None, params=None, headers=None):
+    def get_distinguished_names(
+        self,
+        cluster_name: Any = None,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Retrieves all distinguished names in the allow list.
+
+
         """
         return self.transport.perform_request(
             "GET",
@@ -562,30 +816,48 @@ class SecurityClient(NamespacedClient):
         )
 
     @query_params()
-    def update_distinguished_names(self, cluster_name, body, params=None, headers=None):
+    def update_distinguished_names(
+        self,
+        cluster_name: Any,
+        body: Any = None,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
-        Adds or updates the specified distinguished names in the cluster's or node's allow list.
-        """
-        for param in (cluster_name, body):
-            if param in SKIP_IN_PATH:
-                raise ValueError("Empty value passed for a required argument.")
+        Adds or updates the specified distinguished names in the cluster’s or node’s
+        allow list.
 
-        return self.transport.perform_request(
-            "PUT",
-            _make_path("_plugins", "_security", "api", "nodesdn", cluster_name),
-            params=params,
-            headers=headers,
-            body=body,
-        )
 
-    @query_params()
-    def delete_distinguished_names(self, cluster_name, params=None, headers=None):
-        """
-        Deletes all distinguished names in the specified cluster's or node's allow list.
         """
         if cluster_name in SKIP_IN_PATH:
             raise ValueError(
-                "Empty value passed for a required argument 'cluster-name'."
+                "Empty value passed for a required argument 'cluster_name'."
+            )
+
+        return self.transport.perform_request(
+            "PUT",
+            _make_path("_plugins", "_security", "api", "nodesdn", cluster_name),
+            params=params,
+            headers=headers,
+            body=body,
+        )
+
+    @query_params()
+    def delete_distinguished_names(
+        self,
+        cluster_name: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Deletes all distinguished names in the specified cluster’s or node’s allow
+        list.
+
+
+        """
+        if cluster_name in SKIP_IN_PATH:
+            raise ValueError(
+                "Empty value passed for a required argument 'cluster_name'."
             )
 
         return self.transport.perform_request(
@@ -596,57 +868,73 @@ class SecurityClient(NamespacedClient):
         )
 
     @query_params()
-    def get_certificates(self, params=None, headers=None):
+    def get_certificates(
+        self,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
-        Retrieves the cluster's security certificates.
+        Retrieves the cluster’s security certificates.
+
         """
         return self.transport.perform_request(
-            "GET",
-            _make_path("_plugins", "_security", "api", "ssl", "certs"),
-            params=params,
-            headers=headers,
+            "GET", "/_plugins/_security/api/ssl/certs", params=params, headers=headers
         )
 
     @query_params()
-    def reload_transport_certificates(self, params=None, headers=None):
+    def reload_transport_certificates(
+        self,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
-        Reloads SSL certificates that are about to expire without restarting the OpenSearch node.
-        """
-        return self.transport.perform_request(
-            "PUT",
-            _make_path(
-                "_opendistro", "_security", "api", "ssl", "transport", "reloadcerts"
-            ),
-            params=params,
-            headers=headers,
-        )
+        Reload transport layer communication certificates.
 
-    @query_params()
-    def reload_http_certificates(self, params=None, headers=None):
-        """
-        Reloads SSL certificates that are about to expire without restarting the OpenSearch node.
         """
         return self.transport.perform_request(
             "PUT",
-            _make_path("_opendistro", "_security", "api", "ssl", "http", "reloadcerts"),
+            "/_plugins/_security/api/ssl/transport/reloadcerts",
             params=params,
             headers=headers,
         )
 
     @query_params()
-    def flush_cache(self, params=None, headers=None):
+    def reload_http_certificates(
+        self,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Reload HTTP layer communication certificates.
+
+        """
+        return self.transport.perform_request(
+            "PUT",
+            "/_plugins/_security/api/ssl/http/reloadcerts",
+            params=params,
+            headers=headers,
+        )
+
+    @query_params()
+    def flush_cache(
+        self,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Flushes the Security plugin user, authentication, and authorization cache.
+
         """
         return self.transport.perform_request(
-            "DELETE",
-            _make_path("_plugins", "_security", "api", "cache"),
-            params=params,
-            headers=headers,
+            "DELETE", "/_plugins/_security/api/cache", params=params, headers=headers
         )
 
     @query_params()
-    def health(self, params=None, headers=None):
+    def health(
+        self,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Checks to see if the Security plugin is up and running.
 
@@ -656,21 +944,29 @@ class SecurityClient(NamespacedClient):
         )
 
     @query_params()
-    def get_audit_configuration(self, params=None, headers=None):
+    def get_audit_configuration(
+        self,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
-        A GET call retrieves the audit configuration.
+        Retrieves the audit configuration.
+
         """
         return self.transport.perform_request(
-            "GET",
-            _make_path("_opendistro", "_security", "api", "audit"),
-            params=params,
-            headers=headers,
+            "GET", "/_plugins/_security/api/audit", params=params, headers=headers
         )
 
     @query_params()
-    def update_audit_configuration(self, body, params=None, headers=None):
+    def update_audit_configuration(
+        self,
+        body: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         Updates the audit configuration.
+
 
         """
         if body in SKIP_IN_PATH:
@@ -685,16 +981,46 @@ class SecurityClient(NamespacedClient):
         )
 
     @query_params()
-    def patch_audit_configuration(self, body, params=None, headers=None):
+    def patch_audit_configuration(
+        self,
+        body: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
         """
         A PATCH call is used to update specified fields in the audit configuration.
+
+
         """
         if body in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'body'.")
 
         return self.transport.perform_request(
             "PATCH",
-            _make_path("_opendistro", "_security", "api", "audit"),
+            "/_plugins/_security/api/audit",
+            params=params,
+            headers=headers,
+            body=body,
+        )
+
+    @query_params()
+    def patch_distinguished_names(
+        self,
+        body: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Bulk update of distinguished names.
+
+
+        """
+        if body in SKIP_IN_PATH:
+            raise ValueError("Empty value passed for a required argument 'body'.")
+
+        return self.transport.perform_request(
+            "PATCH",
+            "/_plugins/_security/api/nodesdn",
             params=params,
             headers=headers,
             body=body,

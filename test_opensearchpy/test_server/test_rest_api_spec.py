@@ -33,9 +33,9 @@ clients.
 import io
 import os
 import re
-import sys
 import warnings
 import zipfile
+from typing import Any
 
 import pytest
 import urllib3
@@ -135,31 +135,30 @@ SKIP_TESTS = {
 
 OPENSEARCH_VERSION = None
 RUN_ASYNC_REST_API_TESTS = (
-    sys.version_info >= (3, 6)
-    and os.environ.get("PYTHON_CONNECTION_CLASS") == "RequestsHttpConnection"
+    os.environ.get("PYTHON_CONNECTION_CLASS") == "RequestsHttpConnection"
 )
 
 FALSEY_VALUES = ("", None, False, 0, 0.0)
 
 
 class YamlRunner:
-    def __init__(self, client):
+    def __init__(self, client: Any) -> None:
         self.client = client
-        self.last_response = None
+        self.last_response: Any = None
 
-        self._run_code = None
-        self._setup_code = None
-        self._teardown_code = None
-        self._state = {}
+        self._run_code: Any = None
+        self._setup_code: Any = None
+        self._teardown_code: Any = None
+        self._state: Any = {}
 
-    def use_spec(self, test_spec):
+    def use_spec(self, test_spec: Any) -> None:
         self._setup_code = test_spec.pop("setup", None)
         self._run_code = test_spec.pop("run", None)
         self._teardown_code = test_spec.pop("teardown", None)
 
-    def setup(self):
+    def setup(self) -> Any:
         # Pull skips from individual tests to not do unnecessary setup.
-        skip_code = []
+        skip_code: Any = []
         for action in self._run_code:
             assert len(action) == 1
             action_type, _ = list(action.items())[0]
@@ -175,12 +174,12 @@ class YamlRunner:
         if self._setup_code:
             self.run_code(self._setup_code)
 
-    def teardown(self):
+    def teardown(self) -> Any:
         if self._teardown_code:
             self.section("teardown")
             self.run_code(self._teardown_code)
 
-    def opensearch_version(self):
+    def opensearch_version(self) -> Any:
         global OPENSEARCH_VERSION
         if OPENSEARCH_VERSION is None:
             version_string = (self.client.info())["version"]["number"]
@@ -190,10 +189,10 @@ class YamlRunner:
             OPENSEARCH_VERSION = tuple(int(v) if v.isdigit() else 99 for v in version)
         return OPENSEARCH_VERSION
 
-    def section(self, name):
+    def section(self, name: str) -> None:
         print(("=" * 10) + " " + name + " " + ("=" * 10))
 
-    def run(self):
+    def run(self) -> Any:
         try:
             self.setup()
             self.section("test")
@@ -204,8 +203,8 @@ class YamlRunner:
             except Exception:
                 pass
 
-    def run_code(self, test):
-        """Execute an instruction based on it's type."""
+    def run_code(self, test: Any) -> Any:
+        """Execute an instruction based on its type."""
         for action in test:
             assert len(action) == 1
             action_type, action = list(action.items())[0]
@@ -216,7 +215,7 @@ class YamlRunner:
             else:
                 raise RuntimeError("Invalid action type %r" % (action_type,))
 
-    def run_do(self, action):
+    def run_do(self, action: Any) -> Any:
         api = self.client
         headers = action.pop("headers", None)
         catch = action.pop("catch", None)
@@ -268,7 +267,7 @@ class YamlRunner:
 
         # Filter out warnings raised by other components.
         caught_warnings = [
-            str(w.message)
+            str(w.message)  # type: ignore
             for w in caught_warnings
             if w.category == OpenSearchWarning
             and str(w.message) not in allowed_warnings
@@ -276,13 +275,13 @@ class YamlRunner:
 
         # Sorting removes the issue with order raised. We only care about
         # if all warnings are raised in the single API call.
-        if warn and sorted(warn) != sorted(caught_warnings):
+        if warn and sorted(warn) != sorted(caught_warnings):  # type: ignore
             raise AssertionError(
                 "Expected warnings not equal to actual warnings: expected=%r actual=%r"
                 % (warn, caught_warnings)
             )
 
-    def run_catch(self, catch, exception):
+    def run_catch(self, catch: Any, exception: Any) -> None:
         if catch == "param":
             assert isinstance(exception, TypeError)
             return
@@ -297,7 +296,7 @@ class YamlRunner:
             ) is not None
         self.last_response = exception.info
 
-    def run_skip(self, skip):
+    def run_skip(self, skip: Any) -> Any:
         global IMPLEMENTED_FEATURES
 
         if "features" in skip:
@@ -319,32 +318,32 @@ class YamlRunner:
             if min_version <= (self.opensearch_version()) <= max_version:
                 pytest.skip(reason)
 
-    def run_gt(self, action):
+    def run_gt(self, action: Any) -> None:
         for key, value in action.items():
             value = self._resolve(value)
             assert self._lookup(key) > value
 
-    def run_gte(self, action):
+    def run_gte(self, action: Any) -> None:
         for key, value in action.items():
             value = self._resolve(value)
             assert self._lookup(key) >= value
 
-    def run_lt(self, action):
+    def run_lt(self, action: Any) -> None:
         for key, value in action.items():
             value = self._resolve(value)
             assert self._lookup(key) < value
 
-    def run_lte(self, action):
+    def run_lte(self, action: Any) -> None:
         for key, value in action.items():
             value = self._resolve(value)
             assert self._lookup(key) <= value
 
-    def run_set(self, action):
+    def run_set(self, action: Any) -> None:
         for key, value in action.items():
             value = self._resolve(value)
             self._state[value] = self._lookup(key)
 
-    def run_is_false(self, action):
+    def run_is_false(self, action: Any) -> None:
         try:
             value = self._lookup(action)
         except AssertionError:
@@ -352,23 +351,23 @@ class YamlRunner:
         else:
             assert value in FALSEY_VALUES
 
-    def run_is_true(self, action):
+    def run_is_true(self, action: Any) -> None:
         value = self._lookup(action)
         assert value not in FALSEY_VALUES
 
-    def run_length(self, action):
+    def run_length(self, action: Any) -> None:
         for path, expected in action.items():
             value = self._lookup(path)
             expected = self._resolve(expected)
             assert expected == len(value)
 
-    def run_match(self, action):
+    def run_match(self, action: Any) -> None:
         for path, expected in action.items():
             value = self._lookup(path)
             expected = self._resolve(expected)
 
             if (
-                isinstance(expected, string_types)
+                isinstance(expected, str)
                 and expected.startswith("/")
                 and expected.endswith("/")
             ):
@@ -380,7 +379,7 @@ class YamlRunner:
             else:
                 self._assert_match_equals(value, expected)
 
-    def run_contains(self, action):
+    def run_contains(self, action: Any) -> None:
         for path, expected in action.items():
             value = self._lookup(path)  # list[dict[str,str]] is returned
             expected = self._resolve(expected)  # dict[str, str]
@@ -388,7 +387,7 @@ class YamlRunner:
             if expected not in value:
                 raise AssertionError("%s is not contained by %s" % (expected, value))
 
-    def run_transform_and_set(self, action):
+    def run_transform_and_set(self, action: Any) -> None:
         for key, value in action.items():
             # Convert #base64EncodeCredentials(id,api_key) to ["id", "api_key"]
             if "#base64EncodeCredentials" in value:
@@ -398,7 +397,7 @@ class YamlRunner:
                     (self._lookup(value[0]), self._lookup(value[1]))
                 )
 
-    def _resolve(self, value):
+    def _resolve(self, value: Any) -> Any:
         # resolve variables
         if isinstance(value, string_types) and "$" in value:
             for k, v in self._state.items():
@@ -423,12 +422,13 @@ class YamlRunner:
             value = list(map(self._resolve, value))
         return value
 
-    def _lookup(self, path):
+    def _lookup(self, path: str) -> Any:
         # fetch the possibly nested value from last_response
-        value = self.last_response
+        value: Any = self.last_response
         if path == "$body":
             return value
         path = path.replace(r"\.", "\1")
+        step: Any
         for step in path.split("."):
             if not step:
                 continue
@@ -450,10 +450,10 @@ class YamlRunner:
             value = value[step]
         return value
 
-    def _feature_enabled(self, name):
+    def _feature_enabled(self, name: str) -> Any:
         return False
 
-    def _assert_match_equals(self, a, b):
+    def _assert_match_equals(self, a: Any, b: Any) -> None:
         # Handle for large floating points with 'E'
         if isinstance(b, string_types) and isinstance(a, float) and "e" in repr(a):
             a = repr(a).replace("e+", "E")
@@ -461,80 +461,87 @@ class YamlRunner:
         assert a == b, "%r does not match %r" % (a, b)
 
 
-@pytest.fixture(scope="function")
-def sync_runner(sync_client):
+@pytest.fixture(scope="function")  # type: ignore
+def sync_runner(sync_client: Any) -> Any:
     return YamlRunner(sync_client)
 
 
 YAML_TEST_SPECS = []
 
-# Try loading the REST API test specs from the Elastic Artifacts API
-try:
-    # Construct the HTTP and OpenSearch client
-    http = urllib3.PoolManager(retries=10)
-    client = get_client()
+client = get_client()
 
-    package_url = "https://github.com/opensearch-project/OpenSearch/archive/main.zip"
 
-    # Download the zip and start reading YAML from the files in memory
-    package_zip = zipfile.ZipFile(io.BytesIO(http.request("GET", package_url).data))
-    for yaml_file in package_zip.namelist():
-        if not re.match(
-            r"^OpenSearch-main/rest-api-spec/src/main/resources/rest-api-spec/test/.*\.ya?ml$",
-            yaml_file,
-        ):
-            continue
-        yaml_tests = list(yaml.safe_load_all(package_zip.read(yaml_file)))
+def load_rest_api_tests() -> None:
+    # Try loading the REST API test specs from OpenSearch core.
+    try:
+        # Construct the HTTP and OpenSearch client
+        http = urllib3.PoolManager(retries=10)
 
-        # Each file may have a "test" named 'setup' or 'teardown',
-        # these sets of steps should be run at the beginning and end
-        # of every other test within the file so we do one pass to capture those.
-        setup_steps = teardown_steps = None
-        test_numbers_and_steps = []
-        test_number = 0
+        package_url = (
+            "https://github.com/opensearch-project/OpenSearch/archive/main.zip"
+        )
 
-        for yaml_test in yaml_tests:
-            test_name, test_step = yaml_test.popitem()
-            if test_name == "setup":
-                setup_steps = test_step
-            elif test_name == "teardown":
-                teardown_steps = test_step
-            else:
-                test_numbers_and_steps.append((test_number, test_step))
-                test_number += 1
+        # Download the zip and start reading YAML from the files in memory
+        package_zip = zipfile.ZipFile(io.BytesIO(http.request("GET", package_url).data))
+        for yaml_file in package_zip.namelist():
+            if not re.match(
+                r"^OpenSearch-main/rest-api-spec/src/main/resources/rest-api-spec/test/.*\.ya?ml$",
+                yaml_file,
+            ):
+                continue
+            yaml_tests = list(yaml.safe_load_all(package_zip.read(yaml_file)))
 
-        # Now we combine setup, teardown, and test_steps into
-        # a set of pytest.param() instances
-        for test_number, test_step in test_numbers_and_steps:
-            # Build the id from the name of the YAML file and
-            # the number within that file. Most important step
-            # is to remove most of the file path prefixes and
-            # the .yml suffix.
-            pytest_test_name = yaml_file.rpartition(".")[0].replace(".", "/")
-            for prefix in ("rest-api-spec/", "test/", "oss/"):
-                if pytest_test_name.startswith(prefix):
-                    pytest_test_name = pytest_test_name[len(prefix) :]
-            pytest_param_id = "%s[%d]" % (pytest_test_name, test_number)
+            # Each file may have a "test" named 'setup' or 'teardown',
+            # these sets of steps should be run at the beginning and end
+            # of every other test within the file so we do one pass to capture those.
+            setup_steps = teardown_steps = None
+            test_numbers_and_steps = []
+            test_number = 0
 
-            pytest_param = {
-                "setup": setup_steps,
-                "run": test_step,
-                "teardown": teardown_steps,
-            }
-            # Skip either 'test_name' or 'test_name[x]'
-            if pytest_test_name in SKIP_TESTS or pytest_param_id in SKIP_TESTS:
-                pytest_param["skip"] = True
+            for yaml_test in yaml_tests:
+                test_name, test_step = yaml_test.popitem()
+                if test_name == "setup":
+                    setup_steps = test_step
+                elif test_name == "teardown":
+                    teardown_steps = test_step
+                else:
+                    test_numbers_and_steps.append((test_number, test_step))
+                    test_number += 1
 
-            YAML_TEST_SPECS.append(pytest.param(pytest_param, id=pytest_param_id))
+            # Now we combine setup, teardown, and test_steps into
+            # a set of pytest.param() instances
+            for test_number, test_step in test_numbers_and_steps:
+                # Build the id from the name of the YAML file and
+                # the number within that file. Most important step
+                # is to remove most of the file path prefixes and
+                # the .yml suffix.
+                pytest_test_name = yaml_file.rpartition(".")[0].replace(".", "/")
+                for prefix in ("rest-api-spec/", "test/", "oss/"):
+                    if pytest_test_name.startswith(prefix):
+                        pytest_test_name = pytest_test_name[len(prefix) :]
+                pytest_param_id = "%s[%d]" % (pytest_test_name, test_number)
 
-except Exception as e:
-    warnings.warn("Could not load REST API tests: %s" % (str(e),))
+                pytest_param = {
+                    "setup": setup_steps,
+                    "run": test_step,
+                    "teardown": teardown_steps,
+                }
+                # Skip either 'test_name' or 'test_name[x]'
+                if pytest_test_name in SKIP_TESTS or pytest_param_id in SKIP_TESTS:
+                    pytest_param["skip"] = True
 
+                YAML_TEST_SPECS.append(pytest.param(pytest_param, id=pytest_param_id))
+
+    except Exception as e:
+        warnings.warn("Could not load REST API tests: %s" % (str(e),))
+
+
+load_rest_api_tests()
 
 if not RUN_ASYNC_REST_API_TESTS:
 
-    @pytest.mark.parametrize("test_spec", YAML_TEST_SPECS)
-    def test_rest_api_spec(test_spec, sync_runner):
+    @pytest.mark.parametrize("test_spec", YAML_TEST_SPECS)  # type: ignore
+    def test_rest_api_spec(test_spec: Any, sync_runner: Any) -> None:
         if test_spec.get("skip", False):
             pytest.skip("Manually skipped in 'SKIP_TESTS'")
         sync_runner.use_spec(test_spec)

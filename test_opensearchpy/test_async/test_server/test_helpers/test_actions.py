@@ -26,6 +26,7 @@
 
 
 import asyncio
+from typing import Any, List
 
 import pytest
 from mock import MagicMock, patch
@@ -38,24 +39,27 @@ pytestmark = pytest.mark.asyncio
 
 
 class AsyncMock(MagicMock):
-    async def __call__(self, *args, **kwargs):
+    async def __call__(self, *args: Any, **kwargs: Any) -> Any:
         return super(AsyncMock, self).__call__(*args, **kwargs)
 
-    def __await__(self):
+    def __await__(self) -> Any:
         return self().__await__()
 
 
 class FailingBulkClient(object):
     def __init__(
-        self, client, fail_at=(2,), fail_with=TransportError(599, "Error!", {})
-    ):
+        self,
+        client: Any,
+        fail_at: Any = (2,),
+        fail_with: TransportError = TransportError(599, "Error!", {}),
+    ) -> None:
         self.client = client
         self._called = 0
         self._fail_at = fail_at
         self.transport = client.transport
         self._fail_with = fail_with
 
-    async def bulk(self, *args, **kwargs):
+    async def bulk(self, *args: Any, **kwargs: Any) -> Any:
         self._called += 1
         if self._called in self._fail_at:
             raise self._fail_with
@@ -63,7 +67,7 @@ class FailingBulkClient(object):
 
 
 class TestStreamingBulk(object):
-    async def test_actions_remain_unchanged(self, async_client):
+    async def test_actions_remain_unchanged(self, async_client: Any) -> None:
         actions1 = [{"_id": 1}, {"_id": 2}]
         async for ok, item in actions.async_streaming_bulk(
             async_client, actions1, index="test-index"
@@ -71,7 +75,7 @@ class TestStreamingBulk(object):
             assert ok
         assert [{"_id": 1}, {"_id": 2}] == actions1
 
-    async def test_all_documents_get_inserted(self, async_client):
+    async def test_all_documents_get_inserted(self, async_client: Any) -> None:
         docs = [{"answer": x, "_id": x} for x in range(100)]
         async for ok, item in actions.async_streaming_bulk(
             async_client, docs, index="test-index", refresh=True
@@ -83,13 +87,13 @@ class TestStreamingBulk(object):
             "_source"
         ]
 
-    async def test_documents_data_types(self, async_client):
-        async def async_gen():
+    async def test_documents_data_types(self, async_client: Any) -> None:
+        async def async_gen() -> Any:
             for x in range(100):
                 await asyncio.sleep(0)
                 yield {"answer": x, "_id": x}
 
-        def sync_gen():
+        def sync_gen() -> Any:
             for x in range(100):
                 yield {"answer": x, "_id": x}
 
@@ -117,7 +121,9 @@ class TestStreamingBulk(object):
             "_source"
         ]
 
-    async def test_all_errors_from_chunk_are_raised_on_failure(self, async_client):
+    async def test_all_errors_from_chunk_are_raised_on_failure(
+        self, async_client: Any
+    ) -> None:
         await async_client.indices.create(
             "i",
             {
@@ -137,7 +143,7 @@ class TestStreamingBulk(object):
         else:
             assert False, "exception should have been raised"
 
-    async def test_different_op_types(self, async_client):
+    async def test_different_op_types(self, async_client: Any) -> None:
         await async_client.index(index="i", id=45, body={})
         await async_client.index(index="i", id=42, body={})
         docs = [
@@ -152,7 +158,7 @@ class TestStreamingBulk(object):
         assert {"answer": 42} == (await async_client.get(index="i", id=42))["_source"]
         assert {"f": "v"} == (await async_client.get(index="i", id=47))["_source"]
 
-    async def test_transport_error_can_becaught(self, async_client):
+    async def test_transport_error_can_becaught(self, async_client: Any) -> None:
         failing_client = FailingBulkClient(async_client)
         docs = [
             {"_index": "i", "_id": 47, "f": "v"},
@@ -186,7 +192,7 @@ class TestStreamingBulk(object):
             }
         } == results[1][1]
 
-    async def test_rejected_documents_are_retried(self, async_client):
+    async def test_rejected_documents_are_retried(self, async_client: Any) -> None:
         failing_client = FailingBulkClient(
             async_client, fail_with=TransportError(429, "Rejected!", {})
         )
@@ -215,8 +221,8 @@ class TestStreamingBulk(object):
         assert 4 == failing_client._called
 
     async def test_rejected_documents_are_retried_at_most_max_retries_times(
-        self, async_client
-    ):
+        self, async_client: Any
+    ) -> None:
         failing_client = FailingBulkClient(
             async_client, fail_at=(1, 2), fail_with=TransportError(429, "Rejected!", {})
         )
@@ -245,14 +251,16 @@ class TestStreamingBulk(object):
         assert {"value": 2, "relation": "eq"} == res["hits"]["total"]
         assert 4 == failing_client._called
 
-    async def test_transport_error_is_raised_with_max_retries(self, async_client):
+    async def test_transport_error_is_raised_with_max_retries(
+        self, async_client: Any
+    ) -> None:
         failing_client = FailingBulkClient(
             async_client,
             fail_at=(1, 2, 3, 4),
             fail_with=TransportError(429, "Rejected!", {}),
         )
 
-        async def streaming_bulk():
+        async def streaming_bulk() -> Any:
             results = [
                 x
                 async for x in actions.async_streaming_bulk(
@@ -271,7 +279,7 @@ class TestStreamingBulk(object):
 
 
 class TestBulk(object):
-    async def test_bulk_works_with_single_item(self, async_client):
+    async def test_bulk_works_with_single_item(self, async_client: Any) -> None:
         docs = [{"answer": 42, "_id": 1}]
         success, failed = await actions.async_bulk(
             async_client, docs, index="test-index", refresh=True
@@ -284,7 +292,7 @@ class TestBulk(object):
             "_source"
         ]
 
-    async def test_all_documents_get_inserted(self, async_client):
+    async def test_all_documents_get_inserted(self, async_client: Any) -> None:
         docs = [{"answer": x, "_id": x} for x in range(100)]
         success, failed = await actions.async_bulk(
             async_client, docs, index="test-index", refresh=True
@@ -297,7 +305,7 @@ class TestBulk(object):
             "_source"
         ]
 
-    async def test_stats_only_reports_numbers(self, async_client):
+    async def test_stats_only_reports_numbers(self, async_client: Any) -> None:
         docs = [{"answer": x} for x in range(100)]
         success, failed = await actions.async_bulk(
             async_client, docs, index="test-index", refresh=True, stats_only=True
@@ -307,7 +315,7 @@ class TestBulk(object):
         assert 0 == failed
         assert 100 == (await async_client.count(index="test-index"))["count"]
 
-    async def test_errors_are_reported_correctly(self, async_client):
+    async def test_errors_are_reported_correctly(self, async_client: Any) -> None:
         await async_client.indices.create(
             "i",
             {
@@ -324,6 +332,7 @@ class TestBulk(object):
             raise_on_error=False,
         )
         assert 1 == success
+        assert isinstance(failed, List)
         assert 1 == len(failed)
         error = failed[0]
         assert "42" == error["index"]["_id"]
@@ -333,7 +342,7 @@ class TestBulk(object):
             error["index"]["error"]
         ) or "mapper_parsing_exception" in repr(error["index"]["error"])
 
-    async def test_error_is_raised(self, async_client):
+    async def test_error_is_raised(self, async_client: Any) -> None:
         await async_client.indices.create(
             "i",
             {
@@ -346,7 +355,7 @@ class TestBulk(object):
         with pytest.raises(BulkIndexError):
             await actions.async_bulk(async_client, [{"a": 42}, {"a": "c"}], index="i")
 
-    async def test_ignore_error_if_raised(self, async_client):
+    async def test_ignore_error_if_raised(self, async_client: Any) -> None:
         # ignore the status code 400 in tuple
         await actions.async_bulk(
             async_client, [{"a": 42}, {"a": "c"}], index="i", ignore_status=(400,)
@@ -379,7 +388,7 @@ class TestBulk(object):
             failing_client, [{"a": 42}], index="i", ignore_status=(599,)
         )
 
-    async def test_errors_are_collected_properly(self, async_client):
+    async def test_errors_are_collected_properly(self, async_client: Any) -> None:
         await async_client.indices.create(
             "i",
             {
@@ -401,10 +410,12 @@ class TestBulk(object):
 
 
 class MockScroll:
-    def __init__(self):
+    calls: Any
+
+    def __init__(self) -> None:
         self.calls = []
 
-    async def __call__(self, *args, **kwargs):
+    async def __call__(self, *args: Any, **kwargs: Any) -> Any:
         self.calls.append((args, kwargs))
         if len(self.calls) == 1:
             return {
@@ -423,25 +434,27 @@ class MockScroll:
 
 
 class MockResponse:
-    def __init__(self, resp):
+    def __init__(self, resp: Any) -> None:
         self.resp = resp
 
-    async def __call__(self, *args, **kwargs):
+    async def __call__(self, *args: Any, **kwargs: Any) -> Any:
         return self.resp
 
-    def __await__(self):
+    def __await__(self) -> Any:
         return self().__await__()
 
 
-@pytest.fixture(scope="function")
-async def scan_teardown(async_client):
+@pytest.fixture(scope="function")  # type: ignore
+async def scan_teardown(async_client: Any) -> Any:
     yield
     await async_client.clear_scroll(scroll_id="_all")
 
 
 class TestScan(object):
-    async def test_order_can_be_preserved(self, async_client, scan_teardown):
-        bulk = []
+    async def test_order_can_be_preserved(
+        self, async_client: Any, scan_teardown: Any
+    ) -> None:
+        bulk: Any = []
         for x in range(100):
             bulk.append({"index": {"_index": "test_index", "_id": x}})
             bulk.append({"answer": x, "correct": x == 42})
@@ -461,8 +474,10 @@ class TestScan(object):
         assert list(map(str, range(100))) == list(d["_id"] for d in docs)
         assert list(range(100)) == list(d["_source"]["answer"] for d in docs)
 
-    async def test_all_documents_are_read(self, async_client, scan_teardown):
-        bulk = []
+    async def test_all_documents_are_read(
+        self, async_client: Any, scan_teardown: Any
+    ) -> None:
+        bulk: Any = []
         for x in range(100):
             bulk.append({"index": {"_index": "test_index", "_id": x}})
             bulk.append({"answer": x, "correct": x == 42})
@@ -477,8 +492,8 @@ class TestScan(object):
         assert set(map(str, range(100))) == set(d["_id"] for d in docs)
         assert set(range(100)) == set(d["_source"]["answer"] for d in docs)
 
-    async def test_scroll_error(self, async_client, scan_teardown):
-        bulk = []
+    async def test_scroll_error(self, async_client: Any, scan_teardown: Any) -> None:
+        bulk: Any = []
         for x in range(4):
             bulk.append({"index": {"_index": "test_index"}})
             bulk.append({"value": x})
@@ -513,7 +528,9 @@ class TestScan(object):
             assert len(data) == 3
             assert data[-1] == {"scroll_data": 42}
 
-    async def test_initial_search_error(self, async_client, scan_teardown):
+    async def test_initial_search_error(
+        self, async_client: Any, scan_teardown: Any
+    ) -> None:
         with patch.object(async_client, "clear_scroll", new_callable=AsyncMock):
             with patch.object(
                 async_client,
@@ -563,7 +580,9 @@ class TestScan(object):
                         assert data == [{"search_data": 1}]
                         assert mock_scroll.calls == []
 
-    async def test_no_scroll_id_fast_route(self, async_client, scan_teardown):
+    async def test_no_scroll_id_fast_route(
+        self, async_client: Any, scan_teardown: Any
+    ) -> None:
         with patch.object(async_client, "search", MockResponse({"no": "_scroll_id"})):
             with patch.object(async_client, "scroll") as scroll_mock:
                 with patch.object(async_client, "clear_scroll") as clear_mock:
@@ -579,8 +598,10 @@ class TestScan(object):
                     clear_mock.assert_not_called()
 
     @patch("opensearchpy._async.helpers.actions.logger")
-    async def test_logger(self, logger_mock, async_client, scan_teardown):
-        bulk = []
+    async def test_logger(
+        self, logger_mock: Any, async_client: Any, scan_teardown: Any
+    ) -> None:
+        bulk: Any = []
         for x in range(4):
             bulk.append({"index": {"_index": "test_index"}})
             bulk.append({"value": x})
@@ -620,8 +641,8 @@ class TestScan(object):
                 5,
             )
 
-    async def test_clear_scroll(self, async_client, scan_teardown):
-        bulk = []
+    async def test_clear_scroll(self, async_client: Any, scan_teardown: Any) -> None:
+        bulk: Any = []
         for x in range(4):
             bulk.append({"index": {"_index": "test_index"}})
             bulk.append({"value": x})
@@ -656,7 +677,7 @@ class TestScan(object):
             ]
             spy.assert_not_called()
 
-    @pytest.mark.parametrize(
+    @pytest.mark.parametrize(  # type: ignore
         "kwargs",
         [
             {"api_key": ("name", "value")},
@@ -665,8 +686,8 @@ class TestScan(object):
         ],
     )
     async def test_scan_auth_kwargs_forwarded(
-        self, async_client, scan_teardown, kwargs
-    ):
+        self, async_client: Any, scan_teardown: Any, kwargs: Any
+    ) -> None:
         ((key, val),) = kwargs.items()
 
         with patch.object(
@@ -707,8 +728,8 @@ class TestScan(object):
             assert api_mock.call_args[1][key] == val
 
     async def test_scan_auth_kwargs_favor_scroll_kwargs_option(
-        self, async_client, scan_teardown
-    ):
+        self, async_client: Any, scan_teardown: Any
+    ) -> None:
         with patch.object(
             async_client,
             "search",
@@ -756,9 +777,9 @@ class TestScan(object):
                     assert async_client.scroll.call_args[1]["sort"] == "asc"
 
 
-@pytest.fixture(scope="function")
-async def reindex_setup(async_client):
-    bulk = []
+@pytest.fixture(scope="function")  # type: ignore
+async def reindex_setup(async_client: Any) -> Any:
+    bulk: Any = []
     for x in range(100):
         bulk.append({"index": {"_index": "test_index", "_id": x}})
         bulk.append(
@@ -774,8 +795,8 @@ async def reindex_setup(async_client):
 
 class TestReindex(object):
     async def test_reindex_passes_kwargs_to_scan_and_bulk(
-        self, async_client, reindex_setup
-    ):
+        self, async_client: Any, reindex_setup: Any
+    ) -> None:
         await actions.async_reindex(
             async_client,
             "test_index",
@@ -794,7 +815,9 @@ class TestReindex(object):
             await async_client.get(index="prod_index", id=42)
         )["_source"]
 
-    async def test_reindex_accepts_a_query(self, async_client, reindex_setup):
+    async def test_reindex_accepts_a_query(
+        self, async_client: Any, reindex_setup: Any
+    ) -> None:
         await actions.async_reindex(
             async_client,
             "test_index",
@@ -813,7 +836,9 @@ class TestReindex(object):
             await async_client.get(index="prod_index", id=42)
         )["_source"]
 
-    async def test_all_documents_get_moved(self, async_client, reindex_setup):
+    async def test_all_documents_get_moved(
+        self, async_client: Any, reindex_setup: Any
+    ) -> None:
         await actions.async_reindex(async_client, "test_index", "prod_index")
         await async_client.indices.refresh()
 
@@ -834,8 +859,8 @@ class TestReindex(object):
         )["_source"]
 
 
-@pytest.fixture(scope="function")
-async def parent_reindex_setup(async_client):
+@pytest.fixture(scope="function")  # type: ignore
+async def parent_reindex_setup(async_client: Any) -> None:
     body = {
         "settings": {"number_of_shards": 1, "number_of_replicas": 0},
         "mappings": {
@@ -864,8 +889,8 @@ async def parent_reindex_setup(async_client):
 
 class TestParentChildReindex:
     async def test_children_are_reindexed_correctly(
-        self, async_client, parent_reindex_setup
-    ):
+        self, async_client: Any, parent_reindex_setup: Any
+    ) -> None:
         await actions.async_reindex(async_client, "test-index", "real-index")
         assert {"question_answer": "question"} == (
             await async_client.get(index="real-index", id=42)

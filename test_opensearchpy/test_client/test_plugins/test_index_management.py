@@ -11,11 +11,11 @@ from test_opensearchpy.test_cases import OpenSearchTestCase
 
 
 class TestIndexManagement(OpenSearchTestCase):
-    def test_create_policy(self):
+    def test_create_policy(self) -> None:
         self.client.index_management.put_policy("...")
         self.assert_url_called("PUT", "/_plugins/_ism/policies/...")
 
-    def test_update_policy(self):
+    def test_update_policy(self) -> None:
         self.client.index_management.put_policy(
             "...", params={"if_seq_no": 7, "if_primary_term": 1}
         )
@@ -24,33 +24,33 @@ class TestIndexManagement(OpenSearchTestCase):
             self.assert_url_called("PUT", "/_plugins/_ism/policies/..."),
         )
 
-    def test_add_policy(self):
+    def test_add_policy(self) -> None:
         self.client.index_management.add_policy("...")
         self.assert_url_called("POST", "/_plugins/_ism/add/...")
 
-    def test_get_policy(self):
+    def test_get_policy(self) -> None:
         self.client.index_management.get_policy("...")
         self.assert_url_called("GET", "/_plugins/_ism/policies/...")
 
-    def test_remove_policy_from_index(self):
+    def test_remove_policy_from_index(self) -> None:
         self.client.index_management.remove_policy_from_index("...")
         self.assert_url_called("POST", "/_plugins/_ism/remove/...")
 
-    def test_change_policy(self):
+    def test_change_policy(self) -> None:
         self.client.index_management.change_policy("...")
         self.assert_url_called("POST", "/_plugins/_ism/change_policy/...")
 
-    def test_retry(self):
+    def test_retry(self) -> None:
         self.client.index_management.retry("...")
         self.assert_url_called("POST", "/_plugins/_ism/retry/...")
 
-    def test_explain_index(self):
+    def test_explain_index(self) -> None:
         self.client.index_management.explain_index("...", show_policy=True)
         self.assertEqual(
             [({"show_policy": b"true"}, {}, None)],
             self.assert_url_called("GET", "/_plugins/_ism/explain/..."),
         )
 
-    def test_delete_policy(self):
+    def test_delete_policy(self) -> None:
         self.client.index_management.delete_policy("...")
         self.assert_url_called("DELETE", "/_plugins/_ism/policies/...")

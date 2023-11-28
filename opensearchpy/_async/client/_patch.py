@@ -8,19 +8,22 @@
 # GitHub history for details.
 
 import warnings
+from typing import Any
 
 from .utils import SKIP_IN_PATH, query_params
 
 
 @query_params()
-async def list_all_point_in_time(self, params=None, headers=None):
+async def list_all_point_in_time(
+    self: Any, params: Any = None, headers: Any = None
+) -> Any:
     """
     Returns the list of active point in times searches
 
     .. warning::
 
-    This API will be removed in a future version
-    Use 'get_all_pits' API instead.
+        This API will be removed in a future version.
+        Use 'get_all_pits' API instead.
 
     """
     warnings.warn(
@@ -34,7 +37,9 @@ async def list_all_point_in_time(self, params=None, headers=None):
 @query_params(
     "expand_wildcards", "ignore_unavailable", "keep_alive", "preference", "routing"
 )
-async def create_point_in_time(self, index, params=None, headers=None):
+async def create_point_in_time(
+    self: Any, index: Any, params: Any = None, headers: Any = None
+) -> Any:
     """
     Create a point in time that can be used in subsequent searches
 
@@ -54,8 +59,8 @@ async def create_point_in_time(self, index, params=None, headers=None):
 
     .. warning::
 
-    This API will be removed in a future version
-    Use 'create_pit' API instead.
+        This API will be removed in a future version.
+        Use 'create_pit' API instead.
 
     """
     warnings.warn(
@@ -67,7 +72,13 @@ async def create_point_in_time(self, index, params=None, headers=None):
 
 
 @query_params()
-async def delete_point_in_time(self, body=None, all=False, params=None, headers=None):
+async def delete_point_in_time(
+    self: Any,
+    body: Any = None,
+    all: bool = False,
+    params: Any = None,
+    headers: Any = None,
+) -> Any:
     """
     Delete a point in time
 
@@ -77,8 +88,8 @@ async def delete_point_in_time(self, body=None, all=False, params=None, headers=
 
     .. warning::
 
-    This API will be removed in a future version
-    Use 'delete_all_pits' or 'delete_pit' API instead.
+        This API will be removed in a future version.
+        Use 'delete_all_pits' or 'delete_pit' API instead.
 
     """
     warnings.warn(
@@ -93,14 +104,14 @@ async def delete_point_in_time(self, body=None, all=False, params=None, headers=
 
 
 @query_params()
-async def health_check(self, params=None, headers=None):
+async def health_check(self: Any, params: Any = None, headers: Any = None) -> Any:
     """
     Checks to see if the Security plugin is up and running.
 
     .. warning::
 
-    This API will be removed in a future version
-    Use 'health' API instead.
+        This API will be removed in a future version.
+        Use 'health' API instead.
 
     """
     warnings.warn(
@@ -112,14 +123,16 @@ async def health_check(self, params=None, headers=None):
 
 
 @query_params()
-async def update_audit_config(self, body, params=None, headers=None):
+async def update_audit_config(
+    self: Any, body: Any, params: Any = None, headers: Any = None
+) -> Any:
     """
     A PUT call updates the audit configuration.
 
     .. warning::
 
-    This API will be removed in a future version
-    Use 'update_audit_configuration' API instead.
+        This API will be removed in a future version.
+        Use 'update_audit_configuration' API instead.
 
     """
     warnings.warn(

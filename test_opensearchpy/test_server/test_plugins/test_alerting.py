@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # SPDX-License-Identifier: Apache-2.0
 #
 # The OpenSearch Contributors require contributions made to
@@ -23,7 +22,7 @@ class TestAlertingPlugin(OpenSearchTestCase):
         (OPENSEARCH_VERSION) and (OPENSEARCH_VERSION < (2, 0, 0)),
         "Plugin not supported for opensearch version",
     )
-    def test_create_destination(self):
+    def test_create_destination(self) -> None:
         # Test to create alert destination
         dummy_destination = {
             "name": "my-destination",
@@ -39,7 +38,7 @@ class TestAlertingPlugin(OpenSearchTestCase):
         (OPENSEARCH_VERSION) and (OPENSEARCH_VERSION < (2, 0, 0)),
         "Plugin not supported for opensearch version",
     )
-    def test_get_destination(self):
+    def test_get_destination(self) -> None:
         # Create a dummy destination
         self.test_create_destination()
 
@@ -54,7 +53,7 @@ class TestAlertingPlugin(OpenSearchTestCase):
         (OPENSEARCH_VERSION) and (OPENSEARCH_VERSION < (2, 0, 0)),
         "Plugin not supported for opensearch version",
     )
-    def test_create_monitor(self):
+    def test_create_monitor(self) -> None:
         # Create a dummy destination
         self.test_create_destination()
 
@@ -119,11 +118,11 @@ class TestAlertingPlugin(OpenSearchTestCase):
         (OPENSEARCH_VERSION) and (OPENSEARCH_VERSION < (2, 0, 0)),
         "Plugin not supported for opensearch version",
     )
-    def test_search_monitor(self):
+    def test_search_monitor(self) -> None:
         # Create a dummy monitor
         self.test_create_monitor()
 
-        # Create a monitor search query by it's name
+        # Create a monitor search query by its name
         query = {"query": {"match": {"monitor.name": "test-monitor"}}}
 
         # Perform the search with the above query
@@ -137,11 +136,11 @@ class TestAlertingPlugin(OpenSearchTestCase):
         (OPENSEARCH_VERSION) and (OPENSEARCH_VERSION < (2, 0, 0)),
         "Plugin not supported for opensearch version",
     )
-    def test_get_monitor(self):
+    def test_get_monitor(self) -> None:
         # Create a dummy monitor
         self.test_create_monitor()
 
-        # Create a monitor search query by it's name
+        # Create a monitor search query by its name
         query = {"query": {"match": {"monitor.name": "test-monitor"}}}
 
         # Perform the search with the above query
@@ -161,11 +160,11 @@ class TestAlertingPlugin(OpenSearchTestCase):
         (OPENSEARCH_VERSION) and (OPENSEARCH_VERSION < (2, 0, 0)),
         "Plugin not supported for opensearch version",
     )
-    def test_run_monitor(self):
+    def test_run_monitor(self) -> None:
         # Create a dummy monitor
         self.test_create_monitor()
 
-        # Create a monitor search query by it's name
+        # Create a monitor search query by its name
         query = {"query": {"match": {"monitor.name": "test-monitor"}}}
 
         # Perform the search with the above query

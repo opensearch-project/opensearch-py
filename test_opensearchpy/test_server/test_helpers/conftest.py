@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # SPDX-License-Identifier: Apache-2.0
 #
 # The OpenSearch Contributors require contributions made to
@@ -27,6 +26,7 @@
 
 import re
 from datetime import datetime
+from typing import Any
 
 from pytest import fixture
 
@@ -44,32 +44,32 @@ from .test_data import (
 from .test_document import Comment, History, PullRequest, User
 
 
-@fixture(scope="session")
-def client():
+@fixture(scope="session")  # type: ignore
+def client() -> Any:
     client = get_test_client(verify_certs=False, http_auth=("admin", "admin"))
     add_connection("default", client)
     return client
 
 
-@fixture(scope="session")
-def opensearch_version(client):
+@fixture(scope="session")  # type: ignore
+def opensearch_version(client: Any) -> Any:
     info = client.info()
     print(info)
     yield tuple(
         int(x)
-        for x in re.match(r"^([0-9.]+)", info["version"]["number"]).group(1).split(".")
+        for x in re.match(r"^([0-9.]+)", info["version"]["number"]).group(1).split(".")  # type: ignore
     )
 
 
-@fixture
-def write_client(client):
+@fixture  # type: ignore
+def write_client(client: Any) -> Any:
     yield client
     client.indices.delete("test-*", ignore=404)
     client.indices.delete_template("test-template", ignore=404)
 
 
-@fixture(scope="session")
-def data_client(client):
+@fixture(scope="session")  # type: ignore
+def data_client(client: Any) -> Any:
     # create mappings
     create_git_index(client, "git")
     create_flat_git_index(client, "flat-git")
@@ -81,8 +81,8 @@ def data_client(client):
     client.indices.delete("flat-git", ignore=404)
 
 
-@fixture
-def pull_request(write_client):
+@fixture  # type: ignore
+def pull_request(write_client: Any) -> Any:
     PullRequest.init()
     pr = PullRequest(
         _id=42,
@@ -105,8 +105,8 @@ def pull_request(write_client):
     return pr
 
 
-@fixture
-def setup_ubq_tests(client):
+@fixture  # type: ignore
+def setup_ubq_tests(client: Any) -> str:
     index = "test-git"
     create_git_index(client, index)
     bulk(client, TEST_GIT_DATA, raise_on_error=True, refresh=True)
