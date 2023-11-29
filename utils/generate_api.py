@@ -41,7 +41,6 @@ from typing import Any, Dict
 
 import black
 import deepmerge
-import requests
 import unasync
 import urllib3
 from click.testing import CliRunner
@@ -429,10 +428,9 @@ def read_modules() -> Any:
     modules = {}
 
     # Load the OpenAPI specification file
-    response = requests.get(
-        "https://raw.githubusercontent.com/opensearch-project/opensearch-api-specification/main/OpenSearch.openapi.json"
-    )
-    data = response.json()
+    path = "specifications/opensearch-api-specification/OpenSearch.openapi.json"
+    with open(path) as f:
+        data = json.loads(f.read())
 
     list_of_dicts = []
 
