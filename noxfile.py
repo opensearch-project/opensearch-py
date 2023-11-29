@@ -118,6 +118,8 @@ def docs(session: Any) -> None:
 
 @nox.session()  # type: ignore
 def generate(session: Any) -> None:
+    session.run("git", "submodule", "init", external=True)
+    session.run("git", "submodule", "update", external=True)
     session.install("-rdev-requirements.txt")
     session.run("python", "utils/generate_api.py")
     format(session)
