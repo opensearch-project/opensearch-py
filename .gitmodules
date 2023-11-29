@@ -1,0 +1,3 @@
+[submodule "specifications/opensearch-api-specification"]
+	path = specifications/opensearch-api-specification
+	url = https://github.com/opensearch-project/opensearch-api-specification.git/
