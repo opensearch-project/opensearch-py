@@ -3,6 +3,13 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 ## [Unreleased]
 ### Added
+- Added pylint `missing-function-docstring`, `missing-class-docstring`, `protected-access`, `duplicate-code`, `no-member`,
+         `missing-module-docstring`, `unused-argument`, `consider-using-f-string`, `super-with-arguments`, `too-few-public-methods`,
+         `redefined-builtin`, `line-too-long`, `too-many-arguments`, `redefined-outer-name`, `import-outside-toplevel`,
+         `useless-object-inheritance`, `unused-variable`, `unexpected-keyword-arg`, `raise-missing-from`, `too-many-locals`,
+         `unnecessary-dunder-call`, `wrong-import-position`, `too-many-public-methods`, `invalid-unary-operand-type`,
+         `attribute-defined-outside-init`, `unspecified-encoding`, `no-else-return`, `invalid-overridden-method`, `cyclic-import`,
+         `too-many-branches`, `dangerous-default-value`, `arguments-renamed`, `pointless-statement` ([#620](https://github.com/opensearch-project/opensearch-py/pull/620))
 - Added pylint `line-too-long` and `invalid-name` ([#590](https://github.com/opensearch-project/opensearch-py/pull/590))
 - Added pylint `pointless-statement` ([#611](https://github.com/opensearch-project/opensearch-py/pull/611))
 - Added a log collection guide ([#579](https://github.com/opensearch-project/opensearch-py/pull/579))
