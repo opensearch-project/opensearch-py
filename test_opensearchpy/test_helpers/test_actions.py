@@ -28,6 +28,7 @@
 import threading
 import time
 from typing import Any
+from unittest.mock import Mock
 
 import mock
 import pytest
@@ -270,3 +271,24 @@ class TestExpandActions(TestCase):
         self.assertEqual(
             ('{"index":{}}', "whatever"), helpers.expand_action("whatever")
         )
+
+
+class TestScanFunction(TestCase):
+    @mock.patch("opensearchpy.OpenSearch.clear_scroll")
+    @mock.patch("opensearchpy.OpenSearch.scroll")
+    @mock.patch("opensearchpy.OpenSearch.search")
+    def test_scan_with_missing_hits_key(
+        self, mock_search: Mock, mock_scroll: Mock, mock_clear_scroll: Mock
+    ) -> None:
+        # Simulate a response where the 'hits' key is missing
+        mock_search.return_value = {"_scroll_id": "dummy_scroll_id", "_shards": {}}
+
+        mock_scroll.side_effect = [{"_scroll_id": "dummy_scroll_id", "_shards": {}}]
+
+        mock_clear_scroll.return_value = None
+
+        client = OpenSearch()
+
+        # The test should pass without raising a KeyError
+        scan_result = list(helpers.scan(client, query={"query": {"match_all": {}}}))
+        assert scan_result == [], "Expected empty results when 'hits' key is missing"
