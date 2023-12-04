@@ -13,6 +13,8 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - Removed unnecessary `# -*- coding: utf-8 -*-` headers from .py files ([#615](https://github.com/opensearch-project/opensearch-py/pull/615), [#617](https://github.com/opensearch-project/opensearch-py/pull/617))
 ### Fixed
 ### Security
+### Dependencies
+- Bumps `pytest-asyncio` from <=0.21.1 to <=0.23.1
 
 ## [2.4.2]
 ### Added
