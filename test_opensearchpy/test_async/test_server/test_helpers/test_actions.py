@@ -776,6 +776,34 @@ class TestScan(object):
                     }
                     assert async_client.scroll.call_args[1]["sort"] == "asc"
 
+    async def test_async_scan_with_missing_hits_key(
+        self, async_client: Any, scan_teardown: Any
+    ) -> None:
+        with patch.object(
+            async_client,
+            "search",
+            return_value=MockResponse({"_scroll_id": "dummy_scroll_id", "_shards": {}}),
+        ):
+            with patch.object(
+                async_client,
+                "scroll",
+                return_value=MockResponse(
+                    {"_scroll_id": "dummy_scroll_id", "_shards": {}}
+                ),
+            ):
+                with patch.object(
+                    async_client, "clear_scroll", return_value=MockResponse({})
+                ):
+                    async_scan_result = [
+                        hit
+                        async for hit in actions.async_scan(
+                            async_client, query={"query": {"match_all": {}}}
+                        )
+                    ]
+                    assert (
+                        async_scan_result == []
+                    ), "Expected empty results when 'hits' key is missing"
+
 
 @pytest.fixture(scope="function")  # type: ignore
 async def reindex_setup(async_client: Any) -> Any:
