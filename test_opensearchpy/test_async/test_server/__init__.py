@@ -36,7 +36,7 @@ from ...utils import wipe_cluster
 class AsyncOpenSearchTestCase(IsolatedAsyncioTestCase):  # type: ignore
     async def asyncSetUp(self) -> None:  # pylint: disable=invalid-name
         self.client = await get_test_client(
-            verify_certs=False, http_auth=("admin", "admin")
+            verify_certs=False, http_auth=("admin", "myStrongPassword123!")
         )
         await add_connection("default", self.client)
 

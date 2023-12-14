@@ -13,7 +13,7 @@ This guide covers OpenSearch Python Client API actions for Index Lifecycle. You'
 
 ## Setup
 
-In this guide, we will need an OpenSearch cluster with more than one node. Let's use the sample [docker-compose.yml](https://opensearch.org/samples/docker-compose.yml) to start a cluster with two nodes. The cluster's API will be available at `localhost:9200` with basic authentication enabled with default username and password of `admin:admin`.
+In this guide, we will need an OpenSearch cluster with more than one node. Let's use the sample [docker-compose.yml](https://opensearch.org/samples/docker-compose.yml) to start a cluster with two nodes. The cluster's API will be available at `localhost:9200` with basic authentication enabled with default username and password of `admin:<admin password>`.
 
 To start the cluster, run the following command:
 
@@ -28,7 +28,7 @@ Let's create a client instance to access this cluster:
 from opensearchpy import OpenSearch
 
 client = OpenSearch(
-  hosts=['https://admin:admin@localhost:9200'],
+  hosts=['https://admin:<admin password>@localhost:9200'],
   use_ssl=True,
   verify_certs=False
 )

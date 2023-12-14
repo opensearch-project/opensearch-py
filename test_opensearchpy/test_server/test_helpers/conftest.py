@@ -46,7 +46,7 @@ from .test_document import Comment, History, PullRequest, User
 
 @fixture(scope="session")  # type: ignore
 def client() -> Any:
-    client = get_test_client(verify_certs=False, http_auth=("admin", "admin"))
+    client = get_test_client(verify_certs=False, http_auth=("admin", "myStrongPassword123!"))
     add_connection("default", client)
     return client
 

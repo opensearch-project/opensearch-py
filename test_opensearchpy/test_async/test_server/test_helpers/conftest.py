@@ -36,7 +36,7 @@ pytestmark = pytest.mark.asyncio
 
 @fixture(scope="function")  # type: ignore
 async def client() -> Any:
-    client = await get_test_client(verify_certs=False, http_auth=("admin", "admin"))
+    client = await get_test_client(verify_certs=False, http_auth=("admin", "myStrongPassword123!"))
     await add_connection("default", client)
     return client
 

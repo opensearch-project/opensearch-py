@@ -34,7 +34,7 @@ import opensearchpy.client
 from opensearchpy import OpenSearch
 from opensearchpy.exceptions import ConnectionError
 
-OPENSEARCH_URL = os.environ.get("OPENSEARCH_URL", "https://admin:admin@localhost:9200")
+OPENSEARCH_URL = os.environ.get("OPENSEARCH_URL", "https://admin:myStrongPassword123!@localhost:9200")
 
 
 def get_test_client(nowait: bool = False, **kwargs: Any) -> OpenSearch:

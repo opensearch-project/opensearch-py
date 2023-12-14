@@ -27,6 +27,7 @@ environment=($(cat <<-END
   --env path.repo=/tmp
   --env repositories.url.allowed_urls=http://snapshot.test*
   --env action.destructive_requires_name=false
+  --env OPENSEARCH_INITIAL_ADMIN_PASSWORD=myStrongPassword123!
 END
 ))
 
@@ -61,7 +62,7 @@ END
   set -x
   healthcmd="curl -vvv -s --fail http://localhost:9200/_cluster/health || exit 1"
   if [[ "$SECURE_INTEGRATION" == "true" ]]; then
-    healthcmd="curl -vvv -s --insecure -u admin:admin --fail https://localhost:9200/_cluster/health || exit 1"
+    healthcmd="curl -vvv -s --insecure -u admin:myStrongPassword123! --fail https://localhost:9200/_cluster/health || exit 1"
   fi
 
   CLUSTER_TAG=$CLUSTER
