@@ -15,6 +15,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - Fix KeyError when scroll return no hits ([#616](https://github.com/opensearch-project/opensearch-py/pull/616))
 ### Security
 ### Dependencies
+- Bumps `aiohttp` from >=3,<4 to >=3.9.0,<4 ([#634](https://github.com/opensearch-project/opensearch-py/pull/634))
 - Bumps `pytest-asyncio` from <=0.21.1 to <=0.23.2
 
 ## [2.4.2]
