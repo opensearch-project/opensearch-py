@@ -19,6 +19,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ### Dependencies
 - Bumps `pytest-asyncio` from <=0.21.1 to <=0.23.3
 - Bumps `urllib3` from >=1.26.18 to >=1.26.18, <2 ([#632](https://github.com/opensearch-project/opensearch-py/pull/632))
+- Bumps `aiohttp` from >=3,<4 to >=3.9.0,<4 ([#634](https://github.com/opensearch-project/opensearch-py/pull/634))
 
 ## [2.4.2]
 ### Added
