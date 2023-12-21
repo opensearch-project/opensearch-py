@@ -49,3 +49,15 @@ class TestBulk(OpenSearchTestCase):
 
         self.assertFalse(response["errors"])
         self.assertEqual(1, len(response["items"]))
+
+
+class TestClose(OpenSearchTestCase):
+    def test_close_doesnt_break_client(self) -> None:
+        self.client.cluster.health()
+        self.client.close()
+        self.client.cluster.health()
+
+        with self.client as client:
+            client.cluster.health()
+        with self.client as client:
+            client.cluster.health()

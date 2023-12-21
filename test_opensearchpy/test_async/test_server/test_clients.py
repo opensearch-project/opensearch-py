@@ -73,3 +73,8 @@ class TestClose:
     async def test_close_doesnt_break_client(self, async_client: Any) -> None:
         await async_client.close()
         await async_client.cluster.health()
+
+        async with async_client:
+            await async_client.cluster.health()
+        async with async_client:
+            await async_client.cluster.health()
