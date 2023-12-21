@@ -8,12 +8,12 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - Added a log collection guide ([#579](https://github.com/opensearch-project/opensearch-py/pull/579))
 - Added GHA release ([#614](https://github.com/opensearch-project/opensearch-py/pull/614))
 ### Changed
-- `AsyncOpensearch` can now be re-used after calling `close()` ([#639](https://github.com/opensearch-project/opensearch-py/pull/639))
 ### Deprecated
 ### Removed
 - Removed unnecessary `# -*- coding: utf-8 -*-` headers from .py files ([#615](https://github.com/opensearch-project/opensearch-py/pull/615), [#617](https://github.com/opensearch-project/opensearch-py/pull/617))
 ### Fixed
 - Fix KeyError when scroll return no hits ([#616](https://github.com/opensearch-project/opensearch-py/pull/616))
+- Fix reuse of `AsyncOpenSearch` after calling `close` ([#639](https://github.com/opensearch-project/opensearch-py/pull/639))
 ### Security
 ### Dependencies
 - Bumps `pytest-asyncio` from <=0.21.1 to <=0.23.2
