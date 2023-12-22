@@ -14,6 +14,9 @@ from opensearchpy import OpenSearch
 
 
 def main() -> None:
+    """
+    demonstrates how to index a document using a dict
+    """
     # connect to OpenSearch
 
     host = "localhost"

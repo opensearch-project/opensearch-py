@@ -17,6 +17,9 @@ from opensearchpy import OpenSearch
 
 
 def main() -> None:
+    """
+    provides samples for different ways to handle documents including indexing, searching, updating, and deleting
+    """
     # Connect to OpenSearch
     client = OpenSearch(
         hosts=["https://localhost:9200"],

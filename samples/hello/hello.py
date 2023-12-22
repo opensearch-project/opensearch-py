@@ -16,6 +16,10 @@ from opensearchpy import OpenSearch
 
 
 def main() -> None:
+    """
+    an example showing how to create an synchronous connection to OpenSearch, create an index, index a document
+    and search to return the document
+    """
     host = "localhost"
     port = 9200
     auth = ("admin", "admin")  # For testing only. Don't store credentials in code.
