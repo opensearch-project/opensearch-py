@@ -18,6 +18,10 @@ from opensearchpy import AsyncHttpConnection, AsyncOpenSearch, helpers
 
 
 async def main() -> None:
+    """
+    asynchronously create, bulk index, and query kNN. then delete the index
+    :return:
+    """
     # connect to an instance of OpenSearch
     host = os.getenv("HOST", default="localhost")
     port = int(os.getenv("PORT", 9200))

@@ -23,6 +23,10 @@ urllib3.disable_warnings()
 
 
 def main() -> None:
+    """
+    sample for custom logging; this shows how to create a console handler, connect to OpenSearch, define a custom
+    logger and log to an OpenSearch index
+    """
     print("Collecting logs.")
 
     # Create a console handler

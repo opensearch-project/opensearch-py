@@ -9,13 +9,14 @@
 # Modifications Copyright OpenSearch Contributors. See
 # GitHub history for details.
 
-
-# A basic OpenSearch sample that create and manage users.
-
 from opensearchpy import OpenSearch
 
 
 def main() -> None:
+    """
+    A basic OpenSearch sample that create and manage users.
+    :return:
+    """
     # connect to OpenSearch
 
     host = "localhost"

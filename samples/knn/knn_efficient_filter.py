@@ -16,6 +16,10 @@ from opensearchpy import OpenSearch, helpers
 
 
 def main() -> None:
+    """
+    create a kNN index using Lucene and query it using filters
+    :return:
+    """
     # connect to an instance of OpenSearch
 
     host = os.getenv("HOST", default="localhost")

@@ -17,6 +17,7 @@ from opensearchpy import OpenSearch
 
 
 def main() -> None:
+    """demonstrates how to bulk load data into an index"""
     # connect to an instance of OpenSearch
 
     host = os.getenv("HOST", default="localhost")
