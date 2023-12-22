@@ -19,7 +19,6 @@ async def main() -> None:
     """
     this sample uses asyncio and AsyncOpenSearch to asynchronously connect to local OpenSearch cluster, create an index,
     index data, search the index, delete the document, delete the index
-    :return:
     """
     # connect to OpenSearch
     host = "localhost"

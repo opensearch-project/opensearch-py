@@ -15,7 +15,6 @@ from opensearchpy import OpenSearch
 def main() -> None:
     """
     A basic OpenSearch sample that create and manage users.
-    :return:
     """
     # connect to OpenSearch
 

@@ -19,7 +19,6 @@ from opensearchpy import OpenSearch
 def main() -> None:
     """
     bulk index 100 items and then delete the index
-    :return:
     """
     # connect to an instance of OpenSearch
 

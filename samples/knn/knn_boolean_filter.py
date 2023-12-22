@@ -18,8 +18,7 @@ from opensearchpy import OpenSearch, helpers
 
 def main() -> None:
     """
-    create and query a kNN index
-    :return:
+    create, query, and delete a kNN index
     """
     # connect to an instance of OpenSearch
 

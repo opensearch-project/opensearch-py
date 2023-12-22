@@ -19,7 +19,6 @@ async def main() -> None:
     """
     an example showing how to create an asynchronous connection to OpenSearch, create an index, index a document
     and search to return the document
-    :return:
     """
     # connect to OpenSearch
     host = "localhost"

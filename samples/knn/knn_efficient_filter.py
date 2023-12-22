@@ -17,8 +17,7 @@ from opensearchpy import OpenSearch, helpers
 
 def main() -> None:
     """
-    create a kNN index using Lucene and query it using filters
-    :return:
+    create a kNN index using Lucene kNN and query it using filters
     """
     # connect to an instance of OpenSearch
 
