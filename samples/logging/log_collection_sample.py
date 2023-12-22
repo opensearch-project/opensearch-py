@@ -51,11 +51,11 @@ def main() -> None:
     # Add console handler to the logger
     os_logger.addHandler(console_handler)
 
-
     class OpenSearchHandler(logging.Handler):
         """
         define a custom handler that logs to opensearch
         """
+
         # Initializer / Instance attributes
         def __init__(self, opensearch_client: Any) -> None:
             super().__init__()
@@ -64,6 +64,7 @@ def main() -> None:
         def _build_index_name(self) -> str:
             """
             Build index name (e.g., "logs-YYYY-MM-DD")
+            :rtype: bool
             :return: a str with date formatted as 'logs-YYYY-MM-DD'
             """
             return f"logs-{datetime.date(datetime.now())}"
