@@ -23,6 +23,10 @@ urllib3.disable_warnings()
 
 
 def main() -> None:
+    """
+    sample for custom logging; this shows how to create a console handler, connect to OpenSearch, define a custom
+    logger and log to an OpenSearch index
+    """
     print("Collecting logs.")
 
     # Create a console handler
@@ -47,15 +51,22 @@ def main() -> None:
     # Add console handler to the logger
     os_logger.addHandler(console_handler)
 
-    # Define a custom handler that logs to OpenSearch
     class OpenSearchHandler(logging.Handler):
+        """
+        define a custom handler that logs to opensearch
+        """
+
         # Initializer / Instance attributes
         def __init__(self, opensearch_client: Any) -> None:
             super().__init__()
             self.os_client = opensearch_client
 
-        # Build index name (e.g., "logs-YYYY-MM-DD")
         def _build_index_name(self) -> str:
+            """
+            Build index name (e.g., "logs-YYYY-MM-DD")
+            :rtype: bool
+            :return: a str with date formatted as 'logs-YYYY-MM-DD'
+            """
             return f"logs-{datetime.date(datetime.now())}"
 
         # Emit logs to the OpenSearch cluster

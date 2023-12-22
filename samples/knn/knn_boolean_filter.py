@@ -17,6 +17,9 @@ from opensearchpy import OpenSearch, helpers
 
 
 def main() -> None:
+    """
+    create, query, and delete a kNN index
+    """
     # connect to an instance of OpenSearch
 
     host = os.getenv("HOST", default="localhost")

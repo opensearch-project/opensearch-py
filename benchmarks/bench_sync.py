@@ -22,6 +22,7 @@ from opensearchpy import OpenSearch, Urllib3HttpConnection
 
 
 def index_records(client: Any, index_name: str, item_count: int) -> Any:
+    """bulk index item_count records into index_name"""
     tt = 0
     for n in range(10):
         data: Any = []
@@ -48,6 +49,7 @@ def index_records(client: Any, index_name: str, item_count: int) -> Any:
 
 
 def test(thread_count: int = 1, item_count: int = 1, client_count: int = 1) -> None:
+    """test to index with thread_count threads, item_count records and run client_count clients"""
     host = "localhost"
     port = 9200
     auth = ("admin", "admin")
@@ -118,22 +120,27 @@ ITEM_COUNT = 1000
 
 
 def test_1() -> None:
+    """testing 1 threads"""
     test(1, 32 * ITEM_COUNT, 1)
 
 
 def test_2() -> None:
+    """testing 2 threads"""
     test(2, 16 * ITEM_COUNT, 2)
 
 
 def test_4() -> None:
+    """testing 4 threads"""
     test(4, 8 * ITEM_COUNT, 3)
 
 
 def test_8() -> None:
+    """testing 8 threads"""
     test(8, 4 * ITEM_COUNT, 8)
 
 
 def test_32() -> None:
+    """testing 32 threads"""
     test(32, ITEM_COUNT, 32)
 
 

@@ -17,6 +17,10 @@ from opensearchpy import OpenSearch, helpers
 
 
 def main() -> None:
+    """
+    demonstrates how to bulk load data using opensearchpy.helpers including examples of serial, parallel, and streaming
+    bulk load
+    """
     # connect to an instance of OpenSearch
 
     host = os.getenv("HOST", default="localhost")
