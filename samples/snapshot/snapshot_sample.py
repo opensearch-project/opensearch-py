@@ -11,12 +11,12 @@ from opensearchpy import OpenSearch
 
 # connect to OpenSearch
 
-host = "localhost"
-port = 9200
+HOST = "localhost"
+PORT = 9200
 auth = ("admin", "admin")  # For testing only. Don't store credentials in code.
 
 client = OpenSearch(
-    hosts=[{"host": host, "port": port}],
+    hosts=[{"host": HOST, "port": PORT}],
     http_auth=auth,
     use_ssl=True,
     verify_certs=False,
@@ -25,46 +25,46 @@ client = OpenSearch(
 
 # Create an index
 
-index_name = "test-snapshot"
-client.indices.create(index=index_name)
+INDEX_NAME = "test-snapshot"
+client.indices.create(index=INDEX_NAME)
 
 # Create a temporary directory for the snapshot repository
 temp_repo = tempfile.TemporaryDirectory()
-temp_repo_location = "/usr/share/opensearch/backups"
+TEMP_REPO_LOCATION = "/usr/share/opensearch/backups"
 
 # Define the repository body with the temporary location
 repo_body = {
     "type": "fs",  # Replace 'fs' with the appropriate repository type
     "settings": {
-        "location": temp_repo_location,  # Replace with the desired repository location
+        "location": TEMP_REPO_LOCATION,  # Replace with the desired repository location
     },
 }
 
-repository_name = "my_repository"
-response = client.snapshot.create_repository(repository=repository_name, body=repo_body)
+REPOSITORY_NAME = "my_repository"
+response = client.snapshot.create_repository(repository=REPOSITORY_NAME, body=repo_body)
 
 print(response)
 
 # Create a snapshot
 
-snapshot_name = "my_snapshot"
+SNAPSHOT_NAME = "my_snapshot"
 response = client.snapshot.create(
-    repository=repository_name, snapshot=snapshot_name, body={"indices": index_name}
+    repository=REPOSITORY_NAME, snapshot=SNAPSHOT_NAME, body={"indices": INDEX_NAME}
 )
 
 print(response)
 
 # Get Snapshot Information
 
-snapshot_info = client.snapshot.get(repository=repository_name, snapshot=snapshot_name)
+snapshot_info = client.snapshot.get(repository=REPOSITORY_NAME, snapshot=SNAPSHOT_NAME)
 
 print(snapshot_info)
 
 # Clean up - Delete Snapshot and Repository
 
-client.snapshot.delete(repository=repository_name, snapshot=snapshot_name)
-client.snapshot.delete_repository(repository=repository_name)
+client.snapshot.delete(repository=REPOSITORY_NAME, snapshot=SNAPSHOT_NAME)
+client.snapshot.delete_repository(repository=REPOSITORY_NAME)
 
 # Clean up - Delete Index
 
-client.indices.delete(index=index_name)
+client.indices.delete(index=INDEX_NAME)
