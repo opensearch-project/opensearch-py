@@ -55,6 +55,12 @@ END
 END
 ))
 
+password = admin
+# OpenSearch 2.12 onwards security plugins requires a password to be set to setup admin user
+if [ "$(echo "${VERSION} 2.12" | awk '{print ($1 >= $2)}')" -eq 1 ]; then
+  password = myStrongPassword123!
+fi
+
   # make sure we detach for all but the last node if DETACH=false (default) so all nodes are started
   local_detach="true"
   if [[ "$i" == "$((NUMBER_OF_NODES-1))" ]]; then local_detach=$DETACH; fi
@@ -62,7 +68,7 @@ END
   set -x
   healthcmd="curl -vvv -s --fail http://localhost:9200/_cluster/health || exit 1"
   if [[ "$SECURE_INTEGRATION" == "true" ]]; then
-    healthcmd="curl -vvv -s --insecure -u admin:myStrongPassword123! --fail https://localhost:9200/_cluster/health || exit 1"
+    healthcmd="curl -vvv -s --insecure -u admin:$password --fail https://localhost:9200/_cluster/health || exit 1"
   fi
 
   CLUSTER_TAG=$CLUSTER
