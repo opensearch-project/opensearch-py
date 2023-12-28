@@ -6,6 +6,7 @@
 # compatible open source license.
 
 import tempfile
+
 from opensearchpy import OpenSearch
 
 # connect to OpenSearch
