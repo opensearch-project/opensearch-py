@@ -36,7 +36,7 @@ class TestSecurityPlugin(TestCase):
     USER_CONTENT = {"password": "opensearchpy@123", "opendistro_security_roles": []}
 
     def setUp(self) -> None:
-        self.client = get_test_client(verify_certs=False, http_auth=("admin", "myStrongPassword123!"))
+        self.client = get_test_client(verify_certs=False, http_auth=("admin", "admin"))
         add_connection("default", self.client)
 
     def tearDown(self) -> None:
