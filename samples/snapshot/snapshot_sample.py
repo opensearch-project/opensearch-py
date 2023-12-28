@@ -5,9 +5,9 @@
 # this file be licensed under the Apache-2.0 license or a
 # compatible open source license.
 
-from opensearchpy import OpenSearch
-
 import tempfile
+
+from opensearchpy import OpenSearch
 
 # connect to OpenSearch
 
@@ -20,7 +20,7 @@ client = OpenSearch(
     http_auth=auth,
     use_ssl=True,
     verify_certs=False,
-    ssl_show_warn=False
+    ssl_show_warn=False,
 )
 
 # Create an index
@@ -37,7 +37,7 @@ repo_body = {
     "type": "fs",  # Replace 'fs' with the appropriate repository type
     "settings": {
         "location": temp_repo_location,  # Replace with the desired repository location
-    }
+    },
 }
 
 repository_name = "my_repository"
@@ -48,7 +48,9 @@ print(response)
 # Create a snapshot
 
 snapshot_name = "my_snapshot"
-response = client.snapshot.create(repository=repository_name, snapshot=snapshot_name, body={"indices": index_name})
+response = client.snapshot.create(
+    repository=repository_name, snapshot=snapshot_name, body={"indices": index_name}
+)
 
 print(response)
 
