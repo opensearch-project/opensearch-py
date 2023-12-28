@@ -5,18 +5,18 @@
 # this file be licensed under the Apache-2.0 license or a
 # compatible open source license.
 
-import tempfile
-
 from opensearchpy import OpenSearch
+
+import tempfile
 
 # connect to OpenSearch
 
-host = 'localhost'
+host = "localhost"
 port = 9200
-auth = ('admin', 'admin')  # For testing only. Don't store credentials in code.
+auth = ("admin", "admin")  # For testing only. Don't store credentials in code.
 
 client = OpenSearch(
-    hosts=[{'host': host, 'port': port}],
+    hosts=[{"host": host, "port": port}],
     http_auth=auth,
     use_ssl=True,
     verify_certs=False,
@@ -40,14 +40,14 @@ repo_body = {
     }
 }
 
-repository_name = 'my_repository'
+repository_name = "my_repository"
 response = client.snapshot.create_repository(repository=repository_name, body=repo_body)
 
 print(response)
 
 # Create a snapshot
 
-snapshot_name = 'my_snapshot'
+snapshot_name = "my_snapshot"
 response = client.snapshot.create(repository=repository_name, snapshot=snapshot_name, body={"indices": index_name})
 
 print(response)
