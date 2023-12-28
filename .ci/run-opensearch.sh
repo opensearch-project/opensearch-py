@@ -55,10 +55,10 @@ END
 END
 ))
 
-password = admin
+password="admin"
 # OpenSearch 2.12 onwards security plugins requires a password to be set to setup admin user
 if [ "$(echo "${VERSION} 2.12" | awk '{print ($1 >= $2)}')" -eq 1 ]; then
-  password = myStrongPassword123!
+  password="myStrongPassword123!"
 fi
 
   # make sure we detach for all but the last node if DETACH=false (default) so all nodes are started
