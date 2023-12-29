@@ -80,6 +80,10 @@ jinja_env = Environment(
 
 
 def blacken(filename: Any) -> None:
+    """
+    runs 'black' https://pypi.org/project/black/ on the given file
+    :param filename: file to reformant
+    """
     runner = CliRunner()
     result = runner.invoke(black.main, [str(filename)])
     assert result.exit_code == 0, result.output
@@ -87,6 +91,11 @@ def blacken(filename: Any) -> None:
 
 @lru_cache()
 def is_valid_url(url: str) -> bool:
+    """
+    makes a call to the url
+    :param url: url to check
+    :return: True if status code is between HTTP 200 inclusive and 400 exclusive; False otherwise
+    """
     return 200 <= http.request("HEAD", url).status < 400
 
 
@@ -97,9 +106,16 @@ class Module:
         self.parse_orig()
 
     def add(self, api: Any) -> None:
+        """
+        add an API to the list of modules
+        :param api: an API object
+        """
         self._apis.append(api)
 
     def parse_orig(self) -> None:
+        """
+        reads the written module and updates with important code specific to this client
+        """
         self.orders = []
         self.header = "from typing import Any, Collection, Optional, Tuple, Union\n\n"
 
@@ -137,9 +153,15 @@ class Module:
             return len(self.orders)
 
     def sort(self) -> None:
+        """
+        sorts the list of APIs by the Module._position key
+        """
         self._apis.sort(key=self._position)
 
     def dump(self) -> None:
+        """
+        writes the module out to disk
+        """
         self.sort()
 
         # This code snippet adds headers to each generated module indicating that the code is generated.
@@ -237,6 +259,9 @@ class Module:
 
     @property
     def filepath(self) -> Any:
+        """
+        :return: absolute path to the module
+        """
         return CODE_ROOT / f"opensearchpy/_async/client/{self.namespace}.py"
 
 
@@ -287,6 +312,10 @@ class API:
 
     @property
     def all_parts(self) -> Dict[str, str]:
+        """
+        updates the url parts from the specification
+        :return: dict of updated parts
+        """
         parts = {}
         for url in self._def["url"]["paths"]:
             parts.update(url.get("parts", {}))
@@ -322,6 +351,9 @@ class API:
 
     @property
     def params(self) -> Any:
+        """
+        :return: itertools.chain of required parts of the API
+        """
         parts = self.all_parts
         params = self._def.get("params", {})
         return chain(
@@ -337,6 +369,9 @@ class API:
 
     @property
     def body(self) -> Any:
+        """
+        :return: body of the API spec
+        """
         b = self._def.get("body", {})
         if b:
             b.setdefault("required", False)
@@ -344,6 +379,9 @@ class API:
 
     @property
     def query_params(self) -> Any:
+        """
+        :return: any query string parameters from the specification
+        """
         return (
             k
             for k in sorted(self._def.get("params", {}).keys())
@@ -352,9 +390,9 @@ class API:
 
     @property
     def all_func_params(self) -> Any:
-        """Parameters that will be in the '@query_params' decorator list
+        """
+        Parameters that will be in the '@query_params' decorator list
         and parameters that will be in the function signature.
-        This doesn't include
         """
         params = list(self._def.get("params", {}).keys())
         for url in self._def["url"]["paths"]:
@@ -365,6 +403,9 @@ class API:
 
     @property
     def path(self) -> Any:
+        """
+        :return: the first lexically ordered path in url.paths
+        """
         return max(
             (path for path in self._def["url"]["paths"]),
             key=lambda p: len(re.findall(r"\{([^}]+)\}", p["path"])),
@@ -372,8 +413,12 @@ class API:
 
     @property
     def method(self) -> Any:
-        # To adhere to the HTTP RFC we shouldn't send
-        # bodies in GET requests.
+        """
+        To adhere to the HTTP RFC we shouldn't send
+        bodies in GET requests.
+        :return:
+        """
+
         default_method = self.path["methods"][0]
         if self.name == "refresh" or self.name == "flush":
             return "POST"
@@ -385,6 +430,9 @@ class API:
 
     @property
     def url_parts(self) -> Any:
+        """
+        :return tuple of boolean (if the path is dynamic), list of url parts
+        """
         path = self.path["path"]
 
         dynamic = "{" in path
@@ -406,6 +454,9 @@ class API:
 
     @property
     def required_parts(self) -> Any:
+        """
+        :return: list of parts of the url that are required plus the body
+        """
         parts = self.all_parts
         required = [p for p in parts if parts[p]["required"]]  # type: ignore
         if self.body.get("required"):
@@ -413,6 +464,9 @@ class API:
         return required
 
     def to_python(self) -> Any:
+        """
+        :return: rendered Jinja template
+        """
         try:
             t = jinja_env.get_template(f"overrides/{self.namespace}/{self.name}")
         except TemplateNotFound:
@@ -426,6 +480,12 @@ class API:
 
 
 def read_modules() -> Any:
+    """
+    checks the opensearch-api spec at
+    https://raw.githubusercontent.com/opensearch-project/opensearch-api-specification/main/OpenSearch.openapi.json
+    and parses it into one or more API modules
+    :return: a dict of API objects
+    """
     modules = {}
 
     # Load the OpenAPI specification file
@@ -644,6 +704,13 @@ def read_modules() -> Any:
 
 
 def apply_patch(namespace: str, name: str, api: Any) -> Any:
+    """
+    applies patches as specified in {name}.json
+    :param namespace: directory containing overrides
+    :param name: file to be prepended to ".json" containing override instructions
+    :param api: specific api to override
+    :return: modified api
+    """
     override_file_path = (
         CODE_ROOT / "utils/templates/overrides" / namespace / f"{name}.json"
     )
@@ -655,6 +722,10 @@ def apply_patch(namespace: str, name: str, api: Any) -> Any:
 
 
 def dump_modules(modules: Any) -> None:
+    """
+        writes out modules to disk
+    :param modules: a list of python modules
+    """
     for mod in modules.values():
         mod.dump()
 

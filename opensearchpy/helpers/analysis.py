@@ -27,7 +27,6 @@
 from typing import Any, Optional
 
 import six
-
 from opensearchpy.connection.connections import get_connection
 
 from .utils import AttrDict, DslBase, merge

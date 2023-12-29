@@ -45,6 +45,9 @@ TMP_DIR = None
 
 @contextlib.contextmanager  # type: ignore
 def set_tmp_dir() -> None:
+    """
+    makes and yields a temporary directory for any working files needed for a process during a build
+    """
     global TMP_DIR
     TMP_DIR = tempfile.mkdtemp()
     yield TMP_DIR
@@ -53,6 +56,12 @@ def set_tmp_dir() -> None:
 
 
 def run(*argv: Any, expect_exit_code: int = 0) -> None:
+    """
+    runs a command within this script
+    :param argv: command to run e.g. "git" "checkout" "--" "setup.py" "opensearchpy/"
+    :param expect_exit_code: code to compare with actual exit code from command. will exit the process if they do not
+    match the proper exit code
+    """
     global TMP_DIR
     if TMP_DIR is None:
         os.chdir(BASE_DIR)
@@ -71,6 +80,10 @@ def run(*argv: Any, expect_exit_code: int = 0) -> None:
 
 
 def test_dist(dist: Any) -> None:
+    """
+    validate that the distribution created works
+    :param dist: base directory of the distribution
+    """
     with set_tmp_dir() as tmp_dir:  # type: ignore
         dist_name = re.match(  # type: ignore
             r"^(opensearchpy\d*)-",
@@ -181,6 +194,11 @@ def test_dist(dist: Any) -> None:
 
 
 def main() -> None:
+    """
+    creates a distribution given of the OpenSearch python client
+    Notes: does not run on MacOS; this script is generally driven by a GitHub Action located in
+    .github/workflows/unified-release.yml
+    """
     run("git", "checkout", "--", "setup.py", "opensearchpy/")
     run("rm", "-rf", "build/", "dist/*", "*.egg-info", ".eggs")
     run("python", "setup.py", "sdist", "bdist_wheel")

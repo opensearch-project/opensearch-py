@@ -47,6 +47,11 @@ def find_files_to_fix(sources: List[str]) -> Iterator[str]:
 
 
 def does_file_need_fix(filepath: str) -> bool:
+    """
+    checks if the correct license header exists at the top of the file
+    :param filepath: an absolute or relative filepath to a file to check
+    :return: True if the file needs a header, False if it does not
+    """
     if not re.search(r"\.py$", filepath):
         return False
     existing_header = ""
@@ -64,6 +69,10 @@ def does_file_need_fix(filepath: str) -> bool:
 
 
 def add_header_to_file(filepath: str) -> None:
+    """
+    writes the license header to the beginning of a file
+    :param filepath: relative or absolute filepath to update
+    """
     with open(filepath, mode="r") as f:
         lines = list(f)
     i = 0
@@ -78,6 +87,12 @@ def add_header_to_file(filepath: str) -> None:
 
 
 def main() -> None:
+    """
+    arguments:
+        fix: find all files without license headers and insert headers at the top of the file
+        check: prints a list of files without license headers
+        list of one or more directories: search in these directories
+    """
     mode = sys.argv[1]
     assert mode in ("fix", "check")
     sources = [os.path.abspath(x) for x in sys.argv[2:]]

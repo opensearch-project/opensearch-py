@@ -10,8 +10,6 @@
 import copy
 from typing import Any, Sequence
 
-from six import iteritems, string_types
-
 from opensearchpy._async.helpers.actions import aiter, async_scan
 from opensearchpy.connection.async_connections import get_connection
 from opensearchpy.exceptions import IllegalOperation, TransportError
@@ -20,6 +18,7 @@ from opensearchpy.helpers.query import Bool, Q
 from opensearchpy.helpers.response import Response
 from opensearchpy.helpers.search import AggsProxy, ProxyDescriptor, QueryProxy, Request
 from opensearchpy.helpers.utils import AttrDict, recursive_to_dict
+from six import iteritems, string_types
 
 
 class AsyncSearch(Request):

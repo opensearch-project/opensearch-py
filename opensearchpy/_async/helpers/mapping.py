@@ -11,11 +11,10 @@ import collections.abc as collections_abc
 from itertools import chain
 from typing import Any
 
-from six import iteritems
-
 from opensearchpy.connection.async_connections import get_connection
 from opensearchpy.helpers.field import Nested, Text
 from opensearchpy.helpers.mapping import META_FIELDS, Properties
+from six import iteritems
 
 
 class AsyncMapping(object):
