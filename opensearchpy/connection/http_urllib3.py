@@ -214,14 +214,13 @@ class Urllib3HttpConnection(Connection):
         if pool_maxsize and isinstance(pool_maxsize, int):
             kw["maxsize"] = pool_maxsize
 
-        def urllib3_pool_factory() -> Any:
-            return pool_class(self.hostname, port=self.port, timeout=self.timeout, **kw)
-
-        self._urllib3_pool_factory = urllib3_pool_factory
+        self._urllib3_pool_factory = lambda: pool_class(
+            self.hostname, port=self.port, timeout=self.timeout, **kw
+        )
         self._create_urllib3_pool()
 
     def _create_urllib3_pool(self) -> None:
-        self.pool = self._urllib3_pool_factory()
+        self.pool = self._urllib3_pool_factory()  # type: ignore
 
     def perform_request(
         self,
