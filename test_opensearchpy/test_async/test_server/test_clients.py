@@ -71,10 +71,11 @@ class TestYarlMissing:
 
 class TestClose:
     async def test_close_doesnt_break_client(self, async_client: Any) -> None:
+        await async_client.cluster.health()
         await async_client.close()
         await async_client.cluster.health()
 
-        async with async_client:
-            await async_client.cluster.health()
-        async with async_client:
-            await async_client.cluster.health()
+    async def test_with_doesnt_break_client(self, async_client: Any) -> None:
+        for _ in range(2):
+            async with async_client as client:
+                await client.cluster.health()

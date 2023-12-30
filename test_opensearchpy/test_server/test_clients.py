@@ -57,7 +57,7 @@ class TestClose(OpenSearchTestCase):
         self.client.close()
         self.client.cluster.health()
 
-        with self.client as client:
-            client.cluster.health()
-        with self.client as client:
-            client.cluster.health()
+    def test_with_doesnt_break_client(self) -> None:
+        for _ in range(2):
+            with self.client as client:
+                client.cluster.health()
