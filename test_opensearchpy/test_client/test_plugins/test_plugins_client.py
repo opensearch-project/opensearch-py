@@ -14,6 +14,7 @@ from ...test_cases import TestCase
 
 class TestPluginsClient(TestCase):
     def test_plugins_client(self) -> None:
+        # pylint: disable=missing-function-docstring
         with self.assertWarns(Warning) as w:
             client = OpenSearch()
             # double-init

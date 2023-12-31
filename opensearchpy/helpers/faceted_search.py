@@ -27,8 +27,9 @@
 from datetime import datetime, timedelta
 from typing import Any, Optional
 
-from opensearchpy.helpers.aggs import A
 from six import iteritems, itervalues
+
+from opensearchpy.helpers.aggs import A
 
 from .query import MatchAll, Nested, Range, Terms
 from .response import Response

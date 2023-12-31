@@ -37,11 +37,13 @@ pytestmark: MarkDecorator = pytest.mark.asyncio
 
 class TestUnicode:
     async def test_indices_analyze(self, async_client: Any) -> None:
+        # pylint: disable=missing-function-docstring
         await async_client.indices.analyze(body='{"text": "привет"}')
 
 
 class TestBulk:
     async def test_bulk_works_with_string_body(self, async_client: Any) -> None:
+        # pylint: disable=missing-function-docstring
         docs = '{ "index" : { "_index" : "bulk_test_index", "_id" : "1" } }\n{"answer": 42}'
         response = await async_client.bulk(body=docs)
 
@@ -49,6 +51,7 @@ class TestBulk:
         assert len(response["items"]) == 1
 
     async def test_bulk_works_with_bytestring_body(self, async_client: Any) -> None:
+        # pylint: disable=missing-function-docstring
         docs = b'{ "index" : { "_index" : "bulk_test_index", "_id" : "2" } }\n{"answer": 42}'
         response = await async_client.bulk(body=docs)
 
@@ -60,7 +63,9 @@ class TestYarlMissing:
     async def test_aiohttp_connection_works_without_yarl(
         self, async_client: Any, monkeypatch: Any
     ) -> None:
-        # This is a defensive test case for if aiohttp suddenly stops using yarl.
+        """
+        This is a defensive test case for if aiohttp suddenly stops using yarl.
+        """
         from opensearchpy._async import http_aiohttp
 
         monkeypatch.setattr(http_aiohttp, "yarl", False)

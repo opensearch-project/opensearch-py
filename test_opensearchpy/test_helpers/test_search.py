@@ -35,12 +35,14 @@ from opensearchpy.helpers import query, search
 
 
 def test_expand__to_dot_is_respected() -> None:
+    # pylint: disable=missing-function-docstring
     s = search.Search().query("match", a__b=42, _expand__to_dot=False)
 
     assert {"query": {"match": {"a__b": 42}}} == s.to_dict()
 
 
 def test_execute_uses_cache() -> None:
+    # pylint: disable=missing-function-docstring
     s: Any = search.Search()
     r: Any = object()
     s._response = r
@@ -49,6 +51,7 @@ def test_execute_uses_cache() -> None:
 
 
 def test_cache_can_be_ignored(mock_client: Any) -> None:
+    # pylint: disable=missing-function-docstring
     s: Any = search.Search(using="mock")
     r: Any = object()
     s._response = r
@@ -58,6 +61,7 @@ def test_cache_can_be_ignored(mock_client: Any) -> None:
 
 
 def test_iter_iterates_over_hits() -> None:
+    # pylint: disable=missing-function-docstring
     s: Any = search.Search()
     s._response = [1, 2, 3]
 
@@ -65,6 +69,7 @@ def test_iter_iterates_over_hits() -> None:
 
 
 def test_cache_isnt_cloned() -> None:
+    # pylint: disable=missing-function-docstring
     s: Any = search.Search()
     s._response = object()
 
@@ -72,12 +77,14 @@ def test_cache_isnt_cloned() -> None:
 
 
 def test_search_starts_with_no_query() -> None:
+    # pylint: disable=missing-function-docstring
     s: Any = search.Search()
 
     assert s.query._proxied is None
 
 
 def test_search_query_combines_query() -> None:
+    # pylint: disable=missing-function-docstring
     s: Any = search.Search()
 
     s2 = s.query("match", f=42)
@@ -90,6 +97,7 @@ def test_search_query_combines_query() -> None:
 
 
 def test_query_can_be_assigned_to() -> None:
+    # pylint: disable=missing-function-docstring
     s: Any = search.Search()
 
     q = Q("match", title="python")
@@ -99,6 +107,7 @@ def test_query_can_be_assigned_to() -> None:
 
 
 def test_query_can_be_wrapped() -> None:
+    # pylint: disable=missing-function-docstring
     s: Any = search.Search().query("match", title="python")
 
     s.query = Q("function_score", query=s.query, field_value_factor={"field": "rating"})
@@ -114,6 +123,7 @@ def test_query_can_be_wrapped() -> None:
 
 
 def test_using() -> None:
+    # pylint: disable=missing-function-docstring
     o: Any = object()
     o2: Any = object()
     s: Any = search.Search(using=o)
@@ -124,18 +134,21 @@ def test_using() -> None:
 
 
 def test_methods_are_proxied_to_the_query() -> None:
+    # pylint: disable=missing-function-docstring
     s: Any = search.Search().query("match_all")
 
     assert s.query.to_dict() == {"match_all": {}}
 
 
 def test_query_always_returns_search() -> None:
+    # pylint: disable=missing-function-docstring
     s: Any = search.Search()
 
     assert isinstance(s.query("match", f=42), search.Search)
 
 
 def test_source_copied_on_clone() -> None:
+    # pylint: disable=missing-function-docstring
     s: Any = search.Search().source(False)
     assert s._clone()._source == s._source
     assert s._clone()._source is False
@@ -150,6 +163,7 @@ def test_source_copied_on_clone() -> None:
 
 
 def test_copy_clones() -> None:
+    # pylint: disable=missing-function-docstring
     from copy import copy
 
     s1: Any = search.Search().source(["some", "fields"])
@@ -160,6 +174,7 @@ def test_copy_clones() -> None:
 
 
 def test_aggs_allow_two_metric() -> None:
+    # pylint: disable=missing-function-docstring
     s: Any = search.Search()
 
     s.aggs.metric("a", "max", field="a").metric("b", "max", field="b")
@@ -170,6 +185,7 @@ def test_aggs_allow_two_metric() -> None:
 
 
 def test_aggs_get_copied_on_change() -> None:
+    # pylint: disable=missing-function-docstring
     s: Any = search.Search().query("match_all")
     s.aggs.bucket("per_tag", "terms", field="f").metric(
         "max_score", "max", field="score"
@@ -202,6 +218,7 @@ def test_aggs_get_copied_on_change() -> None:
 
 
 def test_search_index() -> None:
+    # pylint: disable=missing-function-docstring
     s = search.Search(index="i")
     assert s._index == ["i"]
     s = s.index("i2")
@@ -233,6 +250,7 @@ def test_search_index() -> None:
 
 
 def test_doc_type_document_class() -> None:
+    # pylint: disable=missing-function-docstring
     class MyDocument(Document):
         pass
 
@@ -246,6 +264,7 @@ def test_doc_type_document_class() -> None:
 
 
 def test_sort() -> None:
+    # pylint: disable=missing-function-docstring
     s = search.Search()
     s = s.sort("fielda", "-fieldb")
 
@@ -258,6 +277,7 @@ def test_sort() -> None:
 
 
 def test_sort_by_score() -> None:
+    # pylint: disable=missing-function-docstring
     s = search.Search()
     s = s.sort("_score")
     assert {"sort": ["_score"]} == s.to_dict()
@@ -268,6 +288,7 @@ def test_sort_by_score() -> None:
 
 
 def test_collapse() -> None:
+    # pylint: disable=missing-function-docstring
     s = search.Search()
 
     inner_hits = {"name": "most_recent", "size": 5, "sort": [{"@timestamp": "desc"}]}
@@ -302,6 +323,7 @@ def test_collapse() -> None:
 
 
 def test_slice() -> None:
+    # pylint: disable=missing-function-docstring
     s = search.Search()
     assert {"from": 3, "size": 7} == s[3:10].to_dict()
     assert {"from": 0, "size": 5} == s[:5].to_dict()
@@ -311,11 +333,13 @@ def test_slice() -> None:
 
 
 def test_index() -> None:
+    # pylint: disable=missing-function-docstring
     s = search.Search()
     assert {"from": 3, "size": 1} == s[3].to_dict()
 
 
 def test_search_to_dict() -> None:
+    # pylint: disable=missing-function-docstring
     s = search.Search()
     assert {} == s.to_dict()
 
@@ -345,6 +369,7 @@ def test_search_to_dict() -> None:
 
 
 def test_complex_example() -> None:
+    # pylint: disable=missing-function-docstring
     s = search.Search()
     s = (
         s.query("match", title="python")
@@ -396,6 +421,7 @@ def test_complex_example() -> None:
 
 
 def test_reverse() -> None:
+    # pylint: disable=missing-function-docstring
     d = {
         "query": {
             "filtered": {
@@ -446,12 +472,14 @@ def test_reverse() -> None:
 
 
 def test_from_dict_doesnt_need_query() -> None:
+    # pylint: disable=missing-function-docstring
     s = search.Search.from_dict({"size": 5})
 
     assert {"size": 5} == s.to_dict()
 
 
 def test_params_being_passed_to_search(mock_client: Any) -> None:
+    # pylint: disable=missing-function-docstring
     s = search.Search(using="mock")
     s = s.params(routing="42")
     s.execute()
@@ -460,6 +488,7 @@ def test_params_being_passed_to_search(mock_client: Any) -> None:
 
 
 def test_source() -> None:
+    # pylint: disable=missing-function-docstring
     assert {} == search.Search().source().to_dict()
 
     assert {
@@ -474,6 +503,7 @@ def test_source() -> None:
 
 
 def test_source_on_clone() -> None:
+    # pylint: disable=missing-function-docstring
     assert {
         "_source": {"includes": ["foo.bar.*"], "excludes": ["foo.one"]},
         "query": {"bool": {"filter": [{"term": {"title": "python"}}]}},
@@ -489,6 +519,7 @@ def test_source_on_clone() -> None:
 
 
 def test_source_on_clear() -> None:
+    # pylint: disable=missing-function-docstring
     assert (
         {}
         == search.Search()
@@ -499,6 +530,7 @@ def test_source_on_clear() -> None:
 
 
 def test_suggest_accepts_global_text() -> None:
+    # pylint: disable=missing-function-docstring
     s = search.Search.from_dict(
         {
             "suggest": {
@@ -521,6 +553,7 @@ def test_suggest_accepts_global_text() -> None:
 
 
 def test_suggest() -> None:
+    # pylint: disable=missing-function-docstring
     s = search.Search()
     s = s.suggest("my_suggestion", "pyhton", term={"field": "title"})
 
@@ -530,6 +563,7 @@ def test_suggest() -> None:
 
 
 def test_exclude() -> None:
+    # pylint: disable=missing-function-docstring
     s = search.Search()
     s = s.exclude("match", title="python")
 
@@ -543,6 +577,7 @@ def test_exclude() -> None:
 
 
 def test_delete_by_query(mock_client: Any) -> None:
+    # pylint: disable=missing-function-docstring
     s = search.Search(using="mock").query("match", lang="java")
     s.delete()
 
@@ -552,6 +587,7 @@ def test_delete_by_query(mock_client: Any) -> None:
 
 
 def test_update_from_dict() -> None:
+    # pylint: disable=missing-function-docstring
     s = search.Search()
     s.update_from_dict({"indices_boost": [{"important-documents": 2}]})
     s.update_from_dict({"_source": ["id", "name"]})
@@ -563,6 +599,7 @@ def test_update_from_dict() -> None:
 
 
 def test_rescore_query_to_dict() -> None:
+    # pylint: disable=missing-function-docstring
     s = search.Search(index="index-name")
 
     positive_query = Q(

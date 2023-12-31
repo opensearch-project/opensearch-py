@@ -21,6 +21,7 @@ pytestmark: MarkDecorator = pytest.mark.asyncio
 
 
 async def test_mapping_saved_into_opensearch(write_client: Any) -> None:
+    # pylint: disable=missing-function-docstring
     m = mapping.AsyncMapping()
     m.field(
         "name", "text", analyzer=analysis.analyzer("my_analyzer", tokenizer="keyword")
@@ -43,6 +44,7 @@ async def test_mapping_saved_into_opensearch(write_client: Any) -> None:
 async def test_mapping_saved_into_opensearch_when_index_already_exists_closed(
     write_client: Any,
 ) -> None:
+    # pylint: disable=missing-function-docstring
     m = mapping.AsyncMapping()
     m.field(
         "name", "text", analyzer=analysis.analyzer("my_analyzer", tokenizer="keyword")
@@ -68,6 +70,7 @@ async def test_mapping_saved_into_opensearch_when_index_already_exists_closed(
 async def test_mapping_saved_into_opensearch_when_index_already_exists_with_analysis(
     write_client: Any,
 ) -> None:
+    # pylint: disable=missing-function-docstring
     m = mapping.AsyncMapping()
     analyzer = analysis.analyzer("my_analyzer", tokenizer="keyword")
     m.field("name", "text", analyzer=analyzer)
@@ -97,6 +100,7 @@ async def test_mapping_saved_into_opensearch_when_index_already_exists_with_anal
 
 
 async def test_mapping_gets_updated_from_opensearch(write_client: Any) -> None:
+    # pylint: disable=missing-function-docstring
     await write_client.indices.create(
         index="test-mapping",
         body={

@@ -36,6 +36,7 @@ class Post(Document):
 
 
 def test_index_template_works(write_client: Any) -> None:
+    # pylint: disable=missing-function-docstring
     it = IndexTemplate("test-template", "test-*")
     it.document(Post)
     it.settings(number_of_replicas=0, number_of_shards=1)
@@ -57,6 +58,7 @@ def test_index_template_works(write_client: Any) -> None:
 
 
 def test_index_can_be_saved_even_with_settings(write_client: Any) -> None:
+    # pylint: disable=missing-function-docstring
     i = Index("test-blog", using=write_client)
     i.settings(number_of_shards=3, number_of_replicas=0)
     i.save()
@@ -69,11 +71,13 @@ def test_index_can_be_saved_even_with_settings(write_client: Any) -> None:
 
 
 def test_index_exists(data_client: Any) -> None:
+    # pylint: disable=missing-function-docstring
     assert Index("git").exists()
     assert not Index("not-there").exists()
 
 
 def test_index_can_be_created_with_settings_and_mappings(write_client: Any) -> None:
+    # pylint: disable=missing-function-docstring
     i = Index("test-blog", using=write_client)
     i.document(Post)
     i.settings(number_of_replicas=0, number_of_shards=1)
@@ -99,6 +103,7 @@ def test_index_can_be_created_with_settings_and_mappings(write_client: Any) -> N
 
 
 def test_delete(write_client: Any) -> None:
+    # pylint: disable=missing-function-docstring
     write_client.indices.create(
         index="test-index",
         body={"settings": {"number_of_replicas": 0, "number_of_shards": 1}},
@@ -110,6 +115,7 @@ def test_delete(write_client: Any) -> None:
 
 
 def test_multiple_indices_with_same_doc_type_work(write_client: Any) -> None:
+    # pylint: disable=missing-function-docstring
     i1 = Index("test-index-1", using=write_client)
     i2 = Index("test-index-2", using=write_client)
 

@@ -63,12 +63,15 @@ class TestAIOHttpConnection:
         def _dummy_request(*args: Any, **kwargs: Any) -> Any:
             class DummyResponse:
                 async def __aenter__(self, *_: Any, **__: Any) -> Any:
+                    # pylint: disable=missing-function-docstring
                     return self
 
                 async def __aexit__(self, *_: Any, **__: Any) -> None:
+                    # pylint: disable=missing-function-docstring
                     pass
 
                 async def text(self) -> Any:
+                    # pylint: disable=missing-function-docstring
                     return response_body.decode("utf-8", "surrogatepass")
 
             dummy_response: Any = DummyResponse()
@@ -81,6 +84,7 @@ class TestAIOHttpConnection:
         return con
 
     async def test_ssl_context(self) -> None:
+        # pylint: disable=missing-function-docstring
         try:
             context = ssl.create_default_context()
         except AttributeError:
@@ -97,10 +101,12 @@ class TestAIOHttpConnection:
         assert con.session.connector._ssl == context
 
     async def test_opaque_id(self) -> None:
+        # pylint: disable=missing-function-docstring
         con = AIOHttpConnection(opaque_id="app-1")
         assert con.headers["x-opaque-id"] == "app-1"
 
     async def test_no_http_compression(self) -> None:
+        # pylint: disable=missing-function-docstring
         con = await self._get_mock_connection()
         assert not con.http_compress
         assert "accept-encoding" not in con.headers
@@ -114,6 +120,7 @@ class TestAIOHttpConnection:
         assert "content-encoding" not in kwargs["headers"]
 
     async def test_http_compression(self) -> None:
+        # pylint: disable=missing-function-docstring
         con = await self._get_mock_connection({"http_compress": True})
         assert con.http_compress
         assert con.headers["accept-encoding"] == "gzip,deflate"
@@ -140,6 +147,7 @@ class TestAIOHttpConnection:
         assert "content-encoding" not in kwargs["headers"]
 
     async def test_url_prefix(self) -> None:
+        # pylint: disable=missing-function-docstring
         con = await self._get_mock_connection(
             connection_params={"url_prefix": "/_search/"}
         )
@@ -152,6 +160,7 @@ class TestAIOHttpConnection:
         assert method == "GET" and str(yarl_url) == "http://localhost:9200/_search/"
 
     async def test_default_user_agent(self) -> None:
+        # pylint: disable=missing-function-docstring
         con = AIOHttpConnection()
         assert con._get_default_user_agent() == "opensearch-py/%s (Python %s)" % (
             __versionstr__,
@@ -159,10 +168,12 @@ class TestAIOHttpConnection:
         )
 
     async def test_timeout_set(self) -> None:
+        # pylint: disable=missing-function-docstring
         con = AIOHttpConnection(timeout=42)
         assert 42 == con.timeout
 
     async def test_keep_alive_is_on_by_default(self) -> None:
+        # pylint: disable=missing-function-docstring
         con = AIOHttpConnection()
         assert {
             "connection": "keep-alive",
@@ -171,6 +182,7 @@ class TestAIOHttpConnection:
         } == con.headers
 
     async def test_http_auth(self) -> None:
+        # pylint: disable=missing-function-docstring
         con = AIOHttpConnection(http_auth="username:secret")
         assert {
             "authorization": "Basic dXNlcm5hbWU6c2VjcmV0",
@@ -180,6 +192,7 @@ class TestAIOHttpConnection:
         } == con.headers
 
     async def test_http_auth_tuple(self) -> None:
+        # pylint: disable=missing-function-docstring
         con = AIOHttpConnection(http_auth=("username", "secret"))
         assert {
             "authorization": "Basic dXNlcm5hbWU6c2VjcmV0",
@@ -189,6 +202,7 @@ class TestAIOHttpConnection:
         } == con.headers
 
     async def test_http_auth_list(self) -> None:
+        # pylint: disable=missing-function-docstring
         con = AIOHttpConnection(http_auth=["username", "secret"])
         assert {
             "authorization": "Basic dXNlcm5hbWU6c2VjcmV0",
@@ -198,6 +212,7 @@ class TestAIOHttpConnection:
         } == con.headers
 
     async def test_uses_https_if_verify_certs_is_off(self) -> None:
+        # pylint: disable=missing-function-docstring
         with warnings.catch_warnings(record=True) as w:
             con = AIOHttpConnection(use_ssl=True, verify_certs=False)
             assert 1 == len(w)
@@ -211,6 +226,7 @@ class TestAIOHttpConnection:
         assert con.host == "https://localhost:9200"
 
     async def test_nowarn_when_test_uses_https_if_verify_certs_is_off(self) -> None:
+        # pylint: disable=missing-function-docstring
         with warnings.catch_warnings(record=True) as w:
             con = AIOHttpConnection(
                 use_ssl=True, verify_certs=False, ssl_show_warn=False
@@ -221,16 +237,19 @@ class TestAIOHttpConnection:
         assert isinstance(con.session, aiohttp.ClientSession)
 
     async def test_doesnt_use_https_if_not_specified(self) -> None:
+        # pylint: disable=missing-function-docstring
         con = AIOHttpConnection()
         assert not con.use_ssl
 
     async def test_no_warning_when_using_ssl_context(self) -> None:
+        # pylint: disable=missing-function-docstring
         ctx = ssl.create_default_context()
         with warnings.catch_warnings(record=True) as w:
             AIOHttpConnection(ssl_context=ctx)
             assert w == [], str([x.message for x in w])
 
     async def test_warns_if_using_non_default_ssl_kwargs_with_ssl_context(self) -> None:
+        # pylint: disable=missing-function-docstring
         kwargs: Any
         for kwargs in (
             {"ssl_show_warn": False},
@@ -255,6 +274,7 @@ class TestAIOHttpConnection:
 
     @patch("ssl.SSLContext", return_value=MagicMock())
     async def test_uses_given_ca_certs(self, ssl_context: Any, tmp_path: Any) -> None:
+        # pylint: disable=missing-function-docstring
         path = tmp_path / "ca_certs.pem"
         path.touch()
         ssl_context.return_value.load_verify_locations.return_value = None
@@ -265,6 +285,7 @@ class TestAIOHttpConnection:
 
     @patch("ssl.SSLContext", return_value=MagicMock())
     async def test_uses_default_ca_certs(self, ssl_context: Any) -> None:
+        # pylint: disable=missing-function-docstring
         ssl_context.return_value.load_verify_locations.return_value = None
         AIOHttpConnection(use_ssl=True)
         ssl_context.return_value.load_verify_locations.assert_called_once_with(
@@ -273,11 +294,13 @@ class TestAIOHttpConnection:
 
     @patch("ssl.SSLContext", return_value=MagicMock())
     async def test_uses_no_ca_certs(self, ssl_context: Any) -> None:
+        # pylint: disable=missing-function-docstring
         ssl_context.return_value.load_verify_locations.return_value = None
         AIOHttpConnection(use_ssl=True, verify_certs=False)
         ssl_context.return_value.load_verify_locations.assert_not_called()
 
     async def test_trust_env(self) -> None:
+        # pylint: disable=missing-function-docstring
         con: Any = AIOHttpConnection(trust_env=True)
         await con._create_aiohttp_session()
 
@@ -285,6 +308,7 @@ class TestAIOHttpConnection:
         assert con.session.trust_env is True
 
     async def test_trust_env_default_value_is_false(self) -> None:
+        # pylint: disable=missing-function-docstring
         con = AIOHttpConnection()
         await con._create_aiohttp_session()
 
@@ -293,6 +317,7 @@ class TestAIOHttpConnection:
 
     @patch("opensearchpy.connection.base.logger")
     async def test_uncompressed_body_logged(self, logger: Any) -> None:
+        # pylint: disable=missing-function-docstring
         con = await self._get_mock_connection(connection_params={"http_compress": True})
         await con.perform_request("GET", "/", body=b'{"example": "body"}')
 
@@ -304,6 +329,7 @@ class TestAIOHttpConnection:
 
     @patch("opensearchpy.connection.base.logger", return_value=MagicMock())
     async def test_body_not_logged(self, logger: Any) -> None:
+        # pylint: disable=missing-function-docstring
         logger.isEnabledFor.return_value = False
 
         con = await self._get_mock_connection()
@@ -314,6 +340,7 @@ class TestAIOHttpConnection:
 
     @patch("opensearchpy.connection.base.logger")
     async def test_failure_body_logged(self, logger: Any) -> None:
+        # pylint: disable=missing-function-docstring
         con = await self._get_mock_connection(response_code=404)
         with pytest.raises(NotFoundError) as e:
             await con.perform_request("GET", "/invalid", body=b'{"example": "body"}')
@@ -327,6 +354,7 @@ class TestAIOHttpConnection:
 
     @patch("opensearchpy.connection.base.logger", return_value=MagicMock())
     async def test_failure_body_not_logged(self, logger: Any) -> None:
+        # pylint: disable=missing-function-docstring
         logger.isEnabledFor.return_value = False
 
         con = await self._get_mock_connection(response_code=404)
@@ -338,6 +366,7 @@ class TestAIOHttpConnection:
         assert logger.debug.call_count == 0
 
     async def test_surrogatepass_into_bytes(self) -> None:
+        # pylint: disable=missing-function-docstring
         buf = b"\xe4\xbd\xa0\xe5\xa5\xbd\xed\xa9\xaa"
         con = await self._get_mock_connection(response_body=buf)
         status, headers, data = await con.perform_request("GET", "/")
@@ -345,6 +374,7 @@ class TestAIOHttpConnection:
 
     @pytest.mark.parametrize("exception_cls", reraise_exceptions)  # type: ignore
     async def test_recursion_error_reraised(self, exception_cls: Any) -> None:
+        # pylint: disable=missing-function-docstring
         conn = AIOHttpConnection()
 
         def request_raise(*_: Any, **__: Any) -> Any:
@@ -358,6 +388,7 @@ class TestAIOHttpConnection:
         assert str(e.value) == "Wasn't modified!"
 
     async def test_json_errors_are_parsed(self) -> None:
+        # pylint: disable=missing-function-docstring
         con = await self._get_mock_connection(
             response_code=400,
             response_body=b'{"error": {"type": "snapshot_in_progress_exception"}}',
@@ -379,21 +410,27 @@ class TestConnectionHttpServer:
 
     @classmethod
     def setup_class(cls) -> None:
-        # Start server
+        """
+        Start server
+        """
         cls.server = TestHTTPServer(port=8081)
         cls.server.start()
 
     @classmethod
     def teardown_class(cls) -> None:
-        # Stop server
+        """
+        stop server
+        """
         cls.server.stop()
 
     async def httpserver(self, conn: Any, **kwargs: Any) -> Any:
+        # pylint: disable=missing-function-docstring
         status, headers, data = await conn.perform_request("GET", "/", **kwargs)
         data = json.loads(data)
         return (status, data)
 
     async def test_aiohttp_connection(self) -> None:
+        # pylint: disable=missing-function-docstring
         # Defaults
         conn = AIOHttpConnection("localhost", port=8081, use_ssl=False)
         user_agent = conn._get_default_user_agent()
@@ -454,12 +491,14 @@ class TestConnectionHttpServer:
         }
 
     async def test_aiohttp_connection_error(self) -> None:
+        # pylint: disable=missing-function-docstring
         conn = AIOHttpConnection("not.a.host.name")
         with pytest.raises(ConnectionError):
             await conn.perform_request("GET", "/")
 
 
 async def test_default_connection_is_returned_by_default() -> None:
+    # pylint: disable=missing-function-docstring
     c = async_connections.AsyncConnections()
 
     con, con2 = object(), object()
@@ -471,6 +510,7 @@ async def test_default_connection_is_returned_by_default() -> None:
 
 
 async def test_get_connection_created_connection_if_needed() -> None:
+    # pylint: disable=missing-function-docstring
     c = async_connections.AsyncConnections()
     await c.configure(
         default={"hosts": ["opensearch.com"]}, local={"hosts": ["localhost"]}
@@ -484,6 +524,7 @@ async def test_get_connection_created_connection_if_needed() -> None:
 
 
 async def test_configure_preserves_unchanged_connections() -> None:
+    # pylint: disable=missing-function-docstring
     c = async_connections.AsyncConnections()
 
     await c.configure(
@@ -503,6 +544,7 @@ async def test_configure_preserves_unchanged_connections() -> None:
 
 
 async def test_remove_connection_removes_both_conn_and_conf() -> None:
+    # pylint: disable=missing-function-docstring
     c = async_connections.AsyncConnections()
 
     await c.configure(
@@ -520,6 +562,7 @@ async def test_remove_connection_removes_both_conn_and_conf() -> None:
 
 
 async def test_create_connection_constructs_client() -> None:
+    # pylint: disable=missing-function-docstring
     c = async_connections.AsyncConnections()
     await c.create_connection("testing", hosts=["opensearch.com"])
 
@@ -528,6 +571,7 @@ async def test_create_connection_constructs_client() -> None:
 
 
 async def test_create_connection_adds_our_serializer() -> None:
+    # pylint: disable=missing-function-docstring
     c = async_connections.AsyncConnections()
     await c.create_connection("testing", hosts=["opensearch.com"])
     result = await c.get_connection("testing")

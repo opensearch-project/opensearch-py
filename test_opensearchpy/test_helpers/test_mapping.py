@@ -31,6 +31,7 @@ from opensearchpy.helpers import analysis, mapping
 
 
 def test_mapping_can_has_fields() -> None:
+    # pylint: disable=missing-function-docstring
     m = mapping.Mapping()
     m.field("name", "text").field("tags", "keyword")
 
@@ -40,6 +41,7 @@ def test_mapping_can_has_fields() -> None:
 
 
 def test_mapping_update_is_recursive() -> None:
+    # pylint: disable=missing-function-docstring
     m1 = mapping.Mapping()
     m1.field("title", "text")
     m1.field("author", "object")
@@ -73,6 +75,7 @@ def test_mapping_update_is_recursive() -> None:
 
 
 def test_properties_can_iterate_over_all_the_fields() -> None:
+    # pylint: disable=missing-function-docstring
     m = mapping.Mapping()
     m.field("f1", "text", test_attr="f1", fields={"f2": Keyword(test_attr="f2")})
     m.field("f3", Nested(test_attr="f3", properties={"f4": Text(test_attr="f4")}))
@@ -83,6 +86,7 @@ def test_properties_can_iterate_over_all_the_fields() -> None:
 
 
 def test_mapping_can_collect_all_analyzers_and_normalizers() -> None:
+    # pylint: disable=missing-function-docstring
     a1 = analysis.analyzer(
         "my_analyzer1",
         tokenizer="keyword",
@@ -156,6 +160,7 @@ def test_mapping_can_collect_all_analyzers_and_normalizers() -> None:
 
 
 def test_mapping_can_collect_multiple_analyzers() -> None:
+    # pylint: disable=missing-function-docstring
     a1 = analysis.analyzer(
         "my_analyzer1",
         tokenizer="keyword",
@@ -202,6 +207,7 @@ def test_mapping_can_collect_multiple_analyzers() -> None:
 
 
 def test_even_non_custom_analyzers_can_have_params() -> None:
+    # pylint: disable=missing-function-docstring
     a1 = analysis.analyzer("whitespace", type="pattern", pattern=r"\\s+")
     m = mapping.Mapping()
     m.field("title", "text", analyzer=a1)
@@ -212,6 +218,7 @@ def test_even_non_custom_analyzers_can_have_params() -> None:
 
 
 def test_resolve_field_can_resolve_multifields() -> None:
+    # pylint: disable=missing-function-docstring
     m = mapping.Mapping()
     m.field("title", "text", fields={"keyword": Keyword()})
 
@@ -219,6 +226,7 @@ def test_resolve_field_can_resolve_multifields() -> None:
 
 
 def test_resolve_nested() -> None:
+    # pylint: disable=missing-function-docstring
     m = mapping.Mapping()
     m.field("n1", "nested", properties={"n2": Nested(properties={"k1": Keyword()})})
     m.field("k2", "keyword")

@@ -41,6 +41,11 @@ from typing import Any
 
 
 def fetch_opensearch_repo() -> None:
+    """
+    runs a git fetch origin on configured opensearch core repo
+    :return: None if environmental variables TEST_OPENSEARCH_YAML_DIR is set or TEST_OPENSEARCH_NOFETCH is set to False;
+    else returns nothing
+    """
     # user is manually setting YAML dir, don't tamper with it
     if "TEST_OPENSEARCH_YAML_DIR" in environ:
         return
@@ -90,6 +95,16 @@ def fetch_opensearch_repo() -> None:
 
 
 def run_all(argv: Any = None) -> None:
+    """
+    run all the tests given arguments and environment variables
+    - sets defaults if argv is None, running "pytest --cov=opensearchpy --junitxml=<path to opensearch-py-junit.xml>
+    --log-level=DEBUG --cache-clear -vv --cov-report=<path to output code coverage"
+    * GITHUB_ACTION: fetches yaml tests if this is not in environment variables
+    * TEST_PATTERN: specify a test to run
+    * TEST_TYPE: "server" runs on TLS connection; None is unencrypted
+    * OPENSEARCH_VERSION: "SNAPSHOT" does not do anything with plugins
+    :param argv: if this is None, then the default arguments
+    """
     sys.exitfunc = lambda: sys.stderr.write("Shutting down....\n")  # type: ignore
     # fetch yaml tests anywhere that's not GitHub Actions
     if "GITHUB_ACTION" not in environ:

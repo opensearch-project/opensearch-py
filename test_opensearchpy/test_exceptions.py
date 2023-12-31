@@ -32,6 +32,7 @@ from .test_cases import TestCase
 
 class TestTransformError(TestCase):
     def test_transform_error_parse_with_error_reason(self) -> None:
+        # pylint: disable=missing-function-docstring
         e = TransportError(
             500,
             "InternalServerError",
@@ -43,6 +44,7 @@ class TestTransformError(TestCase):
         )
 
     def test_transform_error_parse_with_error_string(self) -> None:
+        # pylint: disable=missing-function-docstring
         e = TransportError(
             500, "InternalServerError", {"error": "something error message"}
         )

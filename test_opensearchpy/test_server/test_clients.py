@@ -32,11 +32,13 @@ from . import OpenSearchTestCase
 
 class TestUnicode(OpenSearchTestCase):
     def test_indices_analyze(self) -> None:
+        # pylint: disable=missing-function-docstring
         self.client.indices.analyze(body='{"text": "привет"}')
 
 
 class TestBulk(OpenSearchTestCase):
     def test_bulk_works_with_string_body(self) -> None:
+        # pylint: disable=missing-function-docstring
         docs = '{ "index" : { "_index" : "bulk_test_index", "_id" : "1" } }\n{"answer": 42}'
         response = self.client.bulk(body=docs)
 
@@ -44,6 +46,7 @@ class TestBulk(OpenSearchTestCase):
         self.assertEqual(1, len(response["items"]))
 
     def test_bulk_works_with_bytestring_body(self) -> None:
+        # pylint: disable=missing-function-docstring
         docs = b'{ "index" : { "_index" : "bulk_test_index", "_id" : "2" } }\n{"answer": 42}'
         response = self.client.bulk(body=docs)
 

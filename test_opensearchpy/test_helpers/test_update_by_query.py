@@ -32,12 +32,14 @@ from opensearchpy.helpers.response import UpdateByQueryResponse
 
 
 def test_ubq_starts_with_no_query() -> None:
+    # pylint: disable=missing-function-docstring
     ubq = UpdateByQuery()
 
     assert ubq.query._proxied is None
 
 
 def test_ubq_to_dict() -> None:
+    # pylint: disable=missing-function-docstring
     ubq = UpdateByQuery()
     assert {} == ubq.to_dict()
 
@@ -54,6 +56,7 @@ def test_ubq_to_dict() -> None:
 
 
 def test_complex_example() -> None:
+    # pylint: disable=missing-function-docstring
     ubq = UpdateByQuery()
     ubq = (
         ubq.query("match", title="python")
@@ -92,6 +95,7 @@ def test_complex_example() -> None:
 
 
 def test_exclude() -> None:
+    # pylint: disable=missing-function-docstring
     ubq = UpdateByQuery()
     ubq = ubq.exclude("match", title="python")
 
@@ -105,6 +109,7 @@ def test_exclude() -> None:
 
 
 def test_reverse() -> None:
+    # pylint: disable=missing-function-docstring
     d = {
         "query": {
             "filtered": {
@@ -141,12 +146,14 @@ def test_reverse() -> None:
 
 
 def test_from_dict_doesnt_need_query() -> None:
+    # pylint: disable=missing-function-docstring
     ubq = UpdateByQuery.from_dict({"script": {"source": "test"}})
 
     assert {"script": {"source": "test"}} == ubq.to_dict()
 
 
 def test_params_being_passed_to_search(mock_client: Any) -> None:
+    # pylint: disable=missing-function-docstring
     ubq = UpdateByQuery(using="mock")
     ubq = ubq.params(routing="42")
     ubq.execute()
@@ -157,6 +164,7 @@ def test_params_being_passed_to_search(mock_client: Any) -> None:
 
 
 def test_overwrite_script() -> None:
+    # pylint: disable=missing-function-docstring
     ubq = UpdateByQuery()
     ubq = ubq.script(
         source="ctx._source.likes += params.f", lang="painless", params={"f": 3}
@@ -173,6 +181,7 @@ def test_overwrite_script() -> None:
 
 
 def test_update_by_query_response_success() -> None:
+    # pylint: disable=missing-function-docstring
     ubqr = UpdateByQueryResponse({}, {"timed_out": False, "failures": []})
     assert ubqr.success()
 

@@ -30,11 +30,13 @@ from opensearchpy.helpers.search import Q, Search
 
 
 def test_count_all(data_client: Any) -> None:
+    # pylint: disable=missing-function-docstring
     s = Search(using=data_client).index("git")
     assert 53 == s.count()
 
 
 def test_count_prefetch(data_client: Any, mocker: Any) -> None:
+    # pylint: disable=missing-function-docstring
     mocker.spy(data_client, "count")
 
     search = Search(using=data_client).index("git")
@@ -48,6 +50,7 @@ def test_count_prefetch(data_client: Any, mocker: Any) -> None:
 
 
 def test_count_filter(data_client: Any) -> None:
+    # pylint: disable=missing-function-docstring
     s = Search(using=data_client).index("git").filter(~Q("exists", field="parent_shas"))
     # initial commit + repo document
     assert 2 == s.count()

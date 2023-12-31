@@ -10,10 +10,11 @@
 
 from typing import Any
 
+from six import iteritems, itervalues
+
 from opensearchpy._async.helpers.search import AsyncSearch
 from opensearchpy.helpers.faceted_search import FacetedResponse
 from opensearchpy.helpers.query import MatchAll
-from six import iteritems, itervalues
 
 
 class AsyncFacetedSearch(object):

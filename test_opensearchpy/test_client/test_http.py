@@ -13,16 +13,19 @@ from test_opensearchpy.test_cases import OpenSearchTestCase
 
 class TestHttp(OpenSearchTestCase):
     def test_http_get(self) -> None:
+        # pylint: disable=missing-function-docstring
         self.client.http.get("/")
         self.assert_call_count_equals(1)
         self.assertEqual([(None, None, None)], self.assert_url_called("GET", "/", 1))
 
     def test_http_head(self) -> None:
+        # pylint: disable=missing-function-docstring
         self.client.http.head("/")
         self.assert_call_count_equals(1)
         self.assertEqual([(None, None, None)], self.assert_url_called("HEAD", "/", 1))
 
     def test_http_put(self) -> None:
+        # pylint: disable=missing-function-docstring
         self.client.http.put("/xyz", headers={"X": "Y"}, body="body")
         self.assert_call_count_equals(1)
         self.assertEqual(
@@ -30,6 +33,7 @@ class TestHttp(OpenSearchTestCase):
         )
 
     def test_http_post(self) -> None:
+        # pylint: disable=missing-function-docstring
         self.client.http.post("/xyz", headers={"X": "Y"}, body="body")
         self.assert_call_count_equals(1)
         self.assertEqual(
@@ -37,6 +41,7 @@ class TestHttp(OpenSearchTestCase):
         )
 
     def test_http_post_with_params(self) -> None:
+        # pylint: disable=missing-function-docstring
         self.client.http.post(
             "/xyz", headers={"X": "Y"}, params={"A": "B"}, body="body"
         )
@@ -47,6 +52,7 @@ class TestHttp(OpenSearchTestCase):
         )
 
     def test_http_delete(self) -> None:
+        # pylint: disable=missing-function-docstring
         self.client.http.delete("/xyz", headers={"X": "Y"}, body="body")
         self.assert_call_count_equals(1)
         self.assertEqual(

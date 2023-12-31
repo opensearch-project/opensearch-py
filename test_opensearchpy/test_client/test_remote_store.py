@@ -11,5 +11,6 @@ from test_opensearchpy.test_cases import OpenSearchTestCase
 
 class TestRemoteStore(OpenSearchTestCase):
     def test_remote_store_restore(self) -> None:
+        # pylint: disable=missing-function-docstring
         self.client.remote_store.restore(body=["index-1"])
         self.assert_url_called("POST", "/_remotestore/_restore")

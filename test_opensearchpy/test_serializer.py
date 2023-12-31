@@ -49,18 +49,21 @@ from .test_cases import SkipTest, TestCase
 
 
 def requires_numpy_and_pandas() -> None:
+    # pylint: disable=missing-function-docstring
     if np is None or pd is None:
         raise SkipTest("Test requires numpy or pandas to be available")
 
 
 class TestJSONSerializer(TestCase):
     def test_datetime_serialization(self) -> None:
+        # pylint: disable=missing-function-docstring
         self.assertEqual(
             '{"d":"2010-10-01T02:30:00"}',
             JSONSerializer().dumps({"d": datetime(2010, 10, 1, 2, 30)}),
         )
 
     def test_decimal_serialization(self) -> None:
+        # pylint: disable=missing-function-docstring
         requires_numpy_and_pandas()
 
         if sys.version_info[:2] == (2, 6):
@@ -68,6 +71,7 @@ class TestJSONSerializer(TestCase):
         self.assertEqual('{"d":3.8}', JSONSerializer().dumps({"d": Decimal("3.8")}))
 
     def test_uuid_serialization(self) -> None:
+        # pylint: disable=missing-function-docstring
         self.assertEqual(
             '{"d":"00000000-0000-0000-0000-000000000003"}',
             JSONSerializer().dumps(
@@ -76,11 +80,13 @@ class TestJSONSerializer(TestCase):
         )
 
     def test_serializes_numpy_bool(self) -> None:
+        # pylint: disable=missing-function-docstring
         requires_numpy_and_pandas()
 
         self.assertEqual('{"d":true}', JSONSerializer().dumps({"d": np.bool_(True)}))
 
     def test_serializes_numpy_integers(self) -> None:
+        # pylint: disable=missing-function-docstring
         requires_numpy_and_pandas()
 
         ser = JSONSerializer()
@@ -102,6 +108,7 @@ class TestJSONSerializer(TestCase):
             self.assertEqual(ser.dumps({"d": np_type(1)}), '{"d":1}')
 
     def test_serializes_numpy_floats(self) -> None:
+        # pylint: disable=missing-function-docstring
         requires_numpy_and_pandas()
 
         ser = JSONSerializer()
@@ -113,6 +120,7 @@ class TestJSONSerializer(TestCase):
             self.assertRegex(ser.dumps({"d": np_type(1.2)}), r'^\{"d":1\.2[\d]*}$')
 
     def test_serializes_numpy_datetime(self) -> None:
+        # pylint: disable=missing-function-docstring
         requires_numpy_and_pandas()
 
         self.assertEqual(
@@ -121,6 +129,7 @@ class TestJSONSerializer(TestCase):
         )
 
     def test_serializes_numpy_ndarray(self) -> None:
+        # pylint: disable=missing-function-docstring
         requires_numpy_and_pandas()
 
         self.assertEqual(
@@ -134,6 +143,7 @@ class TestJSONSerializer(TestCase):
         )
 
     def test_serializes_numpy_nan_to_nan(self) -> None:
+        # pylint: disable=missing-function-docstring
         requires_numpy_and_pandas()
 
         self.assertEqual(
@@ -142,6 +152,7 @@ class TestJSONSerializer(TestCase):
         )
 
     def test_serializes_pandas_timestamp(self) -> None:
+        # pylint: disable=missing-function-docstring
         requires_numpy_and_pandas()
 
         self.assertEqual(
@@ -150,6 +161,7 @@ class TestJSONSerializer(TestCase):
         )
 
     def test_serializes_pandas_series(self) -> None:
+        # pylint: disable=missing-function-docstring
         requires_numpy_and_pandas()
 
         self.assertEqual(
@@ -158,6 +170,7 @@ class TestJSONSerializer(TestCase):
         )
 
     def test_serializes_pandas_na(self) -> None:
+        # pylint: disable=missing-function-docstring
         requires_numpy_and_pandas()
 
         if not hasattr(pd, "NA"):  # pandas.NA added in v1
@@ -168,6 +181,7 @@ class TestJSONSerializer(TestCase):
         )
 
     def test_raises_serialization_error_pandas_nat(self) -> None:
+        # pylint: disable=missing-function-docstring
         requires_numpy_and_pandas()
 
         if not hasattr(pd, "NaT"):
@@ -175,6 +189,7 @@ class TestJSONSerializer(TestCase):
         self.assertRaises(SerializationError, JSONSerializer().dumps, {"d": pd.NaT})
 
     def test_serializes_pandas_category(self) -> None:
+        # pylint: disable=missing-function-docstring
         requires_numpy_and_pandas()
 
         cat = pd.Categorical(["a", "c", "b", "a"], categories=["a", "b", "c"])
@@ -190,33 +205,41 @@ class TestJSONSerializer(TestCase):
         )
 
     def test_raises_serialization_error_on_dump_error(self) -> None:
+        # pylint: disable=missing-function-docstring
         self.assertRaises(SerializationError, JSONSerializer().dumps, object())
 
     def test_raises_serialization_error_on_load_error(self) -> None:
+        # pylint: disable=missing-function-docstring
         self.assertRaises(SerializationError, JSONSerializer().loads, object())
         self.assertRaises(SerializationError, JSONSerializer().loads, "")
         self.assertRaises(SerializationError, JSONSerializer().loads, "{{")
 
     def test_strings_are_left_untouched(self) -> None:
+        # pylint: disable=missing-function-docstring
         self.assertEqual("你好", JSONSerializer().dumps("你好"))
 
 
 class TestTextSerializer(TestCase):
     def test_strings_are_left_untouched(self) -> None:
+        # pylint: disable=missing-function-docstring
         self.assertEqual("你好", TextSerializer().dumps("你好"))
 
     def test_raises_serialization_error_on_dump_error(self) -> None:
+        # pylint: disable=missing-function-docstring
         self.assertRaises(SerializationError, TextSerializer().dumps, {})
 
 
 class TestDeserializer(TestCase):
     def setup_method(self, _: Any) -> None:
+        # pylint: disable=missing-function-docstring
         self.de = Deserializer(DEFAULT_SERIALIZERS)
 
     def test_deserializes_json_by_default(self) -> None:
+        # pylint: disable=missing-function-docstring
         self.assertEqual({"some": "data"}, self.de.loads('{"some":"data"}'))
 
     def test_deserializes_text_with_correct_ct(self) -> None:
+        # pylint: disable=missing-function-docstring
         self.assertEqual(
             '{"some":"data"}', self.de.loads('{"some":"data"}', "text/plain")
         )
@@ -226,9 +249,11 @@ class TestDeserializer(TestCase):
         )
 
     def test_raises_serialization_error_on_unknown_mimetype(self) -> None:
+        # pylint: disable=missing-function-docstring
         self.assertRaises(SerializationError, self.de.loads, "{}", "text/html")
 
     def test_raises_improperly_configured_when_default_mimetype_cannot_be_deserialized(
         self,
     ) -> None:
+        # pylint: disable=missing-function-docstring
         self.assertRaises(ImproperlyConfigured, Deserializer, {})

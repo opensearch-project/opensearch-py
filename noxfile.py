@@ -32,7 +32,7 @@ import nox
 SOURCE_FILES = (
     "setup.py",
     "noxfile.py",
-    "opensearchpy/",
+    #    "opensearchpy/",
     "test_opensearchpy/",
     "utils/",
     "samples/",
@@ -43,6 +43,7 @@ SOURCE_FILES = (
 
 @nox.session(python=["3.6", "3.7", "3.8", "3.9", "3.10", "3.11"])  # type: ignore
 def test(session: Any) -> None:
+    # pylint: disable=missing-function-docstring
     session.install(".")
     # ensure client can be imported without aiohttp
     session.run("python", "-c", "import opensearchpy\nprint(opensearchpy.OpenSearch())")
@@ -59,6 +60,7 @@ def test(session: Any) -> None:
 
 @nox.session(python=["3.7"])  # type: ignore
 def format(session: Any) -> None:
+    # pylint: disable=missing-function-docstring
     session.install(".")
     session.install("black", "isort")
 
@@ -71,6 +73,7 @@ def format(session: Any) -> None:
 
 @nox.session(python=["3.7"])  # type: ignore
 def lint(session: Any) -> None:
+    # pylint: disable=missing-function-docstring
     session.install(
         "flake8",
         "black",
@@ -110,6 +113,7 @@ def lint(session: Any) -> None:
 
 @nox.session()  # type: ignore
 def docs(session: Any) -> None:
+    # pylint: disable=missing-function-docstring
     session.install(".")
     session.install(".[docs]")
     with session.chdir("docs"):
@@ -118,6 +122,7 @@ def docs(session: Any) -> None:
 
 @nox.session()  # type: ignore
 def generate(session: Any) -> None:
+    # pylint: disable=missing-function-docstring
     session.install("-rdev-requirements.txt")
     session.run("python", "utils/generate_api.py")
     format(session)

@@ -30,9 +30,10 @@ import collections.abc as collections_abc
 from copy import copy
 from typing import Any, Callable, Dict, Optional, Tuple
 
-from opensearchpy.exceptions import UnknownDslObject, ValidationException
 from six import add_metaclass, iteritems
 from six.moves import map
+
+from opensearchpy.exceptions import UnknownDslObject, ValidationException
 
 SKIP_VALUES: Tuple[str, None] = ("", None)
 EXPAND__TO_DOT = True

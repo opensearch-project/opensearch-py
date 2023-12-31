@@ -33,6 +33,7 @@ from opensearchpy.helpers import utils
 
 
 def test_attrdict_pickle() -> None:
+    # pylint: disable=missing-function-docstring
     ad = utils.AttrDict({})
 
     pickled_ad = pickle.dumps(ad)
@@ -40,6 +41,7 @@ def test_attrdict_pickle() -> None:
 
 
 def test_attrlist_pickle() -> None:
+    # pylint: disable=missing-function-docstring
     al = utils.AttrList([])
 
     pickled_al = pickle.dumps(al)
@@ -47,6 +49,7 @@ def test_attrlist_pickle() -> None:
 
 
 def test_attrlist_slice() -> None:
+    # pylint: disable=missing-function-docstring
     class MyAttrDict(utils.AttrDict):
         pass
 
@@ -55,6 +58,7 @@ def test_attrlist_slice() -> None:
 
 
 def test_merge() -> None:
+    # pylint: disable=missing-function-docstring
     a = utils.AttrDict({"a": {"b": 42, "c": 47}})
     b = {"a": {"b": 123, "d": -12}, "e": [1, 2, 3]}
 
@@ -64,6 +68,7 @@ def test_merge() -> None:
 
 
 def test_merge_conflict() -> None:
+    # pylint: disable=missing-function-docstring
     for d in (
         {"a": 42},
         {"a": {"b": 47}},
@@ -74,6 +79,7 @@ def test_merge_conflict() -> None:
 
 
 def test_attrdict_bool() -> None:
+    # pylint: disable=missing-function-docstring
     d = utils.AttrDict({})
 
     assert not d
@@ -82,6 +88,7 @@ def test_attrdict_bool() -> None:
 
 
 def test_attrlist_items_get_wrapped_during_iteration() -> None:
+    # pylint: disable=missing-function-docstring
     al = utils.AttrList([1, object(), [1], {}])
 
     ls = list(iter(al))
@@ -91,6 +98,7 @@ def test_attrlist_items_get_wrapped_during_iteration() -> None:
 
 
 def test_serializer_deals_with_attr_versions() -> None:
+    # pylint: disable=missing-function-docstring
     d = utils.AttrDict({"key": utils.AttrList([1, 2, 3])})
 
     assert serializer.serializer.dumps(d) == serializer.serializer.dumps(
@@ -99,6 +107,7 @@ def test_serializer_deals_with_attr_versions() -> None:
 
 
 def test_serializer_deals_with_objects_with_to_dict() -> None:
+    # pylint: disable=missing-function-docstring
     class MyClass(object):
         def to_dict(self) -> int:
             return 42
@@ -107,12 +116,14 @@ def test_serializer_deals_with_objects_with_to_dict() -> None:
 
 
 def test_recursive_to_dict() -> None:
+    # pylint: disable=missing-function-docstring
     assert utils.recursive_to_dict({"k": [1, (1.0, {"v": Q("match", key="val")})]}) == {
         "k": [1, (1.0, {"v": {"match": {"key": "val"}}})]
     }
 
 
 def test_attrdict_get() -> None:
+    # pylint: disable=missing-function-docstring
     a = utils.AttrDict({"a": {"b": 42, "c": 47}})
     assert a.get("a", {}).get("b", 0) == 42
     assert a.get("a", {}).get("e", 0) == 0

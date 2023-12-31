@@ -46,6 +46,7 @@ from opensearchpy.connection import connections
 
 class TestBaseConnection(TestCase):
     def test_empty_warnings(self) -> None:
+        # pylint: disable=missing-function-docstring
         con = Connection()
         with warnings.catch_warnings(record=True) as w:
             con._raise_warnings(())
@@ -54,6 +55,7 @@ class TestBaseConnection(TestCase):
         self.assertEqual(w, [])
 
     def test_raises_warnings(self) -> None:
+        # pylint: disable=missing-function-docstring
         con = Connection()
 
         with warnings.catch_warnings(record=True) as warn:
@@ -76,6 +78,7 @@ class TestBaseConnection(TestCase):
         )
 
     def test_raises_warnings_when_folded(self) -> None:
+        # pylint: disable=missing-function-docstring
         con = Connection()
         with warnings.catch_warnings(record=True) as warn:
             con._raise_warnings(
@@ -88,6 +91,7 @@ class TestBaseConnection(TestCase):
         self.assertEqual([str(w.message) for w in warn], ["warning", "folded"])
 
     def test_ipv6_host_and_port(self) -> None:
+        # pylint: disable=missing-function-docstring
         for kwargs, expected_host in [
             ({"host": "::1"}, "http://[::1]:9200"),
             ({"host": "::1", "port": 443}, "http://[::1]:443"),
@@ -99,6 +103,7 @@ class TestBaseConnection(TestCase):
             assert conn.host == expected_host
 
     def test_compatibility_accept_header(self) -> None:
+        # pylint: disable=missing-function-docstring
         try:
             conn = Connection()
             assert "accept" not in conn.headers
@@ -119,28 +124,33 @@ class TestBaseConnection(TestCase):
             os.environ.pop("ELASTIC_CLIENT_APIVERSIONING")
 
     def test_ca_certs_ssl_cert_file(self) -> None:
+        # pylint: disable=missing-function-docstring
         cert = "/path/to/clientcert.pem"
         with MonkeyPatch().context() as monkeypatch:
             monkeypatch.setenv("SSL_CERT_FILE", cert)
             assert Connection.default_ca_certs() == cert
 
     def test_ca_certs_ssl_cert_dir(self) -> None:
+        # pylint: disable=missing-function-docstring
         cert = "/path/to/clientcert/dir"
         with MonkeyPatch().context() as monkeypatch:
             monkeypatch.setenv("SSL_CERT_DIR", cert)
             assert Connection.default_ca_certs() == cert
 
     def test_ca_certs_certifi(self) -> None:
+        # pylint: disable=missing-function-docstring
         import certifi
 
         assert Connection.default_ca_certs() == certifi.where()
 
     def test_no_ca_certs(self) -> None:
+        # pylint: disable=missing-function-docstring
         with MonkeyPatch().context() as monkeypatch:
             monkeypatch.setitem(sys.modules, "certifi", None)
             assert Connection.default_ca_certs() is None
 
     def test_default_connection_is_returned_by_default(self) -> None:
+        # pylint: disable=missing-function-docstring
         c = connections.Connections()
 
         con, con2 = object(), object()
@@ -151,6 +161,7 @@ class TestBaseConnection(TestCase):
         assert c.get_connection() is con
 
     def test_get_connection_created_connection_if_needed(self) -> None:
+        # pylint: disable=missing-function-docstring
         c = connections.Connections()
         c.configure(
             default={"hosts": ["opensearch.com"]}, local={"hosts": ["localhost"]}
@@ -166,6 +177,7 @@ class TestBaseConnection(TestCase):
         assert [{"host": "localhost"}] == local.transport.hosts
 
     def test_configure_preserves_unchanged_connections(self) -> None:
+        # pylint: disable=missing-function-docstring
         c = connections.Connections()
 
         c.configure(
@@ -184,6 +196,7 @@ class TestBaseConnection(TestCase):
         assert new_default is not default
 
     def test_remove_connection_removes_both_conn_and_conf(self) -> None:
+        # pylint: disable=missing-function-docstring
         c = connections.Connections()
 
         c.configure(
@@ -200,6 +213,7 @@ class TestBaseConnection(TestCase):
             c.get_connection("default")
 
     def test_create_connection_constructs_client(self) -> None:
+        # pylint: disable=missing-function-docstring
         c = connections.Connections()
         c.create_connection("testing", hosts=["opensearch.com"])
 
@@ -207,6 +221,7 @@ class TestBaseConnection(TestCase):
         assert [{"host": "opensearch.com"}] == con.transport.hosts
 
     def test_create_connection_adds_our_serializer(self) -> None:
+        # pylint: disable=missing-function-docstring
         c = connections.Connections()
         c.create_connection("testing", hosts=["opensearch.com"])
 

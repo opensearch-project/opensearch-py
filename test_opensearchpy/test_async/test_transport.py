@@ -64,6 +64,7 @@ class DummyConnection(Connection):
         return self.status, self.headers, self.data
 
     async def close(self) -> None:
+        # pylint: disable=missing-function-docstring
         if self.closed:
             raise RuntimeError("This connection is already closed")
         self.closed = True
@@ -122,6 +123,7 @@ CLUSTER_NODES_7X_PUBLISH_HOST = """{
 
 class TestTransport:
     async def test_single_connection_uses_dummy_connection_pool(self) -> None:
+        # pylint: disable=missing-function-docstring
         t1: Any = AsyncTransport([{}])
         await t1._async_call()
         assert isinstance(t1.connection_pool, DummyConnectionPool)
@@ -130,6 +132,7 @@ class TestTransport:
         assert isinstance(t2.connection_pool, DummyConnectionPool)
 
     async def test_request_timeout_extracted_from_params_and_passed(self) -> None:
+        # pylint: disable=missing-function-docstring
         t: Any = AsyncTransport([{}], connection_class=DummyConnection)
 
         await t.perform_request("GET", "/", params={"request_timeout": 42})
@@ -142,6 +145,7 @@ class TestTransport:
         } == t.get_connection().calls[0][1]
 
     async def test_timeout_extracted_from_params_and_passed(self) -> None:
+        # pylint: disable=missing-function-docstring
         t: Any = AsyncTransport([{}], connection_class=DummyConnection)
 
         await t.perform_request("GET", "/", params={"timeout": 84})
@@ -154,6 +158,7 @@ class TestTransport:
         } == t.get_connection().calls[0][1]
 
     async def test_opaque_id(self) -> None:
+        # pylint: disable=missing-function-docstring
         t: Any = AsyncTransport(
             [{}], opaque_id="app-1", connection_class=DummyConnection
         )
@@ -178,6 +183,7 @@ class TestTransport:
         } == t.get_connection().calls[1][1]
 
     async def test_request_with_custom_user_agent_header(self) -> None:
+        # pylint: disable=missing-function-docstring
         t: Any = AsyncTransport([{}], connection_class=DummyConnection)
 
         await t.perform_request(
@@ -191,6 +197,7 @@ class TestTransport:
         } == t.get_connection().calls[0][1]
 
     async def test_send_get_body_as_source(self) -> None:
+        # pylint: disable=missing-function-docstring
         t: Any = AsyncTransport(
             [{}], send_get_body_as="source", connection_class=DummyConnection
         )
@@ -200,6 +207,7 @@ class TestTransport:
         assert ("GET", "/", {"source": "{}"}, None) == t.get_connection().calls[0][0]
 
     async def test_send_get_body_as_post(self) -> None:
+        # pylint: disable=missing-function-docstring
         t: Any = AsyncTransport(
             [{}], send_get_body_as="POST", connection_class=DummyConnection
         )
@@ -209,6 +217,7 @@ class TestTransport:
         assert ("POST", "/", None, b"{}") == t.get_connection().calls[0][0]
 
     async def test_body_gets_encoded_into_bytes(self) -> None:
+        # pylint: disable=missing-function-docstring
         t: Any = AsyncTransport([{}], connection_class=DummyConnection)
 
         await t.perform_request("GET", "/", body="你好")
@@ -221,6 +230,7 @@ class TestTransport:
         ) == t.get_connection().calls[0][0]
 
     async def test_body_bytes_get_passed_untouched(self) -> None:
+        # pylint: disable=missing-function-docstring
         t: Any = AsyncTransport([{}], connection_class=DummyConnection)
 
         body = b"\xe4\xbd\xa0\xe5\xa5\xbd"
@@ -229,6 +239,7 @@ class TestTransport:
         assert ("GET", "/", None, body) == t.get_connection().calls[0][0]
 
     async def test_body_surrogates_replaced_encoded_into_bytes(self) -> None:
+        # pylint: disable=missing-function-docstring
         t: Any = AsyncTransport([{}], connection_class=DummyConnection)
 
         await t.perform_request("GET", "/", body="你好\uda6a")
@@ -241,18 +252,21 @@ class TestTransport:
         ) == t.get_connection().calls[0][0]
 
     async def test_kwargs_passed_on_to_connections(self) -> None:
+        # pylint: disable=missing-function-docstring
         t: Any = AsyncTransport([{"host": "google.com"}], port=123)
         await t._async_call()
         assert 1 == len(t.connection_pool.connections)
         assert "http://google.com:123" == t.connection_pool.connections[0].host
 
     async def test_kwargs_passed_on_to_connection_pool(self) -> None:
+        # pylint: disable=missing-function-docstring
         dt = object()
         t: Any = AsyncTransport([{}, {}], dead_timeout=dt)
         await t._async_call()
         assert dt is t.connection_pool.dead_timeout
 
     async def test_custom_connection_class(self) -> None:
+        # pylint: disable=missing-function-docstring
         class MyConnection(object):
             def __init__(self, **kwargs: Any) -> None:
                 self.kwargs = kwargs
@@ -263,6 +277,7 @@ class TestTransport:
         assert isinstance(t.connection_pool.connections[0], MyConnection)
 
     async def test_add_connection(self) -> None:
+        # pylint: disable=missing-function-docstring
         t: Any = AsyncTransport([{}], randomize_hosts=False)
         t.add_connection({"host": "google.com", "port": 1234})
 
@@ -270,6 +285,7 @@ class TestTransport:
         assert "http://google.com:1234" == t.connection_pool.connections[1].host
 
     async def test_request_will_fail_after_x_retries(self) -> None:
+        # pylint: disable=missing-function-docstring
         t: Any = AsyncTransport(
             [{"exception": ConnectionError(None, "abandon ship", Exception())}],
             connection_class=DummyConnection,
@@ -285,6 +301,7 @@ class TestTransport:
         assert 4 == len(t.get_connection().calls)
 
     async def test_failed_connection_will_be_marked_as_dead(self) -> None:
+        # pylint: disable=missing-function-docstring
         t: Any = AsyncTransport(
             [{"exception": ConnectionError(None, "abandon ship", Exception())}] * 2,
             connection_class=DummyConnection,
@@ -302,6 +319,7 @@ class TestTransport:
     async def test_resurrected_connection_will_be_marked_as_live_on_success(
         self,
     ) -> None:
+        # pylint: disable=missing-function-docstring
         for method in ("GET", "HEAD"):
             t: Any = AsyncTransport([{}, {}], connection_class=DummyConnection)
             await t._async_call()
@@ -315,6 +333,7 @@ class TestTransport:
             assert 1 == len(t.connection_pool.dead_count)
 
     async def test_sniff_will_use_seed_connections(self) -> None:
+        # pylint: disable=missing-function-docstring
         t: Any = AsyncTransport(
             [{"data": CLUSTER_NODES}], connection_class=DummyConnection
         )
@@ -326,6 +345,7 @@ class TestTransport:
         assert "http://1.1.1.1:123" == t.get_connection().host
 
     async def test_sniff_on_start_fetches_and_uses_nodes_list(self) -> None:
+        # pylint: disable=missing-function-docstring
         t: Any = AsyncTransport(
             [{"data": CLUSTER_NODES}],
             connection_class=DummyConnection,
@@ -338,6 +358,7 @@ class TestTransport:
         assert "http://1.1.1.1:123" == t.get_connection().host
 
     async def test_sniff_on_start_ignores_sniff_timeout(self) -> None:
+        # pylint: disable=missing-function-docstring
         t: Any = AsyncTransport(
             [{"data": CLUSTER_NODES}],
             connection_class=DummyConnection,
@@ -352,6 +373,7 @@ class TestTransport:
         ].calls[0]
 
     async def test_sniff_uses_sniff_timeout(self) -> None:
+        # pylint: disable=missing-function-docstring
         t: Any = AsyncTransport(
             [{"data": CLUSTER_NODES}],
             connection_class=DummyConnection,
@@ -365,6 +387,7 @@ class TestTransport:
         ].calls[0]
 
     async def test_sniff_reuses_connection_instances_if_possible(self) -> None:
+        # pylint: disable=missing-function-docstring
         t: Any = AsyncTransport(
             [{"data": CLUSTER_NODES}, {"host": "1.1.1.1", "port": 123}],
             connection_class=DummyConnection,
@@ -379,6 +402,7 @@ class TestTransport:
         assert connection is t.get_connection()
 
     async def test_sniff_on_fail_triggers_sniffing_on_fail(self) -> None:
+        # pylint: disable=missing-function-docstring
         t: Any = AsyncTransport(
             [
                 {"exception": ConnectionError(None, "abandon ship", Exception())},
@@ -407,6 +431,7 @@ class TestTransport:
     async def test_sniff_on_fail_failing_does_not_prevent_retires(
         self, sniff_hosts: Any
     ) -> None:
+        # pylint: disable=missing-function-docstring
         sniff_hosts.side_effect = [TransportError("sniff failed")]
         t: Any = AsyncTransport(
             [
@@ -428,6 +453,7 @@ class TestTransport:
         assert 1 == len(conn_data.calls)
 
     async def test_sniff_after_n_seconds(self, event_loop: Any) -> None:
+        # pylint: disable=missing-function-docstring
         t: Any = AsyncTransport(
             [{"data": CLUSTER_NODES}],
             connection_class=DummyConnection,
@@ -449,8 +475,10 @@ class TestTransport:
         assert event_loop.time() - 1 < t.last_sniff < event_loop.time() + 0.01
 
     async def test_sniff_7x_publish_host(self) -> None:
-        # Test the response shaped when a 7.x node has publish_host set
-        # and the returend data is shaped in the fqdn/ip:port format.
+        """
+        Test the response shaped when a 7.x node has publish_host set
+        and the returned data is shaped in the fqdn/ip:port format.
+        """
         t: Any = AsyncTransport(
             [{"data": CLUSTER_NODES_7X_PUBLISH_HOST}],
             connection_class=DummyConnection,
@@ -465,6 +493,7 @@ class TestTransport:
         }
 
     async def test_transport_close_closes_all_pool_connections(self) -> None:
+        # pylint: disable=missing-function-docstring
         t1: Any = AsyncTransport([{}], connection_class=DummyConnection)
         await t1._async_call()
 
@@ -482,6 +511,7 @@ class TestTransport:
     async def test_sniff_on_start_error_if_no_sniffed_hosts(
         self, event_loop: Any
     ) -> None:
+        # pylint: disable=missing-function-docstring
         t: Any = AsyncTransport(
             [
                 {"data": ""},
@@ -501,6 +531,7 @@ class TestTransport:
     async def test_sniff_on_start_waits_for_sniff_to_complete(
         self, event_loop: Any
     ) -> None:
+        # pylint: disable=missing-function-docstring
         t: Any = AsyncTransport(
             [
                 {"delay": 1, "data": ""},
@@ -539,6 +570,7 @@ class TestTransport:
     async def test_sniff_on_start_close_unlocks_async_calls(
         self, event_loop: Any
     ) -> None:
+        # pylint: disable=missing-function-docstring
         t: Any = AsyncTransport(
             [
                 {"delay": 10, "data": CLUSTER_NODES},
@@ -566,6 +598,7 @@ class TestTransport:
         assert duration < 1
 
     async def test_init_connection_pool_with_many_hosts(self) -> None:
+        # pylint: disable=missing-function-docstring
         """
         Check init of connection pool with multiple connections.
 
@@ -584,6 +617,7 @@ class TestTransport:
         await t._async_call()
 
     async def test_init_pool_with_connection_class_to_many_hosts(self) -> None:
+        # pylint: disable=missing-function-docstring
         """
         Check init of connection pool with user specified connection_class.
 

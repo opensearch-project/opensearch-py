@@ -84,20 +84,24 @@ class TestRequestsHttpConnection(TestCase):
         return args[0]
 
     def test_custom_http_auth_is_allowed(self) -> None:
+        # pylint: disable=missing-function-docstring
         auth = AuthBase()
         c = RequestsHttpConnection(http_auth=auth)
 
         self.assertEqual(auth, c.session.auth)
 
     def test_timeout_set(self) -> None:
+        # pylint: disable=missing-function-docstring
         con = RequestsHttpConnection(timeout=42)
         self.assertEqual(42, con.timeout)
 
     def test_opaque_id(self) -> None:
+        # pylint: disable=missing-function-docstring
         con = RequestsHttpConnection(opaque_id="app-1")
         self.assertEqual(con.headers["x-opaque-id"], "app-1")
 
     def test_no_http_compression(self) -> None:
+        # pylint: disable=missing-function-docstring
         con = self._get_mock_connection()
 
         self.assertFalse(con.http_compress)
@@ -110,6 +114,7 @@ class TestRequestsHttpConnection(TestCase):
         self.assertNotIn("accept-encoding", req.headers)
 
     def test_http_compression(self) -> None:
+        # pylint: disable=missing-function-docstring
         con = self._get_mock_connection(
             {"http_compress": True},
         )
@@ -133,6 +138,7 @@ class TestRequestsHttpConnection(TestCase):
         self.assertEqual(req.headers["accept-encoding"], "gzip,deflate")
 
     def test_uses_https_if_verify_certs_is_off(self) -> None:
+        # pylint: disable=missing-function-docstring
         with warnings.catch_warnings(record=True) as w:
             con = self._get_mock_connection(
                 {"use_ssl": True, "url_prefix": "url", "verify_certs": False}
@@ -150,19 +156,23 @@ class TestRequestsHttpConnection(TestCase):
         self.assertEqual(None, request.body)
 
     def test_uses_given_ca_certs(self) -> None:
+        # pylint: disable=missing-function-docstring
         path = "/path/to/my/ca_certs.pem"
         c = RequestsHttpConnection(ca_certs=path)
         self.assertEqual(path, c.session.verify)
 
     def test_uses_default_ca_certs(self) -> None:
+        # pylint: disable=missing-function-docstring
         c = RequestsHttpConnection()
         self.assertEqual(Connection.default_ca_certs(), c.session.verify)
 
     def test_uses_no_ca_certs(self) -> None:
+        # pylint: disable=missing-function-docstring
         c = RequestsHttpConnection(verify_certs=False)
         self.assertFalse(c.session.verify)
 
     def test_nowarn_when_uses_https_if_verify_certs_is_off(self) -> None:
+        # pylint: disable=missing-function-docstring
         with warnings.catch_warnings(record=True) as w:
             con = self._get_mock_connection(
                 {
@@ -181,6 +191,7 @@ class TestRequestsHttpConnection(TestCase):
         self.assertEqual(None, request.body)
 
     def test_merge_headers(self) -> None:
+        # pylint: disable=missing-function-docstring
         con = self._get_mock_connection(
             connection_params={"headers": {"h1": "v1", "h2": "v2"}}
         )
@@ -190,12 +201,14 @@ class TestRequestsHttpConnection(TestCase):
         self.assertEqual(req.headers["h3"], "v3")
 
     def test_default_headers(self) -> None:
+        # pylint: disable=missing-function-docstring
         con = self._get_mock_connection()
         req = self._get_request(con, "GET", "/")
         self.assertEqual(req.headers["content-type"], "application/json")
         self.assertEqual(req.headers["user-agent"], con._get_default_user_agent())
 
     def test_custom_headers(self) -> None:
+        # pylint: disable=missing-function-docstring
         con = self._get_mock_connection()
         req = self._get_request(
             con,
@@ -210,37 +223,45 @@ class TestRequestsHttpConnection(TestCase):
         self.assertEqual(req.headers["user-agent"], "custom-agent/1.2.3")
 
     def test_http_auth(self) -> None:
+        # pylint: disable=missing-function-docstring
         con = RequestsHttpConnection(http_auth="username:secret")
         self.assertEqual(("username", "secret"), con.session.auth)
 
     def test_http_auth_tuple(self) -> None:
+        # pylint: disable=missing-function-docstring
         con = RequestsHttpConnection(http_auth=("username", "secret"))
         self.assertEqual(("username", "secret"), con.session.auth)
 
     def test_http_auth_list(self) -> None:
+        # pylint: disable=missing-function-docstring
         con = RequestsHttpConnection(http_auth=["username", "secret"])
         self.assertEqual(("username", "secret"), con.session.auth)
 
     def test_repr(self) -> None:
+        # pylint: disable=missing-function-docstring
         con = self._get_mock_connection({"host": "opensearchpy.com", "port": 443})
         self.assertEqual(
             "<RequestsHttpConnection: http://opensearchpy.com:443>", repr(con)
         )
 
     def test_conflict_error_is_returned_on_409(self) -> None:
+        # pylint: disable=missing-function-docstring
         con = self._get_mock_connection(response_code=409)
         self.assertRaises(ConflictError, con.perform_request, "GET", "/", {}, "")
 
     def test_not_found_error_is_returned_on_404(self) -> None:
+        # pylint: disable=missing-function-docstring
         con = self._get_mock_connection(response_code=404)
         self.assertRaises(NotFoundError, con.perform_request, "GET", "/", {}, "")
 
     def test_request_error_is_returned_on_400(self) -> None:
+        # pylint: disable=missing-function-docstring
         con = self._get_mock_connection(response_code=400)
         self.assertRaises(RequestError, con.perform_request, "GET", "/", {}, "")
 
     @patch("opensearchpy.connection.base.logger")
     def test_head_with_404_doesnt_get_logged(self, logger: Any) -> None:
+        # pylint: disable=missing-function-docstring
         con = self._get_mock_connection(response_code=404)
         self.assertRaises(NotFoundError, con.perform_request, "HEAD", "/", {}, "")
         self.assertEqual(0, logger.warning.call_count)
@@ -248,6 +269,7 @@ class TestRequestsHttpConnection(TestCase):
     @patch("opensearchpy.connection.base.tracer")
     @patch("opensearchpy.connection.base.logger")
     def test_failed_request_logs_and_traces(self, logger: Any, tracer: Any) -> None:
+        # pylint: disable=missing-function-docstring
         con = self._get_mock_connection(
             response_body=b'{"answer": 42}', response_code=500
         )
@@ -276,6 +298,7 @@ class TestRequestsHttpConnection(TestCase):
     @patch("opensearchpy.connection.base.tracer")
     @patch("opensearchpy.connection.base.logger")
     def test_success_logs_and_traces(self, logger: Any, tracer: Any) -> None:
+        # pylint: disable=missing-function-docstring
         con = self._get_mock_connection(response_body=b"""{"answer": "that's it!"}""")
         status, headers, data = con.perform_request(
             "GET",
@@ -315,6 +338,7 @@ class TestRequestsHttpConnection(TestCase):
 
     @patch("opensearchpy.connection.base.logger")
     def test_uncompressed_body_logged(self, logger: Any) -> None:
+        # pylint: disable=missing-function-docstring
         con = self._get_mock_connection(connection_params={"http_compress": True})
         con.perform_request("GET", "/", body=b'{"example": "body"}')
 
@@ -338,6 +362,7 @@ class TestRequestsHttpConnection(TestCase):
 
     @patch("opensearchpy.connection.base.logger", return_value=MagicMock())
     def test_body_not_logged(self, logger: Any) -> None:
+        # pylint: disable=missing-function-docstring
         logger.isEnabledFor.return_value = False
 
         con = self._get_mock_connection()
@@ -348,6 +373,7 @@ class TestRequestsHttpConnection(TestCase):
 
     @patch("opensearchpy.connection.base.logger")
     def test_failure_body_logged(self, logger: Any) -> None:
+        # pylint: disable=missing-function-docstring
         con = self._get_mock_connection(response_code=404)
         with pytest.raises(NotFoundError) as e:
             con.perform_request("GET", "/invalid", body=b'{"example": "body"}')
@@ -361,6 +387,7 @@ class TestRequestsHttpConnection(TestCase):
 
     @patch("opensearchpy.connection.base.logger", return_value=MagicMock())
     def test_failure_body_not_logged(self, logger: Any) -> None:
+        # pylint: disable=missing-function-docstring
         logger.isEnabledFor.return_value = False
 
         con = self._get_mock_connection(response_code=404)
@@ -372,6 +399,7 @@ class TestRequestsHttpConnection(TestCase):
         self.assertEqual(logger.debug.call_count, 0)
 
     def test_defaults(self) -> None:
+        # pylint: disable=missing-function-docstring
         con = self._get_mock_connection()
         request = self._get_request(con, "GET", "/")
 
@@ -380,6 +408,7 @@ class TestRequestsHttpConnection(TestCase):
         self.assertEqual(None, request.body)
 
     def test_params_properly_encoded(self) -> None:
+        # pylint: disable=missing-function-docstring
         con = self._get_mock_connection()
         request = self._get_request(
             con, "GET", "/", params={"param": "value with spaces"}
@@ -390,6 +419,7 @@ class TestRequestsHttpConnection(TestCase):
         self.assertEqual(None, request.body)
 
     def test_body_attached(self) -> None:
+        # pylint: disable=missing-function-docstring
         con = self._get_mock_connection()
         request = self._get_request(con, "GET", "/", body='{"answer": 42}')
 
@@ -398,6 +428,7 @@ class TestRequestsHttpConnection(TestCase):
         self.assertEqual('{"answer": 42}'.encode("utf-8"), request.body)
 
     def test_http_auth_attached(self) -> None:
+        # pylint: disable=missing-function-docstring
         con = self._get_mock_connection({"http_auth": "username:secret"})
         request = self._get_request(con, "GET", "/")
 
@@ -405,6 +436,7 @@ class TestRequestsHttpConnection(TestCase):
 
     @patch("opensearchpy.connection.base.tracer")
     def test_url_prefix(self, tracer: Any) -> None:
+        # pylint: disable=missing-function-docstring
         con = self._get_mock_connection({"url_prefix": "/some-prefix/"})
         request = self._get_request(
             con, "GET", "/_search", body='{"answer": 42}', timeout=0.1
@@ -422,12 +454,14 @@ class TestRequestsHttpConnection(TestCase):
         )
 
     def test_surrogatepass_into_bytes(self) -> None:
+        # pylint: disable=missing-function-docstring
         buf = b"\xe4\xbd\xa0\xe5\xa5\xbd\xed\xa9\xaa"
         con = self._get_mock_connection(response_body=buf)
         status, headers, data = con.perform_request("GET", "/")
         self.assertEqual(u"你好\uda6a", data)  # fmt: skip
 
     def test_recursion_error_reraised(self) -> None:
+        # pylint: disable=missing-function-docstring
         conn = RequestsHttpConnection()
 
         def send_raise(*_: Any, **__: Any) -> Any:
@@ -440,6 +474,7 @@ class TestRequestsHttpConnection(TestCase):
         self.assertEqual(str(e.value), "Wasn't modified!")
 
     def mock_session(self) -> Any:
+        # pylint: disable=missing-function-docstring
         access_key = uuid.uuid4().hex
         secret_key = uuid.uuid4().hex
         token = uuid.uuid4().hex
@@ -452,6 +487,7 @@ class TestRequestsHttpConnection(TestCase):
         return dummy_session
 
     def test_aws_signer_as_http_auth(self) -> None:
+        # pylint: disable=missing-function-docstring
         region = "us-west-2"
 
         import requests
@@ -470,6 +506,7 @@ class TestRequestsHttpConnection(TestCase):
         self.assertIn("X-Amz-Content-SHA256", prepared_request.headers)
 
     def test_aws_signer_when_service_is_specified(self) -> None:
+        # pylint: disable=missing-function-docstring
         region = "us-west-1"
         service = "aoss"
 
@@ -489,6 +526,7 @@ class TestRequestsHttpConnection(TestCase):
 
     @patch("opensearchpy.helpers.signer.AWSV4Signer.sign")
     def test_aws_signer_signs_with_query_string(self, mock_sign: Any) -> None:
+        # pylint: disable=missing-function-docstring
         region = "us-west-1"
         service = "aoss"
 
@@ -514,7 +552,7 @@ class TestRequestsConnectionRedirect(TestCase):
 
     @classmethod
     def setup_class(cls) -> None:
-        # Start servers
+        """Start servers"""
         cls.server1 = TestHTTPServer(port=8080)
         cls.server1.start()
         cls.server2 = TestHTTPServer(port=8090)
@@ -522,12 +560,13 @@ class TestRequestsConnectionRedirect(TestCase):
 
     @classmethod
     def teardown_class(cls) -> None:
-        # Stop servers
+        """Stop servers"""
         cls.server2.stop()
         cls.server1.stop()
 
     # allow_redirects = False
     def test_redirect_failure_when_allow_redirect_false(self) -> None:
+        # pylint: disable=missing-function-docstring
         conn = RequestsHttpConnection("localhost", port=8080, use_ssl=False, timeout=60)
         with pytest.raises(TransportError) as e:
             conn.perform_request("GET", "/redirect", allow_redirects=False)
@@ -535,6 +574,7 @@ class TestRequestsConnectionRedirect(TestCase):
 
     # allow_redirects = True (Default)
     def test_redirect_success_when_allow_redirect_true(self) -> None:
+        # pylint: disable=missing-function-docstring
         conn = RequestsHttpConnection("localhost", port=8080, use_ssl=False, timeout=60)
         user_agent = conn._get_default_user_agent()
         status, headers, data = conn.perform_request("GET", "/redirect")
@@ -552,6 +592,7 @@ class TestRequestsConnectionRedirect(TestCase):
 
 class TestSignerWithFrozenCredentials(TestRequestsHttpConnection):
     def mock_session(self) -> Any:
+        # pylint: disable=missing-function-docstring
         access_key = uuid.uuid4().hex
         secret_key = uuid.uuid4().hex
         token = uuid.uuid4().hex
@@ -566,6 +607,7 @@ class TestSignerWithFrozenCredentials(TestRequestsHttpConnection):
     def test_requests_http_connection_aws_signer_frozen_credentials_as_http_auth(
         self,
     ) -> None:
+        # pylint: disable=missing-function-docstring
         region = "us-west-2"
 
         import requests

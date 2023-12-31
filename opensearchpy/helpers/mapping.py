@@ -28,9 +28,10 @@ import collections.abc as collections_abc
 from itertools import chain
 from typing import Any
 
+from six import iteritems, itervalues
+
 from opensearchpy.connection.connections import get_connection
 from opensearchpy.helpers.field import Nested, Text, construct_field
-from six import iteritems, itervalues
 
 from .utils import DslBase
 

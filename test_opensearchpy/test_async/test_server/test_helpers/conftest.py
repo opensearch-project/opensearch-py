@@ -36,6 +36,7 @@ pytestmark = pytest.mark.asyncio
 
 @fixture(scope="function")  # type: ignore
 async def client() -> Any:
+    # pylint: disable=missing-function-docstring
     client = await get_test_client(verify_certs=False, http_auth=("admin", "admin"))
     await add_connection("default", client)
     return client
@@ -43,6 +44,7 @@ async def client() -> Any:
 
 @fixture(scope="function")  # type: ignore
 async def opensearch_version(client: Any) -> Any:
+    # pylint: disable=missing-function-docstring
     info = await client.info()
     print(info)
     yield tuple(
@@ -53,6 +55,7 @@ async def opensearch_version(client: Any) -> Any:
 
 @fixture  # type: ignore
 async def write_client(client: Any) -> Any:
+    # pylint: disable=missing-function-docstring
     yield client
     await client.indices.delete("test-*", ignore=404)
     await client.indices.delete_template("test-template", ignore=404)
@@ -60,7 +63,9 @@ async def write_client(client: Any) -> Any:
 
 @fixture  # type: ignore
 async def data_client(client: Any) -> Any:
-    # create mappings
+    """
+    create mappings
+    """
     await create_git_index(client, "git")
     await create_flat_git_index(client, "flat-git")
     # load data
@@ -73,6 +78,11 @@ async def data_client(client: Any) -> Any:
 
 @fixture  # type: ignore
 async def pull_request(write_client: Any) -> Any:
+    """
+    create dummy pull request instance
+    :param write_client: #todo not used
+    :return: instance of PullRequest
+    """
     await PullRequest.init()
     pr = PullRequest(
         _id=42,
@@ -97,6 +107,11 @@ async def pull_request(write_client: Any) -> Any:
 
 @fixture  # type: ignore
 async def setup_ubq_tests(client: Any) -> str:
+    """
+    #todo what's a ubq test? this is ignored. should it be deleted?
+    :param client:
+    :return: an index name
+    """
     index = "test-git"
     await create_git_index(client, index)
     await async_bulk(client, TEST_GIT_DATA, raise_on_error=True, refresh=True)

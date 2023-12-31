@@ -36,13 +36,16 @@ from ..test_cases import TestCase
 
 class TestQueryParams(TestCase):
     def setup_method(self, _: Any) -> None:
+        # pylint: disable=missing-function-docstring
         self.calls: Any = []
 
     @query_params("simple_param")
     def func_to_wrap(self, *args: Any, **kwargs: Any) -> None:
+        # pylint: disable=missing-function-docstring
         self.calls.append((args, kwargs))
 
     def test_handles_params(self) -> None:
+        # pylint: disable=missing-function-docstring
         self.func_to_wrap(params={"simple_param_2": "2"}, simple_param="3")
         self.assertEqual(
             self.calls,
@@ -58,18 +61,21 @@ class TestQueryParams(TestCase):
         )
 
     def test_handles_headers(self) -> None:
+        # pylint: disable=missing-function-docstring
         self.func_to_wrap(headers={"X-Opaque-Id": "app-1"})
         self.assertEqual(
             self.calls, [((), {"params": {}, "headers": {"x-opaque-id": "app-1"}})]
         )
 
     def test_handles_opaque_id(self) -> None:
+        # pylint: disable=missing-function-docstring
         self.func_to_wrap(opaque_id="request-id")
         self.assertEqual(
             self.calls, [((), {"params": {}, "headers": {"x-opaque-id": "request-id"}})]
         )
 
     def test_handles_empty_none_and_normalization(self) -> None:
+        # pylint: disable=missing-function-docstring
         self.func_to_wrap(params=None)
         self.assertEqual(self.calls[-1], ((), {"params": {}, "headers": {}}))
 
@@ -86,6 +92,7 @@ class TestQueryParams(TestCase):
         self.assertEqual(self.calls[-1], ((), {"params": {}, "headers": {"x": "y"}}))
 
     def test_non_escaping_params(self) -> None:
+        # pylint: disable=missing-function-docstring
         # the query_params decorator doesn't validate "timeout" it simply avoids escaping as it did
         self.func_to_wrap(simple_param="x", timeout="4s")
         self.assertEqual(
@@ -111,6 +118,7 @@ class TestQueryParams(TestCase):
         )
 
     def test_per_call_authentication(self) -> None:
+        # pylint: disable=missing-function-docstring
         self.func_to_wrap(api_key=("name", "key"))
         self.assertEqual(
             self.calls[-1],
@@ -156,6 +164,7 @@ class TestQueryParams(TestCase):
 
 class TestMakePath(TestCase):
     def test_handles_unicode(self) -> None:
+        # pylint: disable=missing-function-docstring
         id = "中文"
         self.assertEqual(
             "/some-index/type/%E4%B8%AD%E6%96%87", _make_path("some-index", "type", id)
@@ -164,28 +173,34 @@ class TestMakePath(TestCase):
 
 class TestEscape(TestCase):
     def test_handles_ascii(self) -> None:
+        # pylint: disable=missing-function-docstring
         string = "abc123"
         self.assertEqual(b"abc123", _escape(string))
 
     def test_handles_unicode(self) -> None:
+        # pylint: disable=missing-function-docstring
         string = "中文"
         self.assertEqual(b"\xe4\xb8\xad\xe6\x96\x87", _escape(string))
 
     def test_handles_bytestring(self) -> None:
+        # pylint: disable=missing-function-docstring
         string = b"celery-task-meta-c4f1201f-eb7b-41d5-9318-a75a8cfbdaa0"
         self.assertEqual(string, _escape(string))
 
 
 class TestBulkBody(TestCase):
     def test_proper_bulk_body_as_string_is_not_modified(self) -> None:
+        # pylint: disable=missing-function-docstring
         string_body = '"{"index":{ "_index" : "test"}}\n{"field1": "value1"}"\n'
         self.assertEqual(string_body, _bulk_body(None, string_body))
 
     def test_proper_bulk_body_as_bytestring_is_not_modified(self) -> None:
+        # pylint: disable=missing-function-docstring
         bytestring_body = b'"{"index":{ "_index" : "test"}}\n{"field1": "value1"}"\n'
         self.assertEqual(bytestring_body, _bulk_body(None, bytestring_body))
 
     def test_bulk_body_as_string_adds_trailing_newline(self) -> None:
+        # pylint: disable=missing-function-docstring
         string_body = '"{"index":{ "_index" : "test"}}\n{"field1": "value1"}"'
         self.assertEqual(
             '"{"index":{ "_index" : "test"}}\n{"field1": "value1"}"\n',
@@ -193,6 +208,7 @@ class TestBulkBody(TestCase):
         )
 
     def test_bulk_body_as_bytestring_adds_trailing_newline(self) -> None:
+        # pylint: disable=missing-function-docstring
         bytestring_body = b'"{"index":{ "_index" : "test"}}\n{"field1": "value1"}"'
         self.assertEqual(
             b'"{"index":{ "_index" : "test"}}\n{"field1": "value1"}"\n',

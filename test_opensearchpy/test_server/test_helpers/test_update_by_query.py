@@ -31,6 +31,7 @@ from opensearchpy.helpers.update_by_query import UpdateByQuery
 
 
 def test_update_by_query_no_script(write_client: Any, setup_ubq_tests: Any) -> None:
+    # pylint: disable=missing-function-docstring
     index = setup_ubq_tests
 
     ubq = (
@@ -50,6 +51,7 @@ def test_update_by_query_no_script(write_client: Any, setup_ubq_tests: Any) -> N
 
 
 def test_update_by_query_with_script(write_client: Any, setup_ubq_tests: Any) -> None:
+    # pylint: disable=missing-function-docstring
     index = setup_ubq_tests
 
     ubq = (
@@ -67,6 +69,7 @@ def test_update_by_query_with_script(write_client: Any, setup_ubq_tests: Any) ->
 
 
 def test_delete_by_query_with_script(write_client: Any, setup_ubq_tests: Any) -> None:
+    # pylint: disable=missing-function-docstring
     index = setup_ubq_tests
 
     ubq = (

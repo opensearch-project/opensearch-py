@@ -45,6 +45,7 @@ OPENSEARCH_REST_API_TESTS: Any = []
 
 @pytest.fixture(scope="session")  # type: ignore
 def sync_client_factory() -> Any:
+    # pylint: disable=missing-function-docstring
     client = None
     try:
         # Configure the client optionally with an HTTP conn class
@@ -85,6 +86,7 @@ def sync_client_factory() -> Any:
 
 @pytest.fixture(scope="function")  # type: ignore
 def sync_client(sync_client_factory: Any) -> Any:
+    # pylint: disable=missing-function-docstring
     try:
         yield sync_client_factory
     finally:

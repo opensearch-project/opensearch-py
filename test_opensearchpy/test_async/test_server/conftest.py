@@ -41,6 +41,7 @@ pytestmark: MarkDecorator = pytest.mark.asyncio
 
 @pytest.fixture(scope="function")  # type: ignore
 async def async_client() -> Any:
+    # pylint: disable=missing-function-docstring
     client = None
     try:
         if not hasattr(opensearchpy, "AsyncOpenSearch"):

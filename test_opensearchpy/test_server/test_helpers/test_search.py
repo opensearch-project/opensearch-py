@@ -64,6 +64,7 @@ class Commit(Document):
 
 
 def test_filters_aggregation_buckets_are_accessible(data_client: Any) -> None:
+    # pylint: disable=missing-function-docstring
     has_tests_query = Q("term", files="test_opensearchpy/test_dsl")
     s = Commit.search()[0:0]
     s.aggs.bucket("top_authors", "terms", field="author.name.raw").bucket(
@@ -85,6 +86,7 @@ def test_filters_aggregation_buckets_are_accessible(data_client: Any) -> None:
 
 
 def test_top_hits_are_wrapped_in_response(data_client: Any) -> None:
+    # pylint: disable=missing-function-docstring
     s = Commit.search()[0:0]
     s.aggs.bucket("top_authors", "terms", field="author.name.raw").metric(
         "top_commits", "top_hits", size=5
@@ -101,6 +103,7 @@ def test_top_hits_are_wrapped_in_response(data_client: Any) -> None:
 
 
 def test_inner_hits_are_wrapped_in_response(data_client: Any) -> None:
+    # pylint: disable=missing-function-docstring
     s = Search(index="git")[0:1].query(
         "has_parent", parent_type="repo", inner_hits={}, query=Q("match_all")
     )
@@ -112,6 +115,7 @@ def test_inner_hits_are_wrapped_in_response(data_client: Any) -> None:
 
 
 def test_scan_respects_doc_types(data_client: Any) -> None:
+    # pylint: disable=missing-function-docstring
     repos = list(Repository.search().scan())
 
     assert 1 == len(repos)
@@ -120,6 +124,7 @@ def test_scan_respects_doc_types(data_client: Any) -> None:
 
 
 def test_scan_iterates_through_all_docs(data_client: Any) -> None:
+    # pylint: disable=missing-function-docstring
     s = Search(index="flat-git")
 
     commits = list(s.scan())
@@ -129,6 +134,7 @@ def test_scan_iterates_through_all_docs(data_client: Any) -> None:
 
 
 def test_response_is_cached(data_client: Any) -> None:
+    # pylint: disable=missing-function-docstring
     s = Repository.search()
     repos = list(s)
 
@@ -137,6 +143,7 @@ def test_response_is_cached(data_client: Any) -> None:
 
 
 def test_multi_search(data_client: Any) -> None:
+    # pylint: disable=missing-function-docstring
     s1 = Repository.search()
     s2 = Search(index="flat-git")
 
@@ -154,6 +161,7 @@ def test_multi_search(data_client: Any) -> None:
 
 
 def test_multi_missing(data_client: Any) -> None:
+    # pylint: disable=missing-function-docstring
     s1 = Repository.search()
     s2 = Search(index="flat-git")
     s3 = Search(index="does_not_exist")
@@ -177,6 +185,7 @@ def test_multi_missing(data_client: Any) -> None:
 
 
 def test_raw_subfield_can_be_used_in_aggs(data_client: Any) -> None:
+    # pylint: disable=missing-function-docstring
     s = Search(index="git")[0:0]
     s.aggs.bucket("authors", "terms", field="author.name.raw", size=1)
 

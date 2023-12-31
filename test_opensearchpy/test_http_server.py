@@ -17,6 +17,9 @@ class TestHTTPRequestHandler(BaseHTTPRequestHandler):
     __test__ = False
 
     def do_GET(self) -> None:  # pylint: disable=invalid-name
+        """
+        writes a response out to a file given mocked parameters on this object
+        """
         headers = self.headers
 
         if self.path == "/redirect":
@@ -49,6 +52,9 @@ class TestHTTPServer(HTTPServer):
         self._server_thread = None
 
     def start(self) -> None:
+        """
+        start the test HTTP server
+        """
         if self._server_thread is not None:
             return
 
@@ -56,6 +62,9 @@ class TestHTTPServer(HTTPServer):
         self._server_thread.start()
 
     def stop(self) -> None:
+        """
+        stop the test HTTP server
+        """
         if self._server_thread is None:
             return
         self.socket.close()

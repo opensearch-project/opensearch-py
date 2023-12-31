@@ -63,10 +63,12 @@ class DummyTransport(AsyncTransport):
 
 class OpenSearchTestCaseWithDummyTransport:
     def assert_call_count_equals(self, count: int) -> None:
+        # pylint: disable=missing-function-docstring
         assert isinstance(self.client.transport, DummyTransport)
         assert count == self.client.transport.call_count
 
     def assert_url_called(self, method: str, url: str, count: int = 1) -> Any:
+        # pylint: disable=missing-function-docstring
         assert isinstance(self.client.transport, DummyTransport)
         assert (method, url) in self.client.transport.calls
         calls = self.client.transport.calls[(method, url)]
@@ -74,17 +76,21 @@ class OpenSearchTestCaseWithDummyTransport:
         return calls
 
     def setup_method(self, method: Any) -> None:
+        # pylint: disable=missing-function-docstring
         self.client = AsyncOpenSearch(transport_class=DummyTransport)
 
 
 class TestClient(OpenSearchTestCaseWithDummyTransport):
     async def test_our_transport_used(self) -> None:
+        # pylint: disable=missing-function-docstring
         assert isinstance(self.client.transport, DummyTransport)
 
     async def test_start_with_0_call(self) -> None:
+        # pylint: disable=missing-function-docstring
         self.assert_call_count_equals(0)
 
     async def test_each_call_is_recorded(self) -> None:
+        # pylint: disable=missing-function-docstring
         await self.client.transport.perform_request("GET", "/")
         await self.client.transport.perform_request(
             "DELETE", "/42", params={}, body="body"

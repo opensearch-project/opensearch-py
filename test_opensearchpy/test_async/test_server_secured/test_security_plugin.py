@@ -40,17 +40,20 @@ class TestSecurityPlugin(IsolatedAsyncioTestCase):  # type: ignore
     USER_NAME = "test-user"
     USER_CONTENT = {"password": "opensearchpy@123", "opendistro_security_roles": []}
 
-    async def asyncSetUp(self) -> None:  # pylint: disable=invalid-name
+    async def asyncSetUp(self) -> None:
+        # pylint: disable=invalid-name, missing-function-docstring
         self.client = await get_test_client(
             verify_certs=False, http_auth=("admin", "admin")
         )
         await add_connection("default", self.client)
 
-    async def asyncTearDown(self) -> None:  # pylint: disable=invalid-name
+    async def asyncTearDown(self) -> None:
+        # pylint: disable=missing-function-docstring, invalid-name
         if self.client:
             await self.client.close()
 
     async def test_create_role(self) -> None:
+        # pylint: disable=missing-function-docstring
         # Test to create role
         response = await self.client.security.create_role(
             self.ROLE_NAME, body=self.ROLE_CONTENT
@@ -60,6 +63,7 @@ class TestSecurityPlugin(IsolatedAsyncioTestCase):  # type: ignore
         self.assertIn(response.get("status"), ["CREATED", "OK"])
 
     async def test_create_role_with_body_param_empty(self) -> None:
+        # pylint: disable=missing-function-docstring
         try:
             await self.client.security.create_role(self.ROLE_NAME, body="")
         except ValueError as error:
@@ -68,6 +72,7 @@ class TestSecurityPlugin(IsolatedAsyncioTestCase):  # type: ignore
             assert False
 
     async def test_get_role(self) -> None:
+        # pylint: disable=missing-function-docstring
         # Create a role
         await self.test_create_role()
 
@@ -78,6 +83,7 @@ class TestSecurityPlugin(IsolatedAsyncioTestCase):  # type: ignore
         self.assertIn(self.ROLE_NAME, response)
 
     async def test_update_role(self) -> None:
+        # pylint: disable=missing-function-docstring
         # Create a role
         await self.test_create_role()
 
@@ -93,6 +99,7 @@ class TestSecurityPlugin(IsolatedAsyncioTestCase):  # type: ignore
         self.assertEqual("OK", response.get("status"))
 
     async def test_delete_role(self) -> None:
+        # pylint: disable=missing-function-docstring
         # Create a role
         await self.test_create_role()
 
@@ -106,6 +113,7 @@ class TestSecurityPlugin(IsolatedAsyncioTestCase):  # type: ignore
             response = await self.client.security.get_role(self.ROLE_NAME)
 
     async def test_create_user(self) -> None:
+        # pylint: disable=missing-function-docstring
         # Test to create user
         response = await self.client.security.create_user(
             self.USER_NAME, body=self.USER_CONTENT
@@ -115,6 +123,7 @@ class TestSecurityPlugin(IsolatedAsyncioTestCase):  # type: ignore
         self.assertIn(response.get("status"), ["CREATED", "OK"])
 
     async def test_create_user_with_body_param_empty(self) -> None:
+        # pylint: disable=missing-function-docstring
         try:
             await self.client.security.create_user(self.USER_NAME, body="")
         except ValueError as error:
@@ -123,6 +132,7 @@ class TestSecurityPlugin(IsolatedAsyncioTestCase):  # type: ignore
             assert False
 
     async def test_create_user_with_role(self) -> None:
+        # pylint: disable=missing-function-docstring
         await self.test_create_role()
 
         # Test to create user
@@ -138,6 +148,7 @@ class TestSecurityPlugin(IsolatedAsyncioTestCase):  # type: ignore
         self.assertIn(response.get("status"), ["CREATED", "OK"])
 
     async def test_get_user(self) -> None:
+        # pylint: disable=missing-function-docstring
         # Create a user
         await self.test_create_user()
 
@@ -148,6 +159,7 @@ class TestSecurityPlugin(IsolatedAsyncioTestCase):  # type: ignore
         self.assertIn(self.USER_NAME, response)
 
     async def test_update_user(self) -> None:
+        # pylint: disable=missing-function-docstring
         # Create a user
         await self.test_create_user()
 
@@ -163,6 +175,7 @@ class TestSecurityPlugin(IsolatedAsyncioTestCase):  # type: ignore
         self.assertEqual("OK", response.get("status"))
 
     async def test_delete_user(self) -> None:
+        # pylint: disable=missing-function-docstring
         # Create a user
         await self.test_create_user()
 
@@ -176,11 +189,13 @@ class TestSecurityPlugin(IsolatedAsyncioTestCase):  # type: ignore
             response = await self.client.security.get_user(self.USER_NAME)
 
     async def test_health_check(self) -> None:
+        # pylint: disable=missing-function-docstring
         response = await self.client.security.health_check()
         self.assertNotIn("errors", response)
         self.assertEqual("UP", response.get("status"))
 
     async def test_health(self) -> None:
+        # pylint: disable=missing-function-docstring
         response = await self.client.security.health()
         self.assertNotIn("errors", response)
         self.assertEqual("UP", response.get("status"))
@@ -214,6 +229,7 @@ class TestSecurityPlugin(IsolatedAsyncioTestCase):  # type: ignore
     }
 
     async def test_update_audit_config(self) -> None:
+        # pylint: disable=missing-function-docstring
         response = await self.client.security.update_audit_config(
             body=self.AUDIT_CONFIG_SETTINGS
         )
@@ -221,6 +237,7 @@ class TestSecurityPlugin(IsolatedAsyncioTestCase):  # type: ignore
         self.assertEqual("OK", response.get("status"))
 
     async def test_update_audit_configuration(self) -> None:
+        # pylint: disable=missing-function-docstring
         response = await self.client.security.update_audit_configuration(
             body=self.AUDIT_CONFIG_SETTINGS
         )

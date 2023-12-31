@@ -35,6 +35,7 @@ from opensearchpy.connection.connections import add_connection, connections
 
 @fixture  # type: ignore
 def mock_client(dummy_response: Any) -> Any:
+    # pylint: disable=missing-function-docstring
     client = Mock()
     client.search.return_value = dummy_response
     add_connection("mock", client)
@@ -45,6 +46,7 @@ def mock_client(dummy_response: Any) -> Any:
 
 @fixture  # type: ignore
 def dummy_response() -> Any:
+    # pylint: disable=missing-function-docstring
     return {
         "_shards": {"failed": 0, "successful": 10, "total": 10},
         "hits": {
@@ -94,6 +96,7 @@ def dummy_response() -> Any:
 
 @fixture  # type: ignore
 def aggs_search() -> Any:
+    # pylint: disable=missing-function-docstring
     from opensearchpy import Search
 
     s = Search(index="flat-git")
@@ -109,6 +112,7 @@ def aggs_search() -> Any:
 
 @fixture  # type: ignore
 def aggs_data() -> Any:
+    # pylint: disable=missing-function-docstring
     return {
         "took": 4,
         "timed_out": False,

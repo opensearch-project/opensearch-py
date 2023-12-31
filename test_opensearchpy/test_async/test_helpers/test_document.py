@@ -126,6 +126,7 @@ class Host(document.AsyncDocument):
 
 
 async def test_range_serializes_properly() -> None:
+    # pylint: disable=missing-function-docstring
     class DocumentD(document.AsyncDocument):
         lr: Any = field.LongRange()
 
@@ -139,6 +140,7 @@ async def test_range_serializes_properly() -> None:
 
 
 async def test_range_deserializes_properly() -> None:
+    # pylint: disable=missing-function-docstring
     class DocumentD(InnerDoc):
         lr = field.LongRange()
 
@@ -149,12 +151,14 @@ async def test_range_deserializes_properly() -> None:
 
 
 async def test_resolve_nested() -> None:
+    # pylint: disable=missing-function-docstring
     nested, field = NestedSecret._index.resolve_nested("secrets.title")
     assert nested == ["secrets"]
     assert field is NestedSecret._doc_type.mapping["secrets"]["title"]
 
 
 async def test_conflicting_mapping_raises_error_in_index_to_dict() -> None:
+    # pylint: disable=missing-function-docstring
     class DocumentA(document.AsyncDocument):
         name = field.Text()
 
@@ -170,17 +174,20 @@ async def test_conflicting_mapping_raises_error_in_index_to_dict() -> None:
 
 
 async def test_ip_address_serializes_properly() -> None:
+    # pylint: disable=missing-function-docstring
     host = Host(ip=ipaddress.IPv4Address("10.0.0.1"))
 
     assert {"ip": "10.0.0.1"} == host.to_dict()
 
 
 async def test_matches_uses_index() -> None:
+    # pylint: disable=missing-function-docstring
     assert SimpleCommit._matches({"_index": "test-git"})
     assert not SimpleCommit._matches({"_index": "not-test-git"})
 
 
 async def test_matches_with_no_name_always_matches() -> None:
+    # pylint: disable=missing-function-docstring
     class DocumentD(document.AsyncDocument):
         pass
 
@@ -189,6 +196,7 @@ async def test_matches_with_no_name_always_matches() -> None:
 
 
 async def test_matches_accepts_wildcards() -> None:
+    # pylint: disable=missing-function-docstring
     class MyDoc(document.AsyncDocument):
         class Index:
             name = "my-*"
@@ -198,6 +206,7 @@ async def test_matches_accepts_wildcards() -> None:
 
 
 async def test_assigning_attrlist_to_field() -> None:
+    # pylint: disable=missing-function-docstring
     sc = SimpleCommit()
     ls = ["README", "README.rst"]
     sc.files = utils.AttrList(ls)
@@ -206,12 +215,14 @@ async def test_assigning_attrlist_to_field() -> None:
 
 
 async def test_optional_inner_objects_are_not_validated_if_missing() -> None:
+    # pylint: disable=missing-function-docstring
     d: Any = OptionalObjectWithRequiredField()
 
     assert d.full_clean() is None
 
 
 async def test_custom_field() -> None:
+    # pylint: disable=missing-function-docstring
     s = SecretDoc(title=Secret("Hello"))
 
     assert {"title": "Uryyb"} == s.to_dict()
@@ -223,12 +234,14 @@ async def test_custom_field() -> None:
 
 
 async def test_custom_field_mapping() -> None:
+    # pylint: disable=missing-function-docstring
     assert {
         "properties": {"title": {"index": "no", "type": "text"}}
     } == SecretDoc._doc_type.mapping.to_dict()
 
 
 async def test_custom_field_in_nested() -> None:
+    # pylint: disable=missing-function-docstring
     s = NestedSecret()
     s.secrets.append(SecretDoc(title=Secret("Hello")))
 
@@ -237,6 +250,7 @@ async def test_custom_field_in_nested() -> None:
 
 
 async def test_multi_works_after_doc_has_been_saved() -> None:
+    # pylint: disable=missing-function-docstring
     c = SimpleCommit()
     c.full_clean()
     c.files.append("setup.py")
@@ -245,6 +259,7 @@ async def test_multi_works_after_doc_has_been_saved() -> None:
 
 
 async def test_multi_works_in_nested_after_doc_has_been_serialized() -> None:
+    # pylint: disable=missing-function-docstring
     # Issue #359
     c = DocWithNested(comments=[Comment(title="First!")])
 
@@ -254,12 +269,14 @@ async def test_multi_works_in_nested_after_doc_has_been_serialized() -> None:
 
 
 async def test_null_value_for_object() -> None:
+    # pylint: disable=missing-function-docstring
     d = MyDoc(inner=None)
 
     assert d.inner is None
 
 
 async def test_inherited_doc_types_can_override_index() -> None:
+    # pylint: disable=missing-function-docstring
     class MyDocDifferentIndex(MySubDoc):
         _index: Any
 
@@ -294,6 +311,7 @@ async def test_inherited_doc_types_can_override_index() -> None:
 
 
 async def test_to_dict_with_meta() -> None:
+    # pylint: disable=missing-function-docstring
     d = MySubDoc(title="hello")
     d.meta.routing = "some-parent"
 
@@ -305,6 +323,7 @@ async def test_to_dict_with_meta() -> None:
 
 
 async def test_to_dict_with_meta_includes_custom_index() -> None:
+    # pylint: disable=missing-function-docstring
     d = MySubDoc(title="hello")
     d.meta.index = "other-index"
 
@@ -312,6 +331,7 @@ async def test_to_dict_with_meta_includes_custom_index() -> None:
 
 
 async def test_to_dict_without_skip_empty_will_include_empty_fields() -> None:
+    # pylint: disable=missing-function-docstring
     d = MySubDoc(tags=[], title=None, inner={})
 
     assert {} == d.to_dict()
@@ -319,6 +339,7 @@ async def test_to_dict_without_skip_empty_will_include_empty_fields() -> None:
 
 
 async def test_attribute_can_be_removed() -> None:
+    # pylint: disable=missing-function-docstring
     d = MyDoc(title="hello")
 
     del d.title
@@ -326,6 +347,7 @@ async def test_attribute_can_be_removed() -> None:
 
 
 async def test_doc_type_can_be_correctly_pickled() -> None:
+    # pylint: disable=missing-function-docstring
     d = DocWithNested(
         title="Hello World!", comments=[Comment(title="hellp")], meta={"id": 42}
     )
@@ -341,6 +363,7 @@ async def test_doc_type_can_be_correctly_pickled() -> None:
 
 
 async def test_meta_is_accessible_even_on_empty_doc() -> None:
+    # pylint: disable=missing-function-docstring
     d = MyDoc()
     assert d.meta == {}
 
@@ -349,6 +372,7 @@ async def test_meta_is_accessible_even_on_empty_doc() -> None:
 
 
 async def test_meta_field_mapping() -> None:
+    # pylint: disable=missing-function-docstring
     class User(document.AsyncDocument):
         username = field.Text()
 
@@ -368,6 +392,7 @@ async def test_meta_field_mapping() -> None:
 
 
 async def test_multi_value_fields() -> None:
+    # pylint: disable=missing-function-docstring
     class Blog(document.AsyncDocument):
         tags = field.Keyword(multi=True)
 
@@ -379,6 +404,7 @@ async def test_multi_value_fields() -> None:
 
 
 async def test_docs_with_properties() -> None:
+    # pylint: disable=missing-function-docstring
     class User(document.AsyncDocument):
         pwd_hash: Any = field.Text()
 
@@ -407,6 +433,7 @@ async def test_docs_with_properties() -> None:
 
 
 async def test_nested_can_be_assigned_to() -> None:
+    # pylint: disable=missing-function-docstring
     d1 = DocWithNested(comments=[Comment(title="First!")])
     d2 = DocWithNested()
 
@@ -418,12 +445,14 @@ async def test_nested_can_be_assigned_to() -> None:
 
 
 async def test_nested_can_be_none() -> None:
+    # pylint: disable=missing-function-docstring
     d = DocWithNested(comments=None, title="Hello World!")
 
     assert {"title": "Hello World!"} == d.to_dict()
 
 
 async def test_nested_defaults_to_list_and_can_be_updated() -> None:
+    # pylint: disable=missing-function-docstring
     md = DocWithNested()
 
     assert [] == md.comments
@@ -433,6 +462,7 @@ async def test_nested_defaults_to_list_and_can_be_updated() -> None:
 
 
 async def test_to_dict_is_recursive_and_can_cope_with_multi_values() -> None:
+    # pylint: disable=missing-function-docstring
     md: Any = MyDoc(name=["a", "b", "c"])
     md.inner = [MyInner(old_field="of1"), MyInner(old_field="of2")]
 
@@ -445,12 +475,14 @@ async def test_to_dict_is_recursive_and_can_cope_with_multi_values() -> None:
 
 
 async def test_to_dict_ignores_empty_collections() -> None:
+    # pylint: disable=missing-function-docstring
     md: Any = MySubDoc(name="", address={}, count=0, valid=False, tags=[])
 
     assert {"name": "", "count": 0, "valid": False} == md.to_dict()
 
 
 async def test_declarative_mapping_definition() -> None:
+    # pylint: disable=missing-function-docstring
     assert issubclass(MyDoc, document.AsyncDocument)
     assert hasattr(MyDoc, "_doc_type")
     assert {
@@ -464,6 +496,7 @@ async def test_declarative_mapping_definition() -> None:
 
 
 async def test_you_can_supply_own_mapping_instance() -> None:
+    # pylint: disable=missing-function-docstring
     class MyD(document.AsyncDocument):
         title = field.Text()
 
@@ -478,6 +511,7 @@ async def test_you_can_supply_own_mapping_instance() -> None:
 
 
 async def test_document_can_be_created_dynamically() -> None:
+    # pylint: disable=missing-function-docstring
     n = datetime.now()
     md: Any = MyDoc(title="hello")
     md.name = "My Fancy Document!"
@@ -499,6 +533,7 @@ async def test_document_can_be_created_dynamically() -> None:
 
 
 async def test_invalid_date_will_raise_exception() -> None:
+    # pylint: disable=missing-function-docstring
     md: Any = MyDoc()
     md.created_at = "not-a-date"
     with raises(ValidationException):
@@ -506,6 +541,7 @@ async def test_invalid_date_will_raise_exception() -> None:
 
 
 async def test_document_inheritance() -> None:
+    # pylint: disable=missing-function-docstring
     assert issubclass(MySubDoc, MyDoc)
     assert issubclass(MySubDoc, document.AsyncDocument)
     assert hasattr(MySubDoc, "_doc_type")
@@ -520,6 +556,7 @@ async def test_document_inheritance() -> None:
 
 
 async def test_child_class_can_override_parent() -> None:
+    # pylint: disable=missing-function-docstring
     class DocumentA(document.AsyncDocument):
         o = field.Object(dynamic=False, properties={"a": field.Text()})
 
@@ -538,6 +575,7 @@ async def test_child_class_can_override_parent() -> None:
 
 
 async def test_meta_fields_are_stored_in_meta_and_ignored_by_to_dict() -> None:
+    # pylint: disable=missing-function-docstring
     md: Any = MySubDoc(meta={"id": 42}, name="My First doc!")
 
     md.meta.index = "my-index"
@@ -548,6 +586,7 @@ async def test_meta_fields_are_stored_in_meta_and_ignored_by_to_dict() -> None:
 
 
 async def test_index_inheritance() -> None:
+    # pylint: disable=missing-function-docstring
     assert issubclass(MyMultiSubDoc, MySubDoc)
     assert issubclass(MyMultiSubDoc, MyDoc2)
     assert issubclass(MyMultiSubDoc, document.AsyncDocument)
@@ -565,6 +604,7 @@ async def test_index_inheritance() -> None:
 
 
 async def test_meta_fields_can_be_set_directly_in_init() -> None:
+    # pylint: disable=missing-function-docstring
     p = object()
     md: Any = MyDoc(_id=p, title="Hello World!")
 
@@ -572,24 +612,28 @@ async def test_meta_fields_can_be_set_directly_in_init() -> None:
 
 
 async def test_save_no_index(mock_client: Any) -> None:
+    # pylint: disable=missing-function-docstring
     md: Any = MyDoc()
     with raises(ValidationException):
         await md.save(using="mock")
 
 
 async def test_delete_no_index(mock_client: Any) -> None:
+    # pylint: disable=missing-function-docstring
     md: Any = MyDoc()
     with raises(ValidationException):
         await md.delete(using="mock")
 
 
 async def test_update_no_fields() -> None:
+    # pylint: disable=missing-function-docstring
     md: Any = MyDoc()
     with raises(IllegalOperation):
         await md.update()
 
 
 async def test_search_with_custom_alias_and_index(mock_client: Any) -> None:
+    # pylint: disable=missing-function-docstring
     search_object: Any = MyDoc.search(
         using="staging", index=["custom_index1", "custom_index2"]
     )
@@ -599,6 +643,7 @@ async def test_search_with_custom_alias_and_index(mock_client: Any) -> None:
 
 
 async def test_from_opensearch_respects_underscored_non_meta_fields() -> None:
+    # pylint: disable=missing-function-docstring
     doc: Any = {
         "_index": "test-index",
         "_id": "opensearch",
@@ -623,6 +668,7 @@ async def test_from_opensearch_respects_underscored_non_meta_fields() -> None:
 
 
 async def test_nested_and_object_inner_doc() -> None:
+    # pylint: disable=missing-function-docstring
     class MySubDocWithNested(MyDoc):
         nested_inner = field.Nested(MyInner)
 

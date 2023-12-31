@@ -143,6 +143,7 @@ FALSEY_VALUES = ("", None, False, 0, 0.0)
 
 class YamlRunner:
     def __init__(self, client: Any) -> None:
+        # pylint: disable=missing-function-docstring
         self.client = client
         self.last_response: Any = None
 
@@ -152,12 +153,13 @@ class YamlRunner:
         self._state: Any = {}
 
     def use_spec(self, test_spec: Any) -> None:
+        # pylint: disable=missing-function-docstring
         self._setup_code = test_spec.pop("setup", None)
         self._run_code = test_spec.pop("run", None)
         self._teardown_code = test_spec.pop("teardown", None)
 
     def setup(self) -> Any:
-        # Pull skips from individual tests to not do unnecessary setup.
+        """Pull skips from individual tests to not do unnecessary setup."""
         skip_code: Any = []
         for action in self._run_code:
             assert len(action) == 1
@@ -175,11 +177,13 @@ class YamlRunner:
             self.run_code(self._setup_code)
 
     def teardown(self) -> Any:
+        # pylint: disable=missing-function-docstring
         if self._teardown_code:
             self.section("teardown")
             self.run_code(self._teardown_code)
 
     def opensearch_version(self) -> Any:
+        # pylint: disable=missing-function-docstring
         global OPENSEARCH_VERSION
         if OPENSEARCH_VERSION is None:
             version_string = (self.client.info())["version"]["number"]
@@ -190,9 +194,11 @@ class YamlRunner:
         return OPENSEARCH_VERSION
 
     def section(self, name: str) -> None:
+        # pylint: disable=missing-function-docstring
         print(("=" * 10) + " " + name + " " + ("=" * 10))
 
     def run(self) -> Any:
+        # pylint: disable=missing-function-docstring
         try:
             self.setup()
             self.section("test")
@@ -216,6 +222,7 @@ class YamlRunner:
                 raise RuntimeError("Invalid action type %r" % (action_type,))
 
     def run_do(self, action: Any) -> Any:
+        # pylint: disable=missing-function-docstring
         api = self.client
         headers = action.pop("headers", None)
         catch = action.pop("catch", None)
@@ -282,6 +289,7 @@ class YamlRunner:
             )
 
     def run_catch(self, catch: Any, exception: Any) -> None:
+        # pylint: disable=missing-function-docstring
         if catch == "param":
             assert isinstance(exception, TypeError)
             return
@@ -297,6 +305,7 @@ class YamlRunner:
         self.last_response = exception.info
 
     def run_skip(self, skip: Any) -> Any:
+        # pylint: disable=missing-function-docstring
         global IMPLEMENTED_FEATURES
 
         if "features" in skip:
@@ -319,31 +328,37 @@ class YamlRunner:
                 pytest.skip(reason)
 
     def run_gt(self, action: Any) -> None:
+        # pylint: disable=missing-function-docstring
         for key, value in action.items():
             value = self._resolve(value)
             assert self._lookup(key) > value
 
     def run_gte(self, action: Any) -> None:
+        # pylint: disable=missing-function-docstring
         for key, value in action.items():
             value = self._resolve(value)
             assert self._lookup(key) >= value
 
     def run_lt(self, action: Any) -> None:
+        # pylint: disable=missing-function-docstring
         for key, value in action.items():
             value = self._resolve(value)
             assert self._lookup(key) < value
 
     def run_lte(self, action: Any) -> None:
+        # pylint: disable=missing-function-docstring
         for key, value in action.items():
             value = self._resolve(value)
             assert self._lookup(key) <= value
 
     def run_set(self, action: Any) -> None:
+        # pylint: disable=missing-function-docstring
         for key, value in action.items():
             value = self._resolve(value)
             self._state[value] = self._lookup(key)
 
     def run_is_false(self, action: Any) -> None:
+        # pylint: disable=missing-function-docstring
         try:
             value = self._lookup(action)
         except AssertionError:
@@ -352,16 +367,19 @@ class YamlRunner:
             assert value in FALSEY_VALUES
 
     def run_is_true(self, action: Any) -> None:
+        # pylint: disable=missing-function-docstring
         value = self._lookup(action)
         assert value not in FALSEY_VALUES
 
     def run_length(self, action: Any) -> None:
+        # pylint: disable=missing-function-docstring
         for path, expected in action.items():
             value = self._lookup(path)
             expected = self._resolve(expected)
             assert expected == len(value)
 
     def run_match(self, action: Any) -> None:
+        # pylint: disable=missing-function-docstring
         for path, expected in action.items():
             value = self._lookup(path)
             expected = self._resolve(expected)
@@ -380,6 +398,7 @@ class YamlRunner:
                 self._assert_match_equals(value, expected)
 
     def run_contains(self, action: Any) -> None:
+        # pylint: disable=missing-function-docstring
         for path, expected in action.items():
             value = self._lookup(path)  # list[dict[str,str]] is returned
             expected = self._resolve(expected)  # dict[str, str]
@@ -388,6 +407,7 @@ class YamlRunner:
                 raise AssertionError("%s is not contained by %s" % (expected, value))
 
     def run_transform_and_set(self, action: Any) -> None:
+        # pylint: disable=missing-function-docstring
         for key, value in action.items():
             # Convert #base64EncodeCredentials(id,api_key) to ["id", "api_key"]
             if "#base64EncodeCredentials" in value:
@@ -463,6 +483,7 @@ class YamlRunner:
 
 @pytest.fixture(scope="function")  # type: ignore
 def sync_runner(sync_client: Any) -> Any:
+    # pylint: disable=missing-function-docstring
     return YamlRunner(sync_client)
 
 
@@ -472,7 +493,7 @@ client = get_client()
 
 
 def load_rest_api_tests() -> None:
-    # Try loading the REST API test specs from OpenSearch core.
+    """Try loading the REST API test specs from OpenSearch core."""
     try:
         # Construct the HTTP and OpenSearch client
         http = urllib3.PoolManager(retries=10)
@@ -542,6 +563,7 @@ if not RUN_ASYNC_REST_API_TESTS:
 
     @pytest.mark.parametrize("test_spec", YAML_TEST_SPECS)  # type: ignore
     def test_rest_api_spec(test_spec: Any, sync_runner: Any) -> None:
+        # pylint: disable=missing-function-docstring
         if test_spec.get("skip", False):
             pytest.skip("Manually skipped in 'SKIP_TESTS'")
         sync_runner.use_spec(test_spec)

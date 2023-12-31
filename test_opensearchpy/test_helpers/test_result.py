@@ -38,10 +38,16 @@ from opensearchpy.helpers.response.aggs import AggResponse, Bucket, BucketData
 
 @fixture  # type: ignore
 def agg_response(aggs_search: Any, aggs_data: Any) -> Any:
+    """
+    :param aggs_search: aggregation search
+    :param aggs_data: data to aggregate
+    :return: the aggregated data
+    """
     return response.Response(aggs_search, aggs_data)
 
 
 def test_agg_response_is_pickleable(agg_response: Any) -> None:
+    # pylint: disable=missing-function-docstring
     assert agg_response.hits == []
     r = pickle.loads(pickle.dumps(agg_response))
 
@@ -51,6 +57,7 @@ def test_agg_response_is_pickleable(agg_response: Any) -> None:
 
 
 def test_response_is_pickleable(dummy_response: Any) -> None:
+    # pylint: disable=missing-function-docstring
     res = response.Response(Search(), dummy_response)
     assert res.hits
     r = pickle.loads(pickle.dumps(res))
@@ -61,6 +68,7 @@ def test_response_is_pickleable(dummy_response: Any) -> None:
 
 
 def test_hit_is_pickleable(dummy_response: Any) -> None:
+    # pylint: disable=missing-function-docstring
     res = response.Response(Search(), dummy_response)
     hits = pickle.loads(pickle.dumps(res.hits))
 
@@ -69,6 +77,7 @@ def test_hit_is_pickleable(dummy_response: Any) -> None:
 
 
 def test_response_stores_search(dummy_response: Any) -> None:
+    # pylint: disable=missing-function-docstring
     s = Search()
     r = response.Response(s, dummy_response)
 
@@ -76,6 +85,7 @@ def test_response_stores_search(dummy_response: Any) -> None:
 
 
 def test_interactive_helpers(dummy_response: Any) -> None:
+    # pylint: disable=missing-function-docstring
     res = response.Response(Search(), dummy_response)
     hits = res.hits
     h = hits[0]
@@ -99,6 +109,7 @@ def test_interactive_helpers(dummy_response: Any) -> None:
 
 
 def test_empty_response_is_false(dummy_response: Any) -> None:
+    # pylint: disable=missing-function-docstring
     dummy_response["hits"]["hits"] = []
     res = response.Response(Search(), dummy_response)
 
@@ -106,11 +117,13 @@ def test_empty_response_is_false(dummy_response: Any) -> None:
 
 
 def test_len_response(dummy_response: Any) -> None:
+    # pylint: disable=missing-function-docstring
     res = response.Response(Search(), dummy_response)
     assert len(res) == 4
 
 
 def test_iterating_over_response_gives_you_hits(dummy_response: Any) -> None:
+    # pylint: disable=missing-function-docstring
     res = response.Response(Search(), dummy_response)
     hits = list(h for h in res)
 
@@ -128,6 +141,7 @@ def test_iterating_over_response_gives_you_hits(dummy_response: Any) -> None:
 
 
 def test_hits_get_wrapped_to_contain_additional_attrs(dummy_response: Any) -> None:
+    # pylint: disable=missing-function-docstring
     res = response.Response(Search(), dummy_response)
     hits = res.hits
 
@@ -136,6 +150,7 @@ def test_hits_get_wrapped_to_contain_additional_attrs(dummy_response: Any) -> No
 
 
 def test_hits_provide_dot_and_bracket_access_to_attrs(dummy_response: Any) -> None:
+    # pylint: disable=missing-function-docstring
     res = response.Response(Search(), dummy_response)
     h = res.hits[0]
 
@@ -152,6 +167,7 @@ def test_hits_provide_dot_and_bracket_access_to_attrs(dummy_response: Any) -> No
 
 
 def test_slicing_on_response_slices_on_hits(dummy_response: Any) -> None:
+    # pylint: disable=missing-function-docstring
     res = response.Response(Search(), dummy_response)
 
     assert res[0] is res.hits[0]
@@ -159,15 +175,18 @@ def test_slicing_on_response_slices_on_hits(dummy_response: Any) -> None:
 
 
 def test_aggregation_base(agg_response: Any) -> None:
+    # pylint: disable=missing-function-docstring
     assert agg_response.aggs is agg_response.aggregations
     assert isinstance(agg_response.aggs, response.AggResponse)
 
 
 def test_metric_agg_works(agg_response: Any) -> None:
+    # pylint: disable=missing-function-docstring
     assert 25052.0 == agg_response.aggs.sum_lines.value
 
 
 def test_aggregations_can_be_iterated_over(agg_response: Any) -> None:
+    # pylint: disable=missing-function-docstring
     aggs = [a for a in agg_response.aggs]
 
     assert len(aggs) == 3
@@ -177,6 +196,7 @@ def test_aggregations_can_be_iterated_over(agg_response: Any) -> None:
 def test_aggregations_can_be_retrieved_by_name(
     agg_response: Any, aggs_search: Any
 ) -> None:
+    # pylint: disable=missing-function-docstring
     a = agg_response.aggs["popular_files"]
 
     assert isinstance(a, BucketData)
@@ -185,6 +205,7 @@ def test_aggregations_can_be_retrieved_by_name(
 
 
 def test_bucket_response_can_be_iterated_over(agg_response: Any) -> None:
+    # pylint: disable=missing-function-docstring
     popular_files = agg_response.aggregations.popular_files
 
     buckets = [b for b in popular_files]
@@ -193,6 +214,7 @@ def test_bucket_response_can_be_iterated_over(agg_response: Any) -> None:
 
 
 def test_bucket_keys_get_deserialized(aggs_data: Any, aggs_search: Any) -> None:
+    # pylint: disable=missing-function-docstring
     class Commit(Document):
         info = Object(properties={"committed_date": Date()})
 

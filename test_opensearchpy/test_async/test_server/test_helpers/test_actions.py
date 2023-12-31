@@ -60,6 +60,9 @@ class FailingBulkClient(object):
         self._fail_with = fail_with
 
     async def bulk(self, *args: Any, **kwargs: Any) -> Any:
+        """
+        increments number of times called and, when it equals fail_at, raises self.fail_with when
+        """
         self._called += 1
         if self._called in self._fail_at:
             raise self._fail_with
@@ -68,6 +71,7 @@ class FailingBulkClient(object):
 
 class TestStreamingBulk(object):
     async def test_actions_remain_unchanged(self, async_client: Any) -> None:
+        # pylint: disable=missing-function-docstring
         actions1 = [{"_id": 1}, {"_id": 2}]
         async for ok, item in actions.async_streaming_bulk(
             async_client, actions1, index="test-index"
@@ -76,6 +80,7 @@ class TestStreamingBulk(object):
         assert [{"_id": 1}, {"_id": 2}] == actions1
 
     async def test_all_documents_get_inserted(self, async_client: Any) -> None:
+        # pylint: disable=missing-function-docstring
         docs = [{"answer": x, "_id": x} for x in range(100)]
         async for ok, item in actions.async_streaming_bulk(
             async_client, docs, index="test-index", refresh=True
@@ -88,6 +93,7 @@ class TestStreamingBulk(object):
         ]
 
     async def test_documents_data_types(self, async_client: Any) -> None:
+        # pylint: disable=missing-function-docstring
         async def async_gen() -> Any:
             for x in range(100):
                 await asyncio.sleep(0)
@@ -124,6 +130,7 @@ class TestStreamingBulk(object):
     async def test_all_errors_from_chunk_are_raised_on_failure(
         self, async_client: Any
     ) -> None:
+        # pylint: disable=missing-function-docstring
         await async_client.indices.create(
             "i",
             {
@@ -144,6 +151,7 @@ class TestStreamingBulk(object):
             assert False, "exception should have been raised"
 
     async def test_different_op_types(self, async_client: Any) -> None:
+        # pylint: disable=missing-function-docstring
         await async_client.index(index="i", id=45, body={})
         await async_client.index(index="i", id=42, body={})
         docs = [
@@ -159,6 +167,7 @@ class TestStreamingBulk(object):
         assert {"f": "v"} == (await async_client.get(index="i", id=47))["_source"]
 
     async def test_transport_error_can_becaught(self, async_client: Any) -> None:
+        # pylint: disable=missing-function-docstring
         failing_client = FailingBulkClient(async_client)
         docs = [
             {"_index": "i", "_id": 47, "f": "v"},
@@ -193,6 +202,7 @@ class TestStreamingBulk(object):
         } == results[1][1]
 
     async def test_rejected_documents_are_retried(self, async_client: Any) -> None:
+        # pylint: disable=missing-function-docstring
         failing_client = FailingBulkClient(
             async_client, fail_with=TransportError(429, "Rejected!", {})
         )
@@ -223,6 +233,7 @@ class TestStreamingBulk(object):
     async def test_rejected_documents_are_retried_at_most_max_retries_times(
         self, async_client: Any
     ) -> None:
+        # pylint: disable=missing-function-docstring
         failing_client = FailingBulkClient(
             async_client, fail_at=(1, 2), fail_with=TransportError(429, "Rejected!", {})
         )
@@ -254,6 +265,7 @@ class TestStreamingBulk(object):
     async def test_transport_error_is_raised_with_max_retries(
         self, async_client: Any
     ) -> None:
+        # pylint: disable=missing-function-docstring
         failing_client = FailingBulkClient(
             async_client,
             fail_at=(1, 2, 3, 4),
@@ -280,6 +292,7 @@ class TestStreamingBulk(object):
 
 class TestBulk(object):
     async def test_bulk_works_with_single_item(self, async_client: Any) -> None:
+        # pylint: disable=missing-function-docstring
         docs = [{"answer": 42, "_id": 1}]
         success, failed = await actions.async_bulk(
             async_client, docs, index="test-index", refresh=True
@@ -293,6 +306,7 @@ class TestBulk(object):
         ]
 
     async def test_all_documents_get_inserted(self, async_client: Any) -> None:
+        # pylint: disable=missing-function-docstring
         docs = [{"answer": x, "_id": x} for x in range(100)]
         success, failed = await actions.async_bulk(
             async_client, docs, index="test-index", refresh=True
@@ -306,6 +320,7 @@ class TestBulk(object):
         ]
 
     async def test_stats_only_reports_numbers(self, async_client: Any) -> None:
+        # pylint: disable=missing-function-docstring
         docs = [{"answer": x} for x in range(100)]
         success, failed = await actions.async_bulk(
             async_client, docs, index="test-index", refresh=True, stats_only=True
@@ -316,6 +331,7 @@ class TestBulk(object):
         assert 100 == (await async_client.count(index="test-index"))["count"]
 
     async def test_errors_are_reported_correctly(self, async_client: Any) -> None:
+        # pylint: disable=missing-function-docstring
         await async_client.indices.create(
             "i",
             {
@@ -343,6 +359,7 @@ class TestBulk(object):
         ) or "mapper_parsing_exception" in repr(error["index"]["error"])
 
     async def test_error_is_raised(self, async_client: Any) -> None:
+        # pylint: disable=missing-function-docstring
         await async_client.indices.create(
             "i",
             {
@@ -356,6 +373,7 @@ class TestBulk(object):
             await actions.async_bulk(async_client, [{"a": 42}, {"a": "c"}], index="i")
 
     async def test_ignore_error_if_raised(self, async_client: Any) -> None:
+        # pylint: disable=missing-function-docstring
         # ignore the status code 400 in tuple
         await actions.async_bulk(
             async_client, [{"a": 42}, {"a": "c"}], index="i", ignore_status=(400,)
@@ -389,6 +407,7 @@ class TestBulk(object):
         )
 
     async def test_errors_are_collected_properly(self, async_client: Any) -> None:
+        # pylint: disable=missing-function-docstring
         await async_client.indices.create(
             "i",
             {
@@ -446,6 +465,7 @@ class MockResponse:
 
 @pytest.fixture(scope="function")  # type: ignore
 async def scan_teardown(async_client: Any) -> Any:
+    # pylint: disable=missing-function-docstring
     yield
     await async_client.clear_scroll(scroll_id="_all")
 
@@ -454,6 +474,7 @@ class TestScan(object):
     async def test_order_can_be_preserved(
         self, async_client: Any, scan_teardown: Any
     ) -> None:
+        # pylint: disable=missing-function-docstring
         bulk: Any = []
         for x in range(100):
             bulk.append({"index": {"_index": "test_index", "_id": x}})
@@ -477,6 +498,7 @@ class TestScan(object):
     async def test_all_documents_are_read(
         self, async_client: Any, scan_teardown: Any
     ) -> None:
+        # pylint: disable=missing-function-docstring
         bulk: Any = []
         for x in range(100):
             bulk.append({"index": {"_index": "test_index", "_id": x}})
@@ -493,6 +515,7 @@ class TestScan(object):
         assert set(range(100)) == set(d["_source"]["answer"] for d in docs)
 
     async def test_scroll_error(self, async_client: Any, scan_teardown: Any) -> None:
+        # pylint: disable=missing-function-docstring
         bulk: Any = []
         for x in range(4):
             bulk.append({"index": {"_index": "test_index"}})
@@ -531,6 +554,7 @@ class TestScan(object):
     async def test_initial_search_error(
         self, async_client: Any, scan_teardown: Any
     ) -> None:
+        # pylint: disable=missing-function-docstring
         with patch.object(async_client, "clear_scroll", new_callable=AsyncMock):
             with patch.object(
                 async_client,
@@ -583,6 +607,7 @@ class TestScan(object):
     async def test_no_scroll_id_fast_route(
         self, async_client: Any, scan_teardown: Any
     ) -> None:
+        # pylint: disable=missing-function-docstring
         with patch.object(async_client, "search", MockResponse({"no": "_scroll_id"})):
             with patch.object(async_client, "scroll") as scroll_mock:
                 with patch.object(async_client, "clear_scroll") as clear_mock:
@@ -601,6 +626,7 @@ class TestScan(object):
     async def test_logger(
         self, logger_mock: Any, async_client: Any, scan_teardown: Any
     ) -> None:
+        # pylint: disable=missing-function-docstring
         bulk: Any = []
         for x in range(4):
             bulk.append({"index": {"_index": "test_index"}})
@@ -642,6 +668,7 @@ class TestScan(object):
             )
 
     async def test_clear_scroll(self, async_client: Any, scan_teardown: Any) -> None:
+        # pylint: disable=missing-function-docstring
         bulk: Any = []
         for x in range(4):
             bulk.append({"index": {"_index": "test_index"}})
@@ -688,6 +715,7 @@ class TestScan(object):
     async def test_scan_auth_kwargs_forwarded(
         self, async_client: Any, scan_teardown: Any, kwargs: Any
     ) -> None:
+        # pylint: disable=missing-function-docstring
         ((key, val),) = kwargs.items()
 
         with patch.object(
@@ -730,6 +758,7 @@ class TestScan(object):
     async def test_scan_auth_kwargs_favor_scroll_kwargs_option(
         self, async_client: Any, scan_teardown: Any
     ) -> None:
+        # pylint: disable=missing-function-docstring
         with patch.object(
             async_client,
             "search",
@@ -779,6 +808,7 @@ class TestScan(object):
     async def test_async_scan_with_missing_hits_key(
         self, async_client: Any, scan_teardown: Any
     ) -> None:
+        # pylint: disable=missing-function-docstring
         with patch.object(
             async_client,
             "search",
@@ -807,6 +837,7 @@ class TestScan(object):
 
 @pytest.fixture(scope="function")  # type: ignore
 async def reindex_setup(async_client: Any) -> Any:
+    # pylint: disable=missing-function-docstring
     bulk: Any = []
     for x in range(100):
         bulk.append({"index": {"_index": "test_index", "_id": x}})
@@ -825,6 +856,7 @@ class TestReindex(object):
     async def test_reindex_passes_kwargs_to_scan_and_bulk(
         self, async_client: Any, reindex_setup: Any
     ) -> None:
+        # pylint: disable=missing-function-docstring
         await actions.async_reindex(
             async_client,
             "test_index",
@@ -846,6 +878,7 @@ class TestReindex(object):
     async def test_reindex_accepts_a_query(
         self, async_client: Any, reindex_setup: Any
     ) -> None:
+        # pylint: disable=missing-function-docstring
         await actions.async_reindex(
             async_client,
             "test_index",
@@ -867,6 +900,7 @@ class TestReindex(object):
     async def test_all_documents_get_moved(
         self, async_client: Any, reindex_setup: Any
     ) -> None:
+        # pylint: disable=missing-function-docstring
         await actions.async_reindex(async_client, "test_index", "prod_index")
         await async_client.indices.refresh()
 
@@ -889,6 +923,7 @@ class TestReindex(object):
 
 @pytest.fixture(scope="function")  # type: ignore
 async def parent_reindex_setup(async_client: Any) -> None:
+    # pylint: disable=missing-function-docstring
     body = {
         "settings": {"number_of_shards": 1, "number_of_replicas": 0},
         "mappings": {
@@ -919,6 +954,7 @@ class TestParentChildReindex:
     async def test_children_are_reindexed_correctly(
         self, async_client: Any, parent_reindex_setup: Any
     ) -> None:
+        # pylint: disable=missing-function-docstring
         await actions.async_reindex(async_client, "test-index", "real-index")
         assert {"question_answer": "question"} == (
             await async_client.get(index="real-index", id=42)

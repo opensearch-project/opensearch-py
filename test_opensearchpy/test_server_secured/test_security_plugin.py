@@ -44,6 +44,7 @@ class TestSecurityPlugin(TestCase):
             self.client.close()
 
     def test_create_role(self) -> None:
+        # pylint: disable=missing-function-docstring
         # Test to create role
         response = self.client.security.create_role(
             self.ROLE_NAME, body=self.ROLE_CONTENT
@@ -53,6 +54,7 @@ class TestSecurityPlugin(TestCase):
         self.assertIn(response.get("status"), ["CREATED", "OK"])
 
     def test_create_role_with_body_param_empty(self) -> None:
+        # pylint: disable=missing-function-docstring
         try:
             self.client.security.create_role(self.ROLE_NAME, body="")
         except ValueError as error:
@@ -61,6 +63,7 @@ class TestSecurityPlugin(TestCase):
             assert False
 
     def test_get_role(self) -> None:
+        # pylint: disable=missing-function-docstring
         # Create a role
         self.test_create_role()
 
@@ -71,6 +74,7 @@ class TestSecurityPlugin(TestCase):
         self.assertIn(self.ROLE_NAME, response)
 
     def test_update_role(self) -> None:
+        # pylint: disable=missing-function-docstring
         # Create a role
         self.test_create_role()
 
@@ -84,6 +88,7 @@ class TestSecurityPlugin(TestCase):
         self.assertEqual("OK", response.get("status"))
 
     def test_delete_role(self) -> None:
+        # pylint: disable=missing-function-docstring
         # Create a role
         self.test_create_role()
 
@@ -97,6 +102,7 @@ class TestSecurityPlugin(TestCase):
             response = self.client.security.get_role(self.ROLE_NAME)
 
     def test_create_user(self) -> None:
+        # pylint: disable=missing-function-docstring
         # Test to create user
         response = self.client.security.create_user(
             self.USER_NAME, body=self.USER_CONTENT
@@ -106,6 +112,7 @@ class TestSecurityPlugin(TestCase):
         self.assertIn(response.get("status"), ["CREATED", "OK"])
 
     def test_create_user_with_body_param_empty(self) -> None:
+        # pylint: disable=missing-function-docstring
         try:
             self.client.security.create_user(self.USER_NAME, body="")
         except ValueError as error:
@@ -114,6 +121,7 @@ class TestSecurityPlugin(TestCase):
             assert False
 
     def test_create_user_with_role(self) -> None:
+        # pylint: disable=missing-function-docstring
         self.test_create_role()
 
         # Test to create user
@@ -129,6 +137,7 @@ class TestSecurityPlugin(TestCase):
         self.assertIn(response.get("status"), ["CREATED", "OK"])
 
     def test_get_user(self) -> None:
+        # pylint: disable=missing-function-docstring
         # Create a user
         self.test_create_user()
 
@@ -139,6 +148,7 @@ class TestSecurityPlugin(TestCase):
         self.assertIn(self.USER_NAME, response)
 
     def test_update_user(self) -> None:
+        # pylint: disable=missing-function-docstring
         # Create a user
         self.test_create_user()
 
@@ -152,6 +162,7 @@ class TestSecurityPlugin(TestCase):
         self.assertEqual("OK", response.get("status"))
 
     def test_delete_user(self) -> None:
+        # pylint: disable=missing-function-docstring
         # Create a user
         self.test_create_user()
 
@@ -165,11 +176,13 @@ class TestSecurityPlugin(TestCase):
             response = self.client.security.get_user(self.USER_NAME)
 
     def test_health_check(self) -> None:
+        # pylint: disable=missing-function-docstring
         response = self.client.security.health_check()
         self.assertNotIn("errors", response)
         self.assertEqual("UP", response.get("status"))
 
     def test_health(self) -> None:
+        # pylint: disable=missing-function-docstring
         response = self.client.security.health()
         self.assertNotIn("errors", response)
         self.assertEqual("UP", response.get("status"))
@@ -203,6 +216,7 @@ class TestSecurityPlugin(TestCase):
     }
 
     def test_update_audit_config(self) -> None:
+        # pylint: disable=missing-function-docstring
         response = self.client.security.update_audit_config(
             body=self.AUDIT_CONFIG_SETTINGS
         )
@@ -210,6 +224,7 @@ class TestSecurityPlugin(TestCase):
         self.assertEqual("OK", response.get("status"))
 
     def test_update_audit_configuration(self) -> None:
+        # pylint: disable=missing-function-docstring
         response = self.client.security.update_audit_configuration(
             body=self.AUDIT_CONFIG_SETTINGS
         )

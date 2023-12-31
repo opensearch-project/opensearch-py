@@ -66,6 +66,7 @@ class TestUrllib3HttpConnection(TestCase):
         return con
 
     def test_ssl_context(self) -> None:
+        # pylint: disable=missing-function-docstring
         try:
             context = ssl.create_default_context()
         except AttributeError:
@@ -82,10 +83,12 @@ class TestUrllib3HttpConnection(TestCase):
         self.assertTrue(con.use_ssl)
 
     def test_opaque_id(self) -> None:
+        # pylint: disable=missing-function-docstring
         con = Urllib3HttpConnection(opaque_id="app-1")
         self.assertEqual(con.headers["x-opaque-id"], "app-1")
 
     def test_no_http_compression(self) -> None:
+        # pylint: disable=missing-function-docstring
         con = self._get_mock_connection()
         self.assertFalse(con.http_compress)
         self.assertNotIn("accept-encoding", con.headers)
@@ -99,6 +102,7 @@ class TestUrllib3HttpConnection(TestCase):
         self.assertNotIn("content-encoding", kwargs["headers"])
 
     def test_http_compression(self) -> None:
+        # pylint: disable=missing-function-docstring
         con = self._get_mock_connection({"http_compress": True})
         self.assertTrue(con.http_compress)
         self.assertEqual(con.headers["accept-encoding"], "gzip,deflate")
@@ -126,6 +130,7 @@ class TestUrllib3HttpConnection(TestCase):
         self.assertNotIn("content-encoding", kwargs["headers"])
 
     def test_default_user_agent(self) -> None:
+        # pylint: disable=missing-function-docstring
         con = Urllib3HttpConnection()
         self.assertEqual(
             con._get_default_user_agent(),
@@ -133,10 +138,12 @@ class TestUrllib3HttpConnection(TestCase):
         )
 
     def test_timeout_set(self) -> None:
+        # pylint: disable=missing-function-docstring
         con = Urllib3HttpConnection(timeout=42)
         self.assertEqual(42, con.timeout)
 
     def test_keep_alive_is_on_by_default(self) -> None:
+        # pylint: disable=missing-function-docstring
         con = Urllib3HttpConnection()
         self.assertEqual(
             {
@@ -148,6 +155,7 @@ class TestUrllib3HttpConnection(TestCase):
         )
 
     def test_http_auth(self) -> None:
+        # pylint: disable=missing-function-docstring
         con = Urllib3HttpConnection(http_auth="username:secret")
         self.assertEqual(
             {
@@ -160,6 +168,7 @@ class TestUrllib3HttpConnection(TestCase):
         )
 
     def test_http_auth_tuple(self) -> None:
+        # pylint: disable=missing-function-docstring
         con = Urllib3HttpConnection(http_auth=("username", "secret"))
         self.assertEqual(
             {
@@ -172,6 +181,7 @@ class TestUrllib3HttpConnection(TestCase):
         )
 
     def test_http_auth_list(self) -> None:
+        # pylint: disable=missing-function-docstring
         con = Urllib3HttpConnection(http_auth=["username", "secret"])
         self.assertEqual(
             {
@@ -188,6 +198,7 @@ class TestUrllib3HttpConnection(TestCase):
         return_value=Mock(status=200, headers=HTTPHeaderDict({}), data=b"{}"),
     )
     def test_aws_signer_as_http_auth_adds_headers(self, mock_open: Any) -> None:
+        # pylint: disable=missing-function-docstring
         from opensearchpy.helpers.signer import Urllib3AWSV4SignerAuth
 
         auth = Urllib3AWSV4SignerAuth(self.mock_session(), "us-west-2")
@@ -205,6 +216,7 @@ class TestUrllib3HttpConnection(TestCase):
         self.assertIn("X-Amz-Content-SHA256", headers)
 
     def test_aws_signer_as_http_auth(self) -> None:
+        # pylint: disable=missing-function-docstring
         region = "us-west-2"
 
         from opensearchpy.helpers.signer import Urllib3AWSV4SignerAuth
@@ -217,6 +229,7 @@ class TestUrllib3HttpConnection(TestCase):
         self.assertIn("X-Amz-Content-SHA256", headers)
 
     def test_aws_signer_when_region_is_null(self) -> None:
+        # pylint: disable=missing-function-docstring
         session = self.mock_session()
 
         from opensearchpy.helpers.signer import Urllib3AWSV4SignerAuth
@@ -230,6 +243,7 @@ class TestUrllib3HttpConnection(TestCase):
         self.assertEqual(str(e.value), "Region cannot be empty")
 
     def test_aws_signer_when_credentials_is_null(self) -> None:
+        # pylint: disable=missing-function-docstring
         region = "us-west-1"
 
         from opensearchpy.helpers.signer import Urllib3AWSV4SignerAuth
@@ -243,6 +257,7 @@ class TestUrllib3HttpConnection(TestCase):
         self.assertEqual(str(e.value), "Credentials cannot be empty")
 
     def test_aws_signer_when_service_is_specified(self) -> None:
+        # pylint: disable=missing-function-docstring
         region = "us-west-1"
         service = "aoss"
 
@@ -256,6 +271,7 @@ class TestUrllib3HttpConnection(TestCase):
         self.assertIn("X-Amz-Security-Token", headers)
 
     def mock_session(self) -> Any:
+        # pylint: disable=missing-function-docstring
         access_key = uuid.uuid4().hex
         secret_key = uuid.uuid4().hex
         token = uuid.uuid4().hex
@@ -268,6 +284,7 @@ class TestUrllib3HttpConnection(TestCase):
         return dummy_session
 
     def test_uses_https_if_verify_certs_is_off(self) -> None:
+        # pylint: disable=missing-function-docstring
         with warnings.catch_warnings(record=True) as w:
             con = Urllib3HttpConnection(use_ssl=True, verify_certs=False)
             self.assertEqual(1, len(w))
@@ -279,6 +296,7 @@ class TestUrllib3HttpConnection(TestCase):
         self.assertIsInstance(con.pool, urllib3.HTTPSConnectionPool)
 
     def test_nowarn_when_uses_https_if_verify_certs_is_off(self) -> None:
+        # pylint: disable=missing-function-docstring
         with warnings.catch_warnings(record=True) as w:
             con = Urllib3HttpConnection(
                 use_ssl=True, verify_certs=False, ssl_show_warn=False
@@ -288,16 +306,19 @@ class TestUrllib3HttpConnection(TestCase):
         self.assertIsInstance(con.pool, urllib3.HTTPSConnectionPool)
 
     def test_doesnt_use_https_if_not_specified(self) -> None:
+        # pylint: disable=missing-function-docstring
         con = Urllib3HttpConnection()
         self.assertIsInstance(con.pool, urllib3.HTTPConnectionPool)
 
     def test_no_warning_when_using_ssl_context(self) -> None:
+        # pylint: disable=missing-function-docstring
         ctx = ssl.create_default_context()
         with warnings.catch_warnings(record=True) as w:
             Urllib3HttpConnection(ssl_context=ctx)
             self.assertEqual(0, len(w))
 
     def test_warns_if_using_non_default_ssl_kwargs_with_ssl_context(self) -> None:
+        # pylint: disable=missing-function-docstring
         kwargs: Any
         for kwargs in (
             {"ssl_show_warn": False},
@@ -321,20 +342,24 @@ class TestUrllib3HttpConnection(TestCase):
                 )
 
     def test_uses_given_ca_certs(self) -> None:
+        # pylint: disable=missing-function-docstring
         path = "/path/to/my/ca_certs.pem"
         c = Urllib3HttpConnection(use_ssl=True, ca_certs=path)
         self.assertEqual(path, c.pool.ca_certs)
 
     def test_uses_default_ca_certs(self) -> None:
+        # pylint: disable=missing-function-docstring
         c = Urllib3HttpConnection(use_ssl=True)
         self.assertEqual(Connection.default_ca_certs(), c.pool.ca_certs)
 
     def test_uses_no_ca_certs(self) -> None:
+        # pylint: disable=missing-function-docstring
         c = Urllib3HttpConnection(use_ssl=True, verify_certs=False)
         self.assertIsNone(c.pool.ca_certs)
 
     @patch("opensearchpy.connection.base.logger")
     def test_uncompressed_body_logged(self, logger: Any) -> None:
+        # pylint: disable=missing-function-docstring
         con = self._get_mock_connection(connection_params={"http_compress": True})
         con.perform_request("GET", "/", body=b'{"example": "body"}')
 
@@ -346,6 +371,7 @@ class TestUrllib3HttpConnection(TestCase):
 
     @patch("opensearchpy.connection.base.logger", return_value=MagicMock())
     def test_body_not_logged(self, logger: Any) -> None:
+        # pylint: disable=missing-function-docstring
         logger.isEnabledFor.return_value = False
 
         con = self._get_mock_connection()
@@ -356,6 +382,7 @@ class TestUrllib3HttpConnection(TestCase):
 
     @patch("opensearchpy.connection.base.logger")
     def test_failure_body_logged(self, logger: Any) -> None:
+        # pylint: disable=missing-function-docstring
         con = self._get_mock_connection(response_code=404)
         with pytest.raises(NotFoundError) as e:
             con.perform_request("GET", "/invalid", body=b'{"example": "body"}')
@@ -369,6 +396,7 @@ class TestUrllib3HttpConnection(TestCase):
 
     @patch("opensearchpy.connection.base.logger", return_value=MagicMock())
     def test_failure_body_not_logged(self, logger: Any) -> None:
+        # pylint: disable=missing-function-docstring
         logger.isEnabledFor.return_value = False
 
         con = self._get_mock_connection(response_code=404)
@@ -380,12 +408,14 @@ class TestUrllib3HttpConnection(TestCase):
         self.assertEqual(logger.debug.call_count, 0)
 
     def test_surrogatepass_into_bytes(self) -> None:
+        # pylint: disable=missing-function-docstring
         buf = b"\xe4\xbd\xa0\xe5\xa5\xbd\xed\xa9\xaa"
         con = self._get_mock_connection(response_body=buf)
         status, headers, data = con.perform_request("GET", "/")
         self.assertEqual(u"你好\uda6a", data)  # fmt: skip
 
     def test_recursion_error_reraised(self) -> None:
+        # pylint: disable=missing-function-docstring
         conn = Urllib3HttpConnection()
 
         def urlopen_raise(*_: Any, **__: Any) -> Any:
@@ -400,6 +430,7 @@ class TestUrllib3HttpConnection(TestCase):
 
 class TestSignerWithFrozenCredentials(TestUrllib3HttpConnection):
     def mock_session(self) -> Any:
+        # pylint: disable=missing-function-docstring
         access_key = uuid.uuid4().hex
         secret_key = uuid.uuid4().hex
         token = uuid.uuid4().hex
@@ -414,6 +445,7 @@ class TestSignerWithFrozenCredentials(TestUrllib3HttpConnection):
     def test_urllib3_http_connection_aws_signer_frozen_credentials_as_http_auth(
         self,
     ) -> None:
+        # pylint: disable=missing-function-docstring
         region = "us-west-2"
 
         from opensearchpy.helpers.signer import Urllib3AWSV4SignerAuth
