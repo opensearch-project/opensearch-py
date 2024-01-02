@@ -214,9 +214,13 @@ class Urllib3HttpConnection(Connection):
         if pool_maxsize and isinstance(pool_maxsize, int):
             kw["maxsize"] = pool_maxsize
 
-        self.pool = pool_class(
+        self._urllib3_pool_factory = lambda: pool_class(
             self.hostname, port=self.port, timeout=self.timeout, **kw
         )
+        self._create_urllib3_pool()
+
+    def _create_urllib3_pool(self) -> None:
+        self.pool = self._urllib3_pool_factory()  # type: ignore
 
     def perform_request(
         self,
@@ -228,6 +232,10 @@ class Urllib3HttpConnection(Connection):
         ignore: Collection[int] = (),
         headers: Optional[Mapping[str, str]] = None,
     ) -> Any:
+        if self.pool is None:
+            self._create_urllib3_pool()
+        assert self.pool is not None
+
         url = self.url_prefix + url
         if params:
             url = "%s?%s" % (url, urlencode(params))
@@ -305,4 +313,6 @@ class Urllib3HttpConnection(Connection):
         """
         Explicitly closes connection
         """
-        self.pool.close()
+        if self.pool:
+            self.pool.close()
+            self.pool = None
