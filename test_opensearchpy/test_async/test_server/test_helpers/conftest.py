@@ -47,10 +47,17 @@ async def opensearch_version(client: Any) -> Any:
     # pylint: disable=missing-function-docstring
     info = await client.info()
     print(info)
-    yield tuple(
-        int(x)
-        for x in re.match(r"^([0-9.]+)", info["version"]["number"]).group(1).split(".")  # type: ignore
-    )
+    yield tuple(int(x) for x in match_version(info))
+
+
+async def match_version(info: Any) -> Any:
+    """
+    matches the major version from the given client info
+    :param info:
+    """
+    match = re.match(r"^([0-9.]+)", info["version"]["number"])
+    assert match is not None
+    yield match.group(1).split(".")
 
 
 @fixture  # type: ignore

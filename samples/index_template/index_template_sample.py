@@ -13,6 +13,7 @@ from opensearchpy import OpenSearch
 
 def main() -> None:
     """
+    # pylint: disable=line-too-long
     1. connects to an OpenSearch instance running on localhost
     2. Create an index template named `books` with default settings and mappings for indices of
     the `books-*` pattern. You can create an index template to define default settings and mappings for indices

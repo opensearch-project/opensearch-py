@@ -54,13 +54,23 @@ def client() -> Any:
 
 @fixture(scope="session")  # type: ignore
 def opensearch_version(client: Any) -> Any:
-    # pylint: disable=missing-function-docstring
-    info = client.info()
+    """
+    yields a major version from the client
+    :param client: client to connect to opensearch
+    """
+    info: Any = client.info()
     print(info)
-    yield tuple(
-        int(x)
-        for x in re.match(r"^([0-9.]+)", info["version"]["number"]).group(1).split(".")  # type: ignore
-    )
+    yield tuple(int(x) for x in match_version(info))
+
+
+def match_version(info: Any) -> Any:
+    """
+    matches the major version from the given client info
+    :param info:
+    """
+    match = re.match(r"^([0-9.]+)", info["version"]["number"])
+    assert match is not None
+    yield match.group(1).split(".")
 
 
 @fixture  # type: ignore

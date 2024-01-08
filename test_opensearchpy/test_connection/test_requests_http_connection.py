@@ -145,7 +145,8 @@ class TestRequestsHttpConnection(TestCase):
             )
             self.assertEqual(1, len(w))
             self.assertEqual(
-                "Connecting to https://localhost:9200 using SSL with verify_certs=False is insecure.",
+                "Connecting to https://localhost:9200 using SSL with "
+                "verify_certs=False is insecure.",
                 str(w[0].message),
             )
 
@@ -309,8 +310,12 @@ class TestRequestsHttpConnection(TestCase):
 
         # trace request
         self.assertEqual(1, tracer.info.call_count)
+        trace_curl_cmd = """
+        curl -H 'Content-Type: application/json' -XGET 'http://localhost:9200/?pretty&param=42'
+        -d '{\n  "question": "what\\u0027s that?"\n}'
+        """
         self.assertEqual(
-            """curl -H 'Content-Type: application/json' -XGET 'http://localhost:9200/?pretty&param=42' -d '{\n  "question": "what\\u0027s that?"\n}'""",
+            trace_curl_cmd,
             tracer.info.call_args[0][0] % tracer.info.call_args[0][1:],
         )
         # trace response
@@ -447,9 +452,13 @@ class TestRequestsHttpConnection(TestCase):
         self.assertEqual('{"answer": 42}'.encode("utf-8"), request.body)
 
         # trace request
+        trace_curl_cmd = (
+            "curl -H 'Content-Type: application/json' -XGET 'http://localhost:9200/_search?pretty' "
+            "-d '{\n  \"answer\": 42\n}'"
+        )
         self.assertEqual(1, tracer.info.call_count)
         self.assertEqual(
-            "curl -H 'Content-Type: application/json' -XGET 'http://localhost:9200/_search?pretty' -d '{\n  \"answer\": 42\n}'",
+            trace_curl_cmd,
             tracer.info.call_args[0][0] % tracer.info.call_args[0][1:],
         )
 

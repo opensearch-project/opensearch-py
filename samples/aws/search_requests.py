@@ -21,10 +21,13 @@ from opensearchpy import OpenSearch, RequestsAWSV4SignerAuth, RequestsHttpConnec
 
 def main() -> None:
     """
-    connects to a cluster specified in environment variables, creates an index, inserts documents,
+    connects to a cluster specified in environment variables,
+    creates an index, inserts documents,
     searches the index, deletes the document, deletes the index.
-    the environment variables are "ENDPOINT" for the cluster endpoint, AWS_REGION for the region in which the cluster
-    is hosted, and SERVICE to indicate if this is an ES 7.10.2 compatible cluster
+    the environment variables are "ENDPOINT" for the cluster
+    endpoint, AWS_REGION for the region in which the cluster
+    is hosted, and SERVICE to indicate if this is an ES 7.10.2
+    compatible cluster
     """
     # verbose logging
     logging.basicConfig(format="%(levelname)s:%(message)s", level=logging.INFO)

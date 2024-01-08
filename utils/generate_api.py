@@ -122,8 +122,8 @@ class Module:
         namespace_new = "".join(word.capitalize() for word in self.namespace.split("_"))
         self.header += "class " + namespace_new + "Client(NamespacedClient):"
         if os.path.exists(self.filepath):
-            with open(self.filepath, encoding="utf-8") as f:
-                content = f.read()
+            with open(self.filepath, encoding="utf-8") as file:
+                content = file.read()
                 header_lines = []
                 for line in content.split("\n"):
                     header_lines.append(line)
@@ -138,7 +138,7 @@ class Module:
                             if "security.py" in str(self.filepath):
                                 # TODO: FIXME, import code
                                 header_lines.append(
-                                    "    from ._patch import health_check, update_audit_config  # type: ignore"
+                                    "    from ._patch import health_check, update_audit_config  # type: ignore"  # pylint: disable=line-too-long
                                 )
                             break
                 self.header = "\n".join(header_lines)
@@ -164,9 +164,10 @@ class Module:
         """
         self.sort()
 
-        # This code snippet adds headers to each generated module indicating that the code is generated.
-        # The separator is the last line in the "THIS CODE IS AUTOMATICALLY GENERATED" header.
-        header_separator = "# -----------------------------------------------------------------------------------------+"
+        # This code snippet adds headers to each generated module indicating
+        # that the code is generated.The separator is the last line in the
+        # "THIS CODE IS AUTOMATICALLY GENERATED" header.
+        header_separator = "# -----------------------------------------------------------------------------------------+"  # pylint: disable=line-too-long
         license_header_end_1 = "# GitHub history for details."
         license_header_end_2 = "#  under the License."
 
@@ -175,8 +176,8 @@ class Module:
 
         # Identifying the insertion point for the "THIS CODE IS AUTOMATICALLY GENERATED" header.
         if os.path.exists(self.filepath):
-            with open(self.filepath, "r", encoding="utf-8") as f:
-                content = f.read()
+            with open(self.filepath, "r", encoding="utf-8") as file:
+                content = file.read()
             if header_separator in content:
                 update_header = False
                 header_end_position = (
@@ -205,14 +206,15 @@ class Module:
         with open(generated_file_header_path, "r", encoding="utf-8") as header_file:
             header_content = header_file.read()
 
-        # Imports are temporarily removed from the header and are regenerated later to ensure imports are updated after code generation.
+        # Imports are temporarily removed from the header and are regenerated
+        # later to ensure imports are updated after code generation.
         self.header = "\n".join(
             line for line in self.header.split("\n") if "from .utils import" not in line
         )
 
-        with open(self.filepath, "w", encoding="utf-8") as f:
+        with open(self.filepath, "w", encoding="utf-8") as file:
             if update_header is True:
-                f.write(
+                file.write(
                     self.header[:license_position]
                     + "\n"
                     + header_content
@@ -221,20 +223,20 @@ class Module:
                     + self.header[license_position:]
                 )
             else:
-                f.write(
+                file.write(
                     self.header[:header_position]
                     + "\n"
                     + "#replace_token#\n"
                     + self.header[header_position:]
                 )
             for api in self._apis:
-                f.write(api.to_python())
+                file.write(api.to_python())
 
         # Generating imports for each module
         utils_imports = ""
         file_content = ""
-        with open(self.filepath, "r", encoding="utf-8") as f:
-            content = f.read()
+        with open(self.filepath, "r", encoding="utf-8") as file:
+            content = file.read()
             keywords = [
                 "SKIP_IN_PATH",
                 "_normalize_hosts",
@@ -254,8 +256,8 @@ class Module:
                 utils_imports = result
             file_content = content.replace("#replace_token#", utils_imports)
 
-        with open(self.filepath, "w", encoding="utf-8") as f:
-            f.write(file_content)
+        with open(self.filepath, "w", encoding="utf-8") as file:
+            file.write(file_content)
 
     @property
     def filepath(self) -> Any:
@@ -320,12 +322,12 @@ class API:
         for url in self._def["url"]["paths"]:
             parts.update(url.get("parts", {}))
 
-        for p in parts:
-            if "required" not in parts[p]:
-                parts[p]["required"] = all(
-                    p in url.get("parts", {}) for url in self._def["url"]["paths"]
+        for part in parts:
+            if "required" not in parts[part]:
+                parts[part]["required"] = all(
+                    part in url.get("parts", {}) for url in self._def["url"]["paths"]
                 )
-            parts[p]["type"] = "Any"
+            parts[part]["type"] = "Any"
 
             # This piece of logic corresponds to calling
             # client.tasks.get() w/o a task_id which was erroneously
@@ -372,10 +374,10 @@ class API:
         """
         :return: body of the API spec
         """
-        b = self._def.get("body", {})
-        if b:
-            b.setdefault("required", False)
-        return b
+        body_api_spec = self._def.get("body", {})
+        if body_api_spec:
+            body_api_spec.setdefault("required", False)
+        return body_api_spec
 
     @property
     def query_params(self) -> Any:
@@ -383,9 +385,9 @@ class API:
         :return: any query string parameters from the specification
         """
         return (
-            k
-            for k in sorted(self._def.get("params", {}).keys())
-            if k not in self.all_parts
+            key
+            for key in sorted(self._def.get("params", {}).keys())
+            if key not in self.all_parts
         )
 
     @property
@@ -468,11 +470,11 @@ class API:
         :return: rendered Jinja template
         """
         try:
-            t = jinja_env.get_template(f"overrides/{self.namespace}/{self.name}")
+            template = jinja_env.get_template(f"overrides/{self.namespace}/{self.name}")
         except TemplateNotFound:
-            t = jinja_env.get_template("base")
+            template = jinja_env.get_template("base")
 
-        return t.render(
+        return template.render(
             api=self,
             substitutions={v: k for k, v in SUBSTITUTIONS.items()},
             global_query_params=GLOBAL_QUERY_PARAMS,
@@ -490,48 +492,51 @@ def read_modules() -> Any:
 
     # Load the OpenAPI specification file
     response = requests.get(
-        "https://raw.githubusercontent.com/opensearch-project/opensearch-api-specification/main/OpenSearch.openapi.json"
+        "https://raw.githubusercontent.com/opensearch-project/opensearch-api-"
+        "specification/main/OpenSearch.openapi.json"
     )
     data = response.json()
 
     list_of_dicts = []
 
     for path in data["paths"]:
-        for x in data["paths"][path]:
-            if data["paths"][path][x]["x-operation-group"] == "nodes.hot_threads":
-                if "deprecated" in data["paths"][path][x]:
+        for param in data["paths"][path]:  # pylint: disable=invalid-name
+            if data["paths"][path][param]["x-operation-group"] == "nodes.hot_threads":
+                if "deprecated" in data["paths"][path][param]:
                     continue
-            data["paths"][path][x].update({"path": path, "method": x})
-            list_of_dicts.append(data["paths"][path][x])
+            data["paths"][path][param].update({"path": path, "method": param})
+            list_of_dicts.append(data["paths"][path][param])
 
     # Update parameters  in each endpoint
-    for p in list_of_dicts:
-        if "parameters" in p:
+    for param_dict in list_of_dicts:
+        if "parameters" in param_dict:
             params = []
             parts = []
 
             # Iterate over the list of parameters and update them
-            for x in p["parameters"]:
-                if "schema" in x and "$ref" in x["schema"]:
-                    schema_path_ref = x["schema"]["$ref"].split("/")[-1]
-                    x["schema"] = data["components"]["schemas"][schema_path_ref]
-                    params.append(x)
+            for param in param_dict["parameters"]:
+                if "schema" in param and "$ref" in param["schema"]:
+                    schema_path_ref = param["schema"]["$ref"].split("/")[-1]
+                    param["schema"] = data["components"]["schemas"][schema_path_ref]
+                    params.append(param)
                 else:
-                    params.append(x)
+                    params.append(param)
 
             # Iterate over the list of updated parameters to separate "parts" from "params"
-            k = params.copy()
-            for q in k:
-                if q["in"] == "path":
-                    parts.append(q)
-                    params.remove(q)
+            params_copy = params.copy()
+            for param in params_copy:
+                if param["in"] == "path":
+                    parts.append(param)
+                    params.remove(param)
 
             # Convert "params" and "parts" into the structure required for generator.
             params_new = {}
             parts_new = {}
 
-            for m in params:
-                a = dict(type=m["schema"]["type"], description=m["description"])
+            for m in params:  # pylint: disable=invalid-name
+                a = dict(  # pylint: disable=invalid-name
+                    type=m["schema"]["type"], description=m["description"]
+                )  # pylint: disable=invalid-name
 
                 if "default" in m["schema"]:
                     a.update({"default": m["schema"]["default"]})
@@ -548,22 +553,25 @@ def read_modules() -> Any:
                 params_new.update({m["name"]: a})
 
             # Removing the deprecated "type"
-            if p["x-operation-group"] != "nodes.hot_threads" and "type" in params_new:
+            if (
+                param_dict["x-operation-group"] != "nodes.hot_threads"
+                and "type" in params_new
+            ):
                 params_new.pop("type")
 
             if (
-                p["x-operation-group"] == "cluster.health"
+                param_dict["x-operation-group"] == "cluster.health"
                 and "ensure_node_commissioned" in params_new
             ):
                 params_new.pop("ensure_node_commissioned")
 
             if bool(params_new):
-                p.update({"params": params_new})
+                param_dict.update({"params": params_new})
 
-            p.pop("parameters")
+            param_dict.pop("parameters")
 
-            for n in parts:
-                b = dict(type=n["schema"]["type"])
+            for n in parts:  # pylint: disable=invalid-name
+                b = dict(type=n["schema"]["type"])  # pylint: disable=invalid-name
 
                 if "description" in n:
                     b.update({"description": n["description"]})
@@ -586,7 +594,7 @@ def read_modules() -> Any:
                 parts_new.update({n["name"]: b})
 
             if bool(parts_new):
-                p.update({"parts": parts_new})
+                param_dict.update({"parts": parts_new})
 
     # Sort the input list by the value of the "x-operation-group" key
     list_of_dicts = sorted(list_of_dicts, key=itemgetter("x-operation-group"))
@@ -610,7 +618,7 @@ def read_modules() -> Any:
             # Extract the HTTP methods from the data in the current subgroup
             methods = []
             parts_final = {}
-            for z in value2:
+            for z in value2:  # pylint: disable=invalid-name
                 methods.append(z["method"].upper())
 
                 # Update 'api' dictionary
@@ -630,9 +638,9 @@ def read_modules() -> Any:
                     body = {"required": False}
                     if "required" in z["requestBody"]:
                         body.update({"required": z["requestBody"]["required"]})
-                    q = z["requestBody"]["content"]["application/json"]["schema"][
-                        "$ref"
-                    ].split("/")[-1]
+                    q = z["requestBody"]["content"][  # pylint: disable=invalid-name
+                        "application/json"
+                    ]["schema"]["$ref"].split("/")[-1]
                     if "description" in data["components"]["schemas"][q]:
                         body.update(
                             {
@@ -715,8 +723,8 @@ def apply_patch(namespace: str, name: str, api: Any) -> Any:
         CODE_ROOT / "utils/templates/overrides" / namespace / f"{name}.json"
     )
     if os.path.exists(override_file_path):
-        with open(override_file_path, encoding="utf-8") as f:
-            override_json = json.load(f)
+        with open(override_file_path, encoding="utf-8") as file:
+            override_json = json.load(file)
             api = deepmerge.always_merger.merge(api, override_json)
     return api
 

@@ -92,14 +92,8 @@ def lint(session: Any) -> None:
     session.run("isort", "--check", *SOURCE_FILES)
     session.run("black", "--check", *SOURCE_FILES)
     session.run("flake8", *SOURCE_FILES)
-    if (
-        # run export NOXFILE_PYLINT_PARAMS_FEATURE=true on the command line to run this code
-        "NOXFILE_PYLINT_PARAMS_FEATURE" in session.env
-        and session.env["NOXFILE_PYLINT_PARAMS_FEATURE"]
-    ):
-        lint_per_folder(session)
-    else:
-        session.run("pylint", *SOURCE_FILES)
+
+    lint_per_folder(session)
 
     session.run("python", "utils/license_headers.py", "check", *SOURCE_FILES)
 
@@ -124,14 +118,16 @@ def lint_per_folder(session: Any) -> None:
     allows configuration of pylint rules per folder and runs a pylint command for each folder
     :param session: the current nox session
     """
-    # tests should not require function docstrings - tests function names describe themselves;
-    # opensearchpy is generated; may require in the generator code some places
+
+    # TODO determine how to separate generated code from generator code for linting
+    exclude_path_from_linting = ["opensearchpy/"]
     default_enable = [
         "line-too-long",
         "invalid-name",
         "pointless-statement",
         "unspecified-encoding",
         "missing-function-docstring",
+        "unspecified-encoding",
     ]
     override_enable = {
         "test_opensearchpy/": [
@@ -139,28 +135,15 @@ def lint_per_folder(session: Any) -> None:
             # "invalid-name", lots of short functions with one or two character names
             "pointless-statement",
             "unspecified-encoding",
-            "redefined-outer-name",
-        ],
-        # "opensearchpy/": [""],
+            "missing-function-docstring",
+            "unspecified-encoding",
+        ]
     }
-    # import-outside-toplevel
-    # enable = line-too-long, invalid-name, pointless-statement, unspecified-encoding,
-    # missing-function-docstring
-    # should fail the build: redefined-outer-name, , line-too-long, invalid-name,
-    # pointless-statement,
-    # import-outside-toplevel, unused-variable, unexpected-keyword-arg,
-    # raise-missing-from, invalid-unary-operand-type,
-    # attribute-defined-outside-init, unspecified-encoding
-    # should be warnings: super-with-arguments, too-few-public-methods, redefined-builtin,
-    # too-many-arguments
-    # (how many is too many?), useless-object-inheritance, too-many-locals,
-    # too-many-branches, dangerous-default-value,
-    # arguments-renamed
-    # warn, then fail later (low priority): too-many-locals, unnecessary-dunder-call,
-    # too-many-public-methods,
-    # no-else-return, invalid-overridden-method, cyclic-import
-    # does this conflict with isort? wrong-import-position
+
     for source_file in SOURCE_FILES:
+        if source_file in exclude_path_from_linting:
+            continue
+
         args = ["--disable=all"]
         if source_file in override_enable:
             args.append(f"--enable={','.join(override_enable[source_file])}")

@@ -59,7 +59,8 @@ def run(*argv: Any, expect_exit_code: int = 0) -> None:
     """
     runs a command within this script
     :param argv: command to run e.g. "git" "checkout" "--" "setup.py" "opensearchpy/"
-    :param expect_exit_code: code to compare with actual exit code from command. will exit the process if they do not
+    :param expect_exit_code: code to compare with actual exit code from command.
+    will exit the process if they do not
     match the proper exit code
     """
     global TMP_DIR
@@ -124,7 +125,7 @@ def test_dist(dist: Any) -> None:
         run(
             venv_python,
             "-c",
-            f"from {dist_name}.helpers import async_scan, async_bulk, async_streaming_bulk, async_reindex",
+            f"from {dist_name}.helpers import async_scan, async_bulk, async_streaming_bulk, async_reindex",  # pylint: disable=line-too-long
         )
 
         # Install aiohttp and see that async is now available
@@ -133,7 +134,7 @@ def test_dist(dist: Any) -> None:
         run(
             venv_python,
             "-c",
-            f"from {dist_name}.helpers import async_scan, async_bulk, async_streaming_bulk, async_reindex",
+            f"from {dist_name}.helpers import async_scan, async_bulk, async_streaming_bulk, async_reindex",  # pylint: disable=line-too-long
         )
 
         # Only need to test 'async_types' for non-aliased package
@@ -205,11 +206,13 @@ def main() -> None:
 
     # Grab the major version to be used as a suffix.
     version_path = os.path.join(BASE_DIR, "opensearchpy/_version.py")
-    with open(version_path, encoding="utf-8") as f:
-        data = f.read()
-        m = re.search(r"^__versionstr__: str\s+=\s+[\"\']([^\"\']+)[\"\']", data, re.M)
-        if m:
-            version = m.group(1)
+    with open(version_path, encoding="utf-8") as file:
+        data = file.read()
+        version_match = re.search(
+            r"^__versionstr__: str\s+=\s+[\"\']([^\"\']+)[\"\']", data, re.M
+        )
+        if version_match:
+            version = version_match.group(1)
         else:
             raise Exception(f"Invalid version: {data}")
 
@@ -272,25 +275,25 @@ def main() -> None:
 
         # Ensure that the version within 'opensearchpy/_version.py' is correct.
         version_path = os.path.join(BASE_DIR, f"opensearchpy{suffix}/_version.py")
-        with open(version_path, encoding="utf-8") as f:
-            version_data = f.read()
+        with open(version_path, encoding="utf-8") as file:
+            version_data = file.read()
         version_data = re.sub(
             r"__versionstr__: str = \"[^\"]+\"",
             '__versionstr__: str = "%s"' % version,
             version_data,
         )
-        with open(version_path, "w", encoding="utf-8") as f:
-            f.truncate()
-            f.write(version_data)
+        with open(version_path, "w", encoding="utf-8") as file:
+            file.truncate()
+            file.write(version_data)
 
         # Rewrite setup.py with the new name.
         setup_py_path = os.path.join(BASE_DIR, "setup.py")
-        with open(setup_py_path, encoding="utf-8") as f:
-            setup_py = f.read()
-        with open(setup_py_path, "w", encoding="utf-8") as f:
-            f.truncate()
+        with open(setup_py_path, encoding="utf-8") as file:
+            setup_py = file.read()
+        with open(setup_py_path, "w", encoding="utf-8") as file:
+            file.truncate()
             assert 'PACKAGE_NAME = "opensearch-py"' in setup_py
-            f.write(
+            file.write(
                 setup_py.replace(
                     'PACKAGE_NAME = "opensearch-py"',
                     'PACKAGE_NAME = "opensearch-py%s"' % suffix,

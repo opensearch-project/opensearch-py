@@ -24,8 +24,9 @@ urllib3.disable_warnings()
 
 def main() -> None:
     """
-    sample for custom logging; this shows how to create a console handler, connect to OpenSearch, define a custom
-    logger and log to an OpenSearch index
+    sample for custom logging; this shows how to create a
+    console handler, connect to OpenSearch, define a custom
+    logger, and log to an OpenSearch index
     """
     print("Collecting logs.")
 
@@ -90,9 +91,9 @@ def main() -> None:
                     index=self._build_index_name(),
                     body=document,
                 )
-            except Exception as e:
-                print(f"Failed to send log to OpenSearch: {e}")
-                logging.warning(f"Failed to send log to OpenSearch: {e}")
+            except Exception as ex:
+                print(f"Failed to send log to OpenSearch: {ex}")
+                logging.warning(f"Failed to send log to OpenSearch: {ex}")
                 raise
 
     print("Creating an instance of OpenSearchHandler and adding it to the logger...")

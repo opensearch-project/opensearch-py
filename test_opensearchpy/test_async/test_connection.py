@@ -92,7 +92,8 @@ class TestAIOHttpConnection:
             # it means SSLContext is not available for that version of python
             # and we should skip this test.
             pytest.skip(
-                "Test test_ssl_context is skipped cause SSLContext is not available for this version of Python"
+                "Test test_ssl_context is skipped cause SSLContext is "
+                "not available for this version of Python"
             )
 
         con = AIOHttpConnection(use_ssl=True, ssl_context=context)
@@ -217,8 +218,8 @@ class TestAIOHttpConnection:
             con = AIOHttpConnection(use_ssl=True, verify_certs=False)
             assert 1 == len(w)
             assert (
-                "Connecting to https://localhost:9200 using SSL with verify_certs=False is insecure."
-                == str(w[0].message)
+                "Connecting to https://localhost:9200 using SSL with "
+                "verify_certs=False is insecure." == str(w[0].message)
             )
 
         assert con.use_ssl

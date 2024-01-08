@@ -23,29 +23,29 @@ from opensearchpy import OpenSearch, Urllib3HttpConnection
 
 def index_records(client: Any, index_name: str, item_count: int) -> Any:
     """bulk index item_count records into index_name"""
-    tt = 0
-    for n in range(10):
+    total_time = 0
+    for iteration in range(10):
         data: Any = []
-        for i in range(item_count):
+        for item in range(item_count):
             data.append(
                 json.dumps({"index": {"_index": index_name, "_id": str(uuid.uuid4())}})
             )
-            data.append(json.dumps({"value": i}))
+            data.append(json.dumps({"value": item}))
         data = "\n".join(data)
 
         start = time.time() * 1000
-        rc = client.bulk(data)
-        if rc["errors"]:
-            raise Exception(rc["errors"])
+        response = client.bulk(data)
+        if response["errors"]:
+            raise Exception(response["errors"])
 
-        server_time = rc["took"]
-        total_time = time.time() * 1000 - start
+        server_time = response["took"]
+        this_time = time.time() * 1000 - start
 
-        if total_time < server_time:
-            raise Exception(f"total={total_time} < server={server_time}")
+        if this_time < server_time:
+            raise Exception(f"total={this_time} < server={server_time}")
 
-        tt += total_time - server_time
-    return tt
+        total_time += this_time - server_time
+    return total_time
 
 
 def test(thread_count: int = 1, item_count: int = 1, client_count: int = 1) -> None:
@@ -105,8 +105,8 @@ def test(thread_count: int = 1, item_count: int = 1, client_count: int = 1) -> N
         thread.start()
 
     latency = 0
-    for t in threads:
-        latency += t.join()
+    for thread in threads:
+        latency += thread.join()
 
     clients[0].indices.refresh(index=index_name)
     count = clients[0].count(index=index_name)

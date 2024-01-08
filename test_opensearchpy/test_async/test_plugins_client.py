@@ -27,5 +27,6 @@ class TestPluginsClient:
             client.plugins.__init__(client)  # type: ignore
             assert (
                 str(w[0].message)
-                == "Cannot load `alerting` directly to AsyncOpenSearch as it already exists. Use `AsyncOpenSearch.plugin.alerting` instead."
+                == "Cannot load `alerting` directly to AsyncOpenSearch as it already exists. Use "
+                "`AsyncOpenSearch.plugin.alerting` instead."
             )

@@ -531,7 +531,9 @@ class TestScan(OpenSearchTestCase):
                 }
                 client_mock.clear_scroll.return_value = {}
 
-                data = list(helpers.scan(self.client, index="test_index", **{key: val}))  # type: ignore
+                data = list(
+                    helpers.scan(self.client, index="test_index", **{key: val})  # type: ignore
+                )
 
                 self.assertEqual(data, [{"search_data": 1}])
 

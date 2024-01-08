@@ -19,8 +19,8 @@ from opensearchpy import OpenSearch
 
 def main() -> None:
     """
-    demonstrates various functions to operate on the index (e.g. clear different levels of cache, refreshing the
-    index)
+    demonstrates various functions to operate on the index
+    (e.g. clear different levels of cache, refreshing the index)
     """
     # Set up
     client = OpenSearch(

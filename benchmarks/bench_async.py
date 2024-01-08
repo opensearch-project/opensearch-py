@@ -36,8 +36,9 @@ async def index_records(client: Any, index_name: str, item_count: int) -> None:
 
 async def test_async(client_count: int = 1, item_count: int = 1) -> None:
     """
-    asynchronously index with item_count records and run client_count clients. This function can be used to
-    test balancing the number of items indexed with the number of documents.
+    asynchronously index with item_count records and run client_count
+    clients. This function can be used to test balancing the number of
+    items indexed with the number of documents.
     """
     host = "localhost"
     port = 9200

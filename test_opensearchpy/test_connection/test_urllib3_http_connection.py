@@ -74,7 +74,8 @@ class TestUrllib3HttpConnection(TestCase):
             # it means SSLContext is not available for that version of python
             # and we should skip this test.
             raise SkipTest(
-                "Test test_ssl_context is skipped cause SSLContext is not available for this version of python"
+                "Test test_ssl_context is skipped cause SSLContext"
+                " is not available for this version of python"
             )
 
         con = Urllib3HttpConnection(use_ssl=True, ssl_context=context)
@@ -289,7 +290,8 @@ class TestUrllib3HttpConnection(TestCase):
             con = Urllib3HttpConnection(use_ssl=True, verify_certs=False)
             self.assertEqual(1, len(w))
             self.assertEqual(
-                "Connecting to https://localhost:9200 using SSL with verify_certs=False is insecure.",
+                "Connecting to https://localhost:9200 using SSL with "
+                "verify_certs=False is insecure.",
                 str(w[0].message),
             )
 

@@ -143,7 +143,9 @@ class TestChunkActions(TestCase):
         """
         creates some documents for testing
         """
-        self.actions: Any = [({"index": {}}, {"some": u"datá", "i": i}) for i in range(100)]  # fmt: skip
+        self.actions: Any = [
+            ({"index": {}}, {"some": "datá", "i": i}) for i in range(100)
+        ]
 
     def test_expand_action(self) -> None:
         # pylint: disable=missing-function-docstring

@@ -30,13 +30,14 @@ def test_files() -> Generator[str, None, None]:
 
 if __name__ == "__main__":
     """
-    adds a disable instruction for test_ methods for missing-function-docstring. test methods typically have good names
-    and can go without docstring for comments. this is destructive so use git as part of the process.
-
+    adds a disable instruction for test_ methods for missing-function-docstring.
+    test methods typically have good names and can go without docstring for
+    comments. this is destructive so use git as part of the process.
     """
     MISSING_FUNCTION_DOCSTRING_DISABLE = "# pylint: disable=missing-function-docstring"
     test_method_re = re.compile(
-        r"(?P<leading_space>[^\S\r\n]*)(?P<async_keyword>async)*(?P<function_declaration>\s*def\stest_.*:)"
+        r"(?P<leading_space>[^\S\r\n]*)(?P<async_keyword>async)*"
+        r"(?P<function_declaration>\s*def\stest_.*:)"
         r"(?P<whitespace>(\n|.)*?)(?P<pylint_disable_declaration>\s*#\spylint.*)*",
         flags=re.MULTILINE,
     )
@@ -48,7 +49,7 @@ if __name__ == "__main__":
             # TODO multiline function declarations are not supported
             new_file_contents = re.sub(
                 test_method_re,
-                r"\g<leading_space>\g<async_keyword>\g<function_declaration>\n\g<leading_space>\g<leading_space>"
+                r"\g<leading_space>\g<async_keyword>\g<function_declaration>\n\g<leading_space>\g<leading_space>"  # pylint: disable=line-too-long
                 + MISSING_FUNCTION_DOCSTRING_DISABLE,
                 full_file,
             )
