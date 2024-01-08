@@ -36,7 +36,6 @@ pytestmark = pytest.mark.asyncio
 
 @fixture(scope="function")  # type: ignore
 async def client() -> Any:
-    # pylint: disable=missing-function-docstring
     client = await get_test_client(verify_certs=False, http_auth=("admin", "admin"))
     await add_connection("default", client)
     return client
@@ -44,16 +43,20 @@ async def client() -> Any:
 
 @fixture(scope="function")  # type: ignore
 async def opensearch_version(client: Any) -> Any:
-    # pylint: disable=missing-function-docstring
-    info = await client.info()
+    """
+    yields the version of the OpenSearch cluster
+    :param client:
+    :return:
+    """
+    info = client.info()
     print(info)
-    yield tuple(int(x) for x in match_version(info))
+    yield (int(x) async for x in match_version(info))
 
 
 async def match_version(info: Any) -> Any:
     """
-    matches the major version from the given client info
-    :param info:
+    matches the full semver server version with the given info
+    :param info: response from the OpenSearch cluster
     """
     match = re.match(r"^([0-9.]+)", info["version"]["number"])
     assert match is not None
@@ -62,7 +65,6 @@ async def match_version(info: Any) -> Any:
 
 @fixture  # type: ignore
 async def write_client(client: Any) -> Any:
-    # pylint: disable=missing-function-docstring
     yield client
     await client.indices.delete("test-*", ignore=404)
     await client.indices.delete_template("test-template", ignore=404)

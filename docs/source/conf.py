@@ -108,7 +108,7 @@ autoclass_content: str = "both"
 # The default options for autodoc directives.
 # https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html#confval-autodoc_default_options
 autodoc_default_options: Any = {
-    # If set, autodoc will generate document for the members of the target module, class or exception.  # noqa: E501, pylint: disable=line-too-long
+    # If set, autodoc will generate document for the members of the target module, class or exception.  # noqa: E501
     # https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html#directive-option-automodule-members
     "members": True,
     "show-inheritance": True,

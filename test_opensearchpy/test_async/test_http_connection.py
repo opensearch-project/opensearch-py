@@ -38,21 +38,18 @@ from opensearchpy.connection.http_async import AsyncHttpConnection
 
 class TestAsyncHttpConnection:
     def test_auth_as_tuple(self) -> None:
-        # pylint: disable=missing-function-docstring
         c = AsyncHttpConnection(http_auth=("username", "password"))
         assert isinstance(c._http_auth, aiohttp.BasicAuth)
         assert c._http_auth.login, "username"
         assert c._http_auth.password, "password"
 
     def test_auth_as_string(self) -> None:
-        # pylint: disable=missing-function-docstring
         c = AsyncHttpConnection(http_auth="username:password")
         assert isinstance(c._http_auth, aiohttp.BasicAuth)
         assert c._http_auth.login, "username"
         assert c._http_auth.password, "password"
 
     def test_auth_as_callable(self) -> None:
-        # pylint: disable=missing-function-docstring
         def auth_fn() -> None:
             pass
 
@@ -62,7 +59,6 @@ class TestAsyncHttpConnection:
     @pytest.mark.asyncio  # type: ignore
     @mock.patch("aiohttp.ClientSession.request", new_callable=mock.Mock)
     async def test_basicauth_in_request_session(self, mock_request: Any) -> None:
-        # pylint: disable=missing-function-docstring
         async def do_request(*args: Any, **kwargs: Any) -> Any:
             response_mock = mock.AsyncMock()
             response_mock.headers = CIMultiDict()
@@ -95,7 +91,6 @@ class TestAsyncHttpConnection:
     @pytest.mark.asyncio  # type: ignore
     @mock.patch("aiohttp.ClientSession.request", new_callable=mock.Mock)
     async def test_callable_in_request_session(self, mock_request: Any) -> None:
-        # pylint: disable=missing-function-docstring
         def auth_fn(*args: Any, **kwargs: Any) -> Any:
             return {
                 "Test": "PASSED",

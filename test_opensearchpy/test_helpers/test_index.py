@@ -39,7 +39,6 @@ class Post(Document):
 
 
 def test_multiple_doc_types_will_combine_mappings() -> None:
-    # pylint: disable=missing-function-docstring
     class User(Document):
         username = Text()
 
@@ -58,7 +57,6 @@ def test_multiple_doc_types_will_combine_mappings() -> None:
 
 
 def test_search_is_limited_to_index_name() -> None:
-    # pylint: disable=missing-function-docstring
     i = Index("my-index")
     s = i.search()
 
@@ -66,7 +64,6 @@ def test_search_is_limited_to_index_name() -> None:
 
 
 def test_cloned_index_has_copied_settings_and_using() -> None:
-    # pylint: disable=missing-function-docstring
     client = object()
     i: Any = Index("my-index", using=client)
     i.settings(number_of_shards=1)
@@ -80,7 +77,6 @@ def test_cloned_index_has_copied_settings_and_using() -> None:
 
 
 def test_cloned_index_has_analysis_attribute() -> None:
-    # pylint: disable=missing-function-docstring
     """
     Regression test for Issue #582 in which `Index.clone()` was not copying
     over the `_analysis` attribute.
@@ -101,7 +97,6 @@ def test_cloned_index_has_analysis_attribute() -> None:
 
 
 def test_settings_are_saved() -> None:
-    # pylint: disable=missing-function-docstring
     i: Any = Index("i")
     i.settings(number_of_replicas=0)
     i.settings(number_of_shards=1)
@@ -110,7 +105,6 @@ def test_settings_are_saved() -> None:
 
 
 def test_registered_doc_type_included_in_to_dict() -> None:
-    # pylint: disable=missing-function-docstring
     i: Any = Index("i", using="alias")
     i.document(Post)
 
@@ -125,7 +119,6 @@ def test_registered_doc_type_included_in_to_dict() -> None:
 
 
 def test_registered_doc_type_included_in_search() -> None:
-    # pylint: disable=missing-function-docstring
     i: Any = Index("i", using="alias")
     i.document(Post)
 
@@ -135,7 +128,6 @@ def test_registered_doc_type_included_in_search() -> None:
 
 
 def test_aliases_add_to_object() -> None:
-    # pylint: disable=missing-function-docstring
     random_alias = "".join((choice(string.ascii_letters) for _ in range(100)))
     alias_dict: Any = {random_alias: {}}
 
@@ -146,7 +138,6 @@ def test_aliases_add_to_object() -> None:
 
 
 def test_aliases_returned_from_to_dict() -> None:
-    # pylint: disable=missing-function-docstring
     random_alias = "".join((choice(string.ascii_letters) for _ in range(100)))
     alias_dict: Any = {random_alias: {}}
 
@@ -157,7 +148,6 @@ def test_aliases_returned_from_to_dict() -> None:
 
 
 def test_analyzers_added_to_object() -> None:
-    # pylint: disable=missing-function-docstring
     random_analyzer_name = "".join((choice(string.ascii_letters) for _ in range(100)))
     random_analyzer = analyzer(
         random_analyzer_name, tokenizer="standard", filter="standard"
@@ -174,7 +164,6 @@ def test_analyzers_added_to_object() -> None:
 
 
 def test_analyzers_returned_from_to_dict() -> None:
-    # pylint: disable=missing-function-docstring
     random_analyzer_name = "".join((choice(string.ascii_letters) for _ in range(100)))
     random_analyzer = analyzer(
         random_analyzer_name, tokenizer="standard", filter="standard"
@@ -188,7 +177,6 @@ def test_analyzers_returned_from_to_dict() -> None:
 
 
 def test_conflicting_analyzer_raises_error() -> None:
-    # pylint: disable=missing-function-docstring
     i: Any = Index("i")
     i.analyzer("my_analyzer", tokenizer="whitespace", filter=["lowercase", "stop"])
 
@@ -197,7 +185,6 @@ def test_conflicting_analyzer_raises_error() -> None:
 
 
 def test_index_template_can_have_order() -> None:
-    # pylint: disable=missing-function-docstring
     i: Any = Index("i-*")
     it = i.as_template("i", order=2)
 
@@ -205,7 +192,6 @@ def test_index_template_can_have_order() -> None:
 
 
 def test_index_template_save_result(mock_client: Any) -> None:
-    # pylint: disable=missing-function-docstring
     it: Any = IndexTemplate("test-template", "test-*")
 
     assert it.save(using="mock") == mock_client.indices.put_template()

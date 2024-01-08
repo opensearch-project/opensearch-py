@@ -37,7 +37,6 @@ from opensearchpy.helpers import field
 
 
 def test_date_range_deserialization() -> None:
-    # pylint: disable=missing-function-docstring
     data = {"lt": "2018-01-01T00:30:10"}
 
     r = field.DateRange().deserialize(data)
@@ -47,7 +46,6 @@ def test_date_range_deserialization() -> None:
 
 
 def test_boolean_deserialization() -> None:
-    # pylint: disable=missing-function-docstring
     bf = field.Boolean()
 
     assert not bf.deserialize("false")
@@ -61,7 +59,6 @@ def test_boolean_deserialization() -> None:
 
 
 def test_date_field_can_have_default_tz() -> None:
-    # pylint: disable=missing-function-docstring
     f: Any = field.Date(default_timezone="UTC")
     now = datetime.now()
 
@@ -77,7 +74,6 @@ def test_date_field_can_have_default_tz() -> None:
 
 
 def test_custom_field_car_wrap_other_field() -> None:
-    # pylint: disable=missing-function-docstring
     class MyField(field.CustomField):
         @property
         def builtin_type(self) -> Any:
@@ -89,7 +85,6 @@ def test_custom_field_car_wrap_other_field() -> None:
 
 
 def test_field_from_dict() -> None:
-    # pylint: disable=missing-function-docstring
     f = field.construct_field({"type": "text", "index": "not_analyzed"})
 
     assert isinstance(f, field.Text)
@@ -97,7 +92,6 @@ def test_field_from_dict() -> None:
 
 
 def test_multi_fields_are_accepted_and_parsed() -> None:
-    # pylint: disable=missing-function-docstring
     f = field.construct_field(
         "text",
         fields={"raw": {"type": "keyword"}, "eng": field.Text(analyzer="english")},
@@ -114,7 +108,6 @@ def test_multi_fields_are_accepted_and_parsed() -> None:
 
 
 def test_nested_provides_direct_access_to_its_fields() -> None:
-    # pylint: disable=missing-function-docstring
     f = field.Nested(properties={"name": {"type": "text", "index": "not_analyzed"}})
 
     assert "name" in f
@@ -122,7 +115,6 @@ def test_nested_provides_direct_access_to_its_fields() -> None:
 
 
 def test_field_supports_multiple_analyzers() -> None:
-    # pylint: disable=missing-function-docstring
     f = field.Text(analyzer="snowball", search_analyzer="keyword")
     assert {
         "analyzer": "snowball",
@@ -132,7 +124,6 @@ def test_field_supports_multiple_analyzers() -> None:
 
 
 def test_multifield_supports_multiple_analyzers() -> None:
-    # pylint: disable=missing-function-docstring
     f = field.Text(
         fields={
             "f1": field.Text(search_analyzer="keyword", analyzer="snowball"),
@@ -153,7 +144,6 @@ def test_multifield_supports_multiple_analyzers() -> None:
 
 
 def test_scaled_float() -> None:
-    # pylint: disable=missing-function-docstring
     with pytest.raises(TypeError):
         field.ScaledFloat()  # type: ignore
     f: Any = field.ScaledFloat(scaling_factor=123)
@@ -161,7 +151,6 @@ def test_scaled_float() -> None:
 
 
 def test_ipaddress() -> None:
-    # pylint: disable=missing-function-docstring
     f = field.Ip()
     assert f.deserialize("127.0.0.1") == ip_address("127.0.0.1")
     assert f.deserialize("::1") == ip_address("::1")
@@ -172,7 +161,6 @@ def test_ipaddress() -> None:
 
 
 def test_float() -> None:
-    # pylint: disable=missing-function-docstring
     f = field.Float()
     assert f.deserialize("42") == 42.0
     assert f.deserialize(None) is None
@@ -181,7 +169,6 @@ def test_float() -> None:
 
 
 def test_integer() -> None:
-    # pylint: disable=missing-function-docstring
     f = field.Integer()
     assert f.deserialize("42") == 42
     assert f.deserialize(None) is None
@@ -190,7 +177,6 @@ def test_integer() -> None:
 
 
 def test_binary() -> None:
-    # pylint: disable=missing-function-docstring
     f = field.Binary()
     assert f.deserialize(base64.b64encode(b"42")) == b"42"
     assert f.deserialize(f.serialize(b"42")) == b"42"
@@ -198,32 +184,27 @@ def test_binary() -> None:
 
 
 def test_constant_keyword() -> None:
-    # pylint: disable=missing-function-docstring
     f = field.ConstantKeyword()
     assert f.to_dict() == {"type": "constant_keyword"}
 
 
 def test_rank_features() -> None:
-    # pylint: disable=missing-function-docstring
     f = field.RankFeatures()
     assert f.to_dict() == {"type": "rank_features"}
 
 
 def test_object_dynamic_values() -> None:
-    # pylint: disable=missing-function-docstring
     for dynamic in True, False, "strict":
         f = field.Object(dynamic=dynamic)
         assert f.to_dict()["dynamic"] == dynamic
 
 
 def test_object_disabled() -> None:
-    # pylint: disable=missing-function-docstring
     f = field.Object(enabled=False)
     assert f.to_dict() == {"type": "object", "enabled": False}
 
 
 def test_object_constructor() -> None:
-    # pylint: disable=missing-function-docstring
     expected = {"type": "object", "properties": {"inner_int": {"type": "integer"}}}
 
     class Inner(InnerDoc):

@@ -75,7 +75,6 @@ class Log(Document):
 
 
 def test_required_int_can_be_0() -> None:
-    # pylint: disable=missing-function-docstring
     class DT(Document):
         i = Integer(required=True)
 
@@ -84,7 +83,6 @@ def test_required_int_can_be_0() -> None:
 
 
 def test_required_field_cannot_be_empty_list() -> None:
-    # pylint: disable=missing-function-docstring
     class DT(Document):
         i = Integer(required=True)
 
@@ -94,7 +92,6 @@ def test_required_field_cannot_be_empty_list() -> None:
 
 
 def test_validation_works_for_lists_of_values() -> None:
-    # pylint: disable=missing-function-docstring
     class DT(Document):
         i = Date(required=True)
 
@@ -107,7 +104,6 @@ def test_validation_works_for_lists_of_values() -> None:
 
 
 def test_field_with_custom_clean() -> None:
-    # pylint: disable=missing-function-docstring
     ls = Log()
     ls.full_clean()
 
@@ -115,7 +111,6 @@ def test_field_with_custom_clean() -> None:
 
 
 def test_empty_object() -> None:
-    # pylint: disable=missing-function-docstring
     d: Any = BlogPost(authors=[{"name": "Guian", "email": "guiang@bitquilltech.com"}])
     d.inner = {}
 
@@ -123,7 +118,6 @@ def test_empty_object() -> None:
 
 
 def test_missing_required_field_raises_validation_exception() -> None:
-    # pylint: disable=missing-function-docstring
     d1: Any = BlogPost()
     with raises(ValidationException):
         d1.full_clean()
@@ -139,7 +133,6 @@ def test_missing_required_field_raises_validation_exception() -> None:
 
 
 def test_boolean_doesnt_treat_false_as_empty() -> None:
-    # pylint: disable=missing-function-docstring
     d: Any = BlogPostWithStatus()
     with raises(ValidationException):
         d.full_clean()
@@ -150,7 +143,6 @@ def test_boolean_doesnt_treat_false_as_empty() -> None:
 
 
 def test_custom_validation_on_nested_gets_run() -> None:
-    # pylint: disable=missing-function-docstring
     d: Any = BlogPost(
         authors=[Author(name="Guian", email="king@example.com")], created=None
     )
@@ -162,7 +154,6 @@ def test_custom_validation_on_nested_gets_run() -> None:
 
 
 def test_accessing_known_fields_returns_empty_value() -> None:
-    # pylint: disable=missing-function-docstring
     d: Any = BlogPost()
 
     assert [] == d.authors
@@ -173,7 +164,6 @@ def test_accessing_known_fields_returns_empty_value() -> None:
 
 
 def test_empty_values_are_not_serialized() -> None:
-    # pylint: disable=missing-function-docstring
     d: Any = BlogPost(
         authors=[{"name": "Guian", "email": "guiang@bitquilltech.com"}], created=None
     )

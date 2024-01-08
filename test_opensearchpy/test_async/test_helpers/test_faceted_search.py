@@ -33,7 +33,6 @@ class BlogSearch(AsyncFacetedSearch):
 
 
 async def test_query_is_created_properly() -> None:
-    # pylint: disable=missing-function-docstring
     bs = BlogSearch("python search")
     s = bs.build_search()
 
@@ -57,7 +56,6 @@ async def test_query_is_created_properly() -> None:
 
 
 async def test_query_is_created_properly_with_sort_tuple() -> None:
-    # pylint: disable=missing-function-docstring
     bs = BlogSearch("python search", sort=("category", "-title"))
     s = bs.build_search()
 
@@ -82,7 +80,6 @@ async def test_query_is_created_properly_with_sort_tuple() -> None:
 
 
 async def test_filter_is_applied_to_search_but_not_relevant_facet() -> None:
-    # pylint: disable=missing-function-docstring
     bs = BlogSearch("python search", filters={"category": "opensearch"})
     s = bs.build_search()
 
@@ -106,7 +103,6 @@ async def test_filter_is_applied_to_search_but_not_relevant_facet() -> None:
 
 
 async def test_filters_are_applied_to_search_ant_relevant_facets() -> None:
-    # pylint: disable=missing-function-docstring
     bs = BlogSearch(
         "python search",
         filters={"category": "opensearch", "tags": ["python", "django"]},
@@ -141,7 +137,6 @@ async def test_filters_are_applied_to_search_ant_relevant_facets() -> None:
 
 
 async def test_date_histogram_facet_with_1970_01_01_date() -> None:
-    # pylint: disable=missing-function-docstring
     dhf = DateHistogramFacet()
     assert dhf.get_value({"key": None}) == datetime(1970, 1, 1, 0, 0)
     assert dhf.get_value({"key": 0}) == datetime(1970, 1, 1, 0, 0)
@@ -175,7 +170,6 @@ async def test_date_histogram_facet_with_1970_01_01_date() -> None:
     ],
 )
 async def test_date_histogram_interval_types(interval_type: Any, interval: Any) -> None:
-    # pylint: disable=missing-function-docstring
     dhf = DateHistogramFacet(field="@timestamp", **{interval_type: interval})
     assert dhf.get_aggregation().to_dict() == {
         "date_histogram": {
@@ -188,7 +182,6 @@ async def test_date_histogram_interval_types(interval_type: Any, interval: Any) 
 
 
 async def test_date_histogram_no_interval_keyerror() -> None:
-    # pylint: disable=missing-function-docstring
     dhf = DateHistogramFacet(field="@timestamp")
     with pytest.raises(KeyError) as e:
         dhf.get_value_filter(datetime.now())

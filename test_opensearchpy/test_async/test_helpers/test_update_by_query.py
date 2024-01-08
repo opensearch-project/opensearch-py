@@ -20,14 +20,12 @@ pytestmark: MarkDecorator = pytest.mark.asyncio
 
 
 async def test_ubq_starts_with_no_query() -> None:
-    # pylint: disable=missing-function-docstring
     ubq = update_by_query.AsyncUpdateByQuery()
 
     assert ubq.query._proxied is None
 
 
 async def test_ubq_to_dict() -> None:
-    # pylint: disable=missing-function-docstring
     ubq = update_by_query.AsyncUpdateByQuery()
     assert {} == ubq.to_dict()
 
@@ -46,7 +44,6 @@ async def test_ubq_to_dict() -> None:
 
 
 async def test_complex_example() -> None:
-    # pylint: disable=missing-function-docstring
     ubq = update_by_query.AsyncUpdateByQuery()
     ubq = (
         ubq.query("match", title="python")
@@ -85,7 +82,6 @@ async def test_complex_example() -> None:
 
 
 async def test_exclude() -> None:
-    # pylint: disable=missing-function-docstring
     ubq = update_by_query.AsyncUpdateByQuery()
     ubq = ubq.exclude("match", title="python")
 
@@ -99,7 +95,6 @@ async def test_exclude() -> None:
 
 
 async def test_reverse() -> None:
-    # pylint: disable=missing-function-docstring
     d = {
         "query": {
             "filtered": {
@@ -136,14 +131,12 @@ async def test_reverse() -> None:
 
 
 async def test_from_dict_doesnt_need_query() -> None:
-    # pylint: disable=missing-function-docstring
     ubq = update_by_query.AsyncUpdateByQuery.from_dict({"script": {"source": "test"}})
 
     assert {"script": {"source": "test"}} == ubq.to_dict()
 
 
 async def test_overwrite_script() -> None:
-    # pylint: disable=missing-function-docstring
     ubq = update_by_query.AsyncUpdateByQuery()
     ubq = ubq.script(
         source="ctx._source.likes += params.f", lang="painless", params={"f": 3}
@@ -160,7 +153,6 @@ async def test_overwrite_script() -> None:
 
 
 async def test_update_by_query_response_success() -> None:
-    # pylint: disable=missing-function-docstring
     ubqr = UpdateByQueryResponse({}, {"timed_out": False, "failures": []})
     assert ubqr.success()
 

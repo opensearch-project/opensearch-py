@@ -125,7 +125,7 @@ def test_dist(dist: Any) -> None:
         run(
             venv_python,
             "-c",
-            f"from {dist_name}.helpers import async_scan, async_bulk, async_streaming_bulk, async_reindex",  # pylint: disable=line-too-long
+            f"from {dist_name}.helpers import async_scan, async_bulk, async_streaming_bulk, async_reindex",
         )
 
         # Install aiohttp and see that async is now available
@@ -134,7 +134,7 @@ def test_dist(dist: Any) -> None:
         run(
             venv_python,
             "-c",
-            f"from {dist_name}.helpers import async_scan, async_bulk, async_streaming_bulk, async_reindex",  # pylint: disable=line-too-long
+            f"from {dist_name}.helpers import async_scan, async_bulk, async_streaming_bulk, async_reindex",
         )
 
         # Only need to test 'async_types' for non-aliased package

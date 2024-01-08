@@ -37,13 +37,11 @@ pytestmark: MarkDecorator = pytest.mark.asyncio
 
 class TestUnicode:
     async def test_indices_analyze(self, async_client: Any) -> None:
-        # pylint: disable=missing-function-docstring
         await async_client.indices.analyze(body='{"text": "привет"}')
 
 
 class TestBulk:
     async def test_bulk_works_with_string_body(self, async_client: Any) -> None:
-        # pylint: disable=missing-function-docstring
         docs = '{ "index" : { "_index" : "bulk_test_index", "_id" : "1" } }\n{"answer": 42}'
         response = await async_client.bulk(body=docs)
 
@@ -51,7 +49,6 @@ class TestBulk:
         assert len(response["items"]) == 1
 
     async def test_bulk_works_with_bytestring_body(self, async_client: Any) -> None:
-        # pylint: disable=missing-function-docstring
         docs = b'{ "index" : { "_index" : "bulk_test_index", "_id" : "2" } }\n{"answer": 42}'
         response = await async_client.bulk(body=docs)
 
@@ -76,13 +73,11 @@ class TestYarlMissing:
 
 class TestClose:
     async def test_close_doesnt_break_client(self, async_client: Any) -> None:
-        # pylint: disable=missing-function-docstring
         await async_client.cluster.health()
         await async_client.close()
         await async_client.cluster.health()
 
     async def test_with_doesnt_break_client(self, async_client: Any) -> None:
-        # pylint: disable=missing-function-docstring
         for _ in range(2):
             async with async_client as client:
                 await client.cluster.health()

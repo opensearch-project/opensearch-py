@@ -46,7 +46,6 @@ from .test_document import Comment, History, PullRequest, User
 
 @fixture(scope="session")  # type: ignore
 def client() -> Any:
-    # pylint: disable=missing-function-docstring
     client = get_test_client(verify_certs=False, http_auth=("admin", "admin"))
     add_connection("default", client)
     return client
@@ -60,7 +59,7 @@ def opensearch_version(client: Any) -> Any:
     """
     info: Any = client.info()
     print(info)
-    yield tuple(int(x) for x in match_version(info))
+    yield (int(x) for x in match_version(info))
 
 
 def match_version(info: Any) -> Any:
@@ -75,7 +74,6 @@ def match_version(info: Any) -> Any:
 
 @fixture  # type: ignore
 def write_client(client: Any) -> Any:
-    # pylint: disable=missing-function-docstring
     yield client
     client.indices.delete("test-*", ignore=404)
     client.indices.delete_template("test-template", ignore=404)
@@ -83,7 +81,6 @@ def write_client(client: Any) -> Any:
 
 @fixture(scope="session")  # type: ignore
 def data_client(client: Any) -> Any:
-    # pylint: disable=missing-function-docstring
     # create mappings
     create_git_index(client, "git")
     create_flat_git_index(client, "flat-git")
@@ -97,7 +94,6 @@ def data_client(client: Any) -> Any:
 
 @fixture  # type: ignore
 def pull_request(write_client: Any) -> Any:
-    # pylint: disable=missing-function-docstring
     PullRequest.init()
     pr = PullRequest(
         _id=42,
@@ -122,7 +118,6 @@ def pull_request(write_client: Any) -> Any:
 
 @fixture  # type: ignore
 def setup_ubq_tests(client: Any) -> str:
-    # pylint: disable=missing-function-docstring
     # todo what's a ubq test?
     index = "test-git"
     create_git_index(client, index)

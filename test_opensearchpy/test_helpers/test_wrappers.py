@@ -45,7 +45,6 @@ from opensearchpy import Range
     ],
 )
 def test_range_contains(kwargs: Any, item: Any) -> None:
-    # pylint: disable=missing-function-docstring
     assert item in Range(**kwargs)
 
 
@@ -60,7 +59,6 @@ def test_range_contains(kwargs: Any, item: Any) -> None:
     ],
 )
 def test_range_not_contains(kwargs: Any, item: Any) -> None:
-    # pylint: disable=missing-function-docstring
     assert item not in Range(**kwargs)
 
 
@@ -75,7 +73,6 @@ def test_range_not_contains(kwargs: Any, item: Any) -> None:
     ],
 )
 def test_range_raises_value_error_on_wrong_params(args: Any, kwargs: Any) -> None:
-    # pylint: disable=missing-function-docstring
     with pytest.raises(ValueError):
         Range(*args, **kwargs)
 
@@ -90,7 +87,6 @@ def test_range_raises_value_error_on_wrong_params(args: Any, kwargs: Any) -> Non
     ],
 )
 def test_range_lower(range: Any, lower: Any, inclusive: Any) -> None:
-    # pylint: disable=missing-function-docstring
     assert (lower, inclusive) == range.lower
 
 
@@ -104,5 +100,4 @@ def test_range_lower(range: Any, lower: Any, inclusive: Any) -> None:
     ],
 )
 def test_range_upper(range: Any, upper: Any, inclusive: Any) -> None:
-    # pylint: disable=missing-function-docstring
     assert (upper, inclusive) == range.upper

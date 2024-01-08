@@ -36,7 +36,6 @@ class DummyTransport(object):
     def __init__(
         self, hosts: Sequence[str], responses: Any = None, **kwargs: Any
     ) -> None:
-        # pylint: disable=missing-function-docstring
         self.hosts = hosts
         self.responses = responses
         self.call_count: int = 0
@@ -50,7 +49,6 @@ class DummyTransport(object):
         body: Optional[bytes] = None,
         headers: Optional[Mapping[str, str]] = None,
     ) -> Any:
-        # pylint: disable=missing-function-docstring
         resp: Any = (200, {})
         if self.responses:
             resp = self.responses[self.call_count]
@@ -61,16 +59,13 @@ class DummyTransport(object):
 
 class OpenSearchTestCase(TestCase):
     def setUp(self) -> None:
-        # pylint: disable=missing-function-docstring
         super(OpenSearchTestCase, self).setUp()
         self.client: Any = OpenSearch(transport_class=DummyTransport)  # type: ignore
 
     def assert_call_count_equals(self, count: int) -> None:
-        # pylint: disable=missing-function-docstring
         self.assertEqual(count, self.client.transport.call_count)
 
     def assert_url_called(self, method: str, url: str, count: int = 1) -> Any:
-        # pylint: disable=missing-function-docstring
         self.assertIn((method, url), self.client.transport.calls)
         calls = self.client.transport.calls[(method, url)]
         self.assertEqual(count, len(calls))
@@ -79,15 +74,12 @@ class OpenSearchTestCase(TestCase):
 
 class TestOpenSearchTestCase(OpenSearchTestCase):
     def test_our_transport_used(self) -> None:
-        # pylint: disable=missing-function-docstring
         self.assertIsInstance(self.client.transport, DummyTransport)
 
     def test_start_with_0_call(self) -> None:
-        # pylint: disable=missing-function-docstring
         self.assert_call_count_equals(0)
 
     def test_each_call_is_recorded(self) -> None:
-        # pylint: disable=missing-function-docstring
         self.client.transport.perform_request("GET", "/")
         self.client.transport.perform_request("DELETE", "/42", params={}, body="body")
         self.assert_call_count_equals(2)

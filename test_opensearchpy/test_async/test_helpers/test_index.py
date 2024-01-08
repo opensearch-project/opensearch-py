@@ -28,7 +28,6 @@ class Post(AsyncDocument):
 
 
 async def test_multiple_doc_types_will_combine_mappings() -> None:
-    # pylint: disable=missing-function-docstring
     class User(AsyncDocument):
         username = Text()
 
@@ -47,7 +46,6 @@ async def test_multiple_doc_types_will_combine_mappings() -> None:
 
 
 async def test_search_is_limited_to_index_name() -> None:
-    # pylint: disable=missing-function-docstring
     i = AsyncIndex("my-index")
     s = i.search()
 
@@ -55,7 +53,6 @@ async def test_search_is_limited_to_index_name() -> None:
 
 
 async def test_cloned_index_has_copied_settings_and_using() -> None:
-    # pylint: disable=missing-function-docstring
     client = object()
     i = AsyncIndex("my-index", using=client)
     i.settings(number_of_shards=1)
@@ -69,7 +66,6 @@ async def test_cloned_index_has_copied_settings_and_using() -> None:
 
 
 async def test_cloned_index_has_analysis_attribute() -> None:
-    # pylint: disable=missing-function-docstring
     """
     Regression test for Issue #582 in which `Index.clone()` was not copying
     over the `_analysis` attribute.
@@ -90,7 +86,6 @@ async def test_cloned_index_has_analysis_attribute() -> None:
 
 
 async def test_settings_are_saved() -> None:
-    # pylint: disable=missing-function-docstring
     i = AsyncIndex("i")
     i.settings(number_of_replicas=0)
     i.settings(number_of_shards=1)
@@ -99,7 +94,6 @@ async def test_settings_are_saved() -> None:
 
 
 async def test_registered_doc_type_included_in_to_dict() -> None:
-    # pylint: disable=missing-function-docstring
     i = AsyncIndex("i", using="alias")
     i.document(Post)
 
@@ -114,7 +108,6 @@ async def test_registered_doc_type_included_in_to_dict() -> None:
 
 
 async def test_registered_doc_type_included_in_search() -> None:
-    # pylint: disable=missing-function-docstring
     i = AsyncIndex("i", using="alias")
     i.document(Post)
 
@@ -124,7 +117,6 @@ async def test_registered_doc_type_included_in_search() -> None:
 
 
 async def test_aliases_add_to_object() -> None:
-    # pylint: disable=missing-function-docstring
     random_alias = "".join((choice(string.ascii_letters) for _ in range(100)))
     alias_dict: Any = {random_alias: {}}
 
@@ -135,7 +127,6 @@ async def test_aliases_add_to_object() -> None:
 
 
 async def test_aliases_returned_from_to_dict() -> None:
-    # pylint: disable=missing-function-docstring
     random_alias = "".join((choice(string.ascii_letters) for _ in range(100)))
     alias_dict: Any = {random_alias: {}}
 
@@ -146,7 +137,6 @@ async def test_aliases_returned_from_to_dict() -> None:
 
 
 async def test_analyzers_added_to_object() -> None:
-    # pylint: disable=missing-function-docstring
     random_analyzer_name = "".join((choice(string.ascii_letters) for _ in range(100)))
     random_analyzer = analyzer(
         random_analyzer_name, tokenizer="standard", filter="standard"
@@ -163,7 +153,6 @@ async def test_analyzers_added_to_object() -> None:
 
 
 async def test_analyzers_returned_from_to_dict() -> None:
-    # pylint: disable=missing-function-docstring
     random_analyzer_name = "".join((choice(string.ascii_letters) for _ in range(100)))
     random_analyzer = analyzer(
         random_analyzer_name, tokenizer="standard", filter="standard"
@@ -177,7 +166,6 @@ async def test_analyzers_returned_from_to_dict() -> None:
 
 
 async def test_conflicting_analyzer_raises_error() -> None:
-    # pylint: disable=missing-function-docstring
     i = AsyncIndex("i")
     i.analyzer("my_analyzer", tokenizer="whitespace", filter=["lowercase", "stop"])
 
@@ -186,7 +174,6 @@ async def test_conflicting_analyzer_raises_error() -> None:
 
 
 async def test_index_template_can_have_order() -> None:
-    # pylint: disable=missing-function-docstring
     i = AsyncIndex("i-*")
     it = i.as_template("i", order=2)
 

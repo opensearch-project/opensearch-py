@@ -43,7 +43,10 @@ SOURCE_FILES = (
 
 @nox.session(python=["3.6", "3.7", "3.8", "3.9", "3.10", "3.11"])  # type: ignore
 def test(session: Any) -> None:
-    # pylint: disable=missing-function-docstring
+    """
+    runs all tests with a fresh python environment using "python setup.py test"
+    :param session: current nox session
+    """
     session.install(".")
     # ensure client can be imported without aiohttp
     session.run("python", "-c", "import opensearchpy\nprint(opensearchpy.OpenSearch())")
@@ -60,7 +63,10 @@ def test(session: Any) -> None:
 
 @nox.session(python=["3.7"])  # type: ignore
 def format(session: Any) -> None:
-    # pylint: disable=missing-function-docstring
+    """
+    runs black and isort to format the files accordingly
+    :param session: current nox session
+    """
     session.install(".")
     session.install("black", "isort")
 
@@ -73,7 +79,10 @@ def format(session: Any) -> None:
 
 @nox.session(python=["3.7"])  # type: ignore
 def lint(session: Any) -> None:
-    # pylint: disable=missing-function-docstring
+    """
+    runs isort, black, flake8, pylint, and mypy to check the files according to each utility's function
+    :param session: current nox session
+    """
     session.install(
         "flake8",
         "black",
@@ -127,7 +136,6 @@ def lint_per_folder(session: Any) -> None:
         "pointless-statement",
         "unspecified-encoding",
         "missing-function-docstring",
-        "unspecified-encoding",
     ]
     override_enable = {
         "test_opensearchpy/": [
@@ -135,8 +143,7 @@ def lint_per_folder(session: Any) -> None:
             # "invalid-name", lots of short functions with one or two character names
             "pointless-statement",
             "unspecified-encoding",
-            "missing-function-docstring",
-            "unspecified-encoding",
+            # "missing-function-docstring", test names usually are, self describing
         ]
     }
 
@@ -144,7 +151,11 @@ def lint_per_folder(session: Any) -> None:
         if source_file in exclude_path_from_linting:
             continue
 
-        args = ["--disable=all"]
+        args = [
+            "--disable=all",
+            "--max-line-length=240",
+            "--good-names-rgxs=^[_a-z][_a-z0-9]?$",
+        ]
         if source_file in override_enable:
             args.append(f"--enable={','.join(override_enable[source_file])}")
         else:
@@ -155,7 +166,10 @@ def lint_per_folder(session: Any) -> None:
 
 @nox.session()  # type: ignore
 def docs(session: Any) -> None:
-    # pylint: disable=missing-function-docstring
+    """
+    builds the html documentation for the client
+    :param session: current nox session
+    """
     session.install(".")
     session.install(".[docs]")
     with session.chdir("docs"):
@@ -164,7 +178,10 @@ def docs(session: Any) -> None:
 
 @nox.session()  # type: ignore
 def generate(session: Any) -> None:
-    # pylint: disable=missing-function-docstring
+    """
+    generates the base API code
+    :param session: current nox session
+    """
     session.install("-rdev-requirements.txt")
     session.run("python", "utils/generate_api.py")
     format(session)

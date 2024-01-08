@@ -60,7 +60,6 @@ def wipe_cluster(client: Any) -> None:
 
 
 def wipe_cluster_settings(client: Any) -> None:
-    # pylint: disable=missing-function-docstring
     settings = client.cluster.get_settings()
     new_settings: Any = {}
     for name, value in settings.items():
@@ -98,7 +97,6 @@ def wipe_snapshots(client: Any) -> None:
 
 
 def wipe_data_streams(client: Any) -> None:
-    # pylint: disable=missing-function-docstring
     try:
         client.indices.delete_data_stream(name="*", expand_wildcards="all")
     except Exception:
@@ -106,7 +104,6 @@ def wipe_data_streams(client: Any) -> None:
 
 
 def wipe_indices(client: Any) -> None:
-    # pylint: disable=missing-function-docstring
     client.indices.delete(
         index="*,-.ds-ilm-history-*",
         expand_wildcards="all",
@@ -115,7 +112,6 @@ def wipe_indices(client: Any) -> None:
 
 
 def wipe_searchable_snapshot_indices(client: Any) -> None:
-    # pylint: disable=missing-function-docstring
     cluster_metadata = client.cluster.state(
         metric="metadata",
         filter_path="metadata.indices.*.settings.index.store.snapshot",
@@ -126,19 +122,16 @@ def wipe_searchable_snapshot_indices(client: Any) -> None:
 
 
 def wipe_slm_policies(client: Any) -> None:
-    # pylint: disable=missing-function-docstring
     for policy in client.slm.get_lifecycle():
         client.slm.delete_lifecycle(policy_id=policy["name"])
 
 
 def wipe_auto_follow_patterns(client: Any) -> None:
-    # pylint: disable=missing-function-docstring
     for pattern in client.ccr.get_auto_follow_pattern()["patterns"]:
         client.ccr.delete_auto_follow_pattern(name=pattern["name"])
 
 
 def wipe_node_shutdown_metadata(client: Any) -> None:
-    # pylint: disable=missing-function-docstring
     shutdown_status = client.shutdown.get_node()
     # If response contains these two keys the feature flag isn't enabled
     # on this cluster so skip this step now.
@@ -151,7 +144,6 @@ def wipe_node_shutdown_metadata(client: Any) -> None:
 
 
 def wipe_tasks(client: Any) -> None:
-    # pylint: disable=missing-function-docstring
     tasks = client.tasks.list()
     for node_name, node in tasks.get("node", {}).items():
         for task_id in node.get("tasks", ()):
@@ -159,7 +151,6 @@ def wipe_tasks(client: Any) -> None:
 
 
 def wait_for_pending_tasks(client: Any, filter: Any, timeout: int = 30) -> None:
-    # pylint: disable=missing-function-docstring
     end_time = time.time() + timeout
     while time.time() < end_time:
         tasks = client.cat.tasks(detailed=True).split("\n")
@@ -168,7 +159,6 @@ def wait_for_pending_tasks(client: Any, filter: Any, timeout: int = 30) -> None:
 
 
 def wait_for_pending_datafeeds_and_jobs(client: Any, timeout: int = 30) -> None:
-    # pylint: disable=missing-function-docstring
     end_time = time.time() + timeout
     while time.time() < end_time:
         if (
@@ -182,7 +172,6 @@ def wait_for_pending_datafeeds_and_jobs(client: Any, timeout: int = 30) -> None:
 
 
 def wait_for_cluster_state_updates_to_finish(client: Any, timeout: int = 30) -> None:
-    # pylint: disable=missing-function-docstring
     end_time = time.time() + timeout
     while time.time() < end_time:
         if not client.cluster.pending_tasks().get("tasks", ()):

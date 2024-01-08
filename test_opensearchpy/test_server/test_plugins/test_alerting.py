@@ -23,7 +23,6 @@ class TestAlertingPlugin(OpenSearchTestCase):
         "Plugin not supported for opensearch version",
     )
     def test_create_destination(self) -> None:
-        # pylint: disable=missing-function-docstring
         # Test to create alert destination
         dummy_destination = {
             "name": "my-destination",
@@ -40,7 +39,6 @@ class TestAlertingPlugin(OpenSearchTestCase):
         "Plugin not supported for opensearch version",
     )
     def test_get_destination(self) -> None:
-        # pylint: disable=missing-function-docstring
         # Create a dummy destination
         self.test_create_destination()
 
@@ -56,7 +54,6 @@ class TestAlertingPlugin(OpenSearchTestCase):
         "Plugin not supported for opensearch version",
     )
     def test_create_monitor(self) -> None:
-        # pylint: disable=missing-function-docstring
         # Create a dummy destination
         self.test_create_destination()
 
@@ -122,7 +119,6 @@ class TestAlertingPlugin(OpenSearchTestCase):
         "Plugin not supported for opensearch version",
     )
     def test_search_monitor(self) -> None:
-        # pylint: disable=missing-function-docstring
         # Create a dummy monitor
         self.test_create_monitor()
 
@@ -141,7 +137,6 @@ class TestAlertingPlugin(OpenSearchTestCase):
         "Plugin not supported for opensearch version",
     )
     def test_get_monitor(self) -> None:
-        # pylint: disable=missing-function-docstring
         # Create a dummy monitor
         self.test_create_monitor()
 
@@ -166,7 +161,6 @@ class TestAlertingPlugin(OpenSearchTestCase):
         "Plugin not supported for opensearch version",
     )
     def test_run_monitor(self) -> None:
-        # pylint: disable=missing-function-docstring
         # Create a dummy monitor
         self.test_create_monitor()
 

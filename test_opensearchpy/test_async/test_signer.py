@@ -18,7 +18,6 @@ pytestmark: MarkDecorator = pytest.mark.asyncio
 
 class TestAsyncSigner:
     def mock_session(self) -> Mock:
-        # pylint: disable=missing-function-docstring
         access_key = uuid.uuid4().hex
         secret_key = uuid.uuid4().hex
         token = uuid.uuid4().hex
@@ -32,7 +31,6 @@ class TestAsyncSigner:
         return dummy_session
 
     async def test_aws_signer_async_as_http_auth(self) -> None:
-        # pylint: disable=missing-function-docstring
         region = "us-west-2"
 
         from opensearchpy.helpers.asyncsigner import AWSV4SignerAsyncAuth
@@ -44,7 +42,6 @@ class TestAsyncSigner:
         assert "X-Amz-Security-Token" in headers
 
     async def test_aws_signer_async_when_region_is_null(self) -> None:
-        # pylint: disable=missing-function-docstring
         session = self.mock_session()
 
         from opensearchpy.helpers.asyncsigner import AWSV4SignerAsyncAuth
@@ -58,7 +55,6 @@ class TestAsyncSigner:
         assert str(e.value) == "Region cannot be empty"
 
     async def test_aws_signer_async_when_credentials_is_null(self) -> None:
-        # pylint: disable=missing-function-docstring
         region = "us-west-1"
 
         from opensearchpy.helpers.asyncsigner import AWSV4SignerAsyncAuth
@@ -68,7 +64,6 @@ class TestAsyncSigner:
         assert str(e.value) == "Credentials cannot be empty"
 
     async def test_aws_signer_async_when_service_is_specified(self) -> None:
-        # pylint: disable=missing-function-docstring
         region = "us-west-2"
         service = "aoss"
 
@@ -84,7 +79,6 @@ class TestAsyncSigner:
 
 class TestAsyncSignerWithFrozenCredentials(TestAsyncSigner):
     def mock_session(self, disable_get_frozen: bool = True) -> Mock:
-        # pylint: disable=missing-function-docstring
         access_key = uuid.uuid4().hex
         secret_key = uuid.uuid4().hex
         token = uuid.uuid4().hex
@@ -97,7 +91,6 @@ class TestAsyncSignerWithFrozenCredentials(TestAsyncSigner):
         return dummy_session
 
     async def test_aws_signer_async_frozen_credentials_as_http_auth(self) -> None:
-        # pylint: disable=missing-function-docstring
         region = "us-west-2"
 
         from opensearchpy.helpers.asyncsigner import AWSV4SignerAsyncAuth

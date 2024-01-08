@@ -62,7 +62,6 @@ class TestParallelBulk(TestCase):
         side_effect=mock_process_bulk_chunk,
     )
     def test_all_chunks_sent(self, _process_bulk_chunk: Any) -> None:
-        # pylint: disable=missing-function-docstring
         actions = ({"x": i} for i in range(100))
         list(helpers.parallel_bulk(OpenSearch(), actions, chunk_size=2))
 
@@ -70,7 +69,6 @@ class TestParallelBulk(TestCase):
 
     @mock.patch("opensearchpy.OpenSearch.bulk")
     def test_with_all_options(self, _bulk: Any) -> None:
-        # pylint: disable=missing-function-docstring
         actions = ({"x": i} for i in range(100))
         list(
             helpers.parallel_bulk(
@@ -94,7 +92,6 @@ class TestParallelBulk(TestCase):
     def test_process_bulk_chunk_with_all_options(
         self, _process_bulk_chunk: Any
     ) -> None:
-        # pylint: disable=missing-function-docstring
         actions = ({"x": i} for i in range(100))
         client = OpenSearch()
         list(
@@ -130,7 +127,6 @@ class TestParallelBulk(TestCase):
         ],
     )
     def test_chunk_sent_from_different_threads(self, _process_bulk_chunk: Any) -> None:
-        # pylint: disable=missing-function-docstring
         actions = ({"x": i} for i in range(100))
         results = list(
             helpers.parallel_bulk(OpenSearch(), actions, thread_count=10, chunk_size=2)
@@ -148,14 +144,12 @@ class TestChunkActions(TestCase):
         ]
 
     def test_expand_action(self) -> None:
-        # pylint: disable=missing-function-docstring
         self.assertEqual(helpers.expand_action({}), ({"index": {}}, {}))
         self.assertEqual(
             helpers.expand_action({"key": "val"}), ({"index": {}}, {"key": "val"})
         )
 
     def test_expand_action_actions(self) -> None:
-        # pylint: disable=missing-function-docstring
         self.assertEqual(
             helpers.expand_action(
                 {"_op_type": "delete", "_id": "id", "_index": "index"}
@@ -187,7 +181,6 @@ class TestChunkActions(TestCase):
         )
 
     def test_expand_action_options(self) -> None:
-        # pylint: disable=missing-function-docstring
         for option in (
             "_id",
             "_index",
@@ -219,7 +212,6 @@ class TestChunkActions(TestCase):
             )
 
     def test__source_metadata_or_source(self) -> None:
-        # pylint: disable=missing-function-docstring
         self.assertEqual(
             helpers.expand_action({"_source": {"key": "val"}}),
             ({"index": {}}, {"key": "val"}),
@@ -248,7 +240,6 @@ class TestChunkActions(TestCase):
         )
 
     def test_chunks_are_chopped_by_byte_size(self) -> None:
-        # pylint: disable=missing-function-docstring
         self.assertEqual(
             100,
             len(
@@ -257,7 +248,6 @@ class TestChunkActions(TestCase):
         )
 
     def test_chunks_are_chopped_by_chunk_size(self) -> None:
-        # pylint: disable=missing-function-docstring
         self.assertEqual(
             10,
             len(
@@ -268,7 +258,6 @@ class TestChunkActions(TestCase):
         )
 
     def test_chunks_are_chopped_by_byte_size_properly(self) -> None:
-        # pylint: disable=missing-function-docstring
         max_byte_size = 170
         chunks = list(
             helpers._chunk_actions(
@@ -284,7 +273,6 @@ class TestChunkActions(TestCase):
 
 class TestExpandActions(TestCase):
     def test_string_actions_are_marked_as_simple_inserts(self) -> None:
-        # pylint: disable=missing-function-docstring
         self.assertEqual(
             ('{"index":{}}', "whatever"), helpers.expand_action("whatever")
         )

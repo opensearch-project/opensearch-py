@@ -87,7 +87,7 @@ def fetch_opensearch_repo() -> None:
         "cd %s && git remote add origin https://github.com/opensearch-project/opensearch.git"
         % repo_path,
         shell=True,
-    )
+    )  # TODO this fails when the remote already exists; should clean up or ignore?
 
     # fetch the sha commit, version from info()
     print("Fetching opensearch repo...")

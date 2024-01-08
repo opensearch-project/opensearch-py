@@ -21,7 +21,6 @@ pytestmark: MarkDecorator = pytest.mark.asyncio
 async def test_update_by_query_no_script(
     write_client: Any, setup_ubq_tests: Any
 ) -> None:
-    # pylint: disable=missing-function-docstring
     index = setup_ubq_tests
 
     ubq = (
@@ -43,7 +42,6 @@ async def test_update_by_query_no_script(
 async def test_update_by_query_with_script(
     write_client: Any, setup_ubq_tests: Any
 ) -> None:
-    # pylint: disable=missing-function-docstring
     index = setup_ubq_tests
 
     ubq = (
@@ -63,7 +61,6 @@ async def test_update_by_query_with_script(
 async def test_delete_by_query_with_script(
     write_client: Any, setup_ubq_tests: Any
 ) -> None:
-    # pylint: disable=missing-function-docstring
     index = setup_ubq_tests
 
     ubq = (

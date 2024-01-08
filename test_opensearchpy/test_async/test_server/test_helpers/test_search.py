@@ -43,7 +43,6 @@ class Commit(AsyncDocument):
 
 
 async def test_filters_aggregation_buckets_are_accessible(data_client: Any) -> None:
-    # pylint: disable=missing-function-docstring
     has_tests_query = Q("term", files="test_opensearchpy/test_dsl")
     s = Commit.search()[0:0]
     s.aggs.bucket("top_authors", "terms", field="author.name.raw").bucket(
@@ -65,7 +64,6 @@ async def test_filters_aggregation_buckets_are_accessible(data_client: Any) -> N
 
 
 async def test_top_hits_are_wrapped_in_response(data_client: Any) -> None:
-    # pylint: disable=missing-function-docstring
     s = Commit.search()[0:0]
     s.aggs.bucket("top_authors", "terms", field="author.name.raw").metric(
         "top_commits", "top_hits", size=5
@@ -82,7 +80,6 @@ async def test_top_hits_are_wrapped_in_response(data_client: Any) -> None:
 
 
 async def test_inner_hits_are_wrapped_in_response(data_client: Any) -> None:
-    # pylint: disable=missing-function-docstring
     s = AsyncSearch(index="git")[0:1].query(
         "has_parent", parent_type="repo", inner_hits={}, query=Q("match_all")
     )
@@ -94,7 +91,6 @@ async def test_inner_hits_are_wrapped_in_response(data_client: Any) -> None:
 
 
 async def test_scan_respects_doc_types(data_client: Any) -> None:
-    # pylint: disable=missing-function-docstring
     result = Repository.search().scan()
     repos = await get_result(result)
 
@@ -104,7 +100,6 @@ async def test_scan_respects_doc_types(data_client: Any) -> None:
 
 
 async def test_scan_iterates_through_all_docs(data_client: Any) -> None:
-    # pylint: disable=missing-function-docstring
     s = AsyncSearch(index="flat-git")
     result = s.scan()
     commits = await get_result(result)
@@ -114,7 +109,6 @@ async def test_scan_iterates_through_all_docs(data_client: Any) -> None:
 
 
 async def get_result(b: Any) -> Any:
-    # pylint: disable=missing-function-docstring
     a = []
     async for i in b:
         a.append(i)
@@ -122,7 +116,6 @@ async def get_result(b: Any) -> Any:
 
 
 async def test_multi_search(data_client: Any) -> None:
-    # pylint: disable=missing-function-docstring
     s1 = Repository.search()
     s2 = AsyncSearch(index="flat-git")
 
@@ -140,7 +133,6 @@ async def test_multi_search(data_client: Any) -> None:
 
 
 async def test_multi_missing(data_client: Any) -> None:
-    # pylint: disable=missing-function-docstring
     s1 = Repository.search()
     s2 = AsyncSearch(index="flat-git")
     s3 = AsyncSearch(index="does_not_exist")
@@ -164,7 +156,6 @@ async def test_multi_missing(data_client: Any) -> None:
 
 
 async def test_raw_subfield_can_be_used_in_aggs(data_client: Any) -> None:
-    # pylint: disable=missing-function-docstring
     s = AsyncSearch(index="git")[0:0]
     s.aggs.bucket("authors", "terms", field="author.name.raw", size=1)
     r = await s.execute()

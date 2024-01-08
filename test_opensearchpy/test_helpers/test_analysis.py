@@ -30,14 +30,12 @@ from opensearchpy.helpers import analysis
 
 
 def test_analyzer_serializes_as_name() -> None:
-    # pylint: disable=missing-function-docstring
     a = analysis.analyzer("my_analyzer")
 
     assert "my_analyzer" == a.to_dict()
 
 
 def test_analyzer_has_definition() -> None:
-    # pylint: disable=missing-function-docstring
     a = analysis.CustomAnalyzer(
         "my_analyzer", tokenizer="keyword", filter=["lowercase"]
     )
@@ -50,7 +48,6 @@ def test_analyzer_has_definition() -> None:
 
 
 def test_simple_multiplexer_filter() -> None:
-    # pylint: disable=missing-function-docstring
     a = analysis.analyzer(
         "my_analyzer",
         tokenizer="keyword",
@@ -79,7 +76,6 @@ def test_simple_multiplexer_filter() -> None:
 
 
 def test_multiplexer_with_custom_filter() -> None:
-    # pylint: disable=missing-function-docstring
     a = analysis.analyzer(
         "my_analyzer",
         tokenizer="keyword",
@@ -111,7 +107,6 @@ def test_multiplexer_with_custom_filter() -> None:
 
 
 def test_conditional_token_filter() -> None:
-    # pylint: disable=missing-function-docstring
     a = analysis.analyzer(
         "my_cond",
         tokenizer=analysis.tokenizer("keyword"),
@@ -149,7 +144,6 @@ def test_conditional_token_filter() -> None:
 
 
 def test_conflicting_nested_filters_cause_error() -> None:
-    # pylint: disable=missing-function-docstring
     a = analysis.analyzer(
         "my_cond",
         tokenizer=analysis.tokenizer("keyword"),
@@ -172,14 +166,12 @@ def test_conflicting_nested_filters_cause_error() -> None:
 
 
 def test_normalizer_serializes_as_name() -> None:
-    # pylint: disable=missing-function-docstring
     n = analysis.normalizer("my_normalizer")
 
     assert "my_normalizer" == n.to_dict()
 
 
 def test_normalizer_has_definition() -> None:
-    # pylint: disable=missing-function-docstring
     n = analysis.CustomNormalizer(
         "my_normalizer", filter=["lowercase", "asciifolding"], char_filter=["quote"]
     )
@@ -192,7 +184,6 @@ def test_normalizer_has_definition() -> None:
 
 
 def test_tokenizer() -> None:
-    # pylint: disable=missing-function-docstring
     t = analysis.tokenizer("trigram", "nGram", min_gram=3, max_gram=3)
 
     assert t.to_dict() == "trigram"
@@ -200,7 +191,6 @@ def test_tokenizer() -> None:
 
 
 def test_custom_analyzer_can_collect_custom_items() -> None:
-    # pylint: disable=missing-function-docstring
     trigram = analysis.tokenizer("trigram", "nGram", min_gram=3, max_gram=3)
     my_stop = analysis.token_filter("my_stop", "stop", stopwords=["a", "b"])
     umlauts = analysis.char_filter("umlauts", "pattern_replace", mappings=["ü=>ue"])
@@ -228,7 +218,6 @@ def test_custom_analyzer_can_collect_custom_items() -> None:
 
 
 def test_stemmer_analyzer_can_pass_name() -> None:
-    # pylint: disable=missing-function-docstring
     t = analysis.token_filter(
         "my_english_filter", name="minimal_english", type="stemmer"
     )

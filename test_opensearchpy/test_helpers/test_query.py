@@ -32,7 +32,6 @@ from opensearchpy.helpers import function, query
 
 
 def test_empty_query_is_match_all() -> None:
-    # pylint: disable=missing-function-docstring
     q = query.Q()
 
     assert isinstance(q, query.MatchAll)
@@ -40,48 +39,40 @@ def test_empty_query_is_match_all() -> None:
 
 
 def test_match_to_dict() -> None:
-    # pylint: disable=missing-function-docstring
     assert {"match": {"f": "value"}} == query.Match(f="value").to_dict()
 
 
 def test_match_to_dict_extra() -> None:
-    # pylint: disable=missing-function-docstring
     assert {"match": {"f": "value", "boost": 2}} == query.Match(
         f="value", boost=2
     ).to_dict()
 
 
 def test_fuzzy_to_dict() -> None:
-    # pylint: disable=missing-function-docstring
     assert {"fuzzy": {"f": "value"}} == query.Fuzzy(f="value").to_dict()
 
 
 def test_prefix_to_dict() -> None:
-    # pylint: disable=missing-function-docstring
     assert {"prefix": {"f": "value"}} == query.Prefix(f="value").to_dict()
 
 
 def test_term_to_dict() -> None:
-    # pylint: disable=missing-function-docstring
     assert {"term": {"_type": "article"}} == query.Term(_type="article").to_dict()
 
 
 def test_bool_to_dict() -> None:
-    # pylint: disable=missing-function-docstring
     bool = query.Bool(must=[query.Match(f="value")], should=[])
 
     assert {"bool": {"must": [{"match": {"f": "value"}}]}} == bool.to_dict()
 
 
 def test_dismax_to_dict() -> None:
-    # pylint: disable=missing-function-docstring
     assert {"dis_max": {"queries": [{"term": {"_type": "article"}}]}} == query.DisMax(
         queries=[query.Term(_type="article")]
     ).to_dict()
 
 
 def test_bool_from_dict_issue_318() -> None:
-    # pylint: disable=missing-function-docstring
     d = {"bool": {"must_not": {"match": {"field": "value"}}}}
     q = query.Q(d)
 
@@ -89,14 +80,12 @@ def test_bool_from_dict_issue_318() -> None:
 
 
 def test_repr() -> None:
-    # pylint: disable=missing-function-docstring
     bool = query.Bool(must=[query.Match(f="value")], should=[])
 
     assert "Bool(must=[Match(f='value')])" == repr(bool)
 
 
 def test_query_clone() -> None:
-    # pylint: disable=missing-function-docstring
     bool = query.Bool(
         must=[query.Match(x=42)],
         should=[query.Match(g="v2")],
@@ -109,7 +98,6 @@ def test_query_clone() -> None:
 
 
 def test_bool_converts_its_init_args_to_queries() -> None:
-    # pylint: disable=missing-function-docstring
     q = query.Bool(must=[{"match": {"f": "value"}}])
 
     assert len(q.must) == 1
@@ -117,7 +105,6 @@ def test_bool_converts_its_init_args_to_queries() -> None:
 
 
 def test_two_queries_make_a_bool() -> None:
-    # pylint: disable=missing-function-docstring
     q1 = query.Match(f="value1")
     q2 = query.Match(message={"query": "this is a test", "opeartor": "and"})
     q = q1 & q2
@@ -127,7 +114,6 @@ def test_two_queries_make_a_bool() -> None:
 
 
 def test_other_and_bool_appends_other_to_must() -> None:
-    # pylint: disable=missing-function-docstring
     q1 = query.Match(f="value1")
     qb = query.Bool()
 
@@ -137,7 +123,6 @@ def test_other_and_bool_appends_other_to_must() -> None:
 
 
 def test_bool_and_other_appends_other_to_must() -> None:
-    # pylint: disable=missing-function-docstring
     q1: Any = query.Match(f="value1")
     qb: Any = query.Bool()
 
@@ -147,7 +132,6 @@ def test_bool_and_other_appends_other_to_must() -> None:
 
 
 def test_bool_and_other_sets_min_should_match_if_needed() -> None:
-    # pylint: disable=missing-function-docstring
     q1 = query.Q("term", category=1)
     q2 = query.Q(
         "bool", should=[query.Q("term", name="aaa"), query.Q("term", name="bbb")]
@@ -162,7 +146,6 @@ def test_bool_and_other_sets_min_should_match_if_needed() -> None:
 
 
 def test_bool_with_different_minimum_should_match_should_not_be_combined() -> None:
-    # pylint: disable=missing-function-docstring
     q1 = query.Q(
         "bool",
         minimum_should_match=2,
@@ -202,12 +185,10 @@ def test_bool_with_different_minimum_should_match_should_not_be_combined() -> No
 
 
 def test_empty_bool_has_min_should_match_0() -> None:
-    # pylint: disable=missing-function-docstring
     assert 0 == query.Bool()._min_should_match
 
 
 def test_query_and_query_creates_bool() -> None:
-    # pylint: disable=missing-function-docstring
     q1 = query.Match(f=42)
     q2 = query.Match(g=47)
 
@@ -217,7 +198,6 @@ def test_query_and_query_creates_bool() -> None:
 
 
 def test_match_all_and_query_equals_other() -> None:
-    # pylint: disable=missing-function-docstring
     q1 = query.Match(f=42)
     q2 = query.MatchAll()
 
@@ -226,28 +206,24 @@ def test_match_all_and_query_equals_other() -> None:
 
 
 def test_not_match_all_is_match_none() -> None:
-    # pylint: disable=missing-function-docstring
     q = query.MatchAll()
 
     assert ~q == query.MatchNone()
 
 
 def test_not_match_none_is_match_all() -> None:
-    # pylint: disable=missing-function-docstring
     q = query.MatchNone()
 
     assert ~q == query.MatchAll()
 
 
 def test_invert_empty_bool_is_match_none() -> None:
-    # pylint: disable=missing-function-docstring
     q = query.Bool()
 
     assert ~q == query.MatchNone()
 
 
 def test_match_none_or_query_equals_query() -> None:
-    # pylint: disable=missing-function-docstring
     q1 = query.Match(f=42)
     q2 = query.MatchNone()
 
@@ -255,7 +231,6 @@ def test_match_none_or_query_equals_query() -> None:
 
 
 def test_match_none_and_query_equals_match_none() -> None:
-    # pylint: disable=missing-function-docstring
     q1 = query.Match(f=42)
     q2 = query.MatchNone()
 
@@ -263,7 +238,6 @@ def test_match_none_and_query_equals_match_none() -> None:
 
 
 def test_bool_and_bool() -> None:
-    # pylint: disable=missing-function-docstring
     qt1, qt2, qt3 = query.Match(f=1), query.Match(f=2), query.Match(f=3)
 
     q1 = query.Bool(must=[qt1], should=[qt2])
@@ -280,7 +254,6 @@ def test_bool_and_bool() -> None:
 
 
 def test_bool_and_bool_with_min_should_match() -> None:
-    # pylint: disable=missing-function-docstring
     qt1, qt2 = query.Match(f=1), query.Match(f=2)
     q1 = query.Q("bool", minimum_should_match=1, should=[qt1])
     q2 = query.Q("bool", minimum_should_match=1, should=[qt2])
@@ -289,21 +262,18 @@ def test_bool_and_bool_with_min_should_match() -> None:
 
 
 def test_inverted_query_becomes_bool_with_must_not() -> None:
-    # pylint: disable=missing-function-docstring
     q = query.Match(f=42)
 
     assert ~q == query.Bool(must_not=[query.Match(f=42)])
 
 
 def test_inverted_query_with_must_not_become_should() -> None:
-    # pylint: disable=missing-function-docstring
     q = query.Q("bool", must_not=[query.Q("match", f=1), query.Q("match", f=2)])
 
     assert ~q == query.Q("bool", should=[query.Q("match", f=1), query.Q("match", f=2)])
 
 
 def test_inverted_query_with_must_and_must_not() -> None:
-    # pylint: disable=missing-function-docstring
     q = query.Q(
         "bool",
         must=[query.Q("match", f=3), query.Q("match", f=4)],
@@ -324,14 +294,12 @@ def test_inverted_query_with_must_and_must_not() -> None:
 
 
 def test_double_invert_returns_original_query() -> None:
-    # pylint: disable=missing-function-docstring
     q = query.Match(f=42)
 
     assert q == ~~q
 
 
 def test_bool_query_gets_inverted_internally() -> None:
-    # pylint: disable=missing-function-docstring
     q = query.Bool(must_not=[query.Match(f=42)], must=[query.Match(g="v")])
 
     assert ~q == query.Bool(
@@ -345,7 +313,6 @@ def test_bool_query_gets_inverted_internally() -> None:
 
 
 def test_match_all_or_something_is_match_all() -> None:
-    # pylint: disable=missing-function-docstring
     q1 = query.MatchAll()
     q2 = query.Match(f=42)
 
@@ -354,7 +321,6 @@ def test_match_all_or_something_is_match_all() -> None:
 
 
 def test_or_produces_bool_with_should() -> None:
-    # pylint: disable=missing-function-docstring
     q1 = query.Match(f=42)
     q2 = query.Match(g="v")
 
@@ -363,7 +329,6 @@ def test_or_produces_bool_with_should() -> None:
 
 
 def test_or_bool_doesnt_loop_infinitely_issue_37() -> None:
-    # pylint: disable=missing-function-docstring
     q = query.Match(f=42) | ~query.Match(f=47)
 
     assert q == query.Bool(
@@ -372,7 +337,6 @@ def test_or_bool_doesnt_loop_infinitely_issue_37() -> None:
 
 
 def test_or_bool_doesnt_loop_infinitely_issue_96() -> None:
-    # pylint: disable=missing-function-docstring
     q = ~query.Match(f=42) | ~query.Match(f=47)
 
     assert q == query.Bool(
@@ -384,7 +348,6 @@ def test_or_bool_doesnt_loop_infinitely_issue_96() -> None:
 
 
 def test_bool_will_append_another_query_with_or() -> None:
-    # pylint: disable=missing-function-docstring
     qb = query.Bool(should=[query.Match(f="v"), query.Match(f="v2")])
     q = query.Match(g=42)
 
@@ -392,7 +355,6 @@ def test_bool_will_append_another_query_with_or() -> None:
 
 
 def test_bool_queries_with_only_should_get_concatenated() -> None:
-    # pylint: disable=missing-function-docstring
     q1 = query.Bool(should=[query.Match(f=1), query.Match(f=2)])
     q2 = query.Bool(should=[query.Match(f=3), query.Match(f=4)])
 
@@ -402,7 +364,6 @@ def test_bool_queries_with_only_should_get_concatenated() -> None:
 
 
 def test_two_bool_queries_append_one_to_should_if_possible() -> None:
-    # pylint: disable=missing-function-docstring
     q1 = query.Bool(should=[query.Match(f="v")])
     q2 = query.Bool(must=[query.Match(f="v")])
 
@@ -415,13 +376,11 @@ def test_two_bool_queries_append_one_to_should_if_possible() -> None:
 
 
 def test_queries_are_registered() -> None:
-    # pylint: disable=missing-function-docstring
     assert "match" in query.Query._classes
     assert query.Query._classes["match"] is query.Match
 
 
 def test_defining_query_registers_it() -> None:
-    # pylint: disable=missing-function-docstring
     class MyQuery(query.Query):
         name = "my_query"
 
@@ -430,14 +389,12 @@ def test_defining_query_registers_it() -> None:
 
 
 def test_query_passes_query_through() -> None:
-    # pylint: disable=missing-function-docstring
     q = query.Match(f="value1")
 
     assert query.Q(q) is q
 
 
 def test_query_constructs_query_by_name() -> None:
-    # pylint: disable=missing-function-docstring
     q = query.Q("match", f="value")
 
     assert isinstance(q, query.Match)
@@ -445,21 +402,18 @@ def test_query_constructs_query_by_name() -> None:
 
 
 def test_query_translates_double_underscore_to_dots_in_param_names() -> None:
-    # pylint: disable=missing-function-docstring
     q = query.Q("match", comment__author="honza")
 
     assert {"comment.author": "honza"} == q._params
 
 
 def test_query_doesn_translate_double_underscore_to_dots_in_param_names() -> None:
-    # pylint: disable=missing-function-docstring
     q = query.Q("match", comment__author="honza", _expand__to_dot=False)
 
     assert {"comment__author": "honza"} == q._params
 
 
 def test_query_constructs_simple_query_from_dict() -> None:
-    # pylint: disable=missing-function-docstring
     q = query.Q({"match": {"f": "value"}})
 
     assert isinstance(q, query.Match)
@@ -467,20 +421,17 @@ def test_query_constructs_simple_query_from_dict() -> None:
 
 
 def test_query_constructs_compound_query_from_dict() -> None:
-    # pylint: disable=missing-function-docstring
     q = query.Q({"bool": {"must": [{"match": {"f": "value"}}]}})
 
     assert q == query.Bool(must=[query.Match(f="value")])
 
 
 def test_query_raises_error_when_passed_in_dict_and_params() -> None:
-    # pylint: disable=missing-function-docstring
     with raises(Exception):
         query.Q({"match": {"f": "value"}}, f="value")
 
 
 def test_query_raises_error_when_passed_in_query_and_params() -> None:
-    # pylint: disable=missing-function-docstring
     q = query.Match(f="value1")
 
     with raises(Exception):
@@ -488,13 +439,11 @@ def test_query_raises_error_when_passed_in_query_and_params() -> None:
 
 
 def test_query_raises_error_on_unknown_query() -> None:
-    # pylint: disable=missing-function-docstring
     with raises(Exception):
         query.Q("not a query", f="value")
 
 
 def test_match_all_and_anything_is_anything() -> None:
-    # pylint: disable=missing-function-docstring
     q = query.MatchAll()
 
     s = query.Match(f=42)
@@ -503,7 +452,6 @@ def test_match_all_and_anything_is_anything() -> None:
 
 
 def test_function_score_with_functions() -> None:
-    # pylint: disable=missing-function-docstring
     q = query.Q(
         "function_score",
         functions=[query.SF("script_score", script="doc['comment_count'] * _score")],
@@ -517,7 +465,6 @@ def test_function_score_with_functions() -> None:
 
 
 def test_function_score_with_no_function_is_boost_factor() -> None:
-    # pylint: disable=missing-function-docstring
     q = query.Q(
         "function_score",
         functions=[query.SF({"weight": 20, "filter": query.Q("term", f=42)})],
@@ -529,7 +476,6 @@ def test_function_score_with_no_function_is_boost_factor() -> None:
 
 
 def test_function_score_to_dict() -> None:
-    # pylint: disable=missing-function-docstring
     q = query.Q(
         "function_score",
         query=query.Q("match", title="python"),
@@ -559,7 +505,6 @@ def test_function_score_to_dict() -> None:
 
 
 def test_function_score_with_single_function() -> None:
-    # pylint: disable=missing-function-docstring
     d = {
         "function_score": {
             "filter": {"term": {"tags": "python"}},
@@ -578,7 +523,6 @@ def test_function_score_with_single_function() -> None:
 
 
 def test_function_score_from_dict() -> None:
-    # pylint: disable=missing-function-docstring
     d = {
         "function_score": {
             "filter": {"term": {"tags": "python"}},
@@ -608,7 +552,6 @@ def test_function_score_from_dict() -> None:
 
 
 def test_script_score() -> None:
-    # pylint: disable=missing-function-docstring
     d = {
         "script_score": {
             "query": {"match_all": {}},

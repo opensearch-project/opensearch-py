@@ -30,7 +30,6 @@ from opensearchpy.helpers import aggs, query
 
 
 def test_repr() -> None:
-    # pylint: disable=missing-function-docstring
     max_score = aggs.Max(field="score")
     a = aggs.A("terms", field="tags", aggs={"max_score": max_score})
 
@@ -38,7 +37,6 @@ def test_repr() -> None:
 
 
 def test_meta() -> None:
-    # pylint: disable=missing-function-docstring
     max_score = aggs.Max(field="score")
     a = aggs.A(
         "terms", field="tags", aggs={"max_score": max_score}, meta={"some": "metadata"}
@@ -52,7 +50,6 @@ def test_meta() -> None:
 
 
 def test_meta_from_dict() -> None:
-    # pylint: disable=missing-function-docstring
     max_score = aggs.Max(field="score")
     a = aggs.A(
         "terms", field="tags", aggs={"max_score": max_score}, meta={"some": "metadata"}
@@ -62,7 +59,6 @@ def test_meta_from_dict() -> None:
 
 
 def test_aggs_creates_proper_agg() -> None:
-    # pylint: disable=missing-function-docstring
     a = aggs.A("terms", field="tags")
 
     assert isinstance(a, aggs.Terms)
@@ -70,7 +66,6 @@ def test_aggs_creates_proper_agg() -> None:
 
 
 def test_aggs_handles_nested_aggs_properly() -> None:
-    # pylint: disable=missing-function-docstring
     max_score = aggs.Max(field="score")
     a = aggs.A("terms", field="tags", aggs={"max_score": max_score})
 
@@ -79,13 +74,11 @@ def test_aggs_handles_nested_aggs_properly() -> None:
 
 
 def test_aggs_passes_aggs_through() -> None:
-    # pylint: disable=missing-function-docstring
     a = aggs.A("terms", field="tags")
     assert aggs.A(a) is a
 
 
 def test_aggs_from_dict() -> None:
-    # pylint: disable=missing-function-docstring
     d = {
         "terms": {"field": "tags"},
         "aggs": {"per_author": {"terms": {"field": "author.raw"}}},
@@ -102,7 +95,6 @@ def test_aggs_from_dict() -> None:
 
 
 def test_aggs_fails_with_incorrect_dict() -> None:
-    # pylint: disable=missing-function-docstring
     correct_d = {
         "terms": {"field": "tags"},
         "aggs": {"per_author": {"terms": {"field": "author.raw"}}},
@@ -123,7 +115,6 @@ def test_aggs_fails_with_incorrect_dict() -> None:
 
 
 def test_aggs_fails_with_agg_and_params() -> None:
-    # pylint: disable=missing-function-docstring
     a = aggs.A("terms", field="tags")
 
     with raises(Exception):
@@ -131,7 +122,6 @@ def test_aggs_fails_with_agg_and_params() -> None:
 
 
 def test_buckets_are_nestable() -> None:
-    # pylint: disable=missing-function-docstring
     a = aggs.Terms(field="tags")
     b = a.bucket("per_author", "terms", field="author.raw")
 
@@ -141,7 +131,6 @@ def test_buckets_are_nestable() -> None:
 
 
 def test_metric_inside_buckets() -> None:
-    # pylint: disable=missing-function-docstring
     a = aggs.Terms(field="tags")
     b = a.metric("max_score", "max", field="score")
 
@@ -151,7 +140,6 @@ def test_metric_inside_buckets() -> None:
 
 
 def test_buckets_equals_counts_subaggs() -> None:
-    # pylint: disable=missing-function-docstring
     a = aggs.Terms(field="tags")
     a.bucket("per_author", "terms", field="author.raw")
     b = aggs.Terms(field="tags")
@@ -160,7 +148,6 @@ def test_buckets_equals_counts_subaggs() -> None:
 
 
 def test_buckets_to_dict() -> None:
-    # pylint: disable=missing-function-docstring
     a = aggs.Terms(field="tags")
     a.bucket("per_author", "terms", field="author.raw")
 
@@ -179,7 +166,6 @@ def test_buckets_to_dict() -> None:
 
 
 def test_nested_buckets_are_reachable_as_getitem() -> None:
-    # pylint: disable=missing-function-docstring
     a = aggs.Terms(field="tags")
     b = a.bucket("per_author", "terms", field="author.raw")
 
@@ -188,7 +174,6 @@ def test_nested_buckets_are_reachable_as_getitem() -> None:
 
 
 def test_nested_buckets_are_settable_as_getitem() -> None:
-    # pylint: disable=missing-function-docstring
     a = aggs.Terms(field="tags")
     b = a["per_author"] = aggs.A("terms", field="author.raw")
 
@@ -196,7 +181,6 @@ def test_nested_buckets_are_settable_as_getitem() -> None:
 
 
 def test_filter_can_be_instantiated_using_positional_args() -> None:
-    # pylint: disable=missing-function-docstring
     a = aggs.Filter(query.Q("term", f=42))
 
     assert {"filter": {"term": {"f": 42}}} == a.to_dict()
@@ -205,7 +189,6 @@ def test_filter_can_be_instantiated_using_positional_args() -> None:
 
 
 def test_filter_aggregation_as_nested_agg() -> None:
-    # pylint: disable=missing-function-docstring
     a = aggs.Terms(field="tags")
     a.bucket("filtered", "filter", query.Q("term", f=42))
 
@@ -216,7 +199,6 @@ def test_filter_aggregation_as_nested_agg() -> None:
 
 
 def test_filter_aggregation_with_nested_aggs() -> None:
-    # pylint: disable=missing-function-docstring
     a = aggs.Filter(query.Q("term", f=42))
     a.bucket("testing", "terms", field="tags")
 
@@ -227,7 +209,6 @@ def test_filter_aggregation_with_nested_aggs() -> None:
 
 
 def test_filters_correctly_identifies_the_hash() -> None:
-    # pylint: disable=missing-function-docstring
     a = aggs.A(
         "filters",
         filters={
@@ -248,7 +229,6 @@ def test_filters_correctly_identifies_the_hash() -> None:
 
 
 def test_bucket_sort_agg() -> None:
-    # pylint: disable=missing-function-docstring
     bucket_sort_agg = aggs.BucketSort(sort=[{"total_sales": {"order": "desc"}}], size=3)
     assert bucket_sort_agg.to_dict() == {
         "bucket_sort": {"sort": [{"total_sales": {"order": "desc"}}], "size": 3}
@@ -274,7 +254,6 @@ def test_bucket_sort_agg() -> None:
 
 
 def test_bucket_sort_agg_only_trnunc() -> None:
-    # pylint: disable=missing-function-docstring
     bucket_sort_agg = aggs.BucketSort(**{"from": 1, "size": 1})
     assert bucket_sort_agg.to_dict() == {"bucket_sort": {"from": 1, "size": 1}}
 
@@ -287,28 +266,24 @@ def test_bucket_sort_agg_only_trnunc() -> None:
 
 
 def test_geohash_grid_aggregation() -> None:
-    # pylint: disable=missing-function-docstring
     a = aggs.GeohashGrid(**{"field": "centroid", "precision": 3})
 
     assert {"geohash_grid": {"field": "centroid", "precision": 3}} == a.to_dict()
 
 
 def test_geotile_grid_aggregation() -> None:
-    # pylint: disable=missing-function-docstring
     a = aggs.GeotileGrid(**{"field": "centroid", "precision": 3})
 
     assert {"geotile_grid": {"field": "centroid", "precision": 3}} == a.to_dict()
 
 
 def test_boxplot_aggregation() -> None:
-    # pylint: disable=missing-function-docstring
     a = aggs.Boxplot(field="load_time")
 
     assert {"boxplot": {"field": "load_time"}} == a.to_dict()
 
 
 def test_rare_terms_aggregation() -> None:
-    # pylint: disable=missing-function-docstring
     a = aggs.RareTerms(field="the-field")
     a.bucket("total_sales", "sum", field="price")
     a.bucket(
@@ -330,20 +305,17 @@ def test_rare_terms_aggregation() -> None:
 
 
 def test_variable_width_histogram_aggregation() -> None:
-    # pylint: disable=missing-function-docstring
     a = aggs.VariableWidthHistogram(field="price", buckets=2)
     assert {"variable_width_histogram": {"buckets": 2, "field": "price"}} == a.to_dict()
 
 
 def test_median_absolute_deviation_aggregation() -> None:
-    # pylint: disable=missing-function-docstring
     a = aggs.MedianAbsoluteDeviation(field="rating")
 
     assert {"median_absolute_deviation": {"field": "rating"}} == a.to_dict()
 
 
 def test_t_test_aggregation() -> None:
-    # pylint: disable=missing-function-docstring
     a = aggs.TTest(
         a={"field": "startup_time_before"},
         b={"field": "startup_time_after"},
@@ -360,7 +332,6 @@ def test_t_test_aggregation() -> None:
 
 
 def test_inference_aggregation() -> None:
-    # pylint: disable=missing-function-docstring
     a = aggs.Inference(model_id="model-id", buckets_path={"agg_name": "agg_name"})
     assert {
         "inference": {"buckets_path": {"agg_name": "agg_name"}, "model_id": "model-id"}
@@ -368,7 +339,6 @@ def test_inference_aggregation() -> None:
 
 
 def test_moving_percentiles_aggregation() -> None:
-    # pylint: disable=missing-function-docstring
     a = aggs.DateHistogram()
     a.bucket("the_percentile", "percentiles", field="price", percents=[1.0, 99.0])
     a.pipeline(
@@ -389,7 +359,6 @@ def test_moving_percentiles_aggregation() -> None:
 
 
 def test_normalize_aggregation() -> None:
-    # pylint: disable=missing-function-docstring
     a = aggs.Normalize(buckets_path="normalized", method="percent_of_sum")
     assert {
         "normalize": {"buckets_path": "normalized", "method": "percent_of_sum"}

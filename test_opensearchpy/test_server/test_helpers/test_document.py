@@ -132,7 +132,6 @@ class SerializationDoc(Document):
 
 
 def test_serialization(write_client: Any) -> None:
-    # pylint: disable=missing-function-docstring
     SerializationDoc.init()
     write_client.index(
         index="test-serialization",
@@ -163,7 +162,6 @@ def test_serialization(write_client: Any) -> None:
 
 
 def test_nested_inner_hits_are_wrapped_properly(pull_request: Any) -> None:
-    # pylint: disable=missing-function-docstring
     history_query = Q(
         "nested",
         path="comments.history",
@@ -192,7 +190,6 @@ def test_nested_inner_hits_are_wrapped_properly(pull_request: Any) -> None:
 
 
 def test_nested_inner_hits_are_deserialized_properly(pull_request: Any) -> None:
-    # pylint: disable=missing-function-docstring
     s = PullRequest.search().query(
         "nested",
         inner_hits={},
@@ -208,7 +205,6 @@ def test_nested_inner_hits_are_deserialized_properly(pull_request: Any) -> None:
 
 
 def test_nested_top_hits_are_wrapped_properly(pull_request: Any) -> None:
-    # pylint: disable=missing-function-docstring
     s = PullRequest.search()
     s.aggs.bucket("comments", "nested", path="comments").metric(
         "hits", "top_hits", size=1
@@ -221,7 +217,6 @@ def test_nested_top_hits_are_wrapped_properly(pull_request: Any) -> None:
 
 
 def test_update_object_field(write_client: Any) -> None:
-    # pylint: disable=missing-function-docstring
     Wiki.init()
     w = Wiki(
         owner=User(name="Honza Kral"),
@@ -242,7 +237,6 @@ def test_update_object_field(write_client: Any) -> None:
 
 
 def test_update_script(write_client: Any) -> None:
-    # pylint: disable=missing-function-docstring
     Wiki.init()
     w = Wiki(owner=User(name="Honza Kral"), _id="opensearch-py", views=42)
     w.save()
@@ -253,7 +247,6 @@ def test_update_script(write_client: Any) -> None:
 
 
 def test_update_retry_on_conflict(write_client: Any) -> None:
-    # pylint: disable=missing-function-docstring
     Wiki.init()
     w = Wiki(owner=User(name="Honza Kral"), _id="opensearch-py", views=42)
     w.save()
@@ -269,7 +262,6 @@ def test_update_retry_on_conflict(write_client: Any) -> None:
 
 @pytest.mark.parametrize("retry_on_conflict", [None, 0])  # type: ignore
 def test_update_conflicting_version(write_client: Any, retry_on_conflict: Any) -> None:
-    # pylint: disable=missing-function-docstring
     Wiki.init()
     w = Wiki(owner=User(name="Honza Kral"), _id="opensearch-py", views=42)
     w.save()
@@ -287,7 +279,6 @@ def test_update_conflicting_version(write_client: Any, retry_on_conflict: Any) -
 
 
 def test_save_and_update_return_doc_meta(write_client: Any) -> None:
-    # pylint: disable=missing-function-docstring
     Wiki.init()
     w = Wiki(owner=User(name="Honza Kral"), _id="opensearch-py", views=42)
     resp = w.save(return_doc_meta=True)
@@ -312,38 +303,32 @@ def test_save_and_update_return_doc_meta(write_client: Any) -> None:
 
 
 def test_init(write_client: Any) -> None:
-    # pylint: disable=missing-function-docstring
     Repository.init(index="test-git")
 
     assert write_client.indices.exists(index="test-git")
 
 
 def test_get_raises_404_on_index_missing(data_client: Any) -> None:
-    # pylint: disable=missing-function-docstring
     with raises(NotFoundError):
         Repository.get("opensearch-dsl-php", index="not-there")
 
 
 def test_get_raises_404_on_non_existent_id(data_client: Any) -> None:
-    # pylint: disable=missing-function-docstring
     with raises(NotFoundError):
         Repository.get("opensearch-dsl-php")
 
 
 def test_get_returns_none_if_404_ignored(data_client: Any) -> None:
-    # pylint: disable=missing-function-docstring
     assert None is Repository.get("opensearch-dsl-php", ignore=404)
 
 
 def test_get_returns_none_if_404_ignored_and_index_doesnt_exist(
     data_client: Any,
 ) -> None:
-    # pylint: disable=missing-function-docstring
     assert None is Repository.get("42", index="not-there", ignore=404)
 
 
 def test_get(data_client: Any) -> None:
-    # pylint: disable=missing-function-docstring
     opensearch_repo = Repository.get("opensearch-py")
 
     assert isinstance(opensearch_repo, Repository)
@@ -352,17 +337,14 @@ def test_get(data_client: Any) -> None:
 
 
 def test_exists_return_true(data_client: Any) -> None:
-    # pylint: disable=missing-function-docstring
     assert Repository.exists("opensearch-py")
 
 
 def test_exists_false(data_client: Any) -> None:
-    # pylint: disable=missing-function-docstring
     assert not Repository.exists("opensearch-dsl-php")
 
 
 def test_get_with_tz_date(data_client: Any) -> None:
-    # pylint: disable=missing-function-docstring
     first_commit = Commit.get(
         id="3ca6e1e73a071a705b4babd2f581c91a2a3e5037", routing="opensearch-py"
     )
@@ -375,7 +357,6 @@ def test_get_with_tz_date(data_client: Any) -> None:
 
 
 def test_save_with_tz_date(data_client: Any) -> None:
-    # pylint: disable=missing-function-docstring
     tzinfo = timezone("Europe/Prague")
     first_commit = Commit.get(
         id="3ca6e1e73a071a705b4babd2f581c91a2a3e5037", routing="opensearch-py"
@@ -403,7 +384,6 @@ COMMIT_DOCS_WITH_MISSING = [
 
 
 def test_mget(data_client: Any) -> None:
-    # pylint: disable=missing-function-docstring
     commits = Commit.mget(COMMIT_DOCS_WITH_MISSING)
     assert commits[0] is None
     assert commits[1].meta.id == "3ca6e1e73a071a705b4babd2f581c91a2a3e5037"
@@ -412,26 +392,22 @@ def test_mget(data_client: Any) -> None:
 
 
 def test_mget_raises_exception_when_missing_param_is_invalid(data_client: Any) -> None:
-    # pylint: disable=missing-function-docstring
     with raises(ValueError):
         Commit.mget(COMMIT_DOCS_WITH_MISSING, missing="raj")
 
 
 def test_mget_raises_404_when_missing_param_is_raise(data_client: Any) -> None:
-    # pylint: disable=missing-function-docstring
     with raises(NotFoundError):
         Commit.mget(COMMIT_DOCS_WITH_MISSING, missing="raise")
 
 
 def test_mget_ignores_missing_docs_when_missing_param_is_skip(data_client: Any) -> None:
-    # pylint: disable=missing-function-docstring
     commits = Commit.mget(COMMIT_DOCS_WITH_MISSING, missing="skip")
     assert commits[0].meta.id == "3ca6e1e73a071a705b4babd2f581c91a2a3e5037"
     assert commits[1].meta.id == "eb3e543323f189fd7b698e66295427204fff5755"
 
 
 def test_update_works_from_search_response(data_client: Any) -> None:
-    # pylint: disable=missing-function-docstring
     opensearch_repo = Repository.search().execute()[0]
 
     opensearch_repo.update(owner={"other_name": "opensearchpy"})
@@ -443,7 +419,6 @@ def test_update_works_from_search_response(data_client: Any) -> None:
 
 
 def test_update(data_client: Any) -> None:
-    # pylint: disable=missing-function-docstring
     opensearch_repo = Repository.get("opensearch-py")
     v = opensearch_repo.meta.version
 
@@ -468,7 +443,6 @@ def test_update(data_client: Any) -> None:
 
 
 def test_save_updates_existing_doc(data_client: Any) -> None:
-    # pylint: disable=missing-function-docstring
     opensearch_repo = Repository.get("opensearch-py")
 
     opensearch_repo.new_field = "testing-save"
@@ -482,7 +456,6 @@ def test_save_updates_existing_doc(data_client: Any) -> None:
 
 
 def test_save_automatically_uses_seq_no_and_primary_term(data_client: Any) -> None:
-    # pylint: disable=missing-function-docstring
     opensearch_repo = Repository.get("opensearch-py")
     opensearch_repo.meta.seq_no += 1
 
@@ -491,7 +464,6 @@ def test_save_automatically_uses_seq_no_and_primary_term(data_client: Any) -> No
 
 
 def test_delete_automatically_uses_seq_no_and_primary_term(data_client: Any) -> None:
-    # pylint: disable=missing-function-docstring
     opensearch_repo = Repository.get("opensearch-py")
     opensearch_repo.meta.seq_no += 1
 
@@ -500,14 +472,12 @@ def test_delete_automatically_uses_seq_no_and_primary_term(data_client: Any) -> 
 
 
 def assert_doc_equals(expected: Any, actual: Any) -> None:
-    # pylint: disable=missing-function-docstring
     for f in expected:
         assert f in actual
         assert actual[f] == expected[f]
 
 
 def test_can_save_to_different_index(write_client: Any) -> None:
-    # pylint: disable=missing-function-docstring
     test_repo = Repository(description="testing", meta={"id": 42})
     assert test_repo.save(index="test-document")
 
@@ -523,7 +493,6 @@ def test_can_save_to_different_index(write_client: Any) -> None:
 
 
 def test_save_without_skip_empty_will_include_empty_fields(write_client: Any) -> None:
-    # pylint: disable=missing-function-docstring
     test_repo = Repository(field_1=[], field_2=None, field_3={}, meta={"id": 42})
     assert test_repo.save(index="test-document", skip_empty=False)
 
@@ -539,7 +508,6 @@ def test_save_without_skip_empty_will_include_empty_fields(write_client: Any) ->
 
 
 def test_delete(write_client: Any) -> None:
-    # pylint: disable=missing-function-docstring
     write_client.create(
         index="test-document",
         id="opensearch-py",
@@ -561,12 +529,10 @@ def test_delete(write_client: Any) -> None:
 
 
 def test_search(data_client: Any) -> None:
-    # pylint: disable=missing-function-docstring
     assert Repository.search().count() == 1
 
 
 def test_search_returns_proper_doc_classes(data_client: Any) -> None:
-    # pylint: disable=missing-function-docstring
     result = Repository.search().execute()
 
     opensearch_repo = result.hits[0]
@@ -576,7 +542,6 @@ def test_search_returns_proper_doc_classes(data_client: Any) -> None:
 
 
 def test_refresh_mapping(data_client: Any) -> None:
-    # pylint: disable=missing-function-docstring
     class Commit(Document):
         class Index:
             name = "git"
@@ -593,7 +558,6 @@ def test_refresh_mapping(data_client: Any) -> None:
 
 
 def test_highlight_in_meta(data_client: Any) -> None:
-    # pylint: disable=missing-function-docstring
     commit = (
         Commit.search()
         .query("match", description="inverting")

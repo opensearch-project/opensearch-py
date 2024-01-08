@@ -16,13 +16,11 @@ from opensearchpy import OpenSearch, Urllib3HttpConnection
 
 class TestUrlLib3(TestCase):
     def test_default(self) -> None:
-        # pylint: disable=missing-function-docstring
         client = OpenSearch()
         self.assertEqual(client.transport.connection_class, Urllib3HttpConnection)
         self.assertEqual(client.transport.pool_maxsize, None)
 
     def test_connection_class(self) -> None:
-        # pylint: disable=missing-function-docstring
         client = OpenSearch(connection_class=Urllib3HttpConnection)
         self.assertEqual(client.transport.connection_class, Urllib3HttpConnection)
         self.assertIsInstance(
@@ -33,7 +31,6 @@ class TestUrlLib3(TestCase):
         )
 
     def test_pool_maxsize(self) -> None:
-        # pylint: disable=missing-function-docstring
         client = OpenSearch(connection_class=Urllib3HttpConnection, pool_maxsize=42)
         self.assertEqual(client.transport.pool_maxsize, 42)
         # https://github.com/python/cpython/blob/3.12/Lib/queue.py#L35

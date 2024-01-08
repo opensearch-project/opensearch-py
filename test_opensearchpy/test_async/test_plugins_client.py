@@ -20,7 +20,6 @@ pytestmark: MarkDecorator = pytest.mark.asyncio
 
 class TestPluginsClient:
     async def test_plugins_client(self) -> None:
-        # pylint: disable=missing-function-docstring
         with warnings.catch_warnings(record=True) as w:
             client = AsyncOpenSearch()
             # testing double-init here

@@ -30,7 +30,6 @@ from typing import Any, Dict
 
 
 def create_flat_git_index(client: Any, index: Any) -> None:
-    # pylint: disable=missing-function-docstring
     # we will use user on several places
     user_mapping = {
         "properties": {"name": {"type": "text", "fields": {"raw": {"type": "keyword"}}}}
@@ -74,7 +73,6 @@ def create_flat_git_index(client: Any, index: Any) -> None:
 
 
 def create_git_index(client: Any, index: Any) -> None:
-    # pylint: disable=missing-function-docstring
     # we will use user on several places
     user_mapping = {
         "properties": {"name": {"type": "text", "fields": {"raw": {"type": "keyword"}}}}
@@ -1097,7 +1095,6 @@ DATA = [
 
 
 def flatten_doc(d: Any) -> Dict[str, Any]:
-    # pylint: disable=missing-function-docstring
     src = d["_source"].copy()
     del src["commit_repo"]
     return {"_index": "flat-git", "_id": d["_id"], "_source": src}
@@ -1107,7 +1104,6 @@ FLAT_DATA = [flatten_doc(d) for d in DATA if "routing" in d]
 
 
 def create_test_git_data(d: Any) -> Dict[str, Any]:
-    # pylint: disable=missing-function-docstring
     src = d["_source"].copy()
     return {
         "_index": "test-git",

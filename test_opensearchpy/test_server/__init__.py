@@ -35,7 +35,6 @@ client: Any = None
 
 
 def get_client(**kwargs: Any) -> Any:
-    # pylint: disable=missing-function-docstring
     global client
     if client is False:
         raise SkipTest("No client is available")
@@ -55,7 +54,6 @@ def get_client(**kwargs: Any) -> Any:
 
 
 def setup_module() -> None:
-    # pylint: disable=missing-function-docstring
     get_client()
 
 

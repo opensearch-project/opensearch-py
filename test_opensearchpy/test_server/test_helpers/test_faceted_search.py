@@ -68,7 +68,6 @@ class MetricSearch(FacetedSearch):
 
 @pytest.fixture(scope="session")  # type: ignore
 def commit_search_cls(opensearch_version: Any) -> Any:
-    # pylint: disable=missing-function-docstring
     interval_kwargs = {"fixed_interval": "1d"}
 
     class CommitSearch(FacetedSearch):
@@ -94,7 +93,6 @@ def commit_search_cls(opensearch_version: Any) -> Any:
 
 @pytest.fixture(scope="session")  # type: ignore
 def repo_search_cls(opensearch_version: Any) -> Any:
-    # pylint: disable=missing-function-docstring
     interval_type = "calendar_interval"
 
     class RepoSearch(FacetedSearch):
@@ -116,7 +114,6 @@ def repo_search_cls(opensearch_version: Any) -> Any:
 
 @pytest.fixture(scope="session")  # type: ignore
 def pr_search_cls(opensearch_version: Any) -> Any:
-    # pylint: disable=missing-function-docstring
     interval_type = "calendar_interval"
 
     class PRSearch(FacetedSearch):
@@ -135,7 +132,6 @@ def pr_search_cls(opensearch_version: Any) -> Any:
 
 
 def test_facet_with_custom_metric(data_client: Any) -> None:
-    # pylint: disable=missing-function-docstring
     ms = MetricSearch()
     r = ms.execute()
 
@@ -145,7 +141,6 @@ def test_facet_with_custom_metric(data_client: Any) -> None:
 
 
 def test_nested_facet(pull_request: Any, pr_search_cls: Any) -> None:
-    # pylint: disable=missing-function-docstring
     prs = pr_search_cls()
     r = prs.execute()
 
@@ -154,7 +149,6 @@ def test_nested_facet(pull_request: Any, pr_search_cls: Any) -> None:
 
 
 def test_nested_facet_with_filter(pull_request: Any, pr_search_cls: Any) -> None:
-    # pylint: disable=missing-function-docstring
     prs = pr_search_cls(filters={"comments": datetime(2018, 1, 1, 0, 0)})
     r = prs.execute()
 
@@ -167,7 +161,6 @@ def test_nested_facet_with_filter(pull_request: Any, pr_search_cls: Any) -> None
 
 
 def test_datehistogram_facet(data_client: Any, repo_search_cls: Any) -> None:
-    # pylint: disable=missing-function-docstring
     rs = repo_search_cls()
     r = rs.execute()
 
@@ -176,7 +169,6 @@ def test_datehistogram_facet(data_client: Any, repo_search_cls: Any) -> None:
 
 
 def test_boolean_facet(data_client: Any, repo_search_cls: Any) -> None:
-    # pylint: disable=missing-function-docstring
     rs = repo_search_cls()
     r = rs.execute()
 
@@ -189,7 +181,6 @@ def test_boolean_facet(data_client: Any, repo_search_cls: Any) -> None:
 def test_empty_search_finds_everything(
     data_client: Any, opensearch_version: Any, commit_search_cls: Any
 ) -> None:
-    # pylint: disable=missing-function-docstring
     cs = commit_search_cls()
     r = cs.execute()
     assert r.hits.total.value == 52
@@ -236,7 +227,6 @@ def test_empty_search_finds_everything(
 def test_term_filters_are_shown_as_selected_and_data_is_filtered(
     data_client: Any, commit_search_cls: Any
 ) -> None:
-    # pylint: disable=missing-function-docstring
     cs = commit_search_cls(filters={"files": "test_opensearchpy/test_dsl"})
 
     r = cs.execute()
@@ -283,7 +273,6 @@ def test_term_filters_are_shown_as_selected_and_data_is_filtered(
 def test_range_filters_are_shown_as_selected_and_data_is_filtered(
     data_client: Any, commit_search_cls: Any
 ) -> None:
-    # pylint: disable=missing-function-docstring
     cs = commit_search_cls(filters={"deletions": "better"})
 
     r = cs.execute()
@@ -292,7 +281,6 @@ def test_range_filters_are_shown_as_selected_and_data_is_filtered(
 
 
 def test_pagination(data_client: Any, commit_search_cls: Any) -> None:
-    # pylint: disable=missing-function-docstring
     cs = commit_search_cls()
     cs = cs[0:20]
 

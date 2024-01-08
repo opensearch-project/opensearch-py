@@ -32,42 +32,34 @@ from test_opensearchpy.test_cases import OpenSearchTestCase
 
 class TestOverriddenUrlTargets(OpenSearchTestCase):
     def test_create(self) -> None:
-        # pylint: disable=missing-function-docstring
         self.client.create(index="test-index", id="test-id", body={})
         self.assert_url_called("PUT", "/test-index/_create/test-id")
 
     def test_delete(self) -> None:
-        # pylint: disable=missing-function-docstring
         self.client.delete(index="test-index", id="test-id")
         self.assert_url_called("DELETE", "/test-index/_doc/test-id")
 
     def test_exists(self) -> None:
-        # pylint: disable=missing-function-docstring
         self.client.exists(index="test-index", id="test-id")
         self.assert_url_called("HEAD", "/test-index/_doc/test-id")
 
     def test_explain(self) -> None:
-        # pylint: disable=missing-function-docstring
         self.client.explain(index="test-index", id="test-id")
         self.assert_url_called("POST", "/test-index/_explain/test-id")
 
     def test_get(self) -> None:
-        # pylint: disable=missing-function-docstring
         self.client.get(index="test-index", id="test-id")
         self.assert_url_called("GET", "/test-index/_doc/test-id")
 
     def test_get_source(self) -> None:
-        # pylint: disable=missing-function-docstring
         self.client.get_source(index="test-index", id="test-id")
         self.assert_url_called("GET", "/test-index/_source/test-id")
 
     def test_exists_source(self) -> None:
-        # pylint: disable=missing-function-docstring
         self.client.exists_source(index="test-index", id="test-id")
         self.assert_url_called("HEAD", "/test-index/_source/test-id")
 
     def test_index(self) -> None:
-        # pylint: disable=missing-function-docstring
         self.client.index(index="test-index", body={})
         self.assert_url_called("POST", "/test-index/_doc")
 
@@ -75,7 +67,6 @@ class TestOverriddenUrlTargets(OpenSearchTestCase):
         self.assert_url_called("PUT", "/test-index/_doc/test-id")
 
     def test_termvectors(self) -> None:
-        # pylint: disable=missing-function-docstring
         self.client.termvectors(index="test-index", body={})
         self.assert_url_called("POST", "/test-index/_termvectors")
 
@@ -83,17 +74,14 @@ class TestOverriddenUrlTargets(OpenSearchTestCase):
         self.assert_url_called("POST", "/test-index/_termvectors/test-id")
 
     def test_mtermvectors(self) -> None:
-        # pylint: disable=missing-function-docstring
         self.client.mtermvectors(index="test-index", body={})
         self.assert_url_called("POST", "/test-index/_mtermvectors")
 
     def test_update(self) -> None:
-        # pylint: disable=missing-function-docstring
         self.client.update(index="test-index", id="test-id", body={})
         self.assert_url_called("POST", "/test-index/_update/test-id")
 
     def test_cluster_state(self) -> None:
-        # pylint: disable=missing-function-docstring
         self.client.cluster.state()
         self.assert_url_called("GET", "/_cluster/state")
 
@@ -104,7 +92,6 @@ class TestOverriddenUrlTargets(OpenSearchTestCase):
         self.assert_url_called("GET", "/_cluster/state/test-metric/test-index")
 
     def test_cluster_stats(self) -> None:
-        # pylint: disable=missing-function-docstring
         self.client.cluster.stats()
         self.assert_url_called("GET", "/_cluster/stats")
 
@@ -112,7 +99,6 @@ class TestOverriddenUrlTargets(OpenSearchTestCase):
         self.assert_url_called("GET", "/_cluster/stats/nodes/test-node")
 
     def test_indices_put_mapping(self) -> None:
-        # pylint: disable=missing-function-docstring
         self.client.indices.put_mapping(body={})
         self.assert_url_called("PUT", "/_all/_mapping")
 
@@ -120,6 +106,5 @@ class TestOverriddenUrlTargets(OpenSearchTestCase):
         self.assert_url_called("PUT", "/test-index/_mapping")
 
     def test_tasks_get(self) -> None:
-        # pylint: disable=missing-function-docstring
         with pytest.warns(DeprecationWarning):
             self.client.tasks.get()

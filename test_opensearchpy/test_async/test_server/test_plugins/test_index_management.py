@@ -69,7 +69,6 @@ class TestIndexManagementPlugin(AsyncOpenSearchTestCase):
     }
 
     async def test_create_policy(self) -> None:
-        # pylint: disable=missing-function-docstring
         # Test to create policy
         response = await self.client.index_management.put_policy(
             policy=self.POLICY_NAME, body=self.POLICY_CONTENT
@@ -79,7 +78,6 @@ class TestIndexManagementPlugin(AsyncOpenSearchTestCase):
         self.assertIn("_id", response)
 
     async def test_get_policy(self) -> None:
-        # pylint: disable=missing-function-docstring
         # Create a policy
         await self.test_create_policy()
 
@@ -91,7 +89,6 @@ class TestIndexManagementPlugin(AsyncOpenSearchTestCase):
         self.assertEqual(response["_id"], self.POLICY_NAME)
 
     async def test_update_policy(self) -> None:
-        # pylint: disable=missing-function-docstring
         # Create a policy
         await self.test_create_policy()
 
@@ -114,7 +111,6 @@ class TestIndexManagementPlugin(AsyncOpenSearchTestCase):
         self.assertIn("_id", response)
 
     async def test_delete_policy(self) -> None:
-        # pylint: disable=missing-function-docstring
         # Create a policy
         await self.test_create_policy()
 

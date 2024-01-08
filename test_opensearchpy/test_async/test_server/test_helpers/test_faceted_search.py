@@ -133,7 +133,6 @@ def pr_search_cls(opensearch_version: Any) -> Any:
 
 
 async def test_facet_with_custom_metric(data_client: Any) -> None:
-    # pylint: disable=missing-function-docstring
     ms = MetricSearch()
     r = await ms.execute()
 
@@ -143,7 +142,6 @@ async def test_facet_with_custom_metric(data_client: Any) -> None:
 
 
 async def test_nested_facet(pull_request: Any, pr_search_cls: Any) -> None:
-    # pylint: disable=missing-function-docstring
     prs = pr_search_cls()
     r = await prs.execute()
 
@@ -152,7 +150,6 @@ async def test_nested_facet(pull_request: Any, pr_search_cls: Any) -> None:
 
 
 async def test_nested_facet_with_filter(pull_request: Any, pr_search_cls: Any) -> None:
-    # pylint: disable=missing-function-docstring
     prs = pr_search_cls(filters={"comments": datetime(2018, 1, 1, 0, 0)})
     r = await prs.execute()
 
@@ -165,7 +162,6 @@ async def test_nested_facet_with_filter(pull_request: Any, pr_search_cls: Any) -
 
 
 async def test_datehistogram_facet(data_client: Any, repo_search_cls: Any) -> None:
-    # pylint: disable=missing-function-docstring
     rs = repo_search_cls()
     r = await rs.execute()
 
@@ -174,7 +170,6 @@ async def test_datehistogram_facet(data_client: Any, repo_search_cls: Any) -> No
 
 
 async def test_boolean_facet(data_client: Any, repo_search_cls: Any) -> None:
-    # pylint: disable=missing-function-docstring
     rs = repo_search_cls()
     r = await rs.execute()
 
@@ -187,7 +182,6 @@ async def test_boolean_facet(data_client: Any, repo_search_cls: Any) -> None:
 async def test_empty_search_finds_everything(
     data_client: Any, opensearch_version: Any, commit_search_cls: Any
 ) -> None:
-    # pylint: disable=missing-function-docstring
     cs = commit_search_cls()
     r = await cs.execute()
     assert r.hits.total.value == 52
@@ -234,7 +228,6 @@ async def test_empty_search_finds_everything(
 async def test_term_filters_are_shown_as_selected_and_data_is_filtered(
     data_client: Any, commit_search_cls: Any
 ) -> None:
-    # pylint: disable=missing-function-docstring
     cs = commit_search_cls(filters={"files": "test_opensearchpy/test_dsl"})
 
     r = await cs.execute()
@@ -281,7 +274,6 @@ async def test_term_filters_are_shown_as_selected_and_data_is_filtered(
 async def test_range_filters_are_shown_as_selected_and_data_is_filtered(
     data_client: Any, commit_search_cls: Any
 ) -> None:
-    # pylint: disable=missing-function-docstring
     cs = commit_search_cls(filters={"deletions": "better"})
 
     r = await cs.execute()
@@ -290,7 +282,6 @@ async def test_range_filters_are_shown_as_selected_and_data_is_filtered(
 
 
 async def test_pagination(data_client: Any, commit_search_cls: Any) -> None:
-    # pylint: disable=missing-function-docstring
     cs = commit_search_cls()
     cs = cs[0:20]
 

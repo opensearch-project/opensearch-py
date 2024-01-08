@@ -14,7 +14,6 @@ from opensearchpy import OpenSearch, RequestsHttpConnection
 
 class TestRequests(TestCase):
     def test_connection_class(self) -> None:
-        # pylint: disable=missing-function-docstring
         client = OpenSearch(connection_class=RequestsHttpConnection)
         self.assertEqual(client.transport.pool_maxsize, None)
         self.assertEqual(client.transport.connection_class, RequestsHttpConnection)
@@ -23,7 +22,6 @@ class TestRequests(TestCase):
         )
 
     def test_pool_maxsize(self) -> None:
-        # pylint: disable=missing-function-docstring
         client = OpenSearch(connection_class=RequestsHttpConnection, pool_maxsize=42)
         self.assertEqual(client.transport.pool_maxsize, 42)
         self.assertEqual(

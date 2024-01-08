@@ -215,7 +215,6 @@ class AsyncYamlRunner(YamlRunner):
 
 @pytest.fixture(scope="function")  # type: ignore
 def async_runner(async_client: Any) -> AsyncYamlRunner:
-    # pylint: disable=missing-function-docstring
     return AsyncYamlRunner(async_client)
 
 
@@ -223,7 +222,6 @@ if RUN_ASYNC_REST_API_TESTS:
 
     @pytest.mark.parametrize("test_spec", YAML_TEST_SPECS)  # type: ignore
     async def test_rest_api_spec(test_spec: Any, async_runner: Any) -> None:
-        # pylint: disable=missing-function-docstring
         if test_spec.get("skip", False):
             pytest.skip("Manually skipped in 'SKIP_TESTS'")
         async_runner.use_spec(test_spec)
