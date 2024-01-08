@@ -56,11 +56,13 @@ class TestBulk(OpenSearchTestCase):
 
 class TestClose(OpenSearchTestCase):
     def test_close_doesnt_break_client(self) -> None:
+        # pylint: disable=missing-function-docstring
         self.client.cluster.health()
         self.client.close()
         self.client.cluster.health()
 
     def test_with_doesnt_break_client(self) -> None:
+        # pylint: disable=missing-function-docstring
         for _ in range(2):
             with self.client as client:
                 client.cluster.health()

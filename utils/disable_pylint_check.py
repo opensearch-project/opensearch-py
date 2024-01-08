@@ -42,7 +42,7 @@ if __name__ == "__main__":
     )
     for file in test_files():
         new_file_contents = ""  # pylint: disable=C0103
-        with open(file) as test_file:
+        with open(file, encoding="utf-8") as test_file:
             print(f"Working on {file}")
             full_file = test_file.read()
             # TODO multiline function declarations are not supported
@@ -55,5 +55,5 @@ if __name__ == "__main__":
             new_file_contents = black.format_str(
                 new_file_contents, mode=black.FileMode()
             )
-        with open(f"{file}", "w") as new_file:
+        with open(f"{file}", "w", encoding="utf-8") as new_file:
             new_file.write(new_file_contents)

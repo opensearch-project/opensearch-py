@@ -122,7 +122,7 @@ class Module:
         namespace_new = "".join(word.capitalize() for word in self.namespace.split("_"))
         self.header += "class " + namespace_new + "Client(NamespacedClient):"
         if os.path.exists(self.filepath):
-            with open(self.filepath) as f:
+            with open(self.filepath, encoding="utf-8") as f:
                 content = f.read()
                 header_lines = []
                 for line in content.split("\n"):
@@ -175,7 +175,7 @@ class Module:
 
         # Identifying the insertion point for the "THIS CODE IS AUTOMATICALLY GENERATED" header.
         if os.path.exists(self.filepath):
-            with open(self.filepath, "r") as f:
+            with open(self.filepath, "r", encoding="utf-8") as f:
                 content = f.read()
             if header_separator in content:
                 update_header = False
@@ -202,7 +202,7 @@ class Module:
         generated_file_header_path = os.path.join(
             current_script_folder, "generated_file_headers.txt"
         )
-        with open(generated_file_header_path, "r") as header_file:
+        with open(generated_file_header_path, "r", encoding="utf-8") as header_file:
             header_content = header_file.read()
 
         # Imports are temporarily removed from the header and are regenerated later to ensure imports are updated after code generation.
@@ -210,7 +210,7 @@ class Module:
             line for line in self.header.split("\n") if "from .utils import" not in line
         )
 
-        with open(self.filepath, "w") as f:
+        with open(self.filepath, "w", encoding="utf-8") as f:
             if update_header is True:
                 f.write(
                     self.header[:license_position]
@@ -233,7 +233,7 @@ class Module:
         # Generating imports for each module
         utils_imports = ""
         file_content = ""
-        with open(self.filepath, "r") as f:
+        with open(self.filepath, "r", encoding="utf-8") as f:
             content = f.read()
             keywords = [
                 "SKIP_IN_PATH",
@@ -254,7 +254,7 @@ class Module:
                 utils_imports = result
             file_content = content.replace("#replace_token#", utils_imports)
 
-        with open(self.filepath, "w") as f:
+        with open(self.filepath, "w", encoding="utf-8") as f:
             f.write(file_content)
 
     @property
@@ -715,7 +715,7 @@ def apply_patch(namespace: str, name: str, api: Any) -> Any:
         CODE_ROOT / "utils/templates/overrides" / namespace / f"{name}.json"
     )
     if os.path.exists(override_file_path):
-        with open(override_file_path) as f:
+        with open(override_file_path, encoding="utf-8") as f:
             override_json = json.load(f)
             api = deepmerge.always_merger.merge(api, override_json)
     return api

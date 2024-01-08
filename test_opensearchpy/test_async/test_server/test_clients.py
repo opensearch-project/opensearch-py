@@ -76,11 +76,13 @@ class TestYarlMissing:
 
 class TestClose:
     async def test_close_doesnt_break_client(self, async_client: Any) -> None:
+        # pylint: disable=missing-function-docstring
         await async_client.cluster.health()
         await async_client.close()
         await async_client.cluster.health()
 
     async def test_with_doesnt_break_client(self, async_client: Any) -> None:
+        # pylint: disable=missing-function-docstring
         for _ in range(2):
             async with async_client as client:
                 await client.cluster.health()

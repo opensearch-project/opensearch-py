@@ -205,7 +205,7 @@ def main() -> None:
 
     # Grab the major version to be used as a suffix.
     version_path = os.path.join(BASE_DIR, "opensearchpy/_version.py")
-    with open(version_path) as f:
+    with open(version_path, encoding="utf-8") as f:
         data = f.read()
         m = re.search(r"^__versionstr__: str\s+=\s+[\"\']([^\"\']+)[\"\']", data, re.M)
         if m:
@@ -272,22 +272,22 @@ def main() -> None:
 
         # Ensure that the version within 'opensearchpy/_version.py' is correct.
         version_path = os.path.join(BASE_DIR, f"opensearchpy{suffix}/_version.py")
-        with open(version_path) as f:
+        with open(version_path, encoding="utf-8") as f:
             version_data = f.read()
         version_data = re.sub(
             r"__versionstr__: str = \"[^\"]+\"",
             '__versionstr__: str = "%s"' % version,
             version_data,
         )
-        with open(version_path, "w") as f:
+        with open(version_path, "w", encoding="utf-8") as f:
             f.truncate()
             f.write(version_data)
 
         # Rewrite setup.py with the new name.
         setup_py_path = os.path.join(BASE_DIR, "setup.py")
-        with open(setup_py_path) as f:
+        with open(setup_py_path, encoding="utf-8") as f:
             setup_py = f.read()
-        with open(setup_py_path, "w") as f:
+        with open(setup_py_path, "w", encoding="utf-8") as f:
             f.truncate()
             assert 'PACKAGE_NAME = "opensearch-py"' in setup_py
             f.write(
