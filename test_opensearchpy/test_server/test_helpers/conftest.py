@@ -65,7 +65,7 @@ def opensearch_version(client: Any) -> Any:
 def match_version(info: Any) -> Any:
     """
     matches the major version from the given client info
-    :param info:
+    :param info: part of the response from OpenSearch
     """
     match = re.match(r"^([0-9.]+)", info["version"]["number"])
     assert match is not None

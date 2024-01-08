@@ -85,11 +85,6 @@ def commit_search_cls(opensearch_version: Any) -> Any:
 
 @pytest.fixture(scope="function")  # type: ignore
 def repo_search_cls(opensearch_version: Any) -> Any:
-    """
-    creates a mock AsyncFacetedSearch instance to search a git repo
-    :param opensearch_version:
-    :return:
-    """
     interval_type = "calendar_interval"
 
     class RepoSearch(AsyncFacetedSearch):

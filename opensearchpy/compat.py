@@ -35,6 +35,12 @@ map = map  # pylint: disable=invalid-name
 
 
 def to_str(x: Union[str, bytes], encoding: str = "ascii") -> str:
+    """
+
+    :param y:
+    :param encoding:
+    :return:
+    """
     if not isinstance(x, str):
         return x.decode(encoding)
     return x

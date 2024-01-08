@@ -130,12 +130,15 @@ def lint_per_folder(session: Any) -> None:
 
     # TODO determine how to separate generated code from generator code for linting
     exclude_path_from_linting = ["opensearchpy/"]
+
     default_enable = [
         "line-too-long",
         "invalid-name",
         "pointless-statement",
         "unspecified-encoding",
         "missing-function-docstring",
+        "missing-param-doc",
+        "differing-param-doc",
     ]
     override_enable = {
         "test_opensearchpy/": [
@@ -143,6 +146,8 @@ def lint_per_folder(session: Any) -> None:
             # "invalid-name", lots of short functions with one or two character names
             "pointless-statement",
             "unspecified-encoding",
+            "missing-param-doc",
+            "differing-param-doc",
             # "missing-function-docstring", test names usually are, self describing
         ]
     }
@@ -155,6 +160,8 @@ def lint_per_folder(session: Any) -> None:
             "--disable=all",
             "--max-line-length=240",
             "--good-names-rgxs=^[_a-z][_a-z0-9]?$",
+            "--load-plugins",
+            "pylint.extensions.docparams",
         ]
         if source_file in override_enable:
             args.append(f"--enable={','.join(override_enable[source_file])}")

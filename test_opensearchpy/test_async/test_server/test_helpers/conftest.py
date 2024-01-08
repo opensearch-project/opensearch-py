@@ -49,6 +49,12 @@ async def opensearch_version(client: Any) -> Any:
     :return:
     """
     info = client.info()
+    """
+    yields the version of the OpenSearch cluster
+    :param client: client connection to OpenSearch
+    :return: yields major version number
+    """
+    info = client.info()
     print(info)
     yield (int(x) async for x in match_version(info))
 
