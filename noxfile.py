@@ -25,7 +25,7 @@
 #  under the License.
 
 
-from typing import Any
+from typing import Any, List
 
 import nox
 
@@ -128,9 +128,10 @@ def lint_per_folder(session: Any) -> None:
     :param session: the current nox session
     """
 
-    # TODO determine how to separate generated code from generator code for linting
-    exclude_path_from_linting = ["opensearchpy/"]
+    # any paths that should not be run through pylint
+    exclude_path_from_linting: List[str] = []
 
+    # all paths not referenced in override_enable will run these lints
     default_enable = [
         "line-too-long",
         "invalid-name",
@@ -149,7 +150,13 @@ def lint_per_folder(session: Any) -> None:
             "missing-param-doc",
             "differing-param-doc",
             # "missing-function-docstring", test names usually are, self describing
-        ]
+        ],
+        "opensearchpy/": [
+            "line-too-long",
+            "invalid-name",
+            "pointless-statement",
+            "unspecified-encoding",
+        ],
     }
 
     for source_file in SOURCE_FILES:
