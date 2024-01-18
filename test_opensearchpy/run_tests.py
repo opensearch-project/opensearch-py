@@ -37,6 +37,7 @@ import subprocess
 import sys
 from os import environ
 from os.path import abspath, dirname, exists, join, pardir
+from subprocess import CalledProcessError
 from typing import Any
 
 
@@ -82,12 +83,20 @@ def fetch_opensearch_repo() -> None:
     # make a new blank repository in the test directory
     subprocess.check_call("cd %s && git init" % repo_path, shell=True)
 
-    # add a remote
-    subprocess.check_call(
-        "cd %s && git remote add origin https://github.com/opensearch-project/opensearch.git"
-        % repo_path,
-        shell=True,
-    )  # TODO this fails when the remote already exists; should clean up or ignore?
+    try:
+        # add a remote
+        subprocess.check_call(
+            "cd %s && git remote add origin https://github.com/opensearch-project/opensearch.git"
+            % repo_path,
+            shell=True,
+        )
+    except CalledProcessError as e:
+        # if the run is interrupted from a previous run, it doesn't clean up, and the git add origin command
+        # errors out; this allows the test to continue
+        remote_origin_already_exists = 3
+        print(e)
+        if e.returncode != remote_origin_already_exists:
+            sys.exit(1)
 
     # fetch the sha commit, version from info()
     print("Fetching opensearch repo...")

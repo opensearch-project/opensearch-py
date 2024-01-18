@@ -57,7 +57,7 @@ class MetricSearch(AsyncFacetedSearch):
 @pytest.fixture(scope="function")  # type: ignore
 def commit_search_cls(opensearch_version: Any) -> Any:
     """
-    :param opensearch_version: not used. #todo should be removed?
+    :param opensearch_version the semver version of OpenSearch
     :return: an AsyncFacetedSearch for git commits
     """
     interval_kwargs = {"fixed_interval": "1d"}

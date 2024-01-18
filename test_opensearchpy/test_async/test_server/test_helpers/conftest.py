@@ -115,9 +115,9 @@ async def pull_request(write_client: Any) -> Any:
 
 
 @fixture  # type: ignore
-async def setup_ubq_tests(client: Any) -> str:
+async def setup_update_by_query_tests(client: Any) -> str:
     """
-    #todo what's a ubq test? this is ignored. should it be deleted?
+    sets up update by query tests
     :param client:
     :return: an index name
     """

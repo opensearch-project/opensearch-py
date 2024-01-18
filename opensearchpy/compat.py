@@ -36,10 +36,10 @@ map = map  # pylint: disable=invalid-name
 
 def to_str(x: Union[str, bytes], encoding: str = "ascii") -> str:
     """
-
-    :param y:
-    :param encoding:
-    :return:
+    returns x as a string encoded in "encoding" if it is not already a string
+    :param x: the value to convert to a str
+    :param encoding: the encoding to convert to - see https://docs.python.org/3/library/codecs.html#standard-encodings
+    :return: an encoded str
     """
     if not isinstance(x, str):
         return x.decode(encoding)

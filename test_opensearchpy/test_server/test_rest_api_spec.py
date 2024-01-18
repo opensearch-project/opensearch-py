@@ -74,21 +74,22 @@ SKIP_TESTS = {
     # Warning about date_histogram.interval deprecation is raised randomly
     "OpenSearch-main/rest-api-spec/src/main/resources/rest-api-spec/test/search_pipeline/10_basic",
     "OpenSearch-main/rest-api-spec/src/main/resources/rest-api-spec/test/pit/10_basic",
-    "OpenSearch-main/rest-api-spec/src/main/resources/rest-api-spec/test/indices/clone/40_wait_for_completion[0]",  # pylint: disable=line-too-long
-    "OpenSearch-main/rest-api-spec/src/main/resources/rest-api-spec/test/indices/forcemerge/20_wait_for_completion[0]",  # pylint: disable=line-too-long
-    "OpenSearch-main/rest-api-spec/src/main/resources/rest-api-spec/test/indices/open/30_wait_for_completion[0]",  # pylint: disable=line-too-long
-    "OpenSearch-main/rest-api-spec/src/main/resources/rest-api-spec/test/indices/shrink/50_wait_for_completion[0]",  # pylint: disable=line-too-long
-    "OpenSearch-main/rest-api-spec/src/main/resources/rest-api-spec/test/indices/split/40_wait_for_completion[0]",  # pylint: disable=line-too-long
+    "OpenSearch-main/rest-api-spec/src/main/resources/rest-api-spec/test/indices/clone/40_wait_for_completion[0]",
+    "OpenSearch-main/rest-api-spec/src/main/resources/rest-api-spec/test/indices/forcemerge/20_wait_for_completion[0]",
+    "OpenSearch-main/rest-api-spec/src/main/resources/rest-api-spec/test/indices/open/30_wait_for_completion[0]",
+    "OpenSearch-main/rest-api-spec/src/main/resources/rest-api-spec/test/indices/shrink/50_wait_for_completion[0]",
+    "OpenSearch-main/rest-api-spec/src/main/resources/rest-api-spec/test/indices/split/40_wait_for_completion[0]",
     "OpenSearch-main/rest-api-spec/src/main/resources/rest-api-spec/test/cat/nodes/10_basic[1]",
     "OpenSearch-main/rest-api-spec/src/main/resources/rest-api-spec/test/cat/nodeattrs/10_basic[1]",
-    "OpenSearch-main/rest-api-spec/src/main/resources/rest-api-spec/test/cluster/put_settings/10_basic[2]",  # pylint: disable=line-too-long
-    "OpenSearch-main/rest-api-spec/src/main/resources/rest-api-spec/test/cluster/put_settings/10_basic[3]",  # pylint: disable=line-too-long
+    "OpenSearch-main/rest-api-spec/src/main/resources/rest-api-spec/test/cluster/put_settings/10_basic[2]",
+    "OpenSearch-main/rest-api-spec/src/main/resources/rest-api-spec/test/cluster/put_settings/10_basic[3]",
     "OpenSearch-main/rest-api-spec/src/main/resources/rest-api-spec/test/cat/indices/10_basic[2]",
-    "OpenSearch-main/rest-api-spec/src/main/resources/rest-api-spec/test/cluster/health/10_basic[6]",  # pylint: disable=line-too-long
-    "OpenSearch-main/rest-api-spec/src/main/resources/rest-api-spec/test/cluster/health/20_request_timeout",  # pylint: disable=line-too-long
-    "OpenSearch-main/rest-api-spec/src/main/resources/rest-api-spec/test/search/aggregation/20_terms[4]",  # pylint: disable=line-too-long
+    "OpenSearch-main/rest-api-spec/src/main/resources/rest-api-spec/test/cluster/health/10_basic[6]",
+    "OpenSearch-main/rest-api-spec/src/main/resources/rest-api-spec/test/cluster/health/20_request_timeout",
+    "OpenSearch-main/rest-api-spec/src/main/resources/rest-api-spec/test/search/aggregation/20_terms[4]",
     "OpenSearch-main/rest-api-spec/src/main/resources/rest-api-spec/test/tasks/list/10_basic[0]",
     "OpenSearch-main/rest-api-spec/src/main/resources/rest-api-spec/test/index/90_unsigned_long[1]",
+    "OpenSearch-main/rest-api-spec/src/main/resources/rest-api-spec/test/indices/stats/50_noop_update[0]",
     "search/aggregation/250_moving_fn[1]",
     # body: null
     "indices/simulate_index_template/10_basic[2]",

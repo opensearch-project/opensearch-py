@@ -61,7 +61,7 @@ class FailingBulkClient(object):
 
     async def bulk(self, *args: Any, **kwargs: Any) -> Any:
         """
-        increments number of times called and, when it equals fail_at, raises self.fail_with when
+        increments number of times called and, when it equals fail_at, raises self.fail_with
         """
         self._called += 1
         if self._called in self._fail_at:

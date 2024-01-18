@@ -418,7 +418,7 @@ class API:
         """
         To adhere to the HTTP RFC we shouldn't send
         bodies in GET requests.
-        :return:
+        :return: an updated HTTP method to use to communicate with the OpenSearch API
         """
 
         default_method = self.path["methods"][0]
