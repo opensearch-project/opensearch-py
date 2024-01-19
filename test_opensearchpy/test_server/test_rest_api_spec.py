@@ -130,6 +130,7 @@ SKIP_TESTS = {
     # unique usage of 'set'
     "indices/stats/50_disk_usage[0]",
     "indices/stats/60_field_usage[0]",
+    "OpenSearch-main/rest-api-spec/src/main/resources/rest-api-spec/test/indices/stats/50_noop_update[0]",
 }
 
 
