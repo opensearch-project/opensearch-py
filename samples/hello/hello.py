@@ -17,8 +17,9 @@ from opensearchpy import OpenSearch
 
 def main() -> None:
     """
-    an example showing how to create an synchronous connection to OpenSearch, create an index, index a document
-    and search to return the document
+    an example showing how to create an synchronous connection to
+    OpenSearch, create an index, index a document and search to
+    return the document
     """
     host = "localhost"
     port = 9200
@@ -49,19 +50,21 @@ def main() -> None:
 
     document = {"title": "Moneyball", "director": "Bennett Miller", "year": "2011"}
 
-    id = "1"
+    doc_id = "1"
 
-    response = client.index(index=index_name, body=document, id=id, refresh=True)
+    response = client.index(index=index_name, body=document, id=doc_id, refresh=True)
 
     print(response)
 
     # search for a document
 
-    q = "miller"
+    user_query = "miller"
 
     query = {
         "size": 5,
-        "query": {"multi_match": {"query": q, "fields": ["title^2", "director"]}},
+        "query": {
+            "multi_match": {"query": user_query, "fields": ["title^2", "director"]}
+        },
     }
 
     response = client.search(body=query, index=index_name)
@@ -70,7 +73,7 @@ def main() -> None:
 
     # delete the document
 
-    response = client.delete(index=index_name, id=id)
+    response = client.delete(index=index_name, id=doc_id)
 
     print(response)
 

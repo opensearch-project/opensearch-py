@@ -34,7 +34,9 @@ PACKAGE_NAME = "opensearch-py"
 PACKAGE_VERSION = ""
 BASE_DIR = abspath(dirname(__file__))
 
-with open(join(BASE_DIR, PACKAGE_NAME.replace("-", ""), "_version.py")) as f:
+with open(
+    join(BASE_DIR, PACKAGE_NAME.replace("-", ""), "_version.py"), encoding="utf-8"
+) as f:
     data = f.read()
     m = re.search(r"^__versionstr__: str\s+=\s+[\"\']([^\"\']+)[\"\']", data, re.M)
     if m:
@@ -42,7 +44,7 @@ with open(join(BASE_DIR, PACKAGE_NAME.replace("-", ""), "_version.py")) as f:
     else:
         raise Exception(f"Invalid version: {data}")
 
-with open(join(BASE_DIR, "README.md")) as f:
+with open(join(BASE_DIR, "README.md"), encoding="utf-8") as f:
     long_description = f.read().strip()
 
 MODULE_DIR = PACKAGE_NAME.replace("-", "")

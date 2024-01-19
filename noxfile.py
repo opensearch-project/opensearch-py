@@ -25,7 +25,7 @@
 #  under the License.
 
 
-from typing import Any
+from typing import Any, List
 
 import nox
 
@@ -43,6 +43,10 @@ SOURCE_FILES = (
 
 @nox.session(python=["3.6", "3.7", "3.8", "3.9", "3.10", "3.11"])  # type: ignore
 def test(session: Any) -> None:
+    """
+    runs all tests with a fresh python environment using "python setup.py test"
+    :param session: current nox session
+    """
     session.install(".")
     # ensure client can be imported without aiohttp
     session.run("python", "-c", "import opensearchpy\nprint(opensearchpy.OpenSearch())")
@@ -59,6 +63,10 @@ def test(session: Any) -> None:
 
 @nox.session(python=["3.7"])  # type: ignore
 def format(session: Any) -> None:
+    """
+    runs black and isort to format the files accordingly
+    :param session: current nox session
+    """
     session.install(".")
     session.install("black", "isort")
 
@@ -71,6 +79,10 @@ def format(session: Any) -> None:
 
 @nox.session(python=["3.7"])  # type: ignore
 def lint(session: Any) -> None:
+    """
+    runs isort, black, flake8, pylint, and mypy to check the files according to each utility's function
+    :param session: current nox session
+    """
     session.install(
         "flake8",
         "black",
@@ -89,7 +101,9 @@ def lint(session: Any) -> None:
     session.run("isort", "--check", *SOURCE_FILES)
     session.run("black", "--check", *SOURCE_FILES)
     session.run("flake8", *SOURCE_FILES)
-    session.run("pylint", *SOURCE_FILES)
+
+    lint_per_folder(session)
+
     session.run("python", "utils/license_headers.py", "check", *SOURCE_FILES)
 
     # Workaround to make '-r' to still work despite uninstalling aiohttp below.
@@ -108,8 +122,68 @@ def lint(session: Any) -> None:
     session.run("mypy", "--strict", "test_opensearchpy/test_types/sync_types.py")
 
 
+def lint_per_folder(session: Any) -> None:
+    """
+    allows configuration of pylint rules per folder and runs a pylint command for each folder
+    :param session: the current nox session
+    """
+
+    # any paths that should not be run through pylint
+    exclude_path_from_linting: List[str] = []
+
+    # all paths not referenced in override_enable will run these lints
+    default_enable = [
+        "line-too-long",
+        "invalid-name",
+        "pointless-statement",
+        "unspecified-encoding",
+        "missing-function-docstring",
+        "missing-param-doc",
+        "differing-param-doc",
+    ]
+    override_enable = {
+        "test_opensearchpy/": [
+            "line-too-long",
+            # "invalid-name", lots of short functions with one or two character names
+            "pointless-statement",
+            "unspecified-encoding",
+            "missing-param-doc",
+            "differing-param-doc",
+            # "missing-function-docstring", test names usually are, self describing
+        ],
+        "opensearchpy/": [
+            "line-too-long",
+            "invalid-name",
+            "pointless-statement",
+            "unspecified-encoding",
+        ],
+    }
+
+    for source_file in SOURCE_FILES:
+        if source_file in exclude_path_from_linting:
+            continue
+
+        args = [
+            "--disable=all",
+            "--max-line-length=240",
+            "--good-names-rgxs=^[_a-z][_a-z0-9]?$",
+            "--load-plugins",
+            "pylint.extensions.docparams",
+        ]
+        if source_file in override_enable:
+            args.append(f"--enable={','.join(override_enable[source_file])}")
+        else:
+            args.append(f"--enable={','.join(default_enable)}")
+        args.append(source_file)
+        session.run("pylint", *args)
+
+
 @nox.session()  # type: ignore
 def docs(session: Any) -> None:
+    """
+    builds the html documentation for the client
+    :param session: current nox session
+    """
     session.install(".")
     session.install(".[docs]")
     with session.chdir("docs"):
@@ -118,6 +192,10 @@ def docs(session: Any) -> None:
 
 @nox.session()  # type: ignore
 def generate(session: Any) -> None:
+    """
+    generates the base API code
+    :param session: current nox session
+    """
     session.install("-rdev-requirements.txt")
     session.run("python", "utils/generate_api.py")
     format(session)

@@ -56,6 +56,10 @@ class MetricSearch(AsyncFacetedSearch):
 
 @pytest.fixture(scope="function")  # type: ignore
 def commit_search_cls(opensearch_version: Any) -> Any:
+    """
+    :param opensearch_version the semver version of OpenSearch
+    :return: an AsyncFacetedSearch for git commits
+    """
     interval_kwargs = {"fixed_interval": "1d"}
 
     class CommitSearch(AsyncFacetedSearch):
@@ -102,6 +106,10 @@ def repo_search_cls(opensearch_version: Any) -> Any:
 
 @pytest.fixture(scope="function")  # type: ignore
 def pr_search_cls(opensearch_version: Any) -> Any:
+    """
+    :param opensearch_version: not used here... #TODO remove this parameter?
+    :return: an AsyncFacetedSearch for pull requests
+    """
     interval_type = "calendar_interval"
 
     class PRSearch(AsyncFacetedSearch):

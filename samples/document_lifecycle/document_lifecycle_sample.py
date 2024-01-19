@@ -18,7 +18,8 @@ from opensearchpy import OpenSearch
 
 def main() -> None:
     """
-    provides samples for different ways to handle documents including indexing, searching, updating, and deleting
+    provides samples for different ways to handle documents
+    including indexing, searching, updating, and deleting
     """
     # Connect to OpenSearch
     client = OpenSearch(

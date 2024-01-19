@@ -38,6 +38,11 @@ from opensearchpy.helpers.response.aggs import AggResponse, Bucket, BucketData
 
 @fixture  # type: ignore
 def agg_response(aggs_search: Any, aggs_data: Any) -> Any:
+    """
+    :param aggs_search: aggregation search
+    :param aggs_data: data to aggregate
+    :return: the aggregated data
+    """
     return response.Response(aggs_search, aggs_data)
 
 

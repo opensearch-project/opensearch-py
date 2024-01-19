@@ -136,7 +136,12 @@ class TestParallelBulk(TestCase):
 
 class TestChunkActions(TestCase):
     def setup_method(self, _: Any) -> None:
-        self.actions: Any = [({"index": {}}, {"some": u"datá", "i": i}) for i in range(100)]  # fmt: skip
+        """
+        creates some documents for testing
+        """
+        self.actions: Any = [
+            ({"index": {}}, {"some": "datá", "i": i}) for i in range(100)
+        ]
 
     def test_expand_action(self) -> None:
         self.assertEqual(helpers.expand_action({}), ({"index": {}}, {}))
@@ -280,7 +285,9 @@ class TestScanFunction(TestCase):
     def test_scan_with_missing_hits_key(
         self, mock_search: Mock, mock_scroll: Mock, mock_clear_scroll: Mock
     ) -> None:
-        # Simulate a response where the 'hits' key is missing
+        """
+        Simulate a response where the 'hits' key is missing
+        """
         mock_search.return_value = {"_scroll_id": "dummy_scroll_id", "_shards": {}}
 
         mock_scroll.side_effect = [{"_scroll_id": "dummy_scroll_id", "_shards": {}}]

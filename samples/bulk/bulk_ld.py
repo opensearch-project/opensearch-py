@@ -55,7 +55,7 @@ def main() -> None:
         data += json.dumps({"index": {"_index": index_name, "_id": i}}) + "\n"
         data += json.dumps({"value": i}) + "\n"
 
-    rc = client.bulk(data)
+    rc = client.bulk(data)  # pylint: disable=invalid-name
     if rc["errors"]:
         print("There were errors:")
         for item in rc["items"]:
