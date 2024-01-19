@@ -8,15 +8,17 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - Added a log collection guide ([#579](https://github.com/opensearch-project/opensearch-py/pull/579))
 - Added GHA release ([#614](https://github.com/opensearch-project/opensearch-py/pull/614))
 ### Changed
+- Updated the `get_policy` API in the index_management plugin to allow the policy_id argument as optional ([#633](https://github.com/opensearch-project/opensearch-py/pull/633))
 ### Deprecated
 ### Removed
 - Removed unnecessary `# -*- coding: utf-8 -*-` headers from .py files ([#615](https://github.com/opensearch-project/opensearch-py/pull/615), [#617](https://github.com/opensearch-project/opensearch-py/pull/617))
 ### Fixed
 - Fix KeyError when scroll return no hits ([#616](https://github.com/opensearch-project/opensearch-py/pull/616))
+- Fix reuse of `OpenSearch` using `Urllib3HttpConnection` and `AsyncOpenSearch` after calling `close` ([#639](https://github.com/opensearch-project/opensearch-py/pull/639))
 ### Security
 ### Dependencies
 - Bumps `aiohttp` from >=3,<4 to >=3.9.0,<4 ([#634](https://github.com/opensearch-project/opensearch-py/pull/634))
-- Bumps `pytest-asyncio` from <=0.21.1 to <=0.23.2
+- Bumps `pytest-asyncio` from <=0.21.1 to <=0.23.3
 
 ## [2.4.2]
 ### Added

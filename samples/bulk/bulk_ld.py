@@ -17,6 +17,9 @@ from opensearchpy import OpenSearch
 
 
 def main() -> None:
+    """
+    bulk index 100 items and then delete the index
+    """
     # connect to an instance of OpenSearch
 
     host = os.getenv("HOST", default="localhost")
