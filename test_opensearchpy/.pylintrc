@@ -1,0 +1,10 @@
+[MESSAGES CONTROL]
+disable=all
+enable=line-too-long,
+        invalid-name,
+        pointless-statement,
+        unspecified-encoding,
+        missing-param-doc,
+        differing-param-doc
+max-line-length=240
+good-names-rgxs=^[_a-z][_a-z0-9]?$

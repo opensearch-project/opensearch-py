@@ -48,7 +48,7 @@ class TestSecurityPlugin(IsolatedAsyncioTestCase):  # type: ignore
         await add_connection("default", self.client)
 
     async def asyncTearDown(self) -> None:
-        # pylint disable=invalid-name
+        # pylint: disable=invalid-name
         if self.client:
             await self.client.close()
 

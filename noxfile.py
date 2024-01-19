@@ -25,7 +25,7 @@
 #  under the License.
 
 
-from typing import Any, List
+from typing import Any
 
 import nox
 
@@ -102,7 +102,11 @@ def lint(session: Any) -> None:
     session.run("black", "--check", *SOURCE_FILES)
     session.run("flake8", *SOURCE_FILES)
 
-    lint_per_folder(session)
+    pylint_overrides = ["opensearchpy/", "test_opensearchpy/"]
+    pylint_defaults = [file for file in SOURCE_FILES if file not in pylint_overrides]
+    for file in pylint_overrides:
+        session.run("pylint", "--rcfile", f"{file}.pylintrc", f"{file}")
+    session.run("pylint", "--rcfile", ".pylintrc", *pylint_defaults)
 
     session.run("python", "utils/license_headers.py", "check", *SOURCE_FILES)
 
@@ -120,62 +124,6 @@ def lint(session: Any) -> None:
     session.run("python", "-m", "pip", "uninstall", "--yes", "aiohttp")
     session.run("mypy", "--strict", "opensearchpy/")
     session.run("mypy", "--strict", "test_opensearchpy/test_types/sync_types.py")
-
-
-def lint_per_folder(session: Any) -> None:
-    """
-    allows configuration of pylint rules per folder and runs a pylint command for each folder
-    :param session: the current nox session
-    """
-
-    # any paths that should not be run through pylint
-    exclude_path_from_linting: List[str] = []
-
-    # all paths not referenced in override_enable will run these lints
-    default_enable = [
-        "line-too-long",
-        "invalid-name",
-        "pointless-statement",
-        "unspecified-encoding",
-        "missing-function-docstring",
-        "missing-param-doc",
-        "differing-param-doc",
-    ]
-    override_enable = {
-        "test_opensearchpy/": [
-            "line-too-long",
-            # "invalid-name", lots of short functions with one or two character names
-            "pointless-statement",
-            "unspecified-encoding",
-            "missing-param-doc",
-            "differing-param-doc",
-            # "missing-function-docstring", test names usually are, self describing
-        ],
-        "opensearchpy/": [
-            "line-too-long",
-            "invalid-name",
-            "pointless-statement",
-            "unspecified-encoding",
-        ],
-    }
-
-    for source_file in SOURCE_FILES:
-        if source_file in exclude_path_from_linting:
-            continue
-
-        args = [
-            "--disable=all",
-            "--max-line-length=240",
-            "--good-names-rgxs=^[_a-z][_a-z0-9]?$",
-            "--load-plugins",
-            "pylint.extensions.docparams",
-        ]
-        if source_file in override_enable:
-            args.append(f"--enable={','.join(override_enable[source_file])}")
-        else:
-            args.append(f"--enable={','.join(default_enable)}")
-        args.append(source_file)
-        session.run("pylint", *args)
 
 
 @nox.session()  # type: ignore
