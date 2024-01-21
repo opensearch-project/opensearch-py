@@ -174,7 +174,7 @@ class AttrDict(object):
 
     def get(self, key: Any, default: Any = None) -> Any:
         try:
-            return self.__getattr__(key)
+            return self.__getattr__(key)  # pylint: disable=unnecessary-dunder-call
         except AttributeError:
             if default is not None:
                 return default

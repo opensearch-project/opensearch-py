@@ -5,6 +5,7 @@ enable=line-too-long,
         pointless-statement,
         unspecified-encoding,
         missing-param-doc,
-        differing-param-doc
+        differing-param-doc,
+        unnecessary-dunder-call
 max-line-length=240
 good-names-rgxs=^[_a-z][_a-z0-9]?$
