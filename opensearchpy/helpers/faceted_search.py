@@ -23,7 +23,7 @@
 #  KIND, either express or implied.  See the License for the
 #  specific language governing permissions and limitations
 #  under the License.
-
+from abc import abstractmethod
 from datetime import datetime, timedelta
 from typing import Any, Optional
 
@@ -85,11 +85,12 @@ class Facet(object):
             f |= self.get_value_filter(v)
         return f
 
+    @abstractmethod
     def get_value_filter(self, filter_value: Any) -> Any:
         """
         Construct a filter for an individual value
         """
-        pass
+        ...
 
     def is_filtered(self, key: Any, filter_values: Any) -> bool:
         """
@@ -135,6 +136,9 @@ class TermsFacet(Facet):
             return Terms(
                 _expand__to_dot=False, **{self._params["field"]: filter_values}
             )
+
+    def get_value_filter(self, filter_value: Any) -> Any:
+        return None
 
 
 class RangeFacet(Facet):
@@ -271,6 +275,9 @@ class NestedFacet(Facet):
         inner_q = self._inner.add_filter(filter_values)
         if inner_q:
             return Nested(path=self._path, query=inner_q)
+
+    def get_value_filter(self, filter_value: Any) -> Any:
+        return None
 
 
 class FacetedResponse(Response):

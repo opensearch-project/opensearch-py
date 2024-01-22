@@ -7,7 +7,8 @@ enable=line-too-long,
     missing-function-docstring,
     missing-param-doc,
     differing-param-doc,
-    unnecessary-dunder-call
+    unnecessary-dunder-call,
+    assignment-from-no-return
 max-line-length=240
 good-names-rgxs=^[_a-z][_a-z0-9]?$
 
