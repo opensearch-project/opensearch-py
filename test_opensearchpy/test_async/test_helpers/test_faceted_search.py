@@ -134,6 +134,7 @@ async def test_filters_are_applied_to_search_ant_relevant_facets() -> None:
         "post_filter": {"bool": {}},
         "highlight": {"fields": {"body": {}, "title": {}}},
     } == d
+    assert bs["category"].get_value_filter(None) == None
 
 
 async def test_date_histogram_facet_with_1970_01_01_date() -> None:
