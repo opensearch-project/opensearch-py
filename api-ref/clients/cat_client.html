@@ -164,6 +164,15 @@ to sort by.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
+<li><p><strong>bytes</strong> – The unit in which to display byte values. Valid
+choices are b, k, kb, m, mb, g, gb, t, tb, p, pb.</p></li>
+<li><p><strong>format</strong> – A short version of the Accept header, e.g. json,
+yaml.</p></li>
+<li><p><strong>h</strong> – Comma-separated list of column names to display.</p></li>
+<li><p><strong>help</strong> – Return help information. Default is false.</p></li>
+<li><p><strong>s</strong> – Comma-separated list of column names or column aliases
+to sort by.</p></li>
+<li><p><strong>v</strong> – Verbose mode. Display column headers. Default is false.</p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 <li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 </ul>
@@ -537,6 +546,15 @@ choices are d, h, m, s, ms, micros, nanos.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
+<li><p><strong>bytes</strong> – The unit in which to display byte values. Valid
+choices are b, k, kb, m, mb, g, gb, t, tb, p, pb.</p></li>
+<li><p><strong>format</strong> – A short version of the Accept header, e.g. json,
+yaml.</p></li>
+<li><p><strong>h</strong> – Comma-separated list of column names to display.</p></li>
+<li><p><strong>help</strong> – Return help information. Default is false.</p></li>
+<li><p><strong>s</strong> – Comma-separated list of column names or column aliases
+to sort by.</p></li>
+<li><p><strong>v</strong> – Verbose mode. Display column headers. Default is false.</p></li>
 <li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 <li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
@@ -657,21 +675,32 @@ Replication events.</p>
 names to limit the returned information.</p></li>
 <li><p><strong>active_only</strong> – If <cite>true</cite>, the response only includes ongoing
 segment replication events. Default is false.</p></li>
+<li><p><strong>allow_no_indices</strong> – Whether to ignore if a wildcard indices
+expression resolves into no concrete indices. (This includes <cite>_all</cite>
+string or when no indices have been specified).</p></li>
 <li><p><strong>bytes</strong> – The unit in which to display byte values. Valid
 choices are b, k, kb, m, mb, g, gb, t, tb, p, pb.</p></li>
 <li><p><strong>completed_only</strong> – If <cite>true</cite>, the response only includes
 latest completed segment replication events. Default is false.</p></li>
 <li><p><strong>detailed</strong> – If <cite>true</cite>, the response includes detailed
 information about segment replications. Default is false.</p></li>
+<li><p><strong>expand_wildcards</strong> – Whether to expand wildcard expression to
+concrete indices that are open, closed or both. Valid choices are all,
+open, closed, hidden, none.</p></li>
 <li><p><strong>format</strong> – A short version of the Accept header, e.g. json,
 yaml.</p></li>
 <li><p><strong>h</strong> – Comma-separated list of column names to display.</p></li>
 <li><p><strong>help</strong> – Return help information. Default is false.</p></li>
+<li><p><strong>ignore_throttled</strong> – Whether specified concrete, expanded or
+aliased indices should be ignored when throttled.</p></li>
+<li><p><strong>ignore_unavailable</strong> – Whether specified concrete indices
+should be ignored when unavailable (missing or closed).</p></li>
 <li><p><strong>s</strong> – Comma-separated list of column names or column aliases
 to sort by.</p></li>
 <li><p><strong>shards</strong> – Comma-separated list of shards to display.</p></li>
 <li><p><strong>time</strong> – The unit in which to display time values. Valid
 choices are d, h, m, s, ms, micros, nanos.</p></li>
+<li><p><strong>timeout</strong> – Operation timeout.</p></li>
 <li><p><strong>v</strong> – Verbose mode. Display column headers. Default is false.</p></li>
 <li><p><strong>index</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>

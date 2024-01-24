@@ -233,9 +233,13 @@ to cluster-manager node.</p></li>
 <li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
 use ‘cluster_manager_timeout’ instead.): Operation timeout for
 connection to master node.</p></li>
+<li><p><strong>task_execution_timeout</strong> – Explicit task execution timeout,
+only useful when wait_for_completion is false, defaults to 1h.</p></li>
 <li><p><strong>timeout</strong> – Operation timeout.</p></li>
 <li><p><strong>wait_for_active_shards</strong> – Set the number of active shards to
 wait for on the cloned index before the operation returns.</p></li>
+<li><p><strong>wait_for_completion</strong> – Should this request wait until the
+operation has completed before returning. Default is True.</p></li>
 <li><p><strong>index</strong> – </p></li>
 <li><p><strong>target</strong> – </p></li>
 <li><p><strong>body</strong> – </p></li>
@@ -670,6 +674,8 @@ should be ignored when unavailable (missing or closed).</p></li>
 be merged into (default: dynamic).</p></li>
 <li><p><strong>only_expunge_deletes</strong> – Specify whether the operation should
 only expunge deleted documents.</p></li>
+<li><p><strong>wait_for_completion</strong> – Should this request wait until the
+operation has completed before returning. Default is True.</p></li>
 <li><p><strong>index</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 <li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
@@ -985,9 +991,13 @@ should be ignored when unavailable (missing or closed).</p></li>
 <li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
 use ‘cluster_manager_timeout’ instead.): Operation timeout for
 connection to master node.</p></li>
+<li><p><strong>task_execution_timeout</strong> – Explicit task execution timeout,
+only useful when wait_for_completion is false, defaults to 1h.</p></li>
 <li><p><strong>timeout</strong> – Operation timeout.</p></li>
 <li><p><strong>wait_for_active_shards</strong> – Sets the number of active shards to
 wait for before the operation returns.</p></li>
+<li><p><strong>wait_for_completion</strong> – Should this request wait until the
+operation has completed before returning. Default is True.</p></li>
 <li><p><strong>index</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 <li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
@@ -1360,9 +1370,13 @@ source index. Default is false.</p></li>
 <li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
 use ‘cluster_manager_timeout’ instead.): Operation timeout for
 connection to master node.</p></li>
+<li><p><strong>task_execution_timeout</strong> – Explicit task execution timeout,
+only useful when wait_for_completion is false, defaults to 1h.</p></li>
 <li><p><strong>timeout</strong> – Operation timeout.</p></li>
 <li><p><strong>wait_for_active_shards</strong> – Set the number of active shards to
 wait for on the shrunken index before the operation returns.</p></li>
+<li><p><strong>wait_for_completion</strong> – Should this request wait until the
+operation has completed before returning. Default is True.</p></li>
 <li><p><strong>index</strong> – </p></li>
 <li><p><strong>target</strong> – </p></li>
 <li><p><strong>body</strong> – </p></li>
@@ -1461,9 +1475,13 @@ source index. Default is false.</p></li>
 <li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
 use ‘cluster_manager_timeout’ instead.): Operation timeout for
 connection to master node.</p></li>
+<li><p><strong>task_execution_timeout</strong> – Explicit task execution timeout,
+only useful when wait_for_completion is false, defaults to 1h.</p></li>
 <li><p><strong>timeout</strong> – Operation timeout.</p></li>
 <li><p><strong>wait_for_active_shards</strong> – Set the number of active shards to
 wait for on the shrunken index before the operation returns.</p></li>
+<li><p><strong>wait_for_completion</strong> – Should this request wait until the
+operation has completed before returning. Default is True.</p></li>
 <li><p><strong>index</strong> – </p></li>
 <li><p><strong>target</strong> – </p></li>
 <li><p><strong>body</strong> – </p></li>

@@ -251,7 +251,12 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="IndicesClient.clone"><a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.clone">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
-        <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;wait_for_active_shards&quot;</span>
+        <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;task_execution_timeout&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;timeout&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;wait_for_active_shards&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;wait_for_completion&quot;</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="k">def</span> <span class="nf">clone</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -274,9 +279,13 @@
 <span class="sd">        :arg master_timeout (Deprecated: To promote inclusive language,</span>
 <span class="sd">            use &#39;cluster_manager_timeout&#39; instead.): Operation timeout for</span>
 <span class="sd">            connection to master node.</span>
+<span class="sd">        :arg task_execution_timeout: Explicit task execution timeout,</span>
+<span class="sd">            only useful when wait_for_completion is false, defaults to 1h.</span>
 <span class="sd">        :arg timeout: Operation timeout.</span>
 <span class="sd">        :arg wait_for_active_shards: Set the number of active shards to</span>
 <span class="sd">            wait for on the cloned index before the operation returns.</span>
+<span class="sd">        :arg wait_for_completion: Should this request wait until the</span>
+<span class="sd">            operation has completed before returning. Default is True.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">target</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
@@ -345,8 +354,10 @@
         <span class="s2">&quot;expand_wildcards&quot;</span><span class="p">,</span>
         <span class="s2">&quot;ignore_unavailable&quot;</span><span class="p">,</span>
         <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;task_execution_timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;wait_for_active_shards&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;wait_for_completion&quot;</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="k">def</span> <span class="nf">open</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -372,9 +383,13 @@
 <span class="sd">        :arg master_timeout (Deprecated: To promote inclusive language,</span>
 <span class="sd">            use &#39;cluster_manager_timeout&#39; instead.): Operation timeout for</span>
 <span class="sd">            connection to master node.</span>
+<span class="sd">        :arg task_execution_timeout: Explicit task execution timeout,</span>
+<span class="sd">            only useful when wait_for_completion is false, defaults to 1h.</span>
 <span class="sd">        :arg timeout: Operation timeout.</span>
 <span class="sd">        :arg wait_for_active_shards: Sets the number of active shards to</span>
 <span class="sd">            wait for before the operation returns.</span>
+<span class="sd">        :arg wait_for_completion: Should this request wait until the</span>
+<span class="sd">            operation has completed before returning. Default is True.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">index</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Empty value passed for a required argument &#39;index&#39;.&quot;</span><span class="p">)</span>
@@ -1330,6 +1345,7 @@
         <span class="s2">&quot;ignore_unavailable&quot;</span><span class="p">,</span>
         <span class="s2">&quot;max_num_segments&quot;</span><span class="p">,</span>
         <span class="s2">&quot;only_expunge_deletes&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;wait_for_completion&quot;</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="k">def</span> <span class="nf">forcemerge</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -1357,6 +1373,8 @@
 <span class="sd">            be merged into (default: dynamic).</span>
 <span class="sd">        :arg only_expunge_deletes: Specify whether the operation should</span>
 <span class="sd">            only expunge deleted documents.</span>
+<span class="sd">        :arg wait_for_completion: Should this request wait until the</span>
+<span class="sd">            operation has completed before returning. Default is True.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
             <span class="s2">&quot;POST&quot;</span><span class="p">,</span> <span class="n">_make_path</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="s2">&quot;_forcemerge&quot;</span><span class="p">),</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
@@ -1366,8 +1384,10 @@
         <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;copy_settings&quot;</span><span class="p">,</span>
         <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;task_execution_timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;wait_for_active_shards&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;wait_for_completion&quot;</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="k">def</span> <span class="nf">shrink</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -1392,9 +1412,13 @@
 <span class="sd">        :arg master_timeout (Deprecated: To promote inclusive language,</span>
 <span class="sd">            use &#39;cluster_manager_timeout&#39; instead.): Operation timeout for</span>
 <span class="sd">            connection to master node.</span>
+<span class="sd">        :arg task_execution_timeout: Explicit task execution timeout,</span>
+<span class="sd">            only useful when wait_for_completion is false, defaults to 1h.</span>
 <span class="sd">        :arg timeout: Operation timeout.</span>
 <span class="sd">        :arg wait_for_active_shards: Set the number of active shards to</span>
 <span class="sd">            wait for on the shrunken index before the operation returns.</span>
+<span class="sd">        :arg wait_for_completion: Should this request wait until the</span>
+<span class="sd">            operation has completed before returning. Default is True.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">target</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
@@ -1412,8 +1436,10 @@
         <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;copy_settings&quot;</span><span class="p">,</span>
         <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;task_execution_timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;wait_for_active_shards&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;wait_for_completion&quot;</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="k">def</span> <span class="nf">split</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -1439,9 +1465,13 @@
 <span class="sd">        :arg master_timeout (Deprecated: To promote inclusive language,</span>
 <span class="sd">            use &#39;cluster_manager_timeout&#39; instead.): Operation timeout for</span>
 <span class="sd">            connection to master node.</span>
+<span class="sd">        :arg task_execution_timeout: Explicit task execution timeout,</span>
+<span class="sd">            only useful when wait_for_completion is false, defaults to 1h.</span>
 <span class="sd">        :arg timeout: Operation timeout.</span>
 <span class="sd">        :arg wait_for_active_shards: Set the number of active shards to</span>
 <span class="sd">            wait for on the shrunken index before the operation returns.</span>
+<span class="sd">        :arg wait_for_completion: Should this request wait until the</span>
+<span class="sd">            operation has completed before returning. Default is True.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">target</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
