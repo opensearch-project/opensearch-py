@@ -94,7 +94,7 @@ def test_query_is_created_properly_with_sort_tuple() -> None:
         "highlight": {"fields": {"body": {}, "title": {}}},
         "sort": ["category", {"title": {"order": "desc"}}],
     } == s.to_dict()
-    assert bs.facets["category"].get_value_filter(None) == None
+    assert bs.facets["category"].get_value_filter(None) is None
 
 
 def test_filter_is_applied_to_search_but_not_relevant_facet() -> None:
@@ -118,10 +118,10 @@ def test_filter_is_applied_to_search_but_not_relevant_facet() -> None:
         },
         "highlight": {"fields": {"body": {}, "title": {}}},
     } == s.to_dict()
-    assert bs.facets["category"].get_value_filter(None) == None
+    assert bs.facets["category"].get_value_filter(None) is None
 
 
-def test_filters_are_applied_to_search_ant_relevant_facets() -> None:
+def test_filters_are_applied_to_search_and_relevant_facets() -> None:
     bs = BlogSearch(
         "python search",
         filters={"category": "opensearch", "tags": ["python", "django"]},

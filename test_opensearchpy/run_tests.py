@@ -94,9 +94,13 @@ def fetch_opensearch_repo() -> None:
         # if the run is interrupted from a previous run, it doesn't clean up, and the git add origin command
         # errors out; this allows the test to continue
         remote_origin_already_exists = 3
-        print(e)
-        if e.returncode != remote_origin_already_exists:
-            sys.exit(1)
+        if e.returncode == remote_origin_already_exists:
+            print(
+                "Consider setting TEST_OPENSEARCH_NOFETCH=true if you want to reuse the existing local OpenSearch repo"
+            )
+        else:
+            print(e)
+        sys.exit(1)
 
     # fetch the sha commit, version from info()
     print("Fetching opensearch repo...")
@@ -128,6 +132,7 @@ def run_all(argv: Any = None) -> None:
         codecov_xml = join(
             abspath(dirname(dirname(__file__))), "junit", "opensearch-py-codecov.xml"
         )
+
         argv = [
             "pytest",
             "--cov=opensearchpy",
@@ -137,6 +142,12 @@ def run_all(argv: Any = None) -> None:
             "-vv",
             "--cov-report=xml:%s" % codecov_xml,
         ]
+        if (
+            "OPENSEARCHPY_GEN_HTML_COV" in environ
+            and environ.get("OPENSEARCHPY_GEN_HTML_COV") == "true"
+        ):
+            codecov_html = join(abspath(dirname(dirname(__file__))), "junit", "html")
+            argv.append("--cov-report=html:%s" % codecov_html)
 
         secured = False
         if environ.get("OPENSEARCH_URL", "").startswith("https://"):
