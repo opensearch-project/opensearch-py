@@ -341,7 +341,7 @@ class TestAIOHttpConnection:
     async def test_surrogatepass_into_bytes(self) -> None:
         buf = b"\xe4\xbd\xa0\xe5\xa5\xbd\xed\xa9\xaa"
         con = await self._get_mock_connection(response_body=buf)
-        status, headers, data = await con.perform_request("GET", "/")
+        _, _, data = await con.perform_request("GET", "/")
         assert u"你好\uda6a" == data  # fmt: skip
 
     @pytest.mark.parametrize("exception_cls", reraise_exceptions)  # type: ignore
@@ -394,7 +394,7 @@ class TestConnectionHttpServer:
         cls.server.stop()
 
     async def httpserver(self, conn: Any, **kwargs: Any) -> Any:
-        status, headers, data = await conn.perform_request("GET", "/", **kwargs)
+        status, _, data = await conn.perform_request("GET", "/", **kwargs)
         data = json.loads(data)
         return (status, data)
 

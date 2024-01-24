@@ -5,6 +5,7 @@ enable=line-too-long,
     pointless-statement,
     unspecified-encoding,
     unnecessary-dunder-call,
-    assignment-from-no-return
+    assignment-from-no-return,
+    unused-variable
 max-line-length=240
 good-names-rgxs=^[_a-z][_a-z0-9]?$

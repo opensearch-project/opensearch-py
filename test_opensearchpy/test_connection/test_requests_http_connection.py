@@ -73,7 +73,7 @@ class TestRequestsHttpConnection(TestCase):
         if "body" in kwargs:
             kwargs["body"] = kwargs["body"].encode("utf-8")
 
-        status, headers, data = connection.perform_request(*args, **kwargs)
+        status, _, data = connection.perform_request(*args, **kwargs)
         self.assertEqual(200, status)
         self.assertEqual("{}", data)
 
@@ -278,7 +278,7 @@ class TestRequestsHttpConnection(TestCase):
     @patch("opensearchpy.connection.base.logger")
     def test_success_logs_and_traces(self, logger: Any, tracer: Any) -> None:
         con = self._get_mock_connection(response_body=b"""{"answer": "that's it!"}""")
-        status, headers, data = con.perform_request(
+        _, _, _ = con.perform_request(
             "GET",
             "/",
             {"param": 42},
@@ -430,7 +430,7 @@ class TestRequestsHttpConnection(TestCase):
     def test_surrogatepass_into_bytes(self) -> None:
         buf = b"\xe4\xbd\xa0\xe5\xa5\xbd\xed\xa9\xaa"
         con = self._get_mock_connection(response_body=buf)
-        status, headers, data = con.perform_request("GET", "/")
+        _, _, data = con.perform_request("GET", "/")
         self.assertEqual(u"你好\uda6a", data)  # fmt: skip
 
     def test_recursion_error_reraised(self) -> None:
@@ -546,14 +546,12 @@ class TestRequestsConnectionRedirect(TestCase):
         status, headers, data = conn.perform_request("GET", "/redirect")
         self.assertEqual(status, 200)
         data = json.loads(data)
-        self.assertEqual(
-            data["headers"],
-            {
-                "Host": "localhost:8090",
-                "Accept-Encoding": "identity",
-                "User-Agent": user_agent,
-            },
-        )
+        expected_headers = {
+            "Host": "localhost:8090",
+            "Accept-Encoding": "identity",
+            "User-Agent": user_agent,
+        }
+        self.assertEqual(data["headers"], expected_headers)
 
 
 class TestSignerWithFrozenCredentials(TestRequestsHttpConnection):

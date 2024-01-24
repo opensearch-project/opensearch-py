@@ -265,7 +265,7 @@ class TestChunkActions(TestCase):
             )
         )
         self.assertEqual(25, len(chunks))
-        for chunk_data, chunk_actions in chunks:
+        for _, chunk_actions in chunks:
             chunk = u"".join(chunk_actions)  # fmt: skip
             chunk = chunk if isinstance(chunk, str) else chunk.encode("utf-8")
             self.assertLessEqual(len(chunk), max_byte_size)

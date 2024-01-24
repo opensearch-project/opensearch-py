@@ -384,7 +384,7 @@ class TestUrllib3HttpConnection(TestCase):
     def test_surrogatepass_into_bytes(self) -> None:
         buf = b"\xe4\xbd\xa0\xe5\xa5\xbd\xed\xa9\xaa"
         con = self._get_mock_connection(response_body=buf)
-        status, headers, data = con.perform_request("GET", "/")
+        _, _, data = con.perform_request("GET", "/")
         self.assertEqual(u"你好\uda6a", data)  # fmt: skip
 
     def test_recursion_error_reraised(self) -> None:
