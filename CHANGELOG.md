@@ -8,6 +8,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - Added pylint `pointless-statement` ([#611](https://github.com/opensearch-project/opensearch-py/pull/611))
 - Added a log collection guide ([#579](https://github.com/opensearch-project/opensearch-py/pull/579))
 - Added GHA release ([#614](https://github.com/opensearch-project/opensearch-py/pull/614))
+- Incorporated API generation into CI workflow and fixed 'generate' nox session ([#660](https://github.com/opensearch-project/opensearch-py/pull/660))
 ### Changed
 - Updated the `get_policy` API in the index_management plugin to allow the policy_id argument as optional ([#633](https://github.com/opensearch-project/opensearch-py/pull/633))
 ### Deprecated
