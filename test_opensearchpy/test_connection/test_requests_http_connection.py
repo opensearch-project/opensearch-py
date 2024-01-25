@@ -543,7 +543,7 @@ class TestRequestsConnectionRedirect(TestCase):
     def test_redirect_success_when_allow_redirect_true(self) -> None:
         conn = RequestsHttpConnection("localhost", port=8080, use_ssl=False, timeout=60)
         user_agent = conn._get_default_user_agent()
-        status, headers, data = conn.perform_request("GET", "/redirect")
+        status, _, data = conn.perform_request("GET", "/redirect")
         self.assertEqual(status, 200)
         data = json.loads(data)
         expected_headers = {
