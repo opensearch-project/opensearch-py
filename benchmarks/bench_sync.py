@@ -24,7 +24,7 @@ from opensearchpy import OpenSearch, Urllib3HttpConnection
 def index_records(client: Any, index_name: str, item_count: int) -> Any:
     """bulk index item_count records into index_name"""
     total_time = 0
-    for iteration in range(10):
+    for _ in range(10):
         data: Any = []
         for item in range(item_count):
             data.append(
@@ -68,7 +68,7 @@ def test(thread_count: int = 1, item_count: int = 1, client_count: int = 1) -> N
     root.addHandler(handler)
 
     clients = []
-    for i in range(client_count):
+    for _ in range(client_count):
         clients.append(
             OpenSearch(
                 hosts=[{"host": host, "port": port}],

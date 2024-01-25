@@ -170,7 +170,7 @@ async def test_boolean_facet(data_client: Any, repo_search_cls: Any) -> None:
 
     assert r.hits.total.value == 1
     assert [(True, 1, False)] == r.facets.public
-    value, count, selected = r.facets.public[0]
+    value, _, _ = r.facets.public[0]
     assert value is True
 
 

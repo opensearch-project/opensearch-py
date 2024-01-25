@@ -23,7 +23,7 @@ from opensearchpy import OpenSearch
 def get_info(client: Any, request_count: int) -> float:
     """get info from client"""
     total_time: float = 0
-    for request in range(request_count):
+    for _ in range(request_count):
         start = time.time() * 1000
         client.info()
         total_time += time.time() * 1000 - start
@@ -49,7 +49,7 @@ def test(thread_count: int = 1, request_count: int = 1, client_count: int = 1) -
     root.addHandler(handler)
 
     clients = []
-    for i in range(client_count):
+    for _ in range(client_count):
         clients.append(
             OpenSearch(
                 hosts=[{"host": host, "port": port}],

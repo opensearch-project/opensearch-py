@@ -3,6 +3,9 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 ## [Unreleased]
 ### Added
+- Added pylint `assignment-from-no-return` and `unused-variable` (([#658](https://github.com/opensearch-project/opensearch-py/pull/658))
+- Added pylint `unnecessary-dunder-calls` (([#655](https://github.com/opensearch-project/opensearch-py/pull/655))
+- Changed to use .pylintrc files in root and any directory with override requirements (([#654](https://github.com/opensearch-project/opensearch-py/pull/654))
 - Added pylint `unspecified-encoding` and `missing-function-docstring` and ignored opensearchpy for lints (([#643](https://github.com/opensearch-project/opensearch-py/pull/643)))
 - Added pylint `line-too-long` and `invalid-name` ([#590](https://github.com/opensearch-project/opensearch-py/pull/590))
 - Added pylint `pointless-statement` ([#611](https://github.com/opensearch-project/opensearch-py/pull/611))

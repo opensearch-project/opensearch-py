@@ -340,7 +340,7 @@ class API:
             if k in parts:
                 parts[sub] = parts.pop(k)
 
-        dynamic, components = self.url_parts
+        _, components = self.url_parts
 
         def ind(item: Any) -> Any:
             try:

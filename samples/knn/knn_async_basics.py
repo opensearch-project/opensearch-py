@@ -56,7 +56,7 @@ async def main() -> None:
     vectors = []
     for i in range(10):
         vec = []
-        for j in range(dimensions):
+        for _ in range(dimensions):
             vec.append(round(random.uniform(0, 1), 2))
 
         vectors.append(
@@ -74,7 +74,7 @@ async def main() -> None:
 
     # search
     vec = []
-    for j in range(dimensions):
+    for _ in range(dimensions):
         vec.append(round(random.uniform(0, 1), 2))
     print(f"Searching for {vec} ...")
 
