@@ -1,7 +1,7 @@
-- [Point-in-Time](#point-in-time)
-- [Point-in-Time - Updated Implementation](#point-in-time---updated-implementation)
+- [Point-in-Time - Deprecated Implementation Examples](#point-in-time---deprecated-implementation-examples)
+- [Point-in-Time - Updated Implementation Examples](#point-in-time---updated-implementation-examples)
 
-### Point-in-Time
+### Point-in-Time - Deprecated Implementation Examples
 
 [Point in Time (PIT)](https://opensearch.org/docs/latest/search-plugins/point-in-time/) lets you run different queries against a dataset that is fixed in time.
 
@@ -44,7 +44,7 @@ print(response)
 ```
 
 
-### Point-in-Time - Updated Implementation
+### Point-in-Time - Updated Implementation Examples
 
 Create a point in time on an index.
 
