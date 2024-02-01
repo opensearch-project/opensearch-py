@@ -40,7 +40,7 @@ jobs:
         id: cpr
         uses: peter-evans/create-pull-request@v5
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ steps.github_app_token.outputs.token }}
           commit-message: Updated opensearch-py to reflect the latest OpenSearch API spec (${{ steps.date.outputs.date }})
           title: Updated opensearch-py to reflect the latest OpenSearch API spec
           body: |
@@ -48,8 +48,9 @@ jobs:
             Date: ${{ steps.date.outputs.date }}
           branch: automated-api-update
           base: main
-          committer: opensearchpy-api-update-bot <noreply@github.com>
-          author: opensearchpy-api-update-bot <noreply@github.com>
+          signoff: true
+          labels: |
+              autocut
       - name: Check out update branch
         if: ${{ steps.cpr.outputs.pull-request-number != '' }}
         run: |
@@ -63,14 +64,8 @@ jobs:
           replace: "- Updated opensearch-py to reflect the latest OpenSearch API spec ([#${{steps.cpr.outputs.pull-request-number}}](https://github.com/opensearch-project/opensearch-py/pull/${{steps.cpr.outputs.pull-request-number}}))\n- Your contribution here."
           include: "**CHANGELOG.md"
       - name: Commit and Push
-        if: ${{ steps.cpr.outputs.pull-request-number != '' }}
-        run: |
-          git config --local user.name 'opensearchpy-api-update-bot'
-          git config --local user.email 'noreply@github.com'
-          git config --local --unset-all http.https://github.com/.extraheader || true
-          AUTH=$(echo -n "x-access-token:${{ steps.github_app_token.outputs.token || secrets.GITHUB_TOKEN }}" | base64)
-          echo "::add-mask::${AUTH}"
-          git config --local http.https://github.com/.extraheader "AUTHORIZATION: basic ${AUTH}"
-          git add CHANGELOG.md
-          git commit --amend --no-edit
-          git push origin automated-api-update -f
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Update changelog"
+          branch: automated-api-update
+          commit_options: '--signoff'
