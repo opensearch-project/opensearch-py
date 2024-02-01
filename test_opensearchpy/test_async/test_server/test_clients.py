@@ -60,7 +60,9 @@ class TestYarlMissing:
     async def test_aiohttp_connection_works_without_yarl(
         self, async_client: Any, monkeypatch: Any
     ) -> None:
-        # This is a defensive test case for if aiohttp suddenly stops using yarl.
+        """
+        This is a defensive test case for if aiohttp suddenly stops using yarl.
+        """
         from opensearchpy._async import http_aiohttp
 
         monkeypatch.setattr(http_aiohttp, "yarl", False)

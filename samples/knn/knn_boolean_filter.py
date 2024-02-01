@@ -56,7 +56,7 @@ def main() -> None:
     genres = ["fiction", "drama", "romance"]
     for i in range(3000):
         vec = []
-        for j in range(dimensions):
+        for _ in range(dimensions):
             vec.append(round(random.uniform(0, 1), 2))
 
         vectors.append(
@@ -76,7 +76,7 @@ def main() -> None:
     # search
     genre = random.choice(genres)
     vec = []
-    for j in range(dimensions):
+    for _ in range(dimensions):
         vec.append(round(random.uniform(0, 1), 2))
     print(f"Searching for {vec} with the '{genre}' genre ...")
 

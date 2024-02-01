@@ -3,12 +3,18 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 ## [Unreleased]
 ### Added
+- Added pylint `assignment-from-no-return` and `unused-variable` (([#658](https://github.com/opensearch-project/opensearch-py/pull/658))
+- Added pylint `unnecessary-dunder-calls` (([#655](https://github.com/opensearch-project/opensearch-py/pull/655))
+- Changed to use .pylintrc files in root and any directory with override requirements (([#654](https://github.com/opensearch-project/opensearch-py/pull/654))
+- Added pylint `unspecified-encoding` and `missing-function-docstring` and ignored opensearchpy for lints (([#643](https://github.com/opensearch-project/opensearch-py/pull/643)))
 - Added pylint `line-too-long` and `invalid-name` ([#590](https://github.com/opensearch-project/opensearch-py/pull/590))
 - Added pylint `pointless-statement` ([#611](https://github.com/opensearch-project/opensearch-py/pull/611))
 - Added a log collection guide ([#579](https://github.com/opensearch-project/opensearch-py/pull/579))
 - Added GHA release ([#614](https://github.com/opensearch-project/opensearch-py/pull/614))
+- Incorporated API generation into CI workflow and fixed 'generate' nox session ([#660](https://github.com/opensearch-project/opensearch-py/pull/660))
 ### Changed
 - Updated the `get_policy` API in the index_management plugin to allow the policy_id argument as optional ([#633](https://github.com/opensearch-project/opensearch-py/pull/633))
+- Updated the `point_in_time.md` guide with examples demonstrating the usage of the new APIs as alternatives to the deprecated ones. ([#661](https://github.com/opensearch-project/opensearch-py/pull/661))
 ### Deprecated
 ### Removed
 - Removed unnecessary `# -*- coding: utf-8 -*-` headers from .py files ([#615](https://github.com/opensearch-project/opensearch-py/pull/615), [#617](https://github.com/opensearch-project/opensearch-py/pull/617))
@@ -17,7 +23,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - Fix reuse of `OpenSearch` using `Urllib3HttpConnection` and `AsyncOpenSearch` after calling `close` ([#639](https://github.com/opensearch-project/opensearch-py/pull/639))
 ### Security
 ### Dependencies
-- Bumps `pytest-asyncio` from <=0.21.1 to <=0.23.3
+- Bumps `pytest-asyncio` from <=0.21.1 to <=0.23.4
 - Bumps `urllib3` from >=1.26.18 to >=1.26.18, <2 ([#632](https://github.com/opensearch-project/opensearch-py/pull/632))
 
 ## [2.4.2]

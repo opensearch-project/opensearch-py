@@ -60,6 +60,9 @@ class FailingBulkClient(object):
         self._fail_with = fail_with
 
     async def bulk(self, *args: Any, **kwargs: Any) -> Any:
+        """
+        increments number of times called and, when it equals fail_at, raises self.fail_with
+        """
         self._called += 1
         if self._called in self._fail_at:
             raise self._fail_with
@@ -69,7 +72,7 @@ class FailingBulkClient(object):
 class TestStreamingBulk(object):
     async def test_actions_remain_unchanged(self, async_client: Any) -> None:
         actions1 = [{"_id": 1}, {"_id": 2}]
-        async for ok, item in actions.async_streaming_bulk(
+        async for ok, _ in actions.async_streaming_bulk(
             async_client, actions1, index="test-index"
         ):
             assert ok
@@ -77,7 +80,7 @@ class TestStreamingBulk(object):
 
     async def test_all_documents_get_inserted(self, async_client: Any) -> None:
         docs = [{"answer": x, "_id": x} for x in range(100)]
-        async for ok, item in actions.async_streaming_bulk(
+        async for ok, _ in actions.async_streaming_bulk(
             async_client, docs, index="test-index", refresh=True
         ):
             assert ok
@@ -97,7 +100,7 @@ class TestStreamingBulk(object):
             for x in range(100):
                 yield {"answer": x, "_id": x}
 
-        async for ok, item in actions.async_streaming_bulk(
+        async for ok, _ in actions.async_streaming_bulk(
             async_client, async_gen(), index="test-index", refresh=True
         ):
             assert ok
@@ -111,7 +114,7 @@ class TestStreamingBulk(object):
             index="test-index", body={"query": {"match_all": {}}}
         )
 
-        async for ok, item in actions.async_streaming_bulk(
+        async for ok, _ in actions.async_streaming_bulk(
             async_client, sync_gen(), index="test-index", refresh=True
         ):
             assert ok
@@ -134,7 +137,7 @@ class TestStreamingBulk(object):
         await async_client.cluster.health(wait_for_status="yellow")
 
         try:
-            async for ok, item in actions.async_streaming_bulk(
+            async for ok, _ in actions.async_streaming_bulk(
                 async_client, [{"a": "b"}, {"a": "c"}], index="i", raise_on_error=True
             ):
                 assert ok
@@ -151,7 +154,7 @@ class TestStreamingBulk(object):
             {"_op_type": "delete", "_index": "i", "_id": 45},
             {"_op_type": "update", "_index": "i", "_id": 42, "doc": {"answer": 42}},
         ]
-        async for ok, item in actions.async_streaming_bulk(async_client, docs):
+        async for ok, _ in actions.async_streaming_bulk(async_client, docs):
             assert ok
 
         assert not await async_client.exists(index="i", id=45)

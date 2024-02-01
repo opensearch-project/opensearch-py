@@ -21,9 +21,10 @@ from opensearchpy import OpenSearch, Urllib3AWSV4SignerAuth, Urllib3HttpConnecti
 
 def main() -> None:
     """
-    1. connects to an OpenSearch cluster on AWS defined by environment variables (i.e. ENDPOINT - cluster endpoint like
-    my-test-domain.us-east-1.es.amazonaws.com; AWS_REGION like us-east-1, us-west-2; and SERVICE like es which
-    differentiates beteween serverless and the managed service.
+    1. connects to an OpenSearch cluster on AWS defined by environment variables
+    (i.e. ENDPOINT - cluster endpoint like my-test-domain.us-east-1.es.
+    amazonaws.com; AWS_REGION like us-east-1, us-west-2; and SERVICE like es which
+    differentiates between serverless and the managed service.
     2. creates an index called "movies" and adds a single document
     3. queries for that document
     4. deletes the document

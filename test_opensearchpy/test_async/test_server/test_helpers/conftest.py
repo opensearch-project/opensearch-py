@@ -43,12 +43,24 @@ async def client() -> Any:
 
 @fixture(scope="function")  # type: ignore
 async def opensearch_version(client: Any) -> Any:
+    """
+    yields the version of the OpenSearch cluster
+    :param client: client connection to OpenSearch
+    :return: yields major version number
+    """
     info = await client.info()
     print(info)
-    yield tuple(
-        int(x)
-        for x in re.match(r"^([0-9.]+)", info["version"]["number"]).group(1).split(".")  # type: ignore
-    )
+    yield (int(x) async for x in match_version(info))
+
+
+async def match_version(info: Any) -> Any:
+    """
+    matches the full semver server version with the given info
+    :param info: response from the OpenSearch cluster
+    """
+    match = re.match(r"^([0-9.]+)", info["version"]["number"])
+    assert match is not None
+    yield match.group(1).split(".")
 
 
 @fixture  # type: ignore
@@ -60,7 +72,9 @@ async def write_client(client: Any) -> Any:
 
 @fixture  # type: ignore
 async def data_client(client: Any) -> Any:
-    # create mappings
+    """
+    create mappings
+    """
     await create_git_index(client, "git")
     await create_flat_git_index(client, "flat-git")
     # load data
@@ -73,6 +87,11 @@ async def data_client(client: Any) -> Any:
 
 @fixture  # type: ignore
 async def pull_request(write_client: Any) -> Any:
+    """
+    create dummy pull request instance
+    :param write_client: #todo not used
+    :return: instance of PullRequest
+    """
     await PullRequest.init()
     pr = PullRequest(
         _id=42,
@@ -96,7 +115,12 @@ async def pull_request(write_client: Any) -> Any:
 
 
 @fixture  # type: ignore
-async def setup_ubq_tests(client: Any) -> str:
+async def setup_update_by_query_tests(client: Any) -> str:
+    """
+    sets up update by query tests
+    :param client:
+    :return: an index name
+    """
     index = "test-git"
     await create_git_index(client, index)
     await async_bulk(client, TEST_GIT_DATA, raise_on_error=True, refresh=True)

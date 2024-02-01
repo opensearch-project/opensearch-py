@@ -54,6 +54,10 @@ OPENSEARCH_VERSION = None
 
 
 async def await_if_coro(x: Any) -> Any:
+    """
+    awaits if x is a coroutine
+    :return: x
+    """
     if inspect.iscoroutine(x):
         return await x
     return x

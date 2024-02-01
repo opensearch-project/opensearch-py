@@ -73,7 +73,7 @@ class TestRequestsHttpConnection(TestCase):
         if "body" in kwargs:
             kwargs["body"] = kwargs["body"].encode("utf-8")
 
-        status, headers, data = connection.perform_request(*args, **kwargs)
+        status, _, data = connection.perform_request(*args, **kwargs)
         self.assertEqual(200, status)
         self.assertEqual("{}", data)
 
@@ -139,7 +139,8 @@ class TestRequestsHttpConnection(TestCase):
             )
             self.assertEqual(1, len(w))
             self.assertEqual(
-                "Connecting to https://localhost:9200 using SSL with verify_certs=False is insecure.",
+                "Connecting to https://localhost:9200 using SSL with "
+                "verify_certs=False is insecure.",
                 str(w[0].message),
             )
 
@@ -277,7 +278,7 @@ class TestRequestsHttpConnection(TestCase):
     @patch("opensearchpy.connection.base.logger")
     def test_success_logs_and_traces(self, logger: Any, tracer: Any) -> None:
         con = self._get_mock_connection(response_body=b"""{"answer": "that's it!"}""")
-        status, headers, data = con.perform_request(
+        _, _, _ = con.perform_request(
             "GET",
             "/",
             {"param": 42},
@@ -286,8 +287,9 @@ class TestRequestsHttpConnection(TestCase):
 
         # trace request
         self.assertEqual(1, tracer.info.call_count)
+        trace_curl_cmd = "curl -H 'Content-Type: application/json' -XGET 'http://localhost:9200/?pretty&param=42' -d '{\n  \"question\": \"what\\u0027s that?\"\n}'"  # pylint: disable=line-too-long
         self.assertEqual(
-            """curl -H 'Content-Type: application/json' -XGET 'http://localhost:9200/?pretty&param=42' -d '{\n  "question": "what\\u0027s that?"\n}'""",
+            trace_curl_cmd,
             tracer.info.call_args[0][0] % tracer.info.call_args[0][1:],
         )
         # trace response
@@ -415,16 +417,20 @@ class TestRequestsHttpConnection(TestCase):
         self.assertEqual('{"answer": 42}'.encode("utf-8"), request.body)
 
         # trace request
+        trace_curl_cmd = (
+            "curl -H 'Content-Type: application/json' -XGET 'http://localhost:9200/_search?pretty' "
+            "-d '{\n  \"answer\": 42\n}'"
+        )
         self.assertEqual(1, tracer.info.call_count)
         self.assertEqual(
-            "curl -H 'Content-Type: application/json' -XGET 'http://localhost:9200/_search?pretty' -d '{\n  \"answer\": 42\n}'",
+            trace_curl_cmd,
             tracer.info.call_args[0][0] % tracer.info.call_args[0][1:],
         )
 
     def test_surrogatepass_into_bytes(self) -> None:
         buf = b"\xe4\xbd\xa0\xe5\xa5\xbd\xed\xa9\xaa"
         con = self._get_mock_connection(response_body=buf)
-        status, headers, data = con.perform_request("GET", "/")
+        _, _, data = con.perform_request("GET", "/")
         self.assertEqual(u"你好\uda6a", data)  # fmt: skip
 
     def test_recursion_error_reraised(self) -> None:
@@ -514,7 +520,7 @@ class TestRequestsConnectionRedirect(TestCase):
 
     @classmethod
     def setup_class(cls) -> None:
-        # Start servers
+        """Start servers"""
         cls.server1 = TestHTTPServer(port=8080)
         cls.server1.start()
         cls.server2 = TestHTTPServer(port=8090)
@@ -522,7 +528,7 @@ class TestRequestsConnectionRedirect(TestCase):
 
     @classmethod
     def teardown_class(cls) -> None:
-        # Stop servers
+        """Stop servers"""
         cls.server2.stop()
         cls.server1.stop()
 
@@ -537,17 +543,15 @@ class TestRequestsConnectionRedirect(TestCase):
     def test_redirect_success_when_allow_redirect_true(self) -> None:
         conn = RequestsHttpConnection("localhost", port=8080, use_ssl=False, timeout=60)
         user_agent = conn._get_default_user_agent()
-        status, headers, data = conn.perform_request("GET", "/redirect")
+        status, _, data = conn.perform_request("GET", "/redirect")
         self.assertEqual(status, 200)
         data = json.loads(data)
-        self.assertEqual(
-            data["headers"],
-            {
-                "Host": "localhost:8090",
-                "Accept-Encoding": "identity",
-                "User-Agent": user_agent,
-            },
-        )
+        expected_headers = {
+            "Host": "localhost:8090",
+            "Accept-Encoding": "identity",
+            "User-Agent": user_agent,
+        }
+        self.assertEqual(data["headers"], expected_headers)
 
 
 class TestSignerWithFrozenCredentials(TestRequestsHttpConnection):

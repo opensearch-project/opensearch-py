@@ -40,13 +40,15 @@ class TestSecurityPlugin(IsolatedAsyncioTestCase):  # type: ignore
     USER_NAME = "test-user"
     USER_CONTENT = {"password": "opensearchpy@123", "opendistro_security_roles": []}
 
-    async def asyncSetUp(self) -> None:  # pylint: disable=invalid-name
+    async def asyncSetUp(self) -> None:
+        # pylint: disable=invalid-name, missing-function-docstring
         self.client = await get_test_client(
             verify_certs=False, http_auth=("admin", "admin")
         )
         await add_connection("default", self.client)
 
-    async def asyncTearDown(self) -> None:  # pylint: disable=invalid-name
+    async def asyncTearDown(self) -> None:
+        # pylint: disable=invalid-name
         if self.client:
             await self.client.close()
 
