@@ -26,6 +26,13 @@ jobs:
           python3.7 -m pip install nox
       - name: Generate API
         run: nox -s generate
+      - name: Update CHANGELOG
+        uses: jacobtomlinson/gha-find-replace@v3
+        if: ${{ steps.cpr.outputs.pull-request-number != '' }}
+        with:
+          find: "- Your contribution here."
+          replace: "- Updated opensearch-py to reflect the latest OpenSearch API spec.\n- Your contribution here."
+          include: "**CHANGELOG.md"
       - name: Get current date
         id: date
         run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
@@ -51,21 +58,3 @@ jobs:
           signoff: true
           labels: |
               autocut
-      - name: Check out update branch
-        if: ${{ steps.cpr.outputs.pull-request-number != '' }}
-        run: |
-          git fetch origin automated-api-update
-          git checkout automated-api-update
-      - name: Update CHANGELOG
-        uses: jacobtomlinson/gha-find-replace@v3
-        if: ${{ steps.cpr.outputs.pull-request-number != '' }}
-        with:
-          find: "- Your contribution here."
-          replace: "- Updated opensearch-py to reflect the latest OpenSearch API spec ([#${{steps.cpr.outputs.pull-request-number}}](https://github.com/opensearch-project/opensearch-py/pull/${{steps.cpr.outputs.pull-request-number}}))\n- Your contribution here."
-          include: "**CHANGELOG.md"
-      - name: Commit and Push
-        uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          commit_message: "Update changelog"
-          branch: automated-api-update
-          commit_options: '--signoff'
