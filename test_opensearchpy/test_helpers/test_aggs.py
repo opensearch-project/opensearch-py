@@ -309,6 +309,18 @@ def test_variable_width_histogram_aggregation() -> None:
     assert {"variable_width_histogram": {"buckets": 2, "field": "price"}} == a.to_dict()
 
 
+def test_multi_terms_aggregation() -> None:
+    a = aggs.MultiTerms(terms=[{"field": "tags"}, {"field": "author.row"}])
+    assert {
+        "multi_terms": {
+            "terms": [
+                {"field": "tags"},
+                {"field": "author.row"},
+            ]
+        }
+    } == a.to_dict()
+
+
 def test_median_absolute_deviation_aggregation() -> None:
     a = aggs.MedianAbsoluteDeviation(field="rating")
 
