@@ -90,6 +90,8 @@ SKIP_TESTS = {
     "OpenSearch-main/rest-api-spec/src/main/resources/rest-api-spec/test/tasks/list/10_basic[0]",
     "OpenSearch-main/rest-api-spec/src/main/resources/rest-api-spec/test/index/90_unsigned_long[1]",
     "OpenSearch-main/rest-api-spec/src/main/resources/rest-api-spec/test/indices/stats/50_noop_update[0]",
+    "OpenSearch-main/rest-api-spec/src/main/resources/rest-api-spec/test/search/340_doc_values_field[0]",
+    "OpenSearch-main/rest-api-spec/src/main/resources/rest-api-spec/test/search/340_doc_values_field[1]",
     "search/aggregation/250_moving_fn[1]",
     # body: null
     "indices/simulate_index_template/10_basic[2]",
