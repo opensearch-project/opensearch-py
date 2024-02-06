@@ -52,6 +52,7 @@ from .nodes import NodesClient
 from .plugins import PluginsClient
 from .remote import RemoteClient
 from .remote_store import RemoteStoreClient
+from .search_pipeline import SearchPipelineClient
 from .security import SecurityClient
 from .snapshot import SnapshotClient
 from .tasks import TasksClient
@@ -222,6 +223,7 @@ class OpenSearch(Client):
         self.ingest = IngestClient(self)
         self.nodes = NodesClient(self)
         self.remote = RemoteClient(self)
+        self.search_pipeline = SearchPipelineClient(self)
         self.security = SecurityClient(self)
         self.snapshot = SnapshotClient(self)
         self.tasks = TasksClient(self)
