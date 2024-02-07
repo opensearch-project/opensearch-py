@@ -773,27 +773,23 @@ def dump_modules(modules: Any) -> None:
         commit_url = commit_info["html_url"]
         latest_commit_sha = commit_info.get("sha")
     else:
-        print("Failed to fetch opensearch-api-specification commit information.")
-        print("Status code:", response.status_code)
-        latest_commit_sha = None
+        raise Exception(
+            f"Failed to fetch opensearch-api-specification commit information. Status code: {response.status_code}"
+        )
 
-    file_content = ""
-    with open("CHANGELOG.md", "r", encoding="utf-8") as file:
+    with open("CHANGELOG.md", "r+", encoding="utf-8") as file:
         content = file.read()
         if "### Updated APIs" in content:
             file_content = content.replace(
                 "### Updated APIs",
-                "### Updated APIs\n- Updated opensearch-py APIs to reflect OpenSearch API spec"
-                + (
-                    f"[@{latest_commit_sha[:7]}]({commit_url})"
-                    if latest_commit_sha is not None
-                    else ""
-                ),
+                f"### Updated APIs\n- Updated opensearch-py APIs to reflect [opensearch-api-specification@{latest_commit_sha[:7]}]({commit_url})",
                 1,
             )
-
-    with open("CHANGELOG.md", "w", encoding="utf-8") as file:
-        file.write(file_content)
+            file.seek(0)
+            file.write(file_content)
+            file.truncate()
+        else:
+            raise Exception("'Updated APIs' section is not present in CHANGELOG.md")
 
 
 if __name__ == "__main__":
