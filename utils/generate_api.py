@@ -764,6 +764,37 @@ def dump_modules(modules: Any) -> None:
     unasync.unasync_files(filepaths, rules)
     blacken(CODE_ROOT / "opensearchpy")
 
+    # Updating the CHANGELOG.md
+    response = requests.get(
+        "https://api.github.com/repos/opensearch-project/opensearch-api-specification/commits"
+    )
+    if response.ok:
+        commit_info = response.json()[0]
+        commit_url = commit_info["html_url"]
+        latest_commit_sha = commit_info.get("sha")
+    else:
+        print("Failed to fetch opensearch-api-specification commit information.")
+        print("Status code:", response.status_code)
+        latest_commit_sha = None
+
+    file_content = ""
+    with open("CHANGELOG.md", "r", encoding="utf-8") as file:
+        content = file.read()
+        if "### Updated APIs" in content:
+            file_content = content.replace(
+                "### Updated APIs",
+                "### Updated APIs\n- Updated opensearch-py APIs to reflect OpenSearch API spec"
+                + (
+                    f"[@{latest_commit_sha[:7]}]({commit_url})"
+                    if latest_commit_sha is not None
+                    else ""
+                ),
+                1,
+            )
+
+    with open("CHANGELOG.md", "w", encoding="utf-8") as file:
+        file.write(file_content)
+
 
 if __name__ == "__main__":
     dump_modules(read_modules())
