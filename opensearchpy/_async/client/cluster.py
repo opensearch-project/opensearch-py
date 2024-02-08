@@ -530,10 +530,7 @@ class ClusterClient(NamespacedClient):
 
         """
         return await self.transport.perform_request(
-            "DELETE",
-            "/_cluster/decommission/awareness/",
-            params=params,
-            headers=headers,
+            "DELETE", "/_cluster/decommission/awareness", params=params, headers=headers
         )
 
     @query_params()
