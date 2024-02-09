@@ -779,17 +779,18 @@ def dump_modules(modules: Any) -> None:
 
     with open("CHANGELOG.md", "r+", encoding="utf-8") as file:
         content = file.read()
-        if "### Updated APIs" in content:
-            file_content = content.replace(
-                "### Updated APIs",
-                f"### Updated APIs\n- Updated opensearch-py APIs to reflect [opensearch-api-specification@{latest_commit_sha[:7]}]({commit_url})",
-                1,
-            )
-            file.seek(0)
-            file.write(file_content)
-            file.truncate()
-        else:
-            raise Exception("'Updated APIs' section is not present in CHANGELOG.md")
+        if commit_url not in content:
+            if "### Updated APIs" in content:
+                file_content = content.replace(
+                    "### Updated APIs",
+                    f"### Updated APIs\n- Updated opensearch-py APIs to reflect [opensearch-api-specification@{latest_commit_sha[:7]}]({commit_url})",
+                    1,
+                )
+                file.seek(0)
+                file.write(file_content)
+                file.truncate()
+            else:
+                raise Exception("'Updated APIs' section is not present in CHANGELOG.md")
 
 
 if __name__ == "__main__":
