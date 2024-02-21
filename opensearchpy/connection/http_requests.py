@@ -166,6 +166,10 @@ class RequestsHttpConnection(Connection):
         ignore: Collection[int] = (),
         headers: Optional[Mapping[str, str]] = None,
     ) -> Any:
+        
+        calculate_service_time=False
+        if "calculate_service_time" in self.kwargs:
+            calculate_service_time=self.kwargs["calculate_service_time"]
         url = self.base_url + url
         headers = headers or {}
         if params:
