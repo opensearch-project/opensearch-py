@@ -176,7 +176,6 @@ class RequestsHttpConnection(Connection):
             body = self._gzip_compress(body)
             headers["content-encoding"] = "gzip"  # type: ignore
 
-        start = time.time()
         request = requests.Request(method=method, headers=headers, url=url, data=body)
         prepared_request = self.session.prepare_request(request)
         settings = self.session.merge_environment_settings(
@@ -188,9 +187,8 @@ class RequestsHttpConnection(Connection):
         }
         send_kwargs.update(settings)
         try:
-            request_start = time.perf_counter()
+            start = time.time()
             response = self.session.send(prepared_request, **send_kwargs)
-            request_duration=time.perf_counter()-request_start
             duration = time.time() - start
             raw_data = response.content.decode("utf-8", "surrogatepass")
         except reraise_exceptions:
