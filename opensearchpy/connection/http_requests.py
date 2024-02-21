@@ -88,6 +88,7 @@ class RequestsHttpConnection(Connection):
         pool_maxsize: Any = None,
         **kwargs: Any
     ) -> None:
+        self.kwargs=kwargs
         if not REQUESTS_AVAILABLE:
             raise ImproperlyConfigured(
                 "Please install requests to use RequestsHttpConnection."
