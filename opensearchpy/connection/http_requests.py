@@ -186,14 +186,15 @@ class RequestsHttpConnection(Connection):
             "allow_redirects": allow_redirects,
         }
         send_kwargs.update(settings)
+        start = time.time()
         try:
-            start = time.time()
             response = self.session.send(prepared_request, **send_kwargs)
             duration = time.time() - start
             raw_data = response.content.decode("utf-8", "surrogatepass")
         except reraise_exceptions:
             raise
         except Exception as e:
+             duration = time.time() - start
             self.log_request_fail(
                 method,
                 url,
@@ -207,6 +208,7 @@ class RequestsHttpConnection(Connection):
             if isinstance(e, requests.Timeout):
                 raise ConnectionTimeout("TIMEOUT", str(e), e)
             raise ConnectionError("N/A", str(e), e)
+            
 
         # raise warnings if any from the 'Warnings' header.
         warnings_headers = (
