@@ -419,6 +419,7 @@ class Transport(object):
                 headers_response = {
                     header.lower(): value for header, value in headers_response.items()
                 }
+                print("headers_response", headers_response)
 
             except TransportError as e:
                 if method == "HEAD" and e.status_code == 404:
@@ -457,7 +458,10 @@ class Transport(object):
                     data = self.deserializer.loads(
                         data, headers_response.get("content-type")
                     )
+                if self.kwargs["calculate_service_time"] is True:
+                    data.update({"x-service-time": headers_response["x-service-time"]})
                 return data
+                    
 
     def close(self) -> Any:
         """
