@@ -163,6 +163,7 @@ class RequestsHttpConnection(Connection):
         body: Optional[bytes] = None,
         timeout: Optional[Union[int, float]] = None,
         allow_redirects: Optional[bool] = True,
+        calculate_service_time: Optional[bool] = False,
         ignore: Collection[int] = (),
         headers: Optional[Mapping[str, str]] = None,
     ) -> Any:
@@ -210,9 +211,8 @@ class RequestsHttpConnection(Connection):
             raise ConnectionError("N/A", str(e), e)
         
         # Add the service time to the response headers
-        response.headers["X-Service-Time"] = str(duration)
-
-            
+        if calculate_service_time:
+            response.headers["X-Service-Time"] = str(duration)
 
         # raise warnings if any from the 'Warnings' header.
         warnings_headers = (
