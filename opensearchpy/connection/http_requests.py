@@ -194,7 +194,7 @@ class RequestsHttpConnection(Connection):
         except reraise_exceptions:
             raise
         except Exception as e:
-             duration = time.time() - start
+            duration = time.time() - start
             self.log_request_fail(
                 method,
                 url,
