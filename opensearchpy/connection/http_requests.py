@@ -188,7 +188,9 @@ class RequestsHttpConnection(Connection):
         }
         send_kwargs.update(settings)
         try:
+            request_start = time.perf_counter()
             response = self.session.send(prepared_request, **send_kwargs)
+            request_duration=time.perf_counter()-request_start
             duration = time.time() - start
             raw_data = response.content.decode("utf-8", "surrogatepass")
         except reraise_exceptions:
