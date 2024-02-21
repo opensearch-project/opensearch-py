@@ -208,6 +208,10 @@ class RequestsHttpConnection(Connection):
             if isinstance(e, requests.Timeout):
                 raise ConnectionTimeout("TIMEOUT", str(e), e)
             raise ConnectionError("N/A", str(e), e)
+        
+        # Add the service time to the response headers
+        response.headers["X-Service-Time"] = str(duration)
+
             
 
         # raise warnings if any from the 'Warnings' header.
