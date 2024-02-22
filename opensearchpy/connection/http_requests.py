@@ -216,7 +216,7 @@ class RequestsHttpConnection(Connection):
         
         # Add the service time to the response headers
         if calculate_service_time:
-            response.headers["X-Service-Time"] = str(duration)
+            raw_data["__client"] = {"Service_Time": str(duration)}
 
         # raise warnings if any from the 'Warnings' header.
         warnings_headers = (
