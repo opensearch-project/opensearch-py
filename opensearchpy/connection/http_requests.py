@@ -214,10 +214,10 @@ class RequestsHttpConnection(Connection):
                 raise ConnectionTimeout("TIMEOUT", str(e), e)
             raise ConnectionError("N/A", str(e), e)
         
-        # Add the service time to the response headers
+        # Add the service time to the raw_data
         if calculate_service_time:
-            raw_data["__client"] = {"Service_Time": str(duration)}
-
+            raw_data = raw_data.rstrip()[:-1] + f', "__client": {{"Service_Time": "{duration}"}}' + '}'
+            
         # raise warnings if any from the 'Warnings' header.
         warnings_headers = (
             (response.headers["warning"],) if "warning" in response.headers else ()
