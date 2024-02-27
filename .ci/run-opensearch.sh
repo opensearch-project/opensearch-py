@@ -55,10 +55,16 @@ END
 END
 ))
 
-password="admin"
-# OpenSearch 2.12 onwards security plugins requires a password to be set to setup admin user
-if [ "$(echo "${VERSION} 2.12" | awk '{print ($1 >= $2)}')" -eq 1 ]; then
-  password="myStrongPassword123!"
+OPENSEARCH_REQUIRED_VERSION="2.12.0"
+if [ -z "$CREDENTIAL" ]
+then
+  # Starting in 2.12.0, security demo configuration script requires an initial admin password
+  COMPARE_VERSION=`echo $OPENSEARCH_REQUIRED_VERSION $OPENSEARCH_VERSION | tr ' ' '\n' | sort -V | uniq | head -n 1`
+  if [ "$COMPARE_VERSION" != "$OPENSEARCH_REQUIRED_VERSION" ]; then
+    CREDENTIAL="admin:admin"
+  else
+    CREDENTIAL="admin:myStrongPassword123!"
+  fi
 fi
 
   # make sure we detach for all but the last node if DETACH=false (default) so all nodes are started
@@ -68,7 +74,7 @@ fi
   set -x
   healthcmd="curl -vvv -s --fail http://localhost:9200/_cluster/health || exit 1"
   if [[ "$SECURE_INTEGRATION" == "true" ]]; then
-    healthcmd="curl -vvv -s --insecure -u admin:$password --fail https://localhost:9200/_cluster/health || exit 1"
+    healthcmd="curl -vvv -s --insecure -u $CREDENTIAL --fail https://localhost:9200/_cluster/health || exit 1"
   fi
 
   CLUSTER_TAG=$CLUSTER
