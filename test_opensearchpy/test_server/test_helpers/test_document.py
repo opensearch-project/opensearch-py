@@ -284,22 +284,22 @@ def test_save_and_update_return_doc_meta(write_client: Any) -> None:
     resp = w.save(return_doc_meta=True)
     assert resp["_index"] == "test-wiki"
     assert resp["result"] == "created"
-    assert resp.keys().__contains__("_id")
-    assert resp.keys().__contains__("_primary_term")
-    assert resp.keys().__contains__("_seq_no")
-    assert resp.keys().__contains__("_shards")
-    assert resp.keys().__contains__("_version")
+    assert "_id" in resp.keys()
+    assert "_primary_term" in resp.keys()
+    assert "_seq_no" in resp.keys()
+    assert "_shards" in resp.keys()
+    assert "_version" in resp.keys()
 
     resp = w.update(
         script="ctx._source.views += params.inc", inc=5, return_doc_meta=True
     )
     assert resp["_index"] == "test-wiki"
     assert resp["result"] == "updated"
-    assert resp.keys().__contains__("_id")
-    assert resp.keys().__contains__("_primary_term")
-    assert resp.keys().__contains__("_seq_no")
-    assert resp.keys().__contains__("_shards")
-    assert resp.keys().__contains__("_version")
+    assert "_id" in resp.keys()
+    assert "_primary_term" in resp.keys()
+    assert "_seq_no" in resp.keys()
+    assert "_shards" in resp.keys()
+    assert "_version" in resp.keys()
 
 
 def test_init(write_client: Any) -> None:

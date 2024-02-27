@@ -112,7 +112,7 @@ class TestConnectionPool(TestCase):
         # Nothing should be marked dead
         self.assertEqual(0, len(pool.dead_count))
 
-    def test_connection_is_forcibly_resurrected_when_no_live_ones_are_availible(
+    def test_connection_is_forcibly_resurrected_when_no_live_ones_are_available(
         self,
     ) -> None:
         pool = ConnectionPool([(x, {}) for x in range(2)])

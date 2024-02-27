@@ -70,7 +70,7 @@ class CatClient(NamespacedClient):
             "GET", _make_path("_cat", "aliases", name), params=params, headers=headers
         )
 
-    @query_params()
+    @query_params("bytes", "format", "h", "help", "s", "v")
     async def all_pit_segments(
         self,
         params: Any = None,
@@ -79,6 +79,16 @@ class CatClient(NamespacedClient):
         """
         Lists all active point-in-time segments.
 
+
+        :arg bytes: The unit in which to display byte values. Valid
+            choices are b, k, kb, m, mb, g, gb, t, tb, p, pb.
+        :arg format: A short version of the Accept header, e.g. json,
+            yaml.
+        :arg h: Comma-separated list of column names to display.
+        :arg help: Return help information. Default is false.
+        :arg s: Comma-separated list of column names or column aliases
+            to sort by.
+        :arg v: Verbose mode. Display column headers. Default is false.
         """
         return await self.transport.perform_request(
             "GET", "/_cat/pit_segments/_all", params=params, headers=headers
@@ -503,7 +513,7 @@ class CatClient(NamespacedClient):
             "GET", "/_cat/pending_tasks", params=params, headers=headers
         )
 
-    @query_params()
+    @query_params("bytes", "format", "h", "help", "s", "v")
     async def pit_segments(
         self,
         body: Any = None,
@@ -514,6 +524,15 @@ class CatClient(NamespacedClient):
         List segments for one or several PITs.
 
 
+        :arg bytes: The unit in which to display byte values. Valid
+            choices are b, k, kb, m, mb, g, gb, t, tb, p, pb.
+        :arg format: A short version of the Accept header, e.g. json,
+            yaml.
+        :arg h: Comma-separated list of column names to display.
+        :arg help: Return help information. Default is false.
+        :arg s: Comma-separated list of column names or column aliases
+            to sort by.
+        :arg v: Verbose mode. Display column headers. Default is false.
         """
         return await self.transport.perform_request(
             "GET", "/_cat/pit_segments", params=params, headers=headers, body=body
@@ -632,15 +651,20 @@ class CatClient(NamespacedClient):
 
     @query_params(
         "active_only",
+        "allow_no_indices",
         "bytes",
         "completed_only",
         "detailed",
+        "expand_wildcards",
         "format",
         "h",
         "help",
+        "ignore_throttled",
+        "ignore_unavailable",
         "s",
         "shards",
         "time",
+        "timeout",
         "v",
     )
     async def segment_replication(
@@ -658,21 +682,32 @@ class CatClient(NamespacedClient):
             names to limit the returned information.
         :arg active_only: If `true`, the response only includes ongoing
             segment replication events. Default is false.
+        :arg allow_no_indices: Whether to ignore if a wildcard indices
+            expression resolves into no concrete indices. (This includes `_all`
+            string or when no indices have been specified).
         :arg bytes: The unit in which to display byte values. Valid
             choices are b, k, kb, m, mb, g, gb, t, tb, p, pb.
         :arg completed_only: If `true`, the response only includes
             latest completed segment replication events. Default is false.
         :arg detailed: If `true`, the response includes detailed
             information about segment replications. Default is false.
+        :arg expand_wildcards: Whether to expand wildcard expression to
+            concrete indices that are open, closed or both. Valid choices are all,
+            open, closed, hidden, none.
         :arg format: A short version of the Accept header, e.g. json,
             yaml.
         :arg h: Comma-separated list of column names to display.
         :arg help: Return help information. Default is false.
+        :arg ignore_throttled: Whether specified concrete, expanded or
+            aliased indices should be ignored when throttled.
+        :arg ignore_unavailable: Whether specified concrete indices
+            should be ignored when unavailable (missing or closed).
         :arg s: Comma-separated list of column names or column aliases
             to sort by.
         :arg shards: Comma-separated list of shards to display.
         :arg time: The unit in which to display time values. Valid
             choices are d, h, m, s, ms, micros, nanos.
+        :arg timeout: Operation timeout.
         :arg v: Verbose mode. Display column headers. Default is false.
         """
         return await self.transport.perform_request(

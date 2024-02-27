@@ -88,7 +88,8 @@ class TestAIOHttpConnection:
             # it means SSLContext is not available for that version of python
             # and we should skip this test.
             pytest.skip(
-                "Test test_ssl_context is skipped cause SSLContext is not available for this version of Python"
+                "Test test_ssl_context is skipped cause SSLContext is "
+                "not available for this version of Python"
             )
 
         con = AIOHttpConnection(use_ssl=True, ssl_context=context)
@@ -202,8 +203,8 @@ class TestAIOHttpConnection:
             con = AIOHttpConnection(use_ssl=True, verify_certs=False)
             assert 1 == len(w)
             assert (
-                "Connecting to https://localhost:9200 using SSL with verify_certs=False is insecure."
-                == str(w[0].message)
+                "Connecting to https://localhost:9200 using SSL with "
+                "verify_certs=False is insecure." == str(w[0].message)
             )
 
         assert con.use_ssl
@@ -340,7 +341,7 @@ class TestAIOHttpConnection:
     async def test_surrogatepass_into_bytes(self) -> None:
         buf = b"\xe4\xbd\xa0\xe5\xa5\xbd\xed\xa9\xaa"
         con = await self._get_mock_connection(response_body=buf)
-        status, headers, data = await con.perform_request("GET", "/")
+        _, _, data = await con.perform_request("GET", "/")
         assert u"你好\uda6a" == data  # fmt: skip
 
     @pytest.mark.parametrize("exception_cls", reraise_exceptions)  # type: ignore
@@ -379,17 +380,21 @@ class TestConnectionHttpServer:
 
     @classmethod
     def setup_class(cls) -> None:
-        # Start server
+        """
+        Start server
+        """
         cls.server = TestHTTPServer(port=8081)
         cls.server.start()
 
     @classmethod
     def teardown_class(cls) -> None:
-        # Stop server
+        """
+        stop server
+        """
         cls.server.stop()
 
     async def httpserver(self, conn: Any, **kwargs: Any) -> Any:
-        status, headers, data = await conn.perform_request("GET", "/", **kwargs)
+        status, _, data = await conn.perform_request("GET", "/", **kwargs)
         data = json.loads(data)
         return (status, data)
 

@@ -22,6 +22,10 @@ pytestmark: MarkDecorator = pytest.mark.asyncio
 
 @fixture  # type: ignore
 async def mock_client(dummy_response: Any) -> Any:
+    """
+    yields a mock client with the dummy_response param
+    :param dummy_response: any kind of response for test
+    """
     client = Mock()
     client.search.return_value = dummy_response
     await add_connection("mock", client)

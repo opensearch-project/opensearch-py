@@ -22,32 +22,34 @@ from opensearchpy import OpenSearch, Urllib3HttpConnection
 
 
 def index_records(client: Any, index_name: str, item_count: int) -> Any:
-    tt = 0
-    for n in range(10):
+    """bulk index item_count records into index_name"""
+    total_time = 0
+    for _ in range(10):
         data: Any = []
-        for i in range(item_count):
+        for item in range(item_count):
             data.append(
                 json.dumps({"index": {"_index": index_name, "_id": str(uuid.uuid4())}})
             )
-            data.append(json.dumps({"value": i}))
+            data.append(json.dumps({"value": item}))
         data = "\n".join(data)
 
         start = time.time() * 1000
-        rc = client.bulk(data)
-        if rc["errors"]:
-            raise Exception(rc["errors"])
+        response = client.bulk(data)
+        if response["errors"]:
+            raise Exception(response["errors"])
 
-        server_time = rc["took"]
-        total_time = time.time() * 1000 - start
+        server_time = response["took"]
+        this_time = time.time() * 1000 - start
 
-        if total_time < server_time:
-            raise Exception(f"total={total_time} < server={server_time}")
+        if this_time < server_time:
+            raise Exception(f"total={this_time} < server={server_time}")
 
-        tt += total_time - server_time
-    return tt
+        total_time += this_time - server_time
+    return total_time
 
 
 def test(thread_count: int = 1, item_count: int = 1, client_count: int = 1) -> None:
+    """test to index with thread_count threads, item_count records and run client_count clients"""
     host = "localhost"
     port = 9200
     auth = ("admin", "admin")
@@ -66,7 +68,7 @@ def test(thread_count: int = 1, item_count: int = 1, client_count: int = 1) -> N
     root.addHandler(handler)
 
     clients = []
-    for i in range(client_count):
+    for _ in range(client_count):
         clients.append(
             OpenSearch(
                 hosts=[{"host": host, "port": port}],
@@ -103,8 +105,8 @@ def test(thread_count: int = 1, item_count: int = 1, client_count: int = 1) -> N
         thread.start()
 
     latency = 0
-    for t in threads:
-        latency += t.join()
+    for thread in threads:
+        latency += thread.join()
 
     clients[0].indices.refresh(index=index_name)
     count = clients[0].count(index=index_name)
@@ -118,22 +120,27 @@ ITEM_COUNT = 1000
 
 
 def test_1() -> None:
+    """testing 1 threads"""
     test(1, 32 * ITEM_COUNT, 1)
 
 
 def test_2() -> None:
+    """testing 2 threads"""
     test(2, 16 * ITEM_COUNT, 2)
 
 
 def test_4() -> None:
+    """testing 4 threads"""
     test(4, 8 * ITEM_COUNT, 3)
 
 
 def test_8() -> None:
+    """testing 8 threads"""
     test(8, 4 * ITEM_COUNT, 8)
 
 
 def test_32() -> None:
+    """testing 32 threads"""
     test(32, ITEM_COUNT, 32)
 
 

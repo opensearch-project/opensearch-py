@@ -361,6 +361,7 @@ class AIOHttpConnection(AsyncConnection):
         """
         if self.session:
             await self.session.close()
+            self.session = None
 
     async def _create_aiohttp_session(self) -> Any:
         """Creates an aiohttp.ClientSession(). This is delayed until

@@ -145,7 +145,7 @@ def wipe_node_shutdown_metadata(client: Any) -> None:
 
 def wipe_tasks(client: Any) -> None:
     tasks = client.tasks.list()
-    for node_name, node in tasks.get("node", {}).items():
+    for _, node in tasks.get("node", {}).items():
         for task_id in node.get("tasks", ()):
             client.tasks.cancel(task_id=task_id, wait_for_completion=True)
 

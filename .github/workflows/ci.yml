@@ -18,6 +18,21 @@ jobs:
           python3.7 -m pip install nox
       - name: Lint the code
         run: nox -s lint
+  
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+      - name: Set up Python 3.7
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.7
+      - name: Install dependencies
+        run: |
+          python3.7 -m pip install nox
+      - name: Run the api generator
+        run: nox -s generate
 
   test-build-distribution:
     runs-on: ubuntu-latest

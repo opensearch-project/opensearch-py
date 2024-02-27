@@ -60,10 +60,24 @@ class TestYarlMissing:
     async def test_aiohttp_connection_works_without_yarl(
         self, async_client: Any, monkeypatch: Any
     ) -> None:
-        # This is a defensive test case for if aiohttp suddenly stops using yarl.
+        """
+        This is a defensive test case for if aiohttp suddenly stops using yarl.
+        """
         from opensearchpy._async import http_aiohttp
 
         monkeypatch.setattr(http_aiohttp, "yarl", False)
 
         resp = await async_client.info(pretty=True)
         assert isinstance(resp, dict)
+
+
+class TestClose:
+    async def test_close_doesnt_break_client(self, async_client: Any) -> None:
+        await async_client.cluster.health()
+        await async_client.close()
+        await async_client.cluster.health()
+
+    async def test_with_doesnt_break_client(self, async_client: Any) -> None:
+        for _ in range(2):
+            async with async_client as client:
+                await client.cluster.health()

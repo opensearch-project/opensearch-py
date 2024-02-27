@@ -16,6 +16,11 @@ from opensearchpy import AsyncOpenSearch
 
 
 async def main() -> None:
+    """
+    this sample uses asyncio and AsyncOpenSearch to asynchronously
+    connect to local OpenSearch cluster, create an index,
+    index data, search the index, delete the document, delete the index
+    """
     # connect to OpenSearch
     host = "localhost"
     port = 9200
@@ -47,28 +52,30 @@ async def main() -> None:
 
         document = {"title": "Moneyball", "director": "Bennett Miller", "year": "2011"}
 
-        id = "1"
+        doc_id = "1"
 
         print(
             await client.http.put(
-                f"/{index_name}/_doc/{id}?refresh=true", body=document
+                f"/{index_name}/_doc/{doc_id}?refresh=true", body=document
             )
         )
 
         # search for a document
 
-        q = "miller"
+        user_query = "miller"
 
         query = {
             "size": 5,
-            "query": {"multi_match": {"query": q, "fields": ["title^2", "director"]}},
+            "query": {
+                "multi_match": {"query": user_query, "fields": ["title^2", "director"]}
+            },
         }
 
         print(await client.http.post(f"/{index_name}/_search", body=query))
 
         # delete the document
 
-        print(await client.http.delete(f"/{index_name}/_doc/{id}"))
+        print(await client.http.delete(f"/{index_name}/_doc/{doc_id}"))
 
         # delete the index
 

@@ -98,7 +98,7 @@ class SecurityClient(NamespacedClient):
         """
         return await self.transport.perform_request(
             "GET",
-            "/_plugins/_security/api/actiongroups/",
+            "/_plugins/_security/api/actiongroups",
             params=params,
             headers=headers,
         )

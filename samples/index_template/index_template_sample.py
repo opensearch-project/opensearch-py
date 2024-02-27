@@ -12,6 +12,21 @@ from opensearchpy import OpenSearch
 
 
 def main() -> None:
+    """
+    # pylint: disable=line-too-long
+    1. connects to an OpenSearch instance running on localhost
+    2. Create an index template named `books` with default settings and mappings for indices of
+    the `books-*` pattern. You can create an index template to define default settings and mappings for indices
+    of certain patterns.
+    3. When creating an index that matches the `books-*` pattern, OpenSearch will automatically apply the template's
+    settings and mappings to the index. Create an index named books-nonfiction and verify that its settings and mappings
+     match those of the template
+    4. If multiple index templates match the index's name, OpenSearch will apply the template with the highest
+    `priority`. In the example, two templates are created with different priorities.
+    5. Composable index templates are a new type of index template that allow you to define multiple component templates
+     and compose them into a final template. The last part of the example before cleaning up creates a component
+     template named `books_mappings` with default mappings for indices of the `books-*` and `books-fiction-*` patterns.
+    """
     # Create a client instance
     client = OpenSearch(
         hosts=["https://localhost:9200"],
@@ -20,8 +35,7 @@ def main() -> None:
         http_auth=("admin", "admin"),
     )
 
-    # You can create an index template to define default settings and mappings for indices of certain patterns.
-    # The following example creates an index template named `books` with default settings and mappings for indices of the `books-*` pattern:
+    # create an index template
     client.indices.put_index_template(
         name="books",
         body={
@@ -41,13 +55,10 @@ def main() -> None:
         },
     )
 
-    # Now, when you create an index that matches the `books-*` pattern, OpenSearch will automatically apply the template's settings and mappings to the index.
-    # Let's create an index named books-nonfiction and verify that its settings and mappings match those of the template:
+    # create the index which applies the index template settings matched by pattern
     client.indices.create(index="books-nonfiction")
     print(client.indices.get(index="books-nonfiction"))
 
-    # If multiple index templates match the index's name, OpenSearch will apply the template with the highest `priority`.
-    # The following example creates two index templates named `books-*` and `books-fiction-*` with different settings:
     client.indices.put_index_template(
         name="books",
         body={
@@ -74,8 +85,6 @@ def main() -> None:
     client.indices.create(index="books-fiction-romance")
     print(client.indices.get(index="books-fiction-romance"))
 
-    # Composable index templates are a new type of index template that allow you to define multiple component templates and compose them into a final template.
-    # The following example creates a component template named `books_mappings` with default mappings for indices of the `books-*` and `books-fiction-*` patterns:
     client.cluster.put_component_template(
         name="books_mappings",
         body={
@@ -92,6 +101,7 @@ def main() -> None:
         },
     )
 
+    # composable index templates
     client.indices.put_index_template(
         name="books",
         body={

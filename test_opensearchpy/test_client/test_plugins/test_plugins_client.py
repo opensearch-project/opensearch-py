@@ -17,8 +17,9 @@ class TestPluginsClient(TestCase):
         with self.assertWarns(Warning) as w:
             client = OpenSearch()
             # double-init
-            client.plugins.__init__(client)  # type: ignore
+            client.plugins.__init__(client)  # type: ignore # pylint: disable=unnecessary-dunder-call
             self.assertEqual(
                 str(w.warnings[0].message),
-                "Cannot load `alerting` directly to OpenSearch as it already exists. Use `OpenSearch.plugin.alerting` instead.",
+                "Cannot load `alerting` directly to OpenSearch as "
+                "it already exists. Use `OpenSearch.plugin.alerting` instead.",
             )

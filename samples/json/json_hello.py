@@ -14,6 +14,9 @@ from opensearchpy import OpenSearch
 
 
 def main() -> None:
+    """
+    demonstrates how to index a document using a dict
+    """
     # connect to OpenSearch
 
     host = "localhost"
@@ -43,24 +46,26 @@ def main() -> None:
 
     document = {"title": "Moneyball", "director": "Bennett Miller", "year": "2011"}
 
-    id = "1"
+    doc_id = "1"
 
-    print(client.http.put(f"/{index_name}/_doc/{id}?refresh=true", body=document))
+    print(client.http.put(f"/{index_name}/_doc/{doc_id}?refresh=true", body=document))
 
     # search for a document
 
-    q = "miller"
+    user_query = "miller"
 
     query = {
         "size": 5,
-        "query": {"multi_match": {"query": q, "fields": ["title^2", "director"]}},
+        "query": {
+            "multi_match": {"query": user_query, "fields": ["title^2", "director"]}
+        },
     }
 
     print(client.http.post(f"/{index_name}/_search", body=query))
 
     # delete the document
 
-    print(client.http.delete(f"/{index_name}/_doc/{id}"))
+    print(client.http.delete(f"/{index_name}/_doc/{doc_id}"))
 
     # delete the index
 

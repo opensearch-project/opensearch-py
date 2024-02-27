@@ -18,6 +18,9 @@ from opensearchpy import AsyncHttpConnection, AsyncOpenSearch, helpers
 
 
 async def main() -> None:
+    """
+    asynchronously create, bulk index, and query kNN. then delete the index
+    """
     # connect to an instance of OpenSearch
     host = os.getenv("HOST", default="localhost")
     port = int(os.getenv("PORT", 9200))
@@ -53,7 +56,7 @@ async def main() -> None:
     vectors = []
     for i in range(10):
         vec = []
-        for j in range(dimensions):
+        for _ in range(dimensions):
             vec.append(round(random.uniform(0, 1), 2))
 
         vectors.append(
@@ -71,7 +74,7 @@ async def main() -> None:
 
     # search
     vec = []
-    for j in range(dimensions):
+    for _ in range(dimensions):
         vec.append(round(random.uniform(0, 1), 2))
     print(f"Searching for {vec} ...")
 

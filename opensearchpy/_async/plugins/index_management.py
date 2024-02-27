@@ -56,15 +56,13 @@ class IndexManagementClient(NamespacedClient):
 
     @query_params()
     async def get_policy(
-        self, policy: Any, params: Any = None, headers: Any = None
+        self, policy: Any = None, params: Any = None, headers: Any = None
     ) -> Any:
         """
-        Gets the policy by `policy_id`.
+        Gets the policy by `policy_id`; returns all policies if no policy_id is provided.
 
         :arg policy: The name of the policy
         """
-        if policy in SKIP_IN_PATH:
-            raise ValueError("Empty value passed for a required argument 'policy'.")
 
         return await self.transport.perform_request(
             "GET",

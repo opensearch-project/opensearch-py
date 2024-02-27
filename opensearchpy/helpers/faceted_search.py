@@ -23,7 +23,6 @@
 #  KIND, either express or implied.  See the License for the
 #  specific language governing permissions and limitations
 #  under the License.
-
 from datetime import datetime, timedelta
 from typing import Any, Optional
 
@@ -86,10 +85,7 @@ class Facet(object):
         return f
 
     def get_value_filter(self, filter_value: Any) -> Any:
-        """
-        Construct a filter for an individual value
-        """
-        pass
+        return None
 
     def is_filtered(self, key: Any, filter_values: Any) -> bool:
         """

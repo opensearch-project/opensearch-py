@@ -17,6 +17,10 @@ from opensearchpy import OpenSearch, helpers
 
 
 def main() -> None:
+    """
+    demonstrates how to bulk load data using opensearchpy.helpers
+    including examples of serial, parallel, and streaming bulk load
+    """
     # connect to an instance of OpenSearch
 
     host = os.getenv("HOST", default="localhost")
@@ -52,7 +56,7 @@ def main() -> None:
         data.append({"_index": index_name, "_id": i, "value": i})
 
     # serialized bulk raising an exception on error
-    rc = helpers.bulk(client, data)
+    rc = helpers.bulk(client, data)  # pylint: disable=invalid-name
     print(f"Bulk-inserted {rc[0]} items (bulk).")
 
     # parallel bulk with explicit error checking

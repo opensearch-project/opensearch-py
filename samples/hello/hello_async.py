@@ -16,6 +16,11 @@ from opensearchpy import AsyncOpenSearch
 
 
 async def main() -> None:
+    """
+    an example showing how to create an asynchronous connection
+    to OpenSearch, create an index, index a document and
+    search to return the document
+    """
     # connect to OpenSearch
     host = "localhost"
     port = 9200
@@ -64,11 +69,13 @@ async def main() -> None:
         await client.indices.refresh(index=index_name)
 
         # search for a document
-        q = "miller"
+        user_query = "miller"
 
         query = {
             "size": 5,
-            "query": {"multi_match": {"query": q, "fields": ["title^2", "director"]}},
+            "query": {
+                "multi_match": {"query": user_query, "fields": ["title^2", "director"]}
+            },
         }
 
         results = await client.search(body=query, index=index_name)

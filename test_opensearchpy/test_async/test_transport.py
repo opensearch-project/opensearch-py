@@ -449,8 +449,10 @@ class TestTransport:
         assert event_loop.time() - 1 < t.last_sniff < event_loop.time() + 0.01
 
     async def test_sniff_7x_publish_host(self) -> None:
-        # Test the response shaped when a 7.x node has publish_host set
-        # and the returend data is shaped in the fqdn/ip:port format.
+        """
+        Test the response shaped when a 7.x node has publish_host set
+        and the returned data is shaped in the fqdn/ip:port format.
+        """
         t: Any = AsyncTransport(
             [{"data": CLUSTER_NODES_7X_PUBLISH_HOST}],
             connection_class=DummyConnection,
