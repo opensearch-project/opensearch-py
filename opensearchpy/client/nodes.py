@@ -122,7 +122,8 @@ class NodesClient(NamespacedClient):
             nodes.
         :arg metric: Limit the information returned to the specified
             metrics. Valid choices are _all, breaker, fs, http, indices, jvm, os,
-            process, thread_pool, transport, discovery, indexing_pressure.
+            process, thread_pool, transport, discovery, indexing_pressure,
+            search_pipeline.
         :arg index_metric: Limit the information returned for `indices`
             metric to the specific index metrics. Isn't used if `indices` (or `all`)
             metric isn't specified. Valid choices are _all, store, indexing, get,

@@ -17,6 +17,9 @@ from opensearchpy import OpenSearch, helpers
 
 
 def main() -> None:
+    """
+    create, bulk index, and query kNN. then delete the index
+    """
     # connect to an instance of OpenSearch
 
     host = os.getenv("HOST", default="localhost")
@@ -52,7 +55,7 @@ def main() -> None:
     vectors = []
     for i in range(10):
         vec = []
-        for j in range(dimensions):
+        for _ in range(dimensions):
             vec.append(round(random.uniform(0, 1), 2))
 
         vectors.append(
@@ -69,15 +72,12 @@ def main() -> None:
     client.indices.refresh(index=index_name)
 
     # search
-    vec = []
-    for j in range(dimensions):
-        vec.append(round(random.uniform(0, 1), 2))
+    vec = [round(random.uniform(0, 1), 2) for _ in range(dimensions)]
     print(f"Searching for {vec} ...")
 
     search_query = {"query": {"knn": {"values": {"vector": vec, "k": 3}}}}
     results = client.search(index=index_name, body=search_query)
-    for hit in results["hits"]["hits"]:
-        print(hit)
+    (print(hit) for hit in results["hits"]["hits"])
 
     # delete index
     client.indices.delete(index=index_name)

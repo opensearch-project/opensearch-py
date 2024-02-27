@@ -1,0 +1,53 @@
+name: Update API 
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "30 3 * * *"
+jobs:
+  update-api:
+    if: ${{ github.repository == 'opensearch-project/opensearch-py' }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          fetch-depth: 0
+      - name: Config git to rebase
+        run: git config --global pull.rebase true
+      - name: Set up Python 3.7
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.7
+      - name: Install dependencies
+        run: |
+          python3.7 -m pip install nox
+      - name: Generate API
+        run: nox -s generate
+      - name: Get current date
+        id: date
+        run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
+      - name: GitHub App token
+        id: github_app_token
+        uses: tibdex/github-app-token@v1.5.0
+        with:
+          app_id: ${{ secrets.APP_ID }}
+          private_key: ${{ secrets.APP_PRIVATE_KEY }}
+          installation_id: 22958780
+      - name: Create pull request
+        id: cpr
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ steps.github_app_token.outputs.token }}
+          commit-message: Updated opensearch-py to reflect the latest OpenSearch API spec (${{ steps.date.outputs.date }})
+          title: Updated opensearch-py to reflect the latest OpenSearch API spec
+          body: |
+            Updated [opensearch-py](https://github.com/opensearch-project/opensearch-py) to reflect the latest [OpenSearch API spec](https://github.com/opensearch-project/opensearch-api-specification/blob/main/OpenSearch.openapi.json)
+            Date: ${{ steps.date.outputs.date }}
+          branch: automated-api-update
+          base: main
+          signoff: true
+          labels: |
+              autocut

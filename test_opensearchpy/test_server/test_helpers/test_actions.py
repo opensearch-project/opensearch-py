@@ -59,15 +59,13 @@ class FailingBulkClient(object):
 class TestStreamingBulk(OpenSearchTestCase):
     def test_actions_remain_unchanged(self) -> None:
         actions = [{"_id": 1}, {"_id": 2}]
-        for ok, item in helpers.streaming_bulk(
-            self.client, actions, index="test-index"
-        ):
+        for ok, _ in helpers.streaming_bulk(self.client, actions, index="test-index"):
             self.assertTrue(ok)
         self.assertEqual([{"_id": 1}, {"_id": 2}], actions)
 
     def test_all_documents_get_inserted(self) -> None:
         docs = [{"answer": x, "_id": x} for x in range(100)]
-        for ok, item in helpers.streaming_bulk(
+        for ok, _ in helpers.streaming_bulk(
             self.client, docs, index="test-index", refresh=True
         ):
             self.assertTrue(ok)
@@ -88,7 +86,7 @@ class TestStreamingBulk(OpenSearchTestCase):
         self.client.cluster.health(wait_for_status="yellow")
 
         try:
-            for ok, item in helpers.streaming_bulk(
+            for ok, _ in helpers.streaming_bulk(
                 self.client, [{"a": "b"}, {"a": "c"}], index="i", raise_on_error=True
             ):
                 self.assertTrue(ok)
@@ -112,7 +110,7 @@ class TestStreamingBulk(OpenSearchTestCase):
                 "doc": {"answer": 42},
             },
         ]
-        for ok, item in helpers.streaming_bulk(self.client, docs):
+        for ok, _ in helpers.streaming_bulk(self.client, docs):
             self.assertTrue(ok)
 
         self.assertFalse(self.client.exists(index="i", id=45))
@@ -509,7 +507,9 @@ class TestScan(OpenSearchTestCase):
                 }
                 client_mock.clear_scroll.return_value = {}
 
-                data = list(helpers.scan(self.client, index="test_index", **{key: val}))  # type: ignore
+                data = list(
+                    helpers.scan(self.client, index="test_index", **{key: val})  # type: ignore
+                )
 
                 self.assertEqual(data, [{"search_data": 1}])
 

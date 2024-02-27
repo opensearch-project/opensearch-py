@@ -166,7 +166,12 @@ class IndicesClient(NamespacedClient):
         )
 
     @query_params(
-        "cluster_manager_timeout", "master_timeout", "timeout", "wait_for_active_shards"
+        "cluster_manager_timeout",
+        "master_timeout",
+        "task_execution_timeout",
+        "timeout",
+        "wait_for_active_shards",
+        "wait_for_completion",
     )
     def clone(
         self,
@@ -189,9 +194,13 @@ class IndicesClient(NamespacedClient):
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Operation timeout for
             connection to master node.
+        :arg task_execution_timeout: Explicit task execution timeout,
+            only useful when wait_for_completion is false, defaults to 1h.
         :arg timeout: Operation timeout.
         :arg wait_for_active_shards: Set the number of active shards to
             wait for on the cloned index before the operation returns.
+        :arg wait_for_completion: Should this request wait until the
+            operation has completed before returning. Default is True.
         """
         for param in (index, target):
             if param in SKIP_IN_PATH:
@@ -260,8 +269,10 @@ class IndicesClient(NamespacedClient):
         "expand_wildcards",
         "ignore_unavailable",
         "master_timeout",
+        "task_execution_timeout",
         "timeout",
         "wait_for_active_shards",
+        "wait_for_completion",
     )
     def open(
         self,
@@ -287,9 +298,13 @@ class IndicesClient(NamespacedClient):
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Operation timeout for
             connection to master node.
+        :arg task_execution_timeout: Explicit task execution timeout,
+            only useful when wait_for_completion is false, defaults to 1h.
         :arg timeout: Operation timeout.
         :arg wait_for_active_shards: Sets the number of active shards to
             wait for before the operation returns.
+        :arg wait_for_completion: Should this request wait until the
+            operation has completed before returning. Default is True.
         """
         if index in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'index'.")
@@ -1245,6 +1260,7 @@ class IndicesClient(NamespacedClient):
         "ignore_unavailable",
         "max_num_segments",
         "only_expunge_deletes",
+        "wait_for_completion",
     )
     def forcemerge(
         self,
@@ -1272,6 +1288,8 @@ class IndicesClient(NamespacedClient):
             be merged into (default: dynamic).
         :arg only_expunge_deletes: Specify whether the operation should
             only expunge deleted documents.
+        :arg wait_for_completion: Should this request wait until the
+            operation has completed before returning. Default is True.
         """
         return self.transport.perform_request(
             "POST", _make_path(index, "_forcemerge"), params=params, headers=headers
@@ -1281,8 +1299,10 @@ class IndicesClient(NamespacedClient):
         "cluster_manager_timeout",
         "copy_settings",
         "master_timeout",
+        "task_execution_timeout",
         "timeout",
         "wait_for_active_shards",
+        "wait_for_completion",
     )
     def shrink(
         self,
@@ -1307,9 +1327,13 @@ class IndicesClient(NamespacedClient):
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Operation timeout for
             connection to master node.
+        :arg task_execution_timeout: Explicit task execution timeout,
+            only useful when wait_for_completion is false, defaults to 1h.
         :arg timeout: Operation timeout.
         :arg wait_for_active_shards: Set the number of active shards to
             wait for on the shrunken index before the operation returns.
+        :arg wait_for_completion: Should this request wait until the
+            operation has completed before returning. Default is True.
         """
         for param in (index, target):
             if param in SKIP_IN_PATH:
@@ -1327,8 +1351,10 @@ class IndicesClient(NamespacedClient):
         "cluster_manager_timeout",
         "copy_settings",
         "master_timeout",
+        "task_execution_timeout",
         "timeout",
         "wait_for_active_shards",
+        "wait_for_completion",
     )
     def split(
         self,
@@ -1354,9 +1380,13 @@ class IndicesClient(NamespacedClient):
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Operation timeout for
             connection to master node.
+        :arg task_execution_timeout: Explicit task execution timeout,
+            only useful when wait_for_completion is false, defaults to 1h.
         :arg timeout: Operation timeout.
         :arg wait_for_active_shards: Set the number of active shards to
             wait for on the shrunken index before the operation returns.
+        :arg wait_for_completion: Should this request wait until the
+            operation has completed before returning. Default is True.
         """
         for param in (index, target):
             if param in SKIP_IN_PATH:

@@ -43,6 +43,10 @@ SOURCE_FILES = (
 
 @nox.session(python=["3.6", "3.7", "3.8", "3.9", "3.10", "3.11"])  # type: ignore
 def test(session: Any) -> None:
+    """
+    runs all tests with a fresh python environment using "python setup.py test"
+    :param session: current nox session
+    """
     session.install(".")
     # ensure client can be imported without aiohttp
     session.run("python", "-c", "import opensearchpy\nprint(opensearchpy.OpenSearch())")
@@ -59,6 +63,10 @@ def test(session: Any) -> None:
 
 @nox.session(python=["3.7"])  # type: ignore
 def format(session: Any) -> None:
+    """
+    runs black and isort to format the files accordingly
+    :param session: current nox session
+    """
     session.install(".")
     session.install("black", "isort")
 
@@ -66,11 +74,15 @@ def format(session: Any) -> None:
     session.run("black", *SOURCE_FILES)
     session.run("python", "utils/license_headers.py", "fix", *SOURCE_FILES)
 
-    lint(session)
+    session.notify("lint")
 
 
 @nox.session(python=["3.7"])  # type: ignore
 def lint(session: Any) -> None:
+    """
+    runs isort, black, flake8, pylint, and mypy to check the files according to each utility's function
+    :param session: current nox session
+    """
     session.install(
         "flake8",
         "black",
@@ -89,7 +101,13 @@ def lint(session: Any) -> None:
     session.run("isort", "--check", *SOURCE_FILES)
     session.run("black", "--check", *SOURCE_FILES)
     session.run("flake8", *SOURCE_FILES)
-    session.run("pylint", *SOURCE_FILES)
+
+    pylint_overrides = ["opensearchpy/", "test_opensearchpy/"]
+    pylint_defaults = [file for file in SOURCE_FILES if file not in pylint_overrides]
+    for file in pylint_overrides:
+        session.run("pylint", "--rcfile", f"{file}.pylintrc", f"{file}")
+    session.run("pylint", "--rcfile", ".pylintrc", *pylint_defaults)
+
     session.run("python", "utils/license_headers.py", "check", *SOURCE_FILES)
 
     # Workaround to make '-r' to still work despite uninstalling aiohttp below.
@@ -110,6 +128,10 @@ def lint(session: Any) -> None:
 
 @nox.session()  # type: ignore
 def docs(session: Any) -> None:
+    """
+    builds the html documentation for the client
+    :param session: current nox session
+    """
     session.install(".")
     session.install(".[docs]")
     with session.chdir("docs"):
@@ -118,6 +140,10 @@ def docs(session: Any) -> None:
 
 @nox.session()  # type: ignore
 def generate(session: Any) -> None:
+    """
+    generates the base API code
+    :param session: current nox session
+    """
     session.install("-rdev-requirements.txt")
     session.run("python", "utils/generate_api.py")
-    format(session)
+    session.notify("format")

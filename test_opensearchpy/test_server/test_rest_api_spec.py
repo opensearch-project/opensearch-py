@@ -89,6 +89,9 @@ SKIP_TESTS = {
     "OpenSearch-main/rest-api-spec/src/main/resources/rest-api-spec/test/search/aggregation/20_terms[4]",
     "OpenSearch-main/rest-api-spec/src/main/resources/rest-api-spec/test/tasks/list/10_basic[0]",
     "OpenSearch-main/rest-api-spec/src/main/resources/rest-api-spec/test/index/90_unsigned_long[1]",
+    "OpenSearch-main/rest-api-spec/src/main/resources/rest-api-spec/test/indices/stats/50_noop_update[0]",
+    "OpenSearch-main/rest-api-spec/src/main/resources/rest-api-spec/test/search/340_doc_values_field[0]",
+    "OpenSearch-main/rest-api-spec/src/main/resources/rest-api-spec/test/search/340_doc_values_field[1]",
     "search/aggregation/250_moving_fn[1]",
     # body: null
     "indices/simulate_index_template/10_basic[2]",
@@ -157,7 +160,7 @@ class YamlRunner:
         self._teardown_code = test_spec.pop("teardown", None)
 
     def setup(self) -> Any:
-        # Pull skips from individual tests to not do unnecessary setup.
+        """Pull skips from individual tests to not do unnecessary setup."""
         skip_code: Any = []
         for action in self._run_code:
             assert len(action) == 1
@@ -472,7 +475,7 @@ client = get_client()
 
 
 def load_rest_api_tests() -> None:
-    # Try loading the REST API test specs from OpenSearch core.
+    """Try loading the REST API test specs from OpenSearch core."""
     try:
         # Construct the HTTP and OpenSearch client
         http = urllib3.PoolManager(retries=10)

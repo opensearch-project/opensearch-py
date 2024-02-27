@@ -1610,6 +1610,7 @@ class AsyncOpenSearch(Client):
         "rest_total_hits_as_int",
         "routing",
         "scroll",
+        "search_pipeline",
         "search_type",
         "seq_no_primary_term",
         "size",
@@ -1704,6 +1705,8 @@ class AsyncOpenSearch(Client):
         :arg routing: Comma-separated list of specific routing values.
         :arg scroll: Specify how long a consistent view of the index
             should be maintained for scrolled search.
+        :arg search_pipeline: Customizable sequence of processing stages
+            applied to search queries.
         :arg search_type: Search operation type. Valid choices are
             query_then_fetch, dfs_query_then_fetch.
         :arg seq_no_primary_term: Specify whether to return sequence

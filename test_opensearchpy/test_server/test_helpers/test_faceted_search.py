@@ -176,6 +176,8 @@ def test_boolean_facet(data_client: Any, repo_search_cls: Any) -> None:
     assert [(True, 1, False)] == r.facets.public
     value, count, selected = r.facets.public[0]
     assert value is True
+    assert count == 1
+    assert selected is False
 
 
 def test_empty_search_finds_everything(

@@ -19,9 +19,9 @@ pytestmark: MarkDecorator = pytest.mark.asyncio
 
 
 async def test_update_by_query_no_script(
-    write_client: Any, setup_ubq_tests: Any
+    write_client: Any, setup_update_by_query_tests: Any
 ) -> None:
-    index = setup_ubq_tests
+    index = setup_update_by_query_tests
 
     ubq = (
         AsyncUpdateByQuery(using=write_client)
@@ -40,9 +40,9 @@ async def test_update_by_query_no_script(
 
 
 async def test_update_by_query_with_script(
-    write_client: Any, setup_ubq_tests: Any
+    write_client: Any, setup_update_by_query_tests: Any
 ) -> None:
-    index = setup_ubq_tests
+    index = setup_update_by_query_tests
 
     ubq = (
         AsyncUpdateByQuery(using=write_client)
@@ -59,9 +59,9 @@ async def test_update_by_query_with_script(
 
 
 async def test_delete_by_query_with_script(
-    write_client: Any, setup_ubq_tests: Any
+    write_client: Any, setup_update_by_query_tests: Any
 ) -> None:
-    index = setup_ubq_tests
+    index = setup_update_by_query_tests
 
     ubq = (
         AsyncUpdateByQuery(using=write_client)

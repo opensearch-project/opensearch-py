@@ -17,6 +17,7 @@ from opensearchpy import AsyncHttpConnection, AsyncOpenSearch
 
 
 async def index_records(client: Any, index_name: str, item_count: int) -> None:
+    """asynchronously bulk index item_count records into the index (index_name)"""
     await asyncio.gather(
         *[
             client.index(
@@ -34,6 +35,11 @@ async def index_records(client: Any, index_name: str, item_count: int) -> None:
 
 
 async def test_async(client_count: int = 1, item_count: int = 1) -> None:
+    """
+    asynchronously index with item_count records and run client_count
+    clients. This function can be used to test balancing the number of
+    items indexed with the number of documents.
+    """
     host = "localhost"
     port = 9200
     auth = ("admin", "admin")
@@ -74,6 +80,7 @@ async def test_async(client_count: int = 1, item_count: int = 1) -> None:
 
 
 def test(item_count: int = 1, client_count: int = 1) -> None:
+    """sets up and executes the asynchronous tests"""
     loop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
     loop.run_until_complete(test_async(item_count, client_count))
@@ -84,26 +91,32 @@ ITEM_COUNT = 100
 
 
 def test_1() -> None:
+    """run a test for one item and 32*ITEM_COUNT clients"""
     test(1, 32 * ITEM_COUNT)
 
 
 def test_2() -> None:
+    """run a test for two items and 16*ITEM_COUNT clients"""
     test(2, 16 * ITEM_COUNT)
 
 
 def test_4() -> None:
+    """run a test for two items and 8*ITEM_COUNT clients"""
     test(4, 8 * ITEM_COUNT)
 
 
 def test_8() -> None:
+    """run a test for four items and 4*ITEM_COUNT clients"""
     test(8, 4 * ITEM_COUNT)
 
 
 def test_16() -> None:
+    """run a test for 16 items and 2*ITEM_COUNT clients"""
     test(16, 2 * ITEM_COUNT)
 
 
 def test_32() -> None:
+    """run a test for 32 items and ITEM_COUNT clients"""
     test(32, ITEM_COUNT)
 
 

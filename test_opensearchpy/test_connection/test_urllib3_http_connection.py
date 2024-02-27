@@ -73,7 +73,8 @@ class TestUrllib3HttpConnection(TestCase):
             # it means SSLContext is not available for that version of python
             # and we should skip this test.
             raise SkipTest(
-                "Test test_ssl_context is skipped cause SSLContext is not available for this version of python"
+                "Test test_ssl_context is skipped cause SSLContext"
+                " is not available for this version of python"
             )
 
         con = Urllib3HttpConnection(use_ssl=True, ssl_context=context)
@@ -272,7 +273,8 @@ class TestUrllib3HttpConnection(TestCase):
             con = Urllib3HttpConnection(use_ssl=True, verify_certs=False)
             self.assertEqual(1, len(w))
             self.assertEqual(
-                "Connecting to https://localhost:9200 using SSL with verify_certs=False is insecure.",
+                "Connecting to https://localhost:9200 using SSL with "
+                "verify_certs=False is insecure.",
                 str(w[0].message),
             )
 
@@ -382,7 +384,7 @@ class TestUrllib3HttpConnection(TestCase):
     def test_surrogatepass_into_bytes(self) -> None:
         buf = b"\xe4\xbd\xa0\xe5\xa5\xbd\xed\xa9\xaa"
         con = self._get_mock_connection(response_body=buf)
-        status, headers, data = con.perform_request("GET", "/")
+        _, _, data = con.perform_request("GET", "/")
         self.assertEqual(u"你好\uda6a", data)  # fmt: skip
 
     def test_recursion_error_reraised(self) -> None:

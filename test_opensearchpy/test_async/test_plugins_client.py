@@ -23,8 +23,9 @@ class TestPluginsClient:
         with warnings.catch_warnings(record=True) as w:
             client = AsyncOpenSearch()
             # testing double-init here
-            client.plugins.__init__(client)  # type: ignore
+            client.plugins.__init__(client)  # type: ignore # pylint: disable=unnecessary-dunder-call
             assert (
                 str(w[0].message)
-                == "Cannot load `alerting` directly to AsyncOpenSearch as it already exists. Use `AsyncOpenSearch.plugin.alerting` instead."
+                == "Cannot load `alerting` directly to AsyncOpenSearch as it already exists. Use "
+                "`AsyncOpenSearch.plugin.alerting` instead."
             )

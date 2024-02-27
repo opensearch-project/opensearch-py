@@ -34,13 +34,19 @@ from ...utils import wipe_cluster
 
 
 class AsyncOpenSearchTestCase(IsolatedAsyncioTestCase):  # type: ignore
-    async def asyncSetUp(self) -> None:  # pylint: disable=invalid-name
+    async def asyncSetUp(
+        self,
+    ) -> None:
+        # pylint: disable=invalid-name,missing-function-docstring
         self.client = await get_test_client(
             verify_certs=False, http_auth=("admin", "admin")
         )
         await add_connection("default", self.client)
 
-    async def asyncTearDown(self) -> None:  # pylint: disable=invalid-name
+    async def asyncTearDown(
+        self,
+    ) -> None:
+        # pylint: disable=invalid-name,missing-function-docstring
         wipe_cluster(self.client)
         if self.client:
             await self.client.close()
