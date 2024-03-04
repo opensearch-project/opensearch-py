@@ -38,7 +38,7 @@ jobs:
           installation_id: 22958780
       - name: Create pull request
         id: cpr
-        uses: peter-evans/create-pull-request@v5
+        uses: peter-evans/create-pull-request@v6
         with:
           token: ${{ steps.github_app_token.outputs.token }}
           commit-message: Updated opensearch-py to reflect the latest OpenSearch API spec (${{ steps.date.outputs.date }})
