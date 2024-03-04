@@ -33,6 +33,7 @@
 import json
 import os
 import re
+import shutil
 from functools import lru_cache
 from itertools import chain, groupby
 from operator import itemgetter
@@ -764,34 +765,22 @@ def dump_modules(modules: Any) -> None:
     unasync.unasync_files(filepaths, rules)
     blacken(CODE_ROOT / "opensearchpy")
 
-    # Updating the CHANGELOG.md
-    response = requests.get(
-        "https://api.github.com/repos/opensearch-project/opensearch-api-specification/commits"
-    )
-    if response.ok:
-        commit_info = response.json()[0]
-        commit_url = commit_info["html_url"]
-        latest_commit_sha = commit_info.get("sha")
-    else:
-        raise Exception(
-            f"Failed to fetch opensearch-api-specification commit information. Status code: {response.status_code}"
-        )
-
-    with open("CHANGELOG.md", "r+", encoding="utf-8") as file:
-        content = file.read()
-        if commit_url not in content:
-            if "### Updated APIs" in content:
-                file_content = content.replace(
-                    "### Updated APIs",
-                    f"### Updated APIs\n- Updated opensearch-py APIs to reflect [opensearch-api-specification@{latest_commit_sha[:7]}]({commit_url})",
-                    1,
-                )
-                file.seek(0)
-                file.write(file_content)
-                file.truncate()
-            else:
-                raise Exception("'Updated APIs' section is not present in CHANGELOG.md")
-
 
 if __name__ == "__main__":
+    # Store directories for comparison pre-generation vs post-generation.
+    root_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    before_paths = [
+        os.path.join(root_dir, f"before_generate/{folder}")
+        for folder in ["client", "async_client"]
+    ]
+
+    for path in before_paths:
+        if os.path.exists(path):
+            shutil.rmtree(path)
+
+    shutil.copytree(os.path.join(root_dir, "opensearchpy/client"), before_paths[0])
+    shutil.copytree(
+        os.path.join(root_dir, "opensearchpy/_async/client"), before_paths[1]
+    )
+
     dump_modules(read_modules())

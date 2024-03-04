@@ -146,4 +146,5 @@ def generate(session: Any) -> None:
     """
     session.install("-rdev-requirements.txt")
     session.run("python", "utils/generate_api.py")
-    session.notify("format")
+    session.run("nox", "-s", "format", external=True)
+    session.run("python", "utils/changelog_updater.py")
