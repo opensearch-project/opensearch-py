@@ -371,10 +371,10 @@ class YamlRunner:
 
             if (
                 isinstance(expected, str)
-                and expected.startswith("/")
-                and expected.endswith("/")
+                and expected.strip().startswith("/")
+                and expected.strip().endswith("/")
             ):
-                expected = re.compile(expected[1:-1], re.VERBOSE | re.MULTILINE)
+                expected = re.compile(expected.strip()[1:-1], re.VERBOSE | re.MULTILINE)
                 assert expected.search(value), "%r does not match %r" % (
                     value,
                     expected,
@@ -417,9 +417,7 @@ class YamlRunner:
                         value = value.replace(key_replace, v)
                         break
 
-        if isinstance(value, string_types):
-            value = value.strip()
-        elif isinstance(value, dict):
+        if isinstance(value, dict):
             value = dict((k, self._resolve(v)) for (k, v) in value.items())
         elif isinstance(value, list):
             value = list(map(self._resolve, value))
