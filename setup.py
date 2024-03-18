@@ -59,6 +59,7 @@ install_requires = [
     "six",
     "python-dateutil",
     "certifi>=2022.12.07",
+    "Events",
 ]
 tests_require = [
     "requests>=2.0.0, <3.0.0",

@@ -12,6 +12,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - Added a log collection guide ([#579](https://github.com/opensearch-project/opensearch-py/pull/579))
 - Added GHA release ([#614](https://github.com/opensearch-project/opensearch-py/pull/614))
 - Incorporated API generation into CI workflow and fixed 'generate' nox session ([#660](https://github.com/opensearch-project/opensearch-py/pull/660))
+- Introduced `service time` metrics to opensearch-py client ([#689](https://github.com/opensearch-project/opensearch-py/pull/689))
 - Added an automated api update bot for opensearch-py ([#664](https://github.com/opensearch-project/opensearch-py/pull/664)) 
 ### Changed
 - Updated the `get_policy` API in the index_management plugin to allow the policy_id argument as optional ([#633](https://github.com/opensearch-project/opensearch-py/pull/633))
