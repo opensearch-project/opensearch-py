@@ -39,6 +39,7 @@ docker run \
   --env "PYTHON_CONNECTION_CLASS=${PYTHON_CONNECTION_CLASS}" \
   --env "TEST_TYPE=server" \
   --env "TEST_PATTERN=${TEST_PATTERN}" \
+  --env "OPENSEARCH_INITIAL_ADMIN_PASSWORD=myStrongPassword123!" \
   --name opensearch-py \
   --rm \
   opensearch-project/opensearch-py \

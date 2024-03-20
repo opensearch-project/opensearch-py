@@ -36,7 +36,7 @@ docker pull opensearchproject/opensearch:latest
 ```
 
 ```
-docker run -d -p 9200:9200 -p 9600:9600 --name opensearch_opensearch_1 -e "discovery.type=single-node" opensearchproject/opensearch:latest 
+docker run -d -p 9200:9200 -p 9600:9600 --name opensearch_opensearch_1 -e "discovery.type=single-node" -e "OPENSEARCH_INITIAL_ADMIN_PASSWORD=<admin password>" opensearchproject/opensearch:latest 
 ```
 
 ## Setup Connection with OpenSearch
@@ -44,11 +44,11 @@ docker run -d -p 9200:9200 -p 9600:9600 --name opensearch_opensearch_1 -e "disco
 Create a client instance:
 ```python
     opensearch_client: Any = OpenSearch(
-        "https://admin:admin@localhost:9200",
+        "https://admin:<admin password>@localhost:9200",
         use_ssl=True,
         verify_certs=False,
         ssl_show_warn=False,
-        http_auth=("admin", "admin"),
+        http_auth=("admin", "<admin password>"),
     )
 ```
 
