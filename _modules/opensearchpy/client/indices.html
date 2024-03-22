@@ -1345,6 +1345,7 @@
         <span class="s2">&quot;ignore_unavailable&quot;</span><span class="p">,</span>
         <span class="s2">&quot;max_num_segments&quot;</span><span class="p">,</span>
         <span class="s2">&quot;only_expunge_deletes&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;primary_only&quot;</span><span class="p">,</span>
         <span class="s2">&quot;wait_for_completion&quot;</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="k">def</span> <span class="nf">forcemerge</span><span class="p">(</span>
@@ -1373,6 +1374,8 @@
 <span class="sd">            be merged into (default: dynamic).</span>
 <span class="sd">        :arg only_expunge_deletes: Specify whether the operation should</span>
 <span class="sd">            only expunge deleted documents.</span>
+<span class="sd">        :arg primary_only: Specify whether the operation should only</span>
+<span class="sd">            perform on primary shards. Defaults to false. Default is false.</span>
 <span class="sd">        :arg wait_for_completion: Should this request wait until the</span>
 <span class="sd">            operation has completed before returning. Default is True.</span>
 <span class="sd">        &quot;&quot;&quot;</span>

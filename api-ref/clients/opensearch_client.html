@@ -1552,6 +1552,10 @@ about score computation as part of a hit.</p></li>
 aliased indices should be ignored when throttled.</p></li>
 <li><p><strong>ignore_unavailable</strong> – Whether specified concrete indices
 should be ignored when unavailable (missing or closed).</p></li>
+<li><p><strong>include_named_queries_score</strong> – Indicates whether
+hit.matched_queries should be rendered as a map that includes the name
+of the matched query associated with its score (true) or as an array
+containing the name of the matched queries (false) Default is false.</p></li>
 <li><p><strong>lenient</strong> – Specify whether format-based query failures (such
 as providing text to a numeric field) should be ignored.</p></li>
 <li><p><strong>max_concurrent_shard_requests</strong> – The number of concurrent

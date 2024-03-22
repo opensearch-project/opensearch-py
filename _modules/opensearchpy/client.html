@@ -1685,6 +1685,7 @@
         <span class="s2">&quot;from_&quot;</span><span class="p">,</span>
         <span class="s2">&quot;ignore_throttled&quot;</span><span class="p">,</span>
         <span class="s2">&quot;ignore_unavailable&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;include_named_queries_score&quot;</span><span class="p">,</span>
         <span class="s2">&quot;lenient&quot;</span><span class="p">,</span>
         <span class="s2">&quot;max_concurrent_shard_requests&quot;</span><span class="p">,</span>
         <span class="s2">&quot;pre_filter_shard_size&quot;</span><span class="p">,</span>
@@ -1765,6 +1766,10 @@
 <span class="sd">            aliased indices should be ignored when throttled.</span>
 <span class="sd">        :arg ignore_unavailable: Whether specified concrete indices</span>
 <span class="sd">            should be ignored when unavailable (missing or closed).</span>
+<span class="sd">        :arg include_named_queries_score: Indicates whether</span>
+<span class="sd">            hit.matched_queries should be rendered as a map that includes the name</span>
+<span class="sd">            of the matched query associated with its score (true) or as an array</span>
+<span class="sd">            containing the name of the matched queries (false) Default is false.</span>
 <span class="sd">        :arg lenient: Specify whether format-based query failures (such</span>
 <span class="sd">            as providing text to a numeric field) should be ignored.</span>
 <span class="sd">        :arg max_concurrent_shard_requests: The number of concurrent</span>
