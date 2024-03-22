@@ -13,6 +13,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - Added GHA release ([#614](https://github.com/opensearch-project/opensearch-py/pull/614))
 - Incorporated API generation into CI workflow and fixed 'generate' nox session ([#660](https://github.com/opensearch-project/opensearch-py/pull/660))
 - Added an automated api update bot for opensearch-py ([#664](https://github.com/opensearch-project/opensearch-py/pull/664)) 
+- Enhance generator to generate plugins ([#700](https://github.com/opensearch-project/opensearch-py/pull/700))
 - Enhance generator to update changelog only if generated code differs from existing ([#684](https://github.com/opensearch-project/opensearch-py/pull/684))
 - Added guide for configuring ssl_assert_hostname ([#694](https://github.com/opensearch-project/opensearch-py/pull/694))
 ### Changed
