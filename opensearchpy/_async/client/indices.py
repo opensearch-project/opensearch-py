@@ -1260,6 +1260,7 @@ class IndicesClient(NamespacedClient):
         "ignore_unavailable",
         "max_num_segments",
         "only_expunge_deletes",
+        "primary_only",
         "wait_for_completion",
     )
     async def forcemerge(
@@ -1288,6 +1289,8 @@ class IndicesClient(NamespacedClient):
             be merged into (default: dynamic).
         :arg only_expunge_deletes: Specify whether the operation should
             only expunge deleted documents.
+        :arg primary_only: Specify whether the operation should only
+            perform on primary shards. Defaults to false. Default is false.
         :arg wait_for_completion: Should this request wait until the
             operation has completed before returning. Default is True.
         """

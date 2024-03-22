@@ -1601,6 +1601,7 @@ class OpenSearch(Client):
         "from_",
         "ignore_throttled",
         "ignore_unavailable",
+        "include_named_queries_score",
         "lenient",
         "max_concurrent_shard_requests",
         "pre_filter_shard_size",
@@ -1681,6 +1682,10 @@ class OpenSearch(Client):
             aliased indices should be ignored when throttled.
         :arg ignore_unavailable: Whether specified concrete indices
             should be ignored when unavailable (missing or closed).
+        :arg include_named_queries_score: Indicates whether
+            hit.matched_queries should be rendered as a map that includes the name
+            of the matched query associated with its score (true) or as an array
+            containing the name of the matched queries (false) Default is false.
         :arg lenient: Specify whether format-based query failures (such
             as providing text to a numeric field) should be ignored.
         :arg max_concurrent_shard_requests: The number of concurrent
