@@ -3,6 +3,16 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 ## [Unreleased]
 ### Added
+### Changed
+### Deprecated
+### Removed
+### Fixed
+### Updated APIs
+### Security
+### Dependencies
+
+## [2.5.0]
+### Added
 - Added pylint `assignment-from-no-return` and `unused-variable` (([#658](https://github.com/opensearch-project/opensearch-py/pull/658))
 - Added pylint `unnecessary-dunder-calls` (([#655](https://github.com/opensearch-project/opensearch-py/pull/655))
 - Changed to use .pylintrc files in root and any directory with override requirements (([#654](https://github.com/opensearch-project/opensearch-py/pull/654))
@@ -215,7 +225,8 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - Fixed Wrong return type hint in `async_scan` ([520](https://github.com/opensearch-project/opensearch-py/pull/520))
 ### Security
 
-[Unreleased]: https://github.com/opensearch-project/opensearch-py/compare/v2.4.2...HEAD
+[Unreleased]: https://github.com/opensearch-project/opensearch-py/compare/v2.5.0...HEAD
+[2.5.0]: https://github.com/opensearch-project/opensearch-py/compare/v2.4.2...v2.5.0
 [2.4.2]: https://github.com/opensearch-project/opensearch-py/compare/v2.4.0...v2.4.2
 [2.4.1]: https://github.com/opensearch-project/opensearch-py/compare/v2.4.0...v2.4.1
 [2.4.0]: https://github.com/opensearch-project/opensearch-py/compare/v2.3.2...v2.4.0
