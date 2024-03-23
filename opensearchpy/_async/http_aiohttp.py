@@ -246,12 +246,8 @@ class AIOHttpConnection(AsyncConnection):
         else:
             query_string = ""
 
-        # There is a bug in aiohttp that disables the re-use
-        # of the connection in the pool when method=HEAD.
-        # See: aio-libs/aiohttp#1769
         is_head = False
         if method == "HEAD":
-            method = "GET"
             is_head = True
 
         # Top-tier tip-toeing happening here. Basically
@@ -301,9 +297,9 @@ class AIOHttpConnection(AsyncConnection):
                 timeout=timeout,
                 fingerprint=self.ssl_assert_fingerprint,
             ) as response:
-                if is_head:  # We actually called 'GET' so throw away the data.
+                if is_head:
                     await response.release()
-                    raw_data = ""
+                    raw_data = ""  # HEAD method has no response body
                 else:
                     raw_data = await response.text()
                 duration = self.loop.time() - start
