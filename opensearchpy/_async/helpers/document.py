@@ -318,7 +318,7 @@ class AsyncDocument(ObjectBase):
         detect_noop: Optional[bool] = True,
         doc_as_upsert: Optional[bool] = False,
         refresh: Optional[bool] = False,
-        retry_on_conflict: Optional[bool] = None,
+        retry_on_conflict: Optional[int] = None,
         script: Any = None,
         script_id: Optional[str] = None,
         scripted_upsert: Optional[bool] = False,
