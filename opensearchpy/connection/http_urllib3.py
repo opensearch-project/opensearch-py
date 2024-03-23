@@ -34,6 +34,8 @@ from urllib3.exceptions import ReadTimeoutError
 from urllib3.exceptions import SSLError as UrllibSSLError
 from urllib3.util.retry import Retry
 
+from opensearchpy.metrics import Metrics
+
 from ..compat import reraise_exceptions, urlencode
 from ..exceptions import (
     ConnectionError,
@@ -115,8 +117,10 @@ class Urllib3HttpConnection(Connection):
         ssl_context: Any = None,
         http_compress: Any = None,
         opaque_id: Any = None,
+        metrics: Optional[Metrics] = None,
         **kwargs: Any
     ) -> None:
+        self.metrics = metrics
         # Initialize headers before calling super().__init__().
         self.headers = urllib3.make_headers(keep_alive=True)
 
@@ -267,10 +271,13 @@ class Urllib3HttpConnection(Connection):
             if self.http_auth is not None:
                 if isinstance(self.http_auth, Callable):  # type: ignore
                     request_headers.update(self.http_auth(method, full_url, body))
-
+            if self.metrics is not None:
+                self.metrics.request_start()
             response = self.pool.urlopen(
                 method, url, body, retries=Retry(False), headers=request_headers, **kw
             )
+            if self.metrics is not None:
+                self.metrics.request_end()
             duration = time.time() - start
             raw_data = response.data.decode("utf-8", "surrogatepass")
         except reraise_exceptions:
@@ -304,7 +311,15 @@ class Urllib3HttpConnection(Connection):
             method, full_url, url, orig_body, response.status, raw_data, duration
         )
 
-        return response.status, response.headers, raw_data
+        if self.metrics is None:
+            return response.status, response.headers, raw_data
+        else:
+            return (
+                response.status,
+                response.headers,
+                raw_data,
+                self.metrics.service_time,
+            )
 
     def get_response_headers(self, response: Any) -> Any:
         return {header.lower(): value for header, value in response.headers.items()}
