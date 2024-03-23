@@ -8,6 +8,9 @@ on:
 jobs:
   draft-a-release:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
