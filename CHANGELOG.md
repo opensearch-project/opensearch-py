@@ -10,6 +10,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ### Updated APIs
 ### Security
 ### Dependencies
+- Bumps `pytest-asyncio` from <=0.23.5 to <=0.23.6
 
 ## [2.5.0]
 ### Added
