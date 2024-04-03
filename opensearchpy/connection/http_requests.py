@@ -36,6 +36,8 @@ try:
 except ImportError:
     REQUESTS_AVAILABLE = False
 
+from opensearchpy.metrics.metrics import Metrics
+
 from ..compat import reraise_exceptions, string_types, urlencode
 from ..exceptions import (
     ConnectionError,
@@ -86,8 +88,10 @@ class RequestsHttpConnection(Connection):
         http_compress: Any = None,
         opaque_id: Any = None,
         pool_maxsize: Any = None,
+        metrics: Optional[Metrics] = None,
         **kwargs: Any
     ) -> None:
+        self.metrics = metrics
         if not REQUESTS_AVAILABLE:
             raise ImproperlyConfigured(
                 "Please install requests to use RequestsHttpConnection."
@@ -188,6 +192,8 @@ class RequestsHttpConnection(Connection):
         }
         send_kwargs.update(settings)
         try:
+            if self.metrics is not None:
+                self.metrics.request_start()
             response = self.session.send(prepared_request, **send_kwargs)
             duration = time.time() - start
             raw_data = response.content.decode("utf-8", "surrogatepass")
@@ -207,6 +213,9 @@ class RequestsHttpConnection(Connection):
             if isinstance(e, requests.Timeout):
                 raise ConnectionTimeout("TIMEOUT", str(e), e)
             raise ConnectionError("N/A", str(e), e)
+        finally:
+            if self.metrics is not None:
+                self.metrics.request_end()
 
         # raise warnings if any from the 'Warnings' header.
         warnings_headers = (

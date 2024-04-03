@@ -10,6 +10,7 @@
 from typing import Any, Optional, Type
 
 from opensearchpy.client.utils import _normalize_hosts
+from opensearchpy.metrics.metrics import Metrics
 from opensearchpy.transport import Transport
 
 
@@ -22,6 +23,7 @@ class Client(object):
         self,
         hosts: Optional[str] = None,
         transport_class: Type[Transport] = Transport,
+        metrics: Optional[Metrics] = None,
         **kwargs: Any
     ) -> None:
         """
@@ -38,4 +40,6 @@ class Client(object):
             :class:`~opensearchpy.Transport` class and, subsequently, to the
             :class:`~opensearchpy.Connection` instances.
         """
-        self.transport = transport_class(_normalize_hosts(hosts), **kwargs)
+        self.transport = transport_class(
+            _normalize_hosts(hosts), metrics=metrics, **kwargs
+        )
