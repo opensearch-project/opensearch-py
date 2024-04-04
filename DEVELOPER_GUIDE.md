@@ -10,7 +10,7 @@
 
 ## Prerequisites
 
-Python 3.6 or newer is required.
+Python 3.8 or newer is required.
 
 ```
 $ python --version
