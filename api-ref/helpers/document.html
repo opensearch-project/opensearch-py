@@ -1,28 +1,27 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>document &mdash; OpenSearch Python Client  documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css" />
-      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
-      <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=7f485136" />
 
   
   <!--[if lt IE 9]>
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-        <script src="../../_static/jquery.js"></script>
-        <script src="../../_static/underscore.js"></script>
-        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="../../_static/doctools.js"></script>
-        <script src="../../_static/sphinx_highlight.js"></script>
-        <script src="../../_static/clipboard.min.js"></script>
-        <script src="../../_static/copybutton.js"></script>
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js?v=b3ba4146"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=4825356b"></script>
+        <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../_static/copybutton.js?v=f281be69"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -146,9 +145,9 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.12)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a><em>]</em>) – opensearch index to use, if the <code class="docutils literal notranslate"><span class="pre">Document</span></code> is
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a><em> | </em><em>None</em>) – opensearch index to use, if the <code class="docutils literal notranslate"><span class="pre">Document</span></code> is
 associated with an index this can be omitted.</p></li>
-<li><p><strong>using</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.12)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a><em>]</em>) – connection alias to use, defaults to <code class="docutils literal notranslate"><span class="pre">'default'</span></code></p></li>
+<li><p><strong>using</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a><em> | </em><em>None</em>) – connection alias to use, defaults to <code class="docutils literal notranslate"><span class="pre">'default'</span></code></p></li>
 <li><p><strong>using</strong> – </p></li>
 <li><p><strong>index</strong> – </p></li>
 <li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
@@ -170,9 +169,9 @@ associated with an index this can be omitted.</p></li>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – <code class="docutils literal notranslate"><span class="pre">id</span></code> of the document to check if exists</p></li>
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.12)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a><em>]</em>) – opensearch index to use, if the <code class="docutils literal notranslate"><span class="pre">Document</span></code> is
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a><em> | </em><em>None</em>) – opensearch index to use, if the <code class="docutils literal notranslate"><span class="pre">Document</span></code> is
 associated with an index this can be omitted.</p></li>
-<li><p><strong>using</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.12)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a><em>]</em>) – connection alias to use, defaults to <code class="docutils literal notranslate"><span class="pre">'default'</span></code></p></li>
+<li><p><strong>using</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a><em> | </em><em>None</em>) – connection alias to use, defaults to <code class="docutils literal notranslate"><span class="pre">'default'</span></code></p></li>
 <li><p><strong>id</strong> – </p></li>
 <li><p><strong>using</strong> – </p></li>
 <li><p><strong>index</strong> – </p></li>
@@ -195,9 +194,9 @@ associated with an index this can be omitted.</p></li>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – <code class="docutils literal notranslate"><span class="pre">id</span></code> of the document to be retrieved</p></li>
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.12)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a><em>]</em>) – opensearch index to use, if the <code class="docutils literal notranslate"><span class="pre">Document</span></code> is
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a><em> | </em><em>None</em>) – opensearch index to use, if the <code class="docutils literal notranslate"><span class="pre">Document</span></code> is
 associated with an index this can be omitted.</p></li>
-<li><p><strong>using</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.12)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a><em>]</em>) – connection alias to use, defaults to <code class="docutils literal notranslate"><span class="pre">'default'</span></code></p></li>
+<li><p><strong>using</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a><em> | </em><em>None</em>) – connection alias to use, defaults to <code class="docutils literal notranslate"><span class="pre">'default'</span></code></p></li>
 <li><p><strong>id</strong> – </p></li>
 <li><p><strong>using</strong> – </p></li>
 <li><p><strong>index</strong> – </p></li>
@@ -219,8 +218,8 @@ associated with an index this can be omitted.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.12)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a><em>]</em>) – </p></li>
-<li><p><strong>using</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.12)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a><em>]</em>) – </p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a><em> | </em><em>None</em>) – </p></li>
+<li><p><strong>using</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a><em> | </em><em>None</em>) – </p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
@@ -240,9 +239,9 @@ in the same order as requested.</p>
 <li><p><strong>docs</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – list of <code class="docutils literal notranslate"><span class="pre">id</span></code>’s of the documents to be retrieved or a list
 of document specifications as per
 <a class="reference external" href="https://opensearch.org/docs/latest/opensearch/rest-api/document-apis/multi-get/">https://opensearch.org/docs/latest/opensearch/rest-api/document-apis/multi-get/</a></p></li>
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.12)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a><em>]</em>) – opensearch index to use, if the <code class="docutils literal notranslate"><span class="pre">Document</span></code> is
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a><em> | </em><em>None</em>) – opensearch index to use, if the <code class="docutils literal notranslate"><span class="pre">Document</span></code> is
 associated with an index this can be omitted.</p></li>
-<li><p><strong>using</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.12)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a><em>]</em>) – connection alias to use, defaults to <code class="docutils literal notranslate"><span class="pre">'default'</span></code></p></li>
+<li><p><strong>using</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a><em> | </em><em>None</em>) – connection alias to use, defaults to <code class="docutils literal notranslate"><span class="pre">'default'</span></code></p></li>
 <li><p><strong>missing</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – what to do when one of the documents requested is not
 found. Valid options are <code class="docutils literal notranslate"><span class="pre">'none'</span></code> (use <code class="docutils literal notranslate"><span class="pre">None</span></code>), <code class="docutils literal notranslate"><span class="pre">'raise'</span></code> (raise
 <code class="docutils literal notranslate"><span class="pre">NotFoundError</span></code>) or <code class="docutils literal notranslate"><span class="pre">'skip'</span></code> (ignore the missing document).</p></li>
@@ -271,9 +270,9 @@ operations resulted in new document being created.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.12)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a><em>]</em>) – opensearch index to use, if the <code class="docutils literal notranslate"><span class="pre">Document</span></code> is
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a><em> | </em><em>None</em>) – opensearch index to use, if the <code class="docutils literal notranslate"><span class="pre">Document</span></code> is
 associated with an index this can be omitted.</p></li>
-<li><p><strong>using</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.12)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a><em>]</em>) – connection alias to use, defaults to <code class="docutils literal notranslate"><span class="pre">'default'</span></code></p></li>
+<li><p><strong>using</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a><em> | </em><em>None</em>) – connection alias to use, defaults to <code class="docutils literal notranslate"><span class="pre">'default'</span></code></p></li>
 <li><p><strong>validate</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>) – set to <code class="docutils literal notranslate"><span class="pre">False</span></code> to skip validating the document</p></li>
 <li><p><strong>skip_empty</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>) – if set to <code class="docutils literal notranslate"><span class="pre">False</span></code> will cause empty values (<code class="docutils literal notranslate"><span class="pre">None</span></code>,
 <code class="docutils literal notranslate"><span class="pre">[]</span></code>, <code class="docutils literal notranslate"><span class="pre">{}</span></code>) to be left on the document. Those values will be
@@ -305,8 +304,8 @@ over this <code class="docutils literal notranslate"><span class="pre">Document<
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>using</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.12)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a><em>]</em>) – </p></li>
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.12)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a><em>]</em>) – </p></li>
+<li><p><strong>using</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a><em> | </em><em>None</em>) – </p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a><em> | </em><em>None</em>) – </p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
@@ -352,13 +351,13 @@ both the instance and the document in opensearch will be updated:</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.12)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a><em>]</em>) – opensearch index to use, if the <code class="docutils literal notranslate"><span class="pre">Document</span></code> is
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a><em> | </em><em>None</em>) – opensearch index to use, if the <code class="docutils literal notranslate"><span class="pre">Document</span></code> is
 associated with an index this can be omitted.</p></li>
-<li><p><strong>using</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.12)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a><em>]</em>) – connection alias to use, defaults to <code class="docutils literal notranslate"><span class="pre">'default'</span></code></p></li>
+<li><p><strong>using</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a><em> | </em><em>None</em>) – connection alias to use, defaults to <code class="docutils literal notranslate"><span class="pre">'default'</span></code></p></li>
 <li><p><strong>detect_noop</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>) – Set to <code class="docutils literal notranslate"><span class="pre">False</span></code> to disable noop detection.</p></li>
 <li><p><strong>refresh</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>) – Control when the changes made by this request are visible
 to search. Set to <code class="docutils literal notranslate"><span class="pre">True</span></code> for immediate effect.</p></li>
-<li><p><strong>retry_on_conflict</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.12)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a><em>]</em>) – In between the get and indexing phases of the
+<li><p><strong>retry_on_conflict</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a><em> | </em><em>None</em>) – In between the get and indexing phases of the
 update, it is possible that another process might have already
 updated the same document. By default, the update will fail with a
 version conflict exception. The retry_on_conflict parameter
@@ -375,10 +374,10 @@ index API call instead of only the operation result</p></li>
 <li><p><strong>doc_as_upsert</strong> – </p></li>
 <li><p><strong>refresh</strong> – </p></li>
 <li><p><strong>retry_on_conflict</strong> – </p></li>
-<li><p><strong>script</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.12)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a><em>]</em>) – </p></li>
-<li><p><strong>script_id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.12)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a><em>]</em>) – </p></li>
+<li><p><strong>script</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a><em> | </em><em>None</em>) – </p></li>
+<li><p><strong>script_id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a><em> | </em><em>None</em>) – </p></li>
 <li><p><strong>scripted_upsert</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>) – </p></li>
-<li><p><strong>upsert</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.12)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a><em>]</em>) – </p></li>
+<li><p><strong>upsert</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a><em> | </em><em>None</em>) – </p></li>
 <li><p><strong>return_doc_meta</strong> – </p></li>
 <li><p><strong>fields</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 </ul>
