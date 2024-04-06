@@ -10,7 +10,7 @@
 
 from __future__ import unicode_literals
 
-from unittest import IsolatedAsyncioTestCase  # type: ignore
+from unittest import IsolatedAsyncioTestCase
 
 import pytest
 from _pytest.mark.structures import MarkDecorator
@@ -22,7 +22,7 @@ from opensearchpy.exceptions import NotFoundError
 pytestmark: MarkDecorator = pytest.mark.asyncio
 
 
-class TestSecurityPlugin(IsolatedAsyncioTestCase):  # type: ignore
+class TestSecurityPlugin(IsolatedAsyncioTestCase):
     ROLE_NAME = "test-role"
     ROLE_CONTENT = {
         "cluster_permissions": ["cluster_monitor"],
