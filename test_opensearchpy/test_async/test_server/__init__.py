@@ -25,7 +25,7 @@
 #  under the License.
 
 
-from unittest import IsolatedAsyncioTestCase  # type: ignore
+from unittest import IsolatedAsyncioTestCase
 
 from opensearchpy._async.helpers.test import get_test_client
 from opensearchpy.connection.async_connections import add_connection
@@ -33,7 +33,7 @@ from opensearchpy.connection.async_connections import add_connection
 from ...utils import wipe_cluster
 
 
-class AsyncOpenSearchTestCase(IsolatedAsyncioTestCase):  # type: ignore
+class AsyncOpenSearchTestCase(IsolatedAsyncioTestCase):
     async def asyncSetUp(
         self,
     ) -> None:
