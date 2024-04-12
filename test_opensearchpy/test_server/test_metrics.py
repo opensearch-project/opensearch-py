@@ -13,6 +13,7 @@ import time
 
 from opensearchpy import RequestsHttpConnection
 from opensearchpy.metrics.metrics_events import MetricsEvents
+from opensearchpy.metrics.metrics_none import MetricsNone
 
 from . import OpenSearchTestCase, get_client
 
@@ -27,8 +28,18 @@ class TestMetrics(OpenSearchTestCase):
         client = get_client()
         index_name = "test-index"
         index_body = {"settings": {"index": {"number_of_shards": 4}}}
+        try:
+            client.indices.create(index=index_name, body=index_body)
+        except Exception as e:
+            assert False, f"Error creating index: {e}"
+
+    def test_metrics_none_behavior(self) -> None:
+        # Test behavior when metrics is an instance of MetricsNone
+        metrics = MetricsNone()
+        client = get_client(metrics=metrics)
+        index_name = "test-index"
+        index_body = {"settings": {"index": {"number_of_shards": 4}}}
         client.indices.create(index=index_name, body=index_body)
-        metrics = MetricsEvents()
         assert metrics.service_time is None
 
 

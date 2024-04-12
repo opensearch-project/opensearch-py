@@ -1,10 +1,14 @@
 # metrics
 
 ```{eval-rst}
-.. autoclass:: opensearchpy.metrics.metrics.Metrics
+.. autoclass:: opensearchpy.Metrics
 ```
 
 ```{eval-rst}
-.. autoclass:: opensearchpy.metrics.metrics_events.MetricsEvents
+.. autoclass:: opensearchpy.MetricsEvents
+```
+
+```{eval-rst}
+.. autoclass:: opensearchpy.MetricsNone
 ```
 

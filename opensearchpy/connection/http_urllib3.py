@@ -34,7 +34,7 @@ from urllib3.exceptions import ReadTimeoutError
 from urllib3.exceptions import SSLError as UrllibSSLError
 from urllib3.util.retry import Retry
 
-from opensearchpy.metrics.metrics import Metrics
+from opensearchpy.metrics.metrics_none import MetricsNone
 
 from ..compat import reraise_exceptions, urlencode
 from ..exceptions import (
@@ -96,6 +96,9 @@ class Urllib3HttpConnection(Connection):
     :arg http_compress: Use gzip compression
     :arg opaque_id: Send this value in the 'X-Opaque-Id' HTTP header
         For tracing all requests made by this transport.
+    :arg metrics: metrics is an instance of a subclass of the
+        :class:`~opensearchpy.Metrics` class, used for collecting
+        and reporting metrics related to the client's operations;
     """
 
     def __init__(
@@ -117,7 +120,7 @@ class Urllib3HttpConnection(Connection):
         ssl_context: Any = None,
         http_compress: Any = None,
         opaque_id: Any = None,
-        metrics: Optional[Metrics] = None,
+        metrics: Any = MetricsNone(),
         **kwargs: Any
     ) -> None:
         self.metrics = metrics
@@ -272,8 +275,7 @@ class Urllib3HttpConnection(Connection):
                 if isinstance(self.http_auth, Callable):  # type: ignore
                     request_headers.update(self.http_auth(method, full_url, body))
 
-            if self.metrics is not None:
-                self.metrics.request_start()
+            self.metrics.request_start()
 
             response = self.pool.urlopen(
                 method, url, body, retries=Retry(False), headers=request_headers, **kw
@@ -292,8 +294,7 @@ class Urllib3HttpConnection(Connection):
                 raise ConnectionTimeout("TIMEOUT", str(e), e)
             raise ConnectionError("N/A", str(e), e)
         finally:
-            if self.metrics is not None:
-                self.metrics.request_end()
+            self.metrics.request_end()
 
         # raise warnings if any from the 'Warnings' header.
         warning_headers = response.headers.get_all("warning", ())

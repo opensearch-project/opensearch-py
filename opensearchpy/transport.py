@@ -29,7 +29,7 @@ import time
 from itertools import chain
 from typing import Any, Callable, Collection, Dict, List, Mapping, Optional, Type, Union
 
-from opensearchpy.metrics.metrics import Metrics
+from opensearchpy.metrics.metrics_none import MetricsNone
 
 from .connection import Connection, Urllib3HttpConnection
 from .connection_pool import ConnectionPool, DummyConnectionPool, EmptyConnectionPool
@@ -93,7 +93,7 @@ class Transport(object):
     last_sniff: float
     sniff_timeout: Optional[float]
     host_info_callback: Any
-    metrics: Optional[Metrics]
+    metrics: Any
 
     def __init__(
         self,
@@ -115,7 +115,7 @@ class Transport(object):
         retry_on_status: Collection[int] = (502, 503, 504),
         retry_on_timeout: bool = False,
         send_get_body_as: str = "GET",
-        metrics: Optional[Metrics] = None,
+        metrics: Any = MetricsNone(),
         **kwargs: Any
     ) -> None:
         """
@@ -152,6 +152,9 @@ class Transport(object):
             will be serialized and passed as a query parameter `source`.
         :arg pool_maxsize: Maximum connection pool size used by pool-manager
             For custom connection-pooling on current session
+        :arg metrics: metrics is an instance of a subclass of the
+            :class:`~opensearchpy.Metrics` class, used for collecting
+            and reporting metrics related to the client's operations;
 
         Any extra keyword arguments will be passed to the `connection_class`
         when creating and instance unless overridden by that connection's

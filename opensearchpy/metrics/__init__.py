@@ -9,8 +9,10 @@
 
 from .metrics import Metrics
 from .metrics_events import MetricsEvents
+from .metrics_none import MetricsNone
 
 __all__ = [
     "Metrics",
     "MetricsEvents",
+    "MetricsNone",
 ]
