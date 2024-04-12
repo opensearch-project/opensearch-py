@@ -4,6 +4,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ## [Unreleased]
 ### Added
 - Added support for Python 3.12 ([#717](https://github.com/opensearch-project/opensearch-py/pull/717))
+- Introduced `service time` metrics to opensearch-py client ([#716](https://github.com/opensearch-project/opensearch-py/pull/716))
 ### Changed
 ### Deprecated
 ### Removed
@@ -30,7 +31,6 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - Enhance generator to generate plugins ([#700](https://github.com/opensearch-project/opensearch-py/pull/700))
 - Enhance generator to update changelog only if generated code differs from existing ([#684](https://github.com/opensearch-project/opensearch-py/pull/684))
 - Added guide for configuring ssl_assert_hostname ([#694](https://github.com/opensearch-project/opensearch-py/pull/694))
-- Introduced `service time` metrics to opensearch-py client ([#716](https://github.com/opensearch-project/opensearch-py/pull/716))
 ### Changed
 - Updated the `get_policy` API in the index_management plugin to allow the policy_id argument as optional ([#633](https://github.com/opensearch-project/opensearch-py/pull/633))
 - Updated the `point_in_time.md` guide with examples demonstrating the usage of the new APIs as alternatives to the deprecated ones. ([#661](https://github.com/opensearch-project/opensearch-py/pull/661))
