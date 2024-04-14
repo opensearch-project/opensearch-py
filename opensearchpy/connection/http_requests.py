@@ -36,7 +36,7 @@ try:
 except ImportError:
     REQUESTS_AVAILABLE = False
 
-from opensearchpy.metrics.metrics_none import MetricsNone
+from opensearchpy.metrics import Metrics, MetricsNone
 
 from ..compat import reraise_exceptions, string_types, urlencode
 from ..exceptions import (
@@ -91,7 +91,7 @@ class RequestsHttpConnection(Connection):
         http_compress: Any = None,
         opaque_id: Any = None,
         pool_maxsize: Any = None,
-        metrics: Any = MetricsNone(),
+        metrics: Metrics = MetricsNone(),
         **kwargs: Any
     ) -> None:
         self.metrics = metrics

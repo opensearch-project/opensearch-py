@@ -34,7 +34,7 @@ from urllib3.exceptions import ReadTimeoutError
 from urllib3.exceptions import SSLError as UrllibSSLError
 from urllib3.util.retry import Retry
 
-from opensearchpy.metrics.metrics_none import MetricsNone
+from opensearchpy.metrics import Metrics, MetricsNone
 
 from ..compat import reraise_exceptions, urlencode
 from ..exceptions import (
@@ -120,7 +120,7 @@ class Urllib3HttpConnection(Connection):
         ssl_context: Any = None,
         http_compress: Any = None,
         opaque_id: Any = None,
-        metrics: Any = MetricsNone(),
+        metrics: Metrics = MetricsNone(),
         **kwargs: Any
     ) -> None:
         self.metrics = metrics

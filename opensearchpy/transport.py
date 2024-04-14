@@ -29,7 +29,7 @@ import time
 from itertools import chain
 from typing import Any, Callable, Collection, Dict, List, Mapping, Optional, Type, Union
 
-from opensearchpy.metrics.metrics_none import MetricsNone
+from opensearchpy.metrics import Metrics, MetricsNone
 
 from .connection import Connection, Urllib3HttpConnection
 from .connection_pool import ConnectionPool, DummyConnectionPool, EmptyConnectionPool
@@ -93,7 +93,7 @@ class Transport(object):
     last_sniff: float
     sniff_timeout: Optional[float]
     host_info_callback: Any
-    metrics: Any
+    metrics: Metrics
 
     def __init__(
         self,
@@ -115,7 +115,7 @@ class Transport(object):
         retry_on_status: Collection[int] = (502, 503, 504),
         retry_on_timeout: bool = False,
         send_get_body_as: str = "GET",
-        metrics: Any = MetricsNone(),
+        metrics: Metrics = MetricsNone(),
         **kwargs: Any
     ) -> None:
         """
