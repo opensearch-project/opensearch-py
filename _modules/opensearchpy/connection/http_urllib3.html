@@ -117,6 +117,8 @@
 <span class="kn">from</span> <span class="nn">urllib3.exceptions</span> <span class="kn">import</span> <span class="n">SSLError</span> <span class="k">as</span> <span class="n">UrllibSSLError</span>
 <span class="kn">from</span> <span class="nn">urllib3.util.retry</span> <span class="kn">import</span> <span class="n">Retry</span>
 
+<span class="kn">from</span> <span class="nn">opensearchpy.metrics</span> <span class="kn">import</span> <span class="n">Metrics</span><span class="p">,</span> <span class="n">MetricsNone</span>
+
 <span class="kn">from</span> <span class="nn">..compat</span> <span class="kn">import</span> <span class="n">reraise_exceptions</span><span class="p">,</span> <span class="n">urlencode</span>
 <span class="kn">from</span> <span class="nn">..exceptions</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="ne">ConnectionError</span><span class="p">,</span>
@@ -177,6 +179,9 @@
 <span class="sd">    :arg http_compress: Use gzip compression</span>
 <span class="sd">    :arg opaque_id: Send this value in the &#39;X-Opaque-Id&#39; HTTP header</span>
 <span class="sd">        For tracing all requests made by this transport.</span>
+<span class="sd">    :arg metrics: metrics is an instance of a subclass of the</span>
+<span class="sd">        :class:`~opensearchpy.Metrics` class, used for collecting</span>
+<span class="sd">        and reporting metrics related to the client&#39;s operations;</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
@@ -198,8 +203,10 @@
         <span class="n">ssl_context</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">http_compress</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">opaque_id</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">metrics</span><span class="p">:</span> <span class="n">Metrics</span> <span class="o">=</span> <span class="n">MetricsNone</span><span class="p">(),</span>
         <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">metrics</span> <span class="o">=</span> <span class="n">metrics</span>
         <span class="c1"># Initialize headers before calling super().__init__().</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">headers</span> <span class="o">=</span> <span class="n">urllib3</span><span class="o">.</span><span class="n">make_headers</span><span class="p">(</span><span class="n">keep_alive</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
@@ -351,6 +358,8 @@
                 <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">http_auth</span><span class="p">,</span> <span class="n">Callable</span><span class="p">):</span>  <span class="c1"># type: ignore</span>
                     <span class="n">request_headers</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">http_auth</span><span class="p">(</span><span class="n">method</span><span class="p">,</span> <span class="n">full_url</span><span class="p">,</span> <span class="n">body</span><span class="p">))</span>
 
+            <span class="bp">self</span><span class="o">.</span><span class="n">metrics</span><span class="o">.</span><span class="n">request_start</span><span class="p">()</span>
+
             <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pool</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span>
                 <span class="n">method</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="n">retries</span><span class="o">=</span><span class="n">Retry</span><span class="p">(</span><span class="kc">False</span><span class="p">),</span> <span class="n">headers</span><span class="o">=</span><span class="n">request_headers</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span>
             <span class="p">)</span>
@@ -367,6 +376,8 @@
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">ReadTimeoutError</span><span class="p">):</span>
                 <span class="k">raise</span> <span class="n">ConnectionTimeout</span><span class="p">(</span><span class="s2">&quot;TIMEOUT&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">),</span> <span class="n">e</span><span class="p">)</span>
             <span class="k">raise</span> <span class="ne">ConnectionError</span><span class="p">(</span><span class="s2">&quot;N/A&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">),</span> <span class="n">e</span><span class="p">)</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">metrics</span><span class="o">.</span><span class="n">request_end</span><span class="p">()</span>
 
         <span class="c1"># raise warnings if any from the &#39;Warnings&#39; header.</span>
         <span class="n">warning_headers</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">get_all</span><span class="p">(</span><span class="s2">&quot;warning&quot;</span><span class="p">,</span> <span class="p">())</span>

@@ -112,6 +112,8 @@
 <span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">chain</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Collection</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Type</span><span class="p">,</span> <span class="n">Union</span>
 
+<span class="kn">from</span> <span class="nn">opensearchpy.metrics</span> <span class="kn">import</span> <span class="n">Metrics</span><span class="p">,</span> <span class="n">MetricsNone</span>
+
 <span class="kn">from</span> <span class="nn">.connection</span> <span class="kn">import</span> <span class="n">Connection</span><span class="p">,</span> <span class="n">Urllib3HttpConnection</span>
 <span class="kn">from</span> <span class="nn">.connection_pool</span> <span class="kn">import</span> <span class="n">ConnectionPool</span><span class="p">,</span> <span class="n">DummyConnectionPool</span><span class="p">,</span> <span class="n">EmptyConnectionPool</span>
 <span class="kn">from</span> <span class="nn">.exceptions</span> <span class="kn">import</span> <span class="p">(</span>
@@ -174,6 +176,7 @@
     <span class="n">last_sniff</span><span class="p">:</span> <span class="nb">float</span>
     <span class="n">sniff_timeout</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span>
     <span class="n">host_info_callback</span><span class="p">:</span> <span class="n">Any</span>
+    <span class="n">metrics</span><span class="p">:</span> <span class="n">Metrics</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -195,6 +198,7 @@
         <span class="n">retry_on_status</span><span class="p">:</span> <span class="n">Collection</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">502</span><span class="p">,</span> <span class="mi">503</span><span class="p">,</span> <span class="mi">504</span><span class="p">),</span>
         <span class="n">retry_on_timeout</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
         <span class="n">send_get_body_as</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;GET&quot;</span><span class="p">,</span>
+        <span class="n">metrics</span><span class="p">:</span> <span class="n">Metrics</span> <span class="o">=</span> <span class="n">MetricsNone</span><span class="p">(),</span>
         <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -231,11 +235,15 @@
 <span class="sd">            will be serialized and passed as a query parameter `source`.</span>
 <span class="sd">        :arg pool_maxsize: Maximum connection pool size used by pool-manager</span>
 <span class="sd">            For custom connection-pooling on current session</span>
+<span class="sd">        :arg metrics: metrics is an instance of a subclass of the</span>
+<span class="sd">            :class:`~opensearchpy.Metrics` class, used for collecting</span>
+<span class="sd">            and reporting metrics related to the client&#39;s operations;</span>
 
 <span class="sd">        Any extra keyword arguments will be passed to the `connection_class`</span>
 <span class="sd">        when creating and instance unless overridden by that connection&#39;s</span>
 <span class="sd">        options provided as part of the hosts parameter.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">metrics</span> <span class="o">=</span> <span class="n">metrics</span>
         <span class="k">if</span> <span class="n">connection_class</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">connection_class</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">DEFAULT_CONNECTION_CLASS</span>
 
@@ -325,7 +333,7 @@
             <span class="n">kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">host</span><span class="p">)</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">pool_maxsize</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pool_maxsize</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
                 <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;pool_maxsize&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pool_maxsize</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">connection_class</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">connection_class</span><span class="p">(</span><span class="n">metrics</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">metrics</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
         <span class="n">connections</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">_create_connection</span><span class="p">,</span> <span class="n">hosts</span><span class="p">),</span> <span class="n">hosts</span><span class="p">))</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">connections</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
