@@ -305,9 +305,7 @@ class OpenSearch(Client):
         headers: Any = None,
     ) -> Any:
         """
-        Creates a new document in the index.  Returns a 409 response when a document
-        with a same ID already exists in the index.
-
+        Creates a new document in the index.  
 
         :param index: Index name.
         :type index: str
@@ -322,7 +320,7 @@ class OpenSearch(Client):
               this operation visible to search, if `wait_for` then wait for a refresh
               to make this operation visible to search, if `false` (the default) then
               do nothing with refreshes. Valid choices are true, false, wait_for.
-            - routing: Routing value.
+            - routing: YOO value.
             - timeout: Operation timeout.
             - version: Explicit version number for concurrency control.
             - version_type: Specific version type. Valid choices are
@@ -336,6 +334,10 @@ class OpenSearch(Client):
         :param headers: dictionary of headers, will be handed over 
             to the index operation
         :type headers: dict
+        :raises opensearchpy.ConflictError: status error 409 indicating 
+            the document with that id already exists
+        :return: dictionary with the outcome of the create operation
+        :rtype: dict
         """
         for param in (index, id, body):
             if param in SKIP_IN_PATH:
@@ -371,35 +373,45 @@ class OpenSearch(Client):
         """
         Creates or updates a document in an index.
 
+        :param index: Index name.
+        :type index: str
+        :param body: The document
+        :param id: Document ID.
+        :type id: str
+        :param params: dictionary passed as URL parameters to the 
+            index operation in the OpenSearch document API.
 
-        :arg index: Index name.
-        :arg body: The document
-        :arg id: Document ID.
-        :arg if_primary_term: only perform the operation if the last
-            operation that has changed the document has the specified primary term.
-        :arg if_seq_no: only perform the operation if the last operation
-            that has changed the document has the specified sequence number.
-        :arg op_type: Explicit operation type. Defaults to `index` for
-            requests with an explicit document ID, and to `create` for requests
-            without an explicit document ID. Valid choices are index, create.
-        :arg pipeline: The pipeline id to preprocess incoming documents
-            with.
-        :arg refresh: If `true` then refresh the affected shards to make
-            this operation visible to search, if `wait_for` then wait for a refresh
-            to make this operation visible to search, if `false` (the default) then
-            do nothing with refreshes. Valid choices are true, false, wait_for.
-        :arg require_alias: When true, requires destination to be an
-            alias. Default is false.
-        :arg routing: Routing value.
-        :arg timeout: Operation timeout.
-        :arg version: Explicit version number for concurrency control.
-        :arg version_type: Specific version type. Valid choices are
-            internal, external, external_gte, force.
-        :arg wait_for_active_shards: Sets the number of shard copies
-            that must be active before proceeding with the operation. Defaults to 1,
-            meaning the primary shard only. Set to `all` for all shard copies,
-            otherwise set to any non-negative value less than or equal to the total
-            number of copies for the shard (number of replicas + 1). Default is 1.
+            - if_primary_term: only perform the operation if the last
+              operation that has changed the document has the specified primary term.
+            - if_seq_no: only perform the operation if the last operation
+              that has changed the document has the specified sequence number.
+            - op_type: Explicit operation type. Defaults to `index` for
+              requests with an explicit document ID, and to `create` for requests
+              without an explicit document ID. Valid choices are index, create.
+            - pipeline: The pipeline id to preprocess incoming documents
+              with.
+            - refresh: If `true` then refresh the affected shards to make
+              this operation visible to search, if `wait_for` then wait for a refresh
+              to make this operation visible to search, if `false` (the default) then
+              do nothing with refreshes. Valid choices are true, false, wait_for.
+            - require_alias: When true, requires destination to be an
+              alias. Default is false.
+            - routing: Routing value.
+            - timeout: Operation timeout.
+            - version: Explicit version number for concurrency control.
+            - version_type: Specific version type. Valid choices are
+              internal, external, external_gte, force.
+            - wait_for_active_shards: Sets the number of shard copies
+              that must be active before proceeding with the operation. Defaults to 1,
+              meaning the primary shard only. Set to `all` for all shard copies,
+              otherwise set to any non-negative value less than or equal to the total
+              number of copies for the shard (number of replicas + 1). Default is 1.
+        :type params: dict
+        :param headers: dictionary of headers, will be handed over 
+            to the index operation
+        :type headers: dict
+        :return: dictionary with the outcome of the update or create operation
+        :rtype: dict
         """
         for param in (index, body):
             if param in SKIP_IN_PATH:
@@ -588,27 +600,38 @@ class OpenSearch(Client):
         """
         Removes a document from the index.
 
+        :param index: Index name.
+        :param id: Document ID.
+        :param params: dictionary passed as URL parameters to the 
+            delete operation in the OpenSearch document API.
 
-        :arg index: Index name.
-        :arg id: Document ID.
-        :arg if_primary_term: only perform the operation if the last
-            operation that has changed the document has the specified primary term.
-        :arg if_seq_no: only perform the operation if the last operation
-            that has changed the document has the specified sequence number.
-        :arg refresh: If `true` then refresh the affected shards to make
-            this operation visible to search, if `wait_for` then wait for a refresh
-            to make this operation visible to search, if `false` (the default) then
-            do nothing with refreshes. Valid choices are true, false, wait_for.
-        :arg routing: Routing value.
-        :arg timeout: Operation timeout.
-        :arg version: Explicit version number for concurrency control.
-        :arg version_type: Specific version type. Valid choices are
-            internal, external, external_gte, force.
-        :arg wait_for_active_shards: Sets the number of shard copies
-            that must be active before proceeding with the operation. Defaults to 1,
-            meaning the primary shard only. Set to `all` for all shard copies,
-            otherwise set to any non-negative value less than or equal to the total
-            number of copies for the shard (number of replicas + 1). Default is 1.
+            - if_primary_term: only perform the operation if the last
+              operation that has changed the document has the specified primary term.
+            - if_seq_no: only perform the operation if the last operation
+              that has changed the document has the specified sequence number.
+            - refresh: If `true` then refresh the affected shards to make
+              this operation visible to search, if `wait_for` then wait for a refresh
+              to make this operation visible to search, if `false` (the default) then
+              do nothing with refreshes. Valid choices are true, false, wait_for.
+            - routing: Routing value.
+            - timeout: Operation timeout.
+            - version: Explicit version number for concurrency control.
+            - version_type: Specific version type. Valid choices are
+              internal, external, external_gte, force.
+            - wait_for_active_shards: Sets the number of shard copies
+              that must be active before proceeding with the operation. Defaults to 1,
+              meaning the primary shard only. Set to `all` for all shard copies,
+              otherwise set to any non-negative value less than or equal to the total
+              number of copies for the shard (number of replicas + 1). Default is 1.
+        :type params: dict
+        :param headers: dictionary of headers, will be handed over 
+            to the index operation
+        :type headers: dict
+        :raises opensearchpy.NotFoundError: status error 404 indicating 
+            the document with that id doesn't exist
+        :return: dictionary with the outcome of the delete operation
+        :rtype: dict
+        
         """
         for param in (index, id):
             if param in SKIP_IN_PATH:
