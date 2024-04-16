@@ -100,6 +100,16 @@ response = client.index(
 print(response)
 ```
 
+```
+{'_index': ''test-index'',
+ '_id': '1',
+ '_version': 1,
+ 'result': 'created',
+ '_shards': {'total': 2, 'successful': 2, 'failed': 0},
+ '_seq_no': 0,
+ '_primary_term': 1}
+```
+
 ### Searching for a Document
 
 ```python
@@ -130,6 +140,29 @@ response = client.delete(
     id = id
 )
 print(response)
+```
+
+```
+{'_index': ''test-index'',
+ '_id': '1',
+ '_version': 1,
+ 'result': 'created',
+ '_shards': {'total': 2, 'successful': 2, 'failed': 0},
+ '_seq_no': 0,
+ '_primary_term': 1}
+```
+
+You might want to handle the case where the document to delete doesn't exist.
+```python
+from opensearchpy import NotFoundError
+
+try:
+    response = client.delete(
+      index = index_name,
+      id = id
+    )
+except NotFoundError as err:
+    print(err)
 ```
 
 ### Deleting an Index
