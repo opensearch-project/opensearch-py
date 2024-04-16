@@ -309,25 +309,33 @@ class OpenSearch(Client):
         with a same ID already exists in the index.
 
 
-        :arg index: Index name.
-        :arg id: Document ID.
-        :arg body: The document
-        :arg pipeline: The pipeline id to preprocess incoming documents
-            with.
-        :arg refresh: If `true` then refresh the affected shards to make
-            this operation visible to search, if `wait_for` then wait for a refresh
-            to make this operation visible to search, if `false` (the default) then
-            do nothing with refreshes. Valid choices are true, false, wait_for.
-        :arg routing: Routing value.
-        :arg timeout: Operation timeout.
-        :arg version: Explicit version number for concurrency control.
-        :arg version_type: Specific version type. Valid choices are
-            internal, external, external_gte, force.
-        :arg wait_for_active_shards: Sets the number of shard copies
-            that must be active before proceeding with the operation. Defaults to 1,
-            meaning the primary shard only. Set to `all` for all shard copies,
-            otherwise set to any non-negative value less than or equal to the total
-            number of copies for the shard (number of replicas + 1). Default is 1.
+        :param index: Index name.
+        :type index: str
+        :param id: Document ID.
+        :type id: str
+        :param body: The document
+        :param params: dictionary passed as URL parameters to the 
+            index operation in the OpenSearch document API.
+
+            - pipeline: The pipeline id to preprocess incoming documents with.
+            - refresh: If `true` then refresh the affected shards to make
+              this operation visible to search, if `wait_for` then wait for a refresh
+              to make this operation visible to search, if `false` (the default) then
+              do nothing with refreshes. Valid choices are true, false, wait_for.
+            - routing: Routing value.
+            - timeout: Operation timeout.
+            - version: Explicit version number for concurrency control.
+            - version_type: Specific version type. Valid choices are
+              internal, external, external_gte, force.
+            - wait_for_active_shards: Sets the number of shard copies
+              that must be active before proceeding with the operation. Defaults to 1,
+              meaning the primary shard only. Set to `all` for all shard copies,
+              otherwise set to any non-negative value less than or equal to the total
+              number of copies for the shard (number of replicas + 1). Default is 1.
+        :type params: dict
+        :param headers: dictionary of headers, will be handed over 
+            to the index operation
+        :type headers: dict
         """
         for param in (index, id, body):
             if param in SKIP_IN_PATH:
