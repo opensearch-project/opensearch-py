@@ -386,6 +386,22 @@ class API:
             if self.namespace == "tasks" and self.name == "get":
                 parts["task_id"]["required"] = False
 
+            # Workaround to prevent lint error: invalid escape sequence '\`'
+            if (
+                self.namespace == "indices"
+                and self.name == "create_data_stream"
+                and part == "name"
+            ):
+                replace_str = r"`\`, "
+                # Replace the string in the description
+                parts["name"]["description"] = parts["name"]["description"].replace(
+                    replace_str, ""
+                )
+                if "backslash" not in parts["name"]["description"]:
+                    parts["name"]["description"] = parts["name"]["description"].replace(
+                        "`:`", "`:`, backslash"
+                    )
+
         for k, sub in SUBSTITUTIONS.items():
             if k in parts:
                 parts[sub] = parts.pop(k)
@@ -645,7 +661,7 @@ def read_modules() -> Any:
 
                 if "description" in part:
                     parts_dict.update(
-                        {"description": part["description"].replace("\n", "")}
+                        {"description": part["description"].replace("\n", " ")}
                     )
 
                 if "x-enum-options" in part["schema"]:

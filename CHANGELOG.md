@@ -10,7 +10,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ### Removed
 - Removed support for Python 3.6, 3.7 ([#717](https://github.com/opensearch-project/opensearch-py/pull/717))
 ### Fixed
-- Updated code generator to use new version of OpenAPI specification ([#721](https://github.com/opensearch-project/opensearch-py/pull/721))
+- Updated code generator to use native OpenAPI specification ([#721](https://github.com/opensearch-project/opensearch-py/pull/721))
 ### Updated APIs
 - Updated opensearch-py APIs to reflect [opensearch-api-specification@7a59510](https://github.com/opensearch-project/opensearch-api-specification/commit/7a59510d30200b22792fb0bd5dd827b620030f89)
 ### Security
