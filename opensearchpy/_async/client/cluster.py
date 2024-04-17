@@ -73,7 +73,7 @@ class ClusterClient(NamespacedClient):
         :arg index: Comma-separated list of data streams, indices, and
             index aliases used to limit the request. Wildcard expressions (*) are
             supported. To target all data streams and indices in a cluster, omit
-            this parameter or use _all or *.
+            this parameter or use `_all` or `*`.
         :arg awareness_attribute: The awareness attribute for which the
             health is required.
         :arg cluster_manager_timeout: Operation timeout for connection
@@ -544,8 +544,8 @@ class ClusterClient(NamespacedClient):
         Deletes a component template.
 
 
-        :arg name: Name of the component template to delete.Wildcard (*)
-            expressions are supported.
+        :arg name: Name of the component template to delete. Wildcard
+            (*) expressions are supported.
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
         :arg error_trace: Whether to include the stack trace of returned
@@ -596,7 +596,7 @@ class ClusterClient(NamespacedClient):
         Returns one or more component templates.
 
 
-        :arg name: Name of the component template to retrieve.Wildcard
+        :arg name: Name of the component template to retrieve. Wildcard
             (`*`) expressions are supported.
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
@@ -647,13 +647,13 @@ class ClusterClient(NamespacedClient):
         Creates or updates a component template.
 
 
-        :arg name: Name of the component template to create.Opensearch
+        :arg name: Name of the component template to create. Opensearch
             includes the following built-in component templates: `logs-mappings`;
             'logs-settings`; `metrics-mappings`; `metrics-settings`;`synthetics-
-            mapping`; `synthetics-settings`.Opensearch Agent uses these templates to
-            configure backing indices for its data streams.If you use Opensearch
+            mapping`; `synthetics-settings`. Opensearch Agent uses these templates
+            to configure backing indices for its data streams. If you use Opensearch
             Agent and want to overwrite one of these templates, set the `version`
-            for your replacement template higher than the current version.If you
+            for your replacement template higher than the current version. If you
             don’t use Opensearch Agent and want to disable all built-in component
             and index templates, set `stack.templates.enabled` to `false` using the
             cluster update settings API.
@@ -710,8 +710,8 @@ class ClusterClient(NamespacedClient):
         Returns information about whether a particular component template exist.
 
 
-        :arg name: Name of the component template to check existence
-            of.Wildcard (*) expressions are supported.
+        :arg name: Name of the component template to check existence of.
+            Wildcard (*) expressions are supported.
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
         :arg error_trace: Whether to include the stack trace of returned

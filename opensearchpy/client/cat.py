@@ -281,7 +281,7 @@ class CatClient(NamespacedClient):
 
 
         :arg index: Comma-separated list of data streams, indices, and
-            aliases used to limit the request.Supports wildcards (`*`). To target
+            aliases used to limit the request. Supports wildcards (`*`). To target
             all data streams and indices, omit this parameter or use `*` or `_all`.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
@@ -469,7 +469,7 @@ class CatClient(NamespacedClient):
 
 
         :arg index: Comma-separated list of data streams, indices, and
-            aliases used to limit the request.Supports wildcards (`*`). To target
+            aliases used to limit the request. Supports wildcards (`*`). To target
             all data streams and indices, omit this parameter or use `*` or `_all`.
         :arg bytes: The unit used to display byte values. Valid choices
             are b, k, kb, m, mb, g, gb, t, tb, p, pb.
@@ -1062,8 +1062,8 @@ class CatClient(NamespacedClient):
 
 
         :arg index: A comma-separated list of data streams, indices, and
-            aliases used to limit the request.Supports wildcards (`*`).To target all
-            data streams and indices, omit this parameter or use `*` or `_all`.
+            aliases used to limit the request. Supports wildcards (`*`). To target
+            all data streams and indices, omit this parameter or use `*` or `_all`.
         :arg bytes: The unit used to display byte values. Valid choices
             are b, k, kb, m, mb, g, gb, t, tb, p, pb.
         :arg cluster_manager_timeout: Operation timeout for connection
@@ -1121,8 +1121,8 @@ class CatClient(NamespacedClient):
 
 
         :arg index: A comma-separated list of data streams, indices, and
-            aliases used to limit the request.Supports wildcards (`*`).To target all
-            data streams and indices, omit this parameter or use `*` or `_all`.
+            aliases used to limit the request. Supports wildcards (`*`). To target
+            all data streams and indices, omit this parameter or use `*` or `_all`.
         :arg bytes: The unit used to display byte values. Valid choices
             are b, k, kb, m, mb, g, gb, t, tb, p, pb.
         :arg cluster_manager_timeout: Operation timeout for connection
@@ -1184,7 +1184,7 @@ class CatClient(NamespacedClient):
 
 
         :arg thread_pool_patterns: A comma-separated list of thread pool
-            names used to limit the request.Accepts wildcard expressions.
+            names used to limit the request. Accepts wildcard expressions.
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
         :arg error_trace: Whether to include the stack trace of returned
@@ -1245,8 +1245,8 @@ class CatClient(NamespacedClient):
 
 
         :arg repository: A comma-separated list of snapshot repositories
-            used to limit the request.Accepts wildcard expressions.`_all` returns
-            all repositories.If any repository fails during the request, Opensearch
+            used to limit the request. Accepts wildcard expressions. `_all` returns
+            all repositories. If any repository fails during the request, Opensearch
             returns an error.
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
@@ -1368,7 +1368,7 @@ class CatClient(NamespacedClient):
         Returns information about existing templates.
 
 
-        :arg name: The name of the template to return.Accepts wildcard
+        :arg name: The name of the template to return. Accepts wildcard
             expressions. If omitted, all templates are returned.
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.

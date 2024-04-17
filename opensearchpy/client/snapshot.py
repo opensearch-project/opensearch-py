@@ -172,8 +172,8 @@ class SnapshotClient(NamespacedClient):
         :arg repository: Comma-separated list of snapshot repository
             names used to limit the request. Wildcard (*) expressions are supported.
         :arg snapshot: Comma-separated list of snapshot names to
-            retrieve. Also accepts wildcards (*).- To get information about all
-            snapshots in a registered repository, use a wildcard (*) or _all.- To
+            retrieve. Also accepts wildcards (*). - To get information about all
+            snapshots in a registered repository, use a wildcard (*) or _all. - To
             get information about any snapshots that are currently running, use
             _current.
         :arg cluster_manager_timeout: Operation timeout for connection

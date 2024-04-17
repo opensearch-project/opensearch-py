@@ -59,9 +59,9 @@ class IngestClient(NamespacedClient):
         Returns a pipeline.
 
 
-        :arg id: Comma-separated list of pipeline IDs to
-            retrieve.Wildcard (`*`) expressions are supported.To get all ingest
-            pipelines, omit this parameter or use `*`.
+        :arg id: Comma-separated list of pipeline IDs to retrieve.
+            Wildcard (`*`) expressions are supported. To get all ingest pipelines,
+            omit this parameter or use `*`.
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
         :arg error_trace: Whether to include the stack trace of returned
@@ -159,7 +159,7 @@ class IngestClient(NamespacedClient):
 
 
         :arg id: Pipeline ID or wildcard expression of pipeline IDs used
-            to limit the request.To delete all ingest pipelines in a cluster, use a
+            to limit the request. To delete all ingest pipelines in a cluster, use a
             value of `*`.
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
@@ -204,7 +204,7 @@ class IngestClient(NamespacedClient):
 
 
         :arg body: The simulate definition
-        :arg id: Pipeline to test.If you don’t specify a `pipeline` in
+        :arg id: Pipeline to test. If you don’t specify a `pipeline` in
             the request body, this parameter is required.
         :arg error_trace: Whether to include the stack trace of returned
             errors.

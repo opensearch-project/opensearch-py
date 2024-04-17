@@ -96,8 +96,8 @@ class IndicesClient(NamespacedClient):
 
 
         :arg index: Comma-separated list of data streams, indices, and
-            aliases used to limit the request.Supports wildcards (`*`).To target all
-            data streams and indices, omit this parameter or use `*` or `_all`.
+            aliases used to limit the request. Supports wildcards (`*`). To target
+            all data streams and indices, omit this parameter or use `*` or `_all`.
         :arg allow_no_indices: If `false`, the request returns an error
             if any wildcard expression, index alias, or `_all` value targets only
             missing or closed indices.This behavior applies even if the request
@@ -148,8 +148,8 @@ class IndicesClient(NamespacedClient):
 
 
         :arg index: Comma-separated list of data streams, indices, and
-            aliases to flush.Supports wildcards (`*`).To flush all data streams and
-            indices, omit this parameter or use `*` or `_all`.
+            aliases to flush. Supports wildcards (`*`). To flush all data streams
+            and indices, omit this parameter or use `*` or `_all`.
         :arg allow_no_indices: If `false`, the request returns an error
             if any wildcard expression, index alias, or `_all` value targets only
             missing or closed indices.This behavior applies even if the request
@@ -334,7 +334,7 @@ class IndicesClient(NamespacedClient):
 
 
         :arg index: Comma-separated list of data streams, indices, and
-            index aliases used to limit the request.Wildcard expressions (*) are
+            index aliases used to limit the request. Wildcard expressions (*) are
             supported.
         :arg allow_no_indices: If false, the request returns an error if
             any wildcard expression, index alias, or _all value targets onlymissing
@@ -405,10 +405,10 @@ class IndicesClient(NamespacedClient):
 
 
         :arg index: Comma-separated list of data streams, indices, and
-            aliases used to limit the request.Supports wildcards (`*`).By default,
-            you must explicitly name the indices you using to limit the request.To
+            aliases used to limit the request. Supports wildcards (`*`). By default,
+            you must explicitly name the indices you using to limit the request. To
             limit a request using `_all`, `*`, or other wildcard expressions, change
-            the `action.destructive_requires_name` setting to false.You can update
+            the `action.destructive_requires_name` setting to false. You can update
             this setting in the `opensearch.yml` file or using the cluster update
             settings API.
         :arg allow_no_indices: If `false`, the request returns an error
@@ -550,9 +550,9 @@ class IndicesClient(NamespacedClient):
         Deletes an index.
 
 
-        :arg index: Comma-separated list of indices to delete.You cannot
-            specify index aliases.By default, this parameter does not support
-            wildcards (`*`) or `_all`.To use wildcards or `_all`, set the
+        :arg index: Comma-separated list of indices to delete. You
+            cannot specify index aliases. By default, this parameter does not
+            support wildcards (`*`) or `_all`. To use wildcards or `_all`, set the
             `action.destructive_requires_name` cluster setting to `false`.
         :arg allow_no_indices: If `false`, the request returns an error
             if any wildcard expression, index alias, or `_all` value targets only
@@ -753,8 +753,8 @@ class IndicesClient(NamespacedClient):
 
 
         :arg index: Comma-separated list of data streams, indices, and
-            aliases used to limit the request.Supports wildcards (`*`).To target all
-            data streams and indices, omit this parameter or use `*` or `_all`.
+            aliases used to limit the request. Supports wildcards (`*`). To target
+            all data streams and indices, omit this parameter or use `*` or `_all`.
         :arg allow_no_indices: If `false`, the request returns an error
             if any wildcard expression, index alias, or `_all` value targets only
             missing or closed indices.This behavior applies even if the request
@@ -816,8 +816,8 @@ class IndicesClient(NamespacedClient):
         :arg fields: Comma-separated list or wildcard expression of
             fields used to limit returned information.
         :arg index: Comma-separated list of data streams, indices, and
-            aliases used to limit the request.Supports wildcards (`*`).To target all
-            data streams and indices, omit this parameter or use `*` or `_all`.
+            aliases used to limit the request. Supports wildcards (`*`). To target
+            all data streams and indices, omit this parameter or use `*` or `_all`.
         :arg allow_no_indices: If `false`, the request returns an error
             if any wildcard expression, index alias, or `_all` value targets only
             missing or closed indices.This behavior applies even if the request
@@ -878,10 +878,10 @@ class IndicesClient(NamespacedClient):
 
 
         :arg index: Comma-separated list of data streams or indices to
-            add.Supports wildcards (`*`).Wildcard patterns that match both data
+            add. Supports wildcards (`*`). Wildcard patterns that match both data
             streams and indices return an error.
-        :arg name: Alias to update.If the alias doesn’t exist, the
-            request creates it.Index alias names support date math.
+        :arg name: Alias to update. If the alias doesn’t exist, the
+            request creates it. Index alias names support date math.
         :arg body: The settings for the alias, such as `routing` or
             `filter`
         :arg cluster_manager_timeout: Operation timeout for connection
@@ -941,7 +941,7 @@ class IndicesClient(NamespacedClient):
         :arg name: Comma-separated list of aliases to check. Supports
             wildcards (`*`).
         :arg index: Comma-separated list of data streams or indices used
-            to limit the request. Supports wildcards (`*`).To target all data
+            to limit the request. Supports wildcards (`*`). To target all data
             streams and indices, omit this parameter or use `*` or `_all`.
         :arg allow_no_indices: If `false`, the request returns an error
             if any wildcard expression, index alias, or `_all` value targets only
@@ -999,10 +999,10 @@ class IndicesClient(NamespacedClient):
 
 
         :arg index: Comma-separated list of data streams or indices used
-            to limit the request.Supports wildcards (`*`).To target all data streams
-            and indices, omit this parameter or use `*` or `_all`.
-        :arg name: Comma-separated list of aliases to retrieve.Supports
-            wildcards (`*`).To retrieve all aliases, omit this parameter or use `*`
+            to limit the request. Supports wildcards (`*`). To target all data
+            streams and indices, omit this parameter or use `*` or `_all`.
+        :arg name: Comma-separated list of aliases to retrieve. Supports
+            wildcards (`*`). To retrieve all aliases, omit this parameter or use `*`
             or `_all`.
         :arg allow_no_indices: If `false`, the request returns an error
             if any wildcard expression, index alias, or `_all` value targets only
@@ -1103,8 +1103,8 @@ class IndicesClient(NamespacedClient):
 
 
         :arg index: Comma-separated list of data streams or indices used
-            to limit the request.Supports wildcards (`*`).
-        :arg name: Comma-separated list of aliases to remove.Supports
+            to limit the request. Supports wildcards (`*`).
+        :arg name: Comma-separated list of aliases to remove. Supports
             wildcards (`*`). To remove all aliases, use `*` or `_all`.
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
@@ -1264,8 +1264,9 @@ class IndicesClient(NamespacedClient):
 
 
         :arg name: Comma-separated list of index template names used to
-            limit the request.Wildcard (`*`) expressions are supported.To return all
-            index templates, omit this parameter or use a value of `_all` or `*`.
+            limit the request. Wildcard (`*`) expressions are supported. To return
+            all index templates, omit this parameter or use a value of `_all` or
+            `*`.
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
         :arg error_trace: Whether to include the stack trace of returned
@@ -1310,8 +1311,8 @@ class IndicesClient(NamespacedClient):
         Deletes an index template.
 
 
-        :arg name: The name of the legacy index template to
-            delete.Wildcard (`*`) expressions are supported.
+        :arg name: The name of the legacy index template to delete.
+            Wildcard (`*`) expressions are supported.
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
         :arg error_trace: Whether to include the stack trace of returned
@@ -1366,8 +1367,8 @@ class IndicesClient(NamespacedClient):
 
 
         :arg index: Comma-separated list of data streams, indices, and
-            aliases used to limitthe request. Supports wildcards (`*`). To target
-            all data streams andindices, omit this parameter or use `*` or `_all`.
+            aliases used to limit the request. Supports wildcards (`*`). To target
+            all data streams and indices, omit this parameter or use `*` or `_all`.
         :arg name: Comma-separated list or wildcard expression of
             settings to retrieve.
         :arg allow_no_indices: If `false`, the request returns an error
@@ -1437,8 +1438,8 @@ class IndicesClient(NamespacedClient):
 
 
         :arg index: Comma-separated list of data streams, indices, and
-            aliases used to limitthe request. Supports wildcards (`*`). To target
-            all data streams andindices, omit this parameter or use `*` or `_all`.
+            aliases used to limit the request. Supports wildcards (`*`). To target
+            all data streams and indices, omit this parameter or use `*` or `_all`.
         :arg allow_no_indices: If `false`, the request returns an error
             if any wildcard expression, indexalias, or `_all` value targets only
             missing or closed indices. Thisbehavior applies even if the request
@@ -1459,8 +1460,8 @@ class IndicesClient(NamespacedClient):
         :arg flat_settings: If `true`, returns settings in flat format.
         :arg human: Whether to return human readable values for
             statistics.
-        :arg ignore_unavailable: If `true`, returns settings in flat
-            format.
+        :arg ignore_unavailable: Whether specified concrete indices
+            should be ignored when unavailable (missing or closed).
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Period to wait for a connection
             to the master node. If no response isreceived before the timeout
@@ -1577,8 +1578,8 @@ class IndicesClient(NamespacedClient):
 
 
         :arg index: Comma-separated list of data streams, indices, and
-            aliases used to limit the request.Supports wildcards (`*`).To target all
-            data streams and indices, omit this parameter or use `*` or `_all`.
+            aliases used to limit the request. Supports wildcards (`*`). To target
+            all data streams and indices, omit this parameter or use `*` or `_all`.
         :arg allow_no_indices: If `false`, the request returns an error
             if any wildcard expression, index alias, or `_all` value targets only
             missing or closed indices.This behavior applies even if the request
@@ -1639,8 +1640,8 @@ class IndicesClient(NamespacedClient):
 
         :arg body: The query definition specified with the Query DSL
         :arg index: Comma-separated list of data streams, indices, and
-            aliases to search.Supports wildcards (`*`).To search all data streams or
-            indices, omit this parameter or use `*` or `_all`.
+            aliases to search. Supports wildcards (`*`). To search all data streams
+            or indices, omit this parameter or use `*` or `_all`.
         :arg all_shards: If `true`, the validation is executed on all
             shards instead of one random shard per index.
         :arg allow_no_indices: If `false`, the request returns an error
@@ -1770,8 +1771,8 @@ class IndicesClient(NamespacedClient):
 
 
         :arg index: Comma-separated list of data streams, indices, and
-            aliases used to limit the request.Supports wildcards (`*`).To target all
-            data streams and indices, omit this parameter or use `*` or `_all`.
+            aliases used to limit the request. Supports wildcards (`*`). To target
+            all data streams and indices, omit this parameter or use `*` or `_all`.
         :arg active_only: If `true`, the response only includes ongoing
             shard recoveries.
         :arg detailed: If `true`, the response includes detailed
@@ -2170,8 +2171,8 @@ class IndicesClient(NamespacedClient):
         :arg alias: Name of the data stream or index alias to roll over.
         :arg body: The conditions that needs to be met for executing
             rollover
-        :arg new_index: Name of the index to create.Supports date
-            math.Data streams do not support this parameter.
+        :arg new_index: Name of the index to create. Supports date math.
+            Data streams do not support this parameter.
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
         :arg dry_run: If `true`, checks whether the current index
@@ -2222,10 +2223,11 @@ class IndicesClient(NamespacedClient):
 
 
         :arg name: Name of the data stream, which must meet the
-            following criteria:Lowercase only;Cannot include `\`, `/`, `*`, `?`,
-            `"`, `<`, `>`, `|`, `,`, `#`, `:`, or a space character;Cannot start
-            with `-`, `_`, `+`, or `.ds-`;Cannot be `.` or `..`;Cannot be longer
-            than 255 bytes. Multi-byte characters count towards this limit faster.
+            following criteria: Lowercase only; Cannot include `/`, `*`, `?`, `"`,
+            `<`, `>`, `|`, `,`, `#`, `:`, backslash, or a space character; Cannot
+            start with `-`, `_`, `+`, or `.ds-`; Cannot be `.` or `..`; Cannot be
+            longer than 255 bytes. Multi-byte characters count towards this limit
+            faster.
         :arg body: The data stream definition
         :arg error_trace: Whether to include the stack trace of returned
             errors.
@@ -2560,7 +2562,7 @@ class IndicesClient(NamespacedClient):
 
 
         :arg name: Comma-separated list of data stream names used to
-            limit the request.Wildcard (`*`) expressions are supported. If omitted,
+            limit the request. Wildcard (`*`) expressions are supported. If omitted,
             all data streams are returned.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
@@ -2600,7 +2602,7 @@ class IndicesClient(NamespacedClient):
 
 
         :arg name: Name of the index template to simulate. To test a
-            template configuration before you add it to the cluster, omitthis
+            template configuration before you add it to the cluster, omit this
             parameter and specify the template configuration in the request body.
         :arg cause: User defined reason for dry-run creating the new
             template for simulation purposes. Default is false.
@@ -2648,7 +2650,7 @@ class IndicesClient(NamespacedClient):
 
 
         :arg name: Comma-separated name(s) or index pattern(s) of the
-            indices, aliases, and data streams to resolve.Resources on remote
+            indices, aliases, and data streams to resolve. Resources on remote
             clusters can be specified using the `<cluster>`:`<name>` syntax.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
@@ -2746,8 +2748,8 @@ class IndicesClient(NamespacedClient):
 
 
         :arg name: Comma-separated list of data streams used to limit
-            the request.Wildcard expressions (`*`) are supported.To target all data
-            streams in a cluster, omit this parameter or use `*`.
+            the request. Wildcard expressions (`*`) are supported. To target all
+            data streams in a cluster, omit this parameter or use `*`.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
         :arg filter_path: Comma-separated list of filters used to reduce

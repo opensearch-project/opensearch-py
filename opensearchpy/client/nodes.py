@@ -269,7 +269,7 @@ class NodesClient(NamespacedClient):
             the node you're connecting to, leave empty to get information from all
             nodes
         :arg metric: Limits the information returned to the specific
-            metrics.A comma-separated list of the following options: `_all`,
+            metrics. A comma-separated list of the following options: `_all`,
             `rest_actions`.
         :arg error_trace: Whether to include the stack trace of returned
             errors.

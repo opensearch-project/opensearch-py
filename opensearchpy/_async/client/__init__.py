@@ -338,10 +338,10 @@ class AsyncOpenSearch(Client):
         with a same ID already exists in the index.
 
 
-        :arg index: Name of the data stream or index to target.If the
+        :arg index: Name of the data stream or index to target. If the
             target doesn’t exist and matches the name or wildcard (`*`) pattern of
             an index template with a `data_stream` definition, this request creates
-            the data stream.If the target doesn’t exist and doesn’t match a data
+            the data stream. If the target doesn’t exist and doesn’t match a data
             stream template, this request creates the index.
         :arg id: Unique identifier for the document.
         :arg body: The document
@@ -576,7 +576,7 @@ class AsyncOpenSearch(Client):
 
         :arg body: Comma-separated list of scroll IDs to clear if none
             was specified via the scroll_id parameter
-        :arg scroll_id: Comma-separated list of scroll IDs to clear.To
+        :arg scroll_id: Comma-separated list of scroll IDs to clear. To
             clear all scroll IDs, use `_all`.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
@@ -635,7 +635,7 @@ class AsyncOpenSearch(Client):
         :arg body: Query to restrict the results specified with the
             Query DSL (optional)
         :arg index: Comma-separated list of data streams, indices, and
-            aliases to search.Supports wildcards (`*`).To search all data streams
+            aliases to search. Supports wildcards (`*`). To search all data streams
             and indices, omit this parameter or use `*` or `_all`.
         :arg allow_no_indices: If `false`, the request returns an error
             if any wildcard expression, index alias, or `_all` value targets only
@@ -813,8 +813,8 @@ class AsyncOpenSearch(Client):
 
 
         :arg index: Comma-separated list of data streams, indices, and
-            aliases to search.Supports wildcards (`*`).To search all data streams or
-            indices, omit this parameter or use `*` or `_all`.
+            aliases to search. Supports wildcards (`*`). To search all data streams
+            or indices, omit this parameter or use `*` or `_all`.
         :arg body: The search definition using the Query DSL
         :arg _source: True or false to return the _source field or not,
             or a list of fields to return.
@@ -1034,7 +1034,7 @@ class AsyncOpenSearch(Client):
 
 
         :arg index: Comma-separated list of data streams, indices, and
-            aliases.Supports wildcards (`*`).
+            aliases. Supports wildcards (`*`).
         :arg id: Identifier of the document.
         :arg _source: `true` or `false` to return the `_source` field or
             not, or a list of fields to return.
@@ -1106,7 +1106,7 @@ class AsyncOpenSearch(Client):
 
 
         :arg index: Comma-separated list of data streams, indices, and
-            aliases.Supports wildcards (`*`).
+            aliases. Supports wildcards (`*`).
         :arg id: Identifier of the document.
         :arg _source: `true` or `false` to return the `_source` field or
             not, or a list of fields to return.
@@ -1179,7 +1179,7 @@ class AsyncOpenSearch(Client):
         Returns information about why a specific matches (or doesn't match) a query.
 
 
-        :arg index: Index names used to limit the request.Only a single
+        :arg index: Index names used to limit the request. Only a single
             index name can be provided to this parameter.
         :arg id: Defines the document ID.
         :arg body: The query definition using the Query DSL
@@ -1649,7 +1649,7 @@ class AsyncOpenSearch(Client):
         :arg body: The request definitions (metadata-search request
             definition pairs), separated by newlines
         :arg index: Comma-separated list of data streams, indices, and
-            aliases to search.Supports wildcards (`*`).To search all data streams
+            aliases to search. Supports wildcards (`*`). To search all data streams
             and indices, omit this parameter or use `*`.
         :arg ccs_minimize_roundtrips: If `true`, network round-trips are
             minimized for cross-cluster search requests.
@@ -1783,12 +1783,12 @@ class AsyncOpenSearch(Client):
         Creates or updates a script.
 
 
-        :arg id: Identifier for the stored script or search
-            template.Must be unique within the cluster.
+        :arg id: Identifier for the stored script or search template.
+            Must be unique within the cluster.
         :arg body: The document
         :arg context: Context in which the script or search template
-            should run.To prevent errors, the API immediately compiles the script or
-            template in this context.
+            should run. To prevent errors, the API immediately compiles the script
+            or template in this context.
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
         :arg error_trace: Whether to include the stack trace of returned
@@ -1848,8 +1848,8 @@ class AsyncOpenSearch(Client):
             search requests, document ratings and ranking metric definition.
         :arg index: Comma-separated list of data streams, indices, and
             index aliases used to limit the request. Wildcard (`*`) expressions are
-            supported.To target all data streams and indices in a cluster, omit this
-            parameter or use `_all` or `*`.
+            supported. To target all data streams and indices in a cluster, omit
+            this parameter or use `_all` or `*`.
         :arg allow_no_indices: If `false`, the request returns an error
             if any wildcard expression, index alias, or `_all` value targets only
             missing or closed indices. This behavior applies even if the request
@@ -2000,7 +2000,7 @@ class AsyncOpenSearch(Client):
 
 
         :arg body: The search definition template and its params
-        :arg id: ID of the search template to render.If no `source` is
+        :arg id: ID of the search template to render. If no `source` is
             specified, this or the `id` request body parameter is required.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
@@ -2165,7 +2165,7 @@ class AsyncOpenSearch(Client):
 
         :arg body: The search definition using the Query DSL
         :arg index: Comma-separated list of data streams, indices, and
-            aliases to search.Supports wildcards (`*`).To search all data streams
+            aliases to search. Supports wildcards (`*`). To search all data streams
             and indices, omit this parameter or use `*` or `_all`.
         :arg _source: Indicates which source fields are returned for
             matching documents.These fields are returned in the `hits._source`
@@ -2449,7 +2449,7 @@ class AsyncOpenSearch(Client):
 
 
         :arg body: The search definition template and its params
-        :arg index: Comma-separated list of data streams, indices,and
+        :arg index: Comma-separated list of data streams, indices, and
             aliases to search. Supports wildcards (*).
         :arg allow_no_indices: If `false`, the request returns an error
             if any wildcard expression, index alias, or `_all` value targets only
@@ -2723,8 +2723,8 @@ class AsyncOpenSearch(Client):
 
 
         :arg index: Comma-separated list of data streams, indices, and
-            aliases to search.Supports wildcards (`*`).To search all data streams or
-            indices, omit this parameter or use `*` or `_all`.
+            aliases to search. Supports wildcards (`*`). To search all data streams
+            or indices, omit this parameter or use `*` or `_all`.
         :arg body: The search definition using the Query DSL
         :arg _source: True or false to return the _source field or not,
             or a list of fields to return.
