@@ -843,8 +843,7 @@ class OpenSearch(Client):
             match.If the request can target data streams, this argument determines
             whether wildcard expressions match hidden data streams.Supports comma-
             separated values, such as `open,hidden`. Valid values are: `all`,
-            `open`, `closed`, `hidden`, `none`. Valid choices are all, open, closed,
-            hidden, none.
+            `open`, `closed`, `hidden`, `none`.
         :arg filter_path: Comma-separated list of filters used to reduce
             the response.
         :arg from_: Starting offset (default: 0)
@@ -2394,8 +2393,7 @@ class OpenSearch(Client):
             match.If the request can target data streams, this argument determines
             whether wildcard expressions match hidden data streams.Supports comma-
             separated values, such as `open,hidden`.Valid values are: `all`, `open`,
-            `closed`, `hidden`, `none`. Valid choices are all, open, closed, hidden,
-            none.
+            `closed`, `hidden`, `none`.
         :arg filter_path: Comma-separated list of filters used to reduce
             the response.
         :arg human: Whether to return human readable values for
@@ -2465,8 +2463,7 @@ class OpenSearch(Client):
             match.If the request can target data streams, this argument determines
             whether wildcard expressions match hidden data streams.Supports comma-
             separated values, such as `open,hidden`.Valid values are: `all`, `open`,
-            `closed`, `hidden`, `none`. Valid choices are all, open, closed, hidden,
-            none.
+            `closed`, `hidden`, `none`.
         :arg explain: If `true`, the response includes additional
             details about score computation as part of a hit.
         :arg filter_path: Comma-separated list of filters used to reduce
@@ -2753,8 +2750,7 @@ class OpenSearch(Client):
             match.If the request can target data streams, this argument determines
             whether wildcard expressions match hidden data streams.Supports comma-
             separated values, such as `open,hidden`.Valid values are: `all`, `open`,
-            `closed`, `hidden`, `none`. Valid choices are all, open, closed, hidden,
-            none.
+            `closed`, `hidden`, `none`.
         :arg filter_path: Comma-separated list of filters used to reduce
             the response.
         :arg from_: Starting offset (default: 0)

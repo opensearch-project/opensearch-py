@@ -108,8 +108,7 @@ class IndicesClient(NamespacedClient):
             match.If the request can target data streams, this argument determines
             whether wildcard expressions match hidden data streams.Supports comma-
             separated values, such as `open,hidden`.Valid values are: `all`, `open`,
-            `closed`, `hidden`, `none`. Valid choices are all, open, closed, hidden,
-            none.
+            `closed`, `hidden`, `none`.
         :arg filter_path: Comma-separated list of filters used to reduce
             the response.
         :arg human: Whether to return human readable values for
@@ -160,8 +159,7 @@ class IndicesClient(NamespacedClient):
             match.If the request can target data streams, this argument determines
             whether wildcard expressions match hidden data streams.Supports comma-
             separated values, such as `open,hidden`.Valid values are: `all`, `open`,
-            `closed`, `hidden`, `none`. Valid choices are all, open, closed, hidden,
-            none.
+            `closed`, `hidden`, `none`.
         :arg filter_path: Comma-separated list of filters used to reduce
             the response.
         :arg force: If `true`, the request forces a flush even if there
@@ -423,8 +421,7 @@ class IndicesClient(NamespacedClient):
             match.If the request can target data streams, this argument determines
             whether wildcard expressions match hidden data streams.Supports comma-
             separated values, such as `open,hidden`.Valid values are: `all`, `open`,
-            `closed`, `hidden`, `none`. Valid choices are all, open, closed, hidden,
-            none.
+            `closed`, `hidden`, `none`.
         :arg filter_path: Comma-separated list of filters used to reduce
             the response.
         :arg human: Whether to return human readable values for
@@ -496,8 +493,7 @@ class IndicesClient(NamespacedClient):
             match.If the request can target data streams, this argument determines
             whether wildcard expressions match hidden data streams.Supports comma-
             separated values, such as `open,hidden`.Valid values are: `all`, `open`,
-            `closed`, `hidden`, `none`. Valid choices are all, open, closed, hidden,
-            none.
+            `closed`, `hidden`, `none`.
         :arg filter_path: Comma-separated list of filters used to reduce
             the response.
         :arg human: Whether to return human readable values for
@@ -566,8 +562,7 @@ class IndicesClient(NamespacedClient):
             match.If the request can target data streams, this argument determines
             whether wildcard expressions match hidden data streams.Supports comma-
             separated values, such as `open,hidden`.Valid values are: `all`, `open`,
-            `closed`, `hidden`, `none`. Valid choices are all, open, closed, hidden,
-            none.
+            `closed`, `hidden`, `none`.
         :arg filter_path: Comma-separated list of filters used to reduce
             the response.
         :arg human: Whether to return human readable values for
@@ -628,8 +623,7 @@ class IndicesClient(NamespacedClient):
             match.If the request can target data streams, this argument determines
             whether wildcard expressions match hidden data streams.Supports comma-
             separated values, such as `open,hidden`.Valid values are: `all`, `open`,
-            `closed`, `hidden`, `none`. Valid choices are all, open, closed, hidden,
-            none.
+            `closed`, `hidden`, `none`.
         :arg filter_path: Comma-separated list of filters used to reduce
             the response.
         :arg flat_settings: If `true`, returns settings in flat format.
@@ -693,8 +687,7 @@ class IndicesClient(NamespacedClient):
             match.If the request can target data streams, this argument determines
             whether wildcard expressions match hidden data streams.Supports comma-
             separated values, such as `open,hidden`.Valid values are: `all`, `open`,
-            `closed`, `hidden`, `none`. Valid choices are all, open, closed, hidden,
-            none.
+            `closed`, `hidden`, `none`.
         :arg filter_path: Comma-separated list of filters used to reduce
             the response.
         :arg human: Whether to return human readable values for
@@ -767,8 +760,7 @@ class IndicesClient(NamespacedClient):
             match.If the request can target data streams, this argument determines
             whether wildcard expressions match hidden data streams.Supports comma-
             separated values, such as `open,hidden`.Valid values are: `all`, `open`,
-            `closed`, `hidden`, `none`. Valid choices are all, open, closed, hidden,
-            none.
+            `closed`, `hidden`, `none`.
         :arg filter_path: Comma-separated list of filters used to reduce
             the response.
         :arg human: Whether to return human readable values for
@@ -828,8 +820,7 @@ class IndicesClient(NamespacedClient):
             match.If the request can target data streams, this argument determines
             whether wildcard expressions match hidden data streams.Supports comma-
             separated values, such as `open,hidden`.Valid values are: `all`, `open`,
-            `closed`, `hidden`, `none`. Valid choices are all, open, closed, hidden,
-            none.
+            `closed`, `hidden`, `none`.
         :arg filter_path: Comma-separated list of filters used to reduce
             the response.
         :arg human: Whether to return human readable values for
@@ -953,8 +944,7 @@ class IndicesClient(NamespacedClient):
             match.If the request can target data streams, this argument determines
             whether wildcard expressions match hidden data streams.Supports comma-
             separated values, such as `open,hidden`.Valid values are: `all`, `open`,
-            `closed`, `hidden`, `none`. Valid choices are all, open, closed, hidden,
-            none.
+            `closed`, `hidden`, `none`.
         :arg filter_path: Comma-separated list of filters used to reduce
             the response.
         :arg human: Whether to return human readable values for
@@ -1014,8 +1004,7 @@ class IndicesClient(NamespacedClient):
             match.If the request can target data streams, this argument determines
             whether wildcard expressions match hidden data streams.Supports comma-
             separated values, such as `open,hidden`.Valid values are: `all`, `open`,
-            `closed`, `hidden`, `none`. Valid choices are all, open, closed, hidden,
-            none.
+            `closed`, `hidden`, `none`.
         :arg filter_path: Comma-separated list of filters used to reduce
             the response.
         :arg human: Whether to return human readable values for
@@ -1590,8 +1579,7 @@ class IndicesClient(NamespacedClient):
             match.If the request can target data streams, this argument determines
             whether wildcard expressions match hidden data streams.Supports comma-
             separated values, such as `open,hidden`.Valid values are: `all`, `open`,
-            `closed`, `hidden`, `none`. Valid choices are all, open, closed, hidden,
-            none.
+            `closed`, `hidden`, `none`.
         :arg filter_path: Comma-separated list of filters used to reduce
             the response.
         :arg human: Whether to return human readable values for
@@ -1664,8 +1652,7 @@ class IndicesClient(NamespacedClient):
             match.If the request can target data streams, this argument determines
             whether wildcard expressions match hidden data streams.Supports comma-
             separated values, such as `open,hidden`.Valid values are: `all`, `open`,
-            `closed`, `hidden`, `none`. Valid choices are all, open, closed, hidden,
-            none.
+            `closed`, `hidden`, `none`.
         :arg explain: If `true`, the response returns detailed
             information if an error has occurred.
         :arg filter_path: Comma-separated list of filters used to reduce
@@ -1728,8 +1715,7 @@ class IndicesClient(NamespacedClient):
             match.If the request can target data streams, this argument determines
             whether wildcard expressions match hidden data streams.Supports comma-
             separated values, such as `open,hidden`.Valid values are: `all`, `open`,
-            `closed`, `hidden`, `none`. Valid choices are all, open, closed, hidden,
-            none.
+            `closed`, `hidden`, `none`.
         :arg fielddata: If `true`, clears the fields cache.Use the
             `fields` parameter to clear the cache of specific fields only.
         :arg fields: Comma-separated list of field names used to limit
@@ -2658,8 +2644,7 @@ class IndicesClient(NamespacedClient):
             match.If the request can target data streams, this argument determines
             whether wildcard expressions match hidden data streams.Supports comma-
             separated values, such as `open,hidden`.Valid values are: `all`, `open`,
-            `closed`, `hidden`, `none`. Valid choices are all, open, closed, hidden,
-            none.
+            `closed`, `hidden`, `none`.
         :arg filter_path: Comma-separated list of filters used to reduce
             the response.
         :arg human: Whether to return human readable values for
