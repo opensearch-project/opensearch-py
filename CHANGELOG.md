@@ -5,6 +5,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ### Added
 - Added support for Python 3.12 ([#717](https://github.com/opensearch-project/opensearch-py/pull/717))
 - Added service time metrics ([#716](https://github.com/opensearch-project/opensearch-py/pull/716))
+- Added `search_pipeline` APIs and `notifications` plugin APIs ([#724](https://github.com/opensearch-project/opensearch-py/pull/724))
 ### Changed
 ### Deprecated
 ### Removed
