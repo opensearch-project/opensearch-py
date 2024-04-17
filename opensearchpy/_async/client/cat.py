@@ -40,7 +40,20 @@ from .utils import NamespacedClient, _make_path, query_params
 
 
 class CatClient(NamespacedClient):
-    @query_params("expand_wildcards", "format", "h", "help", "local", "s", "v")
+    @query_params(
+        "error_trace",
+        "expand_wildcards",
+        "filter_path",
+        "format",
+        "h",
+        "help",
+        "human",
+        "local",
+        "pretty",
+        "s",
+        "source",
+        "v",
+    )
     async def aliases(
         self,
         name: Any = None,
@@ -52,25 +65,49 @@ class CatClient(NamespacedClient):
         filter and routing infos.
 
 
-        :arg name: Comma-separated list of alias names.
+        :arg name: A comma-separated list of aliases to retrieve.
+            Supports wildcards (`*`).  To retrieve all aliases, omit this parameter
+            or use `*` or `_all`.
+        :arg error_trace: Whether to include the stack trace of returned
+            errors.
         :arg expand_wildcards: Whether to expand wildcard expression to
             concrete indices that are open, closed or both. Valid choices are all,
             open, closed, hidden, none.
+        :arg filter_path: Comma-separated list of filters used to reduce
+            the response.
         :arg format: A short version of the Accept header, e.g. json,
             yaml.
         :arg h: Comma-separated list of column names to display.
         :arg help: Return help information. Default is false.
+        :arg human: Whether to return human readable values for
+            statistics.
         :arg local: Return local information, do not retrieve the state
             from cluster-manager node. Default is false.
+        :arg pretty: Whether to pretty format the returned JSON
+            response.
         :arg s: Comma-separated list of column names or column aliases
             to sort by.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
         :arg v: Verbose mode. Display column headers. Default is false.
         """
         return await self.transport.perform_request(
             "GET", _make_path("_cat", "aliases", name), params=params, headers=headers
         )
 
-    @query_params("bytes", "format", "h", "help", "s", "v")
+    @query_params(
+        "bytes",
+        "error_trace",
+        "filter_path",
+        "format",
+        "h",
+        "help",
+        "human",
+        "pretty",
+        "s",
+        "source",
+        "v",
+    )
     async def all_pit_segments(
         self,
         params: Any = None,
@@ -82,12 +119,22 @@ class CatClient(NamespacedClient):
 
         :arg bytes: The unit in which to display byte values. Valid
             choices are b, k, kb, m, mb, g, gb, t, tb, p, pb.
+        :arg error_trace: Whether to include the stack trace of returned
+            errors.
+        :arg filter_path: Comma-separated list of filters used to reduce
+            the response.
         :arg format: A short version of the Accept header, e.g. json,
             yaml.
         :arg h: Comma-separated list of column names to display.
         :arg help: Return help information. Default is false.
+        :arg human: Whether to return human readable values for
+            statistics.
+        :arg pretty: Whether to pretty format the returned JSON
+            response.
         :arg s: Comma-separated list of column names or column aliases
             to sort by.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
         :arg v: Verbose mode. Display column headers. Default is false.
         """
         return await self.transport.perform_request(
@@ -97,12 +144,17 @@ class CatClient(NamespacedClient):
     @query_params(
         "bytes",
         "cluster_manager_timeout",
+        "error_trace",
+        "filter_path",
         "format",
         "h",
         "help",
+        "human",
         "local",
         "master_timeout",
+        "pretty",
         "s",
+        "source",
         "v",
     )
     async def allocation(
@@ -116,23 +168,33 @@ class CatClient(NamespacedClient):
         much disk space they are using.
 
 
-        :arg node_id: Comma-separated list of node IDs or names to limit
-            the returned information.
-        :arg bytes: The unit in which to display byte values. Valid
-            choices are b, k, kb, m, mb, g, gb, t, tb, p, pb.
+        :arg node_id: Comma-separated list of node identifiers or names
+            used to limit the returned information.
+        :arg bytes: The unit used to display byte values. Valid choices
+            are b, k, kb, m, mb, g, gb, t, tb, p, pb.
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
+        :arg error_trace: Whether to include the stack trace of returned
+            errors.
+        :arg filter_path: Comma-separated list of filters used to reduce
+            the response.
         :arg format: A short version of the Accept header, e.g. json,
             yaml.
         :arg h: Comma-separated list of column names to display.
         :arg help: Return help information. Default is false.
+        :arg human: Whether to return human readable values for
+            statistics.
         :arg local: Return local information, do not retrieve the state
             from cluster-manager node. Default is false.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Operation timeout for
             connection to master node.
+        :arg pretty: Whether to pretty format the returned JSON
+            response.
         :arg s: Comma-separated list of column names or column aliases
             to sort by.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
         :arg v: Verbose mode. Display column headers. Default is false.
         """
         return await self.transport.perform_request(
@@ -144,12 +206,17 @@ class CatClient(NamespacedClient):
 
     @query_params(
         "cluster_manager_timeout",
+        "error_trace",
+        "filter_path",
         "format",
         "h",
         "help",
+        "human",
         "local",
         "master_timeout",
+        "pretty",
         "s",
+        "source",
         "v",
     )
     async def cluster_manager(
@@ -163,24 +230,45 @@ class CatClient(NamespacedClient):
 
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
+        :arg error_trace: Whether to include the stack trace of returned
+            errors.
+        :arg filter_path: Comma-separated list of filters used to reduce
+            the response.
         :arg format: A short version of the Accept header, e.g. json,
             yaml.
         :arg h: Comma-separated list of column names to display.
         :arg help: Return help information. Default is false.
+        :arg human: Whether to return human readable values for
+            statistics.
         :arg local: Return local information, do not retrieve the state
             from cluster-manager node. Default is false.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Operation timeout for
             connection to master node.
+        :arg pretty: Whether to pretty format the returned JSON
+            response.
         :arg s: Comma-separated list of column names or column aliases
             to sort by.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
         :arg v: Verbose mode. Display column headers. Default is false.
         """
         return await self.transport.perform_request(
             "GET", "/_cat/cluster_manager", params=params, headers=headers
         )
 
-    @query_params("format", "h", "help", "s", "v")
+    @query_params(
+        "error_trace",
+        "filter_path",
+        "format",
+        "h",
+        "help",
+        "human",
+        "pretty",
+        "s",
+        "source",
+        "v",
+    )
     async def count(
         self,
         index: Any = None,
@@ -192,21 +280,44 @@ class CatClient(NamespacedClient):
         individual indices.
 
 
-        :arg index: Comma-separated list of indices to limit the
-            returned information.
+        :arg index: Comma-separated list of data streams, indices, and
+            aliases used to limit the request.Supports wildcards (`*`). To target
+            all data streams and indices, omit this parameter or use `*` or `_all`.
+        :arg error_trace: Whether to include the stack trace of returned
+            errors.
+        :arg filter_path: Comma-separated list of filters used to reduce
+            the response.
         :arg format: A short version of the Accept header, e.g. json,
             yaml.
         :arg h: Comma-separated list of column names to display.
         :arg help: Return help information. Default is false.
+        :arg human: Whether to return human readable values for
+            statistics.
+        :arg pretty: Whether to pretty format the returned JSON
+            response.
         :arg s: Comma-separated list of column names or column aliases
             to sort by.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
         :arg v: Verbose mode. Display column headers. Default is false.
         """
         return await self.transport.perform_request(
             "GET", _make_path("_cat", "count", index), params=params, headers=headers
         )
 
-    @query_params("bytes", "format", "h", "help", "s", "v")
+    @query_params(
+        "bytes",
+        "error_trace",
+        "filter_path",
+        "format",
+        "h",
+        "help",
+        "human",
+        "pretty",
+        "s",
+        "source",
+        "v",
+    )
     async def fielddata(
         self,
         fields: Any = None,
@@ -218,16 +329,26 @@ class CatClient(NamespacedClient):
         node in the cluster.
 
 
-        :arg fields: Comma-separated list of fields to return in the
-            output.
-        :arg bytes: The unit in which to display byte values. Valid
-            choices are b, k, kb, m, mb, g, gb, t, tb, p, pb.
+        :arg fields: Comma-separated list of fields used to limit
+            returned information.
+        :arg bytes: The unit used to display byte values. Valid choices
+            are b, k, kb, m, mb, g, gb, t, tb, p, pb.
+        :arg error_trace: Whether to include the stack trace of returned
+            errors.
+        :arg filter_path: Comma-separated list of filters used to reduce
+            the response.
         :arg format: A short version of the Accept header, e.g. json,
             yaml.
         :arg h: Comma-separated list of column names to display.
         :arg help: Return help information. Default is false.
+        :arg human: Whether to return human readable values for
+            statistics.
+        :arg pretty: Whether to pretty format the returned JSON
+            response.
         :arg s: Comma-separated list of column names or column aliases
             to sort by.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
         :arg v: Verbose mode. Display column headers. Default is false.
         """
         return await self.transport.perform_request(
@@ -237,7 +358,20 @@ class CatClient(NamespacedClient):
             headers=headers,
         )
 
-    @query_params("format", "h", "help", "s", "time", "ts", "v")
+    @query_params(
+        "error_trace",
+        "filter_path",
+        "format",
+        "h",
+        "help",
+        "human",
+        "pretty",
+        "s",
+        "source",
+        "time",
+        "ts",
+        "v",
+    )
     async def health(
         self,
         params: Any = None,
@@ -247,22 +381,34 @@ class CatClient(NamespacedClient):
         Returns a concise representation of the cluster health.
 
 
+        :arg error_trace: Whether to include the stack trace of returned
+            errors.
+        :arg filter_path: Comma-separated list of filters used to reduce
+            the response.
         :arg format: A short version of the Accept header, e.g. json,
             yaml.
         :arg h: Comma-separated list of column names to display.
         :arg help: Return help information. Default is false.
+        :arg human: Whether to return human readable values for
+            statistics.
+        :arg pretty: Whether to pretty format the returned JSON
+            response.
         :arg s: Comma-separated list of column names or column aliases
             to sort by.
-        :arg time: The unit in which to display time values. Valid
-            choices are d, h, m, s, ms, micros, nanos.
-        :arg ts: Set to false to disable timestamping. Default is True.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        :arg time: The unit used to display time values. Valid choices
+            are nanos, micros, ms, s, m, h, d.
+        :arg ts: If true, returns `HH:MM:SS` and Unix epoch timestamps.
         :arg v: Verbose mode. Display column headers. Default is false.
         """
         return await self.transport.perform_request(
             "GET", "/_cat/health", params=params, headers=headers
         )
 
-    @query_params("help", "s")
+    @query_params(
+        "error_trace", "filter_path", "help", "human", "pretty", "s", "source"
+    )
     async def help(
         self,
         params: Any = None,
@@ -272,9 +418,19 @@ class CatClient(NamespacedClient):
         Returns help for the Cat APIs.
 
 
+        :arg error_trace: Whether to include the stack trace of returned
+            errors.
+        :arg filter_path: Comma-separated list of filters used to reduce
+            the response.
         :arg help: Return help information. Default is false.
+        :arg human: Whether to return human readable values for
+            statistics.
+        :arg pretty: Whether to pretty format the returned JSON
+            response.
         :arg s: Comma-separated list of column names or column aliases
             to sort by.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
         """
         return await self.transport.perform_request(
             "GET", "/_cat", params=params, headers=headers
@@ -283,16 +439,21 @@ class CatClient(NamespacedClient):
     @query_params(
         "bytes",
         "cluster_manager_timeout",
+        "error_trace",
         "expand_wildcards",
+        "filter_path",
         "format",
         "h",
         "health",
         "help",
+        "human",
         "include_unloaded_segments",
         "local",
         "master_timeout",
+        "pretty",
         "pri",
         "s",
+        "source",
         "time",
         "v",
     )
@@ -307,36 +468,45 @@ class CatClient(NamespacedClient):
         counts, disk size, ...
 
 
-        :arg index: Comma-separated list of indices to limit the
-            returned information.
-        :arg bytes: The unit in which to display byte values. Valid
-            choices are b, k, kb, m, mb, g, gb, t, tb, p, pb.
+        :arg index: Comma-separated list of data streams, indices, and
+            aliases used to limit the request.Supports wildcards (`*`). To target
+            all data streams and indices, omit this parameter or use `*` or `_all`.
+        :arg bytes: The unit used to display byte values. Valid choices
+            are b, k, kb, m, mb, g, gb, t, tb, p, pb.
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
-        :arg expand_wildcards: Whether to expand wildcard expression to
-            concrete indices that are open, closed or both. Valid choices are all,
-            open, closed, hidden, none.
+        :arg error_trace: Whether to include the stack trace of returned
+            errors.
+        :arg expand_wildcards: The type of index that wildcard patterns
+            can match. Valid choices are all, open, closed, hidden, none.
+        :arg filter_path: Comma-separated list of filters used to reduce
+            the response.
         :arg format: A short version of the Accept header, e.g. json,
             yaml.
         :arg h: Comma-separated list of column names to display.
-        :arg health: Health status ('green', 'yellow', or 'red') to
-            filter only indices matching the specified health status. Valid choices
-            are green, yellow, red.
+        :arg health: The health status used to limit returned indices.
+            By default, the response includes indices of any health status. Valid
+            choices are green, yellow, red.
         :arg help: Return help information. Default is false.
-        :arg include_unloaded_segments: If set to true segment stats
-            will include stats for segments that are not currently loaded into
-            memory. Default is false.
+        :arg human: Whether to return human readable values for
+            statistics.
+        :arg include_unloaded_segments: If true, the response includes
+            information from segments that are not loaded into memory.
         :arg local: Return local information, do not retrieve the state
             from cluster-manager node. Default is false.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Operation timeout for
             connection to master node.
-        :arg pri: Set to true to return stats only for primary shards.
-            Default is false.
+        :arg pretty: Whether to pretty format the returned JSON
+            response.
+        :arg pri: If true, the response only includes information from
+            primary shards.
         :arg s: Comma-separated list of column names or column aliases
             to sort by.
-        :arg time: The unit in which to display time values. Valid
-            choices are d, h, m, s, ms, micros, nanos.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        :arg time: The unit used to display time values. Valid choices
+            are nanos, micros, ms, s, m, h, d.
         :arg v: Verbose mode. Display column headers. Default is false.
         """
         return await self.transport.perform_request(
@@ -345,12 +515,17 @@ class CatClient(NamespacedClient):
 
     @query_params(
         "cluster_manager_timeout",
+        "error_trace",
+        "filter_path",
         "format",
         "h",
         "help",
+        "human",
         "local",
         "master_timeout",
+        "pretty",
         "s",
+        "source",
         "v",
     )
     async def master(
@@ -364,17 +539,27 @@ class CatClient(NamespacedClient):
 
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
+        :arg error_trace: Whether to include the stack trace of returned
+            errors.
+        :arg filter_path: Comma-separated list of filters used to reduce
+            the response.
         :arg format: A short version of the Accept header, e.g. json,
             yaml.
         :arg h: Comma-separated list of column names to display.
         :arg help: Return help information. Default is false.
+        :arg human: Whether to return human readable values for
+            statistics.
         :arg local: Return local information, do not retrieve the state
             from cluster-manager node. Default is false.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Operation timeout for
             connection to master node.
+        :arg pretty: Whether to pretty format the returned JSON
+            response.
         :arg s: Comma-separated list of column names or column aliases
             to sort by.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
         :arg v: Verbose mode. Display column headers. Default is false.
         """
         from warnings import warn
@@ -388,12 +573,17 @@ class CatClient(NamespacedClient):
 
     @query_params(
         "cluster_manager_timeout",
+        "error_trace",
+        "filter_path",
         "format",
         "h",
         "help",
+        "human",
         "local",
         "master_timeout",
+        "pretty",
         "s",
+        "source",
         "v",
     )
     async def nodeattrs(
@@ -407,17 +597,27 @@ class CatClient(NamespacedClient):
 
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
+        :arg error_trace: Whether to include the stack trace of returned
+            errors.
+        :arg filter_path: Comma-separated list of filters used to reduce
+            the response.
         :arg format: A short version of the Accept header, e.g. json,
             yaml.
         :arg h: Comma-separated list of column names to display.
         :arg help: Return help information. Default is false.
+        :arg human: Whether to return human readable values for
+            statistics.
         :arg local: Return local information, do not retrieve the state
             from cluster-manager node. Default is false.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Operation timeout for
             connection to master node.
+        :arg pretty: Whether to pretty format the returned JSON
+            response.
         :arg s: Comma-separated list of column names or column aliases
             to sort by.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
         :arg v: Verbose mode. Display column headers. Default is false.
         """
         return await self.transport.perform_request(
@@ -427,13 +627,18 @@ class CatClient(NamespacedClient):
     @query_params(
         "bytes",
         "cluster_manager_timeout",
+        "error_trace",
+        "filter_path",
         "format",
         "full_id",
         "h",
         "help",
+        "human",
         "local",
         "master_timeout",
+        "pretty",
         "s",
+        "source",
         "time",
         "v",
     )
@@ -446,26 +651,35 @@ class CatClient(NamespacedClient):
         Returns basic statistics about performance of cluster nodes.
 
 
-        :arg bytes: The unit in which to display byte values. Valid
-            choices are b, k, kb, m, mb, g, gb, t, tb, p, pb.
+        :arg bytes: The unit used to display byte values. Valid choices
+            are b, k, kb, m, mb, g, gb, t, tb, p, pb.
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
+        :arg error_trace: Whether to include the stack trace of returned
+            errors.
+        :arg filter_path: Comma-separated list of filters used to reduce
+            the response.
         :arg format: A short version of the Accept header, e.g. json,
             yaml.
-        :arg full_id: Return the full node ID instead of the shortened
-            version. Default is false.
+        :arg full_id: If `true`, return the full node ID. If `false`,
+            return the shortened node ID.
         :arg h: Comma-separated list of column names to display.
         :arg help: Return help information. Default is false.
-        :arg local (Deprecated: This parameter does not cause this API
-            to act locally.): Return local information, do not retrieve the state
+        :arg human: Whether to return human readable values for
+            statistics.
+        :arg local: Return local information, do not retrieve the state
             from cluster-manager node. Default is false.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Operation timeout for
             connection to master node.
+        :arg pretty: Whether to pretty format the returned JSON
+            response.
         :arg s: Comma-separated list of column names or column aliases
             to sort by.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
         :arg time: The unit in which to display time values. Valid
-            choices are d, h, m, s, ms, micros, nanos.
+            choices are nanos, micros, ms, s, m, h, d.
         :arg v: Verbose mode. Display column headers. Default is false.
         """
         return await self.transport.perform_request(
@@ -474,12 +688,17 @@ class CatClient(NamespacedClient):
 
     @query_params(
         "cluster_manager_timeout",
+        "error_trace",
+        "filter_path",
         "format",
         "h",
         "help",
+        "human",
         "local",
         "master_timeout",
+        "pretty",
         "s",
+        "source",
         "time",
         "v",
     )
@@ -494,26 +713,48 @@ class CatClient(NamespacedClient):
 
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
+        :arg error_trace: Whether to include the stack trace of returned
+            errors.
+        :arg filter_path: Comma-separated list of filters used to reduce
+            the response.
         :arg format: A short version of the Accept header, e.g. json,
             yaml.
         :arg h: Comma-separated list of column names to display.
         :arg help: Return help information. Default is false.
+        :arg human: Whether to return human readable values for
+            statistics.
         :arg local: Return local information, do not retrieve the state
             from cluster-manager node. Default is false.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Operation timeout for
             connection to master node.
+        :arg pretty: Whether to pretty format the returned JSON
+            response.
         :arg s: Comma-separated list of column names or column aliases
             to sort by.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
         :arg time: The unit in which to display time values. Valid
-            choices are d, h, m, s, ms, micros, nanos.
+            choices are nanos, micros, ms, s, m, h, d.
         :arg v: Verbose mode. Display column headers. Default is false.
         """
         return await self.transport.perform_request(
             "GET", "/_cat/pending_tasks", params=params, headers=headers
         )
 
-    @query_params("bytes", "format", "h", "help", "s", "v")
+    @query_params(
+        "bytes",
+        "error_trace",
+        "filter_path",
+        "format",
+        "h",
+        "help",
+        "human",
+        "pretty",
+        "s",
+        "source",
+        "v",
+    )
     async def pit_segments(
         self,
         body: Any = None,
@@ -526,12 +767,22 @@ class CatClient(NamespacedClient):
 
         :arg bytes: The unit in which to display byte values. Valid
             choices are b, k, kb, m, mb, g, gb, t, tb, p, pb.
+        :arg error_trace: Whether to include the stack trace of returned
+            errors.
+        :arg filter_path: Comma-separated list of filters used to reduce
+            the response.
         :arg format: A short version of the Accept header, e.g. json,
             yaml.
         :arg h: Comma-separated list of column names to display.
         :arg help: Return help information. Default is false.
+        :arg human: Whether to return human readable values for
+            statistics.
+        :arg pretty: Whether to pretty format the returned JSON
+            response.
         :arg s: Comma-separated list of column names or column aliases
             to sort by.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
         :arg v: Verbose mode. Display column headers. Default is false.
         """
         return await self.transport.perform_request(
@@ -540,12 +791,17 @@ class CatClient(NamespacedClient):
 
     @query_params(
         "cluster_manager_timeout",
+        "error_trace",
+        "filter_path",
         "format",
         "h",
         "help",
+        "human",
         "local",
         "master_timeout",
+        "pretty",
         "s",
+        "source",
         "v",
     )
     async def plugins(
@@ -559,17 +815,27 @@ class CatClient(NamespacedClient):
 
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
+        :arg error_trace: Whether to include the stack trace of returned
+            errors.
+        :arg filter_path: Comma-separated list of filters used to reduce
+            the response.
         :arg format: A short version of the Accept header, e.g. json,
             yaml.
         :arg h: Comma-separated list of column names to display.
         :arg help: Return help information. Default is false.
+        :arg human: Whether to return human readable values for
+            statistics.
         :arg local: Return local information, do not retrieve the state
             from cluster-manager node. Default is false.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Operation timeout for
             connection to master node.
+        :arg pretty: Whether to pretty format the returned JSON
+            response.
         :arg s: Comma-separated list of column names or column aliases
             to sort by.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
         :arg v: Verbose mode. Display column headers. Default is false.
         """
         return await self.transport.perform_request(
@@ -577,7 +843,20 @@ class CatClient(NamespacedClient):
         )
 
     @query_params(
-        "active_only", "bytes", "detailed", "format", "h", "help", "s", "time", "v"
+        "active_only",
+        "bytes",
+        "detailed",
+        "error_trace",
+        "filter_path",
+        "format",
+        "h",
+        "help",
+        "human",
+        "pretty",
+        "s",
+        "source",
+        "time",
+        "v",
     )
     async def recovery(
         self,
@@ -592,19 +871,29 @@ class CatClient(NamespacedClient):
         :arg index: Comma-separated list or wildcard expression of index
             names to limit the returned information.
         :arg active_only: If `true`, the response only includes ongoing
-            shard recoveries. Default is false.
-        :arg bytes: The unit in which to display byte values. Valid
-            choices are b, k, kb, m, mb, g, gb, t, tb, p, pb.
+            shard recoveries.
+        :arg bytes: The unit used to display byte values. Valid choices
+            are b, k, kb, m, mb, g, gb, t, tb, p, pb.
         :arg detailed: If `true`, the response includes detailed
-            information about shard recoveries. Default is false.
+            information about shard recoveries.
+        :arg error_trace: Whether to include the stack trace of returned
+            errors.
+        :arg filter_path: Comma-separated list of filters used to reduce
+            the response.
         :arg format: A short version of the Accept header, e.g. json,
             yaml.
         :arg h: Comma-separated list of column names to display.
         :arg help: Return help information. Default is false.
+        :arg human: Whether to return human readable values for
+            statistics.
+        :arg pretty: Whether to pretty format the returned JSON
+            response.
         :arg s: Comma-separated list of column names or column aliases
             to sort by.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
         :arg time: The unit in which to display time values. Valid
-            choices are d, h, m, s, ms, micros, nanos.
+            choices are nanos, micros, ms, s, m, h, d.
         :arg v: Verbose mode. Display column headers. Default is false.
         """
         return await self.transport.perform_request(
@@ -613,12 +902,17 @@ class CatClient(NamespacedClient):
 
     @query_params(
         "cluster_manager_timeout",
+        "error_trace",
+        "filter_path",
         "format",
         "h",
         "help",
+        "human",
         "local",
         "master_timeout",
+        "pretty",
         "s",
+        "source",
         "v",
     )
     async def repositories(
@@ -632,17 +926,27 @@ class CatClient(NamespacedClient):
 
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
+        :arg error_trace: Whether to include the stack trace of returned
+            errors.
+        :arg filter_path: Comma-separated list of filters used to reduce
+            the response.
         :arg format: A short version of the Accept header, e.g. json,
             yaml.
         :arg h: Comma-separated list of column names to display.
         :arg help: Return help information. Default is false.
+        :arg human: Whether to return human readable values for
+            statistics.
         :arg local: Return local information, do not retrieve the state
             from cluster-manager node. Default is false.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Operation timeout for
             connection to master node.
+        :arg pretty: Whether to pretty format the returned JSON
+            response.
         :arg s: Comma-separated list of column names or column aliases
             to sort by.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
         :arg v: Verbose mode. Display column headers. Default is false.
         """
         return await self.transport.perform_request(
@@ -655,14 +959,19 @@ class CatClient(NamespacedClient):
         "bytes",
         "completed_only",
         "detailed",
+        "error_trace",
         "expand_wildcards",
+        "filter_path",
         "format",
         "h",
         "help",
+        "human",
         "ignore_throttled",
         "ignore_unavailable",
+        "pretty",
         "s",
         "shards",
+        "source",
         "time",
         "timeout",
         "v",
@@ -691,22 +1000,32 @@ class CatClient(NamespacedClient):
             latest completed segment replication events. Default is false.
         :arg detailed: If `true`, the response includes detailed
             information about segment replications. Default is false.
+        :arg error_trace: Whether to include the stack trace of returned
+            errors.
         :arg expand_wildcards: Whether to expand wildcard expression to
             concrete indices that are open, closed or both. Valid choices are all,
             open, closed, hidden, none.
+        :arg filter_path: Comma-separated list of filters used to reduce
+            the response.
         :arg format: A short version of the Accept header, e.g. json,
             yaml.
         :arg h: Comma-separated list of column names to display.
         :arg help: Return help information. Default is false.
+        :arg human: Whether to return human readable values for
+            statistics.
         :arg ignore_throttled: Whether specified concrete, expanded or
             aliased indices should be ignored when throttled.
         :arg ignore_unavailable: Whether specified concrete indices
             should be ignored when unavailable (missing or closed).
+        :arg pretty: Whether to pretty format the returned JSON
+            response.
         :arg s: Comma-separated list of column names or column aliases
             to sort by.
         :arg shards: Comma-separated list of shards to display.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
         :arg time: The unit in which to display time values. Valid
-            choices are d, h, m, s, ms, micros, nanos.
+            choices are nanos, micros, ms, s, m, h, d.
         :arg timeout: Operation timeout.
         :arg v: Verbose mode. Display column headers. Default is false.
         """
@@ -720,11 +1039,16 @@ class CatClient(NamespacedClient):
     @query_params(
         "bytes",
         "cluster_manager_timeout",
+        "error_trace",
+        "filter_path",
         "format",
         "h",
         "help",
+        "human",
         "master_timeout",
+        "pretty",
         "s",
+        "source",
         "v",
     )
     async def segments(
@@ -737,21 +1061,32 @@ class CatClient(NamespacedClient):
         Provides low-level information about the segments in the shards of an index.
 
 
-        :arg index: Comma-separated list of indices to limit the
-            returned information.
-        :arg bytes: The unit in which to display byte values. Valid
-            choices are b, k, kb, m, mb, g, gb, t, tb, p, pb.
+        :arg index: A comma-separated list of data streams, indices, and
+            aliases used to limit the request.Supports wildcards (`*`).To target all
+            data streams and indices, omit this parameter or use `*` or `_all`.
+        :arg bytes: The unit used to display byte values. Valid choices
+            are b, k, kb, m, mb, g, gb, t, tb, p, pb.
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
+        :arg error_trace: Whether to include the stack trace of returned
+            errors.
+        :arg filter_path: Comma-separated list of filters used to reduce
+            the response.
         :arg format: A short version of the Accept header, e.g. json,
             yaml.
         :arg h: Comma-separated list of column names to display.
         :arg help: Return help information. Default is false.
+        :arg human: Whether to return human readable values for
+            statistics.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Operation timeout for
             connection to master node.
+        :arg pretty: Whether to pretty format the returned JSON
+            response.
         :arg s: Comma-separated list of column names or column aliases
             to sort by.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
         :arg v: Verbose mode. Display column headers. Default is false.
         """
         return await self.transport.perform_request(
@@ -761,12 +1096,17 @@ class CatClient(NamespacedClient):
     @query_params(
         "bytes",
         "cluster_manager_timeout",
+        "error_trace",
+        "filter_path",
         "format",
         "h",
         "help",
+        "human",
         "local",
         "master_timeout",
+        "pretty",
         "s",
+        "source",
         "time",
         "v",
     )
@@ -780,25 +1120,36 @@ class CatClient(NamespacedClient):
         Provides a detailed view of shard allocation on nodes.
 
 
-        :arg index: Comma-separated list of indices to limit the
-            returned information.
-        :arg bytes: The unit in which to display byte values. Valid
-            choices are b, k, kb, m, mb, g, gb, t, tb, p, pb.
+        :arg index: A comma-separated list of data streams, indices, and
+            aliases used to limit the request.Supports wildcards (`*`).To target all
+            data streams and indices, omit this parameter or use `*` or `_all`.
+        :arg bytes: The unit used to display byte values. Valid choices
+            are b, k, kb, m, mb, g, gb, t, tb, p, pb.
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
+        :arg error_trace: Whether to include the stack trace of returned
+            errors.
+        :arg filter_path: Comma-separated list of filters used to reduce
+            the response.
         :arg format: A short version of the Accept header, e.g. json,
             yaml.
         :arg h: Comma-separated list of column names to display.
         :arg help: Return help information. Default is false.
+        :arg human: Whether to return human readable values for
+            statistics.
         :arg local: Return local information, do not retrieve the state
             from cluster-manager node. Default is false.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Operation timeout for
             connection to master node.
+        :arg pretty: Whether to pretty format the returned JSON
+            response.
         :arg s: Comma-separated list of column names or column aliases
             to sort by.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
         :arg time: The unit in which to display time values. Valid
-            choices are d, h, m, s, ms, micros, nanos.
+            choices are nanos, micros, ms, s, m, h, d.
         :arg v: Verbose mode. Display column headers. Default is false.
         """
         return await self.transport.perform_request(
@@ -807,13 +1158,18 @@ class CatClient(NamespacedClient):
 
     @query_params(
         "cluster_manager_timeout",
+        "error_trace",
+        "filter_path",
         "format",
         "h",
         "help",
+        "human",
         "local",
         "master_timeout",
+        "pretty",
         "s",
         "size",
+        "source",
         "v",
     )
     async def thread_pool(
@@ -827,22 +1183,32 @@ class CatClient(NamespacedClient):
         queue and rejected statistics are returned for all thread pools.
 
 
-        :arg thread_pool_patterns: Comma-separated list of regular-
-            expressions to filter the thread pools in the output.
+        :arg thread_pool_patterns: A comma-separated list of thread pool
+            names used to limit the request.Accepts wildcard expressions.
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
+        :arg error_trace: Whether to include the stack trace of returned
+            errors.
+        :arg filter_path: Comma-separated list of filters used to reduce
+            the response.
         :arg format: A short version of the Accept header, e.g. json,
             yaml.
         :arg h: Comma-separated list of column names to display.
         :arg help: Return help information. Default is false.
+        :arg human: Whether to return human readable values for
+            statistics.
         :arg local: Return local information, do not retrieve the state
             from cluster-manager node. Default is false.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Operation timeout for
             connection to master node.
+        :arg pretty: Whether to pretty format the returned JSON
+            response.
         :arg s: Comma-separated list of column names or column aliases
             to sort by.
         :arg size: The multiplier in which to display values.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
         :arg v: Verbose mode. Display column headers. Default is false.
         """
         return await self.transport.perform_request(
@@ -854,12 +1220,17 @@ class CatClient(NamespacedClient):
 
     @query_params(
         "cluster_manager_timeout",
+        "error_trace",
+        "filter_path",
         "format",
         "h",
         "help",
+        "human",
         "ignore_unavailable",
         "master_timeout",
+        "pretty",
         "s",
+        "source",
         "time",
         "v",
     )
@@ -873,23 +1244,35 @@ class CatClient(NamespacedClient):
         Returns all snapshots in a specific repository.
 
 
-        :arg repository: Comma-separated list of repository names.
+        :arg repository: A comma-separated list of snapshot repositories
+            used to limit the request.Accepts wildcard expressions.`_all` returns
+            all repositories.If any repository fails during the request, Opensearch
+            returns an error.
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
+        :arg error_trace: Whether to include the stack trace of returned
+            errors.
+        :arg filter_path: Comma-separated list of filters used to reduce
+            the response.
         :arg format: A short version of the Accept header, e.g. json,
             yaml.
         :arg h: Comma-separated list of column names to display.
         :arg help: Return help information. Default is false.
-        :arg ignore_unavailable: Whether specified concrete indices
-            should be ignored when unavailable (missing or closed). Default is
-            false.
+        :arg human: Whether to return human readable values for
+            statistics.
+        :arg ignore_unavailable: If `true`, the response does not
+            include information from unavailable snapshots.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Operation timeout for
             connection to master node.
+        :arg pretty: Whether to pretty format the returned JSON
+            response.
         :arg s: Comma-separated list of column names or column aliases
             to sort by.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
         :arg time: The unit in which to display time values. Valid
-            choices are d, h, m, s, ms, micros, nanos.
+            choices are nanos, micros, ms, s, m, h, d.
         :arg v: Verbose mode. Display column headers. Default is false.
         """
         return await self.transport.perform_request(
@@ -902,12 +1285,17 @@ class CatClient(NamespacedClient):
     @query_params(
         "actions",
         "detailed",
+        "error_trace",
+        "filter_path",
         "format",
         "h",
         "help",
+        "human",
         "nodes",
         "parent_task_id",
+        "pretty",
         "s",
+        "source",
         "time",
         "v",
     )
@@ -921,24 +1309,34 @@ class CatClient(NamespacedClient):
         the cluster.
 
 
-        :arg actions: Comma-separated list of actions that should be
-            returned. Leave empty to return all.
-        :arg detailed: Return detailed task information. Default is
-            false.
+        :arg actions: The task action names, which are used to limit the
+            response.
+        :arg detailed: If `true`, the response includes detailed
+            information about shard recoveries.
+        :arg error_trace: Whether to include the stack trace of returned
+            errors.
+        :arg filter_path: Comma-separated list of filters used to reduce
+            the response.
         :arg format: A short version of the Accept header, e.g. json,
             yaml.
         :arg h: Comma-separated list of column names to display.
         :arg help: Return help information. Default is false.
+        :arg human: Whether to return human readable values for
+            statistics.
         :arg nodes: Comma-separated list of node IDs or names to limit
             the returned information; use `_local` to return information from the
             node you're connecting to, leave empty to get information from all
             nodes.
-        :arg parent_task_id: Return tasks with specified parent task id
-            (node_id:task_number). Set to -1 to return all.
+        :arg parent_task_id: The parent task identifier, which is used
+            to limit the response.
+        :arg pretty: Whether to pretty format the returned JSON
+            response.
         :arg s: Comma-separated list of column names or column aliases
             to sort by.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
         :arg time: The unit in which to display time values. Valid
-            choices are d, h, m, s, ms, micros, nanos.
+            choices are nanos, micros, ms, s, m, h, d.
         :arg v: Verbose mode. Display column headers. Default is false.
         """
         return await self.transport.perform_request(
@@ -947,12 +1345,17 @@ class CatClient(NamespacedClient):
 
     @query_params(
         "cluster_manager_timeout",
+        "error_trace",
+        "filter_path",
         "format",
         "h",
         "help",
+        "human",
         "local",
         "master_timeout",
+        "pretty",
         "s",
+        "source",
         "v",
     )
     async def templates(
@@ -965,20 +1368,31 @@ class CatClient(NamespacedClient):
         Returns information about existing templates.
 
 
-        :arg name: The name of the template.
+        :arg name: The name of the template to return.Accepts wildcard
+            expressions. If omitted, all templates are returned.
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
+        :arg error_trace: Whether to include the stack trace of returned
+            errors.
+        :arg filter_path: Comma-separated list of filters used to reduce
+            the response.
         :arg format: A short version of the Accept header, e.g. json,
             yaml.
         :arg h: Comma-separated list of column names to display.
         :arg help: Return help information. Default is false.
+        :arg human: Whether to return human readable values for
+            statistics.
         :arg local: Return local information, do not retrieve the state
             from cluster-manager node. Default is false.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Operation timeout for
             connection to master node.
+        :arg pretty: Whether to pretty format the returned JSON
+            response.
         :arg s: Comma-separated list of column names or column aliases
             to sort by.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
         :arg v: Verbose mode. Display column headers. Default is false.
         """
         return await self.transport.perform_request(

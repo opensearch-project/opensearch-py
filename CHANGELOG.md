@@ -12,6 +12,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ### Fixed
 - Updated code generator to use new version of OpenAPI specification ([#721](https://github.com/opensearch-project/opensearch-py/pull/721))
 ### Updated APIs
+- Updated opensearch-py APIs to reflect [opensearch-api-specification@7a59510](https://github.com/opensearch-project/opensearch-api-specification/commit/7a59510d30200b22792fb0bd5dd827b620030f89)
 ### Security
 ### Dependencies
 - Bumps `aiohttp` from >=3,<4 to >=3.9.2,<4 ([#717](https://github.com/opensearch-project/opensearch-py/pull/717))

@@ -22,7 +22,7 @@ from ..client.utils import SKIP_IN_PATH, NamespacedClient, _make_path, query_par
 
 
 class KnnClient(NamespacedClient):
-    @query_params()
+    @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def delete_model(
         self,
         model_id: Any,
@@ -34,6 +34,16 @@ class KnnClient(NamespacedClient):
 
 
         :arg model_id: The id of the model.
+        :arg error_trace: Whether to include the stack trace of returned
+            errors.
+        :arg filter_path: Comma-separated list of filters used to reduce
+            the response.
+        :arg human: Whether to return human readable values for
+            statistics.
+        :arg pretty: Whether to pretty format the returned JSON
+            response.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
         """
         if model_id in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'model_id'.")
@@ -45,7 +55,7 @@ class KnnClient(NamespacedClient):
             headers=headers,
         )
 
-    @query_params()
+    @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def get_model(
         self,
         model_id: Any,
@@ -57,6 +67,16 @@ class KnnClient(NamespacedClient):
 
 
         :arg model_id: The id of the model.
+        :arg error_trace: Whether to include the stack trace of returned
+            errors.
+        :arg filter_path: Comma-separated list of filters used to reduce
+            the response.
+        :arg human: Whether to return human readable values for
+            statistics.
+        :arg pretty: Whether to pretty format the returned JSON
+            response.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
         """
         if model_id in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'model_id'.")
@@ -81,15 +101,19 @@ class KnnClient(NamespacedClient):
         "default_operator",
         "df",
         "docvalue_fields",
+        "error_trace",
         "expand_wildcards",
         "explain",
+        "filter_path",
         "from_",
+        "human",
         "ignore_throttled",
         "ignore_unavailable",
         "lenient",
         "max_concurrent_shard_requests",
         "pre_filter_shard_size",
         "preference",
+        "pretty",
         "q",
         "request_cache",
         "rest_total_hits_as_int",
@@ -99,6 +123,7 @@ class KnnClient(NamespacedClient):
         "seq_no_primary_term",
         "size",
         "sort",
+        "source",
         "stats",
         "stored_fields",
         "suggest_field",
@@ -151,12 +176,18 @@ class KnnClient(NamespacedClient):
             given in the query string.
         :arg docvalue_fields: Comma-separated list of fields to return
             as the docvalue representation of a field for each hit.
+        :arg error_trace: Whether to include the stack trace of returned
+            errors.
         :arg expand_wildcards: Whether to expand wildcard expression to
             concrete indices that are open, closed or both. Valid choices are all,
             open, closed, hidden, none.
         :arg explain: Specify whether to return detailed information
             about score computation as part of a hit.
+        :arg filter_path: Comma-separated list of filters used to reduce
+            the response.
         :arg from_: Starting offset. Default is 0.
+        :arg human: Whether to return human readable values for
+            statistics.
         :arg ignore_throttled: Whether specified concrete, expanded or
             aliased indices should be ignored when throttled.
         :arg ignore_unavailable: Whether specified concrete indices
@@ -176,6 +207,8 @@ class KnnClient(NamespacedClient):
             and the query are disjoint.
         :arg preference: Specify the node or shard the operation should
             be performed on. Default is random.
+        :arg pretty: Whether to pretty format the returned JSON
+            response.
         :arg q: Query in the Lucene query string syntax.
         :arg request_cache: Specify if request cache should be used for
             this request or not, defaults to index level setting.
@@ -191,6 +224,8 @@ class KnnClient(NamespacedClient):
             number and primary term of the last modification of each hit.
         :arg size: Number of hits to return. Default is 10.
         :arg sort: Comma-separated list of <field>:<direction> pairs.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
         :arg stats: Specific 'tag' of the request for logging and
             statistical purposes.
         :arg stored_fields: Comma-separated list of stored fields to
@@ -226,7 +261,7 @@ class KnnClient(NamespacedClient):
             body=body,
         )
 
-    @query_params("timeout")
+    @query_params("error_trace", "filter_path", "human", "pretty", "source", "timeout")
     async def stats(
         self,
         node_id: Any = None,
@@ -254,6 +289,16 @@ class KnnClient(NamespacedClient):
             model_index_status, indexing_from_model_degraded, training_requests,
             training_errors, training_memory_usage,
             training_memory_usage_percentage.
+        :arg error_trace: Whether to include the stack trace of returned
+            errors.
+        :arg filter_path: Comma-separated list of filters used to reduce
+            the response.
+        :arg human: Whether to return human readable values for
+            statistics.
+        :arg pretty: Whether to pretty format the returned JSON
+            response.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
         :arg timeout: Operation timeout.
         """
         return await self.transport.perform_request(
@@ -263,7 +308,9 @@ class KnnClient(NamespacedClient):
             headers=headers,
         )
 
-    @query_params("preference")
+    @query_params(
+        "error_trace", "filter_path", "human", "preference", "pretty", "source"
+    )
     async def train_model(
         self,
         body: Any,
@@ -277,7 +324,17 @@ class KnnClient(NamespacedClient):
 
 
         :arg model_id: The id of the model.
+        :arg error_trace: Whether to include the stack trace of returned
+            errors.
+        :arg filter_path: Comma-separated list of filters used to reduce
+            the response.
+        :arg human: Whether to return human readable values for
+            statistics.
         :arg preference: Preferred node to execute training.
+        :arg pretty: Whether to pretty format the returned JSON
+            response.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
         """
         if body in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'body'.")
@@ -290,7 +347,7 @@ class KnnClient(NamespacedClient):
             body=body,
         )
 
-    @query_params()
+    @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def warmup(
         self,
         index: Any,
@@ -299,11 +356,21 @@ class KnnClient(NamespacedClient):
     ) -> Any:
         """
         Preloads native library files into memory, reducing initial search latency for
-        specified indexes
+        specified indexes.
 
 
         :arg index: Comma-separated list of indices; use `_all` or empty
             string to perform the operation on all indices.
+        :arg error_trace: Whether to include the stack trace of returned
+            errors.
+        :arg filter_path: Comma-separated list of filters used to reduce
+            the response.
+        :arg human: Whether to return human readable values for
+            statistics.
+        :arg pretty: Whether to pretty format the returned JSON
+            response.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
         """
         if index in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'index'.")
