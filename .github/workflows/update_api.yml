@@ -44,7 +44,7 @@ jobs:
           commit-message: Updated opensearch-py to reflect the latest OpenSearch API spec (${{ steps.date.outputs.date }})
           title: Updated opensearch-py to reflect the latest OpenSearch API spec
           body: |
-            Updated [opensearch-py](https://github.com/opensearch-project/opensearch-py) to reflect the latest [OpenSearch API spec](https://github.com/opensearch-project/opensearch-api-specification/blob/main/OpenSearch.openapi.json)
+            Updated [opensearch-py](https://github.com/opensearch-project/opensearch-py) to reflect the latest [OpenSearch API spec](https://github.com/opensearch-project/opensearch-api-specification/releases/download/main/opensearch-openapi.yaml)
             Date: ${{ steps.date.outputs.date }}
           branch: automated-api-update
           base: main

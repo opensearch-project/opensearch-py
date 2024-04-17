@@ -31,24 +31,24 @@ from unittest import SkipTest
 from opensearchpy.helpers import test
 from opensearchpy.helpers.test import OpenSearchTestCase as BaseTestCase
 
-client: Any = None
+CLIENT: Any = None
 
 
 def get_client(**kwargs: Any) -> Any:
-    global client
-    if client is False:
+    global CLIENT
+    if CLIENT is False:
         raise SkipTest("No client is available")
-    if client is not None and not kwargs:
-        return client
+    if CLIENT is not None and not kwargs:
+        return CLIENT
 
     try:
         new_client = test.get_test_client(**kwargs)
     except SkipTest:
-        client = False
+        CLIENT = False
         raise
 
     if not kwargs:
-        client = new_client
+        CLIENT = new_client
 
     return new_client
 
