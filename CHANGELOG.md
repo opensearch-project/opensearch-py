@@ -3,14 +3,19 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 ## [Unreleased]
 ### Added
+- Added support for Python 3.12 ([#717](https://github.com/opensearch-project/opensearch-py/pull/717))
+- Added service time metrics ([#716](https://github.com/opensearch-project/opensearch-py/pull/716))
 ### Changed
 ### Deprecated
 ### Removed
+- Removed support for Python 3.6, 3.7 ([#717](https://github.com/opensearch-project/opensearch-py/pull/717))
 ### Fixed
 - Updated code generator to use new version of OpenAPI specification ([#721](https://github.com/opensearch-project/opensearch-py/pull/721))
 ### Updated APIs
 ### Security
 ### Dependencies
+- Bumps `aiohttp` from >=3,<4 to >=3.9.2,<4 ([#717](https://github.com/opensearch-project/opensearch-py/pull/717))
+- Bumps `black` to >=24.3.0 ([#717](https://github.com/opensearch-project/opensearch-py/pull/717))
 
 ## [2.5.0]
 ### Added

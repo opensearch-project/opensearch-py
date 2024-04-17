@@ -59,6 +59,7 @@ install_requires = [
     "six",
     "python-dateutil",
     "certifi>=2022.12.07",
+    "Events",
 ]
 tests_require = [
     "requests>=2.0.0, <3.0.0",
@@ -72,10 +73,10 @@ tests_require = [
     "pytest-mock<4.0.0",
 ]
 
-async_require = ["aiohttp>=3,<4"]
+async_require = ["aiohttp>=3.9.2,<4"]
 
 docs_require = ["sphinx", "sphinx_rtd_theme", "myst_parser", "sphinx_copybutton"]
-generate_require = ["black", "jinja2"]
+generate_require = ["black>=24.3.0", "jinja2"]
 
 setup(
     name=PACKAGE_NAME,
@@ -104,14 +105,15 @@ setup(
         "Intended Audience :: Developers",
         "Operating System :: OS Independent",
         "Programming Language :: Python",
-        "Programming Language :: Python :: 3.6",
-        "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
+        "Programming Language :: Python :: 3.12",
         "Programming Language :: Python :: Implementation :: CPython",
         "Programming Language :: Python :: Implementation :: PyPy",
     ],
-    python_requires=">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, <4",
+    python_requires=">=3.8, <4",
     install_requires=install_requires,
     test_suite="test_opensearchpy.run_tests.run_all",
     tests_require=tests_require,

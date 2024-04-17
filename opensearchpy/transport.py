@@ -29,6 +29,8 @@ import time
 from itertools import chain
 from typing import Any, Callable, Collection, Dict, List, Mapping, Optional, Type, Union
 
+from opensearchpy.metrics import Metrics, MetricsNone
+
 from .connection import Connection, Urllib3HttpConnection
 from .connection_pool import ConnectionPool, DummyConnectionPool, EmptyConnectionPool
 from .exceptions import (
@@ -91,6 +93,7 @@ class Transport(object):
     last_sniff: float
     sniff_timeout: Optional[float]
     host_info_callback: Any
+    metrics: Metrics
 
     def __init__(
         self,
@@ -112,6 +115,7 @@ class Transport(object):
         retry_on_status: Collection[int] = (502, 503, 504),
         retry_on_timeout: bool = False,
         send_get_body_as: str = "GET",
+        metrics: Metrics = MetricsNone(),
         **kwargs: Any
     ) -> None:
         """
@@ -148,11 +152,15 @@ class Transport(object):
             will be serialized and passed as a query parameter `source`.
         :arg pool_maxsize: Maximum connection pool size used by pool-manager
             For custom connection-pooling on current session
+        :arg metrics: metrics is an instance of a subclass of the
+            :class:`~opensearchpy.Metrics` class, used for collecting
+            and reporting metrics related to the client's operations;
 
         Any extra keyword arguments will be passed to the `connection_class`
         when creating and instance unless overridden by that connection's
         options provided as part of the hosts parameter.
         """
+        self.metrics = metrics
         if connection_class is None:
             connection_class = self.DEFAULT_CONNECTION_CLASS
 
@@ -242,7 +250,7 @@ class Transport(object):
             kwargs.update(host)
             if self.pool_maxsize and isinstance(self.pool_maxsize, int):
                 kwargs["pool_maxsize"] = self.pool_maxsize
-            return self.connection_class(**kwargs)
+            return self.connection_class(metrics=self.metrics, **kwargs)
 
         connections = list(zip(map(_create_connection, hosts), hosts))
         if len(connections) == 1:

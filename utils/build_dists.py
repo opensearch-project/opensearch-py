@@ -44,7 +44,7 @@ TMP_DIR = None
 
 
 @contextlib.contextmanager  # type: ignore
-def set_tmp_dir() -> None:
+def set_tmp_dir() -> None:  # type: ignore
     """
     makes and yields a temporary directory for any working files needed for a process during a build
     """
