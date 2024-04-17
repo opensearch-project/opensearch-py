@@ -128,9 +128,14 @@
 <div class="viewcode-block" id="TasksClient.list"><a class="viewcode-back" href="../../../api-ref/clients/tasks_client.html#opensearchpy.client.tasks.TasksClient.list">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;actions&quot;</span><span class="p">,</span>
         <span class="s2">&quot;detailed&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span>
         <span class="s2">&quot;group_by&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;human&quot;</span><span class="p">,</span>
         <span class="s2">&quot;nodes&quot;</span><span class="p">,</span>
         <span class="s2">&quot;parent_task_id&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;pretty&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;source&quot;</span><span class="p">,</span>
         <span class="s2">&quot;timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;wait_for_completion&quot;</span><span class="p">,</span>
     <span class="p">)</span>
@@ -143,27 +148,50 @@
 <span class="sd">        Returns a list of tasks.</span>
 
 
-<span class="sd">        :arg actions: Comma-separated list of actions that should be</span>
-<span class="sd">            returned. Leave empty to return all.</span>
-<span class="sd">        :arg detailed: Return detailed task information. Default is</span>
-<span class="sd">            false.</span>
-<span class="sd">        :arg group_by: Group tasks by nodes or parent/child</span>
-<span class="sd">            relationships. Valid choices are nodes, parents, none.</span>
+<span class="sd">        :arg actions: Comma-separated list or wildcard expression of</span>
+<span class="sd">            actions used to limit the request.</span>
+<span class="sd">        :arg detailed: If `true`, the response includes detailed</span>
+<span class="sd">            information about shard recoveries.</span>
+<span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
+<span class="sd">            errors.</span>
+<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
+<span class="sd">            the response.</span>
+<span class="sd">        :arg group_by: Key used to group tasks in the response. Valid</span>
+<span class="sd">            choices are nodes, parents, none.</span>
+<span class="sd">        :arg human: Whether to return human readable values for</span>
+<span class="sd">            statistics.</span>
 <span class="sd">        :arg nodes: Comma-separated list of node IDs or names to limit</span>
 <span class="sd">            the returned information; use `_local` to return information from the</span>
 <span class="sd">            node you&#39;re connecting to, leave empty to get information from all</span>
 <span class="sd">            nodes.</span>
-<span class="sd">        :arg parent_task_id: Return tasks with specified parent task id</span>
-<span class="sd">            (node_id:task_number). Set to -1 to return all.</span>
-<span class="sd">        :arg timeout: Operation timeout.</span>
-<span class="sd">        :arg wait_for_completion: Should this request wait until the</span>
-<span class="sd">            operation has completed before returning. Default is false.</span>
+<span class="sd">        :arg parent_task_id: Parent task ID used to limit returned</span>
+<span class="sd">            information. To return all tasks, omit this parameter or use a value of</span>
+<span class="sd">            `-1`.</span>
+<span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
+<span class="sd">            response.</span>
+<span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
+<span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
+<span class="sd">        :arg timeout: Period to wait for a response. If no response is</span>
+<span class="sd">            received before the timeout expires, the request fails and returns an</span>
+<span class="sd">            error.</span>
+<span class="sd">        :arg wait_for_completion: If `true`, the request blocks until</span>
+<span class="sd">            the operation is complete.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
             <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="s2">&quot;/_tasks&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="TasksClient.cancel"><a class="viewcode-back" href="../../../api-ref/clients/tasks_client.html#opensearchpy.client.tasks.TasksClient.cancel">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;actions&quot;</span><span class="p">,</span> <span class="s2">&quot;nodes&quot;</span><span class="p">,</span> <span class="s2">&quot;parent_task_id&quot;</span><span class="p">,</span> <span class="s2">&quot;wait_for_completion&quot;</span><span class="p">)</span>
+<div class="viewcode-block" id="TasksClient.cancel"><a class="viewcode-back" href="../../../api-ref/clients/tasks_client.html#opensearchpy.client.tasks.TasksClient.cancel">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+        <span class="s2">&quot;actions&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;human&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;nodes&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;parent_task_id&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;pretty&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;source&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;wait_for_completion&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
     <span class="k">def</span> <span class="nf">cancel</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">task_id</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -174,18 +202,25 @@
 <span class="sd">        Cancels a task, if it can be cancelled through an API.</span>
 
 
-<span class="sd">        :arg task_id: Cancel the task with specified task id</span>
-<span class="sd">            (node_id:task_number).</span>
-<span class="sd">        :arg actions: Comma-separated list of actions that should be</span>
-<span class="sd">            cancelled. Leave empty to cancel all.</span>
-<span class="sd">        :arg nodes: Comma-separated list of node IDs or names to limit</span>
-<span class="sd">            the returned information; use `_local` to return information from the</span>
-<span class="sd">            node you&#39;re connecting to, leave empty to get information from all</span>
-<span class="sd">            nodes.</span>
-<span class="sd">        :arg parent_task_id: Cancel tasks with specified parent task id</span>
-<span class="sd">            (node_id:task_number). Set to -1 to cancel all.</span>
-<span class="sd">        :arg wait_for_completion: Should this request wait until the</span>
-<span class="sd">            operation has completed before returning. Default is false.</span>
+<span class="sd">        :arg task_id: ID of the task.</span>
+<span class="sd">        :arg actions: Comma-separated list or wildcard expression of</span>
+<span class="sd">            actions used to limit the request.</span>
+<span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
+<span class="sd">            errors.</span>
+<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
+<span class="sd">            the response.</span>
+<span class="sd">        :arg human: Whether to return human readable values for</span>
+<span class="sd">            statistics.</span>
+<span class="sd">        :arg nodes: Comma-separated list of node IDs or names used to</span>
+<span class="sd">            limit the request.</span>
+<span class="sd">        :arg parent_task_id: Parent task ID used to limit the tasks.</span>
+<span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
+<span class="sd">            response.</span>
+<span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
+<span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
+<span class="sd">        :arg wait_for_completion: Should the request block until the</span>
+<span class="sd">            cancellation of the task and its descendant tasks is completed. Defaults</span>
+<span class="sd">            to false</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
             <span class="s2">&quot;POST&quot;</span><span class="p">,</span>
@@ -194,7 +229,15 @@
             <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="TasksClient.get"><a class="viewcode-back" href="../../../api-ref/clients/tasks_client.html#opensearchpy.client.tasks.TasksClient.get">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;wait_for_completion&quot;</span><span class="p">)</span>
+<div class="viewcode-block" id="TasksClient.get"><a class="viewcode-back" href="../../../api-ref/clients/tasks_client.html#opensearchpy.client.tasks.TasksClient.get">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+        <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;human&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;pretty&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;source&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;timeout&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;wait_for_completion&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
     <span class="k">def</span> <span class="nf">get</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">task_id</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -205,11 +248,22 @@
 <span class="sd">        Returns information about a task.</span>
 
 
-<span class="sd">        :arg task_id: Return the task with specified id</span>
-<span class="sd">            (node_id:task_number).</span>
-<span class="sd">        :arg timeout: Operation timeout.</span>
-<span class="sd">        :arg wait_for_completion: Should this request wait until the</span>
-<span class="sd">            operation has completed before returning. Default is false.</span>
+<span class="sd">        :arg task_id: ID of the task.</span>
+<span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
+<span class="sd">            errors.</span>
+<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
+<span class="sd">            the response.</span>
+<span class="sd">        :arg human: Whether to return human readable values for</span>
+<span class="sd">            statistics.</span>
+<span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
+<span class="sd">            response.</span>
+<span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
+<span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
+<span class="sd">        :arg timeout: Period to wait for a response.If no response is</span>
+<span class="sd">            received before the timeout expires, the request fails and returns an</span>
+<span class="sd">            error.</span>
+<span class="sd">        :arg wait_for_completion: If `true`, the request blocks until</span>
+<span class="sd">            the task has completed.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">task_id</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
             <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>

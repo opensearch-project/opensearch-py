@@ -134,10 +134,20 @@
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – The index, shard, and primary flag to explain. Empty
 means ‘explain the first unassigned shard’</p></li>
-<li><p><strong>include_disk_info</strong> – Return information about disk usage and
-shard sizes. Default is false.</p></li>
-<li><p><strong>include_yes_decisions</strong> – Return ‘YES’ decisions in
-explanation. Default is false.</p></li>
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
+<li><p><strong>include_disk_info</strong> – If true, returns information about disk
+usage and shard sizes.</p></li>
+<li><p><strong>include_yes_decisions</strong> – If true, returns YES decisions in
+explanation.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
 <li><p><strong>body</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 <li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
@@ -156,13 +166,27 @@ explanation. Default is false.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – The name of the template.</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Name of the component template to delete. Wildcard
+(*) expressions are supported.</p></li>
 <li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
 to cluster-manager node.</p></li>
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
 <li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
-use ‘cluster_manager_timeout’ instead.): Operation timeout for
-connection to master node.</p></li>
-<li><p><strong>timeout</strong> – Operation timeout.</p></li>
+use ‘cluster_manager_timeout’ instead.): Period to wait for a connection
+to the master node.If no response is received before the timeout
+expires, the request fails and returns an error.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
+<li><p><strong>timeout</strong> – Period to wait for a response.If no response is
+received before the timeout expires, the request fails and returns an
+error.</p></li>
 <li><p><strong>name</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 <li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
@@ -181,6 +205,16 @@ connection to master node.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 <li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 </ul>
@@ -198,9 +232,22 @@ connection to master node.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
 <li><p><strong>wait_for_removal</strong> – Specifies whether to wait for all
-excluded nodes to be removed from the cluster before clearing the voting
-configuration exclusions list. Default is True.</p></li>
+excluded nodes to be removed from thecluster before clearing the voting
+configuration exclusions list.Defaults to true, meaning that all
+excluded nodes must be removed fromthe cluster before this API takes any
+action. If set to false then thevoting configuration exclusions list is
+cleared even if some excludednodes are still in the cluster.</p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 <li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 </ul>
@@ -218,6 +265,16 @@ configuration exclusions list. Default is True.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 <li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 </ul>
@@ -235,14 +292,27 @@ configuration exclusions list. Default is True.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – The name of the template.</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Name of the component template to check existence of.
+Wildcard (*) expressions are supported.</p></li>
 <li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
 to cluster-manager node.</p></li>
-<li><p><strong>local</strong> – Return local information, do not retrieve the state
-from cluster-manager node. Default is false.</p></li>
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
+<li><p><strong>local</strong> – If true, the request retrieves information from the
+local node only.Defaults to false, which means information is retrieved
+from the master node.</p></li>
 <li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
-use ‘cluster_manager_timeout’ instead.): Operation timeout for
-connection to master node.</p></li>
+use ‘cluster_manager_timeout’ instead.): Period to wait for a connection
+to the master node. If no response isreceived before the timeout
+expires, the request fails and returns anerror.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
 <li><p><strong>name</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 <li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
@@ -261,14 +331,27 @@ connection to master node.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – The Comma-separated names of the component templates.</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Name of the component template to retrieve. Wildcard
+(<cite>*</cite>) expressions are supported.</p></li>
 <li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
 to cluster-manager node.</p></li>
-<li><p><strong>local</strong> – Return local information, do not retrieve the state
-from cluster-manager node. Default is false.</p></li>
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
+<li><p><strong>local</strong> – If <cite>true</cite>, the request retrieves information from
+the local node only.If <cite>false</cite>, information is retrieved from the master
+node.</p></li>
 <li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
-use ‘cluster_manager_timeout’ instead.): Operation timeout for
-connection to master node.</p></li>
+use ‘cluster_manager_timeout’ instead.): Period to wait for a connection
+to the master node.If no response is received before the timeout
+expires, the request fails and returns an error.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
 <li><p><strong>name</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 <li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
@@ -288,6 +371,16 @@ connection to master node.</p></li>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>awareness_attribute_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Awareness attribute name.</p></li>
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
 <li><p><strong>awareness_attribute_name</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 <li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
@@ -308,14 +401,26 @@ connection to master node.</p></li>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
 to cluster-manager node.</p></li>
-<li><p><strong>flat_settings</strong> – Return settings in flat format. Default is
-false.</p></li>
-<li><p><strong>include_defaults</strong> – Whether to return all default clusters
-setting. Default is false.</p></li>
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>flat_settings</strong> – If <cite>true</cite>, returns settings in flat format.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
+<li><p><strong>include_defaults</strong> – If <cite>true</cite>, returns default cluster
+settings from the local node.</p></li>
 <li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
-use ‘cluster_manager_timeout’ instead.): Operation timeout for
-connection to master node.</p></li>
-<li><p><strong>timeout</strong> – Operation timeout.</p></li>
+use ‘cluster_manager_timeout’ instead.): Period to wait for a connection
+to the master node.If no response is received before the timeout
+expires, the request fails and returns an error.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
+<li><p><strong>timeout</strong> – Period to wait for a response.If no response is
+received before the timeout expires, the request fails and returns an
+error.</p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 <li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 </ul>
@@ -334,6 +439,16 @@ connection to master node.</p></li>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>attribute</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Awareness attribute name.</p></li>
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
 <li><p><strong>attribute</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 <li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
@@ -352,36 +467,63 @@ connection to master node.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Limit the information returned to specific indicies.</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of data streams, indices, and
+index aliases used to limit the request. Wildcard expressions (*) are
+supported. To target all data streams and indices in a cluster, omit
+this parameter or use <cite>_all</cite> or <cite>*</cite>.</p></li>
 <li><p><strong>awareness_attribute</strong> – The awareness attribute for which the
 health is required.</p></li>
 <li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
 to cluster-manager node.</p></li>
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
 <li><p><strong>expand_wildcards</strong> – Whether to expand wildcard expression to
 concrete indices that are open, closed or both. Valid choices are all,
 open, closed, hidden, none.</p></li>
-<li><p><strong>level</strong> – Specify the level of detail for returned
-information. Valid choices are cluster, indices, shards,
-awareness_attributes.</p></li>
-<li><p><strong>local</strong> – Return local information, do not retrieve the state
-from cluster-manager node. Default is false.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
+<li><p><strong>level</strong> – Can be one of cluster, indices or shards. Controls
+the details level of the health information returned. Valid choices are
+cluster, indices, shards, awareness_attributes.</p></li>
+<li><p><strong>local</strong> – If true, the request retrieves information from the
+local node only. Defaults to false, which means information is retrieved
+from the master node.</p></li>
 <li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
-use ‘cluster_manager_timeout’ instead.): Operation timeout for
-connection to master node.</p></li>
-<li><p><strong>timeout</strong> – Operation timeout.</p></li>
-<li><p><strong>wait_for_active_shards</strong> – Wait until the specified number of
-shards is active.</p></li>
-<li><p><strong>wait_for_events</strong> – Wait until all currently queued events
-with the given priority are processed. Valid choices are immediate,
-urgent, high, normal, low, languid.</p></li>
-<li><p><strong>wait_for_no_initializing_shards</strong> – Whether to wait until
-there are no initializing shards in the cluster.</p></li>
-<li><p><strong>wait_for_no_relocating_shards</strong> – Whether to wait until there
-are no relocating shards in the cluster.</p></li>
-<li><p><strong>wait_for_nodes</strong> – Wait until the specified number of nodes is
-available.</p></li>
-<li><p><strong>wait_for_status</strong> – Wait until cluster is in a specific state.
-Valid choices are green, yellow, red.</p></li>
+use ‘cluster_manager_timeout’ instead.): Period to wait for a connection
+to the master node. If no response is received before the timeout
+expires, the request fails and returns an error.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
+<li><p><strong>timeout</strong> – Period to wait for a response. If no response is
+received before the timeout expires, the request fails and returns an
+error.</p></li>
+<li><p><strong>wait_for_active_shards</strong> – A number controlling to how many
+active shards to wait for, all to wait for all shards in the cluster to
+be active, or 0 to not wait. Valid choices are all, index-setting.</p></li>
+<li><p><strong>wait_for_events</strong> – Can be one of immediate, urgent, high,
+normal, low, languid. Wait until all currently queued events with the
+given priority are processed. Valid choices are immediate, urgent, high,
+normal, low, languid.</p></li>
+<li><p><strong>wait_for_no_initializing_shards</strong> – A boolean value which
+controls whether to wait (until the timeout provided) for the cluster to
+have no shard initializations. Defaults to false, which means it will
+not wait for initializing shards.</p></li>
+<li><p><strong>wait_for_no_relocating_shards</strong> – A boolean value which
+controls whether to wait (until the timeout provided) for the cluster to
+have no shard relocations. Defaults to false, which means it will not
+wait for relocating shards.</p></li>
+<li><p><strong>wait_for_nodes</strong> – The request waits until the specified
+number N of nodes is available. It also accepts &gt;=N, &lt;=N, &gt;N and &lt;N.
+Alternatively, it is possible to use ge(N), le(N), gt(N) and lt(N)
+notation.</p></li>
+<li><p><strong>wait_for_status</strong> – One of green, yellow or red. Will wait
+(until the timeout provided) until the status of the cluster changes to
+the one provided or better, i.e. green &gt; yellow &gt; red. By default, will
+not wait for any status. Valid choices are green, yellow, red.</p></li>
 <li><p><strong>index</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 <li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
@@ -403,11 +545,23 @@ allocate or fail shard) which have not yet been executed.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
 to cluster-manager node.</p></li>
-<li><p><strong>local</strong> – Return local information, do not retrieve the state
-from cluster-manager node. Default is false.</p></li>
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
+<li><p><strong>local</strong> – If <cite>true</cite>, the request retrieves information from
+the local node only.If <cite>false</cite>, information is retrieved from the master
+node.</p></li>
 <li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
-use ‘cluster_manager_timeout’ instead.): Operation timeout for
-connection to master node.</p></li>
+use ‘cluster_manager_timeout’ instead.): Period to wait for a connection
+to the master node.If no response is received before the timeout
+expires, the request fails and returns an error.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 <li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 </ul>
@@ -425,13 +579,27 @@ connection to master node.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>node_ids</strong> – Comma-separated list of the persistent ids of the
-nodes to exclude from the voting configuration. If specified, you may
-not also specify ?node_names.</p></li>
-<li><p><strong>node_names</strong> – Comma-separated list of the names of the nodes
-to exclude from the voting configuration. If specified, you may not also
-specify ?node_ids.</p></li>
-<li><p><strong>timeout</strong> – Operation timeout.</p></li>
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
+<li><p><strong>node_ids</strong> – A comma-separated list of the persistent ids of
+the nodes to excludefrom the voting configuration. If specified, you may
+not also specify node_names.</p></li>
+<li><p><strong>node_names</strong> – A comma-separated list of the names of the
+nodes to exclude from thevoting configuration. If specified, you may not
+also specify node_ids.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
+<li><p><strong>timeout</strong> – When adding a voting configuration exclusion, the
+API waits for thespecified nodes to be excluded from the voting
+configuration beforereturning. If the timeout expires before the
+appropriate conditionis satisfied, the request fails and returns an
+error.</p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 <li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 </ul>
@@ -449,15 +617,35 @@ specify ?node_ids.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – The name of the template.</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Name of the component template to create. Opensearch
+includes the following built-in component templates: <cite>logs-mappings</cite>;
+‘logs-settings`; <cite>metrics-mappings</cite>; <cite>metrics-settings</cite>;`synthetics-
+mapping`; <cite>synthetics-settings</cite>. Opensearch Agent uses these templates
+to configure backing indices for its data streams. If you use Opensearch
+Agent and want to overwrite one of these templates, set the <cite>version</cite>
+for your replacement template higher than the current version. If you
+don’t use Opensearch Agent and want to disable all built-in component
+and index templates, set <cite>stack.templates.enabled</cite> to <cite>false</cite> using the
+cluster update settings API.</p></li>
 <li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – The template definition</p></li>
 <li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
 to cluster-manager node.</p></li>
-<li><p><strong>create</strong> – Whether the index template should only be added if
-new or can also replace an existing one. Default is false.</p></li>
+<li><p><strong>create</strong> – If <cite>true</cite>, this request cannot replace or update
+existing component templates.</p></li>
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
 <li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
-use ‘cluster_manager_timeout’ instead.): Operation timeout for
-connection to master node.</p></li>
+use ‘cluster_manager_timeout’ instead.): Period to wait for a connection
+to the master node.If no response is received before the timeout
+expires, the request fails and returns an error.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
 <li><p><strong>timeout</strong> – Operation timeout.</p></li>
 <li><p><strong>name</strong> – </p></li>
 <li><p><strong>body</strong> – </p></li>
@@ -480,6 +668,16 @@ connection to master node.</p></li>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>awareness_attribute_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Awareness attribute name.</p></li>
 <li><p><strong>awareness_attribute_value</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Awareness attribute value.</p></li>
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
 <li><p><strong>awareness_attribute_name</strong> – </p></li>
 <li><p><strong>awareness_attribute_value</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
@@ -503,12 +701,22 @@ connection to master node.</p></li>
 or <cite>persistent</cite> (survives cluster restart).</p></li>
 <li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
 to cluster-manager node.</p></li>
-<li><p><strong>flat_settings</strong> – Return settings in flat format. Default is
-false.</p></li>
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>flat_settings</strong> – Return settings in flat format (default:
+false)</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
 <li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
-use ‘cluster_manager_timeout’ instead.): Operation timeout for
-connection to master node.</p></li>
-<li><p><strong>timeout</strong> – Operation timeout.</p></li>
+use ‘cluster_manager_timeout’ instead.): Explicit operation timeout for
+connection to master node</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
+<li><p><strong>timeout</strong> – Explicit operation timeout</p></li>
 <li><p><strong>body</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 <li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
@@ -528,6 +736,16 @@ connection to master node.</p></li>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>attribute</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Awareness attribute name.</p></li>
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
 <li><p><strong>attribute</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 <li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
@@ -546,6 +764,16 @@ connection to master node.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 <li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 </ul>
@@ -567,18 +795,31 @@ connection to master node.</p></li>
 <cite>cancel</cite>, <cite>allocate</cite>)</p></li>
 <li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
 to cluster-manager node.</p></li>
-<li><p><strong>dry_run</strong> – Simulate the operation only and return the
-resulting state.</p></li>
-<li><p><strong>explain</strong> – Return an explanation of why the commands can or
-cannot be executed.</p></li>
+<li><p><strong>dry_run</strong> – If true, then the request simulates the operation
+only and returns the resulting state.</p></li>
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
+<li><p><strong>explain</strong> – If true, then the response contains an explanation
+of why the commands can or cannot be executed.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
 <li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
-use ‘cluster_manager_timeout’ instead.): Operation timeout for
-connection to master node.</p></li>
-<li><p><strong>metric</strong> – Limit the information returned to the specified
-metrics. Defaults to all but metadata.</p></li>
-<li><p><strong>retry_failed</strong> – Retries allocation of shards that are blocked
-due to too many subsequent allocation failures.</p></li>
-<li><p><strong>timeout</strong> – Operation timeout.</p></li>
+use ‘cluster_manager_timeout’ instead.): Period to wait for a connection
+to the master node. If no response is received before the timeout
+expires, the request fails and returns an error.</p></li>
+<li><p><strong>metric</strong> – Limits the information returned to the specified
+metrics.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
+<li><p><strong>retry_failed</strong> – If true, then retries allocation of shards
+that are blocked due to too many subsequent allocation failures.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
+<li><p><strong>timeout</strong> – Period to wait for a response. If no response is
+received before the timeout expires, the request fails and returns an
+error.</p></li>
 <li><p><strong>body</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 <li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
@@ -598,31 +839,40 @@ due to too many subsequent allocation failures.</p></li>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>metric</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Limit the information returned to the specified
-metrics. Valid choices are _all, blocks, metadata, nodes, routing_table,
-routing_nodes, master_node, cluster_manager_node, version.</p></li>
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of indices; use <cite>_all</cite> or empty
-string to perform the operation on all indices.</p></li>
+metrics</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – A comma-separated list of index names; use <cite>_all</cite> or
+empty string to perform the operation on all indices</p></li>
 <li><p><strong>allow_no_indices</strong> – Whether to ignore if a wildcard indices
 expression resolves into no concrete indices. (This includes <cite>_all</cite>
-string or when no indices have been specified).</p></li>
+string or when no indices have been specified)</p></li>
 <li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
 to cluster-manager node.</p></li>
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
 <li><p><strong>expand_wildcards</strong> – Whether to expand wildcard expression to
 concrete indices that are open, closed or both. Valid choices are all,
 open, closed, hidden, none.</p></li>
-<li><p><strong>flat_settings</strong> – Return settings in flat format. Default is
-false.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>flat_settings</strong> – Return settings in flat format (default:
+false)</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
 <li><p><strong>ignore_unavailable</strong> – Whether specified concrete indices
-should be ignored when unavailable (missing or closed).</p></li>
+should be ignored when unavailable (missing or closed)</p></li>
 <li><p><strong>local</strong> – Return local information, do not retrieve the state
-from cluster-manager node. Default is false.</p></li>
+from cluster-manager node (default: false)</p></li>
 <li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
-use ‘cluster_manager_timeout’ instead.): Operation timeout for
-connection to master node.</p></li>
+use ‘cluster_manager_timeout’ instead.): Specify timeout for connection
+to master</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
 <li><p><strong>wait_for_metadata_version</strong> – Wait for the metadata version to
-be equal or greater than the specified metadata version.</p></li>
+be equal or greater than the specified metadata version</p></li>
 <li><p><strong>wait_for_timeout</strong> – The maximum time to wait for
-wait_for_metadata_version before timing out.</p></li>
+wait_for_metadata_version before timing out</p></li>
 <li><p><strong>metric</strong> – </p></li>
 <li><p><strong>index</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
@@ -642,13 +892,23 @@ wait_for_metadata_version before timing out.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>node_id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of node IDs or names to limit
-the returned information; use <cite>_local</cite> to return information from the
-node you’re connecting to, leave empty to get information from all
-nodes.</p></li>
-<li><p><strong>flat_settings</strong> – Return settings in flat format. Default is
-false.</p></li>
-<li><p><strong>timeout</strong> – Operation timeout.</p></li>
+<li><p><strong>node_id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of node filters used to limit
+returned information. Defaults to all nodes in the cluster.</p></li>
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>flat_settings</strong> – If <cite>true</cite>, returns settings in flat format.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
+<li><p><strong>timeout</strong> – Period to wait for each node to respond.If a node
+does not respond before its timeout expires, the response does not
+include its stats.However, timed out nodes are included in the
+response’s <cite>_nodes.failed</cite> property. Defaults to no timeout.</p></li>
 <li><p><strong>node_id</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 <li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>

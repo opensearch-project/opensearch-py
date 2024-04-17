@@ -124,7 +124,16 @@
 
 
 <div class="viewcode-block" id="SnapshotClient"><a class="viewcode-back" href="../../../api-ref/clients/snapshot_client.html#opensearchpy.client.snapshot.SnapshotClient">[docs]</a><span class="k">class</span> <span class="nc">SnapshotClient</span><span class="p">(</span><span class="n">NamespacedClient</span><span class="p">):</span>
-<div class="viewcode-block" id="SnapshotClient.create"><a class="viewcode-back" href="../../../api-ref/clients/snapshot_client.html#opensearchpy.client.snapshot.SnapshotClient.create">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;wait_for_completion&quot;</span><span class="p">)</span>
+<div class="viewcode-block" id="SnapshotClient.create"><a class="viewcode-back" href="../../../api-ref/clients/snapshot_client.html#opensearchpy.client.snapshot.SnapshotClient.create">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+        <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;human&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;pretty&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;source&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;wait_for_completion&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
     <span class="k">def</span> <span class="nf">create</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">repository</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
@@ -137,16 +146,29 @@
 <span class="sd">        Creates a snapshot in a repository.</span>
 
 
-<span class="sd">        :arg repository: Repository name.</span>
-<span class="sd">        :arg snapshot: Snapshot name.</span>
+<span class="sd">        :arg repository: Repository for the snapshot.</span>
+<span class="sd">        :arg snapshot: Name of the snapshot. Must be unique in the</span>
+<span class="sd">            repository.</span>
 <span class="sd">        :arg body: The snapshot definition</span>
 <span class="sd">        :arg cluster_manager_timeout: Operation timeout for connection</span>
 <span class="sd">            to cluster-manager node.</span>
+<span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
+<span class="sd">            errors.</span>
+<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
+<span class="sd">            the response.</span>
+<span class="sd">        :arg human: Whether to return human readable values for</span>
+<span class="sd">            statistics.</span>
 <span class="sd">        :arg master_timeout (Deprecated: To promote inclusive language,</span>
-<span class="sd">            use &#39;cluster_manager_timeout&#39; instead.): Operation timeout for</span>
-<span class="sd">            connection to master node.</span>
-<span class="sd">        :arg wait_for_completion: Should this request wait until the</span>
-<span class="sd">            operation has completed before returning. Default is false.</span>
+<span class="sd">            use &#39;cluster_manager_timeout&#39; instead.): Period to wait for a connection</span>
+<span class="sd">            to the master node. If no response is received before the timeout</span>
+<span class="sd">            expires, the request fails and returns an error.</span>
+<span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
+<span class="sd">            response.</span>
+<span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
+<span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
+<span class="sd">        :arg wait_for_completion: If `true`, the request returns a</span>
+<span class="sd">            response when the snapshot is complete. If `false`, the request returns</span>
+<span class="sd">            a response when the snapshot initializes.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="p">(</span><span class="n">repository</span><span class="p">,</span> <span class="n">snapshot</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
@@ -160,7 +182,15 @@
             <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="SnapshotClient.delete"><a class="viewcode-back" href="../../../api-ref/clients/snapshot_client.html#opensearchpy.client.snapshot.SnapshotClient.delete">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;master_timeout&quot;</span><span class="p">)</span>
+<div class="viewcode-block" id="SnapshotClient.delete"><a class="viewcode-back" href="../../../api-ref/clients/snapshot_client.html#opensearchpy.client.snapshot.SnapshotClient.delete">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+        <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;human&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;pretty&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;source&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
     <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">repository</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
@@ -172,13 +202,23 @@
 <span class="sd">        Deletes a snapshot.</span>
 
 
-<span class="sd">        :arg repository: Repository name.</span>
-<span class="sd">        :arg snapshot: Snapshot name.</span>
+<span class="sd">        :arg repository: A repository name</span>
+<span class="sd">        :arg snapshot: A comma-separated list of snapshot names</span>
 <span class="sd">        :arg cluster_manager_timeout: Operation timeout for connection</span>
 <span class="sd">            to cluster-manager node.</span>
+<span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
+<span class="sd">            errors.</span>
+<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
+<span class="sd">            the response.</span>
+<span class="sd">        :arg human: Whether to return human readable values for</span>
+<span class="sd">            statistics.</span>
 <span class="sd">        :arg master_timeout (Deprecated: To promote inclusive language,</span>
-<span class="sd">            use &#39;cluster_manager_timeout&#39; instead.): Operation timeout for</span>
-<span class="sd">            connection to master node.</span>
+<span class="sd">            use &#39;cluster_manager_timeout&#39; instead.): Explicit operation timeout for</span>
+<span class="sd">            connection to master node</span>
+<span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
+<span class="sd">            response.</span>
+<span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
+<span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="p">(</span><span class="n">repository</span><span class="p">,</span> <span class="n">snapshot</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
@@ -192,7 +232,15 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="SnapshotClient.get"><a class="viewcode-back" href="../../../api-ref/clients/snapshot_client.html#opensearchpy.client.snapshot.SnapshotClient.get">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
-        <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;ignore_unavailable&quot;</span><span class="p">,</span> <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;verbose&quot;</span>
+        <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;human&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;ignore_unavailable&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;pretty&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;source&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;verbose&quot;</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="k">def</span> <span class="nf">get</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -205,18 +253,35 @@
 <span class="sd">        Returns information about a snapshot.</span>
 
 
-<span class="sd">        :arg repository: Repository name.</span>
-<span class="sd">        :arg snapshot: Comma-separated list of snapshot names.</span>
+<span class="sd">        :arg repository: Comma-separated list of snapshot repository</span>
+<span class="sd">            names used to limit the request. Wildcard (*) expressions are supported.</span>
+<span class="sd">        :arg snapshot: Comma-separated list of snapshot names to</span>
+<span class="sd">            retrieve. Also accepts wildcards (*). - To get information about all</span>
+<span class="sd">            snapshots in a registered repository, use a wildcard (*) or _all. - To</span>
+<span class="sd">            get information about any snapshots that are currently running, use</span>
+<span class="sd">            _current.</span>
 <span class="sd">        :arg cluster_manager_timeout: Operation timeout for connection</span>
 <span class="sd">            to cluster-manager node.</span>
-<span class="sd">        :arg ignore_unavailable: Whether to ignore unavailable</span>
-<span class="sd">            snapshots, defaults to false which means a SnapshotMissingException is</span>
-<span class="sd">            thrown. Default is false.</span>
+<span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
+<span class="sd">            errors.</span>
+<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
+<span class="sd">            the response.</span>
+<span class="sd">        :arg human: Whether to return human readable values for</span>
+<span class="sd">            statistics.</span>
+<span class="sd">        :arg ignore_unavailable: If false, the request returns an error</span>
+<span class="sd">            for any snapshots that are unavailable.</span>
 <span class="sd">        :arg master_timeout (Deprecated: To promote inclusive language,</span>
-<span class="sd">            use &#39;cluster_manager_timeout&#39; instead.): Operation timeout for</span>
-<span class="sd">            connection to master node.</span>
-<span class="sd">        :arg verbose: Whether to show verbose snapshot info or only show</span>
-<span class="sd">            the basic info found in the repository index blob.</span>
+<span class="sd">            use &#39;cluster_manager_timeout&#39; instead.): Period to wait for a connection</span>
+<span class="sd">            to the master node. If no response is received before the timeout</span>
+<span class="sd">            expires, the request fails and returns an error.</span>
+<span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
+<span class="sd">            response.</span>
+<span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
+<span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
+<span class="sd">        :arg verbose: If true, returns additional information about each</span>
+<span class="sd">            snapshot such as the version of Opensearch which took the snapshot, the</span>
+<span class="sd">            start and end times of the snapshot, and the number of shards</span>
+<span class="sd">            snapshotted.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="p">(</span><span class="n">repository</span><span class="p">,</span> <span class="n">snapshot</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
@@ -229,7 +294,16 @@
             <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="SnapshotClient.delete_repository"><a class="viewcode-back" href="../../../api-ref/clients/snapshot_client.html#opensearchpy.client.snapshot.SnapshotClient.delete_repository">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;timeout&quot;</span><span class="p">)</span>
+<div class="viewcode-block" id="SnapshotClient.delete_repository"><a class="viewcode-back" href="../../../api-ref/clients/snapshot_client.html#opensearchpy.client.snapshot.SnapshotClient.delete_repository">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+        <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;human&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;pretty&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;source&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;timeout&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
     <span class="k">def</span> <span class="nf">delete_repository</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">repository</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
@@ -244,10 +318,20 @@
 <span class="sd">            Wildcard (`*`) patterns are supported.</span>
 <span class="sd">        :arg cluster_manager_timeout: Operation timeout for connection</span>
 <span class="sd">            to cluster-manager node.</span>
+<span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
+<span class="sd">            errors.</span>
+<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
+<span class="sd">            the response.</span>
+<span class="sd">        :arg human: Whether to return human readable values for</span>
+<span class="sd">            statistics.</span>
 <span class="sd">        :arg master_timeout (Deprecated: To promote inclusive language,</span>
-<span class="sd">            use &#39;cluster_manager_timeout&#39; instead.): Operation timeout for</span>
-<span class="sd">            connection to master node.</span>
-<span class="sd">        :arg timeout: Operation timeout.</span>
+<span class="sd">            use &#39;cluster_manager_timeout&#39; instead.): Explicit operation timeout for</span>
+<span class="sd">            connection to master node</span>
+<span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
+<span class="sd">            response.</span>
+<span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
+<span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
+<span class="sd">        :arg timeout: Explicit operation timeout</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">repository</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Empty value passed for a required argument &#39;repository&#39;.&quot;</span><span class="p">)</span>
@@ -259,7 +343,16 @@
             <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="SnapshotClient.get_repository"><a class="viewcode-back" href="../../../api-ref/clients/snapshot_client.html#opensearchpy.client.snapshot.SnapshotClient.get_repository">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;local&quot;</span><span class="p">,</span> <span class="s2">&quot;master_timeout&quot;</span><span class="p">)</span>
+<div class="viewcode-block" id="SnapshotClient.get_repository"><a class="viewcode-back" href="../../../api-ref/clients/snapshot_client.html#opensearchpy.client.snapshot.SnapshotClient.get_repository">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+        <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;human&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;local&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;pretty&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;source&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
     <span class="k">def</span> <span class="nf">get_repository</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">repository</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -270,20 +363,40 @@
 <span class="sd">        Returns information about a repository.</span>
 
 
-<span class="sd">        :arg repository: Comma-separated list of repository names.</span>
+<span class="sd">        :arg repository: A comma-separated list of repository names</span>
 <span class="sd">        :arg cluster_manager_timeout: Operation timeout for connection</span>
 <span class="sd">            to cluster-manager node.</span>
+<span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
+<span class="sd">            errors.</span>
+<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
+<span class="sd">            the response.</span>
+<span class="sd">        :arg human: Whether to return human readable values for</span>
+<span class="sd">            statistics.</span>
 <span class="sd">        :arg local: Return local information, do not retrieve the state</span>
-<span class="sd">            from cluster-manager node. Default is false.</span>
+<span class="sd">            from cluster-manager node (default: false)</span>
 <span class="sd">        :arg master_timeout (Deprecated: To promote inclusive language,</span>
-<span class="sd">            use &#39;cluster_manager_timeout&#39; instead.): Operation timeout for</span>
-<span class="sd">            connection to master node.</span>
+<span class="sd">            use &#39;cluster_manager_timeout&#39; instead.): Explicit operation timeout for</span>
+<span class="sd">            connection to master node</span>
+<span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
+<span class="sd">            response.</span>
+<span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
+<span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
             <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="n">_make_path</span><span class="p">(</span><span class="s2">&quot;_snapshot&quot;</span><span class="p">,</span> <span class="n">repository</span><span class="p">),</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="SnapshotClient.create_repository"><a class="viewcode-back" href="../../../api-ref/clients/snapshot_client.html#opensearchpy.client.snapshot.SnapshotClient.create_repository">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;verify&quot;</span><span class="p">)</span>
+<div class="viewcode-block" id="SnapshotClient.create_repository"><a class="viewcode-back" href="../../../api-ref/clients/snapshot_client.html#opensearchpy.client.snapshot.SnapshotClient.create_repository">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+        <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;human&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;pretty&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;source&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;timeout&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;verify&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
     <span class="k">def</span> <span class="nf">create_repository</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">repository</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
@@ -295,15 +408,25 @@
 <span class="sd">        Creates a repository.</span>
 
 
-<span class="sd">        :arg repository: Repository name.</span>
+<span class="sd">        :arg repository: A repository name</span>
 <span class="sd">        :arg body: The repository definition</span>
 <span class="sd">        :arg cluster_manager_timeout: Operation timeout for connection</span>
 <span class="sd">            to cluster-manager node.</span>
+<span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
+<span class="sd">            errors.</span>
+<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
+<span class="sd">            the response.</span>
+<span class="sd">        :arg human: Whether to return human readable values for</span>
+<span class="sd">            statistics.</span>
 <span class="sd">        :arg master_timeout (Deprecated: To promote inclusive language,</span>
-<span class="sd">            use &#39;cluster_manager_timeout&#39; instead.): Operation timeout for</span>
-<span class="sd">            connection to master node.</span>
-<span class="sd">        :arg timeout: Operation timeout.</span>
-<span class="sd">        :arg verify: Whether to verify the repository after creation.</span>
+<span class="sd">            use &#39;cluster_manager_timeout&#39; instead.): Explicit operation timeout for</span>
+<span class="sd">            connection to master node</span>
+<span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
+<span class="sd">            response.</span>
+<span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
+<span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
+<span class="sd">        :arg timeout: Explicit operation timeout</span>
+<span class="sd">        :arg verify: Whether to verify the repository after creation</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="p">(</span><span class="n">repository</span><span class="p">,</span> <span class="n">body</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
@@ -317,7 +440,16 @@
             <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="SnapshotClient.restore"><a class="viewcode-back" href="../../../api-ref/clients/snapshot_client.html#opensearchpy.client.snapshot.SnapshotClient.restore">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;wait_for_completion&quot;</span><span class="p">)</span>
+<div class="viewcode-block" id="SnapshotClient.restore"><a class="viewcode-back" href="../../../api-ref/clients/snapshot_client.html#opensearchpy.client.snapshot.SnapshotClient.restore">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+        <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;human&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;pretty&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;source&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;wait_for_completion&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
     <span class="k">def</span> <span class="nf">restore</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">repository</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
@@ -330,16 +462,26 @@
 <span class="sd">        Restores a snapshot.</span>
 
 
-<span class="sd">        :arg repository: Repository name.</span>
-<span class="sd">        :arg snapshot: Snapshot name.</span>
+<span class="sd">        :arg repository: A repository name</span>
+<span class="sd">        :arg snapshot: A snapshot name</span>
 <span class="sd">        :arg body: Details of what to restore</span>
 <span class="sd">        :arg cluster_manager_timeout: Operation timeout for connection</span>
 <span class="sd">            to cluster-manager node.</span>
+<span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
+<span class="sd">            errors.</span>
+<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
+<span class="sd">            the response.</span>
+<span class="sd">        :arg human: Whether to return human readable values for</span>
+<span class="sd">            statistics.</span>
 <span class="sd">        :arg master_timeout (Deprecated: To promote inclusive language,</span>
-<span class="sd">            use &#39;cluster_manager_timeout&#39; instead.): Operation timeout for</span>
-<span class="sd">            connection to master node.</span>
+<span class="sd">            use &#39;cluster_manager_timeout&#39; instead.): Explicit operation timeout for</span>
+<span class="sd">            connection to master node</span>
+<span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
+<span class="sd">            response.</span>
+<span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
+<span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
 <span class="sd">        :arg wait_for_completion: Should this request wait until the</span>
-<span class="sd">            operation has completed before returning. Default is false.</span>
+<span class="sd">            operation has completed before returning</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="p">(</span><span class="n">repository</span><span class="p">,</span> <span class="n">snapshot</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
@@ -353,7 +495,16 @@
             <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="SnapshotClient.status"><a class="viewcode-back" href="../../../api-ref/clients/snapshot_client.html#opensearchpy.client.snapshot.SnapshotClient.status">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;ignore_unavailable&quot;</span><span class="p">,</span> <span class="s2">&quot;master_timeout&quot;</span><span class="p">)</span>
+<div class="viewcode-block" id="SnapshotClient.status"><a class="viewcode-back" href="../../../api-ref/clients/snapshot_client.html#opensearchpy.client.snapshot.SnapshotClient.status">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+        <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;human&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;ignore_unavailable&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;pretty&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;source&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
     <span class="k">def</span> <span class="nf">status</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">repository</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -365,16 +516,26 @@
 <span class="sd">        Returns information about the status of a snapshot.</span>
 
 
-<span class="sd">        :arg repository: Repository name.</span>
-<span class="sd">        :arg snapshot: Comma-separated list of snapshot names.</span>
+<span class="sd">        :arg repository: A repository name</span>
+<span class="sd">        :arg snapshot: A comma-separated list of snapshot names</span>
 <span class="sd">        :arg cluster_manager_timeout: Operation timeout for connection</span>
 <span class="sd">            to cluster-manager node.</span>
+<span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
+<span class="sd">            errors.</span>
+<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
+<span class="sd">            the response.</span>
+<span class="sd">        :arg human: Whether to return human readable values for</span>
+<span class="sd">            statistics.</span>
 <span class="sd">        :arg ignore_unavailable: Whether to ignore unavailable</span>
 <span class="sd">            snapshots, defaults to false which means a SnapshotMissingException is</span>
-<span class="sd">            thrown. Default is false.</span>
+<span class="sd">            thrown</span>
 <span class="sd">        :arg master_timeout (Deprecated: To promote inclusive language,</span>
-<span class="sd">            use &#39;cluster_manager_timeout&#39; instead.): Operation timeout for</span>
-<span class="sd">            connection to master node.</span>
+<span class="sd">            use &#39;cluster_manager_timeout&#39; instead.): Explicit operation timeout for</span>
+<span class="sd">            connection to master node</span>
+<span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
+<span class="sd">            response.</span>
+<span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
+<span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
             <span class="s2">&quot;GET&quot;</span><span class="p">,</span>
@@ -383,7 +544,16 @@
             <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="SnapshotClient.verify_repository"><a class="viewcode-back" href="../../../api-ref/clients/snapshot_client.html#opensearchpy.client.snapshot.SnapshotClient.verify_repository">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;timeout&quot;</span><span class="p">)</span>
+<div class="viewcode-block" id="SnapshotClient.verify_repository"><a class="viewcode-back" href="../../../api-ref/clients/snapshot_client.html#opensearchpy.client.snapshot.SnapshotClient.verify_repository">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+        <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;human&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;pretty&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;source&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;timeout&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
     <span class="k">def</span> <span class="nf">verify_repository</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">repository</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
@@ -394,13 +564,23 @@
 <span class="sd">        Verifies a repository.</span>
 
 
-<span class="sd">        :arg repository: Repository name.</span>
+<span class="sd">        :arg repository: A repository name</span>
 <span class="sd">        :arg cluster_manager_timeout: Operation timeout for connection</span>
 <span class="sd">            to cluster-manager node.</span>
+<span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
+<span class="sd">            errors.</span>
+<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
+<span class="sd">            the response.</span>
+<span class="sd">        :arg human: Whether to return human readable values for</span>
+<span class="sd">            statistics.</span>
 <span class="sd">        :arg master_timeout (Deprecated: To promote inclusive language,</span>
-<span class="sd">            use &#39;cluster_manager_timeout&#39; instead.): Operation timeout for</span>
-<span class="sd">            connection to master node.</span>
-<span class="sd">        :arg timeout: Operation timeout.</span>
+<span class="sd">            use &#39;cluster_manager_timeout&#39; instead.): Explicit operation timeout for</span>
+<span class="sd">            connection to master node</span>
+<span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
+<span class="sd">            response.</span>
+<span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
+<span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
+<span class="sd">        :arg timeout: Explicit operation timeout</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">repository</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Empty value passed for a required argument &#39;repository&#39;.&quot;</span><span class="p">)</span>
@@ -412,7 +592,16 @@
             <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="SnapshotClient.cleanup_repository"><a class="viewcode-back" href="../../../api-ref/clients/snapshot_client.html#opensearchpy.client.snapshot.SnapshotClient.cleanup_repository">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;timeout&quot;</span><span class="p">)</span>
+<div class="viewcode-block" id="SnapshotClient.cleanup_repository"><a class="viewcode-back" href="../../../api-ref/clients/snapshot_client.html#opensearchpy.client.snapshot.SnapshotClient.cleanup_repository">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+        <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;human&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;pretty&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;source&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;timeout&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
     <span class="k">def</span> <span class="nf">cleanup_repository</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">repository</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
@@ -423,13 +612,23 @@
 <span class="sd">        Removes stale data from repository.</span>
 
 
-<span class="sd">        :arg repository: Repository name.</span>
+<span class="sd">        :arg repository: Snapshot repository to clean up.</span>
 <span class="sd">        :arg cluster_manager_timeout: Operation timeout for connection</span>
 <span class="sd">            to cluster-manager node.</span>
+<span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
+<span class="sd">            errors.</span>
+<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
+<span class="sd">            the response.</span>
+<span class="sd">        :arg human: Whether to return human readable values for</span>
+<span class="sd">            statistics.</span>
 <span class="sd">        :arg master_timeout (Deprecated: To promote inclusive language,</span>
-<span class="sd">            use &#39;cluster_manager_timeout&#39; instead.): Operation timeout for</span>
-<span class="sd">            connection to master node.</span>
-<span class="sd">        :arg timeout: Operation timeout.</span>
+<span class="sd">            use &#39;cluster_manager_timeout&#39; instead.): Period to wait for a connection</span>
+<span class="sd">            to the master node.</span>
+<span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
+<span class="sd">            response.</span>
+<span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
+<span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
+<span class="sd">        :arg timeout: Period to wait for a response.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">repository</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Empty value passed for a required argument &#39;repository&#39;.&quot;</span><span class="p">)</span>
@@ -441,7 +640,15 @@
             <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="SnapshotClient.clone"><a class="viewcode-back" href="../../../api-ref/clients/snapshot_client.html#opensearchpy.client.snapshot.SnapshotClient.clone">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;master_timeout&quot;</span><span class="p">)</span>
+<div class="viewcode-block" id="SnapshotClient.clone"><a class="viewcode-back" href="../../../api-ref/clients/snapshot_client.html#opensearchpy.client.snapshot.SnapshotClient.clone">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+        <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;human&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;pretty&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;source&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
     <span class="k">def</span> <span class="nf">clone</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">repository</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
@@ -455,15 +662,25 @@
 <span class="sd">        Clones indices from one snapshot into another snapshot in the same repository.</span>
 
 
-<span class="sd">        :arg repository: Repository name.</span>
-<span class="sd">        :arg snapshot: Snapshot name.</span>
-<span class="sd">        :arg target_snapshot: The name of the cloned snapshot to create.</span>
+<span class="sd">        :arg repository: A repository name</span>
+<span class="sd">        :arg snapshot: The name of the snapshot to clone from</span>
+<span class="sd">        :arg target_snapshot: The name of the cloned snapshot to create</span>
 <span class="sd">        :arg body: The snapshot clone definition</span>
 <span class="sd">        :arg cluster_manager_timeout: Operation timeout for connection</span>
 <span class="sd">            to cluster-manager node.</span>
+<span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
+<span class="sd">            errors.</span>
+<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
+<span class="sd">            the response.</span>
+<span class="sd">        :arg human: Whether to return human readable values for</span>
+<span class="sd">            statistics.</span>
 <span class="sd">        :arg master_timeout (Deprecated: To promote inclusive language,</span>
-<span class="sd">            use &#39;cluster_manager_timeout&#39; instead.): Operation timeout for</span>
-<span class="sd">            connection to master node.</span>
+<span class="sd">            use &#39;cluster_manager_timeout&#39; instead.): Explicit operation timeout for</span>
+<span class="sd">            connection to master node</span>
+<span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
+<span class="sd">            response.</span>
+<span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
+<span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="p">(</span><span class="n">repository</span><span class="p">,</span> <span class="n">snapshot</span><span class="p">,</span> <span class="n">target_snapshot</span><span class="p">,</span> <span class="n">body</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>

@@ -127,10 +127,15 @@
 <div class="viewcode-block" id="ClusterClient.health"><a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.health">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;awareness_attribute&quot;</span><span class="p">,</span>
         <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
         <span class="s2">&quot;expand_wildcards&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;human&quot;</span><span class="p">,</span>
         <span class="s2">&quot;level&quot;</span><span class="p">,</span>
         <span class="s2">&quot;local&quot;</span><span class="p">,</span>
         <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;pretty&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;source&quot;</span><span class="p">,</span>
         <span class="s2">&quot;timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;wait_for_active_shards&quot;</span><span class="p">,</span>
         <span class="s2">&quot;wait_for_events&quot;</span><span class="p">,</span>
@@ -149,36 +154,63 @@
 <span class="sd">        Returns basic information about the health of the cluster.</span>
 
 
-<span class="sd">        :arg index: Limit the information returned to specific indicies.</span>
+<span class="sd">        :arg index: Comma-separated list of data streams, indices, and</span>
+<span class="sd">            index aliases used to limit the request. Wildcard expressions (*) are</span>
+<span class="sd">            supported. To target all data streams and indices in a cluster, omit</span>
+<span class="sd">            this parameter or use `_all` or `*`.</span>
 <span class="sd">        :arg awareness_attribute: The awareness attribute for which the</span>
 <span class="sd">            health is required.</span>
 <span class="sd">        :arg cluster_manager_timeout: Operation timeout for connection</span>
 <span class="sd">            to cluster-manager node.</span>
+<span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
+<span class="sd">            errors.</span>
 <span class="sd">        :arg expand_wildcards: Whether to expand wildcard expression to</span>
 <span class="sd">            concrete indices that are open, closed or both. Valid choices are all,</span>
 <span class="sd">            open, closed, hidden, none.</span>
-<span class="sd">        :arg level: Specify the level of detail for returned</span>
-<span class="sd">            information. Valid choices are cluster, indices, shards,</span>
-<span class="sd">            awareness_attributes.</span>
-<span class="sd">        :arg local: Return local information, do not retrieve the state</span>
-<span class="sd">            from cluster-manager node. Default is false.</span>
+<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
+<span class="sd">            the response.</span>
+<span class="sd">        :arg human: Whether to return human readable values for</span>
+<span class="sd">            statistics.</span>
+<span class="sd">        :arg level: Can be one of cluster, indices or shards. Controls</span>
+<span class="sd">            the details level of the health information returned. Valid choices are</span>
+<span class="sd">            cluster, indices, shards, awareness_attributes.</span>
+<span class="sd">        :arg local: If true, the request retrieves information from the</span>
+<span class="sd">            local node only. Defaults to false, which means information is retrieved</span>
+<span class="sd">            from the master node.</span>
 <span class="sd">        :arg master_timeout (Deprecated: To promote inclusive language,</span>
-<span class="sd">            use &#39;cluster_manager_timeout&#39; instead.): Operation timeout for</span>
-<span class="sd">            connection to master node.</span>
-<span class="sd">        :arg timeout: Operation timeout.</span>
-<span class="sd">        :arg wait_for_active_shards: Wait until the specified number of</span>
-<span class="sd">            shards is active.</span>
-<span class="sd">        :arg wait_for_events: Wait until all currently queued events</span>
-<span class="sd">            with the given priority are processed. Valid choices are immediate,</span>
-<span class="sd">            urgent, high, normal, low, languid.</span>
-<span class="sd">        :arg wait_for_no_initializing_shards: Whether to wait until</span>
-<span class="sd">            there are no initializing shards in the cluster.</span>
-<span class="sd">        :arg wait_for_no_relocating_shards: Whether to wait until there</span>
-<span class="sd">            are no relocating shards in the cluster.</span>
-<span class="sd">        :arg wait_for_nodes: Wait until the specified number of nodes is</span>
-<span class="sd">            available.</span>
-<span class="sd">        :arg wait_for_status: Wait until cluster is in a specific state.</span>
-<span class="sd">            Valid choices are green, yellow, red.</span>
+<span class="sd">            use &#39;cluster_manager_timeout&#39; instead.): Period to wait for a connection</span>
+<span class="sd">            to the master node. If no response is received before the timeout</span>
+<span class="sd">            expires, the request fails and returns an error.</span>
+<span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
+<span class="sd">            response.</span>
+<span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
+<span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
+<span class="sd">        :arg timeout: Period to wait for a response. If no response is</span>
+<span class="sd">            received before the timeout expires, the request fails and returns an</span>
+<span class="sd">            error.</span>
+<span class="sd">        :arg wait_for_active_shards: A number controlling to how many</span>
+<span class="sd">            active shards to wait for, all to wait for all shards in the cluster to</span>
+<span class="sd">            be active, or 0 to not wait. Valid choices are all, index-setting.</span>
+<span class="sd">        :arg wait_for_events: Can be one of immediate, urgent, high,</span>
+<span class="sd">            normal, low, languid. Wait until all currently queued events with the</span>
+<span class="sd">            given priority are processed. Valid choices are immediate, urgent, high,</span>
+<span class="sd">            normal, low, languid.</span>
+<span class="sd">        :arg wait_for_no_initializing_shards: A boolean value which</span>
+<span class="sd">            controls whether to wait (until the timeout provided) for the cluster to</span>
+<span class="sd">            have no shard initializations. Defaults to false, which means it will</span>
+<span class="sd">            not wait for initializing shards.</span>
+<span class="sd">        :arg wait_for_no_relocating_shards: A boolean value which</span>
+<span class="sd">            controls whether to wait (until the timeout provided) for the cluster to</span>
+<span class="sd">            have no shard relocations. Defaults to false, which means it will not</span>
+<span class="sd">            wait for relocating shards.</span>
+<span class="sd">        :arg wait_for_nodes: The request waits until the specified</span>
+<span class="sd">            number N of nodes is available. It also accepts &gt;=N, &lt;=N, &gt;N and &lt;N.</span>
+<span class="sd">            Alternatively, it is possible to use ge(N), le(N), gt(N) and lt(N)</span>
+<span class="sd">            notation.</span>
+<span class="sd">        :arg wait_for_status: One of green, yellow or red. Will wait</span>
+<span class="sd">            (until the timeout provided) until the status of the cluster changes to</span>
+<span class="sd">            the one provided or better, i.e. green &gt; yellow &gt; red. By default, will</span>
+<span class="sd">            not wait for any status. Valid choices are green, yellow, red.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
             <span class="s2">&quot;GET&quot;</span><span class="p">,</span>
@@ -187,7 +219,16 @@
             <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="ClusterClient.pending_tasks"><a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.pending_tasks">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;local&quot;</span><span class="p">,</span> <span class="s2">&quot;master_timeout&quot;</span><span class="p">)</span>
+<div class="viewcode-block" id="ClusterClient.pending_tasks"><a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.pending_tasks">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+        <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;human&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;local&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;pretty&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;source&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
     <span class="k">def</span> <span class="nf">pending_tasks</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -200,11 +241,23 @@
 
 <span class="sd">        :arg cluster_manager_timeout: Operation timeout for connection</span>
 <span class="sd">            to cluster-manager node.</span>
-<span class="sd">        :arg local: Return local information, do not retrieve the state</span>
-<span class="sd">            from cluster-manager node. Default is false.</span>
+<span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
+<span class="sd">            errors.</span>
+<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
+<span class="sd">            the response.</span>
+<span class="sd">        :arg human: Whether to return human readable values for</span>
+<span class="sd">            statistics.</span>
+<span class="sd">        :arg local: If `true`, the request retrieves information from</span>
+<span class="sd">            the local node only.If `false`, information is retrieved from the master</span>
+<span class="sd">            node.</span>
 <span class="sd">        :arg master_timeout (Deprecated: To promote inclusive language,</span>
-<span class="sd">            use &#39;cluster_manager_timeout&#39; instead.): Operation timeout for</span>
-<span class="sd">            connection to master node.</span>
+<span class="sd">            use &#39;cluster_manager_timeout&#39; instead.): Period to wait for a connection</span>
+<span class="sd">            to the master node.If no response is received before the timeout</span>
+<span class="sd">            expires, the request fails and returns an error.</span>
+<span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
+<span class="sd">            response.</span>
+<span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
+<span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
             <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="s2">&quot;/_cluster/pending_tasks&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
@@ -213,11 +266,16 @@
 <div class="viewcode-block" id="ClusterClient.state"><a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.state">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;allow_no_indices&quot;</span><span class="p">,</span>
         <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
         <span class="s2">&quot;expand_wildcards&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span>
         <span class="s2">&quot;flat_settings&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;human&quot;</span><span class="p">,</span>
         <span class="s2">&quot;ignore_unavailable&quot;</span><span class="p">,</span>
         <span class="s2">&quot;local&quot;</span><span class="p">,</span>
         <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;pretty&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;source&quot;</span><span class="p">,</span>
         <span class="s2">&quot;wait_for_metadata_version&quot;</span><span class="p">,</span>
         <span class="s2">&quot;wait_for_timeout&quot;</span><span class="p">,</span>
     <span class="p">)</span>
@@ -233,31 +291,40 @@
 
 
 <span class="sd">        :arg metric: Limit the information returned to the specified</span>
-<span class="sd">            metrics. Valid choices are _all, blocks, metadata, nodes, routing_table,</span>
-<span class="sd">            routing_nodes, master_node, cluster_manager_node, version.</span>
-<span class="sd">        :arg index: Comma-separated list of indices; use `_all` or empty</span>
-<span class="sd">            string to perform the operation on all indices.</span>
+<span class="sd">            metrics</span>
+<span class="sd">        :arg index: A comma-separated list of index names; use `_all` or</span>
+<span class="sd">            empty string to perform the operation on all indices</span>
 <span class="sd">        :arg allow_no_indices: Whether to ignore if a wildcard indices</span>
 <span class="sd">            expression resolves into no concrete indices. (This includes `_all`</span>
-<span class="sd">            string or when no indices have been specified).</span>
+<span class="sd">            string or when no indices have been specified)</span>
 <span class="sd">        :arg cluster_manager_timeout: Operation timeout for connection</span>
 <span class="sd">            to cluster-manager node.</span>
+<span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
+<span class="sd">            errors.</span>
 <span class="sd">        :arg expand_wildcards: Whether to expand wildcard expression to</span>
 <span class="sd">            concrete indices that are open, closed or both. Valid choices are all,</span>
 <span class="sd">            open, closed, hidden, none.</span>
-<span class="sd">        :arg flat_settings: Return settings in flat format. Default is</span>
-<span class="sd">            false.</span>
+<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
+<span class="sd">            the response.</span>
+<span class="sd">        :arg flat_settings: Return settings in flat format (default:</span>
+<span class="sd">            false)</span>
+<span class="sd">        :arg human: Whether to return human readable values for</span>
+<span class="sd">            statistics.</span>
 <span class="sd">        :arg ignore_unavailable: Whether specified concrete indices</span>
-<span class="sd">            should be ignored when unavailable (missing or closed).</span>
+<span class="sd">            should be ignored when unavailable (missing or closed)</span>
 <span class="sd">        :arg local: Return local information, do not retrieve the state</span>
-<span class="sd">            from cluster-manager node. Default is false.</span>
+<span class="sd">            from cluster-manager node (default: false)</span>
 <span class="sd">        :arg master_timeout (Deprecated: To promote inclusive language,</span>
-<span class="sd">            use &#39;cluster_manager_timeout&#39; instead.): Operation timeout for</span>
-<span class="sd">            connection to master node.</span>
+<span class="sd">            use &#39;cluster_manager_timeout&#39; instead.): Specify timeout for connection</span>
+<span class="sd">            to master</span>
+<span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
+<span class="sd">            response.</span>
+<span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
+<span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
 <span class="sd">        :arg wait_for_metadata_version: Wait for the metadata version to</span>
-<span class="sd">            be equal or greater than the specified metadata version.</span>
+<span class="sd">            be equal or greater than the specified metadata version</span>
 <span class="sd">        :arg wait_for_timeout: The maximum time to wait for</span>
-<span class="sd">            wait_for_metadata_version before timing out.</span>
+<span class="sd">            wait_for_metadata_version before timing out</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">index</span> <span class="ow">and</span> <span class="n">metric</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
             <span class="n">metric</span> <span class="o">=</span> <span class="s2">&quot;_all&quot;</span>
@@ -269,7 +336,15 @@
             <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="ClusterClient.stats"><a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.stats">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;flat_settings&quot;</span><span class="p">,</span> <span class="s2">&quot;timeout&quot;</span><span class="p">)</span>
+<div class="viewcode-block" id="ClusterClient.stats"><a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.stats">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+        <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;flat_settings&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;human&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;pretty&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;source&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;timeout&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
     <span class="k">def</span> <span class="nf">stats</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">node_id</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -280,13 +355,23 @@
 <span class="sd">        Returns high-level overview of cluster statistics.</span>
 
 
-<span class="sd">        :arg node_id: Comma-separated list of node IDs or names to limit</span>
-<span class="sd">            the returned information; use `_local` to return information from the</span>
-<span class="sd">            node you&#39;re connecting to, leave empty to get information from all</span>
-<span class="sd">            nodes.</span>
-<span class="sd">        :arg flat_settings: Return settings in flat format. Default is</span>
-<span class="sd">            false.</span>
-<span class="sd">        :arg timeout: Operation timeout.</span>
+<span class="sd">        :arg node_id: Comma-separated list of node filters used to limit</span>
+<span class="sd">            returned information. Defaults to all nodes in the cluster.</span>
+<span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
+<span class="sd">            errors.</span>
+<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
+<span class="sd">            the response.</span>
+<span class="sd">        :arg flat_settings: If `true`, returns settings in flat format.</span>
+<span class="sd">        :arg human: Whether to return human readable values for</span>
+<span class="sd">            statistics.</span>
+<span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
+<span class="sd">            response.</span>
+<span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
+<span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
+<span class="sd">        :arg timeout: Period to wait for each node to respond.If a node</span>
+<span class="sd">            does not respond before its timeout expires, the response does not</span>
+<span class="sd">            include its stats.However, timed out nodes are included in the</span>
+<span class="sd">            response’s `_nodes.failed` property. Defaults to no timeout.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
             <span class="s2">&quot;GET&quot;</span><span class="p">,</span>
@@ -302,10 +387,15 @@
 <div class="viewcode-block" id="ClusterClient.reroute"><a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.reroute">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;dry_run&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
         <span class="s2">&quot;explain&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;human&quot;</span><span class="p">,</span>
         <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;metric&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;pretty&quot;</span><span class="p">,</span>
         <span class="s2">&quot;retry_failed&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;source&quot;</span><span class="p">,</span>
         <span class="s2">&quot;timeout&quot;</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="k">def</span> <span class="nf">reroute</span><span class="p">(</span>
@@ -322,18 +412,31 @@
 <span class="sd">            `cancel`, `allocate`)</span>
 <span class="sd">        :arg cluster_manager_timeout: Operation timeout for connection</span>
 <span class="sd">            to cluster-manager node.</span>
-<span class="sd">        :arg dry_run: Simulate the operation only and return the</span>
-<span class="sd">            resulting state.</span>
-<span class="sd">        :arg explain: Return an explanation of why the commands can or</span>
-<span class="sd">            cannot be executed.</span>
+<span class="sd">        :arg dry_run: If true, then the request simulates the operation</span>
+<span class="sd">            only and returns the resulting state.</span>
+<span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
+<span class="sd">            errors.</span>
+<span class="sd">        :arg explain: If true, then the response contains an explanation</span>
+<span class="sd">            of why the commands can or cannot be executed.</span>
+<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
+<span class="sd">            the response.</span>
+<span class="sd">        :arg human: Whether to return human readable values for</span>
+<span class="sd">            statistics.</span>
 <span class="sd">        :arg master_timeout (Deprecated: To promote inclusive language,</span>
-<span class="sd">            use &#39;cluster_manager_timeout&#39; instead.): Operation timeout for</span>
-<span class="sd">            connection to master node.</span>
-<span class="sd">        :arg metric: Limit the information returned to the specified</span>
-<span class="sd">            metrics. Defaults to all but metadata.</span>
-<span class="sd">        :arg retry_failed: Retries allocation of shards that are blocked</span>
-<span class="sd">            due to too many subsequent allocation failures.</span>
-<span class="sd">        :arg timeout: Operation timeout.</span>
+<span class="sd">            use &#39;cluster_manager_timeout&#39; instead.): Period to wait for a connection</span>
+<span class="sd">            to the master node. If no response is received before the timeout</span>
+<span class="sd">            expires, the request fails and returns an error.</span>
+<span class="sd">        :arg metric: Limits the information returned to the specified</span>
+<span class="sd">            metrics.</span>
+<span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
+<span class="sd">            response.</span>
+<span class="sd">        :arg retry_failed: If true, then retries allocation of shards</span>
+<span class="sd">            that are blocked due to too many subsequent allocation failures.</span>
+<span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
+<span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
+<span class="sd">        :arg timeout: Period to wait for a response. If no response is</span>
+<span class="sd">            received before the timeout expires, the request fails and returns an</span>
+<span class="sd">            error.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
             <span class="s2">&quot;POST&quot;</span><span class="p">,</span> <span class="s2">&quot;/_cluster/reroute&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">body</span>
@@ -341,9 +444,14 @@
 
 <div class="viewcode-block" id="ClusterClient.get_settings"><a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.get_settings">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span>
         <span class="s2">&quot;flat_settings&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;human&quot;</span><span class="p">,</span>
         <span class="s2">&quot;include_defaults&quot;</span><span class="p">,</span>
         <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;pretty&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;source&quot;</span><span class="p">,</span>
         <span class="s2">&quot;timeout&quot;</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="k">def</span> <span class="nf">get_settings</span><span class="p">(</span>
@@ -357,21 +465,41 @@
 
 <span class="sd">        :arg cluster_manager_timeout: Operation timeout for connection</span>
 <span class="sd">            to cluster-manager node.</span>
-<span class="sd">        :arg flat_settings: Return settings in flat format. Default is</span>
-<span class="sd">            false.</span>
-<span class="sd">        :arg include_defaults: Whether to return all default clusters</span>
-<span class="sd">            setting. Default is false.</span>
+<span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
+<span class="sd">            errors.</span>
+<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
+<span class="sd">            the response.</span>
+<span class="sd">        :arg flat_settings: If `true`, returns settings in flat format.</span>
+<span class="sd">        :arg human: Whether to return human readable values for</span>
+<span class="sd">            statistics.</span>
+<span class="sd">        :arg include_defaults: If `true`, returns default cluster</span>
+<span class="sd">            settings from the local node.</span>
 <span class="sd">        :arg master_timeout (Deprecated: To promote inclusive language,</span>
-<span class="sd">            use &#39;cluster_manager_timeout&#39; instead.): Operation timeout for</span>
-<span class="sd">            connection to master node.</span>
-<span class="sd">        :arg timeout: Operation timeout.</span>
+<span class="sd">            use &#39;cluster_manager_timeout&#39; instead.): Period to wait for a connection</span>
+<span class="sd">            to the master node.If no response is received before the timeout</span>
+<span class="sd">            expires, the request fails and returns an error.</span>
+<span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
+<span class="sd">            response.</span>
+<span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
+<span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
+<span class="sd">        :arg timeout: Period to wait for a response.If no response is</span>
+<span class="sd">            received before the timeout expires, the request fails and returns an</span>
+<span class="sd">            error.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
             <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="s2">&quot;/_cluster/settings&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="ClusterClient.put_settings"><a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.put_settings">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
-        <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;flat_settings&quot;</span><span class="p">,</span> <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;timeout&quot;</span>
+        <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;flat_settings&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;human&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;pretty&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;source&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;timeout&quot;</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="k">def</span> <span class="nf">put_settings</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -387,12 +515,22 @@
 <span class="sd">            or `persistent` (survives cluster restart).</span>
 <span class="sd">        :arg cluster_manager_timeout: Operation timeout for connection</span>
 <span class="sd">            to cluster-manager node.</span>
-<span class="sd">        :arg flat_settings: Return settings in flat format. Default is</span>
-<span class="sd">            false.</span>
+<span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
+<span class="sd">            errors.</span>
+<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
+<span class="sd">            the response.</span>
+<span class="sd">        :arg flat_settings: Return settings in flat format (default:</span>
+<span class="sd">            false)</span>
+<span class="sd">        :arg human: Whether to return human readable values for</span>
+<span class="sd">            statistics.</span>
 <span class="sd">        :arg master_timeout (Deprecated: To promote inclusive language,</span>
-<span class="sd">            use &#39;cluster_manager_timeout&#39; instead.): Operation timeout for</span>
-<span class="sd">            connection to master node.</span>
-<span class="sd">        :arg timeout: Operation timeout.</span>
+<span class="sd">            use &#39;cluster_manager_timeout&#39; instead.): Explicit operation timeout for</span>
+<span class="sd">            connection to master node</span>
+<span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
+<span class="sd">            response.</span>
+<span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
+<span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
+<span class="sd">        :arg timeout: Explicit operation timeout</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">body</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Empty value passed for a required argument &#39;body&#39;.&quot;</span><span class="p">)</span>
@@ -401,7 +539,7 @@
             <span class="s2">&quot;PUT&quot;</span><span class="p">,</span> <span class="s2">&quot;/_cluster/settings&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">body</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="ClusterClient.remote_info"><a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.remote_info">[docs]</a>    <span class="nd">@query_params</span><span class="p">()</span>
+<div class="viewcode-block" id="ClusterClient.remote_info"><a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.remote_info">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">remote_info</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -410,12 +548,31 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the information about configured remote clusters.</span>
 
+
+<span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
+<span class="sd">            errors.</span>
+<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
+<span class="sd">            the response.</span>
+<span class="sd">        :arg human: Whether to return human readable values for</span>
+<span class="sd">            statistics.</span>
+<span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
+<span class="sd">            response.</span>
+<span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
+<span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
             <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="s2">&quot;/_remote/info&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="ClusterClient.allocation_explain"><a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.allocation_explain">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;include_disk_info&quot;</span><span class="p">,</span> <span class="s2">&quot;include_yes_decisions&quot;</span><span class="p">)</span>
+<div class="viewcode-block" id="ClusterClient.allocation_explain"><a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.allocation_explain">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+        <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;human&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;include_disk_info&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;include_yes_decisions&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;pretty&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;source&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
     <span class="k">def</span> <span class="nf">allocation_explain</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">body</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -428,10 +585,20 @@
 
 <span class="sd">        :arg body: The index, shard, and primary flag to explain. Empty</span>
 <span class="sd">            means &#39;explain the first unassigned shard&#39;</span>
-<span class="sd">        :arg include_disk_info: Return information about disk usage and</span>
-<span class="sd">            shard sizes. Default is false.</span>
-<span class="sd">        :arg include_yes_decisions: Return &#39;YES&#39; decisions in</span>
-<span class="sd">            explanation. Default is false.</span>
+<span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
+<span class="sd">            errors.</span>
+<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
+<span class="sd">            the response.</span>
+<span class="sd">        :arg human: Whether to return human readable values for</span>
+<span class="sd">            statistics.</span>
+<span class="sd">        :arg include_disk_info: If true, returns information about disk</span>
+<span class="sd">            usage and shard sizes.</span>
+<span class="sd">        :arg include_yes_decisions: If true, returns YES decisions in</span>
+<span class="sd">            explanation.</span>
+<span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
+<span class="sd">            response.</span>
+<span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
+<span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
             <span class="s2">&quot;POST&quot;</span><span class="p">,</span>
@@ -441,7 +608,16 @@
             <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="ClusterClient.delete_component_template"><a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.delete_component_template">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;timeout&quot;</span><span class="p">)</span>
+<div class="viewcode-block" id="ClusterClient.delete_component_template"><a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.delete_component_template">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+        <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;human&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;pretty&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;source&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;timeout&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
     <span class="k">def</span> <span class="nf">delete_component_template</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">name</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
@@ -452,13 +628,27 @@
 <span class="sd">        Deletes a component template.</span>
 
 
-<span class="sd">        :arg name: The name of the template.</span>
+<span class="sd">        :arg name: Name of the component template to delete. Wildcard</span>
+<span class="sd">            (*) expressions are supported.</span>
 <span class="sd">        :arg cluster_manager_timeout: Operation timeout for connection</span>
 <span class="sd">            to cluster-manager node.</span>
+<span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
+<span class="sd">            errors.</span>
+<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
+<span class="sd">            the response.</span>
+<span class="sd">        :arg human: Whether to return human readable values for</span>
+<span class="sd">            statistics.</span>
 <span class="sd">        :arg master_timeout (Deprecated: To promote inclusive language,</span>
-<span class="sd">            use &#39;cluster_manager_timeout&#39; instead.): Operation timeout for</span>
-<span class="sd">            connection to master node.</span>
-<span class="sd">        :arg timeout: Operation timeout.</span>
+<span class="sd">            use &#39;cluster_manager_timeout&#39; instead.): Period to wait for a connection</span>
+<span class="sd">            to the master node.If no response is received before the timeout</span>
+<span class="sd">            expires, the request fails and returns an error.</span>
+<span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
+<span class="sd">            response.</span>
+<span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
+<span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
+<span class="sd">        :arg timeout: Period to wait for a response.If no response is</span>
+<span class="sd">            received before the timeout expires, the request fails and returns an</span>
+<span class="sd">            error.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Empty value passed for a required argument &#39;name&#39;.&quot;</span><span class="p">)</span>
@@ -470,7 +660,16 @@
             <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="ClusterClient.get_component_template"><a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.get_component_template">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;local&quot;</span><span class="p">,</span> <span class="s2">&quot;master_timeout&quot;</span><span class="p">)</span>
+<div class="viewcode-block" id="ClusterClient.get_component_template"><a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.get_component_template">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+        <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;human&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;local&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;pretty&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;source&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
     <span class="k">def</span> <span class="nf">get_component_template</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">name</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -481,14 +680,27 @@
 <span class="sd">        Returns one or more component templates.</span>
 
 
-<span class="sd">        :arg name: The Comma-separated names of the component templates.</span>
+<span class="sd">        :arg name: Name of the component template to retrieve. Wildcard</span>
+<span class="sd">            (`*`) expressions are supported.</span>
 <span class="sd">        :arg cluster_manager_timeout: Operation timeout for connection</span>
 <span class="sd">            to cluster-manager node.</span>
-<span class="sd">        :arg local: Return local information, do not retrieve the state</span>
-<span class="sd">            from cluster-manager node. Default is false.</span>
+<span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
+<span class="sd">            errors.</span>
+<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
+<span class="sd">            the response.</span>
+<span class="sd">        :arg human: Whether to return human readable values for</span>
+<span class="sd">            statistics.</span>
+<span class="sd">        :arg local: If `true`, the request retrieves information from</span>
+<span class="sd">            the local node only.If `false`, information is retrieved from the master</span>
+<span class="sd">            node.</span>
 <span class="sd">        :arg master_timeout (Deprecated: To promote inclusive language,</span>
-<span class="sd">            use &#39;cluster_manager_timeout&#39; instead.): Operation timeout for</span>
-<span class="sd">            connection to master node.</span>
+<span class="sd">            use &#39;cluster_manager_timeout&#39; instead.): Period to wait for a connection</span>
+<span class="sd">            to the master node.If no response is received before the timeout</span>
+<span class="sd">            expires, the request fails and returns an error.</span>
+<span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
+<span class="sd">            response.</span>
+<span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
+<span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
             <span class="s2">&quot;GET&quot;</span><span class="p">,</span>
@@ -497,7 +709,17 @@
             <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="ClusterClient.put_component_template"><a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.put_component_template">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;create&quot;</span><span class="p">,</span> <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;timeout&quot;</span><span class="p">)</span>
+<div class="viewcode-block" id="ClusterClient.put_component_template"><a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.put_component_template">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+        <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;create&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;human&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;pretty&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;source&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;timeout&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
     <span class="k">def</span> <span class="nf">put_component_template</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">name</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
@@ -509,15 +731,35 @@
 <span class="sd">        Creates or updates a component template.</span>
 
 
-<span class="sd">        :arg name: The name of the template.</span>
+<span class="sd">        :arg name: Name of the component template to create. Opensearch</span>
+<span class="sd">            includes the following built-in component templates: `logs-mappings`;</span>
+<span class="sd">            &#39;logs-settings`; `metrics-mappings`; `metrics-settings`;`synthetics-</span>
+<span class="sd">            mapping`; `synthetics-settings`. Opensearch Agent uses these templates</span>
+<span class="sd">            to configure backing indices for its data streams. If you use Opensearch</span>
+<span class="sd">            Agent and want to overwrite one of these templates, set the `version`</span>
+<span class="sd">            for your replacement template higher than the current version. If you</span>
+<span class="sd">            don’t use Opensearch Agent and want to disable all built-in component</span>
+<span class="sd">            and index templates, set `stack.templates.enabled` to `false` using the</span>
+<span class="sd">            cluster update settings API.</span>
 <span class="sd">        :arg body: The template definition</span>
 <span class="sd">        :arg cluster_manager_timeout: Operation timeout for connection</span>
 <span class="sd">            to cluster-manager node.</span>
-<span class="sd">        :arg create: Whether the index template should only be added if</span>
-<span class="sd">            new or can also replace an existing one. Default is false.</span>
+<span class="sd">        :arg create: If `true`, this request cannot replace or update</span>
+<span class="sd">            existing component templates.</span>
+<span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
+<span class="sd">            errors.</span>
+<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
+<span class="sd">            the response.</span>
+<span class="sd">        :arg human: Whether to return human readable values for</span>
+<span class="sd">            statistics.</span>
 <span class="sd">        :arg master_timeout (Deprecated: To promote inclusive language,</span>
-<span class="sd">            use &#39;cluster_manager_timeout&#39; instead.): Operation timeout for</span>
-<span class="sd">            connection to master node.</span>
+<span class="sd">            use &#39;cluster_manager_timeout&#39; instead.): Period to wait for a connection</span>
+<span class="sd">            to the master node.If no response is received before the timeout</span>
+<span class="sd">            expires, the request fails and returns an error.</span>
+<span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
+<span class="sd">            response.</span>
+<span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
+<span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
 <span class="sd">        :arg timeout: Operation timeout.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">body</span><span class="p">):</span>
@@ -532,7 +774,16 @@
             <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="ClusterClient.exists_component_template"><a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.exists_component_template">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;local&quot;</span><span class="p">,</span> <span class="s2">&quot;master_timeout&quot;</span><span class="p">)</span>
+<div class="viewcode-block" id="ClusterClient.exists_component_template"><a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.exists_component_template">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+        <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;human&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;local&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;pretty&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;source&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
     <span class="k">def</span> <span class="nf">exists_component_template</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">name</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
@@ -543,14 +794,27 @@
 <span class="sd">        Returns information about whether a particular component template exist.</span>
 
 
-<span class="sd">        :arg name: The name of the template.</span>
+<span class="sd">        :arg name: Name of the component template to check existence of.</span>
+<span class="sd">            Wildcard (*) expressions are supported.</span>
 <span class="sd">        :arg cluster_manager_timeout: Operation timeout for connection</span>
 <span class="sd">            to cluster-manager node.</span>
-<span class="sd">        :arg local: Return local information, do not retrieve the state</span>
-<span class="sd">            from cluster-manager node. Default is false.</span>
+<span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
+<span class="sd">            errors.</span>
+<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
+<span class="sd">            the response.</span>
+<span class="sd">        :arg human: Whether to return human readable values for</span>
+<span class="sd">            statistics.</span>
+<span class="sd">        :arg local: If true, the request retrieves information from the</span>
+<span class="sd">            local node only.Defaults to false, which means information is retrieved</span>
+<span class="sd">            from the master node.</span>
 <span class="sd">        :arg master_timeout (Deprecated: To promote inclusive language,</span>
-<span class="sd">            use &#39;cluster_manager_timeout&#39; instead.): Operation timeout for</span>
-<span class="sd">            connection to master node.</span>
+<span class="sd">            use &#39;cluster_manager_timeout&#39; instead.): Period to wait for a connection</span>
+<span class="sd">            to the master node. If no response isreceived before the timeout</span>
+<span class="sd">            expires, the request fails and returns anerror.</span>
+<span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
+<span class="sd">            response.</span>
+<span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
+<span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Empty value passed for a required argument &#39;name&#39;.&quot;</span><span class="p">)</span>
@@ -562,7 +826,9 @@
             <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="ClusterClient.delete_voting_config_exclusions"><a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.delete_voting_config_exclusions">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;wait_for_removal&quot;</span><span class="p">)</span>
+<div class="viewcode-block" id="ClusterClient.delete_voting_config_exclusions"><a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.delete_voting_config_exclusions">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+        <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">,</span> <span class="s2">&quot;wait_for_removal&quot;</span>
+    <span class="p">)</span>
     <span class="k">def</span> <span class="nf">delete_voting_config_exclusions</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -572,9 +838,22 @@
 <span class="sd">        Clears cluster voting config exclusions.</span>
 
 
+<span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
+<span class="sd">            errors.</span>
+<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
+<span class="sd">            the response.</span>
+<span class="sd">        :arg human: Whether to return human readable values for</span>
+<span class="sd">            statistics.</span>
+<span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
+<span class="sd">            response.</span>
+<span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
+<span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
 <span class="sd">        :arg wait_for_removal: Specifies whether to wait for all</span>
-<span class="sd">            excluded nodes to be removed from the cluster before clearing the voting</span>
-<span class="sd">            configuration exclusions list. Default is True.</span>
+<span class="sd">            excluded nodes to be removed from thecluster before clearing the voting</span>
+<span class="sd">            configuration exclusions list.Defaults to true, meaning that all</span>
+<span class="sd">            excluded nodes must be removed fromthe cluster before this API takes any</span>
+<span class="sd">            action. If set to false then thevoting configuration exclusions list is</span>
+<span class="sd">            cleared even if some excludednodes are still in the cluster.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
             <span class="s2">&quot;DELETE&quot;</span><span class="p">,</span>
@@ -583,7 +862,16 @@
             <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="ClusterClient.post_voting_config_exclusions"><a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.post_voting_config_exclusions">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;node_ids&quot;</span><span class="p">,</span> <span class="s2">&quot;node_names&quot;</span><span class="p">,</span> <span class="s2">&quot;timeout&quot;</span><span class="p">)</span>
+<div class="viewcode-block" id="ClusterClient.post_voting_config_exclusions"><a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.post_voting_config_exclusions">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+        <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;human&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;node_ids&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;node_names&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;pretty&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;source&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;timeout&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
     <span class="k">def</span> <span class="nf">post_voting_config_exclusions</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -593,19 +881,33 @@
 <span class="sd">        Updates the cluster voting config exclusions by node ids or node names.</span>
 
 
-<span class="sd">        :arg node_ids: Comma-separated list of the persistent ids of the</span>
-<span class="sd">            nodes to exclude from the voting configuration. If specified, you may</span>
-<span class="sd">            not also specify ?node_names.</span>
-<span class="sd">        :arg node_names: Comma-separated list of the names of the nodes</span>
-<span class="sd">            to exclude from the voting configuration. If specified, you may not also</span>
-<span class="sd">            specify ?node_ids.</span>
-<span class="sd">        :arg timeout: Operation timeout.</span>
+<span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
+<span class="sd">            errors.</span>
+<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
+<span class="sd">            the response.</span>
+<span class="sd">        :arg human: Whether to return human readable values for</span>
+<span class="sd">            statistics.</span>
+<span class="sd">        :arg node_ids: A comma-separated list of the persistent ids of</span>
+<span class="sd">            the nodes to excludefrom the voting configuration. If specified, you may</span>
+<span class="sd">            not also specify node_names.</span>
+<span class="sd">        :arg node_names: A comma-separated list of the names of the</span>
+<span class="sd">            nodes to exclude from thevoting configuration. If specified, you may not</span>
+<span class="sd">            also specify node_ids.</span>
+<span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
+<span class="sd">            response.</span>
+<span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
+<span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
+<span class="sd">        :arg timeout: When adding a voting configuration exclusion, the</span>
+<span class="sd">            API waits for thespecified nodes to be excluded from the voting</span>
+<span class="sd">            configuration beforereturning. If the timeout expires before the</span>
+<span class="sd">            appropriate conditionis satisfied, the request fails and returns an</span>
+<span class="sd">            error.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
             <span class="s2">&quot;POST&quot;</span><span class="p">,</span> <span class="s2">&quot;/_cluster/voting_config_exclusions&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="ClusterClient.delete_decommission_awareness"><a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.delete_decommission_awareness">[docs]</a>    <span class="nd">@query_params</span><span class="p">()</span>
+<div class="viewcode-block" id="ClusterClient.delete_decommission_awareness"><a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.delete_decommission_awareness">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">delete_decommission_awareness</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -614,12 +916,23 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Delete any existing decommission.</span>
 
+
+<span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
+<span class="sd">            errors.</span>
+<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
+<span class="sd">            the response.</span>
+<span class="sd">        :arg human: Whether to return human readable values for</span>
+<span class="sd">            statistics.</span>
+<span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
+<span class="sd">            response.</span>
+<span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
+<span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
             <span class="s2">&quot;DELETE&quot;</span><span class="p">,</span> <span class="s2">&quot;/_cluster/decommission/awareness&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="ClusterClient.delete_weighted_routing"><a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.delete_weighted_routing">[docs]</a>    <span class="nd">@query_params</span><span class="p">()</span>
+<div class="viewcode-block" id="ClusterClient.delete_weighted_routing"><a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.delete_weighted_routing">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">delete_weighted_routing</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -628,6 +941,17 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Delete weighted shard routing weights.</span>
 
+
+<span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
+<span class="sd">            errors.</span>
+<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
+<span class="sd">            the response.</span>
+<span class="sd">        :arg human: Whether to return human readable values for</span>
+<span class="sd">            statistics.</span>
+<span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
+<span class="sd">            response.</span>
+<span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
+<span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
             <span class="s2">&quot;DELETE&quot;</span><span class="p">,</span>
@@ -636,7 +960,7 @@
             <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="ClusterClient.get_decommission_awareness"><a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.get_decommission_awareness">[docs]</a>    <span class="nd">@query_params</span><span class="p">()</span>
+<div class="viewcode-block" id="ClusterClient.get_decommission_awareness"><a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.get_decommission_awareness">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">get_decommission_awareness</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">awareness_attribute_name</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
@@ -648,6 +972,16 @@
 
 
 <span class="sd">        :arg awareness_attribute_name: Awareness attribute name.</span>
+<span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
+<span class="sd">            errors.</span>
+<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
+<span class="sd">            the response.</span>
+<span class="sd">        :arg human: Whether to return human readable values for</span>
+<span class="sd">            statistics.</span>
+<span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
+<span class="sd">            response.</span>
+<span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
+<span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">awareness_attribute_name</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
@@ -667,7 +1001,7 @@
             <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="ClusterClient.get_weighted_routing"><a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.get_weighted_routing">[docs]</a>    <span class="nd">@query_params</span><span class="p">()</span>
+<div class="viewcode-block" id="ClusterClient.get_weighted_routing"><a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.get_weighted_routing">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">get_weighted_routing</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">attribute</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
@@ -679,6 +1013,16 @@
 
 
 <span class="sd">        :arg attribute: Awareness attribute name.</span>
+<span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
+<span class="sd">            errors.</span>
+<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
+<span class="sd">            the response.</span>
+<span class="sd">        :arg human: Whether to return human readable values for</span>
+<span class="sd">            statistics.</span>
+<span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
+<span class="sd">            response.</span>
+<span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
+<span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">attribute</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Empty value passed for a required argument &#39;attribute&#39;.&quot;</span><span class="p">)</span>
@@ -690,7 +1034,7 @@
             <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="ClusterClient.put_decommission_awareness"><a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.put_decommission_awareness">[docs]</a>    <span class="nd">@query_params</span><span class="p">()</span>
+<div class="viewcode-block" id="ClusterClient.put_decommission_awareness"><a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.put_decommission_awareness">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">put_decommission_awareness</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">awareness_attribute_name</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
@@ -704,6 +1048,16 @@
 
 <span class="sd">        :arg awareness_attribute_name: Awareness attribute name.</span>
 <span class="sd">        :arg awareness_attribute_value: Awareness attribute value.</span>
+<span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
+<span class="sd">            errors.</span>
+<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
+<span class="sd">            the response.</span>
+<span class="sd">        :arg human: Whether to return human readable values for</span>
+<span class="sd">            statistics.</span>
+<span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
+<span class="sd">            response.</span>
+<span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
+<span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="p">(</span><span class="n">awareness_attribute_name</span><span class="p">,</span> <span class="n">awareness_attribute_value</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
@@ -722,7 +1076,7 @@
             <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="ClusterClient.put_weighted_routing"><a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.put_weighted_routing">[docs]</a>    <span class="nd">@query_params</span><span class="p">()</span>
+<div class="viewcode-block" id="ClusterClient.put_weighted_routing"><a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.put_weighted_routing">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">put_weighted_routing</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">attribute</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
@@ -734,6 +1088,16 @@
 
 
 <span class="sd">        :arg attribute: Awareness attribute name.</span>
+<span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
+<span class="sd">            errors.</span>
+<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
+<span class="sd">            the response.</span>
+<span class="sd">        :arg human: Whether to return human readable values for</span>
+<span class="sd">            statistics.</span>
+<span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
+<span class="sd">            response.</span>
+<span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
+<span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">attribute</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Empty value passed for a required argument &#39;attribute&#39;.&quot;</span><span class="p">)</span>

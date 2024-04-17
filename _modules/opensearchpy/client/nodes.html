@@ -124,7 +124,7 @@
 
 
 <div class="viewcode-block" id="NodesClient"><a class="viewcode-back" href="../../../api-ref/clients/nodes_client.html#opensearchpy.client.nodes.NodesClient">[docs]</a><span class="k">class</span> <span class="nc">NodesClient</span><span class="p">(</span><span class="n">NamespacedClient</span><span class="p">):</span>
-<div class="viewcode-block" id="NodesClient.reload_secure_settings"><a class="viewcode-back" href="../../../api-ref/clients/nodes_client.html#opensearchpy.client.nodes.NodesClient.reload_secure_settings">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;timeout&quot;</span><span class="p">)</span>
+<div class="viewcode-block" id="NodesClient.reload_secure_settings"><a class="viewcode-back" href="../../../api-ref/clients/nodes_client.html#opensearchpy.client.nodes.NodesClient.reload_secure_settings">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">,</span> <span class="s2">&quot;timeout&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">reload_secure_settings</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">body</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -138,10 +138,21 @@
 
 <span class="sd">        :arg body: An object containing the password for the opensearch</span>
 <span class="sd">            keystore</span>
-<span class="sd">        :arg node_id: Comma-separated list of node IDs to span the</span>
-<span class="sd">            reload/reinit call. Should stay empty because reloading usually involves</span>
-<span class="sd">            all cluster nodes.</span>
-<span class="sd">        :arg timeout: Operation timeout.</span>
+<span class="sd">        :arg node_id: The names of particular nodes in the cluster to</span>
+<span class="sd">            target.</span>
+<span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
+<span class="sd">            errors.</span>
+<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
+<span class="sd">            the response.</span>
+<span class="sd">        :arg human: Whether to return human readable values for</span>
+<span class="sd">            statistics.</span>
+<span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
+<span class="sd">            response.</span>
+<span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
+<span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
+<span class="sd">        :arg timeout: Period to wait for a response.If no response is</span>
+<span class="sd">            received before the timeout expires, the request fails and returns an</span>
+<span class="sd">            error.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
             <span class="s2">&quot;POST&quot;</span><span class="p">,</span>
@@ -151,7 +162,15 @@
             <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="NodesClient.info"><a class="viewcode-back" href="../../../api-ref/clients/nodes_client.html#opensearchpy.client.nodes.NodesClient.info">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;flat_settings&quot;</span><span class="p">,</span> <span class="s2">&quot;timeout&quot;</span><span class="p">)</span>
+<div class="viewcode-block" id="NodesClient.info"><a class="viewcode-back" href="../../../api-ref/clients/nodes_client.html#opensearchpy.client.nodes.NodesClient.info">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+        <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;flat_settings&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;human&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;pretty&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;source&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;timeout&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
     <span class="k">def</span> <span class="nf">info</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">node_id</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -163,16 +182,24 @@
 <span class="sd">        Returns information about nodes in the cluster.</span>
 
 
-<span class="sd">        :arg node_id: Comma-separated list of node IDs or names to limit</span>
-<span class="sd">            the returned information; use `_local` to return information from the</span>
-<span class="sd">            node you&#39;re connecting to, leave empty to get information from all</span>
-<span class="sd">            nodes.</span>
-<span class="sd">        :arg metric: Comma-separated list of metrics you wish returned.</span>
-<span class="sd">            Leave empty to return all. Valid choices are settings, os, process, jvm,</span>
-<span class="sd">            thread_pool, transport, http, plugins, ingest.</span>
-<span class="sd">        :arg flat_settings: Return settings in flat format. Default is</span>
-<span class="sd">            false.</span>
-<span class="sd">        :arg timeout: Operation timeout.</span>
+<span class="sd">        :arg node_id: Comma-separated list of node IDs or names used to</span>
+<span class="sd">            limit returned information.</span>
+<span class="sd">        :arg metric: Limits the information returned to the specific</span>
+<span class="sd">            metrics. Supports a comma-separated list, such as http,ingest.</span>
+<span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
+<span class="sd">            errors.</span>
+<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
+<span class="sd">            the response.</span>
+<span class="sd">        :arg flat_settings: If true, returns settings in flat format.</span>
+<span class="sd">        :arg human: Whether to return human readable values for</span>
+<span class="sd">            statistics.</span>
+<span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
+<span class="sd">            response.</span>
+<span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
+<span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
+<span class="sd">        :arg timeout: Period to wait for a response. If no response is</span>
+<span class="sd">            received before the timeout expires, the request fails and returns an</span>
+<span class="sd">            error.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
             <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="n">_make_path</span><span class="p">(</span><span class="s2">&quot;_nodes&quot;</span><span class="p">,</span> <span class="n">node_id</span><span class="p">,</span> <span class="n">metric</span><span class="p">),</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
@@ -180,11 +207,16 @@
 
 <div class="viewcode-block" id="NodesClient.stats"><a class="viewcode-back" href="../../../api-ref/clients/nodes_client.html#opensearchpy.client.nodes.NodesClient.stats">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;completion_fields&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
         <span class="s2">&quot;fielddata_fields&quot;</span><span class="p">,</span>
         <span class="s2">&quot;fields&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span>
         <span class="s2">&quot;groups&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;human&quot;</span><span class="p">,</span>
         <span class="s2">&quot;include_segment_file_sizes&quot;</span><span class="p">,</span>
         <span class="s2">&quot;level&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;pretty&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;source&quot;</span><span class="p">,</span>
         <span class="s2">&quot;timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;types&quot;</span><span class="p">,</span>
     <span class="p">)</span>
@@ -200,35 +232,42 @@
 <span class="sd">        Returns statistical information about nodes in the cluster.</span>
 
 
-<span class="sd">        :arg node_id: Comma-separated list of node IDs or names to limit</span>
-<span class="sd">            the returned information; use `_local` to return information from the</span>
-<span class="sd">            node you&#39;re connecting to, leave empty to get information from all</span>
-<span class="sd">            nodes.</span>
+<span class="sd">        :arg node_id: Comma-separated list of node IDs or names used to</span>
+<span class="sd">            limit returned information.</span>
 <span class="sd">        :arg metric: Limit the information returned to the specified</span>
-<span class="sd">            metrics. Valid choices are _all, breaker, fs, http, indices, jvm, os,</span>
-<span class="sd">            process, thread_pool, transport, discovery, indexing_pressure,</span>
-<span class="sd">            search_pipeline.</span>
-<span class="sd">        :arg index_metric: Limit the information returned for `indices`</span>
-<span class="sd">            metric to the specific index metrics. Isn&#39;t used if `indices` (or `all`)</span>
-<span class="sd">            metric isn&#39;t specified. Valid choices are _all, store, indexing, get,</span>
-<span class="sd">            search, merge, flush, refresh, query_cache, fielddata, docs, warmer,</span>
-<span class="sd">            completion, segments, translog, suggest, request_cache, recovery.</span>
-<span class="sd">        :arg completion_fields: Comma-separated list of fields for</span>
-<span class="sd">            `fielddata` and `suggest` index metric (supports wildcards).</span>
-<span class="sd">        :arg fielddata_fields: Comma-separated list of fields for</span>
-<span class="sd">            `fielddata` index metric (supports wildcards).</span>
-<span class="sd">        :arg fields: Comma-separated list of fields for `fielddata` and</span>
-<span class="sd">            `completion` index metric (supports wildcards).</span>
-<span class="sd">        :arg groups: Comma-separated list of search groups for `search`</span>
-<span class="sd">            index metric.</span>
-<span class="sd">        :arg include_segment_file_sizes: Whether to report the</span>
+<span class="sd">            metrics</span>
+<span class="sd">        :arg index_metric: Limit the information returned for indices</span>
+<span class="sd">            metric to the specific index metrics. It can be used only if indices (or</span>
+<span class="sd">            all) metric is specified.</span>
+<span class="sd">        :arg completion_fields: Comma-separated list or wildcard</span>
+<span class="sd">            expressions of fields to include in fielddata and suggest statistics.</span>
+<span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
+<span class="sd">            errors.</span>
+<span class="sd">        :arg fielddata_fields: Comma-separated list or wildcard</span>
+<span class="sd">            expressions of fields to include in fielddata statistics.</span>
+<span class="sd">        :arg fields: Comma-separated list or wildcard expressions of</span>
+<span class="sd">            fields to include in the statistics.</span>
+<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
+<span class="sd">            the response.</span>
+<span class="sd">        :arg groups: Comma-separated list of search groups to include in</span>
+<span class="sd">            the search statistics.</span>
+<span class="sd">        :arg human: Whether to return human readable values for</span>
+<span class="sd">            statistics.</span>
+<span class="sd">        :arg include_segment_file_sizes: If true, the call reports the</span>
 <span class="sd">            aggregated disk usage of each one of the Lucene index files (only</span>
-<span class="sd">            applies if segment stats are requested). Default is false.</span>
-<span class="sd">        :arg level: Return indices stats aggregated at index, node or</span>
-<span class="sd">            shard level. Valid choices are indices, node, shards.</span>
-<span class="sd">        :arg timeout: Operation timeout.</span>
-<span class="sd">        :arg types: Comma-separated list of document types for the</span>
-<span class="sd">            `indexing` index metric.</span>
+<span class="sd">            applies if segment stats are requested).</span>
+<span class="sd">        :arg level: Indicates whether statistics are aggregated at the</span>
+<span class="sd">            cluster, index, or shard level. Valid choices are cluster, indices,</span>
+<span class="sd">            shards.</span>
+<span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
+<span class="sd">            response.</span>
+<span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
+<span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
+<span class="sd">        :arg timeout: Period to wait for a response. If no response is</span>
+<span class="sd">            received before the timeout expires, the request fails and returns an</span>
+<span class="sd">            error.</span>
+<span class="sd">        :arg types: A comma-separated list of document types for the</span>
+<span class="sd">            indexing index metric.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
             <span class="s2">&quot;GET&quot;</span><span class="p">,</span>
@@ -238,7 +277,17 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="NodesClient.hot_threads"><a class="viewcode-back" href="../../../api-ref/clients/nodes_client.html#opensearchpy.client.nodes.NodesClient.hot_threads">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
-        <span class="s2">&quot;doc_type&quot;</span><span class="p">,</span> <span class="s2">&quot;ignore_idle_threads&quot;</span><span class="p">,</span> <span class="s2">&quot;interval&quot;</span><span class="p">,</span> <span class="s2">&quot;snapshots&quot;</span><span class="p">,</span> <span class="s2">&quot;threads&quot;</span><span class="p">,</span> <span class="s2">&quot;timeout&quot;</span>
+        <span class="s2">&quot;doc_type&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;human&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;ignore_idle_threads&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;interval&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;pretty&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;snapshots&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;source&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;threads&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;timeout&quot;</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="k">def</span> <span class="nf">hot_threads</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -256,12 +305,22 @@
 <span class="sd">            nodes.</span>
 <span class="sd">        :arg doc_type: The type to sample. Valid choices are cpu, wait,</span>
 <span class="sd">            block.</span>
+<span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
+<span class="sd">            errors.</span>
+<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
+<span class="sd">            the response.</span>
+<span class="sd">        :arg human: Whether to return human readable values for</span>
+<span class="sd">            statistics.</span>
 <span class="sd">        :arg ignore_idle_threads: Don&#39;t show threads that are in known-</span>
 <span class="sd">            idle places, such as waiting on a socket select or pulling from an empty</span>
 <span class="sd">            task queue. Default is True.</span>
 <span class="sd">        :arg interval: The interval for the second sampling of threads.</span>
+<span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
+<span class="sd">            response.</span>
 <span class="sd">        :arg snapshots: Number of samples of thread stacktrace. Default</span>
 <span class="sd">            is 10.</span>
+<span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
+<span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
 <span class="sd">        :arg threads: Specify the number of threads to provide</span>
 <span class="sd">            information for. Default is 3.</span>
 <span class="sd">        :arg timeout: Operation timeout.</span>
@@ -277,7 +336,7 @@
             <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="NodesClient.usage"><a class="viewcode-back" href="../../../api-ref/clients/nodes_client.html#opensearchpy.client.nodes.NodesClient.usage">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;timeout&quot;</span><span class="p">)</span>
+<div class="viewcode-block" id="NodesClient.usage"><a class="viewcode-back" href="../../../api-ref/clients/nodes_client.html#opensearchpy.client.nodes.NodesClient.usage">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">,</span> <span class="s2">&quot;timeout&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">usage</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">node_id</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -289,13 +348,26 @@
 <span class="sd">        Returns low-level information about REST actions usage on nodes.</span>
 
 
-<span class="sd">        :arg node_id: Comma-separated list of node IDs or names to limit</span>
-<span class="sd">            the returned information; use `_local` to return information from the</span>
-<span class="sd">            node you&#39;re connecting to, leave empty to get information from all</span>
-<span class="sd">            nodes.</span>
-<span class="sd">        :arg metric: Limit the information returned to the specified</span>
-<span class="sd">            metrics. Valid choices are _all, rest_actions.</span>
-<span class="sd">        :arg timeout: Operation timeout.</span>
+<span class="sd">        :arg node_id: A comma-separated list of node IDs or names to</span>
+<span class="sd">            limit the returned information; use `_local` to return information from</span>
+<span class="sd">            the node you&#39;re connecting to, leave empty to get information from all</span>
+<span class="sd">            nodes</span>
+<span class="sd">        :arg metric: Limits the information returned to the specific</span>
+<span class="sd">            metrics. A comma-separated list of the following options: `_all`,</span>
+<span class="sd">            `rest_actions`.</span>
+<span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
+<span class="sd">            errors.</span>
+<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
+<span class="sd">            the response.</span>
+<span class="sd">        :arg human: Whether to return human readable values for</span>
+<span class="sd">            statistics.</span>
+<span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
+<span class="sd">            response.</span>
+<span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
+<span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
+<span class="sd">        :arg timeout: Period to wait for a response.If no response is</span>
+<span class="sd">            received before the timeout expires, the request fails and returns an</span>
+<span class="sd">            error.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
             <span class="s2">&quot;GET&quot;</span><span class="p">,</span>

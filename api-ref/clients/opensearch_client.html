@@ -266,29 +266,44 @@ translated to a dictionary automatically.  If no value is given the
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – The operation definition and data (action-data
 pairs), separated by newlines</p></li>
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Default index for items which don’t provide one.</p></li>
-<li><p><strong>_source</strong> – True or false to return the _source field or not,
-or default list of fields to return, can be overridden on each sub-
-request.</p></li>
-<li><p><strong>_source_excludes</strong> – Default list of fields to exclude from
-the returned _source field, can be overridden on each sub-request.</p></li>
-<li><p><strong>_source_includes</strong> – Default list of fields to extract and
-return from the _source field, can be overridden on each sub-request.</p></li>
-<li><p><strong>pipeline</strong> – The pipeline id to preprocess incoming documents
-with.</p></li>
-<li><p><strong>refresh</strong> – If <cite>true</cite> then refresh the affected shards to make
-this operation visible to search, if <cite>wait_for</cite> then wait for a refresh
-to make this operation visible to search, if <cite>false</cite> (the default) then
-do nothing with refreshes. Valid choices are true, false, wait_for.</p></li>
-<li><p><strong>require_alias</strong> – Sets require_alias for all incoming
-documents. Default is false.</p></li>
-<li><p><strong>routing</strong> – Routing value.</p></li>
-<li><p><strong>timeout</strong> – Operation timeout.</p></li>
-<li><p><strong>wait_for_active_shards</strong> – Sets the number of shard copies
-that must be active before proceeding with the operation. Defaults to 1,
-meaning the primary shard only. Set to <cite>all</cite> for all shard copies,
-otherwise set to any non-negative value less than or equal to the total
-number of copies for the shard (number of replicas + 1). Default is 1.</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Name of the data stream, index, or index alias to
+perform bulk actions on.</p></li>
+<li><p><strong>_source</strong> – <cite>true</cite> or <cite>false</cite> to return the <cite>_source</cite> field or
+not, or a list of fields to return.</p></li>
+<li><p><strong>_source_excludes</strong> – A comma-separated list of source fields
+to exclude from the response.</p></li>
+<li><p><strong>_source_includes</strong> – A comma-separated list of source fields
+to include in the response.</p></li>
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
+<li><p><strong>pipeline</strong> – ID of the pipeline to use to preprocess incoming
+documents.If the index has a default ingest pipeline specified, then
+setting the value to <cite>_none</cite> disables the default ingest pipeline for
+this request.If a final pipeline is configured it will always run,
+regardless of the value of this parameter.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
+<li><p><strong>refresh</strong> – If <cite>true</cite>, Opensearch refreshes the affected
+shards to make this operation visible to search, if <cite>wait_for</cite> then wait
+for a refresh to make this operation visible to search, if <cite>false</cite> do
+nothing with refreshes.Valid values: <cite>true</cite>, <cite>false</cite>, <cite>wait_for</cite>.</p></li>
+<li><p><strong>require_alias</strong> – If <cite>true</cite>, the request’s actions must target
+an index alias.</p></li>
+<li><p><strong>routing</strong> – Custom value used to route operations to a
+specific shard.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
+<li><p><strong>timeout</strong> – Period each action waits for the following
+operations: automatic index creation, dynamic mapping updates, waiting
+for active shards.</p></li>
+<li><p><strong>wait_for_active_shards</strong> – The number of shard copies that
+must be active before proceeding with the operation.Set to all or any
+positive integer up to the total number of shards in the index
+(<cite>number_of_replicas+1</cite>). Valid choices are all, index-setting.</p></li>
 <li><p><strong>body</strong> – </p></li>
 <li><p><strong>index</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
@@ -310,7 +325,18 @@ number of copies for the shard (number of replicas + 1). Default is 1.</p></li>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of scroll IDs to clear if none
 was specified via the scroll_id parameter</p></li>
-<li><p><strong>scroll_id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of scroll IDs to clear.</p></li>
+<li><p><strong>scroll_id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of scroll IDs to clear. To
+clear all scroll IDs, use <cite>_all</cite>.</p></li>
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
 <li><p><strong>body</strong> – </p></li>
 <li><p><strong>scroll_id</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
@@ -343,36 +369,56 @@ was specified via the scroll_id parameter</p></li>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Query to restrict the results specified with the
 Query DSL (optional)</p></li>
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of indices to restrict the
-results.</p></li>
-<li><p><strong>allow_no_indices</strong> – Whether to ignore if a wildcard indices
-expression resolves into no concrete indices. (This includes <cite>_all</cite>
-string or when no indices have been specified).</p></li>
-<li><p><strong>analyze_wildcard</strong> – Specify whether wildcard and prefix
-queries should be analyzed. Default is false.</p></li>
-<li><p><strong>analyzer</strong> – The analyzer to use for the query string.</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of data streams, indices, and
+aliases to search. Supports wildcards (<cite>*</cite>). To search all data streams
+and indices, omit this parameter or use <cite>*</cite> or <cite>_all</cite>.</p></li>
+<li><p><strong>allow_no_indices</strong> – If <cite>false</cite>, the request returns an error
+if any wildcard expression, index alias, or <cite>_all</cite> value targets only
+missing or closed indices.This behavior applies even if the request
+targets other open indices.</p></li>
+<li><p><strong>analyze_wildcard</strong> – If <cite>true</cite>, wildcard and prefix queries
+are analyzed.This parameter can only be used when the <cite>q</cite> query string
+parameter is specified.</p></li>
+<li><p><strong>analyzer</strong> – Analyzer to use for the query string.This
+parameter can only be used when the <cite>q</cite> query string parameter is
+specified.</p></li>
 <li><p><strong>default_operator</strong> – The default operator for query string
-query (AND or OR). Valid choices are AND, OR.</p></li>
-<li><p><strong>df</strong> – The field to use as default where no field prefix is
-given in the query string.</p></li>
-<li><p><strong>expand_wildcards</strong> – Whether to expand wildcard expression to
-concrete indices that are open, closed or both. Valid choices are all,
-open, closed, hidden, none.</p></li>
-<li><p><strong>ignore_throttled</strong> – Whether specified concrete, expanded or
-aliased indices should be ignored when throttled.</p></li>
-<li><p><strong>ignore_unavailable</strong> – Whether specified concrete indices
-should be ignored when unavailable (missing or closed).</p></li>
-<li><p><strong>lenient</strong> – Specify whether format-based query failures (such
-as providing text to a numeric field) should be ignored.</p></li>
-<li><p><strong>min_score</strong> – Include only documents with a specific <cite>_score</cite>
-value in the result.</p></li>
-<li><p><strong>preference</strong> – Specify the node or shard the operation should
-be performed on. Default is random.</p></li>
+query: <cite>AND</cite> or <cite>OR</cite>.This parameter can only be used when the <cite>q</cite> query
+string parameter is specified. Valid choices are and, or.</p></li>
+<li><p><strong>df</strong> – Field to use as default where no field prefix is given
+in the query string.This parameter can only be used when the <cite>q</cite> query
+string parameter is specified.</p></li>
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
+<li><p><strong>expand_wildcards</strong> – Type of index that wildcard patterns can
+match.If the request can target data streams, this argument determines
+whether wildcard expressions match hidden data streams.Supports comma-
+separated values, such as <cite>open,hidden</cite>. Valid choices are all, open,
+closed, hidden, none.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
+<li><p><strong>ignore_throttled</strong> – If <cite>true</cite>, concrete, expanded or aliased
+indices are ignored when frozen.</p></li>
+<li><p><strong>ignore_unavailable</strong> – If <cite>false</cite>, the request returns an
+error if it targets a missing or closed index.</p></li>
+<li><p><strong>lenient</strong> – If <cite>true</cite>, format-based query failures (such as
+providing text to a numeric field) in the query string will be ignored.</p></li>
+<li><p><strong>min_score</strong> – Sets the minimum <cite>_score</cite> value that documents
+must have to be included in the result.</p></li>
+<li><p><strong>preference</strong> – Specifies the node or shard the operation
+should be performed on.Random by default.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
 <li><p><strong>q</strong> – Query in the Lucene query string syntax.</p></li>
-<li><p><strong>routing</strong> – Comma-separated list of specific routing values.</p></li>
-<li><p><strong>terminate_after</strong> – The maximum number of documents to collect
-for each shard, upon reaching which the query execution will terminate
-early.</p></li>
+<li><p><strong>routing</strong> – Custom value used to route operations to a
+specific shard.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
+<li><p><strong>terminate_after</strong> – Maximum number of documents to collect for
+each shard.If a query reaches this limit, Opensearch terminates the
+query early.Opensearch collects documents before sorting.</p></li>
 <li><p><strong>body</strong> – </p></li>
 <li><p><strong>index</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
@@ -393,25 +439,47 @@ with a same ID already exists in the index.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Index name.</p></li>
-<li><p><strong>id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Document ID.</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Name of the data stream or index to target. If the
+target doesn’t exist and matches the name or wildcard (<cite>*</cite>) pattern of
+an index template with a <cite>data_stream</cite> definition, this request creates
+the data stream. If the target doesn’t exist and doesn’t match a data
+stream template, this request creates the index.</p></li>
+<li><p><strong>id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Unique identifier for the document.</p></li>
 <li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – The document</p></li>
-<li><p><strong>pipeline</strong> – The pipeline id to preprocess incoming documents
-with.</p></li>
-<li><p><strong>refresh</strong> – If <cite>true</cite> then refresh the affected shards to make
-this operation visible to search, if <cite>wait_for</cite> then wait for a refresh
-to make this operation visible to search, if <cite>false</cite> (the default) then
-do nothing with refreshes. Valid choices are true, false, wait_for.</p></li>
-<li><p><strong>routing</strong> – Routing value.</p></li>
-<li><p><strong>timeout</strong> – Operation timeout.</p></li>
-<li><p><strong>version</strong> – Explicit version number for concurrency control.</p></li>
-<li><p><strong>version_type</strong> – Specific version type. Valid choices are
-internal, external, external_gte, force.</p></li>
-<li><p><strong>wait_for_active_shards</strong> – Sets the number of shard copies
-that must be active before proceeding with the operation. Defaults to 1,
-meaning the primary shard only. Set to <cite>all</cite> for all shard copies,
-otherwise set to any non-negative value less than or equal to the total
-number of copies for the shard (number of replicas + 1). Default is 1.</p></li>
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
+<li><p><strong>pipeline</strong> – ID of the pipeline to use to preprocess incoming
+documents.If the index has a default ingest pipeline specified, then
+setting the value to <cite>_none</cite> disables the default ingest pipeline for
+this request.If a final pipeline is configured it will always run,
+regardless of the value of this parameter.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
+<li><p><strong>refresh</strong> – If <cite>true</cite>, Opensearch refreshes the affected
+shards to make this operation visible to search, if <cite>wait_for</cite> then wait
+for a refresh to make this operation visible to search, if <cite>false</cite> do
+nothing with refreshes.Valid values: <cite>true</cite>, <cite>false</cite>, <cite>wait_for</cite>.</p></li>
+<li><p><strong>routing</strong> – Custom value used to route operations to a
+specific shard.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
+<li><p><strong>timeout</strong> – Period the request waits for the following
+operations: automatic index creation, dynamic mapping updates, waiting
+for active shards.</p></li>
+<li><p><strong>version</strong> – Explicit version number for concurrency
+control.The specified version must match the current version of the
+document for the request to succeed.</p></li>
+<li><p><strong>version_type</strong> – Specific version type: <cite>external</cite>,
+<cite>external_gte</cite>. Valid choices are internal, external, external_gte,
+force.</p></li>
+<li><p><strong>wait_for_active_shards</strong> – The number of shard copies that
+must be active before proceeding with the operation.Set to <cite>all</cite> or any
+positive integer up to the total number of shards in the index
+(<cite>number_of_replicas+1</cite>). Valid choices are all, index-setting.</p></li>
 <li><p><strong>index</strong> – </p></li>
 <li><p><strong>id</strong> – </p></li>
 <li><p><strong>body</strong> – </p></li>
@@ -436,13 +504,23 @@ number of copies for the shard (number of replicas + 1). Default is 1.</p></li>
 string to perform the operation on all indices.</p></li>
 <li><p><strong>allow_partial_pit_creation</strong> – Allow if point in time can be
 created with partial failures.</p></li>
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
 <li><p><strong>expand_wildcards</strong> – Whether to expand wildcard expression to
 concrete indices that are open, closed or both. Valid choices are all,
 open, closed, hidden, none.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
 <li><p><strong>keep_alive</strong> – Specify the keep alive for point in time.</p></li>
 <li><p><strong>preference</strong> – Specify the node or shard the operation should
 be performed on. Default is random.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
 <li><p><strong>routing</strong> – Comma-separated list of specific routing values.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
 <li><p><strong>index</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 <li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
@@ -497,26 +575,39 @@ Use ‘create_pit’ API instead.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Index name.</p></li>
-<li><p><strong>id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Document ID.</p></li>
-<li><p><strong>if_primary_term</strong> – only perform the operation if the last
-operation that has changed the document has the specified primary term.</p></li>
-<li><p><strong>if_seq_no</strong> – only perform the operation if the last operation
-that has changed the document has the specified sequence number.</p></li>
-<li><p><strong>refresh</strong> – If <cite>true</cite> then refresh the affected shards to make
-this operation visible to search, if <cite>wait_for</cite> then wait for a refresh
-to make this operation visible to search, if <cite>false</cite> (the default) then
-do nothing with refreshes. Valid choices are true, false, wait_for.</p></li>
-<li><p><strong>routing</strong> – Routing value.</p></li>
-<li><p><strong>timeout</strong> – Operation timeout.</p></li>
-<li><p><strong>version</strong> – Explicit version number for concurrency control.</p></li>
-<li><p><strong>version_type</strong> – Specific version type. Valid choices are
-internal, external, external_gte, force.</p></li>
-<li><p><strong>wait_for_active_shards</strong> – Sets the number of shard copies
-that must be active before proceeding with the operation. Defaults to 1,
-meaning the primary shard only. Set to <cite>all</cite> for all shard copies,
-otherwise set to any non-negative value less than or equal to the total
-number of copies for the shard (number of replicas + 1). Default is 1.</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Name of the target index.</p></li>
+<li><p><strong>id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Unique identifier for the document.</p></li>
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
+<li><p><strong>if_primary_term</strong> – Only perform the operation if the document
+has this primary term.</p></li>
+<li><p><strong>if_seq_no</strong> – Only perform the operation if the document has
+this sequence number.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
+<li><p><strong>refresh</strong> – If <cite>true</cite>, Opensearch refreshes the affected
+shards to make this operation visible to search, if <cite>wait_for</cite> then wait
+for a refresh to make this operation visible to search, if <cite>false</cite> do
+nothing with refreshes.Valid values: <cite>true</cite>, <cite>false</cite>, <cite>wait_for</cite>.</p></li>
+<li><p><strong>routing</strong> – Custom value used to route operations to a
+specific shard.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
+<li><p><strong>timeout</strong> – Period to wait for active shards.</p></li>
+<li><p><strong>version</strong> – Explicit version number for concurrency
+control.The specified version must match the current version of the
+document for the request to succeed.</p></li>
+<li><p><strong>version_type</strong> – Specific version type: <cite>external</cite>,
+<cite>external_gte</cite>. Valid choices are internal, external, external_gte,
+force.</p></li>
+<li><p><strong>wait_for_active_shards</strong> – The number of shard copies that
+must be active before proceeding with the operation.Set to <cite>all</cite> or any
+positive integer up to the total number of shards in the index
+(<cite>number_of_replicas+1</cite>). Valid choices are all, index-setting.</p></li>
 <li><p><strong>index</strong> – </p></li>
 <li><p><strong>id</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
@@ -536,6 +627,16 @@ number of copies for the shard (number of replicas + 1). Default is 1.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 <li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 </ul>
@@ -553,8 +654,9 @@ number of copies for the shard (number of replicas + 1). Default is 1.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of indices; use <cite>_all</cite> or empty
-string to perform the operation on all indices.</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of data streams, indices, and
+aliases to search. Supports wildcards (<cite>*</cite>). To search all data streams
+or indices, omit this parameter or use <cite>*</cite> or <cite>_all</cite>.</p></li>
 <li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – The search definition using the Query DSL</p></li>
 <li><p><strong>_source</strong> – True or false to return the _source field or not,
 or a list of fields to return.</p></li>
@@ -562,67 +664,85 @@ or a list of fields to return.</p></li>
 returned _source field.</p></li>
 <li><p><strong>_source_includes</strong> – List of fields to extract and return from
 the _source field.</p></li>
-<li><p><strong>allow_no_indices</strong> – Whether to ignore if a wildcard indices
-expression resolves into no concrete indices. (This includes <cite>_all</cite>
-string or when no indices have been specified).</p></li>
-<li><p><strong>analyze_wildcard</strong> – Specify whether wildcard and prefix
-queries should be analyzed. Default is false.</p></li>
-<li><p><strong>analyzer</strong> – The analyzer to use for the query string.</p></li>
-<li><p><strong>conflicts</strong> – What to do when the operation encounters version
-conflicts?. Valid choices are abort, proceed.</p></li>
+<li><p><strong>allow_no_indices</strong> – If <cite>false</cite>, the request returns an error
+if any wildcard expression, index alias, or <cite>_all</cite> value targets only
+missing or closed indices.This behavior applies even if the request
+targets other open indices.For example, a request targeting <cite>foo*,bar*</cite>
+returns an error if an index starts with <cite>foo</cite> but no index starts with
+<cite>bar</cite>.</p></li>
+<li><p><strong>analyze_wildcard</strong> – If <cite>true</cite>, wildcard and prefix queries
+are analyzed.</p></li>
+<li><p><strong>analyzer</strong> – Analyzer to use for the query string.</p></li>
+<li><p><strong>conflicts</strong> – What to do if delete by query hits version
+conflicts: <cite>abort</cite> or <cite>proceed</cite>. Valid choices are abort, proceed.</p></li>
 <li><p><strong>default_operator</strong> – The default operator for query string
-query (AND or OR). Valid choices are AND, OR.</p></li>
-<li><p><strong>df</strong> – The field to use as default where no field prefix is
-given in the query string.</p></li>
-<li><p><strong>expand_wildcards</strong> – Whether to expand wildcard expression to
-concrete indices that are open, closed or both. Valid choices are all,
-open, closed, hidden, none.</p></li>
-<li><p><strong>from</strong> – Starting offset. Default is 0.</p></li>
-<li><p><strong>ignore_unavailable</strong> – Whether specified concrete indices
-should be ignored when unavailable (missing or closed).</p></li>
-<li><p><strong>lenient</strong> – Specify whether format-based query failures (such
-as providing text to a numeric field) should be ignored.</p></li>
-<li><p><strong>max_docs</strong> – Maximum number of documents to process (default:
-all documents).</p></li>
-<li><p><strong>preference</strong> – Specify the node or shard the operation should
-be performed on. Default is random.</p></li>
+query: <cite>AND</cite> or <cite>OR</cite>. Valid choices are and, or.</p></li>
+<li><p><strong>df</strong> – Field to use as default where no field prefix is given
+in the query string.</p></li>
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
+<li><p><strong>expand_wildcards</strong> – Type of index that wildcard patterns can
+match.If the request can target data streams, this argument determines
+whether wildcard expressions match hidden data streams.Supports comma-
+separated values, such as <cite>open,hidden</cite>. Valid values are: <cite>all</cite>,
+<cite>open</cite>, <cite>closed</cite>, <cite>hidden</cite>, <cite>none</cite>.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>from</strong> – Starting offset (default: 0)</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
+<li><p><strong>ignore_unavailable</strong> – If <cite>false</cite>, the request returns an
+error if it targets a missing or closed index.</p></li>
+<li><p><strong>lenient</strong> – If <cite>true</cite>, format-based query failures (such as
+providing text to a numeric field) in the query string will be ignored.</p></li>
+<li><p><strong>max_docs</strong> – Maximum number of documents to process.Defaults
+to all documents.</p></li>
+<li><p><strong>preference</strong> – Specifies the node or shard the operation
+should be performed on.Random by default.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
 <li><p><strong>q</strong> – Query in the Lucene query string syntax.</p></li>
-<li><p><strong>refresh</strong> – Refresh the shard containing the document before
-performing the operation.</p></li>
-<li><p><strong>request_cache</strong> – Specify if request cache should be used for
-this request or not, defaults to index level setting.</p></li>
+<li><p><strong>refresh</strong> – If <cite>true</cite>, Opensearch refreshes all shards
+involved in the delete by query after the request completes.</p></li>
+<li><p><strong>request_cache</strong> – If <cite>true</cite>, the request cache is used for
+this request.Defaults to the index-level setting.</p></li>
 <li><p><strong>requests_per_second</strong> – The throttle for this request in sub-
-requests per second. -1 means no throttle. Default is 0.</p></li>
-<li><p><strong>routing</strong> – Comma-separated list of specific routing values.</p></li>
-<li><p><strong>scroll</strong> – Specify how long a consistent view of the index
-should be maintained for scrolled search.</p></li>
-<li><p><strong>scroll_size</strong> – Size on the scroll request powering the
-operation. Default is 100.</p></li>
-<li><p><strong>search_timeout</strong> – Explicit timeout for each search request.
-Defaults to no timeout.</p></li>
-<li><p><strong>search_type</strong> – Search operation type. Valid choices are
+requests per second.</p></li>
+<li><p><strong>routing</strong> – Custom value used to route operations to a
+specific shard.</p></li>
+<li><p><strong>scroll</strong> – Period to retain the search context for scrolling.</p></li>
+<li><p><strong>scroll_size</strong> – Size of the scroll request that powers the
+operation.</p></li>
+<li><p><strong>search_timeout</strong> – Explicit timeout for each search
+request.Defaults to no timeout.</p></li>
+<li><p><strong>search_type</strong> – The type of the search operation.Available
+options: <cite>query_then_fetch</cite>, <cite>dfs_query_then_fetch</cite>. Valid choices are
 query_then_fetch, dfs_query_then_fetch.</p></li>
 <li><p><strong>size</strong> – Deprecated, please use <cite>max_docs</cite> instead.</p></li>
 <li><p><strong>slices</strong> – The number of slices this task should be divided
-into. Defaults to 1, meaning the task isn’t sliced into subtasks. Can be
-set to <cite>auto</cite>. Default is 1.</p></li>
-<li><p><strong>sort</strong> – Comma-separated list of &lt;field&gt;:&lt;direction&gt; pairs.</p></li>
-<li><p><strong>stats</strong> – Specific ‘tag’ of the request for logging and
+into. Valid choices are auto.</p></li>
+<li><p><strong>sort</strong> – A comma-separated list of &lt;field&gt;:&lt;direction&gt; pairs.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
+<li><p><strong>stats</strong> – Specific <cite>tag</cite> of the request for logging and
 statistical purposes.</p></li>
-<li><p><strong>terminate_after</strong> – The maximum number of documents to collect
-for each shard, upon reaching which the query execution will terminate
-early.</p></li>
-<li><p><strong>timeout</strong> – Time each individual bulk request should wait for
-shards that are unavailable. Default is 1m.</p></li>
-<li><p><strong>version</strong> – Whether to return document version as part of a
-hit.</p></li>
-<li><p><strong>wait_for_active_shards</strong> – Sets the number of shard copies
-that must be active before proceeding with the operation. Defaults to 1,
-meaning the primary shard only. Set to <cite>all</cite> for all shard copies,
-otherwise set to any non-negative value less than or equal to the total
-number of copies for the shard (number of replicas + 1). Default is 1.</p></li>
-<li><p><strong>wait_for_completion</strong> – Should this request wait until the
-operation has completed before returning. Default is True.</p></li>
+<li><p><strong>terminate_after</strong> – Maximum number of documents to collect for
+each shard.If a query reaches this limit, Opensearch terminates the
+query early.Opensearch collects documents before sorting.Use with
+caution.Opensearch applies this parameter to each shard handling the
+request.When possible, let Opensearch perform early termination
+automatically.Avoid specifying this parameter for requests that target
+data streams with backing indices across multiple data tiers.</p></li>
+<li><p><strong>timeout</strong> – Period each deletion request waits for active
+shards.</p></li>
+<li><p><strong>version</strong> – If <cite>true</cite>, returns the document version as part of
+a hit.</p></li>
+<li><p><strong>wait_for_active_shards</strong> – The number of shard copies that
+must be active before proceeding with the operation.Set to all or any
+positive integer up to the total number of shards in the index
+(<cite>number_of_replicas+1</cite>). Valid choices are all, index-setting.</p></li>
+<li><p><strong>wait_for_completion</strong> – If <cite>true</cite>, the request blocks until
+the operation is complete.</p></li>
 <li><p><strong>index</strong> – </p></li>
 <li><p><strong>body</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
@@ -643,9 +763,19 @@ operation.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>task_id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – The task id to rethrottle.</p></li>
+<li><p><strong>task_id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – The ID for the task.</p></li>
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
 <li><p><strong>requests_per_second</strong> – The throttle for this request in sub-
-requests per second. -1 means no throttle.</p></li>
+requests per second.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
 <li><p><strong>task_id</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 <li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
@@ -665,6 +795,16 @@ requests per second. -1 means no throttle.</p></li>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – The point-in-time ids to be deleted</p></li>
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
 <li><p><strong>body</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 <li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
@@ -710,13 +850,26 @@ Use ‘delete_all_pits’ or ‘delete_pit’ API instead.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Script ID.</p></li>
+<li><p><strong>id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Identifier for the stored script or search template.</p></li>
 <li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
 to cluster-manager node.</p></li>
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
 <li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
-use ‘cluster_manager_timeout’ instead.): Operation timeout for
-connection to master node.</p></li>
-<li><p><strong>timeout</strong> – Operation timeout.</p></li>
+use ‘cluster_manager_timeout’ instead.): Period to wait for a connection
+to the master node.If no response is received before the timeout
+expires, the request fails and returns an error.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
+<li><p><strong>timeout</strong> – Period to wait for a response.If no response is
+received before the timeout expires, the request fails and returns an
+error.</p></li>
 <li><p><strong>id</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 <li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
@@ -735,26 +888,42 @@ connection to master node.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Index name.</p></li>
-<li><p><strong>id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Document ID.</p></li>
-<li><p><strong>_source</strong> – True or false to return the _source field or not,
-or a list of fields to return.</p></li>
-<li><p><strong>_source_excludes</strong> – List of fields to exclude from the
-returned _source field.</p></li>
-<li><p><strong>_source_includes</strong> – List of fields to extract and return from
-the _source field.</p></li>
-<li><p><strong>preference</strong> – Specify the node or shard the operation should
-be performed on. Default is random.</p></li>
-<li><p><strong>realtime</strong> – Specify whether to perform the operation in
-realtime or search mode.</p></li>
-<li><p><strong>refresh</strong> – Refresh the shard containing the document before
-performing the operation.</p></li>
-<li><p><strong>routing</strong> – Routing value.</p></li>
-<li><p><strong>stored_fields</strong> – Comma-separated list of stored fields to
-return.</p></li>
-<li><p><strong>version</strong> – Explicit version number for concurrency control.</p></li>
-<li><p><strong>version_type</strong> – Specific version type. Valid choices are
-internal, external, external_gte, force.</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of data streams, indices, and
+aliases. Supports wildcards (<cite>*</cite>).</p></li>
+<li><p><strong>id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Identifier of the document.</p></li>
+<li><p><strong>_source</strong> – <cite>true</cite> or <cite>false</cite> to return the <cite>_source</cite> field or
+not, or a list of fields to return.</p></li>
+<li><p><strong>_source_excludes</strong> – A comma-separated list of source fields
+to exclude in the response.</p></li>
+<li><p><strong>_source_includes</strong> – A comma-separated list of source fields
+to include in the response.</p></li>
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
+<li><p><strong>preference</strong> – Specifies the node or shard the operation
+should be performed on.Random by default.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
+<li><p><strong>realtime</strong> – If <cite>true</cite>, the request is real-time as opposed to
+near-real-time.</p></li>
+<li><p><strong>refresh</strong> – If <cite>true</cite>, Opensearch refreshes all shards
+involved in the delete by query after the request completes.</p></li>
+<li><p><strong>routing</strong> – Target the specified primary shard.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
+<li><p><strong>stored_fields</strong> – List of stored fields to return as part of a
+hit.If no fields are specified, no stored fields are included in the
+response.If this field is specified, the <cite>_source</cite> parameter defaults to
+false.</p></li>
+<li><p><strong>version</strong> – Explicit version number for concurrency
+control.The specified version must match the current version of the
+document for the request to succeed.</p></li>
+<li><p><strong>version_type</strong> – Specific version type: <cite>external</cite>,
+<cite>external_gte</cite>. Valid choices are internal, external, external_gte,
+force.</p></li>
 <li><p><strong>index</strong> – </p></li>
 <li><p><strong>id</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
@@ -774,24 +943,38 @@ internal, external, external_gte, force.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Index name.</p></li>
-<li><p><strong>id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Document ID.</p></li>
-<li><p><strong>_source</strong> – True or false to return the _source field or not,
-or a list of fields to return.</p></li>
-<li><p><strong>_source_excludes</strong> – List of fields to exclude from the
-returned _source field.</p></li>
-<li><p><strong>_source_includes</strong> – List of fields to extract and return from
-the _source field.</p></li>
-<li><p><strong>preference</strong> – Specify the node or shard the operation should
-be performed on. Default is random.</p></li>
-<li><p><strong>realtime</strong> – Specify whether to perform the operation in
-realtime or search mode.</p></li>
-<li><p><strong>refresh</strong> – Refresh the shard containing the document before
-performing the operation.</p></li>
-<li><p><strong>routing</strong> – Routing value.</p></li>
-<li><p><strong>version</strong> – Explicit version number for concurrency control.</p></li>
-<li><p><strong>version_type</strong> – Specific version type. Valid choices are
-internal, external, external_gte, force.</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of data streams, indices, and
+aliases. Supports wildcards (<cite>*</cite>).</p></li>
+<li><p><strong>id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Identifier of the document.</p></li>
+<li><p><strong>_source</strong> – <cite>true</cite> or <cite>false</cite> to return the <cite>_source</cite> field or
+not, or a list of fields to return.</p></li>
+<li><p><strong>_source_excludes</strong> – A comma-separated list of source fields
+to exclude in the response.</p></li>
+<li><p><strong>_source_includes</strong> – A comma-separated list of source fields
+to include in the response.</p></li>
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
+<li><p><strong>preference</strong> – Specifies the node or shard the operation
+should be performed on.Random by default.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
+<li><p><strong>realtime</strong> – If true, the request is real-time as opposed to
+near-real-time.</p></li>
+<li><p><strong>refresh</strong> – If <cite>true</cite>, Opensearch refreshes all shards
+involved in the delete by query after the request completes.</p></li>
+<li><p><strong>routing</strong> – Target the specified primary shard.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
+<li><p><strong>version</strong> – Explicit version number for concurrency
+control.The specified version must match the current version of the
+document for the request to succeed.</p></li>
+<li><p><strong>version_type</strong> – Specific version type: <cite>external</cite>,
+<cite>external_gte</cite>. Valid choices are internal, external, external_gte,
+force.</p></li>
 <li><p><strong>index</strong> – </p></li>
 <li><p><strong>id</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
@@ -811,30 +994,44 @@ internal, external, external_gte, force.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Index name.</p></li>
-<li><p><strong>id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Document ID.</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Index names used to limit the request. Only a single
+index name can be provided to this parameter.</p></li>
+<li><p><strong>id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Defines the document ID.</p></li>
 <li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – The query definition using the Query DSL</p></li>
-<li><p><strong>_source</strong> – True or false to return the _source field or not,
-or a list of fields to return.</p></li>
-<li><p><strong>_source_excludes</strong> – List of fields to exclude from the
-returned _source field.</p></li>
-<li><p><strong>_source_includes</strong> – List of fields to extract and return from
-the _source field.</p></li>
-<li><p><strong>analyze_wildcard</strong> – Specify whether wildcards and prefix
-queries in the query string query should be analyzed. Default is false.</p></li>
-<li><p><strong>analyzer</strong> – The analyzer to use for the query string.</p></li>
+<li><p><strong>_source</strong> – True or false to return the <cite>_source</cite> field or
+not, or a list of fields to return.</p></li>
+<li><p><strong>_source_excludes</strong> – A comma-separated list of source fields
+to exclude from the response.</p></li>
+<li><p><strong>_source_includes</strong> – A comma-separated list of source fields
+to include in the response.</p></li>
+<li><p><strong>analyze_wildcard</strong> – If <cite>true</cite>, wildcard and prefix queries
+are analyzed.</p></li>
+<li><p><strong>analyzer</strong> – Analyzer to use for the query string.This
+parameter can only be used when the <cite>q</cite> query string parameter is
+specified.</p></li>
 <li><p><strong>default_operator</strong> – The default operator for query string
-query (AND or OR). Valid choices are AND, OR.</p></li>
-<li><p><strong>df</strong> – The default field for query string query. Default is
-_all.</p></li>
-<li><p><strong>lenient</strong> – Specify whether format-based query failures (such
-as providing text to a numeric field) should be ignored.</p></li>
-<li><p><strong>preference</strong> – Specify the node or shard the operation should
-be performed on. Default is random.</p></li>
+query: <cite>AND</cite> or <cite>OR</cite>. Valid choices are and, or.</p></li>
+<li><p><strong>df</strong> – Field to use as default where no field prefix is given
+in the query string.</p></li>
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
+<li><p><strong>lenient</strong> – If <cite>true</cite>, format-based query failures (such as
+providing text to a numeric field) in the query string will be ignored.</p></li>
+<li><p><strong>preference</strong> – Specifies the node or shard the operation
+should be performed on.Random by default.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
 <li><p><strong>q</strong> – Query in the Lucene query string syntax.</p></li>
-<li><p><strong>routing</strong> – Routing value.</p></li>
-<li><p><strong>stored_fields</strong> – Comma-separated list of stored fields to
-return.</p></li>
+<li><p><strong>routing</strong> – Custom value used to route operations to a
+specific shard.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
+<li><p><strong>stored_fields</strong> – A comma-separated list of stored fields to
+return in the response.</p></li>
 <li><p><strong>index</strong> – </p></li>
 <li><p><strong>id</strong> – </p></li>
 <li><p><strong>body</strong> – </p></li>
@@ -857,19 +1054,36 @@ indices.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – An index filter specified with the Query DSL</p></li>
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of indices; use <cite>_all</cite> or empty
-string to perform the operation on all indices.</p></li>
-<li><p><strong>allow_no_indices</strong> – Whether to ignore if a wildcard indices
-expression resolves into no concrete indices. (This includes <cite>_all</cite>
-string or when no indices have been specified).</p></li>
-<li><p><strong>expand_wildcards</strong> – Whether to expand wildcard expression to
-concrete indices that are open, closed or both. Valid choices are all,
-open, closed, hidden, none.</p></li>
-<li><p><strong>fields</strong> – Comma-separated list of field names.</p></li>
-<li><p><strong>ignore_unavailable</strong> – Whether specified concrete indices
-should be ignored when unavailable (missing or closed).</p></li>
-<li><p><strong>include_unmapped</strong> – Indicates whether unmapped fields should
-be included in the response. Default is false.</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of data streams, indices, and
+aliases used to limit the request. Supports wildcards (*). To target all
+data streams and indices, omit this parameter or use * or _all.</p></li>
+<li><p><strong>allow_no_indices</strong> – If false, the request returns an error if
+any wildcard expression, index alias,or <cite>_all</cite> value targets only
+missing or closed indices. This behavior applies even if the request
+targets other open indices. For example, a requesttargeting <cite>foo*,bar*</cite>
+returns an error if an index starts with foo but no index starts with
+bar.</p></li>
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
+<li><p><strong>expand_wildcards</strong> – Type of index that wildcard patterns can
+match. If the request can target data streams, this argument determines
+whether wildcard expressions match hidden data streams. Supports comma-
+separated values, such as <cite>open,hidden</cite>. Valid choices are all, open,
+closed, hidden, none.</p></li>
+<li><p><strong>fields</strong> – Comma-separated list of fields to retrieve
+capabilities for. Wildcard (<cite>*</cite>) expressions are supported.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
+<li><p><strong>ignore_unavailable</strong> – If <cite>true</cite>, missing or closed indices
+are not included in the response.</p></li>
+<li><p><strong>include_unmapped</strong> – If true, unmapped fields are included in
+the response.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
 <li><p><strong>body</strong> – </p></li>
 <li><p><strong>index</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
@@ -889,26 +1103,41 @@ be included in the response. Default is false.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Index name.</p></li>
-<li><p><strong>id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Document ID.</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Name of the index that contains the document.</p></li>
+<li><p><strong>id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Unique identifier of the document.</p></li>
 <li><p><strong>_source</strong> – True or false to return the _source field or not,
 or a list of fields to return.</p></li>
-<li><p><strong>_source_excludes</strong> – List of fields to exclude from the
-returned _source field.</p></li>
-<li><p><strong>_source_includes</strong> – List of fields to extract and return from
-the _source field.</p></li>
-<li><p><strong>preference</strong> – Specify the node or shard the operation should
-be performed on. Default is random.</p></li>
-<li><p><strong>realtime</strong> – Specify whether to perform the operation in
-realtime or search mode.</p></li>
-<li><p><strong>refresh</strong> – Refresh the shard containing the document before
-performing the operation.</p></li>
-<li><p><strong>routing</strong> – Routing value.</p></li>
-<li><p><strong>stored_fields</strong> – Comma-separated list of stored fields to
-return.</p></li>
-<li><p><strong>version</strong> – Explicit version number for concurrency control.</p></li>
-<li><p><strong>version_type</strong> – Specific version type. Valid choices are
-internal, external, external_gte, force.</p></li>
+<li><p><strong>_source_excludes</strong> – A comma-separated list of source fields
+to exclude in the response.</p></li>
+<li><p><strong>_source_includes</strong> – A comma-separated list of source fields
+to include in the response.</p></li>
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
+<li><p><strong>preference</strong> – Specifies the node or shard the operation
+should be performed on. Random by default.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
+<li><p><strong>realtime</strong> – If <cite>true</cite>, the request is real-time as opposed to
+near-real-time.</p></li>
+<li><p><strong>refresh</strong> – If true, Opensearch refreshes the affected shards
+to make this operation visible to search. If false, do nothing with
+refreshes.</p></li>
+<li><p><strong>routing</strong> – Target the specified primary shard.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
+<li><p><strong>stored_fields</strong> – List of stored fields to return as part of a
+hit.If no fields are specified, no stored fields are included in the
+response.If this field is specified, the <cite>_source</cite> parameter defaults to
+false.</p></li>
+<li><p><strong>version</strong> – Explicit version number for concurrency control.
+The specified version must match the current version of the document for
+the request to succeed.</p></li>
+<li><p><strong>version_type</strong> – Specific version type: internal, external,
+external_gte. Valid choices are internal, external, external_gte, force.</p></li>
 <li><p><strong>index</strong> – </p></li>
 <li><p><strong>id</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
@@ -928,6 +1157,16 @@ internal, external, external_gte, force.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 <li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 </ul>
@@ -945,12 +1184,22 @@ internal, external, external_gte, force.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Script ID.</p></li>
+<li><p><strong>id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Identifier for the stored script or search template.</p></li>
 <li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
 to cluster-manager node.</p></li>
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
 <li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
-use ‘cluster_manager_timeout’ instead.): Operation timeout for
-connection to master node.</p></li>
+use ‘cluster_manager_timeout’ instead.): Specify timeout for connection
+to master</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
 <li><p><strong>id</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 <li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
@@ -969,6 +1218,16 @@ connection to master node.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 <li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 </ul>
@@ -986,6 +1245,16 @@ connection to master node.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 <li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 </ul>
@@ -1003,24 +1272,37 @@ connection to master node.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Index name.</p></li>
-<li><p><strong>id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Document ID.</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Name of the index that contains the document.</p></li>
+<li><p><strong>id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Unique identifier of the document.</p></li>
 <li><p><strong>_source</strong> – True or false to return the _source field or not,
 or a list of fields to return.</p></li>
-<li><p><strong>_source_excludes</strong> – List of fields to exclude from the
-returned _source field.</p></li>
-<li><p><strong>_source_includes</strong> – List of fields to extract and return from
-the _source field.</p></li>
-<li><p><strong>preference</strong> – Specify the node or shard the operation should
-be performed on. Default is random.</p></li>
-<li><p><strong>realtime</strong> – Specify whether to perform the operation in
-realtime or search mode.</p></li>
-<li><p><strong>refresh</strong> – Refresh the shard containing the document before
-performing the operation.</p></li>
-<li><p><strong>routing</strong> – Routing value.</p></li>
-<li><p><strong>version</strong> – Explicit version number for concurrency control.</p></li>
-<li><p><strong>version_type</strong> – Specific version type. Valid choices are
-internal, external, external_gte, force.</p></li>
+<li><p><strong>_source_excludes</strong> – A comma-separated list of source fields
+to exclude in the response.</p></li>
+<li><p><strong>_source_includes</strong> – A comma-separated list of source fields
+to include in the response.</p></li>
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
+<li><p><strong>preference</strong> – Specifies the node or shard the operation
+should be performed on. Random by default.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
+<li><p><strong>realtime</strong> – Boolean) If true, the request is real-time as
+opposed to near-real-time.</p></li>
+<li><p><strong>refresh</strong> – If true, Opensearch refreshes the affected shards
+to make this operation visible to search. If false, do nothing with
+refreshes.</p></li>
+<li><p><strong>routing</strong> – Target the specified primary shard.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
+<li><p><strong>version</strong> – Explicit version number for concurrency control.
+The specified version must match the current version of the document for
+the request to succeed.</p></li>
+<li><p><strong>version_type</strong> – Specific version type: internal, external,
+external_gte. Valid choices are internal, external, external_gte, force.</p></li>
 <li><p><strong>index</strong> – </p></li>
 <li><p><strong>id</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
@@ -1040,34 +1322,55 @@ internal, external, external_gte, force.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Index name.</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Name of the data stream or index to target.</p></li>
 <li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – The document</p></li>
-<li><p><strong>id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Document ID.</p></li>
-<li><p><strong>if_primary_term</strong> – only perform the operation if the last
-operation that has changed the document has the specified primary term.</p></li>
-<li><p><strong>if_seq_no</strong> – only perform the operation if the last operation
-that has changed the document has the specified sequence number.</p></li>
-<li><p><strong>op_type</strong> – Explicit operation type. Defaults to <cite>index</cite> for
-requests with an explicit document ID, and to <cite>create</cite> for requests
-without an explicit document ID. Valid choices are index, create.</p></li>
-<li><p><strong>pipeline</strong> – The pipeline id to preprocess incoming documents
-with.</p></li>
-<li><p><strong>refresh</strong> – If <cite>true</cite> then refresh the affected shards to make
-this operation visible to search, if <cite>wait_for</cite> then wait for a refresh
-to make this operation visible to search, if <cite>false</cite> (the default) then
-do nothing with refreshes. Valid choices are true, false, wait_for.</p></li>
-<li><p><strong>require_alias</strong> – When true, requires destination to be an
-alias. Default is false.</p></li>
-<li><p><strong>routing</strong> – Routing value.</p></li>
-<li><p><strong>timeout</strong> – Operation timeout.</p></li>
-<li><p><strong>version</strong> – Explicit version number for concurrency control.</p></li>
-<li><p><strong>version_type</strong> – Specific version type. Valid choices are
-internal, external, external_gte, force.</p></li>
-<li><p><strong>wait_for_active_shards</strong> – Sets the number of shard copies
-that must be active before proceeding with the operation. Defaults to 1,
-meaning the primary shard only. Set to <cite>all</cite> for all shard copies,
-otherwise set to any non-negative value less than or equal to the total
-number of copies for the shard (number of replicas + 1). Default is 1.</p></li>
+<li><p><strong>id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Unique identifier for the document.</p></li>
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
+<li><p><strong>if_primary_term</strong> – Only perform the operation if the document
+has this primary term.</p></li>
+<li><p><strong>if_seq_no</strong> – Only perform the operation if the document has
+this sequence number.</p></li>
+<li><p><strong>op_type</strong> – Set to create to only index the document if it
+does not already exist (put if absent).If a document with the specified
+<cite>_id</cite> already exists, the indexing operation will fail.Same as using the
+<cite>&lt;index&gt;/_create</cite> endpoint.Valid values: <cite>index</cite>, <cite>create</cite>.If document
+id is specified, it defaults to <cite>index</cite>.Otherwise, it defaults to
+<cite>create</cite>.</p></li>
+<li><p><strong>pipeline</strong> – ID of the pipeline to use to preprocess incoming
+documents.If the index has a default ingest pipeline specified, then
+setting the value to <cite>_none</cite> disables the default ingest pipeline for
+this request.If a final pipeline is configured it will always run,
+regardless of the value of this parameter.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
+<li><p><strong>refresh</strong> – If <cite>true</cite>, Opensearch refreshes the affected
+shards to make this operation visible to search, if <cite>wait_for</cite> then wait
+for a refresh to make this operation visible to search, if <cite>false</cite> do
+nothing with refreshes.Valid values: <cite>true</cite>, <cite>false</cite>, <cite>wait_for</cite>.</p></li>
+<li><p><strong>require_alias</strong> – If <cite>true</cite>, the destination must be an index
+alias.</p></li>
+<li><p><strong>routing</strong> – Custom value used to route operations to a
+specific shard.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
+<li><p><strong>timeout</strong> – Period the request waits for the following
+operations: automatic index creation, dynamic mapping updates, waiting
+for active shards.</p></li>
+<li><p><strong>version</strong> – Explicit version number for concurrency
+control.The specified version must match the current version of the
+document for the request to succeed.</p></li>
+<li><p><strong>version_type</strong> – Specific version type: <cite>external</cite>,
+<cite>external_gte</cite>. Valid choices are internal, external, external_gte,
+force.</p></li>
+<li><p><strong>wait_for_active_shards</strong> – The number of shard copies that
+must be active before proceeding with the operation.Set to all or any
+positive integer up to the total number of shards in the index
+(<cite>number_of_replicas+1</cite>). Valid choices are all, index-setting.</p></li>
 <li><p><strong>index</strong> – </p></li>
 <li><p><strong>body</strong> – </p></li>
 <li><p><strong>id</strong> – </p></li>
@@ -1088,6 +1391,16 @@ number of copies for the shard (number of replicas + 1). Default is 1.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 <li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 </ul>
@@ -1131,22 +1444,39 @@ Use ‘get_all_pits’ API instead.</p>
 <li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Document identifiers; can be either <cite>docs</cite>
 (containing full document information) or <cite>ids</cite> (when index is provided
 in the URL.</p></li>
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Index name.</p></li>
-<li><p><strong>_source</strong> – True or false to return the _source field or not,
-or a list of fields to return.</p></li>
-<li><p><strong>_source_excludes</strong> – List of fields to exclude from the
-returned _source field.</p></li>
-<li><p><strong>_source_includes</strong> – List of fields to extract and return from
-the _source field.</p></li>
-<li><p><strong>preference</strong> – Specify the node or shard the operation should
-be performed on. Default is random.</p></li>
-<li><p><strong>realtime</strong> – Specify whether to perform the operation in
-realtime or search mode.</p></li>
-<li><p><strong>refresh</strong> – Refresh the shard containing the document before
-performing the operation.</p></li>
-<li><p><strong>routing</strong> – Routing value.</p></li>
-<li><p><strong>stored_fields</strong> – Comma-separated list of stored fields to
-return.</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Name of the index to retrieve documents from when
+<cite>ids</cite> are specified, or when a document in the <cite>docs</cite> array does not
+specify an index.</p></li>
+<li><p><strong>_source</strong> – True or false to return the <cite>_source</cite> field or
+not, or a list of fields to return.</p></li>
+<li><p><strong>_source_excludes</strong> – A comma-separated list of source fields
+to exclude from the response.You can also use this parameter to exclude
+fields from the subset specified in <cite>_source_includes</cite> query parameter.</p></li>
+<li><p><strong>_source_includes</strong> – A comma-separated list of source fields
+to include in the response.If this parameter is specified, only these
+source fields are returned. You can exclude fields from this subset
+using the <cite>_source_excludes</cite> query parameter.If the <cite>_source</cite> parameter
+is <cite>false</cite>, this parameter is ignored.</p></li>
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
+<li><p><strong>preference</strong> – Specifies the node or shard the operation
+should be performed on. Random by default.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
+<li><p><strong>realtime</strong> – If <cite>true</cite>, the request is real-time as opposed to
+near-real-time.</p></li>
+<li><p><strong>refresh</strong> – If <cite>true</cite>, the request refreshes relevant shards
+before retrieving documents.</p></li>
+<li><p><strong>routing</strong> – Custom value used to route operations to a
+specific shard.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
+<li><p><strong>stored_fields</strong> – If <cite>true</cite>, retrieves the document fields
+stored in the index rather than the document <cite>_source</cite>.</p></li>
 <li><p><strong>body</strong> – </p></li>
 <li><p><strong>index</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
@@ -1168,31 +1498,39 @@ return.</p></li>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – The request definitions (metadata-search request
 definition pairs), separated by newlines</p></li>
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of indices to use as default.</p></li>
-<li><p><strong>ccs_minimize_roundtrips</strong> – Indicates whether network round-
-trips should be minimized as part of cross-cluster search requests
-execution. Default is True.</p></li>
-<li><p><strong>max_concurrent_searches</strong> – Controls the maximum number of
-concurrent searches the multi search api will execute.</p></li>
-<li><p><strong>max_concurrent_shard_requests</strong> – The number of concurrent
-shard requests each sub search executes concurrently per node. This
-value should be used to limit the impact of the search on the cluster in
-order to limit the number of concurrent shard requests. Default is 5.</p></li>
-<li><p><strong>pre_filter_shard_size</strong> – Threshold that enforces a pre-filter
-round-trip to prefilter search shards based on query rewriting if the
-number of shards the search request expands to exceeds the threshold.
-This filter round-trip can limit the number of shards significantly if
-for instance a shard can not match any documents based on its rewrite
-method ie. if date filters are mandatory to match but the shard bounds
-and the query are disjoint.</p></li>
-<li><p><strong>rest_total_hits_as_int</strong> – Indicates whether hits.total should
-be rendered as an integer or an object in the rest search response.
-Default is false.</p></li>
-<li><p><strong>search_type</strong> – Search operation type. Valid choices are
-query_then_fetch, query_and_fetch, dfs_query_then_fetch,
-dfs_query_and_fetch.</p></li>
-<li><p><strong>typed_keys</strong> – Specify whether aggregation and suggester names
-should be prefixed by their respective types in the response.</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of data streams, indices, and
+index aliases to search.</p></li>
+<li><p><strong>ccs_minimize_roundtrips</strong> – If true, network roundtrips
+between the coordinating node and remote clusters are minimized for
+cross-cluster search requests.</p></li>
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
+<li><p><strong>max_concurrent_searches</strong> – Maximum number of concurrent
+searches the multi search API can execute.</p></li>
+<li><p><strong>max_concurrent_shard_requests</strong> – Maximum number of concurrent
+shard requests that each sub-search request executes per node.</p></li>
+<li><p><strong>pre_filter_shard_size</strong> – Defines a threshold that enforces a
+pre-filter roundtrip to prefilter search shards based on query rewriting
+if the number of shards the search request expands to exceeds the
+threshold. This filter roundtrip can limit the number of shards
+significantly if for instance a shard can not match any documents based
+on its rewrite method i.e., if date filters are mandatory to match but
+the shard bounds and the query are disjoint.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
+<li><p><strong>rest_total_hits_as_int</strong> – If true, hits.total are returned as
+an integer in the response. Defaults to false, which returns an object.</p></li>
+<li><p><strong>search_type</strong> – Indicates whether global term and document
+frequencies should be used when scoring returned documents. Valid
+choices are query_then_fetch, dfs_query_then_fetch.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
+<li><p><strong>typed_keys</strong> – Specifies whether aggregation and suggester
+names should be prefixed by their respective types in the response.</p></li>
 <li><p><strong>body</strong> – </p></li>
 <li><p><strong>index</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
@@ -1214,20 +1552,31 @@ should be prefixed by their respective types in the response.</p></li>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – The request definitions (metadata-search request
 definition pairs), separated by newlines</p></li>
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of indices to use as default.</p></li>
-<li><p><strong>ccs_minimize_roundtrips</strong> – Indicates whether network round-
-trips should be minimized as part of cross-cluster search requests
-execution. Default is True.</p></li>
-<li><p><strong>max_concurrent_searches</strong> – Controls the maximum number of
-concurrent searches the multi search api will execute.</p></li>
-<li><p><strong>rest_total_hits_as_int</strong> – Indicates whether hits.total should
-be rendered as an integer or an object in the rest search response.
-Default is false.</p></li>
-<li><p><strong>search_type</strong> – Search operation type. Valid choices are
-query_then_fetch, query_and_fetch, dfs_query_then_fetch,
-dfs_query_and_fetch.</p></li>
-<li><p><strong>typed_keys</strong> – Specify whether aggregation and suggester names
-should be prefixed by their respective types in the response.</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of data streams, indices, and
+aliases to search. Supports wildcards (<cite>*</cite>). To search all data streams
+and indices, omit this parameter or use <cite>*</cite>.</p></li>
+<li><p><strong>ccs_minimize_roundtrips</strong> – If <cite>true</cite>, network round-trips are
+minimized for cross-cluster search requests.</p></li>
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
+<li><p><strong>max_concurrent_searches</strong> – Maximum number of concurrent
+searches the API can run.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
+<li><p><strong>rest_total_hits_as_int</strong> – If <cite>true</cite>, the response returns
+<cite>hits.total</cite> as an integer.If <cite>false</cite>, it returns <cite>hits.total</cite> as an
+object.</p></li>
+<li><p><strong>search_type</strong> – The type of the search operation.Available
+options: <cite>query_then_fetch</cite>, <cite>dfs_query_then_fetch</cite>. Valid choices are
+query_then_fetch, dfs_query_then_fetch.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
+<li><p><strong>typed_keys</strong> – If <cite>true</cite>, the response prefixes aggregation
+and suggester names with their respective types.</p></li>
 <li><p><strong>body</strong> – </p></li>
 <li><p><strong>index</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
@@ -1250,36 +1599,39 @@ should be prefixed by their respective types in the response.</p></li>
 <li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Define ids, documents, parameters or a list of
 parameters per document here. You must at least provide a list of
 document ids. See documentation.</p></li>
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – The index in which the document resides.</p></li>
-<li><p><strong>field_statistics</strong> – Specifies if document count, sum of
-document frequencies and sum of total term frequencies should be
-returned. Applies to all returned documents unless otherwise specified
-in body ‘params’ or ‘docs’. Default is True.</p></li>
-<li><p><strong>fields</strong> – Comma-separated list of fields to return. Applies
-to all returned documents unless otherwise specified in body ‘params’ or
-‘docs’.</p></li>
-<li><p><strong>ids</strong> – Comma-separated list of documents ids. You must define
-ids as parameter or set ‘ids’ or ‘docs’ in the request body.</p></li>
-<li><p><strong>offsets</strong> – Specifies if term offsets should be returned.
-Applies to all returned documents unless otherwise specified in body
-‘params’ or ‘docs’. Default is True.</p></li>
-<li><p><strong>payloads</strong> – Specifies if term payloads should be returned.
-Applies to all returned documents unless otherwise specified in body
-‘params’ or ‘docs’. Default is True.</p></li>
-<li><p><strong>positions</strong> – Specifies if term positions should be returned.
-Applies to all returned documents unless otherwise specified in body
-‘params’ or ‘docs’. Default is True.</p></li>
-<li><p><strong>preference</strong> – Specify the node or shard the operation should
-be performed on. Applies to all returned documents unless otherwise
-specified in body ‘params’ or ‘docs’. Default is random.</p></li>
-<li><p><strong>realtime</strong> – Specifies if requests are real-time as opposed to
-near-real-time. Default is True.</p></li>
-<li><p><strong>routing</strong> – Routing value. Applies to all returned documents
-unless otherwise specified in body ‘params’ or ‘docs’.</p></li>
-<li><p><strong>term_statistics</strong> – Specifies if total term frequency and
-document frequency should be returned. Applies to all returned documents
-unless otherwise specified in body ‘params’ or ‘docs’. Default is false.</p></li>
-<li><p><strong>version</strong> – Explicit version number for concurrency control.</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Name of the index that contains the documents.</p></li>
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
+<li><p><strong>field_statistics</strong> – If <cite>true</cite>, the response includes the
+document count, sum of document frequencies, and sum of total term
+frequencies.</p></li>
+<li><p><strong>fields</strong> – Comma-separated list or wildcard expressions of
+fields to include in the statistics.Used as the default list unless a
+specific field list is provided in the <cite>completion_fields</cite> or
+<cite>fielddata_fields</cite> parameters.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
+<li><p><strong>ids</strong> – A comma-separated list of documents ids. You must
+define ids as parameter or set “ids” or “docs” in the request body</p></li>
+<li><p><strong>offsets</strong> – If <cite>true</cite>, the response includes term offsets.</p></li>
+<li><p><strong>payloads</strong> – If <cite>true</cite>, the response includes term payloads.</p></li>
+<li><p><strong>positions</strong> – If <cite>true</cite>, the response includes term positions.</p></li>
+<li><p><strong>preference</strong> – Specifies the node or shard the operation
+should be performed on.Random by default.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
+<li><p><strong>realtime</strong> – If true, the request is real-time as opposed to
+near-real-time.</p></li>
+<li><p><strong>routing</strong> – Custom value used to route operations to a
+specific shard.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
+<li><p><strong>term_statistics</strong> – If true, the response includes term
+frequency and document frequency.</p></li>
+<li><p><strong>version</strong> – If <cite>true</cite>, returns the document version as part of
+a hit.</p></li>
 <li><p><strong>version_type</strong> – Specific version type. Valid choices are
 internal, external, external_gte, force.</p></li>
 <li><p><strong>body</strong> – </p></li>
@@ -1301,6 +1653,16 @@ internal, external, external_gte, force.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 <li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 </ul>
@@ -1318,15 +1680,31 @@ internal, external, external_gte, force.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Script ID.</p></li>
+<li><p><strong>id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Identifier for the stored script or search template.
+Must be unique within the cluster.</p></li>
 <li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – The document</p></li>
-<li><p><strong>context</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Script context.</p></li>
+<li><p><strong>context</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Context in which the script or search template
+should run. To prevent errors, the API immediately compiles the script
+or template in this context.</p></li>
 <li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
 to cluster-manager node.</p></li>
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
 <li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
-use ‘cluster_manager_timeout’ instead.): Operation timeout for
-connection to master node.</p></li>
-<li><p><strong>timeout</strong> – Operation timeout.</p></li>
+use ‘cluster_manager_timeout’ instead.): Period to wait for a connection
+to the master node.If no response is received before the timeout
+expires, the request fails and returns an error.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
+<li><p><strong>timeout</strong> – Period to wait for a response.If no response is
+received before the timeout expires, the request fails and returns an
+error.</p></li>
 <li><p><strong>id</strong> – </p></li>
 <li><p><strong>body</strong> – </p></li>
 <li><p><strong>context</strong> – </p></li>
@@ -1350,18 +1728,32 @@ search queries.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – The ranking evaluation search definition, including
 search requests, document ratings and ranking metric definition.</p></li>
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of indices; use <cite>_all</cite> or empty
-string to perform the operation on all indices.</p></li>
-<li><p><strong>allow_no_indices</strong> – Whether to ignore if a wildcard indices
-expression resolves into no concrete indices. (This includes <cite>_all</cite>
-string or when no indices have been specified).</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of data streams, indices, and
+index aliases used to limit the request. Wildcard (<cite>*</cite>) expressions are
+supported. To target all data streams and indices in a cluster, omit
+this parameter or use <cite>_all</cite> or <cite>*</cite>.</p></li>
+<li><p><strong>allow_no_indices</strong> – If <cite>false</cite>, the request returns an error
+if any wildcard expression, index alias, or <cite>_all</cite> value targets only
+missing or closed indices. This behavior applies even if the request
+targets other open indices. For example, a request targeting <cite>foo*,bar*</cite>
+returns an error if an index starts with <cite>foo</cite> but no index starts with
+<cite>bar</cite>.</p></li>
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
 <li><p><strong>expand_wildcards</strong> – Whether to expand wildcard expression to
 concrete indices that are open, closed or both. Valid choices are all,
 open, closed, hidden, none.</p></li>
-<li><p><strong>ignore_unavailable</strong> – Whether specified concrete indices
-should be ignored when unavailable (missing or closed).</p></li>
-<li><p><strong>search_type</strong> – Search operation type. Valid choices are
-query_then_fetch, dfs_query_then_fetch.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
+<li><p><strong>ignore_unavailable</strong> – If <cite>true</cite>, missing or closed indices
+are not included in the response.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
+<li><p><strong>search_type</strong> – Search operation type</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
 <li><p><strong>body</strong> – </p></li>
 <li><p><strong>index</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
@@ -1385,25 +1777,35 @@ fetching the documents from a remote cluster.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – The search definition using the Query DSL and the
 prototype for the index request.</p></li>
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
 <li><p><strong>max_docs</strong> – Maximum number of documents to process (default:
 all documents).</p></li>
-<li><p><strong>refresh</strong> – Should the affected indexes be refreshed?.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
+<li><p><strong>refresh</strong> – If <cite>true</cite>, the request refreshes affected shards
+to make this operation visible to search.</p></li>
 <li><p><strong>requests_per_second</strong> – The throttle for this request in sub-
-requests per second. -1 means no throttle. Default is 0.</p></li>
-<li><p><strong>scroll</strong> – Specify how long a consistent view of the index
+requests per second.Defaults to no throttle.</p></li>
+<li><p><strong>scroll</strong> – Specifies how long a consistent view of the index
 should be maintained for scrolled search.</p></li>
 <li><p><strong>slices</strong> – The number of slices this task should be divided
-into. Defaults to 1, meaning the task isn’t sliced into subtasks. Can be
-set to <cite>auto</cite>. Default is 1.</p></li>
-<li><p><strong>timeout</strong> – Time each individual bulk request should wait for
-shards that are unavailable. Default is 1m.</p></li>
-<li><p><strong>wait_for_active_shards</strong> – Sets the number of shard copies
-that must be active before proceeding with the operation. Defaults to 1,
-meaning the primary shard only. Set to <cite>all</cite> for all shard copies,
-otherwise set to any non-negative value less than or equal to the total
-number of copies for the shard (number of replicas + 1). Default is 1.</p></li>
-<li><p><strong>wait_for_completion</strong> – Should this request wait until the
-operation has completed before returning. Default is True.</p></li>
+into.Defaults to 1 slice, meaning the task isn’t sliced into subtasks.
+Valid choices are auto.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
+<li><p><strong>timeout</strong> – Period each indexing waits for automatic index
+creation, dynamic mapping updates, and waiting for active shards.</p></li>
+<li><p><strong>wait_for_active_shards</strong> – The number of shard copies that
+must be active before proceeding with the operation.Set to <cite>all</cite> or any
+positive integer up to the total number of shards in the index
+(<cite>number_of_replicas+1</cite>). Valid choices are all, index-setting.</p></li>
+<li><p><strong>wait_for_completion</strong> – If <cite>true</cite>, the request blocks until
+the operation is complete.</p></li>
 <li><p><strong>body</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 <li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
@@ -1422,9 +1824,19 @@ operation has completed before returning. Default is True.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>task_id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – The task id to rethrottle.</p></li>
+<li><p><strong>task_id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Identifier for the task.</p></li>
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
 <li><p><strong>requests_per_second</strong> – The throttle for this request in sub-
-requests per second. -1 means no throttle.</p></li>
+requests per second.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
 <li><p><strong>task_id</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 <li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
@@ -1444,7 +1856,18 @@ requests per second. -1 means no throttle.</p></li>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – The search definition template and its params</p></li>
-<li><p><strong>id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – The id of the stored search template.</p></li>
+<li><p><strong>id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – ID of the search template to render. If no <cite>source</cite> is
+specified, this or the <cite>id</cite> request body parameter is required.</p></li>
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
 <li><p><strong>body</strong> – </p></li>
 <li><p><strong>id</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
@@ -1465,6 +1888,16 @@ requests per second. -1 means no throttle.</p></li>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – The script to execute</p></li>
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
 <li><p><strong>body</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 <li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
@@ -1485,12 +1918,21 @@ requests per second. -1 means no throttle.</p></li>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – The scroll ID if not passed by URL or query
 parameter.</p></li>
-<li><p><strong>scroll_id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Scroll ID.</p></li>
-<li><p><strong>rest_total_hits_as_int</strong> – Indicates whether hits.total should
-be rendered as an integer or an object in the rest search response.
-Default is false.</p></li>
-<li><p><strong>scroll</strong> – Specify how long a consistent view of the index
-should be maintained for scrolled search.</p></li>
+<li><p><strong>scroll_id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – The scroll ID for scrolled search</p></li>
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
+<li><p><strong>rest_total_hits_as_int</strong> – If true, the API response’s
+hit.total property is returned as an integer. If false, the API
+response’s hit.total property is returned as an object.</p></li>
+<li><p><strong>scroll</strong> – Period to retain the search context for scrolling.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
 <li><p><strong>body</strong> – </p></li>
 <li><p><strong>scroll_id</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
@@ -1511,104 +1953,184 @@ should be maintained for scrolled search.</p></li>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – The search definition using the Query DSL</p></li>
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of indices; use <cite>_all</cite> or empty
-string to perform the operation on all indices.</p></li>
-<li><p><strong>_source</strong> – True or false to return the _source field or not,
-or a list of fields to return.</p></li>
-<li><p><strong>_source_excludes</strong> – List of fields to exclude from the
-returned _source field.</p></li>
-<li><p><strong>_source_includes</strong> – List of fields to extract and return from
-the _source field.</p></li>
-<li><p><strong>allow_no_indices</strong> – Whether to ignore if a wildcard indices
-expression resolves into no concrete indices. (This includes <cite>_all</cite>
-string or when no indices have been specified).</p></li>
-<li><p><strong>allow_partial_search_results</strong> – Indicate if an error should
-be returned if there is a partial search failure or timeout. Default is
-True.</p></li>
-<li><p><strong>analyze_wildcard</strong> – Specify whether wildcard and prefix
-queries should be analyzed. Default is false.</p></li>
-<li><p><strong>analyzer</strong> – The analyzer to use for the query string.</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of data streams, indices, and
+aliases to search. Supports wildcards (<cite>*</cite>). To search all data streams
+and indices, omit this parameter or use <cite>*</cite> or <cite>_all</cite>.</p></li>
+<li><p><strong>_source</strong> – Indicates which source fields are returned for
+matching documents.These fields are returned in the <cite>hits._source</cite>
+property of the search response.Valid values are:<cite>true</cite> to return the
+entire document source;`false` to not return the document
+source;`&lt;string&gt;` to return the source fields that are specified as a
+comma-separated list (supports wildcard (<cite>*</cite>) patterns).</p></li>
+<li><p><strong>_source_excludes</strong> – A comma-separated list of source fields
+to exclude from the response.You can also use this parameter to exclude
+fields from the subset specified in <cite>_source_includes</cite> query
+parameter.If the <cite>_source</cite> parameter is <cite>false</cite>, this parameter is
+ignored.</p></li>
+<li><p><strong>_source_includes</strong> – A comma-separated list of source fields
+to include in the response.If this parameter is specified, only these
+source fields are returned.You can exclude fields from this subset using
+the <cite>_source_excludes</cite> query parameter.If the <cite>_source</cite> parameter is
+<cite>false</cite>, this parameter is ignored.</p></li>
+<li><p><strong>allow_no_indices</strong> – If <cite>false</cite>, the request returns an error
+if any wildcard expression, index alias, or <cite>_all</cite> value targets only
+missing or closed indices.This behavior applies even if the request
+targets other open indices.For example, a request targeting <cite>foo*,bar*</cite>
+returns an error if an index starts with <cite>foo</cite> but no index starts with
+<cite>bar</cite>.</p></li>
+<li><p><strong>allow_partial_search_results</strong> – If true, returns partial
+results if there are shard request timeouts or shard failures. If false,
+returns an error with no partial results.</p></li>
+<li><p><strong>analyze_wildcard</strong> – If true, wildcard and prefix queries are
+analyzed.This parameter can only be used when the q query string
+parameter is specified.</p></li>
+<li><p><strong>analyzer</strong> – Analyzer to use for the query string.This
+parameter can only be used when the q query string parameter is
+specified.</p></li>
 <li><p><strong>batched_reduce_size</strong> – The number of shard results that
-should be reduced at once on the coordinating node. This value should be
+should be reduced at once on the coordinating node.This value should be
 used as a protection mechanism to reduce the memory overhead per search
-request if the potential number of shards in the request can be large.
-Default is 512.</p></li>
-<li><p><strong>ccs_minimize_roundtrips</strong> – Indicates whether network round-
-trips should be minimized as part of cross-cluster search requests
-execution. Default is True.</p></li>
+request if the potential number of shards in the request can be large.</p></li>
+<li><p><strong>ccs_minimize_roundtrips</strong> – If true, network round-trips
+between the coordinating node and the remote clusters are minimized when
+executing cross-cluster search (CCS) requests.</p></li>
 <li><p><strong>default_operator</strong> – The default operator for query string
-query (AND or OR). Valid choices are AND, OR.</p></li>
-<li><p><strong>df</strong> – The field to use as default where no field prefix is
-given in the query string.</p></li>
-<li><p><strong>docvalue_fields</strong> – Comma-separated list of fields to return
-as the docvalue representation of a field for each hit.</p></li>
-<li><p><strong>expand_wildcards</strong> – Whether to expand wildcard expression to
-concrete indices that are open, closed or both. Valid choices are all,
-open, closed, hidden, none.</p></li>
-<li><p><strong>explain</strong> – Specify whether to return detailed information
-about score computation as part of a hit.</p></li>
-<li><p><strong>from</strong> – Starting offset. Default is 0.</p></li>
-<li><p><strong>ignore_throttled</strong> – Whether specified concrete, expanded or
-aliased indices should be ignored when throttled.</p></li>
-<li><p><strong>ignore_unavailable</strong> – Whether specified concrete indices
-should be ignored when unavailable (missing or closed).</p></li>
+query: AND or OR.This parameter can only be used when the <cite>q</cite> query
+string parameter is specified. Valid choices are and, or.</p></li>
+<li><p><strong>df</strong> – Field to use as default where no field prefix is given
+in the query string.This parameter can only be used when the q query
+string parameter is specified.</p></li>
+<li><p><strong>docvalue_fields</strong> – A comma-separated list of fields to return
+as the docvalue representation for each hit.</p></li>
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
+<li><p><strong>expand_wildcards</strong> – Type of index that wildcard patterns can
+match.If the request can target data streams, this argument determines
+whether wildcard expressions match hidden data streams.Supports comma-
+separated values, such as <cite>open,hidden</cite>. Valid choices are all, open,
+closed, hidden, none.</p></li>
+<li><p><strong>explain</strong> – If <cite>true</cite>, returns detailed information about
+score computation as part of a hit.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>from</strong> – Starting document offset.Needs to be non-negative.By
+default, you cannot page through more than 10,000 hits using the <cite>from</cite>
+and <cite>size</cite> parameters.To page through more hits, use the <cite>search_after</cite>
+parameter.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
+<li><p><strong>ignore_throttled</strong> – If <cite>true</cite>, concrete, expanded or aliased
+indices will be ignored when frozen.</p></li>
+<li><p><strong>ignore_unavailable</strong> – If <cite>false</cite>, the request returns an
+error if it targets a missing or closed index.</p></li>
 <li><p><strong>include_named_queries_score</strong> – Indicates whether
 hit.matched_queries should be rendered as a map that includes the name
 of the matched query associated with its score (true) or as an array
 containing the name of the matched queries (false) Default is false.</p></li>
-<li><p><strong>lenient</strong> – Specify whether format-based query failures (such
-as providing text to a numeric field) should be ignored.</p></li>
-<li><p><strong>max_concurrent_shard_requests</strong> – The number of concurrent
-shard requests per node this search executes concurrently. This value
-should be used to limit the impact of the search on the cluster in order
-to limit the number of concurrent shard requests. Default is 5.</p></li>
-<li><p><strong>pre_filter_shard_size</strong> – Threshold that enforces a pre-filter
-round-trip to prefilter search shards based on query rewriting if the
-number of shards the search request expands to exceeds the threshold.
-This filter round-trip can limit the number of shards significantly if
-for instance a shard can not match any documents based on its rewrite
-method ie. if date filters are mandatory to match but the shard bounds
-and the query are disjoint.</p></li>
-<li><p><strong>preference</strong> – Specify the node or shard the operation should
-be performed on. Default is random.</p></li>
-<li><p><strong>q</strong> – Query in the Lucene query string syntax.</p></li>
-<li><p><strong>request_cache</strong> – Specify if request cache should be used for
-this request or not, defaults to index level setting.</p></li>
-<li><p><strong>rest_total_hits_as_int</strong> – Indicates whether hits.total should
-be rendered as an integer or an object in the rest search response.
-Default is false.</p></li>
-<li><p><strong>routing</strong> – Comma-separated list of specific routing values.</p></li>
-<li><p><strong>scroll</strong> – Specify how long a consistent view of the index
-should be maintained for scrolled search.</p></li>
+<li><p><strong>lenient</strong> – If <cite>true</cite>, format-based query failures (such as
+providing text to a numeric field) in the query string will be
+ignored.This parameter can only be used when the <cite>q</cite> query string
+parameter is specified.</p></li>
+<li><p><strong>max_concurrent_shard_requests</strong> – Defines the number of
+concurrent shard requests per node this search executes
+concurrently.This value should be used to limit the impact of the search
+on the cluster in order to limit the number of concurrent shard
+requests.</p></li>
+<li><p><strong>pre_filter_shard_size</strong> – Defines a threshold that enforces a
+pre-filter roundtrip to prefilter search shards based on query rewriting
+if the number of shards the search request expands to exceeds the
+threshold.This filter roundtrip can limit the number of shards
+significantly if for instance a shard can not match any documents based
+on its rewrite method (if date filters are mandatory to match but the
+shard bounds and the query are disjoint).When unspecified, the pre-
+filter phase is executed if any of these conditions is met:the request
+targets more than 128 shards;the request targets one or more read-only
+index;the primary sort of the query targets an indexed field.</p></li>
+<li><p><strong>preference</strong> – Nodes and shards used for the search.By
+default, Opensearch selects from eligible nodes and shards using
+adaptive replica selection, accounting for allocation awareness. Valid
+values are:<cite>_only_local</cite> to run the search only on shards on the local
+node;`_local` to, if possible, run the search on shards on the local
+node, or if not, select shards using the default
+method;`_only_nodes:&lt;node-id&gt;,&lt;node-id&gt;` to run the search on only the
+specified nodes IDs, where, if suitable shards exist on more than one
+selected node, use shards on those nodes using the default method, or if
+none of the specified nodes are available, select shards from any
+available node using the default method;`_prefer_nodes:&lt;node-id&gt;,&lt;node-
+id&gt;` to if possible, run the search on the specified nodes IDs, or if
+not, select shards using the default method;`_shards:&lt;shard&gt;,&lt;shard&gt;` to
+run the search only on the specified shards;`&lt;custom-string&gt;` (any
+string that does not start with <cite>_</cite>) to route searches with the same
+<cite>&lt;custom-string&gt;</cite> to the same shards in the same order.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
+<li><p><strong>q</strong> – Query in the Lucene query string syntax using query
+parameter search.Query parameter searches do not support the full
+Opensearch Query DSL but are handy for testing.</p></li>
+<li><p><strong>request_cache</strong> – If <cite>true</cite>, the caching of search results is
+enabled for requests where <cite>size</cite> is <cite>0</cite>.Defaults to index level
+settings.</p></li>
+<li><p><strong>rest_total_hits_as_int</strong> – Indicates whether <cite>hits.total</cite>
+should be rendered as an integer or an object in the rest search
+response.</p></li>
+<li><p><strong>routing</strong> – Custom value used to route operations to a
+specific shard.</p></li>
+<li><p><strong>scroll</strong> – Period to retain the search context for scrolling.
+See Scroll search results.By default, this value cannot exceed <cite>1d</cite> (24
+hours).You can change this limit using the <cite>search.max_keep_alive</cite>
+cluster-level setting.</p></li>
 <li><p><strong>search_pipeline</strong> – Customizable sequence of processing stages
 applied to search queries.</p></li>
-<li><p><strong>search_type</strong> – Search operation type. Valid choices are
-query_then_fetch, dfs_query_then_fetch.</p></li>
-<li><p><strong>seq_no_primary_term</strong> – Specify whether to return sequence
-number and primary term of the last modification of each hit.</p></li>
-<li><p><strong>size</strong> – Number of hits to return. Default is 10.</p></li>
-<li><p><strong>sort</strong> – Comma-separated list of &lt;field&gt;:&lt;direction&gt; pairs.</p></li>
-<li><p><strong>stats</strong> – Specific ‘tag’ of the request for logging and
+<li><p><strong>search_type</strong> – How distributed term frequencies are
+calculated for relevance scoring. Valid choices are query_then_fetch,
+dfs_query_then_fetch.</p></li>
+<li><p><strong>seq_no_primary_term</strong> – If <cite>true</cite>, returns sequence number and
+primary term of the last modification of each hit.</p></li>
+<li><p><strong>size</strong> – Defines the number of hits to return.By default, you
+cannot page through more than 10,000 hits using the <cite>from</cite> and <cite>size</cite>
+parameters.To page through more hits, use the <cite>search_after</cite> parameter.</p></li>
+<li><p><strong>sort</strong> – A comma-separated list of &lt;field&gt;:&lt;direction&gt; pairs.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
+<li><p><strong>stats</strong> – Specific <cite>tag</cite> of the request for logging and
 statistical purposes.</p></li>
-<li><p><strong>stored_fields</strong> – Comma-separated list of stored fields to
-return.</p></li>
-<li><p><strong>suggest_field</strong> – Specify which field to use for suggestions.</p></li>
-<li><p><strong>suggest_mode</strong> – Specify suggest mode. Valid choices are
-missing, popular, always.</p></li>
-<li><p><strong>suggest_size</strong> – How many suggestions to return in response.</p></li>
+<li><p><strong>stored_fields</strong> – A comma-separated list of stored fields to
+return as part of a hit.If no fields are specified, no stored fields are
+included in the response.If this field is specified, the <cite>_source</cite>
+parameter defaults to <cite>false</cite>.You can pass <cite>_source: true</cite> to return
+both source fields and stored fields in the search response.</p></li>
+<li><p><strong>suggest_field</strong> – Specifies which field to use for
+suggestions.</p></li>
+<li><p><strong>suggest_mode</strong> – Specifies the suggest mode.This parameter can
+only be used when the <cite>suggest_field</cite> and <cite>suggest_text</cite> query string
+parameters are specified. Valid choices are missing, popular, always.</p></li>
+<li><p><strong>suggest_size</strong> – Number of suggestions to return.This
+parameter can only be used when the <cite>suggest_field</cite> and <cite>suggest_text</cite>
+query string parameters are specified.</p></li>
 <li><p><strong>suggest_text</strong> – The source text for which the suggestions
-should be returned.</p></li>
-<li><p><strong>terminate_after</strong> – The maximum number of documents to collect
-for each shard, upon reaching which the query execution will terminate
-early.</p></li>
-<li><p><strong>timeout</strong> – Operation timeout.</p></li>
-<li><p><strong>track_scores</strong> – Whether to calculate and return scores even
-if they are not used for sorting.</p></li>
-<li><p><strong>track_total_hits</strong> – Indicate if the number of documents that
-match the query should be tracked.</p></li>
-<li><p><strong>typed_keys</strong> – Specify whether aggregation and suggester names
-should be prefixed by their respective types in the response.</p></li>
-<li><p><strong>version</strong> – Whether to return document version as part of a
+should be returned.This parameter can only be used when the
+<cite>suggest_field</cite> and <cite>suggest_text</cite> query string parameters are
+specified.</p></li>
+<li><p><strong>terminate_after</strong> – Maximum number of documents to collect for
+each shard.If a query reaches this limit, Opensearch terminates the
+query early.Opensearch collects documents before sorting.Use with
+caution.Opensearch applies this parameter to each shard handling the
+request.When possible, let Opensearch perform early termination
+automatically.Avoid specifying this parameter for requests that target
+data streams with backing indices across multiple data tiers.If set to
+<cite>0</cite> (default), the query does not terminate early.</p></li>
+<li><p><strong>timeout</strong> – Specifies the period of time to wait for a
+response from each shard.If no response is received before the timeout
+expires, the request fails and returns an error.</p></li>
+<li><p><strong>track_scores</strong> – If <cite>true</cite>, calculate and return document
+scores, even if the scores are not used for sorting.</p></li>
+<li><p><strong>track_total_hits</strong> – Number of hits matching the query to
+count accurately.If <cite>true</cite>, the exact number of hits is returned at the
+cost of some performance.If <cite>false</cite>, the response does not include the
+total number of hits matching the query.</p></li>
+<li><p><strong>typed_keys</strong> – If <cite>true</cite>, aggregation and suggester names are
+be prefixed by their respective types in the response.</p></li>
+<li><p><strong>version</strong> – If <cite>true</cite>, returns document version as part of a
 hit.</p></li>
 <li><p><strong>body</strong> – </p></li>
 <li><p><strong>index</strong> – </p></li>
@@ -1630,21 +2152,37 @@ executed against.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of indices; use <cite>_all</cite> or empty
-string to perform the operation on all indices.</p></li>
-<li><p><strong>allow_no_indices</strong> – Whether to ignore if a wildcard indices
-expression resolves into no concrete indices. (This includes <cite>_all</cite>
-string or when no indices have been specified).</p></li>
-<li><p><strong>expand_wildcards</strong> – Whether to expand wildcard expression to
-concrete indices that are open, closed or both. Valid choices are all,
-open, closed, hidden, none.</p></li>
-<li><p><strong>ignore_unavailable</strong> – Whether specified concrete indices
-should be ignored when unavailable (missing or closed).</p></li>
-<li><p><strong>local</strong> – Return local information, do not retrieve the state
-from cluster-manager node. Default is false.</p></li>
-<li><p><strong>preference</strong> – Specify the node or shard the operation should
-be performed on. Default is random.</p></li>
-<li><p><strong>routing</strong> – Routing value.</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Returns the indices and shards that a search request
+would be executed against.</p></li>
+<li><p><strong>allow_no_indices</strong> – If <cite>false</cite>, the request returns an error
+if any wildcard expression, index alias, or <cite>_all</cite> value targets only
+missing or closed indices.This behavior applies even if the request
+targets other open indices.For example, a request targeting <cite>foo*,bar*</cite>
+returns an error if an index starts with <cite>foo</cite> but no index starts with
+<cite>bar</cite>.</p></li>
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
+<li><p><strong>expand_wildcards</strong> – Type of index that wildcard patterns can
+match.If the request can target data streams, this argument determines
+whether wildcard expressions match hidden data streams.Supports comma-
+separated values, such as <cite>open,hidden</cite>.Valid values are: <cite>all</cite>, <cite>open</cite>,
+<cite>closed</cite>, <cite>hidden</cite>, <cite>none</cite>.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
+<li><p><strong>ignore_unavailable</strong> – If <cite>false</cite>, the request returns an
+error if it targets a missing or closed index.</p></li>
+<li><p><strong>local</strong> – If <cite>true</cite>, the request retrieves information from
+the local node only.</p></li>
+<li><p><strong>preference</strong> – Specifies the node or shard the operation
+should be performed on.Random by default.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
+<li><p><strong>routing</strong> – Custom value used to route operations to a
+specific shard.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
 <li><p><strong>index</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 <li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
@@ -1664,37 +2202,50 @@ be performed on. Default is random.</p></li>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – The search definition template and its params</p></li>
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of indices; use <cite>_all</cite> or empty
-string to perform the operation on all indices.</p></li>
-<li><p><strong>allow_no_indices</strong> – Whether to ignore if a wildcard indices
-expression resolves into no concrete indices. (This includes <cite>_all</cite>
-string or when no indices have been specified).</p></li>
-<li><p><strong>ccs_minimize_roundtrips</strong> – Indicates whether network round-
-trips should be minimized as part of cross-cluster search requests
-execution. Default is True.</p></li>
-<li><p><strong>expand_wildcards</strong> – Whether to expand wildcard expression to
-concrete indices that are open, closed or both. Valid choices are all,
-open, closed, hidden, none.</p></li>
-<li><p><strong>explain</strong> – Specify whether to return detailed information
-about score computation as part of a hit.</p></li>
-<li><p><strong>ignore_throttled</strong> – Whether specified concrete, expanded or
-aliased indices should be ignored when throttled.</p></li>
-<li><p><strong>ignore_unavailable</strong> – Whether specified concrete indices
-should be ignored when unavailable (missing or closed).</p></li>
-<li><p><strong>preference</strong> – Specify the node or shard the operation should
-be performed on. Default is random.</p></li>
-<li><p><strong>profile</strong> – Specify whether to profile the query execution.</p></li>
-<li><p><strong>rest_total_hits_as_int</strong> – Indicates whether hits.total should
-be rendered as an integer or an object in the rest search response.
-Default is false.</p></li>
-<li><p><strong>routing</strong> – Comma-separated list of specific routing values.</p></li>
-<li><p><strong>scroll</strong> – Specify how long a consistent view of the index
-should be maintained for scrolled search.</p></li>
-<li><p><strong>search_type</strong> – Search operation type. Valid choices are
-query_then_fetch, query_and_fetch, dfs_query_then_fetch,
-dfs_query_and_fetch.</p></li>
-<li><p><strong>typed_keys</strong> – Specify whether aggregation and suggester names
-should be prefixed by their respective types in the response.</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of data streams, indices, and
+aliases to search. Supports wildcards (*).</p></li>
+<li><p><strong>allow_no_indices</strong> – If <cite>false</cite>, the request returns an error
+if any wildcard expression, index alias, or <cite>_all</cite> value targets only
+missing or closed indices.This behavior applies even if the request
+targets other open indices.For example, a request targeting <cite>foo*,bar*</cite>
+returns an error if an index starts with <cite>foo</cite> but no index starts with
+<cite>bar</cite>.</p></li>
+<li><p><strong>ccs_minimize_roundtrips</strong> – If <cite>true</cite>, network round-trips are
+minimized for cross-cluster search requests.</p></li>
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
+<li><p><strong>expand_wildcards</strong> – Type of index that wildcard patterns can
+match.If the request can target data streams, this argument determines
+whether wildcard expressions match hidden data streams.Supports comma-
+separated values, such as <cite>open,hidden</cite>.Valid values are: <cite>all</cite>, <cite>open</cite>,
+<cite>closed</cite>, <cite>hidden</cite>, <cite>none</cite>.</p></li>
+<li><p><strong>explain</strong> – If <cite>true</cite>, the response includes additional
+details about score computation as part of a hit.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
+<li><p><strong>ignore_throttled</strong> – If <cite>true</cite>, specified concrete, expanded,
+or aliased indices are not included in the response when throttled.</p></li>
+<li><p><strong>ignore_unavailable</strong> – If <cite>false</cite>, the request returns an
+error if it targets a missing or closed index.</p></li>
+<li><p><strong>preference</strong> – Specifies the node or shard the operation
+should be performed on.Random by default.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
+<li><p><strong>profile</strong> – If <cite>true</cite>, the query execution is profiled.</p></li>
+<li><p><strong>rest_total_hits_as_int</strong> – If true, hits.total are rendered as
+an integer in the response.</p></li>
+<li><p><strong>routing</strong> – Custom value used to route operations to a
+specific shard.</p></li>
+<li><p><strong>scroll</strong> – Specifies how long a consistent view of the
+indexshould be maintained for scrolled search.</p></li>
+<li><p><strong>search_type</strong> – The type of the search operation. Valid
+choices are query_then_fetch, dfs_query_then_fetch.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
+<li><p><strong>typed_keys</strong> – If <cite>true</cite>, the response prefixes aggregation
+and suggester names with their respective types.</p></li>
 <li><p><strong>body</strong> – </p></li>
 <li><p><strong>index</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
@@ -1715,29 +2266,40 @@ document.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – The index in which the document resides.</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Name of the index that contains the document.</p></li>
 <li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Define parameters and or supply a document to get
 termvectors for. See documentation.</p></li>
-<li><p><strong>id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Document ID. When not specified a doc param should be
-supplied.</p></li>
-<li><p><strong>field_statistics</strong> – Specifies if document count, sum of
-document frequencies and sum of total term frequencies should be
-returned. Default is True.</p></li>
-<li><p><strong>fields</strong> – Comma-separated list of fields to return.</p></li>
-<li><p><strong>offsets</strong> – Specifies if term offsets should be returned.
-Default is True.</p></li>
-<li><p><strong>payloads</strong> – Specifies if term payloads should be returned.
-Default is True.</p></li>
-<li><p><strong>positions</strong> – Specifies if term positions should be returned.
-Default is True.</p></li>
-<li><p><strong>preference</strong> – Specify the node or shard the operation should
-be performed on. Default is random.</p></li>
-<li><p><strong>realtime</strong> – Specifies if request is real-time as opposed to
-near-real-time. Default is True.</p></li>
-<li><p><strong>routing</strong> – Routing value.</p></li>
-<li><p><strong>term_statistics</strong> – Specifies if total term frequency and
-document frequency should be returned. Default is false.</p></li>
-<li><p><strong>version</strong> – Explicit version number for concurrency control.</p></li>
+<li><p><strong>id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Unique identifier of the document.</p></li>
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
+<li><p><strong>field_statistics</strong> – If <cite>true</cite>, the response includes the
+document count, sum of document frequencies, and sum of total term
+frequencies.</p></li>
+<li><p><strong>fields</strong> – Comma-separated list or wildcard expressions of
+fields to include in the statistics.Used as the default list unless a
+specific field list is provided in the <cite>completion_fields</cite> or
+<cite>fielddata_fields</cite> parameters.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
+<li><p><strong>offsets</strong> – If <cite>true</cite>, the response includes term offsets.</p></li>
+<li><p><strong>payloads</strong> – If <cite>true</cite>, the response includes term payloads.</p></li>
+<li><p><strong>positions</strong> – If <cite>true</cite>, the response includes term positions.</p></li>
+<li><p><strong>preference</strong> – Specifies the node or shard the operation
+should be performed on.Random by default.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
+<li><p><strong>realtime</strong> – If true, the request is real-time as opposed to
+near-real-time.</p></li>
+<li><p><strong>routing</strong> – Custom value used to route operations to a
+specific shard.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
+<li><p><strong>term_statistics</strong> – If <cite>true</cite>, the response includes term
+frequency and document frequency.</p></li>
+<li><p><strong>version</strong> – If <cite>true</cite>, returns the document version as part of
+a hit.</p></li>
 <li><p><strong>version_type</strong> – Specific version type. Valid choices are
 internal, external, external_gte, force.</p></li>
 <li><p><strong>index</strong> – </p></li>
@@ -1760,36 +2322,50 @@ internal, external, external_gte, force.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Index name.</p></li>
-<li><p><strong>id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Document ID.</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – The name of the index</p></li>
+<li><p><strong>id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Document ID</p></li>
 <li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – The request definition requires either <cite>script</cite> or
 partial <cite>doc</cite></p></li>
-<li><p><strong>_source</strong> – True or false to return the _source field or not,
-or a list of fields to return.</p></li>
-<li><p><strong>_source_excludes</strong> – List of fields to exclude from the
-returned _source field.</p></li>
-<li><p><strong>_source_includes</strong> – List of fields to extract and return from
-the _source field.</p></li>
-<li><p><strong>if_primary_term</strong> – only perform the operation if the last
-operation that has changed the document has the specified primary term.</p></li>
-<li><p><strong>if_seq_no</strong> – only perform the operation if the last operation
-that has changed the document has the specified sequence number.</p></li>
-<li><p><strong>lang</strong> – The script language. Default is painless.</p></li>
-<li><p><strong>refresh</strong> – If <cite>true</cite> then refresh the affected shards to make
-this operation visible to search, if <cite>wait_for</cite> then wait for a refresh
-to make this operation visible to search, if <cite>false</cite> (the default) then
-do nothing with refreshes. Valid choices are true, false, wait_for.</p></li>
-<li><p><strong>require_alias</strong> – When true, requires destination to be an
-alias. Default is false.</p></li>
+<li><p><strong>_source</strong> – Set to false to disable source retrieval. You can
+also specify a comma-separatedlist of the fields you want to retrieve.</p></li>
+<li><p><strong>_source_excludes</strong> – Specify the source fields you want to
+exclude.</p></li>
+<li><p><strong>_source_includes</strong> – Specify the source fields you want to
+retrieve.</p></li>
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
+<li><p><strong>if_primary_term</strong> – Only perform the operation if the document
+has this primary term.</p></li>
+<li><p><strong>if_seq_no</strong> – Only perform the operation if the document has
+this sequence number.</p></li>
+<li><p><strong>lang</strong> – The script language.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
+<li><p><strong>refresh</strong> – If ‘true’, Opensearch refreshes the affected
+shards to make this operationvisible to search, if ‘wait_for’ then wait
+for a refresh to make this operationvisible to search, if ‘false’ do
+nothing with refreshes. Valid choices are true, false, wait_for.</p></li>
+<li><p><strong>require_alias</strong> – If true, the destination must be an index
+alias.</p></li>
 <li><p><strong>retry_on_conflict</strong> – Specify how many times should the
-operation be retried when a conflict occurs. Default is 0.</p></li>
-<li><p><strong>routing</strong> – Routing value.</p></li>
-<li><p><strong>timeout</strong> – Operation timeout.</p></li>
-<li><p><strong>wait_for_active_shards</strong> – Sets the number of shard copies
-that must be active before proceeding with the operation. Defaults to 1,
-meaning the primary shard only. Set to <cite>all</cite> for all shard copies,
-otherwise set to any non-negative value less than or equal to the total
-number of copies for the shard (number of replicas + 1). Default is 1.</p></li>
+operation be retried when a conflict occurs.</p></li>
+<li><p><strong>routing</strong> – Custom value used to route operations to a
+specific shard.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
+<li><p><strong>timeout</strong> – Period to wait for dynamic mapping updates and
+active shards.This guarantees Opensearch waits for at least the timeout
+before failing.The actual wait time could be longer, particularly when
+multiple waits occur.</p></li>
+<li><p><strong>wait_for_active_shards</strong> – The number of shard copies that
+must be active before proceeding with the operations.Set to ‘all’ or any
+positive integer up to the total number of shards in the
+index(number_of_replicas+1). Defaults to 1 meaning the primary shard.
+Valid choices are all, index-setting.</p></li>
 <li><p><strong>index</strong> – </p></li>
 <li><p><strong>id</strong> – </p></li>
 <li><p><strong>body</strong> – </p></li>
@@ -1811,8 +2387,9 @@ for example to pick up a mapping change.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of indices; use <cite>_all</cite> or empty
-string to perform the operation on all indices.</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of data streams, indices, and
+aliases to search. Supports wildcards (<cite>*</cite>). To search all data streams
+or indices, omit this parameter or use <cite>*</cite> or <cite>_all</cite>.</p></li>
 <li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – The search definition using the Query DSL</p></li>
 <li><p><strong>_source</strong> – True or false to return the _source field or not,
 or a list of fields to return.</p></li>
@@ -1820,68 +2397,89 @@ or a list of fields to return.</p></li>
 returned _source field.</p></li>
 <li><p><strong>_source_includes</strong> – List of fields to extract and return from
 the _source field.</p></li>
-<li><p><strong>allow_no_indices</strong> – Whether to ignore if a wildcard indices
-expression resolves into no concrete indices. (This includes <cite>_all</cite>
-string or when no indices have been specified).</p></li>
-<li><p><strong>analyze_wildcard</strong> – Specify whether wildcard and prefix
-queries should be analyzed. Default is false.</p></li>
-<li><p><strong>analyzer</strong> – The analyzer to use for the query string.</p></li>
-<li><p><strong>conflicts</strong> – What to do when the operation encounters version
-conflicts?. Valid choices are abort, proceed.</p></li>
+<li><p><strong>allow_no_indices</strong> – If <cite>false</cite>, the request returns an error
+if any wildcard expression, index alias, or <cite>_all</cite> value targets only
+missing or closed indices.This behavior applies even if the request
+targets other open indices.For example, a request targeting <cite>foo*,bar*</cite>
+returns an error if an index starts with <cite>foo</cite> but no index starts with
+<cite>bar</cite>.</p></li>
+<li><p><strong>analyze_wildcard</strong> – If <cite>true</cite>, wildcard and prefix queries
+are analyzed.</p></li>
+<li><p><strong>analyzer</strong> – Analyzer to use for the query string.</p></li>
+<li><p><strong>conflicts</strong> – What to do if update by query hits version
+conflicts: <cite>abort</cite> or <cite>proceed</cite>. Valid choices are abort, proceed.</p></li>
 <li><p><strong>default_operator</strong> – The default operator for query string
-query (AND or OR). Valid choices are AND, OR.</p></li>
-<li><p><strong>df</strong> – The field to use as default where no field prefix is
-given in the query string.</p></li>
-<li><p><strong>expand_wildcards</strong> – Whether to expand wildcard expression to
-concrete indices that are open, closed or both. Valid choices are all,
-open, closed, hidden, none.</p></li>
-<li><p><strong>from</strong> – Starting offset. Default is 0.</p></li>
-<li><p><strong>ignore_unavailable</strong> – Whether specified concrete indices
-should be ignored when unavailable (missing or closed).</p></li>
-<li><p><strong>lenient</strong> – Specify whether format-based query failures (such
-as providing text to a numeric field) should be ignored.</p></li>
-<li><p><strong>max_docs</strong> – Maximum number of documents to process (default:
-all documents).</p></li>
-<li><p><strong>pipeline</strong> – The pipeline id to preprocess incoming documents
-with.</p></li>
-<li><p><strong>preference</strong> – Specify the node or shard the operation should
-be performed on. Default is random.</p></li>
+query: <cite>AND</cite> or <cite>OR</cite>. Valid choices are and, or.</p></li>
+<li><p><strong>df</strong> – Field to use as default where no field prefix is given
+in the query string.</p></li>
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
+<li><p><strong>expand_wildcards</strong> – Type of index that wildcard patterns can
+match.If the request can target data streams, this argument determines
+whether wildcard expressions match hidden data streams.Supports comma-
+separated values, such as <cite>open,hidden</cite>.Valid values are: <cite>all</cite>, <cite>open</cite>,
+<cite>closed</cite>, <cite>hidden</cite>, <cite>none</cite>.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>from</strong> – Starting offset (default: 0)</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
+<li><p><strong>ignore_unavailable</strong> – If <cite>false</cite>, the request returns an
+error if it targets a missing or closed index.</p></li>
+<li><p><strong>lenient</strong> – If <cite>true</cite>, format-based query failures (such as
+providing text to a numeric field) in the query string will be ignored.</p></li>
+<li><p><strong>max_docs</strong> – Maximum number of documents to process.Defaults
+to all documents.</p></li>
+<li><p><strong>pipeline</strong> – ID of the pipeline to use to preprocess incoming
+documents.If the index has a default ingest pipeline specified, then
+setting the value to <cite>_none</cite> disables the default ingest pipeline for
+this request.If a final pipeline is configured it will always run,
+regardless of the value of this parameter.</p></li>
+<li><p><strong>preference</strong> – Specifies the node or shard the operation
+should be performed on.Random by default.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
 <li><p><strong>q</strong> – Query in the Lucene query string syntax.</p></li>
-<li><p><strong>refresh</strong> – Should the affected indexes be refreshed?.</p></li>
-<li><p><strong>request_cache</strong> – Specify if request cache should be used for
-this request or not, defaults to index level setting.</p></li>
+<li><p><strong>refresh</strong> – If <cite>true</cite>, Opensearch refreshes affected shards to
+make the operation visible to search.</p></li>
+<li><p><strong>request_cache</strong> – If <cite>true</cite>, the request cache is used for
+this request.</p></li>
 <li><p><strong>requests_per_second</strong> – The throttle for this request in sub-
-requests per second. -1 means no throttle. Default is 0.</p></li>
-<li><p><strong>routing</strong> – Comma-separated list of specific routing values.</p></li>
-<li><p><strong>scroll</strong> – Specify how long a consistent view of the index
-should be maintained for scrolled search.</p></li>
-<li><p><strong>scroll_size</strong> – Size on the scroll request powering the
-operation. Default is 100.</p></li>
-<li><p><strong>search_timeout</strong> – Explicit timeout for each search request.
-Defaults to no timeout.</p></li>
-<li><p><strong>search_type</strong> – Search operation type. Valid choices are
+requests per second.</p></li>
+<li><p><strong>routing</strong> – Custom value used to route operations to a
+specific shard.</p></li>
+<li><p><strong>scroll</strong> – Period to retain the search context for scrolling.</p></li>
+<li><p><strong>scroll_size</strong> – Size of the scroll request that powers the
+operation.</p></li>
+<li><p><strong>search_timeout</strong> – Explicit timeout for each search request.</p></li>
+<li><p><strong>search_type</strong> – The type of the search operation. Available
+options: <cite>query_then_fetch</cite>, <cite>dfs_query_then_fetch</cite>. Valid choices are
 query_then_fetch, dfs_query_then_fetch.</p></li>
 <li><p><strong>size</strong> – Deprecated, please use <cite>max_docs</cite> instead.</p></li>
 <li><p><strong>slices</strong> – The number of slices this task should be divided
-into. Defaults to 1, meaning the task isn’t sliced into subtasks. Can be
-set to <cite>auto</cite>. Default is 1.</p></li>
-<li><p><strong>sort</strong> – Comma-separated list of &lt;field&gt;:&lt;direction&gt; pairs.</p></li>
-<li><p><strong>stats</strong> – Specific ‘tag’ of the request for logging and
+into. Valid choices are auto.</p></li>
+<li><p><strong>sort</strong> – A comma-separated list of &lt;field&gt;:&lt;direction&gt; pairs.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
+<li><p><strong>stats</strong> – Specific <cite>tag</cite> of the request for logging and
 statistical purposes.</p></li>
-<li><p><strong>terminate_after</strong> – The maximum number of documents to collect
-for each shard, upon reaching which the query execution will terminate
-early.</p></li>
-<li><p><strong>timeout</strong> – Time each individual bulk request should wait for
-shards that are unavailable. Default is 1m.</p></li>
-<li><p><strong>version</strong> – Whether to return document version as part of a
-hit.</p></li>
-<li><p><strong>wait_for_active_shards</strong> – Sets the number of shard copies
-that must be active before proceeding with the operation. Defaults to 1,
-meaning the primary shard only. Set to <cite>all</cite> for all shard copies,
-otherwise set to any non-negative value less than or equal to the total
-number of copies for the shard (number of replicas + 1). Default is 1.</p></li>
-<li><p><strong>wait_for_completion</strong> – Should this request wait until the
-operation has completed before returning. Default is True.</p></li>
+<li><p><strong>terminate_after</strong> – Maximum number of documents to collect for
+each shard.If a query reaches this limit, Opensearch terminates the
+query early.Opensearch collects documents before sorting.Use with
+caution.Opensearch applies this parameter to each shard handling the
+request.When possible, let Opensearch perform early termination
+automatically.Avoid specifying this parameter for requests that target
+data streams with backing indices across multiple data tiers.</p></li>
+<li><p><strong>timeout</strong> – Period each update request waits for the following
+operations: dynamic mapping updates, waiting for active shards.</p></li>
+<li><p><strong>version</strong> – If <cite>true</cite>, returns the document version as part of
+a hit.</p></li>
+<li><p><strong>wait_for_active_shards</strong> – The number of shard copies that
+must be active before proceeding with the operation.Set to <cite>all</cite> or any
+positive integer up to the total number of shards in the index
+(<cite>number_of_replicas+1</cite>). Valid choices are all, index-setting.</p></li>
+<li><p><strong>wait_for_completion</strong> – If <cite>true</cite>, the request blocks until
+the operation is complete.</p></li>
 <li><p><strong>index</strong> – </p></li>
 <li><p><strong>body</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
@@ -1902,9 +2500,19 @@ operation.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>task_id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – The task id to rethrottle.</p></li>
+<li><p><strong>task_id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – The ID for the task.</p></li>
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
 <li><p><strong>requests_per_second</strong> – The throttle for this request in sub-
-requests per second. -1 means no throttle.</p></li>
+requests per second.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
 <li><p><strong>task_id</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 <li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>

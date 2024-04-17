@@ -132,23 +132,33 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of indices to add a block to.</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – A comma separated list of indices to add a block to</p></li>
 <li><p><strong>block</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – The block to add (one of read, write, read_only or
-metadata).</p></li>
+metadata)</p></li>
 <li><p><strong>allow_no_indices</strong> – Whether to ignore if a wildcard indices
 expression resolves into no concrete indices. (This includes <cite>_all</cite>
-string or when no indices have been specified).</p></li>
+string or when no indices have been specified)</p></li>
 <li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
 to cluster-manager node.</p></li>
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
 <li><p><strong>expand_wildcards</strong> – Whether to expand wildcard expression to
 concrete indices that are open, closed or both. Valid choices are all,
 open, closed, hidden, none.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
 <li><p><strong>ignore_unavailable</strong> – Whether specified concrete indices
-should be ignored when unavailable (missing or closed).</p></li>
+should be ignored when unavailable (missing or closed)</p></li>
 <li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
-use ‘cluster_manager_timeout’ instead.): Operation timeout for
-connection to master node.</p></li>
-<li><p><strong>timeout</strong> – Operation timeout.</p></li>
+use ‘cluster_manager_timeout’ instead.): Specify timeout for connection
+to master</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
+<li><p><strong>timeout</strong> – Explicit operation timeout</p></li>
 <li><p><strong>index</strong> – </p></li>
 <li><p><strong>block</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
@@ -172,6 +182,16 @@ text.</p>
 <li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Define analyzer/tokenizer parameters and the text on
 which the analysis should be performed</p></li>
 <li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – The name of the index to scope the operation.</p></li>
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
 <li><p><strong>body</strong> – </p></li>
 <li><p><strong>index</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
@@ -193,19 +213,33 @@ which the analysis should be performed</p></li>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of indices; use <cite>_all</cite> or empty
 string to perform the operation on all indices.</p></li>
-<li><p><strong>allow_no_indices</strong> – Whether to ignore if a wildcard indices
-expression resolves into no concrete indices. (This includes <cite>_all</cite>
-string or when no indices have been specified).</p></li>
-<li><p><strong>expand_wildcards</strong> – Whether to expand wildcard expression to
-concrete indices that are open, closed or both. Valid choices are all,
-open, closed, hidden, none.</p></li>
-<li><p><strong>fielddata</strong> – Clear field data.</p></li>
-<li><p><strong>fields</strong> – Comma-separated list of fields to clear when using
-the <cite>fielddata</cite> parameter (default: all).</p></li>
-<li><p><strong>ignore_unavailable</strong> – Whether specified concrete indices
-should be ignored when unavailable (missing or closed).</p></li>
-<li><p><strong>query</strong> – Clear query caches.</p></li>
-<li><p><strong>request</strong> – Clear request cache.</p></li>
+<li><p><strong>allow_no_indices</strong> – If <cite>false</cite>, the request returns an error
+if any wildcard expression, index alias, or <cite>_all</cite> value targets only
+missing or closed indices.This behavior applies even if the request
+targets other open indices.</p></li>
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
+<li><p><strong>expand_wildcards</strong> – Type of index that wildcard patterns can
+match.If the request can target data streams, this argument determines
+whether wildcard expressions match hidden data streams.Supports comma-
+separated values, such as <cite>open,hidden</cite>.Valid values are: <cite>all</cite>, <cite>open</cite>,
+<cite>closed</cite>, <cite>hidden</cite>, <cite>none</cite>.</p></li>
+<li><p><strong>fielddata</strong> – If <cite>true</cite>, clears the fields cache.Use the
+<cite>fields</cite> parameter to clear the cache of specific fields only.</p></li>
+<li><p><strong>fields</strong> – Comma-separated list of field names used to limit
+the <cite>fielddata</cite> parameter.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
+<li><p><strong>ignore_unavailable</strong> – If <cite>false</cite>, the request returns an
+error if it targets a missing or closed index.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
+<li><p><strong>query</strong> – If <cite>true</cite>, clears the query cache.</p></li>
+<li><p><strong>request</strong> – If <cite>true</cite>, clears the request cache.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
 <li><p><strong>index</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 <li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
@@ -224,20 +258,35 @@ should be ignored when unavailable (missing or closed).</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – The name of the source index to clone.</p></li>
-<li><p><strong>target</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – The name of the target index.</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Name of the source index to clone.</p></li>
+<li><p><strong>target</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Name of the target index to create.</p></li>
 <li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – The configuration for the target index (<cite>settings</cite>
 and <cite>aliases</cite>)</p></li>
 <li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
 to cluster-manager node.</p></li>
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
 <li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
-use ‘cluster_manager_timeout’ instead.): Operation timeout for
-connection to master node.</p></li>
+use ‘cluster_manager_timeout’ instead.): Period to wait for a connection
+to the master node.If no response is received before the timeout
+expires, the request fails and returns an error.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
 <li><p><strong>task_execution_timeout</strong> – Explicit task execution timeout,
 only useful when wait_for_completion is false, defaults to 1h.</p></li>
-<li><p><strong>timeout</strong> – Operation timeout.</p></li>
-<li><p><strong>wait_for_active_shards</strong> – Set the number of active shards to
-wait for on the cloned index before the operation returns.</p></li>
+<li><p><strong>timeout</strong> – Period to wait for a response.If no response is
+received before the timeout expires, the request fails and returns an
+error.</p></li>
+<li><p><strong>wait_for_active_shards</strong> – The number of shard copies that
+must be active before proceeding with the operation.Set to <cite>all</cite> or any
+positive integer up to the total number of shards in the index
+(<cite>number_of_replicas+1</cite>). Valid choices are all, index-setting.</p></li>
 <li><p><strong>wait_for_completion</strong> – Should this request wait until the
 operation has completed before returning. Default is True.</p></li>
 <li><p><strong>index</strong> – </p></li>
@@ -260,23 +309,42 @@ operation has completed before returning. Default is True.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of indices to close.</p></li>
-<li><p><strong>allow_no_indices</strong> – Whether to ignore if a wildcard indices
-expression resolves into no concrete indices. (This includes <cite>_all</cite>
-string or when no indices have been specified).</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list or wildcard expression of index
+names used to limit the request.</p></li>
+<li><p><strong>allow_no_indices</strong> – If <cite>false</cite>, the request returns an error
+if any wildcard expression, index alias, or <cite>_all</cite> value targets only
+missing or closed indices.This behavior applies even if the request
+targets other open indices.</p></li>
 <li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
 to cluster-manager node.</p></li>
-<li><p><strong>expand_wildcards</strong> – Whether to expand wildcard expression to
-concrete indices that are open, closed or both. Valid choices are all,
-open, closed, hidden, none.</p></li>
-<li><p><strong>ignore_unavailable</strong> – Whether specified concrete indices
-should be ignored when unavailable (missing or closed).</p></li>
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
+<li><p><strong>expand_wildcards</strong> – Type of index that wildcard patterns can
+match.If the request can target data streams, this argument determines
+whether wildcard expressions match hidden data streams.Supports comma-
+separated values, such as <cite>open,hidden</cite>.Valid values are: <cite>all</cite>, <cite>open</cite>,
+<cite>closed</cite>, <cite>hidden</cite>, <cite>none</cite>.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
+<li><p><strong>ignore_unavailable</strong> – If <cite>false</cite>, the request returns an
+error if it targets a missing or closed index.</p></li>
 <li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
-use ‘cluster_manager_timeout’ instead.): Operation timeout for
-connection to master node.</p></li>
-<li><p><strong>timeout</strong> – Operation timeout.</p></li>
-<li><p><strong>wait_for_active_shards</strong> – Sets the number of active shards to
-wait for before the operation returns.</p></li>
+use ‘cluster_manager_timeout’ instead.): Period to wait for a connection
+to the master node.If no response is received before the timeout
+expires, the request fails and returns an error.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
+<li><p><strong>timeout</strong> – Period to wait for a response.If no response is
+received before the timeout expires, the request fails and returns an
+error.</p></li>
+<li><p><strong>wait_for_active_shards</strong> – The number of shard copies that
+must be active before proceeding with the operation.Set to <cite>all</cite> or any
+positive integer up to the total number of shards in the index
+(<cite>number_of_replicas+1</cite>). Valid choices are all, index-setting.</p></li>
 <li><p><strong>index</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 <li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
@@ -295,17 +363,32 @@ wait for before the operation returns.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Index name.</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Name of the index you wish to create.</p></li>
 <li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – The configuration for the index (<cite>settings</cite> and
 <cite>mappings</cite>)</p></li>
 <li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
 to cluster-manager node.</p></li>
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
 <li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
-use ‘cluster_manager_timeout’ instead.): Operation timeout for
-connection to master node.</p></li>
-<li><p><strong>timeout</strong> – Operation timeout.</p></li>
-<li><p><strong>wait_for_active_shards</strong> – Set the number of active shards to
-wait for before the operation returns.</p></li>
+use ‘cluster_manager_timeout’ instead.): Period to wait for a connection
+to the master node.If no response is received before the timeout
+expires, the request fails and returns an error.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
+<li><p><strong>timeout</strong> – Period to wait for a response.If no response is
+received before the timeout expires, the request fails and returns an
+error.</p></li>
+<li><p><strong>wait_for_active_shards</strong> – The number of shard copies that
+must be active before proceeding with the operation. Set to <cite>all</cite> or any
+positive integer up to the total number of shards in the index
+(<cite>number_of_replicas+1</cite>). Valid choices are all, index-setting.</p></li>
 <li><p><strong>index</strong> – </p></li>
 <li><p><strong>body</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
@@ -325,8 +408,23 @@ wait for before the operation returns.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – The name of the data stream.</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Name of the data stream, which must meet the
+following criteria: Lowercase only; Cannot include <cite>/</cite>, <cite>*</cite>, <cite>?</cite>, <cite>“</cite>,
+<cite>&lt;</cite>, <cite>&gt;</cite>, <cite>|</cite>, <cite>,</cite>, <cite>#</cite>, <cite>:</cite>, backslash, or a space character; Cannot
+start with <cite>-</cite>, <cite>_</cite>, <cite>+</cite>, or <cite>.ds-</cite>; Cannot be <cite>.</cite> or <cite>..</cite>; Cannot be
+longer than 255 bytes. Multi-byte characters count towards this limit
+faster.</p></li>
 <li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – The data stream definition</p></li>
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
 <li><p><strong>name</strong> – </p></li>
 <li><p><strong>body</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
@@ -346,8 +444,19 @@ wait for before the operation returns.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of data streams; use <cite>_all</cite> or
-empty string to perform the operation on all data streams.</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of data streams used to limit
+the request. Wildcard expressions (<cite>*</cite>) are supported. To target all
+data streams in a cluster, omit this parameter or use <cite>*</cite>.</p></li>
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
 <li><p><strong>name</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 <li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
@@ -366,23 +475,40 @@ empty string to perform the operation on all data streams.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of indices to delete; use
-<cite>_all</cite> or <cite>*</cite> string to delete all indices.</p></li>
-<li><p><strong>allow_no_indices</strong> – Whether to ignore if a wildcard indices
-expression resolves into no concrete indices. (This includes <cite>_all</cite>
-string or when no indices have been specified). Default is false.</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of indices to delete. You
+cannot specify index aliases. By default, this parameter does not
+support wildcards (<cite>*</cite>) or <cite>_all</cite>. To use wildcards or <cite>_all</cite>, set the
+<cite>action.destructive_requires_name</cite> cluster setting to <cite>false</cite>.</p></li>
+<li><p><strong>allow_no_indices</strong> – If <cite>false</cite>, the request returns an error
+if any wildcard expression, index alias, or <cite>_all</cite> value targets only
+missing or closed indices.This behavior applies even if the request
+targets other open indices.</p></li>
 <li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
 to cluster-manager node.</p></li>
-<li><p><strong>expand_wildcards</strong> – Whether to expand wildcard expression to
-concrete indices that are open, closed or both. Valid choices are all,
-open, closed, hidden, none.</p></li>
-<li><p><strong>ignore_unavailable</strong> – Whether specified concrete indices
-should be ignored when unavailable (missing or closed). Default is
-false.</p></li>
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
+<li><p><strong>expand_wildcards</strong> – Type of index that wildcard patterns can
+match.If the request can target data streams, this argument determines
+whether wildcard expressions match hidden data streams.Supports comma-
+separated values, such as <cite>open,hidden</cite>.Valid values are: <cite>all</cite>, <cite>open</cite>,
+<cite>closed</cite>, <cite>hidden</cite>, <cite>none</cite>.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
+<li><p><strong>ignore_unavailable</strong> – If <cite>false</cite>, the request returns an
+error if it targets a missing or closed index.</p></li>
 <li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
-use ‘cluster_manager_timeout’ instead.): Operation timeout for
-connection to master node.</p></li>
-<li><p><strong>timeout</strong> – Operation timeout.</p></li>
+use ‘cluster_manager_timeout’ instead.): Period to wait for a connection
+to the master node.If no response is received before the timeout
+expires, the request fails and returns an error.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
+<li><p><strong>timeout</strong> – Period to wait for a response.If no response is
+received before the timeout expires, the request fails and returns an
+error.</p></li>
 <li><p><strong>index</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 <li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
@@ -401,16 +527,29 @@ connection to master node.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of indices; use <cite>_all</cite> or empty
-string to perform the operation on all indices.</p></li>
-<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of aliases to delete (supports
-wildcards); use <cite>_all</cite> to delete all aliases for the specified indices.</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of data streams or indices used
+to limit the request. Supports wildcards (<cite>*</cite>).</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of aliases to remove. Supports
+wildcards (<cite>*</cite>). To remove all aliases, use <cite>*</cite> or <cite>_all</cite>.</p></li>
 <li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
 to cluster-manager node.</p></li>
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
 <li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
-use ‘cluster_manager_timeout’ instead.): Operation timeout for
-connection to master node.</p></li>
-<li><p><strong>timeout</strong> – Operation timeout.</p></li>
+use ‘cluster_manager_timeout’ instead.): Period to wait for a connection
+to the master node.If no response is received before the timeout
+expires, the request fails and returns an error.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
+<li><p><strong>timeout</strong> – Period to wait for a response.If no response is
+received before the timeout expires, the request fails and returns an
+error.</p></li>
 <li><p><strong>index</strong> – </p></li>
 <li><p><strong>name</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
@@ -430,8 +569,18 @@ connection to master node.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of data streams; use <cite>_all</cite> or
-empty string to perform the operation on all data streams.</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of data streams to delete.
+Wildcard (<cite>*</cite>) expressions are supported.</p></li>
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
 <li><p><strong>name</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 <li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
@@ -450,13 +599,27 @@ empty string to perform the operation on all data streams.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – The name of the template.</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Name of the index template to delete. Wildcard (*)
+expressions are supported.</p></li>
 <li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
 to cluster-manager node.</p></li>
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
 <li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
-use ‘cluster_manager_timeout’ instead.): Operation timeout for
-connection to master node.</p></li>
-<li><p><strong>timeout</strong> – Operation timeout.</p></li>
+use ‘cluster_manager_timeout’ instead.): Period to wait for a connection
+to the master node. If no response is received before the timeout
+expires, the request fails and returns an error.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
+<li><p><strong>timeout</strong> – Period to wait for a response. If no response is
+received before the timeout expires, the request fails and returns an
+error.</p></li>
 <li><p><strong>name</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 <li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
@@ -475,13 +638,27 @@ connection to master node.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – The name of the template.</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – The name of the legacy index template to delete.
+Wildcard (<cite>*</cite>) expressions are supported.</p></li>
 <li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
 to cluster-manager node.</p></li>
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
 <li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
-use ‘cluster_manager_timeout’ instead.): Operation timeout for
-connection to master node.</p></li>
-<li><p><strong>timeout</strong> – Operation timeout.</p></li>
+use ‘cluster_manager_timeout’ instead.): Period to wait for a connection
+to the master node.If no response is received before the timeout
+expires, the request fails and returns an error.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
+<li><p><strong>timeout</strong> – Period to wait for a response.If no response is
+received before the timeout expires, the request fails and returns an
+error.</p></li>
 <li><p><strong>name</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 <li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
@@ -500,22 +677,34 @@ connection to master node.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of indices.</p></li>
-<li><p><strong>allow_no_indices</strong> – Whether to ignore if a wildcard indices
-expression resolves into no concrete indices. (This includes <cite>_all</cite>
-string or when no indices have been specified). Default is false.</p></li>
-<li><p><strong>expand_wildcards</strong> – Whether to expand wildcard expression to
-concrete indices that are open, closed or both. Valid choices are all,
-open, closed, hidden, none.</p></li>
-<li><p><strong>flat_settings</strong> – Return settings in flat format. Default is
-false.</p></li>
-<li><p><strong>ignore_unavailable</strong> – Whether specified concrete indices
-should be ignored when unavailable (missing or closed). Default is
-false.</p></li>
-<li><p><strong>include_defaults</strong> – Whether to return all default setting for
-each of the indices. Default is false.</p></li>
-<li><p><strong>local</strong> – Return local information, do not retrieve the state
-from cluster-manager node. Default is false.</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of data streams, indices, and
+aliases. Supports wildcards (<cite>*</cite>).</p></li>
+<li><p><strong>allow_no_indices</strong> – If <cite>false</cite>, the request returns an error
+if any wildcard expression, index alias, or <cite>_all</cite> value targets only
+missing or closed indices.This behavior applies even if the request
+targets other open indices.</p></li>
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
+<li><p><strong>expand_wildcards</strong> – Type of index that wildcard patterns can
+match.If the request can target data streams, this argument determines
+whether wildcard expressions match hidden data streams.Supports comma-
+separated values, such as <cite>open,hidden</cite>.Valid values are: <cite>all</cite>, <cite>open</cite>,
+<cite>closed</cite>, <cite>hidden</cite>, <cite>none</cite>.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>flat_settings</strong> – If <cite>true</cite>, returns settings in flat format.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
+<li><p><strong>ignore_unavailable</strong> – If <cite>false</cite>, the request returns an
+error if it targets a missing or closed index.</p></li>
+<li><p><strong>include_defaults</strong> – If <cite>true</cite>, return all default settings in
+the response.</p></li>
+<li><p><strong>local</strong> – If <cite>true</cite>, the request retrieves information from
+the local node only.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
 <li><p><strong>index</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 <li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
@@ -534,18 +723,35 @@ from cluster-manager node. Default is false.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of alias names.</p></li>
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of indices to filter aliases.</p></li>
-<li><p><strong>allow_no_indices</strong> – Whether to ignore if a wildcard indices
-expression resolves into no concrete indices. (This includes <cite>_all</cite>
-string or when no indices have been specified).</p></li>
-<li><p><strong>expand_wildcards</strong> – Whether to expand wildcard expression to
-concrete indices that are open, closed or both. Valid choices are all,
-open, closed, hidden, none.</p></li>
-<li><p><strong>ignore_unavailable</strong> – Whether specified concrete indices
-should be ignored when unavailable (missing or closed).</p></li>
-<li><p><strong>local</strong> – Return local information, do not retrieve the state
-from cluster-manager node. Default is false.</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of aliases to check. Supports
+wildcards (<cite>*</cite>).</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of data streams or indices used
+to limit the request. Supports wildcards (<cite>*</cite>). To target all data
+streams and indices, omit this parameter or use <cite>*</cite> or <cite>_all</cite>.</p></li>
+<li><p><strong>allow_no_indices</strong> – If <cite>false</cite>, the request returns an error
+if any wildcard expression, index alias, or <cite>_all</cite> value targets only
+missing or closed indices.This behavior applies even if the request
+targets other open indices.</p></li>
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
+<li><p><strong>expand_wildcards</strong> – Type of index that wildcard patterns can
+match.If the request can target data streams, this argument determines
+whether wildcard expressions match hidden data streams.Supports comma-
+separated values, such as <cite>open,hidden</cite>.Valid values are: <cite>all</cite>, <cite>open</cite>,
+<cite>closed</cite>, <cite>hidden</cite>, <cite>none</cite>.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
+<li><p><strong>ignore_unavailable</strong> – If <cite>false</cite>, requests that include a
+missing data stream or index in the target indices or data streams
+return an error.</p></li>
+<li><p><strong>local</strong> – If <cite>true</cite>, the request retrieves information from
+the local node only.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
 <li><p><strong>name</strong> – </p></li>
 <li><p><strong>index</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
@@ -565,16 +771,28 @@ from cluster-manager node. Default is false.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – The name of the template.</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Name of the index template to check existence of.
+Wildcard (*) expressions are supported.</p></li>
 <li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
 to cluster-manager node.</p></li>
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
 <li><p><strong>flat_settings</strong> – Return settings in flat format. Default is
 false.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
 <li><p><strong>local</strong> – Return local information, do not retrieve the state
 from cluster-manager node. Default is false.</p></li>
 <li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
-use ‘cluster_manager_timeout’ instead.): Operation timeout for
-connection to master node.</p></li>
+use ‘cluster_manager_timeout’ instead.): Period to wait for a connection
+to the master node. If no response is received before the timeout
+expires, the request fails and returns an error.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
 <li><p><strong>name</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 <li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
@@ -593,16 +811,26 @@ connection to master node.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated names of the index templates.</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – The comma separated names of the index templates</p></li>
 <li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
 to cluster-manager node.</p></li>
-<li><p><strong>flat_settings</strong> – Return settings in flat format. Default is
-false.</p></li>
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>flat_settings</strong> – Return settings in flat format (default:
+false)</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
 <li><p><strong>local</strong> – Return local information, do not retrieve the state
-from cluster-manager node. Default is false.</p></li>
+from cluster-manager node (default: false)</p></li>
 <li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
-use ‘cluster_manager_timeout’ instead.): Operation timeout for
-connection to master node.</p></li>
+use ‘cluster_manager_timeout’ instead.): Explicit operation timeout for
+connection to master node</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
 <li><p><strong>name</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 <li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
@@ -621,25 +849,36 @@ connection to master node.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of indices; use <cite>_all</cite> or empty
-string to perform the operation on all indices.</p></li>
-<li><p><strong>allow_no_indices</strong> – Whether to ignore if a wildcard indices
-expression resolves into no concrete indices. (This includes <cite>_all</cite>
-string or when no indices have been specified).</p></li>
-<li><p><strong>expand_wildcards</strong> – Whether to expand wildcard expression to
-concrete indices that are open, closed or both. Valid choices are all,
-open, closed, hidden, none.</p></li>
-<li><p><strong>force</strong> – Whether a flush should be forced even if it is not
-necessarily needed ie. if no changes will be committed to the index.
-This is useful if transaction log IDs should be incremented even if no
-uncommitted changes are present. (This setting can be considered as
-internal).</p></li>
-<li><p><strong>ignore_unavailable</strong> – Whether specified concrete indices
-should be ignored when unavailable (missing or closed).</p></li>
-<li><p><strong>wait_if_ongoing</strong> – If set to true the flush operation will
-block until the flush can be executed if another flush operation is
-already executing. If set to false the flush will be skipped iff if
-another flush operation is already running. Default is True.</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of data streams, indices, and
+aliases to flush. Supports wildcards (<cite>*</cite>). To flush all data streams
+and indices, omit this parameter or use <cite>*</cite> or <cite>_all</cite>.</p></li>
+<li><p><strong>allow_no_indices</strong> – If <cite>false</cite>, the request returns an error
+if any wildcard expression, index alias, or <cite>_all</cite> value targets only
+missing or closed indices.This behavior applies even if the request
+targets other open indices.</p></li>
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
+<li><p><strong>expand_wildcards</strong> – Type of index that wildcard patterns can
+match.If the request can target data streams, this argument determines
+whether wildcard expressions match hidden data streams.Supports comma-
+separated values, such as <cite>open,hidden</cite>.Valid values are: <cite>all</cite>, <cite>open</cite>,
+<cite>closed</cite>, <cite>hidden</cite>, <cite>none</cite>.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>force</strong> – If <cite>true</cite>, the request forces a flush even if there
+are no changes to commit to the index.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
+<li><p><strong>ignore_unavailable</strong> – If <cite>false</cite>, the request returns an
+error if it targets a missing or closed index.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
+<li><p><strong>wait_if_ongoing</strong> – If <cite>true</cite>, the flush operation blocks
+until execution when another flush operation is running.If <cite>false</cite>,
+Opensearch returns an error if you request a flush when another flush
+operation is running.</p></li>
 <li><p><strong>index</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 <li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
@@ -658,26 +897,36 @@ another flush operation is already running. Default is True.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of indices; use <cite>_all</cite> or empty
-string to perform the operation on all indices.</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – A comma-separated list of index names; use <cite>_all</cite> or
+empty string to perform the operation on all indices</p></li>
 <li><p><strong>allow_no_indices</strong> – Whether to ignore if a wildcard indices
 expression resolves into no concrete indices. (This includes <cite>_all</cite>
-string or when no indices have been specified).</p></li>
+string or when no indices have been specified)</p></li>
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
 <li><p><strong>expand_wildcards</strong> – Whether to expand wildcard expression to
 concrete indices that are open, closed or both. Valid choices are all,
 open, closed, hidden, none.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
 <li><p><strong>flush</strong> – Specify whether the index should be flushed after
-performing the operation. Default is True.</p></li>
+performing the operation (default: true)</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
 <li><p><strong>ignore_unavailable</strong> – Whether specified concrete indices
-should be ignored when unavailable (missing or closed).</p></li>
+should be ignored when unavailable (missing or closed)</p></li>
 <li><p><strong>max_num_segments</strong> – The number of segments the index should
-be merged into (default: dynamic).</p></li>
+be merged into (default: dynamic)</p></li>
 <li><p><strong>only_expunge_deletes</strong> – Specify whether the operation should
-only expunge deleted documents.</p></li>
+only expunge deleted documents</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
 <li><p><strong>primary_only</strong> – Specify whether the operation should only
 perform on primary shards. Defaults to false. Default is false.</p></li>
-<li><p><strong>wait_for_completion</strong> – Should this request wait until the
-operation has completed before returning. Default is True.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
+<li><p><strong>wait_for_completion</strong> – Should the request wait until the
+force merge is completed.</p></li>
 <li><p><strong>index</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 <li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
@@ -696,27 +945,43 @@ operation has completed before returning. Default is True.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of indices.</p></li>
-<li><p><strong>allow_no_indices</strong> – Whether to ignore if a wildcard indices
-expression resolves into no concrete indices. (This includes <cite>_all</cite>
-string or when no indices have been specified). Default is false.</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of data streams, indices, and
+index aliases used to limit the request. Wildcard expressions (*) are
+supported.</p></li>
+<li><p><strong>allow_no_indices</strong> – If false, the request returns an error if
+any wildcard expression, index alias, or _all value targets onlymissing
+or closed indices. This behavior applies even if the request targets
+other open indices. For example,a request targeting foo*,bar* returns an
+error if an index starts with foo but no index starts with bar.</p></li>
 <li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
 to cluster-manager node.</p></li>
-<li><p><strong>expand_wildcards</strong> – Whether to expand wildcard expression to
-concrete indices that are open, closed or both. Valid choices are all,
-open, closed, hidden, none.</p></li>
-<li><p><strong>flat_settings</strong> – Return settings in flat format. Default is
-false.</p></li>
-<li><p><strong>ignore_unavailable</strong> – Whether specified concrete indices
-should be ignored when unavailable (missing or closed). Default is
-false.</p></li>
-<li><p><strong>include_defaults</strong> – Whether to return all default setting for
-each of the indices. Default is false.</p></li>
-<li><p><strong>local</strong> – Return local information, do not retrieve the state
-from cluster-manager node. Default is false.</p></li>
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
+<li><p><strong>expand_wildcards</strong> – Type of index that wildcard expressions
+can match. If the request can target data streams, this
+argumentdetermines whether wildcard expressions match hidden data
+streams. Supports comma-separated values,such as open,hidden. Valid
+choices are all, open, closed, hidden, none.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>flat_settings</strong> – If true, returns settings in flat format.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
+<li><p><strong>ignore_unavailable</strong> – If false, requests that target a
+missing index return an error.</p></li>
+<li><p><strong>include_defaults</strong> – If true, return all default settings in
+the response.</p></li>
+<li><p><strong>local</strong> – If true, the request retrieves information from the
+local node only. Defaults to false, which means information is retrieved
+from the master node.</p></li>
 <li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
-use ‘cluster_manager_timeout’ instead.): Operation timeout for
-connection to master node.</p></li>
+use ‘cluster_manager_timeout’ instead.): Period to wait for a connection
+to the master node. If no response is received before the timeout
+expires, the request fails and returns an error.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
 <li><p><strong>index</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 <li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
@@ -735,18 +1000,35 @@ connection to master node.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of indices to filter aliases.</p></li>
-<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of alias names.</p></li>
-<li><p><strong>allow_no_indices</strong> – Whether to ignore if a wildcard indices
-expression resolves into no concrete indices. (This includes <cite>_all</cite>
-string or when no indices have been specified).</p></li>
-<li><p><strong>expand_wildcards</strong> – Whether to expand wildcard expression to
-concrete indices that are open, closed or both. Valid choices are all,
-open, closed, hidden, none.</p></li>
-<li><p><strong>ignore_unavailable</strong> – Whether specified concrete indices
-should be ignored when unavailable (missing or closed).</p></li>
-<li><p><strong>local</strong> – Return local information, do not retrieve the state
-from cluster-manager node. Default is false.</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of data streams or indices used
+to limit the request. Supports wildcards (<cite>*</cite>). To target all data
+streams and indices, omit this parameter or use <cite>*</cite> or <cite>_all</cite>.</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of aliases to retrieve. Supports
+wildcards (<cite>*</cite>). To retrieve all aliases, omit this parameter or use <cite>*</cite>
+or <cite>_all</cite>.</p></li>
+<li><p><strong>allow_no_indices</strong> – If <cite>false</cite>, the request returns an error
+if any wildcard expression, index alias, or <cite>_all</cite> value targets only
+missing or closed indices.This behavior applies even if the request
+targets other open indices.</p></li>
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
+<li><p><strong>expand_wildcards</strong> – Type of index that wildcard patterns can
+match.If the request can target data streams, this argument determines
+whether wildcard expressions match hidden data streams.Supports comma-
+separated values, such as <cite>open,hidden</cite>.Valid values are: <cite>all</cite>, <cite>open</cite>,
+<cite>closed</cite>, <cite>hidden</cite>, <cite>none</cite>.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
+<li><p><strong>ignore_unavailable</strong> – If <cite>false</cite>, the request returns an
+error if it targets a missing or closed index.</p></li>
+<li><p><strong>local</strong> – If <cite>true</cite>, the request retrieves information from
+the local node only.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
 <li><p><strong>index</strong> – </p></li>
 <li><p><strong>name</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
@@ -766,8 +1048,19 @@ from cluster-manager node. Default is false.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of data streams; use <cite>_all</cite> or
-empty string to perform the operation on all data streams.</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of data stream names used to
+limit the request. Wildcard (<cite>*</cite>) expressions are supported. If omitted,
+all data streams are returned.</p></li>
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
 <li><p><strong>name</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 <li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
@@ -786,20 +1079,36 @@ empty string to perform the operation on all data streams.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>fields</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of fields.</p></li>
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of indices.</p></li>
-<li><p><strong>allow_no_indices</strong> – Whether to ignore if a wildcard indices
-expression resolves into no concrete indices. (This includes <cite>_all</cite>
-string or when no indices have been specified).</p></li>
-<li><p><strong>expand_wildcards</strong> – Whether to expand wildcard expression to
-concrete indices that are open, closed or both. Valid choices are all,
-open, closed, hidden, none.</p></li>
-<li><p><strong>ignore_unavailable</strong> – Whether specified concrete indices
-should be ignored when unavailable (missing or closed).</p></li>
-<li><p><strong>include_defaults</strong> – Whether the default mapping values should
-be returned as well.</p></li>
-<li><p><strong>local</strong> – Return local information, do not retrieve the state
-from cluster-manager node. Default is false.</p></li>
+<li><p><strong>fields</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list or wildcard expression of
+fields used to limit returned information.</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of data streams, indices, and
+aliases used to limit the request. Supports wildcards (<cite>*</cite>). To target
+all data streams and indices, omit this parameter or use <cite>*</cite> or <cite>_all</cite>.</p></li>
+<li><p><strong>allow_no_indices</strong> – If <cite>false</cite>, the request returns an error
+if any wildcard expression, index alias, or <cite>_all</cite> value targets only
+missing or closed indices.This behavior applies even if the request
+targets other open indices.</p></li>
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
+<li><p><strong>expand_wildcards</strong> – Type of index that wildcard patterns can
+match.If the request can target data streams, this argument determines
+whether wildcard expressions match hidden data streams.Supports comma-
+separated values, such as <cite>open,hidden</cite>.Valid values are: <cite>all</cite>, <cite>open</cite>,
+<cite>closed</cite>, <cite>hidden</cite>, <cite>none</cite>.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
+<li><p><strong>ignore_unavailable</strong> – If <cite>false</cite>, the request returns an
+error if it targets a missing or closed index.</p></li>
+<li><p><strong>include_defaults</strong> – If <cite>true</cite>, return all default settings in
+the response.</p></li>
+<li><p><strong>local</strong> – If <cite>true</cite>, the request retrieves information from
+the local node only.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
 <li><p><strong>fields</strong> – </p></li>
 <li><p><strong>index</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
@@ -819,16 +1128,28 @@ from cluster-manager node. Default is false.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated names of the index templates.</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Name of the index template to retrieve. Wildcard (*)
+expressions are supported.</p></li>
 <li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
 to cluster-manager node.</p></li>
-<li><p><strong>flat_settings</strong> – Return settings in flat format. Default is
-false.</p></li>
-<li><p><strong>local</strong> – Return local information, do not retrieve the state
-from cluster-manager node. Default is false.</p></li>
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>flat_settings</strong> – If true, returns settings in flat format.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
+<li><p><strong>local</strong> – If true, the request retrieves information from the
+local node only. Defaults to false, which means information is retrieved
+from the master node.</p></li>
 <li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
-use ‘cluster_manager_timeout’ instead.): Operation timeout for
-connection to master node.</p></li>
+use ‘cluster_manager_timeout’ instead.): Period to wait for a connection
+to the master node. If no response is received before the timeout
+expires, the request fails and returns an error.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
 <li><p><strong>name</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 <li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
@@ -847,23 +1168,38 @@ connection to master node.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of indices.</p></li>
-<li><p><strong>allow_no_indices</strong> – Whether to ignore if a wildcard indices
-expression resolves into no concrete indices. (This includes <cite>_all</cite>
-string or when no indices have been specified).</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of data streams, indices, and
+aliases used to limit the request. Supports wildcards (<cite>*</cite>). To target
+all data streams and indices, omit this parameter or use <cite>*</cite> or <cite>_all</cite>.</p></li>
+<li><p><strong>allow_no_indices</strong> – If <cite>false</cite>, the request returns an error
+if any wildcard expression, index alias, or <cite>_all</cite> value targets only
+missing or closed indices.This behavior applies even if the request
+targets other open indices.</p></li>
 <li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
 to cluster-manager node.</p></li>
-<li><p><strong>expand_wildcards</strong> – Whether to expand wildcard expression to
-concrete indices that are open, closed or both. Valid choices are all,
-open, closed, hidden, none.</p></li>
-<li><p><strong>ignore_unavailable</strong> – Whether specified concrete indices
-should be ignored when unavailable (missing or closed).</p></li>
-<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – This parameter is a no-op and field
-mappings are always retrieved locally.): Return local information, do
-not retrieve the state from cluster-manager node. Default is false.</p></li>
-<li><p><strong>(</strong><strong>Deprecated</strong> – To promote inclusive language,
-use ‘cluster_manager_timeout’ instead.): Operation timeout for
-connection to master node.</p></li>
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
+<li><p><strong>expand_wildcards</strong> – Type of index that wildcard patterns can
+match.If the request can target data streams, this argument determines
+whether wildcard expressions match hidden data streams.Supports comma-
+separated values, such as <cite>open,hidden</cite>.Valid values are: <cite>all</cite>, <cite>open</cite>,
+<cite>closed</cite>, <cite>hidden</cite>, <cite>none</cite>.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
+<li><p><strong>ignore_unavailable</strong> – If <cite>false</cite>, the request returns an
+error if it targets a missing or closed index.</p></li>
+<li><p><strong>local</strong> – If <cite>true</cite>, the request retrieves information from
+the local node only.</p></li>
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
+use ‘cluster_manager_timeout’ instead.): Period to wait for a connection
+to the master node.If no response is received before the timeout
+expires, the request fails and returns an error.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
 <li><p><strong>index</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 <li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
@@ -882,28 +1218,46 @@ connection to master node.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of indices; use <cite>_all</cite> or empty
-string to perform the operation on all indices.</p></li>
-<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of settings.</p></li>
-<li><p><strong>allow_no_indices</strong> – Whether to ignore if a wildcard indices
-expression resolves into no concrete indices. (This includes <cite>_all</cite>
-string or when no indices have been specified).</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of data streams, indices, and
+aliases used to limit the request. Supports wildcards (<cite>*</cite>). To target
+all data streams and indices, omit this parameter or use <cite>*</cite> or <cite>_all</cite>.</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list or wildcard expression of
+settings to retrieve.</p></li>
+<li><p><strong>allow_no_indices</strong> – If <cite>false</cite>, the request returns an error
+if any wildcard expression, indexalias, or <cite>_all</cite> value targets only
+missing or closed indices. Thisbehavior applies even if the request
+targets other open indices. Forexample, a request targeting <cite>foo*,bar*</cite>
+returns an error if an indexstarts with foo but no index starts with
+<cite>bar</cite>.</p></li>
 <li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
 to cluster-manager node.</p></li>
-<li><p><strong>expand_wildcards</strong> – Whether to expand wildcard expression to
-concrete indices that are open, closed or both. Valid choices are all,
-open, closed, hidden, none.</p></li>
-<li><p><strong>flat_settings</strong> – Return settings in flat format. Default is
-false.</p></li>
-<li><p><strong>ignore_unavailable</strong> – Whether specified concrete indices
-should be ignored when unavailable (missing or closed).</p></li>
-<li><p><strong>include_defaults</strong> – Whether to return all default setting for
-each of the indices. Default is false.</p></li>
-<li><p><strong>local</strong> – Return local information, do not retrieve the state
-from cluster-manager node. Default is false.</p></li>
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
+<li><p><strong>expand_wildcards</strong> – Type of index that wildcard patterns can
+match.If the request can target data streams, this argument determines
+whether wildcard expressions match hidden data streams.Supports comma-
+separated values, such as <cite>open,hidden</cite>. Valid choices are all, open,
+closed, hidden, none.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>flat_settings</strong> – If <cite>true</cite>, returns settings in flat format.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
+<li><p><strong>ignore_unavailable</strong> – If <cite>false</cite>, the request returns an
+error if it targets a missing or closed index.</p></li>
+<li><p><strong>include_defaults</strong> – If <cite>true</cite>, return all default settings in
+the response.</p></li>
+<li><p><strong>local</strong> – If <cite>true</cite>, the request retrieves information from
+the local node only. If`false`, information is retrieved from the master
+node.</p></li>
 <li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
-use ‘cluster_manager_timeout’ instead.): Operation timeout for
-connection to master node.</p></li>
+use ‘cluster_manager_timeout’ instead.): Period to wait for a connection
+to the master node. If no response isreceived before the timeout
+expires, the request fails and returns anerror.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
 <li><p><strong>index</strong> – </p></li>
 <li><p><strong>name</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
@@ -923,16 +1277,29 @@ connection to master node.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated names of the index templates.</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of index template names used to
+limit the request. Wildcard (<cite>*</cite>) expressions are supported. To return
+all index templates, omit this parameter or use a value of <cite>_all</cite> or
+<cite>*</cite>.</p></li>
 <li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
 to cluster-manager node.</p></li>
-<li><p><strong>flat_settings</strong> – Return settings in flat format. Default is
-false.</p></li>
-<li><p><strong>local</strong> – Return local information, do not retrieve the state
-from cluster-manager node. Default is false.</p></li>
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>flat_settings</strong> – If <cite>true</cite>, returns settings in flat format.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
+<li><p><strong>local</strong> – If <cite>true</cite>, the request retrieves information from
+the local node only.</p></li>
 <li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
-use ‘cluster_manager_timeout’ instead.): Operation timeout for
-connection to master node.</p></li>
+use ‘cluster_manager_timeout’ instead.): Period to wait for a connection
+to the master node.If no response is received before the timeout
+expires, the request fails and returns an error.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
 <li><p><strong>name</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 <li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
@@ -956,11 +1323,21 @@ string to perform the operation on all indices.</p></li>
 <li><p><strong>allow_no_indices</strong> – Whether to ignore if a wildcard indices
 expression resolves into no concrete indices. (This includes <cite>_all</cite>
 string or when no indices have been specified).</p></li>
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
 <li><p><strong>expand_wildcards</strong> – Whether to expand wildcard expression to
 concrete indices that are open, closed or both. Valid choices are all,
 open, closed, hidden, none.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
 <li><p><strong>ignore_unavailable</strong> – Whether specified concrete indices
 should be ignored when unavailable (missing or closed).</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
 <li><p><strong>index</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 <li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
@@ -979,25 +1356,49 @@ should be ignored when unavailable (missing or closed).</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of indices to open.</p></li>
-<li><p><strong>allow_no_indices</strong> – Whether to ignore if a wildcard indices
-expression resolves into no concrete indices. (This includes <cite>_all</cite>
-string or when no indices have been specified).</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of data streams, indices, and
+aliases used to limit the request. Supports wildcards (<cite>*</cite>). By default,
+you must explicitly name the indices you using to limit the request. To
+limit a request using <cite>_all</cite>, <cite>*</cite>, or other wildcard expressions, change
+the <cite>action.destructive_requires_name</cite> setting to false. You can update
+this setting in the <cite>opensearch.yml</cite> file or using the cluster update
+settings API.</p></li>
+<li><p><strong>allow_no_indices</strong> – If <cite>false</cite>, the request returns an error
+if any wildcard expression, index alias, or <cite>_all</cite> value targets only
+missing or closed indices.This behavior applies even if the request
+targets other open indices.</p></li>
 <li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
 to cluster-manager node.</p></li>
-<li><p><strong>expand_wildcards</strong> – Whether to expand wildcard expression to
-concrete indices that are open, closed or both. Valid choices are all,
-open, closed, hidden, none.</p></li>
-<li><p><strong>ignore_unavailable</strong> – Whether specified concrete indices
-should be ignored when unavailable (missing or closed).</p></li>
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
+<li><p><strong>expand_wildcards</strong> – Type of index that wildcard patterns can
+match.If the request can target data streams, this argument determines
+whether wildcard expressions match hidden data streams.Supports comma-
+separated values, such as <cite>open,hidden</cite>.Valid values are: <cite>all</cite>, <cite>open</cite>,
+<cite>closed</cite>, <cite>hidden</cite>, <cite>none</cite>.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
+<li><p><strong>ignore_unavailable</strong> – If <cite>false</cite>, the request returns an
+error if it targets a missing or closed index.</p></li>
 <li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
-use ‘cluster_manager_timeout’ instead.): Operation timeout for
-connection to master node.</p></li>
+use ‘cluster_manager_timeout’ instead.): Period to wait for a connection
+to the master node.If no response is received before the timeout
+expires, the request fails and returns an error.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
 <li><p><strong>task_execution_timeout</strong> – Explicit task execution timeout,
 only useful when wait_for_completion is false, defaults to 1h.</p></li>
-<li><p><strong>timeout</strong> – Operation timeout.</p></li>
-<li><p><strong>wait_for_active_shards</strong> – Sets the number of active shards to
-wait for before the operation returns.</p></li>
+<li><p><strong>timeout</strong> – Period to wait for a response.If no response is
+received before the timeout expires, the request fails and returns an
+error.</p></li>
+<li><p><strong>wait_for_active_shards</strong> – The number of shard copies that
+must be active before proceeding with the operation.Set to <cite>all</cite> or any
+positive integer up to the total number of shards in the index
+(<cite>number_of_replicas+1</cite>). Valid choices are all, index-setting.</p></li>
 <li><p><strong>wait_for_completion</strong> – Should this request wait until the
 operation has completed before returning. Default is True.</p></li>
 <li><p><strong>index</strong> – </p></li>
@@ -1018,17 +1419,32 @@ operation has completed before returning. Default is True.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of indices; use <cite>_all</cite> or empty
-string to perform the operation on all indices.</p></li>
-<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – The name of the alias to be created or updated.</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of data streams or indices to
+add. Supports wildcards (<cite>*</cite>). Wildcard patterns that match both data
+streams and indices return an error.</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Alias to update. If the alias doesn’t exist, the
+request creates it. Index alias names support date math.</p></li>
 <li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – The settings for the alias, such as <cite>routing</cite> or
 <cite>filter</cite></p></li>
 <li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
 to cluster-manager node.</p></li>
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
 <li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
-use ‘cluster_manager_timeout’ instead.): Operation timeout for
-connection to master node.</p></li>
-<li><p><strong>timeout</strong> – Operation timeout.</p></li>
+use ‘cluster_manager_timeout’ instead.): Period to wait for a connection
+to the master node.If no response is received before the timeout
+expires, the request fails and returns an error.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
+<li><p><strong>timeout</strong> – Period to wait for a response.If no response is
+received before the timeout expires, the request fails and returns an
+error.</p></li>
 <li><p><strong>index</strong> – </p></li>
 <li><p><strong>name</strong> – </p></li>
 <li><p><strong>body</strong> – </p></li>
@@ -1049,17 +1465,27 @@ connection to master node.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – The name of the template.</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Index or template name</p></li>
 <li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – The template definition</p></li>
 <li><p><strong>cause</strong> – User defined reason for creating/updating the index
 template. Default is false.</p></li>
 <li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
 to cluster-manager node.</p></li>
-<li><p><strong>create</strong> – Whether the index template should only be added if
-new or can also replace an existing one. Default is false.</p></li>
+<li><p><strong>create</strong> – If <cite>true</cite>, this request cannot replace or update
+existing index templates.</p></li>
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
 <li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
 use ‘cluster_manager_timeout’ instead.): Operation timeout for
 connection to master node.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
 <li><p><strong>name</strong> – </p></li>
 <li><p><strong>body</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
@@ -1082,22 +1508,38 @@ connection to master node.</p></li>
 <li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – The mapping definition</p></li>
 <li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of indices; use <cite>_all</cite> or empty
 string to perform the operation on all indices.</p></li>
-<li><p><strong>allow_no_indices</strong> – Whether to ignore if a wildcard indices
-expression resolves into no concrete indices. (This includes <cite>_all</cite>
-string or when no indices have been specified).</p></li>
+<li><p><strong>allow_no_indices</strong> – If <cite>false</cite>, the request returns an error
+if any wildcard expression, index alias, or <cite>_all</cite> value targets only
+missing or closed indices.This behavior applies even if the request
+targets other open indices.</p></li>
 <li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
 to cluster-manager node.</p></li>
-<li><p><strong>expand_wildcards</strong> – Whether to expand wildcard expression to
-concrete indices that are open, closed or both. Valid choices are all,
-open, closed, hidden, none.</p></li>
-<li><p><strong>ignore_unavailable</strong> – Whether specified concrete indices
-should be ignored when unavailable (missing or closed).</p></li>
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
+<li><p><strong>expand_wildcards</strong> – Type of index that wildcard patterns can
+match.If the request can target data streams, this argument determines
+whether wildcard expressions match hidden data streams.Supports comma-
+separated values, such as <cite>open,hidden</cite>.Valid values are: <cite>all</cite>, <cite>open</cite>,
+<cite>closed</cite>, <cite>hidden</cite>, <cite>none</cite>.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
+<li><p><strong>ignore_unavailable</strong> – If <cite>false</cite>, the request returns an
+error if it targets a missing or closed index.</p></li>
 <li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
-use ‘cluster_manager_timeout’ instead.): Operation timeout for
-connection to master node.</p></li>
-<li><p><strong>timeout</strong> – Operation timeout.</p></li>
-<li><p><strong>write_index_only</strong> – When true, applies mappings only to the
-write index of an alias or data stream. Default is false.</p></li>
+use ‘cluster_manager_timeout’ instead.): Period to wait for a connection
+to the master node.If no response is received before the timeout
+expires, the request fails and returns an error.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
+<li><p><strong>timeout</strong> – Period to wait for a response.If no response is
+received before the timeout expires, the request fails and returns an
+error.</p></li>
+<li><p><strong>write_index_only</strong> – If <cite>true</cite>, the mappings are applied only
+to the current write index for the target.</p></li>
 <li><p><strong>body</strong> – </p></li>
 <li><p><strong>index</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
@@ -1117,29 +1559,45 @@ write index of an alias or data stream. Default is false.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – The index settings to be updated</p></li>
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of indices; use <cite>_all</cite> or empty
-string to perform the operation on all indices.</p></li>
-<li><p><strong>allow_no_indices</strong> – Whether to ignore if a wildcard indices
-expression resolves into no concrete indices. (This includes <cite>_all</cite>
-string or when no indices have been specified).</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of data streams, indices, and
+aliases used to limit the request. Supports wildcards (<cite>*</cite>). To target
+all data streams and indices, omit this parameter or use <cite>*</cite> or <cite>_all</cite>.</p></li>
+<li><p><strong>allow_no_indices</strong> – If <cite>false</cite>, the request returns an error
+if any wildcard expression, indexalias, or <cite>_all</cite> value targets only
+missing or closed indices. Thisbehavior applies even if the request
+targets other open indices. Forexample, a request targeting <cite>foo*,bar*</cite>
+returns an error if an indexstarts with <cite>foo</cite> but no index starts with
+<cite>bar</cite>.</p></li>
 <li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
 to cluster-manager node.</p></li>
-<li><p><strong>expand_wildcards</strong> – Whether to expand wildcard expression to
-concrete indices that are open, closed or both. Valid choices are all,
-open, closed, hidden, none.</p></li>
-<li><p><strong>flat_settings</strong> – Return settings in flat format. Default is
-false.</p></li>
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
+<li><p><strong>expand_wildcards</strong> – Type of index that wildcard patterns can
+match. If the request can targetdata streams, this argument determines
+whether wildcard expressions matchhidden data streams. Supports comma-
+separated values, such as`open,hidden`. Valid choices are all, open,
+closed, hidden, none.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>flat_settings</strong> – If <cite>true</cite>, returns settings in flat format.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
 <li><p><strong>ignore_unavailable</strong> – Whether specified concrete indices
 should be ignored when unavailable (missing or closed).</p></li>
 <li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
-use ‘cluster_manager_timeout’ instead.): Operation timeout for
-connection to master node.</p></li>
-<li><p><strong>preserve_existing</strong> – Whether to update existing settings. If
-set to <cite>true</cite> existing settings on an index remain unchanged. Default is
-false.</p></li>
-<li><p><strong>timeout</strong> – Operation timeout.</p></li>
-<li><p><strong>body</strong> – </p></li>
+use ‘cluster_manager_timeout’ instead.): Period to wait for a connection
+to the master node. If no response isreceived before the timeout
+expires, the request fails and returns anerror.</p></li>
+<li><p><strong>preserve_existing</strong> – If <cite>true</cite>, existing index settings
+remain unchanged.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
+<li><p><strong>timeout</strong> – Period to wait for a response. If no response is
+received before the timeout expires, the request fails and returns an
+error.</p></li>
+<li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 <li><p><strong>index</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 <li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
@@ -1158,18 +1616,30 @@ false.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – The name of the template.</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – The name of the template</p></li>
 <li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – The template definition</p></li>
 <li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
 to cluster-manager node.</p></li>
-<li><p><strong>create</strong> – Whether the index template should only be added if
-new or can also replace an existing one. Default is false.</p></li>
+<li><p><strong>create</strong> – If true, this request cannot replace or update
+existing index templates.</p></li>
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
 <li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
-use ‘cluster_manager_timeout’ instead.): Operation timeout for
-connection to master node.</p></li>
-<li><p><strong>order</strong> – The order for this template when merging multiple
-matching ones (higher numbers are merged later, overriding the lower
-numbers).</p></li>
+use ‘cluster_manager_timeout’ instead.): Period to wait for a connection
+to the master node. If no response isreceived before the timeout
+expires, the request fails and returns an error.</p></li>
+<li><p><strong>order</strong> – Order in which Opensearch applies this template if
+indexmatches multiple templates.Templates with lower ‘order’ values are
+merged first. Templates with higher’order’ values are merged later,
+overriding templates with lower values.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
 <li><p><strong>name</strong> – </p></li>
 <li><p><strong>body</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
@@ -1189,12 +1659,23 @@ numbers).</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of indices; use <cite>_all</cite> or empty
-string to perform the operation on all indices.</p></li>
-<li><p><strong>active_only</strong> – Display only those recoveries that are
-currently on-going. Default is false.</p></li>
-<li><p><strong>detailed</strong> – Whether to display detailed information about
-shard recovery. Default is false.</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of data streams, indices, and
+aliases used to limit the request. Supports wildcards (<cite>*</cite>). To target
+all data streams and indices, omit this parameter or use <cite>*</cite> or <cite>_all</cite>.</p></li>
+<li><p><strong>active_only</strong> – If <cite>true</cite>, the response only includes ongoing
+shard recoveries.</p></li>
+<li><p><strong>detailed</strong> – If <cite>true</cite>, the response includes detailed
+information about shard recoveries.</p></li>
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
 <li><p><strong>index</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 <li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
@@ -1213,16 +1694,30 @@ shard recovery. Default is false.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of indices; use <cite>_all</cite> or empty
-string to perform the operation on all indices.</p></li>
-<li><p><strong>allow_no_indices</strong> – Whether to ignore if a wildcard indices
-expression resolves into no concrete indices. (This includes <cite>_all</cite>
-string or when no indices have been specified).</p></li>
-<li><p><strong>expand_wildcards</strong> – Whether to expand wildcard expression to
-concrete indices that are open, closed or both. Valid choices are all,
-open, closed, hidden, none.</p></li>
-<li><p><strong>ignore_unavailable</strong> – Whether specified concrete indices
-should be ignored when unavailable (missing or closed).</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of data streams, indices, and
+aliases used to limit the request. Supports wildcards (<cite>*</cite>). To target
+all data streams and indices, omit this parameter or use <cite>*</cite> or <cite>_all</cite>.</p></li>
+<li><p><strong>allow_no_indices</strong> – If <cite>false</cite>, the request returns an error
+if any wildcard expression, index alias, or <cite>_all</cite> value targets only
+missing or closed indices.This behavior applies even if the request
+targets other open indices.</p></li>
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
+<li><p><strong>expand_wildcards</strong> – Type of index that wildcard patterns can
+match.If the request can target data streams, this argument determines
+whether wildcard expressions match hidden data streams.Supports comma-
+separated values, such as <cite>open,hidden</cite>.Valid values are: <cite>all</cite>, <cite>open</cite>,
+<cite>closed</cite>, <cite>hidden</cite>, <cite>none</cite>.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
+<li><p><strong>ignore_unavailable</strong> – If <cite>false</cite>, the request returns an
+error if it targets a missing or closed index.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
 <li><p><strong>index</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 <li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
@@ -1241,11 +1736,24 @@ should be ignored when unavailable (missing or closed).</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of names or wildcard
-expressions.</p></li>
-<li><p><strong>expand_wildcards</strong> – Whether to expand wildcard expression to
-concrete indices that are open, closed or both. Valid choices are all,
-open, closed, hidden, none.</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated name(s) or index pattern(s) of the
+indices, aliases, and data streams to resolve. Resources on remote
+clusters can be specified using the <cite>&lt;cluster&gt;</cite>:<cite>&lt;name&gt;</cite> syntax.</p></li>
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
+<li><p><strong>expand_wildcards</strong> – Type of index that wildcard patterns can
+match.If the request can target data streams, this argument determines
+whether wildcard expressions match hidden data streams.Supports comma-
+separated values, such as <cite>open,hidden</cite>.Valid values are: <cite>all</cite>, <cite>open</cite>,
+<cite>closed</cite>, <cite>hidden</cite>, <cite>none</cite>.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
 <li><p><strong>name</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 <li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
@@ -1265,22 +1773,36 @@ to be too large or too old.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>alias</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – The name of the alias to rollover.</p></li>
+<li><p><strong>alias</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Name of the data stream or index alias to roll over.</p></li>
 <li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – The conditions that needs to be met for executing
 rollover</p></li>
-<li><p><strong>new_index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – The name of the rollover index.</p></li>
+<li><p><strong>new_index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Name of the index to create. Supports date math.
+Data streams do not support this parameter.</p></li>
 <li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
 to cluster-manager node.</p></li>
-<li><p><strong>dry_run</strong> – If set to true the rollover action will only be
-validated but not actually performed even if a condition matches.
-Default is false.</p></li>
+<li><p><strong>dry_run</strong> – If <cite>true</cite>, checks whether the current index
+satisfies the specified conditions but does not perform a rollover.</p></li>
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
 <li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
-use ‘cluster_manager_timeout’ instead.): Operation timeout for
-connection to master node.</p></li>
-<li><p><strong>timeout</strong> – Operation timeout.</p></li>
-<li><p><strong>wait_for_active_shards</strong> – Set the number of active shards to
-wait for on the newly created rollover index before the operation
-returns.</p></li>
+use ‘cluster_manager_timeout’ instead.): Period to wait for a connection
+to the master node.If no response is received before the timeout
+expires, the request fails and returns an error.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
+<li><p><strong>timeout</strong> – Period to wait for a response.If no response is
+received before the timeout expires, the request fails and returns an
+error.</p></li>
+<li><p><strong>wait_for_active_shards</strong> – The number of shard copies that
+must be active before proceeding with the operation.Set to all or any
+positive integer up to the total number of shards in the index
+(<cite>number_of_replicas+1</cite>). Valid choices are all, index-setting.</p></li>
 <li><p><strong>alias</strong> – </p></li>
 <li><p><strong>body</strong> – </p></li>
 <li><p><strong>new_index</strong> – </p></li>
@@ -1301,18 +1823,31 @@ returns.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of indices; use <cite>_all</cite> or empty
-string to perform the operation on all indices.</p></li>
-<li><p><strong>allow_no_indices</strong> – Whether to ignore if a wildcard indices
-expression resolves into no concrete indices. (This includes <cite>_all</cite>
-string or when no indices have been specified).</p></li>
-<li><p><strong>expand_wildcards</strong> – Whether to expand wildcard expression to
-concrete indices that are open, closed or both. Valid choices are all,
-open, closed, hidden, none.</p></li>
-<li><p><strong>ignore_unavailable</strong> – Whether specified concrete indices
-should be ignored when unavailable (missing or closed).</p></li>
-<li><p><strong>verbose</strong> – Includes detailed memory usage by Lucene. Default
-is false.</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of data streams, indices, and
+aliases used to limit the request. Supports wildcards (<cite>*</cite>). To target
+all data streams and indices, omit this parameter or use <cite>*</cite> or <cite>_all</cite>.</p></li>
+<li><p><strong>allow_no_indices</strong> – If <cite>false</cite>, the request returns an error
+if any wildcard expression, index alias, or <cite>_all</cite> value targets only
+missing or closed indices.This behavior applies even if the request
+targets other open indices.</p></li>
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
+<li><p><strong>expand_wildcards</strong> – Type of index that wildcard patterns can
+match.If the request can target data streams, this argument determines
+whether wildcard expressions match hidden data streams.Supports comma-
+separated values, such as <cite>open,hidden</cite>.Valid values are: <cite>all</cite>, <cite>open</cite>,
+<cite>closed</cite>, <cite>hidden</cite>, <cite>none</cite>.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
+<li><p><strong>ignore_unavailable</strong> – If <cite>false</cite>, the request returns an
+error if it targets a missing or closed index.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
+<li><p><strong>verbose</strong> – If <cite>true</cite>, the request returns a verbose response.</p></li>
 <li><p><strong>index</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 <li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
@@ -1331,18 +1866,30 @@ is false.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of indices; use <cite>_all</cite> or empty
-string to perform the operation on all indices.</p></li>
-<li><p><strong>allow_no_indices</strong> – Whether to ignore if a wildcard indices
-expression resolves into no concrete indices. (This includes <cite>_all</cite>
-string or when no indices have been specified).</p></li>
-<li><p><strong>expand_wildcards</strong> – Whether to expand wildcard expression to
-concrete indices that are open, closed or both. Valid choices are all,
-open, closed, hidden, none.</p></li>
-<li><p><strong>ignore_unavailable</strong> – Whether specified concrete indices
-should be ignored when unavailable (missing or closed).</p></li>
-<li><p><strong>status</strong> – Comma-separated list of statuses used to filter on
-shards to get store information for.</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – List of data streams, indices, and aliases used to
+limit the request.</p></li>
+<li><p><strong>allow_no_indices</strong> – If false, the request returns an error if
+any wildcard expression, index alias, or _allvalue targets only missing
+or closed indices. This behavior applies even if the requesttargets
+other open indices.</p></li>
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
+<li><p><strong>expand_wildcards</strong> – Type of index that wildcard patterns can
+match. If the request can target data streams,this argument determines
+whether wildcard expressions match hidden data streams. Valid choices
+are all, open, closed, hidden, none.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
+<li><p><strong>ignore_unavailable</strong> – If true, missing or closed indices are
+not included in the response.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
+<li><p><strong>status</strong> – List of shard health statuses used to limit the
+request.</p></li>
 <li><p><strong>index</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 <li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
@@ -1361,22 +1908,37 @@ shards to get store information for.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – The name of the source index to shrink.</p></li>
-<li><p><strong>target</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – The name of the target index.</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Name of the source index to shrink.</p></li>
+<li><p><strong>target</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Name of the target index to create.</p></li>
 <li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – The configuration for the target index (<cite>settings</cite>
 and <cite>aliases</cite>)</p></li>
 <li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
 to cluster-manager node.</p></li>
 <li><p><strong>copy_settings</strong> – whether or not to copy settings from the
 source index. Default is false.</p></li>
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
 <li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
-use ‘cluster_manager_timeout’ instead.): Operation timeout for
-connection to master node.</p></li>
+use ‘cluster_manager_timeout’ instead.): Period to wait for a connection
+to the master node.If no response is received before the timeout
+expires, the request fails and returns an error.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
 <li><p><strong>task_execution_timeout</strong> – Explicit task execution timeout,
 only useful when wait_for_completion is false, defaults to 1h.</p></li>
-<li><p><strong>timeout</strong> – Operation timeout.</p></li>
-<li><p><strong>wait_for_active_shards</strong> – Set the number of active shards to
-wait for on the shrunken index before the operation returns.</p></li>
+<li><p><strong>timeout</strong> – Period to wait for a response.If no response is
+received before the timeout expires, the request fails and returns an
+error.</p></li>
+<li><p><strong>wait_for_active_shards</strong> – The number of shard copies that
+must be active before proceeding with the operation.Set to <cite>all</cite> or any
+positive integer up to the total number of shards in the index
+(<cite>number_of_replicas+1</cite>). Valid choices are all, index-setting.</p></li>
 <li><p><strong>wait_for_completion</strong> – Should this request wait until the
 operation has completed before returning. Default is True.</p></li>
 <li><p><strong>index</strong> – </p></li>
@@ -1400,20 +1962,32 @@ system.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – The name of the index (it must be a concrete index
-name).</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Index or template name to simulate</p></li>
 <li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – New index template definition, which will be included
 in the simulation, as if it already exists in the system</p></li>
 <li><p><strong>cause</strong> – User defined reason for dry-run creating the new
 template for simulation purposes. Default is false.</p></li>
 <li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
 to cluster-manager node.</p></li>
-<li><p><strong>create</strong> – Whether the index template we optionally defined in
-the body should only be dry-run added if new or can also replace an
-existing one. Default is false.</p></li>
+<li><p><strong>create</strong> – If <cite>true</cite>, the template passed in the body is only
+used if no existingtemplates match the same index patterns. If <cite>false</cite>,
+the simulation usesthe template with the highest priority. Note that the
+template is notpermanently added or updated in either case; it is only
+used for thesimulation.</p></li>
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
 <li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
-use ‘cluster_manager_timeout’ instead.): Operation timeout for
-connection to master node.</p></li>
+use ‘cluster_manager_timeout’ instead.): Period to wait for a connection
+to the master node. If no response is receivedbefore the timeout
+expires, the request fails and returns an error.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
 <li><p><strong>name</strong> – </p></li>
 <li><p><strong>body</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
@@ -1433,20 +2007,33 @@ connection to master node.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – New index template definition to be simulated, if no
-index template name is specified</p></li>
-<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – The name of the template.</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Name of the index template to simulate. To test a
+template configuration before you add it to the cluster, omit this
+parameter and specify the template configuration in the request body.</p></li>
 <li><p><strong>cause</strong> – User defined reason for dry-run creating the new
 template for simulation purposes. Default is false.</p></li>
 <li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
 to cluster-manager node.</p></li>
-<li><p><strong>create</strong> – Whether the index template we optionally defined in
-the body should only be dry-run added if new or can also replace an
-existing one. Default is false.</p></li>
+<li><p><strong>create</strong> – If true, the template passed in the body is only
+used if no existing templates match the same index patterns. If false,
+the simulation uses the template with the highest priority. Note that
+the template is not permanently added or updated in either case; it is
+only used for the simulation.</p></li>
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
 <li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
-use ‘cluster_manager_timeout’ instead.): Operation timeout for
-connection to master node.</p></li>
-<li><p><strong>body</strong> – </p></li>
+use ‘cluster_manager_timeout’ instead.): Period to wait for a connection
+to the master node. If no response is received before the timeout
+expires, the request fails and returns an error.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
+<li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 <li><p><strong>name</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 <li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
@@ -1466,22 +2053,37 @@ shards.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – The name of the source index to split.</p></li>
-<li><p><strong>target</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – The name of the target index.</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Name of the source index to split.</p></li>
+<li><p><strong>target</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Name of the target index to create.</p></li>
 <li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – The configuration for the target index (<cite>settings</cite>
 and <cite>aliases</cite>)</p></li>
 <li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
 to cluster-manager node.</p></li>
 <li><p><strong>copy_settings</strong> – whether or not to copy settings from the
 source index. Default is false.</p></li>
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
 <li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
-use ‘cluster_manager_timeout’ instead.): Operation timeout for
-connection to master node.</p></li>
+use ‘cluster_manager_timeout’ instead.): Period to wait for a connection
+to the master node.If no response is received before the timeout
+expires, the request fails and returns an error.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
 <li><p><strong>task_execution_timeout</strong> – Explicit task execution timeout,
 only useful when wait_for_completion is false, defaults to 1h.</p></li>
-<li><p><strong>timeout</strong> – Operation timeout.</p></li>
-<li><p><strong>wait_for_active_shards</strong> – Set the number of active shards to
-wait for on the shrunken index before the operation returns.</p></li>
+<li><p><strong>timeout</strong> – Period to wait for a response.If no response is
+received before the timeout expires, the request fails and returns an
+error.</p></li>
+<li><p><strong>wait_for_active_shards</strong> – The number of shard copies that
+must be active before proceeding with the operation.Set to <cite>all</cite> or any
+positive integer up to the total number of shards in the index
+(<cite>number_of_replicas+1</cite>). Valid choices are all, index-setting.</p></li>
 <li><p><strong>wait_for_completion</strong> – Should this request wait until the
 operation has completed before returning. Default is True.</p></li>
 <li><p><strong>index</strong> – </p></li>
@@ -1504,34 +2106,43 @@ operation has completed before returning. Default is True.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of indices; use <cite>_all</cite> or empty
-string to perform the operation on all indices.</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – A comma-separated list of index names; use <cite>_all</cite> or
+empty string to perform the operation on all indices</p></li>
 <li><p><strong>metric</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Limit the information returned the specific
-metrics. Valid choices are _all, store, indexing, get, search, merge,
-flush, refresh, query_cache, fielddata, docs, warmer, completion,
-segments, translog, suggest, request_cache, recovery.</p></li>
-<li><p><strong>completion_fields</strong> – Comma-separated list of fields for
-<cite>fielddata</cite> and <cite>suggest</cite> index metric (supports wildcards).</p></li>
-<li><p><strong>expand_wildcards</strong> – Whether to expand wildcard expression to
-concrete indices that are open, closed or both. Valid choices are all,
-open, closed, hidden, none.</p></li>
-<li><p><strong>fielddata_fields</strong> – Comma-separated list of fields for
-<cite>fielddata</cite> index metric (supports wildcards).</p></li>
-<li><p><strong>fields</strong> – Comma-separated list of fields for <cite>fielddata</cite> and
-<cite>completion</cite> index metric (supports wildcards).</p></li>
-<li><p><strong>forbid_closed_indices</strong> – If set to false stats will also
-collected from closed indices if explicitly specified or if
-expand_wildcards expands to closed indices. Default is True.</p></li>
-<li><p><strong>groups</strong> – Comma-separated list of search groups for <cite>search</cite>
-index metric.</p></li>
-<li><p><strong>include_segment_file_sizes</strong> – Whether to report the
+metrics.</p></li>
+<li><p><strong>completion_fields</strong> – Comma-separated list or wildcard
+expressions of fields to include in fielddata and suggest statistics.</p></li>
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
+<li><p><strong>expand_wildcards</strong> – Type of index that wildcard patterns can
+match. If the request can target data streams, this argumentdetermines
+whether wildcard expressions match hidden data streams. Supports comma-
+separated values,such as <cite>open,hidden</cite>. Valid choices are all, open,
+closed, hidden, none.</p></li>
+<li><p><strong>fielddata_fields</strong> – Comma-separated list or wildcard
+expressions of fields to include in fielddata statistics.</p></li>
+<li><p><strong>fields</strong> – Comma-separated list or wildcard expressions of
+fields to include in the statistics.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>forbid_closed_indices</strong> – If true, statistics are not
+collected from closed indices.</p></li>
+<li><p><strong>groups</strong> – Comma-separated list of search groups to include in
+the search statistics.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
+<li><p><strong>include_segment_file_sizes</strong> – If true, the call reports the
 aggregated disk usage of each one of the Lucene index files (only
-applies if segment stats are requested). Default is false.</p></li>
-<li><p><strong>include_unloaded_segments</strong> – If set to true segment stats
-will include stats for segments that are not currently loaded into
-memory. Default is false.</p></li>
-<li><p><strong>level</strong> – Return stats aggregated at cluster, index or shard
-level. Valid choices are cluster, indices, shards.</p></li>
+applies if segment stats are requested).</p></li>
+<li><p><strong>include_unloaded_segments</strong> – If true, the response includes
+information from segments that are not loaded into memory.</p></li>
+<li><p><strong>level</strong> – Indicates whether statistics are aggregated at the
+cluster, index, or shard level. Valid choices are cluster, indices,
+shards.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
 <li><p><strong>index</strong> – </p></li>
 <li><p><strong>metric</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
@@ -1554,10 +2165,23 @@ level. Valid choices are cluster, indices, shards.</p></li>
 <li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – The definition of <cite>actions</cite> to perform</p></li>
 <li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
 to cluster-manager node.</p></li>
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
 <li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
-use ‘cluster_manager_timeout’ instead.): Operation timeout for
-connection to master node.</p></li>
-<li><p><strong>timeout</strong> – Operation timeout.</p></li>
+use ‘cluster_manager_timeout’ instead.): Period to wait for a connection
+to the master node.If no response is received before the timeout
+expires, the request fails and returns an error.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
+<li><p><strong>timeout</strong> – Period to wait for a response.If no response is
+received before the timeout expires, the request fails and returns an
+error.</p></li>
 <li><p><strong>body</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 <li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
@@ -1581,13 +2205,23 @@ string to perform the operation on all indices.</p></li>
 <li><p><strong>allow_no_indices</strong> – Whether to ignore if a wildcard indices
 expression resolves into no concrete indices. (This includes <cite>_all</cite>
 string or when no indices have been specified).</p></li>
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
 <li><p><strong>expand_wildcards</strong> – Whether to expand wildcard expression to
 concrete indices that are open, closed or both. Valid choices are all,
 open, closed, hidden, none.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
 <li><p><strong>ignore_unavailable</strong> – Whether specified concrete indices
 should be ignored when unavailable (missing or closed).</p></li>
 <li><p><strong>only_ancient_segments</strong> – If true, only ancient (an older
 Lucene major release) segments will be upgraded.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
 <li><p><strong>wait_for_completion</strong> – Should this request wait until the
 operation has completed before returning. Default is false.</p></li>
 <li><p><strong>index</strong> – </p></li>
@@ -1609,31 +2243,49 @@ operation has completed before returning. Default is false.</p></li>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – The query definition specified with the Query DSL</p></li>
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of indices; use <cite>_all</cite> or empty
-string to perform the operation on all indices.</p></li>
-<li><p><strong>all_shards</strong> – Execute validation on all shards instead of one
-random shard per index.</p></li>
-<li><p><strong>allow_no_indices</strong> – Whether to ignore if a wildcard indices
-expression resolves into no concrete indices. (This includes <cite>_all</cite>
-string or when no indices have been specified).</p></li>
-<li><p><strong>analyze_wildcard</strong> – Specify whether wildcard and prefix
-queries should be analyzed. Default is false.</p></li>
-<li><p><strong>analyzer</strong> – The analyzer to use for the query string.</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of data streams, indices, and
+aliases to search. Supports wildcards (<cite>*</cite>). To search all data streams
+or indices, omit this parameter or use <cite>*</cite> or <cite>_all</cite>.</p></li>
+<li><p><strong>all_shards</strong> – If <cite>true</cite>, the validation is executed on all
+shards instead of one random shard per index.</p></li>
+<li><p><strong>allow_no_indices</strong> – If <cite>false</cite>, the request returns an error
+if any wildcard expression, index alias, or <cite>_all</cite> value targets only
+missing or closed indices.This behavior applies even if the request
+targets other open indices.</p></li>
+<li><p><strong>analyze_wildcard</strong> – If <cite>true</cite>, wildcard and prefix queries
+are analyzed.</p></li>
+<li><p><strong>analyzer</strong> – Analyzer to use for the query string.This
+parameter can only be used when the <cite>q</cite> query string parameter is
+specified.</p></li>
 <li><p><strong>default_operator</strong> – The default operator for query string
-query (AND or OR). Valid choices are AND, OR.</p></li>
-<li><p><strong>df</strong> – The field to use as default where no field prefix is
-given in the query string.</p></li>
-<li><p><strong>expand_wildcards</strong> – Whether to expand wildcard expression to
-concrete indices that are open, closed or both. Valid choices are all,
-open, closed, hidden, none.</p></li>
-<li><p><strong>explain</strong> – Return detailed information about the error.</p></li>
-<li><p><strong>ignore_unavailable</strong> – Whether specified concrete indices
-should be ignored when unavailable (missing or closed).</p></li>
-<li><p><strong>lenient</strong> – Specify whether format-based query failures (such
-as providing text to a numeric field) should be ignored.</p></li>
+query: <cite>AND</cite> or <cite>OR</cite>. Valid choices are and, or.</p></li>
+<li><p><strong>df</strong> – Field to use as default where no field prefix is given
+in the query string.This parameter can only be used when the <cite>q</cite> query
+string parameter is specified.</p></li>
+<li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
+errors.</p></li>
+<li><p><strong>expand_wildcards</strong> – Type of index that wildcard patterns can
+match.If the request can target data streams, this argument determines
+whether wildcard expressions match hidden data streams.Supports comma-
+separated values, such as <cite>open,hidden</cite>.Valid values are: <cite>all</cite>, <cite>open</cite>,
+<cite>closed</cite>, <cite>hidden</cite>, <cite>none</cite>.</p></li>
+<li><p><strong>explain</strong> – If <cite>true</cite>, the response returns detailed
+information if an error has occurred.</p></li>
+<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
+the response.</p></li>
+<li><p><strong>human</strong> – Whether to return human readable values for
+statistics.</p></li>
+<li><p><strong>ignore_unavailable</strong> – If <cite>false</cite>, the request returns an
+error if it targets a missing or closed index.</p></li>
+<li><p><strong>lenient</strong> – If <cite>true</cite>, format-based query failures (such as
+providing text to a numeric field) in the query string will be ignored.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+response.</p></li>
 <li><p><strong>q</strong> – Query in the Lucene query string syntax.</p></li>
-<li><p><strong>rewrite</strong> – Provide a more detailed explanation showing the
-actual Lucene query that will be executed.</p></li>
+<li><p><strong>rewrite</strong> – If <cite>true</cite>, returns a more detailed explanation
+showing the actual Lucene query that will be executed.</p></li>
+<li><p><strong>source</strong> – The URL-encoded request definition. Useful for
+libraries that do not accept a request body for non-POST requests.</p></li>
 <li><p><strong>body</strong> – </p></li>
 <li><p><strong>index</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
