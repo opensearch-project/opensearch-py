@@ -26,10 +26,11 @@ def main() -> None:
             or "Changes not staged for commit:" in git_status.decode()
             or "Untracked files:" in git_status.decode()
         ):
-            print("Changes detected")
-            response = requests.get(
-                "https://api.github.com/repos/opensearch-project/opensearch-api-specification/commits"
-            )
+            print("Changes detected; updating changelog.")
+
+            base_url = "https://api.github.com/repos/opensearch-project/opensearch-api-specification/commits"
+            url_with_per_page = base_url + "?per_page=1"
+            response = requests.get(url_with_per_page)
             if response.ok:
                 commit_info = response.json()[0]
                 commit_url = commit_info["html_url"]
