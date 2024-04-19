@@ -71,14 +71,6 @@ IMPLEMENTED_FEATURES = {
 
 # broken YAML tests on some releases
 SKIP_TESTS = {
-    # Warning about date_histogram.interval deprecation is raised randomly
-    "OpenSearch-main/rest-api-spec/src/main/resources/rest-api-spec/test/search_pipeline/10_basic",
-    "OpenSearch-main/rest-api-spec/src/main/resources/rest-api-spec/test/pit/10_basic",
-    "OpenSearch-main/rest-api-spec/src/main/resources/rest-api-spec/test/indices/clone/40_wait_for_completion[0]",
-    "OpenSearch-main/rest-api-spec/src/main/resources/rest-api-spec/test/indices/forcemerge/20_wait_for_completion[0]",
-    "OpenSearch-main/rest-api-spec/src/main/resources/rest-api-spec/test/indices/open/30_wait_for_completion[0]",
-    "OpenSearch-main/rest-api-spec/src/main/resources/rest-api-spec/test/indices/shrink/50_wait_for_completion[0]",
-    "OpenSearch-main/rest-api-spec/src/main/resources/rest-api-spec/test/indices/split/40_wait_for_completion[0]",
     "OpenSearch-main/rest-api-spec/src/main/resources/rest-api-spec/test/cat/nodes/10_basic[1]",
     "OpenSearch-main/rest-api-spec/src/main/resources/rest-api-spec/test/cat/nodeattrs/10_basic[1]",
     "OpenSearch-main/rest-api-spec/src/main/resources/rest-api-spec/test/cluster/put_settings/10_basic[2]",
@@ -92,47 +84,6 @@ SKIP_TESTS = {
     "OpenSearch-main/rest-api-spec/src/main/resources/rest-api-spec/test/indices/stats/50_noop_update[0]",
     "OpenSearch-main/rest-api-spec/src/main/resources/rest-api-spec/test/search/340_doc_values_field[0]",
     "OpenSearch-main/rest-api-spec/src/main/resources/rest-api-spec/test/search/340_doc_values_field[1]",
-    "search/aggregation/250_moving_fn[1]",
-    # body: null
-    "indices/simulate_index_template/10_basic[2]",
-    # No ML node with sufficient capacity / random ML failing
-    "ml/start_stop_datafeed",
-    "ml/post_data",
-    "ml/jobs_crud",
-    "ml/datafeeds_crud",
-    "ml/set_upgrade_mode",
-    "ml/reset_job[2]",
-    "ml/jobs_get_stats",
-    "ml/get_datafeed_stats",
-    "ml/get_trained_model_stats",
-    "ml/delete_job_force",
-    "ml/jobs_get_result_overall_buckets",
-    "ml/bucket_correlation_agg[0]",
-    "ml/job_groups",
-    "transform/transforms_stats_continuous[0]",
-    # Fails bad request instead of 404?
-    "ml/inference_crud",
-    # Our TLS certs are custom
-    "ssl/10_basic[0]",
-    # Our user is custom
-    "users/10_basic[3]",
-    # Shards/snapshots aren't right?
-    "searchable_snapshots/10_usage[1]",
-    # flaky data streams?
-    "data_stream/10_basic[1]",
-    "data_stream/80_resolve_index_data_streams[1]",
-    # bad formatting?
-    "cat/allocation/10_basic",
-    # service account number not right?
-    "service_accounts/10_basic[1]",
-    # doesn't use 'contains' properly?
-    "privileges/40_get_user_privs[0]",
-    "privileges/40_get_user_privs[1]",
-    # bad use of 'is_false'?
-    "indices/get_alias/10_basic[22]",
-    # unique usage of 'set'
-    "indices/stats/50_disk_usage[0]",
-    "indices/stats/60_field_usage[0]",
 }
 
 
