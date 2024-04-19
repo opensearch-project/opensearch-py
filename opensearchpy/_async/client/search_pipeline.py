@@ -22,10 +22,99 @@ from .utils import SKIP_IN_PATH, NamespacedClient, _make_path, query_params
 
 
 class SearchPipelineClient(NamespacedClient):
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
-    async def create(
+    @query_params(
+        "cluster_manager_timeout",
+        "error_trace",
+        "filter_path",
+        "human",
+        "pretty",
+        "source",
+    )
+    async def get(
         self,
-        pipeline: Any,
+        id: Any = None,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Retrieves information about a specified search pipeline.
+
+
+        :arg id: Comma-separated list of search pipeline ids. Wildcards
+            supported.
+        :arg cluster_manager_timeout: operation timeout for connection
+            to cluster-manager node.
+        :arg error_trace: Whether to include the stack trace of returned
+            errors.
+        :arg filter_path: Comma-separated list of filters used to reduce
+            the response.
+        :arg human: Whether to return human readable values for
+            statistics.
+        :arg pretty: Whether to pretty format the returned JSON
+            response.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        """
+        return await self.transport.perform_request(
+            "GET", _make_path("_search", "pipeline", id), params=params, headers=headers
+        )
+
+    @query_params(
+        "cluster_manager_timeout",
+        "error_trace",
+        "filter_path",
+        "human",
+        "pretty",
+        "source",
+        "timeout",
+    )
+    async def delete(
+        self,
+        id: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Deletes the specified search pipeline.
+
+
+        :arg id: Pipeline ID.
+        :arg cluster_manager_timeout: Operation timeout for connection
+            to cluster-manager node.
+        :arg error_trace: Whether to include the stack trace of returned
+            errors.
+        :arg filter_path: Comma-separated list of filters used to reduce
+            the response.
+        :arg human: Whether to return human readable values for
+            statistics.
+        :arg pretty: Whether to pretty format the returned JSON
+            response.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        :arg timeout: Operation timeout.
+        """
+        if id in SKIP_IN_PATH:
+            raise ValueError("Empty value passed for a required argument 'id'.")
+
+        return await self.transport.perform_request(
+            "DELETE",
+            _make_path("_search", "pipeline", id),
+            params=params,
+            headers=headers,
+        )
+
+    @query_params(
+        "cluster_manager_timeout",
+        "error_trace",
+        "filter_path",
+        "human",
+        "pretty",
+        "source",
+        "timeout",
+    )
+    async def put(
+        self,
+        id: Any,
         body: Any,
         params: Any = None,
         headers: Any = None,
@@ -34,6 +123,9 @@ class SearchPipelineClient(NamespacedClient):
         Creates or replaces the specified search pipeline.
 
 
+        :arg id: Pipeline ID.
+        :arg cluster_manager_timeout: operation timeout for connection
+            to cluster-manager node.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
         :arg filter_path: Comma-separated list of filters used to reduce
@@ -44,47 +136,16 @@ class SearchPipelineClient(NamespacedClient):
             response.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
+        :arg timeout: Operation timeout.
         """
-        for param in (pipeline, body):
+        for param in (id, body):
             if param in SKIP_IN_PATH:
                 raise ValueError("Empty value passed for a required argument.")
 
         return await self.transport.perform_request(
             "PUT",
-            _make_path("_search", "pipeline", pipeline),
+            _make_path("_search", "pipeline", id),
             params=params,
             headers=headers,
             body=body,
-        )
-
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
-    async def get(
-        self,
-        pipeline: Any,
-        params: Any = None,
-        headers: Any = None,
-    ) -> Any:
-        """
-        Retrieves information about a specified search pipeline.
-
-
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
-        """
-        if pipeline in SKIP_IN_PATH:
-            raise ValueError("Empty value passed for a required argument 'pipeline'.")
-
-        return await self.transport.perform_request(
-            "GET",
-            _make_path("_search", "pipeline", pipeline),
-            params=params,
-            headers=headers,
         )
