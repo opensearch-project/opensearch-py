@@ -92,7 +92,7 @@ class ClusterClient(NamespacedClient):
             cluster, indices, shards, awareness_attributes.
         :arg local: If true, the request retrieves information from the
             local node only. Defaults to false, which means information is retrieved
-            from the master node.
+            from the master node. Default is false.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Period to wait for a connection
             to the master node. If no response is received before the timeout
@@ -165,7 +165,7 @@ class ClusterClient(NamespacedClient):
             statistics.
         :arg local: If `true`, the request retrieves information from
             the local node only.If `false`, information is retrieved from the master
-            node.
+            node. Default is false.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Period to wait for a connection
             to the master node.If no response is received before the timeout
@@ -223,13 +223,13 @@ class ClusterClient(NamespacedClient):
         :arg filter_path: Comma-separated list of filters used to reduce
             the response.
         :arg flat_settings: Return settings in flat format (default:
-            false)
+            false) Default is false.
         :arg human: Whether to return human readable values for
             statistics.
         :arg ignore_unavailable: Whether specified concrete indices
             should be ignored when unavailable (missing or closed)
         :arg local: Return local information, do not retrieve the state
-            from cluster-manager node (default: false)
+            from cluster-manager node (default: false) Default is false.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Specify timeout for connection
             to master
@@ -278,6 +278,7 @@ class ClusterClient(NamespacedClient):
         :arg filter_path: Comma-separated list of filters used to reduce
             the response.
         :arg flat_settings: If `true`, returns settings in flat format.
+            Default is false.
         :arg human: Whether to return human readable values for
             statistics.
         :arg pretty: Whether to pretty format the returned JSON
@@ -386,10 +387,11 @@ class ClusterClient(NamespacedClient):
         :arg filter_path: Comma-separated list of filters used to reduce
             the response.
         :arg flat_settings: If `true`, returns settings in flat format.
+            Default is false.
         :arg human: Whether to return human readable values for
             statistics.
         :arg include_defaults: If `true`, returns default cluster
-            settings from the local node.
+            settings from the local node. Default is false.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Period to wait for a connection
             to the master node.If no response is received before the timeout
@@ -436,7 +438,7 @@ class ClusterClient(NamespacedClient):
         :arg filter_path: Comma-separated list of filters used to reduce
             the response.
         :arg flat_settings: Return settings in flat format (default:
-            false)
+            false) Default is false.
         :arg human: Whether to return human readable values for
             statistics.
         :arg master_timeout (Deprecated: To promote inclusive language,
@@ -508,9 +510,9 @@ class ClusterClient(NamespacedClient):
         :arg human: Whether to return human readable values for
             statistics.
         :arg include_disk_info: If true, returns information about disk
-            usage and shard sizes.
+            usage and shard sizes. Default is false.
         :arg include_yes_decisions: If true, returns YES decisions in
-            explanation.
+            explanation. Default is false.
         :arg pretty: Whether to pretty format the returned JSON
             response.
         :arg source: The URL-encoded request definition. Useful for
@@ -608,7 +610,7 @@ class ClusterClient(NamespacedClient):
             statistics.
         :arg local: If `true`, the request retrieves information from
             the local node only.If `false`, information is retrieved from the master
-            node.
+            node. Default is false.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Period to wait for a connection
             to the master node.If no response is received before the timeout
@@ -661,7 +663,7 @@ class ClusterClient(NamespacedClient):
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
         :arg create: If `true`, this request cannot replace or update
-            existing component templates.
+            existing component templates. Default is false.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
         :arg filter_path: Comma-separated list of filters used to reduce
@@ -722,7 +724,7 @@ class ClusterClient(NamespacedClient):
             statistics.
         :arg local: If true, the request retrieves information from the
             local node only.Defaults to false, which means information is retrieved
-            from the master node.
+            from the master node. Default is false.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Period to wait for a connection
             to the master node. If no response isreceived before the timeout
@@ -769,7 +771,8 @@ class ClusterClient(NamespacedClient):
             configuration exclusions list.Defaults to true, meaning that all
             excluded nodes must be removed fromthe cluster before this API takes any
             action. If set to false then thevoting configuration exclusions list is
-            cleared even if some excludednodes are still in the cluster.
+            cleared even if some excludednodes are still in the cluster. Default is
+            True.
         """
         return self.transport.perform_request(
             "DELETE",
