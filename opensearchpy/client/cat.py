@@ -400,6 +400,7 @@ class CatClient(NamespacedClient):
         :arg time: The unit used to display time values. Valid choices
             are nanos, micros, ms, s, m, h, d.
         :arg ts: If true, returns `HH:MM:SS` and Unix epoch timestamps.
+            Default is True.
         :arg v: Verbose mode. Display column headers. Default is false.
         """
         return self.transport.perform_request(
@@ -491,7 +492,8 @@ class CatClient(NamespacedClient):
         :arg human: Whether to return human readable values for
             statistics.
         :arg include_unloaded_segments: If true, the response includes
-            information from segments that are not loaded into memory.
+            information from segments that are not loaded into memory. Default is
+            false.
         :arg local: Return local information, do not retrieve the state
             from cluster-manager node. Default is false.
         :arg master_timeout (Deprecated: To promote inclusive language,
@@ -500,7 +502,7 @@ class CatClient(NamespacedClient):
         :arg pretty: Whether to pretty format the returned JSON
             response.
         :arg pri: If true, the response only includes information from
-            primary shards.
+            primary shards. Default is false.
         :arg s: Comma-separated list of column names or column aliases
             to sort by.
         :arg source: The URL-encoded request definition. Useful for
@@ -662,7 +664,7 @@ class CatClient(NamespacedClient):
         :arg format: A short version of the Accept header, e.g. json,
             yaml.
         :arg full_id: If `true`, return the full node ID. If `false`,
-            return the shortened node ID.
+            return the shortened node ID. Default is false.
         :arg h: Comma-separated list of column names to display.
         :arg help: Return help information. Default is false.
         :arg human: Whether to return human readable values for
@@ -871,11 +873,11 @@ class CatClient(NamespacedClient):
         :arg index: Comma-separated list or wildcard expression of index
             names to limit the returned information.
         :arg active_only: If `true`, the response only includes ongoing
-            shard recoveries.
+            shard recoveries. Default is false.
         :arg bytes: The unit used to display byte values. Valid choices
             are b, k, kb, m, mb, g, gb, t, tb, p, pb.
         :arg detailed: If `true`, the response includes detailed
-            information about shard recoveries.
+            information about shard recoveries. Default is false.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
         :arg filter_path: Comma-separated list of filters used to reduce
@@ -1261,7 +1263,7 @@ class CatClient(NamespacedClient):
         :arg human: Whether to return human readable values for
             statistics.
         :arg ignore_unavailable: If `true`, the response does not
-            include information from unavailable snapshots.
+            include information from unavailable snapshots. Default is false.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Operation timeout for
             connection to master node.
@@ -1312,7 +1314,7 @@ class CatClient(NamespacedClient):
         :arg actions: The task action names, which are used to limit the
             response.
         :arg detailed: If `true`, the response includes detailed
-            information about shard recoveries.
+            information about shard recoveries. Default is false.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
         :arg filter_path: Comma-separated list of filters used to reduce

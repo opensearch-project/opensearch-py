@@ -67,7 +67,7 @@ class TasksClient(NamespacedClient):
         :arg actions: Comma-separated list or wildcard expression of
             actions used to limit the request.
         :arg detailed: If `true`, the response includes detailed
-            information about shard recoveries.
+            information about shard recoveries. Default is false.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
         :arg filter_path: Comma-separated list of filters used to reduce
@@ -91,7 +91,7 @@ class TasksClient(NamespacedClient):
             received before the timeout expires, the request fails and returns an
             error.
         :arg wait_for_completion: If `true`, the request blocks until
-            the operation is complete.
+            the operation is complete. Default is false.
         """
         return self.transport.perform_request(
             "GET", "/_tasks", params=params, headers=headers
@@ -136,7 +136,7 @@ class TasksClient(NamespacedClient):
             libraries that do not accept a request body for non-POST requests.
         :arg wait_for_completion: Should the request block until the
             cancellation of the task and its descendant tasks is completed. Defaults
-            to false
+            to false Default is false.
         """
         return self.transport.perform_request(
             "POST",
@@ -179,7 +179,7 @@ class TasksClient(NamespacedClient):
             received before the timeout expires, the request fails and returns an
             error.
         :arg wait_for_completion: If `true`, the request blocks until
-            the task has completed.
+            the task has completed. Default is false.
         """
         if task_id in SKIP_IN_PATH:
             warnings.warn(

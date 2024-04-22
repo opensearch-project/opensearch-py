@@ -175,7 +175,7 @@ class IndicesClient(NamespacedClient):
         :arg wait_if_ongoing: If `true`, the flush operation blocks
             until execution when another flush operation is running.If `false`,
             Opensearch returns an error if you request a flush when another flush
-            operation is running.
+            operation is running. Default is True.
         """
         return self.transport.perform_request(
             "POST", _make_path(index, "_flush"), params=params, headers=headers
@@ -338,7 +338,8 @@ class IndicesClient(NamespacedClient):
             any wildcard expression, index alias, or _all value targets onlymissing
             or closed indices. This behavior applies even if the request targets
             other open indices. For example,a request targeting foo*,bar* returns an
-            error if an index starts with foo but no index starts with bar.
+            error if an index starts with foo but no index starts with bar. Default
+            is false.
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
         :arg error_trace: Whether to include the stack trace of returned
@@ -351,15 +352,16 @@ class IndicesClient(NamespacedClient):
         :arg filter_path: Comma-separated list of filters used to reduce
             the response.
         :arg flat_settings: If true, returns settings in flat format.
+            Default is false.
         :arg human: Whether to return human readable values for
             statistics.
         :arg ignore_unavailable: If false, requests that target a
-            missing index return an error.
+            missing index return an error. Default is false.
         :arg include_defaults: If true, return all default settings in
-            the response.
+            the response. Default is false.
         :arg local: If true, the request retrieves information from the
             local node only. Defaults to false, which means information is retrieved
-            from the master node.
+            from the master node. Default is false.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Period to wait for a connection
             to the master node. If no response is received before the timeout
@@ -553,7 +555,7 @@ class IndicesClient(NamespacedClient):
         :arg allow_no_indices: If `false`, the request returns an error
             if any wildcard expression, index alias, or `_all` value targets only
             missing or closed indices.This behavior applies even if the request
-            targets other open indices.
+            targets other open indices. Default is false.
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
         :arg error_trace: Whether to include the stack trace of returned
@@ -568,7 +570,7 @@ class IndicesClient(NamespacedClient):
         :arg human: Whether to return human readable values for
             statistics.
         :arg ignore_unavailable: If `false`, the request returns an
-            error if it targets a missing or closed index.
+            error if it targets a missing or closed index. Default is false.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Period to wait for a connection
             to the master node.If no response is received before the timeout
@@ -616,7 +618,7 @@ class IndicesClient(NamespacedClient):
         :arg allow_no_indices: If `false`, the request returns an error
             if any wildcard expression, index alias, or `_all` value targets only
             missing or closed indices.This behavior applies even if the request
-            targets other open indices.
+            targets other open indices. Default is false.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
         :arg expand_wildcards: Type of index that wildcard patterns can
@@ -627,14 +629,15 @@ class IndicesClient(NamespacedClient):
         :arg filter_path: Comma-separated list of filters used to reduce
             the response.
         :arg flat_settings: If `true`, returns settings in flat format.
+            Default is false.
         :arg human: Whether to return human readable values for
             statistics.
         :arg ignore_unavailable: If `false`, the request returns an
-            error if it targets a missing or closed index.
+            error if it targets a missing or closed index. Default is false.
         :arg include_defaults: If `true`, return all default settings in
-            the response.
+            the response. Default is false.
         :arg local: If `true`, the request retrieves information from
-            the local node only.
+            the local node only. Default is false.
         :arg pretty: Whether to pretty format the returned JSON
             response.
         :arg source: The URL-encoded request definition. Useful for
@@ -706,7 +709,7 @@ class IndicesClient(NamespacedClient):
             received before the timeout expires, the request fails and returns an
             error.
         :arg write_index_only: If `true`, the mappings are applied only
-            to the current write index for the target.
+            to the current write index for the target. Default is false.
         """
         if body in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'body'.")
@@ -768,7 +771,7 @@ class IndicesClient(NamespacedClient):
         :arg ignore_unavailable: If `false`, the request returns an
             error if it targets a missing or closed index.
         :arg local: If `true`, the request retrieves information from
-            the local node only.
+            the local node only. Default is false.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Period to wait for a connection
             to the master node.If no response is received before the timeout
@@ -830,7 +833,7 @@ class IndicesClient(NamespacedClient):
         :arg include_defaults: If `true`, return all default settings in
             the response.
         :arg local: If `true`, the request retrieves information from
-            the local node only.
+            the local node only. Default is false.
         :arg pretty: Whether to pretty format the returned JSON
             response.
         :arg source: The URL-encoded request definition. Useful for
@@ -953,7 +956,7 @@ class IndicesClient(NamespacedClient):
             missing data stream or index in the target indices or data streams
             return an error.
         :arg local: If `true`, the request retrieves information from
-            the local node only.
+            the local node only. Default is false.
         :arg pretty: Whether to pretty format the returned JSON
             response.
         :arg source: The URL-encoded request definition. Useful for
@@ -1012,7 +1015,7 @@ class IndicesClient(NamespacedClient):
         :arg ignore_unavailable: If `false`, the request returns an
             error if it targets a missing or closed index.
         :arg local: If `true`, the request retrieves information from
-            the local node only.
+            the local node only. Default is false.
         :arg pretty: Whether to pretty format the returned JSON
             response.
         :arg source: The URL-encoded request definition. Useful for
@@ -1150,7 +1153,7 @@ class IndicesClient(NamespacedClient):
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
         :arg create: If true, this request cannot replace or update
-            existing index templates.
+            existing index templates. Default is false.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
         :arg filter_path: Comma-separated list of filters used to reduce
@@ -1211,11 +1214,11 @@ class IndicesClient(NamespacedClient):
         :arg filter_path: Comma-separated list of filters used to reduce
             the response.
         :arg flat_settings: Return settings in flat format (default:
-            false)
+            false) Default is false.
         :arg human: Whether to return human readable values for
             statistics.
         :arg local: Return local information, do not retrieve the state
-            from cluster-manager node (default: false)
+            from cluster-manager node (default: false) Default is false.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Explicit operation timeout for
             connection to master node
@@ -1263,10 +1266,11 @@ class IndicesClient(NamespacedClient):
         :arg filter_path: Comma-separated list of filters used to reduce
             the response.
         :arg flat_settings: If `true`, returns settings in flat format.
+            Default is false.
         :arg human: Whether to return human readable values for
             statistics.
         :arg local: If `true`, the request retrieves information from
-            the local node only.
+            the local node only. Default is false.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Period to wait for a connection
             to the master node.If no response is received before the timeout
@@ -1378,15 +1382,16 @@ class IndicesClient(NamespacedClient):
         :arg filter_path: Comma-separated list of filters used to reduce
             the response.
         :arg flat_settings: If `true`, returns settings in flat format.
+            Default is false.
         :arg human: Whether to return human readable values for
             statistics.
         :arg ignore_unavailable: If `false`, the request returns an
             error if it targets a missing or closed index.
         :arg include_defaults: If `true`, return all default settings in
-            the response.
+            the response. Default is false.
         :arg local: If `true`, the request retrieves information from
             the local node only. If`false`, information is retrieved from the master
-            node.
+            node. Default is false.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Period to wait for a connection
             to the master node. If no response isreceived before the timeout
@@ -1447,6 +1452,7 @@ class IndicesClient(NamespacedClient):
         :arg filter_path: Comma-separated list of filters used to reduce
             the response.
         :arg flat_settings: If `true`, returns settings in flat format.
+            Default is false.
         :arg human: Whether to return human readable values for
             statistics.
         :arg ignore_unavailable: Whether specified concrete indices
@@ -1456,7 +1462,7 @@ class IndicesClient(NamespacedClient):
             to the master node. If no response isreceived before the timeout
             expires, the request fails and returns anerror.
         :arg preserve_existing: If `true`, existing index settings
-            remain unchanged.
+            remain unchanged. Default is false.
         :arg pretty: Whether to pretty format the returned JSON
             response.
         :arg source: The URL-encoded request definition. Useful for
@@ -1523,16 +1529,17 @@ class IndicesClient(NamespacedClient):
         :arg filter_path: Comma-separated list of filters used to reduce
             the response.
         :arg forbid_closed_indices: If true, statistics are not
-            collected from closed indices.
+            collected from closed indices. Default is True.
         :arg groups: Comma-separated list of search groups to include in
             the search statistics.
         :arg human: Whether to return human readable values for
             statistics.
         :arg include_segment_file_sizes: If true, the call reports the
             aggregated disk usage of each one of the Lucene index files (only
-            applies if segment stats are requested).
+            applies if segment stats are requested). Default is false.
         :arg include_unloaded_segments: If true, the response includes
-            information from segments that are not loaded into memory.
+            information from segments that are not loaded into memory. Default is
+            false.
         :arg level: Indicates whether statistics are aggregated at the
             cluster, index, or shard level. Valid choices are cluster, indices,
             shards.
@@ -1591,6 +1598,7 @@ class IndicesClient(NamespacedClient):
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         :arg verbose: If `true`, the request returns a verbose response.
+            Default is false.
         """
         return self.transport.perform_request(
             "GET", _make_path(index, "_segments"), params=params, headers=headers
@@ -1637,7 +1645,7 @@ class IndicesClient(NamespacedClient):
             missing or closed indices.This behavior applies even if the request
             targets other open indices.
         :arg analyze_wildcard: If `true`, wildcard and prefix queries
-            are analyzed.
+            are analyzed. Default is false.
         :arg analyzer: Analyzer to use for the query string.This
             parameter can only be used when the `q` query string parameter is
             specified.
@@ -1760,9 +1768,9 @@ class IndicesClient(NamespacedClient):
             aliases used to limit the request. Supports wildcards (`*`). To target
             all data streams and indices, omit this parameter or use `*` or `_all`.
         :arg active_only: If `true`, the response only includes ongoing
-            shard recoveries.
+            shard recoveries. Default is false.
         :arg detailed: If `true`, the response includes detailed
-            information about shard recoveries.
+            information about shard recoveries. Default is false.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
         :arg filter_path: Comma-separated list of filters used to reduce
@@ -1962,7 +1970,7 @@ class IndicesClient(NamespacedClient):
         :arg filter_path: Comma-separated list of filters used to reduce
             the response.
         :arg flush: Specify whether the index should be flushed after
-            performing the operation (default: true)
+            performing the operation (default: true) Default is True.
         :arg human: Whether to return human readable values for
             statistics.
         :arg ignore_unavailable: Whether specified concrete indices
@@ -1978,7 +1986,7 @@ class IndicesClient(NamespacedClient):
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         :arg wait_for_completion: Should the request wait until the
-            force merge is completed.
+            force merge is completed. Default is True.
         """
         return self.transport.perform_request(
             "POST", _make_path(index, "_forcemerge"), params=params, headers=headers
@@ -2163,6 +2171,7 @@ class IndicesClient(NamespacedClient):
             to cluster-manager node.
         :arg dry_run: If `true`, checks whether the current index
             satisfies the specified conditions but does not perform a rollover.
+            Default is false.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
         :arg filter_path: Comma-separated list of filters used to reduce
@@ -2401,11 +2410,12 @@ class IndicesClient(NamespacedClient):
         :arg filter_path: Comma-separated list of filters used to reduce
             the response.
         :arg flat_settings: If true, returns settings in flat format.
+            Default is false.
         :arg human: Whether to return human readable values for
             statistics.
         :arg local: If true, the request retrieves information from the
             local node only. Defaults to false, which means information is retrieved
-            from the master node.
+            from the master node. Default is false.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Period to wait for a connection
             to the master node. If no response is received before the timeout
@@ -2448,7 +2458,7 @@ class IndicesClient(NamespacedClient):
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
         :arg create: If `true`, this request cannot replace or update
-            existing index templates.
+            existing index templates. Default is false.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
         :arg filter_path: Comma-separated list of filters used to reduce
@@ -2509,7 +2519,7 @@ class IndicesClient(NamespacedClient):
             used if no existingtemplates match the same index patterns. If `false`,
             the simulation usesthe template with the highest priority. Note that the
             template is notpermanently added or updated in either case; it is only
-            used for thesimulation.
+            used for thesimulation. Default is false.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
         :arg filter_path: Comma-separated list of filters used to reduce
@@ -2598,7 +2608,7 @@ class IndicesClient(NamespacedClient):
             used if no existing templates match the same index patterns. If false,
             the simulation uses the template with the highest priority. Note that
             the template is not permanently added or updated in either case; it is
-            only used for the simulation.
+            only used for the simulation. Default is false.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
         :arg filter_path: Comma-separated list of filters used to reduce

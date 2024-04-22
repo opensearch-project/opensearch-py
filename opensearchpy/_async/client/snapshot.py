@@ -84,7 +84,7 @@ class SnapshotClient(NamespacedClient):
             libraries that do not accept a request body for non-POST requests.
         :arg wait_for_completion: If `true`, the request returns a
             response when the snapshot is complete. If `false`, the request returns
-            a response when the snapshot initializes.
+            a response when the snapshot initializes. Default is false.
         """
         for param in (repository, snapshot):
             if param in SKIP_IN_PATH:
@@ -185,7 +185,7 @@ class SnapshotClient(NamespacedClient):
         :arg human: Whether to return human readable values for
             statistics.
         :arg ignore_unavailable: If false, the request returns an error
-            for any snapshots that are unavailable.
+            for any snapshots that are unavailable. Default is false.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Period to wait for a connection
             to the master node. If no response is received before the timeout
@@ -289,7 +289,7 @@ class SnapshotClient(NamespacedClient):
         :arg human: Whether to return human readable values for
             statistics.
         :arg local: Return local information, do not retrieve the state
-            from cluster-manager node (default: false)
+            from cluster-manager node (default: false) Default is false.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Explicit operation timeout for
             connection to master node
@@ -397,7 +397,7 @@ class SnapshotClient(NamespacedClient):
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         :arg wait_for_completion: Should this request wait until the
-            operation has completed before returning
+            operation has completed before returning Default is false.
         """
         for param in (repository, snapshot):
             if param in SKIP_IN_PATH:
@@ -444,7 +444,7 @@ class SnapshotClient(NamespacedClient):
             statistics.
         :arg ignore_unavailable: Whether to ignore unavailable
             snapshots, defaults to false which means a SnapshotMissingException is
-            thrown
+            thrown Default is false.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Explicit operation timeout for
             connection to master node
