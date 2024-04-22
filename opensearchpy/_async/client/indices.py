@@ -1214,11 +1214,11 @@ class IndicesClient(NamespacedClient):
         :arg filter_path: Comma-separated list of filters used to reduce
             the response.
         :arg flat_settings: Return settings in flat format (default:
-            false) Default is false.
+            false)
         :arg human: Whether to return human readable values for
             statistics.
         :arg local: Return local information, do not retrieve the state
-            from cluster-manager node (default: false) Default is false.
+            from cluster-manager node (default: false)
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Explicit operation timeout for
             connection to master node
@@ -1970,7 +1970,7 @@ class IndicesClient(NamespacedClient):
         :arg filter_path: Comma-separated list of filters used to reduce
             the response.
         :arg flush: Specify whether the index should be flushed after
-            performing the operation (default: true) Default is True.
+            performing the operation (default: true)
         :arg human: Whether to return human readable values for
             statistics.
         :arg ignore_unavailable: Whether specified concrete indices

@@ -846,7 +846,7 @@ class OpenSearch(Client):
             `open`, `closed`, `hidden`, `none`.
         :arg filter_path: Comma-separated list of filters used to reduce
             the response.
-        :arg from_: Starting offset (default: 0) Default is 0.
+        :arg from_: Starting offset (default: 0)
         :arg human: Whether to return human readable values for
             statistics.
         :arg ignore_unavailable: If `false`, the request returns an
@@ -2765,7 +2765,7 @@ class OpenSearch(Client):
             `closed`, `hidden`, `none`.
         :arg filter_path: Comma-separated list of filters used to reduce
             the response.
-        :arg from_: Starting offset (default: 0) Default is 0.
+        :arg from_: Starting offset (default: 0)
         :arg human: Whether to return human readable values for
             statistics.
         :arg ignore_unavailable: If `false`, the request returns an
