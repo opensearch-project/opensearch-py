@@ -168,7 +168,7 @@
 <span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
 <span class="sd">        :arg wait_for_completion: If `true`, the request returns a</span>
 <span class="sd">            response when the snapshot is complete. If `false`, the request returns</span>
-<span class="sd">            a response when the snapshot initializes.</span>
+<span class="sd">            a response when the snapshot initializes. Default is false.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="p">(</span><span class="n">repository</span><span class="p">,</span> <span class="n">snapshot</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
@@ -269,7 +269,7 @@
 <span class="sd">        :arg human: Whether to return human readable values for</span>
 <span class="sd">            statistics.</span>
 <span class="sd">        :arg ignore_unavailable: If false, the request returns an error</span>
-<span class="sd">            for any snapshots that are unavailable.</span>
+<span class="sd">            for any snapshots that are unavailable. Default is false.</span>
 <span class="sd">        :arg master_timeout (Deprecated: To promote inclusive language,</span>
 <span class="sd">            use &#39;cluster_manager_timeout&#39; instead.): Period to wait for a connection</span>
 <span class="sd">            to the master node. If no response is received before the timeout</span>
@@ -373,7 +373,7 @@
 <span class="sd">        :arg human: Whether to return human readable values for</span>
 <span class="sd">            statistics.</span>
 <span class="sd">        :arg local: Return local information, do not retrieve the state</span>
-<span class="sd">            from cluster-manager node (default: false)</span>
+<span class="sd">            from cluster-manager node (default: false) Default is false.</span>
 <span class="sd">        :arg master_timeout (Deprecated: To promote inclusive language,</span>
 <span class="sd">            use &#39;cluster_manager_timeout&#39; instead.): Explicit operation timeout for</span>
 <span class="sd">            connection to master node</span>
@@ -481,7 +481,7 @@
 <span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
 <span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
 <span class="sd">        :arg wait_for_completion: Should this request wait until the</span>
-<span class="sd">            operation has completed before returning</span>
+<span class="sd">            operation has completed before returning Default is false.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="p">(</span><span class="n">repository</span><span class="p">,</span> <span class="n">snapshot</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
@@ -528,7 +528,7 @@
 <span class="sd">            statistics.</span>
 <span class="sd">        :arg ignore_unavailable: Whether to ignore unavailable</span>
 <span class="sd">            snapshots, defaults to false which means a SnapshotMissingException is</span>
-<span class="sd">            thrown</span>
+<span class="sd">            thrown Default is false.</span>
 <span class="sd">        :arg master_timeout (Deprecated: To promote inclusive language,</span>
 <span class="sd">            use &#39;cluster_manager_timeout&#39; instead.): Explicit operation timeout for</span>
 <span class="sd">            connection to master node</span>

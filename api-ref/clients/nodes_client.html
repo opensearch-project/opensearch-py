@@ -183,7 +183,8 @@ metrics. Supports a comma-separated list, such as http,ingest.</p></li>
 errors.</p></li>
 <li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
 the response.</p></li>
-<li><p><strong>flat_settings</strong> – If true, returns settings in flat format.</p></li>
+<li><p><strong>flat_settings</strong> – If true, returns settings in flat format.
+Default is false.</p></li>
 <li><p><strong>human</strong> – Whether to return human readable values for
 statistics.</p></li>
 <li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
@@ -271,7 +272,7 @@ the search statistics.</p></li>
 statistics.</p></li>
 <li><p><strong>include_segment_file_sizes</strong> – If true, the call reports the
 aggregated disk usage of each one of the Lucene index files (only
-applies if segment stats are requested).</p></li>
+applies if segment stats are requested). Default is false.</p></li>
 <li><p><strong>level</strong> – Indicates whether statistics are aggregated at the
 cluster, index, or shard level. Valid choices are cluster, indices,
 shards.</p></li>

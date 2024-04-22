@@ -176,7 +176,7 @@
 <span class="sd">            cluster, indices, shards, awareness_attributes.</span>
 <span class="sd">        :arg local: If true, the request retrieves information from the</span>
 <span class="sd">            local node only. Defaults to false, which means information is retrieved</span>
-<span class="sd">            from the master node.</span>
+<span class="sd">            from the master node. Default is false.</span>
 <span class="sd">        :arg master_timeout (Deprecated: To promote inclusive language,</span>
 <span class="sd">            use &#39;cluster_manager_timeout&#39; instead.): Period to wait for a connection</span>
 <span class="sd">            to the master node. If no response is received before the timeout</span>
@@ -249,7 +249,7 @@
 <span class="sd">            statistics.</span>
 <span class="sd">        :arg local: If `true`, the request retrieves information from</span>
 <span class="sd">            the local node only.If `false`, information is retrieved from the master</span>
-<span class="sd">            node.</span>
+<span class="sd">            node. Default is false.</span>
 <span class="sd">        :arg master_timeout (Deprecated: To promote inclusive language,</span>
 <span class="sd">            use &#39;cluster_manager_timeout&#39; instead.): Period to wait for a connection</span>
 <span class="sd">            to the master node.If no response is received before the timeout</span>
@@ -307,13 +307,13 @@
 <span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
 <span class="sd">            the response.</span>
 <span class="sd">        :arg flat_settings: Return settings in flat format (default:</span>
-<span class="sd">            false)</span>
+<span class="sd">            false) Default is false.</span>
 <span class="sd">        :arg human: Whether to return human readable values for</span>
 <span class="sd">            statistics.</span>
 <span class="sd">        :arg ignore_unavailable: Whether specified concrete indices</span>
 <span class="sd">            should be ignored when unavailable (missing or closed)</span>
 <span class="sd">        :arg local: Return local information, do not retrieve the state</span>
-<span class="sd">            from cluster-manager node (default: false)</span>
+<span class="sd">            from cluster-manager node (default: false) Default is false.</span>
 <span class="sd">        :arg master_timeout (Deprecated: To promote inclusive language,</span>
 <span class="sd">            use &#39;cluster_manager_timeout&#39; instead.): Specify timeout for connection</span>
 <span class="sd">            to master</span>
@@ -362,6 +362,7 @@
 <span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
 <span class="sd">            the response.</span>
 <span class="sd">        :arg flat_settings: If `true`, returns settings in flat format.</span>
+<span class="sd">            Default is false.</span>
 <span class="sd">        :arg human: Whether to return human readable values for</span>
 <span class="sd">            statistics.</span>
 <span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
@@ -470,10 +471,11 @@
 <span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
 <span class="sd">            the response.</span>
 <span class="sd">        :arg flat_settings: If `true`, returns settings in flat format.</span>
+<span class="sd">            Default is false.</span>
 <span class="sd">        :arg human: Whether to return human readable values for</span>
 <span class="sd">            statistics.</span>
 <span class="sd">        :arg include_defaults: If `true`, returns default cluster</span>
-<span class="sd">            settings from the local node.</span>
+<span class="sd">            settings from the local node. Default is false.</span>
 <span class="sd">        :arg master_timeout (Deprecated: To promote inclusive language,</span>
 <span class="sd">            use &#39;cluster_manager_timeout&#39; instead.): Period to wait for a connection</span>
 <span class="sd">            to the master node.If no response is received before the timeout</span>
@@ -520,7 +522,7 @@
 <span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
 <span class="sd">            the response.</span>
 <span class="sd">        :arg flat_settings: Return settings in flat format (default:</span>
-<span class="sd">            false)</span>
+<span class="sd">            false) Default is false.</span>
 <span class="sd">        :arg human: Whether to return human readable values for</span>
 <span class="sd">            statistics.</span>
 <span class="sd">        :arg master_timeout (Deprecated: To promote inclusive language,</span>
@@ -592,9 +594,9 @@
 <span class="sd">        :arg human: Whether to return human readable values for</span>
 <span class="sd">            statistics.</span>
 <span class="sd">        :arg include_disk_info: If true, returns information about disk</span>
-<span class="sd">            usage and shard sizes.</span>
+<span class="sd">            usage and shard sizes. Default is false.</span>
 <span class="sd">        :arg include_yes_decisions: If true, returns YES decisions in</span>
-<span class="sd">            explanation.</span>
+<span class="sd">            explanation. Default is false.</span>
 <span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
 <span class="sd">            response.</span>
 <span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
@@ -692,7 +694,7 @@
 <span class="sd">            statistics.</span>
 <span class="sd">        :arg local: If `true`, the request retrieves information from</span>
 <span class="sd">            the local node only.If `false`, information is retrieved from the master</span>
-<span class="sd">            node.</span>
+<span class="sd">            node. Default is false.</span>
 <span class="sd">        :arg master_timeout (Deprecated: To promote inclusive language,</span>
 <span class="sd">            use &#39;cluster_manager_timeout&#39; instead.): Period to wait for a connection</span>
 <span class="sd">            to the master node.If no response is received before the timeout</span>
@@ -745,7 +747,7 @@
 <span class="sd">        :arg cluster_manager_timeout: Operation timeout for connection</span>
 <span class="sd">            to cluster-manager node.</span>
 <span class="sd">        :arg create: If `true`, this request cannot replace or update</span>
-<span class="sd">            existing component templates.</span>
+<span class="sd">            existing component templates. Default is false.</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
 <span class="sd">            errors.</span>
 <span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
@@ -806,7 +808,7 @@
 <span class="sd">            statistics.</span>
 <span class="sd">        :arg local: If true, the request retrieves information from the</span>
 <span class="sd">            local node only.Defaults to false, which means information is retrieved</span>
-<span class="sd">            from the master node.</span>
+<span class="sd">            from the master node. Default is false.</span>
 <span class="sd">        :arg master_timeout (Deprecated: To promote inclusive language,</span>
 <span class="sd">            use &#39;cluster_manager_timeout&#39; instead.): Period to wait for a connection</span>
 <span class="sd">            to the master node. If no response isreceived before the timeout</span>
@@ -853,7 +855,8 @@
 <span class="sd">            configuration exclusions list.Defaults to true, meaning that all</span>
 <span class="sd">            excluded nodes must be removed fromthe cluster before this API takes any</span>
 <span class="sd">            action. If set to false then thevoting configuration exclusions list is</span>
-<span class="sd">            cleared even if some excludednodes are still in the cluster.</span>
+<span class="sd">            cleared even if some excludednodes are still in the cluster. Default is</span>
+<span class="sd">            True.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
             <span class="s2">&quot;DELETE&quot;</span><span class="p">,</span>

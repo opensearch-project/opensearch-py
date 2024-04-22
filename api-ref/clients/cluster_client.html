@@ -141,9 +141,9 @@ the response.</p></li>
 <li><p><strong>human</strong> – Whether to return human readable values for
 statistics.</p></li>
 <li><p><strong>include_disk_info</strong> – If true, returns information about disk
-usage and shard sizes.</p></li>
+usage and shard sizes. Default is false.</p></li>
 <li><p><strong>include_yes_decisions</strong> – If true, returns YES decisions in
-explanation.</p></li>
+explanation. Default is false.</p></li>
 <li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
 response.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
@@ -247,7 +247,8 @@ excluded nodes to be removed from thecluster before clearing the voting
 configuration exclusions list.Defaults to true, meaning that all
 excluded nodes must be removed fromthe cluster before this API takes any
 action. If set to false then thevoting configuration exclusions list is
-cleared even if some excludednodes are still in the cluster.</p></li>
+cleared even if some excludednodes are still in the cluster. Default is
+True.</p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 <li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 </ul>
@@ -304,7 +305,7 @@ the response.</p></li>
 statistics.</p></li>
 <li><p><strong>local</strong> – If true, the request retrieves information from the
 local node only.Defaults to false, which means information is retrieved
-from the master node.</p></li>
+from the master node. Default is false.</p></li>
 <li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
 use ‘cluster_manager_timeout’ instead.): Period to wait for a connection
 to the master node. If no response isreceived before the timeout
@@ -343,7 +344,7 @@ the response.</p></li>
 statistics.</p></li>
 <li><p><strong>local</strong> – If <cite>true</cite>, the request retrieves information from
 the local node only.If <cite>false</cite>, information is retrieved from the master
-node.</p></li>
+node. Default is false.</p></li>
 <li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
 use ‘cluster_manager_timeout’ instead.): Period to wait for a connection
 to the master node.If no response is received before the timeout
@@ -405,11 +406,12 @@ to cluster-manager node.</p></li>
 errors.</p></li>
 <li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
 the response.</p></li>
-<li><p><strong>flat_settings</strong> – If <cite>true</cite>, returns settings in flat format.</p></li>
+<li><p><strong>flat_settings</strong> – If <cite>true</cite>, returns settings in flat format.
+Default is false.</p></li>
 <li><p><strong>human</strong> – Whether to return human readable values for
 statistics.</p></li>
 <li><p><strong>include_defaults</strong> – If <cite>true</cite>, returns default cluster
-settings from the local node.</p></li>
+settings from the local node. Default is false.</p></li>
 <li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
 use ‘cluster_manager_timeout’ instead.): Period to wait for a connection
 to the master node.If no response is received before the timeout
@@ -489,7 +491,7 @@ the details level of the health information returned. Valid choices are
 cluster, indices, shards, awareness_attributes.</p></li>
 <li><p><strong>local</strong> – If true, the request retrieves information from the
 local node only. Defaults to false, which means information is retrieved
-from the master node.</p></li>
+from the master node. Default is false.</p></li>
 <li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
 use ‘cluster_manager_timeout’ instead.): Period to wait for a connection
 to the master node. If no response is received before the timeout
@@ -553,7 +555,7 @@ the response.</p></li>
 statistics.</p></li>
 <li><p><strong>local</strong> – If <cite>true</cite>, the request retrieves information from
 the local node only.If <cite>false</cite>, information is retrieved from the master
-node.</p></li>
+node. Default is false.</p></li>
 <li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
 use ‘cluster_manager_timeout’ instead.): Period to wait for a connection
 to the master node.If no response is received before the timeout
@@ -631,7 +633,7 @@ cluster update settings API.</p></li>
 <li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
 to cluster-manager node.</p></li>
 <li><p><strong>create</strong> – If <cite>true</cite>, this request cannot replace or update
-existing component templates.</p></li>
+existing component templates. Default is false.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors.</p></li>
 <li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
@@ -706,7 +708,7 @@ errors.</p></li>
 <li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
 the response.</p></li>
 <li><p><strong>flat_settings</strong> – Return settings in flat format (default:
-false)</p></li>
+false) Default is false.</p></li>
 <li><p><strong>human</strong> – Whether to return human readable values for
 statistics.</p></li>
 <li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
@@ -855,13 +857,13 @@ open, closed, hidden, none.</p></li>
 <li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
 the response.</p></li>
 <li><p><strong>flat_settings</strong> – Return settings in flat format (default:
-false)</p></li>
+false) Default is false.</p></li>
 <li><p><strong>human</strong> – Whether to return human readable values for
 statistics.</p></li>
 <li><p><strong>ignore_unavailable</strong> – Whether specified concrete indices
 should be ignored when unavailable (missing or closed)</p></li>
 <li><p><strong>local</strong> – Return local information, do not retrieve the state
-from cluster-manager node (default: false)</p></li>
+from cluster-manager node (default: false) Default is false.</p></li>
 <li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
 use ‘cluster_manager_timeout’ instead.): Specify timeout for connection
 to master</p></li>
@@ -898,7 +900,8 @@ returned information. Defaults to all nodes in the cluster.</p></li>
 errors.</p></li>
 <li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
 the response.</p></li>
-<li><p><strong>flat_settings</strong> – If <cite>true</cite>, returns settings in flat format.</p></li>
+<li><p><strong>flat_settings</strong> – If <cite>true</cite>, returns settings in flat format.
+Default is false.</p></li>
 <li><p><strong>human</strong> – Whether to return human readable values for
 statistics.</p></li>
 <li><p><strong>pretty</strong> – Whether to pretty format the returned JSON

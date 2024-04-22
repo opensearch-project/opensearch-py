@@ -482,7 +482,7 @@ support wildcards (<cite>*</cite>) or <cite>_all</cite>. To use wildcards or <ci
 <li><p><strong>allow_no_indices</strong> – If <cite>false</cite>, the request returns an error
 if any wildcard expression, index alias, or <cite>_all</cite> value targets only
 missing or closed indices.This behavior applies even if the request
-targets other open indices.</p></li>
+targets other open indices. Default is false.</p></li>
 <li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
 to cluster-manager node.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
@@ -497,7 +497,7 @@ the response.</p></li>
 <li><p><strong>human</strong> – Whether to return human readable values for
 statistics.</p></li>
 <li><p><strong>ignore_unavailable</strong> – If <cite>false</cite>, the request returns an
-error if it targets a missing or closed index.</p></li>
+error if it targets a missing or closed index. Default is false.</p></li>
 <li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
 use ‘cluster_manager_timeout’ instead.): Period to wait for a connection
 to the master node.If no response is received before the timeout
@@ -682,7 +682,7 @@ aliases. Supports wildcards (<cite>*</cite>).</p></li>
 <li><p><strong>allow_no_indices</strong> – If <cite>false</cite>, the request returns an error
 if any wildcard expression, index alias, or <cite>_all</cite> value targets only
 missing or closed indices.This behavior applies even if the request
-targets other open indices.</p></li>
+targets other open indices. Default is false.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors.</p></li>
 <li><p><strong>expand_wildcards</strong> – Type of index that wildcard patterns can
@@ -692,15 +692,16 @@ separated values, such as <cite>open,hidden</cite>.Valid values are: <cite>all</
 <cite>closed</cite>, <cite>hidden</cite>, <cite>none</cite>.</p></li>
 <li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
 the response.</p></li>
-<li><p><strong>flat_settings</strong> – If <cite>true</cite>, returns settings in flat format.</p></li>
+<li><p><strong>flat_settings</strong> – If <cite>true</cite>, returns settings in flat format.
+Default is false.</p></li>
 <li><p><strong>human</strong> – Whether to return human readable values for
 statistics.</p></li>
 <li><p><strong>ignore_unavailable</strong> – If <cite>false</cite>, the request returns an
-error if it targets a missing or closed index.</p></li>
+error if it targets a missing or closed index. Default is false.</p></li>
 <li><p><strong>include_defaults</strong> – If <cite>true</cite>, return all default settings in
-the response.</p></li>
+the response. Default is false.</p></li>
 <li><p><strong>local</strong> – If <cite>true</cite>, the request retrieves information from
-the local node only.</p></li>
+the local node only. Default is false.</p></li>
 <li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
 response.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
@@ -747,7 +748,7 @@ statistics.</p></li>
 missing data stream or index in the target indices or data streams
 return an error.</p></li>
 <li><p><strong>local</strong> – If <cite>true</cite>, the request retrieves information from
-the local node only.</p></li>
+the local node only. Default is false.</p></li>
 <li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
 response.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
@@ -819,11 +820,11 @@ errors.</p></li>
 <li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
 the response.</p></li>
 <li><p><strong>flat_settings</strong> – Return settings in flat format (default:
-false)</p></li>
+false) Default is false.</p></li>
 <li><p><strong>human</strong> – Whether to return human readable values for
 statistics.</p></li>
 <li><p><strong>local</strong> – Return local information, do not retrieve the state
-from cluster-manager node (default: false)</p></li>
+from cluster-manager node (default: false) Default is false.</p></li>
 <li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
 use ‘cluster_manager_timeout’ instead.): Explicit operation timeout for
 connection to master node</p></li>
@@ -878,7 +879,7 @@ libraries that do not accept a request body for non-POST requests.</p></li>
 <li><p><strong>wait_if_ongoing</strong> – If <cite>true</cite>, the flush operation blocks
 until execution when another flush operation is running.If <cite>false</cite>,
 Opensearch returns an error if you request a flush when another flush
-operation is running.</p></li>
+operation is running. Default is True.</p></li>
 <li><p><strong>index</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 <li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
@@ -910,7 +911,7 @@ open, closed, hidden, none.</p></li>
 <li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
 the response.</p></li>
 <li><p><strong>flush</strong> – Specify whether the index should be flushed after
-performing the operation (default: true)</p></li>
+performing the operation (default: true) Default is True.</p></li>
 <li><p><strong>human</strong> – Whether to return human readable values for
 statistics.</p></li>
 <li><p><strong>ignore_unavailable</strong> – Whether specified concrete indices
@@ -926,7 +927,7 @@ perform on primary shards. Defaults to false. Default is false.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
 <li><p><strong>wait_for_completion</strong> – Should the request wait until the
-force merge is completed.</p></li>
+force merge is completed. Default is True.</p></li>
 <li><p><strong>index</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 <li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
@@ -952,7 +953,8 @@ supported.</p></li>
 any wildcard expression, index alias, or _all value targets onlymissing
 or closed indices. This behavior applies even if the request targets
 other open indices. For example,a request targeting foo*,bar* returns an
-error if an index starts with foo but no index starts with bar.</p></li>
+error if an index starts with foo but no index starts with bar. Default
+is false.</p></li>
 <li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
 to cluster-manager node.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
@@ -964,16 +966,17 @@ streams. Supports comma-separated values,such as open,hidden. Valid
 choices are all, open, closed, hidden, none.</p></li>
 <li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
 the response.</p></li>
-<li><p><strong>flat_settings</strong> – If true, returns settings in flat format.</p></li>
+<li><p><strong>flat_settings</strong> – If true, returns settings in flat format.
+Default is false.</p></li>
 <li><p><strong>human</strong> – Whether to return human readable values for
 statistics.</p></li>
 <li><p><strong>ignore_unavailable</strong> – If false, requests that target a
-missing index return an error.</p></li>
+missing index return an error. Default is false.</p></li>
 <li><p><strong>include_defaults</strong> – If true, return all default settings in
-the response.</p></li>
+the response. Default is false.</p></li>
 <li><p><strong>local</strong> – If true, the request retrieves information from the
 local node only. Defaults to false, which means information is retrieved
-from the master node.</p></li>
+from the master node. Default is false.</p></li>
 <li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
 use ‘cluster_manager_timeout’ instead.): Period to wait for a connection
 to the master node. If no response is received before the timeout
@@ -1024,7 +1027,7 @@ statistics.</p></li>
 <li><p><strong>ignore_unavailable</strong> – If <cite>false</cite>, the request returns an
 error if it targets a missing or closed index.</p></li>
 <li><p><strong>local</strong> – If <cite>true</cite>, the request retrieves information from
-the local node only.</p></li>
+the local node only. Default is false.</p></li>
 <li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
 response.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
@@ -1104,7 +1107,7 @@ error if it targets a missing or closed index.</p></li>
 <li><p><strong>include_defaults</strong> – If <cite>true</cite>, return all default settings in
 the response.</p></li>
 <li><p><strong>local</strong> – If <cite>true</cite>, the request retrieves information from
-the local node only.</p></li>
+the local node only. Default is false.</p></li>
 <li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
 response.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
@@ -1136,12 +1139,13 @@ to cluster-manager node.</p></li>
 errors.</p></li>
 <li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
 the response.</p></li>
-<li><p><strong>flat_settings</strong> – If true, returns settings in flat format.</p></li>
+<li><p><strong>flat_settings</strong> – If true, returns settings in flat format.
+Default is false.</p></li>
 <li><p><strong>human</strong> – Whether to return human readable values for
 statistics.</p></li>
 <li><p><strong>local</strong> – If true, the request retrieves information from the
 local node only. Defaults to false, which means information is retrieved
-from the master node.</p></li>
+from the master node. Default is false.</p></li>
 <li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
 use ‘cluster_manager_timeout’ instead.): Period to wait for a connection
 to the master node. If no response is received before the timeout
@@ -1191,7 +1195,7 @@ statistics.</p></li>
 <li><p><strong>ignore_unavailable</strong> – If <cite>false</cite>, the request returns an
 error if it targets a missing or closed index.</p></li>
 <li><p><strong>local</strong> – If <cite>true</cite>, the request retrieves information from
-the local node only.</p></li>
+the local node only. Default is false.</p></li>
 <li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
 use ‘cluster_manager_timeout’ instead.): Period to wait for a connection
 to the master node.If no response is received before the timeout
@@ -1240,16 +1244,17 @@ separated values, such as <cite>open,hidden</cite>. Valid choices are all, open,
 closed, hidden, none.</p></li>
 <li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
 the response.</p></li>
-<li><p><strong>flat_settings</strong> – If <cite>true</cite>, returns settings in flat format.</p></li>
+<li><p><strong>flat_settings</strong> – If <cite>true</cite>, returns settings in flat format.
+Default is false.</p></li>
 <li><p><strong>human</strong> – Whether to return human readable values for
 statistics.</p></li>
 <li><p><strong>ignore_unavailable</strong> – If <cite>false</cite>, the request returns an
 error if it targets a missing or closed index.</p></li>
 <li><p><strong>include_defaults</strong> – If <cite>true</cite>, return all default settings in
-the response.</p></li>
+the response. Default is false.</p></li>
 <li><p><strong>local</strong> – If <cite>true</cite>, the request retrieves information from
 the local node only. If`false`, information is retrieved from the master
-node.</p></li>
+node. Default is false.</p></li>
 <li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
 use ‘cluster_manager_timeout’ instead.): Period to wait for a connection
 to the master node. If no response isreceived before the timeout
@@ -1287,11 +1292,12 @@ to cluster-manager node.</p></li>
 errors.</p></li>
 <li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
 the response.</p></li>
-<li><p><strong>flat_settings</strong> – If <cite>true</cite>, returns settings in flat format.</p></li>
+<li><p><strong>flat_settings</strong> – If <cite>true</cite>, returns settings in flat format.
+Default is false.</p></li>
 <li><p><strong>human</strong> – Whether to return human readable values for
 statistics.</p></li>
 <li><p><strong>local</strong> – If <cite>true</cite>, the request retrieves information from
-the local node only.</p></li>
+the local node only. Default is false.</p></li>
 <li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
 use ‘cluster_manager_timeout’ instead.): Period to wait for a connection
 to the master node.If no response is received before the timeout
@@ -1472,7 +1478,7 @@ template. Default is false.</p></li>
 <li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
 to cluster-manager node.</p></li>
 <li><p><strong>create</strong> – If <cite>true</cite>, this request cannot replace or update
-existing index templates.</p></li>
+existing index templates. Default is false.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors.</p></li>
 <li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
@@ -1539,7 +1545,7 @@ libraries that do not accept a request body for non-POST requests.</p></li>
 received before the timeout expires, the request fails and returns an
 error.</p></li>
 <li><p><strong>write_index_only</strong> – If <cite>true</cite>, the mappings are applied only
-to the current write index for the target.</p></li>
+to the current write index for the target. Default is false.</p></li>
 <li><p><strong>body</strong> – </p></li>
 <li><p><strong>index</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
@@ -1579,7 +1585,8 @@ separated values, such as`open,hidden`. Valid choices are all, open,
 closed, hidden, none.</p></li>
 <li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
 the response.</p></li>
-<li><p><strong>flat_settings</strong> – If <cite>true</cite>, returns settings in flat format.</p></li>
+<li><p><strong>flat_settings</strong> – If <cite>true</cite>, returns settings in flat format.
+Default is false.</p></li>
 <li><p><strong>human</strong> – Whether to return human readable values for
 statistics.</p></li>
 <li><p><strong>ignore_unavailable</strong> – Whether specified concrete indices
@@ -1589,7 +1596,7 @@ use ‘cluster_manager_timeout’ instead.): Period to wait for a connection
 to the master node. If no response isreceived before the timeout
 expires, the request fails and returns anerror.</p></li>
 <li><p><strong>preserve_existing</strong> – If <cite>true</cite>, existing index settings
-remain unchanged.</p></li>
+remain unchanged. Default is false.</p></li>
 <li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
 response.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
@@ -1621,7 +1628,7 @@ error.</p></li>
 <li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
 to cluster-manager node.</p></li>
 <li><p><strong>create</strong> – If true, this request cannot replace or update
-existing index templates.</p></li>
+existing index templates. Default is false.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors.</p></li>
 <li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
@@ -1663,9 +1670,9 @@ libraries that do not accept a request body for non-POST requests.</p></li>
 aliases used to limit the request. Supports wildcards (<cite>*</cite>). To target
 all data streams and indices, omit this parameter or use <cite>*</cite> or <cite>_all</cite>.</p></li>
 <li><p><strong>active_only</strong> – If <cite>true</cite>, the response only includes ongoing
-shard recoveries.</p></li>
+shard recoveries. Default is false.</p></li>
 <li><p><strong>detailed</strong> – If <cite>true</cite>, the response includes detailed
-information about shard recoveries.</p></li>
+information about shard recoveries. Default is false.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors.</p></li>
 <li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
@@ -1781,7 +1788,8 @@ Data streams do not support this parameter.</p></li>
 <li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
 to cluster-manager node.</p></li>
 <li><p><strong>dry_run</strong> – If <cite>true</cite>, checks whether the current index
-satisfies the specified conditions but does not perform a rollover.</p></li>
+satisfies the specified conditions but does not perform a rollover.
+Default is false.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors.</p></li>
 <li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
@@ -1847,7 +1855,8 @@ error if it targets a missing or closed index.</p></li>
 response.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
-<li><p><strong>verbose</strong> – If <cite>true</cite>, the request returns a verbose response.</p></li>
+<li><p><strong>verbose</strong> – If <cite>true</cite>, the request returns a verbose response.
+Default is false.</p></li>
 <li><p><strong>index</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 <li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
@@ -1973,7 +1982,7 @@ to cluster-manager node.</p></li>
 used if no existingtemplates match the same index patterns. If <cite>false</cite>,
 the simulation usesthe template with the highest priority. Note that the
 template is notpermanently added or updated in either case; it is only
-used for thesimulation.</p></li>
+used for thesimulation. Default is false.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors.</p></li>
 <li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
@@ -2018,7 +2027,7 @@ to cluster-manager node.</p></li>
 used if no existing templates match the same index patterns. If false,
 the simulation uses the template with the highest priority. Note that
 the template is not permanently added or updated in either case; it is
-only used for the simulation.</p></li>
+only used for the simulation. Default is false.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors.</p></li>
 <li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
@@ -2126,16 +2135,17 @@ fields to include in the statistics.</p></li>
 <li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
 the response.</p></li>
 <li><p><strong>forbid_closed_indices</strong> – If true, statistics are not
-collected from closed indices.</p></li>
+collected from closed indices. Default is True.</p></li>
 <li><p><strong>groups</strong> – Comma-separated list of search groups to include in
 the search statistics.</p></li>
 <li><p><strong>human</strong> – Whether to return human readable values for
 statistics.</p></li>
 <li><p><strong>include_segment_file_sizes</strong> – If true, the call reports the
 aggregated disk usage of each one of the Lucene index files (only
-applies if segment stats are requested).</p></li>
+applies if segment stats are requested). Default is false.</p></li>
 <li><p><strong>include_unloaded_segments</strong> – If true, the response includes
-information from segments that are not loaded into memory.</p></li>
+information from segments that are not loaded into memory. Default is
+false.</p></li>
 <li><p><strong>level</strong> – Indicates whether statistics are aggregated at the
 cluster, index, or shard level. Valid choices are cluster, indices,
 shards.</p></li>
@@ -2253,7 +2263,7 @@ if any wildcard expression, index alias, or <cite>_all</cite> value targets only
 missing or closed indices.This behavior applies even if the request
 targets other open indices.</p></li>
 <li><p><strong>analyze_wildcard</strong> – If <cite>true</cite>, wildcard and prefix queries
-are analyzed.</p></li>
+are analyzed. Default is false.</p></li>
 <li><p><strong>analyzer</strong> – Analyzer to use for the query string.This
 parameter can only be used when the <cite>q</cite> query string parameter is
 specified.</p></li>

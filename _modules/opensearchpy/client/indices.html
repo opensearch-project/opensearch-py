@@ -259,7 +259,7 @@
 <span class="sd">        :arg wait_if_ongoing: If `true`, the flush operation blocks</span>
 <span class="sd">            until execution when another flush operation is running.If `false`,</span>
 <span class="sd">            Opensearch returns an error if you request a flush when another flush</span>
-<span class="sd">            operation is running.</span>
+<span class="sd">            operation is running. Default is True.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
             <span class="s2">&quot;POST&quot;</span><span class="p">,</span> <span class="n">_make_path</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="s2">&quot;_flush&quot;</span><span class="p">),</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
@@ -422,7 +422,8 @@
 <span class="sd">            any wildcard expression, index alias, or _all value targets onlymissing</span>
 <span class="sd">            or closed indices. This behavior applies even if the request targets</span>
 <span class="sd">            other open indices. For example,a request targeting foo*,bar* returns an</span>
-<span class="sd">            error if an index starts with foo but no index starts with bar.</span>
+<span class="sd">            error if an index starts with foo but no index starts with bar. Default</span>
+<span class="sd">            is false.</span>
 <span class="sd">        :arg cluster_manager_timeout: Operation timeout for connection</span>
 <span class="sd">            to cluster-manager node.</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
@@ -435,15 +436,16 @@
 <span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
 <span class="sd">            the response.</span>
 <span class="sd">        :arg flat_settings: If true, returns settings in flat format.</span>
+<span class="sd">            Default is false.</span>
 <span class="sd">        :arg human: Whether to return human readable values for</span>
 <span class="sd">            statistics.</span>
 <span class="sd">        :arg ignore_unavailable: If false, requests that target a</span>
-<span class="sd">            missing index return an error.</span>
+<span class="sd">            missing index return an error. Default is false.</span>
 <span class="sd">        :arg include_defaults: If true, return all default settings in</span>
-<span class="sd">            the response.</span>
+<span class="sd">            the response. Default is false.</span>
 <span class="sd">        :arg local: If true, the request retrieves information from the</span>
 <span class="sd">            local node only. Defaults to false, which means information is retrieved</span>
-<span class="sd">            from the master node.</span>
+<span class="sd">            from the master node. Default is false.</span>
 <span class="sd">        :arg master_timeout (Deprecated: To promote inclusive language,</span>
 <span class="sd">            use &#39;cluster_manager_timeout&#39; instead.): Period to wait for a connection</span>
 <span class="sd">            to the master node. If no response is received before the timeout</span>
@@ -637,7 +639,7 @@
 <span class="sd">        :arg allow_no_indices: If `false`, the request returns an error</span>
 <span class="sd">            if any wildcard expression, index alias, or `_all` value targets only</span>
 <span class="sd">            missing or closed indices.This behavior applies even if the request</span>
-<span class="sd">            targets other open indices.</span>
+<span class="sd">            targets other open indices. Default is false.</span>
 <span class="sd">        :arg cluster_manager_timeout: Operation timeout for connection</span>
 <span class="sd">            to cluster-manager node.</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
@@ -652,7 +654,7 @@
 <span class="sd">        :arg human: Whether to return human readable values for</span>
 <span class="sd">            statistics.</span>
 <span class="sd">        :arg ignore_unavailable: If `false`, the request returns an</span>
-<span class="sd">            error if it targets a missing or closed index.</span>
+<span class="sd">            error if it targets a missing or closed index. Default is false.</span>
 <span class="sd">        :arg master_timeout (Deprecated: To promote inclusive language,</span>
 <span class="sd">            use &#39;cluster_manager_timeout&#39; instead.): Period to wait for a connection</span>
 <span class="sd">            to the master node.If no response is received before the timeout</span>
@@ -700,7 +702,7 @@
 <span class="sd">        :arg allow_no_indices: If `false`, the request returns an error</span>
 <span class="sd">            if any wildcard expression, index alias, or `_all` value targets only</span>
 <span class="sd">            missing or closed indices.This behavior applies even if the request</span>
-<span class="sd">            targets other open indices.</span>
+<span class="sd">            targets other open indices. Default is false.</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
 <span class="sd">            errors.</span>
 <span class="sd">        :arg expand_wildcards: Type of index that wildcard patterns can</span>
@@ -711,14 +713,15 @@
 <span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
 <span class="sd">            the response.</span>
 <span class="sd">        :arg flat_settings: If `true`, returns settings in flat format.</span>
+<span class="sd">            Default is false.</span>
 <span class="sd">        :arg human: Whether to return human readable values for</span>
 <span class="sd">            statistics.</span>
 <span class="sd">        :arg ignore_unavailable: If `false`, the request returns an</span>
-<span class="sd">            error if it targets a missing or closed index.</span>
+<span class="sd">            error if it targets a missing or closed index. Default is false.</span>
 <span class="sd">        :arg include_defaults: If `true`, return all default settings in</span>
-<span class="sd">            the response.</span>
+<span class="sd">            the response. Default is false.</span>
 <span class="sd">        :arg local: If `true`, the request retrieves information from</span>
-<span class="sd">            the local node only.</span>
+<span class="sd">            the local node only. Default is false.</span>
 <span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
 <span class="sd">            response.</span>
 <span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
@@ -790,7 +793,7 @@
 <span class="sd">            received before the timeout expires, the request fails and returns an</span>
 <span class="sd">            error.</span>
 <span class="sd">        :arg write_index_only: If `true`, the mappings are applied only</span>
-<span class="sd">            to the current write index for the target.</span>
+<span class="sd">            to the current write index for the target. Default is false.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">body</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Empty value passed for a required argument &#39;body&#39;.&quot;</span><span class="p">)</span>
@@ -852,7 +855,7 @@
 <span class="sd">        :arg ignore_unavailable: If `false`, the request returns an</span>
 <span class="sd">            error if it targets a missing or closed index.</span>
 <span class="sd">        :arg local: If `true`, the request retrieves information from</span>
-<span class="sd">            the local node only.</span>
+<span class="sd">            the local node only. Default is false.</span>
 <span class="sd">        :arg master_timeout (Deprecated: To promote inclusive language,</span>
 <span class="sd">            use &#39;cluster_manager_timeout&#39; instead.): Period to wait for a connection</span>
 <span class="sd">            to the master node.If no response is received before the timeout</span>
@@ -914,7 +917,7 @@
 <span class="sd">        :arg include_defaults: If `true`, return all default settings in</span>
 <span class="sd">            the response.</span>
 <span class="sd">        :arg local: If `true`, the request retrieves information from</span>
-<span class="sd">            the local node only.</span>
+<span class="sd">            the local node only. Default is false.</span>
 <span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
 <span class="sd">            response.</span>
 <span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
@@ -1037,7 +1040,7 @@
 <span class="sd">            missing data stream or index in the target indices or data streams</span>
 <span class="sd">            return an error.</span>
 <span class="sd">        :arg local: If `true`, the request retrieves information from</span>
-<span class="sd">            the local node only.</span>
+<span class="sd">            the local node only. Default is false.</span>
 <span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
 <span class="sd">            response.</span>
 <span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
@@ -1096,7 +1099,7 @@
 <span class="sd">        :arg ignore_unavailable: If `false`, the request returns an</span>
 <span class="sd">            error if it targets a missing or closed index.</span>
 <span class="sd">        :arg local: If `true`, the request retrieves information from</span>
-<span class="sd">            the local node only.</span>
+<span class="sd">            the local node only. Default is false.</span>
 <span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
 <span class="sd">            response.</span>
 <span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
@@ -1234,7 +1237,7 @@
 <span class="sd">        :arg cluster_manager_timeout: Operation timeout for connection</span>
 <span class="sd">            to cluster-manager node.</span>
 <span class="sd">        :arg create: If true, this request cannot replace or update</span>
-<span class="sd">            existing index templates.</span>
+<span class="sd">            existing index templates. Default is false.</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
 <span class="sd">            errors.</span>
 <span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
@@ -1295,11 +1298,11 @@
 <span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
 <span class="sd">            the response.</span>
 <span class="sd">        :arg flat_settings: Return settings in flat format (default:</span>
-<span class="sd">            false)</span>
+<span class="sd">            false) Default is false.</span>
 <span class="sd">        :arg human: Whether to return human readable values for</span>
 <span class="sd">            statistics.</span>
 <span class="sd">        :arg local: Return local information, do not retrieve the state</span>
-<span class="sd">            from cluster-manager node (default: false)</span>
+<span class="sd">            from cluster-manager node (default: false) Default is false.</span>
 <span class="sd">        :arg master_timeout (Deprecated: To promote inclusive language,</span>
 <span class="sd">            use &#39;cluster_manager_timeout&#39; instead.): Explicit operation timeout for</span>
 <span class="sd">            connection to master node</span>
@@ -1347,10 +1350,11 @@
 <span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
 <span class="sd">            the response.</span>
 <span class="sd">        :arg flat_settings: If `true`, returns settings in flat format.</span>
+<span class="sd">            Default is false.</span>
 <span class="sd">        :arg human: Whether to return human readable values for</span>
 <span class="sd">            statistics.</span>
 <span class="sd">        :arg local: If `true`, the request retrieves information from</span>
-<span class="sd">            the local node only.</span>
+<span class="sd">            the local node only. Default is false.</span>
 <span class="sd">        :arg master_timeout (Deprecated: To promote inclusive language,</span>
 <span class="sd">            use &#39;cluster_manager_timeout&#39; instead.): Period to wait for a connection</span>
 <span class="sd">            to the master node.If no response is received before the timeout</span>
@@ -1462,15 +1466,16 @@
 <span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
 <span class="sd">            the response.</span>
 <span class="sd">        :arg flat_settings: If `true`, returns settings in flat format.</span>
+<span class="sd">            Default is false.</span>
 <span class="sd">        :arg human: Whether to return human readable values for</span>
 <span class="sd">            statistics.</span>
 <span class="sd">        :arg ignore_unavailable: If `false`, the request returns an</span>
 <span class="sd">            error if it targets a missing or closed index.</span>
 <span class="sd">        :arg include_defaults: If `true`, return all default settings in</span>
-<span class="sd">            the response.</span>
+<span class="sd">            the response. Default is false.</span>
 <span class="sd">        :arg local: If `true`, the request retrieves information from</span>
 <span class="sd">            the local node only. If`false`, information is retrieved from the master</span>
-<span class="sd">            node.</span>
+<span class="sd">            node. Default is false.</span>
 <span class="sd">        :arg master_timeout (Deprecated: To promote inclusive language,</span>
 <span class="sd">            use &#39;cluster_manager_timeout&#39; instead.): Period to wait for a connection</span>
 <span class="sd">            to the master node. If no response isreceived before the timeout</span>
@@ -1531,6 +1536,7 @@
 <span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
 <span class="sd">            the response.</span>
 <span class="sd">        :arg flat_settings: If `true`, returns settings in flat format.</span>
+<span class="sd">            Default is false.</span>
 <span class="sd">        :arg human: Whether to return human readable values for</span>
 <span class="sd">            statistics.</span>
 <span class="sd">        :arg ignore_unavailable: Whether specified concrete indices</span>
@@ -1540,7 +1546,7 @@
 <span class="sd">            to the master node. If no response isreceived before the timeout</span>
 <span class="sd">            expires, the request fails and returns anerror.</span>
 <span class="sd">        :arg preserve_existing: If `true`, existing index settings</span>
-<span class="sd">            remain unchanged.</span>
+<span class="sd">            remain unchanged. Default is false.</span>
 <span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
 <span class="sd">            response.</span>
 <span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
@@ -1607,16 +1613,17 @@
 <span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
 <span class="sd">            the response.</span>
 <span class="sd">        :arg forbid_closed_indices: If true, statistics are not</span>
-<span class="sd">            collected from closed indices.</span>
+<span class="sd">            collected from closed indices. Default is True.</span>
 <span class="sd">        :arg groups: Comma-separated list of search groups to include in</span>
 <span class="sd">            the search statistics.</span>
 <span class="sd">        :arg human: Whether to return human readable values for</span>
 <span class="sd">            statistics.</span>
 <span class="sd">        :arg include_segment_file_sizes: If true, the call reports the</span>
 <span class="sd">            aggregated disk usage of each one of the Lucene index files (only</span>
-<span class="sd">            applies if segment stats are requested).</span>
+<span class="sd">            applies if segment stats are requested). Default is false.</span>
 <span class="sd">        :arg include_unloaded_segments: If true, the response includes</span>
-<span class="sd">            information from segments that are not loaded into memory.</span>
+<span class="sd">            information from segments that are not loaded into memory. Default is</span>
+<span class="sd">            false.</span>
 <span class="sd">        :arg level: Indicates whether statistics are aggregated at the</span>
 <span class="sd">            cluster, index, or shard level. Valid choices are cluster, indices,</span>
 <span class="sd">            shards.</span>
@@ -1675,6 +1682,7 @@
 <span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
 <span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
 <span class="sd">        :arg verbose: If `true`, the request returns a verbose response.</span>
+<span class="sd">            Default is false.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
             <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="n">_make_path</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="s2">&quot;_segments&quot;</span><span class="p">),</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
@@ -1721,7 +1729,7 @@
 <span class="sd">            missing or closed indices.This behavior applies even if the request</span>
 <span class="sd">            targets other open indices.</span>
 <span class="sd">        :arg analyze_wildcard: If `true`, wildcard and prefix queries</span>
-<span class="sd">            are analyzed.</span>
+<span class="sd">            are analyzed. Default is false.</span>
 <span class="sd">        :arg analyzer: Analyzer to use for the query string.This</span>
 <span class="sd">            parameter can only be used when the `q` query string parameter is</span>
 <span class="sd">            specified.</span>
@@ -1844,9 +1852,9 @@
 <span class="sd">            aliases used to limit the request. Supports wildcards (`*`). To target</span>
 <span class="sd">            all data streams and indices, omit this parameter or use `*` or `_all`.</span>
 <span class="sd">        :arg active_only: If `true`, the response only includes ongoing</span>
-<span class="sd">            shard recoveries.</span>
+<span class="sd">            shard recoveries. Default is false.</span>
 <span class="sd">        :arg detailed: If `true`, the response includes detailed</span>
-<span class="sd">            information about shard recoveries.</span>
+<span class="sd">            information about shard recoveries. Default is false.</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
 <span class="sd">            errors.</span>
 <span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
@@ -2046,7 +2054,7 @@
 <span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
 <span class="sd">            the response.</span>
 <span class="sd">        :arg flush: Specify whether the index should be flushed after</span>
-<span class="sd">            performing the operation (default: true)</span>
+<span class="sd">            performing the operation (default: true) Default is True.</span>
 <span class="sd">        :arg human: Whether to return human readable values for</span>
 <span class="sd">            statistics.</span>
 <span class="sd">        :arg ignore_unavailable: Whether specified concrete indices</span>
@@ -2062,7 +2070,7 @@
 <span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
 <span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
 <span class="sd">        :arg wait_for_completion: Should the request wait until the</span>
-<span class="sd">            force merge is completed.</span>
+<span class="sd">            force merge is completed. Default is True.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
             <span class="s2">&quot;POST&quot;</span><span class="p">,</span> <span class="n">_make_path</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="s2">&quot;_forcemerge&quot;</span><span class="p">),</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
@@ -2247,6 +2255,7 @@
 <span class="sd">            to cluster-manager node.</span>
 <span class="sd">        :arg dry_run: If `true`, checks whether the current index</span>
 <span class="sd">            satisfies the specified conditions but does not perform a rollover.</span>
+<span class="sd">            Default is false.</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
 <span class="sd">            errors.</span>
 <span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
@@ -2485,11 +2494,12 @@
 <span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
 <span class="sd">            the response.</span>
 <span class="sd">        :arg flat_settings: If true, returns settings in flat format.</span>
+<span class="sd">            Default is false.</span>
 <span class="sd">        :arg human: Whether to return human readable values for</span>
 <span class="sd">            statistics.</span>
 <span class="sd">        :arg local: If true, the request retrieves information from the</span>
 <span class="sd">            local node only. Defaults to false, which means information is retrieved</span>
-<span class="sd">            from the master node.</span>
+<span class="sd">            from the master node. Default is false.</span>
 <span class="sd">        :arg master_timeout (Deprecated: To promote inclusive language,</span>
 <span class="sd">            use &#39;cluster_manager_timeout&#39; instead.): Period to wait for a connection</span>
 <span class="sd">            to the master node. If no response is received before the timeout</span>
@@ -2532,7 +2542,7 @@
 <span class="sd">        :arg cluster_manager_timeout: Operation timeout for connection</span>
 <span class="sd">            to cluster-manager node.</span>
 <span class="sd">        :arg create: If `true`, this request cannot replace or update</span>
-<span class="sd">            existing index templates.</span>
+<span class="sd">            existing index templates. Default is false.</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
 <span class="sd">            errors.</span>
 <span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
@@ -2593,7 +2603,7 @@
 <span class="sd">            used if no existingtemplates match the same index patterns. If `false`,</span>
 <span class="sd">            the simulation usesthe template with the highest priority. Note that the</span>
 <span class="sd">            template is notpermanently added or updated in either case; it is only</span>
-<span class="sd">            used for thesimulation.</span>
+<span class="sd">            used for thesimulation. Default is false.</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
 <span class="sd">            errors.</span>
 <span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
@@ -2682,7 +2692,7 @@
 <span class="sd">            used if no existing templates match the same index patterns. If false,</span>
 <span class="sd">            the simulation uses the template with the highest priority. Note that</span>
 <span class="sd">            the template is not permanently added or updated in either case; it is</span>
-<span class="sd">            only used for the simulation.</span>
+<span class="sd">            only used for the simulation. Default is false.</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
 <span class="sd">            errors.</span>
 <span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>

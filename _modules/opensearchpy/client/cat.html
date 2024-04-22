@@ -484,6 +484,7 @@
 <span class="sd">        :arg time: The unit used to display time values. Valid choices</span>
 <span class="sd">            are nanos, micros, ms, s, m, h, d.</span>
 <span class="sd">        :arg ts: If true, returns `HH:MM:SS` and Unix epoch timestamps.</span>
+<span class="sd">            Default is True.</span>
 <span class="sd">        :arg v: Verbose mode. Display column headers. Default is false.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
@@ -575,7 +576,8 @@
 <span class="sd">        :arg human: Whether to return human readable values for</span>
 <span class="sd">            statistics.</span>
 <span class="sd">        :arg include_unloaded_segments: If true, the response includes</span>
-<span class="sd">            information from segments that are not loaded into memory.</span>
+<span class="sd">            information from segments that are not loaded into memory. Default is</span>
+<span class="sd">            false.</span>
 <span class="sd">        :arg local: Return local information, do not retrieve the state</span>
 <span class="sd">            from cluster-manager node. Default is false.</span>
 <span class="sd">        :arg master_timeout (Deprecated: To promote inclusive language,</span>
@@ -584,7 +586,7 @@
 <span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
 <span class="sd">            response.</span>
 <span class="sd">        :arg pri: If true, the response only includes information from</span>
-<span class="sd">            primary shards.</span>
+<span class="sd">            primary shards. Default is false.</span>
 <span class="sd">        :arg s: Comma-separated list of column names or column aliases</span>
 <span class="sd">            to sort by.</span>
 <span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
@@ -746,7 +748,7 @@
 <span class="sd">        :arg format: A short version of the Accept header, e.g. json,</span>
 <span class="sd">            yaml.</span>
 <span class="sd">        :arg full_id: If `true`, return the full node ID. If `false`,</span>
-<span class="sd">            return the shortened node ID.</span>
+<span class="sd">            return the shortened node ID. Default is false.</span>
 <span class="sd">        :arg h: Comma-separated list of column names to display.</span>
 <span class="sd">        :arg help: Return help information. Default is false.</span>
 <span class="sd">        :arg human: Whether to return human readable values for</span>
@@ -955,11 +957,11 @@
 <span class="sd">        :arg index: Comma-separated list or wildcard expression of index</span>
 <span class="sd">            names to limit the returned information.</span>
 <span class="sd">        :arg active_only: If `true`, the response only includes ongoing</span>
-<span class="sd">            shard recoveries.</span>
+<span class="sd">            shard recoveries. Default is false.</span>
 <span class="sd">        :arg bytes: The unit used to display byte values. Valid choices</span>
 <span class="sd">            are b, k, kb, m, mb, g, gb, t, tb, p, pb.</span>
 <span class="sd">        :arg detailed: If `true`, the response includes detailed</span>
-<span class="sd">            information about shard recoveries.</span>
+<span class="sd">            information about shard recoveries. Default is false.</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
 <span class="sd">            errors.</span>
 <span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
@@ -1345,7 +1347,7 @@
 <span class="sd">        :arg human: Whether to return human readable values for</span>
 <span class="sd">            statistics.</span>
 <span class="sd">        :arg ignore_unavailable: If `true`, the response does not</span>
-<span class="sd">            include information from unavailable snapshots.</span>
+<span class="sd">            include information from unavailable snapshots. Default is false.</span>
 <span class="sd">        :arg master_timeout (Deprecated: To promote inclusive language,</span>
 <span class="sd">            use &#39;cluster_manager_timeout&#39; instead.): Operation timeout for</span>
 <span class="sd">            connection to master node.</span>
@@ -1396,7 +1398,7 @@
 <span class="sd">        :arg actions: The task action names, which are used to limit the</span>
 <span class="sd">            response.</span>
 <span class="sd">        :arg detailed: If `true`, the response includes detailed</span>
-<span class="sd">            information about shard recoveries.</span>
+<span class="sd">            information about shard recoveries. Default is false.</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
 <span class="sd">            errors.</span>
 <span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>

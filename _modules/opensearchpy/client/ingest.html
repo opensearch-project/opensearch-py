@@ -301,7 +301,7 @@
 <span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
 <span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
 <span class="sd">        :arg verbose: If `true`, the response includes output data for</span>
-<span class="sd">            each processor in the executed pipeline.</span>
+<span class="sd">            each processor in the executed pipeline. Default is false.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">body</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Empty value passed for a required argument &#39;body&#39;.&quot;</span><span class="p">)</span>

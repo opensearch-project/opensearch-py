@@ -191,6 +191,7 @@
 <span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
 <span class="sd">            the response.</span>
 <span class="sd">        :arg flat_settings: If true, returns settings in flat format.</span>
+<span class="sd">            Default is false.</span>
 <span class="sd">        :arg human: Whether to return human readable values for</span>
 <span class="sd">            statistics.</span>
 <span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
@@ -255,7 +256,7 @@
 <span class="sd">            statistics.</span>
 <span class="sd">        :arg include_segment_file_sizes: If true, the call reports the</span>
 <span class="sd">            aggregated disk usage of each one of the Lucene index files (only</span>
-<span class="sd">            applies if segment stats are requested).</span>
+<span class="sd">            applies if segment stats are requested). Default is false.</span>
 <span class="sd">        :arg level: Indicates whether statistics are aggregated at the</span>
 <span class="sd">            cluster, index, or shard level. Valid choices are cluster, indices,</span>
 <span class="sd">            shards.</span>
