@@ -222,14 +222,14 @@ class ClusterClient(NamespacedClient):
             open, closed, hidden, none.
         :arg filter_path: Comma-separated list of filters used to reduce
             the response.
-        :arg flat_settings: Return settings in flat format (default:
-            false) Default is false.
+        :arg flat_settings: Return settings in flat format. Default is
+            false.
         :arg human: Whether to return human readable values for
             statistics.
         :arg ignore_unavailable: Whether specified concrete indices
             should be ignored when unavailable (missing or closed)
         :arg local: Return local information, do not retrieve the state
-            from cluster-manager node (default: false) Default is false.
+            from cluster-manager node. Default is false.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Specify timeout for connection
             to master
@@ -437,8 +437,8 @@ class ClusterClient(NamespacedClient):
             errors.
         :arg filter_path: Comma-separated list of filters used to reduce
             the response.
-        :arg flat_settings: Return settings in flat format (default:
-            false) Default is false.
+        :arg flat_settings: Return settings in flat format. Default is
+            false.
         :arg human: Whether to return human readable values for
             statistics.
         :arg master_timeout (Deprecated: To promote inclusive language,

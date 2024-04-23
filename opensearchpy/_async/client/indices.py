@@ -1213,12 +1213,12 @@ class IndicesClient(NamespacedClient):
             errors.
         :arg filter_path: Comma-separated list of filters used to reduce
             the response.
-        :arg flat_settings: Return settings in flat format (default:
-            false) Default is false.
+        :arg flat_settings: Return settings in flat format. Default is
+            false.
         :arg human: Whether to return human readable values for
             statistics.
         :arg local: Return local information, do not retrieve the state
-            from cluster-manager node (default: false) Default is false.
+            from cluster-manager node. Default is false.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Explicit operation timeout for
             connection to master node
@@ -1970,13 +1970,15 @@ class IndicesClient(NamespacedClient):
         :arg filter_path: Comma-separated list of filters used to reduce
             the response.
         :arg flush: Specify whether the index should be flushed after
-            performing the operation (default: true) Default is True.
+            performing the operation. Default is True.
         :arg human: Whether to return human readable values for
             statistics.
         :arg ignore_unavailable: Whether specified concrete indices
             should be ignored when unavailable (missing or closed)
-        :arg max_num_segments: The number of segments the index should
-            be merged into (default: dynamic)
+        :arg max_num_segments: The number of larger segments into which
+            smaller segments are merged.Set this parameter to 1 to merge all
+            segments into one segment.The default behavior is to perform the merge
+            as necessary.
         :arg only_expunge_deletes: Specify whether the operation should
             only expunge deleted documents
         :arg pretty: Whether to pretty format the returned JSON

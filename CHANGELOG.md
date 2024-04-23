@@ -14,6 +14,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ### Fixed
 - Updated code generator to use native OpenAPI specification ([#721](https://github.com/opensearch-project/opensearch-py/pull/721))
 ### Updated APIs
+- Updated opensearch-py APIs to reflect [opensearch-api-specification@af4a34f](https://github.com/opensearch-project/opensearch-api-specification/commit/af4a34f9847d36709b5a394be7c76fda4649ccc8)
 - Updated opensearch-py APIs to reflect [opensearch-api-specification@e02c076](https://github.com/opensearch-project/opensearch-api-specification/commit/e02c076ef63f7a9b650ca1416380120cc640620a)
 - Updated opensearch-py APIs to reflect [opensearch-api-specification@fe6f977](https://github.com/opensearch-project/opensearch-api-specification/commit/fe6f977bcae4e27a2b261fb9599884df5606c0bc)
 - Updated opensearch-py APIs to reflect [opensearch-api-specification@29faff0](https://github.com/opensearch-project/opensearch-api-specification/commit/29faff0709b2557acfd4c3c7e053a2c313413633)
