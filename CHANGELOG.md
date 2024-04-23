@@ -3,15 +3,39 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 ## [Unreleased]
 ### Added
-- Added pylint `assignment-from-no-return` and `unused-variable` (([#658](https://github.com/opensearch-project/opensearch-py/pull/658))
-- Added pylint `unnecessary-dunder-calls` (([#655](https://github.com/opensearch-project/opensearch-py/pull/655))
-- Changed to use .pylintrc files in root and any directory with override requirements (([#654](https://github.com/opensearch-project/opensearch-py/pull/654))
-- Added pylint `unspecified-encoding` and `missing-function-docstring` and ignored opensearchpy for lints (([#643](https://github.com/opensearch-project/opensearch-py/pull/643)))
+- Added support for Python 3.12 ([#717](https://github.com/opensearch-project/opensearch-py/pull/717))
+- Added service time metrics ([#716](https://github.com/opensearch-project/opensearch-py/pull/716))
+- Added `search_pipeline` APIs and `notifications` plugin APIs ([#724](https://github.com/opensearch-project/opensearch-py/pull/724))
+### Changed
+### Deprecated
+### Removed
+- Removed support for Python 3.6, 3.7 ([#717](https://github.com/opensearch-project/opensearch-py/pull/717))
+### Fixed
+- Updated code generator to use native OpenAPI specification ([#721](https://github.com/opensearch-project/opensearch-py/pull/721))
+### Updated APIs
+- Updated opensearch-py APIs to reflect [opensearch-api-specification@fe6f977](https://github.com/opensearch-project/opensearch-api-specification/commit/fe6f977bcae4e27a2b261fb9599884df5606c0bc)
+- Updated opensearch-py APIs to reflect [opensearch-api-specification@29faff0](https://github.com/opensearch-project/opensearch-api-specification/commit/29faff0709b2557acfd4c3c7e053a2c313413633)
+### Security
+### Dependencies
+- Bumps `aiohttp` from >=3,<4 to >=3.9.2,<4 ([#717](https://github.com/opensearch-project/opensearch-py/pull/717))
+- Bumps `black` to >=24.3.0 ([#717](https://github.com/opensearch-project/opensearch-py/pull/717))
+- Bumps `pytest-asyncio` from <=0.23.5 to <=0.23.6
+
+## [2.5.0]
+### Added
+- Added pylint `assignment-from-no-return` and `unused-variable` ([#658](https://github.com/opensearch-project/opensearch-py/pull/658))
+- Added pylint `unnecessary-dunder-calls` ([#655](https://github.com/opensearch-project/opensearch-py/pull/655))
+- Changed to use .pylintrc files in root and any directory with override requirements ([#654](https://github.com/opensearch-project/opensearch-py/pull/654))
+- Added pylint `unspecified-encoding` and `missing-function-docstring` and ignored opensearchpy for lints ([#643](https://github.com/opensearch-project/opensearch-py/pull/643))
 - Added pylint `line-too-long` and `invalid-name` ([#590](https://github.com/opensearch-project/opensearch-py/pull/590))
 - Added pylint `pointless-statement` ([#611](https://github.com/opensearch-project/opensearch-py/pull/611))
 - Added a log collection guide ([#579](https://github.com/opensearch-project/opensearch-py/pull/579))
 - Added GHA release ([#614](https://github.com/opensearch-project/opensearch-py/pull/614))
 - Incorporated API generation into CI workflow and fixed 'generate' nox session ([#660](https://github.com/opensearch-project/opensearch-py/pull/660))
+- Added an automated api update bot for opensearch-py ([#664](https://github.com/opensearch-project/opensearch-py/pull/664)) 
+- Enhance generator to generate plugins ([#700](https://github.com/opensearch-project/opensearch-py/pull/700))
+- Enhance generator to update changelog only if generated code differs from existing ([#684](https://github.com/opensearch-project/opensearch-py/pull/684))
+- Added guide for configuring ssl_assert_hostname ([#694](https://github.com/opensearch-project/opensearch-py/pull/694))
 ### Changed
 - Updated the `get_policy` API in the index_management plugin to allow the policy_id argument as optional ([#633](https://github.com/opensearch-project/opensearch-py/pull/633))
 - Updated the `point_in_time.md` guide with examples demonstrating the usage of the new APIs as alternatives to the deprecated ones. ([#661](https://github.com/opensearch-project/opensearch-py/pull/661))
@@ -21,9 +45,12 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ### Fixed
 - Fix KeyError when scroll return no hits ([#616](https://github.com/opensearch-project/opensearch-py/pull/616))
 - Fix reuse of `OpenSearch` using `Urllib3HttpConnection` and `AsyncOpenSearch` after calling `close` ([#639](https://github.com/opensearch-project/opensearch-py/pull/639))
+### Updated APIs
+- Updated opensearch-py APIs to reflect [opensearch-api-specification@3763fdd](https://github.com/opensearch-project/opensearch-api-specification/commit/3763fdd051889c26e4f865734501c483d429de9f)
+- Updated opensearch-py APIs to reflect [opensearch-api-specification@1787056](https://github.com/opensearch-project/opensearch-api-specification/commit/178705681e5fd812ab59ad00cefa04146d03d7ad)
 ### Security
 ### Dependencies
-- Bumps `pytest-asyncio` from <=0.21.1 to <=0.23.4
+- Bumps `pytest-asyncio` from <=0.21.1 to <=0.23.5
 - Bumps `urllib3` from >=1.26.18 to >=1.26.18, <2 ([#632](https://github.com/opensearch-project/opensearch-py/pull/632))
 
 ## [2.4.2]
@@ -208,7 +235,8 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - Fixed Wrong return type hint in `async_scan` ([520](https://github.com/opensearch-project/opensearch-py/pull/520))
 ### Security
 
-[Unreleased]: https://github.com/opensearch-project/opensearch-py/compare/v2.4.2...HEAD
+[Unreleased]: https://github.com/opensearch-project/opensearch-py/compare/v2.5.0...HEAD
+[2.5.0]: https://github.com/opensearch-project/opensearch-py/compare/v2.4.2...v2.5.0
 [2.4.2]: https://github.com/opensearch-project/opensearch-py/compare/v2.4.0...v2.4.2
 [2.4.1]: https://github.com/opensearch-project/opensearch-py/compare/v2.4.0...v2.4.1
 [2.4.0]: https://github.com/opensearch-project/opensearch-py/compare/v2.3.2...v2.4.0

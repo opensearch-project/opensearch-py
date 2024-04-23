@@ -44,6 +44,7 @@ import deepmerge
 import requests
 import unasync
 import urllib3
+import yaml
 from click.testing import CliRunner
 from jinja2 import Environment, FileSystemLoader, TemplateNotFound, select_autoescape
 
@@ -100,9 +101,10 @@ def is_valid_url(url: str) -> bool:
 
 
 class Module:
-    def __init__(self, namespace: str) -> None:
+    def __init__(self, namespace: str, is_plugin: bool) -> None:
         self.namespace: Any = namespace
         self._apis: Any = []
+        self.is_plugin: bool = is_plugin
         self.parse_orig()
 
     def add(self, api: Any) -> None:
@@ -117,10 +119,11 @@ class Module:
         reads the written module and updates with important code specific to this client
         """
         self.orders = []
-        self.header = "from typing import Any, Collection, Optional, Tuple, Union\n\n"
-
-        namespace_new = "".join(word.capitalize() for word in self.namespace.split("_"))
-        self.header += "class " + namespace_new + "Client(NamespacedClient):"
+        self.header = "from typing import Any\n\n"
+        self.namespace_new = "".join(
+            word.capitalize() for word in self.namespace.split("_")
+        )
+        self.header += "class " + self.namespace_new + "Client(NamespacedClient):"
         if os.path.exists(self.filepath):
             with open(self.filepath, encoding="utf-8") as file:
                 content = file.read()
@@ -163,7 +166,45 @@ class Module:
         writes the module out to disk
         """
         self.sort()
+        if not os.path.exists(self.filepath):
+            # Imports added for new namespaces in appropriate files.
+            if self.is_plugin:
+                with open(
+                    "opensearchpy/_async/client/plugins.py", "r+", encoding="utf-8"
+                ) as file:
+                    content = file.read()
+                    file_content = content.replace(
+                        "super(PluginsClient, self).__init__(client)",
+                        f"super(PluginsClient, self).__init__(client)\n        self.{self.namespace} = {self.namespace_new}Client(client)",  # pylint: disable=line-too-long
+                        1,
+                    )
+                    new_file_content = file_content.replace(
+                        "from .client import Client",
+                        f"from ..plugins.{self.namespace} import {self.namespace_new}Client\nfrom .client import Client",  # pylint: disable=line-too-long
+                        1,
+                    )
+                    file.seek(0)
+                    file.write(new_file_content)
+                    file.truncate()
 
+            else:
+                with open(
+                    "opensearchpy/_async/client/__init__.py", "r+", encoding="utf-8"
+                ) as file:
+                    content = file.read()
+                    file_content = content.replace(
+                        "# namespaced clients for compatibility with API names",
+                        f"# namespaced clients for compatibility with API names\n        self.{self.namespace} = {self.namespace_new}Client(self)",  # pylint: disable=line-too-long
+                        1,
+                    )
+                    new_file_content = file_content.replace(
+                        "from .utils import",
+                        f"from .{self.namespace} import {self.namespace_new}Client\nfrom .utils import",  # pylint: disable=line-too-long
+                        1,
+                    )
+                    file.seek(0)
+                    file.write(new_file_content)
+                    file.truncate()
         # This code snippet adds headers to each generated module indicating
         # that the code is generated.The separator is the last line in the
         # "THIS CODE IS AUTOMATICALLY GENERATED" header.
@@ -208,8 +249,14 @@ class Module:
 
         # Imports are temporarily removed from the header and are regenerated
         # later to ensure imports are updated after code generation.
+        utils = ".utils"
+        if self.is_plugin:
+            utils = "..client.utils"
+
         self.header = "\n".join(
-            line for line in self.header.split("\n") if "from .utils import" not in line
+            line
+            for line in self.header.split("\n")
+            if "from " + utils + " import" not in line
         )
 
         with open(self.filepath, "w", encoding="utf-8") as file:
@@ -251,7 +298,7 @@ class Module:
             present_keywords = [keyword for keyword in keywords if keyword in content]
 
             if present_keywords:
-                utils_imports = "from .utils import"
+                utils_imports = "from " + utils + " import"
                 result = f"{utils_imports} {', '.join(present_keywords)}"
                 utils_imports = result
             file_content = content.replace("#replace_token#", utils_imports)
@@ -264,7 +311,10 @@ class Module:
         """
         :return: absolute path to the module
         """
-        return CODE_ROOT / f"opensearchpy/_async/client/{self.namespace}.py"
+        if self.is_plugin:
+            return CODE_ROOT / f"opensearchpy/_async/plugins/{self.namespace}.py"
+        else:
+            return CODE_ROOT / f"opensearchpy/_async/client/{self.namespace}.py"
 
 
 class API:
@@ -335,6 +385,22 @@ class API:
             # is deprecated and will be removed in 8.x.
             if self.namespace == "tasks" and self.name == "get":
                 parts["task_id"]["required"] = False
+
+            # Workaround to prevent lint error: invalid escape sequence '\`'
+            if (
+                self.namespace == "indices"
+                and self.name == "create_data_stream"
+                and part == "name"
+            ):
+                replace_str = r"`\`, "
+                # Replace the string in the description
+                parts["name"]["description"] = parts["name"]["description"].replace(
+                    replace_str, ""
+                )
+                if "backslash" not in parts["name"]["description"]:
+                    parts["name"]["description"] = parts["name"]["description"].replace(
+                        "`:`", "`:`, backslash"
+                    )
 
         for k, sub in SUBSTITUTIONS.items():
             if k in parts:
@@ -484,7 +550,7 @@ class API:
 def read_modules() -> Any:
     """
     checks the opensearch-api spec at
-    https://raw.githubusercontent.com/opensearch-project/opensearch-api-specification/main/OpenSearch.openapi.json
+    https://github.com/opensearch-project/opensearch-api-specification/releases/download/main/opensearch-openapi.yaml
     and parses it into one or more API modules
     :return: a dict of API objects
     """
@@ -492,32 +558,45 @@ def read_modules() -> Any:
 
     # Load the OpenAPI specification file
     response = requests.get(
-        "https://raw.githubusercontent.com/opensearch-project/opensearch-api-"
-        "specification/main/OpenSearch.openapi.json"
+        "https://github.com/opensearch-project/opensearch-api-specification/releases/download/main/opensearch-openapi.yaml"
     )
-    data = response.json()
+    data = yaml.safe_load(response.text)
 
     list_of_dicts = []
 
     for path in data["paths"]:
-        for param in data["paths"][path]:  # pylint: disable=invalid-name
-            if data["paths"][path][param]["x-operation-group"] == "nodes.hot_threads":
-                if "deprecated" in data["paths"][path][param]:
+        for method in data["paths"][path]:
+            # Workaround for excluding deprecated path of 'nodes.hot_threads'
+            if data["paths"][path][method]["x-operation-group"] == "nodes.hot_threads":
+                if "deprecated" in data["paths"][path][method]:
                     continue
-            data["paths"][path][param].update({"path": path, "method": param})
-            list_of_dicts.append(data["paths"][path][param])
+
+            data["paths"][path][method].update({"path": path, "method": method})
+            list_of_dicts.append(data["paths"][path][method])
+
+    # 'list_of_dicts' contains dictionaries, each representing a possible API endpoint
 
     # Update parameters  in each endpoint
-    for param_dict in list_of_dicts:
-        if "parameters" in param_dict:
+    for endpoint in list_of_dicts:
+        if "parameters" in endpoint:
             params = []
             parts = []
 
             # Iterate over the list of parameters and update them
-            for param in param_dict["parameters"]:
+            for param_ref in endpoint["parameters"]:
+                param = data["components"]["parameters"][
+                    param_ref["$ref"].split("/")[-1]
+                ]
                 if "schema" in param and "$ref" in param["schema"]:
                     schema_path_ref = param["schema"]["$ref"].split("/")[-1]
                     param["schema"] = data["components"]["schemas"][schema_path_ref]
+                    if "oneOf" in param["schema"]:
+                        for element in param["schema"]["oneOf"]:
+                            if "$ref" in element:
+                                common_schema_path_ref = element["$ref"].split("/")[-1]
+                                param["schema"] = data["components"]["schemas"][
+                                    common_schema_path_ref
+                                ]
                     params.append(param)
                 else:
                     params.append(param)
@@ -533,68 +612,68 @@ def read_modules() -> Any:
             params_new = {}
             parts_new = {}
 
-            for m in params:  # pylint: disable=invalid-name
-                a = dict(  # pylint: disable=invalid-name
-                    type=m["schema"]["type"], description=m["description"]
-                )  # pylint: disable=invalid-name
-
-                if "default" in m["schema"]:
-                    a.update({"default": m["schema"]["default"]})
-
-                if "enum" in m["schema"]:
-                    a.update({"type": "enum"})
-                    a.update({"options": m["schema"]["enum"]})
-
-                if "deprecated" in m["schema"]:
-                    a.update({"deprecated": m["schema"]["deprecated"]})
-                    a.update(
-                        {"deprecation_message": m["schema"]["x-deprecation-message"]}
+            for param in params:
+                param_dict: Dict[str, Any] = {}
+                if "description" in param:
+                    param_dict.update(
+                        description=param["description"].replace("\n", "")
                     )
-                params_new.update({m["name"]: a})
+
+                if "type" in param["schema"]:
+                    param_dict.update({"type": param["schema"]["type"]})
+
+                if "default" in param["schema"]:
+                    param_dict.update({"default": param["schema"]["default"]})
+
+                if "enum" in param["schema"]:
+                    param_dict.update({"type": "enum"})
+                    param_dict.update({"options": param["schema"]["enum"]})
+
+                if "deprecated" in param:
+                    param_dict.update({"deprecated": param["deprecated"]})
+
+                if "x-deprecation-message" in param:
+                    param_dict.update(
+                        {"deprecation_message": param["x-deprecation-message"]}
+                    )
+                params_new.update({param["name"]: param_dict})
 
             # Removing the deprecated "type"
             if (
-                param_dict["x-operation-group"] != "nodes.hot_threads"
+                endpoint["x-operation-group"] != "nodes.hot_threads"
                 and "type" in params_new
             ):
                 params_new.pop("type")
 
             if (
-                param_dict["x-operation-group"] == "cluster.health"
+                endpoint["x-operation-group"] == "cluster.health"
                 and "ensure_node_commissioned" in params_new
             ):
                 params_new.pop("ensure_node_commissioned")
 
             if bool(params_new):
-                param_dict.update({"params": params_new})
+                endpoint.update({"params": params_new})
 
-            param_dict.pop("parameters")
+            for part in parts:
+                parts_dict: Dict[str, Any] = {}
+                if "type" in part["schema"]:
+                    parts_dict.update(type=part["schema"]["type"])
 
-            for n in parts:  # pylint: disable=invalid-name
-                b = dict(type=n["schema"]["type"])  # pylint: disable=invalid-name
+                if "description" in part:
+                    parts_dict.update(
+                        {"description": part["description"].replace("\n", " ")}
+                    )
 
-                if "description" in n:
-                    b.update({"description": n["description"]})
+                if "x-enum-options" in part["schema"]:
+                    parts_dict.update({"options": part["schema"]["x-enum-options"]})
 
-                if "x-enum-options" in n["schema"]:
-                    b.update({"options": n["schema"]["x-enum-options"]})
+                if "deprecated" in part:
+                    parts_dict.update({"deprecated": part["deprecated"]})
 
-                deprecated_new = {}
-                if "deprecated" in n:
-                    b.update({"deprecated": n["deprecated"]})
-
-                    if "x-deprecation-version" in n:
-                        deprecated_new.update({"version": n["x-deprecation-version"]})
-
-                    if "x-deprecation-description" in n:
-                        deprecated_new.update(
-                            {"description": n["x-deprecation-description"]}
-                        )
-
-                parts_new.update({n["name"]: b})
+                parts_new.update({part["name"]: parts_dict})
 
             if bool(parts_new):
-                param_dict.update({"parts": parts_new})
+                endpoint.update({"parts": parts_new})
 
     # Sort the input list by the value of the "x-operation-group" key
     list_of_dicts = sorted(list_of_dicts, key=itemgetter("x-operation-group"))
@@ -614,54 +693,58 @@ def read_modules() -> Any:
         paths = []
         all_paths_have_deprecation = True
 
-        for key2, value2 in groupby(value, key=itemgetter("path")):
+        for path, path_dicts in groupby(value, key=itemgetter("path")):
             # Extract the HTTP methods from the data in the current subgroup
             methods = []
             parts_final = {}
-            for z in value2:  # pylint: disable=invalid-name
-                methods.append(z["method"].upper())
+            for method_dict in path_dicts:
+                methods.append(method_dict["method"].upper())
 
                 # Update 'api' dictionary
                 if "documentation" not in api:
-                    documentation = {"description": z["description"]}
+                    documentation = {"description": method_dict["description"]}
                     api.update({"documentation": documentation})
 
-                if "x-deprecation-message" in z:
-                    x_deprecation_message = z["x-deprecation-message"]
+                if "x-deprecation-message" in method_dict:
+                    x_deprecation_message = method_dict["x-deprecation-message"]
                 else:
                     all_paths_have_deprecation = False
 
-                if "params" not in api and "params" in z:
-                    api.update({"params": z["params"]})
+                if "params" not in api and "params" in method_dict:
+                    api.update({"params": method_dict["params"]})
 
-                if "body" not in api and "requestBody" in z:
+                if (
+                    "body" not in api
+                    and "requestBody" in method_dict
+                    and "$ref" in method_dict["requestBody"]
+                ):
+                    requestbody_ref = method_dict["requestBody"]["$ref"].split("/")[-1]
                     body = {"required": False}
-                    if "required" in z["requestBody"]:
-                        body.update({"required": z["requestBody"]["required"]})
-                    q = z["requestBody"]["content"][  # pylint: disable=invalid-name
+                    if (
+                        "required"
+                        in data["components"]["requestBodies"][requestbody_ref]
+                    ):
+                        body.update(
+                            {
+                                "required": data["components"]["requestBodies"][
+                                    requestbody_ref
+                                ]["required"]
+                            }
+                        )
+                    q = data["components"]["requestBodies"][requestbody_ref]["content"][
                         "application/json"
-                    ]["schema"]["$ref"].split("/")[-1]
-                    if "description" in data["components"]["schemas"][q]:
-                        body.update(
-                            {
-                                "description": data["components"]["schemas"][q][
-                                    "description"
-                                ]
-                            }
-                        )
-                    if "x-serialize" in data["components"]["schemas"][q]:
-                        body.update(
-                            {
-                                "serialize": data["components"]["schemas"][q][
-                                    "x-serialize"
-                                ]
-                            }
-                        )
+                    ][
+                        "schema"
+                    ]  # pylint: disable=invalid-name
+                    if "description" in q:
+                        body.update({"description": q["description"]})
+                    if "x-serialize" in q:
+                        body.update({"serialize": q["x-serialize"]})
 
                     api.update({"body": body})
 
-                if "parts" in z:
-                    parts_final.update(z["parts"])
+                if "parts" in method_dict:
+                    parts_final.update(method_dict["parts"])
 
             if "POST" in methods or "PUT" in methods:
                 api.update(
@@ -683,19 +766,10 @@ def read_modules() -> Any:
                     }
                 )
 
-            if bool(deprecated_new) and bool(parts_final):
-                paths.append(
-                    {
-                        "path": key2,
-                        "methods": methods,
-                        "parts": parts_final,
-                        "deprecated": deprecated_new,
-                    }
-                )
-            elif bool(parts_final):
-                paths.append({"path": key2, "methods": methods, "parts": parts_final})
+            if bool(parts_final):
+                paths.append({"path": path, "methods": methods, "parts": parts_final})
             else:
-                paths.append({"path": key2, "methods": methods})
+                paths.append({"path": path, "methods": methods})
 
         api.update({"url": {"paths": paths}})
         if all_paths_have_deprecation and x_deprecation_message is not None:
@@ -703,8 +777,12 @@ def read_modules() -> Any:
 
         api = apply_patch(namespace, name, api)
 
+        is_plugin = False
+        if "_plugins" in api["url"]["paths"][0]["path"] and namespace != "security":
+            is_plugin = True
+
         if namespace not in modules:
-            modules[namespace] = Module(namespace)
+            modules[namespace] = Module(namespace, is_plugin)
 
         modules[namespace].add(API(namespace, name, api))
 
@@ -751,13 +829,20 @@ def dump_modules(modules: Any) -> None:
             todir="/opensearchpy/client/",
             additional_replacements=additional_replacements,
         ),
+        unasync.Rule(
+            fromdir="/opensearchpy/_async/plugins/",
+            todir="/opensearchpy/plugins/",
+            additional_replacements=additional_replacements,
+        ),
     ]
 
     filepaths = []
     for root, _, filenames in os.walk(CODE_ROOT / "opensearchpy/_async"):
         for filename in filenames:
-            if filename.rpartition(".")[-1] in ("py",) and not filename.startswith(
-                "utils.py"
+            if filename.rpartition(".")[-1] in ("py",) and filename not in (
+                "utils.py",
+                "index_management.py",
+                "alerting.py",
             ):
                 filepaths.append(os.path.join(root, filename))
 

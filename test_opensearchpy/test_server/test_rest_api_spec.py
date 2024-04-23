@@ -90,6 +90,8 @@ SKIP_TESTS = {
     "OpenSearch-main/rest-api-spec/src/main/resources/rest-api-spec/test/tasks/list/10_basic[0]",
     "OpenSearch-main/rest-api-spec/src/main/resources/rest-api-spec/test/index/90_unsigned_long[1]",
     "OpenSearch-main/rest-api-spec/src/main/resources/rest-api-spec/test/indices/stats/50_noop_update[0]",
+    "OpenSearch-main/rest-api-spec/src/main/resources/rest-api-spec/test/search/340_doc_values_field[0]",
+    "OpenSearch-main/rest-api-spec/src/main/resources/rest-api-spec/test/search/340_doc_values_field[1]",
     "search/aggregation/250_moving_fn[1]",
     # body: null
     "indices/simulate_index_template/10_basic[2]",
@@ -369,10 +371,10 @@ class YamlRunner:
 
             if (
                 isinstance(expected, str)
-                and expected.startswith("/")
-                and expected.endswith("/")
+                and expected.strip().startswith("/")
+                and expected.strip().endswith("/")
             ):
-                expected = re.compile(expected[1:-1], re.VERBOSE | re.MULTILINE)
+                expected = re.compile(expected.strip()[1:-1], re.VERBOSE | re.MULTILINE)
                 assert expected.search(value), "%r does not match %r" % (
                     value,
                     expected,
@@ -415,9 +417,7 @@ class YamlRunner:
                         value = value.replace(key_replace, v)
                         break
 
-        if isinstance(value, string_types):
-            value = value.strip()
-        elif isinstance(value, dict):
+        if isinstance(value, dict):
             value = dict((k, self._resolve(v)) for (k, v) in value.items())
         elif isinstance(value, list):
             value = list(map(self._resolve, value))

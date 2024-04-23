@@ -22,7 +22,15 @@ from .utils import SKIP_IN_PATH, NamespacedClient, query_params
 
 
 class RemoteStoreClient(NamespacedClient):
-    @query_params("cluster_manager_timeout", "wait_for_completion")
+    @query_params(
+        "cluster_manager_timeout",
+        "error_trace",
+        "filter_path",
+        "human",
+        "pretty",
+        "source",
+        "wait_for_completion",
+    )
     def restore(
         self,
         body: Any,
@@ -36,6 +44,16 @@ class RemoteStoreClient(NamespacedClient):
         :arg body: Comma-separated list of index IDs
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
+        :arg error_trace: Whether to include the stack trace of returned
+            errors.
+        :arg filter_path: Comma-separated list of filters used to reduce
+            the response.
+        :arg human: Whether to return human readable values for
+            statistics.
+        :arg pretty: Whether to pretty format the returned JSON
+            response.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
         :arg wait_for_completion: Should this request wait until the
             operation has completed before returning. Default is false.
         """
