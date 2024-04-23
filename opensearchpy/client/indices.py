@@ -2415,8 +2415,10 @@ class IndicesClient(NamespacedClient):
             statistics.
         :arg local: If true, the request retrieves information from the
             local node only. Defaults to false, which means information is retrieved
-            from the master node.
+            from the master node. Default is false.
+        :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Period to wait for a connection
+            to the master node. If no response is received before the timeout
             expires, the request fails and returns an error.
         :arg pretty: Whether to pretty format the returned JSON
             response.
