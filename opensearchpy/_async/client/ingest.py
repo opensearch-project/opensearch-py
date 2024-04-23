@@ -217,7 +217,7 @@ class IngestClient(NamespacedClient):
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         :arg verbose: If `true`, the response includes output data for
-            each processor in the executed pipeline.
+            each processor in the executed pipeline. Default is false.
         """
         if body in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'body'.")

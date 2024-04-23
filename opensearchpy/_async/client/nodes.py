@@ -107,6 +107,7 @@ class NodesClient(NamespacedClient):
         :arg filter_path: Comma-separated list of filters used to reduce
             the response.
         :arg flat_settings: If true, returns settings in flat format.
+            Default is false.
         :arg human: Whether to return human readable values for
             statistics.
         :arg pretty: Whether to pretty format the returned JSON
@@ -171,7 +172,7 @@ class NodesClient(NamespacedClient):
             statistics.
         :arg include_segment_file_sizes: If true, the call reports the
             aggregated disk usage of each one of the Lucene index files (only
-            applies if segment stats are requested).
+            applies if segment stats are requested). Default is false.
         :arg level: Indicates whether statistics are aggregated at the
             cluster, index, or shard level. Valid choices are cluster, indices,
             shards.

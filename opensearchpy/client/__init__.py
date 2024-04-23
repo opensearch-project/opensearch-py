@@ -451,7 +451,7 @@ class OpenSearch(Client):
             for a refresh to make this operation visible to search, if `false` do
             nothing with refreshes.Valid values: `true`, `false`, `wait_for`.
         :arg require_alias: If `true`, the destination must be an index
-            alias.
+            alias. Default is false.
         :arg routing: Custom value used to route operations to a
             specific shard.
         :arg source: The URL-encoded request definition. Useful for
@@ -537,7 +537,7 @@ class OpenSearch(Client):
             for a refresh to make this operation visible to search, if `false` do
             nothing with refreshes.Valid values: `true`, `false`, `wait_for`.
         :arg require_alias: If `true`, the request’s actions must target
-            an index alias.
+            an index alias. Default is false.
         :arg routing: Custom value used to route operations to a
             specific shard.
         :arg source: The URL-encoded request definition. Useful for
@@ -643,7 +643,7 @@ class OpenSearch(Client):
             targets other open indices.
         :arg analyze_wildcard: If `true`, wildcard and prefix queries
             are analyzed.This parameter can only be used when the `q` query string
-            parameter is specified.
+            parameter is specified. Default is false.
         :arg analyzer: Analyzer to use for the query string.This
             parameter can only be used when the `q` query string parameter is
             specified.
@@ -673,7 +673,7 @@ class OpenSearch(Client):
         :arg min_score: Sets the minimum `_score` value that documents
             must have to be included in the result.
         :arg preference: Specifies the node or shard the operation
-            should be performed on.Random by default.
+            should be performed on.Random by default. Default is random.
         :arg pretty: Whether to pretty format the returned JSON
             response.
         :arg q: Query in the Lucene query string syntax.
@@ -829,7 +829,7 @@ class OpenSearch(Client):
             returns an error if an index starts with `foo` but no index starts with
             `bar`.
         :arg analyze_wildcard: If `true`, wildcard and prefix queries
-            are analyzed.
+            are analyzed. Default is false.
         :arg analyzer: Analyzer to use for the query string.
         :arg conflicts: What to do if delete by query hits version
             conflicts: `abort` or `proceed`. Valid choices are abort, proceed.
@@ -846,7 +846,7 @@ class OpenSearch(Client):
             `open`, `closed`, `hidden`, `none`.
         :arg filter_path: Comma-separated list of filters used to reduce
             the response.
-        :arg from_: Starting offset (default: 0)
+        :arg from_: Starting offset (default: 0) Default is 0.
         :arg human: Whether to return human readable values for
             statistics.
         :arg ignore_unavailable: If `false`, the request returns an
@@ -856,7 +856,7 @@ class OpenSearch(Client):
         :arg max_docs: Maximum number of documents to process.Defaults
             to all documents.
         :arg preference: Specifies the node or shard the operation
-            should be performed on.Random by default.
+            should be performed on.Random by default. Default is random.
         :arg pretty: Whether to pretty format the returned JSON
             response.
         :arg q: Query in the Lucene query string syntax.
@@ -865,12 +865,12 @@ class OpenSearch(Client):
         :arg request_cache: If `true`, the request cache is used for
             this request.Defaults to the index-level setting.
         :arg requests_per_second: The throttle for this request in sub-
-            requests per second.
+            requests per second. Default is 0.
         :arg routing: Custom value used to route operations to a
             specific shard.
         :arg scroll: Period to retain the search context for scrolling.
         :arg scroll_size: Size of the scroll request that powers the
-            operation.
+            operation. Default is 100.
         :arg search_timeout: Explicit timeout for each search
             request.Defaults to no timeout.
         :arg search_type: The type of the search operation.Available
@@ -900,7 +900,7 @@ class OpenSearch(Client):
             positive integer up to the total number of shards in the index
             (`number_of_replicas+1`). Valid choices are all, index-setting.
         :arg wait_for_completion: If `true`, the request blocks until
-            the operation is complete.
+            the operation is complete. Default is True.
         """
         # from is a reserved word so it cannot be used, use from_ instead
         if "from_" in params:
@@ -1048,7 +1048,7 @@ class OpenSearch(Client):
         :arg human: Whether to return human readable values for
             statistics.
         :arg preference: Specifies the node or shard the operation
-            should be performed on.Random by default.
+            should be performed on.Random by default. Default is random.
         :arg pretty: Whether to pretty format the returned JSON
             response.
         :arg realtime: If `true`, the request is real-time as opposed to
@@ -1120,7 +1120,7 @@ class OpenSearch(Client):
         :arg human: Whether to return human readable values for
             statistics.
         :arg preference: Specifies the node or shard the operation
-            should be performed on.Random by default.
+            should be performed on.Random by default. Default is random.
         :arg pretty: Whether to pretty format the returned JSON
             response.
         :arg realtime: If true, the request is real-time as opposed to
@@ -1189,14 +1189,14 @@ class OpenSearch(Client):
         :arg _source_includes: A comma-separated list of source fields
             to include in the response.
         :arg analyze_wildcard: If `true`, wildcard and prefix queries
-            are analyzed.
+            are analyzed. Default is false.
         :arg analyzer: Analyzer to use for the query string.This
             parameter can only be used when the `q` query string parameter is
             specified.
         :arg default_operator: The default operator for query string
             query: `AND` or `OR`. Valid choices are and, or.
         :arg df: Field to use as default where no field prefix is given
-            in the query string.
+            in the query string. Default is _all.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
         :arg filter_path: Comma-separated list of filters used to reduce
@@ -1206,7 +1206,7 @@ class OpenSearch(Client):
         :arg lenient: If `true`, format-based query failures (such as
             providing text to a numeric field) in the query string will be ignored.
         :arg preference: Specifies the node or shard the operation
-            should be performed on.Random by default.
+            should be performed on.Random by default. Default is random.
         :arg pretty: Whether to pretty format the returned JSON
             response.
         :arg q: Query in the Lucene query string syntax.
@@ -1277,7 +1277,7 @@ class OpenSearch(Client):
         :arg ignore_unavailable: If `true`, missing or closed indices
             are not included in the response.
         :arg include_unmapped: If true, unmapped fields are included in
-            the response.
+            the response. Default is false.
         :arg pretty: Whether to pretty format the returned JSON
             response.
         :arg source: The URL-encoded request definition. Useful for
@@ -1334,7 +1334,7 @@ class OpenSearch(Client):
         :arg human: Whether to return human readable values for
             statistics.
         :arg preference: Specifies the node or shard the operation
-            should be performed on. Random by default.
+            should be performed on. Random by default. Default is random.
         :arg pretty: Whether to pretty format the returned JSON
             response.
         :arg realtime: If `true`, the request is real-time as opposed to
@@ -1448,7 +1448,7 @@ class OpenSearch(Client):
         :arg human: Whether to return human readable values for
             statistics.
         :arg preference: Specifies the node or shard the operation
-            should be performed on. Random by default.
+            should be performed on. Random by default. Default is random.
         :arg pretty: Whether to pretty format the returned JSON
             response.
         :arg realtime: Boolean) If true, the request is real-time as
@@ -1524,7 +1524,7 @@ class OpenSearch(Client):
         :arg human: Whether to return human readable values for
             statistics.
         :arg preference: Specifies the node or shard the operation
-            should be performed on. Random by default.
+            should be performed on. Random by default. Default is random.
         :arg pretty: Whether to pretty format the returned JSON
             response.
         :arg realtime: If `true`, the request is real-time as opposed to
@@ -1580,7 +1580,7 @@ class OpenSearch(Client):
             index aliases to search.
         :arg ccs_minimize_roundtrips: If true, network roundtrips
             between the coordinating node and remote clusters are minimized for
-            cross-cluster search requests.
+            cross-cluster search requests. Default is True.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
         :arg filter_path: Comma-separated list of filters used to reduce
@@ -1590,7 +1590,8 @@ class OpenSearch(Client):
         :arg max_concurrent_searches: Maximum number of concurrent
             searches the multi search API can execute.
         :arg max_concurrent_shard_requests: Maximum number of concurrent
-            shard requests that each sub-search request executes per node.
+            shard requests that each sub-search request executes per node. Default
+            is 5.
         :arg pre_filter_shard_size: Defines a threshold that enforces a
             pre-filter roundtrip to prefilter search shards based on query rewriting
             if the number of shards the search request expands to exceeds the
@@ -1602,6 +1603,7 @@ class OpenSearch(Client):
             response.
         :arg rest_total_hits_as_int: If true, hits.total are returned as
             an integer in the response. Defaults to false, which returns an object.
+            Default is false.
         :arg search_type: Indicates whether global term and document
             frequencies should be used when scoring returned documents. Valid
             choices are query_then_fetch, dfs_query_then_fetch.
@@ -1651,7 +1653,7 @@ class OpenSearch(Client):
             aliases to search. Supports wildcards (`*`). To search all data streams
             and indices, omit this parameter or use `*`.
         :arg ccs_minimize_roundtrips: If `true`, network round-trips are
-            minimized for cross-cluster search requests.
+            minimized for cross-cluster search requests. Default is True.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
         :arg filter_path: Comma-separated list of filters used to reduce
@@ -1664,7 +1666,7 @@ class OpenSearch(Client):
             response.
         :arg rest_total_hits_as_int: If `true`, the response returns
             `hits.total` as an integer.If `false`, it returns `hits.total` as an
-            object.
+            object. Default is false.
         :arg search_type: The type of the search operation.Available
             options: `query_then_fetch`, `dfs_query_then_fetch`. Valid choices are
             query_then_fetch, dfs_query_then_fetch.
@@ -1723,7 +1725,7 @@ class OpenSearch(Client):
             errors.
         :arg field_statistics: If `true`, the response includes the
             document count, sum of document frequencies, and sum of total term
-            frequencies.
+            frequencies. Default is True.
         :arg fields: Comma-separated list or wildcard expressions of
             fields to include in the statistics.Used as the default list unless a
             specific field list is provided in the `completion_fields` or
@@ -1735,20 +1737,23 @@ class OpenSearch(Client):
         :arg ids: A comma-separated list of documents ids. You must
             define ids as parameter or set "ids" or "docs" in the request body
         :arg offsets: If `true`, the response includes term offsets.
+            Default is True.
         :arg payloads: If `true`, the response includes term payloads.
+            Default is True.
         :arg positions: If `true`, the response includes term positions.
+            Default is True.
         :arg preference: Specifies the node or shard the operation
-            should be performed on.Random by default.
+            should be performed on.Random by default. Default is random.
         :arg pretty: Whether to pretty format the returned JSON
             response.
         :arg realtime: If true, the request is real-time as opposed to
-            near-real-time.
+            near-real-time. Default is True.
         :arg routing: Custom value used to route operations to a
             specific shard.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         :arg term_statistics: If true, the response includes term
-            frequency and document frequency.
+            frequency and document frequency. Default is false.
         :arg version: If `true`, returns the document version as part of
             a hit.
         :arg version_type: Specific version type. Valid choices are
@@ -1925,7 +1930,7 @@ class OpenSearch(Client):
         :arg refresh: If `true`, the request refreshes affected shards
             to make this operation visible to search.
         :arg requests_per_second: The throttle for this request in sub-
-            requests per second.Defaults to no throttle.
+            requests per second.Defaults to no throttle. Default is 0.
         :arg scroll: Specifies how long a consistent view of the index
             should be maintained for scrolled search.
         :arg slices: The number of slices this task should be divided
@@ -1940,7 +1945,7 @@ class OpenSearch(Client):
             positive integer up to the total number of shards in the index
             (`number_of_replicas+1`). Valid choices are all, index-setting.
         :arg wait_for_completion: If `true`, the request blocks until
-            the operation is complete.
+            the operation is complete. Default is True.
         """
         if body in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'body'.")
@@ -2084,7 +2089,8 @@ class OpenSearch(Client):
             response.
         :arg rest_total_hits_as_int: If true, the API response’s
             hit.total property is returned as an integer. If false, the API
-            response’s hit.total property is returned as an object.
+            response’s hit.total property is returned as an object. Default is
+            false.
         :arg scroll: Period to retain the search context for scrolling.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
@@ -2190,10 +2196,10 @@ class OpenSearch(Client):
             `bar`.
         :arg allow_partial_search_results: If true, returns partial
             results if there are shard request timeouts or shard failures. If false,
-            returns an error with no partial results.
+            returns an error with no partial results. Default is True.
         :arg analyze_wildcard: If true, wildcard and prefix queries are
             analyzed.This parameter can only be used when the q query string
-            parameter is specified.
+            parameter is specified. Default is false.
         :arg analyzer: Analyzer to use for the query string.This
             parameter can only be used when the q query string parameter is
             specified.
@@ -2201,9 +2207,10 @@ class OpenSearch(Client):
             should be reduced at once on the coordinating node.This value should be
             used as a protection mechanism to reduce the memory overhead per search
             request if the potential number of shards in the request can be large.
+            Default is 512.
         :arg ccs_minimize_roundtrips: If true, network round-trips
             between the coordinating node and the remote clusters are minimized when
-            executing cross-cluster search (CCS) requests.
+            executing cross-cluster search (CCS) requests. Default is True.
         :arg default_operator: The default operator for query string
             query: AND or OR.This parameter can only be used when the `q` query
             string parameter is specified. Valid choices are and, or.
@@ -2226,7 +2233,7 @@ class OpenSearch(Client):
         :arg from_: Starting document offset.Needs to be non-negative.By
             default, you cannot page through more than 10,000 hits using the `from`
             and `size` parameters.To page through more hits, use the `search_after`
-            parameter.
+            parameter. Default is 0.
         :arg human: Whether to return human readable values for
             statistics.
         :arg ignore_throttled: If `true`, concrete, expanded or aliased
@@ -2245,7 +2252,7 @@ class OpenSearch(Client):
             concurrent shard requests per node this search executes
             concurrently.This value should be used to limit the impact of the search
             on the cluster in order to limit the number of concurrent shard
-            requests.
+            requests. Default is 5.
         :arg pre_filter_shard_size: Defines a threshold that enforces a
             pre-filter roundtrip to prefilter search shards based on query rewriting
             if the number of shards the search request expands to exceeds the
@@ -2271,7 +2278,8 @@ class OpenSearch(Client):
             not, select shards using the default method;`_shards:<shard>,<shard>` to
             run the search only on the specified shards;`<custom-string>` (any
             string that does not start with `_`) to route searches with the same
-            `<custom-string>` to the same shards in the same order.
+            `<custom-string>` to the same shards in the same order. Default is
+            random.
         :arg pretty: Whether to pretty format the returned JSON
             response.
         :arg q: Query in the Lucene query string syntax using query
@@ -2282,7 +2290,7 @@ class OpenSearch(Client):
             settings.
         :arg rest_total_hits_as_int: Indicates whether `hits.total`
             should be rendered as an integer or an object in the rest search
-            response.
+            response. Default is false.
         :arg routing: Custom value used to route operations to a
             specific shard.
         :arg scroll: Period to retain the search context for scrolling.
@@ -2299,6 +2307,7 @@ class OpenSearch(Client):
         :arg size: Defines the number of hits to return.By default, you
             cannot page through more than 10,000 hits using the `from` and `size`
             parameters.To page through more hits, use the `search_after` parameter.
+            Default is 10.
         :arg sort: A comma-separated list of <field>:<direction> pairs.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
@@ -2401,9 +2410,9 @@ class OpenSearch(Client):
         :arg ignore_unavailable: If `false`, the request returns an
             error if it targets a missing or closed index.
         :arg local: If `true`, the request retrieves information from
-            the local node only.
+            the local node only. Default is false.
         :arg preference: Specifies the node or shard the operation
-            should be performed on.Random by default.
+            should be performed on.Random by default. Default is random.
         :arg pretty: Whether to pretty format the returned JSON
             response.
         :arg routing: Custom value used to route operations to a
@@ -2456,7 +2465,7 @@ class OpenSearch(Client):
             returns an error if an index starts with `foo` but no index starts with
             `bar`.
         :arg ccs_minimize_roundtrips: If `true`, network round-trips are
-            minimized for cross-cluster search requests.
+            minimized for cross-cluster search requests. Default is True.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
         :arg expand_wildcards: Type of index that wildcard patterns can
@@ -2475,12 +2484,12 @@ class OpenSearch(Client):
         :arg ignore_unavailable: If `false`, the request returns an
             error if it targets a missing or closed index.
         :arg preference: Specifies the node or shard the operation
-            should be performed on.Random by default.
+            should be performed on.Random by default. Default is random.
         :arg pretty: Whether to pretty format the returned JSON
             response.
         :arg profile: If `true`, the query execution is profiled.
         :arg rest_total_hits_as_int: If true, hits.total are rendered as
-            an integer in the response.
+            an integer in the response. Default is false.
         :arg routing: Custom value used to route operations to a
             specific shard.
         :arg scroll: Specifies how long a consistent view of the
@@ -2542,7 +2551,7 @@ class OpenSearch(Client):
             errors.
         :arg field_statistics: If `true`, the response includes the
             document count, sum of document frequencies, and sum of total term
-            frequencies.
+            frequencies. Default is True.
         :arg fields: Comma-separated list or wildcard expressions of
             fields to include in the statistics.Used as the default list unless a
             specific field list is provided in the `completion_fields` or
@@ -2552,20 +2561,23 @@ class OpenSearch(Client):
         :arg human: Whether to return human readable values for
             statistics.
         :arg offsets: If `true`, the response includes term offsets.
+            Default is True.
         :arg payloads: If `true`, the response includes term payloads.
+            Default is True.
         :arg positions: If `true`, the response includes term positions.
+            Default is True.
         :arg preference: Specifies the node or shard the operation
-            should be performed on.Random by default.
+            should be performed on.Random by default. Default is random.
         :arg pretty: Whether to pretty format the returned JSON
             response.
         :arg realtime: If true, the request is real-time as opposed to
-            near-real-time.
+            near-real-time. Default is True.
         :arg routing: Custom value used to route operations to a
             specific shard.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         :arg term_statistics: If `true`, the response includes term
-            frequency and document frequency.
+            frequency and document frequency. Default is false.
         :arg version: If `true`, returns the document version as part of
             a hit.
         :arg version_type: Specific version type. Valid choices are
@@ -2631,7 +2643,7 @@ class OpenSearch(Client):
             has this primary term.
         :arg if_seq_no: Only perform the operation if the document has
             this sequence number.
-        :arg lang: The script language.
+        :arg lang: The script language. Default is painless.
         :arg pretty: Whether to pretty format the returned JSON
             response.
         :arg refresh: If 'true', Opensearch refreshes the affected
@@ -2639,9 +2651,9 @@ class OpenSearch(Client):
             for a refresh to make this operationvisible to search, if 'false' do
             nothing with refreshes. Valid choices are true, false, wait_for.
         :arg require_alias: If true, the destination must be an index
-            alias.
+            alias. Default is false.
         :arg retry_on_conflict: Specify how many times should the
-            operation be retried when a conflict occurs.
+            operation be retried when a conflict occurs. Default is 0.
         :arg routing: Custom value used to route operations to a
             specific shard.
         :arg source: The URL-encoded request definition. Useful for
@@ -2736,7 +2748,7 @@ class OpenSearch(Client):
             returns an error if an index starts with `foo` but no index starts with
             `bar`.
         :arg analyze_wildcard: If `true`, wildcard and prefix queries
-            are analyzed.
+            are analyzed. Default is false.
         :arg analyzer: Analyzer to use for the query string.
         :arg conflicts: What to do if update by query hits version
             conflicts: `abort` or `proceed`. Valid choices are abort, proceed.
@@ -2753,7 +2765,7 @@ class OpenSearch(Client):
             `closed`, `hidden`, `none`.
         :arg filter_path: Comma-separated list of filters used to reduce
             the response.
-        :arg from_: Starting offset (default: 0)
+        :arg from_: Starting offset (default: 0) Default is 0.
         :arg human: Whether to return human readable values for
             statistics.
         :arg ignore_unavailable: If `false`, the request returns an
@@ -2768,7 +2780,7 @@ class OpenSearch(Client):
             this request.If a final pipeline is configured it will always run,
             regardless of the value of this parameter.
         :arg preference: Specifies the node or shard the operation
-            should be performed on.Random by default.
+            should be performed on.Random by default. Default is random.
         :arg pretty: Whether to pretty format the returned JSON
             response.
         :arg q: Query in the Lucene query string syntax.
@@ -2777,12 +2789,12 @@ class OpenSearch(Client):
         :arg request_cache: If `true`, the request cache is used for
             this request.
         :arg requests_per_second: The throttle for this request in sub-
-            requests per second.
+            requests per second. Default is 0.
         :arg routing: Custom value used to route operations to a
             specific shard.
         :arg scroll: Period to retain the search context for scrolling.
         :arg scroll_size: Size of the scroll request that powers the
-            operation.
+            operation. Default is 100.
         :arg search_timeout: Explicit timeout for each search request.
         :arg search_type: The type of the search operation. Available
             options: `query_then_fetch`, `dfs_query_then_fetch`. Valid choices are
@@ -2811,7 +2823,7 @@ class OpenSearch(Client):
             positive integer up to the total number of shards in the index
             (`number_of_replicas+1`). Valid choices are all, index-setting.
         :arg wait_for_completion: If `true`, the request blocks until
-            the operation is complete.
+            the operation is complete. Default is True.
         """
         # from is a reserved word so it cannot be used, use from_ instead
         if "from_" in params:
