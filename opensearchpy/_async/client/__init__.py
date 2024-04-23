@@ -846,7 +846,7 @@ class AsyncOpenSearch(Client):
             `open`, `closed`, `hidden`, `none`.
         :arg filter_path: Comma-separated list of filters used to reduce
             the response.
-        :arg from_: Starting offset (default: 0) Default is 0.
+        :arg from_: Starting offset. Default is 0.
         :arg human: Whether to return human readable values for
             statistics.
         :arg ignore_unavailable: If `false`, the request returns an
@@ -1923,8 +1923,8 @@ class AsyncOpenSearch(Client):
             the response.
         :arg human: Whether to return human readable values for
             statistics.
-        :arg max_docs: Maximum number of documents to process (default:
-            all documents).
+        :arg max_docs: Maximum number of documents to process. By
+            default, all documents.
         :arg pretty: Whether to pretty format the returned JSON
             response.
         :arg refresh: If `true`, the request refreshes affected shards
@@ -2765,7 +2765,7 @@ class AsyncOpenSearch(Client):
             `closed`, `hidden`, `none`.
         :arg filter_path: Comma-separated list of filters used to reduce
             the response.
-        :arg from_: Starting offset (default: 0) Default is 0.
+        :arg from_: Starting offset. Default is 0.
         :arg human: Whether to return human readable values for
             statistics.
         :arg ignore_unavailable: If `false`, the request returns an

@@ -289,7 +289,7 @@ class SnapshotClient(NamespacedClient):
         :arg human: Whether to return human readable values for
             statistics.
         :arg local: Return local information, do not retrieve the state
-            from cluster-manager node (default: false) Default is false.
+            from cluster-manager node. Default is false.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Explicit operation timeout for
             connection to master node
