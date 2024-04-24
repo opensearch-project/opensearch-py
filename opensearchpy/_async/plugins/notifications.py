@@ -324,3 +324,28 @@ class NotificationsClient(NamespacedClient):
             headers=headers,
             body=body,
         )
+
+    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    async def list_channels(
+        self,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        List created notification channels.
+
+
+        :arg error_trace: Whether to include the stack trace of returned
+            errors.
+        :arg filter_path: Comma-separated list of filters used to reduce
+            the response.
+        :arg human: Whether to return human readable values for
+            statistics.
+        :arg pretty: Whether to pretty format the returned JSON
+            response.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        """
+        return await self.transport.perform_request(
+            "GET", "/_plugins/_notifications/channels", params=params, headers=headers
+        )
