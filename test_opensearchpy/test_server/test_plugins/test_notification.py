@@ -11,17 +11,17 @@
 from __future__ import unicode_literals
 
 import unittest
-
-from opensearchpy.helpers.test import OPENSEARCH_VERSION
+from typing import Any, Dict
 
 from opensearchpy.exceptions import NotFoundError
+from opensearchpy.helpers.test import OPENSEARCH_VERSION
 
 from .. import OpenSearchTestCase
 
 
 class TestNotificationPlugin(OpenSearchTestCase):
     CONFIG_ID = "sample-id"
-    CONTENT = {
+    CONTENT: Dict[str, Any] = {
         "config_id": "sample-id",
         "name": "sample-name",
         "config": {
@@ -74,7 +74,9 @@ class TestNotificationPlugin(OpenSearchTestCase):
     def test_get_config(self) -> None:
         self.test_create_config()
 
-        response = self.client.plugins.notifications.get_config(config_id=self.CONFIG_ID)
+        response = self.client.plugins.notifications.get_config(
+            config_id=self.CONFIG_ID
+        )
 
         self.assertNotIn("errors", response)
         self.assertIn("config_list", response)
@@ -93,7 +95,9 @@ class TestNotificationPlugin(OpenSearchTestCase):
 
         channel_content = self.CONTENT.copy()
         channel_content["config"]["name"] = "Slack Channel"
-        channel_content["config"]["description"] = "This is an updated channel configuration"
+        channel_content["config"][
+            "description"
+        ] = "This is an updated channel configuration"
         channel_content["config"]["config_type"] = "slack"
         channel_content["config"]["is_enabled"] = True
         channel_content["config"]["slack"]["url"] = "https://hooks.slack.com/sample-url"
