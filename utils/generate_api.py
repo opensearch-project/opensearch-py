@@ -731,15 +731,24 @@ def read_modules() -> Any:
                                 ]["required"]
                             }
                         )
-                    q = data["components"]["requestBodies"][requestbody_ref]["content"][
-                        "application/json"
-                    ][
-                        "schema"
-                    ]  # pylint: disable=invalid-name
-                    if "description" in q:
-                        body.update({"description": q["description"]})
-                    if "x-serialize" in q:
-                        body.update({"serialize": q["x-serialize"]})
+
+                    if (
+                        "application/x-ndjson"
+                        in data["components"]["requestBodies"][requestbody_ref][
+                            "content"
+                        ]
+                    ):
+                        requestbody_schema = data["components"]["requestBodies"][
+                            requestbody_ref
+                        ]["content"]["application/x-ndjson"]["schema"]
+                        body.update({"serialize": True})
+                    else:
+                        requestbody_schema = data["components"]["requestBodies"][
+                            requestbody_ref
+                        ]["content"]["application/json"]["schema"]
+
+                    if "description" in requestbody_schema:
+                        body.update({"description": requestbody_schema["description"]})
 
                     api.update({"body": body})
 
