@@ -18,7 +18,7 @@
 
 from typing import Any
 
-from .utils import SKIP_IN_PATH, NamespacedClient, _make_path, query_params
+from .utils import SKIP_IN_PATH, NamespacedClient, _bulk_body, _make_path, query_params
 
 
 class SecurityClient(NamespacedClient):
@@ -244,6 +244,7 @@ class SecurityClient(NamespacedClient):
             if param in SKIP_IN_PATH:
                 raise ValueError("Empty value passed for a required argument.")
 
+        body = _bulk_body(self.transport.serializer, body)
         return await self.transport.perform_request(
             "PATCH",
             _make_path("_plugins", "_security", "api", "actiongroups", action_group),
@@ -277,6 +278,7 @@ class SecurityClient(NamespacedClient):
         if body in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'body'.")
 
+        body = _bulk_body(self.transport.serializer, body)
         return await self.transport.perform_request(
             "PATCH",
             "/_plugins/_security/api/actiongroups",
@@ -439,6 +441,7 @@ class SecurityClient(NamespacedClient):
             if param in SKIP_IN_PATH:
                 raise ValueError("Empty value passed for a required argument.")
 
+        body = _bulk_body(self.transport.serializer, body)
         return await self.transport.perform_request(
             "PATCH",
             _make_path("_plugins", "_security", "api", "internalusers", username),
@@ -472,6 +475,7 @@ class SecurityClient(NamespacedClient):
         if body in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'body'.")
 
+        body = _bulk_body(self.transport.serializer, body)
         return await self.transport.perform_request(
             "PATCH",
             "/_plugins/_security/api/internalusers",
@@ -631,6 +635,7 @@ class SecurityClient(NamespacedClient):
             if param in SKIP_IN_PATH:
                 raise ValueError("Empty value passed for a required argument.")
 
+        body = _bulk_body(self.transport.serializer, body)
         return await self.transport.perform_request(
             "PATCH",
             _make_path("_plugins", "_security", "api", "roles", role),
@@ -664,6 +669,7 @@ class SecurityClient(NamespacedClient):
         if body in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'body'.")
 
+        body = _bulk_body(self.transport.serializer, body)
         return await self.transport.perform_request(
             "PATCH",
             "/_plugins/_security/api/roles",
@@ -826,6 +832,7 @@ class SecurityClient(NamespacedClient):
             if param in SKIP_IN_PATH:
                 raise ValueError("Empty value passed for a required argument.")
 
+        body = _bulk_body(self.transport.serializer, body)
         return await self.transport.perform_request(
             "PATCH",
             _make_path("_plugins", "_security", "api", "rolesmapping", role),
@@ -859,6 +866,7 @@ class SecurityClient(NamespacedClient):
         if body in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'body'.")
 
+        body = _bulk_body(self.transport.serializer, body)
         return await self.transport.perform_request(
             "PATCH",
             "/_plugins/_security/api/rolesmapping",
@@ -1018,6 +1026,7 @@ class SecurityClient(NamespacedClient):
             if param in SKIP_IN_PATH:
                 raise ValueError("Empty value passed for a required argument.")
 
+        body = _bulk_body(self.transport.serializer, body)
         return await self.transport.perform_request(
             "PATCH",
             _make_path("_plugins", "_security", "api", "tenants", tenant),
@@ -1051,6 +1060,7 @@ class SecurityClient(NamespacedClient):
         if body in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'body'.")
 
+        body = _bulk_body(self.transport.serializer, body)
         return await self.transport.perform_request(
             "PATCH",
             "/_plugins/_security/api/tenants/",
@@ -1145,6 +1155,7 @@ class SecurityClient(NamespacedClient):
         if body in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'body'.")
 
+        body = _bulk_body(self.transport.serializer, body)
         return await self.transport.perform_request(
             "PATCH",
             "/_plugins/_security/api/securityconfig",
@@ -1468,6 +1479,7 @@ class SecurityClient(NamespacedClient):
         if body in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'body'.")
 
+        body = _bulk_body(self.transport.serializer, body)
         return await self.transport.perform_request(
             "PATCH",
             "/_plugins/_security/api/audit",
@@ -1501,6 +1513,7 @@ class SecurityClient(NamespacedClient):
         if body in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'body'.")
 
+        body = _bulk_body(self.transport.serializer, body)
         return await self.transport.perform_request(
             "PATCH",
             "/_plugins/_security/api/nodesdn",

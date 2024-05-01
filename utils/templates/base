@@ -36,7 +36,7 @@
         {% endif %}
         {% include "substitutions" %}
         {% include "required" %}
-        {% if api.body.serialize == "bulk" %}
+        {% if api.body.serialize %}
         body = _bulk_body(self.transport.serializer, body)
         {% endif %}
         {% block request %}
