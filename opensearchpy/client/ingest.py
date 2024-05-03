@@ -40,15 +40,7 @@ from .utils import SKIP_IN_PATH, NamespacedClient, _make_path, query_params
 
 
 class IngestClient(NamespacedClient):
-    @query_params(
-        "cluster_manager_timeout",
-        "error_trace",
-        "filter_path",
-        "human",
-        "master_timeout",
-        "pretty",
-        "source",
-    )
+    @query_params("cluster_manager_timeout", "master_timeout")
     def get_pipeline(
         self,
         id: Any = None,
@@ -64,35 +56,16 @@ class IngestClient(NamespacedClient):
             omit this parameter or use `*`.
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Period to wait for a connection
             to the master node.If no response is received before the timeout
             expires, the request fails and returns an error.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         """
         return self.transport.perform_request(
             "GET", _make_path("_ingest", "pipeline", id), params=params, headers=headers
         )
 
-    @query_params(
-        "cluster_manager_timeout",
-        "error_trace",
-        "filter_path",
-        "human",
-        "master_timeout",
-        "pretty",
-        "source",
-        "timeout",
-    )
+    @query_params("cluster_manager_timeout", "master_timeout", "timeout")
     def put_pipeline(
         self,
         id: Any,
@@ -108,20 +81,10 @@ class IngestClient(NamespacedClient):
         :arg body: The ingest definition
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Period to wait for a connection
             to the master node. If no response is received before the timeout
             expires, the request fails and returns an error.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         :arg timeout: Period to wait for a response. If no response is
             received before the timeout expires, the request fails and returns an
             error.
@@ -138,16 +101,7 @@ class IngestClient(NamespacedClient):
             body=body,
         )
 
-    @query_params(
-        "cluster_manager_timeout",
-        "error_trace",
-        "filter_path",
-        "human",
-        "master_timeout",
-        "pretty",
-        "source",
-        "timeout",
-    )
+    @query_params("cluster_manager_timeout", "master_timeout", "timeout")
     def delete_pipeline(
         self,
         id: Any,
@@ -163,20 +117,10 @@ class IngestClient(NamespacedClient):
             value of `*`.
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Period to wait for a connection
             to the master node.If no response is received before the timeout
             expires, the request fails and returns an error.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         :arg timeout: Period to wait for a response.If no response is
             received before the timeout expires, the request fails and returns an
             error.
@@ -191,7 +135,7 @@ class IngestClient(NamespacedClient):
             headers=headers,
         )
 
-    @query_params("error_trace", "filter_path", "human", "pretty", "source", "verbose")
+    @query_params("verbose")
     def simulate(
         self,
         body: Any,
@@ -206,16 +150,6 @@ class IngestClient(NamespacedClient):
         :arg body: The simulate definition
         :arg id: Pipeline to test. If you don’t specify a `pipeline` in
             the request body, this parameter is required.
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         :arg verbose: If `true`, the response includes output data for
             each processor in the executed pipeline. Default is false.
         """
@@ -230,7 +164,7 @@ class IngestClient(NamespacedClient):
             body=body,
         )
 
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    @query_params()
     def processor_grok(
         self,
         params: Any = None,
@@ -239,17 +173,6 @@ class IngestClient(NamespacedClient):
         """
         Returns a list of the built-in patterns.
 
-
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         """
         return self.transport.perform_request(
             "GET", "/_ingest/processor/grok", params=params, headers=headers

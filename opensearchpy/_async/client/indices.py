@@ -40,7 +40,7 @@ from .utils import SKIP_IN_PATH, NamespacedClient, _make_path, query_params
 
 
 class IndicesClient(NamespacedClient):
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    @query_params()
     async def analyze(
         self,
         body: Any = None,
@@ -56,16 +56,6 @@ class IndicesClient(NamespacedClient):
         :arg body: Define analyzer/tokenizer parameters and the text on
             which the analysis should be performed
         :arg index: The name of the index to scope the operation.
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         """
         return await self.transport.perform_request(
             "POST",
@@ -75,16 +65,7 @@ class IndicesClient(NamespacedClient):
             body=body,
         )
 
-    @query_params(
-        "allow_no_indices",
-        "error_trace",
-        "expand_wildcards",
-        "filter_path",
-        "human",
-        "ignore_unavailable",
-        "pretty",
-        "source",
-    )
+    @query_params("allow_no_indices", "expand_wildcards", "ignore_unavailable")
     async def refresh(
         self,
         index: Any = None,
@@ -102,23 +83,13 @@ class IndicesClient(NamespacedClient):
             if any wildcard expression, index alias, or `_all` value targets only
             missing or closed indices.This behavior applies even if the request
             targets other open indices.
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
         :arg expand_wildcards: Type of index that wildcard patterns can
             match.If the request can target data streams, this argument determines
             whether wildcard expressions match hidden data streams.Supports comma-
             separated values, such as `open,hidden`.Valid values are: `all`, `open`,
             `closed`, `hidden`, `none`.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
         :arg ignore_unavailable: If `false`, the request returns an
             error if it targets a missing or closed index.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         """
         return await self.transport.perform_request(
             "POST", _make_path(index, "_refresh"), params=params, headers=headers
@@ -126,14 +97,9 @@ class IndicesClient(NamespacedClient):
 
     @query_params(
         "allow_no_indices",
-        "error_trace",
         "expand_wildcards",
-        "filter_path",
         "force",
-        "human",
         "ignore_unavailable",
-        "pretty",
-        "source",
         "wait_if_ongoing",
     )
     async def flush(
@@ -153,25 +119,15 @@ class IndicesClient(NamespacedClient):
             if any wildcard expression, index alias, or `_all` value targets only
             missing or closed indices.This behavior applies even if the request
             targets other open indices.
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
         :arg expand_wildcards: Type of index that wildcard patterns can
             match.If the request can target data streams, this argument determines
             whether wildcard expressions match hidden data streams.Supports comma-
             separated values, such as `open,hidden`.Valid values are: `all`, `open`,
             `closed`, `hidden`, `none`.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
         :arg force: If `true`, the request forces a flush even if there
             are no changes to commit to the index.
-        :arg human: Whether to return human readable values for
-            statistics.
         :arg ignore_unavailable: If `false`, the request returns an
             error if it targets a missing or closed index.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         :arg wait_if_ongoing: If `true`, the flush operation blocks
             until execution when another flush operation is running.If `false`,
             Opensearch returns an error if you request a flush when another flush
@@ -182,15 +138,7 @@ class IndicesClient(NamespacedClient):
         )
 
     @query_params(
-        "cluster_manager_timeout",
-        "error_trace",
-        "filter_path",
-        "human",
-        "master_timeout",
-        "pretty",
-        "source",
-        "timeout",
-        "wait_for_active_shards",
+        "cluster_manager_timeout", "master_timeout", "timeout", "wait_for_active_shards"
     )
     async def create(
         self,
@@ -208,20 +156,10 @@ class IndicesClient(NamespacedClient):
             `mappings`)
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Period to wait for a connection
             to the master node.If no response is received before the timeout
             expires, the request fails and returns an error.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         :arg timeout: Period to wait for a response.If no response is
             received before the timeout expires, the request fails and returns an
             error.
@@ -239,12 +177,7 @@ class IndicesClient(NamespacedClient):
 
     @query_params(
         "cluster_manager_timeout",
-        "error_trace",
-        "filter_path",
-        "human",
         "master_timeout",
-        "pretty",
-        "source",
         "task_execution_timeout",
         "timeout",
         "wait_for_active_shards",
@@ -268,20 +201,10 @@ class IndicesClient(NamespacedClient):
             and `aliases`)
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Period to wait for a connection
             to the master node.If no response is received before the timeout
             expires, the request fails and returns an error.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         :arg task_execution_timeout: Explicit task execution timeout,
             only useful when wait_for_completion is false, defaults to 1h.
         :arg timeout: Period to wait for a response.If no response is
@@ -309,17 +232,12 @@ class IndicesClient(NamespacedClient):
     @query_params(
         "allow_no_indices",
         "cluster_manager_timeout",
-        "error_trace",
         "expand_wildcards",
-        "filter_path",
         "flat_settings",
-        "human",
         "ignore_unavailable",
         "include_defaults",
         "local",
         "master_timeout",
-        "pretty",
-        "source",
     )
     async def get(
         self,
@@ -342,19 +260,13 @@ class IndicesClient(NamespacedClient):
             is false.
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
         :arg expand_wildcards: Type of index that wildcard expressions
             can match. If the request can target data streams, this
             argumentdetermines whether wildcard expressions match hidden data
             streams. Supports comma-separated values,such as open,hidden. Valid
             choices are all, open, closed, hidden, none.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
         :arg flat_settings: If true, returns settings in flat format.
             Default is false.
-        :arg human: Whether to return human readable values for
-            statistics.
         :arg ignore_unavailable: If false, requests that target a
             missing index return an error. Default is false.
         :arg include_defaults: If true, return all default settings in
@@ -366,10 +278,6 @@ class IndicesClient(NamespacedClient):
             use 'cluster_manager_timeout' instead.): Period to wait for a connection
             to the master node. If no response is received before the timeout
             expires, the request fails and returns an error.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         """
         if index in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'index'.")
@@ -381,14 +289,9 @@ class IndicesClient(NamespacedClient):
     @query_params(
         "allow_no_indices",
         "cluster_manager_timeout",
-        "error_trace",
         "expand_wildcards",
-        "filter_path",
-        "human",
         "ignore_unavailable",
         "master_timeout",
-        "pretty",
-        "source",
         "task_execution_timeout",
         "timeout",
         "wait_for_active_shards",
@@ -417,27 +320,17 @@ class IndicesClient(NamespacedClient):
             targets other open indices.
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
         :arg expand_wildcards: Type of index that wildcard patterns can
             match.If the request can target data streams, this argument determines
             whether wildcard expressions match hidden data streams.Supports comma-
             separated values, such as `open,hidden`.Valid values are: `all`, `open`,
             `closed`, `hidden`, `none`.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
         :arg ignore_unavailable: If `false`, the request returns an
             error if it targets a missing or closed index.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Period to wait for a connection
             to the master node.If no response is received before the timeout
             expires, the request fails and returns an error.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         :arg task_execution_timeout: Explicit task execution timeout,
             only useful when wait_for_completion is false, defaults to 1h.
         :arg timeout: Period to wait for a response.If no response is
@@ -460,14 +353,9 @@ class IndicesClient(NamespacedClient):
     @query_params(
         "allow_no_indices",
         "cluster_manager_timeout",
-        "error_trace",
         "expand_wildcards",
-        "filter_path",
-        "human",
         "ignore_unavailable",
         "master_timeout",
-        "pretty",
-        "source",
         "timeout",
         "wait_for_active_shards",
     )
@@ -489,27 +377,17 @@ class IndicesClient(NamespacedClient):
             targets other open indices.
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
         :arg expand_wildcards: Type of index that wildcard patterns can
             match.If the request can target data streams, this argument determines
             whether wildcard expressions match hidden data streams.Supports comma-
             separated values, such as `open,hidden`.Valid values are: `all`, `open`,
             `closed`, `hidden`, `none`.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
         :arg ignore_unavailable: If `false`, the request returns an
             error if it targets a missing or closed index.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Period to wait for a connection
             to the master node.If no response is received before the timeout
             expires, the request fails and returns an error.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         :arg timeout: Period to wait for a response.If no response is
             received before the timeout expires, the request fails and returns an
             error.
@@ -528,14 +406,9 @@ class IndicesClient(NamespacedClient):
     @query_params(
         "allow_no_indices",
         "cluster_manager_timeout",
-        "error_trace",
         "expand_wildcards",
-        "filter_path",
-        "human",
         "ignore_unavailable",
         "master_timeout",
-        "pretty",
-        "source",
         "timeout",
     )
     async def delete(
@@ -558,27 +431,17 @@ class IndicesClient(NamespacedClient):
             targets other open indices. Default is false.
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
         :arg expand_wildcards: Type of index that wildcard patterns can
             match.If the request can target data streams, this argument determines
             whether wildcard expressions match hidden data streams.Supports comma-
             separated values, such as `open,hidden`.Valid values are: `all`, `open`,
             `closed`, `hidden`, `none`.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
         :arg ignore_unavailable: If `false`, the request returns an
             error if it targets a missing or closed index. Default is false.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Period to wait for a connection
             to the master node.If no response is received before the timeout
             expires, the request fails and returns an error.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         :arg timeout: Period to wait for a response.If no response is
             received before the timeout expires, the request fails and returns an
             error.
@@ -592,16 +455,11 @@ class IndicesClient(NamespacedClient):
 
     @query_params(
         "allow_no_indices",
-        "error_trace",
         "expand_wildcards",
-        "filter_path",
         "flat_settings",
-        "human",
         "ignore_unavailable",
         "include_defaults",
         "local",
-        "pretty",
-        "source",
     )
     async def exists(
         self,
@@ -619,29 +477,19 @@ class IndicesClient(NamespacedClient):
             if any wildcard expression, index alias, or `_all` value targets only
             missing or closed indices.This behavior applies even if the request
             targets other open indices. Default is false.
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
         :arg expand_wildcards: Type of index that wildcard patterns can
             match.If the request can target data streams, this argument determines
             whether wildcard expressions match hidden data streams.Supports comma-
             separated values, such as `open,hidden`.Valid values are: `all`, `open`,
             `closed`, `hidden`, `none`.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
         :arg flat_settings: If `true`, returns settings in flat format.
             Default is false.
-        :arg human: Whether to return human readable values for
-            statistics.
         :arg ignore_unavailable: If `false`, the request returns an
             error if it targets a missing or closed index. Default is false.
         :arg include_defaults: If `true`, return all default settings in
             the response. Default is false.
         :arg local: If `true`, the request retrieves information from
             the local node only. Default is false.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         """
         if index in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'index'.")
@@ -653,14 +501,9 @@ class IndicesClient(NamespacedClient):
     @query_params(
         "allow_no_indices",
         "cluster_manager_timeout",
-        "error_trace",
         "expand_wildcards",
-        "filter_path",
-        "human",
         "ignore_unavailable",
         "master_timeout",
-        "pretty",
-        "source",
         "timeout",
         "write_index_only",
     )
@@ -684,27 +527,17 @@ class IndicesClient(NamespacedClient):
             targets other open indices.
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
         :arg expand_wildcards: Type of index that wildcard patterns can
             match.If the request can target data streams, this argument determines
             whether wildcard expressions match hidden data streams.Supports comma-
             separated values, such as `open,hidden`.Valid values are: `all`, `open`,
             `closed`, `hidden`, `none`.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
         :arg ignore_unavailable: If `false`, the request returns an
             error if it targets a missing or closed index.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Period to wait for a connection
             to the master node.If no response is received before the timeout
             expires, the request fails and returns an error.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         :arg timeout: Period to wait for a response.If no response is
             received before the timeout expires, the request fails and returns an
             error.
@@ -728,15 +561,10 @@ class IndicesClient(NamespacedClient):
     @query_params(
         "allow_no_indices",
         "cluster_manager_timeout",
-        "error_trace",
         "expand_wildcards",
-        "filter_path",
-        "human",
         "ignore_unavailable",
         "local",
         "master_timeout",
-        "pretty",
-        "source",
     )
     async def get_mapping(
         self,
@@ -757,17 +585,11 @@ class IndicesClient(NamespacedClient):
             targets other open indices.
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
         :arg expand_wildcards: Type of index that wildcard patterns can
             match.If the request can target data streams, this argument determines
             whether wildcard expressions match hidden data streams.Supports comma-
             separated values, such as `open,hidden`.Valid values are: `all`, `open`,
             `closed`, `hidden`, `none`.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
         :arg ignore_unavailable: If `false`, the request returns an
             error if it targets a missing or closed index.
         :arg local: If `true`, the request retrieves information from
@@ -776,10 +598,6 @@ class IndicesClient(NamespacedClient):
             use 'cluster_manager_timeout' instead.): Period to wait for a connection
             to the master node.If no response is received before the timeout
             expires, the request fails and returns an error.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         """
         return await self.transport.perform_request(
             "GET", _make_path(index, "_mapping"), params=params, headers=headers
@@ -787,15 +605,10 @@ class IndicesClient(NamespacedClient):
 
     @query_params(
         "allow_no_indices",
-        "error_trace",
         "expand_wildcards",
-        "filter_path",
-        "human",
         "ignore_unavailable",
         "include_defaults",
         "local",
-        "pretty",
-        "source",
     )
     async def get_field_mapping(
         self,
@@ -817,27 +630,17 @@ class IndicesClient(NamespacedClient):
             if any wildcard expression, index alias, or `_all` value targets only
             missing or closed indices.This behavior applies even if the request
             targets other open indices.
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
         :arg expand_wildcards: Type of index that wildcard patterns can
             match.If the request can target data streams, this argument determines
             whether wildcard expressions match hidden data streams.Supports comma-
             separated values, such as `open,hidden`.Valid values are: `all`, `open`,
             `closed`, `hidden`, `none`.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
         :arg ignore_unavailable: If `false`, the request returns an
             error if it targets a missing or closed index.
         :arg include_defaults: If `true`, return all default settings in
             the response.
         :arg local: If `true`, the request retrieves information from
             the local node only. Default is false.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         """
         if fields in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'fields'.")
@@ -849,16 +652,7 @@ class IndicesClient(NamespacedClient):
             headers=headers,
         )
 
-    @query_params(
-        "cluster_manager_timeout",
-        "error_trace",
-        "filter_path",
-        "human",
-        "master_timeout",
-        "pretty",
-        "source",
-        "timeout",
-    )
+    @query_params("cluster_manager_timeout", "master_timeout", "timeout")
     async def put_alias(
         self,
         index: Any,
@@ -880,20 +674,10 @@ class IndicesClient(NamespacedClient):
             `filter`
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Period to wait for a connection
             to the master node.If no response is received before the timeout
             expires, the request fails and returns an error.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         :arg timeout: Period to wait for a response.If no response is
             received before the timeout expires, the request fails and returns an
             error.
@@ -910,17 +694,7 @@ class IndicesClient(NamespacedClient):
             body=body,
         )
 
-    @query_params(
-        "allow_no_indices",
-        "error_trace",
-        "expand_wildcards",
-        "filter_path",
-        "human",
-        "ignore_unavailable",
-        "local",
-        "pretty",
-        "source",
-    )
+    @query_params("allow_no_indices", "expand_wildcards", "ignore_unavailable", "local")
     async def exists_alias(
         self,
         name: Any,
@@ -941,26 +715,16 @@ class IndicesClient(NamespacedClient):
             if any wildcard expression, index alias, or `_all` value targets only
             missing or closed indices.This behavior applies even if the request
             targets other open indices.
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
         :arg expand_wildcards: Type of index that wildcard patterns can
             match.If the request can target data streams, this argument determines
             whether wildcard expressions match hidden data streams.Supports comma-
             separated values, such as `open,hidden`.Valid values are: `all`, `open`,
             `closed`, `hidden`, `none`.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
         :arg ignore_unavailable: If `false`, requests that include a
             missing data stream or index in the target indices or data streams
             return an error.
         :arg local: If `true`, the request retrieves information from
             the local node only. Default is false.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         """
         if name in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'name'.")
@@ -969,17 +733,7 @@ class IndicesClient(NamespacedClient):
             "HEAD", _make_path(index, "_alias", name), params=params, headers=headers
         )
 
-    @query_params(
-        "allow_no_indices",
-        "error_trace",
-        "expand_wildcards",
-        "filter_path",
-        "human",
-        "ignore_unavailable",
-        "local",
-        "pretty",
-        "source",
-    )
+    @query_params("allow_no_indices", "expand_wildcards", "ignore_unavailable", "local")
     async def get_alias(
         self,
         index: Any = None,
@@ -1001,40 +755,21 @@ class IndicesClient(NamespacedClient):
             if any wildcard expression, index alias, or `_all` value targets only
             missing or closed indices.This behavior applies even if the request
             targets other open indices.
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
         :arg expand_wildcards: Type of index that wildcard patterns can
             match.If the request can target data streams, this argument determines
             whether wildcard expressions match hidden data streams.Supports comma-
             separated values, such as `open,hidden`.Valid values are: `all`, `open`,
             `closed`, `hidden`, `none`.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
         :arg ignore_unavailable: If `false`, the request returns an
             error if it targets a missing or closed index.
         :arg local: If `true`, the request retrieves information from
             the local node only. Default is false.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         """
         return await self.transport.perform_request(
             "GET", _make_path(index, "_alias", name), params=params, headers=headers
         )
 
-    @query_params(
-        "cluster_manager_timeout",
-        "error_trace",
-        "filter_path",
-        "human",
-        "master_timeout",
-        "pretty",
-        "source",
-        "timeout",
-    )
+    @query_params("cluster_manager_timeout", "master_timeout", "timeout")
     async def update_aliases(
         self,
         body: Any,
@@ -1048,20 +783,10 @@ class IndicesClient(NamespacedClient):
         :arg body: The definition of `actions` to perform
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Period to wait for a connection
             to the master node.If no response is received before the timeout
             expires, the request fails and returns an error.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         :arg timeout: Period to wait for a response.If no response is
             received before the timeout expires, the request fails and returns an
             error.
@@ -1073,16 +798,7 @@ class IndicesClient(NamespacedClient):
             "POST", "/_aliases", params=params, headers=headers, body=body
         )
 
-    @query_params(
-        "cluster_manager_timeout",
-        "error_trace",
-        "filter_path",
-        "human",
-        "master_timeout",
-        "pretty",
-        "source",
-        "timeout",
-    )
+    @query_params("cluster_manager_timeout", "master_timeout", "timeout")
     async def delete_alias(
         self,
         index: Any,
@@ -1100,20 +816,10 @@ class IndicesClient(NamespacedClient):
             wildcards (`*`). To remove all aliases, use `*` or `_all`.
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Period to wait for a connection
             to the master node.If no response is received before the timeout
             expires, the request fails and returns an error.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         :arg timeout: Period to wait for a response.If no response is
             received before the timeout expires, the request fails and returns an
             error.
@@ -1126,17 +832,7 @@ class IndicesClient(NamespacedClient):
             "DELETE", _make_path(index, "_alias", name), params=params, headers=headers
         )
 
-    @query_params(
-        "cluster_manager_timeout",
-        "create",
-        "error_trace",
-        "filter_path",
-        "human",
-        "master_timeout",
-        "order",
-        "pretty",
-        "source",
-    )
+    @query_params("cluster_manager_timeout", "create", "master_timeout", "order")
     async def put_template(
         self,
         name: Any,
@@ -1154,12 +850,6 @@ class IndicesClient(NamespacedClient):
             to cluster-manager node.
         :arg create: If true, this request cannot replace or update
             existing index templates. Default is false.
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Period to wait for a connection
             to the master node. If no response isreceived before the timeout
@@ -1168,10 +858,6 @@ class IndicesClient(NamespacedClient):
             indexmatches multiple templates.Templates with lower 'order' values are
             merged first. Templates with higher'order' values are merged later,
             overriding templates with lower values.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         """
         for param in (name, body):
             if param in SKIP_IN_PATH:
@@ -1185,17 +871,7 @@ class IndicesClient(NamespacedClient):
             body=body,
         )
 
-    @query_params(
-        "cluster_manager_timeout",
-        "error_trace",
-        "filter_path",
-        "flat_settings",
-        "human",
-        "local",
-        "master_timeout",
-        "pretty",
-        "source",
-    )
+    @query_params("cluster_manager_timeout", "flat_settings", "local", "master_timeout")
     async def exists_template(
         self,
         name: Any,
@@ -1209,23 +885,13 @@ class IndicesClient(NamespacedClient):
         :arg name: The comma separated names of the index templates
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
         :arg flat_settings: Return settings in flat format. Default is
             false.
-        :arg human: Whether to return human readable values for
-            statistics.
         :arg local: Return local information, do not retrieve the state
             from cluster-manager node. Default is false.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Explicit operation timeout for
             connection to master node
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         """
         if name in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'name'.")
@@ -1234,17 +900,7 @@ class IndicesClient(NamespacedClient):
             "HEAD", _make_path("_template", name), params=params, headers=headers
         )
 
-    @query_params(
-        "cluster_manager_timeout",
-        "error_trace",
-        "filter_path",
-        "flat_settings",
-        "human",
-        "local",
-        "master_timeout",
-        "pretty",
-        "source",
-    )
+    @query_params("cluster_manager_timeout", "flat_settings", "local", "master_timeout")
     async def get_template(
         self,
         name: Any = None,
@@ -1261,39 +917,20 @@ class IndicesClient(NamespacedClient):
             `*`.
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
         :arg flat_settings: If `true`, returns settings in flat format.
             Default is false.
-        :arg human: Whether to return human readable values for
-            statistics.
         :arg local: If `true`, the request retrieves information from
             the local node only. Default is false.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Period to wait for a connection
             to the master node.If no response is received before the timeout
             expires, the request fails and returns an error.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         """
         return await self.transport.perform_request(
             "GET", _make_path("_template", name), params=params, headers=headers
         )
 
-    @query_params(
-        "cluster_manager_timeout",
-        "error_trace",
-        "filter_path",
-        "human",
-        "master_timeout",
-        "pretty",
-        "source",
-        "timeout",
-    )
+    @query_params("cluster_manager_timeout", "master_timeout", "timeout")
     async def delete_template(
         self,
         name: Any,
@@ -1308,20 +945,10 @@ class IndicesClient(NamespacedClient):
             Wildcard (`*`) expressions are supported.
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Period to wait for a connection
             to the master node.If no response is received before the timeout
             expires, the request fails and returns an error.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         :arg timeout: Period to wait for a response.If no response is
             received before the timeout expires, the request fails and returns an
             error.
@@ -1336,17 +963,12 @@ class IndicesClient(NamespacedClient):
     @query_params(
         "allow_no_indices",
         "cluster_manager_timeout",
-        "error_trace",
         "expand_wildcards",
-        "filter_path",
         "flat_settings",
-        "human",
         "ignore_unavailable",
         "include_defaults",
         "local",
         "master_timeout",
-        "pretty",
-        "source",
     )
     async def get_settings(
         self,
@@ -1372,19 +994,13 @@ class IndicesClient(NamespacedClient):
             `bar`.
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
         :arg expand_wildcards: Type of index that wildcard patterns can
             match.If the request can target data streams, this argument determines
             whether wildcard expressions match hidden data streams.Supports comma-
             separated values, such as `open,hidden`. Valid choices are all, open,
             closed, hidden, none.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
         :arg flat_settings: If `true`, returns settings in flat format.
             Default is false.
-        :arg human: Whether to return human readable values for
-            statistics.
         :arg ignore_unavailable: If `false`, the request returns an
             error if it targets a missing or closed index.
         :arg include_defaults: If `true`, return all default settings in
@@ -1396,10 +1012,6 @@ class IndicesClient(NamespacedClient):
             use 'cluster_manager_timeout' instead.): Period to wait for a connection
             to the master node. If no response isreceived before the timeout
             expires, the request fails and returns anerror.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         """
         return await self.transport.perform_request(
             "GET", _make_path(index, "_settings", name), params=params, headers=headers
@@ -1408,16 +1020,11 @@ class IndicesClient(NamespacedClient):
     @query_params(
         "allow_no_indices",
         "cluster_manager_timeout",
-        "error_trace",
         "expand_wildcards",
-        "filter_path",
         "flat_settings",
-        "human",
         "ignore_unavailable",
         "master_timeout",
         "preserve_existing",
-        "pretty",
-        "source",
         "timeout",
     )
     async def put_settings(
@@ -1442,19 +1049,13 @@ class IndicesClient(NamespacedClient):
             `bar`.
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
         :arg expand_wildcards: Type of index that wildcard patterns can
             match. If the request can targetdata streams, this argument determines
             whether wildcard expressions matchhidden data streams. Supports comma-
             separated values, such as`open,hidden`. Valid choices are all, open,
             closed, hidden, none.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
         :arg flat_settings: If `true`, returns settings in flat format.
             Default is false.
-        :arg human: Whether to return human readable values for
-            statistics.
         :arg ignore_unavailable: Whether specified concrete indices
             should be ignored when unavailable (missing or closed).
         :arg master_timeout (Deprecated: To promote inclusive language,
@@ -1463,10 +1064,6 @@ class IndicesClient(NamespacedClient):
             expires, the request fails and returns anerror.
         :arg preserve_existing: If `true`, existing index settings
             remain unchanged. Default is false.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         :arg timeout: Period to wait for a response. If no response is
             received before the timeout expires, the request fails and returns an
             error.
@@ -1484,19 +1081,14 @@ class IndicesClient(NamespacedClient):
 
     @query_params(
         "completion_fields",
-        "error_trace",
         "expand_wildcards",
         "fielddata_fields",
         "fields",
-        "filter_path",
         "forbid_closed_indices",
         "groups",
-        "human",
         "include_segment_file_sizes",
         "include_unloaded_segments",
         "level",
-        "pretty",
-        "source",
     )
     async def stats(
         self,
@@ -1515,8 +1107,6 @@ class IndicesClient(NamespacedClient):
             metrics.
         :arg completion_fields: Comma-separated list or wildcard
             expressions of fields to include in fielddata and suggest statistics.
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
         :arg expand_wildcards: Type of index that wildcard patterns can
             match. If the request can target data streams, this argumentdetermines
             whether wildcard expressions match hidden data streams. Supports comma-
@@ -1526,14 +1116,10 @@ class IndicesClient(NamespacedClient):
             expressions of fields to include in fielddata statistics.
         :arg fields: Comma-separated list or wildcard expressions of
             fields to include in the statistics.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
         :arg forbid_closed_indices: If true, statistics are not
             collected from closed indices. Default is True.
         :arg groups: Comma-separated list of search groups to include in
             the search statistics.
-        :arg human: Whether to return human readable values for
-            statistics.
         :arg include_segment_file_sizes: If true, the call reports the
             aggregated disk usage of each one of the Lucene index files (only
             applies if segment stats are requested). Default is false.
@@ -1543,25 +1129,13 @@ class IndicesClient(NamespacedClient):
         :arg level: Indicates whether statistics are aggregated at the
             cluster, index, or shard level. Valid choices are cluster, indices,
             shards.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         """
         return await self.transport.perform_request(
             "GET", _make_path(index, "_stats", metric), params=params, headers=headers
         )
 
     @query_params(
-        "allow_no_indices",
-        "error_trace",
-        "expand_wildcards",
-        "filter_path",
-        "human",
-        "ignore_unavailable",
-        "pretty",
-        "source",
-        "verbose",
+        "allow_no_indices", "expand_wildcards", "ignore_unavailable", "verbose"
     )
     async def segments(
         self,
@@ -1580,23 +1154,13 @@ class IndicesClient(NamespacedClient):
             if any wildcard expression, index alias, or `_all` value targets only
             missing or closed indices.This behavior applies even if the request
             targets other open indices.
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
         :arg expand_wildcards: Type of index that wildcard patterns can
             match.If the request can target data streams, this argument determines
             whether wildcard expressions match hidden data streams.Supports comma-
             separated values, such as `open,hidden`.Valid values are: `all`, `open`,
             `closed`, `hidden`, `none`.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
         :arg ignore_unavailable: If `false`, the request returns an
             error if it targets a missing or closed index.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         :arg verbose: If `true`, the request returns a verbose response.
             Default is false.
         """
@@ -1611,17 +1175,12 @@ class IndicesClient(NamespacedClient):
         "analyzer",
         "default_operator",
         "df",
-        "error_trace",
         "expand_wildcards",
         "explain",
-        "filter_path",
-        "human",
         "ignore_unavailable",
         "lenient",
-        "pretty",
         "q",
         "rewrite",
-        "source",
     )
     async def validate_query(
         self,
@@ -1654,8 +1213,6 @@ class IndicesClient(NamespacedClient):
         :arg df: Field to use as default where no field prefix is given
             in the query string.This parameter can only be used when the `q` query
             string parameter is specified.
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
         :arg expand_wildcards: Type of index that wildcard patterns can
             match.If the request can target data streams, this argument determines
             whether wildcard expressions match hidden data streams.Supports comma-
@@ -1663,21 +1220,13 @@ class IndicesClient(NamespacedClient):
             `closed`, `hidden`, `none`.
         :arg explain: If `true`, the response returns detailed
             information if an error has occurred.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
         :arg ignore_unavailable: If `false`, the request returns an
             error if it targets a missing or closed index.
         :arg lenient: If `true`, format-based query failures (such as
             providing text to a numeric field) in the query string will be ignored.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
         :arg q: Query in the Lucene query string syntax.
         :arg rewrite: If `true`, returns a more detailed explanation
             showing the actual Lucene query that will be executed.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         """
         return await self.transport.perform_request(
             "POST",
@@ -1689,17 +1238,12 @@ class IndicesClient(NamespacedClient):
 
     @query_params(
         "allow_no_indices",
-        "error_trace",
         "expand_wildcards",
         "fielddata",
         "fields",
-        "filter_path",
-        "human",
         "ignore_unavailable",
-        "pretty",
         "query",
         "request",
-        "source",
     )
     async def clear_cache(
         self,
@@ -1717,8 +1261,6 @@ class IndicesClient(NamespacedClient):
             if any wildcard expression, index alias, or `_all` value targets only
             missing or closed indices.This behavior applies even if the request
             targets other open indices.
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
         :arg expand_wildcards: Type of index that wildcard patterns can
             match.If the request can target data streams, this argument determines
             whether wildcard expressions match hidden data streams.Supports comma-
@@ -1728,32 +1270,16 @@ class IndicesClient(NamespacedClient):
             `fields` parameter to clear the cache of specific fields only.
         :arg fields: Comma-separated list of field names used to limit
             the `fielddata` parameter.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
         :arg ignore_unavailable: If `false`, the request returns an
             error if it targets a missing or closed index.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
         :arg query: If `true`, clears the query cache.
         :arg request: If `true`, clears the request cache.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         """
         return await self.transport.perform_request(
             "POST", _make_path(index, "_cache", "clear"), params=params, headers=headers
         )
 
-    @query_params(
-        "active_only",
-        "detailed",
-        "error_trace",
-        "filter_path",
-        "human",
-        "pretty",
-        "source",
-    )
+    @query_params("active_only", "detailed")
     async def recovery(
         self,
         index: Any = None,
@@ -1771,16 +1297,6 @@ class IndicesClient(NamespacedClient):
             shard recoveries. Default is false.
         :arg detailed: If `true`, the response includes detailed
             information about shard recoveries. Default is false.
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         """
         return await self.transport.perform_request(
             "GET", _make_path(index, "_recovery"), params=params, headers=headers
@@ -1788,14 +1304,9 @@ class IndicesClient(NamespacedClient):
 
     @query_params(
         "allow_no_indices",
-        "error_trace",
         "expand_wildcards",
-        "filter_path",
-        "human",
         "ignore_unavailable",
         "only_ancient_segments",
-        "pretty",
-        "source",
         "wait_for_completion",
     )
     async def upgrade(
@@ -1813,23 +1324,13 @@ class IndicesClient(NamespacedClient):
         :arg allow_no_indices: Whether to ignore if a wildcard indices
             expression resolves into no concrete indices. (This includes `_all`
             string or when no indices have been specified).
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
         :arg expand_wildcards: Whether to expand wildcard expression to
             concrete indices that are open, closed or both. Valid choices are all,
             open, closed, hidden, none.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
         :arg ignore_unavailable: Whether specified concrete indices
             should be ignored when unavailable (missing or closed).
         :arg only_ancient_segments: If true, only ancient (an older
             Lucene major release) segments will be upgraded.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         :arg wait_for_completion: Should this request wait until the
             operation has completed before returning. Default is false.
         """
@@ -1837,16 +1338,7 @@ class IndicesClient(NamespacedClient):
             "POST", _make_path(index, "_upgrade"), params=params, headers=headers
         )
 
-    @query_params(
-        "allow_no_indices",
-        "error_trace",
-        "expand_wildcards",
-        "filter_path",
-        "human",
-        "ignore_unavailable",
-        "pretty",
-        "source",
-    )
+    @query_params("allow_no_indices", "expand_wildcards", "ignore_unavailable")
     async def get_upgrade(
         self,
         index: Any = None,
@@ -1862,36 +1354,18 @@ class IndicesClient(NamespacedClient):
         :arg allow_no_indices: Whether to ignore if a wildcard indices
             expression resolves into no concrete indices. (This includes `_all`
             string or when no indices have been specified).
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
         :arg expand_wildcards: Whether to expand wildcard expression to
             concrete indices that are open, closed or both. Valid choices are all,
             open, closed, hidden, none.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
         :arg ignore_unavailable: Whether specified concrete indices
             should be ignored when unavailable (missing or closed).
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         """
         return await self.transport.perform_request(
             "GET", _make_path(index, "_upgrade"), params=params, headers=headers
         )
 
     @query_params(
-        "allow_no_indices",
-        "error_trace",
-        "expand_wildcards",
-        "filter_path",
-        "human",
-        "ignore_unavailable",
-        "pretty",
-        "source",
-        "status",
+        "allow_no_indices", "expand_wildcards", "ignore_unavailable", "status"
     )
     async def shard_stores(
         self,
@@ -1909,22 +1383,12 @@ class IndicesClient(NamespacedClient):
             any wildcard expression, index alias, or _allvalue targets only missing
             or closed indices. This behavior applies even if the requesttargets
             other open indices.
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
         :arg expand_wildcards: Type of index that wildcard patterns can
             match. If the request can target data streams,this argument determines
             whether wildcard expressions match hidden data streams. Valid choices
             are all, open, closed, hidden, none.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
         :arg ignore_unavailable: If true, missing or closed indices are
             not included in the response.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         :arg status: List of shard health statuses used to limit the
             request.
         """
@@ -1934,17 +1398,12 @@ class IndicesClient(NamespacedClient):
 
     @query_params(
         "allow_no_indices",
-        "error_trace",
         "expand_wildcards",
-        "filter_path",
         "flush",
-        "human",
         "ignore_unavailable",
         "max_num_segments",
         "only_expunge_deletes",
-        "pretty",
         "primary_only",
-        "source",
         "wait_for_completion",
     )
     async def forcemerge(
@@ -1962,17 +1421,11 @@ class IndicesClient(NamespacedClient):
         :arg allow_no_indices: Whether to ignore if a wildcard indices
             expression resolves into no concrete indices. (This includes `_all`
             string or when no indices have been specified)
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
         :arg expand_wildcards: Whether to expand wildcard expression to
             concrete indices that are open, closed or both. Valid choices are all,
             open, closed, hidden, none.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
         :arg flush: Specify whether the index should be flushed after
             performing the operation. Default is True.
-        :arg human: Whether to return human readable values for
-            statistics.
         :arg ignore_unavailable: Whether specified concrete indices
             should be ignored when unavailable (missing or closed)
         :arg max_num_segments: The number of larger segments into which
@@ -1981,12 +1434,8 @@ class IndicesClient(NamespacedClient):
             as necessary.
         :arg only_expunge_deletes: Specify whether the operation should
             only expunge deleted documents
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
         :arg primary_only: Specify whether the operation should only
             perform on primary shards. Defaults to false. Default is false.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         :arg wait_for_completion: Should the request wait until the
             force merge is completed. Default is True.
         """
@@ -1997,12 +1446,7 @@ class IndicesClient(NamespacedClient):
     @query_params(
         "cluster_manager_timeout",
         "copy_settings",
-        "error_trace",
-        "filter_path",
-        "human",
         "master_timeout",
-        "pretty",
-        "source",
         "task_execution_timeout",
         "timeout",
         "wait_for_active_shards",
@@ -2028,20 +1472,10 @@ class IndicesClient(NamespacedClient):
             to cluster-manager node.
         :arg copy_settings: whether or not to copy settings from the
             source index. Default is false.
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Period to wait for a connection
             to the master node.If no response is received before the timeout
             expires, the request fails and returns an error.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         :arg task_execution_timeout: Explicit task execution timeout,
             only useful when wait_for_completion is false, defaults to 1h.
         :arg timeout: Period to wait for a response.If no response is
@@ -2069,12 +1503,7 @@ class IndicesClient(NamespacedClient):
     @query_params(
         "cluster_manager_timeout",
         "copy_settings",
-        "error_trace",
-        "filter_path",
-        "human",
         "master_timeout",
-        "pretty",
-        "source",
         "task_execution_timeout",
         "timeout",
         "wait_for_active_shards",
@@ -2101,20 +1530,10 @@ class IndicesClient(NamespacedClient):
             to cluster-manager node.
         :arg copy_settings: whether or not to copy settings from the
             source index. Default is false.
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Period to wait for a connection
             to the master node.If no response is received before the timeout
             expires, the request fails and returns an error.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         :arg task_execution_timeout: Explicit task execution timeout,
             only useful when wait_for_completion is false, defaults to 1h.
         :arg timeout: Period to wait for a response.If no response is
@@ -2142,12 +1561,7 @@ class IndicesClient(NamespacedClient):
     @query_params(
         "cluster_manager_timeout",
         "dry_run",
-        "error_trace",
-        "filter_path",
-        "human",
         "master_timeout",
-        "pretty",
-        "source",
         "timeout",
         "wait_for_active_shards",
     )
@@ -2174,20 +1588,10 @@ class IndicesClient(NamespacedClient):
         :arg dry_run: If `true`, checks whether the current index
             satisfies the specified conditions but does not perform a rollover.
             Default is false.
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Period to wait for a connection
             to the master node.If no response is received before the timeout
             expires, the request fails and returns an error.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         :arg timeout: Period to wait for a response.If no response is
             received before the timeout expires, the request fails and returns an
             error.
@@ -2207,7 +1611,7 @@ class IndicesClient(NamespacedClient):
             body=body,
         )
 
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    @query_params()
     async def create_data_stream(
         self,
         name: Any,
@@ -2226,16 +1630,6 @@ class IndicesClient(NamespacedClient):
             longer than 255 bytes. Multi-byte characters count towards this limit
             faster.
         :arg body: The data stream definition
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         """
         if name in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'name'.")
@@ -2248,7 +1642,7 @@ class IndicesClient(NamespacedClient):
             body=body,
         )
 
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    @query_params()
     async def delete_data_stream(
         self,
         name: Any,
@@ -2261,16 +1655,6 @@ class IndicesClient(NamespacedClient):
 
         :arg name: Comma-separated list of data streams to delete.
             Wildcard (`*`) expressions are supported.
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         """
         if name in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'name'.")
@@ -2279,16 +1663,7 @@ class IndicesClient(NamespacedClient):
             "DELETE", _make_path("_data_stream", name), params=params, headers=headers
         )
 
-    @query_params(
-        "cluster_manager_timeout",
-        "error_trace",
-        "filter_path",
-        "human",
-        "master_timeout",
-        "pretty",
-        "source",
-        "timeout",
-    )
+    @query_params("cluster_manager_timeout", "master_timeout", "timeout")
     async def delete_index_template(
         self,
         name: Any,
@@ -2303,20 +1678,10 @@ class IndicesClient(NamespacedClient):
             expressions are supported.
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Period to wait for a connection
             to the master node. If no response is received before the timeout
             expires, the request fails and returns an error.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         :arg timeout: Period to wait for a response. If no response is
             received before the timeout expires, the request fails and returns an
             error.
@@ -2331,17 +1696,7 @@ class IndicesClient(NamespacedClient):
             headers=headers,
         )
 
-    @query_params(
-        "cluster_manager_timeout",
-        "error_trace",
-        "filter_path",
-        "flat_settings",
-        "human",
-        "local",
-        "master_timeout",
-        "pretty",
-        "source",
-    )
+    @query_params("cluster_manager_timeout", "flat_settings", "local", "master_timeout")
     async def exists_index_template(
         self,
         name: Any,
@@ -2356,24 +1711,14 @@ class IndicesClient(NamespacedClient):
             Wildcard (*) expressions are supported.
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
         :arg flat_settings: Return settings in flat format. Default is
             false.
-        :arg human: Whether to return human readable values for
-            statistics.
         :arg local: Return local information, do not retrieve the state
             from cluster-manager node. Default is false.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Period to wait for a connection
             to the master node. If no response is received before the timeout
             expires, the request fails and returns an error.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         """
         if name in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'name'.")
@@ -2382,17 +1727,7 @@ class IndicesClient(NamespacedClient):
             "HEAD", _make_path("_index_template", name), params=params, headers=headers
         )
 
-    @query_params(
-        "cluster_manager_timeout",
-        "error_trace",
-        "filter_path",
-        "flat_settings",
-        "human",
-        "local",
-        "master_timeout",
-        "pretty",
-        "source",
-    )
+    @query_params("cluster_manager_timeout", "flat_settings", "local", "master_timeout")
     async def get_index_template(
         self,
         name: Any = None,
@@ -2407,14 +1742,8 @@ class IndicesClient(NamespacedClient):
             expressions are supported.
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
         :arg flat_settings: If true, returns settings in flat format.
             Default is false.
-        :arg human: Whether to return human readable values for
-            statistics.
         :arg local: If true, the request retrieves information from the
             local node only. Defaults to false, which means information is retrieved
             from the master node. Default is false.
@@ -2422,26 +1751,12 @@ class IndicesClient(NamespacedClient):
             use 'cluster_manager_timeout' instead.): Period to wait for a connection
             to the master node. If no response is received before the timeout
             expires, the request fails and returns an error.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         """
         return await self.transport.perform_request(
             "GET", _make_path("_index_template", name), params=params, headers=headers
         )
 
-    @query_params(
-        "cause",
-        "cluster_manager_timeout",
-        "create",
-        "error_trace",
-        "filter_path",
-        "human",
-        "master_timeout",
-        "pretty",
-        "source",
-    )
+    @query_params("cause", "cluster_manager_timeout", "create", "master_timeout")
     async def put_index_template(
         self,
         name: Any,
@@ -2461,19 +1776,9 @@ class IndicesClient(NamespacedClient):
             to cluster-manager node.
         :arg create: If `true`, this request cannot replace or update
             existing index templates. Default is false.
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Operation timeout for
             connection to master node.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         """
         for param in (name, body):
             if param in SKIP_IN_PATH:
@@ -2487,17 +1792,7 @@ class IndicesClient(NamespacedClient):
             body=body,
         )
 
-    @query_params(
-        "cause",
-        "cluster_manager_timeout",
-        "create",
-        "error_trace",
-        "filter_path",
-        "human",
-        "master_timeout",
-        "pretty",
-        "source",
-    )
+    @query_params("cause", "cluster_manager_timeout", "create", "master_timeout")
     async def simulate_index_template(
         self,
         name: Any,
@@ -2522,20 +1817,10 @@ class IndicesClient(NamespacedClient):
             the simulation usesthe template with the highest priority. Note that the
             template is notpermanently added or updated in either case; it is only
             used for thesimulation. Default is false.
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Period to wait for a connection
             to the master node. If no response is receivedbefore the timeout
             expires, the request fails and returns an error.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         """
         if name in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'name'.")
@@ -2548,7 +1833,7 @@ class IndicesClient(NamespacedClient):
             body=body,
         )
 
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    @query_params()
     async def get_data_stream(
         self,
         name: Any = None,
@@ -2562,32 +1847,12 @@ class IndicesClient(NamespacedClient):
         :arg name: Comma-separated list of data stream names used to
             limit the request. Wildcard (`*`) expressions are supported. If omitted,
             all data streams are returned.
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         """
         return await self.transport.perform_request(
             "GET", _make_path("_data_stream", name), params=params, headers=headers
         )
 
-    @query_params(
-        "cause",
-        "cluster_manager_timeout",
-        "create",
-        "error_trace",
-        "filter_path",
-        "human",
-        "master_timeout",
-        "pretty",
-        "source",
-    )
+    @query_params("cause", "cluster_manager_timeout", "create", "master_timeout")
     async def simulate_template(
         self,
         body: Any = None,
@@ -2611,20 +1876,10 @@ class IndicesClient(NamespacedClient):
             the simulation uses the template with the highest priority. Note that
             the template is not permanently added or updated in either case; it is
             only used for the simulation. Default is false.
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Period to wait for a connection
             to the master node. If no response is received before the timeout
             expires, the request fails and returns an error.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         """
         return await self.transport.perform_request(
             "POST",
@@ -2634,9 +1889,7 @@ class IndicesClient(NamespacedClient):
             body=body,
         )
 
-    @query_params(
-        "error_trace", "expand_wildcards", "filter_path", "human", "pretty", "source"
-    )
+    @query_params("expand_wildcards")
     async def resolve_index(
         self,
         name: Any,
@@ -2650,21 +1903,11 @@ class IndicesClient(NamespacedClient):
         :arg name: Comma-separated name(s) or index pattern(s) of the
             indices, aliases, and data streams to resolve. Resources on remote
             clusters can be specified using the `<cluster>`:`<name>` syntax.
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
         :arg expand_wildcards: Type of index that wildcard patterns can
             match.If the request can target data streams, this argument determines
             whether wildcard expressions match hidden data streams.Supports comma-
             separated values, such as `open,hidden`.Valid values are: `all`, `open`,
             `closed`, `hidden`, `none`.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         """
         if name in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'name'.")
@@ -2676,14 +1919,9 @@ class IndicesClient(NamespacedClient):
     @query_params(
         "allow_no_indices",
         "cluster_manager_timeout",
-        "error_trace",
         "expand_wildcards",
-        "filter_path",
-        "human",
         "ignore_unavailable",
         "master_timeout",
-        "pretty",
-        "source",
         "timeout",
     )
     async def add_block(
@@ -2705,24 +1943,14 @@ class IndicesClient(NamespacedClient):
             string or when no indices have been specified)
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
         :arg expand_wildcards: Whether to expand wildcard expression to
             concrete indices that are open, closed or both. Valid choices are all,
             open, closed, hidden, none.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
         :arg ignore_unavailable: Whether specified concrete indices
             should be ignored when unavailable (missing or closed)
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Specify timeout for connection
             to master
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         :arg timeout: Explicit operation timeout
         """
         for param in (index, block):
@@ -2733,7 +1961,7 @@ class IndicesClient(NamespacedClient):
             "PUT", _make_path(index, "_block", block), params=params, headers=headers
         )
 
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    @query_params()
     async def data_streams_stats(
         self,
         name: Any = None,
@@ -2747,16 +1975,6 @@ class IndicesClient(NamespacedClient):
         :arg name: Comma-separated list of data streams used to limit
             the request. Wildcard expressions (`*`) are supported. To target all
             data streams in a cluster, omit this parameter or use `*`.
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         """
         return await self.transport.perform_request(
             "GET",

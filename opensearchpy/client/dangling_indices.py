@@ -41,15 +41,7 @@ from .utils import SKIP_IN_PATH, NamespacedClient, _make_path, query_params
 
 class DanglingIndicesClient(NamespacedClient):
     @query_params(
-        "accept_data_loss",
-        "cluster_manager_timeout",
-        "error_trace",
-        "filter_path",
-        "human",
-        "master_timeout",
-        "pretty",
-        "source",
-        "timeout",
+        "accept_data_loss", "cluster_manager_timeout", "master_timeout", "timeout"
     )
     def delete_dangling_index(
         self,
@@ -66,19 +58,9 @@ class DanglingIndicesClient(NamespacedClient):
             the dangling index
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Specify timeout for connection
             to master
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         :arg timeout: Explicit operation timeout
         """
         if index_uuid in SKIP_IN_PATH:
@@ -92,15 +74,7 @@ class DanglingIndicesClient(NamespacedClient):
         )
 
     @query_params(
-        "accept_data_loss",
-        "cluster_manager_timeout",
-        "error_trace",
-        "filter_path",
-        "human",
-        "master_timeout",
-        "pretty",
-        "source",
-        "timeout",
+        "accept_data_loss", "cluster_manager_timeout", "master_timeout", "timeout"
     )
     def import_dangling_index(
         self,
@@ -117,19 +91,9 @@ class DanglingIndicesClient(NamespacedClient):
             the dangling index
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Specify timeout for connection
             to master
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         :arg timeout: Explicit operation timeout
         """
         if index_uuid in SKIP_IN_PATH:
@@ -139,7 +103,7 @@ class DanglingIndicesClient(NamespacedClient):
             "POST", _make_path("_dangling", index_uuid), params=params, headers=headers
         )
 
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    @query_params()
     def list_dangling_indices(
         self,
         params: Any = None,
@@ -148,17 +112,6 @@ class DanglingIndicesClient(NamespacedClient):
         """
         Returns all dangling indices.
 
-
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         """
         return self.transport.perform_request(
             "GET", "/_dangling", params=params, headers=headers

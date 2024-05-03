@@ -22,14 +22,7 @@ from .utils import SKIP_IN_PATH, NamespacedClient, _make_path, query_params
 
 
 class SearchPipelineClient(NamespacedClient):
-    @query_params(
-        "cluster_manager_timeout",
-        "error_trace",
-        "filter_path",
-        "human",
-        "pretty",
-        "source",
-    )
+    @query_params("cluster_manager_timeout")
     async def get(
         self,
         id: Any = None,
@@ -44,30 +37,12 @@ class SearchPipelineClient(NamespacedClient):
             supported.
         :arg cluster_manager_timeout: operation timeout for connection
             to cluster-manager node.
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         """
         return await self.transport.perform_request(
             "GET", _make_path("_search", "pipeline", id), params=params, headers=headers
         )
 
-    @query_params(
-        "cluster_manager_timeout",
-        "error_trace",
-        "filter_path",
-        "human",
-        "pretty",
-        "source",
-        "timeout",
-    )
+    @query_params("cluster_manager_timeout", "timeout")
     async def delete(
         self,
         id: Any,
@@ -81,16 +56,6 @@ class SearchPipelineClient(NamespacedClient):
         :arg id: Pipeline ID.
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         :arg timeout: Operation timeout.
         """
         if id in SKIP_IN_PATH:
@@ -103,15 +68,7 @@ class SearchPipelineClient(NamespacedClient):
             headers=headers,
         )
 
-    @query_params(
-        "cluster_manager_timeout",
-        "error_trace",
-        "filter_path",
-        "human",
-        "pretty",
-        "source",
-        "timeout",
-    )
+    @query_params("cluster_manager_timeout", "timeout")
     async def put(
         self,
         id: Any,
@@ -126,16 +83,6 @@ class SearchPipelineClient(NamespacedClient):
         :arg id: Pipeline ID.
         :arg cluster_manager_timeout: operation timeout for connection
             to cluster-manager node.
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         :arg timeout: Operation timeout.
         """
         for param in (id, body):

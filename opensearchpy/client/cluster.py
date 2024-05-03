@@ -43,15 +43,10 @@ class ClusterClient(NamespacedClient):
     @query_params(
         "awareness_attribute",
         "cluster_manager_timeout",
-        "error_trace",
         "expand_wildcards",
-        "filter_path",
-        "human",
         "level",
         "local",
         "master_timeout",
-        "pretty",
-        "source",
         "timeout",
         "wait_for_active_shards",
         "wait_for_events",
@@ -78,15 +73,9 @@ class ClusterClient(NamespacedClient):
             health is required.
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
         :arg expand_wildcards: Whether to expand wildcard expression to
             concrete indices that are open, closed or both. Valid choices are all,
             open, closed, hidden, none.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
         :arg level: Can be one of cluster, indices or shards. Controls
             the details level of the health information returned. Valid choices are
             cluster, indices, shards, awareness_attributes.
@@ -97,10 +86,6 @@ class ClusterClient(NamespacedClient):
             use 'cluster_manager_timeout' instead.): Period to wait for a connection
             to the master node. If no response is received before the timeout
             expires, the request fails and returns an error.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         :arg timeout: Period to wait for a response. If no response is
             received before the timeout expires, the request fails and returns an
             error.
@@ -135,16 +120,7 @@ class ClusterClient(NamespacedClient):
             headers=headers,
         )
 
-    @query_params(
-        "cluster_manager_timeout",
-        "error_trace",
-        "filter_path",
-        "human",
-        "local",
-        "master_timeout",
-        "pretty",
-        "source",
-    )
+    @query_params("cluster_manager_timeout", "local", "master_timeout")
     def pending_tasks(
         self,
         params: Any = None,
@@ -157,12 +133,6 @@ class ClusterClient(NamespacedClient):
 
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
         :arg local: If `true`, the request retrieves information from
             the local node only.If `false`, information is retrieved from the master
             node. Default is false.
@@ -170,10 +140,6 @@ class ClusterClient(NamespacedClient):
             use 'cluster_manager_timeout' instead.): Period to wait for a connection
             to the master node.If no response is received before the timeout
             expires, the request fails and returns an error.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         """
         return self.transport.perform_request(
             "GET", "/_cluster/pending_tasks", params=params, headers=headers
@@ -182,16 +148,11 @@ class ClusterClient(NamespacedClient):
     @query_params(
         "allow_no_indices",
         "cluster_manager_timeout",
-        "error_trace",
         "expand_wildcards",
-        "filter_path",
         "flat_settings",
-        "human",
         "ignore_unavailable",
         "local",
         "master_timeout",
-        "pretty",
-        "source",
         "wait_for_metadata_version",
         "wait_for_timeout",
     )
@@ -215,17 +176,11 @@ class ClusterClient(NamespacedClient):
             string or when no indices have been specified)
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
         :arg expand_wildcards: Whether to expand wildcard expression to
             concrete indices that are open, closed or both. Valid choices are all,
             open, closed, hidden, none.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
         :arg flat_settings: Return settings in flat format. Default is
             false.
-        :arg human: Whether to return human readable values for
-            statistics.
         :arg ignore_unavailable: Whether specified concrete indices
             should be ignored when unavailable (missing or closed)
         :arg local: Return local information, do not retrieve the state
@@ -233,10 +188,6 @@ class ClusterClient(NamespacedClient):
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Specify timeout for connection
             to master
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         :arg wait_for_metadata_version: Wait for the metadata version to
             be equal or greater than the specified metadata version
         :arg wait_for_timeout: The maximum time to wait for
@@ -252,15 +203,7 @@ class ClusterClient(NamespacedClient):
             headers=headers,
         )
 
-    @query_params(
-        "error_trace",
-        "filter_path",
-        "flat_settings",
-        "human",
-        "pretty",
-        "source",
-        "timeout",
-    )
+    @query_params("flat_settings", "timeout")
     def stats(
         self,
         node_id: Any = None,
@@ -273,18 +216,8 @@ class ClusterClient(NamespacedClient):
 
         :arg node_id: Comma-separated list of node filters used to limit
             returned information. Defaults to all nodes in the cluster.
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
         :arg flat_settings: If `true`, returns settings in flat format.
             Default is false.
-        :arg human: Whether to return human readable values for
-            statistics.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         :arg timeout: Period to wait for each node to respond.If a node
             does not respond before its timeout expires, the response does not
             include its stats.However, timed out nodes are included in the
@@ -304,15 +237,10 @@ class ClusterClient(NamespacedClient):
     @query_params(
         "cluster_manager_timeout",
         "dry_run",
-        "error_trace",
         "explain",
-        "filter_path",
-        "human",
         "master_timeout",
         "metric",
-        "pretty",
         "retry_failed",
-        "source",
         "timeout",
     )
     def reroute(
@@ -331,26 +259,16 @@ class ClusterClient(NamespacedClient):
             to cluster-manager node.
         :arg dry_run: If true, then the request simulates the operation
             only and returns the resulting state.
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
         :arg explain: If true, then the response contains an explanation
             of why the commands can or cannot be executed.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Period to wait for a connection
             to the master node. If no response is received before the timeout
             expires, the request fails and returns an error.
         :arg metric: Limits the information returned to the specified
             metrics.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
         :arg retry_failed: If true, then retries allocation of shards
             that are blocked due to too many subsequent allocation failures.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         :arg timeout: Period to wait for a response. If no response is
             received before the timeout expires, the request fails and returns an
             error.
@@ -361,14 +279,9 @@ class ClusterClient(NamespacedClient):
 
     @query_params(
         "cluster_manager_timeout",
-        "error_trace",
-        "filter_path",
         "flat_settings",
-        "human",
         "include_defaults",
         "master_timeout",
-        "pretty",
-        "source",
         "timeout",
     )
     def get_settings(
@@ -382,24 +295,14 @@ class ClusterClient(NamespacedClient):
 
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
         :arg flat_settings: If `true`, returns settings in flat format.
             Default is false.
-        :arg human: Whether to return human readable values for
-            statistics.
         :arg include_defaults: If `true`, returns default cluster
             settings from the local node. Default is false.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Period to wait for a connection
             to the master node.If no response is received before the timeout
             expires, the request fails and returns an error.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         :arg timeout: Period to wait for a response.If no response is
             received before the timeout expires, the request fails and returns an
             error.
@@ -409,15 +312,7 @@ class ClusterClient(NamespacedClient):
         )
 
     @query_params(
-        "cluster_manager_timeout",
-        "error_trace",
-        "filter_path",
-        "flat_settings",
-        "human",
-        "master_timeout",
-        "pretty",
-        "source",
-        "timeout",
+        "cluster_manager_timeout", "flat_settings", "master_timeout", "timeout"
     )
     def put_settings(
         self,
@@ -433,21 +328,11 @@ class ClusterClient(NamespacedClient):
             or `persistent` (survives cluster restart).
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
         :arg flat_settings: Return settings in flat format. Default is
             false.
-        :arg human: Whether to return human readable values for
-            statistics.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Explicit operation timeout for
             connection to master node
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         :arg timeout: Explicit operation timeout
         """
         if body in SKIP_IN_PATH:
@@ -457,7 +342,7 @@ class ClusterClient(NamespacedClient):
             "PUT", "/_cluster/settings", params=params, headers=headers, body=body
         )
 
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    @query_params()
     def remote_info(
         self,
         params: Any = None,
@@ -466,31 +351,12 @@ class ClusterClient(NamespacedClient):
         """
         Returns the information about configured remote clusters.
 
-
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         """
         return self.transport.perform_request(
             "GET", "/_remote/info", params=params, headers=headers
         )
 
-    @query_params(
-        "error_trace",
-        "filter_path",
-        "human",
-        "include_disk_info",
-        "include_yes_decisions",
-        "pretty",
-        "source",
-    )
+    @query_params("include_disk_info", "include_yes_decisions")
     def allocation_explain(
         self,
         body: Any = None,
@@ -503,20 +369,10 @@ class ClusterClient(NamespacedClient):
 
         :arg body: The index, shard, and primary flag to explain. Empty
             means 'explain the first unassigned shard'
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
         :arg include_disk_info: If true, returns information about disk
             usage and shard sizes. Default is false.
         :arg include_yes_decisions: If true, returns YES decisions in
             explanation. Default is false.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         """
         return self.transport.perform_request(
             "POST",
@@ -526,16 +382,7 @@ class ClusterClient(NamespacedClient):
             body=body,
         )
 
-    @query_params(
-        "cluster_manager_timeout",
-        "error_trace",
-        "filter_path",
-        "human",
-        "master_timeout",
-        "pretty",
-        "source",
-        "timeout",
-    )
+    @query_params("cluster_manager_timeout", "master_timeout", "timeout")
     def delete_component_template(
         self,
         name: Any,
@@ -550,20 +397,10 @@ class ClusterClient(NamespacedClient):
             (*) expressions are supported.
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Period to wait for a connection
             to the master node.If no response is received before the timeout
             expires, the request fails and returns an error.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         :arg timeout: Period to wait for a response.If no response is
             received before the timeout expires, the request fails and returns an
             error.
@@ -578,16 +415,7 @@ class ClusterClient(NamespacedClient):
             headers=headers,
         )
 
-    @query_params(
-        "cluster_manager_timeout",
-        "error_trace",
-        "filter_path",
-        "human",
-        "local",
-        "master_timeout",
-        "pretty",
-        "source",
-    )
+    @query_params("cluster_manager_timeout", "local", "master_timeout")
     def get_component_template(
         self,
         name: Any = None,
@@ -602,12 +430,6 @@ class ClusterClient(NamespacedClient):
             (`*`) expressions are supported.
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
         :arg local: If `true`, the request retrieves information from
             the local node only.If `false`, information is retrieved from the master
             node. Default is false.
@@ -615,10 +437,6 @@ class ClusterClient(NamespacedClient):
             use 'cluster_manager_timeout' instead.): Period to wait for a connection
             to the master node.If no response is received before the timeout
             expires, the request fails and returns an error.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         """
         return self.transport.perform_request(
             "GET",
@@ -627,17 +445,7 @@ class ClusterClient(NamespacedClient):
             headers=headers,
         )
 
-    @query_params(
-        "cluster_manager_timeout",
-        "create",
-        "error_trace",
-        "filter_path",
-        "human",
-        "master_timeout",
-        "pretty",
-        "source",
-        "timeout",
-    )
+    @query_params("cluster_manager_timeout", "create", "master_timeout", "timeout")
     def put_component_template(
         self,
         name: Any,
@@ -664,20 +472,10 @@ class ClusterClient(NamespacedClient):
             to cluster-manager node.
         :arg create: If `true`, this request cannot replace or update
             existing component templates. Default is false.
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Period to wait for a connection
             to the master node.If no response is received before the timeout
             expires, the request fails and returns an error.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         :arg timeout: Operation timeout.
         """
         for param in (name, body):
@@ -692,16 +490,7 @@ class ClusterClient(NamespacedClient):
             body=body,
         )
 
-    @query_params(
-        "cluster_manager_timeout",
-        "error_trace",
-        "filter_path",
-        "human",
-        "local",
-        "master_timeout",
-        "pretty",
-        "source",
-    )
+    @query_params("cluster_manager_timeout", "local", "master_timeout")
     def exists_component_template(
         self,
         name: Any,
@@ -716,12 +505,6 @@ class ClusterClient(NamespacedClient):
             Wildcard (*) expressions are supported.
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
         :arg local: If true, the request retrieves information from the
             local node only.Defaults to false, which means information is retrieved
             from the master node. Default is false.
@@ -729,10 +512,6 @@ class ClusterClient(NamespacedClient):
             use 'cluster_manager_timeout' instead.): Period to wait for a connection
             to the master node. If no response isreceived before the timeout
             expires, the request fails and returns anerror.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         """
         if name in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'name'.")
@@ -744,9 +523,7 @@ class ClusterClient(NamespacedClient):
             headers=headers,
         )
 
-    @query_params(
-        "error_trace", "filter_path", "human", "pretty", "source", "wait_for_removal"
-    )
+    @query_params("wait_for_removal")
     def delete_voting_config_exclusions(
         self,
         params: Any = None,
@@ -756,16 +533,6 @@ class ClusterClient(NamespacedClient):
         Clears cluster voting config exclusions.
 
 
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         :arg wait_for_removal: Specifies whether to wait for all
             excluded nodes to be removed from thecluster before clearing the voting
             configuration exclusions list.Defaults to true, meaning that all
@@ -781,16 +548,7 @@ class ClusterClient(NamespacedClient):
             headers=headers,
         )
 
-    @query_params(
-        "error_trace",
-        "filter_path",
-        "human",
-        "node_ids",
-        "node_names",
-        "pretty",
-        "source",
-        "timeout",
-    )
+    @query_params("node_ids", "node_names", "timeout")
     def post_voting_config_exclusions(
         self,
         params: Any = None,
@@ -800,22 +558,12 @@ class ClusterClient(NamespacedClient):
         Updates the cluster voting config exclusions by node ids or node names.
 
 
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
         :arg node_ids: A comma-separated list of the persistent ids of
             the nodes to excludefrom the voting configuration. If specified, you may
             not also specify node_names.
         :arg node_names: A comma-separated list of the names of the
             nodes to exclude from thevoting configuration. If specified, you may not
             also specify node_ids.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         :arg timeout: When adding a voting configuration exclusion, the
             API waits for thespecified nodes to be excluded from the voting
             configuration beforereturning. If the timeout expires before the
@@ -826,7 +574,7 @@ class ClusterClient(NamespacedClient):
             "POST", "/_cluster/voting_config_exclusions", params=params, headers=headers
         )
 
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    @query_params()
     def delete_decommission_awareness(
         self,
         params: Any = None,
@@ -835,23 +583,12 @@ class ClusterClient(NamespacedClient):
         """
         Delete any existing decommission.
 
-
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         """
         return self.transport.perform_request(
             "DELETE", "/_cluster/decommission/awareness", params=params, headers=headers
         )
 
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    @query_params()
     def delete_weighted_routing(
         self,
         params: Any = None,
@@ -860,17 +597,6 @@ class ClusterClient(NamespacedClient):
         """
         Delete weighted shard routing weights.
 
-
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         """
         return self.transport.perform_request(
             "DELETE",
@@ -879,7 +605,7 @@ class ClusterClient(NamespacedClient):
             headers=headers,
         )
 
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    @query_params()
     def get_decommission_awareness(
         self,
         awareness_attribute_name: Any,
@@ -891,16 +617,6 @@ class ClusterClient(NamespacedClient):
 
 
         :arg awareness_attribute_name: Awareness attribute name.
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         """
         if awareness_attribute_name in SKIP_IN_PATH:
             raise ValueError(
@@ -920,7 +636,7 @@ class ClusterClient(NamespacedClient):
             headers=headers,
         )
 
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    @query_params()
     def get_weighted_routing(
         self,
         attribute: Any,
@@ -932,16 +648,6 @@ class ClusterClient(NamespacedClient):
 
 
         :arg attribute: Awareness attribute name.
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         """
         if attribute in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'attribute'.")
@@ -953,7 +659,7 @@ class ClusterClient(NamespacedClient):
             headers=headers,
         )
 
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    @query_params()
     def put_decommission_awareness(
         self,
         awareness_attribute_name: Any,
@@ -967,16 +673,6 @@ class ClusterClient(NamespacedClient):
 
         :arg awareness_attribute_name: Awareness attribute name.
         :arg awareness_attribute_value: Awareness attribute value.
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         """
         for param in (awareness_attribute_name, awareness_attribute_value):
             if param in SKIP_IN_PATH:
@@ -995,7 +691,7 @@ class ClusterClient(NamespacedClient):
             headers=headers,
         )
 
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    @query_params()
     def put_weighted_routing(
         self,
         attribute: Any,
@@ -1007,16 +703,6 @@ class ClusterClient(NamespacedClient):
 
 
         :arg attribute: Awareness attribute name.
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         """
         if attribute in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'attribute'.")

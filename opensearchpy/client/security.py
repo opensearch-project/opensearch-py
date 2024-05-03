@@ -24,7 +24,7 @@ from .utils import SKIP_IN_PATH, NamespacedClient, _bulk_body, _make_path, query
 class SecurityClient(NamespacedClient):
     from ._patch import health_check, update_audit_config  # type: ignore
 
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    @query_params()
     def get_account_details(
         self,
         params: Any = None,
@@ -33,23 +33,12 @@ class SecurityClient(NamespacedClient):
         """
         Returns account details for the current user.
 
-
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         """
         return self.transport.perform_request(
             "GET", "/_plugins/_security/api/account", params=params, headers=headers
         )
 
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    @query_params()
     def change_password(
         self,
         body: Any,
@@ -60,16 +49,6 @@ class SecurityClient(NamespacedClient):
         Changes the password for the current user.
 
 
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         """
         if body in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'body'.")
@@ -82,7 +61,7 @@ class SecurityClient(NamespacedClient):
             body=body,
         )
 
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    @query_params()
     def get_action_group(
         self,
         action_group: Any,
@@ -94,16 +73,6 @@ class SecurityClient(NamespacedClient):
 
 
         :arg action_group: Action group to retrieve.
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         """
         if action_group in SKIP_IN_PATH:
             raise ValueError(
@@ -117,7 +86,7 @@ class SecurityClient(NamespacedClient):
             headers=headers,
         )
 
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    @query_params()
     def get_action_groups(
         self,
         params: Any = None,
@@ -126,17 +95,6 @@ class SecurityClient(NamespacedClient):
         """
         Retrieves all action groups.
 
-
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         """
         return self.transport.perform_request(
             "GET",
@@ -145,7 +103,7 @@ class SecurityClient(NamespacedClient):
             headers=headers,
         )
 
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    @query_params()
     def delete_action_group(
         self,
         action_group: Any,
@@ -157,16 +115,6 @@ class SecurityClient(NamespacedClient):
 
 
         :arg action_group: Action group to delete.
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         """
         if action_group in SKIP_IN_PATH:
             raise ValueError(
@@ -180,7 +128,7 @@ class SecurityClient(NamespacedClient):
             headers=headers,
         )
 
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    @query_params()
     def create_action_group(
         self,
         action_group: Any,
@@ -194,16 +142,6 @@ class SecurityClient(NamespacedClient):
 
         :arg action_group: The name of the action group to create or
             replace
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         """
         for param in (action_group, body):
             if param in SKIP_IN_PATH:
@@ -217,7 +155,7 @@ class SecurityClient(NamespacedClient):
             body=body,
         )
 
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    @query_params()
     def patch_action_group(
         self,
         action_group: Any,
@@ -229,16 +167,6 @@ class SecurityClient(NamespacedClient):
         Updates individual attributes of an action group.
 
 
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         """
         for param in (action_group, body):
             if param in SKIP_IN_PATH:
@@ -253,7 +181,7 @@ class SecurityClient(NamespacedClient):
             body=body,
         )
 
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    @query_params()
     def patch_action_groups(
         self,
         body: Any,
@@ -264,16 +192,6 @@ class SecurityClient(NamespacedClient):
         Creates, updates, or deletes multiple action groups in a single call.
 
 
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         """
         if body in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'body'.")
@@ -287,7 +205,7 @@ class SecurityClient(NamespacedClient):
             body=body,
         )
 
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    @query_params()
     def get_user(
         self,
         username: Any,
@@ -298,16 +216,6 @@ class SecurityClient(NamespacedClient):
         Retrieve one internal user.
 
 
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         """
         if username in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'username'.")
@@ -319,7 +227,7 @@ class SecurityClient(NamespacedClient):
             headers=headers,
         )
 
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    @query_params()
     def get_users(
         self,
         params: Any = None,
@@ -328,17 +236,6 @@ class SecurityClient(NamespacedClient):
         """
         Retrieve all internal users.
 
-
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         """
         return self.transport.perform_request(
             "GET",
@@ -347,7 +244,7 @@ class SecurityClient(NamespacedClient):
             headers=headers,
         )
 
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    @query_params()
     def delete_user(
         self,
         username: Any,
@@ -358,16 +255,6 @@ class SecurityClient(NamespacedClient):
         Delete the specified user.
 
 
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         """
         if username in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'username'.")
@@ -379,7 +266,7 @@ class SecurityClient(NamespacedClient):
             headers=headers,
         )
 
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    @query_params()
     def create_user(
         self,
         username: Any,
@@ -391,16 +278,6 @@ class SecurityClient(NamespacedClient):
         Creates or replaces the specified user.
 
 
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         """
         for param in (username, body):
             if param in SKIP_IN_PATH:
@@ -414,7 +291,7 @@ class SecurityClient(NamespacedClient):
             body=body,
         )
 
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    @query_params()
     def patch_user(
         self,
         username: Any,
@@ -426,16 +303,6 @@ class SecurityClient(NamespacedClient):
         Updates individual attributes of an internal user.
 
 
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         """
         for param in (username, body):
             if param in SKIP_IN_PATH:
@@ -450,7 +317,7 @@ class SecurityClient(NamespacedClient):
             body=body,
         )
 
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    @query_params()
     def patch_users(
         self,
         body: Any,
@@ -461,16 +328,6 @@ class SecurityClient(NamespacedClient):
         Creates, updates, or deletes multiple internal users in a single call.
 
 
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         """
         if body in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'body'.")
@@ -484,7 +341,7 @@ class SecurityClient(NamespacedClient):
             body=body,
         )
 
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    @query_params()
     def get_role(
         self,
         role: Any,
@@ -495,16 +352,6 @@ class SecurityClient(NamespacedClient):
         Retrieves one role.
 
 
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         """
         if role in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'role'.")
@@ -516,7 +363,7 @@ class SecurityClient(NamespacedClient):
             headers=headers,
         )
 
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    @query_params()
     def get_roles(
         self,
         params: Any = None,
@@ -525,23 +372,12 @@ class SecurityClient(NamespacedClient):
         """
         Retrieves all roles.
 
-
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         """
         return self.transport.perform_request(
             "GET", "/_plugins/_security/api/roles/", params=params, headers=headers
         )
 
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    @query_params()
     def delete_role(
         self,
         role: Any,
@@ -552,16 +388,6 @@ class SecurityClient(NamespacedClient):
         Delete the specified role.
 
 
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         """
         if role in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'role'.")
@@ -573,7 +399,7 @@ class SecurityClient(NamespacedClient):
             headers=headers,
         )
 
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    @query_params()
     def create_role(
         self,
         role: Any,
@@ -585,16 +411,6 @@ class SecurityClient(NamespacedClient):
         Creates or replaces the specified role.
 
 
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         """
         for param in (role, body):
             if param in SKIP_IN_PATH:
@@ -608,7 +424,7 @@ class SecurityClient(NamespacedClient):
             body=body,
         )
 
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    @query_params()
     def patch_role(
         self,
         role: Any,
@@ -620,16 +436,6 @@ class SecurityClient(NamespacedClient):
         Updates individual attributes of a role.
 
 
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         """
         for param in (role, body):
             if param in SKIP_IN_PATH:
@@ -644,7 +450,7 @@ class SecurityClient(NamespacedClient):
             body=body,
         )
 
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    @query_params()
     def patch_roles(
         self,
         body: Any,
@@ -655,16 +461,6 @@ class SecurityClient(NamespacedClient):
         Creates, updates, or deletes multiple roles in a single call.
 
 
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         """
         if body in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'body'.")
@@ -678,7 +474,7 @@ class SecurityClient(NamespacedClient):
             body=body,
         )
 
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    @query_params()
     def get_role_mapping(
         self,
         role: Any,
@@ -689,16 +485,6 @@ class SecurityClient(NamespacedClient):
         Retrieves one role mapping.
 
 
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         """
         if role in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'role'.")
@@ -710,7 +496,7 @@ class SecurityClient(NamespacedClient):
             headers=headers,
         )
 
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    @query_params()
     def get_role_mappings(
         self,
         params: Any = None,
@@ -719,17 +505,6 @@ class SecurityClient(NamespacedClient):
         """
         Retrieves all role mappings.
 
-
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         """
         return self.transport.perform_request(
             "GET",
@@ -738,7 +513,7 @@ class SecurityClient(NamespacedClient):
             headers=headers,
         )
 
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    @query_params()
     def delete_role_mapping(
         self,
         role: Any,
@@ -749,16 +524,6 @@ class SecurityClient(NamespacedClient):
         Deletes the specified role mapping.
 
 
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         """
         if role in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'role'.")
@@ -770,7 +535,7 @@ class SecurityClient(NamespacedClient):
             headers=headers,
         )
 
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    @query_params()
     def create_role_mapping(
         self,
         role: Any,
@@ -782,16 +547,6 @@ class SecurityClient(NamespacedClient):
         Creates or replaces the specified role mapping.
 
 
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         """
         for param in (role, body):
             if param in SKIP_IN_PATH:
@@ -805,7 +560,7 @@ class SecurityClient(NamespacedClient):
             body=body,
         )
 
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    @query_params()
     def patch_role_mapping(
         self,
         role: Any,
@@ -817,16 +572,6 @@ class SecurityClient(NamespacedClient):
         Updates individual attributes of a role mapping.
 
 
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         """
         for param in (role, body):
             if param in SKIP_IN_PATH:
@@ -841,7 +586,7 @@ class SecurityClient(NamespacedClient):
             body=body,
         )
 
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    @query_params()
     def patch_role_mappings(
         self,
         body: Any,
@@ -852,16 +597,6 @@ class SecurityClient(NamespacedClient):
         Creates or updates multiple role mappings in a single call.
 
 
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         """
         if body in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'body'.")
@@ -875,7 +610,7 @@ class SecurityClient(NamespacedClient):
             body=body,
         )
 
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    @query_params()
     def get_tenant(
         self,
         tenant: Any,
@@ -886,16 +621,6 @@ class SecurityClient(NamespacedClient):
         Retrieves one tenant.
 
 
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         """
         if tenant in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'tenant'.")
@@ -907,7 +632,7 @@ class SecurityClient(NamespacedClient):
             headers=headers,
         )
 
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    @query_params()
     def get_tenants(
         self,
         params: Any = None,
@@ -916,23 +641,12 @@ class SecurityClient(NamespacedClient):
         """
         Retrieves all tenants.
 
-
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         """
         return self.transport.perform_request(
             "GET", "/_plugins/_security/api/tenants/", params=params, headers=headers
         )
 
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    @query_params()
     def delete_tenant(
         self,
         tenant: Any,
@@ -943,16 +657,6 @@ class SecurityClient(NamespacedClient):
         Delete the specified tenant.
 
 
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         """
         if tenant in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'tenant'.")
@@ -964,7 +668,7 @@ class SecurityClient(NamespacedClient):
             headers=headers,
         )
 
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    @query_params()
     def create_tenant(
         self,
         tenant: Any,
@@ -976,16 +680,6 @@ class SecurityClient(NamespacedClient):
         Creates or replaces the specified tenant.
 
 
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         """
         for param in (tenant, body):
             if param in SKIP_IN_PATH:
@@ -999,7 +693,7 @@ class SecurityClient(NamespacedClient):
             body=body,
         )
 
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    @query_params()
     def patch_tenant(
         self,
         tenant: Any,
@@ -1011,16 +705,6 @@ class SecurityClient(NamespacedClient):
         Add, delete, or modify a single tenant.
 
 
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         """
         for param in (tenant, body):
             if param in SKIP_IN_PATH:
@@ -1035,7 +719,7 @@ class SecurityClient(NamespacedClient):
             body=body,
         )
 
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    @query_params()
     def patch_tenants(
         self,
         body: Any,
@@ -1046,16 +730,6 @@ class SecurityClient(NamespacedClient):
         Add, delete, or modify multiple tenants in a single call.
 
 
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         """
         if body in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'body'.")
@@ -1069,7 +743,7 @@ class SecurityClient(NamespacedClient):
             body=body,
         )
 
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    @query_params()
     def get_configuration(
         self,
         params: Any = None,
@@ -1078,17 +752,6 @@ class SecurityClient(NamespacedClient):
         """
         Returns the current Security plugin configuration in JSON format.
 
-
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         """
         return self.transport.perform_request(
             "GET",
@@ -1097,7 +760,7 @@ class SecurityClient(NamespacedClient):
             headers=headers,
         )
 
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    @query_params()
     def update_configuration(
         self,
         body: Any,
@@ -1108,16 +771,6 @@ class SecurityClient(NamespacedClient):
         Adds or updates the existing configuration using the REST API.
 
 
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         """
         if body in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'body'.")
@@ -1130,7 +783,7 @@ class SecurityClient(NamespacedClient):
             body=body,
         )
 
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    @query_params()
     def patch_configuration(
         self,
         body: Any,
@@ -1141,16 +794,6 @@ class SecurityClient(NamespacedClient):
         A PATCH call is used to update the existing configuration using the REST API.
 
 
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         """
         if body in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'body'.")
@@ -1164,7 +807,7 @@ class SecurityClient(NamespacedClient):
             body=body,
         )
 
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    @query_params()
     def get_distinguished_names(
         self,
         cluster_name: Any = None,
@@ -1175,16 +818,6 @@ class SecurityClient(NamespacedClient):
         Retrieves distinguished names.
 
 
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         """
         return self.transport.perform_request(
             "GET",
@@ -1193,7 +826,7 @@ class SecurityClient(NamespacedClient):
             headers=headers,
         )
 
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    @query_params()
     def update_distinguished_names(
         self,
         cluster_name: Any,
@@ -1206,16 +839,6 @@ class SecurityClient(NamespacedClient):
         allow list.
 
 
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         """
         if cluster_name in SKIP_IN_PATH:
             raise ValueError(
@@ -1230,7 +853,7 @@ class SecurityClient(NamespacedClient):
             body=body,
         )
 
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    @query_params()
     def delete_distinguished_names(
         self,
         cluster_name: Any,
@@ -1242,16 +865,6 @@ class SecurityClient(NamespacedClient):
         list.
 
 
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         """
         if cluster_name in SKIP_IN_PATH:
             raise ValueError(
@@ -1265,7 +878,7 @@ class SecurityClient(NamespacedClient):
             headers=headers,
         )
 
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    @query_params()
     def get_certificates(
         self,
         params: Any = None,
@@ -1274,23 +887,12 @@ class SecurityClient(NamespacedClient):
         """
         Retrieves the cluster’s security certificates.
 
-
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         """
         return self.transport.perform_request(
             "GET", "/_plugins/_security/api/ssl/certs", params=params, headers=headers
         )
 
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    @query_params()
     def reload_transport_certificates(
         self,
         params: Any = None,
@@ -1299,17 +901,6 @@ class SecurityClient(NamespacedClient):
         """
         Reload transport layer communication certificates.
 
-
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         """
         return self.transport.perform_request(
             "PUT",
@@ -1318,7 +909,7 @@ class SecurityClient(NamespacedClient):
             headers=headers,
         )
 
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    @query_params()
     def reload_http_certificates(
         self,
         params: Any = None,
@@ -1327,17 +918,6 @@ class SecurityClient(NamespacedClient):
         """
         Reload HTTP layer communication certificates.
 
-
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         """
         return self.transport.perform_request(
             "PUT",
@@ -1346,7 +926,7 @@ class SecurityClient(NamespacedClient):
             headers=headers,
         )
 
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    @query_params()
     def flush_cache(
         self,
         params: Any = None,
@@ -1355,23 +935,12 @@ class SecurityClient(NamespacedClient):
         """
         Flushes the Security plugin user, authentication, and authorization cache.
 
-
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         """
         return self.transport.perform_request(
             "DELETE", "/_plugins/_security/api/cache", params=params, headers=headers
         )
 
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    @query_params()
     def health(
         self,
         params: Any = None,
@@ -1380,23 +949,12 @@ class SecurityClient(NamespacedClient):
         """
         Checks to see if the Security plugin is up and running.
 
-
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         """
         return self.transport.perform_request(
             "GET", "/_plugins/_security/health", params=params, headers=headers
         )
 
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    @query_params()
     def get_audit_configuration(
         self,
         params: Any = None,
@@ -1405,23 +963,12 @@ class SecurityClient(NamespacedClient):
         """
         Retrieves the audit configuration.
 
-
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         """
         return self.transport.perform_request(
             "GET", "/_plugins/_security/api/audit", params=params, headers=headers
         )
 
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    @query_params()
     def update_audit_configuration(
         self,
         body: Any,
@@ -1432,16 +979,6 @@ class SecurityClient(NamespacedClient):
         Updates the audit configuration.
 
 
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         """
         if body in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'body'.")
@@ -1454,7 +991,7 @@ class SecurityClient(NamespacedClient):
             body=body,
         )
 
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    @query_params()
     def patch_audit_configuration(
         self,
         body: Any,
@@ -1465,16 +1002,6 @@ class SecurityClient(NamespacedClient):
         A PATCH call is used to update specified fields in the audit configuration.
 
 
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         """
         if body in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'body'.")
@@ -1488,7 +1015,7 @@ class SecurityClient(NamespacedClient):
             body=body,
         )
 
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    @query_params()
     def patch_distinguished_names(
         self,
         body: Any,
@@ -1499,16 +1026,6 @@ class SecurityClient(NamespacedClient):
         Bulk update of distinguished names.
 
 
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         """
         if body in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'body'.")

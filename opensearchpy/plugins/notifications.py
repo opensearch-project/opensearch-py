@@ -22,7 +22,7 @@ from ..client.utils import SKIP_IN_PATH, NamespacedClient, _make_path, query_par
 
 
 class NotificationsClient(NamespacedClient):
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    @query_params()
     def create_config(
         self,
         body: Any,
@@ -33,16 +33,6 @@ class NotificationsClient(NamespacedClient):
         Create channel configuration.
 
 
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         """
         if body in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'body'.")
@@ -55,7 +45,7 @@ class NotificationsClient(NamespacedClient):
             body=body,
         )
 
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    @query_params()
     def delete_config(
         self,
         config_id: Any,
@@ -67,16 +57,6 @@ class NotificationsClient(NamespacedClient):
 
 
         :arg config_id: The ID of the channel configuration to delete.
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         """
         if config_id in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'config_id'.")
@@ -88,15 +68,7 @@ class NotificationsClient(NamespacedClient):
             headers=headers,
         )
 
-    @query_params(
-        "config_id",
-        "config_id_list",
-        "error_trace",
-        "filter_path",
-        "human",
-        "pretty",
-        "source",
-    )
+    @query_params("config_id", "config_id_list")
     def delete_configs(
         self,
         params: Any = None,
@@ -109,22 +81,12 @@ class NotificationsClient(NamespacedClient):
         :arg config_id: The ID of the channel configuration to delete.
         :arg config_id_list: A comma-separated list of channel IDs to
             delete.
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         """
         return self.transport.perform_request(
             "DELETE", "/_plugins/_notifications/configs", params=params, headers=headers
         )
 
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    @query_params()
     def get_config(
         self,
         config_id: Any,
@@ -135,16 +97,6 @@ class NotificationsClient(NamespacedClient):
         Get a specific channel configuration.
 
 
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         """
         if config_id in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'config_id'.")
@@ -169,16 +121,12 @@ class NotificationsClient(NamespacedClient):
         "email.recipient_list.recipient.keyword",
         "email_group.recipient_list.recipient",
         "email_group.recipient_list.recipient.keyword",
-        "error_trace",
-        "filter_path",
-        "human",
         "is_enabled",
         "last_updated_time_ms",
         "microsoft_teams.url",
         "microsoft_teams.url.keyword",
         "name",
         "name.keyword",
-        "pretty",
         "query",
         "ses_account.from_address",
         "ses_account.from_address.keyword",
@@ -196,7 +144,6 @@ class NotificationsClient(NamespacedClient):
         "sns.role_arn.keyword",
         "sns.topic_arn",
         "sns.topic_arn.keyword",
-        "source",
         "text_query",
         "webhook.url",
         "webhook.url.keyword",
@@ -214,16 +161,6 @@ class NotificationsClient(NamespacedClient):
         :arg config_type: Type of notification configuration. Valid
             choices are slack, chime, microsoft_teams, webhook, email, sns,
             ses_account, smtp_account, email_group.
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         """
         return self.transport.perform_request(
             "GET",
@@ -233,7 +170,7 @@ class NotificationsClient(NamespacedClient):
             body=body,
         )
 
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    @query_params()
     def list_features(
         self,
         params: Any = None,
@@ -242,23 +179,12 @@ class NotificationsClient(NamespacedClient):
         """
         List supported channel configurations.
 
-
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         """
         return self.transport.perform_request(
             "GET", "/_plugins/_notifications/features", params=params, headers=headers
         )
 
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    @query_params()
     def send_test(
         self,
         config_id: Any,
@@ -269,16 +195,6 @@ class NotificationsClient(NamespacedClient):
         Send a test notification.
 
 
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         """
         if config_id in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'config_id'.")
@@ -290,7 +206,7 @@ class NotificationsClient(NamespacedClient):
             headers=headers,
         )
 
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    @query_params()
     def update_config(
         self,
         config_id: Any,
@@ -302,16 +218,6 @@ class NotificationsClient(NamespacedClient):
         Update channel configuration.
 
 
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         """
         for param in (config_id, body):
             if param in SKIP_IN_PATH:
@@ -325,7 +231,7 @@ class NotificationsClient(NamespacedClient):
             body=body,
         )
 
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    @query_params()
     def list_channels(
         self,
         params: Any = None,
@@ -334,17 +240,6 @@ class NotificationsClient(NamespacedClient):
         """
         List created notification channels.
 
-
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
         """
         return self.transport.perform_request(
             "GET", "/_plugins/_notifications/channels", params=params, headers=headers
