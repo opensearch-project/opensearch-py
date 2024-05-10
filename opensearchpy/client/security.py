@@ -18,7 +18,7 @@
 
 from typing import Any
 
-from .utils import SKIP_IN_PATH, NamespacedClient, _bulk_body, _make_path, query_params
+from .utils import SKIP_IN_PATH, NamespacedClient, _make_path, query_params
 
 
 class SecurityClient(NamespacedClient):
@@ -193,7 +193,7 @@ class SecurityClient(NamespacedClient):
 
 
         :arg action_group: The name of the action group to create or
-            replace
+            replace.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
         :arg filter_path: Comma-separated list of filters used to reduce
@@ -244,7 +244,6 @@ class SecurityClient(NamespacedClient):
             if param in SKIP_IN_PATH:
                 raise ValueError("Empty value passed for a required argument.")
 
-        body = _bulk_body(self.transport.serializer, body)
         return self.transport.perform_request(
             "PATCH",
             _make_path("_plugins", "_security", "api", "actiongroups", action_group),
@@ -278,7 +277,6 @@ class SecurityClient(NamespacedClient):
         if body in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'body'.")
 
-        body = _bulk_body(self.transport.serializer, body)
         return self.transport.perform_request(
             "PATCH",
             "/_plugins/_security/api/actiongroups",
@@ -441,7 +439,6 @@ class SecurityClient(NamespacedClient):
             if param in SKIP_IN_PATH:
                 raise ValueError("Empty value passed for a required argument.")
 
-        body = _bulk_body(self.transport.serializer, body)
         return self.transport.perform_request(
             "PATCH",
             _make_path("_plugins", "_security", "api", "internalusers", username),
@@ -475,7 +472,6 @@ class SecurityClient(NamespacedClient):
         if body in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'body'.")
 
-        body = _bulk_body(self.transport.serializer, body)
         return self.transport.perform_request(
             "PATCH",
             "/_plugins/_security/api/internalusers",
@@ -538,7 +534,7 @@ class SecurityClient(NamespacedClient):
             libraries that do not accept a request body for non-POST requests.
         """
         return self.transport.perform_request(
-            "GET", "/_plugins/_security/api/roles/", params=params, headers=headers
+            "GET", "/_plugins/_security/api/roles", params=params, headers=headers
         )
 
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
@@ -635,7 +631,6 @@ class SecurityClient(NamespacedClient):
             if param in SKIP_IN_PATH:
                 raise ValueError("Empty value passed for a required argument.")
 
-        body = _bulk_body(self.transport.serializer, body)
         return self.transport.perform_request(
             "PATCH",
             _make_path("_plugins", "_security", "api", "roles", role),
@@ -669,7 +664,6 @@ class SecurityClient(NamespacedClient):
         if body in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'body'.")
 
-        body = _bulk_body(self.transport.serializer, body)
         return self.transport.perform_request(
             "PATCH",
             "/_plugins/_security/api/roles",
@@ -832,7 +826,6 @@ class SecurityClient(NamespacedClient):
             if param in SKIP_IN_PATH:
                 raise ValueError("Empty value passed for a required argument.")
 
-        body = _bulk_body(self.transport.serializer, body)
         return self.transport.perform_request(
             "PATCH",
             _make_path("_plugins", "_security", "api", "rolesmapping", role),
@@ -866,7 +859,6 @@ class SecurityClient(NamespacedClient):
         if body in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'body'.")
 
-        body = _bulk_body(self.transport.serializer, body)
         return self.transport.perform_request(
             "PATCH",
             "/_plugins/_security/api/rolesmapping",
@@ -929,7 +921,7 @@ class SecurityClient(NamespacedClient):
             libraries that do not accept a request body for non-POST requests.
         """
         return self.transport.perform_request(
-            "GET", "/_plugins/_security/api/tenants/", params=params, headers=headers
+            "GET", "/_plugins/_security/api/tenants", params=params, headers=headers
         )
 
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
@@ -1026,7 +1018,6 @@ class SecurityClient(NamespacedClient):
             if param in SKIP_IN_PATH:
                 raise ValueError("Empty value passed for a required argument.")
 
-        body = _bulk_body(self.transport.serializer, body)
         return self.transport.perform_request(
             "PATCH",
             _make_path("_plugins", "_security", "api", "tenants", tenant),
@@ -1060,10 +1051,9 @@ class SecurityClient(NamespacedClient):
         if body in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'body'.")
 
-        body = _bulk_body(self.transport.serializer, body)
         return self.transport.perform_request(
             "PATCH",
-            "/_plugins/_security/api/tenants/",
+            "/_plugins/_security/api/tenants",
             params=params,
             headers=headers,
             body=body,
@@ -1105,7 +1095,8 @@ class SecurityClient(NamespacedClient):
         headers: Any = None,
     ) -> Any:
         """
-        Adds or updates the existing configuration using the REST API.
+        Adds or updates the existing configuration using the REST API. Only accessible
+        by admins and users with rest api access and only when put or patch is enabled.
 
 
         :arg error_trace: Whether to include the stack trace of returned
@@ -1139,6 +1130,8 @@ class SecurityClient(NamespacedClient):
     ) -> Any:
         """
         A PATCH call is used to update the existing configuration using the REST API.
+        Only accessible by admins and users with rest api access and only when put or
+        patch is enabled.
 
 
         :arg error_trace: Whether to include the stack trace of returned
@@ -1155,7 +1148,6 @@ class SecurityClient(NamespacedClient):
         if body in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'body'.")
 
-        body = _bulk_body(self.transport.serializer, body)
         return self.transport.perform_request(
             "PATCH",
             "/_plugins/_security/api/securityconfig",
@@ -1164,15 +1156,15 @@ class SecurityClient(NamespacedClient):
             body=body,
         )
 
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    @query_params("error_trace", "filter_path", "human", "pretty", "show_all", "source")
     def get_distinguished_names(
         self,
-        cluster_name: Any = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
         """
-        Retrieves distinguished names.
+        Retrieves distinguished names. Only accessible to super-admins and with rest-
+        api permissions when enabled.
 
 
         :arg error_trace: Whether to include the stack trace of returned
@@ -1187,82 +1179,7 @@ class SecurityClient(NamespacedClient):
             libraries that do not accept a request body for non-POST requests.
         """
         return self.transport.perform_request(
-            "GET",
-            _make_path("_plugins", "_security", "api", "nodesdn", cluster_name),
-            params=params,
-            headers=headers,
-        )
-
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
-    def update_distinguished_names(
-        self,
-        cluster_name: Any,
-        body: Any = None,
-        params: Any = None,
-        headers: Any = None,
-    ) -> Any:
-        """
-        Adds or updates the specified distinguished names in the cluster’s or node’s
-        allow list.
-
-
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
-        """
-        if cluster_name in SKIP_IN_PATH:
-            raise ValueError(
-                "Empty value passed for a required argument 'cluster_name'."
-            )
-
-        return self.transport.perform_request(
-            "PUT",
-            _make_path("_plugins", "_security", "api", "nodesdn", cluster_name),
-            params=params,
-            headers=headers,
-            body=body,
-        )
-
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
-    def delete_distinguished_names(
-        self,
-        cluster_name: Any,
-        params: Any = None,
-        headers: Any = None,
-    ) -> Any:
-        """
-        Deletes all distinguished names in the specified cluster’s or node’s allow
-        list.
-
-
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
-        """
-        if cluster_name in SKIP_IN_PATH:
-            raise ValueError(
-                "Empty value passed for a required argument 'cluster_name'."
-            )
-
-        return self.transport.perform_request(
-            "DELETE",
-            _make_path("_plugins", "_security", "api", "nodesdn", cluster_name),
-            params=params,
-            headers=headers,
+            "GET", "/_plugins/_security/api/nodesdn", params=params, headers=headers
         )
 
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
@@ -1272,7 +1189,7 @@ class SecurityClient(NamespacedClient):
         headers: Any = None,
     ) -> Any:
         """
-        Retrieves the cluster’s security certificates.
+        Retrieves the cluster security certificates.
 
 
         :arg error_trace: Whether to include the stack trace of returned
@@ -1297,7 +1214,7 @@ class SecurityClient(NamespacedClient):
         headers: Any = None,
     ) -> Any:
         """
-        Reload transport layer communication certificates.
+        Reload Transport layer communication certificates.
 
 
         :arg error_trace: Whether to include the stack trace of returned
@@ -1371,7 +1288,7 @@ class SecurityClient(NamespacedClient):
             "DELETE", "/_plugins/_security/api/cache", params=params, headers=headers
         )
 
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    @query_params("error_trace", "filter_path", "human", "mode", "pretty", "source")
     def health(
         self,
         params: Any = None,
@@ -1479,7 +1396,6 @@ class SecurityClient(NamespacedClient):
         if body in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'body'.")
 
-        body = _bulk_body(self.transport.serializer, body)
         return self.transport.perform_request(
             "PATCH",
             "/_plugins/_security/api/audit",
@@ -1496,7 +1412,8 @@ class SecurityClient(NamespacedClient):
         headers: Any = None,
     ) -> Any:
         """
-        Bulk update of distinguished names.
+        Bulk update of distinguished names. Only accessible to super-admins and with
+        rest-api permissions when enabled.
 
 
         :arg error_trace: Whether to include the stack trace of returned
@@ -1513,11 +1430,915 @@ class SecurityClient(NamespacedClient):
         if body in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'body'.")
 
-        body = _bulk_body(self.transport.serializer, body)
         return self.transport.perform_request(
             "PATCH",
             "/_plugins/_security/api/nodesdn",
             params=params,
             headers=headers,
             body=body,
+        )
+
+    @query_params(
+        "auth_type",
+        "error_trace",
+        "filter_path",
+        "human",
+        "pretty",
+        "source",
+        "verbose",
+    )
+    def authinfo(
+        self,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Returns the authentication information.
+
+
+        :arg auth_type: The type of current authentication request.
+        :arg error_trace: Whether to include the stack trace of returned
+            errors.
+        :arg filter_path: Comma-separated list of filters used to reduce
+            the response.
+        :arg human: Whether to return human readable values for
+            statistics.
+        :arg pretty: Whether to pretty format the returned JSON
+            response.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        :arg verbose: Indicates whether a verbose response should be
+            returned.
+        """
+        return self.transport.perform_request(
+            "GET", "/_plugins/_security/authinfo", params=params, headers=headers
+        )
+
+    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    def authtoken(
+        self,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Returns the authorization token.
+
+
+        :arg error_trace: Whether to include the stack trace of returned
+            errors.
+        :arg filter_path: Comma-separated list of filters used to reduce
+            the response.
+        :arg human: Whether to return human readable values for
+            statistics.
+        :arg pretty: Whether to pretty format the returned JSON
+            response.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        """
+        return self.transport.perform_request(
+            "POST", "/_plugins/_security/api/authtoken", params=params, headers=headers
+        )
+
+    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    def cache(
+        self,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Not supported for cache API.
+
+
+        :arg error_trace: Whether to include the stack trace of returned
+            errors.
+        :arg filter_path: Comma-separated list of filters used to reduce
+            the response.
+        :arg human: Whether to return human readable values for
+            statistics.
+        :arg pretty: Whether to pretty format the returned JSON
+            response.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        """
+        return self.transport.perform_request(
+            "PUT", "/_plugins/_security/api/cache", params=params, headers=headers
+        )
+
+    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    def config_upgrade_check(
+        self,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Check whether or not an upgrade can be performed and what resources can be
+        updated.
+
+
+        :arg error_trace: Whether to include the stack trace of returned
+            errors.
+        :arg filter_path: Comma-separated list of filters used to reduce
+            the response.
+        :arg human: Whether to return human readable values for
+            statistics.
+        :arg pretty: Whether to pretty format the returned JSON
+            response.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        """
+        return self.transport.perform_request(
+            "GET", "/_plugins/_security/_upgrade_check", params=params, headers=headers
+        )
+
+    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    def config_upgrade_perform(
+        self,
+        body: Any = None,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Helps cluster operator upgrade missing defaults and stale default definitions.
+
+
+        :arg error_trace: Whether to include the stack trace of returned
+            errors.
+        :arg filter_path: Comma-separated list of filters used to reduce
+            the response.
+        :arg human: Whether to return human readable values for
+            statistics.
+        :arg pretty: Whether to pretty format the returned JSON
+            response.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        """
+        return self.transport.perform_request(
+            "POST",
+            "/_plugins/_security/_upgrade_perform",
+            params=params,
+            headers=headers,
+            body=body,
+        )
+
+    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    def create_allowlist(
+        self,
+        body: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Creates or replaces the allowlisted APIs. Accessible via Super Admin
+        certificate or REST API permission.
+
+
+        :arg error_trace: Whether to include the stack trace of returned
+            errors.
+        :arg filter_path: Comma-separated list of filters used to reduce
+            the response.
+        :arg human: Whether to return human readable values for
+            statistics.
+        :arg pretty: Whether to pretty format the returned JSON
+            response.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        """
+        if body in SKIP_IN_PATH:
+            raise ValueError("Empty value passed for a required argument 'body'.")
+
+        return self.transport.perform_request(
+            "PUT",
+            "/_plugins/_security/api/allowlist",
+            params=params,
+            headers=headers,
+            body=body,
+        )
+
+    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    def create_update_tenancy_config(
+        self,
+        body: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Creates or replaces the multi-tenancy configuration. Only accessible to admins
+        and users with REST API permissions.
+
+
+        :arg error_trace: Whether to include the stack trace of returned
+            errors.
+        :arg filter_path: Comma-separated list of filters used to reduce
+            the response.
+        :arg human: Whether to return human readable values for
+            statistics.
+        :arg pretty: Whether to pretty format the returned JSON
+            response.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        """
+        if body in SKIP_IN_PATH:
+            raise ValueError("Empty value passed for a required argument 'body'.")
+
+        return self.transport.perform_request(
+            "PUT",
+            "/_plugins/_security/api/tenancy/config",
+            params=params,
+            headers=headers,
+            body=body,
+        )
+
+    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    def create_user_legacy(
+        self,
+        username: Any,
+        body: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Creates or replaces the specified user. Legacy API.
+
+
+        :arg error_trace: Whether to include the stack trace of returned
+            errors.
+        :arg filter_path: Comma-separated list of filters used to reduce
+            the response.
+        :arg human: Whether to return human readable values for
+            statistics.
+        :arg pretty: Whether to pretty format the returned JSON
+            response.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        """
+        for param in (username, body):
+            if param in SKIP_IN_PATH:
+                raise ValueError("Empty value passed for a required argument.")
+
+        return self.transport.perform_request(
+            "PUT",
+            _make_path("_plugins", "_security", "api", "user", username),
+            params=params,
+            headers=headers,
+            body=body,
+        )
+
+    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    def delete_distinguished_name(
+        self,
+        cluster_name: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Deletes all distinguished names in the specified cluster or node allow list.
+        Only accessible to super-admins and with rest-api permissions when enabled.
+
+
+        :arg error_trace: Whether to include the stack trace of returned
+            errors.
+        :arg filter_path: Comma-separated list of filters used to reduce
+            the response.
+        :arg human: Whether to return human readable values for
+            statistics.
+        :arg pretty: Whether to pretty format the returned JSON
+            response.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        """
+        if cluster_name in SKIP_IN_PATH:
+            raise ValueError(
+                "Empty value passed for a required argument 'cluster_name'."
+            )
+
+        return self.transport.perform_request(
+            "DELETE",
+            _make_path("_plugins", "_security", "api", "nodesdn", cluster_name),
+            params=params,
+            headers=headers,
+        )
+
+    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    def delete_user_legacy(
+        self,
+        username: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Delete the specified user. Legacy API.
+
+
+        :arg error_trace: Whether to include the stack trace of returned
+            errors.
+        :arg filter_path: Comma-separated list of filters used to reduce
+            the response.
+        :arg human: Whether to return human readable values for
+            statistics.
+        :arg pretty: Whether to pretty format the returned JSON
+            response.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        """
+        if username in SKIP_IN_PATH:
+            raise ValueError("Empty value passed for a required argument 'username'.")
+
+        return self.transport.perform_request(
+            "DELETE",
+            _make_path("_plugins", "_security", "api", "user", username),
+            params=params,
+            headers=headers,
+        )
+
+    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    def generate_obo_token(
+        self,
+        body: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Generates On-Behalf-Of token for the current user.
+
+
+        :arg error_trace: Whether to include the stack trace of returned
+            errors.
+        :arg filter_path: Comma-separated list of filters used to reduce
+            the response.
+        :arg human: Whether to return human readable values for
+            statistics.
+        :arg pretty: Whether to pretty format the returned JSON
+            response.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        """
+        if body in SKIP_IN_PATH:
+            raise ValueError("Empty value passed for a required argument 'body'.")
+
+        return self.transport.perform_request(
+            "POST",
+            "/_plugins/_security/api/generateonbehalfoftoken",
+            params=params,
+            headers=headers,
+            body=body,
+        )
+
+    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    def generate_user_token(
+        self,
+        username: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Generates authorization token for the given user.
+
+
+        :arg error_trace: Whether to include the stack trace of returned
+            errors.
+        :arg filter_path: Comma-separated list of filters used to reduce
+            the response.
+        :arg human: Whether to return human readable values for
+            statistics.
+        :arg pretty: Whether to pretty format the returned JSON
+            response.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        """
+        if username in SKIP_IN_PATH:
+            raise ValueError("Empty value passed for a required argument 'username'.")
+
+        return self.transport.perform_request(
+            "POST",
+            _make_path(
+                "_plugins", "_security", "api", "internalusers", username, "authtoken"
+            ),
+            params=params,
+            headers=headers,
+        )
+
+    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    def generate_user_token_legacy(
+        self,
+        username: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Generates authorization token for the given user. Legacy API.
+
+
+        :arg error_trace: Whether to include the stack trace of returned
+            errors.
+        :arg filter_path: Comma-separated list of filters used to reduce
+            the response.
+        :arg human: Whether to return human readable values for
+            statistics.
+        :arg pretty: Whether to pretty format the returned JSON
+            response.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        """
+        if username in SKIP_IN_PATH:
+            raise ValueError("Empty value passed for a required argument 'username'.")
+
+        return self.transport.perform_request(
+            "POST",
+            _make_path("_plugins", "_security", "api", "user", username, "authtoken"),
+            params=params,
+            headers=headers,
+        )
+
+    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    def get_allowlist(
+        self,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Retrieves the current list of allowed API accessible to normal user.
+
+
+        :arg error_trace: Whether to include the stack trace of returned
+            errors.
+        :arg filter_path: Comma-separated list of filters used to reduce
+            the response.
+        :arg human: Whether to return human readable values for
+            statistics.
+        :arg pretty: Whether to pretty format the returned JSON
+            response.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        """
+        return self.transport.perform_request(
+            "GET", "/_plugins/_security/api/allowlist", params=params, headers=headers
+        )
+
+    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    def get_dashboards_info(
+        self,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Retrieves the current security-dashboards plugin configuration.
+
+
+        :arg error_trace: Whether to include the stack trace of returned
+            errors.
+        :arg filter_path: Comma-separated list of filters used to reduce
+            the response.
+        :arg human: Whether to return human readable values for
+            statistics.
+        :arg pretty: Whether to pretty format the returned JSON
+            response.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        """
+        return self.transport.perform_request(
+            "GET", "/_plugins/_security/dashboardsinfo", params=params, headers=headers
+        )
+
+    @query_params("error_trace", "filter_path", "human", "pretty", "show_all", "source")
+    def get_distinguished_name(
+        self,
+        cluster_name: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Retrieves distinguished names. Only accessible to super-admins and with rest-
+        api permissions when enabled.
+
+
+        :arg error_trace: Whether to include the stack trace of returned
+            errors.
+        :arg filter_path: Comma-separated list of filters used to reduce
+            the response.
+        :arg human: Whether to return human readable values for
+            statistics.
+        :arg pretty: Whether to pretty format the returned JSON
+            response.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        """
+        if cluster_name in SKIP_IN_PATH:
+            raise ValueError(
+                "Empty value passed for a required argument 'cluster_name'."
+            )
+
+        return self.transport.perform_request(
+            "GET",
+            _make_path("_plugins", "_security", "api", "nodesdn", cluster_name),
+            params=params,
+            headers=headers,
+        )
+
+    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    def get_permissions_info(
+        self,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Gets the evaluated REST API permissions for the currently logged in user.
+
+
+        :arg error_trace: Whether to include the stack trace of returned
+            errors.
+        :arg filter_path: Comma-separated list of filters used to reduce
+            the response.
+        :arg human: Whether to return human readable values for
+            statistics.
+        :arg pretty: Whether to pretty format the returned JSON
+            response.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        """
+        return self.transport.perform_request(
+            "GET",
+            "/_plugins/_security/api/permissionsinfo",
+            params=params,
+            headers=headers,
+        )
+
+    @query_params("error_trace", "filter_path", "human", "pretty", "show_dn", "source")
+    def get_sslinfo(
+        self,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Retrieves the SSL configuration information.
+
+
+        :arg error_trace: Whether to include the stack trace of returned
+            errors.
+        :arg filter_path: Comma-separated list of filters used to reduce
+            the response.
+        :arg human: Whether to return human readable values for
+            statistics.
+        :arg pretty: Whether to pretty format the returned JSON
+            response.
+        :arg show_dn: The domain names from all certificates.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        """
+        return self.transport.perform_request(
+            "GET", "/_opendistro/_security/sslinfo", params=params, headers=headers
+        )
+
+    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    def get_tenancy_config(
+        self,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Retrieves multi-tenancy configuration. Only accessible to admins and users with
+        REST API permissions.
+
+
+        :arg error_trace: Whether to include the stack trace of returned
+            errors.
+        :arg filter_path: Comma-separated list of filters used to reduce
+            the response.
+        :arg human: Whether to return human readable values for
+            statistics.
+        :arg pretty: Whether to pretty format the returned JSON
+            response.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        """
+        return self.transport.perform_request(
+            "GET",
+            "/_plugins/_security/api/tenancy/config",
+            params=params,
+            headers=headers,
+        )
+
+    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    def get_user_legacy(
+        self,
+        username: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Retrieve one user. Legacy API.
+
+
+        :arg error_trace: Whether to include the stack trace of returned
+            errors.
+        :arg filter_path: Comma-separated list of filters used to reduce
+            the response.
+        :arg human: Whether to return human readable values for
+            statistics.
+        :arg pretty: Whether to pretty format the returned JSON
+            response.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        """
+        if username in SKIP_IN_PATH:
+            raise ValueError("Empty value passed for a required argument 'username'.")
+
+        return self.transport.perform_request(
+            "GET",
+            _make_path("_plugins", "_security", "api", "user", username),
+            params=params,
+            headers=headers,
+        )
+
+    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    def get_users_legacy(
+        self,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Retrieve all internal users. Legacy API.
+
+
+        :arg error_trace: Whether to include the stack trace of returned
+            errors.
+        :arg filter_path: Comma-separated list of filters used to reduce
+            the response.
+        :arg human: Whether to return human readable values for
+            statistics.
+        :arg pretty: Whether to pretty format the returned JSON
+            response.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        """
+        return self.transport.perform_request(
+            "GET", "/_plugins/_security/api/user", params=params, headers=headers
+        )
+
+    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    def migrate(
+        self,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Migrates security configuration from v6 to v7.
+
+
+        :arg error_trace: Whether to include the stack trace of returned
+            errors.
+        :arg filter_path: Comma-separated list of filters used to reduce
+            the response.
+        :arg human: Whether to return human readable values for
+            statistics.
+        :arg pretty: Whether to pretty format the returned JSON
+            response.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        """
+        return self.transport.perform_request(
+            "POST", "/_plugins/_security/api/migrate", params=params, headers=headers
+        )
+
+    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    def patch_allowlist(
+        self,
+        body: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Updates the current list of allowed API accessible to normal user.
+
+
+        :arg error_trace: Whether to include the stack trace of returned
+            errors.
+        :arg filter_path: Comma-separated list of filters used to reduce
+            the response.
+        :arg human: Whether to return human readable values for
+            statistics.
+        :arg pretty: Whether to pretty format the returned JSON
+            response.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        """
+        if body in SKIP_IN_PATH:
+            raise ValueError("Empty value passed for a required argument 'body'.")
+
+        return self.transport.perform_request(
+            "PATCH",
+            "/_plugins/_security/api/allowlist",
+            params=params,
+            headers=headers,
+            body=body,
+        )
+
+    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    def patch_distinguished_name(
+        self,
+        cluster_name: Any,
+        body: Any = None,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Updates a distinguished cluster name for a specific cluster. Only accessible to
+        super-admins and with rest-api permissions when enabled.
+
+
+        :arg error_trace: Whether to include the stack trace of returned
+            errors.
+        :arg filter_path: Comma-separated list of filters used to reduce
+            the response.
+        :arg human: Whether to return human readable values for
+            statistics.
+        :arg pretty: Whether to pretty format the returned JSON
+            response.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        """
+        if cluster_name in SKIP_IN_PATH:
+            raise ValueError(
+                "Empty value passed for a required argument 'cluster_name'."
+            )
+
+        return self.transport.perform_request(
+            "PATCH",
+            _make_path("_plugins", "_security", "api", "nodesdn", cluster_name),
+            params=params,
+            headers=headers,
+            body=body,
+        )
+
+    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    def post_dashboards_info(
+        self,
+        body: Any = None,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Updates the current security-dashboards plugin configuration.
+
+
+        :arg error_trace: Whether to include the stack trace of returned
+            errors.
+        :arg filter_path: Comma-separated list of filters used to reduce
+            the response.
+        :arg human: Whether to return human readable values for
+            statistics.
+        :arg pretty: Whether to pretty format the returned JSON
+            response.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        """
+        return self.transport.perform_request(
+            "POST",
+            "/_plugins/_security/dashboardsinfo",
+            params=params,
+            headers=headers,
+            body=body,
+        )
+
+    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    def tenant_info(
+        self,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Retrieves the tenant names if any exist. Only accesible to super admins or
+        kibanaserver user.
+
+
+        :arg error_trace: Whether to include the stack trace of returned
+            errors.
+        :arg filter_path: Comma-separated list of filters used to reduce
+            the response.
+        :arg human: Whether to return human readable values for
+            statistics.
+        :arg pretty: Whether to pretty format the returned JSON
+            response.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        """
+        return self.transport.perform_request(
+            "GET", "/_plugins/_security/tenantinfo", params=params, headers=headers
+        )
+
+    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    def update_distinguished_name(
+        self,
+        cluster_name: Any,
+        body: Any = None,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Adds or updates the specified distinguished names in the cluster or node allow
+        list. Only accessible to super-admins and with rest-api permissions when
+        enabled.
+
+
+        :arg error_trace: Whether to include the stack trace of returned
+            errors.
+        :arg filter_path: Comma-separated list of filters used to reduce
+            the response.
+        :arg human: Whether to return human readable values for
+            statistics.
+        :arg pretty: Whether to pretty format the returned JSON
+            response.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        """
+        if cluster_name in SKIP_IN_PATH:
+            raise ValueError(
+                "Empty value passed for a required argument 'cluster_name'."
+            )
+
+        return self.transport.perform_request(
+            "PUT",
+            _make_path("_plugins", "_security", "api", "nodesdn", cluster_name),
+            params=params,
+            headers=headers,
+            body=body,
+        )
+
+    @query_params(
+        "accept_invalid", "error_trace", "filter_path", "human", "pretty", "source"
+    )
+    def validate(
+        self,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Checks whether the v6 security configuration is valid and ready to be migrated
+        to v7.
+
+
+        :arg error_trace: Whether to include the stack trace of returned
+            errors.
+        :arg filter_path: Comma-separated list of filters used to reduce
+            the response.
+        :arg human: Whether to return human readable values for
+            statistics.
+        :arg pretty: Whether to pretty format the returned JSON
+            response.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        """
+        return self.transport.perform_request(
+            "GET", "/_plugins/_security/api/validate", params=params, headers=headers
+        )
+
+    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    def who_am_i(
+        self,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Gets the user identity related information for currently logged in user.
+
+
+        :arg error_trace: Whether to include the stack trace of returned
+            errors.
+        :arg filter_path: Comma-separated list of filters used to reduce
+            the response.
+        :arg human: Whether to return human readable values for
+            statistics.
+        :arg pretty: Whether to pretty format the returned JSON
+            response.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        """
+        return self.transport.perform_request(
+            "GET", "/_plugins/_security/whoami", params=params, headers=headers
+        )
+
+    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    def who_am_i_protected(
+        self,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Gets the user identity related information for currently logged in user. User
+        needs to have access to this endpoint when authorization at REST layer is
+        enabled.
+
+
+        :arg error_trace: Whether to include the stack trace of returned
+            errors.
+        :arg filter_path: Comma-separated list of filters used to reduce
+            the response.
+        :arg human: Whether to return human readable values for
+            statistics.
+        :arg pretty: Whether to pretty format the returned JSON
+            response.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        """
+        return self.transport.perform_request(
+            "GET", "/_plugins/_security/whoamiprotected", params=params, headers=headers
         )
