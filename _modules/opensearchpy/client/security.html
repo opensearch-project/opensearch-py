@@ -102,7 +102,7 @@
 
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
 
-<span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">SKIP_IN_PATH</span><span class="p">,</span> <span class="n">NamespacedClient</span><span class="p">,</span> <span class="n">_bulk_body</span><span class="p">,</span> <span class="n">_make_path</span><span class="p">,</span> <span class="n">query_params</span>
+<span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">SKIP_IN_PATH</span><span class="p">,</span> <span class="n">NamespacedClient</span><span class="p">,</span> <span class="n">_make_path</span><span class="p">,</span> <span class="n">query_params</span>
 
 
 <div class="viewcode-block" id="SecurityClient"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient">[docs]</a><span class="k">class</span> <span class="nc">SecurityClient</span><span class="p">(</span><span class="n">NamespacedClient</span><span class="p">):</span>
@@ -277,7 +277,7 @@
 
 
 <span class="sd">        :arg action_group: The name of the action group to create or</span>
-<span class="sd">            replace</span>
+<span class="sd">            replace.</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
 <span class="sd">            errors.</span>
 <span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
@@ -328,7 +328,6 @@
             <span class="k">if</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Empty value passed for a required argument.&quot;</span><span class="p">)</span>
 
-        <span class="n">body</span> <span class="o">=</span> <span class="n">_bulk_body</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">serializer</span><span class="p">,</span> <span class="n">body</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
             <span class="s2">&quot;PATCH&quot;</span><span class="p">,</span>
             <span class="n">_make_path</span><span class="p">(</span><span class="s2">&quot;_plugins&quot;</span><span class="p">,</span> <span class="s2">&quot;_security&quot;</span><span class="p">,</span> <span class="s2">&quot;api&quot;</span><span class="p">,</span> <span class="s2">&quot;actiongroups&quot;</span><span class="p">,</span> <span class="n">action_group</span><span class="p">),</span>
@@ -362,7 +361,6 @@
         <span class="k">if</span> <span class="n">body</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Empty value passed for a required argument &#39;body&#39;.&quot;</span><span class="p">)</span>
 
-        <span class="n">body</span> <span class="o">=</span> <span class="n">_bulk_body</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">serializer</span><span class="p">,</span> <span class="n">body</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
             <span class="s2">&quot;PATCH&quot;</span><span class="p">,</span>
             <span class="s2">&quot;/_plugins/_security/api/actiongroups&quot;</span><span class="p">,</span>
@@ -525,7 +523,6 @@
             <span class="k">if</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Empty value passed for a required argument.&quot;</span><span class="p">)</span>
 
-        <span class="n">body</span> <span class="o">=</span> <span class="n">_bulk_body</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">serializer</span><span class="p">,</span> <span class="n">body</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
             <span class="s2">&quot;PATCH&quot;</span><span class="p">,</span>
             <span class="n">_make_path</span><span class="p">(</span><span class="s2">&quot;_plugins&quot;</span><span class="p">,</span> <span class="s2">&quot;_security&quot;</span><span class="p">,</span> <span class="s2">&quot;api&quot;</span><span class="p">,</span> <span class="s2">&quot;internalusers&quot;</span><span class="p">,</span> <span class="n">username</span><span class="p">),</span>
@@ -559,7 +556,6 @@
         <span class="k">if</span> <span class="n">body</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Empty value passed for a required argument &#39;body&#39;.&quot;</span><span class="p">)</span>
 
-        <span class="n">body</span> <span class="o">=</span> <span class="n">_bulk_body</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">serializer</span><span class="p">,</span> <span class="n">body</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
             <span class="s2">&quot;PATCH&quot;</span><span class="p">,</span>
             <span class="s2">&quot;/_plugins/_security/api/internalusers&quot;</span><span class="p">,</span>
@@ -622,7 +618,7 @@
 <span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
-            <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="s2">&quot;/_plugins/_security/api/roles/&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
+            <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="s2">&quot;/_plugins/_security/api/roles&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="SecurityClient.delete_role"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.delete_role">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
@@ -719,7 +715,6 @@
             <span class="k">if</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Empty value passed for a required argument.&quot;</span><span class="p">)</span>
 
-        <span class="n">body</span> <span class="o">=</span> <span class="n">_bulk_body</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">serializer</span><span class="p">,</span> <span class="n">body</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
             <span class="s2">&quot;PATCH&quot;</span><span class="p">,</span>
             <span class="n">_make_path</span><span class="p">(</span><span class="s2">&quot;_plugins&quot;</span><span class="p">,</span> <span class="s2">&quot;_security&quot;</span><span class="p">,</span> <span class="s2">&quot;api&quot;</span><span class="p">,</span> <span class="s2">&quot;roles&quot;</span><span class="p">,</span> <span class="n">role</span><span class="p">),</span>
@@ -753,7 +748,6 @@
         <span class="k">if</span> <span class="n">body</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Empty value passed for a required argument &#39;body&#39;.&quot;</span><span class="p">)</span>
 
-        <span class="n">body</span> <span class="o">=</span> <span class="n">_bulk_body</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">serializer</span><span class="p">,</span> <span class="n">body</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
             <span class="s2">&quot;PATCH&quot;</span><span class="p">,</span>
             <span class="s2">&quot;/_plugins/_security/api/roles&quot;</span><span class="p">,</span>
@@ -916,7 +910,6 @@
             <span class="k">if</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Empty value passed for a required argument.&quot;</span><span class="p">)</span>
 
-        <span class="n">body</span> <span class="o">=</span> <span class="n">_bulk_body</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">serializer</span><span class="p">,</span> <span class="n">body</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
             <span class="s2">&quot;PATCH&quot;</span><span class="p">,</span>
             <span class="n">_make_path</span><span class="p">(</span><span class="s2">&quot;_plugins&quot;</span><span class="p">,</span> <span class="s2">&quot;_security&quot;</span><span class="p">,</span> <span class="s2">&quot;api&quot;</span><span class="p">,</span> <span class="s2">&quot;rolesmapping&quot;</span><span class="p">,</span> <span class="n">role</span><span class="p">),</span>
@@ -950,7 +943,6 @@
         <span class="k">if</span> <span class="n">body</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Empty value passed for a required argument &#39;body&#39;.&quot;</span><span class="p">)</span>
 
-        <span class="n">body</span> <span class="o">=</span> <span class="n">_bulk_body</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">serializer</span><span class="p">,</span> <span class="n">body</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
             <span class="s2">&quot;PATCH&quot;</span><span class="p">,</span>
             <span class="s2">&quot;/_plugins/_security/api/rolesmapping&quot;</span><span class="p">,</span>
@@ -1013,7 +1005,7 @@
 <span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
-            <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="s2">&quot;/_plugins/_security/api/tenants/&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
+            <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="s2">&quot;/_plugins/_security/api/tenants&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="SecurityClient.delete_tenant"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.delete_tenant">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
@@ -1110,7 +1102,6 @@
             <span class="k">if</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Empty value passed for a required argument.&quot;</span><span class="p">)</span>
 
-        <span class="n">body</span> <span class="o">=</span> <span class="n">_bulk_body</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">serializer</span><span class="p">,</span> <span class="n">body</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
             <span class="s2">&quot;PATCH&quot;</span><span class="p">,</span>
             <span class="n">_make_path</span><span class="p">(</span><span class="s2">&quot;_plugins&quot;</span><span class="p">,</span> <span class="s2">&quot;_security&quot;</span><span class="p">,</span> <span class="s2">&quot;api&quot;</span><span class="p">,</span> <span class="s2">&quot;tenants&quot;</span><span class="p">,</span> <span class="n">tenant</span><span class="p">),</span>
@@ -1144,10 +1135,9 @@
         <span class="k">if</span> <span class="n">body</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Empty value passed for a required argument &#39;body&#39;.&quot;</span><span class="p">)</span>
 
-        <span class="n">body</span> <span class="o">=</span> <span class="n">_bulk_body</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">serializer</span><span class="p">,</span> <span class="n">body</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
             <span class="s2">&quot;PATCH&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;/_plugins/_security/api/tenants/&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;/_plugins/_security/api/tenants&quot;</span><span class="p">,</span>
             <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span>
             <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
             <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
@@ -1189,7 +1179,8 @@
         <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Adds or updates the existing configuration using the REST API.</span>
+<span class="sd">        Adds or updates the existing configuration using the REST API. Only accessible</span>
+<span class="sd">        by admins and users with rest api access and only when put or patch is enabled.</span>
 
 
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
@@ -1223,6 +1214,8 @@
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        A PATCH call is used to update the existing configuration using the REST API.</span>
+<span class="sd">        Only accessible by admins and users with rest api access and only when put or</span>
+<span class="sd">        patch is enabled.</span>
 
 
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
@@ -1239,7 +1232,6 @@
         <span class="k">if</span> <span class="n">body</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Empty value passed for a required argument &#39;body&#39;.&quot;</span><span class="p">)</span>
 
-        <span class="n">body</span> <span class="o">=</span> <span class="n">_bulk_body</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">serializer</span><span class="p">,</span> <span class="n">body</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
             <span class="s2">&quot;PATCH&quot;</span><span class="p">,</span>
             <span class="s2">&quot;/_plugins/_security/api/securityconfig&quot;</span><span class="p">,</span>
@@ -1248,15 +1240,15 @@
             <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="SecurityClient.get_distinguished_names"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.get_distinguished_names">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
+<div class="viewcode-block" id="SecurityClient.get_distinguished_names"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.get_distinguished_names">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;show_all&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">get_distinguished_names</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-        <span class="n">cluster_name</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Retrieves distinguished names.</span>
+<span class="sd">        Retrieves distinguished names. Only accessible to super-admins and with rest-</span>
+<span class="sd">        api permissions when enabled.</span>
 
 
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
@@ -1271,82 +1263,7 @@
 <span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
-            <span class="s2">&quot;GET&quot;</span><span class="p">,</span>
-            <span class="n">_make_path</span><span class="p">(</span><span class="s2">&quot;_plugins&quot;</span><span class="p">,</span> <span class="s2">&quot;_security&quot;</span><span class="p">,</span> <span class="s2">&quot;api&quot;</span><span class="p">,</span> <span class="s2">&quot;nodesdn&quot;</span><span class="p">,</span> <span class="n">cluster_name</span><span class="p">),</span>
-            <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span>
-            <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
-        <span class="p">)</span></div>
-
-<div class="viewcode-block" id="SecurityClient.update_distinguished_names"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.update_distinguished_names">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">update_distinguished_names</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span>
-        <span class="n">cluster_name</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
-        <span class="n">body</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Adds or updates the specified distinguished names in the cluster’s or node’s</span>
-<span class="sd">        allow list.</span>
-
-
-<span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
-<span class="sd">            errors.</span>
-<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
-<span class="sd">            the response.</span>
-<span class="sd">        :arg human: Whether to return human readable values for</span>
-<span class="sd">            statistics.</span>
-<span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
-<span class="sd">            response.</span>
-<span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
-<span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">cluster_name</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="s2">&quot;Empty value passed for a required argument &#39;cluster_name&#39;.&quot;</span>
-            <span class="p">)</span>
-
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
-            <span class="s2">&quot;PUT&quot;</span><span class="p">,</span>
-            <span class="n">_make_path</span><span class="p">(</span><span class="s2">&quot;_plugins&quot;</span><span class="p">,</span> <span class="s2">&quot;_security&quot;</span><span class="p">,</span> <span class="s2">&quot;api&quot;</span><span class="p">,</span> <span class="s2">&quot;nodesdn&quot;</span><span class="p">,</span> <span class="n">cluster_name</span><span class="p">),</span>
-            <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span>
-            <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
-            <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
-        <span class="p">)</span></div>
-
-<div class="viewcode-block" id="SecurityClient.delete_distinguished_names"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.delete_distinguished_names">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">delete_distinguished_names</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span>
-        <span class="n">cluster_name</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
-        <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Deletes all distinguished names in the specified cluster’s or node’s allow</span>
-<span class="sd">        list.</span>
-
-
-<span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
-<span class="sd">            errors.</span>
-<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
-<span class="sd">            the response.</span>
-<span class="sd">        :arg human: Whether to return human readable values for</span>
-<span class="sd">            statistics.</span>
-<span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
-<span class="sd">            response.</span>
-<span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
-<span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">cluster_name</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="s2">&quot;Empty value passed for a required argument &#39;cluster_name&#39;.&quot;</span>
-            <span class="p">)</span>
-
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
-            <span class="s2">&quot;DELETE&quot;</span><span class="p">,</span>
-            <span class="n">_make_path</span><span class="p">(</span><span class="s2">&quot;_plugins&quot;</span><span class="p">,</span> <span class="s2">&quot;_security&quot;</span><span class="p">,</span> <span class="s2">&quot;api&quot;</span><span class="p">,</span> <span class="s2">&quot;nodesdn&quot;</span><span class="p">,</span> <span class="n">cluster_name</span><span class="p">),</span>
-            <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span>
-            <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
+            <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="s2">&quot;/_plugins/_security/api/nodesdn&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="SecurityClient.get_certificates"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.get_certificates">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
@@ -1356,7 +1273,7 @@
         <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Retrieves the cluster’s security certificates.</span>
+<span class="sd">        Retrieves the cluster security certificates.</span>
 
 
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
@@ -1381,7 +1298,7 @@
         <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Reload transport layer communication certificates.</span>
+<span class="sd">        Reload Transport layer communication certificates.</span>
 
 
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
@@ -1455,7 +1372,7 @@
             <span class="s2">&quot;DELETE&quot;</span><span class="p">,</span> <span class="s2">&quot;/_plugins/_security/api/cache&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="SecurityClient.health"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.health">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
+<div class="viewcode-block" id="SecurityClient.health"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.health">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;mode&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">health</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -1563,7 +1480,6 @@
         <span class="k">if</span> <span class="n">body</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Empty value passed for a required argument &#39;body&#39;.&quot;</span><span class="p">)</span>
 
-        <span class="n">body</span> <span class="o">=</span> <span class="n">_bulk_body</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">serializer</span><span class="p">,</span> <span class="n">body</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
             <span class="s2">&quot;PATCH&quot;</span><span class="p">,</span>
             <span class="s2">&quot;/_plugins/_security/api/audit&quot;</span><span class="p">,</span>
@@ -1580,7 +1496,8 @@
         <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Bulk update of distinguished names.</span>
+<span class="sd">        Bulk update of distinguished names. Only accessible to super-admins and with</span>
+<span class="sd">        rest-api permissions when enabled.</span>
 
 
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
@@ -1597,13 +1514,917 @@
         <span class="k">if</span> <span class="n">body</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Empty value passed for a required argument &#39;body&#39;.&quot;</span><span class="p">)</span>
 
-        <span class="n">body</span> <span class="o">=</span> <span class="n">_bulk_body</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">serializer</span><span class="p">,</span> <span class="n">body</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
             <span class="s2">&quot;PATCH&quot;</span><span class="p">,</span>
             <span class="s2">&quot;/_plugins/_security/api/nodesdn&quot;</span><span class="p">,</span>
             <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span>
             <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
             <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="SecurityClient.authinfo"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.authinfo">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+        <span class="s2">&quot;auth_type&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;human&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;pretty&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;source&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;verbose&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">def</span> <span class="nf">authinfo</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the authentication information.</span>
+
+
+<span class="sd">        :arg auth_type: The type of current authentication request.</span>
+<span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
+<span class="sd">            errors.</span>
+<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
+<span class="sd">            the response.</span>
+<span class="sd">        :arg human: Whether to return human readable values for</span>
+<span class="sd">            statistics.</span>
+<span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
+<span class="sd">            response.</span>
+<span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
+<span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
+<span class="sd">        :arg verbose: Indicates whether a verbose response should be</span>
+<span class="sd">            returned.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
+            <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="s2">&quot;/_plugins/_security/authinfo&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="SecurityClient.authtoken"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.authtoken">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">authtoken</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the authorization token.</span>
+
+
+<span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
+<span class="sd">            errors.</span>
+<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
+<span class="sd">            the response.</span>
+<span class="sd">        :arg human: Whether to return human readable values for</span>
+<span class="sd">            statistics.</span>
+<span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
+<span class="sd">            response.</span>
+<span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
+<span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
+            <span class="s2">&quot;POST&quot;</span><span class="p">,</span> <span class="s2">&quot;/_plugins/_security/api/authtoken&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="SecurityClient.cache"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.cache">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">cache</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Not supported for cache API.</span>
+
+
+<span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
+<span class="sd">            errors.</span>
+<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
+<span class="sd">            the response.</span>
+<span class="sd">        :arg human: Whether to return human readable values for</span>
+<span class="sd">            statistics.</span>
+<span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
+<span class="sd">            response.</span>
+<span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
+<span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
+            <span class="s2">&quot;PUT&quot;</span><span class="p">,</span> <span class="s2">&quot;/_plugins/_security/api/cache&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="SecurityClient.config_upgrade_check"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.config_upgrade_check">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">config_upgrade_check</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Check whether or not an upgrade can be performed and what resources can be</span>
+<span class="sd">        updated.</span>
+
+
+<span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
+<span class="sd">            errors.</span>
+<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
+<span class="sd">            the response.</span>
+<span class="sd">        :arg human: Whether to return human readable values for</span>
+<span class="sd">            statistics.</span>
+<span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
+<span class="sd">            response.</span>
+<span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
+<span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
+            <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="s2">&quot;/_plugins/_security/_upgrade_check&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="SecurityClient.config_upgrade_perform"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.config_upgrade_perform">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">config_upgrade_perform</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">body</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Helps cluster operator upgrade missing defaults and stale default definitions.</span>
+
+
+<span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
+<span class="sd">            errors.</span>
+<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
+<span class="sd">            the response.</span>
+<span class="sd">        :arg human: Whether to return human readable values for</span>
+<span class="sd">            statistics.</span>
+<span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
+<span class="sd">            response.</span>
+<span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
+<span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
+            <span class="s2">&quot;POST&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;/_plugins/_security/_upgrade_perform&quot;</span><span class="p">,</span>
+            <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span>
+            <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
+            <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="SecurityClient.create_allowlist"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.create_allowlist">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">create_allowlist</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">body</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+        <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Creates or replaces the allowlisted APIs. Accessible via Super Admin</span>
+<span class="sd">        certificate or REST API permission.</span>
+
+
+<span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
+<span class="sd">            errors.</span>
+<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
+<span class="sd">            the response.</span>
+<span class="sd">        :arg human: Whether to return human readable values for</span>
+<span class="sd">            statistics.</span>
+<span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
+<span class="sd">            response.</span>
+<span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
+<span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">body</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Empty value passed for a required argument &#39;body&#39;.&quot;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
+            <span class="s2">&quot;PUT&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;/_plugins/_security/api/allowlist&quot;</span><span class="p">,</span>
+            <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span>
+            <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
+            <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="SecurityClient.create_update_tenancy_config"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.create_update_tenancy_config">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">create_update_tenancy_config</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">body</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+        <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Creates or replaces the multi-tenancy configuration. Only accessible to admins</span>
+<span class="sd">        and users with REST API permissions.</span>
+
+
+<span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
+<span class="sd">            errors.</span>
+<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
+<span class="sd">            the response.</span>
+<span class="sd">        :arg human: Whether to return human readable values for</span>
+<span class="sd">            statistics.</span>
+<span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
+<span class="sd">            response.</span>
+<span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
+<span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">body</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Empty value passed for a required argument &#39;body&#39;.&quot;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
+            <span class="s2">&quot;PUT&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;/_plugins/_security/api/tenancy/config&quot;</span><span class="p">,</span>
+            <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span>
+            <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
+            <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="SecurityClient.create_user_legacy"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.create_user_legacy">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">create_user_legacy</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">username</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+        <span class="n">body</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+        <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Creates or replaces the specified user. Legacy API.</span>
+
+
+<span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
+<span class="sd">            errors.</span>
+<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
+<span class="sd">            the response.</span>
+<span class="sd">        :arg human: Whether to return human readable values for</span>
+<span class="sd">            statistics.</span>
+<span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
+<span class="sd">            response.</span>
+<span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
+<span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="p">(</span><span class="n">username</span><span class="p">,</span> <span class="n">body</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Empty value passed for a required argument.&quot;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
+            <span class="s2">&quot;PUT&quot;</span><span class="p">,</span>
+            <span class="n">_make_path</span><span class="p">(</span><span class="s2">&quot;_plugins&quot;</span><span class="p">,</span> <span class="s2">&quot;_security&quot;</span><span class="p">,</span> <span class="s2">&quot;api&quot;</span><span class="p">,</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="n">username</span><span class="p">),</span>
+            <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span>
+            <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
+            <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="SecurityClient.delete_distinguished_name"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.delete_distinguished_name">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">delete_distinguished_name</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">cluster_name</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+        <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Deletes all distinguished names in the specified cluster or node allow list.</span>
+<span class="sd">        Only accessible to super-admins and with rest-api permissions when enabled.</span>
+
+
+<span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
+<span class="sd">            errors.</span>
+<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
+<span class="sd">            the response.</span>
+<span class="sd">        :arg human: Whether to return human readable values for</span>
+<span class="sd">            statistics.</span>
+<span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
+<span class="sd">            response.</span>
+<span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
+<span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">cluster_name</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;Empty value passed for a required argument &#39;cluster_name&#39;.&quot;</span>
+            <span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
+            <span class="s2">&quot;DELETE&quot;</span><span class="p">,</span>
+            <span class="n">_make_path</span><span class="p">(</span><span class="s2">&quot;_plugins&quot;</span><span class="p">,</span> <span class="s2">&quot;_security&quot;</span><span class="p">,</span> <span class="s2">&quot;api&quot;</span><span class="p">,</span> <span class="s2">&quot;nodesdn&quot;</span><span class="p">,</span> <span class="n">cluster_name</span><span class="p">),</span>
+            <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span>
+            <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="SecurityClient.delete_user_legacy"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.delete_user_legacy">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">delete_user_legacy</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">username</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+        <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Delete the specified user. Legacy API.</span>
+
+
+<span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
+<span class="sd">            errors.</span>
+<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
+<span class="sd">            the response.</span>
+<span class="sd">        :arg human: Whether to return human readable values for</span>
+<span class="sd">            statistics.</span>
+<span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
+<span class="sd">            response.</span>
+<span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
+<span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">username</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Empty value passed for a required argument &#39;username&#39;.&quot;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
+            <span class="s2">&quot;DELETE&quot;</span><span class="p">,</span>
+            <span class="n">_make_path</span><span class="p">(</span><span class="s2">&quot;_plugins&quot;</span><span class="p">,</span> <span class="s2">&quot;_security&quot;</span><span class="p">,</span> <span class="s2">&quot;api&quot;</span><span class="p">,</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="n">username</span><span class="p">),</span>
+            <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span>
+            <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="SecurityClient.generate_obo_token"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.generate_obo_token">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">generate_obo_token</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">body</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+        <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Generates On-Behalf-Of token for the current user.</span>
+
+
+<span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
+<span class="sd">            errors.</span>
+<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
+<span class="sd">            the response.</span>
+<span class="sd">        :arg human: Whether to return human readable values for</span>
+<span class="sd">            statistics.</span>
+<span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
+<span class="sd">            response.</span>
+<span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
+<span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">body</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Empty value passed for a required argument &#39;body&#39;.&quot;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
+            <span class="s2">&quot;POST&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;/_plugins/_security/api/generateonbehalfoftoken&quot;</span><span class="p">,</span>
+            <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span>
+            <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
+            <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="SecurityClient.generate_user_token"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.generate_user_token">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">generate_user_token</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">username</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+        <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Generates authorization token for the given user.</span>
+
+
+<span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
+<span class="sd">            errors.</span>
+<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
+<span class="sd">            the response.</span>
+<span class="sd">        :arg human: Whether to return human readable values for</span>
+<span class="sd">            statistics.</span>
+<span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
+<span class="sd">            response.</span>
+<span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
+<span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">username</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Empty value passed for a required argument &#39;username&#39;.&quot;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
+            <span class="s2">&quot;POST&quot;</span><span class="p">,</span>
+            <span class="n">_make_path</span><span class="p">(</span>
+                <span class="s2">&quot;_plugins&quot;</span><span class="p">,</span> <span class="s2">&quot;_security&quot;</span><span class="p">,</span> <span class="s2">&quot;api&quot;</span><span class="p">,</span> <span class="s2">&quot;internalusers&quot;</span><span class="p">,</span> <span class="n">username</span><span class="p">,</span> <span class="s2">&quot;authtoken&quot;</span>
+            <span class="p">),</span>
+            <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span>
+            <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="SecurityClient.generate_user_token_legacy"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.generate_user_token_legacy">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">generate_user_token_legacy</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">username</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+        <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Generates authorization token for the given user. Legacy API.</span>
+
+
+<span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
+<span class="sd">            errors.</span>
+<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
+<span class="sd">            the response.</span>
+<span class="sd">        :arg human: Whether to return human readable values for</span>
+<span class="sd">            statistics.</span>
+<span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
+<span class="sd">            response.</span>
+<span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
+<span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">username</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Empty value passed for a required argument &#39;username&#39;.&quot;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
+            <span class="s2">&quot;POST&quot;</span><span class="p">,</span>
+            <span class="n">_make_path</span><span class="p">(</span><span class="s2">&quot;_plugins&quot;</span><span class="p">,</span> <span class="s2">&quot;_security&quot;</span><span class="p">,</span> <span class="s2">&quot;api&quot;</span><span class="p">,</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="n">username</span><span class="p">,</span> <span class="s2">&quot;authtoken&quot;</span><span class="p">),</span>
+            <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span>
+            <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="SecurityClient.get_allowlist"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.get_allowlist">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">get_allowlist</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retrieves the current list of allowed API accessible to normal user.</span>
+
+
+<span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
+<span class="sd">            errors.</span>
+<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
+<span class="sd">            the response.</span>
+<span class="sd">        :arg human: Whether to return human readable values for</span>
+<span class="sd">            statistics.</span>
+<span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
+<span class="sd">            response.</span>
+<span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
+<span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
+            <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="s2">&quot;/_plugins/_security/api/allowlist&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="SecurityClient.get_dashboards_info"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.get_dashboards_info">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">get_dashboards_info</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retrieves the current security-dashboards plugin configuration.</span>
+
+
+<span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
+<span class="sd">            errors.</span>
+<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
+<span class="sd">            the response.</span>
+<span class="sd">        :arg human: Whether to return human readable values for</span>
+<span class="sd">            statistics.</span>
+<span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
+<span class="sd">            response.</span>
+<span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
+<span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
+            <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="s2">&quot;/_plugins/_security/dashboardsinfo&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="SecurityClient.get_distinguished_name"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.get_distinguished_name">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;show_all&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">get_distinguished_name</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">cluster_name</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+        <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retrieves distinguished names. Only accessible to super-admins and with rest-</span>
+<span class="sd">        api permissions when enabled.</span>
+
+
+<span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
+<span class="sd">            errors.</span>
+<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
+<span class="sd">            the response.</span>
+<span class="sd">        :arg human: Whether to return human readable values for</span>
+<span class="sd">            statistics.</span>
+<span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
+<span class="sd">            response.</span>
+<span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
+<span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">cluster_name</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;Empty value passed for a required argument &#39;cluster_name&#39;.&quot;</span>
+            <span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
+            <span class="s2">&quot;GET&quot;</span><span class="p">,</span>
+            <span class="n">_make_path</span><span class="p">(</span><span class="s2">&quot;_plugins&quot;</span><span class="p">,</span> <span class="s2">&quot;_security&quot;</span><span class="p">,</span> <span class="s2">&quot;api&quot;</span><span class="p">,</span> <span class="s2">&quot;nodesdn&quot;</span><span class="p">,</span> <span class="n">cluster_name</span><span class="p">),</span>
+            <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span>
+            <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="SecurityClient.get_permissions_info"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.get_permissions_info">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">get_permissions_info</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Gets the evaluated REST API permissions for the currently logged in user.</span>
+
+
+<span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
+<span class="sd">            errors.</span>
+<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
+<span class="sd">            the response.</span>
+<span class="sd">        :arg human: Whether to return human readable values for</span>
+<span class="sd">            statistics.</span>
+<span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
+<span class="sd">            response.</span>
+<span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
+<span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
+            <span class="s2">&quot;GET&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;/_plugins/_security/api/permissionsinfo&quot;</span><span class="p">,</span>
+            <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span>
+            <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="SecurityClient.get_sslinfo"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.get_sslinfo">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;show_dn&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">get_sslinfo</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retrieves the SSL configuration information.</span>
+
+
+<span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
+<span class="sd">            errors.</span>
+<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
+<span class="sd">            the response.</span>
+<span class="sd">        :arg human: Whether to return human readable values for</span>
+<span class="sd">            statistics.</span>
+<span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
+<span class="sd">            response.</span>
+<span class="sd">        :arg show_dn: The domain names from all certificates.</span>
+<span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
+<span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
+            <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="s2">&quot;/_opendistro/_security/sslinfo&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="SecurityClient.get_tenancy_config"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.get_tenancy_config">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">get_tenancy_config</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retrieves multi-tenancy configuration. Only accessible to admins and users with</span>
+<span class="sd">        REST API permissions.</span>
+
+
+<span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
+<span class="sd">            errors.</span>
+<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
+<span class="sd">            the response.</span>
+<span class="sd">        :arg human: Whether to return human readable values for</span>
+<span class="sd">            statistics.</span>
+<span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
+<span class="sd">            response.</span>
+<span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
+<span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
+            <span class="s2">&quot;GET&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;/_plugins/_security/api/tenancy/config&quot;</span><span class="p">,</span>
+            <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span>
+            <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="SecurityClient.get_user_legacy"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.get_user_legacy">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">get_user_legacy</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">username</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+        <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retrieve one user. Legacy API.</span>
+
+
+<span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
+<span class="sd">            errors.</span>
+<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
+<span class="sd">            the response.</span>
+<span class="sd">        :arg human: Whether to return human readable values for</span>
+<span class="sd">            statistics.</span>
+<span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
+<span class="sd">            response.</span>
+<span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
+<span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">username</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Empty value passed for a required argument &#39;username&#39;.&quot;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
+            <span class="s2">&quot;GET&quot;</span><span class="p">,</span>
+            <span class="n">_make_path</span><span class="p">(</span><span class="s2">&quot;_plugins&quot;</span><span class="p">,</span> <span class="s2">&quot;_security&quot;</span><span class="p">,</span> <span class="s2">&quot;api&quot;</span><span class="p">,</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="n">username</span><span class="p">),</span>
+            <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span>
+            <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="SecurityClient.get_users_legacy"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.get_users_legacy">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">get_users_legacy</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retrieve all internal users. Legacy API.</span>
+
+
+<span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
+<span class="sd">            errors.</span>
+<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
+<span class="sd">            the response.</span>
+<span class="sd">        :arg human: Whether to return human readable values for</span>
+<span class="sd">            statistics.</span>
+<span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
+<span class="sd">            response.</span>
+<span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
+<span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
+            <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="s2">&quot;/_plugins/_security/api/user&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="SecurityClient.migrate"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.migrate">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">migrate</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Migrates security configuration from v6 to v7.</span>
+
+
+<span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
+<span class="sd">            errors.</span>
+<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
+<span class="sd">            the response.</span>
+<span class="sd">        :arg human: Whether to return human readable values for</span>
+<span class="sd">            statistics.</span>
+<span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
+<span class="sd">            response.</span>
+<span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
+<span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
+            <span class="s2">&quot;POST&quot;</span><span class="p">,</span> <span class="s2">&quot;/_plugins/_security/api/migrate&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="SecurityClient.patch_allowlist"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.patch_allowlist">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">patch_allowlist</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">body</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+        <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Updates the current list of allowed API accessible to normal user.</span>
+
+
+<span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
+<span class="sd">            errors.</span>
+<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
+<span class="sd">            the response.</span>
+<span class="sd">        :arg human: Whether to return human readable values for</span>
+<span class="sd">            statistics.</span>
+<span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
+<span class="sd">            response.</span>
+<span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
+<span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">body</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Empty value passed for a required argument &#39;body&#39;.&quot;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
+            <span class="s2">&quot;PATCH&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;/_plugins/_security/api/allowlist&quot;</span><span class="p">,</span>
+            <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span>
+            <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
+            <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="SecurityClient.patch_distinguished_name"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.patch_distinguished_name">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">patch_distinguished_name</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">cluster_name</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+        <span class="n">body</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Updates a distinguished cluster name for a specific cluster. Only accessible to</span>
+<span class="sd">        super-admins and with rest-api permissions when enabled.</span>
+
+
+<span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
+<span class="sd">            errors.</span>
+<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
+<span class="sd">            the response.</span>
+<span class="sd">        :arg human: Whether to return human readable values for</span>
+<span class="sd">            statistics.</span>
+<span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
+<span class="sd">            response.</span>
+<span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
+<span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">cluster_name</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;Empty value passed for a required argument &#39;cluster_name&#39;.&quot;</span>
+            <span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
+            <span class="s2">&quot;PATCH&quot;</span><span class="p">,</span>
+            <span class="n">_make_path</span><span class="p">(</span><span class="s2">&quot;_plugins&quot;</span><span class="p">,</span> <span class="s2">&quot;_security&quot;</span><span class="p">,</span> <span class="s2">&quot;api&quot;</span><span class="p">,</span> <span class="s2">&quot;nodesdn&quot;</span><span class="p">,</span> <span class="n">cluster_name</span><span class="p">),</span>
+            <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span>
+            <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
+            <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="SecurityClient.post_dashboards_info"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.post_dashboards_info">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">post_dashboards_info</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">body</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Updates the current security-dashboards plugin configuration.</span>
+
+
+<span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
+<span class="sd">            errors.</span>
+<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
+<span class="sd">            the response.</span>
+<span class="sd">        :arg human: Whether to return human readable values for</span>
+<span class="sd">            statistics.</span>
+<span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
+<span class="sd">            response.</span>
+<span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
+<span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
+            <span class="s2">&quot;POST&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;/_plugins/_security/dashboardsinfo&quot;</span><span class="p">,</span>
+            <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span>
+            <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
+            <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="SecurityClient.tenant_info"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.tenant_info">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">tenant_info</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retrieves the tenant names if any exist. Only accesible to super admins or</span>
+<span class="sd">        kibanaserver user.</span>
+
+
+<span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
+<span class="sd">            errors.</span>
+<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
+<span class="sd">            the response.</span>
+<span class="sd">        :arg human: Whether to return human readable values for</span>
+<span class="sd">            statistics.</span>
+<span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
+<span class="sd">            response.</span>
+<span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
+<span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
+            <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="s2">&quot;/_plugins/_security/tenantinfo&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="SecurityClient.update_distinguished_name"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.update_distinguished_name">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">update_distinguished_name</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">cluster_name</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+        <span class="n">body</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Adds or updates the specified distinguished names in the cluster or node allow</span>
+<span class="sd">        list. Only accessible to super-admins and with rest-api permissions when</span>
+<span class="sd">        enabled.</span>
+
+
+<span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
+<span class="sd">            errors.</span>
+<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
+<span class="sd">            the response.</span>
+<span class="sd">        :arg human: Whether to return human readable values for</span>
+<span class="sd">            statistics.</span>
+<span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
+<span class="sd">            response.</span>
+<span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
+<span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">cluster_name</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;Empty value passed for a required argument &#39;cluster_name&#39;.&quot;</span>
+            <span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
+            <span class="s2">&quot;PUT&quot;</span><span class="p">,</span>
+            <span class="n">_make_path</span><span class="p">(</span><span class="s2">&quot;_plugins&quot;</span><span class="p">,</span> <span class="s2">&quot;_security&quot;</span><span class="p">,</span> <span class="s2">&quot;api&quot;</span><span class="p">,</span> <span class="s2">&quot;nodesdn&quot;</span><span class="p">,</span> <span class="n">cluster_name</span><span class="p">),</span>
+            <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span>
+            <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
+            <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="SecurityClient.validate"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.validate">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+        <span class="s2">&quot;accept_invalid&quot;</span><span class="p">,</span> <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span>
+    <span class="p">)</span>
+    <span class="k">def</span> <span class="nf">validate</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Checks whether the v6 security configuration is valid and ready to be migrated</span>
+<span class="sd">        to v7.</span>
+
+
+<span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
+<span class="sd">            errors.</span>
+<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
+<span class="sd">            the response.</span>
+<span class="sd">        :arg human: Whether to return human readable values for</span>
+<span class="sd">            statistics.</span>
+<span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
+<span class="sd">            response.</span>
+<span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
+<span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
+            <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="s2">&quot;/_plugins/_security/api/validate&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="SecurityClient.who_am_i"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.who_am_i">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">who_am_i</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Gets the user identity related information for currently logged in user.</span>
+
+
+<span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
+<span class="sd">            errors.</span>
+<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
+<span class="sd">            the response.</span>
+<span class="sd">        :arg human: Whether to return human readable values for</span>
+<span class="sd">            statistics.</span>
+<span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
+<span class="sd">            response.</span>
+<span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
+<span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
+            <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="s2">&quot;/_plugins/_security/whoami&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="SecurityClient.who_am_i_protected"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.who_am_i_protected">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">who_am_i_protected</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Gets the user identity related information for currently logged in user. User</span>
+<span class="sd">        needs to have access to this endpoint when authorization at REST layer is</span>
+<span class="sd">        enabled.</span>
+
+
+<span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
+<span class="sd">            errors.</span>
+<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
+<span class="sd">            the response.</span>
+<span class="sd">        :arg human: Whether to return human readable values for</span>
+<span class="sd">            statistics.</span>
+<span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
+<span class="sd">            response.</span>
+<span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
+<span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
+            <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="s2">&quot;/_plugins/_security/whoamiprotected&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
         <span class="p">)</span></div></div>
 </pre></div>
 
