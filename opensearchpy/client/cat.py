@@ -669,7 +669,8 @@ class CatClient(NamespacedClient):
         :arg help: Return help information. Default is false.
         :arg human: Whether to return human readable values for
             statistics.
-        :arg local: Return local information, do not retrieve the state
+        :arg local (Deprecated: This parameter does not cause this API
+            to act locally.): Return local information, do not retrieve the state
             from cluster-manager node. Default is false.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Operation timeout for
