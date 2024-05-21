@@ -278,17 +278,7 @@ class KnnClient(NamespacedClient):
             node you're connecting to, leave empty to get information from all
             nodes.
         :arg stat: Comma-separated list of stats to retrieve; use `_all`
-            or empty string to retrieve all stats. Valid choices are
-            circuit_breaker_triggered, total_load_time, eviction_count, hit_count,
-            miss_count, graph_memory_usage, graph_memory_usage_percentage,
-            graph_index_requests, graph_index_errors, graph_query_requests,
-            graph_query_errors, knn_query_requests, cache_capacity_reached,
-            load_success_count, load_exception_count, indices_in_cache,
-            script_compilations, script_compilation_errors, script_query_requests,
-            script_query_errors, nmslib_initialized, faiss_initialized,
-            model_index_status, indexing_from_model_degraded, training_requests,
-            training_errors, training_memory_usage,
-            training_memory_usage_percentage.
+            or empty string to retrieve all stats.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
         :arg filter_path: Comma-separated list of filters used to reduce
