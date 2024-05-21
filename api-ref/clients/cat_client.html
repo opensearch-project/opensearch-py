@@ -605,9 +605,10 @@ return the shortened node ID. Default is false.</p></li>
 <li><p><strong>help</strong> – Return help information. Default is false.</p></li>
 <li><p><strong>human</strong> – Whether to return human readable values for
 statistics.</p></li>
-<li><p><strong>local</strong> – Return local information, do not retrieve the state
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – This parameter does not cause this API
+to act locally.): Return local information, do not retrieve the state
 from cluster-manager node. Default is false.</p></li>
-<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
+<li><p><strong>(</strong><strong>Deprecated</strong> – To promote inclusive language,
 use ‘cluster_manager_timeout’ instead.): Operation timeout for
 connection to master node.</p></li>
 <li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
