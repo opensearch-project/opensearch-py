@@ -15,6 +15,7 @@ from ..plugins.index_management import IndexManagementClient
 from ..plugins.knn import KnnClient
 from ..plugins.notifications import NotificationsClient
 from ..plugins.rollups import RollupsClient
+from ..plugins.transforms import TransformsClient
 from .client import Client
 from .utils import NamespacedClient
 
@@ -25,6 +26,7 @@ class PluginsClient(NamespacedClient):
 
     def __init__(self, client: Client) -> None:
         super(PluginsClient, self).__init__(client)
+        self.transforms = TransformsClient(client)
         self.rollups = RollupsClient(client)
         self.notifications = NotificationsClient(client)
         self.knn = KnnClient(client)
