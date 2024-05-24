@@ -3,10 +3,22 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 ## [Unreleased]
 ### Added
+### Changed
+### Deprecated
+### Removed
+### Fixed
+### Updated APIs
+### Security
+### Dependencies
+
+## [2.6.0]
+### Added
 - Added support for urllib3 2+ in Python 3.10+ ([#719](https://github.com/opensearch-project/opensearch-py/pull/719))
 - Added support for Python 3.12 ([#717](https://github.com/opensearch-project/opensearch-py/pull/717))
 - Added service time metrics ([#716](https://github.com/opensearch-project/opensearch-py/pull/716))
 - Added `search_pipeline` APIs and `notifications` plugin APIs ([#724](https://github.com/opensearch-project/opensearch-py/pull/724))
+- Added `Transforms` APIs ([#749](https://github.com/opensearch-project/opensearch-py/pull/749))
+- Added `Index rollups` APIs ([#742](https://github.com/opensearch-project/opensearch-py/pull/742))
 ### Changed
 ### Deprecated
 ### Removed
@@ -246,7 +258,8 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - Fixed Wrong return type hint in `async_scan` ([520](https://github.com/opensearch-project/opensearch-py/pull/520))
 ### Security
 
-[Unreleased]: https://github.com/opensearch-project/opensearch-py/compare/v2.5.0...HEAD
+[Unreleased]: https://github.com/opensearch-project/opensearch-py/compare/v2.6.0...HEAD
+[2.6.0]: https://github.com/opensearch-project/opensearch-py/compare/v2.5.0...v2.6.0
 [2.5.0]: https://github.com/opensearch-project/opensearch-py/compare/v2.4.2...v2.5.0
 [2.4.2]: https://github.com/opensearch-project/opensearch-py/compare/v2.4.0...v2.4.2
 [2.4.1]: https://github.com/opensearch-project/opensearch-py/compare/v2.4.0...v2.4.1
