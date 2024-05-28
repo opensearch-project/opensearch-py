@@ -21,7 +21,7 @@ jobs:
         with:
           secret: ${{ github.TOKEN }}
           approvers: ${{ steps.get_approvers.outputs.approvers }}
-          minimum-approvals: 2
+          minimum-approvals: 1
           issue-title: 'Release opensearch-py'
           issue-body: "Please approve or deny the release of opensearch-py. **Tag**: ${{ github.ref_name }}  **Commit**: ${{ github.sha }}"
           exclude-workflow-initiator-as-approver: true
