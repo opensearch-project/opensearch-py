@@ -26,7 +26,7 @@ For more information, see [opensearch.org](https://opensearch.org/) and the [API
 
 ## User Guide
 
-To get started with the OpenSearch Python Client, see [User Guide](https://github.com/opensearch-project/opensearch-py/blob/main/USER_GUIDE.md). This repository also contains [working samples](https://github.com/opensearch-project/opensearch-py/tree/main/samples) and [benchmarks](https://github.com/opensearch-project/opensearch-py/tree/main/benchmarks).
+To get started with the OpenSearch Python Client, see [User Guide](https://github.com/opensearch-project/opensearch-py/blob/main/USER_GUIDE.md). This repository also contains [working samples](https://github.com/opensearch-project/opensearch-py/tree/main/samples) and [benchmarks](https://github.com/opensearch-project/opensearch-py/tree/main/benchmarks). and [benchmarks](https://github.com/opensearch-project/opensearch-py/tree/main/benchmarks)
 
 ## Compatibility with OpenSearch
 
