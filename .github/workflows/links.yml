@@ -20,7 +20,7 @@ jobs:
         id: lychee
         uses: lycheeverse/lychee-action@v1.5.0
         with:
-          args: --accept=200,403,429 "**/*.html" "**/*.md" "**/*.txt" "**/*.json" --exclude "file:///github/workspace/*" --exclude "file:///github/workspace/*" --exclude "file:///home/runner/work/opensearch-py/opensearch-py/docs/source/README.md" --exclude-mail 
+          args: --accept=200,403,429 "**/*.html" "**/*.md" "**/*.txt" "**/*.json" --exclude-file ".lychee.excludes" --exclude-mail 
           fail: true
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
