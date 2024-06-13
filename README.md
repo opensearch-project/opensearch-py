@@ -6,6 +6,7 @@
 ![PRs welcome!](https://img.shields.io/badge/PRs-welcome!-success)
 
 ![OpenSearch logo](https://github.com/opensearch-project/opensearch-py/raw/main/OpenSearch.svg)
+
 OpenSearch Python Client
 
 - [Welcome!](https://github.com/opensearch-project/opensearch-py#welcome)
