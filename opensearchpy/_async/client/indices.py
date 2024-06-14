@@ -174,7 +174,7 @@ class IndicesClient(NamespacedClient):
             libraries that do not accept a request body for non-POST requests.
         :arg wait_if_ongoing: If `true`, the flush operation blocks
             until execution when another flush operation is running.If `false`,
-            Opensearch returns an error if you request a flush when another flush
+            OpenSearch returns an error if you request a flush when another flush
             operation is running. Default is True.
         """
         return await self.transport.perform_request(
@@ -1164,7 +1164,7 @@ class IndicesClient(NamespacedClient):
             use 'cluster_manager_timeout' instead.): Period to wait for a connection
             to the master node. If no response isreceived before the timeout
             expires, the request fails and returns an error.
-        :arg order: Order in which Opensearch applies this template if
+        :arg order: Order in which OpenSearch applies this template if
             indexmatches multiple templates.Templates with lower 'order' values are
             merged first. Templates with higher'order' values are merged later,
             overriding templates with lower values.
