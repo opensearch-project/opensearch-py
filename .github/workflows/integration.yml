@@ -3,8 +3,8 @@ name: Integration Tests
 on: [push, pull_request]
 
 jobs:
-  integration-pre-2.12:
-    name: Integ-pre-2.12
+  integration-pre-212:
+    name: Integ-pre-212
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -23,8 +23,8 @@ jobs:
       - name: Integ OpenSearch secured=${{ matrix.secured }} version=${{ matrix.opensearch_version }}
         run: "./.ci/run-tests ${{ matrix.secured }} ${{ matrix.opensearch_version }}"
 
-  integration-post-2.12:
-    name: Integ-post-2.12
+  integration-post-212:
+    name: Integ-post-212
     runs-on: ubuntu-latest
     env:
       OPENSEARCH_URL: 'https://admin:myStrongPassword123!@localhost:9200'
