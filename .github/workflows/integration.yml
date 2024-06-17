@@ -4,7 +4,7 @@ on: [push, pull_request]
 
 jobs:
   integration-pre-2.12:
-    name: Integ
+    name: Integ-pre-2.12
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -24,7 +24,7 @@ jobs:
         run: "./.ci/run-tests ${{ matrix.secured }} ${{ matrix.opensearch_version }}"
 
   integration-post-2.12:
-    name: Integ
+    name: Integ-post-2.12
     runs-on: ubuntu-latest
     env:
       OPENSEARCH_URL: 'https://admin:myStrongPassword123!@localhost:9200'
