@@ -106,7 +106,6 @@ class TestJSONSerializer(TestCase):
 
         ser = JSONSerializer()
         for np_type in (
-            np.float_,
             np.float32,
             np.float64,
         ):
