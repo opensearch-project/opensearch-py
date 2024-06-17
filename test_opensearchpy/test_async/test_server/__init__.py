@@ -25,6 +25,7 @@
 #  under the License.
 
 
+import os
 from unittest import IsolatedAsyncioTestCase
 
 from opensearchpy._async.helpers.test import get_test_client
