@@ -17,13 +17,13 @@ jobs:
           fetch-depth: 0
       - name: Config git to rebase
         run: git config --global pull.rebase true
-      - name: Set up Python 3.7
+      - name: Set up Python 3.8
         uses: actions/setup-python@v4
         with:
-          python-version: 3.7
+          python-version: 3.8
       - name: Install dependencies
         run: |
-          python3.7 -m pip install nox
+          python3.8 -m pip install nox
       - name: Generate API
         run: nox -s generate
       - name: Get current date
@@ -44,7 +44,7 @@ jobs:
           commit-message: Updated opensearch-py to reflect the latest OpenSearch API spec (${{ steps.date.outputs.date }})
           title: Updated opensearch-py to reflect the latest OpenSearch API spec
           body: |
-            Updated [opensearch-py](https://github.com/opensearch-project/opensearch-py) to reflect the latest [OpenSearch API spec](https://github.com/opensearch-project/opensearch-api-specification/blob/main/OpenSearch.openapi.json)
+            Updated [opensearch-py](https://github.com/opensearch-project/opensearch-py) to reflect the latest [OpenSearch API spec](https://github.com/opensearch-project/opensearch-api-specification/releases/download/main-latest/opensearch-openapi.yaml)
             Date: ${{ steps.date.outputs.date }}
           branch: automated-api-update
           base: main

@@ -79,7 +79,7 @@ def add_header_to_file(filepath: str) -> None:
     for i, line in enumerate(lines):
         if len(line) > 0 and line not in LINES_TO_KEEP:
             break
-    lines = lines[:i] + [LICENSE_HEADER] + lines[i:]
+    lines = lines[:i] + [LICENSE_HEADER + "\n\n"] + lines[i:]
     with open(filepath, mode="w", encoding="utf-8") as file:
         file.truncate()
         file.write("".join(lines))

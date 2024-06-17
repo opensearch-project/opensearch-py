@@ -133,6 +133,7 @@ from .helpers.search import MultiSearch, Search
 from .helpers.update_by_query import UpdateByQuery
 from .helpers.utils import AttrDict, AttrList, DslBase
 from .helpers.wrappers import Range
+from .metrics import Metrics, MetricsEvents, MetricsNone
 from .serializer import JSONSerializer
 from .transport import Transport
 
@@ -240,6 +241,9 @@ __all__ = [
     "token_filter",
     "tokenizer",
     "__versionstr__",
+    "Metrics",
+    "MetricsEvents",
+    "MetricsNone",
 ]
 
 try:

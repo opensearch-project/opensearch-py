@@ -40,7 +40,15 @@ from .utils import SKIP_IN_PATH, NamespacedClient, _make_path, query_params
 
 
 class IngestClient(NamespacedClient):
-    @query_params("cluster_manager_timeout", "master_timeout")
+    @query_params(
+        "cluster_manager_timeout",
+        "error_trace",
+        "filter_path",
+        "human",
+        "master_timeout",
+        "pretty",
+        "source",
+    )
     async def get_pipeline(
         self,
         id: Any = None,
@@ -51,19 +59,40 @@ class IngestClient(NamespacedClient):
         Returns a pipeline.
 
 
-        :arg id: Comma-separated list of pipeline ids. Wildcards
-            supported.
+        :arg id: Comma-separated list of pipeline IDs to retrieve.
+            Wildcard (`*`) expressions are supported. To get all ingest pipelines,
+            omit this parameter or use `*`.
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
+        :arg error_trace: Whether to include the stack trace of returned
+            errors.
+        :arg filter_path: Comma-separated list of filters used to reduce
+            the response.
+        :arg human: Whether to return human readable values for
+            statistics.
         :arg master_timeout (Deprecated: To promote inclusive language,
-            use 'cluster_manager_timeout' instead.): Operation timeout for
-            connection to master node.
+            use 'cluster_manager_timeout' instead.): Period to wait for a connection
+            to the master node.If no response is received before the timeout
+            expires, the request fails and returns an error.
+        :arg pretty: Whether to pretty format the returned JSON
+            response.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
         """
         return await self.transport.perform_request(
             "GET", _make_path("_ingest", "pipeline", id), params=params, headers=headers
         )
 
-    @query_params("cluster_manager_timeout", "master_timeout", "timeout")
+    @query_params(
+        "cluster_manager_timeout",
+        "error_trace",
+        "filter_path",
+        "human",
+        "master_timeout",
+        "pretty",
+        "source",
+        "timeout",
+    )
     async def put_pipeline(
         self,
         id: Any,
@@ -75,14 +104,27 @@ class IngestClient(NamespacedClient):
         Creates or updates a pipeline.
 
 
-        :arg id: Pipeline ID.
+        :arg id: ID of the ingest pipeline to create or update.
         :arg body: The ingest definition
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
+        :arg error_trace: Whether to include the stack trace of returned
+            errors.
+        :arg filter_path: Comma-separated list of filters used to reduce
+            the response.
+        :arg human: Whether to return human readable values for
+            statistics.
         :arg master_timeout (Deprecated: To promote inclusive language,
-            use 'cluster_manager_timeout' instead.): Operation timeout for
-            connection to master node.
-        :arg timeout: Operation timeout.
+            use 'cluster_manager_timeout' instead.): Period to wait for a connection
+            to the master node. If no response is received before the timeout
+            expires, the request fails and returns an error.
+        :arg pretty: Whether to pretty format the returned JSON
+            response.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        :arg timeout: Period to wait for a response. If no response is
+            received before the timeout expires, the request fails and returns an
+            error.
         """
         for param in (id, body):
             if param in SKIP_IN_PATH:
@@ -96,7 +138,16 @@ class IngestClient(NamespacedClient):
             body=body,
         )
 
-    @query_params("cluster_manager_timeout", "master_timeout", "timeout")
+    @query_params(
+        "cluster_manager_timeout",
+        "error_trace",
+        "filter_path",
+        "human",
+        "master_timeout",
+        "pretty",
+        "source",
+        "timeout",
+    )
     async def delete_pipeline(
         self,
         id: Any,
@@ -107,13 +158,28 @@ class IngestClient(NamespacedClient):
         Deletes a pipeline.
 
 
-        :arg id: Pipeline ID.
+        :arg id: Pipeline ID or wildcard expression of pipeline IDs used
+            to limit the request. To delete all ingest pipelines in a cluster, use a
+            value of `*`.
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
+        :arg error_trace: Whether to include the stack trace of returned
+            errors.
+        :arg filter_path: Comma-separated list of filters used to reduce
+            the response.
+        :arg human: Whether to return human readable values for
+            statistics.
         :arg master_timeout (Deprecated: To promote inclusive language,
-            use 'cluster_manager_timeout' instead.): Operation timeout for
-            connection to master node.
-        :arg timeout: Operation timeout.
+            use 'cluster_manager_timeout' instead.): Period to wait for a connection
+            to the master node.If no response is received before the timeout
+            expires, the request fails and returns an error.
+        :arg pretty: Whether to pretty format the returned JSON
+            response.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        :arg timeout: Period to wait for a response.If no response is
+            received before the timeout expires, the request fails and returns an
+            error.
         """
         if id in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'id'.")
@@ -125,7 +191,7 @@ class IngestClient(NamespacedClient):
             headers=headers,
         )
 
-    @query_params("verbose")
+    @query_params("error_trace", "filter_path", "human", "pretty", "source", "verbose")
     async def simulate(
         self,
         body: Any,
@@ -138,9 +204,20 @@ class IngestClient(NamespacedClient):
 
 
         :arg body: The simulate definition
-        :arg id: Pipeline ID.
-        :arg verbose: Verbose mode. Display data output for each
-            processor in executed pipeline. Default is false.
+        :arg id: Pipeline to test. If you don’t specify a `pipeline` in
+            the request body, this parameter is required.
+        :arg error_trace: Whether to include the stack trace of returned
+            errors.
+        :arg filter_path: Comma-separated list of filters used to reduce
+            the response.
+        :arg human: Whether to return human readable values for
+            statistics.
+        :arg pretty: Whether to pretty format the returned JSON
+            response.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        :arg verbose: If `true`, the response includes output data for
+            each processor in the executed pipeline. Default is false.
         """
         if body in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'body'.")
@@ -153,7 +230,7 @@ class IngestClient(NamespacedClient):
             body=body,
         )
 
-    @query_params()
+    @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def processor_grok(
         self,
         params: Any = None,
@@ -162,6 +239,17 @@ class IngestClient(NamespacedClient):
         """
         Returns a list of the built-in patterns.
 
+
+        :arg error_trace: Whether to include the stack trace of returned
+            errors.
+        :arg filter_path: Comma-separated list of filters used to reduce
+            the response.
+        :arg human: Whether to return human readable values for
+            statistics.
+        :arg pretty: Whether to pretty format the returned JSON
+            response.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
         """
         return await self.transport.perform_request(
             "GET", "/_ingest/processor/grok", params=params, headers=headers
