@@ -13,6 +13,7 @@ from typing import Any
 from ..plugins.alerting import AlertingClient
 from ..plugins.index_management import IndexManagementClient
 from ..plugins.knn import KnnClient
+from ..plugins.ml import MlClient
 from ..plugins.notifications import NotificationsClient
 from ..plugins.rollups import RollupsClient
 from ..plugins.transforms import TransformsClient
@@ -26,6 +27,7 @@ class PluginsClient(NamespacedClient):
 
     def __init__(self, client: Client) -> None:
         super(PluginsClient, self).__init__(client)
+        self.ml = MlClient(client)
         self.transforms = TransformsClient(client)
         self.rollups = RollupsClient(client)
         self.notifications = NotificationsClient(client)
