@@ -258,7 +258,7 @@
 <span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
 <span class="sd">        :arg wait_if_ongoing: If `true`, the flush operation blocks</span>
 <span class="sd">            until execution when another flush operation is running.If `false`,</span>
-<span class="sd">            Opensearch returns an error if you request a flush when another flush</span>
+<span class="sd">            OpenSearch returns an error if you request a flush when another flush</span>
 <span class="sd">            operation is running. Default is True.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
@@ -1248,7 +1248,7 @@
 <span class="sd">            use &#39;cluster_manager_timeout&#39; instead.): Period to wait for a connection</span>
 <span class="sd">            to the master node. If no response isreceived before the timeout</span>
 <span class="sd">            expires, the request fails and returns an error.</span>
-<span class="sd">        :arg order: Order in which Opensearch applies this template if</span>
+<span class="sd">        :arg order: Order in which OpenSearch applies this template if</span>
 <span class="sd">            indexmatches multiple templates.Templates with lower &#39;order&#39; values are</span>
 <span class="sd">            merged first. Templates with higher&#39;order&#39; values are merged later,</span>
 <span class="sd">            overriding templates with lower values.</span>

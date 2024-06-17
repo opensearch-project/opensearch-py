@@ -287,7 +287,7 @@ this request.If a final pipeline is configured it will always run,
 regardless of the value of this parameter.</p></li>
 <li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
 response.</p></li>
-<li><p><strong>refresh</strong> – If <cite>true</cite>, Opensearch refreshes the affected
+<li><p><strong>refresh</strong> – If <cite>true</cite>, OpenSearch refreshes the affected
 shards to make this operation visible to search, if <cite>wait_for</cite> then wait
 for a refresh to make this operation visible to search, if <cite>false</cite> do
 nothing with refreshes.Valid values: <cite>true</cite>, <cite>false</cite>, <cite>wait_for</cite>.</p></li>
@@ -417,8 +417,8 @@ specific shard.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
 <li><p><strong>terminate_after</strong> – Maximum number of documents to collect for
-each shard.If a query reaches this limit, Opensearch terminates the
-query early.Opensearch collects documents before sorting.</p></li>
+each shard.If a query reaches this limit, OpenSearch terminates the
+query early.OpenSearch collects documents before sorting.</p></li>
 <li><p><strong>body</strong> – </p></li>
 <li><p><strong>index</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
@@ -459,7 +459,7 @@ this request.If a final pipeline is configured it will always run,
 regardless of the value of this parameter.</p></li>
 <li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
 response.</p></li>
-<li><p><strong>refresh</strong> – If <cite>true</cite>, Opensearch refreshes the affected
+<li><p><strong>refresh</strong> – If <cite>true</cite>, OpenSearch refreshes the affected
 shards to make this operation visible to search, if <cite>wait_for</cite> then wait
 for a refresh to make this operation visible to search, if <cite>false</cite> do
 nothing with refreshes.Valid values: <cite>true</cite>, <cite>false</cite>, <cite>wait_for</cite>.</p></li>
@@ -589,7 +589,7 @@ has this primary term.</p></li>
 this sequence number.</p></li>
 <li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
 response.</p></li>
-<li><p><strong>refresh</strong> – If <cite>true</cite>, Opensearch refreshes the affected
+<li><p><strong>refresh</strong> – If <cite>true</cite>, OpenSearch refreshes the affected
 shards to make this operation visible to search, if <cite>wait_for</cite> then wait
 for a refresh to make this operation visible to search, if <cite>false</cite> do
 nothing with refreshes.Valid values: <cite>true</cite>, <cite>false</cite>, <cite>wait_for</cite>.</p></li>
@@ -702,7 +702,7 @@ should be performed on.Random by default. Default is random.</p></li>
 <li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
 response.</p></li>
 <li><p><strong>q</strong> – Query in the Lucene query string syntax.</p></li>
-<li><p><strong>refresh</strong> – If <cite>true</cite>, Opensearch refreshes all shards
+<li><p><strong>refresh</strong> – If <cite>true</cite>, OpenSearch refreshes all shards
 involved in the delete by query after the request completes.</p></li>
 <li><p><strong>request_cache</strong> – If <cite>true</cite>, the request cache is used for
 this request.Defaults to the index-level setting.</p></li>
@@ -727,10 +727,10 @@ libraries that do not accept a request body for non-POST requests.</p></li>
 <li><p><strong>stats</strong> – Specific <cite>tag</cite> of the request for logging and
 statistical purposes.</p></li>
 <li><p><strong>terminate_after</strong> – Maximum number of documents to collect for
-each shard.If a query reaches this limit, Opensearch terminates the
-query early.Opensearch collects documents before sorting.Use with
-caution.Opensearch applies this parameter to each shard handling the
-request.When possible, let Opensearch perform early termination
+each shard.If a query reaches this limit, OpenSearch terminates the
+query early.OpenSearch collects documents before sorting.Use with
+caution.OpenSearch applies this parameter to each shard handling the
+request.When possible, let OpenSearch perform early termination
 automatically.Avoid specifying this parameter for requests that target
 data streams with backing indices across multiple data tiers.</p></li>
 <li><p><strong>timeout</strong> – Period each deletion request waits for active
@@ -909,7 +909,7 @@ should be performed on.Random by default. Default is random.</p></li>
 response.</p></li>
 <li><p><strong>realtime</strong> – If <cite>true</cite>, the request is real-time as opposed to
 near-real-time.</p></li>
-<li><p><strong>refresh</strong> – If <cite>true</cite>, Opensearch refreshes all shards
+<li><p><strong>refresh</strong> – If <cite>true</cite>, OpenSearch refreshes all shards
 involved in the delete by query after the request completes.</p></li>
 <li><p><strong>routing</strong> – Target the specified primary shard.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
@@ -964,7 +964,7 @@ should be performed on.Random by default. Default is random.</p></li>
 response.</p></li>
 <li><p><strong>realtime</strong> – If true, the request is real-time as opposed to
 near-real-time.</p></li>
-<li><p><strong>refresh</strong> – If <cite>true</cite>, Opensearch refreshes all shards
+<li><p><strong>refresh</strong> – If <cite>true</cite>, OpenSearch refreshes all shards
 involved in the delete by query after the request completes.</p></li>
 <li><p><strong>routing</strong> – Target the specified primary shard.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
@@ -1123,7 +1123,7 @@ should be performed on. Random by default. Default is random.</p></li>
 response.</p></li>
 <li><p><strong>realtime</strong> – If <cite>true</cite>, the request is real-time as opposed to
 near-real-time.</p></li>
-<li><p><strong>refresh</strong> – If true, Opensearch refreshes the affected shards
+<li><p><strong>refresh</strong> – If true, OpenSearch refreshes the affected shards
 to make this operation visible to search. If false, do nothing with
 refreshes.</p></li>
 <li><p><strong>routing</strong> – Target the specified primary shard.</p></li>
@@ -1292,7 +1292,7 @@ should be performed on. Random by default. Default is random.</p></li>
 response.</p></li>
 <li><p><strong>realtime</strong> – Boolean) If true, the request is real-time as
 opposed to near-real-time.</p></li>
-<li><p><strong>refresh</strong> – If true, Opensearch refreshes the affected shards
+<li><p><strong>refresh</strong> – If true, OpenSearch refreshes the affected shards
 to make this operation visible to search. If false, do nothing with
 refreshes.</p></li>
 <li><p><strong>routing</strong> – Target the specified primary shard.</p></li>
@@ -1348,7 +1348,7 @@ this request.If a final pipeline is configured it will always run,
 regardless of the value of this parameter.</p></li>
 <li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
 response.</p></li>
-<li><p><strong>refresh</strong> – If <cite>true</cite>, Opensearch refreshes the affected
+<li><p><strong>refresh</strong> – If <cite>true</cite>, OpenSearch refreshes the affected
 shards to make this operation visible to search, if <cite>wait_for</cite> then wait
 for a refresh to make this operation visible to search, if <cite>false</cite> do
 nothing with refreshes.Valid values: <cite>true</cite>, <cite>false</cite>, <cite>wait_for</cite>.</p></li>
@@ -2054,7 +2054,7 @@ filter phase is executed if any of these conditions is met:the request
 targets more than 128 shards;the request targets one or more read-only
 index;the primary sort of the query targets an indexed field.</p></li>
 <li><p><strong>preference</strong> – Nodes and shards used for the search.By
-default, Opensearch selects from eligible nodes and shards using
+default, OpenSearch selects from eligible nodes and shards using
 adaptive replica selection, accounting for allocation awareness. Valid
 values are:<cite>_only_local</cite> to run the search only on shards on the local
 node;`_local` to, if possible, run the search on shards on the local
@@ -2074,7 +2074,7 @@ random.</p></li>
 response.</p></li>
 <li><p><strong>q</strong> – Query in the Lucene query string syntax using query
 parameter search.Query parameter searches do not support the full
-Opensearch Query DSL but are handy for testing.</p></li>
+OpenSearch Query DSL but are handy for testing.</p></li>
 <li><p><strong>request_cache</strong> – If <cite>true</cite>, the caching of search results is
 enabled for requests where <cite>size</cite> is <cite>0</cite>.Defaults to index level
 settings.</p></li>
@@ -2121,10 +2121,10 @@ should be returned.This parameter can only be used when the
 <cite>suggest_field</cite> and <cite>suggest_text</cite> query string parameters are
 specified.</p></li>
 <li><p><strong>terminate_after</strong> – Maximum number of documents to collect for
-each shard.If a query reaches this limit, Opensearch terminates the
-query early.Opensearch collects documents before sorting.Use with
-caution.Opensearch applies this parameter to each shard handling the
-request.When possible, let Opensearch perform early termination
+each shard.If a query reaches this limit, OpenSearch terminates the
+query early.OpenSearch collects documents before sorting.Use with
+caution.OpenSearch applies this parameter to each shard handling the
+request.When possible, let OpenSearch perform early termination
 automatically.Avoid specifying this parameter for requests that target
 data streams with backing indices across multiple data tiers.If set to
 <cite>0</cite> (default), the query does not terminate early.</p></li>
@@ -2357,7 +2357,7 @@ this sequence number.</p></li>
 <li><p><strong>lang</strong> – The script language. Default is painless.</p></li>
 <li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
 response.</p></li>
-<li><p><strong>refresh</strong> – If ‘true’, Opensearch refreshes the affected
+<li><p><strong>refresh</strong> – If ‘true’, OpenSearch refreshes the affected
 shards to make this operationvisible to search, if ‘wait_for’ then wait
 for a refresh to make this operationvisible to search, if ‘false’ do
 nothing with refreshes. Valid choices are true, false, wait_for.</p></li>
@@ -2370,7 +2370,7 @@ specific shard.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
 <li><p><strong>timeout</strong> – Period to wait for dynamic mapping updates and
-active shards.This guarantees Opensearch waits for at least the timeout
+active shards.This guarantees OpenSearch waits for at least the timeout
 before failing.The actual wait time could be longer, particularly when
 multiple waits occur.</p></li>
 <li><p><strong>wait_for_active_shards</strong> – The number of shard copies that
@@ -2452,7 +2452,7 @@ should be performed on.Random by default. Default is random.</p></li>
 <li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
 response.</p></li>
 <li><p><strong>q</strong> – Query in the Lucene query string syntax.</p></li>
-<li><p><strong>refresh</strong> – If <cite>true</cite>, Opensearch refreshes affected shards to
+<li><p><strong>refresh</strong> – If <cite>true</cite>, OpenSearch refreshes affected shards to
 make the operation visible to search.</p></li>
 <li><p><strong>request_cache</strong> – If <cite>true</cite>, the request cache is used for
 this request.</p></li>
@@ -2476,10 +2476,10 @@ libraries that do not accept a request body for non-POST requests.</p></li>
 <li><p><strong>stats</strong> – Specific <cite>tag</cite> of the request for logging and
 statistical purposes.</p></li>
 <li><p><strong>terminate_after</strong> – Maximum number of documents to collect for
-each shard.If a query reaches this limit, Opensearch terminates the
-query early.Opensearch collects documents before sorting.Use with
-caution.Opensearch applies this parameter to each shard handling the
-request.When possible, let Opensearch perform early termination
+each shard.If a query reaches this limit, OpenSearch terminates the
+query early.OpenSearch collects documents before sorting.Use with
+caution.OpenSearch applies this parameter to each shard handling the
+request.When possible, let OpenSearch perform early termination
 automatically.Avoid specifying this parameter for requests that target
 data streams with backing indices across multiple data tiers.</p></li>
 <li><p><strong>timeout</strong> – Period each update request waits for the following

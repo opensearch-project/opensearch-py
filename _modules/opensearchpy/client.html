@@ -441,7 +441,7 @@
 <span class="sd">            regardless of the value of this parameter.</span>
 <span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
 <span class="sd">            response.</span>
-<span class="sd">        :arg refresh: If `true`, Opensearch refreshes the affected</span>
+<span class="sd">        :arg refresh: If `true`, OpenSearch refreshes the affected</span>
 <span class="sd">            shards to make this operation visible to search, if `wait_for` then wait</span>
 <span class="sd">            for a refresh to make this operation visible to search, if `false` do</span>
 <span class="sd">            nothing with refreshes.Valid values: `true`, `false`, `wait_for`.</span>
@@ -529,7 +529,7 @@
 <span class="sd">            regardless of the value of this parameter.</span>
 <span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
 <span class="sd">            response.</span>
-<span class="sd">        :arg refresh: If `true`, Opensearch refreshes the affected</span>
+<span class="sd">        :arg refresh: If `true`, OpenSearch refreshes the affected</span>
 <span class="sd">            shards to make this operation visible to search, if `wait_for` then wait</span>
 <span class="sd">            for a refresh to make this operation visible to search, if `false` do</span>
 <span class="sd">            nothing with refreshes.Valid values: `true`, `false`, `wait_for`.</span>
@@ -615,7 +615,7 @@
 <span class="sd">            regardless of the value of this parameter.</span>
 <span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
 <span class="sd">            response.</span>
-<span class="sd">        :arg refresh: If `true`, Opensearch refreshes the affected</span>
+<span class="sd">        :arg refresh: If `true`, OpenSearch refreshes the affected</span>
 <span class="sd">            shards to make this operation visible to search, if `wait_for` then wait</span>
 <span class="sd">            for a refresh to make this operation visible to search, if `false` do</span>
 <span class="sd">            nothing with refreshes.Valid values: `true`, `false`, `wait_for`.</span>
@@ -765,8 +765,8 @@
 <span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
 <span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
 <span class="sd">        :arg terminate_after: Maximum number of documents to collect for</span>
-<span class="sd">            each shard.If a query reaches this limit, Opensearch terminates the</span>
-<span class="sd">            query early.Opensearch collects documents before sorting.</span>
+<span class="sd">            each shard.If a query reaches this limit, OpenSearch terminates the</span>
+<span class="sd">            query early.OpenSearch collects documents before sorting.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
             <span class="s2">&quot;POST&quot;</span><span class="p">,</span>
@@ -816,7 +816,7 @@
 <span class="sd">            this sequence number.</span>
 <span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
 <span class="sd">            response.</span>
-<span class="sd">        :arg refresh: If `true`, Opensearch refreshes the affected</span>
+<span class="sd">        :arg refresh: If `true`, OpenSearch refreshes the affected</span>
 <span class="sd">            shards to make this operation visible to search, if `wait_for` then wait</span>
 <span class="sd">            for a refresh to make this operation visible to search, if `false` do</span>
 <span class="sd">            nothing with refreshes.Valid values: `true`, `false`, `wait_for`.</span>
@@ -943,7 +943,7 @@
 <span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
 <span class="sd">            response.</span>
 <span class="sd">        :arg q: Query in the Lucene query string syntax.</span>
-<span class="sd">        :arg refresh: If `true`, Opensearch refreshes all shards</span>
+<span class="sd">        :arg refresh: If `true`, OpenSearch refreshes all shards</span>
 <span class="sd">            involved in the delete by query after the request completes.</span>
 <span class="sd">        :arg request_cache: If `true`, the request cache is used for</span>
 <span class="sd">            this request.Defaults to the index-level setting.</span>
@@ -968,10 +968,10 @@
 <span class="sd">        :arg stats: Specific `tag` of the request for logging and</span>
 <span class="sd">            statistical purposes.</span>
 <span class="sd">        :arg terminate_after: Maximum number of documents to collect for</span>
-<span class="sd">            each shard.If a query reaches this limit, Opensearch terminates the</span>
-<span class="sd">            query early.Opensearch collects documents before sorting.Use with</span>
-<span class="sd">            caution.Opensearch applies this parameter to each shard handling the</span>
-<span class="sd">            request.When possible, let Opensearch perform early termination</span>
+<span class="sd">            each shard.If a query reaches this limit, OpenSearch terminates the</span>
+<span class="sd">            query early.OpenSearch collects documents before sorting.Use with</span>
+<span class="sd">            caution.OpenSearch applies this parameter to each shard handling the</span>
+<span class="sd">            request.When possible, let OpenSearch perform early termination</span>
 <span class="sd">            automatically.Avoid specifying this parameter for requests that target</span>
 <span class="sd">            data streams with backing indices across multiple data tiers.</span>
 <span class="sd">        :arg timeout: Period each deletion request waits for active</span>
@@ -1136,7 +1136,7 @@
 <span class="sd">            response.</span>
 <span class="sd">        :arg realtime: If `true`, the request is real-time as opposed to</span>
 <span class="sd">            near-real-time.</span>
-<span class="sd">        :arg refresh: If `true`, Opensearch refreshes all shards</span>
+<span class="sd">        :arg refresh: If `true`, OpenSearch refreshes all shards</span>
 <span class="sd">            involved in the delete by query after the request completes.</span>
 <span class="sd">        :arg routing: Target the specified primary shard.</span>
 <span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
@@ -1208,7 +1208,7 @@
 <span class="sd">            response.</span>
 <span class="sd">        :arg realtime: If true, the request is real-time as opposed to</span>
 <span class="sd">            near-real-time.</span>
-<span class="sd">        :arg refresh: If `true`, Opensearch refreshes all shards</span>
+<span class="sd">        :arg refresh: If `true`, OpenSearch refreshes all shards</span>
 <span class="sd">            involved in the delete by query after the request completes.</span>
 <span class="sd">        :arg routing: Target the specified primary shard.</span>
 <span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
@@ -1422,7 +1422,7 @@
 <span class="sd">            response.</span>
 <span class="sd">        :arg realtime: If `true`, the request is real-time as opposed to</span>
 <span class="sd">            near-real-time.</span>
-<span class="sd">        :arg refresh: If true, Opensearch refreshes the affected shards</span>
+<span class="sd">        :arg refresh: If true, OpenSearch refreshes the affected shards</span>
 <span class="sd">            to make this operation visible to search. If false, do nothing with</span>
 <span class="sd">            refreshes.</span>
 <span class="sd">        :arg routing: Target the specified primary shard.</span>
@@ -1536,7 +1536,7 @@
 <span class="sd">            response.</span>
 <span class="sd">        :arg realtime: Boolean) If true, the request is real-time as</span>
 <span class="sd">            opposed to near-real-time.</span>
-<span class="sd">        :arg refresh: If true, Opensearch refreshes the affected shards</span>
+<span class="sd">        :arg refresh: If true, OpenSearch refreshes the affected shards</span>
 <span class="sd">            to make this operation visible to search. If false, do nothing with</span>
 <span class="sd">            refreshes.</span>
 <span class="sd">        :arg routing: Target the specified primary shard.</span>
@@ -2347,7 +2347,7 @@
 <span class="sd">            targets more than 128 shards;the request targets one or more read-only</span>
 <span class="sd">            index;the primary sort of the query targets an indexed field.</span>
 <span class="sd">        :arg preference: Nodes and shards used for the search.By</span>
-<span class="sd">            default, Opensearch selects from eligible nodes and shards using</span>
+<span class="sd">            default, OpenSearch selects from eligible nodes and shards using</span>
 <span class="sd">            adaptive replica selection, accounting for allocation awareness. Valid</span>
 <span class="sd">            values are:`_only_local` to run the search only on shards on the local</span>
 <span class="sd">            node;`_local` to, if possible, run the search on shards on the local</span>
@@ -2367,7 +2367,7 @@
 <span class="sd">            response.</span>
 <span class="sd">        :arg q: Query in the Lucene query string syntax using query</span>
 <span class="sd">            parameter search.Query parameter searches do not support the full</span>
-<span class="sd">            Opensearch Query DSL but are handy for testing.</span>
+<span class="sd">            OpenSearch Query DSL but are handy for testing.</span>
 <span class="sd">        :arg request_cache: If `true`, the caching of search results is</span>
 <span class="sd">            enabled for requests where `size` is `0`.Defaults to index level</span>
 <span class="sd">            settings.</span>
@@ -2414,10 +2414,10 @@
 <span class="sd">            `suggest_field` and `suggest_text` query string parameters are</span>
 <span class="sd">            specified.</span>
 <span class="sd">        :arg terminate_after: Maximum number of documents to collect for</span>
-<span class="sd">            each shard.If a query reaches this limit, Opensearch terminates the</span>
-<span class="sd">            query early.Opensearch collects documents before sorting.Use with</span>
-<span class="sd">            caution.Opensearch applies this parameter to each shard handling the</span>
-<span class="sd">            request.When possible, let Opensearch perform early termination</span>
+<span class="sd">            each shard.If a query reaches this limit, OpenSearch terminates the</span>
+<span class="sd">            query early.OpenSearch collects documents before sorting.Use with</span>
+<span class="sd">            caution.OpenSearch applies this parameter to each shard handling the</span>
+<span class="sd">            request.When possible, let OpenSearch perform early termination</span>
 <span class="sd">            automatically.Avoid specifying this parameter for requests that target</span>
 <span class="sd">            data streams with backing indices across multiple data tiers.If set to</span>
 <span class="sd">            `0` (default), the query does not terminate early.</span>
@@ -2729,7 +2729,7 @@
 <span class="sd">        :arg lang: The script language. Default is painless.</span>
 <span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
 <span class="sd">            response.</span>
-<span class="sd">        :arg refresh: If &#39;true&#39;, Opensearch refreshes the affected</span>
+<span class="sd">        :arg refresh: If &#39;true&#39;, OpenSearch refreshes the affected</span>
 <span class="sd">            shards to make this operationvisible to search, if &#39;wait_for&#39; then wait</span>
 <span class="sd">            for a refresh to make this operationvisible to search, if &#39;false&#39; do</span>
 <span class="sd">            nothing with refreshes. Valid choices are true, false, wait_for.</span>
@@ -2742,7 +2742,7 @@
 <span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
 <span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
 <span class="sd">        :arg timeout: Period to wait for dynamic mapping updates and</span>
-<span class="sd">            active shards.This guarantees Opensearch waits for at least the timeout</span>
+<span class="sd">            active shards.This guarantees OpenSearch waits for at least the timeout</span>
 <span class="sd">            before failing.The actual wait time could be longer, particularly when</span>
 <span class="sd">            multiple waits occur.</span>
 <span class="sd">        :arg wait_for_active_shards: The number of shard copies that</span>
@@ -2867,7 +2867,7 @@
 <span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
 <span class="sd">            response.</span>
 <span class="sd">        :arg q: Query in the Lucene query string syntax.</span>
-<span class="sd">        :arg refresh: If `true`, Opensearch refreshes affected shards to</span>
+<span class="sd">        :arg refresh: If `true`, OpenSearch refreshes affected shards to</span>
 <span class="sd">            make the operation visible to search.</span>
 <span class="sd">        :arg request_cache: If `true`, the request cache is used for</span>
 <span class="sd">            this request.</span>
@@ -2891,10 +2891,10 @@
 <span class="sd">        :arg stats: Specific `tag` of the request for logging and</span>
 <span class="sd">            statistical purposes.</span>
 <span class="sd">        :arg terminate_after: Maximum number of documents to collect for</span>
-<span class="sd">            each shard.If a query reaches this limit, Opensearch terminates the</span>
-<span class="sd">            query early.Opensearch collects documents before sorting.Use with</span>
-<span class="sd">            caution.Opensearch applies this parameter to each shard handling the</span>
-<span class="sd">            request.When possible, let Opensearch perform early termination</span>
+<span class="sd">            each shard.If a query reaches this limit, OpenSearch terminates the</span>
+<span class="sd">            query early.OpenSearch collects documents before sorting.Use with</span>
+<span class="sd">            caution.OpenSearch applies this parameter to each shard handling the</span>
+<span class="sd">            request.When possible, let OpenSearch perform early termination</span>
 <span class="sd">            automatically.Avoid specifying this parameter for requests that target</span>
 <span class="sd">            data streams with backing indices across multiple data tiers.</span>
 <span class="sd">        :arg timeout: Period each update request waits for the following</span>
