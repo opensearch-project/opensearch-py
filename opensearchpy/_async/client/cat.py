@@ -1249,7 +1249,7 @@ class CatClient(NamespacedClient):
 
         :arg repository: A comma-separated list of snapshot repositories
             used to limit the request. Accepts wildcard expressions. `_all` returns
-            all repositories. If any repository fails during the request, Opensearch
+            all repositories. If any repository fails during the request, OpenSearch
             returns an error.
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.

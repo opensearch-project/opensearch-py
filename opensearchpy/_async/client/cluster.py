@@ -649,14 +649,14 @@ class ClusterClient(NamespacedClient):
         Creates or updates a component template.
 
 
-        :arg name: Name of the component template to create. Opensearch
+        :arg name: Name of the component template to create. OpenSearch
             includes the following built-in component templates: `logs-mappings`;
             'logs-settings`; `metrics-mappings`; `metrics-settings`;`synthetics-
-            mapping`; `synthetics-settings`. Opensearch Agent uses these templates
-            to configure backing indices for its data streams. If you use Opensearch
+            mapping`; `synthetics-settings`. OpenSearch Agent uses these templates
+            to configure backing indices for its data streams. If you use OpenSearch
             Agent and want to overwrite one of these templates, set the `version`
             for your replacement template higher than the current version. If you
-            don’t use Opensearch Agent and want to disable all built-in component
+            don’t use OpenSearch Agent and want to disable all built-in component
             and index templates, set `stack.templates.enabled` to `false` using the
             cluster update settings API.
         :arg body: The template definition
