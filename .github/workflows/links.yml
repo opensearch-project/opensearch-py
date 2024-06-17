@@ -14,8 +14,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - name: Remove symlink
-        run: rm docs/source/README.md
       - name: lychee Link Checker
         id: lychee
         uses: lycheeverse/lychee-action@v1.5.0
@@ -24,6 +22,4 @@ jobs:
           fail: true
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-      - name: Restore symlink
-        if: always()
-        run: ln -s ../../README.md docs/source/README.md
+      
