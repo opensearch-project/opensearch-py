@@ -10,6 +10,7 @@
 
 from __future__ import unicode_literals
 
+import os
 from unittest import TestCase
 
 from opensearchpy.connection.connections import add_connection
@@ -36,7 +37,8 @@ class TestSecurityPlugin(TestCase):
     USER_CONTENT = {"password": "opensearchpy@123", "opendistro_security_roles": []}
 
     def setUp(self) -> None:
-        self.client = get_test_client(verify_certs=False, http_auth=("admin", "admin"))
+        password = os.environ.get("OPENSEARCH_INITIAL_ADMIN_PASSWORD", "admin")
+        self.client = get_test_client(verify_certs=False, http_auth=("admin", password))
         add_connection("default", self.client)
 
     def tearDown(self) -> None:

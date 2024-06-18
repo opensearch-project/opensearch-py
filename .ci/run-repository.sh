@@ -30,7 +30,12 @@ docker build \
 echo -e "\033[1m>>>>> Run [opensearch-project/opensearch-py container] >>>>>>>>>>>>>>>>>>>>>>>>>>>>>\033[0m"
 
 mkdir -p junit
-docker run \
+
+OPENSEARCH_REQUIRED_VERSION="2.12.0"
+# Starting in 2.12.0, security demo configuration script requires an initial admin password
+COMPARE_VERSION=`echo $OPENSEARCH_REQUIRED_VERSION $OPENSEARCH_VERSION | tr ' ' '\n' | sort -V | uniq | head -n 1`
+if [ "$COMPARE_VERSION" != "$OPENSEARCH_REQUIRED_VERSION" ]; then
+  docker run \
   --network=${network_name} \
   --env "STACK_VERSION=${STACK_VERSION}" \
   --env "OPENSEARCH_URL=${opensearch_url}" \
@@ -39,9 +44,26 @@ docker run \
   --env "PYTHON_CONNECTION_CLASS=${PYTHON_CONNECTION_CLASS}" \
   --env "TEST_TYPE=server" \
   --env "TEST_PATTERN=${TEST_PATTERN}" \
+  --env "OPENSEARCH_INITIAL_ADMIN_PASSWORD=admin" \
   --name opensearch-py \
   --rm \
   opensearch-project/opensearch-py \
   python setup.py test
+else
+  docker run \
+  --network=${network_name} \
+  --env "STACK_VERSION=${STACK_VERSION}" \
+  --env "OPENSEARCH_URL=${opensearch_url}" \
+  --env "OPENSEARCH_VERSION=${OPENSEARCH_VERSION}" \
+  --env "TEST_SUITE=${TEST_SUITE}" \
+  --env "PYTHON_CONNECTION_CLASS=${PYTHON_CONNECTION_CLASS}" \
+  --env "TEST_TYPE=server" \
+  --env "TEST_PATTERN=${TEST_PATTERN}" \
+  --env "OPENSEARCH_INITIAL_ADMIN_PASSWORD=myStrongPassword123!" \
+  --name opensearch-py \
+  --rm \
+  opensearch-project/opensearch-py \
+  python setup.py test
+fi
 
 unset TEST_PATTERN

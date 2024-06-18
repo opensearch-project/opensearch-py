@@ -25,6 +25,7 @@
 #  under the License.
 
 
+import os
 from unittest import IsolatedAsyncioTestCase
 
 from opensearchpy._async.helpers.test import get_test_client
@@ -38,8 +39,9 @@ class AsyncOpenSearchTestCase(IsolatedAsyncioTestCase):
         self,
     ) -> None:
         # pylint: disable=invalid-name,missing-function-docstring
+        password = os.environ.get("OPENSEARCH_INITIAL_ADMIN_PASSWORD", "admin")
         self.client = await get_test_client(
-            verify_certs=False, http_auth=("admin", "admin")
+            verify_certs=False, http_auth=("admin", password)
         )
         await add_connection("default", self.client)
 

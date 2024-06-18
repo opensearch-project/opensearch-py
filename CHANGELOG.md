@@ -62,6 +62,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - Enhance generator to update changelog only if generated code differs from existing ([#684](https://github.com/opensearch-project/opensearch-py/pull/684))
 - Added guide for configuring ssl_assert_hostname ([#694](https://github.com/opensearch-project/opensearch-py/pull/694))
 ### Changed
+- Pass in initial admin password in setup and remove default `admin` password ([#631](https://github.com/opensearch-project/opensearch-py/pull/631))
 - Updated the `get_policy` API in the index_management plugin to allow the policy_id argument as optional ([#633](https://github.com/opensearch-project/opensearch-py/pull/633))
 - Updated the `point_in_time.md` guide with examples demonstrating the usage of the new APIs as alternatives to the deprecated ones. ([#661](https://github.com/opensearch-project/opensearch-py/pull/661))
 ### Deprecated
