@@ -16,6 +16,6 @@ Developer Guide <https://github.com/opensearch-project/opensearch-py/blob/main/D
 GitHub Repository <https://github.com/opensearch-project/opensearch-py>
 ```
 
-```{include} README.md
+```{include} ../../README.md
 
 ```
