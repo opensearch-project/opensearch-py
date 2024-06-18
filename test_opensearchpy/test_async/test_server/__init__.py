@@ -39,7 +39,7 @@ class AsyncOpenSearchTestCase(IsolatedAsyncioTestCase):
         self,
     ) -> None:
         # pylint: disable=invalid-name,missing-function-docstring
-        password = os.environ.get("ADMIN_PASSWORD", "admin")
+        password = os.environ.get("OPENSEARCH_INITIAL_ADMIN_PASSWORD", "admin")
         self.client = await get_test_client(
             verify_certs=False, http_auth=("admin", password)
         )

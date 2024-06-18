@@ -28,7 +28,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       OPENSEARCH_URL: 'https://admin:myStrongPassword123!@localhost:9200'
-      ADMIN_PASSWORD: 'myStrongPassword123!'
+      OPENSEARCH_INITIAL_ADMIN_PASSWORD: 'myStrongPassword123!'
     strategy:
       fail-fast: false
       matrix:
