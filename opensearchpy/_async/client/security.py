@@ -2206,7 +2206,7 @@ class SecurityClient(NamespacedClient):
         headers: Any = None,
     ) -> Any:
         """
-        Retrieves the tenant names if any exist. Only accesible to super admins or
+        Retrieves the tenant names if any exist. Only accessible to super admins or
         kibanaserver user.
 
 
