@@ -407,9 +407,7 @@ class CatClient(NamespacedClient):
             "GET", "/_cat/health", params=params, headers=headers
         )
 
-    @query_params(
-        "error_trace", "filter_path", "help", "human", "pretty", "s", "source"
-    )
+    @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def help(
         self,
         params: Any = None,
@@ -423,13 +421,10 @@ class CatClient(NamespacedClient):
             errors.
         :arg filter_path: Comma-separated list of filters used to reduce
             the response.
-        :arg help: Return help information. Default is false.
         :arg human: Whether to return human readable values for
             statistics.
         :arg pretty: Whether to pretty format the returned JSON
             response.
-        :arg s: Comma-separated list of column names or column aliases
-            to sort by.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         """
