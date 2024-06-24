@@ -2115,6 +2115,7 @@ class OpenSearch(Client):
         "analyze_wildcard",
         "analyzer",
         "batched_reduce_size",
+        "cancel_after_time_interval",
         "ccs_minimize_roundtrips",
         "default_operator",
         "df",
@@ -2130,6 +2131,7 @@ class OpenSearch(Client):
         "include_named_queries_score",
         "lenient",
         "max_concurrent_shard_requests",
+        "phase_took",
         "pre_filter_shard_size",
         "preference",
         "pretty",
@@ -2208,6 +2210,9 @@ class OpenSearch(Client):
             used as a protection mechanism to reduce the memory overhead per search
             request if the potential number of shards in the request can be large.
             Default is 512.
+        :arg cancel_after_time_interval: The time after which the search
+            request will be canceled.Request-level parameter takes precedence over
+            `cancel_after_time_interval` cluster setting.
         :arg ccs_minimize_roundtrips: If true, network round-trips
             between the coordinating node and the remote clusters are minimized when
             executing cross-cluster search (CCS) requests. Default is True.
@@ -2253,6 +2258,8 @@ class OpenSearch(Client):
             concurrently.This value should be used to limit the impact of the search
             on the cluster in order to limit the number of concurrent shard
             requests. Default is 5.
+        :arg phase_took: Indicates whether to return phase-level `took`
+            time values in the response. Default is false.
         :arg pre_filter_shard_size: Defines a threshold that enforces a
             pre-filter roundtrip to prefilter search shards based on query rewriting
             if the number of shards the search request expands to exceeds the
