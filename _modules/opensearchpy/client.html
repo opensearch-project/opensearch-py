@@ -2198,6 +2198,7 @@
         <span class="s2">&quot;analyze_wildcard&quot;</span><span class="p">,</span>
         <span class="s2">&quot;analyzer&quot;</span><span class="p">,</span>
         <span class="s2">&quot;batched_reduce_size&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;cancel_after_time_interval&quot;</span><span class="p">,</span>
         <span class="s2">&quot;ccs_minimize_roundtrips&quot;</span><span class="p">,</span>
         <span class="s2">&quot;default_operator&quot;</span><span class="p">,</span>
         <span class="s2">&quot;df&quot;</span><span class="p">,</span>
@@ -2213,6 +2214,7 @@
         <span class="s2">&quot;include_named_queries_score&quot;</span><span class="p">,</span>
         <span class="s2">&quot;lenient&quot;</span><span class="p">,</span>
         <span class="s2">&quot;max_concurrent_shard_requests&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;phase_took&quot;</span><span class="p">,</span>
         <span class="s2">&quot;pre_filter_shard_size&quot;</span><span class="p">,</span>
         <span class="s2">&quot;preference&quot;</span><span class="p">,</span>
         <span class="s2">&quot;pretty&quot;</span><span class="p">,</span>
@@ -2291,6 +2293,9 @@
 <span class="sd">            used as a protection mechanism to reduce the memory overhead per search</span>
 <span class="sd">            request if the potential number of shards in the request can be large.</span>
 <span class="sd">            Default is 512.</span>
+<span class="sd">        :arg cancel_after_time_interval: The time after which the search</span>
+<span class="sd">            request will be canceled.Request-level parameter takes precedence over</span>
+<span class="sd">            `cancel_after_time_interval` cluster setting.</span>
 <span class="sd">        :arg ccs_minimize_roundtrips: If true, network round-trips</span>
 <span class="sd">            between the coordinating node and the remote clusters are minimized when</span>
 <span class="sd">            executing cross-cluster search (CCS) requests. Default is True.</span>
@@ -2336,6 +2341,8 @@
 <span class="sd">            concurrently.This value should be used to limit the impact of the search</span>
 <span class="sd">            on the cluster in order to limit the number of concurrent shard</span>
 <span class="sd">            requests. Default is 5.</span>
+<span class="sd">        :arg phase_took: Indicates whether to return phase-level `took`</span>
+<span class="sd">            time values in the response. Default is false.</span>
 <span class="sd">        :arg pre_filter_shard_size: Defines a threshold that enforces a</span>
 <span class="sd">            pre-filter roundtrip to prefilter search shards based on query rewriting</span>
 <span class="sd">            if the number of shards the search request expands to exceeds the</span>

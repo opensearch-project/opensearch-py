@@ -1998,6 +1998,9 @@ should be reduced at once on the coordinating node.This value should be
 used as a protection mechanism to reduce the memory overhead per search
 request if the potential number of shards in the request can be large.
 Default is 512.</p></li>
+<li><p><strong>cancel_after_time_interval</strong> – The time after which the search
+request will be canceled.Request-level parameter takes precedence over
+<cite>cancel_after_time_interval</cite> cluster setting.</p></li>
 <li><p><strong>ccs_minimize_roundtrips</strong> – If true, network round-trips
 between the coordinating node and the remote clusters are minimized when
 executing cross-cluster search (CCS) requests. Default is True.</p></li>
@@ -2043,6 +2046,8 @@ concurrent shard requests per node this search executes
 concurrently.This value should be used to limit the impact of the search
 on the cluster in order to limit the number of concurrent shard
 requests. Default is 5.</p></li>
+<li><p><strong>phase_took</strong> – Indicates whether to return phase-level <cite>took</cite>
+time values in the response. Default is false.</p></li>
 <li><p><strong>pre_filter_shard_size</strong> – Defines a threshold that enforces a
 pre-filter roundtrip to prefilter search shards based on query rewriting
 if the number of shards the search request expands to exceeds the
