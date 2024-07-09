@@ -431,6 +431,7 @@ class Search(Request):
         s._highlight_opts = self._highlight_opts.copy()
         s._suggest = self._suggest.copy()
         s._script_fields = self._script_fields.copy()
+        s._collapse = self._collapse.copy()
         for x in ("query", "post_filter"):
             getattr(s, x)._proxied = getattr(self, x)._proxied
 
