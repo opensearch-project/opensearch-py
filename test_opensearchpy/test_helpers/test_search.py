@@ -623,12 +623,18 @@ def test_rescore_query_to_dict() -> None:
         },
     }
 
+
 def test_collapse_chaining() -> None:
     s = search.Search(index="index_name")
     s = s.filter("term", color="red")
     s = s.collapse(field="category")
     s = s.filter("term", brand="something")
 
-    assert {'query': {'bool': {'filter': [{'term': {'color': 'red'}},
-                                          {'term': {'brand': 'something'}}]}},
-            'collapse': {'field': 'category'}} == s.to_dict()
+    assert {
+        "query": {
+            "bool": {
+                "filter": [{"term": {"color": "red"}}, {"term": {"brand": "something"}}]
+            }
+        },
+        "collapse": {"field": "category"},
+    } == s.to_dict()
