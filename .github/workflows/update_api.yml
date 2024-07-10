@@ -21,6 +21,8 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: 3.8
+        env:
+          COMPOSER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Install dependencies
         run: |
           python3.8 -m pip install nox
