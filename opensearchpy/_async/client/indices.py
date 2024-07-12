@@ -749,8 +749,8 @@ class IndicesClient(NamespacedClient):
 
 
         :arg index: Comma-separated list of data streams, indices, and
-            aliases used to limit the request. Supports wildcards (`*`). To target
-            all data streams and indices, omit this parameter or use `*` or `_all`.
+            aliases used to limit the request.Supports wildcards (`*`).To target all
+            data streams and indices, omit this parameter or use `*` or `_all`.
         :arg allow_no_indices: If `false`, the request returns an error
             if any wildcard expression, index alias, or `_all` value targets only
             missing or closed indices.This behavior applies even if the request
@@ -874,7 +874,7 @@ class IndicesClient(NamespacedClient):
         :arg index: Comma-separated list of data streams or indices to
             add. Supports wildcards (`*`). Wildcard patterns that match both data
             streams and indices return an error.
-        :arg name: Alias to update. If the alias doesn’t exist, the
+        :arg name: Alias to update. If the alias doesn't exist, the
             request creates it. Index alias names support date math.
         :arg body: The settings for the alias, such as `routing` or
             `filter`
@@ -1693,6 +1693,7 @@ class IndicesClient(NamespacedClient):
         "expand_wildcards",
         "fielddata",
         "fields",
+        "file",
         "filter_path",
         "human",
         "ignore_unavailable",
@@ -1728,6 +1729,8 @@ class IndicesClient(NamespacedClient):
             `fields` parameter to clear the cache of specific fields only.
         :arg fields: Comma-separated list of field names used to limit
             the `fielddata` parameter.
+        :arg file: If true, clears the unused entries from the file
+            cache on nodes with the Search role. Default is false.
         :arg filter_path: Comma-separated list of filters used to reduce
             the response.
         :arg human: Whether to return human readable values for
