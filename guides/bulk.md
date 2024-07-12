@@ -30,7 +30,7 @@ response = client.bulk(docs)
 if response["errors"]:
     print(f"There were errors!")
 else:
-    print(f"Bulk-inserted {len(rc['items'])} items.")
+    print(f"Bulk-inserted {len(response['items'])} items.")
 ```
 
 The client can also serialize an array of data into bulk-delimited JSON for you. See [samples/bulk/bulk_array.py](../samples/bulk/bulk_array.py) for a working sample.
@@ -51,7 +51,7 @@ if response["errors"]:
     for item in response["items"]:
         print(f"{item['index']['status']}: {item['index']['error']['type']}")
 else:
-    print(f"Bulk-inserted {len(rc['items'])} items.")
+    print(f"Bulk-inserted {len(response['items'])} items.")
 ```
 
 ## Bulk Helper
