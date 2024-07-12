@@ -339,9 +339,9 @@ class AsyncOpenSearch(Client):
 
 
         :arg index: Name of the data stream or index to target. If the
-            target doesn’t exist and matches the name or wildcard (`*`) pattern of
+            target doesn't exist and matches the name or wildcard (`*`) pattern of
             an index template with a `data_stream` definition, this request creates
-            the data stream. If the target doesn’t exist and doesn’t match a data
+            the data stream. If the target doesn't exist and doesn't match a data
             stream template, this request creates the index.
         :arg id: Unique identifier for the document.
         :arg body: The document
@@ -536,7 +536,7 @@ class AsyncOpenSearch(Client):
             shards to make this operation visible to search, if `wait_for` then wait
             for a refresh to make this operation visible to search, if `false` do
             nothing with refreshes.Valid values: `true`, `false`, `wait_for`.
-        :arg require_alias: If `true`, the request’s actions must target
+        :arg require_alias: If `true`, the request's actions must target
             an index alias. Default is false.
         :arg routing: Custom value used to route operations to a
             specific shard.
@@ -1934,7 +1934,7 @@ class AsyncOpenSearch(Client):
         :arg scroll: Specifies how long a consistent view of the index
             should be maintained for scrolled search.
         :arg slices: The number of slices this task should be divided
-            into.Defaults to 1 slice, meaning the task isn’t sliced into subtasks.
+            into.Defaults to 1 slice, meaning the task isn't sliced into subtasks.
             Valid choices are auto.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
@@ -2087,9 +2087,9 @@ class AsyncOpenSearch(Client):
             statistics.
         :arg pretty: Whether to pretty format the returned JSON
             response.
-        :arg rest_total_hits_as_int: If true, the API response’s
+        :arg rest_total_hits_as_int: If true, the API response's
             hit.total property is returned as an integer. If false, the API
-            response’s hit.total property is returned as an object. Default is
+            response's hit.total property is returned as an object. Default is
             false.
         :arg scroll: Period to retain the search context for scrolling.
         :arg source: The URL-encoded request definition. Useful for

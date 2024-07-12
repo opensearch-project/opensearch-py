@@ -204,7 +204,7 @@ class IngestClient(NamespacedClient):
 
 
         :arg body: The simulate definition
-        :arg id: Pipeline to test. If you don’t specify a `pipeline` in
+        :arg id: Pipeline to test. If you don't specify a `pipeline` in
             the request body, this parameter is required.
         :arg error_trace: Whether to include the stack trace of returned
             errors.

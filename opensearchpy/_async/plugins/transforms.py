@@ -219,16 +219,16 @@ class TransformsClient(NamespacedClient):
             errors.
         :arg filter_path: Comma-separated list of filters used to reduce
             the response.
-        :arg from_: The starting transform to return. Default is 0.
+        :arg from_: The starting transform to return. Default is `0`.
         :arg human: Whether to return human readable values for
             statistics.
         :arg pretty: Whether to pretty format the returned JSON
             response.
         :arg search: The search term to use to filter results.
         :arg size: Specifies the number of transforms to return. Default
-            is 10.
+            is `10`.
         :arg sortDirection: Specifies the direction to sort results in.
-            Can be ASC or DESC. Default is ASC.
+            Can be `ASC` or `DESC`. Default is `ASC`.
         :arg sortField: The field to sort results with.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.

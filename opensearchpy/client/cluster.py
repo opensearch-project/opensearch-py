@@ -288,7 +288,7 @@ class ClusterClient(NamespacedClient):
         :arg timeout: Period to wait for each node to respond.If a node
             does not respond before its timeout expires, the response does not
             include its stats.However, timed out nodes are included in the
-            response’s `_nodes.failed` property. Defaults to no timeout.
+            response's `_nodes.failed` property. Defaults to no timeout.
         """
         return self.transport.perform_request(
             "GET",
@@ -656,7 +656,7 @@ class ClusterClient(NamespacedClient):
             to configure backing indices for its data streams. If you use OpenSearch
             Agent and want to overwrite one of these templates, set the `version`
             for your replacement template higher than the current version. If you
-            don’t use OpenSearch Agent and want to disable all built-in component
+            don't use OpenSearch Agent and want to disable all built-in component
             and index templates, set `stack.templates.enabled` to `false` using the
             cluster update settings API.
         :arg body: The template definition
