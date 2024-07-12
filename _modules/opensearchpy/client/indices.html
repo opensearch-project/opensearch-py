@@ -833,8 +833,8 @@
 
 
 <span class="sd">        :arg index: Comma-separated list of data streams, indices, and</span>
-<span class="sd">            aliases used to limit the request. Supports wildcards (`*`). To target</span>
-<span class="sd">            all data streams and indices, omit this parameter or use `*` or `_all`.</span>
+<span class="sd">            aliases used to limit the request.Supports wildcards (`*`).To target all</span>
+<span class="sd">            data streams and indices, omit this parameter or use `*` or `_all`.</span>
 <span class="sd">        :arg allow_no_indices: If `false`, the request returns an error</span>
 <span class="sd">            if any wildcard expression, index alias, or `_all` value targets only</span>
 <span class="sd">            missing or closed indices.This behavior applies even if the request</span>
@@ -958,7 +958,7 @@
 <span class="sd">        :arg index: Comma-separated list of data streams or indices to</span>
 <span class="sd">            add. Supports wildcards (`*`). Wildcard patterns that match both data</span>
 <span class="sd">            streams and indices return an error.</span>
-<span class="sd">        :arg name: Alias to update. If the alias doesn’t exist, the</span>
+<span class="sd">        :arg name: Alias to update. If the alias doesn&#39;t exist, the</span>
 <span class="sd">            request creates it. Index alias names support date math.</span>
 <span class="sd">        :arg body: The settings for the alias, such as `routing` or</span>
 <span class="sd">            `filter`</span>
@@ -1777,6 +1777,7 @@
         <span class="s2">&quot;expand_wildcards&quot;</span><span class="p">,</span>
         <span class="s2">&quot;fielddata&quot;</span><span class="p">,</span>
         <span class="s2">&quot;fields&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;file&quot;</span><span class="p">,</span>
         <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span>
         <span class="s2">&quot;human&quot;</span><span class="p">,</span>
         <span class="s2">&quot;ignore_unavailable&quot;</span><span class="p">,</span>
@@ -1812,6 +1813,8 @@
 <span class="sd">            `fields` parameter to clear the cache of specific fields only.</span>
 <span class="sd">        :arg fields: Comma-separated list of field names used to limit</span>
 <span class="sd">            the `fielddata` parameter.</span>
+<span class="sd">        :arg file: If true, clears the unused entries from the file</span>
+<span class="sd">            cache on nodes with the Search role. Default is false.</span>
 <span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
 <span class="sd">            the response.</span>
 <span class="sd">        :arg human: Whether to return human readable values for</span>

@@ -372,7 +372,7 @@
 <span class="sd">        :arg timeout: Period to wait for each node to respond.If a node</span>
 <span class="sd">            does not respond before its timeout expires, the response does not</span>
 <span class="sd">            include its stats.However, timed out nodes are included in the</span>
-<span class="sd">            response’s `_nodes.failed` property. Defaults to no timeout.</span>
+<span class="sd">            response&#39;s `_nodes.failed` property. Defaults to no timeout.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
             <span class="s2">&quot;GET&quot;</span><span class="p">,</span>
@@ -740,7 +740,7 @@
 <span class="sd">            to configure backing indices for its data streams. If you use OpenSearch</span>
 <span class="sd">            Agent and want to overwrite one of these templates, set the `version`</span>
 <span class="sd">            for your replacement template higher than the current version. If you</span>
-<span class="sd">            don’t use OpenSearch Agent and want to disable all built-in component</span>
+<span class="sd">            don&#39;t use OpenSearch Agent and want to disable all built-in component</span>
 <span class="sd">            and index templates, set `stack.templates.enabled` to `false` using the</span>
 <span class="sd">            cluster update settings API.</span>
 <span class="sd">        :arg body: The template definition</span>
