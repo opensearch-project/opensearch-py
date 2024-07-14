@@ -37,11 +37,11 @@ The client can also serialize an array of data into bulk-delimited JSON for you.
 
 ```python
 data = [
-    { "index": { "_index": "index-2022-06-08", "_id": 1 }}
-    { "name": "foo"} 
-    { "index": { "_index": "index-2022-06-09", "_id": 2 }}
-    { "name": "bar"}
-    { "index": { "_index": "index-2022-06-10", "_id": 3 }}
+    { "index": { "_index": "index-2022-06-08", "_id": 1 }},
+    { "name": "foo"}, 
+    { "index": { "_index": "index-2022-06-09", "_id": 2 }},
+    { "name": "bar"},
+    { "index": { "_index": "index-2022-06-10", "_id": 3 }},
     { "name": "baz"}
 ]
 
@@ -64,9 +64,9 @@ from opensearchpy import OpenSearch, helpers
 client = OpenSearch(...)
 
 docs = [
-    { "_index": "words", "_id": "word1", word: "foo" },
-    { "_index": "words", "_id": "word2", word: "bar" },
-    { "_index": "words", "_id": "word3", word: "baz" },
+    { "_index": "words", "_id": "word1", "word": "foo" },
+    { "_index": "words", "_id": "word2", "word": "bar" },
+    { "_index": "words", "_id": "word3", "word": "baz" },
 ]
 
 response = helpers.bulk(client, docs, max_retries=3)
