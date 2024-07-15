@@ -348,7 +348,7 @@ class IndicesClient(NamespacedClient):
             can match. If the request can target data streams, this
             argumentdetermines whether wildcard expressions match hidden data
             streams. Supports comma-separated values,such as open,hidden. Valid
-            choices are all, open, closed, hidden, none.
+            choices are all, closed, hidden, none, open.
         :arg filter_path: Comma-separated list of filters used to reduce
             the response.
         :arg flat_settings: If true, returns settings in flat format.
@@ -1377,8 +1377,8 @@ class IndicesClient(NamespacedClient):
         :arg expand_wildcards: Type of index that wildcard patterns can
             match.If the request can target data streams, this argument determines
             whether wildcard expressions match hidden data streams.Supports comma-
-            separated values, such as `open,hidden`. Valid choices are all, open,
-            closed, hidden, none.
+            separated values, such as `open,hidden`. Valid choices are all, closed,
+            hidden, none, open.
         :arg filter_path: Comma-separated list of filters used to reduce
             the response.
         :arg flat_settings: If `true`, returns settings in flat format.
@@ -1447,8 +1447,8 @@ class IndicesClient(NamespacedClient):
         :arg expand_wildcards: Type of index that wildcard patterns can
             match. If the request can targetdata streams, this argument determines
             whether wildcard expressions matchhidden data streams. Supports comma-
-            separated values, such as`open,hidden`. Valid choices are all, open,
-            closed, hidden, none.
+            separated values, such as`open,hidden`. Valid choices are all, closed,
+            hidden, none, open.
         :arg filter_path: Comma-separated list of filters used to reduce
             the response.
         :arg flat_settings: If `true`, returns settings in flat format.
@@ -1520,8 +1520,8 @@ class IndicesClient(NamespacedClient):
         :arg expand_wildcards: Type of index that wildcard patterns can
             match. If the request can target data streams, this argumentdetermines
             whether wildcard expressions match hidden data streams. Supports comma-
-            separated values,such as `open,hidden`. Valid choices are all, open,
-            closed, hidden, none.
+            separated values,such as `open,hidden`. Valid choices are all, closed,
+            hidden, none, open.
         :arg fielddata_fields: Comma-separated list or wildcard
             expressions of fields to include in fielddata statistics.
         :arg fields: Comma-separated list or wildcard expressions of
@@ -1820,7 +1820,7 @@ class IndicesClient(NamespacedClient):
             errors.
         :arg expand_wildcards: Whether to expand wildcard expression to
             concrete indices that are open, closed or both. Valid choices are all,
-            open, closed, hidden, none.
+            closed, hidden, none, open.
         :arg filter_path: Comma-separated list of filters used to reduce
             the response.
         :arg human: Whether to return human readable values for
@@ -1869,7 +1869,7 @@ class IndicesClient(NamespacedClient):
             errors.
         :arg expand_wildcards: Whether to expand wildcard expression to
             concrete indices that are open, closed or both. Valid choices are all,
-            open, closed, hidden, none.
+            closed, hidden, none, open.
         :arg filter_path: Comma-separated list of filters used to reduce
             the response.
         :arg human: Whether to return human readable values for
@@ -1917,7 +1917,7 @@ class IndicesClient(NamespacedClient):
         :arg expand_wildcards: Type of index that wildcard patterns can
             match. If the request can target data streams,this argument determines
             whether wildcard expressions match hidden data streams. Valid choices
-            are all, open, closed, hidden, none.
+            are all, closed, hidden, none, open.
         :arg filter_path: Comma-separated list of filters used to reduce
             the response.
         :arg human: Whether to return human readable values for
@@ -1969,7 +1969,7 @@ class IndicesClient(NamespacedClient):
             errors.
         :arg expand_wildcards: Whether to expand wildcard expression to
             concrete indices that are open, closed or both. Valid choices are all,
-            open, closed, hidden, none.
+            closed, hidden, none, open.
         :arg filter_path: Comma-separated list of filters used to reduce
             the response.
         :arg flush: Specify whether the index should be flushed after
@@ -2712,7 +2712,7 @@ class IndicesClient(NamespacedClient):
             errors.
         :arg expand_wildcards: Whether to expand wildcard expression to
             concrete indices that are open, closed or both. Valid choices are all,
-            open, closed, hidden, none.
+            closed, hidden, none, open.
         :arg filter_path: Comma-separated list of filters used to reduce
             the response.
         :arg human: Whether to return human readable values for

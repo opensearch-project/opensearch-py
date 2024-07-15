@@ -212,8 +212,8 @@ class NotificationsClient(NamespacedClient):
 
 
         :arg config_type: Type of notification configuration. Valid
-            choices are slack, chime, microsoft_teams, webhook, email, sns,
-            ses_account, smtp_account, email_group.
+            choices are chime, email, email_group, microsoft_teams, ses_account,
+            slack, smtp_account, sns, webhook.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
         :arg filter_path: Comma-separated list of filters used to reduce

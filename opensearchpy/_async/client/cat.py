@@ -72,7 +72,7 @@ class CatClient(NamespacedClient):
             errors.
         :arg expand_wildcards: Whether to expand wildcard expression to
             concrete indices that are open, closed or both. Valid choices are all,
-            open, closed, hidden, none.
+            closed, hidden, none, open.
         :arg filter_path: Comma-separated list of filters used to reduce
             the response.
         :arg format: A short version of the Accept header, e.g. json,
@@ -118,7 +118,7 @@ class CatClient(NamespacedClient):
 
 
         :arg bytes: The unit in which to display byte values. Valid
-            choices are b, k, kb, m, mb, g, gb, t, tb, p, pb.
+            choices are b, g, gb, k, kb, m, mb, p, pb, t, tb.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
         :arg filter_path: Comma-separated list of filters used to reduce
@@ -171,7 +171,7 @@ class CatClient(NamespacedClient):
         :arg node_id: Comma-separated list of node identifiers or names
             used to limit the returned information.
         :arg bytes: The unit used to display byte values. Valid choices
-            are b, k, kb, m, mb, g, gb, t, tb, p, pb.
+            are b, g, gb, k, kb, m, mb, p, pb, t, tb.
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
         :arg error_trace: Whether to include the stack trace of returned
@@ -332,7 +332,7 @@ class CatClient(NamespacedClient):
         :arg fields: Comma-separated list of fields used to limit
             returned information.
         :arg bytes: The unit used to display byte values. Valid choices
-            are b, k, kb, m, mb, g, gb, t, tb, p, pb.
+            are b, g, gb, k, kb, m, mb, p, pb, t, tb.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
         :arg filter_path: Comma-separated list of filters used to reduce
@@ -398,7 +398,7 @@ class CatClient(NamespacedClient):
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         :arg time: The unit used to display time values. Valid choices
-            are nanos, micros, ms, s, m, h, d.
+            are d, h, m, micros, ms, nanos, s.
         :arg ts: If true, returns `HH:MM:SS` and Unix epoch timestamps.
             Default is True.
         :arg v: Verbose mode. Display column headers. Default is false.
@@ -468,13 +468,13 @@ class CatClient(NamespacedClient):
             aliases used to limit the request. Supports wildcards (`*`). To target
             all data streams and indices, omit this parameter or use `*` or `_all`.
         :arg bytes: The unit used to display byte values. Valid choices
-            are b, k, kb, m, mb, g, gb, t, tb, p, pb.
+            are b, g, gb, k, kb, m, mb, p, pb, t, tb.
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
         :arg expand_wildcards: The type of index that wildcard patterns
-            can match. Valid choices are all, open, closed, hidden, none.
+            can match. Valid choices are all, closed, hidden, none, open.
         :arg filter_path: Comma-separated list of filters used to reduce
             the response.
         :arg format: A short version of the Accept header, e.g. json,
@@ -482,7 +482,7 @@ class CatClient(NamespacedClient):
         :arg h: Comma-separated list of column names to display.
         :arg health: The health status used to limit returned indices.
             By default, the response includes indices of any health status. Valid
-            choices are green, yellow, red.
+            choices are green, red, yellow.
         :arg help: Return help information. Default is false.
         :arg human: Whether to return human readable values for
             statistics.
@@ -503,7 +503,7 @@ class CatClient(NamespacedClient):
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         :arg time: The unit used to display time values. Valid choices
-            are nanos, micros, ms, s, m, h, d.
+            are d, h, m, micros, ms, nanos, s.
         :arg v: Verbose mode. Display column headers. Default is false.
         """
         return await self.transport.perform_request(
@@ -649,7 +649,7 @@ class CatClient(NamespacedClient):
 
 
         :arg bytes: The unit used to display byte values. Valid choices
-            are b, k, kb, m, mb, g, gb, t, tb, p, pb.
+            are b, g, gb, k, kb, m, mb, p, pb, t, tb.
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
         :arg error_trace: Whether to include the stack trace of returned
@@ -677,7 +677,7 @@ class CatClient(NamespacedClient):
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         :arg time: The unit in which to display time values. Valid
-            choices are nanos, micros, ms, s, m, h, d.
+            choices are d, h, m, micros, ms, nanos, s.
         :arg v: Verbose mode. Display column headers. Default is false.
         """
         return await self.transport.perform_request(
@@ -733,7 +733,7 @@ class CatClient(NamespacedClient):
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         :arg time: The unit in which to display time values. Valid
-            choices are nanos, micros, ms, s, m, h, d.
+            choices are d, h, m, micros, ms, nanos, s.
         :arg v: Verbose mode. Display column headers. Default is false.
         """
         return await self.transport.perform_request(
@@ -764,7 +764,7 @@ class CatClient(NamespacedClient):
 
 
         :arg bytes: The unit in which to display byte values. Valid
-            choices are b, k, kb, m, mb, g, gb, t, tb, p, pb.
+            choices are b, g, gb, k, kb, m, mb, p, pb, t, tb.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
         :arg filter_path: Comma-separated list of filters used to reduce
@@ -871,7 +871,7 @@ class CatClient(NamespacedClient):
         :arg active_only: If `true`, the response only includes ongoing
             shard recoveries. Default is false.
         :arg bytes: The unit used to display byte values. Valid choices
-            are b, k, kb, m, mb, g, gb, t, tb, p, pb.
+            are b, g, gb, k, kb, m, mb, p, pb, t, tb.
         :arg detailed: If `true`, the response includes detailed
             information about shard recoveries. Default is false.
         :arg error_trace: Whether to include the stack trace of returned
@@ -891,7 +891,7 @@ class CatClient(NamespacedClient):
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         :arg time: The unit in which to display time values. Valid
-            choices are nanos, micros, ms, s, m, h, d.
+            choices are d, h, m, micros, ms, nanos, s.
         :arg v: Verbose mode. Display column headers. Default is false.
         """
         return await self.transport.perform_request(
@@ -993,7 +993,7 @@ class CatClient(NamespacedClient):
             expression resolves into no concrete indices. (This includes `_all`
             string or when no indices have been specified).
         :arg bytes: The unit in which to display byte values. Valid
-            choices are b, k, kb, m, mb, g, gb, t, tb, p, pb.
+            choices are b, g, gb, k, kb, m, mb, p, pb, t, tb.
         :arg completed_only: If `true`, the response only includes
             latest completed segment replication events. Default is false.
         :arg detailed: If `true`, the response includes detailed
@@ -1002,7 +1002,7 @@ class CatClient(NamespacedClient):
             errors.
         :arg expand_wildcards: Whether to expand wildcard expression to
             concrete indices that are open, closed or both. Valid choices are all,
-            open, closed, hidden, none.
+            closed, hidden, none, open.
         :arg filter_path: Comma-separated list of filters used to reduce
             the response.
         :arg format: A short version of the Accept header, e.g. json,
@@ -1023,7 +1023,7 @@ class CatClient(NamespacedClient):
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         :arg time: The unit in which to display time values. Valid
-            choices are nanos, micros, ms, s, m, h, d.
+            choices are d, h, m, micros, ms, nanos, s.
         :arg timeout: Operation timeout.
         :arg v: Verbose mode. Display column headers. Default is false.
         """
@@ -1063,7 +1063,7 @@ class CatClient(NamespacedClient):
             aliases used to limit the request. Supports wildcards (`*`). To target
             all data streams and indices, omit this parameter or use `*` or `_all`.
         :arg bytes: The unit used to display byte values. Valid choices
-            are b, k, kb, m, mb, g, gb, t, tb, p, pb.
+            are b, g, gb, k, kb, m, mb, p, pb, t, tb.
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
         :arg error_trace: Whether to include the stack trace of returned
@@ -1122,7 +1122,7 @@ class CatClient(NamespacedClient):
             aliases used to limit the request. Supports wildcards (`*`). To target
             all data streams and indices, omit this parameter or use `*` or `_all`.
         :arg bytes: The unit used to display byte values. Valid choices
-            are b, k, kb, m, mb, g, gb, t, tb, p, pb.
+            are b, g, gb, k, kb, m, mb, p, pb, t, tb.
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
         :arg error_trace: Whether to include the stack trace of returned
@@ -1147,7 +1147,7 @@ class CatClient(NamespacedClient):
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         :arg time: The unit in which to display time values. Valid
-            choices are nanos, micros, ms, s, m, h, d.
+            choices are d, h, m, micros, ms, nanos, s.
         :arg v: Verbose mode. Display column headers. Default is false.
         """
         return await self.transport.perform_request(
@@ -1270,7 +1270,7 @@ class CatClient(NamespacedClient):
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         :arg time: The unit in which to display time values. Valid
-            choices are nanos, micros, ms, s, m, h, d.
+            choices are d, h, m, micros, ms, nanos, s.
         :arg v: Verbose mode. Display column headers. Default is false.
         """
         return await self.transport.perform_request(
@@ -1334,7 +1334,7 @@ class CatClient(NamespacedClient):
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         :arg time: The unit in which to display time values. Valid
-            choices are nanos, micros, ms, s, m, h, d.
+            choices are d, h, m, micros, ms, nanos, s.
         :arg v: Verbose mode. Display column headers. Default is false.
         """
         return await self.transport.perform_request(
