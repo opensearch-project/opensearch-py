@@ -456,8 +456,8 @@
 <span class="sd">            control.The specified version must match the current version of the</span>
 <span class="sd">            document for the request to succeed.</span>
 <span class="sd">        :arg version_type: Specific version type: `external`,</span>
-<span class="sd">            `external_gte`. Valid choices are internal, external, external_gte,</span>
-<span class="sd">            force.</span>
+<span class="sd">            `external_gte`. Valid choices are external, external_gte, force,</span>
+<span class="sd">            internal.</span>
 <span class="sd">        :arg wait_for_active_shards: The number of shard copies that</span>
 <span class="sd">            must be active before proceeding with the operation.Set to `all` or any</span>
 <span class="sd">            positive integer up to the total number of shards in the index</span>
@@ -546,8 +546,8 @@
 <span class="sd">            control.The specified version must match the current version of the</span>
 <span class="sd">            document for the request to succeed.</span>
 <span class="sd">        :arg version_type: Specific version type: `external`,</span>
-<span class="sd">            `external_gte`. Valid choices are internal, external, external_gte,</span>
-<span class="sd">            force.</span>
+<span class="sd">            `external_gte`. Valid choices are external, external_gte, force,</span>
+<span class="sd">            internal.</span>
 <span class="sd">        :arg wait_for_active_shards: The number of shard copies that</span>
 <span class="sd">            must be active before proceeding with the operation.Set to all or any</span>
 <span class="sd">            positive integer up to the total number of shards in the index</span>
@@ -741,8 +741,8 @@
 <span class="sd">        :arg expand_wildcards: Type of index that wildcard patterns can</span>
 <span class="sd">            match.If the request can target data streams, this argument determines</span>
 <span class="sd">            whether wildcard expressions match hidden data streams.Supports comma-</span>
-<span class="sd">            separated values, such as `open,hidden`. Valid choices are all, open,</span>
-<span class="sd">            closed, hidden, none.</span>
+<span class="sd">            separated values, such as `open,hidden`. Valid choices are all, closed,</span>
+<span class="sd">            hidden, none, open.</span>
 <span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
 <span class="sd">            the response.</span>
 <span class="sd">        :arg human: Whether to return human readable values for</span>
@@ -829,8 +829,8 @@
 <span class="sd">            control.The specified version must match the current version of the</span>
 <span class="sd">            document for the request to succeed.</span>
 <span class="sd">        :arg version_type: Specific version type: `external`,</span>
-<span class="sd">            `external_gte`. Valid choices are internal, external, external_gte,</span>
-<span class="sd">            force.</span>
+<span class="sd">            `external_gte`. Valid choices are external, external_gte, force,</span>
+<span class="sd">            internal.</span>
 <span class="sd">        :arg wait_for_active_shards: The number of shard copies that</span>
 <span class="sd">            must be active before proceeding with the operation.Set to `all` or any</span>
 <span class="sd">            positive integer up to the total number of shards in the index</span>
@@ -958,7 +958,7 @@
 <span class="sd">            request.Defaults to no timeout.</span>
 <span class="sd">        :arg search_type: The type of the search operation.Available</span>
 <span class="sd">            options: `query_then_fetch`, `dfs_query_then_fetch`. Valid choices are</span>
-<span class="sd">            query_then_fetch, dfs_query_then_fetch.</span>
+<span class="sd">            dfs_query_then_fetch, query_then_fetch.</span>
 <span class="sd">        :arg size: Deprecated, please use `max_docs` instead.</span>
 <span class="sd">        :arg slices: The number of slices this task should be divided</span>
 <span class="sd">            into. Valid choices are auto.</span>
@@ -1149,8 +1149,8 @@
 <span class="sd">            control.The specified version must match the current version of the</span>
 <span class="sd">            document for the request to succeed.</span>
 <span class="sd">        :arg version_type: Specific version type: `external`,</span>
-<span class="sd">            `external_gte`. Valid choices are internal, external, external_gte,</span>
-<span class="sd">            force.</span>
+<span class="sd">            `external_gte`. Valid choices are external, external_gte, force,</span>
+<span class="sd">            internal.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="nb">id</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
@@ -1217,8 +1217,8 @@
 <span class="sd">            control.The specified version must match the current version of the</span>
 <span class="sd">            document for the request to succeed.</span>
 <span class="sd">        :arg version_type: Specific version type: `external`,</span>
-<span class="sd">            `external_gte`. Valid choices are internal, external, external_gte,</span>
-<span class="sd">            force.</span>
+<span class="sd">            `external_gte`. Valid choices are external, external_gte, force,</span>
+<span class="sd">            internal.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="nb">id</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
@@ -1349,8 +1349,8 @@
 <span class="sd">        :arg expand_wildcards: Type of index that wildcard patterns can</span>
 <span class="sd">            match. If the request can target data streams, this argument determines</span>
 <span class="sd">            whether wildcard expressions match hidden data streams. Supports comma-</span>
-<span class="sd">            separated values, such as `open,hidden`. Valid choices are all, open,</span>
-<span class="sd">            closed, hidden, none.</span>
+<span class="sd">            separated values, such as `open,hidden`. Valid choices are all, closed,</span>
+<span class="sd">            hidden, none, open.</span>
 <span class="sd">        :arg fields: Comma-separated list of fields to retrieve</span>
 <span class="sd">            capabilities for. Wildcard (`*`) expressions are supported.</span>
 <span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
@@ -1436,7 +1436,7 @@
 <span class="sd">            The specified version must match the current version of the document for</span>
 <span class="sd">            the request to succeed.</span>
 <span class="sd">        :arg version_type: Specific version type: internal, external,</span>
-<span class="sd">            external_gte. Valid choices are internal, external, external_gte, force.</span>
+<span class="sd">            external_gte. Valid choices are external, external_gte, force, internal.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="nb">id</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
@@ -1546,7 +1546,7 @@
 <span class="sd">            The specified version must match the current version of the document for</span>
 <span class="sd">            the request to succeed.</span>
 <span class="sd">        :arg version_type: Specific version type: internal, external,</span>
-<span class="sd">            external_gte. Valid choices are internal, external, external_gte, force.</span>
+<span class="sd">            external_gte. Valid choices are external, external_gte, force, internal.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="nb">id</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
@@ -1689,7 +1689,7 @@
 <span class="sd">            Default is false.</span>
 <span class="sd">        :arg search_type: Indicates whether global term and document</span>
 <span class="sd">            frequencies should be used when scoring returned documents. Valid</span>
-<span class="sd">            choices are query_then_fetch, dfs_query_then_fetch.</span>
+<span class="sd">            choices are dfs_query_then_fetch, query_then_fetch.</span>
 <span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
 <span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
 <span class="sd">        :arg typed_keys: Specifies whether aggregation and suggester</span>
@@ -1752,7 +1752,7 @@
 <span class="sd">            object. Default is false.</span>
 <span class="sd">        :arg search_type: The type of the search operation.Available</span>
 <span class="sd">            options: `query_then_fetch`, `dfs_query_then_fetch`. Valid choices are</span>
-<span class="sd">            query_then_fetch, dfs_query_then_fetch.</span>
+<span class="sd">            dfs_query_then_fetch, query_then_fetch.</span>
 <span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
 <span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
 <span class="sd">        :arg typed_keys: If `true`, the response prefixes aggregation</span>
@@ -1840,7 +1840,7 @@
 <span class="sd">        :arg version: If `true`, returns the document version as part of</span>
 <span class="sd">            a hit.</span>
 <span class="sd">        :arg version_type: Specific version type. Valid choices are</span>
-<span class="sd">            internal, external, external_gte, force.</span>
+<span class="sd">            external, external_gte, force, internal.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">path</span> <span class="o">=</span> <span class="n">_make_path</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="s2">&quot;_mtermvectors&quot;</span><span class="p">)</span>
 
@@ -1947,7 +1947,7 @@
 <span class="sd">            errors.</span>
 <span class="sd">        :arg expand_wildcards: Whether to expand wildcard expression to</span>
 <span class="sd">            concrete indices that are open, closed or both. Valid choices are all,</span>
-<span class="sd">            open, closed, hidden, none.</span>
+<span class="sd">            closed, hidden, none, open.</span>
 <span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
 <span class="sd">            the response.</span>
 <span class="sd">        :arg human: Whether to return human readable values for</span>
@@ -2312,8 +2312,8 @@
 <span class="sd">        :arg expand_wildcards: Type of index that wildcard patterns can</span>
 <span class="sd">            match.If the request can target data streams, this argument determines</span>
 <span class="sd">            whether wildcard expressions match hidden data streams.Supports comma-</span>
-<span class="sd">            separated values, such as `open,hidden`. Valid choices are all, open,</span>
-<span class="sd">            closed, hidden, none.</span>
+<span class="sd">            separated values, such as `open,hidden`. Valid choices are all, closed,</span>
+<span class="sd">            hidden, none, open.</span>
 <span class="sd">        :arg explain: If `true`, returns detailed information about</span>
 <span class="sd">            score computation as part of a hit.</span>
 <span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
@@ -2390,8 +2390,8 @@
 <span class="sd">        :arg search_pipeline: Customizable sequence of processing stages</span>
 <span class="sd">            applied to search queries.</span>
 <span class="sd">        :arg search_type: How distributed term frequencies are</span>
-<span class="sd">            calculated for relevance scoring. Valid choices are query_then_fetch,</span>
-<span class="sd">            dfs_query_then_fetch.</span>
+<span class="sd">            calculated for relevance scoring. Valid choices are</span>
+<span class="sd">            dfs_query_then_fetch, query_then_fetch.</span>
 <span class="sd">        :arg seq_no_primary_term: If `true`, returns sequence number and</span>
 <span class="sd">            primary term of the last modification of each hit.</span>
 <span class="sd">        :arg size: Defines the number of hits to return.By default, you</span>
@@ -2412,7 +2412,7 @@
 <span class="sd">            suggestions.</span>
 <span class="sd">        :arg suggest_mode: Specifies the suggest mode.This parameter can</span>
 <span class="sd">            only be used when the `suggest_field` and `suggest_text` query string</span>
-<span class="sd">            parameters are specified. Valid choices are missing, popular, always.</span>
+<span class="sd">            parameters are specified. Valid choices are always, missing, popular.</span>
 <span class="sd">        :arg suggest_size: Number of suggestions to return.This</span>
 <span class="sd">            parameter can only be used when the `suggest_field` and `suggest_text`</span>
 <span class="sd">            query string parameters are specified.</span>
@@ -2585,7 +2585,7 @@
 <span class="sd">        :arg scroll: Specifies how long a consistent view of the</span>
 <span class="sd">            indexshould be maintained for scrolled search.</span>
 <span class="sd">        :arg search_type: The type of the search operation. Valid</span>
-<span class="sd">            choices are query_then_fetch, dfs_query_then_fetch.</span>
+<span class="sd">            choices are dfs_query_then_fetch, query_then_fetch.</span>
 <span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
 <span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
 <span class="sd">        :arg typed_keys: If `true`, the response prefixes aggregation</span>
@@ -2671,7 +2671,7 @@
 <span class="sd">        :arg version: If `true`, returns the document version as part of</span>
 <span class="sd">            a hit.</span>
 <span class="sd">        :arg version_type: Specific version type. Valid choices are</span>
-<span class="sd">            internal, external, external_gte, force.</span>
+<span class="sd">            external, external_gte, force, internal.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">index</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Empty value passed for a required argument &#39;index&#39;.&quot;</span><span class="p">)</span>
@@ -2739,7 +2739,7 @@
 <span class="sd">        :arg refresh: If &#39;true&#39;, OpenSearch refreshes the affected</span>
 <span class="sd">            shards to make this operationvisible to search, if &#39;wait_for&#39; then wait</span>
 <span class="sd">            for a refresh to make this operationvisible to search, if &#39;false&#39; do</span>
-<span class="sd">            nothing with refreshes. Valid choices are true, false, wait_for.</span>
+<span class="sd">            nothing with refreshes. Valid choices are false, true, wait_for.</span>
 <span class="sd">        :arg require_alias: If true, the destination must be an index</span>
 <span class="sd">            alias. Default is false.</span>
 <span class="sd">        :arg retry_on_conflict: Specify how many times should the</span>
@@ -2888,7 +2888,7 @@
 <span class="sd">        :arg search_timeout: Explicit timeout for each search request.</span>
 <span class="sd">        :arg search_type: The type of the search operation. Available</span>
 <span class="sd">            options: `query_then_fetch`, `dfs_query_then_fetch`. Valid choices are</span>
-<span class="sd">            query_then_fetch, dfs_query_then_fetch.</span>
+<span class="sd">            dfs_query_then_fetch, query_then_fetch.</span>
 <span class="sd">        :arg size: Deprecated, please use `max_docs` instead.</span>
 <span class="sd">        :arg slices: The number of slices this task should be divided</span>
 <span class="sd">            into. Valid choices are auto.</span>
@@ -3048,7 +3048,7 @@
 <span class="sd">            errors.</span>
 <span class="sd">        :arg expand_wildcards: Whether to expand wildcard expression to</span>
 <span class="sd">            concrete indices that are open, closed or both. Valid choices are all,</span>
-<span class="sd">            open, closed, hidden, none.</span>
+<span class="sd">            closed, hidden, none, open.</span>
 <span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
 <span class="sd">            the response.</span>
 <span class="sd">        :arg human: Whether to return human readable values for</span>

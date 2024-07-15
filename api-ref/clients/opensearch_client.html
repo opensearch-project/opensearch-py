@@ -393,8 +393,8 @@ errors.</p></li>
 <li><p><strong>expand_wildcards</strong> – Type of index that wildcard patterns can
 match.If the request can target data streams, this argument determines
 whether wildcard expressions match hidden data streams.Supports comma-
-separated values, such as <cite>open,hidden</cite>. Valid choices are all, open,
-closed, hidden, none.</p></li>
+separated values, such as <cite>open,hidden</cite>. Valid choices are all, closed,
+hidden, none, open.</p></li>
 <li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
 the response.</p></li>
 <li><p><strong>human</strong> – Whether to return human readable values for
@@ -474,8 +474,8 @@ for active shards.</p></li>
 control.The specified version must match the current version of the
 document for the request to succeed.</p></li>
 <li><p><strong>version_type</strong> – Specific version type: <cite>external</cite>,
-<cite>external_gte</cite>. Valid choices are internal, external, external_gte,
-force.</p></li>
+<cite>external_gte</cite>. Valid choices are external, external_gte, force,
+internal.</p></li>
 <li><p><strong>wait_for_active_shards</strong> – The number of shard copies that
 must be active before proceeding with the operation.Set to <cite>all</cite> or any
 positive integer up to the total number of shards in the index
@@ -508,7 +508,7 @@ created with partial failures.</p></li>
 errors.</p></li>
 <li><p><strong>expand_wildcards</strong> – Whether to expand wildcard expression to
 concrete indices that are open, closed or both. Valid choices are all,
-open, closed, hidden, none.</p></li>
+closed, hidden, none, open.</p></li>
 <li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
 the response.</p></li>
 <li><p><strong>human</strong> – Whether to return human readable values for
@@ -602,8 +602,8 @@ libraries that do not accept a request body for non-POST requests.</p></li>
 control.The specified version must match the current version of the
 document for the request to succeed.</p></li>
 <li><p><strong>version_type</strong> – Specific version type: <cite>external</cite>,
-<cite>external_gte</cite>. Valid choices are internal, external, external_gte,
-force.</p></li>
+<cite>external_gte</cite>. Valid choices are external, external_gte, force,
+internal.</p></li>
 <li><p><strong>wait_for_active_shards</strong> – The number of shard copies that
 must be active before proceeding with the operation.Set to <cite>all</cite> or any
 positive integer up to the total number of shards in the index
@@ -717,7 +717,7 @@ operation. Default is 100.</p></li>
 request.Defaults to no timeout.</p></li>
 <li><p><strong>search_type</strong> – The type of the search operation.Available
 options: <cite>query_then_fetch</cite>, <cite>dfs_query_then_fetch</cite>. Valid choices are
-query_then_fetch, dfs_query_then_fetch.</p></li>
+dfs_query_then_fetch, query_then_fetch.</p></li>
 <li><p><strong>size</strong> – Deprecated, please use <cite>max_docs</cite> instead.</p></li>
 <li><p><strong>slices</strong> – The number of slices this task should be divided
 into. Valid choices are auto.</p></li>
@@ -922,8 +922,8 @@ false.</p></li>
 control.The specified version must match the current version of the
 document for the request to succeed.</p></li>
 <li><p><strong>version_type</strong> – Specific version type: <cite>external</cite>,
-<cite>external_gte</cite>. Valid choices are internal, external, external_gte,
-force.</p></li>
+<cite>external_gte</cite>. Valid choices are external, external_gte, force,
+internal.</p></li>
 <li><p><strong>index</strong> – </p></li>
 <li><p><strong>id</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
@@ -973,8 +973,8 @@ libraries that do not accept a request body for non-POST requests.</p></li>
 control.The specified version must match the current version of the
 document for the request to succeed.</p></li>
 <li><p><strong>version_type</strong> – Specific version type: <cite>external</cite>,
-<cite>external_gte</cite>. Valid choices are internal, external, external_gte,
-force.</p></li>
+<cite>external_gte</cite>. Valid choices are external, external_gte, force,
+internal.</p></li>
 <li><p><strong>index</strong> – </p></li>
 <li><p><strong>id</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
@@ -1068,8 +1068,8 @@ errors.</p></li>
 <li><p><strong>expand_wildcards</strong> – Type of index that wildcard patterns can
 match. If the request can target data streams, this argument determines
 whether wildcard expressions match hidden data streams. Supports comma-
-separated values, such as <cite>open,hidden</cite>. Valid choices are all, open,
-closed, hidden, none.</p></li>
+separated values, such as <cite>open,hidden</cite>. Valid choices are all, closed,
+hidden, none, open.</p></li>
 <li><p><strong>fields</strong> – Comma-separated list of fields to retrieve
 capabilities for. Wildcard (<cite>*</cite>) expressions are supported.</p></li>
 <li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
@@ -1137,7 +1137,7 @@ false.</p></li>
 The specified version must match the current version of the document for
 the request to succeed.</p></li>
 <li><p><strong>version_type</strong> – Specific version type: internal, external,
-external_gte. Valid choices are internal, external, external_gte, force.</p></li>
+external_gte. Valid choices are external, external_gte, force, internal.</p></li>
 <li><p><strong>index</strong> – </p></li>
 <li><p><strong>id</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
@@ -1302,7 +1302,7 @@ libraries that do not accept a request body for non-POST requests.</p></li>
 The specified version must match the current version of the document for
 the request to succeed.</p></li>
 <li><p><strong>version_type</strong> – Specific version type: internal, external,
-external_gte. Valid choices are internal, external, external_gte, force.</p></li>
+external_gte. Valid choices are external, external_gte, force, internal.</p></li>
 <li><p><strong>index</strong> – </p></li>
 <li><p><strong>id</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
@@ -1365,8 +1365,8 @@ for active shards.</p></li>
 control.The specified version must match the current version of the
 document for the request to succeed.</p></li>
 <li><p><strong>version_type</strong> – Specific version type: <cite>external</cite>,
-<cite>external_gte</cite>. Valid choices are internal, external, external_gte,
-force.</p></li>
+<cite>external_gte</cite>. Valid choices are external, external_gte, force,
+internal.</p></li>
 <li><p><strong>wait_for_active_shards</strong> – The number of shard copies that
 must be active before proceeding with the operation.Set to all or any
 positive integer up to the total number of shards in the index
@@ -1528,7 +1528,7 @@ an integer in the response. Defaults to false, which returns an object.
 Default is false.</p></li>
 <li><p><strong>search_type</strong> – Indicates whether global term and document
 frequencies should be used when scoring returned documents. Valid
-choices are query_then_fetch, dfs_query_then_fetch.</p></li>
+choices are dfs_query_then_fetch, query_then_fetch.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
 <li><p><strong>typed_keys</strong> – Specifies whether aggregation and suggester
@@ -1574,7 +1574,7 @@ response.</p></li>
 object. Default is false.</p></li>
 <li><p><strong>search_type</strong> – The type of the search operation.Available
 options: <cite>query_then_fetch</cite>, <cite>dfs_query_then_fetch</cite>. Valid choices are
-query_then_fetch, dfs_query_then_fetch.</p></li>
+dfs_query_then_fetch, query_then_fetch.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
 <li><p><strong>typed_keys</strong> – If <cite>true</cite>, the response prefixes aggregation
@@ -1638,7 +1638,7 @@ frequency and document frequency. Default is false.</p></li>
 <li><p><strong>version</strong> – If <cite>true</cite>, returns the document version as part of
 a hit.</p></li>
 <li><p><strong>version_type</strong> – Specific version type. Valid choices are
-internal, external, external_gte, force.</p></li>
+external, external_gte, force, internal.</p></li>
 <li><p><strong>body</strong> – </p></li>
 <li><p><strong>index</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
@@ -1747,7 +1747,7 @@ returns an error if an index starts with <cite>foo</cite> but no index starts wi
 errors.</p></li>
 <li><p><strong>expand_wildcards</strong> – Whether to expand wildcard expression to
 concrete indices that are open, closed or both. Valid choices are all,
-open, closed, hidden, none.</p></li>
+closed, hidden, none, open.</p></li>
 <li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
 the response.</p></li>
 <li><p><strong>human</strong> – Whether to return human readable values for
@@ -2017,8 +2017,8 @@ errors.</p></li>
 <li><p><strong>expand_wildcards</strong> – Type of index that wildcard patterns can
 match.If the request can target data streams, this argument determines
 whether wildcard expressions match hidden data streams.Supports comma-
-separated values, such as <cite>open,hidden</cite>. Valid choices are all, open,
-closed, hidden, none.</p></li>
+separated values, such as <cite>open,hidden</cite>. Valid choices are all, closed,
+hidden, none, open.</p></li>
 <li><p><strong>explain</strong> – If <cite>true</cite>, returns detailed information about
 score computation as part of a hit.</p></li>
 <li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
@@ -2095,8 +2095,8 @@ cluster-level setting.</p></li>
 <li><p><strong>search_pipeline</strong> – Customizable sequence of processing stages
 applied to search queries.</p></li>
 <li><p><strong>search_type</strong> – How distributed term frequencies are
-calculated for relevance scoring. Valid choices are query_then_fetch,
-dfs_query_then_fetch.</p></li>
+calculated for relevance scoring. Valid choices are
+dfs_query_then_fetch, query_then_fetch.</p></li>
 <li><p><strong>seq_no_primary_term</strong> – If <cite>true</cite>, returns sequence number and
 primary term of the last modification of each hit.</p></li>
 <li><p><strong>size</strong> – Defines the number of hits to return.By default, you
@@ -2117,7 +2117,7 @@ both source fields and stored fields in the search response.</p></li>
 suggestions.</p></li>
 <li><p><strong>suggest_mode</strong> – Specifies the suggest mode.This parameter can
 only be used when the <cite>suggest_field</cite> and <cite>suggest_text</cite> query string
-parameters are specified. Valid choices are missing, popular, always.</p></li>
+parameters are specified. Valid choices are always, missing, popular.</p></li>
 <li><p><strong>suggest_size</strong> – Number of suggestions to return.This
 parameter can only be used when the <cite>suggest_field</cite> and <cite>suggest_text</cite>
 query string parameters are specified.</p></li>
@@ -2255,7 +2255,7 @@ specific shard.</p></li>
 <li><p><strong>scroll</strong> – Specifies how long a consistent view of the
 indexshould be maintained for scrolled search.</p></li>
 <li><p><strong>search_type</strong> – The type of the search operation. Valid
-choices are query_then_fetch, dfs_query_then_fetch.</p></li>
+choices are dfs_query_then_fetch, query_then_fetch.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
 <li><p><strong>typed_keys</strong> – If <cite>true</cite>, the response prefixes aggregation
@@ -2318,7 +2318,7 @@ frequency and document frequency. Default is false.</p></li>
 <li><p><strong>version</strong> – If <cite>true</cite>, returns the document version as part of
 a hit.</p></li>
 <li><p><strong>version_type</strong> – Specific version type. Valid choices are
-internal, external, external_gte, force.</p></li>
+external, external_gte, force, internal.</p></li>
 <li><p><strong>index</strong> – </p></li>
 <li><p><strong>body</strong> – </p></li>
 <li><p><strong>id</strong> – </p></li>
@@ -2365,7 +2365,7 @@ response.</p></li>
 <li><p><strong>refresh</strong> – If ‘true’, OpenSearch refreshes the affected
 shards to make this operationvisible to search, if ‘wait_for’ then wait
 for a refresh to make this operationvisible to search, if ‘false’ do
-nothing with refreshes. Valid choices are true, false, wait_for.</p></li>
+nothing with refreshes. Valid choices are false, true, wait_for.</p></li>
 <li><p><strong>require_alias</strong> – If true, the destination must be an index
 alias. Default is false.</p></li>
 <li><p><strong>retry_on_conflict</strong> – Specify how many times should the
@@ -2471,7 +2471,7 @@ operation. Default is 100.</p></li>
 <li><p><strong>search_timeout</strong> – Explicit timeout for each search request.</p></li>
 <li><p><strong>search_type</strong> – The type of the search operation. Available
 options: <cite>query_then_fetch</cite>, <cite>dfs_query_then_fetch</cite>. Valid choices are
-query_then_fetch, dfs_query_then_fetch.</p></li>
+dfs_query_then_fetch, query_then_fetch.</p></li>
 <li><p><strong>size</strong> – Deprecated, please use <cite>max_docs</cite> instead.</p></li>
 <li><p><strong>slices</strong> – The number of slices this task should be divided
 into. Valid choices are auto.</p></li>

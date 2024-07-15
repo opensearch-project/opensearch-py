@@ -481,14 +481,14 @@ to cluster-manager node.</p></li>
 errors.</p></li>
 <li><p><strong>expand_wildcards</strong> – Whether to expand wildcard expression to
 concrete indices that are open, closed or both. Valid choices are all,
-open, closed, hidden, none.</p></li>
+closed, hidden, none, open.</p></li>
 <li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
 the response.</p></li>
 <li><p><strong>human</strong> – Whether to return human readable values for
 statistics.</p></li>
 <li><p><strong>level</strong> – Can be one of cluster, indices or shards. Controls
 the details level of the health information returned. Valid choices are
-cluster, indices, shards, awareness_attributes.</p></li>
+awareness_attributes, cluster, indices, shards.</p></li>
 <li><p><strong>local</strong> – If true, the request retrieves information from the
 local node only. Defaults to false, which means information is retrieved
 from the master node. Default is false.</p></li>
@@ -508,8 +508,8 @@ active shards to wait for, all to wait for all shards in the cluster to
 be active, or 0 to not wait. Valid choices are all, index-setting.</p></li>
 <li><p><strong>wait_for_events</strong> – Can be one of immediate, urgent, high,
 normal, low, languid. Wait until all currently queued events with the
-given priority are processed. Valid choices are immediate, urgent, high,
-normal, low, languid.</p></li>
+given priority are processed. Valid choices are high, immediate,
+languid, low, normal, urgent.</p></li>
 <li><p><strong>wait_for_no_initializing_shards</strong> – A boolean value which
 controls whether to wait (until the timeout provided) for the cluster to
 have no shard initializations. Defaults to false, which means it will
@@ -525,7 +525,7 @@ notation.</p></li>
 <li><p><strong>wait_for_status</strong> – One of green, yellow or red. Will wait
 (until the timeout provided) until the status of the cluster changes to
 the one provided or better, i.e. green &gt; yellow &gt; red. By default, will
-not wait for any status. Valid choices are green, yellow, red.</p></li>
+not wait for any status. Valid choices are green, red, yellow.</p></li>
 <li><p><strong>index</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 <li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
@@ -853,7 +853,7 @@ to cluster-manager node.</p></li>
 errors.</p></li>
 <li><p><strong>expand_wildcards</strong> – Whether to expand wildcard expression to
 concrete indices that are open, closed or both. Valid choices are all,
-open, closed, hidden, none.</p></li>
+closed, hidden, none, open.</p></li>
 <li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
 the response.</p></li>
 <li><p><strong>flat_settings</strong> – Return settings in flat format. Default is
