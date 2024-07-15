@@ -82,14 +82,14 @@ class ClusterClient(NamespacedClient):
             errors.
         :arg expand_wildcards: Whether to expand wildcard expression to
             concrete indices that are open, closed or both. Valid choices are all,
-            open, closed, hidden, none.
+            closed, hidden, none, open.
         :arg filter_path: Comma-separated list of filters used to reduce
             the response.
         :arg human: Whether to return human readable values for
             statistics.
         :arg level: Can be one of cluster, indices or shards. Controls
             the details level of the health information returned. Valid choices are
-            cluster, indices, shards, awareness_attributes.
+            awareness_attributes, cluster, indices, shards.
         :arg local: If true, the request retrieves information from the
             local node only. Defaults to false, which means information is retrieved
             from the master node. Default is false.
@@ -109,8 +109,8 @@ class ClusterClient(NamespacedClient):
             be active, or 0 to not wait. Valid choices are all, index-setting.
         :arg wait_for_events: Can be one of immediate, urgent, high,
             normal, low, languid. Wait until all currently queued events with the
-            given priority are processed. Valid choices are immediate, urgent, high,
-            normal, low, languid.
+            given priority are processed. Valid choices are high, immediate,
+            languid, low, normal, urgent.
         :arg wait_for_no_initializing_shards: A boolean value which
             controls whether to wait (until the timeout provided) for the cluster to
             have no shard initializations. Defaults to false, which means it will
@@ -126,7 +126,7 @@ class ClusterClient(NamespacedClient):
         :arg wait_for_status: One of green, yellow or red. Will wait
             (until the timeout provided) until the status of the cluster changes to
             the one provided or better, i.e. green > yellow > red. By default, will
-            not wait for any status. Valid choices are green, yellow, red.
+            not wait for any status. Valid choices are green, red, yellow.
         """
         return self.transport.perform_request(
             "GET",
@@ -219,7 +219,7 @@ class ClusterClient(NamespacedClient):
             errors.
         :arg expand_wildcards: Whether to expand wildcard expression to
             concrete indices that are open, closed or both. Valid choices are all,
-            open, closed, hidden, none.
+            closed, hidden, none, open.
         :arg filter_path: Comma-separated list of filters used to reduce
             the response.
         :arg flat_settings: Return settings in flat format. Default is

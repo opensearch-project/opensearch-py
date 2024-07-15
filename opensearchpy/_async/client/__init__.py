@@ -373,8 +373,8 @@ class AsyncOpenSearch(Client):
             control.The specified version must match the current version of the
             document for the request to succeed.
         :arg version_type: Specific version type: `external`,
-            `external_gte`. Valid choices are internal, external, external_gte,
-            force.
+            `external_gte`. Valid choices are external, external_gte, force,
+            internal.
         :arg wait_for_active_shards: The number of shard copies that
             must be active before proceeding with the operation.Set to `all` or any
             positive integer up to the total number of shards in the index
@@ -463,8 +463,8 @@ class AsyncOpenSearch(Client):
             control.The specified version must match the current version of the
             document for the request to succeed.
         :arg version_type: Specific version type: `external`,
-            `external_gte`. Valid choices are internal, external, external_gte,
-            force.
+            `external_gte`. Valid choices are external, external_gte, force,
+            internal.
         :arg wait_for_active_shards: The number of shard copies that
             must be active before proceeding with the operation.Set to all or any
             positive integer up to the total number of shards in the index
@@ -658,8 +658,8 @@ class AsyncOpenSearch(Client):
         :arg expand_wildcards: Type of index that wildcard patterns can
             match.If the request can target data streams, this argument determines
             whether wildcard expressions match hidden data streams.Supports comma-
-            separated values, such as `open,hidden`. Valid choices are all, open,
-            closed, hidden, none.
+            separated values, such as `open,hidden`. Valid choices are all, closed,
+            hidden, none, open.
         :arg filter_path: Comma-separated list of filters used to reduce
             the response.
         :arg human: Whether to return human readable values for
@@ -746,8 +746,8 @@ class AsyncOpenSearch(Client):
             control.The specified version must match the current version of the
             document for the request to succeed.
         :arg version_type: Specific version type: `external`,
-            `external_gte`. Valid choices are internal, external, external_gte,
-            force.
+            `external_gte`. Valid choices are external, external_gte, force,
+            internal.
         :arg wait_for_active_shards: The number of shard copies that
             must be active before proceeding with the operation.Set to `all` or any
             positive integer up to the total number of shards in the index
@@ -875,7 +875,7 @@ class AsyncOpenSearch(Client):
             request.Defaults to no timeout.
         :arg search_type: The type of the search operation.Available
             options: `query_then_fetch`, `dfs_query_then_fetch`. Valid choices are
-            query_then_fetch, dfs_query_then_fetch.
+            dfs_query_then_fetch, query_then_fetch.
         :arg size: Deprecated, please use `max_docs` instead.
         :arg slices: The number of slices this task should be divided
             into. Valid choices are auto.
@@ -1066,8 +1066,8 @@ class AsyncOpenSearch(Client):
             control.The specified version must match the current version of the
             document for the request to succeed.
         :arg version_type: Specific version type: `external`,
-            `external_gte`. Valid choices are internal, external, external_gte,
-            force.
+            `external_gte`. Valid choices are external, external_gte, force,
+            internal.
         """
         for param in (index, id):
             if param in SKIP_IN_PATH:
@@ -1134,8 +1134,8 @@ class AsyncOpenSearch(Client):
             control.The specified version must match the current version of the
             document for the request to succeed.
         :arg version_type: Specific version type: `external`,
-            `external_gte`. Valid choices are internal, external, external_gte,
-            force.
+            `external_gte`. Valid choices are external, external_gte, force,
+            internal.
         """
         for param in (index, id):
             if param in SKIP_IN_PATH:
@@ -1266,8 +1266,8 @@ class AsyncOpenSearch(Client):
         :arg expand_wildcards: Type of index that wildcard patterns can
             match. If the request can target data streams, this argument determines
             whether wildcard expressions match hidden data streams. Supports comma-
-            separated values, such as `open,hidden`. Valid choices are all, open,
-            closed, hidden, none.
+            separated values, such as `open,hidden`. Valid choices are all, closed,
+            hidden, none, open.
         :arg fields: Comma-separated list of fields to retrieve
             capabilities for. Wildcard (`*`) expressions are supported.
         :arg filter_path: Comma-separated list of filters used to reduce
@@ -1353,7 +1353,7 @@ class AsyncOpenSearch(Client):
             The specified version must match the current version of the document for
             the request to succeed.
         :arg version_type: Specific version type: internal, external,
-            external_gte. Valid choices are internal, external, external_gte, force.
+            external_gte. Valid choices are external, external_gte, force, internal.
         """
         for param in (index, id):
             if param in SKIP_IN_PATH:
@@ -1463,7 +1463,7 @@ class AsyncOpenSearch(Client):
             The specified version must match the current version of the document for
             the request to succeed.
         :arg version_type: Specific version type: internal, external,
-            external_gte. Valid choices are internal, external, external_gte, force.
+            external_gte. Valid choices are external, external_gte, force, internal.
         """
         for param in (index, id):
             if param in SKIP_IN_PATH:
@@ -1606,7 +1606,7 @@ class AsyncOpenSearch(Client):
             Default is false.
         :arg search_type: Indicates whether global term and document
             frequencies should be used when scoring returned documents. Valid
-            choices are query_then_fetch, dfs_query_then_fetch.
+            choices are dfs_query_then_fetch, query_then_fetch.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         :arg typed_keys: Specifies whether aggregation and suggester
@@ -1669,7 +1669,7 @@ class AsyncOpenSearch(Client):
             object. Default is false.
         :arg search_type: The type of the search operation.Available
             options: `query_then_fetch`, `dfs_query_then_fetch`. Valid choices are
-            query_then_fetch, dfs_query_then_fetch.
+            dfs_query_then_fetch, query_then_fetch.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         :arg typed_keys: If `true`, the response prefixes aggregation
@@ -1757,7 +1757,7 @@ class AsyncOpenSearch(Client):
         :arg version: If `true`, returns the document version as part of
             a hit.
         :arg version_type: Specific version type. Valid choices are
-            internal, external, external_gte, force.
+            external, external_gte, force, internal.
         """
         path = _make_path(index, "_mtermvectors")
 
@@ -1864,7 +1864,7 @@ class AsyncOpenSearch(Client):
             errors.
         :arg expand_wildcards: Whether to expand wildcard expression to
             concrete indices that are open, closed or both. Valid choices are all,
-            open, closed, hidden, none.
+            closed, hidden, none, open.
         :arg filter_path: Comma-separated list of filters used to reduce
             the response.
         :arg human: Whether to return human readable values for
@@ -2229,8 +2229,8 @@ class AsyncOpenSearch(Client):
         :arg expand_wildcards: Type of index that wildcard patterns can
             match.If the request can target data streams, this argument determines
             whether wildcard expressions match hidden data streams.Supports comma-
-            separated values, such as `open,hidden`. Valid choices are all, open,
-            closed, hidden, none.
+            separated values, such as `open,hidden`. Valid choices are all, closed,
+            hidden, none, open.
         :arg explain: If `true`, returns detailed information about
             score computation as part of a hit.
         :arg filter_path: Comma-separated list of filters used to reduce
@@ -2307,8 +2307,8 @@ class AsyncOpenSearch(Client):
         :arg search_pipeline: Customizable sequence of processing stages
             applied to search queries.
         :arg search_type: How distributed term frequencies are
-            calculated for relevance scoring. Valid choices are query_then_fetch,
-            dfs_query_then_fetch.
+            calculated for relevance scoring. Valid choices are
+            dfs_query_then_fetch, query_then_fetch.
         :arg seq_no_primary_term: If `true`, returns sequence number and
             primary term of the last modification of each hit.
         :arg size: Defines the number of hits to return.By default, you
@@ -2329,7 +2329,7 @@ class AsyncOpenSearch(Client):
             suggestions.
         :arg suggest_mode: Specifies the suggest mode.This parameter can
             only be used when the `suggest_field` and `suggest_text` query string
-            parameters are specified. Valid choices are missing, popular, always.
+            parameters are specified. Valid choices are always, missing, popular.
         :arg suggest_size: Number of suggestions to return.This
             parameter can only be used when the `suggest_field` and `suggest_text`
             query string parameters are specified.
@@ -2502,7 +2502,7 @@ class AsyncOpenSearch(Client):
         :arg scroll: Specifies how long a consistent view of the
             indexshould be maintained for scrolled search.
         :arg search_type: The type of the search operation. Valid
-            choices are query_then_fetch, dfs_query_then_fetch.
+            choices are dfs_query_then_fetch, query_then_fetch.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         :arg typed_keys: If `true`, the response prefixes aggregation
@@ -2588,7 +2588,7 @@ class AsyncOpenSearch(Client):
         :arg version: If `true`, returns the document version as part of
             a hit.
         :arg version_type: Specific version type. Valid choices are
-            internal, external, external_gte, force.
+            external, external_gte, force, internal.
         """
         if index in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'index'.")
@@ -2656,7 +2656,7 @@ class AsyncOpenSearch(Client):
         :arg refresh: If 'true', OpenSearch refreshes the affected
             shards to make this operationvisible to search, if 'wait_for' then wait
             for a refresh to make this operationvisible to search, if 'false' do
-            nothing with refreshes. Valid choices are true, false, wait_for.
+            nothing with refreshes. Valid choices are false, true, wait_for.
         :arg require_alias: If true, the destination must be an index
             alias. Default is false.
         :arg retry_on_conflict: Specify how many times should the
@@ -2805,7 +2805,7 @@ class AsyncOpenSearch(Client):
         :arg search_timeout: Explicit timeout for each search request.
         :arg search_type: The type of the search operation. Available
             options: `query_then_fetch`, `dfs_query_then_fetch`. Valid choices are
-            query_then_fetch, dfs_query_then_fetch.
+            dfs_query_then_fetch, query_then_fetch.
         :arg size: Deprecated, please use `max_docs` instead.
         :arg slices: The number of slices this task should be divided
             into. Valid choices are auto.
@@ -2965,7 +2965,7 @@ class AsyncOpenSearch(Client):
             errors.
         :arg expand_wildcards: Whether to expand wildcard expression to
             concrete indices that are open, closed or both. Valid choices are all,
-            open, closed, hidden, none.
+            closed, hidden, none, open.
         :arg filter_path: Comma-separated list of filters used to reduce
             the response.
         :arg human: Whether to return human readable values for

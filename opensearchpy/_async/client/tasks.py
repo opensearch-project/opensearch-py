@@ -73,7 +73,7 @@ class TasksClient(NamespacedClient):
         :arg filter_path: Comma-separated list of filters used to reduce
             the response.
         :arg group_by: Key used to group tasks in the response. Valid
-            choices are nodes, parents, none.
+            choices are nodes, none, parents.
         :arg human: Whether to return human readable values for
             statistics.
         :arg nodes: Comma-separated list of node IDs or names to limit

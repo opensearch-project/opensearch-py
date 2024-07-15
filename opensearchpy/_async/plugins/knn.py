@@ -180,7 +180,7 @@ class KnnClient(NamespacedClient):
             errors.
         :arg expand_wildcards: Whether to expand wildcard expression to
             concrete indices that are open, closed or both. Valid choices are all,
-            open, closed, hidden, none.
+            closed, hidden, none, open.
         :arg explain: Specify whether to return detailed information
             about score computation as part of a hit.
         :arg filter_path: Comma-separated list of filters used to reduce
@@ -219,7 +219,7 @@ class KnnClient(NamespacedClient):
         :arg scroll: Specify how long a consistent view of the index
             should be maintained for scrolled search.
         :arg search_type: Search operation type. Valid choices are
-            query_then_fetch, dfs_query_then_fetch.
+            dfs_query_then_fetch, query_then_fetch.
         :arg seq_no_primary_term: Specify whether to return sequence
             number and primary term of the last modification of each hit.
         :arg size: Number of hits to return. Default is 10.
@@ -232,7 +232,7 @@ class KnnClient(NamespacedClient):
             return.
         :arg suggest_field: Specify which field to use for suggestions.
         :arg suggest_mode: Specify suggest mode. Valid choices are
-            missing, popular, always.
+            always, missing, popular.
         :arg suggest_size: How many suggestions to return in response.
         :arg suggest_text: The source text for which the suggestions
             should be returned.

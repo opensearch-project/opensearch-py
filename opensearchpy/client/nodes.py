@@ -220,8 +220,8 @@ class NodesClient(NamespacedClient):
             the returned information; use `_local` to return information from the
             node you're connecting to, leave empty to get information from all
             nodes.
-        :arg doc_type: The type to sample. Valid choices are cpu, wait,
-            block.
+        :arg doc_type: The type to sample. Valid choices are block, cpu,
+            wait.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
         :arg filter_path: Comma-separated list of filters used to reduce
