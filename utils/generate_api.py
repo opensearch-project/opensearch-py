@@ -37,7 +37,7 @@ from functools import lru_cache
 from itertools import chain, groupby
 from operator import itemgetter
 from pathlib import Path
-from typing import Any, Dict
+from typing import Any, Dict, List
 
 import black
 import deepmerge
@@ -547,6 +547,24 @@ class API:
         )
 
 
+def collect_titles(element: Any) -> List[str]:
+    """
+    Recursively collect titles. This assumes that if any element has a title, use that for param.
+    See https://github.com/opensearch-project/opensearch-api-specification/pull/416.
+    """
+    titles = []
+    if isinstance(element, dict):
+        for key in element:
+            if key == "title":
+                titles.append(element["title"])
+            else:
+                titles += collect_titles(element[key])
+    if isinstance(element, list):
+        for item in element:
+            titles += collect_titles(item)
+    return titles
+
+
 def read_modules() -> Any:
     """
     checks the opensearch-api spec at
@@ -584,9 +602,9 @@ def read_modules() -> Any:
 
             # Iterate over the list of parameters and update them
             for param_ref in endpoint["parameters"]:
-                param = data["components"]["parameters"][
-                    param_ref["$ref"].split("/")[-1]
-                ]
+                param_ref = param_ref["$ref"].split("/")[-1]
+                param = data["components"]["parameters"][param_ref]
+
                 if "schema" in param and "$ref" in param["schema"]:
                     schema_path_ref = param["schema"]["$ref"].split("/")[-1]
                     param["schema"] = data["components"]["schemas"][schema_path_ref]
@@ -597,8 +615,11 @@ def read_modules() -> Any:
                                 param["schema"] = data["components"]["schemas"][
                                     common_schema_path_ref
                                 ]
-                    params.append(param)
-                else:
+
+                # Ignore anything with titles, currently only 1 case, see
+                # https://github.com/opensearch-project/opensearch-api-specification/pull/416
+                titles = collect_titles(param)
+                if len(titles) == 0:
                     params.append(param)
 
             # Iterate over the list of updated parameters to separate "parts" from "params"
