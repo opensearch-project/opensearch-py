@@ -91,6 +91,7 @@ class NodesClient(NamespacedClient):
         self,
         node_id: Any = None,
         metric: Any = None,
+        node_id_or_metric: Any = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -102,6 +103,9 @@ class NodesClient(NamespacedClient):
             limit returned information.
         :arg metric: Limits the information returned to the specific
             metrics. Supports a comma-separated list, such as http,ingest.
+        :arg node_id_or_metric: Limits the information returned to a
+            list of node IDs or specific metrics. Supports a comma-separated list,
+            such as node1,node2 or http,ingest.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
         :arg filter_path: Comma-separated list of filters used to reduce
