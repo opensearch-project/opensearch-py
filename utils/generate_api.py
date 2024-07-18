@@ -74,7 +74,7 @@ GLOBAL_QUERY_PARAMS = {
 
 IGNORED_PARAM_REFS = [
     # https://github.com/opensearch-project/opensearch-api-specification/pull/416
-    "#/components/parameters/nodes.info::path.node_id_or_metric"
+    "#/components/parameters/nodes.info::path.node_id_or_metric",
 ]
 
 jinja_env = Environment(
@@ -591,7 +591,7 @@ def read_modules() -> Any:
             for param_ref in endpoint["parameters"]:
 
                 if param_ref["$ref"] in IGNORED_PARAM_REFS:
-                    pass
+                    continue
 
                 param_ref = param_ref["$ref"].split("/")[-1]
                 param = data["components"]["parameters"][param_ref]
