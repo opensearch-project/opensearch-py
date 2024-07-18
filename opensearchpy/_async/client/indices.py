@@ -592,6 +592,7 @@ class IndicesClient(NamespacedClient):
 
     @query_params(
         "allow_no_indices",
+        "cluster_manager_timeout",
         "error_trace",
         "expand_wildcards",
         "filter_path",
@@ -619,6 +620,8 @@ class IndicesClient(NamespacedClient):
             if any wildcard expression, index alias, or `_all` value targets only
             missing or closed indices.This behavior applies even if the request
             targets other open indices. Default is false.
+        :arg cluster_manager_timeout: Operation timeout for connection
+            to cluster-manager node.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
         :arg expand_wildcards: Type of index that wildcard patterns can
@@ -861,9 +864,9 @@ class IndicesClient(NamespacedClient):
     )
     async def put_alias(
         self,
-        index: Any,
-        name: Any,
         body: Any = None,
+        index: Any = None,
+        name: Any = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -871,13 +874,13 @@ class IndicesClient(NamespacedClient):
         Creates or updates an alias.
 
 
+        :arg body: The settings for the alias, such as `routing` or
+            `filter`
         :arg index: Comma-separated list of data streams or indices to
             add. Supports wildcards (`*`). Wildcard patterns that match both data
             streams and indices return an error.
         :arg name: Alias to update. If the alias doesn't exist, the
             request creates it. Index alias names support date math.
-        :arg body: The settings for the alias, such as `routing` or
-            `filter`
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
         :arg error_trace: Whether to include the stack trace of returned
@@ -898,10 +901,6 @@ class IndicesClient(NamespacedClient):
             received before the timeout expires, the request fails and returns an
             error.
         """
-        for param in (index, name):
-            if param in SKIP_IN_PATH:
-                raise ValueError("Empty value passed for a required argument.")
-
         return await self.transport.perform_request(
             "PUT",
             _make_path(index, "_alias", name),

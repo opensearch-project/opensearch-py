@@ -72,6 +72,11 @@ GLOBAL_QUERY_PARAMS = {
     "api_key": "Optional[Union[str, Tuple[str, str]]]",
 }
 
+IGNORED_PARAM_REFS = [
+    # https://github.com/opensearch-project/opensearch-api-specification/pull/416
+    "#/components/parameters/nodes.info::path.node_id_or_metric",
+]
+
 jinja_env = Environment(
     autoescape=select_autoescape(["html", "xml"]),
     loader=FileSystemLoader([CODE_ROOT / "utils" / "templates"]),
@@ -584,9 +589,13 @@ def read_modules() -> Any:
 
             # Iterate over the list of parameters and update them
             for param_ref in endpoint["parameters"]:
-                param = data["components"]["parameters"][
-                    param_ref["$ref"].split("/")[-1]
-                ]
+
+                if param_ref["$ref"] in IGNORED_PARAM_REFS:
+                    continue
+
+                param_ref = param_ref["$ref"].split("/")[-1]
+                param = data["components"]["parameters"][param_ref]
+
                 if "schema" in param and "$ref" in param["schema"]:
                     schema_path_ref = param["schema"]["$ref"].split("/")[-1]
                     param["schema"] = data["components"]["schemas"][schema_path_ref]
@@ -597,9 +606,8 @@ def read_modules() -> Any:
                                 param["schema"] = data["components"]["schemas"][
                                     common_schema_path_ref
                                 ]
-                    params.append(param)
-                else:
-                    params.append(param)
+
+                params.append(param)
 
             # Iterate over the list of updated parameters to separate "parts" from "params"
             params_copy = params.copy()
