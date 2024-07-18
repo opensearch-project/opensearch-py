@@ -9,6 +9,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ### Removed
 ### Fixed
 - Fixed Search helper to ensure proper retention of the _collapse attribute in chained operations. ([#771](https://github.com/opensearch-project/opensearch-py/pull/771))
+- Fixed the use of `minimum_should_match` with `Bool` to allow the use of string-based value (percent string, combination). ([#780](https://github.com/opensearch-project/opensearch-py/pull/780))
 ### Updated APIs
 - Updated opensearch-py APIs to reflect [opensearch-api-specification@0b033a9](https://github.com/opensearch-project/opensearch-api-specification/commit/0b033a92cac4cb20ec3fb51350c139afc753b089)
 - Updated opensearch-py APIs to reflect [opensearch-api-specification@d5ca873](https://github.com/opensearch-project/opensearch-api-specification/commit/d5ca873d20ff54be16ec48e7bd629cda7c4a6332)

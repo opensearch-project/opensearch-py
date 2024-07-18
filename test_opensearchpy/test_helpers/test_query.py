@@ -23,9 +23,9 @@
 #  KIND, either express or implied.  See the License for the
 #  specific language governing permissions and limitations
 #  under the License.
-
 from typing import Any
 
+import pytest
 from pytest import raises
 
 from opensearchpy.helpers import function, query
@@ -564,3 +564,58 @@ def test_script_score() -> None:
     assert isinstance(q.query, query.MatchAll)
     assert q.script == {"source": "...", "params": {}}
     assert q.to_dict() == d
+
+
+@pytest.mark.parametrize(  # type: ignore[misc]
+    "minimum_should_match",
+    [1, -1, "1", "-1", "50%", "-50%", "1<50%"],
+)
+def test_bool_with_minimum_should_match_as_int_or_string(
+    minimum_should_match: str,
+) -> None:
+
+    q1 = query.Bool(
+        minimum_should_match=minimum_should_match,
+        should=[
+            query.Q("term", field="aa1"),
+            query.Q("term", field="aa2"),
+        ],
+    )
+
+    q2 = query.Bool(
+        minimum_should_match=minimum_should_match,
+        should=[
+            query.Q("term", field="bb1"),
+            query.Q("term", field="bb2"),
+        ],
+    )
+
+    q3 = q1 & q2
+
+    d1 = {
+        "bool": {
+            "minimum_should_match": minimum_should_match,  # input type is preserved
+            "should": [
+                {"term": {"field": "aa1"}},
+                {"term": {"field": "aa2"}},
+            ],
+        }
+    }
+
+    d2 = {
+        "bool": {
+            "minimum_should_match": minimum_should_match,  # input type is preserved
+            "should": [
+                {"term": {"field": "bb1"}},
+                {"term": {"field": "bb2"}},
+            ],
+        }
+    }
+
+    d3 = {
+        "bool": {**d1["bool"], "must": [d2]},
+    }
+
+    assert q1.to_dict() == d1
+    assert q2.to_dict() == d2
+    assert q3.to_dict() == d3
