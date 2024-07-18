@@ -676,6 +676,7 @@
 
 <div class="viewcode-block" id="IndicesClient.exists"><a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.exists">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;allow_no_indices&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
         <span class="s2">&quot;expand_wildcards&quot;</span><span class="p">,</span>
         <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span>
@@ -703,6 +704,8 @@
 <span class="sd">            if any wildcard expression, index alias, or `_all` value targets only</span>
 <span class="sd">            missing or closed indices.This behavior applies even if the request</span>
 <span class="sd">            targets other open indices. Default is false.</span>
+<span class="sd">        :arg cluster_manager_timeout: Operation timeout for connection</span>
+<span class="sd">            to cluster-manager node.</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
 <span class="sd">            errors.</span>
 <span class="sd">        :arg expand_wildcards: Type of index that wildcard patterns can</span>
@@ -945,9 +948,9 @@
     <span class="p">)</span>
     <span class="k">def</span> <span class="nf">put_alias</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-        <span class="n">index</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
-        <span class="n">name</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">body</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">index</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">name</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
@@ -955,13 +958,13 @@
 <span class="sd">        Creates or updates an alias.</span>
 
 
+<span class="sd">        :arg body: The settings for the alias, such as `routing` or</span>
+<span class="sd">            `filter`</span>
 <span class="sd">        :arg index: Comma-separated list of data streams or indices to</span>
 <span class="sd">            add. Supports wildcards (`*`). Wildcard patterns that match both data</span>
 <span class="sd">            streams and indices return an error.</span>
 <span class="sd">        :arg name: Alias to update. If the alias doesn&#39;t exist, the</span>
 <span class="sd">            request creates it. Index alias names support date math.</span>
-<span class="sd">        :arg body: The settings for the alias, such as `routing` or</span>
-<span class="sd">            `filter`</span>
 <span class="sd">        :arg cluster_manager_timeout: Operation timeout for connection</span>
 <span class="sd">            to cluster-manager node.</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
@@ -982,10 +985,6 @@
 <span class="sd">            received before the timeout expires, the request fails and returns an</span>
 <span class="sd">            error.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
-            <span class="k">if</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Empty value passed for a required argument.&quot;</span><span class="p">)</span>
-
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
             <span class="s2">&quot;PUT&quot;</span><span class="p">,</span>
             <span class="n">_make_path</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="s2">&quot;_alias&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">),</span>
