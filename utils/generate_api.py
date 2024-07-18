@@ -37,7 +37,7 @@ from functools import lru_cache
 from itertools import chain, groupby
 from operator import itemgetter
 from pathlib import Path
-from typing import Any, Dict, List
+from typing import Any, Dict
 
 import black
 import deepmerge
@@ -71,6 +71,11 @@ GLOBAL_QUERY_PARAMS = {
     "http_auth": "Optional[Union[str, Tuple[str, str]]]",
     "api_key": "Optional[Union[str, Tuple[str, str]]]",
 }
+
+IGNORED_PARAM_REFS = [
+    # https://github.com/opensearch-project/opensearch-api-specification/pull/416
+    "#/components/parameters/nodes.info::path.node_id_or_metric"
+]
 
 jinja_env = Environment(
     autoescape=select_autoescape(["html", "xml"]),
@@ -547,24 +552,6 @@ class API:
         )
 
 
-def collect_titles(element: Any) -> List[str]:
-    """
-    Recursively collect titles. This assumes that if any element has a title, use that for param.
-    See https://github.com/opensearch-project/opensearch-api-specification/pull/416.
-    """
-    titles = []
-    if isinstance(element, dict):
-        for key in element:
-            if key == "title":
-                titles.append(element["title"])
-            else:
-                titles += collect_titles(element[key])
-    if isinstance(element, list):
-        for item in element:
-            titles += collect_titles(item)
-    return titles
-
-
 def read_modules() -> Any:
     """
     checks the opensearch-api spec at
@@ -602,6 +589,10 @@ def read_modules() -> Any:
 
             # Iterate over the list of parameters and update them
             for param_ref in endpoint["parameters"]:
+
+                if param_ref["$ref"] in IGNORED_PARAM_REFS:
+                    pass
+
                 param_ref = param_ref["$ref"].split("/")[-1]
                 param = data["components"]["parameters"][param_ref]
 
@@ -616,11 +607,7 @@ def read_modules() -> Any:
                                     common_schema_path_ref
                                 ]
 
-                # Ignore anything with titles, currently only 1 case, see
-                # https://github.com/opensearch-project/opensearch-api-specification/pull/416
-                titles = collect_titles(param)
-                if len(titles) == 0:
-                    params.append(param)
+                params.append(param)
 
             # Iterate over the list of updated parameters to separate "parts" from "params"
             params_copy = params.copy()
