@@ -132,7 +132,7 @@
 <span class="sd">        overridden by methods (`using`, `index` and `doc_type` respectively).</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">UpdateByQuery</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_response_class</span> <span class="o">=</span> <span class="n">UpdateByQueryResponse</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_script</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_query_proxy</span> <span class="o">=</span> <span class="n">QueryProxy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;query&quot;</span><span class="p">)</span>
@@ -171,7 +171,7 @@
 <span class="sd">        of all the underlying objects. Used internally by most state modifying</span>
 <span class="sd">        APIs.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">ubq</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">UpdateByQuery</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">_clone</span><span class="p">()</span>
+        <span class="n">ubq</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_clone</span><span class="p">()</span>
 
         <span class="n">ubq</span><span class="o">.</span><span class="n">_response_class</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_response_class</span>
         <span class="n">ubq</span><span class="o">.</span><span class="n">_script</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_script</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>

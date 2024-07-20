@@ -128,7 +128,7 @@
 <span class="n">TIME_TYPES</span> <span class="o">=</span> <span class="p">(</span><span class="n">date</span><span class="p">,</span> <span class="n">datetime</span><span class="p">)</span>
 
 
-<span class="k">class</span> <span class="nc">Serializer</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">Serializer</span><span class="p">:</span>
     <span class="n">mimetype</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">loads</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
@@ -148,7 +148,7 @@
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">string_types</span><span class="p">):</span>
             <span class="k">return</span> <span class="n">data</span>
 
-        <span class="k">raise</span> <span class="n">SerializationError</span><span class="p">(</span><span class="s2">&quot;Cannot serialize </span><span class="si">%r</span><span class="s2"> into text.&quot;</span> <span class="o">%</span> <span class="n">data</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="n">SerializationError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Cannot serialize </span><span class="si">{</span><span class="n">data</span><span class="si">!r}</span><span class="s2"> into text.&quot;</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="JSONSerializer"><a class="viewcode-back" href="../../api-ref/serializer.html#opensearchpy.JSONSerializer">[docs]</a><span class="k">class</span> <span class="nc">JSONSerializer</span><span class="p">(</span><span class="n">Serializer</span><span class="p">):</span>
@@ -223,7 +223,7 @@
         <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
             <span class="k">pass</span>
 
-        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Unable to serialize </span><span class="si">%r</span><span class="s2"> (type: </span><span class="si">%s</span><span class="s2">)&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">data</span><span class="p">)))</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unable to serialize </span><span class="si">{</span><span class="n">data</span><span class="si">!r}</span><span class="s2"> (type: </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">loads</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="k">try</span><span class="p">:</span>
@@ -250,7 +250,7 @@
 <span class="p">}</span>
 
 
-<span class="k">class</span> <span class="nc">Deserializer</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">Deserializer</span><span class="p">:</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">serializers</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Serializer</span><span class="p">],</span>
@@ -260,7 +260,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">default</span> <span class="o">=</span> <span class="n">serializers</span><span class="p">[</span><span class="n">default_mimetype</span><span class="p">]</span>
         <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">ImproperlyConfigured</span><span class="p">(</span>
-                <span class="s2">&quot;Cannot find default serializer (</span><span class="si">%s</span><span class="s2">)&quot;</span> <span class="o">%</span> <span class="n">default_mimetype</span>
+                <span class="sa">f</span><span class="s2">&quot;Cannot find default serializer (</span><span class="si">{</span><span class="n">default_mimetype</span><span class="si">}</span><span class="s2">)&quot;</span>
             <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">serializers</span> <span class="o">=</span> <span class="n">serializers</span>
 
@@ -279,7 +279,7 @@
                 <span class="n">deserializer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">serializers</span><span class="p">[</span><span class="n">mimetype</span><span class="p">]</span>
             <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="n">SerializationError</span><span class="p">(</span>
-                    <span class="s2">&quot;Unknown mimetype, unable to deserialize: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">mimetype</span>
+                    <span class="sa">f</span><span class="s2">&quot;Unknown mimetype, unable to deserialize: </span><span class="si">{</span><span class="n">mimetype</span><span class="si">}</span><span class="s2">&quot;</span>
                 <span class="p">)</span>
 
         <span class="k">return</span> <span class="n">deserializer</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
@@ -291,7 +291,7 @@
             <span class="k">return</span> <span class="n">data</span><span class="o">.</span><span class="n">_l_</span>
         <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="s2">&quot;to_dict&quot;</span><span class="p">):</span>
             <span class="k">return</span> <span class="n">data</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
-        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">AttrJSONSerializer</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">default</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">default</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 
 
 <span class="n">serializer</span> <span class="o">=</span> <span class="n">AttrJSONSerializer</span><span class="p">()</span>

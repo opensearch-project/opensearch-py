@@ -121,7 +121,7 @@
 <span class="n">logger</span><span class="p">:</span> <span class="n">logging</span><span class="o">.</span><span class="n">Logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;opensearch&quot;</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="ConnectionSelector"><a class="viewcode-back" href="../../api-ref/connection_pool.html#opensearchpy.ConnectionSelector">[docs]</a><span class="k">class</span> <span class="nc">ConnectionSelector</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="ConnectionSelector"><a class="viewcode-back" href="../../api-ref/connection_pool.html#opensearchpy.ConnectionSelector">[docs]</a><span class="k">class</span> <span class="nc">ConnectionSelector</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Simple class used to select a connection from a list of currently live</span>
 <span class="sd">    connection instances. In init time it is passed a dictionary containing all</span>
@@ -170,7 +170,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">opts</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">Connection</span><span class="p">,</span> <span class="n">Any</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">RoundRobinSelector</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">opts</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">opts</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">local</span><span class="p">()</span>
 
 <div class="viewcode-block" id="RoundRobinSelector.select"><a class="viewcode-back" href="../../api-ref/connection_pool.html#opensearchpy.RoundRobinSelector.select">[docs]</a>    <span class="k">def</span> <span class="nf">select</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">connections</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Connection</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
@@ -179,7 +179,7 @@
         <span class="k">return</span> <span class="n">connections</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">rr</span><span class="p">]</span></div></div>
 
 
-<div class="viewcode-block" id="ConnectionPool"><a class="viewcode-back" href="../../api-ref/connection_pool.html#opensearchpy.ConnectionPool">[docs]</a><span class="k">class</span> <span class="nc">ConnectionPool</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="ConnectionPool"><a class="viewcode-back" href="../../api-ref/connection_pool.html#opensearchpy.ConnectionPool">[docs]</a><span class="k">class</span> <span class="nc">ConnectionPool</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Container holding the :class:`~opensearchpy.Connection` instances,</span>
 <span class="sd">    managing the selection process (via a</span>
@@ -218,7 +218,7 @@
         <span class="n">timeout_cutoff</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span>
         <span class="n">selector_class</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">ConnectionSelector</span><span class="p">]</span> <span class="o">=</span> <span class="n">RoundRobinSelector</span><span class="p">,</span>
         <span class="n">randomize_hosts</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-        <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        :arg connections: list of tuples containing the</span>
@@ -373,7 +373,7 @@
             <span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="ConnectionPool.__repr__"><a class="viewcode-back" href="../../api-ref/connection_pool.html#opensearchpy.ConnectionPool.__repr__">[docs]</a>    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="k">return</span> <span class="s2">&quot;&lt;</span><span class="si">%s</span><span class="s2">: </span><span class="si">%r</span><span class="s2">&gt;&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">connections</span><span class="p">)</span></div></div>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;&lt;</span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">connections</span><span class="si">!r}</span><span class="s2">&gt;&quot;</span></div></div>
 
 
 <span class="k">class</span> <span class="nc">DummyConnectionPool</span><span class="p">(</span><span class="n">ConnectionPool</span><span class="p">):</span>
