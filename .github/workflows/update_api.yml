@@ -18,7 +18,7 @@ jobs:
       - name: Config git to rebase
         run: git config --global pull.rebase true
       - name: Set up Python 3.8
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: 3.8
       - name: Install dependencies
@@ -31,14 +31,14 @@ jobs:
         run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
       - name: GitHub App token
         id: github_app_token
-        uses: tibdex/github-app-token@v1.5.0
+        uses: tibdex/github-app-token@v2.1.0
         with:
           app_id: ${{ secrets.APP_ID }}
           private_key: ${{ secrets.APP_PRIVATE_KEY }}
           installation_id: 22958780
       - name: Create pull request
         id: cpr
-        uses: peter-evans/create-pull-request@v5
+        uses: peter-evans/create-pull-request@v6
         with:
           token: ${{ steps.github_app_token.outputs.token }}
           commit-message: Updated opensearch-py to reflect the latest OpenSearch API spec (${{ steps.date.outputs.date }})

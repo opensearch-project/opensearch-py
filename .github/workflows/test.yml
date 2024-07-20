@@ -22,9 +22,9 @@ jobs:
     runs-on: ${{ matrix.entry.os }}
     steps:
       - name: Checkout Source Code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Set Up Python - ${{ matrix.entry.python-version }}
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.entry.python-version }}
         env:
@@ -37,7 +37,7 @@ jobs:
         run: |
           python -m nox -rs test-${{ matrix.entry.python-version }}
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v2
+        uses: codecov/codecov-action@v4
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: ./junit/opensearch-py-codecov.xml
