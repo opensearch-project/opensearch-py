@@ -198,7 +198,7 @@ def _process_bulk_chunk_success(
             yield ok, {op_type: item}
 
     if errors:
-        raise BulkIndexError("%i document(s) failed to index." % len(errors), errors)
+        raise BulkIndexError(f"{len(errors)} document(s) failed to index.", errors)
 
 
 def _process_bulk_chunk_error(
@@ -228,7 +228,7 @@ def _process_bulk_chunk_error(
     # emulate standard behavior for failed actions
     if raise_on_error and error.status_code not in ignore_status:
         raise BulkIndexError(
-            "%i document(s) failed to index." % len(exc_errors), exc_errors
+            f"{len(exc_errors)} document(s) failed to index.", exc_errors
         )
     else:
         for err in exc_errors:

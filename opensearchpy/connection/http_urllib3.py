@@ -245,7 +245,7 @@ class Urllib3HttpConnection(Connection):
 
         url = self.url_prefix + url
         if params:
-            url = "{}?{}".format(url, urlencode(params))
+            url = f"{url}?{urlencode(params)}"
 
         full_url = self.host + url
 

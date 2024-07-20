@@ -48,7 +48,7 @@ def SF(name_or_sf: Any, **params: Any) -> Any:  # pylint: disable=invalid-name
         elif len(sf) == 1:
             name, params = sf.popitem()
         else:
-            raise ValueError("SF() got an unexpected fields in the dictionary: %r" % sf)
+            raise ValueError(f"SF() got an unexpected fields in the dictionary: {sf!r}")
 
         # boost factor special case, see https://github.com/elastic/elasticsearch/issues/6343
         if not isinstance(params, collections_abc.Mapping):

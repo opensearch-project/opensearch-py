@@ -249,7 +249,7 @@ class AsyncDocument(ObjectBase, metaclass=AsyncIndexMeta):
             raise RequestError(400, message, error_docs)
         if missing_docs:
             missing_ids = [doc["_id"] for doc in missing_docs]
-            message = "Documents %s not found." % ", ".join(missing_ids)
+            message = f"Documents {', '.join(missing_ids)} not found."
             raise NotFoundError(404, message, {"docs": missing_docs})
         return objs
 

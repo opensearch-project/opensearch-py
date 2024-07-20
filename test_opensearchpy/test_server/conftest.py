@@ -74,7 +74,7 @@ def sync_client_factory() -> Any:
             except ConnectionError:
                 time.sleep(0.1)
         else:
-            pytest.skip("OpenSearch wasn't running at {!r}".format(OPENSEARCH_URL))
+            pytest.skip(f"OpenSearch wasn't running at {OPENSEARCH_URL!r}")
 
         wipe_cluster(client)
         yield client

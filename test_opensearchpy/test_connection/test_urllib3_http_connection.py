@@ -130,7 +130,7 @@ class TestUrllib3HttpConnection(TestCase):
         con = Urllib3HttpConnection()
         self.assertEqual(
             con._get_default_user_agent(),
-            "opensearch-py/{} (Python {})".format(__versionstr__, python_version()),
+            f"opensearch-py/{__versionstr__} (Python {python_version()})",
         )
 
     def test_timeout_set(self) -> None:

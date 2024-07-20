@@ -77,10 +77,10 @@ def fetch_opensearch_repo() -> None:
 
     # no test directory
     if not exists(repo_path):
-        subprocess.check_call("mkdir %s" % repo_path, shell=True)
+        subprocess.check_call(f"mkdir {repo_path}", shell=True)
 
     # make a new blank repository in the test directory
-    subprocess.check_call("cd %s && git init" % repo_path, shell=True)
+    subprocess.check_call(f"cd {repo_path} && git init", shell=True)
 
     try:
         # add a remote
@@ -103,7 +103,7 @@ def fetch_opensearch_repo() -> None:
 
     # fetch the sha commit, version from info()
     print("Fetching opensearch repo...")
-    subprocess.check_call("cd {} && git fetch origin {}".format(repo_path, sha), shell=True)
+    subprocess.check_call(f"cd {repo_path} && git fetch origin {sha}", shell=True)
 
 
 def run_all(argv: Any = None) -> None:
@@ -135,18 +135,18 @@ def run_all(argv: Any = None) -> None:
         argv = [
             "pytest",
             "--cov=opensearchpy",
-            "--junitxml=%s" % junit_xml,
+            f"--junitxml={junit_xml}",
             "--log-level=DEBUG",
             "--cache-clear",
             "-vv",
-            "--cov-report=xml:%s" % codecov_xml,
+            f"--cov-report=xml:{codecov_xml}",
         ]
         if (
             "OPENSEARCHPY_GEN_HTML_COV" in environ
             and environ.get("OPENSEARCHPY_GEN_HTML_COV") == "true"
         ):
             codecov_html = join(abspath(dirname(dirname(__file__))), "junit", "html")
-            argv.append("--cov-report=html:%s" % codecov_html)
+            argv.append(f"--cov-report=html:{codecov_html}")
 
         secured = False
         if environ.get("OPENSEARCH_URL", "").startswith("https://"):
@@ -155,7 +155,7 @@ def run_all(argv: Any = None) -> None:
         # check TEST_PATTERN env var for specific test to run
         test_pattern = environ.get("TEST_PATTERN")
         if test_pattern:
-            argv.append("-k %s" % test_pattern)
+            argv.append(f"-k {test_pattern}")
         else:
             ignores = [
                 "test_opensearchpy/test_server/",
@@ -195,7 +195,7 @@ def run_all(argv: Any = None) -> None:
                 )
 
             if ignores:
-                argv.extend(["--ignore=%s" % ignore for ignore in ignores])
+                argv.extend([f"--ignore={ignore}" for ignore in ignores])
 
             # Not in CI, run all tests specified.
             else:

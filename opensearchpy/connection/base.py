@@ -119,27 +119,27 @@ class Connection:
         self.hostname = host
         self.port = port
         if ":" in host:  # IPv6
-            self.host = "{}://[{}]".format(scheme, host)
+            self.host = f"{scheme}://[{host}]"
         else:
-            self.host = "{}://{}".format(scheme, host)
+            self.host = f"{scheme}://{host}"
         if self.port is not None:
-            self.host += ":%s" % self.port
+            self.host += f":{self.port}"
         if url_prefix:
             url_prefix = "/" + url_prefix.strip("/")
         self.url_prefix = url_prefix
         self.timeout = timeout
 
     def __repr__(self) -> str:
-        return "<{}: {}>".format(self.__class__.__name__, self.host)
+        return f"<{self.__class__.__name__}: {self.host}>"
 
     def __eq__(self, other: object) -> bool:
         if not isinstance(other, Connection):
-            raise TypeError("Unsupported equality check for {} and {}".format(self, other))
+            raise TypeError(f"Unsupported equality check for {self} and {other}")
         return self.__hash__() == other.__hash__()
 
     def __lt__(self, other: object) -> bool:
         if not isinstance(other, Connection):
-            raise TypeError("Unsupported lt check for {} and {}".format(self, other))
+            raise TypeError(f"Unsupported lt check for {self} and {other}")
         return self.__hash__() < other.__hash__()
 
     def __hash__(self) -> int:
@@ -317,7 +317,7 @@ class Connection:
         )
 
     def _get_default_user_agent(self) -> str:
-        return "opensearch-py/{} (Python {})".format(__versionstr__, python_version())
+        return f"opensearch-py/{__versionstr__} (Python {python_version()})"
 
     @staticmethod
     def default_ca_certs() -> Union[str, None]:

@@ -132,10 +132,7 @@ class RequestsHttpConnection(Connection):
                 http_auth = tuple(http_auth.split(":", 1))  # type: ignore
             self.session.auth = http_auth
 
-        self.base_url = "{}{}".format(
-            self.host,
-            self.url_prefix,
-        )
+        self.base_url = f"{self.host}{self.url_prefix}"
         self.session.verify = verify_certs
         if not client_key:
             self.session.cert = client_cert
@@ -176,7 +173,7 @@ class RequestsHttpConnection(Connection):
         url = self.base_url + url
         headers = headers or {}
         if params:
-            url = "{}?{}".format(url, urlencode(params or {}))
+            url = f"{url}?{urlencode(params or {})}"
 
         orig_body = body
         if self.http_compress and body:

@@ -186,7 +186,7 @@ class AsyncHttpConnection(AIOHttpConnection):
         # then we pass a string into ClientSession.request() instead.
         url = self.url_prefix + url
         if query_string:
-            url = "{}?{}".format(url, query_string)
+            url = f"{url}?{query_string}"
         url = self.host + url
 
         timeout = aiohttp.ClientTimeout(

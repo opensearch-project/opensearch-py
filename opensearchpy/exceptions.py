@@ -120,7 +120,7 @@ class TransportError(OpenSearchException):
         except LookupError:
             pass
         msg = ", ".join(filter(None, [str(self.status_code), repr(self.error), cause]))
-        return "{}({})".format(self.__class__.__name__, msg)
+        return f"{self.__class__.__name__}({msg})"
 
 
 class ConnectionError(TransportError):

@@ -58,7 +58,7 @@ def _normalize_hosts(hosts: Any) -> Any:
     for host in hosts:
         if isinstance(host, string_types):
             if "://" not in host:
-                host = "//%s" % host  # type: ignore
+                host = f"//{host}"  # type: ignore
 
             parsed_url = urlparse(host)
             h = {"host": parsed_url.hostname}
@@ -159,11 +159,9 @@ def query_params(*opensearch_query_params: Any) -> Callable:  # type: ignore
                     "Only one of 'http_auth' and 'api_key' may be passed at a time"
                 )
             elif http_auth is not None:
-                headers["authorization"] = "Basic {}".format(
-                    _base64_auth_header(http_auth),
-                )
+                headers["authorization"] = f"Basic {_base64_auth_header(http_auth)}"
             elif api_key is not None:
-                headers["authorization"] = "ApiKey {}".format(_base64_auth_header(api_key))
+                headers["authorization"] = f"ApiKey {_base64_auth_header(api_key)}"
 
             # don't escape ignore, request_timeout, or timeout
             for p in ("ignore", "request_timeout", "timeout"):

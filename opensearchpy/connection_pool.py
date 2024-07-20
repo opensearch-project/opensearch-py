@@ -290,7 +290,7 @@ class ConnectionPool:
             conn.close()
 
     def __repr__(self) -> str:
-        return "<{}: {!r}>".format(type(self).__name__, self.connections)
+        return f"<{type(self).__name__}: {self.connections!r}>"
 
 
 class DummyConnectionPool(ConnectionPool):
