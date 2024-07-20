@@ -8,6 +8,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ### Deprecated
 ### Removed
 - Removed redundant dependency on six ([#781](https://github.com/opensearch-project/opensearch-py/pull/781))
+- Removed redundant dependency on mock and upgrade Python syntax ([#785](https://github.com/opensearch-project/opensearch-py/pull/785))
 ### Fixed
 - Fixed Search helper to ensure proper retention of the _collapse attribute in chained operations. ([#771](https://github.com/opensearch-project/opensearch-py/pull/771))
 ### Updated APIs
