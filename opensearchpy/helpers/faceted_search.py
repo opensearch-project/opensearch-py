@@ -254,9 +254,7 @@ class NestedFacet(Facet):
     def __init__(self, path: Any, nested_facet: Any) -> None:
         self._path = path
         self._inner = nested_facet
-        super().__init__(
-            path=path, aggs={"inner": nested_facet.get_aggregation()}
-        )
+        super().__init__(path=path, aggs={"inner": nested_facet.get_aggregation()})
 
     def get_values(self, data: Any, filter_values: Any) -> Any:
         return self._inner.get_values(data.inner, filter_values)

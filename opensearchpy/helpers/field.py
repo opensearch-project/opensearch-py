@@ -374,9 +374,7 @@ class ScaledFloat(Float):
     name: Optional[str] = "scaled_float"
 
     def __init__(self, scaling_factor: Any, *args: Any, **kwargs: Any) -> None:
-        super().__init__(
-            scaling_factor=scaling_factor, *args, **kwargs
-        )
+        super().__init__(scaling_factor=scaling_factor, *args, **kwargs)
 
 
 class Double(Float):
