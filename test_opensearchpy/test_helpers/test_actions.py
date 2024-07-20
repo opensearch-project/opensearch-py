@@ -28,9 +28,9 @@
 import threading
 import time
 from typing import Any
+from unittest import mock
 from unittest.mock import Mock
 
-from unittest import mock
 import pytest
 
 from opensearchpy import OpenSearch, helpers

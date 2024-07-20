@@ -30,9 +30,9 @@ import re
 import uuid
 import warnings
 from typing import Any
+from unittest.mock import MagicMock, Mock, patch
 
 import pytest
-from unittest.mock import MagicMock, Mock, patch
 from requests.auth import AuthBase
 
 from opensearchpy.connection import Connection, RequestsHttpConnection

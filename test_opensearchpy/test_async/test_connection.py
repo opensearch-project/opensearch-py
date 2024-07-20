@@ -32,11 +32,11 @@ import ssl
 import warnings
 from platform import python_version
 from typing import Any
+from unittest.mock import MagicMock, patch
 
 import aiohttp
 import pytest
 from _pytest.mark.structures import MarkDecorator
-from unittest.mock import MagicMock, patch
 from multidict import CIMultiDict
 from pytest import raises
 

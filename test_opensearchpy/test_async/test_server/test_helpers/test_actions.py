@@ -27,9 +27,9 @@
 
 import asyncio
 from typing import Any, List
+from unittest.mock import MagicMock, patch
 
 import pytest
-from unittest.mock import MagicMock, patch
 
 from opensearchpy import TransportError
 from opensearchpy._async.helpers import actions

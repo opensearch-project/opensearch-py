@@ -9,10 +9,10 @@
 
 
 from typing import Any
+from unittest.mock import Mock
 
 import pytest
 from _pytest.mark.structures import MarkDecorator
-from unittest.mock import Mock
 from pytest import fixture
 
 from opensearchpy.connection.async_connections import add_connection, async_connections

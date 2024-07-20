@@ -28,7 +28,6 @@
 import json
 import time
 from typing import Any
-
 from unittest.mock import patch
 
 from opensearchpy.connection import Connection

@@ -32,10 +32,10 @@ from gzip import GzipFile
 from io import BytesIO
 from platform import python_version
 from typing import Any
+from unittest.mock import MagicMock, Mock, patch
 
 import pytest
 import urllib3
-from unittest.mock import MagicMock, Mock, patch
 from urllib3._collections import HTTPHeaderDict
 
 from opensearchpy import __versionstr__

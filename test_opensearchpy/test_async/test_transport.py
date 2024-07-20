@@ -28,10 +28,10 @@
 import asyncio
 import json
 from typing import Any
+from unittest.mock import patch
 
 import pytest
 from _pytest.mark.structures import MarkDecorator
-from unittest.mock import patch
 
 from opensearchpy import AIOHttpConnection, AsyncTransport
 from opensearchpy.connection import Connection
