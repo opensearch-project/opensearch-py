@@ -92,7 +92,7 @@ class RequestsHttpConnection(Connection):
         opaque_id: Any = None,
         pool_maxsize: Any = None,
         metrics: Metrics = MetricsNone(),
-        **kwargs: Any
+        **kwargs: Any,
     ) -> None:
         self.metrics = metrics
         if not REQUESTS_AVAILABLE:
@@ -118,7 +118,7 @@ class RequestsHttpConnection(Connection):
             headers=headers,
             http_compress=http_compress,
             opaque_id=opaque_id,
-            **kwargs
+            **kwargs,
         )
 
         if not self.http_compress:

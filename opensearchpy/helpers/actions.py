@@ -243,7 +243,7 @@ def _process_bulk_chunk(
     raise_on_error: bool = True,
     ignore_status: Any = (),
     *args: Any,
-    **kwargs: Any
+    **kwargs: Any,
 ) -> Any:
     """
     Send a bulk request to opensearch and process the output.
@@ -286,7 +286,7 @@ def streaming_bulk(
     yield_ok: bool = True,
     ignore_status: Any = (),
     *args: Any,
-    **kwargs: Any
+    **kwargs: Any,
 ) -> Any:
     """
     Streaming bulk consumes actions from the iterable passed in and yields
@@ -343,7 +343,7 @@ def streaming_bulk(
                         raise_on_error,
                         ignore_status,
                         *args,
-                        **kwargs
+                        **kwargs,
                     ),
                 ):
                     if not ok:
@@ -383,7 +383,7 @@ def bulk(
     stats_only: bool = False,
     ignore_status: Any = (),
     *args: Any,
-    **kwargs: Any
+    **kwargs: Any,
 ) -> Any:
     """
     Helper for the :meth:`~opensearchpy.OpenSearch.bulk` api that provides
@@ -444,7 +444,7 @@ def parallel_bulk(
     raise_on_error: bool = True,
     ignore_status: Any = (),
     *args: Any,
-    **kwargs: Any
+    **kwargs: Any,
 ) -> Any:
     """
     Parallel version of the bulk helper run in multiple threads at once.
@@ -492,7 +492,7 @@ def parallel_bulk(
                     raise_on_error,
                     ignore_status,
                     *args,
-                    **kwargs
+                    **kwargs,
                 )
             ),
             _chunk_actions(
@@ -516,7 +516,7 @@ def scan(
     request_timeout: Optional[float] = None,
     clear_scroll: Optional[bool] = True,
     scroll_kwargs: Any = None,
-    **kwargs: Any
+    **kwargs: Any,
 ) -> Any:
     """
     Simple abstraction on top of the
@@ -684,5 +684,5 @@ def reindex(
         target_client,
         _change_doc_index(docs, target_index),
         chunk_size=chunk_size,
-        **kwargs
+        **kwargs,
     )

@@ -25,7 +25,6 @@
 #  under the License.
 
 
-
 import base64
 import weakref
 from datetime import date, datetime

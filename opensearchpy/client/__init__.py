@@ -34,7 +34,6 @@
 # -----------------------------------------------------------------------------------------+
 
 
-
 import logging
 from typing import Any, Type
 
@@ -196,7 +195,7 @@ class OpenSearch(Client):
         self,
         hosts: Any = None,
         transport_class: Type[Transport] = Transport,
-        **kwargs: Any
+        **kwargs: Any,
     ) -> None:
         """
         :arg hosts: list of nodes, or a single node, we should connect to.

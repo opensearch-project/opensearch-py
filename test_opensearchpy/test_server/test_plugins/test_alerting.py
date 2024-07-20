@@ -8,7 +8,6 @@
 # GitHub history for details.
 
 
-
 import unittest
 
 from opensearchpy.helpers.test import OPENSEARCH_VERSION

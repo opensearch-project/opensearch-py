@@ -52,7 +52,7 @@ class AsyncHttpConnection(AIOHttpConnection):
         http_compress: Optional[bool] = None,
         opaque_id: Optional[str] = None,
         loop: Any = None,
-        **kwargs: Any
+        **kwargs: Any,
     ) -> None:
         self.headers = {}
 
@@ -63,7 +63,7 @@ class AsyncHttpConnection(AIOHttpConnection):
             headers=headers,
             http_compress=http_compress,
             opaque_id=opaque_id,
-            **kwargs
+            **kwargs,
         )
 
         if http_auth is not None:

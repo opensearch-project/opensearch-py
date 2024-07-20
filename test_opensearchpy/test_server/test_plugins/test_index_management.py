@@ -8,7 +8,6 @@
 # GitHub history for details.
 
 
-
 from opensearchpy.exceptions import NotFoundError
 
 from .. import OpenSearchTestCase

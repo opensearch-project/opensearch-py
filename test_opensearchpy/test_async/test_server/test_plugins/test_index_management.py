@@ -8,7 +8,6 @@
 # GitHub history for details.
 
 
-
 import pytest
 from _pytest.mark.structures import MarkDecorator
 

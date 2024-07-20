@@ -135,7 +135,7 @@ class ConnectionPool:
         timeout_cutoff: int = 5,
         selector_class: Type[ConnectionSelector] = RoundRobinSelector,
         randomize_hosts: bool = True,
-        **kwargs: Any
+        **kwargs: Any,
     ) -> None:
         """
         :arg connections: list of tuples containing the

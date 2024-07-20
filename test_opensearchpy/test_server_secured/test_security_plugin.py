@@ -8,7 +8,6 @@
 # GitHub history for details.
 
 
-
 import os
 from unittest import TestCase
 

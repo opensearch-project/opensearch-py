@@ -8,7 +8,6 @@
 # GitHub history for details.
 
 
-
 import unittest
 
 import pytest

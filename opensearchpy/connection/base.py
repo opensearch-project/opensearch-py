@@ -81,7 +81,7 @@ class Connection:
         headers: Optional[Dict[str, str]] = None,
         http_compress: Optional[bool] = None,
         opaque_id: Optional[str] = None,
-        **kwargs: Any
+        **kwargs: Any,
     ) -> None:
         if port is None:
             port = 9200

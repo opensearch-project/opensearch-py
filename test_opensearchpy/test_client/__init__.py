@@ -25,7 +25,6 @@
 #  under the License.
 
 
-
 import warnings
 
 from opensearchpy.client import OpenSearch

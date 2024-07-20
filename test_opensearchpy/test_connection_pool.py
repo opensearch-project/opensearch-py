@@ -68,9 +68,7 @@ class TestConnectionPool(TestCase):
     def test_selectors_have_access_to_connection_opts(self) -> None:
         class MySelector(RoundRobinSelector):
             def select(self, connections: Any) -> Any:
-                return self.connection_opts[
-                    super().select(connections)
-                ]["actual"]
+                return self.connection_opts[super().select(connections)]["actual"]
 
         pool = ConnectionPool(
             [(x, {"actual": x * x}) for x in range(100)],

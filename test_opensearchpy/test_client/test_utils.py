@@ -25,7 +25,6 @@
 #  under the License.
 
 
-
 from typing import Any
 
 from opensearchpy.client.utils import _bulk_body, _escape, _make_path, query_params

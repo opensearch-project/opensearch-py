@@ -157,7 +157,7 @@ class Object(Field):
         doc_class: Any = None,
         dynamic: Any = None,
         properties: Any = None,
-        **kwargs: Any
+        **kwargs: Any,
     ) -> None:
         """
         :arg document.InnerDoc doc_class: base doc class that handles mapping.

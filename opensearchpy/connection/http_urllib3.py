@@ -121,7 +121,7 @@ class Urllib3HttpConnection(Connection):
         http_compress: Any = None,
         opaque_id: Any = None,
         metrics: Metrics = MetricsNone(),
-        **kwargs: Any
+        **kwargs: Any,
     ) -> None:
         self.metrics = metrics
         # Initialize headers before calling super().__init__().
@@ -134,7 +134,7 @@ class Urllib3HttpConnection(Connection):
             headers=headers,
             http_compress=http_compress,
             opaque_id=opaque_id,
-            **kwargs
+            **kwargs,
         )
 
         self.http_auth = http_auth

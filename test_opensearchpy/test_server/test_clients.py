@@ -25,7 +25,6 @@
 #  under the License.
 
 
-
 from . import OpenSearchTestCase
 
 

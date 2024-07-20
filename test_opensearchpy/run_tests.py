@@ -31,7 +31,6 @@
 #  under the License.
 
 
-
 import subprocess
 import sys
 from os import environ
