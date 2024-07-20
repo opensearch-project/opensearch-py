@@ -111,8 +111,6 @@
 <span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">chain</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
 
-<span class="kn">from</span> <span class="nn">six</span> <span class="kn">import</span> <span class="n">iteritems</span><span class="p">,</span> <span class="n">itervalues</span>
-
 <span class="kn">from</span> <span class="nn">opensearchpy.connection.connections</span> <span class="kn">import</span> <span class="n">get_connection</span>
 <span class="kn">from</span> <span class="nn">opensearchpy.helpers.field</span> <span class="kn">import</span> <span class="n">Nested</span><span class="p">,</span> <span class="n">Text</span><span class="p">,</span> <span class="n">construct_field</span>
 
@@ -136,7 +134,7 @@
     <span class="n">_param_defs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;field&quot;</span><span class="p">,</span> <span class="s2">&quot;hash&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}}</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">Properties</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="k">return</span> <span class="s2">&quot;Properties()&quot;</span>
@@ -148,7 +146,7 @@
         <span class="k">return</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">properties</span>
 
     <span class="k">def</span> <span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
-        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">Properties</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()[</span><span class="s2">&quot;properties&quot;</span><span class="p">]</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()[</span><span class="s2">&quot;properties&quot;</span><span class="p">]</span>
 
     <span class="k">def</span> <span class="nf">field</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Properties&quot;</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">construct_field</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
@@ -156,16 +154,14 @@
 
     <span class="k">def</span> <span class="nf">_collect_fields</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Iterate over all Field objects within, including multi fields.&quot;&quot;&quot;</span>
-        <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">itervalues</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()):</span>
+        <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
             <span class="k">yield</span> <span class="n">f</span>
             <span class="c1"># multi fields</span>
             <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="s2">&quot;fields&quot;</span><span class="p">):</span>
-                <span class="k">for</span> <span class="n">inner_f</span> <span class="ow">in</span> <span class="n">itervalues</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">fields</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()):</span>
-                    <span class="k">yield</span> <span class="n">inner_f</span>
+                <span class="k">yield from</span> <span class="n">f</span><span class="o">.</span><span class="n">fields</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
             <span class="c1"># nested and inner objects</span>
             <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="s2">&quot;_collect_fields&quot;</span><span class="p">):</span>
-                <span class="k">for</span> <span class="n">inner_f</span> <span class="ow">in</span> <span class="n">f</span><span class="o">.</span><span class="n">_collect_fields</span><span class="p">():</span>
-                    <span class="k">yield</span> <span class="n">inner_f</span>
+                <span class="k">yield from</span> <span class="n">f</span><span class="o">.</span><span class="n">_collect_fields</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other_object</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">other_object</span><span class="p">,</span> <span class="s2">&quot;properties&quot;</span><span class="p">):</span>
@@ -181,7 +177,7 @@
             <span class="n">our</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">other</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
 
 
-<div class="viewcode-block" id="Mapping"><a class="viewcode-back" href="../../../api-ref/helpers/mapping.html#opensearchpy.helpers.mapping.Mapping">[docs]</a><span class="k">class</span> <span class="nc">Mapping</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="Mapping"><a class="viewcode-back" href="../../../api-ref/helpers/mapping.html#opensearchpy.helpers.mapping.Mapping">[docs]</a><span class="k">class</span> <span class="nc">Mapping</span><span class="p">:</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">properties</span> <span class="o">=</span> <span class="n">Properties</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_meta</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="p">{}</span>
@@ -264,11 +260,11 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_update_from_dict</span><span class="p">(</span><span class="n">raw</span><span class="p">[</span><span class="s2">&quot;mappings&quot;</span><span class="p">])</span>
 
     <span class="k">def</span> <span class="nf">_update_from_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">raw</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">definition</span> <span class="ow">in</span> <span class="n">iteritems</span><span class="p">(</span><span class="n">raw</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;properties&quot;</span><span class="p">,</span> <span class="p">{})):</span>
+        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">definition</span> <span class="ow">in</span> <span class="n">raw</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;properties&quot;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">definition</span><span class="p">)</span>
 
         <span class="c1"># metadata like _all etc</span>
-        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">iteritems</span><span class="p">(</span><span class="n">raw</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">raw</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="k">if</span> <span class="n">name</span> <span class="o">!=</span> <span class="s2">&quot;properties&quot;</span><span class="p">:</span>
                 <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">collections_abc</span><span class="o">.</span><span class="n">Mapping</span><span class="p">):</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">meta</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="o">**</span><span class="n">value</span><span class="p">)</span>
