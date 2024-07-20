@@ -95,7 +95,7 @@ def blacken(filename: Any) -> None:
     assert result.exit_code == 0, result.output
 
 
-@lru_cache()
+@lru_cache
 def is_valid_url(url: str) -> bool:
     """
     makes a call to the url
@@ -222,7 +222,7 @@ class Module:
 
         # Identifying the insertion point for the "THIS CODE IS AUTOMATICALLY GENERATED" header.
         if os.path.exists(self.filepath):
-            with open(self.filepath, "r", encoding="utf-8") as file:
+            with open(self.filepath, encoding="utf-8") as file:
                 content = file.read()
             if header_separator in content:
                 update_header = False
@@ -249,7 +249,7 @@ class Module:
         generated_file_header_path = os.path.join(
             current_script_folder, "generated_file_headers.txt"
         )
-        with open(generated_file_header_path, "r", encoding="utf-8") as header_file:
+        with open(generated_file_header_path, encoding="utf-8") as header_file:
             header_content = header_file.read()
 
         # Imports are temporarily removed from the header and are regenerated
@@ -287,7 +287,7 @@ class Module:
         # Generating imports for each module
         utils_imports = ""
         file_content = ""
-        with open(self.filepath, "r", encoding="utf-8") as file:
+        with open(self.filepath, encoding="utf-8") as file:
             content = file.read()
             keywords = [
                 "SKIP_IN_PATH",

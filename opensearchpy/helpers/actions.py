@@ -198,7 +198,7 @@ def _process_bulk_chunk_success(
             yield ok, {op_type: item}
 
     if errors:
-        raise BulkIndexError("%i document(s) failed to index." % len(errors), errors)
+        raise BulkIndexError(f"{len(errors)} document(s) failed to index.", errors)
 
 
 def _process_bulk_chunk_error(
@@ -228,7 +228,7 @@ def _process_bulk_chunk_error(
     # emulate standard behavior for failed actions
     if raise_on_error and error.status_code not in ignore_status:
         raise BulkIndexError(
-            "%i document(s) failed to index." % len(exc_errors), exc_errors
+            f"{len(exc_errors)} document(s) failed to index.", exc_errors
         )
     else:
         for err in exc_errors:
@@ -243,7 +243,7 @@ def _process_bulk_chunk(
     raise_on_error: bool = True,
     ignore_status: Any = (),
     *args: Any,
-    **kwargs: Any
+    **kwargs: Any,
 ) -> Any:
     """
     Send a bulk request to opensearch and process the output.
@@ -269,8 +269,7 @@ def _process_bulk_chunk(
             ignore_status=ignore_status,
             raise_on_error=raise_on_error,
         )
-    for item in gen:
-        yield item
+    yield from gen
 
 
 def streaming_bulk(
@@ -287,7 +286,7 @@ def streaming_bulk(
     yield_ok: bool = True,
     ignore_status: Any = (),
     *args: Any,
-    **kwargs: Any
+    **kwargs: Any,
 ) -> Any:
     """
     Streaming bulk consumes actions from the iterable passed in and yields
@@ -344,7 +343,7 @@ def streaming_bulk(
                         raise_on_error,
                         ignore_status,
                         *args,
-                        **kwargs
+                        **kwargs,
                     ),
                 ):
                     if not ok:
@@ -384,7 +383,7 @@ def bulk(
     stats_only: bool = False,
     ignore_status: Any = (),
     *args: Any,
-    **kwargs: Any
+    **kwargs: Any,
 ) -> Any:
     """
     Helper for the :meth:`~opensearchpy.OpenSearch.bulk` api that provides
@@ -445,7 +444,7 @@ def parallel_bulk(
     raise_on_error: bool = True,
     ignore_status: Any = (),
     *args: Any,
-    **kwargs: Any
+    **kwargs: Any,
 ) -> Any:
     """
     Parallel version of the bulk helper run in multiple threads at once.
@@ -474,7 +473,7 @@ def parallel_bulk(
 
     class BlockingPool(ThreadPool):
         def _setup_queues(self) -> None:
-            super(BlockingPool, self)._setup_queues()  # type: ignore
+            super()._setup_queues()  # type: ignore
             # The queue must be at least the size of the number of threads to
             # prevent hanging when inserting sentinel values during teardown.
             self._inqueue: Any = Queue(max(queue_size, thread_count))
@@ -493,15 +492,14 @@ def parallel_bulk(
                     raise_on_error,
                     ignore_status,
                     *args,
-                    **kwargs
+                    **kwargs,
                 )
             ),
             _chunk_actions(
                 actions, chunk_size, max_chunk_bytes, client.transport.serializer
             ),
         ):
-            for item in result:
-                yield item
+            yield from result
 
     finally:
         pool.close()
@@ -518,7 +516,7 @@ def scan(
     request_timeout: Optional[float] = None,
     clear_scroll: Optional[bool] = True,
     scroll_kwargs: Any = None,
-    **kwargs: Any
+    **kwargs: Any,
 ) -> Any:
     """
     Simple abstraction on top of the
@@ -587,8 +585,7 @@ def scan(
 
     try:
         while scroll_id and resp.get("hits", {}).get("hits"):
-            for hit in resp.get("hits", {}).get("hits", []):
-                yield hit
+            yield from resp.get("hits", {}).get("hits", [])
 
             _shards = resp.get("_shards")
 
@@ -687,5 +684,5 @@ def reindex(
         target_client,
         _change_doc_index(docs, target_index),
         chunk_size=chunk_size,
-        **kwargs
+        **kwargs,
     )

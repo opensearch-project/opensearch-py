@@ -84,7 +84,7 @@ def test_cloned_index_has_analysis_attribute() -> None:
     client = object()
     i: Any = Index("my-index", using=client)
 
-    random_analyzer_name = "".join((choice(string.ascii_letters) for _ in range(100)))
+    random_analyzer_name = "".join(choice(string.ascii_letters) for _ in range(100))
     random_analyzer = analyzer(
         random_analyzer_name, tokenizer="standard", filter="standard"
     )
@@ -128,7 +128,7 @@ def test_registered_doc_type_included_in_search() -> None:
 
 
 def test_aliases_add_to_object() -> None:
-    random_alias = "".join((choice(string.ascii_letters) for _ in range(100)))
+    random_alias = "".join(choice(string.ascii_letters) for _ in range(100))
     alias_dict: Any = {random_alias: {}}
 
     index: Any = Index("i", using="alias")
@@ -138,7 +138,7 @@ def test_aliases_add_to_object() -> None:
 
 
 def test_aliases_returned_from_to_dict() -> None:
-    random_alias = "".join((choice(string.ascii_letters) for _ in range(100)))
+    random_alias = "".join(choice(string.ascii_letters) for _ in range(100))
     alias_dict: Any = {random_alias: {}}
 
     index: Any = Index("i", using="alias")
@@ -148,7 +148,7 @@ def test_aliases_returned_from_to_dict() -> None:
 
 
 def test_analyzers_added_to_object() -> None:
-    random_analyzer_name = "".join((choice(string.ascii_letters) for _ in range(100)))
+    random_analyzer_name = "".join(choice(string.ascii_letters) for _ in range(100))
     random_analyzer = analyzer(
         random_analyzer_name, tokenizer="standard", filter="standard"
     )
@@ -164,7 +164,7 @@ def test_analyzers_added_to_object() -> None:
 
 
 def test_analyzers_returned_from_to_dict() -> None:
-    random_analyzer_name = "".join((choice(string.ascii_letters) for _ in range(100)))
+    random_analyzer_name = "".join(choice(string.ascii_letters) for _ in range(100))
     random_analyzer = analyzer(
         random_analyzer_name, tokenizer="standard", filter="standard"
     )

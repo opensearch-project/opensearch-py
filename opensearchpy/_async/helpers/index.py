@@ -18,7 +18,7 @@ from opensearchpy.helpers import analysis
 from opensearchpy.helpers.utils import merge
 
 
-class AsyncIndexTemplate(object):
+class AsyncIndexTemplate:
     def __init__(
         self,
         name: Any,
@@ -57,7 +57,7 @@ class AsyncIndexTemplate(object):
         )
 
 
-class AsyncIndex(object):
+class AsyncIndex:
     def __init__(self, name: Any, using: Any = "default") -> None:
         """
         :arg name: name of the index

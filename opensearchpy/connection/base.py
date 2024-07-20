@@ -53,7 +53,7 @@ if not TRACER_ALREADY_CONFIGURED:
 _WARNING_RE = re.compile(r"\"([^\"]*)\"")
 
 
-class Connection(object):
+class Connection:
     """
     Class responsible for maintaining a connection to an OpenSearch node. It
     holds persistent connection pool to it and its main interface
@@ -81,7 +81,7 @@ class Connection(object):
         headers: Optional[Dict[str, str]] = None,
         http_compress: Optional[bool] = None,
         opaque_id: Optional[str] = None,
-        **kwargs: Any
+        **kwargs: Any,
     ) -> None:
         if port is None:
             port = 9200
@@ -119,27 +119,27 @@ class Connection(object):
         self.hostname = host
         self.port = port
         if ":" in host:  # IPv6
-            self.host = "%s://[%s]" % (scheme, host)
+            self.host = f"{scheme}://[{host}]"
         else:
-            self.host = "%s://%s" % (scheme, host)
+            self.host = f"{scheme}://{host}"
         if self.port is not None:
-            self.host += ":%s" % self.port
+            self.host += f":{self.port}"
         if url_prefix:
             url_prefix = "/" + url_prefix.strip("/")
         self.url_prefix = url_prefix
         self.timeout = timeout
 
     def __repr__(self) -> str:
-        return "<%s: %s>" % (self.__class__.__name__, self.host)
+        return f"<{self.__class__.__name__}: {self.host}>"
 
     def __eq__(self, other: object) -> bool:
         if not isinstance(other, Connection):
-            raise TypeError("Unsupported equality check for %s and %s" % (self, other))
+            raise TypeError(f"Unsupported equality check for {self} and {other}")
         return self.__hash__() == other.__hash__()
 
     def __lt__(self, other: object) -> bool:
         if not isinstance(other, Connection):
-            raise TypeError("Unsupported lt check for %s and %s" % (self, other))
+            raise TypeError(f"Unsupported lt check for {self} and {other}")
         return self.__hash__() < other.__hash__()
 
     def __hash__(self) -> int:
@@ -317,7 +317,7 @@ class Connection(object):
         )
 
     def _get_default_user_agent(self) -> str:
-        return "opensearch-py/%s (Python %s)" % (__versionstr__, python_version())
+        return f"opensearch-py/{__versionstr__} (Python {python_version()})"
 
     @staticmethod
     def default_ca_certs() -> Union[str, None]:

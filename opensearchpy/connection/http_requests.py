@@ -92,7 +92,7 @@ class RequestsHttpConnection(Connection):
         opaque_id: Any = None,
         pool_maxsize: Any = None,
         metrics: Metrics = MetricsNone(),
-        **kwargs: Any
+        **kwargs: Any,
     ) -> None:
         self.metrics = metrics
         if not REQUESTS_AVAILABLE:
@@ -111,14 +111,14 @@ class RequestsHttpConnection(Connection):
             self.session.mount("http://", pool_adapter)
             self.session.mount("https://", pool_adapter)
 
-        super(RequestsHttpConnection, self).__init__(
+        super().__init__(
             host=host,
             port=port,
             use_ssl=use_ssl,
             headers=headers,
             http_compress=http_compress,
             opaque_id=opaque_id,
-            **kwargs
+            **kwargs,
         )
 
         if not self.http_compress:
@@ -132,10 +132,7 @@ class RequestsHttpConnection(Connection):
                 http_auth = tuple(http_auth.split(":", 1))  # type: ignore
             self.session.auth = http_auth
 
-        self.base_url = "%s%s" % (
-            self.host,
-            self.url_prefix,
-        )
+        self.base_url = f"{self.host}{self.url_prefix}"
         self.session.verify = verify_certs
         if not client_key:
             self.session.cert = client_cert
@@ -176,7 +173,7 @@ class RequestsHttpConnection(Connection):
         url = self.base_url + url
         headers = headers or {}
         if params:
-            url = "%s?%s" % (url, urlencode(params or {}))
+            url = f"{url}?{urlencode(params or {})}"
 
         orig_body = body
         if self.http_compress and body:

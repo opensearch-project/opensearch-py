@@ -26,8 +26,8 @@
 
 
 from typing import Any
+from unittest import mock
 
-import mock
 import pytest
 from multidict import CIMultiDict
 

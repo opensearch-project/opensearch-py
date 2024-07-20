@@ -32,14 +32,14 @@ from . import AggResponse, Response
 
 class Bucket(AggResponse):
     def __init__(self, aggs: Any, search: Any, data: Any, field: Any = None) -> None:
-        super(Bucket, self).__init__(aggs, search, data)
+        super().__init__(aggs, search, data)
 
 
 class FieldBucket(Bucket):
     def __init__(self, aggs: Any, search: Any, data: Any, field: Any = None) -> None:
         if field:
             data["key"] = field.deserialize(data["key"])
-        super(FieldBucket, self).__init__(aggs, search, data, field)
+        super().__init__(aggs, search, data, field)
 
 
 class BucketData(AggResponse):
@@ -62,7 +62,7 @@ class BucketData(AggResponse):
     def __getitem__(self, key: Any) -> Any:
         if isinstance(key, (int, slice)):
             return self.buckets[key]
-        return super(BucketData, self).__getitem__(key)
+        return super().__getitem__(key)
 
     @property
     def buckets(self) -> Any:
@@ -88,7 +88,7 @@ class TopHitsData(Response):
         super(AttrDict, self).__setattr__(
             "meta", AttrDict({"agg": agg, "search": search})
         )
-        super(TopHitsData, self).__init__(search, data)
+        super().__init__(search, data)
 
 
 __all__ = ["AggResponse"]

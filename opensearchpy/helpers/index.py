@@ -37,7 +37,7 @@ from .update_by_query import UpdateByQuery
 from .utils import merge
 
 
-class IndexTemplate(object):
+class IndexTemplate:
     def __init__(
         self,
         name: Any,
@@ -76,7 +76,7 @@ class IndexTemplate(object):
         )
 
 
-class Index(object):
+class Index:
     def __init__(self, name: Any, using: Any = "default") -> None:
         """
         :arg name: name of the index

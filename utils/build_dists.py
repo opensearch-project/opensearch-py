@@ -69,7 +69,7 @@ def run(*argv: Any, expect_exit_code: int = 0) -> None:
     else:
         os.chdir(TMP_DIR)
 
-    cmd = " ".join(shlex.quote(x) for x in argv)
+    cmd = shlex.join(argv)
     print("$ " + cmd)
     exit_code = os.system(cmd)
     if exit_code != expect_exit_code:
@@ -270,7 +270,7 @@ def main() -> None:
         # Rename the module to fit the suffix.
         shutil.move(
             os.path.join(BASE_DIR, "opensearchpy"),
-            os.path.join(BASE_DIR, "opensearchpy%s" % suffix),
+            os.path.join(BASE_DIR, f"opensearchpy{suffix}"),
         )
 
         # Ensure that the version within 'opensearchpy/_version.py' is correct.
@@ -279,7 +279,7 @@ def main() -> None:
             version_data = file.read()
         version_data = re.sub(
             r"__versionstr__: str = \"[^\"]+\"",
-            '__versionstr__: str = "%s"' % version,
+            f'__versionstr__: str = "{version}"',
             version_data,
         )
         with open(version_path, "w", encoding="utf-8") as file:
@@ -296,7 +296,7 @@ def main() -> None:
             file.write(
                 setup_py.replace(
                     'PACKAGE_NAME = "opensearch-py"',
-                    'PACKAGE_NAME = "opensearch-py%s"' % suffix,
+                    f'PACKAGE_NAME = "opensearch-py{suffix}"',
                 )
             )
 
@@ -306,7 +306,7 @@ def main() -> None:
         # Clean up everything.
         run("git", "checkout", "--", "setup.py", "opensearchpy/")
         if suffix:
-            run("rm", "-rf", "opensearchpy%s/" % suffix)
+            run("rm", "-rf", f"opensearchpy{suffix}/")
 
     # Test everything that got created
     dists = os.listdir(os.path.join(BASE_DIR, "dist"))

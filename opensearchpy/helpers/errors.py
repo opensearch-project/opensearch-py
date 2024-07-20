@@ -41,5 +41,5 @@ class ScanError(OpenSearchException):
     scroll_id: str
 
     def __init__(self, scroll_id: str, *args: Any, **kwargs: Any) -> None:
-        super(ScanError, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.scroll_id = scroll_id

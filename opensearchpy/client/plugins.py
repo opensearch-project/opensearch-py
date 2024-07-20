@@ -26,7 +26,7 @@ class PluginsClient(NamespacedClient):
     index_management: Any
 
     def __init__(self, client: Client) -> None:
-        super(PluginsClient, self).__init__(client)
+        super().__init__(client)
         self.ml = MlClient(client)
         self.transforms = TransformsClient(client)
         self.rollups = RollupsClient(client)

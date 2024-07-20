@@ -121,7 +121,7 @@ class AsyncTransport(Transport):
         self._async_init_called = False
         self._sniff_on_start_event: Optional[asyncio.Event] = None
 
-        super(AsyncTransport, self).__init__(
+        super().__init__(
             hosts=[],
             connection_class=connection_class,
             connection_pool_class=connection_pool_class,

@@ -38,7 +38,7 @@ from .exceptions import ImproperlyConfigured
 logger: logging.Logger = logging.getLogger("opensearch")
 
 
-class ConnectionSelector(object):
+class ConnectionSelector:
     """
     Simple class used to select a connection from a list of currently live
     connection instances. In init time it is passed a dictionary containing all
@@ -87,7 +87,7 @@ class RoundRobinSelector(ConnectionSelector):
     """
 
     def __init__(self, opts: Sequence[Tuple[Connection, Any]]) -> None:
-        super(RoundRobinSelector, self).__init__(opts)
+        super().__init__(opts)
         self.data = threading.local()
 
     def select(self, connections: Sequence[Connection]) -> Any:
@@ -96,7 +96,7 @@ class RoundRobinSelector(ConnectionSelector):
         return connections[self.data.rr]
 
 
-class ConnectionPool(object):
+class ConnectionPool:
     """
     Container holding the :class:`~opensearchpy.Connection` instances,
     managing the selection process (via a
@@ -135,7 +135,7 @@ class ConnectionPool(object):
         timeout_cutoff: int = 5,
         selector_class: Type[ConnectionSelector] = RoundRobinSelector,
         randomize_hosts: bool = True,
-        **kwargs: Any
+        **kwargs: Any,
     ) -> None:
         """
         :arg connections: list of tuples containing the
@@ -290,7 +290,7 @@ class ConnectionPool(object):
             conn.close()
 
     def __repr__(self) -> str:
-        return "<%s: %r>" % (type(self).__name__, self.connections)
+        return f"<{type(self).__name__}: {self.connections!r}>"
 
 
 class DummyConnectionPool(ConnectionPool):

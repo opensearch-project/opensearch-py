@@ -121,20 +121,20 @@ class Urllib3HttpConnection(Connection):
         http_compress: Any = None,
         opaque_id: Any = None,
         metrics: Metrics = MetricsNone(),
-        **kwargs: Any
+        **kwargs: Any,
     ) -> None:
         self.metrics = metrics
         # Initialize headers before calling super().__init__().
         self.headers = urllib3.make_headers(keep_alive=True)
 
-        super(Urllib3HttpConnection, self).__init__(
+        super().__init__(
             host=host,
             port=port,
             use_ssl=use_ssl,
             headers=headers,
             http_compress=http_compress,
             opaque_id=opaque_id,
-            **kwargs
+            **kwargs,
         )
 
         self.http_auth = http_auth
@@ -245,7 +245,7 @@ class Urllib3HttpConnection(Connection):
 
         url = self.url_prefix + url
         if params:
-            url = "%s?%s" % (url, urlencode(params))
+            url = f"{url}?{urlencode(params)}"
 
         full_url = self.host + url
 

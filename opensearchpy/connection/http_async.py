@@ -52,7 +52,7 @@ class AsyncHttpConnection(AIOHttpConnection):
         http_compress: Optional[bool] = None,
         opaque_id: Optional[str] = None,
         loop: Any = None,
-        **kwargs: Any
+        **kwargs: Any,
     ) -> None:
         self.headers = {}
 
@@ -63,7 +63,7 @@ class AsyncHttpConnection(AIOHttpConnection):
             headers=headers,
             http_compress=http_compress,
             opaque_id=opaque_id,
-            **kwargs
+            **kwargs,
         )
 
         if http_auth is not None:
@@ -186,7 +186,7 @@ class AsyncHttpConnection(AIOHttpConnection):
         # then we pass a string into ClientSession.request() instead.
         url = self.url_prefix + url
         if query_string:
-            url = "%s?%s" % (url, query_string)
+            url = f"{url}?{query_string}"
         url = self.host + url
 
         timeout = aiohttp.ClientTimeout(

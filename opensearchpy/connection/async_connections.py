@@ -68,7 +68,7 @@ class AsyncConnections:
                 errors += 1
 
         if errors == 2:
-            raise KeyError("There is no connection with alias %r." % alias)
+            raise KeyError(f"There is no connection with alias {alias!r}.")
 
     async def create_connection(self, alias: str = "default", **kwargs: Any) -> Any:
         """
@@ -104,7 +104,7 @@ class AsyncConnections:
             return await self.create_connection(alias, **self._kwargs[alias])
         except KeyError:
             # no connection and no kwargs to set one up
-            raise KeyError("There is no connection with alias %r." % alias)
+            raise KeyError(f"There is no connection with alias {alias!r}.")
 
 
 async_connections = AsyncConnections()

@@ -25,8 +25,6 @@
 #  under the License.
 
 
-from __future__ import unicode_literals
-
 import base64
 import weakref
 from datetime import date, datetime
@@ -59,7 +57,7 @@ def _normalize_hosts(hosts: Any) -> Any:
     for host in hosts:
         if isinstance(host, string_types):
             if "://" not in host:
-                host = "//%s" % host  # type: ignore
+                host = f"//{host}"  # type: ignore
 
             parsed_url = urlparse(host)
             h = {"host": parsed_url.hostname}
@@ -72,7 +70,7 @@ def _normalize_hosts(hosts: Any) -> Any:
                 h["use_ssl"] = True
 
             if parsed_url.username or parsed_url.password:
-                h["http_auth"] = "%s:%s" % (
+                h["http_auth"] = "{}:{}".format(
                     unquote(parsed_url.username),
                     unquote(parsed_url.password),
                 )
@@ -160,11 +158,9 @@ def query_params(*opensearch_query_params: Any) -> Callable:  # type: ignore
                     "Only one of 'http_auth' and 'api_key' may be passed at a time"
                 )
             elif http_auth is not None:
-                headers["authorization"] = "Basic %s" % (
-                    _base64_auth_header(http_auth),
-                )
+                headers["authorization"] = f"Basic {_base64_auth_header(http_auth)}"
             elif api_key is not None:
-                headers["authorization"] = "ApiKey %s" % (_base64_auth_header(api_key),)
+                headers["authorization"] = f"ApiKey {_base64_auth_header(api_key)}"
 
             # don't escape ignore, request_timeout, or timeout
             for p in ("ignore", "request_timeout", "timeout"):
@@ -209,7 +205,7 @@ def _base64_auth_header(auth_value: Any) -> str:
     return to_str(auth_value)
 
 
-class NamespacedClient(object):
+class NamespacedClient:
     def __init__(self, client: Any) -> None:
         self.client = client
 

@@ -28,9 +28,9 @@
 import threading
 import time
 from typing import Any
+from unittest import mock
 from unittest.mock import Mock
 
-import mock
 import pytest
 
 from opensearchpy import OpenSearch, helpers
@@ -131,7 +131,7 @@ class TestParallelBulk(TestCase):
         results = list(
             helpers.parallel_bulk(OpenSearch(), actions, thread_count=10, chunk_size=2)
         )
-        self.assertTrue(len(set([r[1] for r in results])) > 1)
+        self.assertTrue(len({r[1] for r in results}) > 1)
 
 
 class TestChunkActions(TestCase):
@@ -266,7 +266,7 @@ class TestChunkActions(TestCase):
         )
         self.assertEqual(25, len(chunks))
         for _, chunk_actions in chunks:
-            chunk = u"".join(chunk_actions)  # fmt: skip
+            chunk = "".join(chunk_actions)  # fmt: skip
             chunk = chunk if isinstance(chunk, str) else chunk.encode("utf-8")
             self.assertLessEqual(len(chunk), max_byte_size)
 

@@ -93,7 +93,7 @@ class AIOHttpConnection(AsyncConnection):
         opaque_id: Optional[str] = None,
         loop: Any = None,
         trust_env: Optional[bool] = False,
-        **kwargs: Any
+        **kwargs: Any,
     ) -> None:
         """
         Default connection class for ``AsyncOpenSearch`` using the `aiohttp` library and the http protocol.
@@ -140,7 +140,7 @@ class AIOHttpConnection(AsyncConnection):
             headers=headers,
             http_compress=http_compress,
             opaque_id=opaque_id,
-            **kwargs
+            **kwargs,
         )
 
         if http_auth is not None:
@@ -276,7 +276,7 @@ class AIOHttpConnection(AsyncConnection):
         else:
             url = self.url_prefix + url
             if query_string:
-                url = "%s?%s" % (url, query_string)
+                url = f"{url}?{query_string}"
             url = self.host + url
 
         timeout = aiohttp.ClientTimeout(

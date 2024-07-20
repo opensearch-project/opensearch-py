@@ -48,7 +48,7 @@ def SF(name_or_sf: Any, **params: Any) -> Any:  # pylint: disable=invalid-name
         elif len(sf) == 1:
             name, params = sf.popitem()
         else:
-            raise ValueError("SF() got an unexpected fields in the dictionary: %r" % sf)
+            raise ValueError(f"SF() got an unexpected fields in the dictionary: {sf!r}")
 
         # boost factor special case, see https://github.com/elastic/elasticsearch/issues/6343
         if not isinstance(params, collections_abc.Mapping):
@@ -81,7 +81,7 @@ class ScoreFunction(DslBase):
     name: Optional[str] = None
 
     def to_dict(self) -> Any:
-        d = super(ScoreFunction, self).to_dict()
+        d = super().to_dict()
         # filter and query dicts should be at the same level as us
         for k in self._param_defs:
             if k in d[self.name]:
@@ -97,7 +97,7 @@ class BoostFactor(ScoreFunction):
     name = "boost_factor"
 
     def to_dict(self) -> Any:
-        d = super(BoostFactor, self).to_dict()
+        d = super().to_dict()
         if "value" in d[self.name]:
             d[self.name] = d[self.name].pop("value")
         else:

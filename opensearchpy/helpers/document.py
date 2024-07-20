@@ -188,7 +188,7 @@ class Document(ObjectBase, metaclass=IndexMeta):
         return "{}({})".format(
             self.__class__.__name__,
             ", ".join(
-                "{}={!r}".format(key, getattr(self.meta, key))
+                f"{key}={getattr(self.meta, key)!r}"
                 for key in ("index", "id")
                 if key in self.meta
             ),
@@ -310,7 +310,7 @@ class Document(ObjectBase, metaclass=IndexMeta):
             raise RequestError(400, message, error_docs)
         if missing_docs:
             missing_ids = [doc["_id"] for doc in missing_docs]
-            message = "Documents %s not found." % ", ".join(missing_ids)
+            message = f"Documents {', '.join(missing_ids)} not found."
             raise NotFoundError(404, message, {"docs": missing_docs})
         return objs
 

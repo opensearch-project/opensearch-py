@@ -25,15 +25,13 @@
 #  under the License.
 
 
-from __future__ import unicode_literals
-
 import asyncio
 import json
 from typing import Any
+from unittest.mock import patch
 
 import pytest
 from _pytest.mark.structures import MarkDecorator
-from mock import patch
 
 from opensearchpy import AIOHttpConnection, AsyncTransport
 from opensearchpy.connection import Connection
@@ -51,7 +49,7 @@ class DummyConnection(Connection):
         self.delay = kwargs.pop("delay", 0)
         self.calls: Any = []
         self.closed = False
-        super(DummyConnection, self).__init__(**kwargs)
+        super().__init__(**kwargs)
 
     async def perform_request(self, *args: Any, **kwargs: Any) -> Any:
         if self.closed:
@@ -253,7 +251,7 @@ class TestTransport:
         assert dt is t.connection_pool.dead_timeout
 
     async def test_custom_connection_class(self) -> None:
-        class MyConnection(object):
+        class MyConnection:
             def __init__(self, **kwargs: Any) -> None:
                 self.kwargs = kwargs
 

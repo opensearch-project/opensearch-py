@@ -55,7 +55,7 @@ def does_file_need_fix(filepath: str) -> bool:
     if not re.search(r"\.py$", filepath):
         return False
     existing_header = ""
-    with open(filepath, mode="r", encoding="utf-8") as file:
+    with open(filepath, encoding="utf-8") as file:
         for line in file:
             line = line.strip()
             if len(line) == 0 or line in LINES_TO_KEEP:
@@ -73,7 +73,7 @@ def add_header_to_file(filepath: str) -> None:
     writes the license header to the beginning of a file
     :param filepath: relative or absolute filepath to update
     """
-    with open(filepath, mode="r", encoding="utf-8") as file:
+    with open(filepath, encoding="utf-8") as file:
         lines = list(file)
     i = 0
     for i, line in enumerate(lines):

@@ -32,11 +32,11 @@ import ssl
 import warnings
 from platform import python_version
 from typing import Any
+from unittest.mock import MagicMock, patch
 
 import aiohttp
 import pytest
 from _pytest.mark.structures import MarkDecorator
-from mock import MagicMock, patch
 from multidict import CIMultiDict
 from pytest import raises
 
@@ -154,7 +154,7 @@ class TestAIOHttpConnection:
 
     async def test_default_user_agent(self) -> None:
         con = AIOHttpConnection()
-        assert con._get_default_user_agent() == "opensearch-py/%s (Python %s)" % (
+        assert con._get_default_user_agent() == "opensearch-py/{} (Python {})".format(
             __versionstr__,
             python_version(),
         )
@@ -342,7 +342,7 @@ class TestAIOHttpConnection:
         buf = b"\xe4\xbd\xa0\xe5\xa5\xbd\xed\xa9\xaa"
         con = await self._get_mock_connection(response_body=buf)
         _, _, data = await con.perform_request("GET", "/")
-        assert u"你好\uda6a" == data  # fmt: skip
+        assert "你好\uda6a" == data  # fmt: skip
 
     @pytest.mark.parametrize("exception_cls", reraise_exceptions)  # type: ignore
     async def test_recursion_error_reraised(self, exception_cls: Any) -> None:

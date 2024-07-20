@@ -34,8 +34,6 @@
 # -----------------------------------------------------------------------------------------+
 
 
-from __future__ import unicode_literals
-
 import logging
 from typing import Any, Type
 
@@ -197,7 +195,7 @@ class OpenSearch(Client):
         self,
         hosts: Any = None,
         transport_class: Type[Transport] = Transport,
-        **kwargs: Any
+        **kwargs: Any,
     ) -> None:
         """
         :arg hosts: list of nodes, or a single node, we should connect to.
@@ -240,10 +238,10 @@ class OpenSearch(Client):
             # truncate to 5 if there are too many
             if len(cons) > 5:
                 cons = cons[:5] + ["..."]
-            return "<{cls}({cons})>".format(cls=self.__class__.__name__, cons=cons)
+            return f"<{self.__class__.__name__}({cons})>"
         except Exception:
             # probably operating on custom transport and connection_pool, ignore
-            return super(OpenSearch, self).__repr__()
+            return super().__repr__()
 
     def __enter__(self) -> Any:
         if hasattr(self.transport, "_async_call"):

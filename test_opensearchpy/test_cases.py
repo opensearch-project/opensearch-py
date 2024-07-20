@@ -32,7 +32,7 @@ from unittest import SkipTest, TestCase
 from opensearchpy import OpenSearch
 
 
-class DummyTransport(object):
+class DummyTransport:
     def __init__(
         self, hosts: Sequence[str], responses: Any = None, **kwargs: Any
     ) -> None:
@@ -59,7 +59,7 @@ class DummyTransport(object):
 
 class OpenSearchTestCase(TestCase):
     def setUp(self) -> None:
-        super(OpenSearchTestCase, self).setUp()
+        super().setUp()
         self.client: Any = OpenSearch(transport_class=DummyTransport)  # type: ignore
 
     def assert_call_count_equals(self, count: int) -> None:

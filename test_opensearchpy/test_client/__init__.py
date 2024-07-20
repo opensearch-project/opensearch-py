@@ -25,8 +25,6 @@
 #  under the License.
 
 
-from __future__ import unicode_literals
-
 import warnings
 
 from opensearchpy.client import OpenSearch

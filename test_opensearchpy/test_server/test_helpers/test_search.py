@@ -24,7 +24,6 @@
 #  specific language governing permissions and limitations
 #  under the License.
 
-from __future__ import unicode_literals
 
 from typing import Any
 
@@ -52,7 +51,7 @@ class Repository(Document):
 
     @classmethod
     def search(cls, using: Any = None, index: Any = None) -> Any:
-        return super(Repository, cls).search().filter("term", commit_repo="repo")
+        return super().search().filter("term", commit_repo="repo")
 
     class Index:
         name = "git"

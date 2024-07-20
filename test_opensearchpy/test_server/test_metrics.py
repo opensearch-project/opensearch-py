@@ -7,7 +7,6 @@
 # Modifications Copyright OpenSearch Contributors. See
 # GitHub history for details.
 
-from __future__ import unicode_literals
 
 import time
 

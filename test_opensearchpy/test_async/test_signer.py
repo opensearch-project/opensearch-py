@@ -8,10 +8,10 @@
 # GitHub history for details.
 
 import uuid
+from unittest.mock import Mock
 
 import pytest
 from _pytest.mark.structures import MarkDecorator
-from mock import Mock
 
 pytestmark: MarkDecorator = pytest.mark.asyncio
 
