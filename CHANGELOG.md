@@ -7,6 +7,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - Removed deprecated `numpy.float_` and update NumPy/Pandas imports ([#762](https://github.com/opensearch-project/opensearch-py/pull/762))
 ### Deprecated
 ### Removed
+- Removed redundant dependency on six ([#781](https://github.com/opensearch-project/opensearch-py/pull/781))
 ### Fixed
 - Fixed Search helper to ensure proper retention of the _collapse attribute in chained operations. ([#771](https://github.com/opensearch-project/opensearch-py/pull/771))
 ### Updated APIs
