@@ -374,7 +374,7 @@ class Document(ObjectBase):
         detect_noop: bool = True,
         doc_as_upsert: bool = False,
         refresh: bool = False,
-        retry_on_conflict: Any = None,
+        retry_on_conflict: int = None,
         script: Any = None,
         script_id: Any = None,
         scripted_upsert: bool = False,

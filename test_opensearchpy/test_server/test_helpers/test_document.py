@@ -261,7 +261,7 @@ def test_update_retry_on_conflict(write_client: Any) -> None:
 
 
 @pytest.mark.parametrize("retry_on_conflict", [None, 0])  # type: ignore
-def test_update_conflicting_version(write_client: Any, retry_on_conflict: Any) -> None:
+def test_update_conflicting_version(write_client: Any, retry_on_conflict: int) -> None:
     Wiki.init()
     w = Wiki(owner=User(name="Honza Kral"), _id="opensearch-py", views=42)
     w.save()
