@@ -57,14 +57,14 @@ class Range(AttrDict):
         if "lt" in data and "lte" in data:
             raise ValueError("You cannot specify both lt and lte for Range.")
 
-        super(Range, self).__init__(args[0] if args else kwargs)
+        super().__init__(args[0] if args else kwargs)
 
     def __repr__(self) -> str:
-        return "Range(%s)" % ", ".join("%s=%r" % op for op in iteritems(self._d_))
+        return "Range(%s)" % ", ".join("%s=%r" % op for op in self._d_.items())
 
     def __contains__(self, item: Any) -> bool:
-        if isinstance(item, string_types):
-            return super(Range, self).__contains__(item)
+        if isinstance(item, str):
+            return super().__contains__(item)
 
         for op in self.OPS:
             if op in self._d_ and not self.OPS[op](item, self._d_[op]):

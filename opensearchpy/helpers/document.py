@@ -41,7 +41,7 @@ from .search import Search
 from .utils import DOC_META_FIELDS, META_FIELDS, ObjectBase, merge
 
 
-class MetaField(object):
+class MetaField:
     def __init__(self, *args: Any, **kwargs: Any) -> None:
         self.args, self.kwargs = args, kwargs
 
@@ -55,7 +55,7 @@ class DocumentMeta(type):
     ) -> Any:
         # DocumentMeta filters attrs in place
         attrs["_doc_type"] = DocumentOptions(name, bases, attrs)
-        return super(DocumentMeta, cls).__new__(cls, name, bases, attrs)
+        return super().__new__(cls, name, bases, attrs)
 
 
 class IndexMeta(DocumentMeta):
@@ -69,7 +69,7 @@ class IndexMeta(DocumentMeta):
         bases: Tuple[Type[ObjectBase]],
         attrs: Any,
     ) -> Any:
-        new_cls = super(IndexMeta, cls).__new__(cls, name, bases, attrs)
+        new_cls = super().__new__(cls, name, bases, attrs)
         if cls._document_initialized:
             index_opts = attrs.pop("Index", None)
             index = cls.construct_index(index_opts, bases)
@@ -96,7 +96,7 @@ class IndexMeta(DocumentMeta):
         return i
 
 
-class DocumentOptions(object):
+class DocumentOptions:
     def __init__(
         self,
         name: str,
@@ -109,7 +109,7 @@ class DocumentOptions(object):
         self.mapping = getattr(meta, "mapping", Mapping())
 
         # register all declared fields into the mapping
-        for name, value in list(iteritems(attrs)):
+        for name, value in list(attrs.items()):
             if isinstance(value, Field):
                 self.mapping.field(name, value)
                 del attrs[name]
@@ -130,8 +130,7 @@ class DocumentOptions(object):
         return self.mapping.properties.name
 
 
-@add_metaclass(DocumentMeta)
-class InnerDoc(ObjectBase):
+class InnerDoc(ObjectBase, metaclass=DocumentMeta):
     """
     Common class for inner documents like Object or Nested
     """
@@ -140,11 +139,10 @@ class InnerDoc(ObjectBase):
     def from_opensearch(cls, data: Any, data_only: bool = False) -> Any:
         if data_only:
             data = {"_source": data}
-        return super(InnerDoc, cls).from_opensearch(data)
+        return super().from_opensearch(data)
 
 
-@add_metaclass(IndexMeta)
-class Document(ObjectBase):
+class Document(ObjectBase, metaclass=IndexMeta):
     """
     Model-like class for persisting documents in opensearch.
     """
@@ -353,7 +351,7 @@ class Document(ObjectBase):
             ``[]``, ``{}``) to be left on the document. Those values will be
             stripped out otherwise as they make no difference in opensearch.
         """
-        d = super(Document, self).to_dict(skip_empty=skip_empty)
+        d = super().to_dict(skip_empty=skip_empty)
         if not include_meta:
             return d
 

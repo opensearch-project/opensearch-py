@@ -18,7 +18,7 @@ from opensearchpy.helpers.field import Nested, Text
 from opensearchpy.helpers.mapping import META_FIELDS, Properties
 
 
-class AsyncMapping(object):
+class AsyncMapping:
     _meta: Any
     properties: Properties
 
@@ -104,11 +104,11 @@ class AsyncMapping(object):
         self._update_from_dict(raw["mappings"])
 
     def _update_from_dict(self, raw: Any) -> None:
-        for name, definition in iteritems(raw.get("properties", {})):
+        for name, definition in raw.get("properties", {}).items():
             self.field(name, definition)
 
         # metadata like _all etc
-        for name, value in iteritems(raw):
+        for name, value in raw.items():
             if name != "properties":
                 if isinstance(value, collections_abc.Mapping):
                     self.meta(name, **value)

@@ -38,7 +38,7 @@ class AsyncIndexMeta(DocumentMeta):
         bases: Tuple[Type[ObjectBase]],
         attrs: Any,
     ) -> Any:
-        new_cls = super(AsyncIndexMeta, cls).__new__(cls, name, bases, attrs)
+        new_cls = super().__new__(cls, name, bases, attrs)
         if cls._document_initialized:
             index_opts = attrs.pop("Index", None)
             index = cls.construct_index(index_opts, bases)
@@ -67,8 +67,7 @@ class AsyncIndexMeta(DocumentMeta):
         return i
 
 
-@add_metaclass(AsyncIndexMeta)
-class AsyncDocument(ObjectBase):
+class AsyncDocument(ObjectBase, metaclass=AsyncIndexMeta):
     """
     Model-like class for persisting documents in opensearch.
     """
@@ -297,7 +296,7 @@ class AsyncDocument(ObjectBase):
             ``[]``, ``{}``) to be left on the document. Those values will be
             stripped out otherwise as they make no difference in opensearch.
         """
-        d = super(AsyncDocument, self).to_dict(skip_empty)
+        d = super().to_dict(skip_empty)
         if not include_meta:
             return d
 
