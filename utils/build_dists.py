@@ -69,7 +69,7 @@ def run(*argv: Any, expect_exit_code: int = 0) -> None:
     else:
         os.chdir(TMP_DIR)
 
-    cmd = " ".join(shlex.quote(x) for x in argv)
+    cmd = shlex.join(argv)
     print("$ " + cmd)
     exit_code = os.system(cmd)
     if exit_code != expect_exit_code:

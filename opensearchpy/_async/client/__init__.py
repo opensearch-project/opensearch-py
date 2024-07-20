@@ -34,7 +34,6 @@
 # -----------------------------------------------------------------------------------------+
 
 
-from __future__ import unicode_literals
 
 import logging
 from typing import Any, Type
@@ -240,10 +239,10 @@ class AsyncOpenSearch(Client):
             # truncate to 5 if there are too many
             if len(cons) > 5:
                 cons = cons[:5] + ["..."]
-            return "<{cls}({cons})>".format(cls=self.__class__.__name__, cons=cons)
+            return f"<{self.__class__.__name__}({cons})>"
         except Exception:
             # probably operating on custom transport and connection_pool, ignore
-            return super(AsyncOpenSearch, self).__repr__()
+            return super().__repr__()
 
     async def __aenter__(self) -> Any:
         if hasattr(self.transport, "_async_call"):

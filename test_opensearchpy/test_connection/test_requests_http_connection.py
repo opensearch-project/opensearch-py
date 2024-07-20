@@ -32,7 +32,7 @@ import warnings
 from typing import Any
 
 import pytest
-from mock import MagicMock, Mock, patch
+from unittest.mock import MagicMock, Mock, patch
 from requests.auth import AuthBase
 
 from opensearchpy.connection import Connection, RequestsHttpConnection
@@ -258,7 +258,7 @@ class TestRequestsHttpConnection(TestCase):
             "GET",
             "/",
             {"param": 42},
-            "{}".encode("utf-8"),
+            b"{}",
         )
 
         # trace request
@@ -282,7 +282,7 @@ class TestRequestsHttpConnection(TestCase):
             "GET",
             "/",
             {"param": 42},
-            """{"question": "what's that?"}""".encode("utf-8"),
+            b"""{"question": "what's that?"}""",
         )
 
         # trace request
@@ -397,7 +397,7 @@ class TestRequestsHttpConnection(TestCase):
 
         self.assertEqual("http://localhost:9200/", request.url)
         self.assertEqual("GET", request.method)
-        self.assertEqual('{"answer": 42}'.encode("utf-8"), request.body)
+        self.assertEqual(b'{"answer": 42}', request.body)
 
     def test_http_auth_attached(self) -> None:
         con = self._get_mock_connection({"http_auth": "username:secret"})
@@ -414,7 +414,7 @@ class TestRequestsHttpConnection(TestCase):
 
         self.assertEqual("http://localhost:9200/some-prefix/_search", request.url)
         self.assertEqual("GET", request.method)
-        self.assertEqual('{"answer": 42}'.encode("utf-8"), request.body)
+        self.assertEqual(b'{"answer": 42}', request.body)
 
         # trace request
         trace_curl_cmd = (
@@ -431,7 +431,7 @@ class TestRequestsHttpConnection(TestCase):
         buf = b"\xe4\xbd\xa0\xe5\xa5\xbd\xed\xa9\xaa"
         con = self._get_mock_connection(response_body=buf)
         _, _, data = con.perform_request("GET", "/")
-        self.assertEqual(u"你好\uda6a", data)  # fmt: skip
+        self.assertEqual("你好\uda6a", data)  # fmt: skip
 
     def test_recursion_error_reraised(self) -> None:
         conn = RequestsHttpConnection()

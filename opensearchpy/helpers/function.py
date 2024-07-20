@@ -81,7 +81,7 @@ class ScoreFunction(DslBase):
     name: Optional[str] = None
 
     def to_dict(self) -> Any:
-        d = super(ScoreFunction, self).to_dict()
+        d = super().to_dict()
         # filter and query dicts should be at the same level as us
         for k in self._param_defs:
             if k in d[self.name]:
@@ -97,7 +97,7 @@ class BoostFactor(ScoreFunction):
     name = "boost_factor"
 
     def to_dict(self) -> Any:
-        d = super(BoostFactor, self).to_dict()
+        d = super().to_dict()
         if "value" in d[self.name]:
             d[self.name] = d[self.name].pop("value")
         else:

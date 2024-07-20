@@ -8,7 +8,6 @@
 # GitHub history for details.
 
 
-from __future__ import unicode_literals
 
 import pytest
 from _pytest.mark.structures import MarkDecorator

@@ -31,7 +31,6 @@
 #  under the License.
 
 
-from __future__ import print_function
 
 import subprocess
 import sys
@@ -104,7 +103,7 @@ def fetch_opensearch_repo() -> None:
 
     # fetch the sha commit, version from info()
     print("Fetching opensearch repo...")
-    subprocess.check_call("cd %s && git fetch origin %s" % (repo_path, sha), shell=True)
+    subprocess.check_call("cd {} && git fetch origin {}".format(repo_path, sha), shell=True)
 
 
 def run_all(argv: Any = None) -> None:

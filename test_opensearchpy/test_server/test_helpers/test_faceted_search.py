@@ -106,7 +106,7 @@ def repo_search_cls(opensearch_version: Any) -> Any:
         }
 
         def search(self) -> Any:
-            s = super(RepoSearch, self).search()
+            s = super().search()
             return s.filter("term", commit_repo="repo")
 
     return RepoSearch

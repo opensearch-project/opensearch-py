@@ -127,7 +127,7 @@ class Urllib3HttpConnection(Connection):
         # Initialize headers before calling super().__init__().
         self.headers = urllib3.make_headers(keep_alive=True)
 
-        super(Urllib3HttpConnection, self).__init__(
+        super().__init__(
             host=host,
             port=port,
             use_ssl=use_ssl,
@@ -245,7 +245,7 @@ class Urllib3HttpConnection(Connection):
 
         url = self.url_prefix + url
         if params:
-            url = "%s?%s" % (url, urlencode(params))
+            url = "{}?{}".format(url, urlencode(params))
 
         full_url = self.host + url
 

@@ -275,7 +275,7 @@ class DslBase(metaclass=DslMeta):
             if default is not None:
                 return cls._classes[default]
             raise UnknownDslObject(
-                "DSL class `{}` does not exist in {}.".format(name, cls._type_name)
+                f"DSL class `{name}` does not exist in {cls._type_name}."
             )
 
     def __init__(self, _expand__to_dot: Any = EXPAND__TO_DOT, **params: Any) -> None:
@@ -295,7 +295,7 @@ class DslBase(metaclass=DslMeta):
         )
 
     def __repr__(self) -> str:
-        return "{}({})".format(self.__class__.__name__, self._repr_params())
+        return f"{self.__class__.__name__}({self._repr_params()})"
 
     def __eq__(self, other: Any) -> bool:
         return isinstance(other, self.__class__) and other.to_dict() == self.to_dict()

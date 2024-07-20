@@ -64,7 +64,7 @@ class Repository(AsyncDocument):
 
     @classmethod
     def search(cls, using: Any = None, index: Optional[str] = None) -> Any:
-        return super(Repository, cls).search().filter("term", commit_repo="repo")
+        return super().search().filter("term", commit_repo="repo")
 
     class Index:
         name = "git"

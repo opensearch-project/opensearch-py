@@ -29,7 +29,7 @@ import asyncio
 from typing import Any, List
 
 import pytest
-from mock import MagicMock, patch
+from unittest.mock import MagicMock, patch
 
 from opensearchpy import TransportError
 from opensearchpy._async.helpers import actions
@@ -40,13 +40,13 @@ pytestmark = pytest.mark.asyncio
 
 class AsyncMock(MagicMock):
     async def __call__(self, *args: Any, **kwargs: Any) -> Any:
-        return super(AsyncMock, self).__call__(*args, **kwargs)
+        return super().__call__(*args, **kwargs)
 
     def __await__(self) -> Any:
         return self().__await__()
 
 
-class FailingBulkClient(object):
+class FailingBulkClient:
     def __init__(
         self,
         client: Any,
@@ -69,7 +69,7 @@ class FailingBulkClient(object):
         return await self.client.bulk(*args, **kwargs)
 
 
-class TestStreamingBulk(object):
+class TestStreamingBulk:
     async def test_actions_remain_unchanged(self, async_client: Any) -> None:
         actions1 = [{"_id": 1}, {"_id": 2}]
         async for ok, _ in actions.async_streaming_bulk(
@@ -281,7 +281,7 @@ class TestStreamingBulk(object):
         assert 4 == failing_client._called
 
 
-class TestBulk(object):
+class TestBulk:
     async def test_bulk_works_with_single_item(self, async_client: Any) -> None:
         docs = [{"answer": 42, "_id": 1}]
         success, failed = await actions.async_bulk(
@@ -453,7 +453,7 @@ async def scan_teardown(async_client: Any) -> Any:
     await async_client.clear_scroll(scroll_id="_all")
 
 
-class TestScan(object):
+class TestScan:
     async def test_order_can_be_preserved(
         self, async_client: Any, scan_teardown: Any
     ) -> None:
@@ -492,8 +492,8 @@ class TestScan(object):
         ]
 
         assert 100 == len(docs)
-        assert set(map(str, range(100))) == set(d["_id"] for d in docs)
-        assert set(range(100)) == set(d["_source"]["answer"] for d in docs)
+        assert set(map(str, range(100))) == {d["_id"] for d in docs}
+        assert set(range(100)) == {d["_source"]["answer"] for d in docs}
 
     async def test_scroll_error(self, async_client: Any, scan_teardown: Any) -> None:
         bulk: Any = []
@@ -824,7 +824,7 @@ async def reindex_setup(async_client: Any) -> Any:
     yield
 
 
-class TestReindex(object):
+class TestReindex:
     async def test_reindex_passes_kwargs_to_scan_and_bulk(
         self, async_client: Any, reindex_setup: Any
     ) -> None:

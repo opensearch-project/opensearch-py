@@ -45,7 +45,7 @@ FLOAT_TYPES = (Decimal,)
 TIME_TYPES = (date, datetime)
 
 
-class Serializer(object):
+class Serializer:
     mimetype: str = ""
 
     def loads(self, s: str) -> Any:
@@ -140,7 +140,7 @@ class JSONSerializer(Serializer):
         except ImportError:
             pass
 
-        raise TypeError("Unable to serialize %r (type: %s)" % (data, type(data)))
+        raise TypeError("Unable to serialize {!r} (type: {})".format(data, type(data)))
 
     def loads(self, s: str) -> Any:
         try:
@@ -167,7 +167,7 @@ DEFAULT_SERIALIZERS: Dict[str, Serializer] = {
 }
 
 
-class Deserializer(object):
+class Deserializer:
     def __init__(
         self,
         serializers: Dict[str, Serializer],
@@ -208,7 +208,7 @@ class AttrJSONSerializer(JSONSerializer):
             return data._l_
         if hasattr(data, "to_dict"):
             return data.to_dict()
-        return super(AttrJSONSerializer, self).default(data)
+        return super().default(data)
 
 
 serializer = AttrJSONSerializer()

@@ -27,7 +27,7 @@
 
 from typing import Any
 
-import mock
+from unittest import mock
 import pytest
 from multidict import CIMultiDict
 

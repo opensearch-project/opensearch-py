@@ -99,7 +99,7 @@ def test_serializer_deals_with_attr_versions() -> None:
 
 
 def test_serializer_deals_with_objects_with_to_dict() -> None:
-    class MyClass(object):
+    class MyClass:
         def to_dict(self) -> int:
             return 42
 

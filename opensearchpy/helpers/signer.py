@@ -116,9 +116,9 @@ class RequestsAWSV4SignerAuth(requests.auth.AuthBase):
             )
 
         # fetch the host information from headers
-        headers = dict(
-            (key.lower(), value) for key, value in prepared_request.headers.items()
-        )
+        headers = {
+            key.lower(): value for key, value in prepared_request.headers.items()
+        }
         location = headers.get("host") or url.netloc
 
         # construct the url and return

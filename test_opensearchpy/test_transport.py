@@ -25,13 +25,12 @@
 #  under the License.
 
 
-from __future__ import unicode_literals
 
 import json
 import time
 from typing import Any
 
-from mock import patch
+from unittest.mock import patch
 
 from opensearchpy.connection import Connection
 from opensearchpy.connection_pool import DummyConnectionPool
@@ -47,7 +46,7 @@ class DummyConnection(Connection):
         self.status, self.data = kwargs.pop("status", 200), kwargs.pop("data", "{}")
         self.headers = kwargs.pop("headers", {})
         self.calls: Any = []
-        super(DummyConnection, self).__init__(**kwargs)
+        super().__init__(**kwargs)
 
     def perform_request(self, *args: Any, **kwargs: Any) -> Any:
         self.calls.append((args, kwargs))

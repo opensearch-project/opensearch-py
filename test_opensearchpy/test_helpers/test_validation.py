@@ -66,7 +66,7 @@ class AutoNowDate(Date):
     def clean(self, data: Any) -> Any:
         if data is None:
             data = datetime.now()
-        return super(AutoNowDate, self).clean(data)
+        return super().clean(data)
 
 
 class Log(Document):

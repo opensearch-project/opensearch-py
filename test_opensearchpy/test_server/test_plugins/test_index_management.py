@@ -8,7 +8,6 @@
 # GitHub history for details.
 
 
-from __future__ import unicode_literals
 
 from opensearchpy.exceptions import NotFoundError
 

@@ -27,7 +27,7 @@
 
 from typing import Any
 
-from mock import Mock
+from unittest.mock import Mock
 from pytest import fixture
 
 from opensearchpy.connection.connections import add_connection, connections

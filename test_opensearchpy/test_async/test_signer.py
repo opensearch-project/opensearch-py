@@ -11,7 +11,7 @@ import uuid
 
 import pytest
 from _pytest.mark.structures import MarkDecorator
-from mock import Mock
+from unittest.mock import Mock
 
 pytestmark: MarkDecorator = pytest.mark.asyncio
 

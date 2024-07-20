@@ -117,7 +117,7 @@ class AsyncDocument(ObjectBase, metaclass=AsyncIndexMeta):
         return "{}({})".format(
             self.__class__.__name__,
             ", ".join(
-                "{}={!r}".format(key, getattr(self.meta, key))
+                f"{key}={getattr(self.meta, key)!r}"
                 for key in ("index", "id")
                 if key in self.meta
             ),

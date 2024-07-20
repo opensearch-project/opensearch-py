@@ -13,7 +13,7 @@ from opensearchpy.client.utils import _normalize_hosts
 from opensearchpy.transport import Transport
 
 
-class Client(object):
+class Client:
     """
     A generic async OpenSearch client.
     """

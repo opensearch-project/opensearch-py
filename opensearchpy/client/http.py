@@ -15,7 +15,7 @@ from .utils import NamespacedClient
 
 class HttpClient(NamespacedClient):
     def __init__(self, client: Client) -> None:
-        super(HttpClient, self).__init__(client)
+        super().__init__(client)
 
     def get(
         self,

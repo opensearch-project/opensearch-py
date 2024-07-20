@@ -69,7 +69,7 @@ class TestConnectionPool(TestCase):
         class MySelector(RoundRobinSelector):
             def select(self, connections: Any) -> Any:
                 return self.connection_opts[
-                    super(MySelector, self).select(connections)
+                    super().select(connections)
                 ]["actual"]
 
         pool = ConnectionPool(

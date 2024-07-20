@@ -35,7 +35,7 @@ from typing import Any
 
 import pytest
 import urllib3
-from mock import MagicMock, Mock, patch
+from unittest.mock import MagicMock, Mock, patch
 from urllib3._collections import HTTPHeaderDict
 
 from opensearchpy import __versionstr__
@@ -130,7 +130,7 @@ class TestUrllib3HttpConnection(TestCase):
         con = Urllib3HttpConnection()
         self.assertEqual(
             con._get_default_user_agent(),
-            "opensearch-py/%s (Python %s)" % (__versionstr__, python_version()),
+            "opensearch-py/{} (Python {})".format(__versionstr__, python_version()),
         )
 
     def test_timeout_set(self) -> None:
@@ -385,7 +385,7 @@ class TestUrllib3HttpConnection(TestCase):
         buf = b"\xe4\xbd\xa0\xe5\xa5\xbd\xed\xa9\xaa"
         con = self._get_mock_connection(response_body=buf)
         _, _, data = con.perform_request("GET", "/")
-        self.assertEqual(u"你好\uda6a", data)  # fmt: skip
+        self.assertEqual("你好\uda6a", data)  # fmt: skip
 
     def test_recursion_error_reraised(self) -> None:
         conn = Urllib3HttpConnection()

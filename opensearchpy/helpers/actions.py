@@ -269,8 +269,7 @@ def _process_bulk_chunk(
             ignore_status=ignore_status,
             raise_on_error=raise_on_error,
         )
-    for item in gen:
-        yield item
+    yield from gen
 
 
 def streaming_bulk(
@@ -474,7 +473,7 @@ def parallel_bulk(
 
     class BlockingPool(ThreadPool):
         def _setup_queues(self) -> None:
-            super(BlockingPool, self)._setup_queues()  # type: ignore
+            super()._setup_queues()  # type: ignore
             # The queue must be at least the size of the number of threads to
             # prevent hanging when inserting sentinel values during teardown.
             self._inqueue: Any = Queue(max(queue_size, thread_count))
@@ -500,8 +499,7 @@ def parallel_bulk(
                 actions, chunk_size, max_chunk_bytes, client.transport.serializer
             ),
         ):
-            for item in result:
-                yield item
+            yield from result
 
     finally:
         pool.close()
@@ -587,8 +585,7 @@ def scan(
 
     try:
         while scroll_id and resp.get("hits", {}).get("hits"):
-            for hit in resp.get("hits", {}).get("hits", []):
-                yield hit
+            yield from resp.get("hits", {}).get("hits", [])
 
             _shards = resp.get("_shards")
 

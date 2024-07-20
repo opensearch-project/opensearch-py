@@ -64,7 +64,7 @@ def get_host_info(
     return host
 
 
-class Transport(object):
+class Transport:
     """
     Encapsulation of transport-related to logic. Handles instantiation of the
     individual connections as well as creating a connection pool to hold them.

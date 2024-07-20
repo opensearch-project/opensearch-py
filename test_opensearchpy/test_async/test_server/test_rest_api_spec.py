@@ -121,7 +121,7 @@ class AsyncYamlRunner(YamlRunner):
             if hasattr(self, "run_" + action_type):
                 await await_if_coro(getattr(self, "run_" + action_type)(action))
             else:
-                raise RuntimeError("Invalid action type %r" % (action_type,))
+                raise RuntimeError("Invalid action type {!r}".format(action_type))
 
     async def run_do(self, action: Any) -> Any:
         api = self.client
@@ -170,7 +170,7 @@ class AsyncYamlRunner(YamlRunner):
             else:
                 if catch:
                     raise AssertionError(
-                        "Failed to catch %r in %r." % (catch, self.last_response)
+                        "Failed to catch {!r} in {!r}.".format(catch, self.last_response)
                     )
 
         # Filter out warnings raised by other components.

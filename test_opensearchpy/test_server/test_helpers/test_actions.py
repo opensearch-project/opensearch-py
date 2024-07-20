@@ -27,7 +27,7 @@
 
 from typing import Any
 
-from mock import patch
+from unittest.mock import patch
 
 from opensearchpy import TransportError, helpers
 from opensearchpy.helpers import ScanError
@@ -36,7 +36,7 @@ from ...test_cases import SkipTest
 from .. import OpenSearchTestCase
 
 
-class FailingBulkClient(object):
+class FailingBulkClient:
     def __init__(
         self,
         client: Any,
@@ -383,7 +383,7 @@ class TestScan(OpenSearchTestCase):
 
     def teardown_method(self, m: Any) -> None:
         self.client.transport.perform_request("DELETE", "/_search/scroll/_all")
-        super(TestScan, self).teardown_method(m)
+        super().teardown_method(m)
 
     def test_order_can_be_preserved(self) -> None:
         bulk: Any = []
@@ -415,8 +415,8 @@ class TestScan(OpenSearchTestCase):
         docs = list(helpers.scan(self.client, index="test_index", size=2))
 
         self.assertEqual(100, len(docs))
-        self.assertEqual(set(map(str, range(100))), set(d["_id"] for d in docs))
-        self.assertEqual(set(range(100)), set(d["_source"]["answer"] for d in docs))
+        self.assertEqual(set(map(str, range(100))), {d["_id"] for d in docs})
+        self.assertEqual(set(range(100)), {d["_source"]["answer"] for d in docs})
 
     def test_scroll_error(self) -> None:
         bulk: Any = []

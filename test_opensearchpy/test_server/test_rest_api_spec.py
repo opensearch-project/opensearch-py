@@ -169,7 +169,7 @@ class YamlRunner:
             if hasattr(self, "run_" + action_type):
                 getattr(self, "run_" + action_type)(action)
             else:
-                raise RuntimeError("Invalid action type %r" % (action_type,))
+                raise RuntimeError("Invalid action type {!r}".format(action_type))
 
     def run_do(self, action: Any) -> Any:
         api = self.client
@@ -218,7 +218,7 @@ class YamlRunner:
             else:
                 if catch:
                     raise AssertionError(
-                        "Failed to catch %r in %r." % (catch, self.last_response)
+                        "Failed to catch {!r} in {!r}.".format(catch, self.last_response)
                     )
 
         # Filter out warnings raised by other components.
@@ -248,7 +248,7 @@ class YamlRunner:
         elif catch[0] == "/" and catch[-1] == "/":
             assert (
                 re.search(catch[1:-1], exception.error + " " + repr(exception.info)),
-                "%s not in %r" % (catch, exception.info),
+                "{} not in {!r}".format(catch, exception.info),
             ) is not None
         self.last_response = exception.info
 
@@ -328,7 +328,7 @@ class YamlRunner:
                 and expected.strip().endswith("/")
             ):
                 expected = re.compile(expected.strip()[1:-1], re.VERBOSE | re.MULTILINE)
-                assert expected.search(value), "%r does not match %r" % (
+                assert expected.search(value), "{!r} does not match {!r}".format(
                     value,
                     expected,
                 )
@@ -341,7 +341,7 @@ class YamlRunner:
             expected = self._resolve(expected)  # dict[str, str]
 
             if expected not in value:
-                raise AssertionError("%s is not contained by %s" % (expected, value))
+                raise AssertionError("{} is not contained by {}".format(expected, value))
 
     def run_transform_and_set(self, action: Any) -> None:
         for key, value in action.items():
@@ -371,7 +371,7 @@ class YamlRunner:
                         break
 
         if isinstance(value, dict):
-            value = dict((k, self._resolve(v)) for (k, v) in value.items())
+            value = {k: self._resolve(v) for (k, v) in value.items()}
         elif isinstance(value, list):
             value = list(map(self._resolve, value))
         return value
@@ -412,7 +412,7 @@ class YamlRunner:
         if isinstance(b, string_types) and isinstance(a, float) and "e" in repr(a):
             a = repr(a).replace("e+", "E")
 
-        assert a == b, "%r does not match %r" % (a, b)
+        assert a == b, "{!r} does not match {!r}".format(a, b)
 
 
 @pytest.fixture(scope="function")  # type: ignore
@@ -487,7 +487,7 @@ def load_rest_api_tests() -> None:
                 YAML_TEST_SPECS.append(pytest.param(pytest_param, id=pytest_param_id))
 
     except Exception as e:
-        warnings.warn("Could not load REST API tests: %s" % (str(e),))
+        warnings.warn("Could not load REST API tests: {}".format(str(e)))
 
 
 load_rest_api_tests()

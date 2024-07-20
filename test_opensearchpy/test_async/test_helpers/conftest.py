@@ -12,7 +12,7 @@ from typing import Any
 
 import pytest
 from _pytest.mark.structures import MarkDecorator
-from mock import Mock
+from unittest.mock import Mock
 from pytest import fixture
 
 from opensearchpy.connection.async_connections import add_connection, async_connections
