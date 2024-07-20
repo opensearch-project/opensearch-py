@@ -27,8 +27,6 @@
 import operator
 from typing import Any
 
-from six import iteritems, string_types
-
 from .utils import AttrDict
 
 

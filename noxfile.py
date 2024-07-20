@@ -90,7 +90,6 @@ def lint(session: Any) -> None:
         "isort",
         "pylint",
         "types-requests",
-        "types-six",
         "types-simplejson",
         "types-python-dateutil",
         "types-PyYAML",

@@ -29,8 +29,6 @@ import collections.abc as collections_abc
 from copy import copy
 from typing import Any, Callable, Dict, Optional, Tuple
 
-from six import add_metaclass, iteritems
-
 from opensearchpy.exceptions import UnknownDslObject, ValidationException
 
 SKIP_VALUES: Tuple[str, None] = ("", None)

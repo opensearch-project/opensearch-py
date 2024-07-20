@@ -11,8 +11,6 @@ import collections.abc as collections_abc
 from fnmatch import fnmatch
 from typing import Any, Optional, Tuple, Type
 
-from six import add_metaclass
-
 from opensearchpy._async.client import AsyncOpenSearch
 from opensearchpy._async.helpers.index import AsyncIndex
 from opensearchpy._async.helpers.search import AsyncSearch

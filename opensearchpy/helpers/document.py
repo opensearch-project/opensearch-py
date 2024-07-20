@@ -28,8 +28,6 @@ import collections.abc as collections_abc
 from fnmatch import fnmatch
 from typing import Any, Tuple, Type
 
-from six import add_metaclass, iteritems
-
 from opensearchpy.connection.connections import get_connection
 from opensearchpy.exceptions import NotFoundError, RequestError
 

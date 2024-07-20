@@ -26,8 +26,6 @@
 from datetime import datetime, timedelta
 from typing import Any, Optional
 
-from six import iteritems, itervalues
-
 from opensearchpy.helpers.aggs import A
 
 from .query import MatchAll, Nested, Range, Terms

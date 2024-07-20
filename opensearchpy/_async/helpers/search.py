@@ -10,8 +10,6 @@
 import copy
 from typing import Any, Sequence
 
-from six import iteritems, string_types
-
 from opensearchpy._async.helpers.actions import aiter, async_scan
 from opensearchpy.connection.async_connections import get_connection
 from opensearchpy.exceptions import IllegalOperation, TransportError

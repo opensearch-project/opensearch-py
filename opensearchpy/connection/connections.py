@@ -26,8 +26,6 @@
 
 from typing import Any
 
-from six import string_types
-
 import opensearchpy
 from opensearchpy.serializer import serializer
 

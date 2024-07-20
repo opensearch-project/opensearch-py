@@ -32,7 +32,6 @@ from datetime import date, datetime
 from typing import Any, Optional, Type
 
 from dateutil import parser, tz
-from six import integer_types, iteritems, string_types
 
 from ..exceptions import ValidationException
 from .query import Q

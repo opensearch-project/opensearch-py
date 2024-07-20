@@ -28,8 +28,6 @@ import collections.abc as collections_abc
 import copy
 from typing import Any
 
-from six import iteritems, string_types
-
 from opensearchpy.connection.connections import get_connection
 from opensearchpy.exceptions import TransportError
 from opensearchpy.helpers import scan
