@@ -93,7 +93,6 @@ def lint(session: Any) -> None:
         "types-simplejson",
         "types-python-dateutil",
         "types-PyYAML",
-        "types-mock",
         "types-pytz",
     )
 
