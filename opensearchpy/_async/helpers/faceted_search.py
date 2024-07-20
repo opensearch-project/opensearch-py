@@ -10,14 +10,12 @@
 
 from typing import Any
 
-from six import iteritems, itervalues
-
 from opensearchpy._async.helpers.search import AsyncSearch
 from opensearchpy.helpers.faceted_search import FacetedResponse
 from opensearchpy.helpers.query import MatchAll
 
 
-class AsyncFacetedSearch(object):
+class AsyncFacetedSearch:
     """
     Abstraction for creating faceted navigation searches that takes care of
     composing the queries, aggregations and filters as needed as well as
@@ -75,7 +73,7 @@ class AsyncFacetedSearch(object):
         self._filters: Any = {}
         self._sort = sort
         self.filter_values: Any = {}
-        for name, value in iteritems(filters):
+        for name, value in filters.items():
             self.add_filter(name, value)
 
         self._s = self.build_search()
@@ -140,10 +138,10 @@ class AsyncFacetedSearch(object):
         Add aggregations representing the facets selected, including potential
         filters.
         """
-        for f, facet in iteritems(self.facets):
+        for f, facet in self.facets.items():
             agg = facet.get_aggregation()
             agg_filter = MatchAll()
-            for field, filter in iteritems(self._filters):
+            for field, filter in self._filters.items():
                 if f == field:
                     continue
                 agg_filter &= filter
@@ -160,7 +158,7 @@ class AsyncFacetedSearch(object):
             return search
 
         post_filter = MatchAll()
-        for f in itervalues(self._filters):
+        for f in self._filters.values():
             post_filter &= f
         return search.post_filter(post_filter)
 

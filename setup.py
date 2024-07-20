@@ -57,7 +57,6 @@ install_requires = [
     'urllib3>=1.26.18,<1.27 ; python_version < "3.10"',
     'urllib3>=1.26.18,!=2.2.0,<3 ; python_version >= "3.10"',
     "requests>=2.4.0, <3.0.0",
-    "six",
     "python-dateutil",
     "certifi>=2022.12.07",
     "Events",

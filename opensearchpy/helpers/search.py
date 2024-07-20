@@ -28,8 +28,6 @@ import collections.abc as collections_abc
 import copy
 from typing import Any
 
-from six import iteritems, string_types
-
 from opensearchpy.connection.connections import get_connection
 from opensearchpy.exceptions import TransportError
 from opensearchpy.helpers import scan
@@ -41,7 +39,7 @@ from .response import Hit, Response
 from .utils import AttrDict, DslBase, recursive_to_dict
 
 
-class QueryProxy(object):
+class QueryProxy:
     """
     Simple proxy around DSL objects (queries) that can be called
     (to add query/post_filter) and also allows attribute access which is proxied to
@@ -79,7 +77,7 @@ class QueryProxy(object):
         if not attr_name.startswith("_"):
             self._proxied = Q(self._proxied.to_dict())
             setattr(self._proxied, attr_name, value)
-        super(QueryProxy, self).__setattr__(attr_name, value)
+        super().__setattr__(attr_name, value)
 
     def __getstate__(self) -> Any:
         return self._search, self._proxied, self._attr_name
@@ -88,7 +86,7 @@ class QueryProxy(object):
         self._search, self._proxied, self._attr_name = state
 
 
-class ProxyDescriptor(object):
+class ProxyDescriptor:
     """
     Simple descriptor to enable setting of queries and filters as:
 
@@ -117,10 +115,10 @@ class AggsProxy(AggBase, DslBase):
         self._params = {"aggs": {}}
 
     def to_dict(self) -> Any:
-        return super(AggsProxy, self).to_dict().get("aggs", {})
+        return super().to_dict().get("aggs", {})
 
 
-class Request(object):
+class Request:
     _doc_type: Any
     _doc_type_map: Any
 
@@ -195,7 +193,7 @@ class Request(object):
         else:
             indexes = []
             for i in index:
-                if isinstance(i, string_types):
+                if isinstance(i, str):
                     indexes.append(i)
                 elif isinstance(i, list):
                     indexes += i
@@ -333,7 +331,7 @@ class Search(Request):
         All the parameters supplied (or omitted) at creation type can be later
         overridden by methods (`using`, `index` and `doc_type` respectively).
         """
-        super(Search, self).__init__(**kwargs)
+        super().__init__(**kwargs)
 
         self.aggs = AggsProxy(self)
         self._sort: Any = []
@@ -422,7 +420,7 @@ class Search(Request):
         of all the underlying objects. Used internally by most state modifying
         APIs.
         """
-        s = super(Search, self)._clone()
+        s = super()._clone()
 
         s._response_class = self._response_class
         s._sort = self._sort[:]
@@ -462,7 +460,7 @@ class Search(Request):
         aggs = d.pop("aggs", d.pop("aggregations", {}))
         if aggs:
             self.aggs._params = {
-                "aggs": {name: A(value) for (name, value) in iteritems(aggs)}
+                "aggs": {name: A(value) for (name, value) in aggs.items()}
             }
         if "sort" in d:
             self._sort = d.pop("sort")
@@ -504,7 +502,7 @@ class Search(Request):
         """
         s = self._clone()
         for name in kwargs:
-            if isinstance(kwargs[name], string_types):
+            if isinstance(kwargs[name], str):
                 kwargs[name] = {"script": kwargs[name]}
         s._script_fields.update(kwargs)
         return s
@@ -580,7 +578,7 @@ class Search(Request):
         s = self._clone()
         s._sort = []
         for k in keys:
-            if isinstance(k, string_types) and k.startswith("-"):
+            if isinstance(k, str) and k.startswith("-"):
                 if k[1:] == "_score":
                     raise IllegalOperation("Sorting by `-_score` is not allowed.")
                 k = {k[1:]: {"order": "desc"}}
@@ -801,7 +799,7 @@ class MultiSearch(Request):
     """
 
     def __init__(self, **kwargs: Any) -> None:
-        super(MultiSearch, self).__init__(**kwargs)
+        super().__init__(**kwargs)
         self._searches: Any = []
 
     def __getitem__(self, key: Any) -> Any:
@@ -811,7 +809,7 @@ class MultiSearch(Request):
         return iter(self._searches)
 
     def _clone(self) -> Any:
-        ms = super(MultiSearch, self)._clone()
+        ms = super()._clone()
         ms._searches = self._searches[:]
         return ms
 

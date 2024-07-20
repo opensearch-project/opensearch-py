@@ -9,14 +9,12 @@
 
 from typing import Any
 
-from six import string_types
-
 import opensearchpy
 from opensearchpy._async.helpers.actions import aiter
 from opensearchpy.serializer import serializer
 
 
-class AsyncConnections(object):
+class AsyncConnections:
     _conns: Any
 
     """
@@ -92,7 +90,7 @@ class AsyncConnections(object):
         """
         # do not check isinstance(AsyncOpenSearch) so that people can wrap their
         # clients
-        if not isinstance(alias, string_types):
+        if not isinstance(alias, str):
             return alias
 
         # connection already established

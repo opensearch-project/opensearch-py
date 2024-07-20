@@ -26,14 +26,12 @@
 
 from typing import Any, Optional
 
-import six
-
 from opensearchpy.connection.connections import get_connection
 
 from .utils import AttrDict, DslBase, merge
 
 
-class AnalysisBase(object):
+class AnalysisBase:
     @classmethod
     def _type_shortcut(
         cls: Any, name_or_instance: Any, type: Any = None, **kwargs: Any
@@ -51,7 +49,7 @@ class AnalysisBase(object):
         )
 
 
-class CustomAnalysis(object):
+class CustomAnalysis:
     name: Optional[str] = "custom"
 
     def __init__(
@@ -59,14 +57,14 @@ class CustomAnalysis(object):
     ) -> None:
         self._builtin_type = builtin_type
         self._name = filter_name
-        super(CustomAnalysis, self).__init__(**kwargs)
+        super().__init__(**kwargs)
 
     def to_dict(self) -> Any:
         # only name to present in lists
         return self._name
 
     def get_definition(self) -> Any:
-        d = super(CustomAnalysis, self).to_dict()  # type: ignore
+        d = super().to_dict()  # type: ignore
         d = d.pop(self.name)
         d["type"] = self._builtin_type
         return d
@@ -106,12 +104,12 @@ class CustomAnalysisDefinition(CustomAnalysis):
         return out
 
 
-class BuiltinAnalysis(object):
+class BuiltinAnalysis:
     name: Optional[str] = "builtin"
 
     def __init__(self, name: Any) -> None:
         self._name = name
-        super(BuiltinAnalysis, self).__init__()
+        super().__init__()
 
     def to_dict(self) -> Any:
         # only name to present in lists
@@ -168,7 +166,7 @@ class CustomAnalyzer(CustomAnalysisDefinition, Analyzer):
             sec_def = definition.get(section, {})
             sec_names = analyzer_def[section]
 
-            if isinstance(sec_names, six.string_types):
+            if isinstance(sec_names, str):
                 body[section] = sec_def.get(sec_names, sec_names)
             else:
                 body[section] = [
@@ -235,7 +233,7 @@ class MultiplexerTokenFilter(CustomTokenFilter):
                 # comma delimited string given by user
                 (
                     fs
-                    if isinstance(fs, six.string_types)
+                    if isinstance(fs, str)
                     else
                     # list of strings or TokenFilter objects
                     ", ".join(f.to_dict() if hasattr(f, "to_dict") else f for f in fs)
@@ -251,7 +249,7 @@ class MultiplexerTokenFilter(CustomTokenFilter):
         fs: Any = {}
         d = {"filter": fs}
         for filters in self.filters:
-            if isinstance(filters, six.string_types):
+            if isinstance(filters, str):
                 continue
             fs.update(
                 {

@@ -28,8 +28,6 @@ import collections.abc as collections_abc
 from itertools import chain
 from typing import Any
 
-from six import iteritems, itervalues
-
 from opensearchpy.connection.connections import get_connection
 from opensearchpy.helpers.field import Nested, Text, construct_field
 
@@ -53,7 +51,7 @@ class Properties(DslBase):
     _param_defs = {"properties": {"type": "field", "hash": True}}
 
     def __init__(self) -> None:
-        super(Properties, self).__init__()
+        super().__init__()
 
     def __repr__(self) -> str:
         return "Properties()"
@@ -65,7 +63,7 @@ class Properties(DslBase):
         return name in self.properties
 
     def to_dict(self) -> Any:
-        return super(Properties, self).to_dict()["properties"]
+        return super().to_dict()["properties"]
 
     def field(self, name: Any, *args: Any, **kwargs: Any) -> "Properties":
         self.properties[name] = construct_field(*args, **kwargs)
@@ -73,16 +71,14 @@ class Properties(DslBase):
 
     def _collect_fields(self) -> Any:
         """Iterate over all Field objects within, including multi fields."""
-        for f in itervalues(self.properties.to_dict()):
+        for f in self.properties.to_dict().values():
             yield f
             # multi fields
             if hasattr(f, "fields"):
-                for inner_f in itervalues(f.fields.to_dict()):
-                    yield inner_f
+                yield from f.fields.to_dict().values()
             # nested and inner objects
             if hasattr(f, "_collect_fields"):
-                for inner_f in f._collect_fields():
-                    yield inner_f
+                yield from f._collect_fields()
 
     def update(self, other_object: Any) -> None:
         if not hasattr(other_object, "properties"):
@@ -98,7 +94,7 @@ class Properties(DslBase):
             our[name] = other[name]
 
 
-class Mapping(object):
+class Mapping:
     def __init__(self) -> None:
         self.properties = Properties()
         self._meta: Any = {}
@@ -181,11 +177,11 @@ class Mapping(object):
         self._update_from_dict(raw["mappings"])
 
     def _update_from_dict(self, raw: Any) -> None:
-        for name, definition in iteritems(raw.get("properties", {})):
+        for name, definition in raw.get("properties", {}).items():
             self.field(name, definition)
 
         # metadata like _all etc
-        for name, value in iteritems(raw):
+        for name, value in raw.items():
             if name != "properties":
                 if isinstance(value, collections_abc.Mapping):
                     self.meta(name, **value)

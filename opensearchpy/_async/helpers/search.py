@@ -10,8 +10,6 @@
 import copy
 from typing import Any, Sequence
 
-from six import iteritems, string_types
-
 from opensearchpy._async.helpers.actions import aiter, async_scan
 from opensearchpy.connection.async_connections import get_connection
 from opensearchpy.exceptions import IllegalOperation, TransportError
@@ -37,7 +35,7 @@ class AsyncSearch(Request):
         All the parameters supplied (or omitted) at creation type can be later
         overridden by methods (`using`, `index` and `doc_type` respectively).
         """
-        super(AsyncSearch, self).__init__(**kwargs)
+        super().__init__(**kwargs)
 
         self.aggs = AggsProxy(self)
         self._sort: Sequence[Any] = []
@@ -119,7 +117,7 @@ class AsyncSearch(Request):
         of all the underlying objects. Used internally by most state modifying
         APIs.
         """
-        s = super(AsyncSearch, self)._clone()
+        s = super()._clone()
 
         s._response_class = self._response_class
         s._sort = self._sort[:]
@@ -158,7 +156,7 @@ class AsyncSearch(Request):
         aggs = d.pop("aggs", d.pop("aggregations", {}))
         if aggs:
             self.aggs._params = {
-                "aggs": {name: A(value) for (name, value) in iteritems(aggs)}
+                "aggs": {name: A(value) for (name, value) in aggs.items()}
             }
         if "sort" in d:
             self._sort = d.pop("sort")
@@ -200,7 +198,7 @@ class AsyncSearch(Request):
         """
         s = self._clone()
         for name in kwargs:
-            if isinstance(kwargs[name], string_types):
+            if isinstance(kwargs[name], str):
                 kwargs[name] = {"script": kwargs[name]}
         s._script_fields.update(kwargs)
         return s
@@ -276,7 +274,7 @@ class AsyncSearch(Request):
         s = self._clone()
         s._sort = []
         for k in keys:
-            if isinstance(k, string_types) and k.startswith("-"):
+            if isinstance(k, str) and k.startswith("-"):
                 if k[1:] == "_score":
                     raise IllegalOperation("Sorting by `-_score` is not allowed.")
                 k = {k[1:]: {"order": "desc"}}
@@ -470,7 +468,7 @@ class AsyncMultiSearch(Request):
     """
 
     def __init__(self, **kwargs: Any) -> None:
-        super(AsyncMultiSearch, self).__init__(**kwargs)
+        super().__init__(**kwargs)
         self._searches: Any = []
 
     def __getitem__(self, key: Any) -> Any:
@@ -480,7 +478,7 @@ class AsyncMultiSearch(Request):
         return iter(self._searches)
 
     def _clone(self) -> Any:
-        ms = super(AsyncMultiSearch, self)._clone()
+        ms = super()._clone()
         ms._searches = self._searches[:]
         return ms
 
