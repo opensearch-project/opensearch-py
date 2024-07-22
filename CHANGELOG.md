@@ -20,6 +20,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - Updated opensearch-py APIs to reflect [opensearch-api-specification@49cd814](https://github.com/opensearch-project/opensearch-api-specification/commit/49cd8140663f32f7c8b638ddc295683344edba61)
 ### Security
 ### Dependencies
+- Bump `pytest-asyncio` from <=0.23.7 to <=0.23.8 ([#787](https://github.com/opensearch-project/opensearch-py/pull/787))
 
 ## [2.6.0]
 ### Added
