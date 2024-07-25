@@ -219,10 +219,12 @@ class Bool(Query):
                 del q._params["minimum_should_match"]
 
             for qx in (self, other):
-                # TODO: percentages will fail here
                 min_should_match = qx._min_should_match
                 # all subqueries are required
-                if len(qx.should) <= min_should_match:
+                if (
+                    isinstance(min_should_match, int)
+                    and len(qx.should) <= min_should_match
+                ):
                     q.must.extend(qx.should)
                 # not all of them are required, use it and remember min_should_match
                 elif not q.should:
