@@ -302,10 +302,12 @@
                 <span class="k">del</span> <span class="n">q</span><span class="o">.</span><span class="n">_params</span><span class="p">[</span><span class="s2">&quot;minimum_should_match&quot;</span><span class="p">]</span>
 
             <span class="k">for</span> <span class="n">qx</span> <span class="ow">in</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
-                <span class="c1"># TODO: percentages will fail here</span>
                 <span class="n">min_should_match</span> <span class="o">=</span> <span class="n">qx</span><span class="o">.</span><span class="n">_min_should_match</span>
                 <span class="c1"># all subqueries are required</span>
-                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">qx</span><span class="o">.</span><span class="n">should</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">min_should_match</span><span class="p">:</span>
+                <span class="k">if</span> <span class="p">(</span>
+                    <span class="nb">isinstance</span><span class="p">(</span><span class="n">min_should_match</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span>
+                    <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">qx</span><span class="o">.</span><span class="n">should</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">min_should_match</span>
+                <span class="p">):</span>
                     <span class="n">q</span><span class="o">.</span><span class="n">must</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">qx</span><span class="o">.</span><span class="n">should</span><span class="p">)</span>
                 <span class="c1"># not all of them are required, use it and remember min_should_match</span>
                 <span class="k">elif</span> <span class="ow">not</span> <span class="n">q</span><span class="o">.</span><span class="n">should</span><span class="p">:</span>
