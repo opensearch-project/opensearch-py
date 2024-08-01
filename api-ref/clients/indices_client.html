@@ -956,7 +956,7 @@ force merge is completed. Default is True.</p></li>
 index aliases used to limit the request. Wildcard expressions (*) are
 supported.</p></li>
 <li><p><strong>allow_no_indices</strong> – If false, the request returns an error if
-any wildcard expression, index alias, or _all value targets onlymissing
+any wildcard expression, index alias, or _all value targets only missing
 or closed indices. This behavior applies even if the request targets
 other open indices. For example,a request targeting foo*,bar* returns an
 error if an index starts with foo but no index starts with bar. Default
@@ -967,7 +967,7 @@ to cluster-manager node.</p></li>
 errors.</p></li>
 <li><p><strong>expand_wildcards</strong> – Type of index that wildcard expressions
 can match. If the request can target data streams, this
-argumentdetermines whether wildcard expressions match hidden data
+argument determines whether wildcard expressions match hidden data
 streams. Supports comma-separated values,such as open,hidden. Valid
 choices are all, closed, hidden, none, open.</p></li>
 <li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
@@ -1234,10 +1234,10 @@ all data streams and indices, omit this parameter or use <cite>*</cite> or <cite
 <li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list or wildcard expression of
 settings to retrieve.</p></li>
 <li><p><strong>allow_no_indices</strong> – If <cite>false</cite>, the request returns an error
-if any wildcard expression, indexalias, or <cite>_all</cite> value targets only
-missing or closed indices. Thisbehavior applies even if the request
-targets other open indices. Forexample, a request targeting <cite>foo*,bar*</cite>
-returns an error if an indexstarts with foo but no index starts with
+if any wildcard expression, index alias, or <cite>_all</cite> value targets only
+missing or closed indices. This behavior applies even if the request
+targets other open indices. For example, a request targeting <cite>foo*,bar*</cite>
+returns an error if an index starts with foo but no index starts with
 <cite>bar</cite>.</p></li>
 <li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
 to cluster-manager node.</p></li>
@@ -1263,8 +1263,8 @@ the local node only. If`false`, information is retrieved from the master
 node. Default is false.</p></li>
 <li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
 use ‘cluster_manager_timeout’ instead.): Period to wait for a connection
-to the master node. If no response isreceived before the timeout
-expires, the request fails and returns anerror.</p></li>
+to the master node. If no response is received before the timeout
+expires, the request fails and returns an error.</p></li>
 <li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
 response.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
@@ -1575,18 +1575,18 @@ to the current write index for the target. Default is false.</p></li>
 aliases used to limit the request. Supports wildcards (<cite>*</cite>). To target
 all data streams and indices, omit this parameter or use <cite>*</cite> or <cite>_all</cite>.</p></li>
 <li><p><strong>allow_no_indices</strong> – If <cite>false</cite>, the request returns an error
-if any wildcard expression, indexalias, or <cite>_all</cite> value targets only
-missing or closed indices. Thisbehavior applies even if the request
-targets other open indices. Forexample, a request targeting <cite>foo*,bar*</cite>
-returns an error if an indexstarts with <cite>foo</cite> but no index starts with
+if any wildcard expression, index alias, or <cite>_all</cite> value targets only
+missing or closed indices. This behavior applies even if the request
+targets other open indices. For example, a request targeting <cite>foo*,bar*</cite>
+returns an error if an index starts with <cite>foo</cite> but no index starts with
 <cite>bar</cite>.</p></li>
 <li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
 to cluster-manager node.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors.</p></li>
 <li><p><strong>expand_wildcards</strong> – Type of index that wildcard patterns can
-match. If the request can targetdata streams, this argument determines
-whether wildcard expressions matchhidden data streams. Supports comma-
+match. If the request can target data streams, this argument determines
+whether wildcard expressions match hidden data streams. Supports comma-
 separated values, such as`open,hidden`. Valid choices are all, closed,
 hidden, none, open.</p></li>
 <li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
@@ -1599,8 +1599,8 @@ statistics.</p></li>
 should be ignored when unavailable (missing or closed).</p></li>
 <li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
 use ‘cluster_manager_timeout’ instead.): Period to wait for a connection
-to the master node. If no response isreceived before the timeout
-expires, the request fails and returns anerror.</p></li>
+to the master node. If no response is received before the timeout
+expires, the request fails and returns an error.</p></li>
 <li><p><strong>preserve_existing</strong> – If <cite>true</cite>, existing index settings
 remain unchanged. Default is false.</p></li>
 <li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
@@ -1643,10 +1643,10 @@ the response.</p></li>
 statistics.</p></li>
 <li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
 use ‘cluster_manager_timeout’ instead.): Period to wait for a connection
-to the master node. If no response isreceived before the timeout
+to the master node. If no response is received before the timeout
 expires, the request fails and returns an error.</p></li>
 <li><p><strong>order</strong> – Order in which OpenSearch applies this template if
-indexmatches multiple templates.Templates with lower ‘order’ values are
+index matches multiple templates.Templates with lower ‘order’ values are
 merged first. Templates with higher’order’ values are merged later,
 overriding templates with lower values.</p></li>
 <li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
@@ -1885,7 +1885,7 @@ Default is false.</p></li>
 limit the request.</p></li>
 <li><p><strong>allow_no_indices</strong> – If false, the request returns an error if
 any wildcard expression, index alias, or _allvalue targets only missing
-or closed indices. This behavior applies even if the requesttargets
+or closed indices. This behavior applies even if the request targets
 other open indices.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors.</p></li>
@@ -1985,10 +1985,10 @@ template for simulation purposes. Default is false.</p></li>
 <li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
 to cluster-manager node.</p></li>
 <li><p><strong>create</strong> – If <cite>true</cite>, the template passed in the body is only
-used if no existingtemplates match the same index patterns. If <cite>false</cite>,
-the simulation usesthe template with the highest priority. Note that the
-template is notpermanently added or updated in either case; it is only
-used for thesimulation. Default is false.</p></li>
+used if no existing templates match the same index patterns. If <cite>false</cite>,
+the simulation uses the template with the highest priority. Note that the
+template is not permanently added or updated in either case; it is only
+used for the simulation. Default is false.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors.</p></li>
 <li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
@@ -1997,7 +1997,7 @@ the response.</p></li>
 statistics.</p></li>
 <li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
 use ‘cluster_manager_timeout’ instead.): Period to wait for a connection
-to the master node. If no response is receivedbefore the timeout
+to the master node. If no response is received before the timeout
 expires, the request fails and returns an error.</p></li>
 <li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
 response.</p></li>
@@ -2130,7 +2130,7 @@ expressions of fields to include in fielddata and suggest statistics.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors.</p></li>
 <li><p><strong>expand_wildcards</strong> – Type of index that wildcard patterns can
-match. If the request can target data streams, this argumentdetermines
+match. If the request can target data streams, this argument determines
 whether wildcard expressions match hidden data streams. Supports comma-
 separated values,such as <cite>open,hidden</cite>. Valid choices are all, closed,
 hidden, none, open.</p></li>
