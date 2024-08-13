@@ -243,3 +243,67 @@ class MlClient(NamespacedClient):
             headers=headers,
             body=body,
         )
+
+    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    async def deploy_model(
+        self,
+        model_id: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Deploys a model.
+
+
+        :arg error_trace: Whether to include the stack trace of returned
+            errors.
+        :arg filter_path: Comma-separated list of filters used to reduce
+            the response.
+        :arg human: Whether to return human readable values for
+            statistics.
+        :arg pretty: Whether to pretty format the returned JSON
+            response.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        """
+        if model_id in SKIP_IN_PATH:
+            raise ValueError("Empty value passed for a required argument 'model_id'.")
+
+        return await self.transport.perform_request(
+            "POST",
+            _make_path("_plugins", "_ml", "models", model_id, "_deploy"),
+            params=params,
+            headers=headers,
+        )
+
+    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    async def undeploy_model(
+        self,
+        model_id: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Undeploys a model.
+
+
+        :arg error_trace: Whether to include the stack trace of returned
+            errors.
+        :arg filter_path: Comma-separated list of filters used to reduce
+            the response.
+        :arg human: Whether to return human readable values for
+            statistics.
+        :arg pretty: Whether to pretty format the returned JSON
+            response.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        """
+        if model_id in SKIP_IN_PATH:
+            raise ValueError("Empty value passed for a required argument 'model_id'.")
+
+        return await self.transport.perform_request(
+            "POST",
+            _make_path("_plugins", "_ml", "models", model_id, "_undeploy"),
+            params=params,
+            headers=headers,
+        )

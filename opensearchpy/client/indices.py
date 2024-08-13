@@ -335,7 +335,7 @@ class IndicesClient(NamespacedClient):
             index aliases used to limit the request. Wildcard expressions (*) are
             supported.
         :arg allow_no_indices: If false, the request returns an error if
-            any wildcard expression, index alias, or _all value targets only missing
+            any wildcard expression, index alias, or _all value targets onlymissing
             or closed indices. This behavior applies even if the request targets
             other open indices. For example,a request targeting foo*,bar* returns an
             error if an index starts with foo but no index starts with bar. Default
@@ -346,7 +346,7 @@ class IndicesClient(NamespacedClient):
             errors.
         :arg expand_wildcards: Type of index that wildcard expressions
             can match. If the request can target data streams, this
-            argument determines whether wildcard expressions match hidden data
+            argumentdetermines whether wildcard expressions match hidden data
             streams. Supports comma-separated values,such as open,hidden. Valid
             choices are all, closed, hidden, none, open.
         :arg filter_path: Comma-separated list of filters used to reduce
@@ -1161,10 +1161,10 @@ class IndicesClient(NamespacedClient):
             statistics.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Period to wait for a connection
-            to the master node. If no response is received before the timeout
+            to the master node. If no response isreceived before the timeout
             expires, the request fails and returns an error.
         :arg order: Order in which OpenSearch applies this template if
-            index matches multiple templates.Templates with lower 'order' values are
+            indexmatches multiple templates.Templates with lower 'order' values are
             merged first. Templates with higher'order' values are merged later,
             overriding templates with lower values.
         :arg pretty: Whether to pretty format the returned JSON
@@ -1364,10 +1364,10 @@ class IndicesClient(NamespacedClient):
         :arg name: Comma-separated list or wildcard expression of
             settings to retrieve.
         :arg allow_no_indices: If `false`, the request returns an error
-            if any wildcard expression, index alias, or `_all` value targets only
-            missing or closed indices. This behavior applies even if the request
-            targets other open indices. For example, a request targeting `foo*,bar*`
-            returns an error if an index starts with foo but no index starts with
+            if any wildcard expression, indexalias, or `_all` value targets only
+            missing or closed indices. Thisbehavior applies even if the request
+            targets other open indices. Forexample, a request targeting `foo*,bar*`
+            returns an error if an indexstarts with foo but no index starts with
             `bar`.
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
@@ -1393,8 +1393,8 @@ class IndicesClient(NamespacedClient):
             node. Default is false.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Period to wait for a connection
-            to the master node. If no response is received before the timeout
-            expires, the request fails and returns an error.
+            to the master node. If no response isreceived before the timeout
+            expires, the request fails and returns anerror.
         :arg pretty: Whether to pretty format the returned JSON
             response.
         :arg source: The URL-encoded request definition. Useful for
@@ -1434,18 +1434,18 @@ class IndicesClient(NamespacedClient):
             aliases used to limit the request. Supports wildcards (`*`). To target
             all data streams and indices, omit this parameter or use `*` or `_all`.
         :arg allow_no_indices: If `false`, the request returns an error
-            if any wildcard expression, index alias, or `_all` value targets only
-            missing or closed indices. This behavior applies even if the request
-            targets other open indices. For example, a request targeting `foo*,bar*`
-            returns an error if an index starts with `foo` but no index starts with
+            if any wildcard expression, indexalias, or `_all` value targets only
+            missing or closed indices. Thisbehavior applies even if the request
+            targets other open indices. Forexample, a request targeting `foo*,bar*`
+            returns an error if an indexstarts with `foo` but no index starts with
             `bar`.
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
         :arg expand_wildcards: Type of index that wildcard patterns can
-            match. If the request can target data streams, this argument determines
-            whether wildcard expressions match hidden data streams. Supports comma-
+            match. If the request can targetdata streams, this argument determines
+            whether wildcard expressions matchhidden data streams. Supports comma-
             separated values, such as`open,hidden`. Valid choices are all, closed,
             hidden, none, open.
         :arg filter_path: Comma-separated list of filters used to reduce
@@ -1458,8 +1458,8 @@ class IndicesClient(NamespacedClient):
             should be ignored when unavailable (missing or closed).
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Period to wait for a connection
-            to the master node. If no response is received before the timeout
-            expires, the request fails and returns an error.
+            to the master node. If no response isreceived before the timeout
+            expires, the request fails and returns anerror.
         :arg preserve_existing: If `true`, existing index settings
             remain unchanged. Default is false.
         :arg pretty: Whether to pretty format the returned JSON
@@ -1517,7 +1517,7 @@ class IndicesClient(NamespacedClient):
         :arg error_trace: Whether to include the stack trace of returned
             errors.
         :arg expand_wildcards: Type of index that wildcard patterns can
-            match. If the request can target data streams, this argument determines
+            match. If the request can target data streams, this argumentdetermines
             whether wildcard expressions match hidden data streams. Supports comma-
             separated values,such as `open,hidden`. Valid choices are all, closed,
             hidden, none, open.
@@ -1909,7 +1909,7 @@ class IndicesClient(NamespacedClient):
             limit the request.
         :arg allow_no_indices: If false, the request returns an error if
             any wildcard expression, index alias, or _allvalue targets only missing
-            or closed indices. This behavior applies even if the request targets
+            or closed indices. This behavior applies even if the requesttargets
             other open indices.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
@@ -2520,10 +2520,10 @@ class IndicesClient(NamespacedClient):
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
         :arg create: If `true`, the template passed in the body is only
-            used if no existing templates match the same index patterns. If `false`,
-            the simulation uses the template with the highest priority. Note that the
-            template is not permanently added or updated in either case; it is only
-            used for the simulation. Default is false.
+            used if no existingtemplates match the same index patterns. If `false`,
+            the simulation usesthe template with the highest priority. Note that the
+            template is notpermanently added or updated in either case; it is only
+            used for thesimulation. Default is false.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
         :arg filter_path: Comma-separated list of filters used to reduce
@@ -2532,7 +2532,7 @@ class IndicesClient(NamespacedClient):
             statistics.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Period to wait for a connection
-            to the master node. If no response is received before the timeout
+            to the master node. If no response is receivedbefore the timeout
             expires, the request fails and returns an error.
         :arg pretty: Whether to pretty format the returned JSON
             response.
