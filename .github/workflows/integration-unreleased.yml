@@ -8,7 +8,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        opensearch_ref: [ '1.x', '2.x', '2.0', 'main' ]
+        opensearch_ref: [ '1.x', '2.x', 'main' ]
         
     steps:
       - name: Checkout OpenSearch
