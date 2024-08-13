@@ -164,11 +164,11 @@ class ClusterClient(NamespacedClient):
         :arg human: Whether to return human readable values for
             statistics.
         :arg local: If `true`, the request retrieves information from
-            the local node only.If `false`, information is retrieved from the master
-            node. Default is false.
+            the local node only. If `false`, information is retrieved from the
+            master node. Default is false.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Period to wait for a connection
-            to the master node.If no response is received before the timeout
+            to the master node. If no response is received before the timeout
             expires, the request fails and returns an error.
         :arg pretty: Whether to pretty format the returned JSON
             response.
@@ -285,9 +285,9 @@ class ClusterClient(NamespacedClient):
             response.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
-        :arg timeout: Period to wait for each node to respond.If a node
+        :arg timeout: Period to wait for each node to respond. If a node
             does not respond before its timeout expires, the response does not
-            include its stats.However, timed out nodes are included in the
+            include its stats. However, timed out nodes are included in the
             response's `_nodes.failed` property. Defaults to no timeout.
         """
         return self.transport.perform_request(
@@ -394,13 +394,13 @@ class ClusterClient(NamespacedClient):
             settings from the local node. Default is false.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Period to wait for a connection
-            to the master node.If no response is received before the timeout
+            to the master node. If no response is received before the timeout
             expires, the request fails and returns an error.
         :arg pretty: Whether to pretty format the returned JSON
             response.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
-        :arg timeout: Period to wait for a response.If no response is
+        :arg timeout: Period to wait for a response. If no response is
             received before the timeout expires, the request fails and returns an
             error.
         """
@@ -558,13 +558,13 @@ class ClusterClient(NamespacedClient):
             statistics.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Period to wait for a connection
-            to the master node.If no response is received before the timeout
+            to the master node. If no response is received before the timeout
             expires, the request fails and returns an error.
         :arg pretty: Whether to pretty format the returned JSON
             response.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
-        :arg timeout: Period to wait for a response.If no response is
+        :arg timeout: Period to wait for a response. If no response is
             received before the timeout expires, the request fails and returns an
             error.
         """
@@ -609,11 +609,11 @@ class ClusterClient(NamespacedClient):
         :arg human: Whether to return human readable values for
             statistics.
         :arg local: If `true`, the request retrieves information from
-            the local node only.If `false`, information is retrieved from the master
-            node. Default is false.
+            the local node only. If `false`, information is retrieved from the
+            master node. Default is false.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Period to wait for a connection
-            to the master node.If no response is received before the timeout
+            to the master node. If no response is received before the timeout
             expires, the request fails and returns an error.
         :arg pretty: Whether to pretty format the returned JSON
             response.
@@ -672,7 +672,7 @@ class ClusterClient(NamespacedClient):
             statistics.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Period to wait for a connection
-            to the master node.If no response is received before the timeout
+            to the master node. If no response is received before the timeout
             expires, the request fails and returns an error.
         :arg pretty: Whether to pretty format the returned JSON
             response.
@@ -723,12 +723,12 @@ class ClusterClient(NamespacedClient):
         :arg human: Whether to return human readable values for
             statistics.
         :arg local: If true, the request retrieves information from the
-            local node only.Defaults to false, which means information is retrieved
+            local node only. Defaults to false, which means information is retrieved
             from the master node. Default is false.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Period to wait for a connection
-            to the master node. If no response isreceived before the timeout
-            expires, the request fails and returns anerror.
+            to the master node. If no response is received before the timeout
+            expires, the request fails and returns an error.
         :arg pretty: Whether to pretty format the returned JSON
             response.
         :arg source: The URL-encoded request definition. Useful for
@@ -767,12 +767,12 @@ class ClusterClient(NamespacedClient):
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         :arg wait_for_removal: Specifies whether to wait for all
-            excluded nodes to be removed from thecluster before clearing the voting
-            configuration exclusions list.Defaults to true, meaning that all
-            excluded nodes must be removed fromthe cluster before this API takes any
-            action. If set to false then thevoting configuration exclusions list is
-            cleared even if some excludednodes are still in the cluster. Default is
-            True.
+            excluded nodes to be removed from the cluster before clearing the voting
+            configuration exclusions list. Defaults to true, meaning that all
+            excluded nodes must be removed from the cluster before this API takes
+            any action. If set to false then the voting configuration exclusions
+            list is cleared even if some excluded nodes are still in the cluster.
+            Default is True.
         """
         return self.transport.perform_request(
             "DELETE",
@@ -807,19 +807,19 @@ class ClusterClient(NamespacedClient):
         :arg human: Whether to return human readable values for
             statistics.
         :arg node_ids: A comma-separated list of the persistent ids of
-            the nodes to excludefrom the voting configuration. If specified, you may
-            not also specify node_names.
+            the nodes to exclude from the voting configuration. If specified, you
+            may not also specify node_names.
         :arg node_names: A comma-separated list of the names of the
-            nodes to exclude from thevoting configuration. If specified, you may not
-            also specify node_ids.
+            nodes to exclude from the voting configuration. If specified, you may
+            not also specify node_ids.
         :arg pretty: Whether to pretty format the returned JSON
             response.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         :arg timeout: When adding a voting configuration exclusion, the
-            API waits for thespecified nodes to be excluded from the voting
-            configuration beforereturning. If the timeout expires before the
-            appropriate conditionis satisfied, the request fails and returns an
+            API waits for the specified nodes to be excluded from the voting
+            configuration before returning. If the timeout expires before the
+            appropriate condition is satisfied, the request fails and returns an
             error.
         """
         return self.transport.perform_request(
