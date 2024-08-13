@@ -10,6 +10,7 @@
 # GitHub history for details.
 
 import logging
+import os
 import queue
 from datetime import datetime
 from logging.handlers import QueueHandler, QueueListener
@@ -41,7 +42,7 @@ def main() -> None:
         use_ssl=True,
         verify_certs=False,
         ssl_show_warn=False,
-        http_auth=("admin", "admin"),
+        http_auth=("admin", os.getenv("OPENSEARCH_PASSWORD", "admin")),
     )
 
     # Initialize a logger named "OpenSearchLogs" for OpenSearch
