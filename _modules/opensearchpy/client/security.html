@@ -177,7 +177,7 @@
 <span class="sd">        Retrieves one action group.</span>
 
 
-<span class="sd">        :arg action_group: Action group to retrieve.</span>
+<span class="sd">        :arg action_group: The name of the action group to retrieve.</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
 <span class="sd">            errors.</span>
 <span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
@@ -240,7 +240,7 @@
 <span class="sd">        Delete a specified action group.</span>
 
 
-<span class="sd">        :arg action_group: Action group to delete.</span>
+<span class="sd">        :arg action_group: The name of the action group to delete.</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
 <span class="sd">            errors.</span>
 <span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
@@ -313,6 +313,7 @@
 <span class="sd">        Updates individual attributes of an action group.</span>
 
 
+<span class="sd">        :arg action_group: The name of the action group to update.</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
 <span class="sd">            errors.</span>
 <span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
@@ -380,6 +381,7 @@
 <span class="sd">        Retrieve one internal user.</span>
 
 
+<span class="sd">        :arg username: The name of the user to retrieve.</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
 <span class="sd">            errors.</span>
 <span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
@@ -440,6 +442,7 @@
 <span class="sd">        Delete the specified user.</span>
 
 
+<span class="sd">        :arg username: The name of the user to delete.</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
 <span class="sd">            errors.</span>
 <span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
@@ -473,6 +476,7 @@
 <span class="sd">        Creates or replaces the specified user.</span>
 
 
+<span class="sd">        :arg username: The name of the user to be created.</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
 <span class="sd">            errors.</span>
 <span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
@@ -508,6 +512,7 @@
 <span class="sd">        Updates individual attributes of an internal user.</span>
 
 
+<span class="sd">        :arg username: The name of the user to update.</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
 <span class="sd">            errors.</span>
 <span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
@@ -632,6 +637,7 @@
 <span class="sd">        Delete the specified role.</span>
 
 
+<span class="sd">        :arg role: The name of the role to delete.</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
 <span class="sd">            errors.</span>
 <span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
@@ -665,6 +671,7 @@
 <span class="sd">        Creates or replaces the specified role.</span>
 
 
+<span class="sd">        :arg role: The name of the role to be created.</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
 <span class="sd">            errors.</span>
 <span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
@@ -700,6 +707,7 @@
 <span class="sd">        Updates individual attributes of a role.</span>
 
 
+<span class="sd">        :arg role: The name of the role to update.</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
 <span class="sd">            errors.</span>
 <span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
@@ -827,6 +835,7 @@
 <span class="sd">        Deletes the specified role mapping.</span>
 
 
+<span class="sd">        :arg role: The name of the role whose mapping needs to delete.</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
 <span class="sd">            errors.</span>
 <span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
@@ -860,6 +869,7 @@
 <span class="sd">        Creates or replaces the specified role mapping.</span>
 
 
+<span class="sd">        :arg role: The name of the role to create a role mapping for.</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
 <span class="sd">            errors.</span>
 <span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
@@ -895,6 +905,7 @@
 <span class="sd">        Updates individual attributes of a role mapping.</span>
 
 
+<span class="sd">        :arg role: The name of the role to update role-mapping for.</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
 <span class="sd">            errors.</span>
 <span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
@@ -962,6 +973,7 @@
 <span class="sd">        Retrieves one tenant.</span>
 
 
+<span class="sd">        :arg tenant: The name of the tenant to retrieve.</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
 <span class="sd">            errors.</span>
 <span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
@@ -1019,6 +1031,7 @@
 <span class="sd">        Delete the specified tenant.</span>
 
 
+<span class="sd">        :arg tenant: The name of the tenant to delete.</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
 <span class="sd">            errors.</span>
 <span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
@@ -1052,6 +1065,7 @@
 <span class="sd">        Creates or replaces the specified tenant.</span>
 
 
+<span class="sd">        :arg tenant: The name of the tenant to be created.</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
 <span class="sd">            errors.</span>
 <span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
@@ -1087,6 +1101,7 @@
 <span class="sd">        Add, delete, or modify a single tenant.</span>
 
 
+<span class="sd">        :arg tenant: The name of the tenant to update.</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
 <span class="sd">            errors.</span>
 <span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
@@ -1259,6 +1274,8 @@
 <span class="sd">            statistics.</span>
 <span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
 <span class="sd">            response.</span>
+<span class="sd">        :arg show_all: A boolean flag to include/exclude static nodes DN</span>
+<span class="sd">            from final result.</span>
 <span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
 <span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -1388,6 +1405,9 @@
 <span class="sd">            the response.</span>
 <span class="sd">        :arg human: Whether to return human readable values for</span>
 <span class="sd">            statistics.</span>
+<span class="sd">        :arg mode: A flag to indicate whether service should consider</span>
+<span class="sd">            security-plugin&#39;s status before returning health response. `strict` mode</span>
+<span class="sd">            indicates service should check security plugin status.</span>
 <span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
 <span class="sd">            response.</span>
 <span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
@@ -1631,7 +1651,10 @@
 <span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
-            <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="s2">&quot;/_plugins/_security/_upgrade_check&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
+            <span class="s2">&quot;GET&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;/_plugins/_security/api/_upgrade_check&quot;</span><span class="p">,</span>
+            <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span>
+            <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="SecurityClient.config_upgrade_perform"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.config_upgrade_perform">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
@@ -1658,7 +1681,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
             <span class="s2">&quot;POST&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;/_plugins/_security/_upgrade_perform&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;/_plugins/_security/api/_upgrade_perform&quot;</span><span class="p">,</span>
             <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span>
             <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
             <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
@@ -1744,6 +1767,7 @@
 <span class="sd">        Creates or replaces the specified user. Legacy API.</span>
 
 
+<span class="sd">        :arg username: The name of the user to be created.</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
 <span class="sd">            errors.</span>
 <span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
@@ -1779,6 +1803,8 @@
 <span class="sd">        Only accessible to super-admins and with rest-api permissions when enabled.</span>
 
 
+<span class="sd">        :arg cluster_name: The cluster-name to delete from list of</span>
+<span class="sd">            distinguished names.</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
 <span class="sd">            errors.</span>
 <span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
@@ -1813,6 +1839,7 @@
 <span class="sd">        Delete the specified user. Legacy API.</span>
 
 
+<span class="sd">        :arg username: The name of the user to delete.</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
 <span class="sd">            errors.</span>
 <span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
@@ -1878,6 +1905,8 @@
 <span class="sd">        Generates authorization token for the given user.</span>
 
 
+<span class="sd">        :arg username: The name of the user for whom an auth token is to</span>
+<span class="sd">            be vended.</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
 <span class="sd">            errors.</span>
 <span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
@@ -1909,9 +1938,11 @@
         <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Generates authorization token for the given user. Legacy API.</span>
+<span class="sd">        Generates authorization token for the given user. Legacy API.  Not Implemented.</span>
 
 
+<span class="sd">        :arg username: The name of the user for whom an auth token is to</span>
+<span class="sd">            be vended.</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
 <span class="sd">            errors.</span>
 <span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
@@ -1995,6 +2026,8 @@
 <span class="sd">        api permissions when enabled.</span>
 
 
+<span class="sd">        :arg cluster_name: The cluster-name to retrieve nodes DN setting</span>
+<span class="sd">            for.</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
 <span class="sd">            errors.</span>
 <span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
@@ -2003,6 +2036,8 @@
 <span class="sd">            statistics.</span>
 <span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
 <span class="sd">            response.</span>
+<span class="sd">        :arg show_all: A boolean flag to include/exclude static nodes DN</span>
+<span class="sd">            from final result.</span>
 <span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
 <span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -2064,7 +2099,8 @@
 <span class="sd">            statistics.</span>
 <span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
 <span class="sd">            response.</span>
-<span class="sd">        :arg show_dn: The domain names from all certificates.</span>
+<span class="sd">        :arg show_dn: A boolean flag to indicate whether all domain</span>
+<span class="sd">            names should be returned.</span>
 <span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
 <span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -2112,6 +2148,7 @@
 <span class="sd">        Retrieve one user. Legacy API.</span>
 
 
+<span class="sd">        :arg username: The name of the user to retrieve.</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
 <span class="sd">            errors.</span>
 <span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
@@ -2229,6 +2266,7 @@
 <span class="sd">        super-admins and with rest-api permissions when enabled.</span>
 
 
+<span class="sd">        :arg cluster_name: The cluster-name to update nodesDn value.</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
 <span class="sd">            errors.</span>
 <span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
@@ -2256,7 +2294,6 @@
 <div class="viewcode-block" id="SecurityClient.post_dashboards_info"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.post_dashboards_info">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">post_dashboards_info</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-        <span class="n">body</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
@@ -2276,11 +2313,7 @@
 <span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
-            <span class="s2">&quot;POST&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;/_plugins/_security/dashboardsinfo&quot;</span><span class="p">,</span>
-            <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span>
-            <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
-            <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
+            <span class="s2">&quot;POST&quot;</span><span class="p">,</span> <span class="s2">&quot;/_plugins/_security/dashboardsinfo&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="SecurityClient.tenant_info"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.tenant_info">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
@@ -2323,6 +2356,8 @@
 <span class="sd">        enabled.</span>
 
 
+<span class="sd">        :arg cluster_name: The cluster-name to create/update nodesDn</span>
+<span class="sd">            value for.</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
 <span class="sd">            errors.</span>
 <span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
@@ -2360,6 +2395,8 @@
 <span class="sd">        to v7.</span>
 
 
+<span class="sd">        :arg accept_invalid: A boolean flag to indicate whether invalid</span>
+<span class="sd">            v6 configuration should be allowed.</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
 <span class="sd">            errors.</span>
 <span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
@@ -2425,6 +2462,91 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
             <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="s2">&quot;/_plugins/_security/whoamiprotected&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="SecurityClient.get_all_certificates"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.get_all_certificates">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+        <span class="s2">&quot;cert_type&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;human&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;pretty&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;source&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;timeout&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">def</span> <span class="nf">get_all_certificates</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retrieves the cluster security certificates.</span>
+
+
+<span class="sd">        :arg cert_type: The type of certificates (HTTP, TRANSPORT, ALL)</span>
+<span class="sd">            to retrieve from all nodes.</span>
+<span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
+<span class="sd">            errors.</span>
+<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
+<span class="sd">            the response.</span>
+<span class="sd">        :arg human: Whether to return human readable values for</span>
+<span class="sd">            statistics.</span>
+<span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
+<span class="sd">            response.</span>
+<span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
+<span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
+<span class="sd">        :arg timeout: The maximum duration, in seconds, to be spent to</span>
+<span class="sd">            retrieve certificates from all nodes.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
+            <span class="s2">&quot;GET&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;/_plugins/_security/api/certificates&quot;</span><span class="p">,</span>
+            <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span>
+            <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="SecurityClient.get_node_certificates"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.get_node_certificates">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+        <span class="s2">&quot;cert_type&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;human&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;pretty&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;source&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;timeout&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">def</span> <span class="nf">get_node_certificates</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">node_id</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+        <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retrieves the given node&#39;s security certificates.</span>
+
+
+<span class="sd">        :arg node_id: The full-id of the node to retrieve certificates.</span>
+<span class="sd">        :arg cert_type: The type of certificates (HTTP, TRANSPORT, ALL)</span>
+<span class="sd">            to retrieve for a node.</span>
+<span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
+<span class="sd">            errors.</span>
+<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
+<span class="sd">            the response.</span>
+<span class="sd">        :arg human: Whether to return human readable values for</span>
+<span class="sd">            statistics.</span>
+<span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
+<span class="sd">            response.</span>
+<span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
+<span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
+<span class="sd">        :arg timeout: The maximum duration, in seconds, to be spent to</span>
+<span class="sd">            retrieve a node&#39;s certificates.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">node_id</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Empty value passed for a required argument &#39;node_id&#39;.&quot;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
+            <span class="s2">&quot;GET&quot;</span><span class="p">,</span>
+            <span class="n">_make_path</span><span class="p">(</span><span class="s2">&quot;_plugins&quot;</span><span class="p">,</span> <span class="s2">&quot;_security&quot;</span><span class="p">,</span> <span class="s2">&quot;api&quot;</span><span class="p">,</span> <span class="s2">&quot;certificates&quot;</span><span class="p">,</span> <span class="n">node_id</span><span class="p">),</span>
+            <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span>
+            <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
         <span class="p">)</span></div></div>
 </pre></div>
 
