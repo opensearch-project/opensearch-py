@@ -55,7 +55,7 @@ packages = [
 ]
 install_requires = [
     'urllib3>=1.26.19,<1.27 ; python_version < "3.10"',
-    'urllib3>=1.26.19,!=2.2.0,<3 ; python_version >= "3.10"',
+    'urllib3>=1.26.19,!=2.2.0,!=2.2.1,<3 ; python_version >= "3.10"',
     "requests>=2.32.0, <3.0.0",
     "python-dateutil",
     "certifi>=2024.07.04",
