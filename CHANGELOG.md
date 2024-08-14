@@ -13,16 +13,14 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - Fixed Search helper to ensure proper retention of the _collapse attribute in chained operations. ([#771](https://github.com/opensearch-project/opensearch-py/pull/771))
 - Fixed the use of `minimum_should_match` with `Bool` to allow the use of string-based value (percent string, combination). ([#780](https://github.com/opensearch-project/opensearch-py/pull/780))
 ### Updated APIs
-- Updated opensearch-py APIs to reflect [opensearch-api-specification@0453dbe](https://github.com/opensearch-project/opensearch-api-specification/commit/0453dbe35080bf31eebac1d75f8022667d019e9f)
-- Updated opensearch-py APIs to reflect [opensearch-api-specification@0b033a9](https://github.com/opensearch-project/opensearch-api-specification/commit/0b033a92cac4cb20ec3fb51350c139afc753b089)
-- Updated opensearch-py APIs to reflect [opensearch-api-specification@d5ca873](https://github.com/opensearch-project/opensearch-api-specification/commit/d5ca873d20ff54be16ec48e7bd629cda7c4a6332)
-- Updated opensearch-py APIs to reflect [opensearch-api-specification@7452827](https://github.com/opensearch-project/opensearch-api-specification/commit/745282767026703ea27967d2705633c3e2661c97)
-- Updated opensearch-py APIs to reflect [opensearch-api-specification@f2afd71](https://github.com/opensearch-project/opensearch-api-specification/commit/f2afd7171406c7477fbd644d74087bb0e2948c75)
-- Updated opensearch-py APIs to reflect [opensearch-api-specification@49cd814](https://github.com/opensearch-project/opensearch-api-specification/commit/49cd8140663f32f7c8b638ddc295683344edba61)
+- Updated opensearch-py APIs to reflect [opensearch-api-specification@9d3bc34](https://github.com/opensearch-project/opensearch-api-specification/commit/9d3bc340ccd7d049e7d6e14a4aff2293780cb446)
 ### Security
 ### Dependencies
 - Bump `pytest-asyncio` from <=0.23.7 to <=0.23.8 ([#787](https://github.com/opensearch-project/opensearch-py/pull/787))
 - Bump `sphinx` from <7.4 to <7.5 ([#788](https://github.com/opensearch-project/opensearch-py/pull/788))
+- Bump `urllib3` from >=1.26.18 to >=1.26.19 ([#793](https://github.com/opensearch-project/opensearch-py/pull/793))
+- Bump `requests` from >=2.4.0 to >=2.32.0 ([#793](https://github.com/opensearch-project/opensearch-py/pull/793))
+- Bump `certifi` from >=2022.12.07 to >=2024.07.04 ([#793](https://github.com/opensearch-project/opensearch-py/pull/793))
 
 ## [2.6.0]
 ### Added

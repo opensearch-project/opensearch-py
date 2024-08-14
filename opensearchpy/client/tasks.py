@@ -175,7 +175,7 @@ class TasksClient(NamespacedClient):
             response.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
-        :arg timeout: Period to wait for a response.If no response is
+        :arg timeout: Period to wait for a response. If no response is
             received before the timeout expires, the request fails and returns an
             error.
         :arg wait_for_completion: If `true`, the request blocks until

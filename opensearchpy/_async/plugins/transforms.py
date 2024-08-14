@@ -282,7 +282,7 @@ class TransformsClient(NamespacedClient):
         headers: Any = None,
     ) -> Any:
         """
-        stop transform.
+        Stop transform.
 
 
         :arg id: Transform to stop

@@ -10,6 +10,8 @@
 # GitHub history for details.
 
 
+import os
+
 from opensearchpy import OpenSearch
 
 
@@ -21,7 +23,10 @@ def main() -> None:
 
     host = "localhost"
     port = 9200
-    auth = ("admin", "admin")  # For testing only. Don't store credentials in code.
+    auth = (
+        "admin",
+        os.getenv("OPENSEARCH_PASSWORD", "admin"),
+    )  # For testing only. Don't store credentials in code.
 
     client = OpenSearch(
         hosts=[{"host": host, "port": port}],

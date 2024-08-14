@@ -21,16 +21,16 @@ from typing import Any
 from ..client.utils import SKIP_IN_PATH, NamespacedClient, _make_path, query_params
 
 
-class MlClient(NamespacedClient):
+class ObservabilityClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
-    def delete_model(
+    def create_object(
         self,
-        model_id: Any,
+        body: Any = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
         """
-        Deletes a model.
+        Creates a new observability object.
 
 
         :arg error_trace: Whether to include the stack trace of returned
@@ -44,25 +44,63 @@ class MlClient(NamespacedClient):
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         """
-        if model_id in SKIP_IN_PATH:
-            raise ValueError("Empty value passed for a required argument 'model_id'.")
+        return self.transport.perform_request(
+            "POST",
+            "/_plugins/_observability/object",
+            params=params,
+            headers=headers,
+            body=body,
+        )
+
+    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    def delete_object(
+        self,
+        object_id: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Deletes specific observability object specified by ID.
+
+
+        :arg object_id: The ID of the Observability Object.
+        :arg error_trace: Whether to include the stack trace of returned
+            errors.
+        :arg filter_path: Comma-separated list of filters used to reduce
+            the response.
+        :arg human: Whether to return human readable values for
+            statistics.
+        :arg pretty: Whether to pretty format the returned JSON
+            response.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        """
+        if object_id in SKIP_IN_PATH:
+            raise ValueError("Empty value passed for a required argument 'object_id'.")
 
         return self.transport.perform_request(
             "DELETE",
-            _make_path("_plugins", "_ml", "models", model_id),
+            _make_path("_plugins", "_observability", "object", object_id),
             params=params,
             headers=headers,
         )
 
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
-    def delete_model_group(
+    @query_params(
+        "error_trace",
+        "filter_path",
+        "human",
+        "objectId",
+        "objectIdList",
+        "pretty",
+        "source",
+    )
+    def delete_objects(
         self,
-        model_group_id: Any,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
         """
-        Deletes a model group.
+        Deletes specific observability objects specified by ID or a list of IDs.
 
 
         :arg error_trace: Whether to include the stack trace of returned
@@ -71,158 +109,27 @@ class MlClient(NamespacedClient):
             the response.
         :arg human: Whether to return human readable values for
             statistics.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
-        """
-        if model_group_id in SKIP_IN_PATH:
-            raise ValueError(
-                "Empty value passed for a required argument 'model_group_id'."
-            )
-
-        return self.transport.perform_request(
-            "DELETE",
-            _make_path("_plugins", "_ml", "model_groups", model_group_id),
-            params=params,
-            headers=headers,
-        )
-
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
-    def get_model_group(
-        self,
-        model_group_id: Any,
-        params: Any = None,
-        headers: Any = None,
-    ) -> Any:
-        """
-        Retrieves a model group.
-
-
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
-        """
-        if model_group_id in SKIP_IN_PATH:
-            raise ValueError(
-                "Empty value passed for a required argument 'model_group_id'."
-            )
-
-        return self.transport.perform_request(
-            "GET",
-            _make_path("_plugins", "_ml", "model_groups", model_group_id),
-            params=params,
-            headers=headers,
-        )
-
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
-    def get_task(
-        self,
-        task_id: Any,
-        params: Any = None,
-        headers: Any = None,
-    ) -> Any:
-        """
-        Retrieves a task.
-
-
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
-        """
-        if task_id in SKIP_IN_PATH:
-            raise ValueError("Empty value passed for a required argument 'task_id'.")
-
-        return self.transport.perform_request(
-            "GET",
-            _make_path("_plugins", "_ml", "tasks", task_id),
-            params=params,
-            headers=headers,
-        )
-
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
-    def register_model(
-        self,
-        body: Any = None,
-        params: Any = None,
-        headers: Any = None,
-    ) -> Any:
-        """
-        Registers a model.
-
-
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
+        :arg objectId: The ID of a single Observability Object to
+            delete.
+        :arg objectIdList: A comma-separated list of Observability
+            Object IDs to delete.
         :arg pretty: Whether to pretty format the returned JSON
             response.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         """
         return self.transport.perform_request(
-            "POST",
-            "/_plugins/_ml/models/_register",
-            params=params,
-            headers=headers,
-            body=body,
+            "DELETE", "/_plugins/_observability/object", params=params, headers=headers
         )
 
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
-    def register_model_group(
+    def get_localstats(
         self,
-        body: Any = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
         """
-        Registers a model group.
-
-
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
-        """
-        return self.transport.perform_request(
-            "POST",
-            "/_plugins/_ml/model_groups/_register",
-            params=params,
-            headers=headers,
-            body=body,
-        )
-
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
-    def search_models(
-        self,
-        body: Any = None,
-        params: Any = None,
-        headers: Any = None,
-    ) -> Any:
-        """
-        Searches for models.
+        Retrieves Local Stats of all observability objects.
 
 
         :arg error_trace: Whether to include the stack trace of returned
@@ -238,72 +145,100 @@ class MlClient(NamespacedClient):
         """
         return self.transport.perform_request(
             "GET",
-            "/_plugins/_ml/models/_search",
+            "/_plugins/_observability/_local/stats",
+            params=params,
+            headers=headers,
+        )
+
+    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    def get_object(
+        self,
+        object_id: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Retrieves specific observability object specified by ID.
+
+
+        :arg object_id: The ID of the Observability Object.
+        :arg error_trace: Whether to include the stack trace of returned
+            errors.
+        :arg filter_path: Comma-separated list of filters used to reduce
+            the response.
+        :arg human: Whether to return human readable values for
+            statistics.
+        :arg pretty: Whether to pretty format the returned JSON
+            response.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        """
+        if object_id in SKIP_IN_PATH:
+            raise ValueError("Empty value passed for a required argument 'object_id'.")
+
+        return self.transport.perform_request(
+            "GET",
+            _make_path("_plugins", "_observability", "object", object_id),
+            params=params,
+            headers=headers,
+        )
+
+    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    def list_objects(
+        self,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Retrieves list of all observability objects.
+
+
+        :arg error_trace: Whether to include the stack trace of returned
+            errors.
+        :arg filter_path: Comma-separated list of filters used to reduce
+            the response.
+        :arg human: Whether to return human readable values for
+            statistics.
+        :arg pretty: Whether to pretty format the returned JSON
+            response.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        """
+        return self.transport.perform_request(
+            "GET", "/_plugins/_observability/object", params=params, headers=headers
+        )
+
+    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    def update_object(
+        self,
+        object_id: Any,
+        body: Any = None,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Updates an existing observability object.
+
+
+        :arg object_id: The ID of the Observability Object.
+        :arg error_trace: Whether to include the stack trace of returned
+            errors.
+        :arg filter_path: Comma-separated list of filters used to reduce
+            the response.
+        :arg human: Whether to return human readable values for
+            statistics.
+        :arg pretty: Whether to pretty format the returned JSON
+            response.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        """
+        if object_id in SKIP_IN_PATH:
+            raise ValueError("Empty value passed for a required argument 'object_id'.")
+
+        return self.transport.perform_request(
+            "PUT",
+            _make_path("_plugins", "_observability", "object", object_id),
             params=params,
             headers=headers,
             body=body,
-        )
-
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
-    def deploy_model(
-        self,
-        model_id: Any,
-        params: Any = None,
-        headers: Any = None,
-    ) -> Any:
-        """
-        Deploys a model.
-
-
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
-        """
-        if model_id in SKIP_IN_PATH:
-            raise ValueError("Empty value passed for a required argument 'model_id'.")
-
-        return self.transport.perform_request(
-            "POST",
-            _make_path("_plugins", "_ml", "models", model_id, "_deploy"),
-            params=params,
-            headers=headers,
-        )
-
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
-    def undeploy_model(
-        self,
-        model_id: Any,
-        params: Any = None,
-        headers: Any = None,
-    ) -> Any:
-        """
-        Undeploys a model.
-
-
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
-        """
-        if model_id in SKIP_IN_PATH:
-            raise ValueError("Empty value passed for a required argument 'model_id'.")
-
-        return self.transport.perform_request(
-            "POST",
-            _make_path("_plugins", "_ml", "models", model_id, "_undeploy"),
-            params=params,
-            headers=headers,
         )

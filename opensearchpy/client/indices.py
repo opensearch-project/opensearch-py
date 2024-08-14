@@ -100,15 +100,15 @@ class IndicesClient(NamespacedClient):
             all data streams and indices, omit this parameter or use `*` or `_all`.
         :arg allow_no_indices: If `false`, the request returns an error
             if any wildcard expression, index alias, or `_all` value targets only
-            missing or closed indices.This behavior applies even if the request
+            missing or closed indices. This behavior applies even if the request
             targets other open indices.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
         :arg expand_wildcards: Type of index that wildcard patterns can
-            match.If the request can target data streams, this argument determines
-            whether wildcard expressions match hidden data streams.Supports comma-
-            separated values, such as `open,hidden`.Valid values are: `all`, `open`,
-            `closed`, `hidden`, `none`.
+            match. If the request can target data streams, this argument determines
+            whether wildcard expressions match hidden data streams. Supports comma-
+            separated values, such as `open,hidden`. Valid values are: `all`,
+            `open`, `closed`, `hidden`, `none`.
         :arg filter_path: Comma-separated list of filters used to reduce
             the response.
         :arg human: Whether to return human readable values for
@@ -151,15 +151,15 @@ class IndicesClient(NamespacedClient):
             and indices, omit this parameter or use `*` or `_all`.
         :arg allow_no_indices: If `false`, the request returns an error
             if any wildcard expression, index alias, or `_all` value targets only
-            missing or closed indices.This behavior applies even if the request
+            missing or closed indices. This behavior applies even if the request
             targets other open indices.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
         :arg expand_wildcards: Type of index that wildcard patterns can
-            match.If the request can target data streams, this argument determines
-            whether wildcard expressions match hidden data streams.Supports comma-
-            separated values, such as `open,hidden`.Valid values are: `all`, `open`,
-            `closed`, `hidden`, `none`.
+            match. If the request can target data streams, this argument determines
+            whether wildcard expressions match hidden data streams. Supports comma-
+            separated values, such as `open,hidden`. Valid values are: `all`,
+            `open`, `closed`, `hidden`, `none`.
         :arg filter_path: Comma-separated list of filters used to reduce
             the response.
         :arg force: If `true`, the request forces a flush even if there
@@ -173,7 +173,7 @@ class IndicesClient(NamespacedClient):
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         :arg wait_if_ongoing: If `true`, the flush operation blocks
-            until execution when another flush operation is running.If `false`,
+            until execution when another flush operation is running. If `false`,
             OpenSearch returns an error if you request a flush when another flush
             operation is running. Default is True.
         """
@@ -216,18 +216,18 @@ class IndicesClient(NamespacedClient):
             statistics.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Period to wait for a connection
-            to the master node.If no response is received before the timeout
+            to the master node. If no response is received before the timeout
             expires, the request fails and returns an error.
         :arg pretty: Whether to pretty format the returned JSON
             response.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
-        :arg timeout: Period to wait for a response.If no response is
+        :arg timeout: Period to wait for a response. If no response is
             received before the timeout expires, the request fails and returns an
             error.
         :arg wait_for_active_shards: The number of shard copies that
-            must be active before proceeding with the operation. Set to `all` or any
-            positive integer up to the total number of shards in the index
+            must be active before proceeding with the operation.  Set to `all` or
+            any positive integer up to the total number of shards in the index
             (`number_of_replicas+1`). Valid choices are all, index-setting.
         """
         if index in SKIP_IN_PATH:
@@ -276,7 +276,7 @@ class IndicesClient(NamespacedClient):
             statistics.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Period to wait for a connection
-            to the master node.If no response is received before the timeout
+            to the master node. If no response is received before the timeout
             expires, the request fails and returns an error.
         :arg pretty: Whether to pretty format the returned JSON
             response.
@@ -284,11 +284,11 @@ class IndicesClient(NamespacedClient):
             libraries that do not accept a request body for non-POST requests.
         :arg task_execution_timeout: Explicit task execution timeout,
             only useful when wait_for_completion is false, defaults to 1h.
-        :arg timeout: Period to wait for a response.If no response is
+        :arg timeout: Period to wait for a response. If no response is
             received before the timeout expires, the request fails and returns an
             error.
         :arg wait_for_active_shards: The number of shard copies that
-            must be active before proceeding with the operation.Set to `all` or any
+            must be active before proceeding with the operation. Set to `all` or any
             positive integer up to the total number of shards in the index
             (`number_of_replicas+1`). Valid choices are all, index-setting.
         :arg wait_for_completion: Should this request wait until the
@@ -337,18 +337,18 @@ class IndicesClient(NamespacedClient):
         :arg allow_no_indices: If false, the request returns an error if
             any wildcard expression, index alias, or _all value targets only missing
             or closed indices. This behavior applies even if the request targets
-            other open indices. For example,a request targeting foo*,bar* returns an
-            error if an index starts with foo but no index starts with bar. Default
-            is false.
+            other open indices. For example, a request targeting foo*,bar* returns
+            an error if an index starts with foo but no index starts with bar.
+            Default is false.
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
         :arg expand_wildcards: Type of index that wildcard expressions
-            can match. If the request can target data streams, this
-            argument determines whether wildcard expressions match hidden data
-            streams. Supports comma-separated values,such as open,hidden. Valid
-            choices are all, closed, hidden, none, open.
+            can match. If the request can target data streams, this argument
+            determines whether wildcard expressions match hidden data streams.
+            Supports comma-separated values, such as open,hidden. Valid choices are
+            all, closed, hidden, none, open.
         :arg filter_path: Comma-separated list of filters used to reduce
             the response.
         :arg flat_settings: If true, returns settings in flat format.
@@ -413,17 +413,17 @@ class IndicesClient(NamespacedClient):
             settings API.
         :arg allow_no_indices: If `false`, the request returns an error
             if any wildcard expression, index alias, or `_all` value targets only
-            missing or closed indices.This behavior applies even if the request
+            missing or closed indices. This behavior applies even if the request
             targets other open indices.
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
         :arg expand_wildcards: Type of index that wildcard patterns can
-            match.If the request can target data streams, this argument determines
-            whether wildcard expressions match hidden data streams.Supports comma-
-            separated values, such as `open,hidden`.Valid values are: `all`, `open`,
-            `closed`, `hidden`, `none`.
+            match. If the request can target data streams, this argument determines
+            whether wildcard expressions match hidden data streams. Supports comma-
+            separated values, such as `open,hidden`. Valid values are: `all`,
+            `open`, `closed`, `hidden`, `none`.
         :arg filter_path: Comma-separated list of filters used to reduce
             the response.
         :arg human: Whether to return human readable values for
@@ -432,7 +432,7 @@ class IndicesClient(NamespacedClient):
             error if it targets a missing or closed index.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Period to wait for a connection
-            to the master node.If no response is received before the timeout
+            to the master node. If no response is received before the timeout
             expires, the request fails and returns an error.
         :arg pretty: Whether to pretty format the returned JSON
             response.
@@ -440,11 +440,11 @@ class IndicesClient(NamespacedClient):
             libraries that do not accept a request body for non-POST requests.
         :arg task_execution_timeout: Explicit task execution timeout,
             only useful when wait_for_completion is false, defaults to 1h.
-        :arg timeout: Period to wait for a response.If no response is
+        :arg timeout: Period to wait for a response. If no response is
             received before the timeout expires, the request fails and returns an
             error.
         :arg wait_for_active_shards: The number of shard copies that
-            must be active before proceeding with the operation.Set to `all` or any
+            must be active before proceeding with the operation. Set to `all` or any
             positive integer up to the total number of shards in the index
             (`number_of_replicas+1`). Valid choices are all, index-setting.
         :arg wait_for_completion: Should this request wait until the
@@ -485,17 +485,17 @@ class IndicesClient(NamespacedClient):
             names used to limit the request.
         :arg allow_no_indices: If `false`, the request returns an error
             if any wildcard expression, index alias, or `_all` value targets only
-            missing or closed indices.This behavior applies even if the request
+            missing or closed indices. This behavior applies even if the request
             targets other open indices.
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
         :arg expand_wildcards: Type of index that wildcard patterns can
-            match.If the request can target data streams, this argument determines
-            whether wildcard expressions match hidden data streams.Supports comma-
-            separated values, such as `open,hidden`.Valid values are: `all`, `open`,
-            `closed`, `hidden`, `none`.
+            match. If the request can target data streams, this argument determines
+            whether wildcard expressions match hidden data streams. Supports comma-
+            separated values, such as `open,hidden`. Valid values are: `all`,
+            `open`, `closed`, `hidden`, `none`.
         :arg filter_path: Comma-separated list of filters used to reduce
             the response.
         :arg human: Whether to return human readable values for
@@ -504,17 +504,17 @@ class IndicesClient(NamespacedClient):
             error if it targets a missing or closed index.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Period to wait for a connection
-            to the master node.If no response is received before the timeout
+            to the master node. If no response is received before the timeout
             expires, the request fails and returns an error.
         :arg pretty: Whether to pretty format the returned JSON
             response.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
-        :arg timeout: Period to wait for a response.If no response is
+        :arg timeout: Period to wait for a response. If no response is
             received before the timeout expires, the request fails and returns an
             error.
         :arg wait_for_active_shards: The number of shard copies that
-            must be active before proceeding with the operation.Set to `all` or any
+            must be active before proceeding with the operation. Set to `all` or any
             positive integer up to the total number of shards in the index
             (`number_of_replicas+1`). Valid choices are all, index-setting.
         """
@@ -554,17 +554,17 @@ class IndicesClient(NamespacedClient):
             `action.destructive_requires_name` cluster setting to `false`.
         :arg allow_no_indices: If `false`, the request returns an error
             if any wildcard expression, index alias, or `_all` value targets only
-            missing or closed indices.This behavior applies even if the request
+            missing or closed indices. This behavior applies even if the request
             targets other open indices. Default is false.
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
         :arg expand_wildcards: Type of index that wildcard patterns can
-            match.If the request can target data streams, this argument determines
-            whether wildcard expressions match hidden data streams.Supports comma-
-            separated values, such as `open,hidden`.Valid values are: `all`, `open`,
-            `closed`, `hidden`, `none`.
+            match. If the request can target data streams, this argument determines
+            whether wildcard expressions match hidden data streams. Supports comma-
+            separated values, such as `open,hidden`. Valid values are: `all`,
+            `open`, `closed`, `hidden`, `none`.
         :arg filter_path: Comma-separated list of filters used to reduce
             the response.
         :arg human: Whether to return human readable values for
@@ -573,13 +573,13 @@ class IndicesClient(NamespacedClient):
             error if it targets a missing or closed index. Default is false.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Period to wait for a connection
-            to the master node.If no response is received before the timeout
+            to the master node. If no response is received before the timeout
             expires, the request fails and returns an error.
         :arg pretty: Whether to pretty format the returned JSON
             response.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
-        :arg timeout: Period to wait for a response.If no response is
+        :arg timeout: Period to wait for a response. If no response is
             received before the timeout expires, the request fails and returns an
             error.
         """
@@ -618,17 +618,17 @@ class IndicesClient(NamespacedClient):
             aliases. Supports wildcards (`*`).
         :arg allow_no_indices: If `false`, the request returns an error
             if any wildcard expression, index alias, or `_all` value targets only
-            missing or closed indices.This behavior applies even if the request
+            missing or closed indices. This behavior applies even if the request
             targets other open indices. Default is false.
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
         :arg expand_wildcards: Type of index that wildcard patterns can
-            match.If the request can target data streams, this argument determines
-            whether wildcard expressions match hidden data streams.Supports comma-
-            separated values, such as `open,hidden`.Valid values are: `all`, `open`,
-            `closed`, `hidden`, `none`.
+            match. If the request can target data streams, this argument determines
+            whether wildcard expressions match hidden data streams. Supports comma-
+            separated values, such as `open,hidden`. Valid values are: `all`,
+            `open`, `closed`, `hidden`, `none`.
         :arg filter_path: Comma-separated list of filters used to reduce
             the response.
         :arg flat_settings: If `true`, returns settings in flat format.
@@ -683,17 +683,17 @@ class IndicesClient(NamespacedClient):
             string to perform the operation on all indices.
         :arg allow_no_indices: If `false`, the request returns an error
             if any wildcard expression, index alias, or `_all` value targets only
-            missing or closed indices.This behavior applies even if the request
+            missing or closed indices. This behavior applies even if the request
             targets other open indices.
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
         :arg expand_wildcards: Type of index that wildcard patterns can
-            match.If the request can target data streams, this argument determines
-            whether wildcard expressions match hidden data streams.Supports comma-
-            separated values, such as `open,hidden`.Valid values are: `all`, `open`,
-            `closed`, `hidden`, `none`.
+            match. If the request can target data streams, this argument determines
+            whether wildcard expressions match hidden data streams. Supports comma-
+            separated values, such as `open,hidden`. Valid values are: `all`,
+            `open`, `closed`, `hidden`, `none`.
         :arg filter_path: Comma-separated list of filters used to reduce
             the response.
         :arg human: Whether to return human readable values for
@@ -702,13 +702,13 @@ class IndicesClient(NamespacedClient):
             error if it targets a missing or closed index.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Period to wait for a connection
-            to the master node.If no response is received before the timeout
+            to the master node. If no response is received before the timeout
             expires, the request fails and returns an error.
         :arg pretty: Whether to pretty format the returned JSON
             response.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
-        :arg timeout: Period to wait for a response.If no response is
+        :arg timeout: Period to wait for a response. If no response is
             received before the timeout expires, the request fails and returns an
             error.
         :arg write_index_only: If `true`, the mappings are applied only
@@ -752,21 +752,21 @@ class IndicesClient(NamespacedClient):
 
 
         :arg index: Comma-separated list of data streams, indices, and
-            aliases used to limit the request.Supports wildcards (`*`).To target all
-            data streams and indices, omit this parameter or use `*` or `_all`.
+            aliases used to limit the request. Supports wildcards (`*`). To target
+            all data streams and indices, omit this parameter or use `*` or `_all`.
         :arg allow_no_indices: If `false`, the request returns an error
             if any wildcard expression, index alias, or `_all` value targets only
-            missing or closed indices.This behavior applies even if the request
+            missing or closed indices. This behavior applies even if the request
             targets other open indices.
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
         :arg expand_wildcards: Type of index that wildcard patterns can
-            match.If the request can target data streams, this argument determines
-            whether wildcard expressions match hidden data streams.Supports comma-
-            separated values, such as `open,hidden`.Valid values are: `all`, `open`,
-            `closed`, `hidden`, `none`.
+            match. If the request can target data streams, this argument determines
+            whether wildcard expressions match hidden data streams. Supports comma-
+            separated values, such as `open,hidden`. Valid values are: `all`,
+            `open`, `closed`, `hidden`, `none`.
         :arg filter_path: Comma-separated list of filters used to reduce
             the response.
         :arg human: Whether to return human readable values for
@@ -777,7 +777,7 @@ class IndicesClient(NamespacedClient):
             the local node only. Default is false.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Period to wait for a connection
-            to the master node.If no response is received before the timeout
+            to the master node. If no response is received before the timeout
             expires, the request fails and returns an error.
         :arg pretty: Whether to pretty format the returned JSON
             response.
@@ -818,15 +818,15 @@ class IndicesClient(NamespacedClient):
             all data streams and indices, omit this parameter or use `*` or `_all`.
         :arg allow_no_indices: If `false`, the request returns an error
             if any wildcard expression, index alias, or `_all` value targets only
-            missing or closed indices.This behavior applies even if the request
+            missing or closed indices. This behavior applies even if the request
             targets other open indices.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
         :arg expand_wildcards: Type of index that wildcard patterns can
-            match.If the request can target data streams, this argument determines
-            whether wildcard expressions match hidden data streams.Supports comma-
-            separated values, such as `open,hidden`.Valid values are: `all`, `open`,
-            `closed`, `hidden`, `none`.
+            match. If the request can target data streams, this argument determines
+            whether wildcard expressions match hidden data streams. Supports comma-
+            separated values, such as `open,hidden`. Valid values are: `all`,
+            `open`, `closed`, `hidden`, `none`.
         :arg filter_path: Comma-separated list of filters used to reduce
             the response.
         :arg human: Whether to return human readable values for
@@ -891,13 +891,13 @@ class IndicesClient(NamespacedClient):
             statistics.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Period to wait for a connection
-            to the master node.If no response is received before the timeout
+            to the master node. If no response is received before the timeout
             expires, the request fails and returns an error.
         :arg pretty: Whether to pretty format the returned JSON
             response.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
-        :arg timeout: Period to wait for a response.If no response is
+        :arg timeout: Period to wait for a response. If no response is
             received before the timeout expires, the request fails and returns an
             error.
         """
@@ -938,15 +938,15 @@ class IndicesClient(NamespacedClient):
             streams and indices, omit this parameter or use `*` or `_all`.
         :arg allow_no_indices: If `false`, the request returns an error
             if any wildcard expression, index alias, or `_all` value targets only
-            missing or closed indices.This behavior applies even if the request
+            missing or closed indices. This behavior applies even if the request
             targets other open indices.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
         :arg expand_wildcards: Type of index that wildcard patterns can
-            match.If the request can target data streams, this argument determines
-            whether wildcard expressions match hidden data streams.Supports comma-
-            separated values, such as `open,hidden`.Valid values are: `all`, `open`,
-            `closed`, `hidden`, `none`.
+            match. If the request can target data streams, this argument determines
+            whether wildcard expressions match hidden data streams. Supports comma-
+            separated values, such as `open,hidden`. Valid values are: `all`,
+            `open`, `closed`, `hidden`, `none`.
         :arg filter_path: Comma-separated list of filters used to reduce
             the response.
         :arg human: Whether to return human readable values for
@@ -998,15 +998,15 @@ class IndicesClient(NamespacedClient):
             or `_all`.
         :arg allow_no_indices: If `false`, the request returns an error
             if any wildcard expression, index alias, or `_all` value targets only
-            missing or closed indices.This behavior applies even if the request
+            missing or closed indices. This behavior applies even if the request
             targets other open indices.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
         :arg expand_wildcards: Type of index that wildcard patterns can
-            match.If the request can target data streams, this argument determines
-            whether wildcard expressions match hidden data streams.Supports comma-
-            separated values, such as `open,hidden`.Valid values are: `all`, `open`,
-            `closed`, `hidden`, `none`.
+            match. If the request can target data streams, this argument determines
+            whether wildcard expressions match hidden data streams. Supports comma-
+            separated values, such as `open,hidden`. Valid values are: `all`,
+            `open`, `closed`, `hidden`, `none`.
         :arg filter_path: Comma-separated list of filters used to reduce
             the response.
         :arg human: Whether to return human readable values for
@@ -1055,13 +1055,13 @@ class IndicesClient(NamespacedClient):
             statistics.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Period to wait for a connection
-            to the master node.If no response is received before the timeout
+            to the master node. If no response is received before the timeout
             expires, the request fails and returns an error.
         :arg pretty: Whether to pretty format the returned JSON
             response.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
-        :arg timeout: Period to wait for a response.If no response is
+        :arg timeout: Period to wait for a response. If no response is
             received before the timeout expires, the request fails and returns an
             error.
         """
@@ -1107,13 +1107,13 @@ class IndicesClient(NamespacedClient):
             statistics.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Period to wait for a connection
-            to the master node.If no response is received before the timeout
+            to the master node. If no response is received before the timeout
             expires, the request fails and returns an error.
         :arg pretty: Whether to pretty format the returned JSON
             response.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
-        :arg timeout: Period to wait for a response.If no response is
+        :arg timeout: Period to wait for a response. If no response is
             received before the timeout expires, the request fails and returns an
             error.
         """
@@ -1164,8 +1164,8 @@ class IndicesClient(NamespacedClient):
             to the master node. If no response is received before the timeout
             expires, the request fails and returns an error.
         :arg order: Order in which OpenSearch applies this template if
-            index matches multiple templates.Templates with lower 'order' values are
-            merged first. Templates with higher'order' values are merged later,
+            index matches multiple templates.  Templates with lower 'order' values
+            are merged first. Templates with higher 'order' values are merged later,
             overriding templates with lower values.
         :arg pretty: Whether to pretty format the returned JSON
             response.
@@ -1272,7 +1272,7 @@ class IndicesClient(NamespacedClient):
             the local node only. Default is false.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Period to wait for a connection
-            to the master node.If no response is received before the timeout
+            to the master node. If no response is received before the timeout
             expires, the request fails and returns an error.
         :arg pretty: Whether to pretty format the returned JSON
             response.
@@ -1315,13 +1315,13 @@ class IndicesClient(NamespacedClient):
             statistics.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Period to wait for a connection
-            to the master node.If no response is received before the timeout
+            to the master node. If no response is received before the timeout
             expires, the request fails and returns an error.
         :arg pretty: Whether to pretty format the returned JSON
             response.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
-        :arg timeout: Period to wait for a response.If no response is
+        :arg timeout: Period to wait for a response. If no response is
             received before the timeout expires, the request fails and returns an
             error.
         """
@@ -1374,8 +1374,8 @@ class IndicesClient(NamespacedClient):
         :arg error_trace: Whether to include the stack trace of returned
             errors.
         :arg expand_wildcards: Type of index that wildcard patterns can
-            match.If the request can target data streams, this argument determines
-            whether wildcard expressions match hidden data streams.Supports comma-
+            match. If the request can target data streams, this argument determines
+            whether wildcard expressions match hidden data streams. Supports comma-
             separated values, such as `open,hidden`. Valid choices are all, closed,
             hidden, none, open.
         :arg filter_path: Comma-separated list of filters used to reduce
@@ -1389,8 +1389,8 @@ class IndicesClient(NamespacedClient):
         :arg include_defaults: If `true`, return all default settings in
             the response. Default is false.
         :arg local: If `true`, the request retrieves information from
-            the local node only. If`false`, information is retrieved from the master
-            node. Default is false.
+            the local node only. If `false`, information is retrieved from the
+            master node. Default is false.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Period to wait for a connection
             to the master node. If no response is received before the timeout
@@ -1446,7 +1446,7 @@ class IndicesClient(NamespacedClient):
         :arg expand_wildcards: Type of index that wildcard patterns can
             match. If the request can target data streams, this argument determines
             whether wildcard expressions match hidden data streams. Supports comma-
-            separated values, such as`open,hidden`. Valid choices are all, closed,
+            separated values, such as `open,hidden`. Valid choices are all, closed,
             hidden, none, open.
         :arg filter_path: Comma-separated list of filters used to reduce
             the response.
@@ -1467,7 +1467,7 @@ class IndicesClient(NamespacedClient):
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         :arg timeout: Period to wait for a response. If no response is
-            received before the timeout expires, the request fails and returns an
+            received before the  timeout expires, the request fails and returns an
             error.
         """
         if body in SKIP_IN_PATH:
@@ -1519,7 +1519,7 @@ class IndicesClient(NamespacedClient):
         :arg expand_wildcards: Type of index that wildcard patterns can
             match. If the request can target data streams, this argument determines
             whether wildcard expressions match hidden data streams. Supports comma-
-            separated values,such as `open,hidden`. Valid choices are all, closed,
+            separated values, such as `open,hidden`. Valid choices are all, closed,
             hidden, none, open.
         :arg fielddata_fields: Comma-separated list or wildcard
             expressions of fields to include in fielddata statistics.
@@ -1577,15 +1577,15 @@ class IndicesClient(NamespacedClient):
             all data streams and indices, omit this parameter or use `*` or `_all`.
         :arg allow_no_indices: If `false`, the request returns an error
             if any wildcard expression, index alias, or `_all` value targets only
-            missing or closed indices.This behavior applies even if the request
+            missing or closed indices. This behavior applies even if the request
             targets other open indices.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
         :arg expand_wildcards: Type of index that wildcard patterns can
-            match.If the request can target data streams, this argument determines
-            whether wildcard expressions match hidden data streams.Supports comma-
-            separated values, such as `open,hidden`.Valid values are: `all`, `open`,
-            `closed`, `hidden`, `none`.
+            match. If the request can target data streams, this argument determines
+            whether wildcard expressions match hidden data streams. Supports comma-
+            separated values, such as `open,hidden`. Valid values are: `all`,
+            `open`, `closed`, `hidden`, `none`.
         :arg filter_path: Comma-separated list of filters used to reduce
             the response.
         :arg human: Whether to return human readable values for
@@ -1641,25 +1641,25 @@ class IndicesClient(NamespacedClient):
             shards instead of one random shard per index.
         :arg allow_no_indices: If `false`, the request returns an error
             if any wildcard expression, index alias, or `_all` value targets only
-            missing or closed indices.This behavior applies even if the request
+            missing or closed indices. This behavior applies even if the request
             targets other open indices.
         :arg analyze_wildcard: If `true`, wildcard and prefix queries
             are analyzed. Default is false.
-        :arg analyzer: Analyzer to use for the query string.This
+        :arg analyzer: Analyzer to use for the query string. This
             parameter can only be used when the `q` query string parameter is
             specified.
         :arg default_operator: The default operator for query string
             query: `AND` or `OR`. Valid choices are and, or.
         :arg df: Field to use as default where no field prefix is given
-            in the query string.This parameter can only be used when the `q` query
+            in the query string. This parameter can only be used when the `q` query
             string parameter is specified.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
         :arg expand_wildcards: Type of index that wildcard patterns can
-            match.If the request can target data streams, this argument determines
-            whether wildcard expressions match hidden data streams.Supports comma-
-            separated values, such as `open,hidden`.Valid values are: `all`, `open`,
-            `closed`, `hidden`, `none`.
+            match. If the request can target data streams, this argument determines
+            whether wildcard expressions match hidden data streams. Supports comma-
+            separated values, such as `open,hidden`. Valid values are: `all`,
+            `open`, `closed`, `hidden`, `none`.
         :arg explain: If `true`, the response returns detailed
             information if an error has occurred.
         :arg filter_path: Comma-separated list of filters used to reduce
@@ -1715,16 +1715,16 @@ class IndicesClient(NamespacedClient):
             string to perform the operation on all indices.
         :arg allow_no_indices: If `false`, the request returns an error
             if any wildcard expression, index alias, or `_all` value targets only
-            missing or closed indices.This behavior applies even if the request
+            missing or closed indices. This behavior applies even if the request
             targets other open indices.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
         :arg expand_wildcards: Type of index that wildcard patterns can
-            match.If the request can target data streams, this argument determines
-            whether wildcard expressions match hidden data streams.Supports comma-
-            separated values, such as `open,hidden`.Valid values are: `all`, `open`,
-            `closed`, `hidden`, `none`.
-        :arg fielddata: If `true`, clears the fields cache.Use the
+            match. If the request can target data streams, this argument determines
+            whether wildcard expressions match hidden data streams. Supports comma-
+            separated values, such as `open,hidden`. Valid values are: `all`,
+            `open`, `closed`, `hidden`, `none`.
+        :arg fielddata: If `true`, clears the fields cache. Use the
             `fields` parameter to clear the cache of specific fields only.
         :arg fields: Comma-separated list of field names used to limit
             the `fielddata` parameter.
@@ -1908,13 +1908,13 @@ class IndicesClient(NamespacedClient):
         :arg index: List of data streams, indices, and aliases used to
             limit the request.
         :arg allow_no_indices: If false, the request returns an error if
-            any wildcard expression, index alias, or _allvalue targets only missing
+            any wildcard expression, index alias, or _all value targets only missing
             or closed indices. This behavior applies even if the request targets
             other open indices.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
         :arg expand_wildcards: Type of index that wildcard patterns can
-            match. If the request can target data streams,this argument determines
+            match. If the request can target data streams, this argument determines
             whether wildcard expressions match hidden data streams. Valid choices
             are all, closed, hidden, none, open.
         :arg filter_path: Comma-separated list of filters used to reduce
@@ -1978,8 +1978,8 @@ class IndicesClient(NamespacedClient):
         :arg ignore_unavailable: Whether specified concrete indices
             should be ignored when unavailable (missing or closed)
         :arg max_num_segments: The number of larger segments into which
-            smaller segments are merged.Set this parameter to 1 to merge all
-            segments into one segment.The default behavior is to perform the merge
+            smaller segments are merged. Set this parameter to 1 to merge all
+            segments into one segment. The default behavior is to perform the merge
             as necessary.
         :arg only_expunge_deletes: Specify whether the operation should
             only expunge deleted documents
@@ -2038,7 +2038,7 @@ class IndicesClient(NamespacedClient):
             statistics.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Period to wait for a connection
-            to the master node.If no response is received before the timeout
+            to the master node. If no response is received before the timeout
             expires, the request fails and returns an error.
         :arg pretty: Whether to pretty format the returned JSON
             response.
@@ -2046,11 +2046,11 @@ class IndicesClient(NamespacedClient):
             libraries that do not accept a request body for non-POST requests.
         :arg task_execution_timeout: Explicit task execution timeout,
             only useful when wait_for_completion is false, defaults to 1h.
-        :arg timeout: Period to wait for a response.If no response is
+        :arg timeout: Period to wait for a response. If no response is
             received before the timeout expires, the request fails and returns an
             error.
         :arg wait_for_active_shards: The number of shard copies that
-            must be active before proceeding with the operation.Set to `all` or any
+            must be active before proceeding with the operation. Set to `all` or any
             positive integer up to the total number of shards in the index
             (`number_of_replicas+1`). Valid choices are all, index-setting.
         :arg wait_for_completion: Should this request wait until the
@@ -2111,7 +2111,7 @@ class IndicesClient(NamespacedClient):
             statistics.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Period to wait for a connection
-            to the master node.If no response is received before the timeout
+            to the master node. If no response is received before the timeout
             expires, the request fails and returns an error.
         :arg pretty: Whether to pretty format the returned JSON
             response.
@@ -2119,11 +2119,11 @@ class IndicesClient(NamespacedClient):
             libraries that do not accept a request body for non-POST requests.
         :arg task_execution_timeout: Explicit task execution timeout,
             only useful when wait_for_completion is false, defaults to 1h.
-        :arg timeout: Period to wait for a response.If no response is
+        :arg timeout: Period to wait for a response. If no response is
             received before the timeout expires, the request fails and returns an
             error.
         :arg wait_for_active_shards: The number of shard copies that
-            must be active before proceeding with the operation.Set to `all` or any
+            must be active before proceeding with the operation. Set to `all` or any
             positive integer up to the total number of shards in the index
             (`number_of_replicas+1`). Valid choices are all, index-setting.
         :arg wait_for_completion: Should this request wait until the
@@ -2184,17 +2184,17 @@ class IndicesClient(NamespacedClient):
             statistics.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Period to wait for a connection
-            to the master node.If no response is received before the timeout
+            to the master node. If no response is received before the timeout
             expires, the request fails and returns an error.
         :arg pretty: Whether to pretty format the returned JSON
             response.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
-        :arg timeout: Period to wait for a response.If no response is
+        :arg timeout: Period to wait for a response. If no response is
             received before the timeout expires, the request fails and returns an
             error.
         :arg wait_for_active_shards: The number of shard copies that
-            must be active before proceeding with the operation.Set to all or any
+            must be active before proceeding with the operation. Set to all or any
             positive integer up to the total number of shards in the index
             (`number_of_replicas+1`). Valid choices are all, index-setting.
         """
@@ -2521,9 +2521,9 @@ class IndicesClient(NamespacedClient):
             to cluster-manager node.
         :arg create: If `true`, the template passed in the body is only
             used if no existing templates match the same index patterns. If `false`,
-            the simulation uses the template with the highest priority. Note that the
-            template is not permanently added or updated in either case; it is only
-            used for the simulation. Default is false.
+            the simulation uses the template with the highest priority. Note that
+            the template is not permanently added or updated in either case; it is
+            only used for the simulation. Default is false.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
         :arg filter_path: Comma-separated list of filters used to reduce
@@ -2655,10 +2655,10 @@ class IndicesClient(NamespacedClient):
         :arg error_trace: Whether to include the stack trace of returned
             errors.
         :arg expand_wildcards: Type of index that wildcard patterns can
-            match.If the request can target data streams, this argument determines
-            whether wildcard expressions match hidden data streams.Supports comma-
-            separated values, such as `open,hidden`.Valid values are: `all`, `open`,
-            `closed`, `hidden`, `none`.
+            match. If the request can target data streams, this argument determines
+            whether wildcard expressions match hidden data streams. Supports comma-
+            separated values, such as `open,hidden`. Valid values are: `all`,
+            `open`, `closed`, `hidden`, `none`.
         :arg filter_path: Comma-separated list of filters used to reduce
             the response.
         :arg human: Whether to return human readable values for

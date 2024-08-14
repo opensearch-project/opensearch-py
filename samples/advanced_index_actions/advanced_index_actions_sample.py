@@ -8,6 +8,7 @@
 #
 # Modifications Copyright OpenSearch Contributors. See
 # GitHub history for details.
+import os
 import time
 
 from opensearchpy import OpenSearch
@@ -27,7 +28,7 @@ def main() -> None:
         hosts=["https://localhost:9200"],
         use_ssl=True,
         verify_certs=False,
-        http_auth=("admin", "admin"),
+        http_auth=("admin", os.getenv("OPENSEARCH_PASSWORD", "admin")),
     )
     client.indices.create(index="movies")
     print("'movies' index created!")

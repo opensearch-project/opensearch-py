@@ -72,7 +72,7 @@ class IngestClient(NamespacedClient):
             statistics.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Period to wait for a connection
-            to the master node.If no response is received before the timeout
+            to the master node. If no response is received before the timeout
             expires, the request fails and returns an error.
         :arg pretty: Whether to pretty format the returned JSON
             response.
@@ -171,13 +171,13 @@ class IngestClient(NamespacedClient):
             statistics.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use 'cluster_manager_timeout' instead.): Period to wait for a connection
-            to the master node.If no response is received before the timeout
+            to the master node. If no response is received before the timeout
             expires, the request fails and returns an error.
         :arg pretty: Whether to pretty format the returned JSON
             response.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
-        :arg timeout: Period to wait for a response.If no response is
+        :arg timeout: Period to wait for a response. If no response is
             received before the timeout expires, the request fails and returns an
             error.
         """

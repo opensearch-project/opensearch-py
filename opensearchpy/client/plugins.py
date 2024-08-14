@@ -15,7 +15,11 @@ from ..plugins.index_management import IndexManagementClient
 from ..plugins.knn import KnnClient
 from ..plugins.ml import MlClient
 from ..plugins.notifications import NotificationsClient
+from ..plugins.observability import ObservabilityClient
+from ..plugins.ppl import PplClient
+from ..plugins.query import QueryClient
 from ..plugins.rollups import RollupsClient
+from ..plugins.sql import SqlClient
 from ..plugins.transforms import TransformsClient
 from .client import Client
 from .utils import NamespacedClient
@@ -27,18 +31,18 @@ class PluginsClient(NamespacedClient):
 
     def __init__(self, client: Client) -> None:
         super().__init__(client)
-        self.ml = MlClient(client)
-        self.transforms = TransformsClient(client)
-        self.rollups = RollupsClient(client)
-        self.notifications = NotificationsClient(client)
-        self.knn = KnnClient(client)
-        # self.query_workbench = QueryWorkbenchClient(client)
-        # self.reporting = ReportingClient(client)
-        # self.notebooks = NotebooksClient(client)
+
         self.alerting = AlertingClient(client)
-        # self.anomaly_detection = AnomalyDetectionClient(client)
-        # self.trace_analytics = TraceAnalyticsClient(client)
         self.index_management = IndexManagementClient(client)
+        self.knn = KnnClient(client)
+        self.ml = MlClient(client)
+        self.notifications = NotificationsClient(client)
+        self.observability = ObservabilityClient(client)
+        self.ppl = PplClient(client)
+        self.query = QueryClient(client)
+        self.rollups = RollupsClient(client)
+        self.sql = SqlClient(client)
+        self.transforms = TransformsClient(client)
 
         self._dynamic_lookup(client)
 

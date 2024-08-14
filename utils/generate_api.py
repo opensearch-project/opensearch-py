@@ -397,10 +397,9 @@ class API:
                 and self.name == "create_data_stream"
                 and part == "name"
             ):
-                replace_str = r"`\`, "
                 # Replace the string in the description
                 parts["name"]["description"] = parts["name"]["description"].replace(
-                    replace_str, ""
+                    r"`\`, ", ""
                 )
                 if "backslash" not in parts["name"]["description"]:
                     parts["name"]["description"] = parts["name"]["description"].replace(
@@ -624,7 +623,7 @@ def read_modules() -> Any:
                 param_dict: Dict[str, Any] = {}
                 if "description" in param:
                     param_dict.update(
-                        description=param["description"].replace("\n", "")
+                        description=param["description"].replace("\n", " ")
                     )
 
                 if "type" in param["schema"]:

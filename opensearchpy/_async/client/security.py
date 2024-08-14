@@ -93,7 +93,7 @@ class SecurityClient(NamespacedClient):
         Retrieves one action group.
 
 
-        :arg action_group: Action group to retrieve.
+        :arg action_group: The name of the action group to retrieve.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
         :arg filter_path: Comma-separated list of filters used to reduce
@@ -156,7 +156,7 @@ class SecurityClient(NamespacedClient):
         Delete a specified action group.
 
 
-        :arg action_group: Action group to delete.
+        :arg action_group: The name of the action group to delete.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
         :arg filter_path: Comma-separated list of filters used to reduce
@@ -229,6 +229,7 @@ class SecurityClient(NamespacedClient):
         Updates individual attributes of an action group.
 
 
+        :arg action_group: The name of the action group to update.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
         :arg filter_path: Comma-separated list of filters used to reduce
@@ -296,6 +297,7 @@ class SecurityClient(NamespacedClient):
         Retrieve one internal user.
 
 
+        :arg username: The name of the user to retrieve.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
         :arg filter_path: Comma-separated list of filters used to reduce
@@ -356,6 +358,7 @@ class SecurityClient(NamespacedClient):
         Delete the specified user.
 
 
+        :arg username: The name of the user to delete.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
         :arg filter_path: Comma-separated list of filters used to reduce
@@ -389,6 +392,7 @@ class SecurityClient(NamespacedClient):
         Creates or replaces the specified user.
 
 
+        :arg username: The name of the user to be created.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
         :arg filter_path: Comma-separated list of filters used to reduce
@@ -424,6 +428,7 @@ class SecurityClient(NamespacedClient):
         Updates individual attributes of an internal user.
 
 
+        :arg username: The name of the user to update.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
         :arg filter_path: Comma-separated list of filters used to reduce
@@ -548,6 +553,7 @@ class SecurityClient(NamespacedClient):
         Delete the specified role.
 
 
+        :arg role: The name of the role to delete.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
         :arg filter_path: Comma-separated list of filters used to reduce
@@ -581,6 +587,7 @@ class SecurityClient(NamespacedClient):
         Creates or replaces the specified role.
 
 
+        :arg role: The name of the role to be created.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
         :arg filter_path: Comma-separated list of filters used to reduce
@@ -616,6 +623,7 @@ class SecurityClient(NamespacedClient):
         Updates individual attributes of a role.
 
 
+        :arg role: The name of the role to update.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
         :arg filter_path: Comma-separated list of filters used to reduce
@@ -743,6 +751,7 @@ class SecurityClient(NamespacedClient):
         Deletes the specified role mapping.
 
 
+        :arg role: The name of the role whose mapping needs to delete.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
         :arg filter_path: Comma-separated list of filters used to reduce
@@ -776,6 +785,7 @@ class SecurityClient(NamespacedClient):
         Creates or replaces the specified role mapping.
 
 
+        :arg role: The name of the role to create a role mapping for.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
         :arg filter_path: Comma-separated list of filters used to reduce
@@ -811,6 +821,7 @@ class SecurityClient(NamespacedClient):
         Updates individual attributes of a role mapping.
 
 
+        :arg role: The name of the role to update role-mapping for.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
         :arg filter_path: Comma-separated list of filters used to reduce
@@ -878,6 +889,7 @@ class SecurityClient(NamespacedClient):
         Retrieves one tenant.
 
 
+        :arg tenant: The name of the tenant to retrieve.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
         :arg filter_path: Comma-separated list of filters used to reduce
@@ -935,6 +947,7 @@ class SecurityClient(NamespacedClient):
         Delete the specified tenant.
 
 
+        :arg tenant: The name of the tenant to delete.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
         :arg filter_path: Comma-separated list of filters used to reduce
@@ -968,6 +981,7 @@ class SecurityClient(NamespacedClient):
         Creates or replaces the specified tenant.
 
 
+        :arg tenant: The name of the tenant to be created.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
         :arg filter_path: Comma-separated list of filters used to reduce
@@ -1003,6 +1017,7 @@ class SecurityClient(NamespacedClient):
         Add, delete, or modify a single tenant.
 
 
+        :arg tenant: The name of the tenant to update.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
         :arg filter_path: Comma-separated list of filters used to reduce
@@ -1175,6 +1190,8 @@ class SecurityClient(NamespacedClient):
             statistics.
         :arg pretty: Whether to pretty format the returned JSON
             response.
+        :arg show_all: A boolean flag to include/exclude static nodes DN
+            from final result.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         """
@@ -1304,6 +1321,9 @@ class SecurityClient(NamespacedClient):
             the response.
         :arg human: Whether to return human readable values for
             statistics.
+        :arg mode: A flag to indicate whether service should consider
+            security-plugin's status before returning health response. `strict` mode
+            indicates service should check security plugin status.
         :arg pretty: Whether to pretty format the returned JSON
             response.
         :arg source: The URL-encoded request definition. Useful for
@@ -1547,7 +1567,10 @@ class SecurityClient(NamespacedClient):
             libraries that do not accept a request body for non-POST requests.
         """
         return await self.transport.perform_request(
-            "GET", "/_plugins/_security/_upgrade_check", params=params, headers=headers
+            "GET",
+            "/_plugins/_security/api/_upgrade_check",
+            params=params,
+            headers=headers,
         )
 
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
@@ -1574,7 +1597,7 @@ class SecurityClient(NamespacedClient):
         """
         return await self.transport.perform_request(
             "POST",
-            "/_plugins/_security/_upgrade_perform",
+            "/_plugins/_security/api/_upgrade_perform",
             params=params,
             headers=headers,
             body=body,
@@ -1660,6 +1683,7 @@ class SecurityClient(NamespacedClient):
         Creates or replaces the specified user. Legacy API.
 
 
+        :arg username: The name of the user to be created.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
         :arg filter_path: Comma-separated list of filters used to reduce
@@ -1695,6 +1719,8 @@ class SecurityClient(NamespacedClient):
         Only accessible to super-admins and with rest-api permissions when enabled.
 
 
+        :arg cluster_name: The cluster-name to delete from list of
+            distinguished names.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
         :arg filter_path: Comma-separated list of filters used to reduce
@@ -1729,6 +1755,7 @@ class SecurityClient(NamespacedClient):
         Delete the specified user. Legacy API.
 
 
+        :arg username: The name of the user to delete.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
         :arg filter_path: Comma-separated list of filters used to reduce
@@ -1794,6 +1821,8 @@ class SecurityClient(NamespacedClient):
         Generates authorization token for the given user.
 
 
+        :arg username: The name of the user for whom an auth token is to
+            be vended.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
         :arg filter_path: Comma-separated list of filters used to reduce
@@ -1825,9 +1854,11 @@ class SecurityClient(NamespacedClient):
         headers: Any = None,
     ) -> Any:
         """
-        Generates authorization token for the given user. Legacy API.
+        Generates authorization token for the given user. Legacy API.  Not Implemented.
 
 
+        :arg username: The name of the user for whom an auth token is to
+            be vended.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
         :arg filter_path: Comma-separated list of filters used to reduce
@@ -1911,6 +1942,8 @@ class SecurityClient(NamespacedClient):
         api permissions when enabled.
 
 
+        :arg cluster_name: The cluster-name to retrieve nodes DN setting
+            for.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
         :arg filter_path: Comma-separated list of filters used to reduce
@@ -1919,6 +1952,8 @@ class SecurityClient(NamespacedClient):
             statistics.
         :arg pretty: Whether to pretty format the returned JSON
             response.
+        :arg show_all: A boolean flag to include/exclude static nodes DN
+            from final result.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         """
@@ -1980,7 +2015,8 @@ class SecurityClient(NamespacedClient):
             statistics.
         :arg pretty: Whether to pretty format the returned JSON
             response.
-        :arg show_dn: The domain names from all certificates.
+        :arg show_dn: A boolean flag to indicate whether all domain
+            names should be returned.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         """
@@ -2028,6 +2064,7 @@ class SecurityClient(NamespacedClient):
         Retrieve one user. Legacy API.
 
 
+        :arg username: The name of the user to retrieve.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
         :arg filter_path: Comma-separated list of filters used to reduce
@@ -2145,6 +2182,7 @@ class SecurityClient(NamespacedClient):
         super-admins and with rest-api permissions when enabled.
 
 
+        :arg cluster_name: The cluster-name to update nodesDn value.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
         :arg filter_path: Comma-separated list of filters used to reduce
@@ -2172,7 +2210,6 @@ class SecurityClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def post_dashboards_info(
         self,
-        body: Any = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -2192,11 +2229,7 @@ class SecurityClient(NamespacedClient):
             libraries that do not accept a request body for non-POST requests.
         """
         return await self.transport.perform_request(
-            "POST",
-            "/_plugins/_security/dashboardsinfo",
-            params=params,
-            headers=headers,
-            body=body,
+            "POST", "/_plugins/_security/dashboardsinfo", params=params, headers=headers
         )
 
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
@@ -2239,6 +2272,8 @@ class SecurityClient(NamespacedClient):
         enabled.
 
 
+        :arg cluster_name: The cluster-name to create/update nodesDn
+            value for.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
         :arg filter_path: Comma-separated list of filters used to reduce
@@ -2276,6 +2311,8 @@ class SecurityClient(NamespacedClient):
         to v7.
 
 
+        :arg accept_invalid: A boolean flag to indicate whether invalid
+            v6 configuration should be allowed.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
         :arg filter_path: Comma-separated list of filters used to reduce
@@ -2341,4 +2378,89 @@ class SecurityClient(NamespacedClient):
         """
         return await self.transport.perform_request(
             "GET", "/_plugins/_security/whoamiprotected", params=params, headers=headers
+        )
+
+    @query_params(
+        "cert_type",
+        "error_trace",
+        "filter_path",
+        "human",
+        "pretty",
+        "source",
+        "timeout",
+    )
+    async def get_all_certificates(
+        self,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Retrieves the cluster security certificates.
+
+
+        :arg cert_type: The type of certificates (HTTP, TRANSPORT, ALL)
+            to retrieve from all nodes.
+        :arg error_trace: Whether to include the stack trace of returned
+            errors.
+        :arg filter_path: Comma-separated list of filters used to reduce
+            the response.
+        :arg human: Whether to return human readable values for
+            statistics.
+        :arg pretty: Whether to pretty format the returned JSON
+            response.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        :arg timeout: The maximum duration, in seconds, to be spent to
+            retrieve certificates from all nodes.
+        """
+        return await self.transport.perform_request(
+            "GET",
+            "/_plugins/_security/api/certificates",
+            params=params,
+            headers=headers,
+        )
+
+    @query_params(
+        "cert_type",
+        "error_trace",
+        "filter_path",
+        "human",
+        "pretty",
+        "source",
+        "timeout",
+    )
+    async def get_node_certificates(
+        self,
+        node_id: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Retrieves the given node's security certificates.
+
+
+        :arg node_id: The full-id of the node to retrieve certificates.
+        :arg cert_type: The type of certificates (HTTP, TRANSPORT, ALL)
+            to retrieve for a node.
+        :arg error_trace: Whether to include the stack trace of returned
+            errors.
+        :arg filter_path: Comma-separated list of filters used to reduce
+            the response.
+        :arg human: Whether to return human readable values for
+            statistics.
+        :arg pretty: Whether to pretty format the returned JSON
+            response.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        :arg timeout: The maximum duration, in seconds, to be spent to
+            retrieve a node's certificates.
+        """
+        if node_id in SKIP_IN_PATH:
+            raise ValueError("Empty value passed for a required argument 'node_id'.")
+
+        return await self.transport.perform_request(
+            "GET",
+            _make_path("_plugins", "_security", "api", "certificates", node_id),
+            params=params,
+            headers=headers,
         )
