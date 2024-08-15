@@ -167,10 +167,6 @@ class AsyncHttpConnection(AIOHttpConnection):
         else:
             query_string = ""
 
-        is_head = False
-        if method == "HEAD":
-            is_head = True
-
         # Top-tier tip-toeing happening here. Basically
         # because Pip's old resolver is bad and wipes out
         # strict pins in favor of non-strict pins of extras
@@ -217,11 +213,7 @@ class AsyncHttpConnection(AIOHttpConnection):
                 timeout=timeout,
                 fingerprint=self.ssl_assert_fingerprint,
             ) as response:
-                if is_head:
-                    await response.release()
-                    raw_data = ""  # HEAD method has no response body
-                else:
-                    raw_data = await response.text()
+                raw_data = await response.text()
                 duration = self.loop.time() - start
 
         # We want to reraise a cancellation or recursion error.
