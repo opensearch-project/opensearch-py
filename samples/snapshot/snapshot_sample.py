@@ -9,6 +9,7 @@
 # Modifications Copyright OpenSearch Contributors. See
 # GitHub history for details.
 
+import os
 import tempfile
 
 from opensearchpy import OpenSearch
@@ -17,7 +18,10 @@ from opensearchpy import OpenSearch
 
 HOST = "localhost"
 PORT = 9200
-auth = ("admin", "admin")  # For testing only. Don't store credentials in code.
+auth = (
+    "admin",
+    os.getenv("OPENSEARCH_PASSWORD", "admin"),
+)  # For testing only. Don't store credentials in code.
 
 client = OpenSearch(
     hosts=[{"host": HOST, "port": PORT}],

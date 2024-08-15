@@ -17,6 +17,7 @@
 # Snapshot Actions
 In this guide, we will look at some snapshot actions that allow you to manage and work with snapshots of your indices.
 
+A complete working sample for this guide can be found in [samples/snapshot](../samples/snapshot).
 
 ## Setup
 Let's create a client instance, and an index named `movies`:
