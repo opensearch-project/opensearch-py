@@ -3,6 +3,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 ## [Unreleased]
 ### Added
+- Added support for the `multi_terms` bucket aggregation ([#797](https://github.com/opensearch-project/opensearch-py/pull/797))
 ### Changed
 - Removed deprecated `numpy.float_` and update NumPy/Pandas imports ([#762](https://github.com/opensearch-project/opensearch-py/pull/762))
 - Removed workaround for [aiohttp#1769](https://github.com/aio-libs/aiohttp/issues/1769) ([#794](https://github.com/opensearch-project/opensearch-py/pull/794))
