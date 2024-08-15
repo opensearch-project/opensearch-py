@@ -11,6 +11,7 @@
 
 import json
 import logging
+import os
 import sys
 import time
 import uuid
@@ -52,7 +53,7 @@ def test(thread_count: int = 1, item_count: int = 1, client_count: int = 1) -> N
     """test to index with thread_count threads, item_count records and run client_count clients"""
     host = "localhost"
     port = 9200
-    auth = ("admin", "admin")
+    auth = ("admin", os.getenv("OPENSEARCH_PASSWORD", "admin"))
     index_name = "test-index-sync"
 
     root = logging.getLogger()

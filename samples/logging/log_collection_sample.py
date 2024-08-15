@@ -38,7 +38,7 @@ def main() -> None:
     # Setup connection with the OpenSearch cluster
     print("Setting up connection with OpenSearch cluster...")
     opensearch_client: Any = OpenSearch(
-        "https://admin:admin@localhost:9200",
+        "https://localhost:9200",
         use_ssl=True,
         verify_certs=False,
         ssl_show_warn=False,

@@ -5,6 +5,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ### Added
 ### Changed
 - Removed deprecated `numpy.float_` and update NumPy/Pandas imports ([#762](https://github.com/opensearch-project/opensearch-py/pull/762))
+- Removed workaround for [aiohttp#1769](https://github.com/aio-libs/aiohttp/issues/1769) ([#794](https://github.com/opensearch-project/opensearch-py/pull/794))
 ### Deprecated
 ### Removed
 - Removed redundant dependency on six ([#781](https://github.com/opensearch-project/opensearch-py/pull/781))

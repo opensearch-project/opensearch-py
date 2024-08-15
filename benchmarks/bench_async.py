@@ -10,6 +10,7 @@
 # GitHub history for details.
 
 import asyncio
+import os
 import uuid
 from typing import Any
 
@@ -42,7 +43,7 @@ async def test_async(client_count: int = 1, item_count: int = 1) -> None:
     """
     host = "localhost"
     port = 9200
-    auth = ("admin", "admin")
+    auth = ("admin", os.getenv("OPENSEARCH_PASSWORD", "admin"))
     index_name = "test-index-async"
 
     clients = []
