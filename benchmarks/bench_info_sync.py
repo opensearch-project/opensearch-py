@@ -11,6 +11,7 @@
 
 
 import logging
+import os
 import sys
 import time
 from typing import Any
@@ -34,7 +35,7 @@ def test(thread_count: int = 1, request_count: int = 1, client_count: int = 1) -
     """test to index with thread_count threads, item_count records and run client_count clients"""
     host = "localhost"
     port = 9200
-    auth = ("admin", "admin")
+    auth = ("admin", os.getenv("OPENSEARCH_PASSWORD", "admin"))
 
     root = logging.getLogger()
     # root.setLevel(logging.DEBUG)

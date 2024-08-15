@@ -24,6 +24,7 @@
 #  specific language governing permissions and limitations
 #  under the License.
 
+import os
 import re
 from datetime import datetime
 from typing import Any
@@ -46,7 +47,10 @@ from .test_document import Comment, History, PullRequest, User
 
 @fixture(scope="session")  # type: ignore
 def client() -> Any:
-    client = get_test_client(verify_certs=False, http_auth=("admin", "admin"))
+    client = get_test_client(
+        verify_certs=False,
+        http_auth=("admin", os.getenv("OPENSEARCH_PASSWORD", "admin")),
+    )
     add_connection("default", client)
     return client
 

@@ -167,14 +167,6 @@ class AsyncHttpConnection(AIOHttpConnection):
         else:
             query_string = ""
 
-        # There is a bug in aiohttp that disables the re-use
-        # of the connection in the pool when method=HEAD.
-        # See: https://github.com/aio-libs/aiohttp/issues/1769
-        is_head = False
-        if method == "HEAD":
-            method = "GET"
-            is_head = True
-
         # Top-tier tip-toeing happening here. Basically
         # because Pip's old resolver is bad and wipes out
         # strict pins in favor of non-strict pins of extras
@@ -221,11 +213,7 @@ class AsyncHttpConnection(AIOHttpConnection):
                 timeout=timeout,
                 fingerprint=self.ssl_assert_fingerprint,
             ) as response:
-                if is_head:  # We actually called 'GET' so throw away the data.
-                    await response.release()
-                    raw_data = ""
-                else:
-                    raw_data = await response.text()
+                raw_data = await response.text()
                 duration = self.loop.time() - start
 
         # We want to reraise a cancellation or recursion error.

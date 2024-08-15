@@ -7,6 +7,7 @@
 # Modifications Copyright OpenSearch Contributors. See
 # GitHub history for details.
 
+import os
 import re
 from datetime import datetime
 from typing import Any
@@ -36,7 +37,10 @@ pytestmark = pytest.mark.asyncio
 
 @fixture(scope="function")  # type: ignore
 async def client() -> Any:
-    client = await get_test_client(verify_certs=False, http_auth=("admin", "admin"))
+    client = await get_test_client(
+        verify_certs=False,
+        http_auth=("admin", os.getenv("OPENSEARCH_PASSWORD", "admin")),
+    )
     await add_connection("default", client)
     return client
 
