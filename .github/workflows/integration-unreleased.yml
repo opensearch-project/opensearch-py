@@ -8,14 +8,17 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        opensearch_ref: [ '1.x', '2.x', 'main' ]
-        
+        entry:
+          - { branch: "1.x", java-version: "11" }
+          - { branch: "2.x", java-version: "17" }
+          - { branch: "main", java-version: "17" }
+
     steps:
       - name: Checkout OpenSearch
         uses: actions/checkout@v4
         with:
           repository: opensearch-project/opensearch
-          ref: ${{ matrix.opensearch_ref }}
+          ref: ${{ matrix.entry.branch }}
           path: opensearch
 
       - name: Get OpenSearch branch top
@@ -32,8 +35,8 @@ jobs:
 
       - uses: actions/setup-java@v4
         with:
-          distribution: 'temurin' # See 'Supported distributions' for available options
-          java-version: '11'
+          distribution: "temurin"
+          java-version: ${{ matrix.entry.java-version }}
 
       - name: Assemble OpenSearch
         if: steps.cache-restore.outputs.cache-hit != 'true'
