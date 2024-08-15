@@ -33,8 +33,9 @@ Repositories create consistent release labels, such as `v1.0.0`, `v1.1.0` and `v
 
 The release process is standard across repositories in this org and is run by a release manager volunteering from amongst [maintainers](MAINTAINERS.md).
 
-1. Create a tag, e.g. v2.1.0, and push it to the GitHub repo.
-1. The [release-drafter.yml](.github/workflows/release-drafter.yml) will be automatically kicked off and a draft release will be created.
-1. This draft release triggers the [jenkins release workflow](https://build.ci.opensearch.org/job/opensearch-py-release/) as a result of which opensearch-py client is released on [PyPi](https://pypi.org/project/opensearch-py/).
-1. Once the above release workflow is successful, the drafted release on GitHub is published automatically.
-1. Add an "Unreleased" section to CHANGELOG, and increment version to the next patch release, e.g. v2.1.1. See [example](https://github.com/opensearch-project/opensearch-py/pull/593).
+1. Update the version in [CHANGELOG](CHANGELOG.md), [_version.py](opensearchpy/_version.py) and [unified-release.yml](.github/workflows/unified-release.yml), make a pull request and have it merged. See [example](https://github.com/opensearch-project/opensearch-py/pull/799).
+2. Create a tag, e.g. v2.1.0, and push it to the GitHub repo.
+3. The [release-drafter.yml](.github/workflows/release-drafter.yml) will be automatically kicked off and a draft release will be created.
+4. This draft release triggers the [jenkins release workflow](https://build.ci.opensearch.org/job/opensearch-py-release/) as a result of which opensearch-py client is released on [PyPi](https://pypi.org/project/opensearch-py/).
+5. Once the above release workflow is successful, the drafted release on GitHub is published automatically.
+6. Add an "Unreleased" section to CHANGELOG, and increment version in [_version.py](opensearchpy/_version.py) to the next patch release, e.g. v2.1.1. See [example](https://github.com/opensearch-project/opensearch-py/pull/593).
