@@ -391,6 +391,10 @@
         <span class="k">return</span> <span class="n">FieldBucketData</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">search</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
 
 
+<span class="k">class</span> <span class="nc">MultiTerms</span><span class="p">(</span><span class="n">Bucket</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;multi_terms&quot;</span>
+
+
 <span class="c1"># metric aggregations</span>
 <span class="k">class</span> <span class="nc">TopHits</span><span class="p">(</span><span class="n">Agg</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;top_hits&quot;</span>
