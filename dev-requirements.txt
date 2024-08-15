@@ -2,7 +2,7 @@ requests>=2, <3
 pytest
 pytest-cov
 coverage
-sphinx<7.5
+sphinx<8.1
 sphinx_rtd_theme
 jinja2
 pytz

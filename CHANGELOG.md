@@ -17,7 +17,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ### Security
 ### Dependencies
 - Bump `pytest-asyncio` from <=0.23.7 to <=0.23.8 ([#787](https://github.com/opensearch-project/opensearch-py/pull/787))
-- Bump `sphinx` from <7.4 to <7.5 ([#788](https://github.com/opensearch-project/opensearch-py/pull/788))
+- Bump `sphinx` from <7.4 to <8.1 ([#788](https://github.com/opensearch-project/opensearch-py/pull/788), [#791](https://github.com/opensearch-project/opensearch-py/pull/791))
 - Bump `urllib3` from >=1.26.18 to >=1.26.19 ([#793](https://github.com/opensearch-project/opensearch-py/pull/793))
 - Bump `requests` from >=2.4.0 to >=2.32.0 ([#793](https://github.com/opensearch-project/opensearch-py/pull/793))
 - Bump `certifi` from >=2022.12.07 to >=2024.07.04 ([#793](https://github.com/opensearch-project/opensearch-py/pull/793))
