@@ -37,4 +37,4 @@ The release process is standard across repositories in this org and is run by a 
 2. Create a tag, e.g. v2.1.0, and push it to the GitHub repo.
 3. The [release-drafter#draft-a-release](.github/workflows/release-drafter.yml) workflow will be automatically kicked off and a draft release will be created.
 4. The [release-drafter#pypi-publish](.github/workflows/release-drafter.yml) workflow will publish the release to [PyPi](https://pypi.org/project/opensearch-py/).
-5. Add an "Unreleased" section to CHANGELOG, and increment version in [_version.py](opensearchpy/_version.py) to the next patch release, e.g. v2.1.1. See [example](https://github.com/opensearch-project/opensearch-py/pull/593).
+5. Add an "Unreleased" section to [CHANGELOG](CHANGELOG.md), update the [COMPATIBILITY](COMPATIBILITY.md) matrix, and increment version in [_version.py](opensearchpy/_version.py) to the next patch release, e.g. v2.1.1. See [example](https://github.com/opensearch-project/opensearch-py/pull/593).
