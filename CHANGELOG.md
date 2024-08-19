@@ -24,6 +24,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - Bump `urllib3` from >=1.26.18 to >=1.26.19 ([#793](https://github.com/opensearch-project/opensearch-py/pull/793))
 - Bump `requests` from >=2.4.0 to >=2.32.0 ([#793](https://github.com/opensearch-project/opensearch-py/pull/793))
 - Bump `certifi` from >=2022.12.07 to >=2024.07.04 ([#793](https://github.com/opensearch-project/opensearch-py/pull/793))
+- Bump `setuptools` from 71.1.0 to 72.2.0 ([#800](https://github.com/opensearch-project/opensearch-py/pull/800))
 
 ## [2.6.0]
 ### Added
