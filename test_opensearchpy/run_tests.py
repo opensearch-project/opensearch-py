@@ -163,7 +163,7 @@ def run_all(argv: Any = None) -> None:
                 "test_opensearchpy/test_async/test_server_secured/",
             ]
 
-            # Jenkins/Github actions, only run server tests
+            # GitHub Actions, only run server tests
             if environ.get("TEST_TYPE") == "server":
                 test_dir = abspath(dirname(__file__))
                 if secured:
