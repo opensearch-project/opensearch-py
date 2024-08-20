@@ -1,6 +1,14 @@
 # CHANGELOG
 Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
+## [Unreleased]
+### Added
+### Changed
+### Deprecated
+### Removed
+### Fixed
+### Security
+
 ## [2.7.0]
 ### Added
 - Added support for the `multi_terms` bucket aggregation ([#797](https://github.com/opensearch-project/opensearch-py/pull/797))
@@ -276,6 +284,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ### Security
 
 [Unreleased]: https://github.com/opensearch-project/opensearch-py/compare/v2.6.0...HEAD
+[2.7.0]: https://github.com/opensearch-project/opensearch-py/compare/v2.6.0...v2.7.0
 [2.6.0]: https://github.com/opensearch-project/opensearch-py/compare/v2.5.0...v2.6.0
 [2.5.0]: https://github.com/opensearch-project/opensearch-py/compare/v2.4.2...v2.5.0
 [2.4.2]: https://github.com/opensearch-project/opensearch-py/compare/v2.4.0...v2.4.2
