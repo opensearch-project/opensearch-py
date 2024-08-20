@@ -1,7 +1,7 @@
 # CHANGELOG
 Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
-## [Unreleased]
+## [2.7.0]
 ### Added
 - Added support for the `multi_terms` bucket aggregation ([#797](https://github.com/opensearch-project/opensearch-py/pull/797))
 ### Changed
