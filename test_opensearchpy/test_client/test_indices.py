@@ -45,3 +45,8 @@ class TestIndices(OpenSearchTestCase):
         self.assertRaises(ValueError, self.client.indices.exists, index=None)
         self.assertRaises(ValueError, self.client.indices.exists, index=[])
         self.assertRaises(ValueError, self.client.indices.exists, index="")
+
+    def test_create_alias(self) -> None:
+        self.client.indices.create("test-index")
+        self.client.indices.put_alias("test-index", "test-alias")
+        self.assert_url_called("PUT", "/test-index/_alias/test-alias")
