@@ -1,0 +1,2 @@
+{% extends "base" %}
+{% block func_params %}{% include "overrides/indices/put_alias-func_params" %}{% endblock %}
