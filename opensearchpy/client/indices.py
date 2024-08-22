@@ -853,63 +853,6 @@ class IndicesClient(NamespacedClient):
         )
 
     @query_params(
-        "cluster_manager_timeout",
-        "error_trace",
-        "filter_path",
-        "human",
-        "master_timeout",
-        "pretty",
-        "source",
-        "timeout",
-    )
-    def put_alias(
-        self,
-        body: Any = None,
-        index: Any = None,
-        name: Any = None,
-        params: Any = None,
-        headers: Any = None,
-    ) -> Any:
-        """
-        Creates or updates an alias.
-
-
-        :arg body: The settings for the alias, such as `routing` or
-            `filter`
-        :arg index: Comma-separated list of data streams or indices to
-            add. Supports wildcards (`*`). Wildcard patterns that match both data
-            streams and indices return an error.
-        :arg name: Alias to update. If the alias doesn't exist, the
-            request creates it. Index alias names support date math.
-        :arg cluster_manager_timeout: Operation timeout for connection
-            to cluster-manager node.
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg human: Whether to return human readable values for
-            statistics.
-        :arg master_timeout (Deprecated: To promote inclusive language,
-            use 'cluster_manager_timeout' instead.): Period to wait for a connection
-            to the master node. If no response is received before the timeout
-            expires, the request fails and returns an error.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
-        :arg timeout: Period to wait for a response. If no response is
-            received before the timeout expires, the request fails and returns an
-            error.
-        """
-        return self.transport.perform_request(
-            "PUT",
-            _make_path(index, "_alias", name),
-            params=params,
-            headers=headers,
-            body=body,
-        )
-
-    @query_params(
         "allow_no_indices",
         "error_trace",
         "expand_wildcards",
@@ -2765,4 +2708,61 @@ class IndicesClient(NamespacedClient):
             _make_path("_data_stream", name, "_stats"),
             params=params,
             headers=headers,
+        )
+
+    @query_params(
+        "cluster_manager_timeout",
+        "error_trace",
+        "filter_path",
+        "human",
+        "master_timeout",
+        "pretty",
+        "source",
+        "timeout",
+    )
+    def put_alias(
+        self,
+        index: Any = None,
+        name: Any = None,
+        body: Any = None,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Creates or updates an alias.
+
+
+        :arg body: The settings for the alias, such as `routing` or
+            `filter`
+        :arg index: Comma-separated list of data streams or indices to
+            add. Supports wildcards (`*`). Wildcard patterns that match both data
+            streams and indices return an error.
+        :arg name: Alias to update. If the alias doesn't exist, the
+            request creates it. Index alias names support date math.
+        :arg cluster_manager_timeout: Operation timeout for connection
+            to cluster-manager node.
+        :arg error_trace: Whether to include the stack trace of returned
+            errors.
+        :arg filter_path: Comma-separated list of filters used to reduce
+            the response.
+        :arg human: Whether to return human readable values for
+            statistics.
+        :arg master_timeout (Deprecated: To promote inclusive language,
+            use 'cluster_manager_timeout' instead.): Period to wait for a connection
+            to the master node. If no response is received before the timeout
+            expires, the request fails and returns an error.
+        :arg pretty: Whether to pretty format the returned JSON
+            response.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        :arg timeout: Period to wait for a response. If no response is
+            received before the timeout expires, the request fails and returns an
+            error.
+        """
+        return self.transport.perform_request(
+            "PUT",
+            _make_path(index, "_alias", name),
+            params=params,
+            headers=headers,
+            body=body,
         )
