@@ -1,14 +1,17 @@
 # CHANGELOG
 Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
-## [2.7.1]
+## [Unreleased]
 ### Added
 ### Changed
 ### Deprecated
 ### Removed
 ### Fixed
-- Fix `indices.put_alias` parameter order regression ([#804](https://github.com/opensearch-project/opensearch-py/pull/804))
 ### Security
+
+## [2.7.1]
+### Fixed
+- Fix `indices.put_alias` parameter order regression ([#804](https://github.com/opensearch-project/opensearch-py/pull/804))
 
 ## [2.7.0]
 ### Added
@@ -16,7 +19,6 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ### Changed
 - Removed deprecated `numpy.float_` and update NumPy/Pandas imports ([#762](https://github.com/opensearch-project/opensearch-py/pull/762))
 - Removed workaround for [aiohttp#1769](https://github.com/aio-libs/aiohttp/issues/1769) ([#794](https://github.com/opensearch-project/opensearch-py/pull/794))
-### Deprecated
 ### Removed
 - Removed redundant dependency on six ([#781](https://github.com/opensearch-project/opensearch-py/pull/781))
 - Removed redundant dependency on mock and upgrade Python syntax ([#785](https://github.com/opensearch-project/opensearch-py/pull/785))
@@ -26,7 +28,6 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - Fixed incorrect `retry_on_conflict` type ([#795](https://github.com/opensearch-project/opensearch-py/pull/795))
 ### Updated APIs
 - Updated opensearch-py APIs to reflect [opensearch-api-specification@9d3bc34](https://github.com/opensearch-project/opensearch-api-specification/commit/9d3bc340ccd7d049e7d6e14a4aff2293780cb446)
-### Security
 ### Dependencies
 - Bump `pytest-asyncio` from <=0.23.7 to <=0.23.8 ([#787](https://github.com/opensearch-project/opensearch-py/pull/787))
 - Bump `sphinx` from <7.4 to <8.1 ([#788](https://github.com/opensearch-project/opensearch-py/pull/788), [#791](https://github.com/opensearch-project/opensearch-py/pull/791))
@@ -42,8 +43,6 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - Added `search_pipeline` APIs and `notifications` plugin APIs ([#724](https://github.com/opensearch-project/opensearch-py/pull/724))
 - Added `Transforms` APIs ([#749](https://github.com/opensearch-project/opensearch-py/pull/749))
 - Added `Index rollups` APIs ([#742](https://github.com/opensearch-project/opensearch-py/pull/742))
-### Changed
-### Deprecated
 ### Removed
 - Removed support for Python 3.6, 3.7 ([#717](https://github.com/opensearch-project/opensearch-py/pull/717))
 ### Fixed
@@ -59,7 +58,6 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - Updated opensearch-py APIs to reflect [opensearch-api-specification@e02c076](https://github.com/opensearch-project/opensearch-api-specification/commit/e02c076ef63f7a9b650ca1416380120cc640620a)
 - Updated opensearch-py APIs to reflect [opensearch-api-specification@fe6f977](https://github.com/opensearch-project/opensearch-api-specification/commit/fe6f977bcae4e27a2b261fb9599884df5606c0bc)
 - Updated opensearch-py APIs to reflect [opensearch-api-specification@29faff0](https://github.com/opensearch-project/opensearch-api-specification/commit/29faff0709b2557acfd4c3c7e053a2c313413633)
-### Security
 ### Dependencies
 - Bumps `aiohttp` from >=3,<4 to >=3.9.2,<4 ([#717](https://github.com/opensearch-project/opensearch-py/pull/717))
 - Bumps `black` to >=24.3.0 ([#717](https://github.com/opensearch-project/opensearch-py/pull/717))
@@ -86,7 +84,6 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - Pass in initial admin password in setup and remove default `admin` password ([#631](https://github.com/opensearch-project/opensearch-py/pull/631))
 - Updated the `get_policy` API in the index_management plugin to allow the policy_id argument as optional ([#633](https://github.com/opensearch-project/opensearch-py/pull/633))
 - Updated the `point_in_time.md` guide with examples demonstrating the usage of the new APIs as alternatives to the deprecated ones. ([#661](https://github.com/opensearch-project/opensearch-py/pull/661))
-### Deprecated
 ### Removed
 - Removed unnecessary `# -*- coding: utf-8 -*-` headers from .py files ([#615](https://github.com/opensearch-project/opensearch-py/pull/615), [#617](https://github.com/opensearch-project/opensearch-py/pull/617))
 ### Fixed
@@ -95,30 +92,19 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ### Updated APIs
 - Updated opensearch-py APIs to reflect [opensearch-api-specification@3763fdd](https://github.com/opensearch-project/opensearch-api-specification/commit/3763fdd051889c26e4f865734501c483d429de9f)
 - Updated opensearch-py APIs to reflect [opensearch-api-specification@1787056](https://github.com/opensearch-project/opensearch-api-specification/commit/178705681e5fd812ab59ad00cefa04146d03d7ad)
-### Security
 ### Dependencies
 - Bumps `pytest-asyncio` from <=0.21.1 to <=0.23.5
 - Bumps `urllib3` from >=1.26.18 to >=1.26.18, <2 ([#632](https://github.com/opensearch-project/opensearch-py/pull/632))
 
 ## [2.4.2]
-### Added
-### Changed
-### Deprecated
-### Removed
 ### Fixed
 - Fix `TypeError` on `parallel_bulk` ([#601](https://github.com/opensearch-project/opensearch-py/pull/601))
 - Fix Amazon OpenSearch Serverless integration with LangChain ([#603](https://github.com/opensearch-project/opensearch-py/pull/603))
 - Fix type of `Field.__setattr__` ([604](https://github.com/opensearch-project/opensearch-py/pull/604))
-### Security
 
 ## [2.4.1]
-### Added
-### Changed
-### Deprecated
-### Removed
 ### Fixed
 - Fix dependency on `aiohttp` ([#594](https://github.com/opensearch-project/opensearch-py/pull/594))
-### Security
 
 ## [2.4.0]
 ### Added
@@ -155,30 +141,17 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ### Fixed
 - Fixed automatically built and deployed docs ([575](https://github.com/opensearch-project/opensearch-py/pull/575))
 - Avoid decoding request body unless it needs to be logged ([#571](https://github.com/opensearch-project/opensearch-py/pull/571))
-### Security
 ### Dependencies
 - Bumps `sphinx` from <7.1 to <7.3
 - Bumps `coverage` from <7.0.0 to <8.0.0
 
 ## [2.3.2]
-### Added
-### Changed
-### Deprecated
-### Removed
-### Fixed
-### Security
 ### Dependencies
 - Bumps `urllib3` from >=1.21.1, <2 to >=1.26.9 ([#518](https://github.com/opensearch-project/opensearch-py/pull/518))
 - Bumps `urllib3` from >=1.26.17 to >=1.26.18 ([#576](https://github.com/opensearch-project/opensearch-py/pull/576))
 
 ## [2.3.1]
-### Added
-### Changed
-### Deprecated
-### Removed
-### Fixed
 - Fixed race condition in AWSV4SignerAuth & AWSV4SignerAsyncAuth when using refreshable credentials ([#470](https://github.com/opensearch-project/opensearch-py/pull/470))
-### Security
 ### Dependencies
 - Bumps `urllib3` from >= 1.26.9 to >= 1.26.17 [#533](https://github.com/opensearch-project/opensearch-py/pull/533)
 
@@ -205,7 +178,6 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ### Changed
 - Moved security from `plugins` to `clients` ([#442](https://github.com/opensearch-project/opensearch-py/pull/442))
 - Updated Security Client APIs ([#450](https://github.com/opensearch-project/opensearch-py/pull/450))
-### Deprecated
 ### Removed
 - Removed support for Python 2.7 ([#421](https://github.com/opensearch-project/opensearch-py/pull/421))
 - Removed support for Python 3.5 ([#533](https://github.com/opensearch-project/opensearch-py/pull/533))
@@ -229,33 +201,19 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ### Added
 - Merged opensearch-dsl-py into opensearch-py ([#287](https://github.com/opensearch-project/opensearch-py/pull/287))
 - Added UPGRADING.md and updated it for opensearch-py 2.2.0 release ([#293](https://github.com/opensearch-project/opensearch-py/pull/293))
-### Changed
-### Deprecated
 ### Removed
 - Removed 'out/opensearchpy' folder which was produced while generating pyi files for plugins ([#288](https://github.com/opensearch-project/opensearch-py/pull/288))
 - Removed low-level and high-level client terminology from guides ([#298](https://github.com/opensearch-project/opensearch-py/pull/298))
 ### Fixed
 - Fixed CVE-2022-23491 ([#295](https://github.com/opensearch-project/opensearch-py/pull/295))
-### Security
 
 ## [2.1.1]
-### Added
-### Changed
-### Deprecated
-### Removed
-### Fixed
 - Fixed SigV4 Signing for Managed Service ([#279](https://github.com/opensearch-project/opensearch-py/pull/279))
 - Fixed SigV4 Signing for Async Requests with QueryStrings ([#272](https://github.com/opensearch-project/opensearch-py/pull/279))
-### Security
 
 ## [2.1.0]
 ### Added
 - Added Support for AOSS ([#268](https://github.com/opensearch-project/opensearch-py/pull/268))
-### Changed
-### Deprecated
-### Removed
-### Fixed
-### Security
 
 ## [2.0.1]
 ### Added
@@ -275,7 +233,6 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - Updated `master` to `cluster_manager` to be inclusive ([#242](https://github.com/opensearch-project/opensearch-py/pull/242))
 - Updated CI tests to make them work locally ([#275](https://github.com/opensearch-project/opensearch-py/pull/275))
 - Fixed bug with validation of `timeout` ([#387](https://github.com/opensearch-project/opensearch-py/issues/387))
-### Deprecated
 ### Removed
 - Removed patch versions in integration tests for OpenSearch 1.0.0 - 2.3.0 to reduce Github Action jobs ([#262](https://github.com/opensearch-project/opensearch-py/pull/262))
 ### Fixed
@@ -284,7 +241,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - Fixed link checker failing due to relative link ([#760](https://github.com/opensearch-project/opensearch-py/pull/760))
 ### Security
 
-[Unreleased]: https://github.com/opensearch-project/opensearch-py/compare/v2.6.0...HEAD
+[Unreleased]: https://github.com/opensearch-project/opensearch-py/compare/v2.7.1...HEAD
 [2.7.1]: https://github.com/opensearch-project/opensearch-py/compare/v2.7.0...v2.7.1
 [2.7.0]: https://github.com/opensearch-project/opensearch-py/compare/v2.6.0...v2.7.0
 [2.6.0]: https://github.com/opensearch-project/opensearch-py/compare/v2.5.0...v2.6.0
