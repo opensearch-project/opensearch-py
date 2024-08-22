@@ -1,0 +1,24 @@
+{# Work around for https://github.com/opensearch-project/opensearch-py/issues/803 #}
+
+{% set first_params = ["index", "name"] %}
+
+{% for p, info in api.all_parts.items() %}
+  {% if info.required %}{{ p }}: {{ info.type }}, {% endif %}
+{% endfor %}
+
+{% for p, info in api.all_parts.items() if p in first_params %}
+  {% if not info.type == 'Any' %}{{ p }}: Optional[{{ info.type }}]=None, {% endif %}
+  {% if info.type == 'Any' %}{{ p }}: {{ info.type }}=None, {% endif %}
+{% endfor %}
+
+{% if api.body %}
+  body{% if not api.body.required %}: Any=None{% else %}: Any{% endif %},
+{% endif %}
+
+{% for p, info in api.all_parts.items() if p not in first_params %}
+  {% if not info.required and not info.type == 'Any' %}{{ p }}: Optional[{{ info.type }}]=None, {% endif %}
+  {% if not info.required and info.type == 'Any' %}{{ p }}: {{ info.type }}=None, {% endif %}
+{% endfor %}
+
+params: Any=None,
+headers: Any=None,
