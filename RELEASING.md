@@ -33,7 +33,7 @@ Repositories create consistent release labels, such as `v1.0.0`, `v1.1.0` and `v
 
 The release process is standard across repositories in this org and is run by a release manager volunteering from amongst [maintainers](MAINTAINERS.md).
 
-1. Update the version in [CHANGELOG](CHANGELOG.md), [_version.py](opensearchpy/_version.py) and [unified-release.yml](.github/workflows/unified-release.yml), make a pull request and have it merged. See [example](https://github.com/opensearch-project/opensearch-py/pull/799).
+1. Change `Unreleased` to the version being released and add a link to its diff in [CHANGELOG](CHANGELOG.md), check version in [_version.py](opensearchpy/_version.py) and [unified-release.yml](.github/workflows/unified-release.yml), make a pull request and have it merged. See [example](https://github.com/opensearch-project/opensearch-py/pull/805).
 2. Check out the [upstream repo](https://github.com/opensearch-project/opensearch-py), make sure it's up-to-date with `git pull origin main`, create a tag, e.g. `git tag v2.1.0`, and push it to GitHub with `git push origin --tags`.
 3. The [release-drafter#draft-a-release](.github/workflows/release-drafter.yml) workflow will be automatically kicked off and a draft release will be created along with a release issue that requires approval from another maintainer. See [example](https://github.com/opensearch-project/opensearch-py/issues/801).
 4. The [release-drafter#pypi-publish](.github/workflows/release-drafter.yml) workflow will publish the release to [PyPi](https://pypi.org/project/opensearch-py/).
