@@ -1,12 +1,13 @@
 # CHANGELOG
 Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
-## [Unreleased]
+## [2.7.1]
 ### Added
 ### Changed
 ### Deprecated
 ### Removed
 ### Fixed
+- Fix `indices.put_alias` parameter order regression ([#804](https://github.com/opensearch-project/opensearch-py/pull/804))
 ### Security
 
 ## [2.7.0]
@@ -24,7 +25,6 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - Fixed the use of `minimum_should_match` with `Bool` to allow the use of string-based value (percent string, combination). ([#780](https://github.com/opensearch-project/opensearch-py/pull/780))
 - Fixed incorrect `retry_on_conflict` type ([#795](https://github.com/opensearch-project/opensearch-py/pull/795))
 ### Updated APIs
-- Updated opensearch-py APIs to reflect [opensearch-api-specification@b28c1cf](https://github.com/opensearch-project/opensearch-api-specification/commit/b28c1cfaf4a76d786c789929eaa7fabffd09cb99)
 - Updated opensearch-py APIs to reflect [opensearch-api-specification@9d3bc34](https://github.com/opensearch-project/opensearch-api-specification/commit/9d3bc340ccd7d049e7d6e14a4aff2293780cb446)
 ### Security
 ### Dependencies
@@ -285,6 +285,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ### Security
 
 [Unreleased]: https://github.com/opensearch-project/opensearch-py/compare/v2.6.0...HEAD
+[2.7.1]: https://github.com/opensearch-project/opensearch-py/compare/v2.7.0...v2.7.1
 [2.7.0]: https://github.com/opensearch-project/opensearch-py/compare/v2.6.0...v2.7.0
 [2.6.0]: https://github.com/opensearch-project/opensearch-py/compare/v2.5.0...v2.6.0
 [2.5.0]: https://github.com/opensearch-project/opensearch-py/compare/v2.4.2...v2.5.0
