@@ -404,9 +404,11 @@ class Transport:
             underlying :class:`~opensearchpy.Connection` class for serialization
         :arg body: body of the request, will be serialized using serializer and
             passed to the connection
+        :arg timeout: timeout of the request. If it is not presented as argument
+            will be extracted from `params`
         """
         method, params, body, ignore, timeout = self._resolve_request_args(
-            method, params, body
+            method, params, body, timeout
         )
 
         for attempt in range(self.max_retries + 1):
@@ -473,7 +475,13 @@ class Transport:
         """
         return self.connection_pool.close()
 
-    def _resolve_request_args(self, method: str, params: Any, body: Any) -> Any:
+    def _resolve_request_args(
+            self,
+            method: str,
+            params: Any,
+            body: Any,
+            timeout: Optional[Union[int, float]],
+    ) -> Any:
         """Resolves parameters for .perform_request()"""
         if body is not None:
             body = self.serializer.dumps(body)
@@ -499,11 +507,9 @@ class Transport:
                 pass
 
         ignore = ()
-        timeout = None
         if params:
-            timeout = params.pop("request_timeout", None)
             if not timeout:
-                timeout = params.pop("timeout", None)
+                timeout = params.pop("request_timeout", None) or params.pop("timeout", None)
             ignore = params.pop("ignore", ())
             if isinstance(ignore, int):
                 ignore = (ignore,)
