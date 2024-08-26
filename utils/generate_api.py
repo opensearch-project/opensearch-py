@@ -178,18 +178,26 @@ class Module:
                     "opensearchpy/_async/client/plugins.py", "r+", encoding="utf-8"
                 ) as file:
                     content = file.read()
-                    file_content = content.replace(
-                        "super(PluginsClient, self).__init__(client)",
-                        f"super(PluginsClient, self).__init__(client)\n        self.{self.namespace} = {self.namespace_new}Client(client)",  # pylint: disable=line-too-long
+                    content = content.replace(
+                        "super().__init__(client)\n",
+                        f"super().__init__(client)\n\n        self.{self.namespace} = {self.namespace_new}Client(client)",  # pylint: disable=line-too-long
                         1,
                     )
-                    new_file_content = file_content.replace(
+                    content = content.replace(
                         "from .client import Client",
                         f"from ..plugins.{self.namespace} import {self.namespace_new}Client\nfrom .client import Client",  # pylint: disable=line-too-long
                         1,
                     )
+                    content = content.replace(
+                        "class PluginsClient(NamespacedClient):\n",
+                        f"class PluginsClient(NamespacedClient): \n    {self.namespace}: Any\n",  # pylint: disable=line-too-long
+                        1,
+                    )
+                    content = content.replace(
+                        "plugins = [", f'plugins = [\n            "{self.namespace}",\n'
+                    )
                     file.seek(0)
-                    file.write(new_file_content)
+                    file.write(content)
                     file.truncate()
 
             else:
