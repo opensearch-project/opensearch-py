@@ -9,6 +9,9 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ### Fixed
 ### Security
 
+### Dependencies
+- Bump `pytest-asyncio` from <=0.23.8 to <=0.24.0 ([#812](https://github.com/opensearch-project/opensearch-py/pull/812))
+
 ## [2.7.1]
 ### Fixed
 - Fix `indices.put_alias` parameter order regression ([#804](https://github.com/opensearch-project/opensearch-py/pull/804))
