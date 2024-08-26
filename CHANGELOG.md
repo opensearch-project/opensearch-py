@@ -9,6 +9,9 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ### Fixed
 ### Security
 
+### Dependencies
+- Bump `setuptools` from 71.1.0 to 73.0.1 ([#811](https://github.com/opensearch-project/opensearch-py/pull/811))
+
 ## [2.7.1]
 ### Fixed
 - Fix `indices.put_alias` parameter order regression ([#804](https://github.com/opensearch-project/opensearch-py/pull/804))
