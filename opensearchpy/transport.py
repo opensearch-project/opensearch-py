@@ -408,7 +408,7 @@ class Transport:
             will be extracted from `params`
         """
         method, params, body, ignore, timeout = self._resolve_request_args(
-            method, params, body, timeout
+            method, params, body, ignore, timeout
         )
 
         for attempt in range(self.max_retries + 1):
@@ -480,6 +480,7 @@ class Transport:
             method: str,
             params: Any,
             body: Any,
+            ignore: Collection[int],
             timeout: Optional[Union[int, float]],
     ) -> Any:
         """Resolves parameters for .perform_request()"""
@@ -506,11 +507,11 @@ class Transport:
                 # bytes/str - no need to re-encode
                 pass
 
-        ignore = ()
         if params:
             if not timeout:
                 timeout = params.pop("request_timeout", None) or params.pop("timeout", None)
-            ignore = params.pop("ignore", ())
+            if not ignore:
+                ignore = params.pop("ignore", ())
             if isinstance(ignore, int):
                 ignore = (ignore,)
 

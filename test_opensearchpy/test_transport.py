@@ -260,6 +260,23 @@ class TestTransport(TestCase):
             "http://google.com:1234", t.connection_pool.connections[1].host
         )
 
+    def test_perform_request_all_arguments_passed_correctly(self) -> None:
+        t: Any = Transport([{}], connection_class=DummyConnection)
+        method, url, params, body = "GET", "/test_url", {"params": "test"}, "test_body"
+        timeout, ignore, headers = 11, ("ignore",), {"h": "test"}
+
+        t.perform_request(method, url, params, body, timeout, ignore, headers)
+
+        self.assertEqual(
+            t.get_connection().calls,
+            [
+                (
+                    (method, url, params, body.encode()),
+                    {"headers": headers, "ignore": ignore, "timeout": timeout}
+                )
+            ]
+        )
+
     def test_request_will_fail_after_x_retries(self) -> None:
         t: Any = Transport(
             [{"exception": ConnectionError(None, "abandon ship", Exception())}],
