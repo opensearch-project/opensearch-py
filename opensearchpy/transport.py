@@ -476,12 +476,12 @@ class Transport:
         return self.connection_pool.close()
 
     def _resolve_request_args(
-            self,
-            method: str,
-            params: Any,
-            body: Any,
-            ignore: Collection[int],
-            timeout: Optional[Union[int, float]],
+        self,
+        method: str,
+        params: Any,
+        body: Any,
+        ignore: Collection[int],
+        timeout: Optional[Union[int, float]],
     ) -> Any:
         """Resolves parameters for .perform_request()"""
         if body is not None:
@@ -509,7 +509,9 @@ class Transport:
 
         if params:
             if not timeout:
-                timeout = params.pop("request_timeout", None) or params.pop("timeout", None)
+                timeout = params.pop("request_timeout", None) or params.pop(
+                    "timeout", None
+                )
             if not ignore:
                 ignore = params.pop("ignore", ())
             if isinstance(ignore, int):

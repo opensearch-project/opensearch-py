@@ -183,11 +183,11 @@ class TestTransport:
         await t.perform_request(method, url, params, body, timeout, ignore, headers)
 
         assert t.get_connection().calls == [
-                (
-                    (method, url, params, body.encode()),
-                    {"headers": headers, "ignore": ignore, "timeout": timeout}
-                )
-            ]
+            (
+                (method, url, params, body.encode()),
+                {"headers": headers, "ignore": ignore, "timeout": timeout},
+            )
+        ]
 
     async def test_request_with_custom_user_agent_header(self) -> None:
         t: Any = AsyncTransport([{}], connection_class=DummyConnection)

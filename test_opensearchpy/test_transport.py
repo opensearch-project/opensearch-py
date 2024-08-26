@@ -272,9 +272,9 @@ class TestTransport(TestCase):
             [
                 (
                     (method, url, params, body.encode()),
-                    {"headers": headers, "ignore": ignore, "timeout": timeout}
+                    {"headers": headers, "ignore": ignore, "timeout": timeout},
                 )
-            ]
+            ],
         )
 
     def test_request_will_fail_after_x_retries(self) -> None:
