@@ -371,11 +371,13 @@ class AsyncTransport(Transport):
             underlying :class:`~opensearchpy.Connection` class for serialization
         :arg body: body of the request, will be serialized using serializer and
             passed to the connection
+        :arg timeout: timeout of the request. If it is not presented as argument
+            will be extracted from `params`
         """
         await self._async_call()
 
         method, params, body, ignore, timeout = self._resolve_request_args(
-            method, params, body
+            method, params, body, ignore, timeout
         )
 
         for attempt in range(self.max_retries + 1):

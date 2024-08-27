@@ -175,6 +175,20 @@ class TestTransport:
             "headers": {"x-opaque-id": "request-1"},
         } == t.get_connection().calls[1][1]
 
+    async def test_perform_request_all_arguments_passed_correctly(self) -> None:
+        t: Any = AsyncTransport([{}], connection_class=DummyConnection)
+        method, url, params, body = "GET", "/test_url", {"params": "test"}, "test_body"
+        timeout, ignore, headers = 11, ("ignore",), {"h": "test"}
+
+        await t.perform_request(method, url, params, body, timeout, ignore, headers)
+
+        assert t.get_connection().calls == [
+            (
+                (method, url, params, body.encode()),
+                {"headers": headers, "ignore": ignore, "timeout": timeout},
+            )
+        ]
+
     async def test_request_with_custom_user_agent_header(self) -> None:
         t: Any = AsyncTransport([{}], connection_class=DummyConnection)
 
