@@ -487,9 +487,11 @@
 <span class="sd">            underlying :class:`~opensearchpy.Connection` class for serialization</span>
 <span class="sd">        :arg body: body of the request, will be serialized using serializer and</span>
 <span class="sd">            passed to the connection</span>
+<span class="sd">        :arg timeout: timeout of the request. If it is not presented as argument</span>
+<span class="sd">            will be extracted from `params`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">method</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="n">ignore</span><span class="p">,</span> <span class="n">timeout</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_resolve_request_args</span><span class="p">(</span>
-            <span class="n">method</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">body</span>
+            <span class="n">method</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="n">ignore</span><span class="p">,</span> <span class="n">timeout</span>
         <span class="p">)</span>
 
         <span class="k">for</span> <span class="n">attempt</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">max_retries</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
@@ -556,7 +558,14 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">connection_pool</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="Transport._resolve_request_args"><a class="viewcode-back" href="../../api-ref/transport.html#opensearchpy.Transport._resolve_request_args">[docs]</a>    <span class="k">def</span> <span class="nf">_resolve_request_args</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">method</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">body</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<div class="viewcode-block" id="Transport._resolve_request_args"><a class="viewcode-back" href="../../api-ref/transport.html#opensearchpy.Transport._resolve_request_args">[docs]</a>    <span class="k">def</span> <span class="nf">_resolve_request_args</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">method</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">params</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+        <span class="n">body</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+        <span class="n">ignore</span><span class="p">:</span> <span class="n">Collection</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
+        <span class="n">timeout</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]],</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Resolves parameters for .perform_request()&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">body</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">body</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">serializer</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">body</span><span class="p">)</span>
@@ -581,13 +590,13 @@
                 <span class="c1"># bytes/str - no need to re-encode</span>
                 <span class="k">pass</span>
 
-        <span class="n">ignore</span> <span class="o">=</span> <span class="p">()</span>
-        <span class="n">timeout</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="k">if</span> <span class="n">params</span><span class="p">:</span>
-            <span class="n">timeout</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;request_timeout&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">timeout</span><span class="p">:</span>
-                <span class="n">timeout</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;timeout&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-            <span class="n">ignore</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">,</span> <span class="p">())</span>
+                <span class="n">timeout</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;request_timeout&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">or</span> <span class="n">params</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span>
+                    <span class="s2">&quot;timeout&quot;</span><span class="p">,</span> <span class="kc">None</span>
+                <span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">ignore</span><span class="p">:</span>
+                <span class="n">ignore</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">,</span> <span class="p">())</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ignore</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
                 <span class="n">ignore</span> <span class="o">=</span> <span class="p">(</span><span class="n">ignore</span><span class="p">,)</span>
 
