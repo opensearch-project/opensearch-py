@@ -30,7 +30,7 @@ from opensearchpy.client import OpenSearch
 from opensearchpy.connection.connections import get_connection
 from opensearchpy.helpers import analysis
 
-from ..exceptions import IllegalOperation
+from ..exceptions import IllegalOperation, ValidationException
 from .mapping import Mapping
 from .search import Search
 from .update_by_query import UpdateByQuery
@@ -326,9 +326,18 @@ class Index:
         body = self.to_dict()
         settings = body.pop("settings", {})
         analysis = settings.pop("analysis", None)
-        current_settings = self.get_settings(using=using)[self._name]["settings"][
-            "index"
-        ]
+
+        # If _name points to an alias, the response object will contain keys with
+        # the index name(s) the alias points to. If the alias points to multiple
+        # indices, raise exception as the intention is ambiguous
+        settings_response = self.get_settings(using=using)
+        if len(settings_response) > 1:
+            raise ValidationException(
+                "Settings for %s point to multiple indices: %s."
+                % (self._name, ", ".join(list(settings_response.keys())))
+            )
+        current_settings = settings_response.popitem()[1]["settings"]["index"]
+
         if analysis:
             if self.is_closed(using=using):
                 # closed index, update away

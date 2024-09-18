@@ -13,7 +13,7 @@ from opensearchpy._async.helpers.mapping import AsyncMapping
 from opensearchpy._async.helpers.search import AsyncSearch
 from opensearchpy._async.helpers.update_by_query import AsyncUpdateByQuery
 from opensearchpy.connection.async_connections import get_connection
-from opensearchpy.exceptions import IllegalOperation
+from opensearchpy.exceptions import IllegalOperation, ValidationException
 from opensearchpy.helpers import analysis
 from opensearchpy.helpers.utils import merge
 
@@ -305,9 +305,18 @@ class AsyncIndex:
         body = self.to_dict()
         settings = body.pop("settings", {})
         analysis = settings.pop("analysis", None)
-        current_settings = (await self.get_settings(using=using))[self._name][
-            "settings"
-        ]["index"]
+
+        # If _name points to an alias, the response object will contain keys with
+        # the index name(s) the alias points to. If the alias points to multiple
+        # indices, raise exception as the intention is ambiguous
+        settings_response = await self.get_settings(using=using)
+        if len(settings_response) > 1:
+            raise ValidationException(
+                "Settings for %s point to multiple indices: %s."
+                % (self._name, ", ".join(list(settings_response.keys())))
+            )
+        current_settings = settings_response.popitem()[1]["settings"]["index"]
+
         if analysis:
             if await self.is_closed(using=using):
                 # closed index, update away
