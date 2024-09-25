@@ -20,6 +20,6 @@ black>=24.3.0
 twine
 
 # Requirements for testing [async] extra
-aiohttp>=3.9.4, <4
+aiohttp>=3.9.4, <=3.10.5
 pytest-asyncio<=0.24.0
 unasync
