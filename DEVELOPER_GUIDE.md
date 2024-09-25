@@ -38,7 +38,7 @@ docker pull opensearchproject/opensearch:latest
 Integration tests will auto-start the docker image. To start it manually:
 
 ```
-docker run -d -p 9200:9200 -p 9600:9600 -e "discovery.type=single-node" opensearchproject/opensearch:latest
+docker run -d -p 9200:9200 -p 9600:9600 -e OPENSEARCH_INITIAL_ADMIN_PASSWORD=myStrongPassword123! -e "discovery.type=single-node" opensearchproject/opensearch:latest
 ```
 
 ## Running Tests
@@ -54,7 +54,7 @@ python setup.py test
 To run tests in a specific test file.
 
 ```
-python setup.py test -s test_opensearchpy/test_connection.py
+python setup.py test -s test_opensearchpy/test_connection/test_base_connection.py
 ```
 
 If you want to auto-start one, the following will start a new instance and run tests against the latest version of OpenSearch.
