@@ -15,6 +15,7 @@ from _pytest.mark.structures import MarkDecorator
 from opensearchpy import Date, Text
 from opensearchpy._async.helpers.document import AsyncDocument
 from opensearchpy._async.helpers.index import AsyncIndex, AsyncIndexTemplate
+from opensearchpy.exceptions import ValidationException
 from opensearchpy.helpers import analysis
 
 pytestmark: MarkDecorator = pytest.mark.asyncio
@@ -117,3 +118,39 @@ async def test_multiple_indices_with_same_doc_type_work(write_client: Any) -> No
         assert settings[i]["settings"]["index"]["analysis"] == {
             "analyzer": {"my_analyzer": {"type": "custom", "tokenizer": "keyword"}}
         }
+
+
+async def test_index_can_be_saved_through_alias_with_settings(
+    write_client: Any,
+) -> None:
+    raw_index = AsyncIndex("test-blog", using=write_client)
+    raw_index.settings(number_of_shards=3, number_of_replicas=0)
+    raw_index.aliases(**{"blog-alias": {}})
+    await raw_index.save()
+
+    i = AsyncIndex("blog-alias", using=write_client)
+    i.settings(number_of_replicas=1)
+    await i.save()
+
+    settings = await write_client.indices.get_settings(index="test-blog")
+    assert "1" == settings["test-blog"]["settings"]["index"]["number_of_replicas"]
+
+
+async def test_validation_alias_has_many_indices(write_client: Any) -> None:
+    raw_index_1 = AsyncIndex("test-blog-1", using=write_client)
+    raw_index_1.settings(number_of_shards=3, number_of_replicas=0)
+    raw_index_1.aliases(**{"blog-alias": {}})
+    await raw_index_1.save()
+
+    raw_index_2 = AsyncIndex("test-blog-2", using=write_client)
+    raw_index_2.settings(number_of_shards=3, number_of_replicas=0)
+    raw_index_2.aliases(**{"blog-alias": {}})
+    await raw_index_2.save()
+
+    i = AsyncIndex("blog-alias", using=write_client)
+    with pytest.raises(ValidationException) as e:
+        await i.save()
+
+    message, indices = e.value.args[0][:-1].split(": ")
+    assert message == "Settings for blog-alias point to multiple indices"
+    assert set(indices.split(", ")) == {"test-blog-1", "test-blog-2"}

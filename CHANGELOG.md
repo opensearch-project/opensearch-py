@@ -9,6 +9,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ### Removed
 ### Fixed
 - Fix `Transport.perform_request`'s arguments `timeout` and `ignore` variable usage ([810](https://github.com/opensearch-project/opensearch-py/pull/810))
+- Fix `Index.save` not passing through aliases to the underlying index ([823](https://github.com/opensearch-project/opensearch-py/pull/823))
 ### Security
 
 ### Dependencies
