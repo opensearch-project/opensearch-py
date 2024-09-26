@@ -45,6 +45,12 @@ docker run -d -p 9200:9200 -p 9600:9600 -e OPENSEARCH_INITIAL_ADMIN_PASSWORD=myS
 
 Tests require a live instance of OpenSearch running in docker.
 
+Set the password for your docker instance.
+
+```
+export OPENSEARCH_PASSWORD=myStrongPassword123!
+```
+
 If you have one running.
 
 ```
