@@ -113,7 +113,7 @@
 <span class="kn">from</span> <span class="nn">opensearchpy.connection.connections</span> <span class="kn">import</span> <span class="n">get_connection</span>
 <span class="kn">from</span> <span class="nn">opensearchpy.helpers</span> <span class="kn">import</span> <span class="n">analysis</span>
 
-<span class="kn">from</span> <span class="nn">..exceptions</span> <span class="kn">import</span> <span class="n">IllegalOperation</span>
+<span class="kn">from</span> <span class="nn">..exceptions</span> <span class="kn">import</span> <span class="n">IllegalOperation</span><span class="p">,</span> <span class="n">ValidationException</span>
 <span class="kn">from</span> <span class="nn">.mapping</span> <span class="kn">import</span> <span class="n">Mapping</span>
 <span class="kn">from</span> <span class="nn">.search</span> <span class="kn">import</span> <span class="n">Search</span>
 <span class="kn">from</span> <span class="nn">.update_by_query</span> <span class="kn">import</span> <span class="n">UpdateByQuery</span>
@@ -409,9 +409,18 @@
         <span class="n">body</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
         <span class="n">settings</span> <span class="o">=</span> <span class="n">body</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;settings&quot;</span><span class="p">,</span> <span class="p">{})</span>
         <span class="n">analysis</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;analysis&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-        <span class="n">current_settings</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_settings</span><span class="p">(</span><span class="n">using</span><span class="o">=</span><span class="n">using</span><span class="p">)[</span><span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">][</span><span class="s2">&quot;settings&quot;</span><span class="p">][</span>
-            <span class="s2">&quot;index&quot;</span>
-        <span class="p">]</span>
+
+        <span class="c1"># If _name points to an alias, the response object will contain keys with</span>
+        <span class="c1"># the index name(s) the alias points to. If the alias points to multiple</span>
+        <span class="c1"># indices, raise exception as the intention is ambiguous</span>
+        <span class="n">settings_response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_settings</span><span class="p">(</span><span class="n">using</span><span class="o">=</span><span class="n">using</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">settings_response</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ValidationException</span><span class="p">(</span>
+                <span class="s2">&quot;Settings for </span><span class="si">%s</span><span class="s2"> point to multiple indices: </span><span class="si">%s</span><span class="s2">.&quot;</span>
+                <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">,</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">settings_response</span><span class="o">.</span><span class="n">keys</span><span class="p">())))</span>
+            <span class="p">)</span>
+        <span class="n">current_settings</span> <span class="o">=</span> <span class="n">settings_response</span><span class="o">.</span><span class="n">popitem</span><span class="p">()[</span><span class="mi">1</span><span class="p">][</span><span class="s2">&quot;settings&quot;</span><span class="p">][</span><span class="s2">&quot;index&quot;</span><span class="p">]</span>
+
         <span class="k">if</span> <span class="n">analysis</span><span class="p">:</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_closed</span><span class="p">(</span><span class="n">using</span><span class="o">=</span><span class="n">using</span><span class="p">):</span>
                 <span class="c1"># closed index, update away</span>
