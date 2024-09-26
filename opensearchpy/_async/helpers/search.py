@@ -8,7 +8,7 @@
 # GitHub history for details.
 
 import copy
-from typing import Any, Sequence
+from typing import Any, Dict, Sequence, cast
 
 from opensearchpy._async.helpers.actions import aiter, async_scan
 from opensearchpy.connection.async_connections import get_connection
@@ -39,6 +39,7 @@ class AsyncSearch(Request):
 
         self.aggs = AggsProxy(self)
         self._sort: Sequence[Any] = []
+        self._collapse: Dict[str, Any] = {}
         self._source: Any = None
         self._highlight: Any = {}
         self._highlight_opts: Any = {}
@@ -111,13 +112,13 @@ class AsyncSearch(Request):
         s.update_from_dict(d)
         return s
 
-    def _clone(self) -> Any:
+    def _clone(self) -> "AsyncSearch":
         """
         Return a clone of the current search request. Performs a shallow copy
         of all the underlying objects. Used internally by most state modifying
         APIs.
         """
-        s = super()._clone()
+        s = cast(AsyncSearch, super()._clone())
 
         s._response_class = self._response_class
         s._sort = self._sort[:]
@@ -126,6 +127,7 @@ class AsyncSearch(Request):
         s._highlight_opts = self._highlight_opts.copy()
         s._suggest = self._suggest.copy()
         s._script_fields = self._script_fields.copy()
+        s._collapse = self._collapse.copy()
         for x in ("query", "post_filter"):
             getattr(s, x)._proxied = getattr(self, x)._proxied
 
@@ -281,6 +283,34 @@ class AsyncSearch(Request):
             s._sort.append(k)
         return s
 
+    def collapse(
+        self,
+        field: Any = None,
+        inner_hits: Any = None,
+        max_concurrent_group_searches: Any = None,
+    ) -> "AsyncSearch":
+        """
+        Add collapsing information to the search request.
+
+        If called without providing ``field``, it will remove all collapse
+        requirements, otherwise it will replace them with the provided
+        arguments.
+
+        The API returns a copy of the AsyncSearch object and can thus be chained.
+        """
+        s = self._clone()
+        s._collapse = {}
+
+        if field is None:
+            return s
+
+        s._collapse["field"] = field
+        if inner_hits:
+            s._collapse["inner_hits"] = inner_hits
+        if max_concurrent_group_searches:
+            s._collapse["max_concurrent_group_searches"] = max_concurrent_group_searches
+        return s
+
     def highlight_options(self, **kwargs: Any) -> Any:
         """
         Update the global highlighting options used for this request. For
@@ -375,6 +405,9 @@ class AsyncSearch(Request):
 
             if self._sort:
                 d["sort"] = self._sort
+
+            if self._collapse:
+                d["collapse"] = self._collapse
 
             d.update(recursive_to_dict(self._extra))
 

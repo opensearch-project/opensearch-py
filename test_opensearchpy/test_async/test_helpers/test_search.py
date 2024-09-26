@@ -240,6 +240,40 @@ async def test_sort_by_score() -> None:
         s.sort("-_score")
 
 
+def test_collapse() -> None:
+    s = search.AsyncSearch()
+
+    inner_hits = {"name": "most_recent", "size": 5, "sort": [{"@timestamp": "desc"}]}
+    s = s.collapse(
+        field="user.id", inner_hits=inner_hits, max_concurrent_group_searches=4
+    )
+
+    assert {
+        "field": "user.id",
+        "inner_hits": {
+            "name": "most_recent",
+            "size": 5,
+            "sort": [{"@timestamp": "desc"}],
+        },
+        "max_concurrent_group_searches": 4,
+    } == s._collapse
+    assert {
+        "collapse": {
+            "field": "user.id",
+            "inner_hits": {
+                "name": "most_recent",
+                "size": 5,
+                "sort": [{"@timestamp": "desc"}],
+            },
+            "max_concurrent_group_searches": 4,
+        }
+    } == s.to_dict()
+
+    s = s.collapse()
+    assert {} == s._collapse
+    assert search.AsyncSearch().to_dict() == s.to_dict()
+
+
 async def test_slice() -> None:
     s = search.AsyncSearch()
     assert {"from": 3, "size": 7} == s[3:10].to_dict()
@@ -546,3 +580,19 @@ async def test_rescore_query_to_dict() -> None:
             },
         },
     }
+
+
+def test_collapse_chaining() -> None:
+    s = search.AsyncSearch(index="index_name")
+    s = s.filter("term", color="red")
+    s = s.collapse(field="category")
+    s = s.filter("term", brand="something")
+
+    assert {
+        "query": {
+            "bool": {
+                "filter": [{"term": {"color": "red"}}, {"term": {"brand": "something"}}]
+            }
+        },
+        "collapse": {"field": "category"},
+    } == s.to_dict()
