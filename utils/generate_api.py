@@ -704,6 +704,10 @@ def read_modules() -> Any:
             namespace = "__init__"
             name = key
 
+        # FIXME: we have a hard-coded index_management that needs to be deprecated in favor of the auto-generated one
+        if namespace == "ism":
+            continue
+
         # Group the data in the current group by the "path" key
         paths = []
         all_paths_have_deprecation = True

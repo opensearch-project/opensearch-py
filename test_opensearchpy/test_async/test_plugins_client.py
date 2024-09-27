@@ -8,6 +8,7 @@
 # GitHub history for details.
 
 
+import re
 import warnings
 
 import pytest
@@ -24,8 +25,7 @@ class TestPluginsClient:
             client = AsyncOpenSearch()
             # testing double-init here
             client.plugins.__init__(client)  # type: ignore # pylint: disable=unnecessary-dunder-call
-            assert (
-                str(w[0].message)
-                == "Cannot load `alerting` directly to AsyncOpenSearch as it already exists. Use "
-                "`AsyncOpenSearch.plugin.alerting` instead."
+            assert re.match(
+                r"Cannot load `\w+` directly to AsyncOpenSearch as it already exists. Use `AsyncOpenSearch.plugin.\w+` instead.",
+                str(w[0].message),
             )
