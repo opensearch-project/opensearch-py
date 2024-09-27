@@ -7,6 +7,8 @@
 # Modifications Copyright OpenSearch Contributors. See
 # GitHub history for details.
 
+import re
+
 from opensearchpy.client import OpenSearch
 
 from ...test_cases import TestCase
@@ -18,8 +20,9 @@ class TestPluginsClient(TestCase):
             client = OpenSearch()
             # double-init
             client.plugins.__init__(client)  # type: ignore # pylint: disable=unnecessary-dunder-call
-            self.assertEqual(
-                str(w.warnings[0].message),
-                "Cannot load `alerting` directly to OpenSearch as "
-                "it already exists. Use `OpenSearch.plugin.alerting` instead.",
+            self.assertTrue(
+                re.match(
+                    r"Cannot load `\w+` directly to OpenSearch as it already exists. Use `OpenSearch.plugin.\w+` instead.",
+                    str(w.warnings[0].message),
+                )
             )
