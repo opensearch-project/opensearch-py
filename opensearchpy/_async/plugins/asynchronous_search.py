@@ -21,19 +21,18 @@ from typing import Any
 from ..client.utils import SKIP_IN_PATH, NamespacedClient, _make_path, query_params
 
 
-class RollupsClient(NamespacedClient):
+class AsynchronousSearchClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
-    def delete(
+    async def delete(
         self,
         id: Any,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
         """
-        Delete index rollup.
+        Delete asynchronous search.
 
 
-        :arg id: Rollup to access
         :arg error_trace: Whether to include the stack trace of returned
             errors.
         :arg filter_path: Used to reduce the response. This parameter
@@ -50,25 +49,24 @@ class RollupsClient(NamespacedClient):
         if id in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'id'.")
 
-        return self.transport.perform_request(
+        return await self.transport.perform_request(
             "DELETE",
-            _make_path("_plugins", "_rollup", "jobs", id),
+            _make_path("_plugins", "_asynchronous_search", id),
             params=params,
             headers=headers,
         )
 
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
-    def explain(
+    async def get(
         self,
         id: Any,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
         """
-        Get a rollup's current status.
+        Get partial responses from asynchronous search.
 
 
-        :arg id: Rollup to access
         :arg error_trace: Whether to include the stack trace of returned
             errors.
         :arg filter_path: Used to reduce the response. This parameter
@@ -85,44 +83,9 @@ class RollupsClient(NamespacedClient):
         if id in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'id'.")
 
-        return self.transport.perform_request(
+        return await self.transport.perform_request(
             "GET",
-            _make_path("_plugins", "_rollup", "jobs", id, "_explain"),
-            params=params,
-            headers=headers,
-        )
-
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
-    def get(
-        self,
-        id: Any,
-        params: Any = None,
-        headers: Any = None,
-    ) -> Any:
-        """
-        Get an index rollup.
-
-
-        :arg id: Rollup to access
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Used to reduce the response. This parameter
-            takes a comma-separated list of filters. It supports using wildcards to
-            match any field or part of a field’s name. You can also exclude fields
-            with "-".
-        :arg human: Whether to return human readable values for
-            statistics.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
-        """
-        if id in SKIP_IN_PATH:
-            raise ValueError("Empty value passed for a required argument 'id'.")
-
-        return self.transport.perform_request(
-            "GET",
-            _make_path("_plugins", "_rollup", "jobs", id),
+            _make_path("_plugins", "_asynchronous_search", id),
             params=params,
             headers=headers,
         )
@@ -131,23 +94,23 @@ class RollupsClient(NamespacedClient):
         "error_trace",
         "filter_path",
         "human",
-        "if_primary_term",
-        "if_seq_no",
+        "index",
+        "keep_alive",
+        "keep_on_completion",
         "pretty",
         "source",
+        "wait_for_completion_timeout",
     )
-    def put(
+    async def search(
         self,
-        id: Any,
         body: Any = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
         """
-        Create or update index rollup.
+        Perform an asynchronous search.
 
 
-        :arg id: Rollup to access
         :arg error_trace: Whether to include the stack trace of returned
             errors.
         :arg filter_path: Used to reduce the response. This parameter
@@ -156,38 +119,37 @@ class RollupsClient(NamespacedClient):
             with "-".
         :arg human: Whether to return human readable values for
             statistics.
-        :arg if_primary_term: Only perform the operation if the document
-            has this primary term.
-        :arg if_seq_no: Only perform the operation if the document has
-            this sequence number.
+        :arg index: The name of the index to be searched.
+        :arg keep_alive: The amount of time that the result is saved in
+            the cluster.
+        :arg keep_on_completion: Whether you want to save the results in
+            the cluster after the search is complete.
         :arg pretty: Whether to pretty format the returned JSON
             response.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
+        :arg wait_for_completion_timeout: The amount of time that you
+            plan to wait for the results.
         """
-        if id in SKIP_IN_PATH:
-            raise ValueError("Empty value passed for a required argument 'id'.")
-
-        return self.transport.perform_request(
-            "PUT",
-            _make_path("_plugins", "_rollup", "jobs", id),
+        return await self.transport.perform_request(
+            "POST",
+            "/_plugins/_asynchronous_search",
             params=params,
             headers=headers,
             body=body,
         )
 
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
-    def start(
+    async def stats(
         self,
-        id: Any,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
         """
-        Start rollup.
+        Monitoring of asynchronous searches that are running, completed, and/or
+        persisted.
 
 
-        :arg id: Rollup to access
         :arg error_trace: Whether to include the stack trace of returned
             errors.
         :arg filter_path: Used to reduce the response. This parameter
@@ -201,47 +163,9 @@ class RollupsClient(NamespacedClient):
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         """
-        if id in SKIP_IN_PATH:
-            raise ValueError("Empty value passed for a required argument 'id'.")
-
-        return self.transport.perform_request(
-            "POST",
-            _make_path("_plugins", "_rollup", "jobs", id, "_start"),
-            params=params,
-            headers=headers,
-        )
-
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
-    def stop(
-        self,
-        id: Any,
-        params: Any = None,
-        headers: Any = None,
-    ) -> Any:
-        """
-        Stop rollup.
-
-
-        :arg id: Rollup to access
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Used to reduce the response. This parameter
-            takes a comma-separated list of filters. It supports using wildcards to
-            match any field or part of a field’s name. You can also exclude fields
-            with "-".
-        :arg human: Whether to return human readable values for
-            statistics.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
-        """
-        if id in SKIP_IN_PATH:
-            raise ValueError("Empty value passed for a required argument 'id'.")
-
-        return self.transport.perform_request(
-            "POST",
-            _make_path("_plugins", "_rollup", "jobs", id, "_stop"),
+        return await self.transport.perform_request(
+            "GET",
+            "/_plugins/_asynchronous_search/stats",
             params=params,
             headers=headers,
         )
