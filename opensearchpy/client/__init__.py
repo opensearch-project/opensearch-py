@@ -268,8 +268,10 @@ class OpenSearch(Client):
 
         :arg error_trace: Whether to include the stack trace of returned
             errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
             statistics.
         :arg pretty: Whether to pretty format the returned JSON
@@ -296,8 +298,10 @@ class OpenSearch(Client):
 
         :arg error_trace: Whether to include the stack trace of returned
             errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
             statistics.
         :arg pretty: Whether to pretty format the returned JSON
@@ -345,8 +349,10 @@ class OpenSearch(Client):
         :arg body: The document
         :arg error_trace: Whether to include the stack trace of returned
             errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
             statistics.
         :arg pipeline: ID of the pipeline to use to preprocess incoming
@@ -423,8 +429,10 @@ class OpenSearch(Client):
         :arg id: Unique identifier for the document.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
             statistics.
         :arg if_primary_term: Only perform the operation if the document
@@ -519,8 +527,10 @@ class OpenSearch(Client):
             to include in the response.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
             statistics.
         :arg pipeline: ID of the pipeline to use to preprocess incoming
@@ -578,8 +588,10 @@ class OpenSearch(Client):
             clear all scroll IDs, use `_all`.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
             statistics.
         :arg pretty: Whether to pretty format the returned JSON
@@ -656,10 +668,11 @@ class OpenSearch(Client):
         :arg expand_wildcards: Type of index that wildcard patterns can
             match. If the request can target data streams, this argument determines
             whether wildcard expressions match hidden data streams. Supports comma-
-            separated values, such as `open,hidden`. Valid choices are all, closed,
-            hidden, none, open.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+            separated values, such as `open,hidden`.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
             statistics.
         :arg ignore_throttled: If `true`, concrete, expanded or aliased
@@ -721,8 +734,10 @@ class OpenSearch(Client):
         :arg id: Unique identifier for the document.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
             statistics.
         :arg if_primary_term: Only perform the operation if the document
@@ -842,8 +857,10 @@ class OpenSearch(Client):
             whether wildcard expressions match hidden data streams. Supports comma-
             separated values, such as `open,hidden`. Valid values are: `all`,
             `open`, `closed`, `hidden`, `none`.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg from_: Starting offset. Default is 0.
         :arg human: Whether to return human readable values for
             statistics.
@@ -933,8 +950,10 @@ class OpenSearch(Client):
         :arg task_id: The ID for the task.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
             statistics.
         :arg pretty: Whether to pretty format the returned JSON
@@ -979,8 +998,10 @@ class OpenSearch(Client):
             to cluster-manager node.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
             statistics.
         :arg master_timeout (Deprecated: To promote inclusive language,
@@ -1041,8 +1062,10 @@ class OpenSearch(Client):
             to include in the response.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
             statistics.
         :arg preference: Specifies the node or shard the operation
@@ -1113,8 +1136,10 @@ class OpenSearch(Client):
             to include in the response.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
             statistics.
         :arg preference: Specifies the node or shard the operation
@@ -1197,8 +1222,10 @@ class OpenSearch(Client):
             in the query string. Default is _all.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
             statistics.
         :arg lenient: If `true`, format-based query failures (such as
@@ -1264,12 +1291,13 @@ class OpenSearch(Client):
         :arg expand_wildcards: Type of index that wildcard patterns can
             match. If the request can target data streams, this argument determines
             whether wildcard expressions match hidden data streams. Supports comma-
-            separated values, such as `open,hidden`. Valid choices are all, closed,
-            hidden, none, open.
+            separated values, such as `open,hidden`.
         :arg fields: Comma-separated list of fields to retrieve
             capabilities for. Wildcard (`*`) expressions are supported.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
             statistics.
         :arg ignore_unavailable: If `true`, missing or closed indices
@@ -1327,8 +1355,10 @@ class OpenSearch(Client):
             to include in the response.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
             statistics.
         :arg preference: Specifies the node or shard the operation
@@ -1385,8 +1415,10 @@ class OpenSearch(Client):
             to cluster-manager node.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
             statistics.
         :arg master_timeout (Deprecated: To promote inclusive language,
@@ -1441,8 +1473,10 @@ class OpenSearch(Client):
             to include in the response.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
             statistics.
         :arg preference: Specifies the node or shard the operation
@@ -1517,8 +1551,10 @@ class OpenSearch(Client):
             is `false`, this parameter is ignored.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
             statistics.
         :arg preference: Specifies the node or shard the operation
@@ -1581,8 +1617,10 @@ class OpenSearch(Client):
             cross-cluster search requests. Default is True.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
             statistics.
         :arg max_concurrent_searches: Maximum number of concurrent
@@ -1654,8 +1692,10 @@ class OpenSearch(Client):
             minimized for cross-cluster search requests. Default is True.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
             statistics.
         :arg max_concurrent_searches: Maximum number of concurrent
@@ -1728,8 +1768,10 @@ class OpenSearch(Client):
             fields to include in the statistics. Used as the default list unless a
             specific field list is provided in the `completion_fields` or
             `fielddata_fields` parameters.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
             statistics.
         :arg ids: A comma-separated list of documents ids. You must
@@ -1795,8 +1837,10 @@ class OpenSearch(Client):
             to cluster-manager node.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
             statistics.
         :arg master_timeout (Deprecated: To promote inclusive language,
@@ -1861,17 +1905,19 @@ class OpenSearch(Client):
         :arg error_trace: Whether to include the stack trace of returned
             errors.
         :arg expand_wildcards: Whether to expand wildcard expression to
-            concrete indices that are open, closed or both. Valid choices are all,
-            closed, hidden, none, open.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+            concrete indices that are open, closed or both.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
             statistics.
         :arg ignore_unavailable: If `true`, missing or closed indices
             are not included in the response.
         :arg pretty: Whether to pretty format the returned JSON
             response.
-        :arg search_type: Search operation type
+        :arg search_type: Search operation type Valid choices are
+            dfs_query_then_fetch, query_then_fetch.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         """
@@ -1917,8 +1963,10 @@ class OpenSearch(Client):
             prototype for the index request.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
             statistics.
         :arg max_docs: Maximum number of documents to process. By
@@ -1968,8 +2016,10 @@ class OpenSearch(Client):
         :arg task_id: Identifier for the task.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
             statistics.
         :arg pretty: Whether to pretty format the returned JSON
@@ -2006,8 +2056,10 @@ class OpenSearch(Client):
             specified, this or the `id` request body parameter is required.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
             statistics.
         :arg pretty: Whether to pretty format the returned JSON
@@ -2037,8 +2089,10 @@ class OpenSearch(Client):
         :arg body: The script to execute
         :arg error_trace: Whether to include the stack trace of returned
             errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
             statistics.
         :arg pretty: Whether to pretty format the returned JSON
@@ -2079,8 +2133,10 @@ class OpenSearch(Client):
         :arg scroll_id: The scroll ID for scrolled search
         :arg error_trace: Whether to include the stack trace of returned
             errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
             statistics.
         :arg pretty: Whether to pretty format the returned JSON
@@ -2226,12 +2282,13 @@ class OpenSearch(Client):
         :arg expand_wildcards: Type of index that wildcard patterns can
             match. If the request can target data streams, this argument determines
             whether wildcard expressions match hidden data streams. Supports comma-
-            separated values, such as `open,hidden`. Valid choices are all, closed,
-            hidden, none, open.
+            separated values, such as `open,hidden`.
         :arg explain: If `true`, returns detailed information about
             score computation as part of a hit.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg from_: Starting document offset. Needs to be non-negative.
             By default, you cannot page through more than 10,000 hits using the
             `from` and `size` parameters. To page through more hits, use the
@@ -2408,8 +2465,10 @@ class OpenSearch(Client):
             whether wildcard expressions match hidden data streams. Supports comma-
             separated values, such as `open,hidden`. Valid values are: `all`,
             `open`, `closed`, `hidden`, `none`.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
             statistics.
         :arg ignore_unavailable: If `false`, the request returns an
@@ -2480,8 +2539,10 @@ class OpenSearch(Client):
             `open`, `closed`, `hidden`, `none`.
         :arg explain: If `true`, the response includes additional
             details about score computation as part of a hit.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
             statistics.
         :arg ignore_throttled: If `true`, specified concrete, expanded,
@@ -2561,8 +2622,10 @@ class OpenSearch(Client):
             fields to include in the statistics. Used as the default list unless a
             specific field list is provided in the `completion_fields` or
             `fielddata_fields` parameters.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
             statistics.
         :arg offsets: If `true`, the response includes term offsets.
@@ -2640,8 +2703,10 @@ class OpenSearch(Client):
             retrieve.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
             statistics.
         :arg if_primary_term: Only perform the operation if the document
@@ -2768,8 +2833,10 @@ class OpenSearch(Client):
             whether wildcard expressions match hidden data streams. Supports comma-
             separated values, such as `open,hidden`. Valid values are: `all`,
             `open`, `closed`, `hidden`, `none`.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg from_: Starting offset. Default is 0.
         :arg human: Whether to return human readable values for
             statistics.
@@ -2862,8 +2929,10 @@ class OpenSearch(Client):
         :arg task_id: The ID for the task.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
             statistics.
         :arg pretty: Whether to pretty format the returned JSON
@@ -2895,8 +2964,10 @@ class OpenSearch(Client):
 
         :arg error_trace: Whether to include the stack trace of returned
             errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
             statistics.
         :arg pretty: Whether to pretty format the returned JSON
@@ -2920,8 +2991,10 @@ class OpenSearch(Client):
 
         :arg error_trace: Whether to include the stack trace of returned
             errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
             statistics.
         :arg pretty: Whether to pretty format the returned JSON
@@ -2962,10 +3035,11 @@ class OpenSearch(Client):
         :arg error_trace: Whether to include the stack trace of returned
             errors.
         :arg expand_wildcards: Whether to expand wildcard expression to
-            concrete indices that are open, closed or both. Valid choices are all,
-            closed, hidden, none, open.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+            concrete indices that are open, closed or both.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
             statistics.
         :arg keep_alive: Specify the keep alive for point in time.
@@ -2999,8 +3073,10 @@ class OpenSearch(Client):
 
         :arg error_trace: Whether to include the stack trace of returned
             errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
             statistics.
         :arg pretty: Whether to pretty format the returned JSON
@@ -3026,8 +3102,10 @@ class OpenSearch(Client):
         :arg body: The point-in-time ids to be deleted
         :arg error_trace: Whether to include the stack trace of returned
             errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
             statistics.
         :arg pretty: Whether to pretty format the returned JSON
@@ -3055,8 +3133,10 @@ class OpenSearch(Client):
 
         :arg error_trace: Whether to include the stack trace of returned
             errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
             statistics.
         :arg pretty: Whether to pretty format the returned JSON
@@ -3066,4 +3146,94 @@ class OpenSearch(Client):
         """
         return self.transport.perform_request(
             "GET", "/_search/point_in_time/_all", params=params, headers=headers
+        )
+
+    @query_params(
+        "_source",
+        "_source_excludes",
+        "_source_includes",
+        "batch_interval",
+        "batch_size",
+        "error_trace",
+        "filter_path",
+        "human",
+        "pipeline",
+        "pretty",
+        "refresh",
+        "require_alias",
+        "routing",
+        "source",
+        "timeout",
+        "wait_for_active_shards",
+    )
+    def bulk_stream(
+        self,
+        body: Any,
+        index: Any = None,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Allows to perform multiple index/update/delete operations using request
+        response streaming.
+
+
+        :arg body: The operation definition and data (action-data
+            pairs), separated by newlines
+        :arg index: Name of the data stream, index, or index alias to
+            perform bulk actions on.
+        :arg _source: `true` or `false` to return the `_source` field or
+            not, or a list of fields to return.
+        :arg _source_excludes: A comma-separated list of source fields
+            to exclude from the response.
+        :arg _source_includes: A comma-separated list of source fields
+            to include in the response.
+        :arg batch_interval: Specifies for how long bulk operations
+            should be accumulated into a batch before sending the batch to data
+            nodes.
+        :arg batch_size: Specifies how many bulk operations should be
+            accumulated into a batch before sending the batch to data nodes.
+        :arg error_trace: Whether to include the stack trace of returned
+            errors.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
+        :arg human: Whether to return human readable values for
+            statistics.
+        :arg pipeline: ID of the pipeline to use to preprocess incoming
+            documents. If the index has a default ingest pipeline specified, then
+            setting the value to `_none` disables the default ingest pipeline for
+            this request. If a final pipeline is configured it will always run,
+            regardless of the value of this parameter.
+        :arg pretty: Whether to pretty format the returned JSON
+            response.
+        :arg refresh: If `true`, OpenSearch refreshes the affected
+            shards to make this operation visible to search, if `wait_for` then wait
+            for a refresh to make this operation visible to search, if `false` do
+            nothing with refreshes. Valid values: `true`, `false`, `wait_for`.
+        :arg require_alias: If `true`, the request's actions must target
+            an index alias. Default is false.
+        :arg routing: Custom value used to route operations to a
+            specific shard.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        :arg timeout: Period each action waits for the following
+            operations: automatic index creation, dynamic mapping updates, waiting
+            for active shards.
+        :arg wait_for_active_shards: The number of shard copies that
+            must be active before proceeding with the operation. Set to all or any
+            positive integer up to the total number of shards in the index
+            (`number_of_replicas+1`). Valid choices are all, index-setting.
+        """
+        if body in SKIP_IN_PATH:
+            raise ValueError("Empty value passed for a required argument 'body'.")
+
+        body = _bulk_body(self.transport.serializer, body)
+        return self.transport.perform_request(
+            "PUT",
+            _make_path(index, "_bulk", "stream"),
+            params=params,
+            headers=headers,
+            body=body,
         )
