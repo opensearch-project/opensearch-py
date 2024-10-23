@@ -24,7 +24,7 @@ OpenSearch(
 from opensearchpy import AsyncOpenSearch, AIOHttpConnection
 
 client = AsyncOpenSearch(
-    hosts=["htps://..."],
+    hosts=["https://..."],
     use_ssl=True,
     verify_certs=True,
     connection_class=AIOHttpConnection,
