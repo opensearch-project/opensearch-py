@@ -10,6 +10,7 @@
 
 
 import asyncio
+import inspect
 import os
 import ssl
 import warnings
@@ -196,10 +197,15 @@ class AsyncHttpConnection(AIOHttpConnection):
         auth = (
             self._http_auth if isinstance(self._http_auth, aiohttp.BasicAuth) else None
         )
+
         if callable(self._http_auth):
+            http_auth_result = self._http_auth(method, url, query_string, body)
+            if inspect.isawaitable(http_auth_result):
+                http_auth_result = await http_auth_result
+
             req_headers = {
                 **req_headers,
-                **self._http_auth(method, url, query_string, body),
+                **http_auth_result,
             }
 
         start = self.loop.time()

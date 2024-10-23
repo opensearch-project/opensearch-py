@@ -6,8 +6,14 @@
 #
 # Modifications Copyright OpenSearch Contributors. See
 # GitHub history for details.
+import inspect
+from typing import Dict, Optional, Union, TYPE_CHECKING
 
-from typing import Any, Dict, Optional, Union
+if TYPE_CHECKING:
+    from botocore.credentials import Credentials, RefreshableCredentials
+    from aiobotocore.credentials import AioCredentials, AioRefreshableCredentials
+
+    CredentialTypes = Credentials | RefreshableCredentials | AioCredentials | AioRefreshableCredentials
 
 
 class AWSV4SignerAsyncAuth:
@@ -15,7 +21,7 @@ class AWSV4SignerAsyncAuth:
     AWS V4 Request Signer for Async Requests.
     """
 
-    def __init__(self, credentials: Any, region: str, service: str = "es") -> None:
+    def __init__(self, credentials: 'CredentialTypes', region: str, service: str = "es") -> None:
         if not credentials:
             raise ValueError("Credentials cannot be empty")
         self.credentials = credentials
@@ -28,16 +34,16 @@ class AWSV4SignerAsyncAuth:
             raise ValueError("Service name cannot be empty")
         self.service = service
 
-    def __call__(
+    async def __call__(
         self,
         method: str,
         url: str,
         query_string: Optional[str] = None,
         body: Optional[Union[str, bytes]] = None,
     ) -> Dict[str, str]:
-        return self._sign_request(method, url, query_string, body)
+        return await self._sign_request(method, url, query_string, body)
 
-    def _sign_request(
+    async def _sign_request(
         self,
         method: str,
         url: str,
@@ -67,12 +73,15 @@ class AWSV4SignerAsyncAuth:
         # correspond to the secret_key used to sign the request. To avoid this,
         # get_frozen_credentials() which returns non-refreshing credentials is
         # called if it exists.
-        credentials = (
-            self.credentials.get_frozen_credentials()
-            if hasattr(self.credentials, "get_frozen_credentials")
-            and callable(self.credentials.get_frozen_credentials)
-            else self.credentials
-        )
+        if (
+                hasattr(self.credentials, "get_frozen_credentials")
+                and callable(self.credentials.get_frozen_credentials)
+        ):
+            credentials = self.credentials.get_frozen_credentials()
+            if inspect.isawaitable(credentials):
+                credentials = await credentials
+        else:
+            credentials = self.credentials
 
         sig_v4_auth = SigV4Auth(credentials, self.service, self.region)
         sig_v4_auth.add_auth(aws_request)
