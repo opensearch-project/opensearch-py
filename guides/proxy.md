@@ -10,9 +10,10 @@
 from opensearchpy import OpenSearch, RequestsHttpConnection
 
 OpenSearch(
-    hosts=["htps://..."],
+    hosts=["https://..."],
     use_ssl=True,
     verify_certs=True,
+    connection_class=RequestsHttpConnection,
     trust_env=True,
 )
 ```
