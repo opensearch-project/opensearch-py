@@ -36,8 +36,10 @@ class KnnClient(NamespacedClient):
         :arg model_id: The id of the model.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
             statistics.
         :arg pretty: Whether to pretty format the returned JSON
@@ -69,8 +71,10 @@ class KnnClient(NamespacedClient):
         :arg model_id: The id of the model.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
             statistics.
         :arg pretty: Whether to pretty format the returned JSON
@@ -179,12 +183,13 @@ class KnnClient(NamespacedClient):
         :arg error_trace: Whether to include the stack trace of returned
             errors.
         :arg expand_wildcards: Whether to expand wildcard expression to
-            concrete indices that are open, closed or both. Valid choices are all,
-            closed, hidden, none, open.
+            concrete indices that are open, closed or both.
         :arg explain: Specify whether to return detailed information
             about score computation as part of a hit.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg from_: Starting offset. Default is 0.
         :arg human: Whether to return human readable values for
             statistics.
@@ -281,8 +286,10 @@ class KnnClient(NamespacedClient):
             or empty string to retrieve all stats.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
             statistics.
         :arg pretty: Whether to pretty format the returned JSON
@@ -316,8 +323,10 @@ class KnnClient(NamespacedClient):
         :arg model_id: The id of the model.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
             statistics.
         :arg preference: Preferred node to execute training.
@@ -353,8 +362,10 @@ class KnnClient(NamespacedClient):
             string to perform the operation on all indices.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
             statistics.
         :arg pretty: Whether to pretty format the returned JSON

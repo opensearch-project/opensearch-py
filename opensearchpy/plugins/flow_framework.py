@@ -21,19 +21,65 @@ from typing import Any
 from ..client.utils import SKIP_IN_PATH, NamespacedClient, _make_path, query_params
 
 
-class TransformsClient(NamespacedClient):
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
-    def delete(
+class FlowFrameworkClient(NamespacedClient):
+    @query_params(
+        "error_trace",
+        "filter_path",
+        "human",
+        "pretty",
+        "provision",
+        "reprovision",
+        "source",
+        "update_fields",
+        "use_case",
+        "validation",
+    )
+    def create(
         self,
-        id: Any,
+        body: Any = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
         """
-        Delete an index transform.
+        Create a workflow.
 
 
-        :arg id: Transform to delete
+        :arg error_trace: Whether to include the stack trace of returned
+            errors.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
+        :arg human: Whether to return human readable values for
+            statistics.
+        :arg pretty: Whether to pretty format the returned JSON
+            response.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        :arg use_case: To use a workflow template, specify it in the
+            use_case query parameter when creating a workflow.
+        """
+        return self.transport.perform_request(
+            "POST",
+            "/_plugins/_flow_framework/workflow",
+            params=params,
+            headers=headers,
+            body=body,
+        )
+
+    @query_params(
+        "clear_status", "error_trace", "filter_path", "human", "pretty", "source"
+    )
+    def delete(
+        self,
+        workflow_id: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Delete a workflow.
+
+
         :arg error_trace: Whether to include the stack trace of returned
             errors.
         :arg filter_path: Used to reduce the response. This parameter
@@ -47,28 +93,31 @@ class TransformsClient(NamespacedClient):
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         """
-        if id in SKIP_IN_PATH:
-            raise ValueError("Empty value passed for a required argument 'id'.")
+        if workflow_id in SKIP_IN_PATH:
+            raise ValueError(
+                "Empty value passed for a required argument 'workflow_id'."
+            )
 
         return self.transport.perform_request(
             "DELETE",
-            _make_path("_plugins", "_transform", id),
+            _make_path("_plugins", "_flow_framework", "workflow", workflow_id),
             params=params,
             headers=headers,
         )
 
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
-    def explain(
+    @query_params(
+        "allow_delete", "error_trace", "filter_path", "human", "pretty", "source"
+    )
+    def deprovision(
         self,
-        id: Any,
+        workflow_id: Any,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
         """
-        Returns the status and metadata of a transform job.
+        Deprovision workflow's resources when you no longer need it.
 
 
-        :arg id: Transform to explain
         :arg error_trace: Whether to include the stack trace of returned
             errors.
         :arg filter_path: Used to reduce the response. This parameter
@@ -82,12 +131,16 @@ class TransformsClient(NamespacedClient):
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         """
-        if id in SKIP_IN_PATH:
-            raise ValueError("Empty value passed for a required argument 'id'.")
+        if workflow_id in SKIP_IN_PATH:
+            raise ValueError(
+                "Empty value passed for a required argument 'workflow_id'."
+            )
 
         return self.transport.perform_request(
-            "GET",
-            _make_path("_plugins", "_transform", id, "_explain"),
+            "POST",
+            _make_path(
+                "_plugins", "_flow_framework", "workflow", workflow_id, "_deprovision"
+            ),
             params=params,
             headers=headers,
         )
@@ -95,15 +148,14 @@ class TransformsClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def get(
         self,
-        id: Any,
+        workflow_id: Any,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
         """
-        Returns the status and metadata of a transform job.
+        Get a workflow.
 
 
-        :arg id: Transform to access
         :arg error_trace: Whether to include the stack trace of returned
             errors.
         :arg filter_path: Used to reduce the response. This parameter
@@ -117,25 +169,68 @@ class TransformsClient(NamespacedClient):
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         """
-        if id in SKIP_IN_PATH:
-            raise ValueError("Empty value passed for a required argument 'id'.")
+        if workflow_id in SKIP_IN_PATH:
+            raise ValueError(
+                "Empty value passed for a required argument 'workflow_id'."
+            )
 
         return self.transport.perform_request(
             "GET",
-            _make_path("_plugins", "_transform", id),
+            _make_path("_plugins", "_flow_framework", "workflow", workflow_id),
             params=params,
             headers=headers,
         )
 
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
-    def preview(
+    @query_params("all", "error_trace", "filter_path", "human", "pretty", "source")
+    def get_status(
         self,
-        body: Any = None,
+        workflow_id: Any,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
         """
-        Returns a preview of what a transformed index would look like.
+        Get the provisioning deployment status until it is complete.
+
+
+        :arg all: The all parameter specifies whether the response
+            should return all fields. Default is false.
+        :arg error_trace: Whether to include the stack trace of returned
+            errors.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
+        :arg human: Whether to return human readable values for
+            statistics.
+        :arg pretty: Whether to pretty format the returned JSON
+            response.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        """
+        if workflow_id in SKIP_IN_PATH:
+            raise ValueError(
+                "Empty value passed for a required argument 'workflow_id'."
+            )
+
+        return self.transport.perform_request(
+            "GET",
+            _make_path(
+                "_plugins", "_flow_framework", "workflow", workflow_id, "_status"
+            ),
+            params=params,
+            headers=headers,
+        )
+
+    @query_params(
+        "error_trace", "filter_path", "human", "pretty", "source", "workflow_step"
+    )
+    def get_steps(
+        self,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Get a list of workflow steps.
 
 
         :arg error_trace: Whether to include the stack trace of returned
@@ -152,8 +247,118 @@ class TransformsClient(NamespacedClient):
             libraries that do not accept a request body for non-POST requests.
         """
         return self.transport.perform_request(
+            "GET",
+            "/_plugins/_flow_framework/workflow/_steps",
+            params=params,
+            headers=headers,
+        )
+
+    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    def provision(
+        self,
+        workflow_id: Any,
+        body: Any = None,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Provisioning a workflow. This API is also executed when the Create or Update
+        Workflow API is called with the provision parameter set to true.
+
+
+        :arg error_trace: Whether to include the stack trace of returned
+            errors.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
+        :arg human: Whether to return human readable values for
+            statistics.
+        :arg pretty: Whether to pretty format the returned JSON
+            response.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        """
+        if workflow_id in SKIP_IN_PATH:
+            raise ValueError(
+                "Empty value passed for a required argument 'workflow_id'."
+            )
+
+        return self.transport.perform_request(
             "POST",
-            "/_plugins/_transform/_preview",
+            _make_path(
+                "_plugins", "_flow_framework", "workflow", workflow_id, "_provision"
+            ),
+            params=params,
+            headers=headers,
+            body=body,
+        )
+
+    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    def search(
+        self,
+        body: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Search for workflows by using a query matching a field.
+
+
+        :arg error_trace: Whether to include the stack trace of returned
+            errors.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
+        :arg human: Whether to return human readable values for
+            statistics.
+        :arg pretty: Whether to pretty format the returned JSON
+            response.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        """
+        if body in SKIP_IN_PATH:
+            raise ValueError("Empty value passed for a required argument 'body'.")
+
+        return self.transport.perform_request(
+            "POST",
+            "/_plugins/_flow_framework/workflow/_search",
+            params=params,
+            headers=headers,
+            body=body,
+        )
+
+    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    def search_state(
+        self,
+        body: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Search for workflows by using a query matching a field.
+
+
+        :arg error_trace: Whether to include the stack trace of returned
+            errors.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
+        :arg human: Whether to return human readable values for
+            statistics.
+        :arg pretty: Whether to pretty format the returned JSON
+            response.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        """
+        if body in SKIP_IN_PATH:
+            raise ValueError("Empty value passed for a required argument 'body'.")
+
+        return self.transport.perform_request(
+            "POST",
+            "/_plugins/_flow_framework/workflow/state/_search",
             params=params,
             headers=headers,
             body=body,
@@ -163,24 +368,26 @@ class TransformsClient(NamespacedClient):
         "error_trace",
         "filter_path",
         "human",
-        "if_primary_term",
-        "if_seq_no",
         "pretty",
+        "provision",
+        "reprovision",
         "source",
+        "update_fields",
+        "use_case",
+        "validation",
     )
-    def put(
+    def update(
         self,
-        id: Any,
+        workflow_id: Any,
         body: Any = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
         """
-        Create an index transform, or update a transform if if_seq_no and
-        if_primary_term are provided.
+        Update a workflow. You can only update a complete workflow if it has not yet
+        been provisioned.
 
 
-        :arg id: Transform to create/update
         :arg error_trace: Whether to include the stack trace of returned
             errors.
         :arg filter_path: Used to reduce the response. This parameter
@@ -189,141 +396,22 @@ class TransformsClient(NamespacedClient):
             with "-".
         :arg human: Whether to return human readable values for
             statistics.
-        :arg if_primary_term: Only perform the operation if the document
-            has this primary term.
-        :arg if_seq_no: Only perform the operation if the document has
-            this sequence number.
         :arg pretty: Whether to pretty format the returned JSON
             response.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
+        :arg use_case: To use a workflow template, specify it in the
+            use_case query parameter when creating a workflow.
         """
-        if id in SKIP_IN_PATH:
-            raise ValueError("Empty value passed for a required argument 'id'.")
+        if workflow_id in SKIP_IN_PATH:
+            raise ValueError(
+                "Empty value passed for a required argument 'workflow_id'."
+            )
 
         return self.transport.perform_request(
             "PUT",
-            _make_path("_plugins", "_transform", id),
+            _make_path("_plugins", "_flow_framework", "workflow", workflow_id),
             params=params,
             headers=headers,
             body=body,
-        )
-
-    @query_params(
-        "error_trace",
-        "filter_path",
-        "from_",
-        "human",
-        "pretty",
-        "search",
-        "size",
-        "sortDirection",
-        "sortField",
-        "source",
-    )
-    def search(
-        self,
-        params: Any = None,
-        headers: Any = None,
-    ) -> Any:
-        """
-        Returns the details of all transform jobs.
-
-
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Used to reduce the response. This parameter
-            takes a comma-separated list of filters. It supports using wildcards to
-            match any field or part of a field’s name. You can also exclude fields
-            with "-".
-        :arg from_: The starting transform to return. Default is `0`.
-        :arg human: Whether to return human readable values for
-            statistics.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg search: The search term to use to filter results.
-        :arg size: Specifies the number of transforms to return. Default
-            is `10`.
-        :arg sortDirection: Specifies the direction to sort results in.
-            Can be `ASC` or `DESC`. Default is `ASC`.
-        :arg sortField: The field to sort results with.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
-        """
-        # from is a reserved word so it cannot be used, use from_ instead
-        if "from_" in params:
-            params["from"] = params.pop("from_")
-
-        return self.transport.perform_request(
-            "GET", "/_plugins/_transform", params=params, headers=headers
-        )
-
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
-    def start(
-        self,
-        id: Any,
-        params: Any = None,
-        headers: Any = None,
-    ) -> Any:
-        """
-        Start transform.
-
-
-        :arg id: Transform to start
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Used to reduce the response. This parameter
-            takes a comma-separated list of filters. It supports using wildcards to
-            match any field or part of a field’s name. You can also exclude fields
-            with "-".
-        :arg human: Whether to return human readable values for
-            statistics.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
-        """
-        if id in SKIP_IN_PATH:
-            raise ValueError("Empty value passed for a required argument 'id'.")
-
-        return self.transport.perform_request(
-            "POST",
-            _make_path("_plugins", "_transform", id, "_start"),
-            params=params,
-            headers=headers,
-        )
-
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
-    def stop(
-        self,
-        id: Any,
-        params: Any = None,
-        headers: Any = None,
-    ) -> Any:
-        """
-        Stop transform.
-
-
-        :arg id: Transform to stop
-        :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Used to reduce the response. This parameter
-            takes a comma-separated list of filters. It supports using wildcards to
-            match any field or part of a field’s name. You can also exclude fields
-            with "-".
-        :arg human: Whether to return human readable values for
-            statistics.
-        :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
-        """
-        if id in SKIP_IN_PATH:
-            raise ValueError("Empty value passed for a required argument 'id'.")
-
-        return self.transport.perform_request(
-            "POST",
-            _make_path("_plugins", "_transform", id, "_stop"),
-            params=params,
-            headers=headers,
         )

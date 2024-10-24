@@ -35,8 +35,10 @@ class NotificationsClient(NamespacedClient):
 
         :arg error_trace: Whether to include the stack trace of returned
             errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
             statistics.
         :arg pretty: Whether to pretty format the returned JSON
@@ -69,8 +71,10 @@ class NotificationsClient(NamespacedClient):
         :arg config_id: The ID of the channel configuration to delete.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
             statistics.
         :arg pretty: Whether to pretty format the returned JSON
@@ -111,8 +115,10 @@ class NotificationsClient(NamespacedClient):
             delete.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
             statistics.
         :arg pretty: Whether to pretty format the returned JSON
@@ -137,8 +143,10 @@ class NotificationsClient(NamespacedClient):
 
         :arg error_trace: Whether to include the stack trace of returned
             errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
             statistics.
         :arg pretty: Whether to pretty format the returned JSON
@@ -159,6 +167,8 @@ class NotificationsClient(NamespacedClient):
     @query_params(
         "chime.url",
         "chime.url.keyword",
+        "config_id",
+        "config_id_list",
         "config_type",
         "created_time_ms",
         "description",
@@ -211,13 +221,17 @@ class NotificationsClient(NamespacedClient):
         Get multiple channel configurations with filtering.
 
 
+        :arg config_id: Notification configuration ID.
+        :arg config_id_list: Notification configuration IDs.
         :arg config_type: Type of notification configuration. Valid
             choices are chime, email, email_group, microsoft_teams, ses_account,
             slack, smtp_account, sns, webhook.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
             statistics.
         :arg pretty: Whether to pretty format the returned JSON
@@ -245,8 +259,10 @@ class NotificationsClient(NamespacedClient):
 
         :arg error_trace: Whether to include the stack trace of returned
             errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
             statistics.
         :arg pretty: Whether to pretty format the returned JSON
@@ -271,8 +287,10 @@ class NotificationsClient(NamespacedClient):
 
         :arg error_trace: Whether to include the stack trace of returned
             errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
             statistics.
         :arg pretty: Whether to pretty format the returned JSON
@@ -304,8 +322,10 @@ class NotificationsClient(NamespacedClient):
 
         :arg error_trace: Whether to include the stack trace of returned
             errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
             statistics.
         :arg pretty: Whether to pretty format the returned JSON
@@ -337,8 +357,10 @@ class NotificationsClient(NamespacedClient):
 
         :arg error_trace: Whether to include the stack trace of returned
             errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
             statistics.
         :arg pretty: Whether to pretty format the returned JSON

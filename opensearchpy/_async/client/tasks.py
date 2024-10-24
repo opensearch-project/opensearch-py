@@ -70,8 +70,10 @@ class TasksClient(NamespacedClient):
             information about shard recoveries. Default is false.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg group_by: Key used to group tasks in the response. Valid
             choices are nodes, none, parents.
         :arg human: Whether to return human readable values for
@@ -123,8 +125,10 @@ class TasksClient(NamespacedClient):
             actions used to limit the request.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
             statistics.
         :arg nodes: Comma-separated list of node IDs or names used to
@@ -167,8 +171,10 @@ class TasksClient(NamespacedClient):
         :arg task_id: ID of the task.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
             statistics.
         :arg pretty: Whether to pretty format the returned JSON
