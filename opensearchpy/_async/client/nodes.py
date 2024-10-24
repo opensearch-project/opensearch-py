@@ -58,8 +58,10 @@ class NodesClient(NamespacedClient):
             target.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
             statistics.
         :arg pretty: Whether to pretty format the returned JSON
@@ -104,8 +106,10 @@ class NodesClient(NamespacedClient):
             metrics. Supports a comma-separated list, such as http,ingest.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg flat_settings: If true, returns settings in flat format.
             Default is false.
         :arg human: Whether to return human readable values for
@@ -164,8 +168,10 @@ class NodesClient(NamespacedClient):
             expressions of fields to include in fielddata statistics.
         :arg fields: Comma-separated list or wildcard expressions of
             fields to include in the statistics.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg groups: Comma-separated list of search groups to include in
             the search statistics.
         :arg human: Whether to return human readable values for
@@ -224,8 +230,10 @@ class NodesClient(NamespacedClient):
             wait.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
             statistics.
         :arg ignore_idle_threads: Don't show threads that are in known-
@@ -274,8 +282,10 @@ class NodesClient(NamespacedClient):
             `rest_actions`.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
             statistics.
         :arg pretty: Whether to pretty format the returned JSON

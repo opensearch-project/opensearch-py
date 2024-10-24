@@ -81,10 +81,11 @@ class ClusterClient(NamespacedClient):
         :arg error_trace: Whether to include the stack trace of returned
             errors.
         :arg expand_wildcards: Whether to expand wildcard expression to
-            concrete indices that are open, closed or both. Valid choices are all,
-            closed, hidden, none, open.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+            concrete indices that are open, closed or both.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
             statistics.
         :arg level: Can be one of cluster, indices or shards. Controls
@@ -159,8 +160,10 @@ class ClusterClient(NamespacedClient):
             to cluster-manager node.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
             statistics.
         :arg local: If `true`, the request retrieves information from
@@ -218,10 +221,11 @@ class ClusterClient(NamespacedClient):
         :arg error_trace: Whether to include the stack trace of returned
             errors.
         :arg expand_wildcards: Whether to expand wildcard expression to
-            concrete indices that are open, closed or both. Valid choices are all,
-            closed, hidden, none, open.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+            concrete indices that are open, closed or both.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg flat_settings: Return settings in flat format. Default is
             false.
         :arg human: Whether to return human readable values for
@@ -275,8 +279,10 @@ class ClusterClient(NamespacedClient):
             returned information. Defaults to all nodes in the cluster.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg flat_settings: If `true`, returns settings in flat format.
             Default is false.
         :arg human: Whether to return human readable values for
@@ -335,8 +341,10 @@ class ClusterClient(NamespacedClient):
             errors.
         :arg explain: If true, then the response contains an explanation
             of why the commands can or cannot be executed.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
             statistics.
         :arg master_timeout (Deprecated: To promote inclusive language,
@@ -384,8 +392,10 @@ class ClusterClient(NamespacedClient):
             to cluster-manager node.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg flat_settings: If `true`, returns settings in flat format.
             Default is false.
         :arg human: Whether to return human readable values for
@@ -435,8 +445,10 @@ class ClusterClient(NamespacedClient):
             to cluster-manager node.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg flat_settings: Return settings in flat format. Default is
             false.
         :arg human: Whether to return human readable values for
@@ -469,8 +481,10 @@ class ClusterClient(NamespacedClient):
 
         :arg error_trace: Whether to include the stack trace of returned
             errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
             statistics.
         :arg pretty: Whether to pretty format the returned JSON
@@ -505,8 +519,10 @@ class ClusterClient(NamespacedClient):
             means 'explain the first unassigned shard'
         :arg error_trace: Whether to include the stack trace of returned
             errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
             statistics.
         :arg include_disk_info: If true, returns information about disk
@@ -552,8 +568,10 @@ class ClusterClient(NamespacedClient):
             to cluster-manager node.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
             statistics.
         :arg master_timeout (Deprecated: To promote inclusive language,
@@ -604,8 +622,10 @@ class ClusterClient(NamespacedClient):
             to cluster-manager node.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
             statistics.
         :arg local: If `true`, the request retrieves information from
@@ -666,8 +686,10 @@ class ClusterClient(NamespacedClient):
             existing component templates. Default is false.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
             statistics.
         :arg master_timeout (Deprecated: To promote inclusive language,
@@ -718,8 +740,10 @@ class ClusterClient(NamespacedClient):
             to cluster-manager node.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
             statistics.
         :arg local: If true, the request retrieves information from the
@@ -758,8 +782,10 @@ class ClusterClient(NamespacedClient):
 
         :arg error_trace: Whether to include the stack trace of returned
             errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
             statistics.
         :arg pretty: Whether to pretty format the returned JSON
@@ -802,8 +828,10 @@ class ClusterClient(NamespacedClient):
 
         :arg error_trace: Whether to include the stack trace of returned
             errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
             statistics.
         :arg node_ids: A comma-separated list of the persistent ids of
@@ -838,8 +866,10 @@ class ClusterClient(NamespacedClient):
 
         :arg error_trace: Whether to include the stack trace of returned
             errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
             statistics.
         :arg pretty: Whether to pretty format the returned JSON
@@ -854,6 +884,7 @@ class ClusterClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def delete_weighted_routing(
         self,
+        body: Any = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -863,8 +894,10 @@ class ClusterClient(NamespacedClient):
 
         :arg error_trace: Whether to include the stack trace of returned
             errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
             statistics.
         :arg pretty: Whether to pretty format the returned JSON
@@ -877,6 +910,7 @@ class ClusterClient(NamespacedClient):
             "/_cluster/routing/awareness/weights",
             params=params,
             headers=headers,
+            body=body,
         )
 
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
@@ -893,8 +927,10 @@ class ClusterClient(NamespacedClient):
         :arg awareness_attribute_name: Awareness attribute name.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
             statistics.
         :arg pretty: Whether to pretty format the returned JSON
@@ -934,8 +970,10 @@ class ClusterClient(NamespacedClient):
         :arg attribute: Awareness attribute name.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
             statistics.
         :arg pretty: Whether to pretty format the returned JSON
@@ -969,8 +1007,10 @@ class ClusterClient(NamespacedClient):
         :arg awareness_attribute_value: Awareness attribute value.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
             statistics.
         :arg pretty: Whether to pretty format the returned JSON
@@ -999,6 +1039,7 @@ class ClusterClient(NamespacedClient):
     async def put_weighted_routing(
         self,
         attribute: Any,
+        body: Any = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -1009,8 +1050,10 @@ class ClusterClient(NamespacedClient):
         :arg attribute: Awareness attribute name.
         :arg error_trace: Whether to include the stack trace of returned
             errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
             statistics.
         :arg pretty: Whether to pretty format the returned JSON
@@ -1026,4 +1069,5 @@ class ClusterClient(NamespacedClient):
             _make_path("_cluster", "routing", "awareness", attribute, "weights"),
             params=params,
             headers=headers,
+            body=body,
         )
