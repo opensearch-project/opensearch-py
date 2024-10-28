@@ -8,6 +8,7 @@
 # GitHub history for details.
 
 from typing import Any, Dict, Optional, Union
+
 from ..compat import unquote
 
 
