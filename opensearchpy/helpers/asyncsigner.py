@@ -8,6 +8,7 @@
 # GitHub history for details.
 
 from typing import Any, Dict, Optional, Union
+from ..compat import unquote
 
 
 class AWSV4SignerAsyncAuth:
@@ -56,7 +57,7 @@ class AWSV4SignerAsyncAuth:
         # create an AWS request object and sign it using SigV4Auth
         aws_request = AWSRequest(
             method=method,
-            url=url,
+            url=unquote(url),
             data=body,
         )
 
