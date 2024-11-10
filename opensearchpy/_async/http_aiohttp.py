@@ -85,6 +85,7 @@ class AIOHttpConnection(AsyncConnection):
         client_cert: Any = None,
         client_key: Any = None,
         ssl_version: Any = None,
+        ssl_assert_hostname: bool = True,
         ssl_assert_fingerprint: Any = None,
         maxsize: Optional[int] = 10,
         headers: Any = None,
@@ -177,7 +178,7 @@ class AIOHttpConnection(AsyncConnection):
 
             if verify_certs:
                 ssl_context.verify_mode = ssl.CERT_REQUIRED
-                ssl_context.check_hostname = True
+                ssl_context.check_hostname = ssl_assert_hostname
             else:
                 ssl_context.check_hostname = False
                 ssl_context.verify_mode = ssl.CERT_NONE
