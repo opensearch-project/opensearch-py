@@ -4,6 +4,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ## [Unreleased]
 ### Added
 - Added `AsyncSearch#collapse` ([827](https://github.com/opensearch-project/opensearch-py/pull/827))
+- Support `pool_maxsize` in `AsyncOpenSearch` ([845](https://github.com/opensearch-project/opensearch-py/pull/845))
 ### Changed
 ### Deprecated
 ### Removed

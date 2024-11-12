@@ -74,6 +74,7 @@ class AsyncTransport(Transport):
         serializers: Any = None,
         default_mimetype: str = "application/json",
         max_retries: int = 3,
+        pool_maxsize: Optional[int] = None,
         retry_on_status: Any = (502, 503, 504),
         retry_on_timeout: bool = False,
         send_get_body_as: str = "GET",
@@ -102,6 +103,8 @@ class AsyncTransport(Transport):
         :arg default_mimetype: when no mimetype is specified by the server
             response assume this mimetype, defaults to `'application/json'`
         :arg max_retries: maximum number of retries before an exception is propagated
+        :arg pool_maxsize: Maximum connection pool size used by pool-manager
+            For custom connection-pooling on current session
         :arg retry_on_status: set of HTTP status codes on which we should retry
             on a different node. defaults to ``(502, 503, 504)``
         :arg retry_on_timeout: should timeout trigger a retry on different
@@ -134,6 +137,7 @@ class AsyncTransport(Transport):
             serializers=serializers,
             default_mimetype=default_mimetype,
             max_retries=max_retries,
+            pool_maxsize=pool_maxsize,
             retry_on_status=retry_on_status,
             retry_on_timeout=retry_on_timeout,
             send_get_body_as=send_get_body_as,

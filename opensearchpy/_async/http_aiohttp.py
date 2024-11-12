@@ -137,6 +137,7 @@ class AIOHttpConnection(AsyncConnection):
             url_prefix=url_prefix,
             timeout=timeout,
             use_ssl=use_ssl,
+            maxsize=maxsize,
             headers=headers,
             http_compress=http_compress,
             opaque_id=opaque_id,
@@ -218,6 +219,10 @@ class AIOHttpConnection(AsyncConnection):
         self.headers.setdefault("connection", "keep-alive")
         self.loop = loop
         self.session = None
+
+        # Align with Sync Interface
+        if "pool_maxsize" in kwargs:
+            maxsize = kwargs.pop("pool_maxsize")
 
         # Parameters for creating an aiohttp.ClientSession later.
         self._limit = maxsize

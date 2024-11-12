@@ -6,9 +6,8 @@
 #
 # Modifications Copyright OpenSearch Contributors. See
 # GitHub history for details.
-
+import asyncio
 import os
-import time
 from typing import Any
 from unittest import SkipTest
 
@@ -37,7 +36,7 @@ async def get_test_client(nowait: bool = False, **kwargs: Any) -> Any:
             await client.cluster.health(wait_for_status="yellow")
             return client
         except ConnectionError:
-            time.sleep(0.1)
+            await asyncio.sleep(0.1)
     else:
         # timeout
         raise SkipTest("OpenSearch failed to start.")
