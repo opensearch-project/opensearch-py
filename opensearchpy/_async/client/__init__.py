@@ -109,7 +109,7 @@ class AsyncOpenSearch(Client):
         ])
 
     If using SSL, there are several parameters that control how we deal with
-    certificates (see :class:`~opensearchpy.Urllib3HttpConnection` for
+    certificates (see :class:`~opensearchpy.AIOHttpConnection` for
     detailed description of the options)::
 
         client = OpenSearch(
@@ -123,7 +123,7 @@ class AsyncOpenSearch(Client):
         )
 
     If using SSL, but don't verify the certs, a warning message is showed
-    optionally (see :class:`~opensearchpy.Urllib3HttpConnection` for
+    optionally (see :class:`~opensearchpy.AIOHttpConnection` for
     detailed description of the options)::
 
         client = OpenSearch(
@@ -132,12 +132,14 @@ class AsyncOpenSearch(Client):
             use_ssl=True,
             # no verify SSL certificates
             verify_certs=False,
+            # don't verify the hostname in the certificate
+            ssl_assert_hostname=False,
             # don't show warnings about ssl certs verification
             ssl_show_warn=False
         )
 
     SSL client authentication is supported
-    (see :class:`~opensearchpy.Urllib3HttpConnection` for
+    (see :class:`~opensearchpy.AIOHttpConnection` for
     detailed description of the options)::
 
         client = OpenSearch(
