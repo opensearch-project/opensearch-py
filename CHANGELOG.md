@@ -4,7 +4,8 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ## [Unreleased]
 ### Added
 - Added `AsyncSearch#collapse` ([827](https://github.com/opensearch-project/opensearch-py/pull/827))
-- Implement `ssl_assert_hostname` boolean parameter for `AsyncOpenSearch.__init__()` ([843](https://github.com/opensearch-project/opensearch-py/pull/843))
+- Added `pool_maxsize` to `AsyncOpenSearch` ([845](https://github.com/opensearch-project/opensearch-py/pull/845))
+- Added `ssl_assert_hostname` to `AsyncOpenSearch` ([843](https://github.com/opensearch-project/opensearch-py/pull/843))
 ### Changed
 ### Deprecated
 ### Removed

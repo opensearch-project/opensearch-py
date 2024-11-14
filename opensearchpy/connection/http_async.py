@@ -142,6 +142,10 @@ class AsyncHttpConnection(AIOHttpConnection):
         self.loop = loop
         self.session = None
 
+        # Align with Sync Interface
+        if "pool_maxsize" in kwargs:
+            maxsize = kwargs.pop("pool_maxsize")
+
         # Parameters for creating an aiohttp.ClientSession later.
         self._limit = maxsize
         self._http_auth = http_auth
