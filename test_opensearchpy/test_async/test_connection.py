@@ -97,6 +97,12 @@ class TestAIOHttpConnection:
         assert con.use_ssl
         assert con.session.connector._ssl == context
 
+    async def test_ssl_assert_hostname(self) -> None:
+        con = AIOHttpConnection(use_ssl=True, ssl_assert_hostname=False)
+        await con._create_aiohttp_session()
+        assert con.use_ssl
+        assert con.session.connector._ssl.check_hostname is False
+
     async def test_opaque_id(self) -> None:
         con = AIOHttpConnection(opaque_id="app-1")
         assert con.headers["x-opaque-id"] == "app-1"
