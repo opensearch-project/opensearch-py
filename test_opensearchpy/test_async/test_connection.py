@@ -29,6 +29,7 @@ import gzip
 import io
 import json
 import ssl
+import sys
 import warnings
 from platform import python_version
 from typing import Any
@@ -228,7 +229,13 @@ class TestAIOHttpConnection:
                 use_ssl=True, verify_certs=False, ssl_show_warn=False
             )
             await con._create_aiohttp_session()
-            assert w == []
+            if sys.hexversion < 0x30c0700:
+                assert w == []
+            else:
+                assert len(w) == 1
+                assert (str(w[0].message) == "enable_cleanup_closed ignored because "
+                        "https://github.com/python/cpython/pull/118960 is fixed in "
+                        "Python version sys.version_info(major=3, minor=12, micro=7, releaselevel='final', serial=0)")
 
         assert isinstance(con.session, aiohttp.ClientSession)
 
