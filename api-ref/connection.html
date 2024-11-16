@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>connection &mdash; OpenSearch Python Client  documentation</title>
+  <title>Connection Types &mdash; OpenSearch Python Client  documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -50,7 +50,7 @@
               <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../api-ref.html">API Reference</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="client.html">Clients</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">connection</a><ul>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Connection Types</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#opensearchpy.Connection"><code class="docutils literal notranslate"><span class="pre">Connection</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#opensearchpy.Connection.__eq__"><code class="docutils literal notranslate"><span class="pre">Connection.__eq__()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#opensearchpy.Connection.__hash__"><code class="docutils literal notranslate"><span class="pre">Connection.__hash__()</span></code></a></li>
@@ -69,6 +69,11 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#opensearchpy.Urllib3HttpConnection"><code class="docutils literal notranslate"><span class="pre">Urllib3HttpConnection</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#opensearchpy.Urllib3HttpConnection.close"><code class="docutils literal notranslate"><span class="pre">Urllib3HttpConnection.close()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#opensearchpy.AIOHttpConnection"><code class="docutils literal notranslate"><span class="pre">AIOHttpConnection</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#opensearchpy.AIOHttpConnection._create_aiohttp_session"><code class="docutils literal notranslate"><span class="pre">AIOHttpConnection._create_aiohttp_session()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#opensearchpy.AIOHttpConnection.close"><code class="docutils literal notranslate"><span class="pre">AIOHttpConnection.close()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#opensearchpy.connections"><code class="docutils literal notranslate"><span class="pre">connections</span></code></a></li>
@@ -106,7 +111,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../api-ref.html">API Reference</a></li>
-      <li class="breadcrumb-item active">connection</li>
+      <li class="breadcrumb-item active">Connection Types</li>
       <li class="wy-breadcrumbs-aside">
               <a href="https://github.com/opensearch-project/opensearch-py/blob/main/docs/source/api-ref/connection.md" class="fa fa-github"> Edit on GitHub</a>
       </li>
@@ -116,8 +121,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="connection">
-<h1>connection<a class="headerlink" href="#connection" title="Permalink to this heading"></a></h1>
+  <section id="connection-types">
+<h1>Connection Types<a class="headerlink" href="#connection-types" title="Permalink to this heading"></a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="opensearchpy.Connection">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opensearchpy.</span></span><span class="sig-name descname"><span class="pre">Connection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">host</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'localhost'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_ssl</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">url_prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">http_compress</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opaque_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opensearchpy/connection/base.html#Connection"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.Connection" title="Permalink to this definition"></a></dt>
@@ -422,6 +427,94 @@ and reporting metrics related to the client’s operations;</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="opensearchpy.AIOHttpConnection">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opensearchpy.</span></span><span class="sig-name descname"><span class="pre">AIOHttpConnection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">host='localhost'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">url_prefix=''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout=10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">http_auth=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_ssl=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verify_certs=&lt;object</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ssl_show_warn=&lt;object</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ca_certs=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">client_cert=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">client_key=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ssl_version=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ssl_assert_hostname=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ssl_assert_fingerprint=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxsize=10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ssl_context=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">http_compress=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opaque_id=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loop=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trust_env=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opensearchpy/_async/http_aiohttp.html#AIOHttpConnection"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.AIOHttpConnection" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">AsyncConnection</span></code></p>
+<p>Default connection class for <code class="docutils literal notranslate"><span class="pre">AsyncOpenSearch</span></code> using the <cite>aiohttp</cite> library and the http protocol.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>host</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – hostname of the node (default: localhost)</p></li>
+<li><p><strong>port</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em> | </em><em>None</em>) – port to use (integer, default: 9200)</p></li>
+<li><p><strong>url_prefix</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – optional url prefix for opensearch</p></li>
+<li><p><strong>timeout</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – default timeout in seconds (float, default: 10)</p></li>
+<li><p><strong>http_auth</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – optional http auth information as either ‘:’ separated
+string or a tuple</p></li>
+<li><p><strong>use_ssl</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – use ssl for the connection if <cite>True</cite></p></li>
+<li><p><strong>verify_certs</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – whether to verify SSL certificates</p></li>
+<li><p><strong>ssl_show_warn</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – show warning when verify certs is disabled</p></li>
+<li><p><strong>ca_certs</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – optional path to CA bundle.
+See <a class="reference external" href="https://urllib3.readthedocs.io/en/latest/security.html#using-certifi-with-urllib3">https://urllib3.readthedocs.io/en/latest/security.html#using-certifi-with-urllib3</a>
+for instructions how to get default set</p></li>
+<li><p><strong>client_cert</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – path to the file containing the private key and the
+certificate, or cert only if using client_key</p></li>
+<li><p><strong>client_key</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – path to the file containing the private key if using
+separate cert and key files (client_cert will contain only the cert)</p></li>
+<li><p><strong>ssl_version</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – version of the SSL protocol to use. Choices are:
+SSLv23 (default) SSLv2 SSLv3 TLSv1 (see <code class="docutils literal notranslate"><span class="pre">PROTOCOL_*</span></code> constants in the
+<code class="docutils literal notranslate"><span class="pre">ssl</span></code> module for exact options for your environment).</p></li>
+<li><p><strong>ssl_assert_hostname</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – use hostname verification if not <cite>False</cite></p></li>
+<li><p><strong>ssl_assert_fingerprint</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em> | </em><em>None</em>) – verify the supplied certificate fingerprint if not <cite>None</cite></p></li>
+<li><p><strong>maxsize</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em> | </em><em>None</em>) – the number of connections which will be kept open to this
+host. See <a class="reference external" href="https://urllib3.readthedocs.io/en/1.4/pools.html#api">https://urllib3.readthedocs.io/en/1.4/pools.html#api</a> for more
+information.</p></li>
+<li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – any custom http headers to be add to requests</p></li>
+<li><p><strong>http_compress</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em> | </em><em>None</em>) – Use gzip compression</p></li>
+<li><p><strong>opaque_id</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em> | </em><em>None</em>) – Send this value in the ‘X-Opaque-Id’ HTTP header
+For tracing all requests made by this transport.</p></li>
+<li><p><strong>loop</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – asyncio Event Loop to use with aiohttp. This is set by default to the currently running loop.</p></li>
+<li><p><strong>host</strong> – </p></li>
+<li><p><strong>port</strong> – </p></li>
+<li><p><strong>url_prefix</strong> – </p></li>
+<li><p><strong>timeout</strong> – </p></li>
+<li><p><strong>http_auth</strong> – </p></li>
+<li><p><strong>use_ssl</strong> – </p></li>
+<li><p><strong>verify_certs</strong> – </p></li>
+<li><p><strong>ssl_show_warn</strong> – </p></li>
+<li><p><strong>ca_certs</strong> – </p></li>
+<li><p><strong>client_cert</strong> – </p></li>
+<li><p><strong>client_key</strong> – </p></li>
+<li><p><strong>ssl_version</strong> – </p></li>
+<li><p><strong>ssl_assert_hostname</strong> – </p></li>
+<li><p><strong>ssl_assert_fingerprint</strong> – </p></li>
+<li><p><strong>maxsize</strong> – </p></li>
+<li><p><strong>headers</strong> – </p></li>
+<li><p><strong>ssl_context</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – </p></li>
+<li><p><strong>http_compress</strong> – </p></li>
+<li><p><strong>opaque_id</strong> – </p></li>
+<li><p><strong>loop</strong> – </p></li>
+<li><p><strong>trust_env</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em> | </em><em>None</em>) – </p></li>
+<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – </p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.AIOHttpConnection._create_aiohttp_session">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_create_aiohttp_session</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opensearchpy/_async/http_aiohttp.html#AIOHttpConnection._create_aiohttp_session"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.AIOHttpConnection._create_aiohttp_session" title="Permalink to this definition"></a></dt>
+<dd><p>Creates an aiohttp.ClientSession(). This is delayed until
+the first call to perform_request() so that AsyncTransport has
+a chance to set AIOHttpConnection.loop</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.AIOHttpConnection.close">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opensearchpy/_async/http_aiohttp.html#AIOHttpConnection.close"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.AIOHttpConnection.close" title="Permalink to this definition"></a></dt>
+<dd><p>Explicitly closes connection</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a></p>
 </dd>
 </dl>
 </dd></dl>
