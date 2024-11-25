@@ -127,6 +127,8 @@
 <span class="kn">from</span> <span class="nn">.http</span> <span class="kn">import</span> <span class="n">HttpClient</span>
 <span class="kn">from</span> <span class="nn">.indices</span> <span class="kn">import</span> <span class="n">IndicesClient</span>
 <span class="kn">from</span> <span class="nn">.ingest</span> <span class="kn">import</span> <span class="n">IngestClient</span>
+<span class="kn">from</span> <span class="nn">.insights</span> <span class="kn">import</span> <span class="n">InsightsClient</span>
+<span class="kn">from</span> <span class="nn">.list</span> <span class="kn">import</span> <span class="n">ListClient</span>
 <span class="kn">from</span> <span class="nn">.nodes</span> <span class="kn">import</span> <span class="n">NodesClient</span>
 <span class="kn">from</span> <span class="nn">.plugins</span> <span class="kn">import</span> <span class="n">PluginsClient</span>
 <span class="kn">from</span> <span class="nn">.remote</span> <span class="kn">import</span> <span class="n">RemoteClient</span>
@@ -136,6 +138,7 @@
 <span class="kn">from</span> <span class="nn">.snapshot</span> <span class="kn">import</span> <span class="n">SnapshotClient</span>
 <span class="kn">from</span> <span class="nn">.tasks</span> <span class="kn">import</span> <span class="n">TasksClient</span>
 <span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">SKIP_IN_PATH</span><span class="p">,</span> <span class="n">_bulk_body</span><span class="p">,</span> <span class="n">_make_path</span><span class="p">,</span> <span class="n">query_params</span>
+<span class="kn">from</span> <span class="nn">.wlm</span> <span class="kn">import</span> <span class="n">WlmClient</span>
 
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;opensearch&quot;</span><span class="p">)</span>
 
@@ -190,7 +193,7 @@
 <span class="sd">        ])</span>
 
 <span class="sd">    If using SSL, there are several parameters that control how we deal with</span>
-<span class="sd">    certificates (see :class:`~opensearchpy.Urllib3HttpConnection` for</span>
+<span class="sd">    certificates (see :class:`~opensearchpy.AIOHttpConnection` for</span>
 <span class="sd">    detailed description of the options)::</span>
 
 <span class="sd">        client = OpenSearch(</span>
@@ -204,7 +207,7 @@
 <span class="sd">        )</span>
 
 <span class="sd">    If using SSL, but don&#39;t verify the certs, a warning message is showed</span>
-<span class="sd">    optionally (see :class:`~opensearchpy.Urllib3HttpConnection` for</span>
+<span class="sd">    optionally (see :class:`~opensearchpy.AIOHttpConnection` for</span>
 <span class="sd">    detailed description of the options)::</span>
 
 <span class="sd">        client = OpenSearch(</span>
@@ -213,12 +216,14 @@
 <span class="sd">            use_ssl=True,</span>
 <span class="sd">            # no verify SSL certificates</span>
 <span class="sd">            verify_certs=False,</span>
+<span class="sd">            # don&#39;t verify the hostname in the certificate</span>
+<span class="sd">            ssl_assert_hostname=False,</span>
 <span class="sd">            # don&#39;t show warnings about ssl certs verification</span>
 <span class="sd">            ssl_show_warn=False</span>
 <span class="sd">        )</span>
 
 <span class="sd">    SSL client authentication is supported</span>
-<span class="sd">    (see :class:`~opensearchpy.Urllib3HttpConnection` for</span>
+<span class="sd">    (see :class:`~opensearchpy.AIOHttpConnection` for</span>
 <span class="sd">    detailed description of the options)::</span>
 
 <span class="sd">        client = OpenSearch(</span>
@@ -295,6 +300,9 @@
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">hosts</span><span class="p">,</span> <span class="n">transport_class</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
         <span class="c1"># namespaced clients for compatibility with API names</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">wlm</span> <span class="o">=</span> <span class="n">WlmClient</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">list</span> <span class="o">=</span> <span class="n">ListClient</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">insights</span> <span class="o">=</span> <span class="n">InsightsClient</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">search_pipeline</span> <span class="o">=</span> <span class="n">SearchPipelineClient</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">cat</span> <span class="o">=</span> <span class="n">CatClient</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">cluster</span> <span class="o">=</span> <span class="n">ClusterClient</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
@@ -348,13 +356,15 @@
 
 
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
-<span class="sd">            errors.</span>
-<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
-<span class="sd">            the response.</span>
+<span class="sd">            errors. Default is false.</span>
+<span class="sd">        :arg filter_path: Used to reduce the response. This parameter</span>
+<span class="sd">            takes a comma-separated list of filters. It supports using wildcards to</span>
+<span class="sd">            match any field or part of a field’s name. You can also exclude fields</span>
+<span class="sd">            with &quot;-&quot;.</span>
 <span class="sd">        :arg human: Whether to return human readable values for</span>
-<span class="sd">            statistics.</span>
+<span class="sd">            statistics. Default is True.</span>
 <span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
-<span class="sd">            response.</span>
+<span class="sd">            response. Default is false.</span>
 <span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
 <span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -376,13 +386,15 @@
 
 
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
-<span class="sd">            errors.</span>
-<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
-<span class="sd">            the response.</span>
+<span class="sd">            errors. Default is false.</span>
+<span class="sd">        :arg filter_path: Used to reduce the response. This parameter</span>
+<span class="sd">            takes a comma-separated list of filters. It supports using wildcards to</span>
+<span class="sd">            match any field or part of a field’s name. You can also exclude fields</span>
+<span class="sd">            with &quot;-&quot;.</span>
 <span class="sd">        :arg human: Whether to return human readable values for</span>
-<span class="sd">            statistics.</span>
+<span class="sd">            statistics. Default is True.</span>
 <span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
-<span class="sd">            response.</span>
+<span class="sd">            response. Default is false.</span>
 <span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
 <span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -425,18 +437,20 @@
 <span class="sd">        :arg id: Unique identifier for the document.</span>
 <span class="sd">        :arg body: The document</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
-<span class="sd">            errors.</span>
-<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
-<span class="sd">            the response.</span>
+<span class="sd">            errors. Default is false.</span>
+<span class="sd">        :arg filter_path: Used to reduce the response. This parameter</span>
+<span class="sd">            takes a comma-separated list of filters. It supports using wildcards to</span>
+<span class="sd">            match any field or part of a field’s name. You can also exclude fields</span>
+<span class="sd">            with &quot;-&quot;.</span>
 <span class="sd">        :arg human: Whether to return human readable values for</span>
-<span class="sd">            statistics.</span>
+<span class="sd">            statistics. Default is True.</span>
 <span class="sd">        :arg pipeline: ID of the pipeline to use to preprocess incoming</span>
 <span class="sd">            documents. If the index has a default ingest pipeline specified, then</span>
 <span class="sd">            setting the value to `_none` disables the default ingest pipeline for</span>
 <span class="sd">            this request. If a final pipeline is configured it will always run,</span>
 <span class="sd">            regardless of the value of this parameter.</span>
 <span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
-<span class="sd">            response.</span>
+<span class="sd">            response. Default is false.</span>
 <span class="sd">        :arg refresh: If `true`, OpenSearch refreshes the affected</span>
 <span class="sd">            shards to make this operation visible to search, if `wait_for` then wait</span>
 <span class="sd">            for a refresh to make this operation visible to search, if `false` do</span>
@@ -503,11 +517,13 @@
 <span class="sd">        :arg body: The document</span>
 <span class="sd">        :arg id: Unique identifier for the document.</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
-<span class="sd">            errors.</span>
-<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
-<span class="sd">            the response.</span>
+<span class="sd">            errors. Default is false.</span>
+<span class="sd">        :arg filter_path: Used to reduce the response. This parameter</span>
+<span class="sd">            takes a comma-separated list of filters. It supports using wildcards to</span>
+<span class="sd">            match any field or part of a field’s name. You can also exclude fields</span>
+<span class="sd">            with &quot;-&quot;.</span>
 <span class="sd">        :arg human: Whether to return human readable values for</span>
-<span class="sd">            statistics.</span>
+<span class="sd">            statistics. Default is True.</span>
 <span class="sd">        :arg if_primary_term: Only perform the operation if the document</span>
 <span class="sd">            has this primary term.</span>
 <span class="sd">        :arg if_seq_no: Only perform the operation if the document has</span>
@@ -524,7 +540,7 @@
 <span class="sd">            this request. If a final pipeline is configured it will always run,</span>
 <span class="sd">            regardless of the value of this parameter.</span>
 <span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
-<span class="sd">            response.</span>
+<span class="sd">            response. Default is false.</span>
 <span class="sd">        :arg refresh: If `true`, OpenSearch refreshes the affected</span>
 <span class="sd">            shards to make this operation visible to search, if `wait_for` then wait</span>
 <span class="sd">            for a refresh to make this operation visible to search, if `false` do</span>
@@ -599,18 +615,20 @@
 <span class="sd">        :arg _source_includes: A comma-separated list of source fields</span>
 <span class="sd">            to include in the response.</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
-<span class="sd">            errors.</span>
-<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
-<span class="sd">            the response.</span>
+<span class="sd">            errors. Default is false.</span>
+<span class="sd">        :arg filter_path: Used to reduce the response. This parameter</span>
+<span class="sd">            takes a comma-separated list of filters. It supports using wildcards to</span>
+<span class="sd">            match any field or part of a field’s name. You can also exclude fields</span>
+<span class="sd">            with &quot;-&quot;.</span>
 <span class="sd">        :arg human: Whether to return human readable values for</span>
-<span class="sd">            statistics.</span>
+<span class="sd">            statistics. Default is True.</span>
 <span class="sd">        :arg pipeline: ID of the pipeline to use to preprocess incoming</span>
 <span class="sd">            documents. If the index has a default ingest pipeline specified, then</span>
 <span class="sd">            setting the value to `_none` disables the default ingest pipeline for</span>
 <span class="sd">            this request. If a final pipeline is configured it will always run,</span>
 <span class="sd">            regardless of the value of this parameter.</span>
 <span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
-<span class="sd">            response.</span>
+<span class="sd">            response. Default is false.</span>
 <span class="sd">        :arg refresh: If `true`, OpenSearch refreshes the affected</span>
 <span class="sd">            shards to make this operation visible to search, if `wait_for` then wait</span>
 <span class="sd">            for a refresh to make this operation visible to search, if `false` do</span>
@@ -654,17 +672,19 @@
 
 
 <span class="sd">        :arg body: Comma-separated list of scroll IDs to clear if none</span>
-<span class="sd">            was specified via the scroll_id parameter</span>
+<span class="sd">            was specified using the `scroll_id` parameter</span>
 <span class="sd">        :arg scroll_id: Comma-separated list of scroll IDs to clear. To</span>
 <span class="sd">            clear all scroll IDs, use `_all`.</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
-<span class="sd">            errors.</span>
-<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
-<span class="sd">            the response.</span>
+<span class="sd">            errors. Default is false.</span>
+<span class="sd">        :arg filter_path: Used to reduce the response. This parameter</span>
+<span class="sd">            takes a comma-separated list of filters. It supports using wildcards to</span>
+<span class="sd">            match any field or part of a field’s name. You can also exclude fields</span>
+<span class="sd">            with &quot;-&quot;.</span>
 <span class="sd">        :arg human: Whether to return human readable values for</span>
-<span class="sd">            statistics.</span>
+<span class="sd">            statistics. Default is True.</span>
 <span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
-<span class="sd">            response.</span>
+<span class="sd">            response. Default is false.</span>
 <span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
 <span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -713,13 +733,13 @@
 
 <span class="sd">        :arg body: Query to restrict the results specified with the</span>
 <span class="sd">            Query DSL (optional)</span>
-<span class="sd">        :arg index: Comma-separated list of data streams, indices, and</span>
+<span class="sd">        :arg index: Comma-separated list of data streams, indexes, and</span>
 <span class="sd">            aliases to search. Supports wildcards (`*`). To search all data streams</span>
-<span class="sd">            and indices, omit this parameter or use `*` or `_all`.</span>
+<span class="sd">            and indexes, omit this parameter or use `*` or `_all`.</span>
 <span class="sd">        :arg allow_no_indices: If `false`, the request returns an error</span>
 <span class="sd">            if any wildcard expression, index alias, or `_all` value targets only</span>
-<span class="sd">            missing or closed indices. This behavior applies even if the request</span>
-<span class="sd">            targets other open indices.</span>
+<span class="sd">            missing or closed indexes. This behavior applies even if the request</span>
+<span class="sd">            targets other open indexes.</span>
 <span class="sd">        :arg analyze_wildcard: If `true`, wildcard and prefix queries</span>
 <span class="sd">            are analyzed. This parameter can only be used when the `q` query string</span>
 <span class="sd">            parameter is specified. Default is false.</span>
@@ -733,18 +753,19 @@
 <span class="sd">            in the query string. This parameter can only be used when the `q` query</span>
 <span class="sd">            string parameter is specified.</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
-<span class="sd">            errors.</span>
+<span class="sd">            errors. Default is false.</span>
 <span class="sd">        :arg expand_wildcards: Type of index that wildcard patterns can</span>
 <span class="sd">            match. If the request can target data streams, this argument determines</span>
 <span class="sd">            whether wildcard expressions match hidden data streams. Supports comma-</span>
-<span class="sd">            separated values, such as `open,hidden`. Valid choices are all, closed,</span>
-<span class="sd">            hidden, none, open.</span>
-<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
-<span class="sd">            the response.</span>
+<span class="sd">            separated values, such as `open,hidden`.</span>
+<span class="sd">        :arg filter_path: Used to reduce the response. This parameter</span>
+<span class="sd">            takes a comma-separated list of filters. It supports using wildcards to</span>
+<span class="sd">            match any field or part of a field’s name. You can also exclude fields</span>
+<span class="sd">            with &quot;-&quot;.</span>
 <span class="sd">        :arg human: Whether to return human readable values for</span>
-<span class="sd">            statistics.</span>
+<span class="sd">            statistics. Default is True.</span>
 <span class="sd">        :arg ignore_throttled: If `true`, concrete, expanded or aliased</span>
-<span class="sd">            indices are ignored when frozen.</span>
+<span class="sd">            indexes are ignored when frozen.</span>
 <span class="sd">        :arg ignore_unavailable: If `false`, the request returns an</span>
 <span class="sd">            error if it targets a missing or closed index.</span>
 <span class="sd">        :arg lenient: If `true`, format-based query failures (such as</span>
@@ -754,7 +775,7 @@
 <span class="sd">        :arg preference: Specifies the node or shard the operation</span>
 <span class="sd">            should be performed on. Random by default. Default is random.</span>
 <span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
-<span class="sd">            response.</span>
+<span class="sd">            response. Default is false.</span>
 <span class="sd">        :arg q: Query in the Lucene query string syntax.</span>
 <span class="sd">        :arg routing: Custom value used to route operations to a</span>
 <span class="sd">            specific shard.</span>
@@ -801,17 +822,19 @@
 <span class="sd">        :arg index: Name of the target index.</span>
 <span class="sd">        :arg id: Unique identifier for the document.</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
-<span class="sd">            errors.</span>
-<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
-<span class="sd">            the response.</span>
+<span class="sd">            errors. Default is false.</span>
+<span class="sd">        :arg filter_path: Used to reduce the response. This parameter</span>
+<span class="sd">            takes a comma-separated list of filters. It supports using wildcards to</span>
+<span class="sd">            match any field or part of a field’s name. You can also exclude fields</span>
+<span class="sd">            with &quot;-&quot;.</span>
 <span class="sd">        :arg human: Whether to return human readable values for</span>
-<span class="sd">            statistics.</span>
+<span class="sd">            statistics. Default is True.</span>
 <span class="sd">        :arg if_primary_term: Only perform the operation if the document</span>
 <span class="sd">            has this primary term.</span>
 <span class="sd">        :arg if_seq_no: Only perform the operation if the document has</span>
 <span class="sd">            this sequence number.</span>
 <span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
-<span class="sd">            response.</span>
+<span class="sd">            response. Default is false.</span>
 <span class="sd">        :arg refresh: If `true`, OpenSearch refreshes the affected</span>
 <span class="sd">            shards to make this operation visible to search, if `wait_for` then wait</span>
 <span class="sd">            for a refresh to make this operation visible to search, if `false` do</span>
@@ -891,20 +914,20 @@
 <span class="sd">        Deletes documents matching the provided query.</span>
 
 
-<span class="sd">        :arg index: Comma-separated list of data streams, indices, and</span>
+<span class="sd">        :arg index: Comma-separated list of data streams, indexes, and</span>
 <span class="sd">            aliases to search. Supports wildcards (`*`). To search all data streams</span>
-<span class="sd">            or indices, omit this parameter or use `*` or `_all`.</span>
+<span class="sd">            or indexes, omit this parameter or use `*` or `_all`.</span>
 <span class="sd">        :arg body: The search definition using the Query DSL</span>
-<span class="sd">        :arg _source: True or false to return the _source field or not,</span>
-<span class="sd">            or a list of fields to return.</span>
+<span class="sd">        :arg _source: Set to `true` or `false` to return the `_source`</span>
+<span class="sd">            field or not, or a list of fields to return.</span>
 <span class="sd">        :arg _source_excludes: List of fields to exclude from the</span>
-<span class="sd">            returned _source field.</span>
+<span class="sd">            returned `_source` field.</span>
 <span class="sd">        :arg _source_includes: List of fields to extract and return from</span>
-<span class="sd">            the _source field.</span>
+<span class="sd">            the `_source` field.</span>
 <span class="sd">        :arg allow_no_indices: If `false`, the request returns an error</span>
 <span class="sd">            if any wildcard expression, index alias, or `_all` value targets only</span>
-<span class="sd">            missing or closed indices. This behavior applies even if the request</span>
-<span class="sd">            targets other open indices. For example, a request targeting `foo*,bar*`</span>
+<span class="sd">            missing or closed indexes. This behavior applies even if the request</span>
+<span class="sd">            targets other open indexes. For example, a request targeting `foo*,bar*`</span>
 <span class="sd">            returns an error if an index starts with `foo` but no index starts with</span>
 <span class="sd">            `bar`.</span>
 <span class="sd">        :arg analyze_wildcard: If `true`, wildcard and prefix queries</span>
@@ -917,17 +940,19 @@
 <span class="sd">        :arg df: Field to use as default where no field prefix is given</span>
 <span class="sd">            in the query string.</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
-<span class="sd">            errors.</span>
+<span class="sd">            errors. Default is false.</span>
 <span class="sd">        :arg expand_wildcards: Type of index that wildcard patterns can</span>
 <span class="sd">            match. If the request can target data streams, this argument determines</span>
 <span class="sd">            whether wildcard expressions match hidden data streams. Supports comma-</span>
 <span class="sd">            separated values, such as `open,hidden`. Valid values are: `all`,</span>
 <span class="sd">            `open`, `closed`, `hidden`, `none`.</span>
-<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
-<span class="sd">            the response.</span>
+<span class="sd">        :arg filter_path: Used to reduce the response. This parameter</span>
+<span class="sd">            takes a comma-separated list of filters. It supports using wildcards to</span>
+<span class="sd">            match any field or part of a field’s name. You can also exclude fields</span>
+<span class="sd">            with &quot;-&quot;.</span>
 <span class="sd">        :arg from_: Starting offset. Default is 0.</span>
 <span class="sd">        :arg human: Whether to return human readable values for</span>
-<span class="sd">            statistics.</span>
+<span class="sd">            statistics. Default is True.</span>
 <span class="sd">        :arg ignore_unavailable: If `false`, the request returns an</span>
 <span class="sd">            error if it targets a missing or closed index.</span>
 <span class="sd">        :arg lenient: If `true`, format-based query failures (such as</span>
@@ -937,7 +962,7 @@
 <span class="sd">        :arg preference: Specifies the node or shard the operation</span>
 <span class="sd">            should be performed on. Random by default. Default is random.</span>
 <span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
-<span class="sd">            response.</span>
+<span class="sd">            response. Default is false.</span>
 <span class="sd">        :arg q: Query in the Lucene query string syntax.</span>
 <span class="sd">        :arg refresh: If `true`, OpenSearch refreshes all shards</span>
 <span class="sd">            involved in the delete by query after the request completes.</span>
@@ -955,7 +980,7 @@
 <span class="sd">        :arg search_type: The type of the search operation. Available</span>
 <span class="sd">            options: `query_then_fetch`, `dfs_query_then_fetch`. Valid choices are</span>
 <span class="sd">            dfs_query_then_fetch, query_then_fetch.</span>
-<span class="sd">        :arg size: Deprecated, please use `max_docs` instead.</span>
+<span class="sd">        :arg size: Deprecated, use `max_docs` instead.</span>
 <span class="sd">        :arg slices: The number of slices this task should be divided</span>
 <span class="sd">            into. Valid choices are auto.</span>
 <span class="sd">        :arg sort: A comma-separated list of &lt;field&gt;:&lt;direction&gt; pairs.</span>
@@ -969,7 +994,7 @@
 <span class="sd">            caution. OpenSearch applies this parameter to each shard handling the</span>
 <span class="sd">            request. When possible, let OpenSearch perform early termination</span>
 <span class="sd">            automatically. Avoid specifying this parameter for requests that target</span>
-<span class="sd">            data streams with backing indices across multiple data tiers.</span>
+<span class="sd">            data streams with backing indexes across multiple data tiers.</span>
 <span class="sd">        :arg timeout: Period each deletion request waits for active</span>
 <span class="sd">            shards.</span>
 <span class="sd">        :arg version: If `true`, returns the document version as part of</span>
@@ -1013,13 +1038,15 @@
 
 <span class="sd">        :arg task_id: The ID for the task.</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
-<span class="sd">            errors.</span>
-<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
-<span class="sd">            the response.</span>
+<span class="sd">            errors. Default is false.</span>
+<span class="sd">        :arg filter_path: Used to reduce the response. This parameter</span>
+<span class="sd">            takes a comma-separated list of filters. It supports using wildcards to</span>
+<span class="sd">            match any field or part of a field’s name. You can also exclude fields</span>
+<span class="sd">            with &quot;-&quot;.</span>
 <span class="sd">        :arg human: Whether to return human readable values for</span>
-<span class="sd">            statistics.</span>
+<span class="sd">            statistics. Default is True.</span>
 <span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
-<span class="sd">            response.</span>
+<span class="sd">            response. Default is false.</span>
 <span class="sd">        :arg requests_per_second: The throttle for this request in sub-</span>
 <span class="sd">            requests per second.</span>
 <span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
@@ -1059,17 +1086,19 @@
 <span class="sd">        :arg cluster_manager_timeout: Operation timeout for connection</span>
 <span class="sd">            to cluster-manager node.</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
-<span class="sd">            errors.</span>
-<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
-<span class="sd">            the response.</span>
+<span class="sd">            errors. Default is false.</span>
+<span class="sd">        :arg filter_path: Used to reduce the response. This parameter</span>
+<span class="sd">            takes a comma-separated list of filters. It supports using wildcards to</span>
+<span class="sd">            match any field or part of a field’s name. You can also exclude fields</span>
+<span class="sd">            with &quot;-&quot;.</span>
 <span class="sd">        :arg human: Whether to return human readable values for</span>
-<span class="sd">            statistics.</span>
+<span class="sd">            statistics. Default is True.</span>
 <span class="sd">        :arg master_timeout (Deprecated: To promote inclusive language,</span>
-<span class="sd">            use &#39;cluster_manager_timeout&#39; instead.): Period to wait for a connection</span>
-<span class="sd">            to the master node. If no response is received before the timeout</span>
-<span class="sd">            expires, the request fails and returns an error.</span>
+<span class="sd">            use `cluster_manager_timeout` instead.): Period to wait for a connection</span>
+<span class="sd">            to the cluster-manager node. If no response is received before the</span>
+<span class="sd">            timeout expires, the request fails and returns an error.</span>
 <span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
-<span class="sd">            response.</span>
+<span class="sd">            response. Default is false.</span>
 <span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
 <span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
 <span class="sd">        :arg timeout: Period to wait for a response. If no response is</span>
@@ -1111,7 +1140,7 @@
 <span class="sd">        Returns information about whether a document exists in an index.</span>
 
 
-<span class="sd">        :arg index: Comma-separated list of data streams, indices, and</span>
+<span class="sd">        :arg index: Comma-separated list of data streams, indexes, and</span>
 <span class="sd">            aliases. Supports wildcards (`*`).</span>
 <span class="sd">        :arg id: Identifier of the document.</span>
 <span class="sd">        :arg _source: `true` or `false` to return the `_source` field or</span>
@@ -1121,15 +1150,17 @@
 <span class="sd">        :arg _source_includes: A comma-separated list of source fields</span>
 <span class="sd">            to include in the response.</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
-<span class="sd">            errors.</span>
-<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
-<span class="sd">            the response.</span>
+<span class="sd">            errors. Default is false.</span>
+<span class="sd">        :arg filter_path: Used to reduce the response. This parameter</span>
+<span class="sd">            takes a comma-separated list of filters. It supports using wildcards to</span>
+<span class="sd">            match any field or part of a field’s name. You can also exclude fields</span>
+<span class="sd">            with &quot;-&quot;.</span>
 <span class="sd">        :arg human: Whether to return human readable values for</span>
-<span class="sd">            statistics.</span>
+<span class="sd">            statistics. Default is True.</span>
 <span class="sd">        :arg preference: Specifies the node or shard the operation</span>
 <span class="sd">            should be performed on. Random by default. Default is random.</span>
 <span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
-<span class="sd">            response.</span>
+<span class="sd">            response. Default is false.</span>
 <span class="sd">        :arg realtime: If `true`, the request is real-time as opposed to</span>
 <span class="sd">            near-real-time.</span>
 <span class="sd">        :arg refresh: If `true`, OpenSearch refreshes all shards</span>
@@ -1183,7 +1214,7 @@
 <span class="sd">        Returns information about whether a document source exists in an index.</span>
 
 
-<span class="sd">        :arg index: Comma-separated list of data streams, indices, and</span>
+<span class="sd">        :arg index: Comma-separated list of data streams, indexes, and</span>
 <span class="sd">            aliases. Supports wildcards (`*`).</span>
 <span class="sd">        :arg id: Identifier of the document.</span>
 <span class="sd">        :arg _source: `true` or `false` to return the `_source` field or</span>
@@ -1193,16 +1224,18 @@
 <span class="sd">        :arg _source_includes: A comma-separated list of source fields</span>
 <span class="sd">            to include in the response.</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
-<span class="sd">            errors.</span>
-<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
-<span class="sd">            the response.</span>
+<span class="sd">            errors. Default is false.</span>
+<span class="sd">        :arg filter_path: Used to reduce the response. This parameter</span>
+<span class="sd">            takes a comma-separated list of filters. It supports using wildcards to</span>
+<span class="sd">            match any field or part of a field’s name. You can also exclude fields</span>
+<span class="sd">            with &quot;-&quot;.</span>
 <span class="sd">        :arg human: Whether to return human readable values for</span>
-<span class="sd">            statistics.</span>
+<span class="sd">            statistics. Default is True.</span>
 <span class="sd">        :arg preference: Specifies the node or shard the operation</span>
 <span class="sd">            should be performed on. Random by default. Default is random.</span>
 <span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
-<span class="sd">            response.</span>
-<span class="sd">        :arg realtime: If true, the request is real-time as opposed to</span>
+<span class="sd">            response. Default is false.</span>
+<span class="sd">        :arg realtime: If `true`, the request is real-time as opposed to</span>
 <span class="sd">            near-real-time.</span>
 <span class="sd">        :arg refresh: If `true`, OpenSearch refreshes all shards</span>
 <span class="sd">            involved in the delete by query after the request completes.</span>
@@ -1261,8 +1294,8 @@
 <span class="sd">            index name can be provided to this parameter.</span>
 <span class="sd">        :arg id: Defines the document ID.</span>
 <span class="sd">        :arg body: The query definition using the Query DSL</span>
-<span class="sd">        :arg _source: True or false to return the `_source` field or</span>
-<span class="sd">            not, or a list of fields to return.</span>
+<span class="sd">        :arg _source: Set to `true` or `false` to return the `_source`</span>
+<span class="sd">            field or not, or a list of fields to return.</span>
 <span class="sd">        :arg _source_excludes: A comma-separated list of source fields</span>
 <span class="sd">            to exclude from the response.</span>
 <span class="sd">        :arg _source_includes: A comma-separated list of source fields</span>
@@ -1277,17 +1310,19 @@
 <span class="sd">        :arg df: Field to use as default where no field prefix is given</span>
 <span class="sd">            in the query string. Default is _all.</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
-<span class="sd">            errors.</span>
-<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
-<span class="sd">            the response.</span>
+<span class="sd">            errors. Default is false.</span>
+<span class="sd">        :arg filter_path: Used to reduce the response. This parameter</span>
+<span class="sd">            takes a comma-separated list of filters. It supports using wildcards to</span>
+<span class="sd">            match any field or part of a field’s name. You can also exclude fields</span>
+<span class="sd">            with &quot;-&quot;.</span>
 <span class="sd">        :arg human: Whether to return human readable values for</span>
-<span class="sd">            statistics.</span>
+<span class="sd">            statistics. Default is True.</span>
 <span class="sd">        :arg lenient: If `true`, format-based query failures (such as</span>
 <span class="sd">            providing text to a numeric field) in the query string will be ignored.</span>
 <span class="sd">        :arg preference: Specifies the node or shard the operation</span>
 <span class="sd">            should be performed on. Random by default. Default is random.</span>
 <span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
-<span class="sd">            response.</span>
+<span class="sd">            response. Default is false.</span>
 <span class="sd">        :arg q: Query in the Lucene query string syntax.</span>
 <span class="sd">        :arg routing: Custom value used to route operations to a</span>
 <span class="sd">            specific shard.</span>
@@ -1327,38 +1362,39 @@
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the information about the capabilities of fields among multiple</span>
-<span class="sd">        indices.</span>
+<span class="sd">        indexes.</span>
 
 
 <span class="sd">        :arg body: An index filter specified with the Query DSL</span>
-<span class="sd">        :arg index: Comma-separated list of data streams, indices, and</span>
+<span class="sd">        :arg index: Comma-separated list of data streams, indexes, and</span>
 <span class="sd">            aliases used to limit the request. Supports wildcards (*). To target all</span>
-<span class="sd">            data streams and indices, omit this parameter or use * or _all.</span>
-<span class="sd">        :arg allow_no_indices: If false, the request returns an error if</span>
-<span class="sd">            any wildcard expression, index alias, or `_all` value targets only</span>
-<span class="sd">            missing or closed indices. This behavior applies even if the request</span>
-<span class="sd">            targets other open indices. For example, a request targeting `foo*,bar*`</span>
+<span class="sd">            data streams and indexes, omit this parameter or use * or `_all`.</span>
+<span class="sd">        :arg allow_no_indices: If `false`, the request returns an error</span>
+<span class="sd">            if any wildcard expression, index alias, or `_all` value targets only</span>
+<span class="sd">            missing or closed indexes. This behavior applies even if the request</span>
+<span class="sd">            targets other open indexes. For example, a request targeting `foo*,bar*`</span>
 <span class="sd">            returns an error if an index starts with foo but no index starts with</span>
 <span class="sd">            bar.</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
-<span class="sd">            errors.</span>
+<span class="sd">            errors. Default is false.</span>
 <span class="sd">        :arg expand_wildcards: Type of index that wildcard patterns can</span>
 <span class="sd">            match. If the request can target data streams, this argument determines</span>
 <span class="sd">            whether wildcard expressions match hidden data streams. Supports comma-</span>
-<span class="sd">            separated values, such as `open,hidden`. Valid choices are all, closed,</span>
-<span class="sd">            hidden, none, open.</span>
+<span class="sd">            separated values, such as `open,hidden`.</span>
 <span class="sd">        :arg fields: Comma-separated list of fields to retrieve</span>
 <span class="sd">            capabilities for. Wildcard (`*`) expressions are supported.</span>
-<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
-<span class="sd">            the response.</span>
+<span class="sd">        :arg filter_path: Used to reduce the response. This parameter</span>
+<span class="sd">            takes a comma-separated list of filters. It supports using wildcards to</span>
+<span class="sd">            match any field or part of a field’s name. You can also exclude fields</span>
+<span class="sd">            with &quot;-&quot;.</span>
 <span class="sd">        :arg human: Whether to return human readable values for</span>
-<span class="sd">            statistics.</span>
-<span class="sd">        :arg ignore_unavailable: If `true`, missing or closed indices</span>
+<span class="sd">            statistics. Default is True.</span>
+<span class="sd">        :arg ignore_unavailable: If `true`, missing or closed indexes</span>
 <span class="sd">            are not included in the response.</span>
-<span class="sd">        :arg include_unmapped: If true, unmapped fields are included in</span>
-<span class="sd">            the response. Default is false.</span>
+<span class="sd">        :arg include_unmapped: If `true`, unmapped fields are included</span>
+<span class="sd">            in the response. Default is false.</span>
 <span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
-<span class="sd">            response.</span>
+<span class="sd">            response. Default is false.</span>
 <span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
 <span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -1400,27 +1436,29 @@
 
 <span class="sd">        :arg index: Name of the index that contains the document.</span>
 <span class="sd">        :arg id: Unique identifier of the document.</span>
-<span class="sd">        :arg _source: True or false to return the _source field or not,</span>
-<span class="sd">            or a list of fields to return.</span>
+<span class="sd">        :arg _source: Set to `true` or `false` to return the `_source`</span>
+<span class="sd">            field or not, or a list of fields to return.</span>
 <span class="sd">        :arg _source_excludes: A comma-separated list of source fields</span>
 <span class="sd">            to exclude in the response.</span>
 <span class="sd">        :arg _source_includes: A comma-separated list of source fields</span>
 <span class="sd">            to include in the response.</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
-<span class="sd">            errors.</span>
-<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
-<span class="sd">            the response.</span>
+<span class="sd">            errors. Default is false.</span>
+<span class="sd">        :arg filter_path: Used to reduce the response. This parameter</span>
+<span class="sd">            takes a comma-separated list of filters. It supports using wildcards to</span>
+<span class="sd">            match any field or part of a field’s name. You can also exclude fields</span>
+<span class="sd">            with &quot;-&quot;.</span>
 <span class="sd">        :arg human: Whether to return human readable values for</span>
-<span class="sd">            statistics.</span>
+<span class="sd">            statistics. Default is True.</span>
 <span class="sd">        :arg preference: Specifies the node or shard the operation</span>
 <span class="sd">            should be performed on. Random by default. Default is random.</span>
 <span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
-<span class="sd">            response.</span>
+<span class="sd">            response. Default is false.</span>
 <span class="sd">        :arg realtime: If `true`, the request is real-time as opposed to</span>
 <span class="sd">            near-real-time.</span>
-<span class="sd">        :arg refresh: If true, OpenSearch refreshes the affected shards</span>
-<span class="sd">            to make this operation visible to search. If false, do nothing with</span>
-<span class="sd">            refreshes.</span>
+<span class="sd">        :arg refresh: If `true`, OpenSearch refreshes the affected</span>
+<span class="sd">            shards to make this operation visible to search. If `false`, do nothing</span>
+<span class="sd">            with refreshes.</span>
 <span class="sd">        :arg routing: Target the specified primary shard.</span>
 <span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
 <span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
@@ -1431,8 +1469,9 @@
 <span class="sd">        :arg version: Explicit version number for concurrency control.</span>
 <span class="sd">            The specified version must match the current version of the document for</span>
 <span class="sd">            the request to succeed.</span>
-<span class="sd">        :arg version_type: Specific version type: internal, external,</span>
-<span class="sd">            external_gte. Valid choices are external, external_gte, force, internal.</span>
+<span class="sd">        :arg version_type: Specific version type: `internal`,</span>
+<span class="sd">            `external`, `external_gte`. Valid choices are external, external_gte,</span>
+<span class="sd">            force, internal.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="nb">id</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
@@ -1465,16 +1504,18 @@
 <span class="sd">        :arg cluster_manager_timeout: Operation timeout for connection</span>
 <span class="sd">            to cluster-manager node.</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
-<span class="sd">            errors.</span>
-<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
-<span class="sd">            the response.</span>
+<span class="sd">            errors. Default is false.</span>
+<span class="sd">        :arg filter_path: Used to reduce the response. This parameter</span>
+<span class="sd">            takes a comma-separated list of filters. It supports using wildcards to</span>
+<span class="sd">            match any field or part of a field’s name. You can also exclude fields</span>
+<span class="sd">            with &quot;-&quot;.</span>
 <span class="sd">        :arg human: Whether to return human readable values for</span>
-<span class="sd">            statistics.</span>
+<span class="sd">            statistics. Default is True.</span>
 <span class="sd">        :arg master_timeout (Deprecated: To promote inclusive language,</span>
-<span class="sd">            use &#39;cluster_manager_timeout&#39; instead.): Specify timeout for connection</span>
+<span class="sd">            use `cluster_manager_timeout` instead.): Specify timeout for connection</span>
 <span class="sd">            to master</span>
 <span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
-<span class="sd">            response.</span>
+<span class="sd">            response. Default is false.</span>
 <span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
 <span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -1514,35 +1555,38 @@
 
 <span class="sd">        :arg index: Name of the index that contains the document.</span>
 <span class="sd">        :arg id: Unique identifier of the document.</span>
-<span class="sd">        :arg _source: True or false to return the _source field or not,</span>
-<span class="sd">            or a list of fields to return.</span>
+<span class="sd">        :arg _source: Set to `true` or `false` to return the `_source`</span>
+<span class="sd">            field or not, or a list of fields to return.</span>
 <span class="sd">        :arg _source_excludes: A comma-separated list of source fields</span>
 <span class="sd">            to exclude in the response.</span>
 <span class="sd">        :arg _source_includes: A comma-separated list of source fields</span>
 <span class="sd">            to include in the response.</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
-<span class="sd">            errors.</span>
-<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
-<span class="sd">            the response.</span>
+<span class="sd">            errors. Default is false.</span>
+<span class="sd">        :arg filter_path: Used to reduce the response. This parameter</span>
+<span class="sd">            takes a comma-separated list of filters. It supports using wildcards to</span>
+<span class="sd">            match any field or part of a field’s name. You can also exclude fields</span>
+<span class="sd">            with &quot;-&quot;.</span>
 <span class="sd">        :arg human: Whether to return human readable values for</span>
-<span class="sd">            statistics.</span>
+<span class="sd">            statistics. Default is True.</span>
 <span class="sd">        :arg preference: Specifies the node or shard the operation</span>
 <span class="sd">            should be performed on. Random by default. Default is random.</span>
 <span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
-<span class="sd">            response.</span>
-<span class="sd">        :arg realtime: Boolean) If true, the request is real-time as</span>
+<span class="sd">            response. Default is false.</span>
+<span class="sd">        :arg realtime: Boolean) If `true`, the request is real-time as</span>
 <span class="sd">            opposed to near-real-time.</span>
-<span class="sd">        :arg refresh: If true, OpenSearch refreshes the affected shards</span>
-<span class="sd">            to make this operation visible to search. If false, do nothing with</span>
-<span class="sd">            refreshes.</span>
+<span class="sd">        :arg refresh: If `true`, OpenSearch refreshes the affected</span>
+<span class="sd">            shards to make this operation visible to search. If `false`, do nothing</span>
+<span class="sd">            with refreshes.</span>
 <span class="sd">        :arg routing: Target the specified primary shard.</span>
 <span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
 <span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
 <span class="sd">        :arg version: Explicit version number for concurrency control.</span>
 <span class="sd">            The specified version must match the current version of the document for</span>
 <span class="sd">            the request to succeed.</span>
-<span class="sd">        :arg version_type: Specific version type: internal, external,</span>
-<span class="sd">            external_gte. Valid choices are external, external_gte, force, internal.</span>
+<span class="sd">        :arg version_type: Specific version type. One of `internal`,</span>
+<span class="sd">            `external`, `external_gte`. Valid choices are external, external_gte,</span>
+<span class="sd">            force, internal.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="nb">id</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
@@ -1586,8 +1630,8 @@
 <span class="sd">        :arg index: Name of the index to retrieve documents from when</span>
 <span class="sd">            `ids` are specified, or when a document in the `docs` array does not</span>
 <span class="sd">            specify an index.</span>
-<span class="sd">        :arg _source: True or false to return the `_source` field or</span>
-<span class="sd">            not, or a list of fields to return.</span>
+<span class="sd">        :arg _source: Set to `true` or `false` to return the `_source`</span>
+<span class="sd">            field or not, or a list of fields to return.</span>
 <span class="sd">        :arg _source_excludes: A comma-separated list of source fields</span>
 <span class="sd">            to exclude from the response. You can also use this parameter to exclude</span>
 <span class="sd">            fields from the subset specified in `_source_includes` query parameter.</span>
@@ -1597,15 +1641,17 @@
 <span class="sd">            using the `_source_excludes` query parameter. If the `_source` parameter</span>
 <span class="sd">            is `false`, this parameter is ignored.</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
-<span class="sd">            errors.</span>
-<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
-<span class="sd">            the response.</span>
+<span class="sd">            errors. Default is false.</span>
+<span class="sd">        :arg filter_path: Used to reduce the response. This parameter</span>
+<span class="sd">            takes a comma-separated list of filters. It supports using wildcards to</span>
+<span class="sd">            match any field or part of a field’s name. You can also exclude fields</span>
+<span class="sd">            with &quot;-&quot;.</span>
 <span class="sd">        :arg human: Whether to return human readable values for</span>
-<span class="sd">            statistics.</span>
+<span class="sd">            statistics. Default is True.</span>
 <span class="sd">        :arg preference: Specifies the node or shard the operation</span>
 <span class="sd">            should be performed on. Random by default. Default is random.</span>
 <span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
-<span class="sd">            response.</span>
+<span class="sd">            response. Default is false.</span>
 <span class="sd">        :arg realtime: If `true`, the request is real-time as opposed to</span>
 <span class="sd">            near-real-time.</span>
 <span class="sd">        :arg refresh: If `true`, the request refreshes relevant shards</span>
@@ -1655,17 +1701,19 @@
 
 <span class="sd">        :arg body: The request definitions (metadata-search request</span>
 <span class="sd">            definition pairs), separated by newlines</span>
-<span class="sd">        :arg index: Comma-separated list of data streams, indices, and</span>
+<span class="sd">        :arg index: Comma-separated list of data streams, indexes, and</span>
 <span class="sd">            index aliases to search.</span>
-<span class="sd">        :arg ccs_minimize_roundtrips: If true, network roundtrips</span>
+<span class="sd">        :arg ccs_minimize_roundtrips: If `true`, network round-trips</span>
 <span class="sd">            between the coordinating node and remote clusters are minimized for</span>
 <span class="sd">            cross-cluster search requests. Default is True.</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
-<span class="sd">            errors.</span>
-<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
-<span class="sd">            the response.</span>
+<span class="sd">            errors. Default is false.</span>
+<span class="sd">        :arg filter_path: Used to reduce the response. This parameter</span>
+<span class="sd">            takes a comma-separated list of filters. It supports using wildcards to</span>
+<span class="sd">            match any field or part of a field’s name. You can also exclude fields</span>
+<span class="sd">            with &quot;-&quot;.</span>
 <span class="sd">        :arg human: Whether to return human readable values for</span>
-<span class="sd">            statistics.</span>
+<span class="sd">            statistics. Default is True.</span>
 <span class="sd">        :arg max_concurrent_searches: Maximum number of concurrent</span>
 <span class="sd">            searches the multi search API can execute.</span>
 <span class="sd">        :arg max_concurrent_shard_requests: Maximum number of concurrent</span>
@@ -1679,10 +1727,10 @@
 <span class="sd">            on its rewrite method i.e., if date filters are mandatory to match but</span>
 <span class="sd">            the shard bounds and the query are disjoint.</span>
 <span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
-<span class="sd">            response.</span>
-<span class="sd">        :arg rest_total_hits_as_int: If true, hits.total are returned as</span>
-<span class="sd">            an integer in the response. Defaults to false, which returns an object.</span>
-<span class="sd">            Default is false.</span>
+<span class="sd">            response. Default is false.</span>
+<span class="sd">        :arg rest_total_hits_as_int: If `true`, `hits.total` are</span>
+<span class="sd">            returned as an integer in the response. Defaults to false, which returns</span>
+<span class="sd">            an object. Default is false.</span>
 <span class="sd">        :arg search_type: Indicates whether global term and document</span>
 <span class="sd">            frequencies should be used when scoring returned documents. Valid</span>
 <span class="sd">            choices are dfs_query_then_fetch, query_then_fetch.</span>
@@ -1728,21 +1776,23 @@
 
 <span class="sd">        :arg body: The request definitions (metadata-search request</span>
 <span class="sd">            definition pairs), separated by newlines</span>
-<span class="sd">        :arg index: Comma-separated list of data streams, indices, and</span>
+<span class="sd">        :arg index: Comma-separated list of data streams, indexes, and</span>
 <span class="sd">            aliases to search. Supports wildcards (`*`). To search all data streams</span>
-<span class="sd">            and indices, omit this parameter or use `*`.</span>
+<span class="sd">            and indexes, omit this parameter or use `*`.</span>
 <span class="sd">        :arg ccs_minimize_roundtrips: If `true`, network round-trips are</span>
 <span class="sd">            minimized for cross-cluster search requests. Default is True.</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
-<span class="sd">            errors.</span>
-<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
-<span class="sd">            the response.</span>
+<span class="sd">            errors. Default is false.</span>
+<span class="sd">        :arg filter_path: Used to reduce the response. This parameter</span>
+<span class="sd">            takes a comma-separated list of filters. It supports using wildcards to</span>
+<span class="sd">            match any field or part of a field’s name. You can also exclude fields</span>
+<span class="sd">            with &quot;-&quot;.</span>
 <span class="sd">        :arg human: Whether to return human readable values for</span>
-<span class="sd">            statistics.</span>
+<span class="sd">            statistics. Default is True.</span>
 <span class="sd">        :arg max_concurrent_searches: Maximum number of concurrent</span>
 <span class="sd">            searches the API can run.</span>
 <span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
-<span class="sd">            response.</span>
+<span class="sd">            response. Default is false.</span>
 <span class="sd">        :arg rest_total_hits_as_int: If `true`, the response returns</span>
 <span class="sd">            `hits.total` as an integer. If `false`, it returns `hits.total` as an</span>
 <span class="sd">            object. Default is false.</span>
@@ -1801,7 +1851,7 @@
 <span class="sd">            document ids. See documentation.</span>
 <span class="sd">        :arg index: Name of the index that contains the documents.</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
-<span class="sd">            errors.</span>
+<span class="sd">            errors. Default is false.</span>
 <span class="sd">        :arg field_statistics: If `true`, the response includes the</span>
 <span class="sd">            document count, sum of document frequencies, and sum of total term</span>
 <span class="sd">            frequencies. Default is True.</span>
@@ -1809,10 +1859,12 @@
 <span class="sd">            fields to include in the statistics. Used as the default list unless a</span>
 <span class="sd">            specific field list is provided in the `completion_fields` or</span>
 <span class="sd">            `fielddata_fields` parameters.</span>
-<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
-<span class="sd">            the response.</span>
+<span class="sd">        :arg filter_path: Used to reduce the response. This parameter</span>
+<span class="sd">            takes a comma-separated list of filters. It supports using wildcards to</span>
+<span class="sd">            match any field or part of a field’s name. You can also exclude fields</span>
+<span class="sd">            with &quot;-&quot;.</span>
 <span class="sd">        :arg human: Whether to return human readable values for</span>
-<span class="sd">            statistics.</span>
+<span class="sd">            statistics. Default is True.</span>
 <span class="sd">        :arg ids: A comma-separated list of documents ids. You must</span>
 <span class="sd">            define ids as parameter or set &quot;ids&quot; or &quot;docs&quot; in the request body</span>
 <span class="sd">        :arg offsets: If `true`, the response includes term offsets.</span>
@@ -1824,14 +1876,14 @@
 <span class="sd">        :arg preference: Specifies the node or shard the operation</span>
 <span class="sd">            should be performed on. Random by default. Default is random.</span>
 <span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
-<span class="sd">            response.</span>
-<span class="sd">        :arg realtime: If true, the request is real-time as opposed to</span>
+<span class="sd">            response. Default is false.</span>
+<span class="sd">        :arg realtime: If `true`, the request is real-time as opposed to</span>
 <span class="sd">            near-real-time. Default is True.</span>
 <span class="sd">        :arg routing: Custom value used to route operations to a</span>
 <span class="sd">            specific shard.</span>
 <span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
 <span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
-<span class="sd">        :arg term_statistics: If true, the response includes term</span>
+<span class="sd">        :arg term_statistics: If `true`, the response includes term</span>
 <span class="sd">            frequency and document frequency. Default is false.</span>
 <span class="sd">        :arg version: If `true`, returns the document version as part of</span>
 <span class="sd">            a hit.</span>
@@ -1875,17 +1927,19 @@
 <span class="sd">        :arg cluster_manager_timeout: Operation timeout for connection</span>
 <span class="sd">            to cluster-manager node.</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
-<span class="sd">            errors.</span>
-<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
-<span class="sd">            the response.</span>
+<span class="sd">            errors. Default is false.</span>
+<span class="sd">        :arg filter_path: Used to reduce the response. This parameter</span>
+<span class="sd">            takes a comma-separated list of filters. It supports using wildcards to</span>
+<span class="sd">            match any field or part of a field’s name. You can also exclude fields</span>
+<span class="sd">            with &quot;-&quot;.</span>
 <span class="sd">        :arg human: Whether to return human readable values for</span>
-<span class="sd">            statistics.</span>
+<span class="sd">            statistics. Default is True.</span>
 <span class="sd">        :arg master_timeout (Deprecated: To promote inclusive language,</span>
-<span class="sd">            use &#39;cluster_manager_timeout&#39; instead.): Period to wait for a connection</span>
-<span class="sd">            to the master node. If no response is received before the timeout</span>
-<span class="sd">            expires, the request fails and returns an error.</span>
+<span class="sd">            use `cluster_manager_timeout` instead.): Period to wait for a connection</span>
+<span class="sd">            to the cluster-manager node. If no response is received before the</span>
+<span class="sd">            timeout expires, the request fails and returns an error.</span>
 <span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
-<span class="sd">            response.</span>
+<span class="sd">            response. Default is false.</span>
 <span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
 <span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
 <span class="sd">        :arg timeout: Period to wait for a response. If no response is</span>
@@ -1929,30 +1983,32 @@
 
 <span class="sd">        :arg body: The ranking evaluation search definition, including</span>
 <span class="sd">            search requests, document ratings and ranking metric definition.</span>
-<span class="sd">        :arg index: Comma-separated list of data streams, indices, and</span>
+<span class="sd">        :arg index: Comma-separated list of data streams, indexes, and</span>
 <span class="sd">            index aliases used to limit the request. Wildcard (`*`) expressions are</span>
-<span class="sd">            supported. To target all data streams and indices in a cluster, omit</span>
+<span class="sd">            supported. To target all data streams and indexes in a cluster, omit</span>
 <span class="sd">            this parameter or use `_all` or `*`.</span>
 <span class="sd">        :arg allow_no_indices: If `false`, the request returns an error</span>
 <span class="sd">            if any wildcard expression, index alias, or `_all` value targets only</span>
-<span class="sd">            missing or closed indices. This behavior applies even if the request</span>
-<span class="sd">            targets other open indices. For example, a request targeting `foo*,bar*`</span>
+<span class="sd">            missing or closed indexes. This behavior applies even if the request</span>
+<span class="sd">            targets other open indexes. For example, a request targeting `foo*,bar*`</span>
 <span class="sd">            returns an error if an index starts with `foo` but no index starts with</span>
 <span class="sd">            `bar`.</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
-<span class="sd">            errors.</span>
+<span class="sd">            errors. Default is false.</span>
 <span class="sd">        :arg expand_wildcards: Whether to expand wildcard expression to</span>
-<span class="sd">            concrete indices that are open, closed or both. Valid choices are all,</span>
-<span class="sd">            closed, hidden, none, open.</span>
-<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
-<span class="sd">            the response.</span>
+<span class="sd">            concrete indexes that are open, closed or both.</span>
+<span class="sd">        :arg filter_path: Used to reduce the response. This parameter</span>
+<span class="sd">            takes a comma-separated list of filters. It supports using wildcards to</span>
+<span class="sd">            match any field or part of a field’s name. You can also exclude fields</span>
+<span class="sd">            with &quot;-&quot;.</span>
 <span class="sd">        :arg human: Whether to return human readable values for</span>
-<span class="sd">            statistics.</span>
-<span class="sd">        :arg ignore_unavailable: If `true`, missing or closed indices</span>
+<span class="sd">            statistics. Default is True.</span>
+<span class="sd">        :arg ignore_unavailable: If `true`, missing or closed indexes</span>
 <span class="sd">            are not included in the response.</span>
 <span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
-<span class="sd">            response.</span>
-<span class="sd">        :arg search_type: Search operation type</span>
+<span class="sd">            response. Default is false.</span>
+<span class="sd">        :arg search_type: Search operation type Valid choices are</span>
+<span class="sd">            dfs_query_then_fetch, query_then_fetch.</span>
 <span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
 <span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -1997,15 +2053,17 @@
 <span class="sd">        :arg body: The search definition using the Query DSL and the</span>
 <span class="sd">            prototype for the index request.</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
-<span class="sd">            errors.</span>
-<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
-<span class="sd">            the response.</span>
+<span class="sd">            errors. Default is false.</span>
+<span class="sd">        :arg filter_path: Used to reduce the response. This parameter</span>
+<span class="sd">            takes a comma-separated list of filters. It supports using wildcards to</span>
+<span class="sd">            match any field or part of a field’s name. You can also exclude fields</span>
+<span class="sd">            with &quot;-&quot;.</span>
 <span class="sd">        :arg human: Whether to return human readable values for</span>
-<span class="sd">            statistics.</span>
+<span class="sd">            statistics. Default is True.</span>
 <span class="sd">        :arg max_docs: Maximum number of documents to process. By</span>
 <span class="sd">            default, all documents.</span>
 <span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
-<span class="sd">            response.</span>
+<span class="sd">            response. Default is false.</span>
 <span class="sd">        :arg refresh: If `true`, the request refreshes affected shards</span>
 <span class="sd">            to make this operation visible to search.</span>
 <span class="sd">        :arg requests_per_second: The throttle for this request in sub-</span>
@@ -2048,13 +2106,15 @@
 
 <span class="sd">        :arg task_id: Identifier for the task.</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
-<span class="sd">            errors.</span>
-<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
-<span class="sd">            the response.</span>
+<span class="sd">            errors. Default is false.</span>
+<span class="sd">        :arg filter_path: Used to reduce the response. This parameter</span>
+<span class="sd">            takes a comma-separated list of filters. It supports using wildcards to</span>
+<span class="sd">            match any field or part of a field’s name. You can also exclude fields</span>
+<span class="sd">            with &quot;-&quot;.</span>
 <span class="sd">        :arg human: Whether to return human readable values for</span>
-<span class="sd">            statistics.</span>
+<span class="sd">            statistics. Default is True.</span>
 <span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
-<span class="sd">            response.</span>
+<span class="sd">            response. Default is false.</span>
 <span class="sd">        :arg requests_per_second: The throttle for this request in sub-</span>
 <span class="sd">            requests per second.</span>
 <span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
@@ -2082,17 +2142,19 @@
 <span class="sd">        Allows to use the Mustache language to pre-render a search definition.</span>
 
 
-<span class="sd">        :arg body: The search definition template and its params</span>
+<span class="sd">        :arg body: The search definition template and its parameters.</span>
 <span class="sd">        :arg id: ID of the search template to render. If no `source` is</span>
 <span class="sd">            specified, this or the `id` request body parameter is required.</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
-<span class="sd">            errors.</span>
-<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
-<span class="sd">            the response.</span>
+<span class="sd">            errors. Default is false.</span>
+<span class="sd">        :arg filter_path: Used to reduce the response. This parameter</span>
+<span class="sd">            takes a comma-separated list of filters. It supports using wildcards to</span>
+<span class="sd">            match any field or part of a field’s name. You can also exclude fields</span>
+<span class="sd">            with &quot;-&quot;.</span>
 <span class="sd">        :arg human: Whether to return human readable values for</span>
-<span class="sd">            statistics.</span>
+<span class="sd">            statistics. Default is True.</span>
 <span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
-<span class="sd">            response.</span>
+<span class="sd">            response. Default is false.</span>
 <span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
 <span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -2117,13 +2179,15 @@
 
 <span class="sd">        :arg body: The script to execute</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
-<span class="sd">            errors.</span>
-<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
-<span class="sd">            the response.</span>
+<span class="sd">            errors. Default is false.</span>
+<span class="sd">        :arg filter_path: Used to reduce the response. This parameter</span>
+<span class="sd">            takes a comma-separated list of filters. It supports using wildcards to</span>
+<span class="sd">            match any field or part of a field’s name. You can also exclude fields</span>
+<span class="sd">            with &quot;-&quot;.</span>
 <span class="sd">        :arg human: Whether to return human readable values for</span>
-<span class="sd">            statistics.</span>
+<span class="sd">            statistics. Default is True.</span>
 <span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
-<span class="sd">            response.</span>
+<span class="sd">            response. Default is false.</span>
 <span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
 <span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -2159,16 +2223,18 @@
 <span class="sd">            parameter.</span>
 <span class="sd">        :arg scroll_id: The scroll ID for scrolled search</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
-<span class="sd">            errors.</span>
-<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
-<span class="sd">            the response.</span>
+<span class="sd">            errors. Default is false.</span>
+<span class="sd">        :arg filter_path: Used to reduce the response. This parameter</span>
+<span class="sd">            takes a comma-separated list of filters. It supports using wildcards to</span>
+<span class="sd">            match any field or part of a field’s name. You can also exclude fields</span>
+<span class="sd">            with &quot;-&quot;.</span>
 <span class="sd">        :arg human: Whether to return human readable values for</span>
-<span class="sd">            statistics.</span>
+<span class="sd">            statistics. Default is True.</span>
 <span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
-<span class="sd">            response.</span>
-<span class="sd">        :arg rest_total_hits_as_int: If true, the API response&#39;s</span>
-<span class="sd">            hit.total property is returned as an integer. If false, the API</span>
-<span class="sd">            response&#39;s hit.total property is returned as an object. Default is</span>
+<span class="sd">            response. Default is false.</span>
+<span class="sd">        :arg rest_total_hits_as_int: If `true`, the API response&#39;s</span>
+<span class="sd">            `hit.total` property is returned as an integer. If `false`, the API</span>
+<span class="sd">            response&#39;s `hit.total` property is returned as an object. Default is</span>
 <span class="sd">            false.</span>
 <span class="sd">        :arg scroll: Period to retain the search context for scrolling.</span>
 <span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
@@ -2250,9 +2316,9 @@
 
 
 <span class="sd">        :arg body: The search definition using the Query DSL</span>
-<span class="sd">        :arg index: Comma-separated list of data streams, indices, and</span>
+<span class="sd">        :arg index: Comma-separated list of data streams, indexes, and</span>
 <span class="sd">            aliases to search. Supports wildcards (`*`). To search all data streams</span>
-<span class="sd">            and indices, omit this parameter or use `*` or `_all`.</span>
+<span class="sd">            and indexes, omit this parameter or use `*` or `_all`.</span>
 <span class="sd">        :arg _source: Indicates which source fields are returned for</span>
 <span class="sd">            matching documents. These fields are returned in the `hits._source`</span>
 <span class="sd">            property of the search response. Valid values are: `true` to return the</span>
@@ -2270,15 +2336,15 @@
 <span class="sd">            is `false`, this parameter is ignored.</span>
 <span class="sd">        :arg allow_no_indices: If `false`, the request returns an error</span>
 <span class="sd">            if any wildcard expression, index alias, or `_all` value targets only</span>
-<span class="sd">            missing or closed indices. This behavior applies even if the request</span>
-<span class="sd">            targets other open indices. For example, a request targeting `foo*,bar*`</span>
+<span class="sd">            missing or closed indexes. This behavior applies even if the request</span>
+<span class="sd">            targets other open indexes. For example, a request targeting `foo*,bar*`</span>
 <span class="sd">            returns an error if an index starts with `foo` but no index starts with</span>
 <span class="sd">            `bar`.</span>
-<span class="sd">        :arg allow_partial_search_results: If true, returns partial</span>
-<span class="sd">            results if there are shard request timeouts or shard failures. If false,</span>
-<span class="sd">            returns an error with no partial results. Default is True.</span>
-<span class="sd">        :arg analyze_wildcard: If true, wildcard and prefix queries are</span>
-<span class="sd">            analyzed. This parameter can only be used when the q query string</span>
+<span class="sd">        :arg allow_partial_search_results: If `true`, returns partial</span>
+<span class="sd">            results if there are shard request timeouts or shard failures. If</span>
+<span class="sd">            `false`, returns an error with no partial results. Default is True.</span>
+<span class="sd">        :arg analyze_wildcard: If `true`, wildcard and prefix queries</span>
+<span class="sd">            are analyzed. This parameter can only be used when the q query string</span>
 <span class="sd">            parameter is specified. Default is false.</span>
 <span class="sd">        :arg analyzer: Analyzer to use for the query string. This</span>
 <span class="sd">            parameter can only be used when the q query string parameter is</span>
@@ -2291,7 +2357,7 @@
 <span class="sd">        :arg cancel_after_time_interval: The time after which the search</span>
 <span class="sd">            request will be canceled. Request-level parameter takes precedence over</span>
 <span class="sd">            `cancel_after_time_interval` cluster setting.</span>
-<span class="sd">        :arg ccs_minimize_roundtrips: If true, network round-trips</span>
+<span class="sd">        :arg ccs_minimize_roundtrips: If `true`, network round-trips</span>
 <span class="sd">            between the coordinating node and the remote clusters are minimized when</span>
 <span class="sd">            executing cross-cluster search (CCS) requests. Default is True.</span>
 <span class="sd">        :arg default_operator: The default operator for query string</span>
@@ -2303,28 +2369,29 @@
 <span class="sd">        :arg docvalue_fields: A comma-separated list of fields to return</span>
 <span class="sd">            as the docvalue representation for each hit.</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
-<span class="sd">            errors.</span>
+<span class="sd">            errors. Default is false.</span>
 <span class="sd">        :arg expand_wildcards: Type of index that wildcard patterns can</span>
 <span class="sd">            match. If the request can target data streams, this argument determines</span>
 <span class="sd">            whether wildcard expressions match hidden data streams. Supports comma-</span>
-<span class="sd">            separated values, such as `open,hidden`. Valid choices are all, closed,</span>
-<span class="sd">            hidden, none, open.</span>
+<span class="sd">            separated values, such as `open,hidden`.</span>
 <span class="sd">        :arg explain: If `true`, returns detailed information about</span>
 <span class="sd">            score computation as part of a hit.</span>
-<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
-<span class="sd">            the response.</span>
+<span class="sd">        :arg filter_path: Used to reduce the response. This parameter</span>
+<span class="sd">            takes a comma-separated list of filters. It supports using wildcards to</span>
+<span class="sd">            match any field or part of a field’s name. You can also exclude fields</span>
+<span class="sd">            with &quot;-&quot;.</span>
 <span class="sd">        :arg from_: Starting document offset. Needs to be non-negative.</span>
 <span class="sd">            By default, you cannot page through more than 10,000 hits using the</span>
 <span class="sd">            `from` and `size` parameters. To page through more hits, use the</span>
 <span class="sd">            `search_after` parameter. Default is 0.</span>
 <span class="sd">        :arg human: Whether to return human readable values for</span>
-<span class="sd">            statistics.</span>
+<span class="sd">            statistics. Default is True.</span>
 <span class="sd">        :arg ignore_throttled: If `true`, concrete, expanded or aliased</span>
-<span class="sd">            indices will be ignored when frozen.</span>
+<span class="sd">            indexes will be ignored when frozen.</span>
 <span class="sd">        :arg ignore_unavailable: If `false`, the request returns an</span>
 <span class="sd">            error if it targets a missing or closed index.</span>
 <span class="sd">        :arg include_named_queries_score: Indicates whether</span>
-<span class="sd">            hit.matched_queries should be rendered as a map that includes the name</span>
+<span class="sd">            `hit.matched_queries` should be rendered as a map that includes the name</span>
 <span class="sd">            of the matched query associated with its score (true) or as an array</span>
 <span class="sd">            containing the name of the matched queries (false) Default is false.</span>
 <span class="sd">        :arg lenient: If `true`, format-based query failures (such as</span>
@@ -2366,7 +2433,7 @@
 <span class="sd">            `&lt;custom-string&gt;` to the same shards in the same order. Default is</span>
 <span class="sd">            random.</span>
 <span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
-<span class="sd">            response.</span>
+<span class="sd">            response. Default is false.</span>
 <span class="sd">        :arg q: Query in the Lucene query string syntax using query</span>
 <span class="sd">            parameter search. Query parameter searches do not support the full</span>
 <span class="sd">            OpenSearch Query DSL but are handy for testing.</span>
@@ -2422,7 +2489,7 @@
 <span class="sd">            caution. OpenSearch applies this parameter to each shard handling the</span>
 <span class="sd">            request. When possible, let OpenSearch perform early termination</span>
 <span class="sd">            automatically. Avoid specifying this parameter for requests that target</span>
-<span class="sd">            data streams with backing indices across multiple data tiers. If set to</span>
+<span class="sd">            data streams with backing indexes across multiple data tiers. If set to</span>
 <span class="sd">            `0` (default), the query does not terminate early.</span>
 <span class="sd">        :arg timeout: Specifies the period of time to wait for a</span>
 <span class="sd">            response from each shard. If no response is received before the timeout</span>
@@ -2470,29 +2537,31 @@
         <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Returns information about the indices and shards that a search request would be</span>
+<span class="sd">        Returns information about the indexes and shards that a search request would be</span>
 <span class="sd">        executed against.</span>
 
 
-<span class="sd">        :arg index: Returns the indices and shards that a search request</span>
+<span class="sd">        :arg index: Returns the indexes and shards that a search request</span>
 <span class="sd">            would be executed against.</span>
 <span class="sd">        :arg allow_no_indices: If `false`, the request returns an error</span>
 <span class="sd">            if any wildcard expression, index alias, or `_all` value targets only</span>
-<span class="sd">            missing or closed indices. This behavior applies even if the request</span>
-<span class="sd">            targets other open indices. For example, a request targeting `foo*,bar*`</span>
+<span class="sd">            missing or closed indexes. This behavior applies even if the request</span>
+<span class="sd">            targets other open indexes. For example, a request targeting `foo*,bar*`</span>
 <span class="sd">            returns an error if an index starts with `foo` but no index starts with</span>
 <span class="sd">            `bar`.</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
-<span class="sd">            errors.</span>
+<span class="sd">            errors. Default is false.</span>
 <span class="sd">        :arg expand_wildcards: Type of index that wildcard patterns can</span>
 <span class="sd">            match. If the request can target data streams, this argument determines</span>
 <span class="sd">            whether wildcard expressions match hidden data streams. Supports comma-</span>
 <span class="sd">            separated values, such as `open,hidden`. Valid values are: `all`,</span>
 <span class="sd">            `open`, `closed`, `hidden`, `none`.</span>
-<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
-<span class="sd">            the response.</span>
+<span class="sd">        :arg filter_path: Used to reduce the response. This parameter</span>
+<span class="sd">            takes a comma-separated list of filters. It supports using wildcards to</span>
+<span class="sd">            match any field or part of a field’s name. You can also exclude fields</span>
+<span class="sd">            with &quot;-&quot;.</span>
 <span class="sd">        :arg human: Whether to return human readable values for</span>
-<span class="sd">            statistics.</span>
+<span class="sd">            statistics. Default is True.</span>
 <span class="sd">        :arg ignore_unavailable: If `false`, the request returns an</span>
 <span class="sd">            error if it targets a missing or closed index.</span>
 <span class="sd">        :arg local: If `true`, the request retrieves information from</span>
@@ -2500,7 +2569,7 @@
 <span class="sd">        :arg preference: Specifies the node or shard the operation</span>
 <span class="sd">            should be performed on. Random by default. Default is random.</span>
 <span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
-<span class="sd">            response.</span>
+<span class="sd">            response. Default is false.</span>
 <span class="sd">        :arg routing: Custom value used to route operations to a</span>
 <span class="sd">            specific shard.</span>
 <span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
@@ -2541,19 +2610,19 @@
 <span class="sd">        Allows to use the Mustache language to pre-render a search definition.</span>
 
 
-<span class="sd">        :arg body: The search definition template and its params</span>
-<span class="sd">        :arg index: Comma-separated list of data streams, indices, and</span>
+<span class="sd">        :arg body: The search definition template and its parameters.</span>
+<span class="sd">        :arg index: Comma-separated list of data streams, indexes, and</span>
 <span class="sd">            aliases to search. Supports wildcards (*).</span>
 <span class="sd">        :arg allow_no_indices: If `false`, the request returns an error</span>
 <span class="sd">            if any wildcard expression, index alias, or `_all` value targets only</span>
-<span class="sd">            missing or closed indices. This behavior applies even if the request</span>
-<span class="sd">            targets other open indices. For example, a request targeting `foo*,bar*`</span>
+<span class="sd">            missing or closed indexes. This behavior applies even if the request</span>
+<span class="sd">            targets other open indexes. For example, a request targeting `foo*,bar*`</span>
 <span class="sd">            returns an error if an index starts with `foo` but no index starts with</span>
 <span class="sd">            `bar`.</span>
 <span class="sd">        :arg ccs_minimize_roundtrips: If `true`, network round-trips are</span>
 <span class="sd">            minimized for cross-cluster search requests. Default is True.</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
-<span class="sd">            errors.</span>
+<span class="sd">            errors. Default is false.</span>
 <span class="sd">        :arg expand_wildcards: Type of index that wildcard patterns can</span>
 <span class="sd">            match. If the request can target data streams, this argument determines</span>
 <span class="sd">            whether wildcard expressions match hidden data streams. Supports comma-</span>
@@ -2561,21 +2630,23 @@
 <span class="sd">            `open`, `closed`, `hidden`, `none`.</span>
 <span class="sd">        :arg explain: If `true`, the response includes additional</span>
 <span class="sd">            details about score computation as part of a hit.</span>
-<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
-<span class="sd">            the response.</span>
+<span class="sd">        :arg filter_path: Used to reduce the response. This parameter</span>
+<span class="sd">            takes a comma-separated list of filters. It supports using wildcards to</span>
+<span class="sd">            match any field or part of a field’s name. You can also exclude fields</span>
+<span class="sd">            with &quot;-&quot;.</span>
 <span class="sd">        :arg human: Whether to return human readable values for</span>
-<span class="sd">            statistics.</span>
+<span class="sd">            statistics. Default is True.</span>
 <span class="sd">        :arg ignore_throttled: If `true`, specified concrete, expanded,</span>
-<span class="sd">            or aliased indices are not included in the response when throttled.</span>
+<span class="sd">            or aliased indexes are not included in the response when throttled.</span>
 <span class="sd">        :arg ignore_unavailable: If `false`, the request returns an</span>
 <span class="sd">            error if it targets a missing or closed index.</span>
 <span class="sd">        :arg preference: Specifies the node or shard the operation</span>
 <span class="sd">            should be performed on. Random by default. Default is random.</span>
 <span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
-<span class="sd">            response.</span>
+<span class="sd">            response. Default is false.</span>
 <span class="sd">        :arg profile: If `true`, the query execution is profiled.</span>
-<span class="sd">        :arg rest_total_hits_as_int: If true, hits.total are rendered as</span>
-<span class="sd">            an integer in the response. Default is false.</span>
+<span class="sd">        :arg rest_total_hits_as_int: If `true`, `hits.total` are</span>
+<span class="sd">            rendered as an integer in the response. Default is false.</span>
 <span class="sd">        :arg routing: Custom value used to route operations to a</span>
 <span class="sd">            specific shard.</span>
 <span class="sd">        :arg scroll: Specifies how long a consistent view of the index</span>
@@ -2634,7 +2705,7 @@
 <span class="sd">            termvectors for. See documentation.</span>
 <span class="sd">        :arg id: Unique identifier of the document.</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
-<span class="sd">            errors.</span>
+<span class="sd">            errors. Default is false.</span>
 <span class="sd">        :arg field_statistics: If `true`, the response includes the</span>
 <span class="sd">            document count, sum of document frequencies, and sum of total term</span>
 <span class="sd">            frequencies. Default is True.</span>
@@ -2642,10 +2713,12 @@
 <span class="sd">            fields to include in the statistics. Used as the default list unless a</span>
 <span class="sd">            specific field list is provided in the `completion_fields` or</span>
 <span class="sd">            `fielddata_fields` parameters.</span>
-<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
-<span class="sd">            the response.</span>
+<span class="sd">        :arg filter_path: Used to reduce the response. This parameter</span>
+<span class="sd">            takes a comma-separated list of filters. It supports using wildcards to</span>
+<span class="sd">            match any field or part of a field’s name. You can also exclude fields</span>
+<span class="sd">            with &quot;-&quot;.</span>
 <span class="sd">        :arg human: Whether to return human readable values for</span>
-<span class="sd">            statistics.</span>
+<span class="sd">            statistics. Default is True.</span>
 <span class="sd">        :arg offsets: If `true`, the response includes term offsets.</span>
 <span class="sd">            Default is True.</span>
 <span class="sd">        :arg payloads: If `true`, the response includes term payloads.</span>
@@ -2655,8 +2728,8 @@
 <span class="sd">        :arg preference: Specifies the node or shard the operation</span>
 <span class="sd">            should be performed on. Random by default. Default is random.</span>
 <span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
-<span class="sd">            response.</span>
-<span class="sd">        :arg realtime: If true, the request is real-time as opposed to</span>
+<span class="sd">            response. Default is false.</span>
+<span class="sd">        :arg realtime: If `true`, the request is real-time as opposed to</span>
 <span class="sd">            near-real-time. Default is True.</span>
 <span class="sd">        :arg routing: Custom value used to route operations to a</span>
 <span class="sd">            specific shard.</span>
@@ -2713,30 +2786,33 @@
 <span class="sd">        :arg id: Document ID</span>
 <span class="sd">        :arg body: The request definition requires either `script` or</span>
 <span class="sd">            partial `doc`</span>
-<span class="sd">        :arg _source: Set to false to disable source retrieval. You can</span>
-<span class="sd">            also specify a comma-separated list of the fields you want to retrieve.</span>
+<span class="sd">        :arg _source: Set to `false` to disable source retrieval. You</span>
+<span class="sd">            can also specify a comma-separated list of the fields you want to</span>
+<span class="sd">            retrieve.</span>
 <span class="sd">        :arg _source_excludes: Specify the source fields you want to</span>
 <span class="sd">            exclude.</span>
 <span class="sd">        :arg _source_includes: Specify the source fields you want to</span>
 <span class="sd">            retrieve.</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
-<span class="sd">            errors.</span>
-<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
-<span class="sd">            the response.</span>
+<span class="sd">            errors. Default is false.</span>
+<span class="sd">        :arg filter_path: Used to reduce the response. This parameter</span>
+<span class="sd">            takes a comma-separated list of filters. It supports using wildcards to</span>
+<span class="sd">            match any field or part of a field’s name. You can also exclude fields</span>
+<span class="sd">            with &quot;-&quot;.</span>
 <span class="sd">        :arg human: Whether to return human readable values for</span>
-<span class="sd">            statistics.</span>
+<span class="sd">            statistics. Default is True.</span>
 <span class="sd">        :arg if_primary_term: Only perform the operation if the document</span>
 <span class="sd">            has this primary term.</span>
 <span class="sd">        :arg if_seq_no: Only perform the operation if the document has</span>
 <span class="sd">            this sequence number.</span>
 <span class="sd">        :arg lang: The script language. Default is painless.</span>
 <span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
-<span class="sd">            response.</span>
+<span class="sd">            response. Default is false.</span>
 <span class="sd">        :arg refresh: If &#39;true&#39;, OpenSearch refreshes the affected</span>
-<span class="sd">            shards to make this operation visible to search, if &#39;wait_for&#39; then wait</span>
-<span class="sd">            for a refresh to make this operation visible to search, if &#39;false&#39; do</span>
-<span class="sd">            nothing with refreshes. Valid choices are false, true, wait_for.</span>
-<span class="sd">        :arg require_alias: If true, the destination must be an index</span>
+<span class="sd">            shards to make this operation visible to search, if `wait_for` then wait</span>
+<span class="sd">            for a refresh to make this operation visible to search, if `false` do</span>
+<span class="sd">            nothing with refreshes.</span>
+<span class="sd">        :arg require_alias: If `true`, the destination must be an index</span>
 <span class="sd">            alias. Default is false.</span>
 <span class="sd">        :arg retry_on_conflict: Specify how many times should the</span>
 <span class="sd">            operation be retried when a conflict occurs. Default is 0.</span>
@@ -2817,20 +2893,20 @@
 <span class="sd">        for example to pick up a mapping change.</span>
 
 
-<span class="sd">        :arg index: Comma-separated list of data streams, indices, and</span>
+<span class="sd">        :arg index: Comma-separated list of data streams, indexes, and</span>
 <span class="sd">            aliases to search. Supports wildcards (`*`). To search all data streams</span>
-<span class="sd">            or indices, omit this parameter or use `*` or `_all`.</span>
+<span class="sd">            or indexes, omit this parameter or use `*` or `_all`.</span>
 <span class="sd">        :arg body: The search definition using the Query DSL</span>
-<span class="sd">        :arg _source: True or false to return the _source field or not,</span>
-<span class="sd">            or a list of fields to return.</span>
+<span class="sd">        :arg _source: Set to `true` or `false` to return the `_source`</span>
+<span class="sd">            field or not, or a list of fields to return.</span>
 <span class="sd">        :arg _source_excludes: List of fields to exclude from the</span>
-<span class="sd">            returned _source field.</span>
+<span class="sd">            returned `_source` field.</span>
 <span class="sd">        :arg _source_includes: List of fields to extract and return from</span>
-<span class="sd">            the _source field.</span>
+<span class="sd">            the `_source` field.</span>
 <span class="sd">        :arg allow_no_indices: If `false`, the request returns an error</span>
 <span class="sd">            if any wildcard expression, index alias, or `_all` value targets only</span>
-<span class="sd">            missing or closed indices. This behavior applies even if the request</span>
-<span class="sd">            targets other open indices. For example, a request targeting `foo*,bar*`</span>
+<span class="sd">            missing or closed indexes. This behavior applies even if the request</span>
+<span class="sd">            targets other open indexes. For example, a request targeting `foo*,bar*`</span>
 <span class="sd">            returns an error if an index starts with `foo` but no index starts with</span>
 <span class="sd">            `bar`.</span>
 <span class="sd">        :arg analyze_wildcard: If `true`, wildcard and prefix queries</span>
@@ -2843,17 +2919,19 @@
 <span class="sd">        :arg df: Field to use as default where no field prefix is given</span>
 <span class="sd">            in the query string.</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
-<span class="sd">            errors.</span>
+<span class="sd">            errors. Default is false.</span>
 <span class="sd">        :arg expand_wildcards: Type of index that wildcard patterns can</span>
 <span class="sd">            match. If the request can target data streams, this argument determines</span>
 <span class="sd">            whether wildcard expressions match hidden data streams. Supports comma-</span>
 <span class="sd">            separated values, such as `open,hidden`. Valid values are: `all`,</span>
 <span class="sd">            `open`, `closed`, `hidden`, `none`.</span>
-<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
-<span class="sd">            the response.</span>
+<span class="sd">        :arg filter_path: Used to reduce the response. This parameter</span>
+<span class="sd">            takes a comma-separated list of filters. It supports using wildcards to</span>
+<span class="sd">            match any field or part of a field’s name. You can also exclude fields</span>
+<span class="sd">            with &quot;-&quot;.</span>
 <span class="sd">        :arg from_: Starting offset. Default is 0.</span>
 <span class="sd">        :arg human: Whether to return human readable values for</span>
-<span class="sd">            statistics.</span>
+<span class="sd">            statistics. Default is True.</span>
 <span class="sd">        :arg ignore_unavailable: If `false`, the request returns an</span>
 <span class="sd">            error if it targets a missing or closed index.</span>
 <span class="sd">        :arg lenient: If `true`, format-based query failures (such as</span>
@@ -2868,7 +2946,7 @@
 <span class="sd">        :arg preference: Specifies the node or shard the operation</span>
 <span class="sd">            should be performed on. Random by default. Default is random.</span>
 <span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
-<span class="sd">            response.</span>
+<span class="sd">            response. Default is false.</span>
 <span class="sd">        :arg q: Query in the Lucene query string syntax.</span>
 <span class="sd">        :arg refresh: If `true`, OpenSearch refreshes affected shards to</span>
 <span class="sd">            make the operation visible to search.</span>
@@ -2885,7 +2963,7 @@
 <span class="sd">        :arg search_type: The type of the search operation. Available</span>
 <span class="sd">            options: `query_then_fetch`, `dfs_query_then_fetch`. Valid choices are</span>
 <span class="sd">            dfs_query_then_fetch, query_then_fetch.</span>
-<span class="sd">        :arg size: Deprecated, please use `max_docs` instead.</span>
+<span class="sd">        :arg size: Deprecated, use `max_docs` instead.</span>
 <span class="sd">        :arg slices: The number of slices this task should be divided</span>
 <span class="sd">            into. Valid choices are auto.</span>
 <span class="sd">        :arg sort: A comma-separated list of &lt;field&gt;:&lt;direction&gt; pairs.</span>
@@ -2899,7 +2977,7 @@
 <span class="sd">            caution. OpenSearch applies this parameter to each shard handling the</span>
 <span class="sd">            request. When possible, let OpenSearch perform early termination</span>
 <span class="sd">            automatically. Avoid specifying this parameter for requests that target</span>
-<span class="sd">            data streams with backing indices across multiple data tiers.</span>
+<span class="sd">            data streams with backing indexes across multiple data tiers.</span>
 <span class="sd">        :arg timeout: Period each update request waits for the following</span>
 <span class="sd">            operations: dynamic mapping updates, waiting for active shards.</span>
 <span class="sd">        :arg version: If `true`, returns the document version as part of</span>
@@ -2942,13 +3020,15 @@
 
 <span class="sd">        :arg task_id: The ID for the task.</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
-<span class="sd">            errors.</span>
-<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
-<span class="sd">            the response.</span>
+<span class="sd">            errors. Default is false.</span>
+<span class="sd">        :arg filter_path: Used to reduce the response. This parameter</span>
+<span class="sd">            takes a comma-separated list of filters. It supports using wildcards to</span>
+<span class="sd">            match any field or part of a field’s name. You can also exclude fields</span>
+<span class="sd">            with &quot;-&quot;.</span>
 <span class="sd">        :arg human: Whether to return human readable values for</span>
-<span class="sd">            statistics.</span>
+<span class="sd">            statistics. Default is True.</span>
 <span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
-<span class="sd">            response.</span>
+<span class="sd">            response. Default is false.</span>
 <span class="sd">        :arg requests_per_second: The throttle for this request in sub-</span>
 <span class="sd">            requests per second.</span>
 <span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
@@ -2975,13 +3055,15 @@
 
 
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
-<span class="sd">            errors.</span>
-<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
-<span class="sd">            the response.</span>
+<span class="sd">            errors. Default is false.</span>
+<span class="sd">        :arg filter_path: Used to reduce the response. This parameter</span>
+<span class="sd">            takes a comma-separated list of filters. It supports using wildcards to</span>
+<span class="sd">            match any field or part of a field’s name. You can also exclude fields</span>
+<span class="sd">            with &quot;-&quot;.</span>
 <span class="sd">        :arg human: Whether to return human readable values for</span>
-<span class="sd">            statistics.</span>
+<span class="sd">            statistics. Default is True.</span>
 <span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
-<span class="sd">            response.</span>
+<span class="sd">            response. Default is false.</span>
 <span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
 <span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -3000,13 +3082,15 @@
 
 
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
-<span class="sd">            errors.</span>
-<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
-<span class="sd">            the response.</span>
+<span class="sd">            errors. Default is false.</span>
+<span class="sd">        :arg filter_path: Used to reduce the response. This parameter</span>
+<span class="sd">            takes a comma-separated list of filters. It supports using wildcards to</span>
+<span class="sd">            match any field or part of a field’s name. You can also exclude fields</span>
+<span class="sd">            with &quot;-&quot;.</span>
 <span class="sd">        :arg human: Whether to return human readable values for</span>
-<span class="sd">            statistics.</span>
+<span class="sd">            statistics. Default is True.</span>
 <span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
-<span class="sd">            response.</span>
+<span class="sd">            response. Default is false.</span>
 <span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
 <span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -3036,24 +3120,25 @@
 <span class="sd">        Creates point in time context.</span>
 
 
-<span class="sd">        :arg index: Comma-separated list of indices; use `_all` or empty</span>
-<span class="sd">            string to perform the operation on all indices.</span>
+<span class="sd">        :arg index: Comma-separated list of indexes; use `_all` or empty</span>
+<span class="sd">            string to perform the operation on all indexes.</span>
 <span class="sd">        :arg allow_partial_pit_creation: Allow if point in time can be</span>
 <span class="sd">            created with partial failures.</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
-<span class="sd">            errors.</span>
+<span class="sd">            errors. Default is false.</span>
 <span class="sd">        :arg expand_wildcards: Whether to expand wildcard expression to</span>
-<span class="sd">            concrete indices that are open, closed or both. Valid choices are all,</span>
-<span class="sd">            closed, hidden, none, open.</span>
-<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
-<span class="sd">            the response.</span>
+<span class="sd">            concrete indexes that are open, closed or both.</span>
+<span class="sd">        :arg filter_path: Used to reduce the response. This parameter</span>
+<span class="sd">            takes a comma-separated list of filters. It supports using wildcards to</span>
+<span class="sd">            match any field or part of a field’s name. You can also exclude fields</span>
+<span class="sd">            with &quot;-&quot;.</span>
 <span class="sd">        :arg human: Whether to return human readable values for</span>
-<span class="sd">            statistics.</span>
+<span class="sd">            statistics. Default is True.</span>
 <span class="sd">        :arg keep_alive: Specify the keep alive for point in time.</span>
 <span class="sd">        :arg preference: Specify the node or shard the operation should</span>
 <span class="sd">            be performed on. Default is random.</span>
 <span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
-<span class="sd">            response.</span>
+<span class="sd">            response. Default is false.</span>
 <span class="sd">        :arg routing: Comma-separated list of specific routing values.</span>
 <span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
 <span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
@@ -3079,13 +3164,15 @@
 
 
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
-<span class="sd">            errors.</span>
-<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
-<span class="sd">            the response.</span>
+<span class="sd">            errors. Default is false.</span>
+<span class="sd">        :arg filter_path: Used to reduce the response. This parameter</span>
+<span class="sd">            takes a comma-separated list of filters. It supports using wildcards to</span>
+<span class="sd">            match any field or part of a field’s name. You can also exclude fields</span>
+<span class="sd">            with &quot;-&quot;.</span>
 <span class="sd">        :arg human: Whether to return human readable values for</span>
-<span class="sd">            statistics.</span>
+<span class="sd">            statistics. Default is True.</span>
 <span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
-<span class="sd">            response.</span>
+<span class="sd">            response. Default is false.</span>
 <span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
 <span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -3106,13 +3193,15 @@
 
 <span class="sd">        :arg body: The point-in-time ids to be deleted</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
-<span class="sd">            errors.</span>
-<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
-<span class="sd">            the response.</span>
+<span class="sd">            errors. Default is false.</span>
+<span class="sd">        :arg filter_path: Used to reduce the response. This parameter</span>
+<span class="sd">            takes a comma-separated list of filters. It supports using wildcards to</span>
+<span class="sd">            match any field or part of a field’s name. You can also exclude fields</span>
+<span class="sd">            with &quot;-&quot;.</span>
 <span class="sd">        :arg human: Whether to return human readable values for</span>
-<span class="sd">            statistics.</span>
+<span class="sd">            statistics. Default is True.</span>
 <span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
-<span class="sd">            response.</span>
+<span class="sd">            response. Default is false.</span>
 <span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
 <span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -3135,18 +3224,110 @@
 
 
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
-<span class="sd">            errors.</span>
-<span class="sd">        :arg filter_path: Comma-separated list of filters used to reduce</span>
-<span class="sd">            the response.</span>
+<span class="sd">            errors. Default is false.</span>
+<span class="sd">        :arg filter_path: Used to reduce the response. This parameter</span>
+<span class="sd">            takes a comma-separated list of filters. It supports using wildcards to</span>
+<span class="sd">            match any field or part of a field’s name. You can also exclude fields</span>
+<span class="sd">            with &quot;-&quot;.</span>
 <span class="sd">        :arg human: Whether to return human readable values for</span>
-<span class="sd">            statistics.</span>
+<span class="sd">            statistics. Default is True.</span>
 <span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
-<span class="sd">            response.</span>
+<span class="sd">            response. Default is false.</span>
 <span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
 <span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
             <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="s2">&quot;/_search/point_in_time/_all&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="OpenSearch.bulk_stream"><a class="viewcode-back" href="../../api-ref/clients/opensearch_client.html#opensearchpy.OpenSearch.bulk_stream">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+        <span class="s2">&quot;_source&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;_source_excludes&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;_source_includes&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;batch_interval&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;batch_size&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;human&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;pipeline&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;pretty&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;refresh&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;require_alias&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;routing&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;source&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;timeout&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;wait_for_active_shards&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">def</span> <span class="nf">bulk_stream</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">body</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+        <span class="n">index</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Allows to perform multiple index/update/delete operations using request</span>
+<span class="sd">        response streaming.</span>
+
+
+<span class="sd">        :arg body: The operation definition and data (action-data</span>
+<span class="sd">            pairs), separated by newlines</span>
+<span class="sd">        :arg index: Name of the data stream, index, or index alias to</span>
+<span class="sd">            perform bulk actions on.</span>
+<span class="sd">        :arg _source: `true` or `false` to return the `_source` field or</span>
+<span class="sd">            not, or a list of fields to return.</span>
+<span class="sd">        :arg _source_excludes: A comma-separated list of source fields</span>
+<span class="sd">            to exclude from the response.</span>
+<span class="sd">        :arg _source_includes: A comma-separated list of source fields</span>
+<span class="sd">            to include in the response.</span>
+<span class="sd">        :arg batch_interval: Specifies for how long bulk operations</span>
+<span class="sd">            should be accumulated into a batch before sending the batch to data</span>
+<span class="sd">            nodes.</span>
+<span class="sd">        :arg batch_size: Specifies how many bulk operations should be</span>
+<span class="sd">            accumulated into a batch before sending the batch to data nodes.</span>
+<span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
+<span class="sd">            errors. Default is false.</span>
+<span class="sd">        :arg filter_path: Used to reduce the response. This parameter</span>
+<span class="sd">            takes a comma-separated list of filters. It supports using wildcards to</span>
+<span class="sd">            match any field or part of a field’s name. You can also exclude fields</span>
+<span class="sd">            with &quot;-&quot;.</span>
+<span class="sd">        :arg human: Whether to return human readable values for</span>
+<span class="sd">            statistics. Default is True.</span>
+<span class="sd">        :arg pipeline: ID of the pipeline to use to preprocess incoming</span>
+<span class="sd">            documents. If the index has a default ingest pipeline specified, then</span>
+<span class="sd">            setting the value to `_none` disables the default ingest pipeline for</span>
+<span class="sd">            this request. If a final pipeline is configured it will always run,</span>
+<span class="sd">            regardless of the value of this parameter.</span>
+<span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
+<span class="sd">            response. Default is false.</span>
+<span class="sd">        :arg refresh: If `true`, OpenSearch refreshes the affected</span>
+<span class="sd">            shards to make this operation visible to search, if `wait_for` then wait</span>
+<span class="sd">            for a refresh to make this operation visible to search, if `false` do</span>
+<span class="sd">            nothing with refreshes. Valid values: `true`, `false`, `wait_for`.</span>
+<span class="sd">        :arg require_alias: If `true`, the request&#39;s actions must target</span>
+<span class="sd">            an index alias. Default is false.</span>
+<span class="sd">        :arg routing: Custom value used to route operations to a</span>
+<span class="sd">            specific shard.</span>
+<span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
+<span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
+<span class="sd">        :arg timeout: Period each action waits for the following</span>
+<span class="sd">            operations: automatic index creation, dynamic mapping updates, waiting</span>
+<span class="sd">            for active shards.</span>
+<span class="sd">        :arg wait_for_active_shards: The number of shard copies that</span>
+<span class="sd">            must be active before proceeding with the operation. Set to all or any</span>
+<span class="sd">            positive integer up to the total number of shards in the index</span>
+<span class="sd">            (`number_of_replicas+1`). Valid choices are all, index-setting.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">body</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Empty value passed for a required argument &#39;body&#39;.&quot;</span><span class="p">)</span>
+
+        <span class="n">body</span> <span class="o">=</span> <span class="n">_bulk_body</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">serializer</span><span class="p">,</span> <span class="n">body</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
+            <span class="s2">&quot;PUT&quot;</span><span class="p">,</span>
+            <span class="n">_make_path</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="s2">&quot;_bulk&quot;</span><span class="p">,</span> <span class="s2">&quot;stream&quot;</span><span class="p">),</span>
+            <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span>
+            <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
+            <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
         <span class="p">)</span></div></div>
 </pre></div>
 

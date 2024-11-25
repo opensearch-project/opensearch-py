@@ -136,17 +136,19 @@ value of <cite>*</cite>.</p></li>
 <li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
 to cluster-manager node.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
-errors.</p></li>
-<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
-the response.</p></li>
+errors. Default is false.</p></li>
+<li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
+takes a comma-separated list of filters. It supports using wildcards to
+match any field or part of a field’s name. You can also exclude fields
+with “-“.</p></li>
 <li><p><strong>human</strong> – Whether to return human readable values for
-statistics.</p></li>
+statistics. Default is True.</p></li>
 <li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
-use ‘cluster_manager_timeout’ instead.): Period to wait for a connection
-to the master node. If no response is received before the timeout
-expires, the request fails and returns an error.</p></li>
+use <cite>cluster_manager_timeout</cite> instead.): Period to wait for a connection
+to the cluster-manager node. If no response is received before the
+timeout expires, the request fails and returns an error.</p></li>
 <li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
-response.</p></li>
+response. Default is false.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
 <li><p><strong>timeout</strong> – Period to wait for a response. If no response is
@@ -176,17 +178,19 @@ omit this parameter or use <cite>*</cite>.</p></li>
 <li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
 to cluster-manager node.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
-errors.</p></li>
-<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
-the response.</p></li>
+errors. Default is false.</p></li>
+<li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
+takes a comma-separated list of filters. It supports using wildcards to
+match any field or part of a field’s name. You can also exclude fields
+with “-“.</p></li>
 <li><p><strong>human</strong> – Whether to return human readable values for
-statistics.</p></li>
+statistics. Default is True.</p></li>
 <li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
-use ‘cluster_manager_timeout’ instead.): Period to wait for a connection
-to the master node. If no response is received before the timeout
-expires, the request fails and returns an error.</p></li>
+use <cite>cluster_manager_timeout</cite> instead.): Period to wait for a connection
+to the cluster-manager node. If no response is received before the
+timeout expires, the request fails and returns an error.</p></li>
 <li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
-response.</p></li>
+response. Default is false.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
 <li><p><strong>id</strong> – </p></li>
@@ -208,13 +212,16 @@ libraries that do not accept a request body for non-POST requests.</p></li>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
-errors.</p></li>
-<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
-the response.</p></li>
+errors. Default is false.</p></li>
+<li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
+takes a comma-separated list of filters. It supports using wildcards to
+match any field or part of a field’s name. You can also exclude fields
+with “-“.</p></li>
 <li><p><strong>human</strong> – Whether to return human readable values for
-statistics.</p></li>
+statistics. Default is True.</p></li>
 <li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
-response.</p></li>
+response. Default is false.</p></li>
+<li><p><strong>s</strong> – Sort returned patterns by key name. Default is false.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – </p></li>
@@ -239,17 +246,19 @@ libraries that do not accept a request body for non-POST requests.</p></li>
 <li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
 to cluster-manager node.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
-errors.</p></li>
-<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
-the response.</p></li>
+errors. Default is false.</p></li>
+<li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
+takes a comma-separated list of filters. It supports using wildcards to
+match any field or part of a field’s name. You can also exclude fields
+with “-“.</p></li>
 <li><p><strong>human</strong> – Whether to return human readable values for
-statistics.</p></li>
+statistics. Default is True.</p></li>
 <li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
-use ‘cluster_manager_timeout’ instead.): Period to wait for a connection
-to the master node. If no response is received before the timeout
-expires, the request fails and returns an error.</p></li>
+use <cite>cluster_manager_timeout</cite> instead.): Period to wait for a connection
+to the cluster-manager node. If no response is received before the
+timeout expires, the request fails and returns an error.</p></li>
 <li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
-response.</p></li>
+response. Default is false.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
 <li><p><strong>timeout</strong> – Period to wait for a response. If no response is
@@ -278,13 +287,15 @@ error.</p></li>
 <li><p><strong>id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Pipeline to test. If you don’t specify a <cite>pipeline</cite> in
 the request body, this parameter is required.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
-errors.</p></li>
-<li><p><strong>filter_path</strong> – Comma-separated list of filters used to reduce
-the response.</p></li>
+errors. Default is false.</p></li>
+<li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
+takes a comma-separated list of filters. It supports using wildcards to
+match any field or part of a field’s name. You can also exclude fields
+with “-“.</p></li>
 <li><p><strong>human</strong> – Whether to return human readable values for
-statistics.</p></li>
+statistics. Default is True.</p></li>
 <li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
-response.</p></li>
+response. Default is false.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
 <li><p><strong>verbose</strong> – If <cite>true</cite>, the response includes output data for
