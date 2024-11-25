@@ -70,35 +70,36 @@ class ClusterClient(NamespacedClient):
         Returns basic information about the health of the cluster.
 
 
-        :arg index: Comma-separated list of data streams, indices, and
+        :arg index: Comma-separated list of data streams, indexes, and
             index aliases used to limit the request. Wildcard expressions (*) are
-            supported. To target all data streams and indices in a cluster, omit
+            supported. To target all data streams and indexes in a cluster, omit
             this parameter or use `_all` or `*`.
         :arg awareness_attribute: The awareness attribute for which the
             health is required.
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
         :arg error_trace: Whether to include the stack trace of returned
-            errors.
+            errors. Default is false.
         :arg expand_wildcards: Whether to expand wildcard expression to
-            concrete indices that are open, closed or both. Valid choices are all,
-            closed, hidden, none, open.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+            concrete indexes that are open, closed or both.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
-            statistics.
-        :arg level: Can be one of cluster, indices or shards. Controls
+            statistics. Default is True.
+        :arg level: Can be one of cluster, indexes or shards. Controls
             the details level of the health information returned. Valid choices are
             awareness_attributes, cluster, indices, shards.
-        :arg local: If true, the request retrieves information from the
-            local node only. Defaults to false, which means information is retrieved
-            from the master node. Default is false.
+        :arg local: If `true`, the request retrieves information from
+            the local node only. Defaults to false, which means information is
+            retrieved from the cluster-manager node. Default is false.
         :arg master_timeout (Deprecated: To promote inclusive language,
-            use 'cluster_manager_timeout' instead.): Period to wait for a connection
-            to the master node. If no response is received before the timeout
-            expires, the request fails and returns an error.
+            use `cluster_manager_timeout` instead.): Period to wait for a connection
+            to the cluster-manager node. If no response is received before the
+            timeout expires, the request fails and returns an error.
         :arg pretty: Whether to pretty format the returned JSON
-            response.
+            response. Default is false.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         :arg timeout: Period to wait for a response. If no response is
@@ -111,11 +112,11 @@ class ClusterClient(NamespacedClient):
             normal, low, languid. Wait until all currently queued events with the
             given priority are processed. Valid choices are high, immediate,
             languid, low, normal, urgent.
-        :arg wait_for_no_initializing_shards: A boolean value which
+        :arg wait_for_no_initializing_shards: A Boolean value which
             controls whether to wait (until the timeout provided) for the cluster to
             have no shard initializations. Defaults to false, which means it will
             not wait for initializing shards.
-        :arg wait_for_no_relocating_shards: A boolean value which
+        :arg wait_for_no_relocating_shards: A Boolean value which
             controls whether to wait (until the timeout provided) for the cluster to
             have no shard relocations. Defaults to false, which means it will not
             wait for relocating shards.
@@ -158,20 +159,22 @@ class ClusterClient(NamespacedClient):
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
         :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
-            statistics.
+            statistics. Default is True.
         :arg local: If `true`, the request retrieves information from
             the local node only. If `false`, information is retrieved from the
-            master node. Default is false.
+            cluster-manager node. Default is false.
         :arg master_timeout (Deprecated: To promote inclusive language,
-            use 'cluster_manager_timeout' instead.): Period to wait for a connection
-            to the master node. If no response is received before the timeout
-            expires, the request fails and returns an error.
+            use `cluster_manager_timeout` instead.): Period to wait for a connection
+            to the cluster-manager node. If no response is received before the
+            timeout expires, the request fails and returns an error.
         :arg pretty: Whether to pretty format the returned JSON
-            response.
+            response. Default is false.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         """
@@ -209,38 +212,39 @@ class ClusterClient(NamespacedClient):
         :arg metric: Limit the information returned to the specified
             metrics
         :arg index: A comma-separated list of index names; use `_all` or
-            empty string to perform the operation on all indices
-        :arg allow_no_indices: Whether to ignore if a wildcard indices
-            expression resolves into no concrete indices. (This includes `_all`
-            string or when no indices have been specified)
+            empty string to perform the operation on all indexes
+        :arg allow_no_indices: Whether to ignore if a wildcard indexes
+            expression resolves into no concrete indexes. (This includes `_all`
+            string or when no indexes have been specified)
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
         :arg error_trace: Whether to include the stack trace of returned
-            errors.
+            errors. Default is false.
         :arg expand_wildcards: Whether to expand wildcard expression to
-            concrete indices that are open, closed or both. Valid choices are all,
-            closed, hidden, none, open.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+            concrete indexes that are open, closed or both.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg flat_settings: Return settings in flat format. Default is
             false.
         :arg human: Whether to return human readable values for
-            statistics.
-        :arg ignore_unavailable: Whether specified concrete indices
+            statistics. Default is True.
+        :arg ignore_unavailable: Whether specified concrete indexes
             should be ignored when unavailable (missing or closed)
         :arg local: Return local information, do not retrieve the state
             from cluster-manager node. Default is false.
         :arg master_timeout (Deprecated: To promote inclusive language,
-            use 'cluster_manager_timeout' instead.): Specify timeout for connection
-            to master
+            use `cluster_manager_timeout` instead.): Specify timeout for connection
+            to cluster manager.
         :arg pretty: Whether to pretty format the returned JSON
-            response.
+            response. Default is false.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         :arg wait_for_metadata_version: Wait for the metadata version to
-            be equal or greater than the specified metadata version
+            be equal or greater than the specified metadata version.
         :arg wait_for_timeout: The maximum time to wait for
-            wait_for_metadata_version before timing out
+            `wait_for_metadata_version` before timing out.
         """
         if index and metric in SKIP_IN_PATH:
             metric = "_all"
@@ -266,23 +270,32 @@ class ClusterClient(NamespacedClient):
         node_id: Any = None,
         params: Any = None,
         headers: Any = None,
+        metric: Any = None,
+        index_metric: Any = None,
     ) -> Any:
         """
         Returns high-level overview of cluster statistics.
 
 
+        :arg metric: Limit the information returned to the specified
+            metrics.
+        :arg index_metric: Limit the information returned for indexes
+            metric to the specific index metrics. It can be used only if indexes (or
+            all) metric is specified.
         :arg node_id: Comma-separated list of node filters used to limit
             returned information. Defaults to all nodes in the cluster.
         :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg flat_settings: If `true`, returns settings in flat format.
             Default is false.
         :arg human: Whether to return human readable values for
-            statistics.
+            statistics. Default is True.
         :arg pretty: Whether to pretty format the returned JSON
-            response.
+            response. Default is false.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         :arg timeout: Period to wait for each node to respond. If a node
@@ -295,7 +308,9 @@ class ClusterClient(NamespacedClient):
             (
                 "/_cluster/stats"
                 if node_id in SKIP_IN_PATH
-                else _make_path("_cluster", "stats", "nodes", node_id)
+                else _make_path(
+                    "_cluster", "stats", metric, index_metric, "nodes", node_id
+                )
             ),
             params=params,
             headers=headers,
@@ -329,25 +344,27 @@ class ClusterClient(NamespacedClient):
             `cancel`, `allocate`)
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
-        :arg dry_run: If true, then the request simulates the operation
-            only and returns the resulting state.
+        :arg dry_run: If `true`, then the request simulates the
+            operation only and returns the resulting state.
         :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg explain: If true, then the response contains an explanation
-            of why the commands can or cannot be executed.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+            errors. Default is false.
+        :arg explain: If `true`, then the response contains an
+            explanation of why the commands can or cannot be executed.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
-            statistics.
+            statistics. Default is True.
         :arg master_timeout (Deprecated: To promote inclusive language,
-            use 'cluster_manager_timeout' instead.): Period to wait for a connection
-            to the master node. If no response is received before the timeout
-            expires, the request fails and returns an error.
+            use `cluster_manager_timeout` instead.): Period to wait for a connection
+            to the cluster-manager node. If no response is received before the
+            timeout expires, the request fails and returns an error.
         :arg metric: Limits the information returned to the specified
             metrics.
         :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg retry_failed: If true, then retries allocation of shards
+            response. Default is false.
+        :arg retry_failed: If `true`, then retries allocation of shards
             that are blocked due to too many subsequent allocation failures.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
@@ -383,21 +400,23 @@ class ClusterClient(NamespacedClient):
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
         :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg flat_settings: If `true`, returns settings in flat format.
             Default is false.
         :arg human: Whether to return human readable values for
-            statistics.
+            statistics. Default is True.
         :arg include_defaults: If `true`, returns default cluster
             settings from the local node. Default is false.
         :arg master_timeout (Deprecated: To promote inclusive language,
-            use 'cluster_manager_timeout' instead.): Period to wait for a connection
-            to the master node. If no response is received before the timeout
-            expires, the request fails and returns an error.
+            use `cluster_manager_timeout` instead.): Period to wait for a connection
+            to the cluster-manager node. If no response is received before the
+            timeout expires, the request fails and returns an error.
         :arg pretty: Whether to pretty format the returned JSON
-            response.
+            response. Default is false.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         :arg timeout: Period to wait for a response. If no response is
@@ -434,18 +453,20 @@ class ClusterClient(NamespacedClient):
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
         :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg flat_settings: Return settings in flat format. Default is
             false.
         :arg human: Whether to return human readable values for
-            statistics.
+            statistics. Default is True.
         :arg master_timeout (Deprecated: To promote inclusive language,
-            use 'cluster_manager_timeout' instead.): Explicit operation timeout for
-            connection to master node
+            use `cluster_manager_timeout` instead.): Explicit operation timeout for
+            connection to cluster-manager node
         :arg pretty: Whether to pretty format the returned JSON
-            response.
+            response. Default is false.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         :arg timeout: Explicit operation timeout
@@ -468,13 +489,15 @@ class ClusterClient(NamespacedClient):
 
 
         :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
-            statistics.
+            statistics. Default is True.
         :arg pretty: Whether to pretty format the returned JSON
-            response.
+            response. Default is false.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         """
@@ -504,17 +527,19 @@ class ClusterClient(NamespacedClient):
         :arg body: The index, shard, and primary flag to explain. Empty
             means 'explain the first unassigned shard'
         :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
-            statistics.
-        :arg include_disk_info: If true, returns information about disk
-            usage and shard sizes. Default is false.
-        :arg include_yes_decisions: If true, returns YES decisions in
+            statistics. Default is True.
+        :arg include_disk_info: If `true`, returns information about
+            disk usage and shard sizes. Default is false.
+        :arg include_yes_decisions: If `true`, returns YES decisions in
             explanation. Default is false.
         :arg pretty: Whether to pretty format the returned JSON
-            response.
+            response. Default is false.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         """
@@ -551,17 +576,19 @@ class ClusterClient(NamespacedClient):
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
         :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
-            statistics.
+            statistics. Default is True.
         :arg master_timeout (Deprecated: To promote inclusive language,
-            use 'cluster_manager_timeout' instead.): Period to wait for a connection
-            to the master node. If no response is received before the timeout
-            expires, the request fails and returns an error.
+            use `cluster_manager_timeout` instead.): Period to wait for a connection
+            to the cluster-manager node. If no response is received before the
+            timeout expires, the request fails and returns an error.
         :arg pretty: Whether to pretty format the returned JSON
-            response.
+            response. Default is false.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         :arg timeout: Period to wait for a response. If no response is
@@ -603,20 +630,22 @@ class ClusterClient(NamespacedClient):
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
         :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
-            statistics.
+            statistics. Default is True.
         :arg local: If `true`, the request retrieves information from
             the local node only. If `false`, information is retrieved from the
-            master node. Default is false.
+            cluster-manager node. Default is false.
         :arg master_timeout (Deprecated: To promote inclusive language,
-            use 'cluster_manager_timeout' instead.): Period to wait for a connection
-            to the master node. If no response is received before the timeout
-            expires, the request fails and returns an error.
+            use `cluster_manager_timeout` instead.): Period to wait for a connection
+            to the cluster-manager node. If no response is received before the
+            timeout expires, the request fails and returns an error.
         :arg pretty: Whether to pretty format the returned JSON
-            response.
+            response. Default is false.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         """
@@ -653,7 +682,7 @@ class ClusterClient(NamespacedClient):
             includes the following built-in component templates: `logs-mappings`;
             'logs-settings`; `metrics-mappings`; `metrics-settings`;`synthetics-
             mapping`; `synthetics-settings`. OpenSearch Agent uses these templates
-            to configure backing indices for its data streams. If you use OpenSearch
+            to configure backing indexes for its data streams. If you use OpenSearch
             Agent and want to overwrite one of these templates, set the `version`
             for your replacement template higher than the current version. If you
             don't use OpenSearch Agent and want to disable all built-in component
@@ -665,17 +694,19 @@ class ClusterClient(NamespacedClient):
         :arg create: If `true`, this request cannot replace or update
             existing component templates. Default is false.
         :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
-            statistics.
+            statistics. Default is True.
         :arg master_timeout (Deprecated: To promote inclusive language,
-            use 'cluster_manager_timeout' instead.): Period to wait for a connection
-            to the master node. If no response is received before the timeout
-            expires, the request fails and returns an error.
+            use `cluster_manager_timeout` instead.): Period to wait for a connection
+            to the cluster-manager node. If no response is received before the
+            timeout expires, the request fails and returns an error.
         :arg pretty: Whether to pretty format the returned JSON
-            response.
+            response. Default is false.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         :arg timeout: Operation timeout.
@@ -717,20 +748,22 @@ class ClusterClient(NamespacedClient):
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
         :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
-            statistics.
-        :arg local: If true, the request retrieves information from the
-            local node only. Defaults to false, which means information is retrieved
-            from the master node. Default is false.
+            statistics. Default is True.
+        :arg local: If `true`, the request retrieves information from
+            the local node only. Defaults to false, which means information is
+            retrieved from the cluster-manager node. Default is false.
         :arg master_timeout (Deprecated: To promote inclusive language,
-            use 'cluster_manager_timeout' instead.): Period to wait for a connection
-            to the master node. If no response is received before the timeout
-            expires, the request fails and returns an error.
+            use `cluster_manager_timeout` instead.): Period to wait for a connection
+            to the cluster-manager node. If no response is received before the
+            timeout expires, the request fails and returns an error.
         :arg pretty: Whether to pretty format the returned JSON
-            response.
+            response. Default is false.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         """
@@ -757,20 +790,22 @@ class ClusterClient(NamespacedClient):
 
 
         :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
-            statistics.
+            statistics. Default is True.
         :arg pretty: Whether to pretty format the returned JSON
-            response.
+            response. Default is false.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         :arg wait_for_removal: Specifies whether to wait for all
             excluded nodes to be removed from the cluster before clearing the voting
             configuration exclusions list. Defaults to true, meaning that all
             excluded nodes must be removed from the cluster before this API takes
-            any action. If set to false then the voting configuration exclusions
+            any action. If set to `false` then the voting configuration exclusions
             list is cleared even if some excluded nodes are still in the cluster.
             Default is True.
         """
@@ -801,19 +836,21 @@ class ClusterClient(NamespacedClient):
 
 
         :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
-            statistics.
+            statistics. Default is True.
         :arg node_ids: A comma-separated list of the persistent ids of
             the nodes to exclude from the voting configuration. If specified, you
-            may not also specify node_names.
+            may not also specify `node_names`.
         :arg node_names: A comma-separated list of the names of the
             nodes to exclude from the voting configuration. If specified, you may
-            not also specify node_ids.
+            not also specify `node_ids`.
         :arg pretty: Whether to pretty format the returned JSON
-            response.
+            response. Default is false.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         :arg timeout: When adding a voting configuration exclusion, the
@@ -837,13 +874,15 @@ class ClusterClient(NamespacedClient):
 
 
         :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
-            statistics.
+            statistics. Default is True.
         :arg pretty: Whether to pretty format the returned JSON
-            response.
+            response. Default is false.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         """
@@ -854,6 +893,7 @@ class ClusterClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def delete_weighted_routing(
         self,
+        body: Any = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -862,13 +902,15 @@ class ClusterClient(NamespacedClient):
 
 
         :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
-            statistics.
+            statistics. Default is True.
         :arg pretty: Whether to pretty format the returned JSON
-            response.
+            response. Default is false.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         """
@@ -877,6 +919,7 @@ class ClusterClient(NamespacedClient):
             "/_cluster/routing/awareness/weights",
             params=params,
             headers=headers,
+            body=body,
         )
 
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
@@ -892,13 +935,15 @@ class ClusterClient(NamespacedClient):
 
         :arg awareness_attribute_name: Awareness attribute name.
         :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
-            statistics.
+            statistics. Default is True.
         :arg pretty: Whether to pretty format the returned JSON
-            response.
+            response. Default is false.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         """
@@ -933,13 +978,15 @@ class ClusterClient(NamespacedClient):
 
         :arg attribute: Awareness attribute name.
         :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
-            statistics.
+            statistics. Default is True.
         :arg pretty: Whether to pretty format the returned JSON
-            response.
+            response. Default is false.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         """
@@ -968,13 +1015,15 @@ class ClusterClient(NamespacedClient):
         :arg awareness_attribute_name: Awareness attribute name.
         :arg awareness_attribute_value: Awareness attribute value.
         :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
-            statistics.
+            statistics. Default is True.
         :arg pretty: Whether to pretty format the returned JSON
-            response.
+            response. Default is false.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         """
@@ -999,6 +1048,7 @@ class ClusterClient(NamespacedClient):
     async def put_weighted_routing(
         self,
         attribute: Any,
+        body: Any = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -1008,13 +1058,15 @@ class ClusterClient(NamespacedClient):
 
         :arg attribute: Awareness attribute name.
         :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
-            statistics.
+            statistics. Default is True.
         :arg pretty: Whether to pretty format the returned JSON
-            response.
+            response. Default is false.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         """
@@ -1026,4 +1078,5 @@ class ClusterClient(NamespacedClient):
             _make_path("_cluster", "routing", "awareness", attribute, "weights"),
             params=params,
             headers=headers,
+            body=body,
         )

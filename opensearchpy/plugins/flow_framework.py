@@ -21,16 +21,216 @@ from typing import Any
 from ..client.utils import SKIP_IN_PATH, NamespacedClient, _make_path, query_params
 
 
-class ObservabilityClient(NamespacedClient):
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
-    def create_object(
+class FlowFrameworkClient(NamespacedClient):
+    @query_params(
+        "error_trace",
+        "filter_path",
+        "human",
+        "pretty",
+        "provision",
+        "reprovision",
+        "source",
+        "update_fields",
+        "use_case",
+        "validation",
+    )
+    def create(
         self,
         body: Any = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
         """
-        Creates a new observability object.
+        Create a workflow.
+
+
+        :arg error_trace: Whether to include the stack trace of returned
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
+        :arg human: Whether to return human readable values for
+            statistics. Default is True.
+        :arg pretty: Whether to pretty format the returned JSON
+            response. Default is false.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        :arg use_case: To use a workflow template, specify it in the
+            `use_case` query parameter when creating a workflow.
+        """
+        return self.transport.perform_request(
+            "POST",
+            "/_plugins/_flow_framework/workflow",
+            params=params,
+            headers=headers,
+            body=body,
+        )
+
+    @query_params(
+        "clear_status", "error_trace", "filter_path", "human", "pretty", "source"
+    )
+    def delete(
+        self,
+        workflow_id: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Delete a workflow.
+
+
+        :arg error_trace: Whether to include the stack trace of returned
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
+        :arg human: Whether to return human readable values for
+            statistics. Default is True.
+        :arg pretty: Whether to pretty format the returned JSON
+            response. Default is false.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        """
+        if workflow_id in SKIP_IN_PATH:
+            raise ValueError(
+                "Empty value passed for a required argument 'workflow_id'."
+            )
+
+        return self.transport.perform_request(
+            "DELETE",
+            _make_path("_plugins", "_flow_framework", "workflow", workflow_id),
+            params=params,
+            headers=headers,
+        )
+
+    @query_params(
+        "allow_delete", "error_trace", "filter_path", "human", "pretty", "source"
+    )
+    def deprovision(
+        self,
+        workflow_id: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Deprovision workflow's resources when you no longer need it.
+
+
+        :arg error_trace: Whether to include the stack trace of returned
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
+        :arg human: Whether to return human readable values for
+            statistics. Default is True.
+        :arg pretty: Whether to pretty format the returned JSON
+            response. Default is false.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        """
+        if workflow_id in SKIP_IN_PATH:
+            raise ValueError(
+                "Empty value passed for a required argument 'workflow_id'."
+            )
+
+        return self.transport.perform_request(
+            "POST",
+            _make_path(
+                "_plugins", "_flow_framework", "workflow", workflow_id, "_deprovision"
+            ),
+            params=params,
+            headers=headers,
+        )
+
+    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    def get(
+        self,
+        workflow_id: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Get a workflow.
+
+
+        :arg error_trace: Whether to include the stack trace of returned
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
+        :arg human: Whether to return human readable values for
+            statistics. Default is True.
+        :arg pretty: Whether to pretty format the returned JSON
+            response. Default is false.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        """
+        if workflow_id in SKIP_IN_PATH:
+            raise ValueError(
+                "Empty value passed for a required argument 'workflow_id'."
+            )
+
+        return self.transport.perform_request(
+            "GET",
+            _make_path("_plugins", "_flow_framework", "workflow", workflow_id),
+            params=params,
+            headers=headers,
+        )
+
+    @query_params("all", "error_trace", "filter_path", "human", "pretty", "source")
+    def get_status(
+        self,
+        workflow_id: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Get the provisioning deployment status until it is complete.
+
+
+        :arg all: The all parameter specifies whether the response
+            should return all fields. Default is false.
+        :arg error_trace: Whether to include the stack trace of returned
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
+        :arg human: Whether to return human readable values for
+            statistics. Default is True.
+        :arg pretty: Whether to pretty format the returned JSON
+            response. Default is false.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        """
+        if workflow_id in SKIP_IN_PATH:
+            raise ValueError(
+                "Empty value passed for a required argument 'workflow_id'."
+            )
+
+        return self.transport.perform_request(
+            "GET",
+            _make_path(
+                "_plugins", "_flow_framework", "workflow", workflow_id, "_status"
+            ),
+            params=params,
+            headers=headers,
+        )
+
+    @query_params(
+        "error_trace", "filter_path", "human", "pretty", "source", "workflow_step"
+    )
+    def get_steps(
+        self,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Get a list of workflow steps.
 
 
         :arg error_trace: Whether to include the stack trace of returned
@@ -47,25 +247,64 @@ class ObservabilityClient(NamespacedClient):
             libraries that do not accept a request body for non-POST requests.
         """
         return self.transport.perform_request(
+            "GET",
+            "/_plugins/_flow_framework/workflow/_steps",
+            params=params,
+            headers=headers,
+        )
+
+    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    def provision(
+        self,
+        workflow_id: Any,
+        body: Any = None,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Provisioning a workflow. This API is also executed when the Create or Update
+        Workflow API is called with the provision parameter set to true.
+
+
+        :arg error_trace: Whether to include the stack trace of returned
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
+        :arg human: Whether to return human readable values for
+            statistics. Default is True.
+        :arg pretty: Whether to pretty format the returned JSON
+            response. Default is false.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        """
+        if workflow_id in SKIP_IN_PATH:
+            raise ValueError(
+                "Empty value passed for a required argument 'workflow_id'."
+            )
+
+        return self.transport.perform_request(
             "POST",
-            "/_plugins/_observability/object",
+            _make_path(
+                "_plugins", "_flow_framework", "workflow", workflow_id, "_provision"
+            ),
             params=params,
             headers=headers,
             body=body,
         )
 
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
-    def delete_object(
+    def search(
         self,
-        object_id: Any,
+        body: Any,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
         """
-        Deletes specific observability object specified by ID.
+        Search for workflows by using a query matching a field.
 
 
-        :arg object_id: The ID of the Observability Object.
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
         :arg filter_path: Used to reduce the response. This parameter
@@ -79,160 +318,76 @@ class ObservabilityClient(NamespacedClient):
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         """
-        if object_id in SKIP_IN_PATH:
-            raise ValueError("Empty value passed for a required argument 'object_id'.")
+        if body in SKIP_IN_PATH:
+            raise ValueError("Empty value passed for a required argument 'body'.")
 
         return self.transport.perform_request(
-            "DELETE",
-            _make_path("_plugins", "_observability", "object", object_id),
+            "POST",
+            "/_plugins/_flow_framework/workflow/_search",
             params=params,
             headers=headers,
+            body=body,
+        )
+
+    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    def search_state(
+        self,
+        body: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Search for workflows by using a query matching a field.
+
+
+        :arg error_trace: Whether to include the stack trace of returned
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
+        :arg human: Whether to return human readable values for
+            statistics. Default is True.
+        :arg pretty: Whether to pretty format the returned JSON
+            response. Default is false.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        """
+        if body in SKIP_IN_PATH:
+            raise ValueError("Empty value passed for a required argument 'body'.")
+
+        return self.transport.perform_request(
+            "POST",
+            "/_plugins/_flow_framework/workflow/state/_search",
+            params=params,
+            headers=headers,
+            body=body,
         )
 
     @query_params(
         "error_trace",
         "filter_path",
         "human",
-        "objectId",
-        "objectIdList",
         "pretty",
+        "provision",
+        "reprovision",
         "source",
+        "update_fields",
+        "use_case",
+        "validation",
     )
-    def delete_objects(
+    def update(
         self,
-        params: Any = None,
-        headers: Any = None,
-    ) -> Any:
-        """
-        Deletes specific observability objects specified by ID or a list of IDs.
-
-
-        :arg error_trace: Whether to include the stack trace of returned
-            errors. Default is false.
-        :arg filter_path: Used to reduce the response. This parameter
-            takes a comma-separated list of filters. It supports using wildcards to
-            match any field or part of a field’s name. You can also exclude fields
-            with "-".
-        :arg human: Whether to return human readable values for
-            statistics. Default is True.
-        :arg objectId: The ID of a single Observability Object to
-            delete.
-        :arg objectIdList: A comma-separated list of Observability
-            Object IDs to delete.
-        :arg pretty: Whether to pretty format the returned JSON
-            response. Default is false.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
-        """
-        return self.transport.perform_request(
-            "DELETE", "/_plugins/_observability/object", params=params, headers=headers
-        )
-
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
-    def get_localstats(
-        self,
-        params: Any = None,
-        headers: Any = None,
-    ) -> Any:
-        """
-        Retrieves Local Stats of all observability objects.
-
-
-        :arg error_trace: Whether to include the stack trace of returned
-            errors. Default is false.
-        :arg filter_path: Used to reduce the response. This parameter
-            takes a comma-separated list of filters. It supports using wildcards to
-            match any field or part of a field’s name. You can also exclude fields
-            with "-".
-        :arg human: Whether to return human readable values for
-            statistics. Default is True.
-        :arg pretty: Whether to pretty format the returned JSON
-            response. Default is false.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
-        """
-        return self.transport.perform_request(
-            "GET",
-            "/_plugins/_observability/_local/stats",
-            params=params,
-            headers=headers,
-        )
-
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
-    def get_object(
-        self,
-        object_id: Any,
-        params: Any = None,
-        headers: Any = None,
-    ) -> Any:
-        """
-        Retrieves specific observability object specified by ID.
-
-
-        :arg object_id: The ID of the Observability Object.
-        :arg error_trace: Whether to include the stack trace of returned
-            errors. Default is false.
-        :arg filter_path: Used to reduce the response. This parameter
-            takes a comma-separated list of filters. It supports using wildcards to
-            match any field or part of a field’s name. You can also exclude fields
-            with "-".
-        :arg human: Whether to return human readable values for
-            statistics. Default is True.
-        :arg pretty: Whether to pretty format the returned JSON
-            response. Default is false.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
-        """
-        if object_id in SKIP_IN_PATH:
-            raise ValueError("Empty value passed for a required argument 'object_id'.")
-
-        return self.transport.perform_request(
-            "GET",
-            _make_path("_plugins", "_observability", "object", object_id),
-            params=params,
-            headers=headers,
-        )
-
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
-    def list_objects(
-        self,
-        params: Any = None,
-        headers: Any = None,
-    ) -> Any:
-        """
-        Retrieves list of all observability objects.
-
-
-        :arg error_trace: Whether to include the stack trace of returned
-            errors. Default is false.
-        :arg filter_path: Used to reduce the response. This parameter
-            takes a comma-separated list of filters. It supports using wildcards to
-            match any field or part of a field’s name. You can also exclude fields
-            with "-".
-        :arg human: Whether to return human readable values for
-            statistics. Default is True.
-        :arg pretty: Whether to pretty format the returned JSON
-            response. Default is false.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
-        """
-        return self.transport.perform_request(
-            "GET", "/_plugins/_observability/object", params=params, headers=headers
-        )
-
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
-    def update_object(
-        self,
-        object_id: Any,
+        workflow_id: Any,
         body: Any = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
         """
-        Updates an existing observability object.
+        Update a workflow. You can only update a complete workflow if it has not yet
+        been provisioned.
 
 
-        :arg object_id: The ID of the Observability Object.
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
         :arg filter_path: Used to reduce the response. This parameter
@@ -245,13 +400,17 @@ class ObservabilityClient(NamespacedClient):
             response. Default is false.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
+        :arg use_case: To use a workflow template, specify it in the
+            `use_case` query parameter when creating a workflow.
         """
-        if object_id in SKIP_IN_PATH:
-            raise ValueError("Empty value passed for a required argument 'object_id'.")
+        if workflow_id in SKIP_IN_PATH:
+            raise ValueError(
+                "Empty value passed for a required argument 'workflow_id'."
+            )
 
         return self.transport.perform_request(
             "PUT",
-            _make_path("_plugins", "_observability", "object", object_id),
+            _make_path("_plugins", "_flow_framework", "workflow", workflow_id),
             params=params,
             headers=headers,
             body=body,

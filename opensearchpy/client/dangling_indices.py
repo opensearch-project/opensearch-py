@@ -61,25 +61,27 @@ class DanglingIndicesClient(NamespacedClient):
         Deletes the specified dangling index.
 
 
-        :arg index_uuid: The UUID of the dangling index
+        :arg index_uuid: The UUID of the dangling index.
         :arg accept_data_loss: Must be set to true in order to delete
-            the dangling index
+            the dangling index.
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
         :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
-            statistics.
+            statistics. Default is True.
         :arg master_timeout (Deprecated: To promote inclusive language,
-            use 'cluster_manager_timeout' instead.): Specify timeout for connection
-            to master
+            use `cluster_manager_timeout` instead.): Specify timeout for connection
+            to cluster manager.
         :arg pretty: Whether to pretty format the returned JSON
-            response.
+            response. Default is false.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
-        :arg timeout: Explicit operation timeout
+        :arg timeout: Explicit operation timeout.
         """
         if index_uuid in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'index_uuid'.")
@@ -112,25 +114,27 @@ class DanglingIndicesClient(NamespacedClient):
         Imports the specified dangling index.
 
 
-        :arg index_uuid: The UUID of the dangling index
+        :arg index_uuid: The UUID of the dangling index.
         :arg accept_data_loss: Must be set to true in order to import
-            the dangling index
+            the dangling index.
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
         :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
-            statistics.
+            statistics. Default is True.
         :arg master_timeout (Deprecated: To promote inclusive language,
-            use 'cluster_manager_timeout' instead.): Specify timeout for connection
-            to master
+            use `cluster_manager_timeout` instead.): Specify timeout for connection
+            to cluster manager.
         :arg pretty: Whether to pretty format the returned JSON
-            response.
+            response. Default is false.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
-        :arg timeout: Explicit operation timeout
+        :arg timeout: Explicit operation timeout.
         """
         if index_uuid in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'index_uuid'.")
@@ -146,17 +150,19 @@ class DanglingIndicesClient(NamespacedClient):
         headers: Any = None,
     ) -> Any:
         """
-        Returns all dangling indices.
+        Returns all dangling indexes.
 
 
         :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
-            statistics.
+            statistics. Default is True.
         :arg pretty: Whether to pretty format the returned JSON
-            response.
+            response. Default is false.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         """

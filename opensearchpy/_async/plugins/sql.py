@@ -18,7 +18,7 @@
 
 from typing import Any
 
-from ..client.utils import SKIP_IN_PATH, NamespacedClient, query_params
+from ..client.utils import NamespacedClient, query_params
 
 
 class SqlClient(NamespacedClient):
@@ -27,7 +27,7 @@ class SqlClient(NamespacedClient):
     )
     async def close(
         self,
-        body: Any,
+        body: Any = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -36,23 +36,22 @@ class SqlClient(NamespacedClient):
 
 
         :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg format: A short version of the Accept header, e.g. json,
-            yaml.
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
+        :arg format: A short version of the Accept header (for example,
+            `json`, `yaml`).
         :arg human: Whether to return human readable values for
-            statistics.
+            statistics. Default is True.
         :arg pretty: Whether to pretty format the returned JSON
-            response.
+            response. Default is false.
         :arg sanitize: Specifies whether to escape special characters in
             the results Default is True.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         """
-        if body in SKIP_IN_PATH:
-            raise ValueError("Empty value passed for a required argument 'body'.")
-
         return await self.transport.perform_request(
             "POST", "/_plugins/_sql/close", params=params, headers=headers, body=body
         )
@@ -62,7 +61,7 @@ class SqlClient(NamespacedClient):
     )
     async def explain(
         self,
-        body: Any,
+        body: Any = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -71,23 +70,22 @@ class SqlClient(NamespacedClient):
 
 
         :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg format: A short version of the Accept header, e.g. json,
-            yaml.
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
+        :arg format: A short version of the Accept header (for example,
+            `json`, `yaml`).
         :arg human: Whether to return human readable values for
-            statistics.
+            statistics. Default is True.
         :arg pretty: Whether to pretty format the returned JSON
-            response.
+            response. Default is false.
         :arg sanitize: Specifies whether to escape special characters in
             the results Default is True.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         """
-        if body in SKIP_IN_PATH:
-            raise ValueError("Empty value passed for a required argument 'body'.")
-
         return await self.transport.perform_request(
             "POST", "/_plugins/_sql/_explain", params=params, headers=headers, body=body
         )
@@ -105,15 +103,17 @@ class SqlClient(NamespacedClient):
 
 
         :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg format: A short version of the Accept header, e.g. json,
-            yaml.
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
+        :arg format: A short version of the Accept header (for example,
+            `json`, `yaml`).
         :arg human: Whether to return human readable values for
-            statistics.
+            statistics. Default is True.
         :arg pretty: Whether to pretty format the returned JSON
-            response.
+            response. Default is false.
         :arg sanitize: Specifies whether to escape special characters in
             the results Default is True.
         :arg source: The URL-encoded request definition. Useful for
@@ -128,7 +128,7 @@ class SqlClient(NamespacedClient):
     )
     async def post_stats(
         self,
-        body: Any,
+        body: Any = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -138,23 +138,22 @@ class SqlClient(NamespacedClient):
 
 
         :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg format: A short version of the Accept header, e.g. json,
-            yaml.
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
+        :arg format: A short version of the Accept header (for example,
+            `json`, `yaml`).
         :arg human: Whether to return human readable values for
-            statistics.
+            statistics. Default is True.
         :arg pretty: Whether to pretty format the returned JSON
-            response.
+            response. Default is false.
         :arg sanitize: Specifies whether to escape special characters in
             the results Default is True.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         """
-        if body in SKIP_IN_PATH:
-            raise ValueError("Empty value passed for a required argument 'body'.")
-
         return await self.transport.perform_request(
             "POST", "/_plugins/_sql/stats", params=params, headers=headers, body=body
         )
@@ -164,7 +163,7 @@ class SqlClient(NamespacedClient):
     )
     async def query(
         self,
-        body: Any,
+        body: Any = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -173,23 +172,22 @@ class SqlClient(NamespacedClient):
 
 
         :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg format: A short version of the Accept header, e.g. json,
-            yaml.
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
+        :arg format: A short version of the Accept header (for example,
+            `json`, `yaml`).
         :arg human: Whether to return human readable values for
-            statistics.
+            statistics. Default is True.
         :arg pretty: Whether to pretty format the returned JSON
-            response.
+            response. Default is false.
         :arg sanitize: Specifies whether to escape special characters in
             the results Default is True.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         """
-        if body in SKIP_IN_PATH:
-            raise ValueError("Empty value passed for a required argument 'body'.")
-
         return await self.transport.perform_request(
             "POST", "/_plugins/_sql", params=params, headers=headers, body=body
         )
@@ -197,7 +195,7 @@ class SqlClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "format", "human", "pretty", "source")
     async def settings(
         self,
-        body: Any,
+        body: Any = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -206,21 +204,20 @@ class SqlClient(NamespacedClient):
 
 
         :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
-        :arg format: A short version of the Accept header, e.g. json,
-            yaml.
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
+        :arg format: A short version of the Accept header (for example,
+            `json`, `yaml`).
         :arg human: Whether to return human readable values for
-            statistics.
+            statistics. Default is True.
         :arg pretty: Whether to pretty format the returned JSON
-            response.
+            response. Default is false.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         """
-        if body in SKIP_IN_PATH:
-            raise ValueError("Empty value passed for a required argument 'body'.")
-
         return await self.transport.perform_request(
             "PUT",
             "/_plugins/_query/settings",

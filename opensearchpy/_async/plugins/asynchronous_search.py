@@ -18,21 +18,19 @@
 
 from typing import Any
 
-from ..client.utils import SKIP_IN_PATH, NamespacedClient, query_params
+from ..client.utils import SKIP_IN_PATH, NamespacedClient, _make_path, query_params
 
 
-class PplClient(NamespacedClient):
-    @query_params(
-        "error_trace", "filter_path", "format", "human", "pretty", "sanitize", "source"
-    )
-    async def explain(
+class AsynchronousSearchClient(NamespacedClient):
+    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    async def delete(
         self,
-        body: Any,
+        id: Any,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
         """
-        Shows how a query is executed against OpenSearch.
+        Delete asynchronous search.
 
 
         :arg error_trace: Whether to include the stack trace of returned
@@ -41,34 +39,76 @@ class PplClient(NamespacedClient):
             takes a comma-separated list of filters. It supports using wildcards to
             match any field or part of a field’s name. You can also exclude fields
             with "-".
-        :arg format: A short version of the Accept header (for example,
-            `json`, `yaml`).
         :arg human: Whether to return human readable values for
             statistics. Default is True.
         :arg pretty: Whether to pretty format the returned JSON
             response. Default is false.
-        :arg sanitize: Specifies whether to escape special characters in
-            the results. Default is True.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         """
-        if body in SKIP_IN_PATH:
-            raise ValueError("Empty value passed for a required argument 'body'.")
+        if id in SKIP_IN_PATH:
+            raise ValueError("Empty value passed for a required argument 'id'.")
 
         return await self.transport.perform_request(
-            "POST", "/_plugins/_ppl/_explain", params=params, headers=headers, body=body
+            "DELETE",
+            _make_path("_plugins", "_asynchronous_search", id),
+            params=params,
+            headers=headers,
+        )
+
+    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    async def get(
+        self,
+        id: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Get partial responses from asynchronous search.
+
+
+        :arg error_trace: Whether to include the stack trace of returned
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
+        :arg human: Whether to return human readable values for
+            statistics. Default is True.
+        :arg pretty: Whether to pretty format the returned JSON
+            response. Default is false.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        """
+        if id in SKIP_IN_PATH:
+            raise ValueError("Empty value passed for a required argument 'id'.")
+
+        return await self.transport.perform_request(
+            "GET",
+            _make_path("_plugins", "_asynchronous_search", id),
+            params=params,
+            headers=headers,
         )
 
     @query_params(
-        "error_trace", "filter_path", "format", "human", "pretty", "sanitize", "source"
+        "error_trace",
+        "filter_path",
+        "human",
+        "index",
+        "keep_alive",
+        "keep_on_completion",
+        "pretty",
+        "source",
+        "wait_for_completion_timeout",
     )
-    async def get_stats(
+    async def search(
         self,
+        body: Any = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
         """
-        Collect metrics for the plugin within the interval.
+        Perform an asynchronous search.
 
 
         :arg error_trace: Whether to include the stack trace of returned
@@ -77,33 +117,37 @@ class PplClient(NamespacedClient):
             takes a comma-separated list of filters. It supports using wildcards to
             match any field or part of a field’s name. You can also exclude fields
             with "-".
-        :arg format: A short version of the Accept header (for example,
-            `json`, `yaml`).
         :arg human: Whether to return human readable values for
             statistics. Default is True.
+        :arg index: The name of the index to be searched.
+        :arg keep_alive: The amount of time that the result is saved in
+            the cluster.
+        :arg keep_on_completion: Whether you want to save the results in
+            the cluster after the search is complete.
         :arg pretty: Whether to pretty format the returned JSON
             response. Default is false.
-        :arg sanitize: Specifies whether to escape special characters in
-            the results. Default is True.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
+        :arg wait_for_completion_timeout: The amount of time that you
+            plan to wait for the results.
         """
         return await self.transport.perform_request(
-            "GET", "/_plugins/_ppl/stats", params=params, headers=headers
+            "POST",
+            "/_plugins/_asynchronous_search",
+            params=params,
+            headers=headers,
+            body=body,
         )
 
-    @query_params(
-        "error_trace", "filter_path", "format", "human", "pretty", "sanitize", "source"
-    )
-    async def post_stats(
+    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    async def stats(
         self,
-        body: Any,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
         """
-        By a stats endpoint, you are able to collect metrics for the plugin within the
-        interval.
+        Monitoring of asynchronous searches that are running, completed, and/or
+        persisted.
 
 
         :arg error_trace: Whether to include the stack trace of returned
@@ -112,57 +156,16 @@ class PplClient(NamespacedClient):
             takes a comma-separated list of filters. It supports using wildcards to
             match any field or part of a field’s name. You can also exclude fields
             with "-".
-        :arg format: A short version of the Accept header (for example,
-            `json`, `yaml`).
         :arg human: Whether to return human readable values for
             statistics. Default is True.
         :arg pretty: Whether to pretty format the returned JSON
             response. Default is false.
-        :arg sanitize: Specifies whether to escape special characters in
-            the results. Default is True.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         """
-        if body in SKIP_IN_PATH:
-            raise ValueError("Empty value passed for a required argument 'body'.")
-
         return await self.transport.perform_request(
-            "POST", "/_plugins/_ppl/stats", params=params, headers=headers, body=body
-        )
-
-    @query_params(
-        "error_trace", "filter_path", "format", "human", "pretty", "sanitize", "source"
-    )
-    async def query(
-        self,
-        body: Any,
-        params: Any = None,
-        headers: Any = None,
-    ) -> Any:
-        """
-        Send a PPL query to the PPL plugin.
-
-
-        :arg error_trace: Whether to include the stack trace of returned
-            errors. Default is false.
-        :arg filter_path: Used to reduce the response. This parameter
-            takes a comma-separated list of filters. It supports using wildcards to
-            match any field or part of a field’s name. You can also exclude fields
-            with "-".
-        :arg format: A short version of the Accept header (for example,
-            `json`, `yaml`).
-        :arg human: Whether to return human readable values for
-            statistics. Default is True.
-        :arg pretty: Whether to pretty format the returned JSON
-            response. Default is false.
-        :arg sanitize: Specifies whether to escape special characters in
-            the results. Default is True.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
-        """
-        if body in SKIP_IN_PATH:
-            raise ValueError("Empty value passed for a required argument 'body'.")
-
-        return await self.transport.perform_request(
-            "POST", "/_plugins/_ppl", params=params, headers=headers, body=body
+            "GET",
+            "/_plugins/_asynchronous_search/stats",
+            params=params,
+            headers=headers,
         )

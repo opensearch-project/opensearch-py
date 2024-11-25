@@ -18,21 +18,19 @@
 
 from typing import Any
 
-from ..client.utils import SKIP_IN_PATH, NamespacedClient, query_params
+from .utils import SKIP_IN_PATH, NamespacedClient, _make_path, query_params
 
 
-class PplClient(NamespacedClient):
-    @query_params(
-        "error_trace", "filter_path", "format", "human", "pretty", "sanitize", "source"
-    )
-    async def explain(
+class WlmClient(NamespacedClient):
+    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    def create_query_group(
         self,
         body: Any,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
         """
-        Shows how a query is executed against OpenSearch.
+        Creates a new query group and sets the resource limits for the new query group.
 
 
         :arg error_trace: Whether to include the stack trace of returned
@@ -41,128 +39,122 @@ class PplClient(NamespacedClient):
             takes a comma-separated list of filters. It supports using wildcards to
             match any field or part of a field’s name. You can also exclude fields
             with "-".
-        :arg format: A short version of the Accept header (for example,
-            `json`, `yaml`).
         :arg human: Whether to return human readable values for
             statistics. Default is True.
         :arg pretty: Whether to pretty format the returned JSON
             response. Default is false.
-        :arg sanitize: Specifies whether to escape special characters in
-            the results. Default is True.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         """
         if body in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'body'.")
 
-        return await self.transport.perform_request(
-            "POST", "/_plugins/_ppl/_explain", params=params, headers=headers, body=body
+        return self.transport.perform_request(
+            "PUT", "/_wlm/query_group", params=params, headers=headers, body=body
         )
 
-    @query_params(
-        "error_trace", "filter_path", "format", "human", "pretty", "sanitize", "source"
-    )
-    async def get_stats(
+    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    def delete_query_group(
         self,
+        name: Any,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
         """
-        Collect metrics for the plugin within the interval.
+        Deletes the specified query group.
 
 
+        :arg name: The name of the query group.
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
         :arg filter_path: Used to reduce the response. This parameter
             takes a comma-separated list of filters. It supports using wildcards to
             match any field or part of a field’s name. You can also exclude fields
             with "-".
-        :arg format: A short version of the Accept header (for example,
-            `json`, `yaml`).
         :arg human: Whether to return human readable values for
             statistics. Default is True.
         :arg pretty: Whether to pretty format the returned JSON
             response. Default is false.
-        :arg sanitize: Specifies whether to escape special characters in
-            the results. Default is True.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         """
-        return await self.transport.perform_request(
-            "GET", "/_plugins/_ppl/stats", params=params, headers=headers
+        if name in SKIP_IN_PATH:
+            raise ValueError("Empty value passed for a required argument 'name'.")
+
+        return self.transport.perform_request(
+            "DELETE",
+            _make_path("_wlm", "query_group", name),
+            params=params,
+            headers=headers,
         )
 
-    @query_params(
-        "error_trace", "filter_path", "format", "human", "pretty", "sanitize", "source"
-    )
-    async def post_stats(
+    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    def get_query_group(
         self,
+        name: Any = None,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Retrieves the specified query group. If no query group is specified, all query
+        groups in the cluster are retrieved.
+
+
+        :arg name: The name of the query group.
+        :arg error_trace: Whether to include the stack trace of returned
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
+        :arg human: Whether to return human readable values for
+            statistics. Default is True.
+        :arg pretty: Whether to pretty format the returned JSON
+            response. Default is false.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        """
+        return self.transport.perform_request(
+            "GET",
+            _make_path("_wlm", "query_group", name),
+            params=params,
+            headers=headers,
+        )
+
+    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    def update_query_group(
+        self,
+        name: Any,
         body: Any,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
         """
-        By a stats endpoint, you are able to collect metrics for the plugin within the
-        interval.
+        Updates the specified query group.
 
 
+        :arg name: The name of the query group.
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
         :arg filter_path: Used to reduce the response. This parameter
             takes a comma-separated list of filters. It supports using wildcards to
             match any field or part of a field’s name. You can also exclude fields
             with "-".
-        :arg format: A short version of the Accept header (for example,
-            `json`, `yaml`).
         :arg human: Whether to return human readable values for
             statistics. Default is True.
         :arg pretty: Whether to pretty format the returned JSON
             response. Default is false.
-        :arg sanitize: Specifies whether to escape special characters in
-            the results. Default is True.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         """
-        if body in SKIP_IN_PATH:
-            raise ValueError("Empty value passed for a required argument 'body'.")
+        for param in (name, body):
+            if param in SKIP_IN_PATH:
+                raise ValueError("Empty value passed for a required argument.")
 
-        return await self.transport.perform_request(
-            "POST", "/_plugins/_ppl/stats", params=params, headers=headers, body=body
-        )
-
-    @query_params(
-        "error_trace", "filter_path", "format", "human", "pretty", "sanitize", "source"
-    )
-    async def query(
-        self,
-        body: Any,
-        params: Any = None,
-        headers: Any = None,
-    ) -> Any:
-        """
-        Send a PPL query to the PPL plugin.
-
-
-        :arg error_trace: Whether to include the stack trace of returned
-            errors. Default is false.
-        :arg filter_path: Used to reduce the response. This parameter
-            takes a comma-separated list of filters. It supports using wildcards to
-            match any field or part of a field’s name. You can also exclude fields
-            with "-".
-        :arg format: A short version of the Accept header (for example,
-            `json`, `yaml`).
-        :arg human: Whether to return human readable values for
-            statistics. Default is True.
-        :arg pretty: Whether to pretty format the returned JSON
-            response. Default is false.
-        :arg sanitize: Specifies whether to escape special characters in
-            the results. Default is True.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
-        """
-        if body in SKIP_IN_PATH:
-            raise ValueError("Empty value passed for a required argument 'body'.")
-
-        return await self.transport.perform_request(
-            "POST", "/_plugins/_ppl", params=params, headers=headers, body=body
+        return self.transport.perform_request(
+            "PUT",
+            _make_path("_wlm", "query_group", name),
+            params=params,
+            headers=headers,
+            body=body,
         )

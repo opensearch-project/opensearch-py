@@ -35,13 +35,15 @@ class RollupsClient(NamespacedClient):
 
         :arg id: Rollup to access
         :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
-            statistics.
+            statistics. Default is True.
         :arg pretty: Whether to pretty format the returned JSON
-            response.
+            response. Default is false.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         """
@@ -68,13 +70,15 @@ class RollupsClient(NamespacedClient):
 
         :arg id: Rollup to access
         :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
-            statistics.
+            statistics. Default is True.
         :arg pretty: Whether to pretty format the returned JSON
-            response.
+            response. Default is false.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         """
@@ -101,13 +105,15 @@ class RollupsClient(NamespacedClient):
 
         :arg id: Rollup to access
         :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
-            statistics.
+            statistics. Default is True.
         :arg pretty: Whether to pretty format the returned JSON
-            response.
+            response. Default is false.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         """
@@ -143,17 +149,19 @@ class RollupsClient(NamespacedClient):
 
         :arg id: Rollup to access
         :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
-            statistics.
+            statistics. Default is True.
         :arg if_primary_term: Only perform the operation if the document
             has this primary term.
         :arg if_seq_no: Only perform the operation if the document has
             this sequence number.
         :arg pretty: Whether to pretty format the returned JSON
-            response.
+            response. Default is false.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         """
@@ -181,13 +189,15 @@ class RollupsClient(NamespacedClient):
 
         :arg id: Rollup to access
         :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
-            statistics.
+            statistics. Default is True.
         :arg pretty: Whether to pretty format the returned JSON
-            response.
+            response. Default is false.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         """
@@ -214,13 +224,15 @@ class RollupsClient(NamespacedClient):
 
         :arg id: Rollup to access
         :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
-            statistics.
+            statistics. Default is True.
         :arg pretty: Whether to pretty format the returned JSON
-            response.
+            response. Default is false.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         """

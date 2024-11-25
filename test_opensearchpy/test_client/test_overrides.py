@@ -98,6 +98,16 @@ class TestOverriddenUrlTargets(OpenSearchTestCase):
         self.client.cluster.stats(node_id="test-node")
         self.assert_url_called("GET", "/_cluster/stats/nodes/test-node")
 
+        self.client.cluster.stats(node_id="test-node", metric="indices")
+        self.assert_url_called("GET", "/_cluster/stats/indices/nodes/test-node")
+
+        self.client.cluster.stats(
+            node_id="test-node", metric="indices", index_metric="analysis"
+        )
+        self.assert_url_called(
+            "GET", "/_cluster/stats/indices/analysis/nodes/test-node"
+        )
+
     def test_indices_put_mapping(self) -> None:
         self.client.indices.put_mapping(body={})
         self.assert_url_called("PUT", "/_all/_mapping")

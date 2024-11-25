@@ -9,6 +9,8 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ### Changed
 ### Deprecated
 ### Removed
+### Updated APIs
+- Updated opensearch-py APIs to reflect [opensearch-api-specification@4615564](https://github.com/opensearch-project/opensearch-api-specification/commit/4615564b05d410575bb6ed3ed34ea136bf2e4312)
 ### Fixed
 - Fix `Transport.perform_request`'s arguments `timeout` and `ignore` variable usage ([810](https://github.com/opensearch-project/opensearch-py/pull/810))
 - Fix `Index.save` not passing through aliases to the underlying index ([823](https://github.com/opensearch-project/opensearch-py/pull/823))

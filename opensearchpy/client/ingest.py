@@ -65,17 +65,19 @@ class IngestClient(NamespacedClient):
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
         :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
-            statistics.
+            statistics. Default is True.
         :arg master_timeout (Deprecated: To promote inclusive language,
-            use 'cluster_manager_timeout' instead.): Period to wait for a connection
-            to the master node. If no response is received before the timeout
-            expires, the request fails and returns an error.
+            use `cluster_manager_timeout` instead.): Period to wait for a connection
+            to the cluster-manager node. If no response is received before the
+            timeout expires, the request fails and returns an error.
         :arg pretty: Whether to pretty format the returned JSON
-            response.
+            response. Default is false.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         """
@@ -109,17 +111,19 @@ class IngestClient(NamespacedClient):
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
         :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
-            statistics.
+            statistics. Default is True.
         :arg master_timeout (Deprecated: To promote inclusive language,
-            use 'cluster_manager_timeout' instead.): Period to wait for a connection
-            to the master node. If no response is received before the timeout
-            expires, the request fails and returns an error.
+            use `cluster_manager_timeout` instead.): Period to wait for a connection
+            to the cluster-manager node. If no response is received before the
+            timeout expires, the request fails and returns an error.
         :arg pretty: Whether to pretty format the returned JSON
-            response.
+            response. Default is false.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         :arg timeout: Period to wait for a response. If no response is
@@ -164,17 +168,19 @@ class IngestClient(NamespacedClient):
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
         :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
-            statistics.
+            statistics. Default is True.
         :arg master_timeout (Deprecated: To promote inclusive language,
-            use 'cluster_manager_timeout' instead.): Period to wait for a connection
-            to the master node. If no response is received before the timeout
-            expires, the request fails and returns an error.
+            use `cluster_manager_timeout` instead.): Period to wait for a connection
+            to the cluster-manager node. If no response is received before the
+            timeout expires, the request fails and returns an error.
         :arg pretty: Whether to pretty format the returned JSON
-            response.
+            response. Default is false.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         :arg timeout: Period to wait for a response. If no response is
@@ -207,13 +213,15 @@ class IngestClient(NamespacedClient):
         :arg id: Pipeline to test. If you don't specify a `pipeline` in
             the request body, this parameter is required.
         :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
-            statistics.
+            statistics. Default is True.
         :arg pretty: Whether to pretty format the returned JSON
-            response.
+            response. Default is false.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         :arg verbose: If `true`, the response includes output data for
@@ -230,7 +238,7 @@ class IngestClient(NamespacedClient):
             body=body,
         )
 
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    @query_params("error_trace", "filter_path", "human", "pretty", "s", "source")
     def processor_grok(
         self,
         params: Any = None,
@@ -241,13 +249,16 @@ class IngestClient(NamespacedClient):
 
 
         :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
-            statistics.
+            statistics. Default is True.
         :arg pretty: Whether to pretty format the returned JSON
-            response.
+            response. Default is false.
+        :arg s: Sort returned patterns by key name. Default is false.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         """
