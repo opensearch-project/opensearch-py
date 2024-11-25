@@ -46,6 +46,8 @@ from .features import FeaturesClient
 from .http import HttpClient
 from .indices import IndicesClient
 from .ingest import IngestClient
+from .insights import InsightsClient
+from .list import ListClient
 from .nodes import NodesClient
 from .plugins import PluginsClient
 from .remote import RemoteClient
@@ -55,6 +57,7 @@ from .security import SecurityClient
 from .snapshot import SnapshotClient
 from .tasks import TasksClient
 from .utils import SKIP_IN_PATH, _bulk_body, _make_path, query_params
+from .wlm import WlmClient
 
 logger = logging.getLogger("opensearch")
 
@@ -216,6 +219,9 @@ class AsyncOpenSearch(Client):
         super().__init__(hosts, transport_class, **kwargs)
 
         # namespaced clients for compatibility with API names
+        self.wlm = WlmClient(self)
+        self.list = ListClient(self)
+        self.insights = InsightsClient(self)
         self.search_pipeline = SearchPipelineClient(self)
         self.cat = CatClient(self)
         self.cluster = ClusterClient(self)
@@ -269,13 +275,15 @@ class AsyncOpenSearch(Client):
 
 
         :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
-            statistics.
+            statistics. Default is True.
         :arg pretty: Whether to pretty format the returned JSON
-            response.
+            response. Default is false.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         """
@@ -297,13 +305,15 @@ class AsyncOpenSearch(Client):
 
 
         :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
-            statistics.
+            statistics. Default is True.
         :arg pretty: Whether to pretty format the returned JSON
-            response.
+            response. Default is false.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         """
@@ -346,18 +356,20 @@ class AsyncOpenSearch(Client):
         :arg id: Unique identifier for the document.
         :arg body: The document
         :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
-            statistics.
+            statistics. Default is True.
         :arg pipeline: ID of the pipeline to use to preprocess incoming
             documents. If the index has a default ingest pipeline specified, then
             setting the value to `_none` disables the default ingest pipeline for
             this request. If a final pipeline is configured it will always run,
             regardless of the value of this parameter.
         :arg pretty: Whether to pretty format the returned JSON
-            response.
+            response. Default is false.
         :arg refresh: If `true`, OpenSearch refreshes the affected
             shards to make this operation visible to search, if `wait_for` then wait
             for a refresh to make this operation visible to search, if `false` do
@@ -424,11 +436,13 @@ class AsyncOpenSearch(Client):
         :arg body: The document
         :arg id: Unique identifier for the document.
         :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
-            statistics.
+            statistics. Default is True.
         :arg if_primary_term: Only perform the operation if the document
             has this primary term.
         :arg if_seq_no: Only perform the operation if the document has
@@ -445,7 +459,7 @@ class AsyncOpenSearch(Client):
             this request. If a final pipeline is configured it will always run,
             regardless of the value of this parameter.
         :arg pretty: Whether to pretty format the returned JSON
-            response.
+            response. Default is false.
         :arg refresh: If `true`, OpenSearch refreshes the affected
             shards to make this operation visible to search, if `wait_for` then wait
             for a refresh to make this operation visible to search, if `false` do
@@ -520,18 +534,20 @@ class AsyncOpenSearch(Client):
         :arg _source_includes: A comma-separated list of source fields
             to include in the response.
         :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
-            statistics.
+            statistics. Default is True.
         :arg pipeline: ID of the pipeline to use to preprocess incoming
             documents. If the index has a default ingest pipeline specified, then
             setting the value to `_none` disables the default ingest pipeline for
             this request. If a final pipeline is configured it will always run,
             regardless of the value of this parameter.
         :arg pretty: Whether to pretty format the returned JSON
-            response.
+            response. Default is false.
         :arg refresh: If `true`, OpenSearch refreshes the affected
             shards to make this operation visible to search, if `wait_for` then wait
             for a refresh to make this operation visible to search, if `false` do
@@ -575,17 +591,19 @@ class AsyncOpenSearch(Client):
 
 
         :arg body: Comma-separated list of scroll IDs to clear if none
-            was specified via the scroll_id parameter
+            was specified using the `scroll_id` parameter
         :arg scroll_id: Comma-separated list of scroll IDs to clear. To
             clear all scroll IDs, use `_all`.
         :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
-            statistics.
+            statistics. Default is True.
         :arg pretty: Whether to pretty format the returned JSON
-            response.
+            response. Default is false.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         """
@@ -634,13 +652,13 @@ class AsyncOpenSearch(Client):
 
         :arg body: Query to restrict the results specified with the
             Query DSL (optional)
-        :arg index: Comma-separated list of data streams, indices, and
+        :arg index: Comma-separated list of data streams, indexes, and
             aliases to search. Supports wildcards (`*`). To search all data streams
-            and indices, omit this parameter or use `*` or `_all`.
+            and indexes, omit this parameter or use `*` or `_all`.
         :arg allow_no_indices: If `false`, the request returns an error
             if any wildcard expression, index alias, or `_all` value targets only
-            missing or closed indices. This behavior applies even if the request
-            targets other open indices.
+            missing or closed indexes. This behavior applies even if the request
+            targets other open indexes.
         :arg analyze_wildcard: If `true`, wildcard and prefix queries
             are analyzed. This parameter can only be used when the `q` query string
             parameter is specified. Default is false.
@@ -654,18 +672,19 @@ class AsyncOpenSearch(Client):
             in the query string. This parameter can only be used when the `q` query
             string parameter is specified.
         :arg error_trace: Whether to include the stack trace of returned
-            errors.
+            errors. Default is false.
         :arg expand_wildcards: Type of index that wildcard patterns can
             match. If the request can target data streams, this argument determines
             whether wildcard expressions match hidden data streams. Supports comma-
-            separated values, such as `open,hidden`. Valid choices are all, closed,
-            hidden, none, open.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+            separated values, such as `open,hidden`.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
-            statistics.
+            statistics. Default is True.
         :arg ignore_throttled: If `true`, concrete, expanded or aliased
-            indices are ignored when frozen.
+            indexes are ignored when frozen.
         :arg ignore_unavailable: If `false`, the request returns an
             error if it targets a missing or closed index.
         :arg lenient: If `true`, format-based query failures (such as
@@ -675,7 +694,7 @@ class AsyncOpenSearch(Client):
         :arg preference: Specifies the node or shard the operation
             should be performed on. Random by default. Default is random.
         :arg pretty: Whether to pretty format the returned JSON
-            response.
+            response. Default is false.
         :arg q: Query in the Lucene query string syntax.
         :arg routing: Custom value used to route operations to a
             specific shard.
@@ -722,17 +741,19 @@ class AsyncOpenSearch(Client):
         :arg index: Name of the target index.
         :arg id: Unique identifier for the document.
         :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
-            statistics.
+            statistics. Default is True.
         :arg if_primary_term: Only perform the operation if the document
             has this primary term.
         :arg if_seq_no: Only perform the operation if the document has
             this sequence number.
         :arg pretty: Whether to pretty format the returned JSON
-            response.
+            response. Default is false.
         :arg refresh: If `true`, OpenSearch refreshes the affected
             shards to make this operation visible to search, if `wait_for` then wait
             for a refresh to make this operation visible to search, if `false` do
@@ -812,20 +833,20 @@ class AsyncOpenSearch(Client):
         Deletes documents matching the provided query.
 
 
-        :arg index: Comma-separated list of data streams, indices, and
+        :arg index: Comma-separated list of data streams, indexes, and
             aliases to search. Supports wildcards (`*`). To search all data streams
-            or indices, omit this parameter or use `*` or `_all`.
+            or indexes, omit this parameter or use `*` or `_all`.
         :arg body: The search definition using the Query DSL
-        :arg _source: True or false to return the _source field or not,
-            or a list of fields to return.
+        :arg _source: Set to `true` or `false` to return the `_source`
+            field or not, or a list of fields to return.
         :arg _source_excludes: List of fields to exclude from the
-            returned _source field.
+            returned `_source` field.
         :arg _source_includes: List of fields to extract and return from
-            the _source field.
+            the `_source` field.
         :arg allow_no_indices: If `false`, the request returns an error
             if any wildcard expression, index alias, or `_all` value targets only
-            missing or closed indices. This behavior applies even if the request
-            targets other open indices. For example, a request targeting `foo*,bar*`
+            missing or closed indexes. This behavior applies even if the request
+            targets other open indexes. For example, a request targeting `foo*,bar*`
             returns an error if an index starts with `foo` but no index starts with
             `bar`.
         :arg analyze_wildcard: If `true`, wildcard and prefix queries
@@ -838,17 +859,19 @@ class AsyncOpenSearch(Client):
         :arg df: Field to use as default where no field prefix is given
             in the query string.
         :arg error_trace: Whether to include the stack trace of returned
-            errors.
+            errors. Default is false.
         :arg expand_wildcards: Type of index that wildcard patterns can
             match. If the request can target data streams, this argument determines
             whether wildcard expressions match hidden data streams. Supports comma-
             separated values, such as `open,hidden`. Valid values are: `all`,
             `open`, `closed`, `hidden`, `none`.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg from_: Starting offset. Default is 0.
         :arg human: Whether to return human readable values for
-            statistics.
+            statistics. Default is True.
         :arg ignore_unavailable: If `false`, the request returns an
             error if it targets a missing or closed index.
         :arg lenient: If `true`, format-based query failures (such as
@@ -858,7 +881,7 @@ class AsyncOpenSearch(Client):
         :arg preference: Specifies the node or shard the operation
             should be performed on. Random by default. Default is random.
         :arg pretty: Whether to pretty format the returned JSON
-            response.
+            response. Default is false.
         :arg q: Query in the Lucene query string syntax.
         :arg refresh: If `true`, OpenSearch refreshes all shards
             involved in the delete by query after the request completes.
@@ -876,7 +899,7 @@ class AsyncOpenSearch(Client):
         :arg search_type: The type of the search operation. Available
             options: `query_then_fetch`, `dfs_query_then_fetch`. Valid choices are
             dfs_query_then_fetch, query_then_fetch.
-        :arg size: Deprecated, please use `max_docs` instead.
+        :arg size: Deprecated, use `max_docs` instead.
         :arg slices: The number of slices this task should be divided
             into. Valid choices are auto.
         :arg sort: A comma-separated list of <field>:<direction> pairs.
@@ -890,7 +913,7 @@ class AsyncOpenSearch(Client):
             caution. OpenSearch applies this parameter to each shard handling the
             request. When possible, let OpenSearch perform early termination
             automatically. Avoid specifying this parameter for requests that target
-            data streams with backing indices across multiple data tiers.
+            data streams with backing indexes across multiple data tiers.
         :arg timeout: Period each deletion request waits for active
             shards.
         :arg version: If `true`, returns the document version as part of
@@ -934,13 +957,15 @@ class AsyncOpenSearch(Client):
 
         :arg task_id: The ID for the task.
         :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
-            statistics.
+            statistics. Default is True.
         :arg pretty: Whether to pretty format the returned JSON
-            response.
+            response. Default is false.
         :arg requests_per_second: The throttle for this request in sub-
             requests per second.
         :arg source: The URL-encoded request definition. Useful for
@@ -980,17 +1005,19 @@ class AsyncOpenSearch(Client):
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
         :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
-            statistics.
+            statistics. Default is True.
         :arg master_timeout (Deprecated: To promote inclusive language,
-            use 'cluster_manager_timeout' instead.): Period to wait for a connection
-            to the master node. If no response is received before the timeout
-            expires, the request fails and returns an error.
+            use `cluster_manager_timeout` instead.): Period to wait for a connection
+            to the cluster-manager node. If no response is received before the
+            timeout expires, the request fails and returns an error.
         :arg pretty: Whether to pretty format the returned JSON
-            response.
+            response. Default is false.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         :arg timeout: Period to wait for a response. If no response is
@@ -1032,7 +1059,7 @@ class AsyncOpenSearch(Client):
         Returns information about whether a document exists in an index.
 
 
-        :arg index: Comma-separated list of data streams, indices, and
+        :arg index: Comma-separated list of data streams, indexes, and
             aliases. Supports wildcards (`*`).
         :arg id: Identifier of the document.
         :arg _source: `true` or `false` to return the `_source` field or
@@ -1042,15 +1069,17 @@ class AsyncOpenSearch(Client):
         :arg _source_includes: A comma-separated list of source fields
             to include in the response.
         :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
-            statistics.
+            statistics. Default is True.
         :arg preference: Specifies the node or shard the operation
             should be performed on. Random by default. Default is random.
         :arg pretty: Whether to pretty format the returned JSON
-            response.
+            response. Default is false.
         :arg realtime: If `true`, the request is real-time as opposed to
             near-real-time.
         :arg refresh: If `true`, OpenSearch refreshes all shards
@@ -1104,7 +1133,7 @@ class AsyncOpenSearch(Client):
         Returns information about whether a document source exists in an index.
 
 
-        :arg index: Comma-separated list of data streams, indices, and
+        :arg index: Comma-separated list of data streams, indexes, and
             aliases. Supports wildcards (`*`).
         :arg id: Identifier of the document.
         :arg _source: `true` or `false` to return the `_source` field or
@@ -1114,16 +1143,18 @@ class AsyncOpenSearch(Client):
         :arg _source_includes: A comma-separated list of source fields
             to include in the response.
         :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
-            statistics.
+            statistics. Default is True.
         :arg preference: Specifies the node or shard the operation
             should be performed on. Random by default. Default is random.
         :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg realtime: If true, the request is real-time as opposed to
+            response. Default is false.
+        :arg realtime: If `true`, the request is real-time as opposed to
             near-real-time.
         :arg refresh: If `true`, OpenSearch refreshes all shards
             involved in the delete by query after the request completes.
@@ -1182,8 +1213,8 @@ class AsyncOpenSearch(Client):
             index name can be provided to this parameter.
         :arg id: Defines the document ID.
         :arg body: The query definition using the Query DSL
-        :arg _source: True or false to return the `_source` field or
-            not, or a list of fields to return.
+        :arg _source: Set to `true` or `false` to return the `_source`
+            field or not, or a list of fields to return.
         :arg _source_excludes: A comma-separated list of source fields
             to exclude from the response.
         :arg _source_includes: A comma-separated list of source fields
@@ -1198,17 +1229,19 @@ class AsyncOpenSearch(Client):
         :arg df: Field to use as default where no field prefix is given
             in the query string. Default is _all.
         :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
-            statistics.
+            statistics. Default is True.
         :arg lenient: If `true`, format-based query failures (such as
             providing text to a numeric field) in the query string will be ignored.
         :arg preference: Specifies the node or shard the operation
             should be performed on. Random by default. Default is random.
         :arg pretty: Whether to pretty format the returned JSON
-            response.
+            response. Default is false.
         :arg q: Query in the Lucene query string syntax.
         :arg routing: Custom value used to route operations to a
             specific shard.
@@ -1248,38 +1281,39 @@ class AsyncOpenSearch(Client):
     ) -> Any:
         """
         Returns the information about the capabilities of fields among multiple
-        indices.
+        indexes.
 
 
         :arg body: An index filter specified with the Query DSL
-        :arg index: Comma-separated list of data streams, indices, and
+        :arg index: Comma-separated list of data streams, indexes, and
             aliases used to limit the request. Supports wildcards (*). To target all
-            data streams and indices, omit this parameter or use * or _all.
-        :arg allow_no_indices: If false, the request returns an error if
-            any wildcard expression, index alias, or `_all` value targets only
-            missing or closed indices. This behavior applies even if the request
-            targets other open indices. For example, a request targeting `foo*,bar*`
+            data streams and indexes, omit this parameter or use * or `_all`.
+        :arg allow_no_indices: If `false`, the request returns an error
+            if any wildcard expression, index alias, or `_all` value targets only
+            missing or closed indexes. This behavior applies even if the request
+            targets other open indexes. For example, a request targeting `foo*,bar*`
             returns an error if an index starts with foo but no index starts with
             bar.
         :arg error_trace: Whether to include the stack trace of returned
-            errors.
+            errors. Default is false.
         :arg expand_wildcards: Type of index that wildcard patterns can
             match. If the request can target data streams, this argument determines
             whether wildcard expressions match hidden data streams. Supports comma-
-            separated values, such as `open,hidden`. Valid choices are all, closed,
-            hidden, none, open.
+            separated values, such as `open,hidden`.
         :arg fields: Comma-separated list of fields to retrieve
             capabilities for. Wildcard (`*`) expressions are supported.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
-            statistics.
-        :arg ignore_unavailable: If `true`, missing or closed indices
+            statistics. Default is True.
+        :arg ignore_unavailable: If `true`, missing or closed indexes
             are not included in the response.
-        :arg include_unmapped: If true, unmapped fields are included in
-            the response. Default is false.
+        :arg include_unmapped: If `true`, unmapped fields are included
+            in the response. Default is false.
         :arg pretty: Whether to pretty format the returned JSON
-            response.
+            response. Default is false.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         """
@@ -1321,27 +1355,29 @@ class AsyncOpenSearch(Client):
 
         :arg index: Name of the index that contains the document.
         :arg id: Unique identifier of the document.
-        :arg _source: True or false to return the _source field or not,
-            or a list of fields to return.
+        :arg _source: Set to `true` or `false` to return the `_source`
+            field or not, or a list of fields to return.
         :arg _source_excludes: A comma-separated list of source fields
             to exclude in the response.
         :arg _source_includes: A comma-separated list of source fields
             to include in the response.
         :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
-            statistics.
+            statistics. Default is True.
         :arg preference: Specifies the node or shard the operation
             should be performed on. Random by default. Default is random.
         :arg pretty: Whether to pretty format the returned JSON
-            response.
+            response. Default is false.
         :arg realtime: If `true`, the request is real-time as opposed to
             near-real-time.
-        :arg refresh: If true, OpenSearch refreshes the affected shards
-            to make this operation visible to search. If false, do nothing with
-            refreshes.
+        :arg refresh: If `true`, OpenSearch refreshes the affected
+            shards to make this operation visible to search. If `false`, do nothing
+            with refreshes.
         :arg routing: Target the specified primary shard.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
@@ -1352,8 +1388,9 @@ class AsyncOpenSearch(Client):
         :arg version: Explicit version number for concurrency control.
             The specified version must match the current version of the document for
             the request to succeed.
-        :arg version_type: Specific version type: internal, external,
-            external_gte. Valid choices are external, external_gte, force, internal.
+        :arg version_type: Specific version type: `internal`,
+            `external`, `external_gte`. Valid choices are external, external_gte,
+            force, internal.
         """
         for param in (index, id):
             if param in SKIP_IN_PATH:
@@ -1386,16 +1423,18 @@ class AsyncOpenSearch(Client):
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
         :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
-            statistics.
+            statistics. Default is True.
         :arg master_timeout (Deprecated: To promote inclusive language,
-            use 'cluster_manager_timeout' instead.): Specify timeout for connection
+            use `cluster_manager_timeout` instead.): Specify timeout for connection
             to master
         :arg pretty: Whether to pretty format the returned JSON
-            response.
+            response. Default is false.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         """
@@ -1435,35 +1474,38 @@ class AsyncOpenSearch(Client):
 
         :arg index: Name of the index that contains the document.
         :arg id: Unique identifier of the document.
-        :arg _source: True or false to return the _source field or not,
-            or a list of fields to return.
+        :arg _source: Set to `true` or `false` to return the `_source`
+            field or not, or a list of fields to return.
         :arg _source_excludes: A comma-separated list of source fields
             to exclude in the response.
         :arg _source_includes: A comma-separated list of source fields
             to include in the response.
         :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
-            statistics.
+            statistics. Default is True.
         :arg preference: Specifies the node or shard the operation
             should be performed on. Random by default. Default is random.
         :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg realtime: Boolean) If true, the request is real-time as
+            response. Default is false.
+        :arg realtime: Boolean) If `true`, the request is real-time as
             opposed to near-real-time.
-        :arg refresh: If true, OpenSearch refreshes the affected shards
-            to make this operation visible to search. If false, do nothing with
-            refreshes.
+        :arg refresh: If `true`, OpenSearch refreshes the affected
+            shards to make this operation visible to search. If `false`, do nothing
+            with refreshes.
         :arg routing: Target the specified primary shard.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         :arg version: Explicit version number for concurrency control.
             The specified version must match the current version of the document for
             the request to succeed.
-        :arg version_type: Specific version type: internal, external,
-            external_gte. Valid choices are external, external_gte, force, internal.
+        :arg version_type: Specific version type. One of `internal`,
+            `external`, `external_gte`. Valid choices are external, external_gte,
+            force, internal.
         """
         for param in (index, id):
             if param in SKIP_IN_PATH:
@@ -1507,8 +1549,8 @@ class AsyncOpenSearch(Client):
         :arg index: Name of the index to retrieve documents from when
             `ids` are specified, or when a document in the `docs` array does not
             specify an index.
-        :arg _source: True or false to return the `_source` field or
-            not, or a list of fields to return.
+        :arg _source: Set to `true` or `false` to return the `_source`
+            field or not, or a list of fields to return.
         :arg _source_excludes: A comma-separated list of source fields
             to exclude from the response. You can also use this parameter to exclude
             fields from the subset specified in `_source_includes` query parameter.
@@ -1518,15 +1560,17 @@ class AsyncOpenSearch(Client):
             using the `_source_excludes` query parameter. If the `_source` parameter
             is `false`, this parameter is ignored.
         :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
-            statistics.
+            statistics. Default is True.
         :arg preference: Specifies the node or shard the operation
             should be performed on. Random by default. Default is random.
         :arg pretty: Whether to pretty format the returned JSON
-            response.
+            response. Default is false.
         :arg realtime: If `true`, the request is real-time as opposed to
             near-real-time.
         :arg refresh: If `true`, the request refreshes relevant shards
@@ -1576,17 +1620,19 @@ class AsyncOpenSearch(Client):
 
         :arg body: The request definitions (metadata-search request
             definition pairs), separated by newlines
-        :arg index: Comma-separated list of data streams, indices, and
+        :arg index: Comma-separated list of data streams, indexes, and
             index aliases to search.
-        :arg ccs_minimize_roundtrips: If true, network roundtrips
+        :arg ccs_minimize_roundtrips: If `true`, network round-trips
             between the coordinating node and remote clusters are minimized for
             cross-cluster search requests. Default is True.
         :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
-            statistics.
+            statistics. Default is True.
         :arg max_concurrent_searches: Maximum number of concurrent
             searches the multi search API can execute.
         :arg max_concurrent_shard_requests: Maximum number of concurrent
@@ -1600,10 +1646,10 @@ class AsyncOpenSearch(Client):
             on its rewrite method i.e., if date filters are mandatory to match but
             the shard bounds and the query are disjoint.
         :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg rest_total_hits_as_int: If true, hits.total are returned as
-            an integer in the response. Defaults to false, which returns an object.
-            Default is false.
+            response. Default is false.
+        :arg rest_total_hits_as_int: If `true`, `hits.total` are
+            returned as an integer in the response. Defaults to false, which returns
+            an object. Default is false.
         :arg search_type: Indicates whether global term and document
             frequencies should be used when scoring returned documents. Valid
             choices are dfs_query_then_fetch, query_then_fetch.
@@ -1649,21 +1695,23 @@ class AsyncOpenSearch(Client):
 
         :arg body: The request definitions (metadata-search request
             definition pairs), separated by newlines
-        :arg index: Comma-separated list of data streams, indices, and
+        :arg index: Comma-separated list of data streams, indexes, and
             aliases to search. Supports wildcards (`*`). To search all data streams
-            and indices, omit this parameter or use `*`.
+            and indexes, omit this parameter or use `*`.
         :arg ccs_minimize_roundtrips: If `true`, network round-trips are
             minimized for cross-cluster search requests. Default is True.
         :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
-            statistics.
+            statistics. Default is True.
         :arg max_concurrent_searches: Maximum number of concurrent
             searches the API can run.
         :arg pretty: Whether to pretty format the returned JSON
-            response.
+            response. Default is false.
         :arg rest_total_hits_as_int: If `true`, the response returns
             `hits.total` as an integer. If `false`, it returns `hits.total` as an
             object. Default is false.
@@ -1722,7 +1770,7 @@ class AsyncOpenSearch(Client):
             document ids. See documentation.
         :arg index: Name of the index that contains the documents.
         :arg error_trace: Whether to include the stack trace of returned
-            errors.
+            errors. Default is false.
         :arg field_statistics: If `true`, the response includes the
             document count, sum of document frequencies, and sum of total term
             frequencies. Default is True.
@@ -1730,10 +1778,12 @@ class AsyncOpenSearch(Client):
             fields to include in the statistics. Used as the default list unless a
             specific field list is provided in the `completion_fields` or
             `fielddata_fields` parameters.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
-            statistics.
+            statistics. Default is True.
         :arg ids: A comma-separated list of documents ids. You must
             define ids as parameter or set "ids" or "docs" in the request body
         :arg offsets: If `true`, the response includes term offsets.
@@ -1745,14 +1795,14 @@ class AsyncOpenSearch(Client):
         :arg preference: Specifies the node or shard the operation
             should be performed on. Random by default. Default is random.
         :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg realtime: If true, the request is real-time as opposed to
+            response. Default is false.
+        :arg realtime: If `true`, the request is real-time as opposed to
             near-real-time. Default is True.
         :arg routing: Custom value used to route operations to a
             specific shard.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
-        :arg term_statistics: If true, the response includes term
+        :arg term_statistics: If `true`, the response includes term
             frequency and document frequency. Default is false.
         :arg version: If `true`, returns the document version as part of
             a hit.
@@ -1796,17 +1846,19 @@ class AsyncOpenSearch(Client):
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
         :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
-            statistics.
+            statistics. Default is True.
         :arg master_timeout (Deprecated: To promote inclusive language,
-            use 'cluster_manager_timeout' instead.): Period to wait for a connection
-            to the master node. If no response is received before the timeout
-            expires, the request fails and returns an error.
+            use `cluster_manager_timeout` instead.): Period to wait for a connection
+            to the cluster-manager node. If no response is received before the
+            timeout expires, the request fails and returns an error.
         :arg pretty: Whether to pretty format the returned JSON
-            response.
+            response. Default is false.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         :arg timeout: Period to wait for a response. If no response is
@@ -1850,30 +1902,32 @@ class AsyncOpenSearch(Client):
 
         :arg body: The ranking evaluation search definition, including
             search requests, document ratings and ranking metric definition.
-        :arg index: Comma-separated list of data streams, indices, and
+        :arg index: Comma-separated list of data streams, indexes, and
             index aliases used to limit the request. Wildcard (`*`) expressions are
-            supported. To target all data streams and indices in a cluster, omit
+            supported. To target all data streams and indexes in a cluster, omit
             this parameter or use `_all` or `*`.
         :arg allow_no_indices: If `false`, the request returns an error
             if any wildcard expression, index alias, or `_all` value targets only
-            missing or closed indices. This behavior applies even if the request
-            targets other open indices. For example, a request targeting `foo*,bar*`
+            missing or closed indexes. This behavior applies even if the request
+            targets other open indexes. For example, a request targeting `foo*,bar*`
             returns an error if an index starts with `foo` but no index starts with
             `bar`.
         :arg error_trace: Whether to include the stack trace of returned
-            errors.
+            errors. Default is false.
         :arg expand_wildcards: Whether to expand wildcard expression to
-            concrete indices that are open, closed or both. Valid choices are all,
-            closed, hidden, none, open.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+            concrete indexes that are open, closed or both.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
-            statistics.
-        :arg ignore_unavailable: If `true`, missing or closed indices
+            statistics. Default is True.
+        :arg ignore_unavailable: If `true`, missing or closed indexes
             are not included in the response.
         :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg search_type: Search operation type
+            response. Default is false.
+        :arg search_type: Search operation type Valid choices are
+            dfs_query_then_fetch, query_then_fetch.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         """
@@ -1918,15 +1972,17 @@ class AsyncOpenSearch(Client):
         :arg body: The search definition using the Query DSL and the
             prototype for the index request.
         :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
-            statistics.
+            statistics. Default is True.
         :arg max_docs: Maximum number of documents to process. By
             default, all documents.
         :arg pretty: Whether to pretty format the returned JSON
-            response.
+            response. Default is false.
         :arg refresh: If `true`, the request refreshes affected shards
             to make this operation visible to search.
         :arg requests_per_second: The throttle for this request in sub-
@@ -1969,13 +2025,15 @@ class AsyncOpenSearch(Client):
 
         :arg task_id: Identifier for the task.
         :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
-            statistics.
+            statistics. Default is True.
         :arg pretty: Whether to pretty format the returned JSON
-            response.
+            response. Default is false.
         :arg requests_per_second: The throttle for this request in sub-
             requests per second.
         :arg source: The URL-encoded request definition. Useful for
@@ -2003,17 +2061,19 @@ class AsyncOpenSearch(Client):
         Allows to use the Mustache language to pre-render a search definition.
 
 
-        :arg body: The search definition template and its params
+        :arg body: The search definition template and its parameters.
         :arg id: ID of the search template to render. If no `source` is
             specified, this or the `id` request body parameter is required.
         :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
-            statistics.
+            statistics. Default is True.
         :arg pretty: Whether to pretty format the returned JSON
-            response.
+            response. Default is false.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         """
@@ -2038,13 +2098,15 @@ class AsyncOpenSearch(Client):
 
         :arg body: The script to execute
         :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
-            statistics.
+            statistics. Default is True.
         :arg pretty: Whether to pretty format the returned JSON
-            response.
+            response. Default is false.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         """
@@ -2080,16 +2142,18 @@ class AsyncOpenSearch(Client):
             parameter.
         :arg scroll_id: The scroll ID for scrolled search
         :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
-            statistics.
+            statistics. Default is True.
         :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg rest_total_hits_as_int: If true, the API response's
-            hit.total property is returned as an integer. If false, the API
-            response's hit.total property is returned as an object. Default is
+            response. Default is false.
+        :arg rest_total_hits_as_int: If `true`, the API response's
+            `hit.total` property is returned as an integer. If `false`, the API
+            response's `hit.total` property is returned as an object. Default is
             false.
         :arg scroll: Period to retain the search context for scrolling.
         :arg source: The URL-encoded request definition. Useful for
@@ -2171,9 +2235,9 @@ class AsyncOpenSearch(Client):
 
 
         :arg body: The search definition using the Query DSL
-        :arg index: Comma-separated list of data streams, indices, and
+        :arg index: Comma-separated list of data streams, indexes, and
             aliases to search. Supports wildcards (`*`). To search all data streams
-            and indices, omit this parameter or use `*` or `_all`.
+            and indexes, omit this parameter or use `*` or `_all`.
         :arg _source: Indicates which source fields are returned for
             matching documents. These fields are returned in the `hits._source`
             property of the search response. Valid values are: `true` to return the
@@ -2191,15 +2255,15 @@ class AsyncOpenSearch(Client):
             is `false`, this parameter is ignored.
         :arg allow_no_indices: If `false`, the request returns an error
             if any wildcard expression, index alias, or `_all` value targets only
-            missing or closed indices. This behavior applies even if the request
-            targets other open indices. For example, a request targeting `foo*,bar*`
+            missing or closed indexes. This behavior applies even if the request
+            targets other open indexes. For example, a request targeting `foo*,bar*`
             returns an error if an index starts with `foo` but no index starts with
             `bar`.
-        :arg allow_partial_search_results: If true, returns partial
-            results if there are shard request timeouts or shard failures. If false,
-            returns an error with no partial results. Default is True.
-        :arg analyze_wildcard: If true, wildcard and prefix queries are
-            analyzed. This parameter can only be used when the q query string
+        :arg allow_partial_search_results: If `true`, returns partial
+            results if there are shard request timeouts or shard failures. If
+            `false`, returns an error with no partial results. Default is True.
+        :arg analyze_wildcard: If `true`, wildcard and prefix queries
+            are analyzed. This parameter can only be used when the q query string
             parameter is specified. Default is false.
         :arg analyzer: Analyzer to use for the query string. This
             parameter can only be used when the q query string parameter is
@@ -2212,7 +2276,7 @@ class AsyncOpenSearch(Client):
         :arg cancel_after_time_interval: The time after which the search
             request will be canceled. Request-level parameter takes precedence over
             `cancel_after_time_interval` cluster setting.
-        :arg ccs_minimize_roundtrips: If true, network round-trips
+        :arg ccs_minimize_roundtrips: If `true`, network round-trips
             between the coordinating node and the remote clusters are minimized when
             executing cross-cluster search (CCS) requests. Default is True.
         :arg default_operator: The default operator for query string
@@ -2224,28 +2288,29 @@ class AsyncOpenSearch(Client):
         :arg docvalue_fields: A comma-separated list of fields to return
             as the docvalue representation for each hit.
         :arg error_trace: Whether to include the stack trace of returned
-            errors.
+            errors. Default is false.
         :arg expand_wildcards: Type of index that wildcard patterns can
             match. If the request can target data streams, this argument determines
             whether wildcard expressions match hidden data streams. Supports comma-
-            separated values, such as `open,hidden`. Valid choices are all, closed,
-            hidden, none, open.
+            separated values, such as `open,hidden`.
         :arg explain: If `true`, returns detailed information about
             score computation as part of a hit.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg from_: Starting document offset. Needs to be non-negative.
             By default, you cannot page through more than 10,000 hits using the
             `from` and `size` parameters. To page through more hits, use the
             `search_after` parameter. Default is 0.
         :arg human: Whether to return human readable values for
-            statistics.
+            statistics. Default is True.
         :arg ignore_throttled: If `true`, concrete, expanded or aliased
-            indices will be ignored when frozen.
+            indexes will be ignored when frozen.
         :arg ignore_unavailable: If `false`, the request returns an
             error if it targets a missing or closed index.
         :arg include_named_queries_score: Indicates whether
-            hit.matched_queries should be rendered as a map that includes the name
+            `hit.matched_queries` should be rendered as a map that includes the name
             of the matched query associated with its score (true) or as an array
             containing the name of the matched queries (false) Default is false.
         :arg lenient: If `true`, format-based query failures (such as
@@ -2287,7 +2352,7 @@ class AsyncOpenSearch(Client):
             `<custom-string>` to the same shards in the same order. Default is
             random.
         :arg pretty: Whether to pretty format the returned JSON
-            response.
+            response. Default is false.
         :arg q: Query in the Lucene query string syntax using query
             parameter search. Query parameter searches do not support the full
             OpenSearch Query DSL but are handy for testing.
@@ -2343,7 +2408,7 @@ class AsyncOpenSearch(Client):
             caution. OpenSearch applies this parameter to each shard handling the
             request. When possible, let OpenSearch perform early termination
             automatically. Avoid specifying this parameter for requests that target
-            data streams with backing indices across multiple data tiers. If set to
+            data streams with backing indexes across multiple data tiers. If set to
             `0` (default), the query does not terminate early.
         :arg timeout: Specifies the period of time to wait for a
             response from each shard. If no response is received before the timeout
@@ -2391,29 +2456,31 @@ class AsyncOpenSearch(Client):
         headers: Any = None,
     ) -> Any:
         """
-        Returns information about the indices and shards that a search request would be
+        Returns information about the indexes and shards that a search request would be
         executed against.
 
 
-        :arg index: Returns the indices and shards that a search request
+        :arg index: Returns the indexes and shards that a search request
             would be executed against.
         :arg allow_no_indices: If `false`, the request returns an error
             if any wildcard expression, index alias, or `_all` value targets only
-            missing or closed indices. This behavior applies even if the request
-            targets other open indices. For example, a request targeting `foo*,bar*`
+            missing or closed indexes. This behavior applies even if the request
+            targets other open indexes. For example, a request targeting `foo*,bar*`
             returns an error if an index starts with `foo` but no index starts with
             `bar`.
         :arg error_trace: Whether to include the stack trace of returned
-            errors.
+            errors. Default is false.
         :arg expand_wildcards: Type of index that wildcard patterns can
             match. If the request can target data streams, this argument determines
             whether wildcard expressions match hidden data streams. Supports comma-
             separated values, such as `open,hidden`. Valid values are: `all`,
             `open`, `closed`, `hidden`, `none`.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
-            statistics.
+            statistics. Default is True.
         :arg ignore_unavailable: If `false`, the request returns an
             error if it targets a missing or closed index.
         :arg local: If `true`, the request retrieves information from
@@ -2421,7 +2488,7 @@ class AsyncOpenSearch(Client):
         :arg preference: Specifies the node or shard the operation
             should be performed on. Random by default. Default is random.
         :arg pretty: Whether to pretty format the returned JSON
-            response.
+            response. Default is false.
         :arg routing: Custom value used to route operations to a
             specific shard.
         :arg source: The URL-encoded request definition. Useful for
@@ -2462,19 +2529,19 @@ class AsyncOpenSearch(Client):
         Allows to use the Mustache language to pre-render a search definition.
 
 
-        :arg body: The search definition template and its params
-        :arg index: Comma-separated list of data streams, indices, and
+        :arg body: The search definition template and its parameters.
+        :arg index: Comma-separated list of data streams, indexes, and
             aliases to search. Supports wildcards (*).
         :arg allow_no_indices: If `false`, the request returns an error
             if any wildcard expression, index alias, or `_all` value targets only
-            missing or closed indices. This behavior applies even if the request
-            targets other open indices. For example, a request targeting `foo*,bar*`
+            missing or closed indexes. This behavior applies even if the request
+            targets other open indexes. For example, a request targeting `foo*,bar*`
             returns an error if an index starts with `foo` but no index starts with
             `bar`.
         :arg ccs_minimize_roundtrips: If `true`, network round-trips are
             minimized for cross-cluster search requests. Default is True.
         :arg error_trace: Whether to include the stack trace of returned
-            errors.
+            errors. Default is false.
         :arg expand_wildcards: Type of index that wildcard patterns can
             match. If the request can target data streams, this argument determines
             whether wildcard expressions match hidden data streams. Supports comma-
@@ -2482,21 +2549,23 @@ class AsyncOpenSearch(Client):
             `open`, `closed`, `hidden`, `none`.
         :arg explain: If `true`, the response includes additional
             details about score computation as part of a hit.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
-            statistics.
+            statistics. Default is True.
         :arg ignore_throttled: If `true`, specified concrete, expanded,
-            or aliased indices are not included in the response when throttled.
+            or aliased indexes are not included in the response when throttled.
         :arg ignore_unavailable: If `false`, the request returns an
             error if it targets a missing or closed index.
         :arg preference: Specifies the node or shard the operation
             should be performed on. Random by default. Default is random.
         :arg pretty: Whether to pretty format the returned JSON
-            response.
+            response. Default is false.
         :arg profile: If `true`, the query execution is profiled.
-        :arg rest_total_hits_as_int: If true, hits.total are rendered as
-            an integer in the response. Default is false.
+        :arg rest_total_hits_as_int: If `true`, `hits.total` are
+            rendered as an integer in the response. Default is false.
         :arg routing: Custom value used to route operations to a
             specific shard.
         :arg scroll: Specifies how long a consistent view of the index
@@ -2555,7 +2624,7 @@ class AsyncOpenSearch(Client):
             termvectors for. See documentation.
         :arg id: Unique identifier of the document.
         :arg error_trace: Whether to include the stack trace of returned
-            errors.
+            errors. Default is false.
         :arg field_statistics: If `true`, the response includes the
             document count, sum of document frequencies, and sum of total term
             frequencies. Default is True.
@@ -2563,10 +2632,12 @@ class AsyncOpenSearch(Client):
             fields to include in the statistics. Used as the default list unless a
             specific field list is provided in the `completion_fields` or
             `fielddata_fields` parameters.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
-            statistics.
+            statistics. Default is True.
         :arg offsets: If `true`, the response includes term offsets.
             Default is True.
         :arg payloads: If `true`, the response includes term payloads.
@@ -2576,8 +2647,8 @@ class AsyncOpenSearch(Client):
         :arg preference: Specifies the node or shard the operation
             should be performed on. Random by default. Default is random.
         :arg pretty: Whether to pretty format the returned JSON
-            response.
-        :arg realtime: If true, the request is real-time as opposed to
+            response. Default is false.
+        :arg realtime: If `true`, the request is real-time as opposed to
             near-real-time. Default is True.
         :arg routing: Custom value used to route operations to a
             specific shard.
@@ -2634,30 +2705,33 @@ class AsyncOpenSearch(Client):
         :arg id: Document ID
         :arg body: The request definition requires either `script` or
             partial `doc`
-        :arg _source: Set to false to disable source retrieval. You can
-            also specify a comma-separated list of the fields you want to retrieve.
+        :arg _source: Set to `false` to disable source retrieval. You
+            can also specify a comma-separated list of the fields you want to
+            retrieve.
         :arg _source_excludes: Specify the source fields you want to
             exclude.
         :arg _source_includes: Specify the source fields you want to
             retrieve.
         :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
-            statistics.
+            statistics. Default is True.
         :arg if_primary_term: Only perform the operation if the document
             has this primary term.
         :arg if_seq_no: Only perform the operation if the document has
             this sequence number.
         :arg lang: The script language. Default is painless.
         :arg pretty: Whether to pretty format the returned JSON
-            response.
+            response. Default is false.
         :arg refresh: If 'true', OpenSearch refreshes the affected
-            shards to make this operation visible to search, if 'wait_for' then wait
-            for a refresh to make this operation visible to search, if 'false' do
-            nothing with refreshes. Valid choices are false, true, wait_for.
-        :arg require_alias: If true, the destination must be an index
+            shards to make this operation visible to search, if `wait_for` then wait
+            for a refresh to make this operation visible to search, if `false` do
+            nothing with refreshes.
+        :arg require_alias: If `true`, the destination must be an index
             alias. Default is false.
         :arg retry_on_conflict: Specify how many times should the
             operation be retried when a conflict occurs. Default is 0.
@@ -2738,20 +2812,20 @@ class AsyncOpenSearch(Client):
         for example to pick up a mapping change.
 
 
-        :arg index: Comma-separated list of data streams, indices, and
+        :arg index: Comma-separated list of data streams, indexes, and
             aliases to search. Supports wildcards (`*`). To search all data streams
-            or indices, omit this parameter or use `*` or `_all`.
+            or indexes, omit this parameter or use `*` or `_all`.
         :arg body: The search definition using the Query DSL
-        :arg _source: True or false to return the _source field or not,
-            or a list of fields to return.
+        :arg _source: Set to `true` or `false` to return the `_source`
+            field or not, or a list of fields to return.
         :arg _source_excludes: List of fields to exclude from the
-            returned _source field.
+            returned `_source` field.
         :arg _source_includes: List of fields to extract and return from
-            the _source field.
+            the `_source` field.
         :arg allow_no_indices: If `false`, the request returns an error
             if any wildcard expression, index alias, or `_all` value targets only
-            missing or closed indices. This behavior applies even if the request
-            targets other open indices. For example, a request targeting `foo*,bar*`
+            missing or closed indexes. This behavior applies even if the request
+            targets other open indexes. For example, a request targeting `foo*,bar*`
             returns an error if an index starts with `foo` but no index starts with
             `bar`.
         :arg analyze_wildcard: If `true`, wildcard and prefix queries
@@ -2764,17 +2838,19 @@ class AsyncOpenSearch(Client):
         :arg df: Field to use as default where no field prefix is given
             in the query string.
         :arg error_trace: Whether to include the stack trace of returned
-            errors.
+            errors. Default is false.
         :arg expand_wildcards: Type of index that wildcard patterns can
             match. If the request can target data streams, this argument determines
             whether wildcard expressions match hidden data streams. Supports comma-
             separated values, such as `open,hidden`. Valid values are: `all`,
             `open`, `closed`, `hidden`, `none`.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg from_: Starting offset. Default is 0.
         :arg human: Whether to return human readable values for
-            statistics.
+            statistics. Default is True.
         :arg ignore_unavailable: If `false`, the request returns an
             error if it targets a missing or closed index.
         :arg lenient: If `true`, format-based query failures (such as
@@ -2789,7 +2865,7 @@ class AsyncOpenSearch(Client):
         :arg preference: Specifies the node or shard the operation
             should be performed on. Random by default. Default is random.
         :arg pretty: Whether to pretty format the returned JSON
-            response.
+            response. Default is false.
         :arg q: Query in the Lucene query string syntax.
         :arg refresh: If `true`, OpenSearch refreshes affected shards to
             make the operation visible to search.
@@ -2806,7 +2882,7 @@ class AsyncOpenSearch(Client):
         :arg search_type: The type of the search operation. Available
             options: `query_then_fetch`, `dfs_query_then_fetch`. Valid choices are
             dfs_query_then_fetch, query_then_fetch.
-        :arg size: Deprecated, please use `max_docs` instead.
+        :arg size: Deprecated, use `max_docs` instead.
         :arg slices: The number of slices this task should be divided
             into. Valid choices are auto.
         :arg sort: A comma-separated list of <field>:<direction> pairs.
@@ -2820,7 +2896,7 @@ class AsyncOpenSearch(Client):
             caution. OpenSearch applies this parameter to each shard handling the
             request. When possible, let OpenSearch perform early termination
             automatically. Avoid specifying this parameter for requests that target
-            data streams with backing indices across multiple data tiers.
+            data streams with backing indexes across multiple data tiers.
         :arg timeout: Period each update request waits for the following
             operations: dynamic mapping updates, waiting for active shards.
         :arg version: If `true`, returns the document version as part of
@@ -2863,13 +2939,15 @@ class AsyncOpenSearch(Client):
 
         :arg task_id: The ID for the task.
         :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
-            statistics.
+            statistics. Default is True.
         :arg pretty: Whether to pretty format the returned JSON
-            response.
+            response. Default is false.
         :arg requests_per_second: The throttle for this request in sub-
             requests per second.
         :arg source: The URL-encoded request definition. Useful for
@@ -2896,13 +2974,15 @@ class AsyncOpenSearch(Client):
 
 
         :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
-            statistics.
+            statistics. Default is True.
         :arg pretty: Whether to pretty format the returned JSON
-            response.
+            response. Default is false.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         """
@@ -2921,13 +3001,15 @@ class AsyncOpenSearch(Client):
 
 
         :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
-            statistics.
+            statistics. Default is True.
         :arg pretty: Whether to pretty format the returned JSON
-            response.
+            response. Default is false.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         """
@@ -2957,24 +3039,25 @@ class AsyncOpenSearch(Client):
         Creates point in time context.
 
 
-        :arg index: Comma-separated list of indices; use `_all` or empty
-            string to perform the operation on all indices.
+        :arg index: Comma-separated list of indexes; use `_all` or empty
+            string to perform the operation on all indexes.
         :arg allow_partial_pit_creation: Allow if point in time can be
             created with partial failures.
         :arg error_trace: Whether to include the stack trace of returned
-            errors.
+            errors. Default is false.
         :arg expand_wildcards: Whether to expand wildcard expression to
-            concrete indices that are open, closed or both. Valid choices are all,
-            closed, hidden, none, open.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+            concrete indexes that are open, closed or both.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
-            statistics.
+            statistics. Default is True.
         :arg keep_alive: Specify the keep alive for point in time.
         :arg preference: Specify the node or shard the operation should
             be performed on. Default is random.
         :arg pretty: Whether to pretty format the returned JSON
-            response.
+            response. Default is false.
         :arg routing: Comma-separated list of specific routing values.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
@@ -3000,13 +3083,15 @@ class AsyncOpenSearch(Client):
 
 
         :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
-            statistics.
+            statistics. Default is True.
         :arg pretty: Whether to pretty format the returned JSON
-            response.
+            response. Default is false.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         """
@@ -3027,13 +3112,15 @@ class AsyncOpenSearch(Client):
 
         :arg body: The point-in-time ids to be deleted
         :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
-            statistics.
+            statistics. Default is True.
         :arg pretty: Whether to pretty format the returned JSON
-            response.
+            response. Default is false.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         """
@@ -3056,16 +3143,108 @@ class AsyncOpenSearch(Client):
 
 
         :arg error_trace: Whether to include the stack trace of returned
-            errors.
-        :arg filter_path: Comma-separated list of filters used to reduce
-            the response.
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
         :arg human: Whether to return human readable values for
-            statistics.
+            statistics. Default is True.
         :arg pretty: Whether to pretty format the returned JSON
-            response.
+            response. Default is false.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         """
         return await self.transport.perform_request(
             "GET", "/_search/point_in_time/_all", params=params, headers=headers
+        )
+
+    @query_params(
+        "_source",
+        "_source_excludes",
+        "_source_includes",
+        "batch_interval",
+        "batch_size",
+        "error_trace",
+        "filter_path",
+        "human",
+        "pipeline",
+        "pretty",
+        "refresh",
+        "require_alias",
+        "routing",
+        "source",
+        "timeout",
+        "wait_for_active_shards",
+    )
+    async def bulk_stream(
+        self,
+        body: Any,
+        index: Any = None,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Allows to perform multiple index/update/delete operations using request
+        response streaming.
+
+
+        :arg body: The operation definition and data (action-data
+            pairs), separated by newlines
+        :arg index: Name of the data stream, index, or index alias to
+            perform bulk actions on.
+        :arg _source: `true` or `false` to return the `_source` field or
+            not, or a list of fields to return.
+        :arg _source_excludes: A comma-separated list of source fields
+            to exclude from the response.
+        :arg _source_includes: A comma-separated list of source fields
+            to include in the response.
+        :arg batch_interval: Specifies for how long bulk operations
+            should be accumulated into a batch before sending the batch to data
+            nodes.
+        :arg batch_size: Specifies how many bulk operations should be
+            accumulated into a batch before sending the batch to data nodes.
+        :arg error_trace: Whether to include the stack trace of returned
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
+        :arg human: Whether to return human readable values for
+            statistics. Default is True.
+        :arg pipeline: ID of the pipeline to use to preprocess incoming
+            documents. If the index has a default ingest pipeline specified, then
+            setting the value to `_none` disables the default ingest pipeline for
+            this request. If a final pipeline is configured it will always run,
+            regardless of the value of this parameter.
+        :arg pretty: Whether to pretty format the returned JSON
+            response. Default is false.
+        :arg refresh: If `true`, OpenSearch refreshes the affected
+            shards to make this operation visible to search, if `wait_for` then wait
+            for a refresh to make this operation visible to search, if `false` do
+            nothing with refreshes. Valid values: `true`, `false`, `wait_for`.
+        :arg require_alias: If `true`, the request's actions must target
+            an index alias. Default is false.
+        :arg routing: Custom value used to route operations to a
+            specific shard.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        :arg timeout: Period each action waits for the following
+            operations: automatic index creation, dynamic mapping updates, waiting
+            for active shards.
+        :arg wait_for_active_shards: The number of shard copies that
+            must be active before proceeding with the operation. Set to all or any
+            positive integer up to the total number of shards in the index
+            (`number_of_replicas+1`). Valid choices are all, index-setting.
+        """
+        if body in SKIP_IN_PATH:
+            raise ValueError("Empty value passed for a required argument 'body'.")
+
+        body = _bulk_body(self.transport.serializer, body)
+        return await self.transport.perform_request(
+            "PUT",
+            _make_path(index, "_bulk", "stream"),
+            params=params,
+            headers=headers,
+            body=body,
         )

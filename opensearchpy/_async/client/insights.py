@@ -18,32 +18,21 @@
 
 from typing import Any
 
-from .utils import SKIP_IN_PATH, NamespacedClient, query_params
+from .utils import NamespacedClient, query_params
 
 
-class RemoteStoreClient(NamespacedClient):
-    @query_params(
-        "cluster_manager_timeout",
-        "error_trace",
-        "filter_path",
-        "human",
-        "pretty",
-        "source",
-        "wait_for_completion",
-    )
-    def restore(
+class InsightsClient(NamespacedClient):
+    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    async def top_queries(
         self,
-        body: Any,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
         """
-        Restores from remote store.
+        Retrieves the top queries based on the given metric type (latency, CPU, or
+        memory).
 
 
-        :arg body: Comma-separated list of index IDs
-        :arg cluster_manager_timeout: Operation timeout for connection
-            to cluster-manager node.
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
         :arg filter_path: Used to reduce the response. This parameter
@@ -56,12 +45,7 @@ class RemoteStoreClient(NamespacedClient):
             response. Default is false.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
-        :arg wait_for_completion: Should this request wait until the
-            operation has completed before returning. Default is false.
         """
-        if body in SKIP_IN_PATH:
-            raise ValueError("Empty value passed for a required argument 'body'.")
-
-        return self.transport.perform_request(
-            "POST", "/_remotestore/_restore", params=params, headers=headers, body=body
+        return await self.transport.perform_request(
+            "GET", "/_insights/top_queries", params=params, headers=headers
         )
