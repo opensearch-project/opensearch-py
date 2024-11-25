@@ -1,5 +1,12 @@
 {% extends "base" %}
+{% block func_params %}
+        node_id: Any = None,
+        params: Any = None,
+        headers: Any = None,
+        metric: Any = None,
+        index_metric: Any = None,
+{% endblock %}
 {% block request %}
-        return await self.transport.perform_request("{{ api.method }}", "/_cluster/stats" if node_id in SKIP_IN_PATH else _make_path("_cluster", "stats", "nodes", node_id), params=params, headers=headers)
+        return await self.transport.perform_request("{{ api.method }}", "/_cluster/stats" if node_id in SKIP_IN_PATH else _make_path("_cluster", "stats", metric, index_metric, "nodes", node_id), params=params, headers=headers)
 {% endblock%}
 

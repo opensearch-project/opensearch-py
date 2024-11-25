@@ -267,11 +267,11 @@ class ClusterClient(NamespacedClient):
     )
     async def stats(
         self,
-        metric: Any = None,
-        index_metric: Any = None,
         node_id: Any = None,
         params: Any = None,
         headers: Any = None,
+        metric: Any = None,
+        index_metric: Any = None,
     ) -> Any:
         """
         Returns high-level overview of cluster statistics.
@@ -308,7 +308,9 @@ class ClusterClient(NamespacedClient):
             (
                 "/_cluster/stats"
                 if node_id in SKIP_IN_PATH
-                else _make_path("_cluster", "stats", "nodes", node_id)
+                else _make_path(
+                    "_cluster", "stats", metric, index_metric, "nodes", node_id
+                )
             ),
             params=params,
             headers=headers,
