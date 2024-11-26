@@ -7,6 +7,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - Added `pool_maxsize` to `AsyncOpenSearch` ([845](https://github.com/opensearch-project/opensearch-py/pull/845))
 - Added `ssl_assert_hostname` to `AsyncOpenSearch` ([843](https://github.com/opensearch-project/opensearch-py/pull/843))
 ### Changed
+- Rename `DenseVector` field type to `KnnVector` ([853](https://github.com/opensearch-project/opensearch-py/pull/853))
 ### Deprecated
 ### Removed
 ### Updated APIs
