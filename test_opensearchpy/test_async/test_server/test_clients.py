@@ -34,6 +34,53 @@ pytestmark: MarkDecorator = pytest.mark.asyncio
 
 
 class TestUnicode:
+    async def test_indices_lifecycle_english(self, async_client: Any) -> None:
+        index_name = "movies"
+
+        index_create_result = await async_client.indices.create(index=index_name)
+        assert index_create_result["acknowledged"] is True
+        assert index_name == index_create_result["index"]
+
+        document = {"name": "Solaris", "director": "Andrei Tartakovsky", "year": "2011"}
+        id = "solaris@2011"
+        doc_insert_result = await async_client.index(
+            index=index_name, body=document, id=id, refresh=True
+        )
+        assert "created" == doc_insert_result["result"]
+        assert index_name == doc_insert_result["_index"]
+        assert id == doc_insert_result["_id"]
+
+        doc_delete_result = await async_client.delete(index=index_name, id=id)
+        assert "deleted" == doc_delete_result["result"]
+        assert index_name == doc_delete_result["_index"]
+        assert id == doc_delete_result["_id"]
+
+        index_delete_result = await async_client.indices.delete(index=index_name)
+        assert index_delete_result["acknowledged"] is True
+
+    async def test_indices_lifecycle_russian(self, async_client: Any) -> None:
+        index_name = "кино"
+        index_create_result = await async_client.indices.create(index=index_name)
+        assert index_create_result["acknowledged"] is True
+        assert index_name == index_create_result["index"]
+
+        document = {"название": "Солярис", "автор": "Андрей Тарковский", "год": "2011"}
+        id = "соларис@2011"
+        doc_insert_result = await async_client.index(
+            index=index_name, body=document, id=id, refresh=True
+        )
+        assert "created" == doc_insert_result["result"]
+        assert index_name == doc_insert_result["_index"]
+        assert id == doc_insert_result["_id"]
+
+        doc_delete_result = await async_client.delete(index=index_name, id=id)
+        assert "deleted" == doc_delete_result["result"]
+        assert index_name == doc_delete_result["_index"]
+        assert id == doc_delete_result["_id"]
+
+        index_delete_result = await async_client.indices.delete(index=index_name)
+        assert index_delete_result["acknowledged"] is True
+
     async def test_indices_analyze(self, async_client: Any) -> None:
         await async_client.indices.analyze(body='{"text": "привет"}')
 

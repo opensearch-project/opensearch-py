@@ -29,6 +29,53 @@ from . import OpenSearchTestCase
 
 
 class TestUnicode(OpenSearchTestCase):
+    def test_indices_lifecycle_english(self) -> None:
+        index_name = "movies"
+
+        index_create_result = self.client.indices.create(index=index_name)
+        self.assertTrue(index_create_result["acknowledged"])
+        self.assertEqual(index_name, index_create_result["index"])
+
+        document = {"name": "Solaris", "director": "Andrei Tartakovsky", "year": "2011"}
+        id = "solaris@2011"
+        doc_insert_result = self.client.index(
+            index=index_name, body=document, id=id, refresh=True
+        )
+        self.assertEqual("created", doc_insert_result["result"])
+        self.assertEqual(index_name, doc_insert_result["_index"])
+        self.assertEqual(id, doc_insert_result["_id"])
+
+        doc_delete_result = self.client.delete(index=index_name, id=id)
+        self.assertEqual("deleted", doc_delete_result["result"])
+        self.assertEqual(index_name, doc_delete_result["_index"])
+        self.assertEqual(id, doc_delete_result["_id"])
+
+        index_delete_result = self.client.indices.delete(index=index_name)
+        self.assertTrue(index_delete_result["acknowledged"])
+
+    def test_indices_lifecycle_russian(self) -> None:
+        index_name = "кино"
+        index_create_result = self.client.indices.create(index=index_name)
+        self.assertTrue(index_create_result["acknowledged"])
+        self.assertEqual(index_name, index_create_result["index"])
+
+        document = {"название": "Солярис", "автор": "Андрей Тарковский", "год": "2011"}
+        id = "соларис@2011"
+        doc_insert_result = self.client.index(
+            index=index_name, body=document, id=id, refresh=True
+        )
+        self.assertEqual("created", doc_insert_result["result"])
+        self.assertEqual(index_name, doc_insert_result["_index"])
+        self.assertEqual(id, doc_insert_result["_id"])
+
+        doc_delete_result = self.client.delete(index=index_name, id=id)
+        self.assertEqual("deleted", doc_delete_result["result"])
+        self.assertEqual(index_name, doc_delete_result["_index"])
+        self.assertEqual(id, doc_delete_result["_id"])
+
+        index_delete_result = self.client.indices.delete(index=index_name)
+        self.assertTrue(index_delete_result["acknowledged"])
+
     def test_indices_analyze(self) -> None:
         self.client.indices.analyze(body='{"text": "привет"}')
 

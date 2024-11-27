@@ -101,7 +101,11 @@ test_opensearchpy/test_connection.py::TestRequestsConnection::test_no_http_compr
 test_opensearchpy/test_async/test_connection.py::TestAIOHttpConnection::test_no_http_compression PASSED [100%]
 ```
 
-Note that integration tests require docker to be installed and running, and downloads quite a bit of data from over the internet and hence take few minutes to complete.
+```
+./.ci/run-tests false 2.16.0 test_indices_lifecycle
+```
+
+Note that integration tests require docker to be installed and running, and downloads quite a bit of data from the internet and hence take few minutes to complete.
 
 ## Linter
 

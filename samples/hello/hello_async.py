@@ -18,9 +18,9 @@ from opensearchpy import AsyncOpenSearch
 
 async def main() -> None:
     """
-    an example showing how to create an asynchronous connection
+    An example showing how to create an asynchronous connection
     to OpenSearch, create an index, index a document and
-    search to return the document
+    search to return the document.
     """
     # connect to OpenSearch
     host = "localhost"
