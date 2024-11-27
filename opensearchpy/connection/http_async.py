@@ -15,6 +15,8 @@ import ssl
 import warnings
 from typing import Any, Collection, Mapping, Optional, Union
 
+import yarl
+
 from .._async._extra_imports import aiohttp, aiohttp_exceptions  # type: ignore
 from .._async.compat import get_running_loop
 from .._async.http_aiohttp import AIOHttpConnection
@@ -210,7 +212,7 @@ class AsyncHttpConnection(AIOHttpConnection):
         try:
             async with self.session.request(
                 method,
-                url,
+                yarl.URL(url, encoded=True),
                 data=body,
                 auth=auth,
                 headers=req_headers,
