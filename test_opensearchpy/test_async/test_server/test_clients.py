@@ -30,7 +30,20 @@ from typing import Any
 import pytest
 from _pytest.mark.structures import MarkDecorator
 
+from opensearchpy.exceptions import RequestError
+
 pytestmark: MarkDecorator = pytest.mark.asyncio
+
+
+class TestSpecialCharacters:
+    async def test_index_with_slash(self, async_client: Any) -> None:
+        index_name = "movies/shmovies"
+        with pytest.raises(RequestError) as e:
+            await async_client.indices.create(index=index_name)
+        assert (
+            str(e.value)
+            == "RequestError(400, 'invalid_index_name_exception', 'Invalid index name [movies/shmovies], must not contain the following characters [ , \", *, \\\\, <, |, ,, >, /, ?]')"
+        )
 
 
 class TestUnicode:

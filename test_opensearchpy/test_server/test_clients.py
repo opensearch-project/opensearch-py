@@ -25,7 +25,22 @@
 #  under the License.
 
 
+import pytest
+
+from opensearchpy.exceptions import RequestError
+
 from . import OpenSearchTestCase
+
+
+class TestSpecialCharacters(OpenSearchTestCase):
+    def test_index_with_slash(self) -> None:
+        index_name = "movies/shmovies"
+        with pytest.raises(RequestError) as e:
+            self.client.indices.create(index=index_name)
+        self.assertEqual(
+            str(e.value),
+            "RequestError(400, 'invalid_index_name_exception', 'Invalid index name [movies/shmovies], must not contain the following characters [ , \", *, \\\\, <, |, ,, >, /, ?]')",
+        )
 
 
 class TestUnicode(OpenSearchTestCase):
