@@ -41,52 +41,22 @@ def main() -> None:
     info = client.info()
     print(f"Welcome to {info['version']['distribution']} {info['version']['number']}!")
 
-    # create an index
+    index_name = "кино"
+    index_create_result = client.indices.create(index=index_name)
+    print(index_create_result)
 
-    index_name = "test-index"
+    document = {"название": "Солярис", "автор": "Андрей Тарковский", "год": "2011"}
+    id = "соларис@2011"
+    doc_insert_result = client.index(
+        index=index_name, body=document, id=id, refresh=True
+    )
+    print(doc_insert_result)
 
-    index_body = {"settings": {"index": {"number_of_shards": 4}}}
+    doc_delete_result = client.delete(index=index_name, id=id)
+    print(doc_delete_result)
 
-    response = client.indices.create(index_name, body=index_body)
-
-    print(response)
-
-    # add a document to the index
-
-    document = {"title": "Moneyball", "director": "Bennett Miller", "year": "2011"}
-
-    doc_id = "1"
-
-    response = client.index(index=index_name, body=document, id=doc_id, refresh=True)
-
-    print(response)
-
-    # search for a document
-
-    user_query = "miller"
-
-    query = {
-        "size": 5,
-        "query": {
-            "multi_match": {"query": user_query, "fields": ["title^2", "director"]}
-        },
-    }
-
-    response = client.search(body=query, index=index_name)
-
-    print(response)
-
-    # delete the document
-
-    response = client.delete(index=index_name, id=doc_id)
-
-    print(response)
-
-    # delete the index
-
-    response = client.indices.delete(index=index_name)
-
-    print(response)
+    index_delete_result = client.indices.delete(index=index_name)
+    print(index_delete_result)
 
 
 if __name__ == "__main__":
