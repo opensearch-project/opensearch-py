@@ -513,6 +513,65 @@ class TestRequestsHttpConnection(TestCase):
             ("GET", "http://localhost/?key1=value1&key2=value2", None),
         )
 
+    def test_aws_signer_consitent_url(self) -> None:
+        region = "us-west-2"
+
+        from typing import Any, Collection, Mapping, Optional, Union
+
+        from opensearchpy import OpenSearch
+        from opensearchpy.helpers.signer import RequestsAWSV4SignerAuth
+
+        # Store URLs for comparison
+        signed_url = None
+        sent_url = None
+
+        doc_id = "doc_id:with!special*chars%3A"
+        quoted_doc_id = "doc_id%3Awith%21special*chars%253A"
+        url = f"https://search-domain.region.es.amazonaws.com:9200/index/_doc/{quoted_doc_id}"
+
+        # Create a mock signer class to capture the signed URL
+        class MockSigner(RequestsAWSV4SignerAuth):
+            def __call__(self, prepared_request):  # type: ignore
+                nonlocal signed_url
+                if isinstance(prepared_request, str):
+                    signed_url = prepared_request
+                else:
+                    signed_url = prepared_request.url
+                return prepared_request
+
+        # Create a mock connection class to capture the sent URL
+        class MockConnection(RequestsHttpConnection):
+            def perform_request(  # type: ignore
+                self,
+                method: str,
+                url: str,
+                params: Optional[Mapping[str, Any]] = None,
+                body: Optional[bytes] = None,
+                timeout: Optional[Union[int, float]] = None,
+                allow_redirects: Optional[bool] = True,
+                ignore: Collection[int] = (),
+                headers: Optional[Mapping[str, str]] = None,
+            ) -> Any:
+                nonlocal sent_url
+                sent_url = f"{self.host}{url}"
+                return 200, {}, "{}"
+
+        auth = MockSigner(self.mock_session(), region)
+
+        client = OpenSearch(
+            hosts=[{"host": "search-domain.region.es.amazonaws.com"}],
+            http_auth=auth(url),
+            use_ssl=True,
+            verify_certs=True,
+            connection_class=MockConnection,
+        )
+        client.index("index", {"test": "data"}, id=doc_id)
+        self.assertEqual(
+            signed_url,
+            sent_url,
+            "URLs don't match",
+        )
+
 
 class TestRequestsConnectionRedirect(TestCase):
     server1: TestHTTPServer
