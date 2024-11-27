@@ -29,6 +29,7 @@ from typing import Any
 from unittest import mock
 
 import pytest
+import yarl
 from multidict import CIMultiDict
 
 from opensearchpy._async._extra_imports import aiohttp  # type: ignore
@@ -91,7 +92,7 @@ class TestAsyncHttpConnection:
         await c.perform_request("post", "/test")
         mock_request.assert_called_with(
             "post",
-            "http://localhost:9200/test",
+            yarl.URL("http://localhost:9200/test", encoded=True),
             data=None,
             auth=c._http_auth,
             headers={},
@@ -120,7 +121,7 @@ class TestAsyncHttpConnection:
 
         mock_request.assert_called_with(
             "post",
-            "http://localhost:9200/test",
+            yarl.URL("http://localhost:9200/test", encoded=True),
             data=None,
             auth=None,
             headers={

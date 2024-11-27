@@ -154,9 +154,48 @@ class TestQueryParams(TestCase):
 
 class TestMakePath(TestCase):
     def test_handles_unicode(self) -> None:
+        from urllib.parse import quote
+
         id = "中文"
         self.assertEqual(
-            "/some-index/type/%E4%B8%AD%E6%96%87", _make_path("some-index", "type", id)
+            _make_path("some-index", "type", quote(id)),
+            "/some-index/type/%25E4%25B8%25AD%25E6%2596%2587",
+        )
+
+    def test_handles_single_arg(self) -> None:
+        from urllib.parse import quote
+
+        id = "idwith!char"
+        self.assertEqual(
+            _make_path("some-index", "type", quote(id)),
+            "/some-index/type/idwith%2521char",
+        )
+
+    def test_handles_multiple_args(self) -> None:
+        from urllib.parse import quote
+
+        ids = ["id!with@char", "another#id$here"]
+        quoted_ids = [quote(id) for id in ids]
+
+        self.assertEqual(
+            _make_path("some-index", "type", quoted_ids),
+            "/some-index/type/id%2521with%2540char,another%2523id%2524here",
+        )
+
+    def test_handles_arrays_of_args(self) -> None:
+        self.assertEqual(
+            "/index1,index2/type1,type2/doc1,doc2",
+            _make_path(
+                ("index1", "index2"), ["type1", "type2"], tuple(["doc1", "doc2"])
+            ),
+        )
+
+        from urllib.parse import quote
+
+        ids = [quote("$id!1"), quote("id*@2"), quote("#id3#")]
+        self.assertEqual(
+            _make_path("some-index", ids, "type"),
+            "/some-index/%2524id%25211,id%252A%25402,%2523id3%2523/type",
         )
 
 

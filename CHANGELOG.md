@@ -14,6 +14,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ### Fixed
 - Fix `Transport.perform_request`'s arguments `timeout` and `ignore` variable usage ([810](https://github.com/opensearch-project/opensearch-py/pull/810))
 - Fix `Index.save` not passing through aliases to the underlying index ([823](https://github.com/opensearch-project/opensearch-py/pull/823))
+- Fix `AuthorizationException` with AWS OpenSearch when the doc ID contains `:` ([848](https://github.com/opensearch-project/opensearch-py/pull/848))
 ### Security
 
 ### Dependencies
