@@ -1,14 +1,11 @@
 # CHANGELOG
 Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
-## [Unreleased]
+## [2.8.0]
 ### Added
 - Added `AsyncSearch#collapse` ([827](https://github.com/opensearch-project/opensearch-py/pull/827))
 - Added `pool_maxsize` to `AsyncOpenSearch` ([845](https://github.com/opensearch-project/opensearch-py/pull/845))
 - Added `ssl_assert_hostname` to `AsyncOpenSearch` ([843](https://github.com/opensearch-project/opensearch-py/pull/843))
-### Changed
-### Deprecated
-### Removed
 ### Updated APIs
 - Updated opensearch-py APIs to reflect [opensearch-api-specification@c400057](https://github.com/opensearch-project/opensearch-api-specification/commit/c400057d94d5e034c9457b32d175d1e3e6439c26)
 - Updated opensearch-py APIs to reflect [opensearch-api-specification@4615564](https://github.com/opensearch-project/opensearch-api-specification/commit/4615564b05d410575bb6ed3ed34ea136bf2e4312)
@@ -16,8 +13,6 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - Fix `Transport.perform_request`'s arguments `timeout` and `ignore` variable usage ([810](https://github.com/opensearch-project/opensearch-py/pull/810))
 - Fix `Index.save` not passing through aliases to the underlying index ([823](https://github.com/opensearch-project/opensearch-py/pull/823))
 - Fix `AuthorizationException` with AWS OpenSearch when the doc ID contains `:` ([848](https://github.com/opensearch-project/opensearch-py/pull/848))
-### Security
-
 ### Dependencies
 - Bump `pytest-asyncio` from <=0.23.8 to <=0.24.0 ([#812](https://github.com/opensearch-project/opensearch-py/pull/812))
 - Bump `sphinx` from <8.1 to <8.2 ([#832](https://github.com/opensearch-project/opensearch-py/pull/832))
@@ -254,7 +249,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - Fixed link checker failing due to relative link ([#760](https://github.com/opensearch-project/opensearch-py/pull/760))
 ### Security
 
-[Unreleased]: https://github.com/opensearch-project/opensearch-py/compare/v2.7.1...HEAD
+[2.8.0]: https://github.com/opensearch-project/opensearch-py/compare/v2.7.1...v2.8.0
 [2.7.1]: https://github.com/opensearch-project/opensearch-py/compare/v2.7.0...v2.7.1
 [2.7.0]: https://github.com/opensearch-project/opensearch-py/compare/v2.6.0...v2.7.0
 [2.6.0]: https://github.com/opensearch-project/opensearch-py/compare/v2.5.0...v2.6.0
