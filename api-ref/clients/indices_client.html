@@ -2053,15 +2053,8 @@ system.</p>
 <li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Index or template name to simulate</p></li>
 <li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – New index template definition, which will be included
 in the simulation, as if it already exists in the system</p></li>
-<li><p><strong>cause</strong> – User defined reason for dry-run creating the new
-template for simulation purposes. Default is false.</p></li>
 <li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
 to cluster-manager node.</p></li>
-<li><p><strong>create</strong> – If <cite>true</cite>, the template passed in the body is only
-used if no existing templates match the same index patterns. If <cite>false</cite>,
-the simulation uses the template with the highest priority. Note that
-the template is not permanently added or updated in either case; it is
-only used for the simulation. Default is false.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
 <li><p><strong>filter_path</strong> – Used to reduce the response. This parameter

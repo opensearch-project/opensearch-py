@@ -2589,9 +2589,7 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="IndicesClient.simulate_index_template"><a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.simulate_index_template">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
-        <span class="s2">&quot;cause&quot;</span><span class="p">,</span>
         <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;create&quot;</span><span class="p">,</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
         <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span>
         <span class="s2">&quot;human&quot;</span><span class="p">,</span>
@@ -2614,15 +2612,8 @@
 <span class="sd">        :arg name: Index or template name to simulate</span>
 <span class="sd">        :arg body: New index template definition, which will be included</span>
 <span class="sd">            in the simulation, as if it already exists in the system</span>
-<span class="sd">        :arg cause: User defined reason for dry-run creating the new</span>
-<span class="sd">            template for simulation purposes. Default is false.</span>
 <span class="sd">        :arg cluster_manager_timeout: Operation timeout for connection</span>
 <span class="sd">            to cluster-manager node.</span>
-<span class="sd">        :arg create: If `true`, the template passed in the body is only</span>
-<span class="sd">            used if no existing templates match the same index patterns. If `false`,</span>
-<span class="sd">            the simulation uses the template with the highest priority. Note that</span>
-<span class="sd">            the template is not permanently added or updated in either case; it is</span>
-<span class="sd">            only used for the simulation. Default is false.</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
 <span class="sd">            errors. Default is false.</span>
 <span class="sd">        :arg filter_path: Used to reduce the response. This parameter</span>
