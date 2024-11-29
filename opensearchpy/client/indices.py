@@ -2507,9 +2507,7 @@ class IndicesClient(NamespacedClient):
         )
 
     @query_params(
-        "cause",
         "cluster_manager_timeout",
-        "create",
         "error_trace",
         "filter_path",
         "human",
@@ -2532,15 +2530,8 @@ class IndicesClient(NamespacedClient):
         :arg name: Index or template name to simulate
         :arg body: New index template definition, which will be included
             in the simulation, as if it already exists in the system
-        :arg cause: User defined reason for dry-run creating the new
-            template for simulation purposes. Default is false.
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
-        :arg create: If `true`, the template passed in the body is only
-            used if no existing templates match the same index patterns. If `false`,
-            the simulation uses the template with the highest priority. Note that
-            the template is not permanently added or updated in either case; it is
-            only used for the simulation. Default is false.
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
         :arg filter_path: Used to reduce the response. This parameter

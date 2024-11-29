@@ -119,9 +119,15 @@ class AsynchronousSearchClient(NamespacedClient):
             with "-".
         :arg human: Whether to return human readable values for
             statistics. Default is True.
-        :arg index: The name of the index to be searched.
+        :arg index: The name of the index to be searched. Can be an
+            individual name, a comma-separated list of indexes, or a wildcard
+            expression of index names.
         :arg keep_alive: The amount of time that the result is saved in
-            the cluster.
+            the cluster. For example, `2d` means that the results are stored in the
+            cluster for 48 hours. The saved search results are deleted after this
+            period or if the search is canceled. Note that this includes the query
+            execution time. If the query overruns this time, the process cancels
+            this query automatically.
         :arg keep_on_completion: Whether you want to save the results in
             the cluster after the search is complete.
         :arg pretty: Whether to pretty format the returned JSON
@@ -129,7 +135,8 @@ class AsynchronousSearchClient(NamespacedClient):
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         :arg wait_for_completion_timeout: The amount of time that you
-            plan to wait for the results.
+            plan to wait for the results. You can poll the remaining results based
+            on an ID. The maximum value is `300s`. Default is `1s`.
         """
         return self.transport.perform_request(
             "POST",

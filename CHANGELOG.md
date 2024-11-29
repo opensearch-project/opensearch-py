@@ -10,6 +10,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ### Deprecated
 ### Removed
 ### Updated APIs
+- Updated opensearch-py APIs to reflect [opensearch-api-specification@c400057](https://github.com/opensearch-project/opensearch-api-specification/commit/c400057d94d5e034c9457b32d175d1e3e6439c26)
 - Updated opensearch-py APIs to reflect [opensearch-api-specification@4615564](https://github.com/opensearch-project/opensearch-api-specification/commit/4615564b05d410575bb6ed3ed34ea136bf2e4312)
 ### Fixed
 - Fix `Transport.perform_request`'s arguments `timeout` and `ignore` variable usage ([810](https://github.com/opensearch-project/opensearch-py/pull/810))
