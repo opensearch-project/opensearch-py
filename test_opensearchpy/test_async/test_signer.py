@@ -143,6 +143,7 @@ class TestAsyncSignerWithSpecialCharacters:
                 url: str,
                 query_string: Optional[str] = None,
                 body: Optional[Union[str, bytes]] = None,
+                headers: Optional[Dict[str, str]] = None,
             ) -> Dict[str, str]:
                 nonlocal signed_url
                 signed_url = url
