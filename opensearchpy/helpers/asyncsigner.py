@@ -56,7 +56,7 @@ class AWSV4SignerAsyncAuth:
         from botocore.auth import SigV4Auth
         from botocore.awsrequest import AWSRequest
 
-        signature_host = self._fetch_url(url, headers or dict())  # type: ignore
+        signature_host = self._fetch_url(url, headers or dict())
 
         # create an AWS request object and sign it using SigV4Auth
         aws_request = AWSRequest(
@@ -86,25 +86,25 @@ class AWSV4SignerAsyncAuth:
         # copy the headers from AWS request object into the prepared_request
         return dict(aws_request.headers.items())
 
-    def _fetch_url(self, url, headers):  # type: ignore
+    def _fetch_url(self, url: str, headers: Optional[Dict[str, str]]) -> str:
         """
         This is a util method that helps in reconstructing the request url.
         :param prepared_request: unsigned request
         :return: reconstructed url
         """
-        url = urlparse(url)
-        path = url.path or "/"
+        parsed_url = urlparse(url)
+        path = parsed_url.path or "/"
 
         # fetch the query string if present in the request
         querystring = ""
-        if url.query:
+        if parsed_url.query:
             querystring = "?" + urlencode(
-                parse_qs(url.query, keep_blank_values=True), doseq=True
+                parse_qs(parsed_url.query, keep_blank_values=True), doseq=True
             )
 
         # fetch the host information from headers
-        headers = {key.lower(): value for key, value in headers.items()}
-        location = headers.get("host") or url.netloc
+        headers = {key.lower(): value for key, value in (headers or dict()).items()}
+        location = headers.get("host") or parsed_url.netloc
 
         # construct the url and return
-        return url.scheme + "://" + location + path + querystring
+        return parsed_url.scheme + "://" + location + path + querystring
