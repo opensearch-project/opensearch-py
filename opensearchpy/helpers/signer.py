@@ -92,14 +92,14 @@ class RequestsAWSV4SignerAuth(requests.auth.AuthBase):
         prepared_request.headers.update(
             self.signer.sign(
                 prepared_request.method,
-                self._fetch_url(prepared_request),  # type: ignore
+                self._fetch_url(prepared_request),
                 prepared_request.body,
             )
         )
 
         return prepared_request
 
-    def _fetch_url(self, prepared_request):  # type: ignore
+    def _fetch_url(self, prepared_request: requests.PreparedRequest) -> str:
         """
         This is a util method that helps in reconstructing the request url.
         :param prepared_request: unsigned request
@@ -112,7 +112,7 @@ class RequestsAWSV4SignerAuth(requests.auth.AuthBase):
         querystring = ""
         if url.query:
             querystring = "?" + urlencode(
-                parse_qs(url.query, keep_blank_values=True), doseq=True
+                parse_qs(url.query, keep_blank_values=True), doseq=True  # type: ignore
             )
 
         # fetch the host information from headers
@@ -122,7 +122,7 @@ class RequestsAWSV4SignerAuth(requests.auth.AuthBase):
         location = headers.get("host") or url.netloc
 
         # construct the url and return
-        return url.scheme + "://" + location + path + querystring
+        return url.scheme + "://" + location + path + querystring  # type: ignore
 
 
 # Deprecated: use RequestsAWSV4SignerAuth

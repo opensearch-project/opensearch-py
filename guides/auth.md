@@ -2,6 +2,7 @@
   - [IAM Authentication](#iam-authentication)
   - [IAM Authentication with a Synchronous Client](#iam-authentication-with-a-synchronous-client)
   - [IAM Authentication with an Async Client](#iam-authentication-with-an-async-client)
+  - [IAM Authentication via Tunnel](#iam-authentication-via-tunnel)
   - [Kerberos](#kerberos)
 
 # Authentication
@@ -102,6 +103,43 @@ async def search():
     print(response)
 
 search()
+```
+
+## IAM Authentication via Tunnel
+
+If you're accessing OpenSearch via SSH or SSM tunnel, then you need to specify the Host to be used for signing the AWS requests by passing a "Host" header, like so:
+
+
+```python
+from opensearchpy import OpenSearch, RequestsHttpConnection, RequestsAWSV4SignerAuth, AsyncOpenSearch, AsyncHttpConnection, AWSV4SignerAsyncAuth
+import boto3
+
+host = 'localhost' # local endpoint used by the SSH/SSM tunnel
+port = 8443
+signature_host = 'my-test-domain.eu-west-1.es.amazonaws.com:443' # this needs to be the real host provided by AWS
+region = 'eu-west-1'
+service = 'es' # 'aoss' for OpenSearch Serverless
+credentials = boto3.Session().get_credentials()
+
+# Sync
+client = OpenSearch(
+    hosts = [{'host': host, 'port': port, 'headers': {'host': signature_host}}],
+    http_auth = RequestsAWSV4SignerAuth(credentials, region, service),
+    use_ssl = True,
+    verify_certs = True,
+    connection_class = RequestsHttpConnection,
+    pool_maxsize = 20
+)
+
+# Async
+async_client = AsyncOpenSearch(
+    hosts = [{'host': host, 'port': port, 'headers': {'host': signature_host}}],
+    http_auth = AWSV4SignerAsyncAuth(credentials, region, service),
+    use_ssl = True,
+    verify_certs = True,
+    connection_class = AsyncHttpConnection
+)
+
 ```
 
 ## Kerberos

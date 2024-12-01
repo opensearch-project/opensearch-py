@@ -77,6 +77,20 @@ class TestAsyncSigner:
         assert "X-Amz-Security-Token" in headers
         assert "X-Amz-Content-SHA256" in headers
 
+    async def test_aws_signer_async_fetch_url_with_querystring(self) -> None:
+        region = "us-west-2"
+        service = "aoss"
+
+        from opensearchpy.helpers.asyncsigner import AWSV4SignerAsyncAuth
+
+        auth = AWSV4SignerAsyncAuth(self.mock_session(), region, service)
+
+        signature_host = auth._fetch_url(
+            "http://localhost/?foo=bar", headers={"host": "otherhost"}
+        )
+
+        assert signature_host == "http://otherhost/?foo=bar"
+
 
 class TestAsyncSignerWithFrozenCredentials(TestAsyncSigner):
     def mock_session(self, disable_get_frozen: bool = True) -> Mock:
@@ -143,6 +157,7 @@ class TestAsyncSignerWithSpecialCharacters:
                 url: str,
                 query_string: Optional[str] = None,
                 body: Optional[Union[str, bytes]] = None,
+                headers: Optional[Dict[str, str]] = None,
             ) -> Dict[str, str]:
                 nonlocal signed_url
                 signed_url = url

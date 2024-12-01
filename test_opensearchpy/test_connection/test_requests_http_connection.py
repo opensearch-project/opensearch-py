@@ -457,6 +457,23 @@ class TestRequestsHttpConnection(TestCase):
 
         return dummy_session
 
+    def test_aws_signer_fetch_url_with_querystring(self) -> None:
+        region = "us-west-2"
+
+        import requests
+
+        from opensearchpy.helpers.signer import RequestsAWSV4SignerAuth
+
+        auth = RequestsAWSV4SignerAuth(self.mock_session(), region)
+
+        prepared_request = requests.Request(
+            "GET", "http://localhost/?foo=bar", headers={"host": "otherhost:443"}
+        ).prepare()
+
+        signature_host = auth._fetch_url(prepared_request)
+
+        assert signature_host == "http://otherhost:443/?foo=bar"
+
     def test_aws_signer_as_http_auth(self) -> None:
         region = "us-west-2"
 

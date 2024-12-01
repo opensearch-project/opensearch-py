@@ -3,6 +3,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 ## [Unreleased]
 ### Added
+- Added option to pass custom headers to 'AWSV4SignerAsyncAuth' ([863](https://github.com/opensearch-project/opensearch-py/pull/863))
 ### Updated APIs
 ### Changed
 ### Deprecated

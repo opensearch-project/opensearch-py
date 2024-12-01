@@ -8,6 +8,7 @@
 # GitHub history for details.
 
 from typing import Any, Dict, Optional, Union
+from urllib.parse import parse_qs, urlencode, urlparse
 
 
 class AWSV4SignerAsyncAuth:
@@ -34,8 +35,9 @@ class AWSV4SignerAsyncAuth:
         url: str,
         query_string: Optional[str] = None,
         body: Optional[Union[str, bytes]] = None,
+        headers: Optional[Dict[str, str]] = None,
     ) -> Dict[str, str]:
-        return self._sign_request(method, url, query_string, body)
+        return self._sign_request(method, url, query_string, body, headers)
 
     def _sign_request(
         self,
@@ -43,6 +45,7 @@ class AWSV4SignerAsyncAuth:
         url: str,
         query_string: Optional[str],
         body: Optional[Union[str, bytes]],
+        headers: Optional[Dict[str, str]],
     ) -> Dict[str, str]:
         """
         This method helps in signing the request by injecting the required headers.
@@ -53,10 +56,12 @@ class AWSV4SignerAsyncAuth:
         from botocore.auth import SigV4Auth
         from botocore.awsrequest import AWSRequest
 
+        signature_host = self._fetch_url(url, headers or dict())
+
         # create an AWS request object and sign it using SigV4Auth
         aws_request = AWSRequest(
             method=method,
-            url=url,
+            url=signature_host,
             data=body,
         )
 
@@ -80,3 +85,26 @@ class AWSV4SignerAsyncAuth:
 
         # copy the headers from AWS request object into the prepared_request
         return dict(aws_request.headers.items())
+
+    def _fetch_url(self, url: str, headers: Optional[Dict[str, str]]) -> str:
+        """
+        This is a util method that helps in reconstructing the request url.
+        :param prepared_request: unsigned request
+        :return: reconstructed url
+        """
+        parsed_url = urlparse(url)
+        path = parsed_url.path or "/"
+
+        # fetch the query string if present in the request
+        querystring = ""
+        if parsed_url.query:
+            querystring = "?" + urlencode(
+                parse_qs(parsed_url.query, keep_blank_values=True), doseq=True
+            )
+
+        # fetch the host information from headers
+        headers = {key.lower(): value for key, value in (headers or dict()).items()}
+        location = headers.get("host") or parsed_url.netloc
+
+        # construct the url and return
+        return parsed_url.scheme + "://" + location + path + querystring
