@@ -530,10 +530,7 @@ class TestRequestsHttpConnection(TestCase):
         ).prepare()
         auth(prepared_request)
         self.assertEqual(mock_sign.call_count, 1)
-        self.assertEqual(
-            mock_sign.call_args[0],
-            ("GET", "http://localhost/?key1=value1&key2=value2", None),
-        )
+        mock_sign.assert_called_with(method='GET', url='http://localhost/?key1=value1&key2=value2', body=None, headers={})
 
     def test_aws_signer_consitent_url(self) -> None:
         region = "us-west-2"
