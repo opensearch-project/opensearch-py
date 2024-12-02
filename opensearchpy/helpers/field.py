@@ -354,8 +354,8 @@ class Float(Field):
         return float(data)
 
 
-class DenseVector(Float):
-    name: Optional[str] = "dense_vector"
+class KnnVector(Float):
+    name: Optional[str] = "knn_vector"
 
     def __init__(self, dims: Any, **kwargs: Any) -> None:
         kwargs["multi"] = True
