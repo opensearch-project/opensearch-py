@@ -9,7 +9,7 @@
 
 import uuid
 from typing import Any, Collection, Dict, Mapping, Optional, Tuple, Union
-from unittest.mock import Mock
+from unittest.mock import Mock, patch
 
 import pytest
 from _pytest.mark.structures import MarkDecorator
@@ -81,15 +81,18 @@ class TestAsyncSigner:
         region = "us-west-2"
         service = "aoss"
 
+        from botocore.awsrequest import AWSRequest
+
         from opensearchpy.helpers.asyncsigner import AWSV4SignerAsyncAuth
 
-        auth = AWSV4SignerAsyncAuth(self.mock_session(), region, service)
-
-        signature_host = auth._fetch_url(
-            "http://localhost/?foo=bar", headers={"host": "otherhost"}
-        )
-
-        assert signature_host == "http://otherhost/?foo=bar"
+        with patch(
+            "botocore.awsrequest.AWSRequest", side_effect=AWSRequest
+        ) as mock_aws_request:
+            auth = AWSV4SignerAsyncAuth(self.mock_session(), region, service)
+            auth("GET", "http://localhost/?foo=bar", headers={"host": "otherhost:443"})
+            mock_aws_request.assert_called_with(
+                method="GET", url="http://otherhost:443/?foo=bar", data=None
+            )
 
 
 class TestAsyncSignerWithFrozenCredentials(TestAsyncSigner):
@@ -155,7 +158,6 @@ class TestAsyncSignerWithSpecialCharacters:
                 self,
                 method: str,
                 url: str,
-                query_string: Optional[str] = None,
                 body: Optional[Union[str, bytes]] = None,
                 headers: Optional[Dict[str, str]] = None,
             ) -> Dict[str, str]:

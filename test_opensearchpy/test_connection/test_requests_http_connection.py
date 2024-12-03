@@ -457,22 +457,27 @@ class TestRequestsHttpConnection(TestCase):
 
         return dummy_session
 
-    def test_aws_signer_fetch_url_with_querystring(self) -> None:
+    def test_aws_signer_url_with_querystring_and_custom_header(self) -> None:
         region = "us-west-2"
 
         import requests
+        from botocore.awsrequest import AWSRequest
 
         from opensearchpy.helpers.signer import RequestsAWSV4SignerAuth
 
-        auth = RequestsAWSV4SignerAuth(self.mock_session(), region)
+        with patch(
+            "botocore.awsrequest.AWSRequest", side_effect=AWSRequest
+        ) as mock_aws_request:
 
-        prepared_request = requests.Request(
-            "GET", "http://localhost/?foo=bar", headers={"host": "otherhost:443"}
-        ).prepare()
+            auth = RequestsAWSV4SignerAuth(self.mock_session(), region)
+            prepared_request = requests.Request(
+                "GET", "http://localhost/?foo=bar", headers={"host": "otherhost:443"}
+            ).prepare()
+            auth(prepared_request)
 
-        signature_host = auth._fetch_url(prepared_request)
-
-        assert signature_host == "http://otherhost:443/?foo=bar"
+            mock_aws_request.assert_called_with(
+                method="GET", url="http://otherhost:443/?foo=bar", data=None
+            )
 
     def test_aws_signer_as_http_auth(self) -> None:
         region = "us-west-2"
@@ -525,9 +530,11 @@ class TestRequestsHttpConnection(TestCase):
         ).prepare()
         auth(prepared_request)
         self.assertEqual(mock_sign.call_count, 1)
-        self.assertEqual(
-            mock_sign.call_args[0],
-            ("GET", "http://localhost/?key1=value1&key2=value2", None),
+        mock_sign.assert_called_with(
+            method="GET",
+            url="http://localhost/?key1=value1&key2=value2",
+            body=None,
+            headers={},
         )
 
     def test_aws_signer_consitent_url(self) -> None:
