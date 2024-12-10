@@ -667,7 +667,7 @@ class OpenSearch(Client):
             specified.
         :arg default_operator: The default operator for query string
             query: `AND` or `OR`. This parameter can only be used when the `q` query
-            string parameter is specified. Valid choices are and, or.
+            string parameter is specified. Valid choices are and, AND, or, OR.
         :arg df: Field to use as default where no field prefix is given
             in the query string. This parameter can only be used when the `q` query
             string parameter is specified.
@@ -855,7 +855,7 @@ class OpenSearch(Client):
         :arg conflicts: What to do if delete by query hits version
             conflicts: `abort` or `proceed`. Valid choices are abort, proceed.
         :arg default_operator: The default operator for query string
-            query: `AND` or `OR`. Valid choices are and, or.
+            query: `AND` or `OR`. Valid choices are and, AND, or, OR.
         :arg df: Field to use as default where no field prefix is given
             in the query string.
         :arg error_trace: Whether to include the stack trace of returned
@@ -1225,7 +1225,7 @@ class OpenSearch(Client):
             parameter can only be used when the `q` query string parameter is
             specified.
         :arg default_operator: The default operator for query string
-            query: `AND` or `OR`. Valid choices are and, or.
+            query: `AND` or `OR`. Valid choices are and, AND, or, OR.
         :arg df: Field to use as default where no field prefix is given
             in the query string. Default is _all.
         :arg error_trace: Whether to include the stack trace of returned
@@ -2281,7 +2281,7 @@ class OpenSearch(Client):
             executing cross-cluster search (CCS) requests. Default is True.
         :arg default_operator: The default operator for query string
             query: AND or OR. This parameter can only be used when the `q` query
-            string parameter is specified. Valid choices are and, or.
+            string parameter is specified. Valid choices are and, AND, or, OR.
         :arg df: Field to use as default where no field prefix is given
             in the query string. This parameter can only be used when the q query
             string parameter is specified.
@@ -2451,6 +2451,7 @@ class OpenSearch(Client):
     )
     def search_shards(
         self,
+        body: Any = None,
         index: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -2460,6 +2461,9 @@ class OpenSearch(Client):
         executed against.
 
 
+        :arg body: Defines the parameters that can be used in the
+            `search_shards` endpoint request. See documentation for supported query
+            syntax.
         :arg index: Returns the indexes and shards that a search request
             would be executed against.
         :arg allow_no_indices: If `false`, the request returns an error
@@ -2495,7 +2499,11 @@ class OpenSearch(Client):
             libraries that do not accept a request body for non-POST requests.
         """
         return self.transport.perform_request(
-            "GET", _make_path(index, "_search_shards"), params=params, headers=headers
+            "POST",
+            _make_path(index, "_search_shards"),
+            params=params,
+            headers=headers,
+            body=body,
         )
 
     @query_params(
@@ -2834,7 +2842,7 @@ class OpenSearch(Client):
         :arg conflicts: What to do if update by query hits version
             conflicts: `abort` or `proceed`. Valid choices are abort, proceed.
         :arg default_operator: The default operator for query string
-            query: `AND` or `OR`. Valid choices are and, or.
+            query: `AND` or `OR`. Valid choices are and, AND, or, OR.
         :arg df: Field to use as default where no field prefix is given
             in the query string.
         :arg error_trace: Whether to include the stack trace of returned
