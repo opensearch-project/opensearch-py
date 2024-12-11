@@ -310,7 +310,7 @@ class KnnClient(NamespacedClient):
     )
     async def train_model(
         self,
-        body: Any,
+        body: Any = None,
         model_id: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -335,9 +335,6 @@ class KnnClient(NamespacedClient):
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         """
-        if body in SKIP_IN_PATH:
-            raise ValueError("Empty value passed for a required argument 'body'.")
-
         return await self.transport.perform_request(
             "POST",
             _make_path("_plugins", "_knn", "models", model_id, "_train"),
