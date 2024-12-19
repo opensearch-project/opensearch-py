@@ -1638,7 +1638,7 @@ class IndicesClient(NamespacedClient):
             parameter can only be used when the `q` query string parameter is
             specified.
         :arg default_operator: The default operator for query string
-            query: `AND` or `OR`. Valid choices are and, or.
+            query: `AND` or `OR`. Valid choices are and, AND, or, OR.
         :arg df: Field to use as default where no field prefix is given
             in the query string. This parameter can only be used when the `q` query
             string parameter is specified.
@@ -1797,6 +1797,7 @@ class IndicesClient(NamespacedClient):
     )
     async def upgrade(
         self,
+        body: Any = None,
         index: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -1832,7 +1833,11 @@ class IndicesClient(NamespacedClient):
             operation has completed before returning. Default is false.
         """
         return await self.transport.perform_request(
-            "POST", _make_path(index, "_upgrade"), params=params, headers=headers
+            "POST",
+            _make_path(index, "_upgrade"),
+            params=params,
+            headers=headers,
+            body=body,
         )
 
     @query_params(
