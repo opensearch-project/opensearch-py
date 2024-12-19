@@ -127,7 +127,7 @@ class ClusterClient(NamespacedClient):
         :arg wait_for_status: One of green, yellow or red. Will wait
             (until the timeout provided) until the status of the cluster changes to
             the one provided or better, i.e. green > yellow > red. By default, will
-            not wait for any status. Valid choices are green, red, yellow.
+            not wait for any status.
         """
         return self.transport.perform_request(
             "GET",

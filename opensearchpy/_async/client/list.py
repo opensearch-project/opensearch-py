@@ -103,8 +103,7 @@ class ListClient(NamespacedClient):
             `JSON`, `YAML`.
         :arg h: Comma-separated list of column names to display.
         :arg health: The health status used to limit returned indexes.
-            By default, the response includes indexes of any health status. Valid
-            choices are green, red, yellow.
+            By default, the response includes indexes of any health status.
         :arg help: Return help information. Default is false.
         :arg human: Whether to return human readable values for
             statistics. Default is True.
