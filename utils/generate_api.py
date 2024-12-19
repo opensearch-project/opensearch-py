@@ -306,7 +306,9 @@ class Module:
             "NamespacedClient",
             "AddonClient",
         ]
-        present_keywords = [keyword for keyword in keywords if keyword in module_content]
+        present_keywords = [
+            keyword for keyword in keywords if keyword in module_content
+        ]
 
         if present_keywords:
             utils_imports = "from " + utils + " import"

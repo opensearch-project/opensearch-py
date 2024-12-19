@@ -236,7 +236,7 @@ class TestAIOHttpConnection:
                 assert (
                     str(w[0].message) == "enable_cleanup_closed ignored because "
                     "https://github.com/python/cpython/pull/118960 is fixed in "
-                    "Python version sys.version_info(major=3, minor=12, micro=7, releaselevel='final', serial=0)"
+                    "Python version sys.version_info(major=3, minor=12, micro=8, releaselevel='final', serial=0)"
                 )
 
         assert isinstance(con.session, aiohttp.ClientSession)
