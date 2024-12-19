@@ -272,52 +272,50 @@ class Module:
             if "from " + utils + " import" not in line
         )
 
-        with open(self.filepath, "w", encoding="utf-8") as file:
-            if update_header is True:
-                file.write(
-                    self.header[:license_position]
-                    + "\n"
-                    + header_content
-                    + "\n\n"
-                    + "#replace_token#\n"
-                    + self.header[license_position:]
-                )
-            else:
-                file.write(
-                    self.header[:header_position]
-                    + "\n"
-                    + "#replace_token#\n"
-                    + self.header[header_position:]
-                )
-            for api in self._apis:
-                file.write(api.to_python())
+        module_content = ""
+        if update_header is True:
+            module_content += (
+                self.header[:license_position]
+                + "\n"
+                + header_content
+                + "\n\n"
+                + "#replace_token#\n"
+                + self.header[license_position:]
+            )
+        else:
+            module_content += (
+                self.header[:header_position]
+                + "\n"
+                + "#replace_token#\n"
+                + self.header[header_position:]
+            )
+        for api in self._apis:
+            module_content += api.to_python()
 
         # Generating imports for each module
         utils_imports = ""
-        file_content = ""
-        with open(self.filepath, encoding="utf-8") as file:
-            content = file.read()
-            keywords = [
-                "SKIP_IN_PATH",
-                "_normalize_hosts",
-                "_escape",
-                "_make_path",
-                "query_params",
-                "_bulk_body",
-                "_base64_auth_header",
-                "NamespacedClient",
-                "AddonClient",
-            ]
-            present_keywords = [keyword for keyword in keywords if keyword in content]
 
-            if present_keywords:
-                utils_imports = "from " + utils + " import"
-                result = f"{utils_imports} {', '.join(present_keywords)}"
-                utils_imports = result
-            file_content = content.replace("#replace_token#", utils_imports)
+        keywords = [
+            "SKIP_IN_PATH",
+            "_normalize_hosts",
+            "_escape",
+            "_make_path",
+            "query_params",
+            "_bulk_body",
+            "_base64_auth_header",
+            "NamespacedClient",
+            "AddonClient",
+        ]
+        present_keywords = [keyword for keyword in keywords if keyword in module_content]
+
+        if present_keywords:
+            utils_imports = "from " + utils + " import"
+            result = f"{utils_imports} {', '.join(present_keywords)}"
+            utils_imports = result
+        module_content = module_content.replace("#replace_token#", utils_imports)
 
         with open(self.filepath, "w", encoding="utf-8") as file:
-            file.write(file_content)
+            file.write(module_content)
 
     @property
     def filepath(self) -> Any:
