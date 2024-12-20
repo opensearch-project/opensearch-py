@@ -233,10 +233,8 @@ class TestAIOHttpConnection:
                 assert w == []
             else:
                 assert len(w) == 1
-                assert (
-                    str(w[0].message) == "enable_cleanup_closed ignored because "
-                    "https://github.com/python/cpython/pull/118960 is fixed in "
-                    "Python version sys.version_info(major=3, minor=12, micro=7, releaselevel='final', serial=0)"
+                assert "https://github.com/python/cpython/pull/118960" in str(
+                    w[0].message
                 )
 
         assert isinstance(con.session, aiohttp.ClientSession)
