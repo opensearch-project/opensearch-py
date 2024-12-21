@@ -298,4 +298,4 @@ class OpenSearchClientResponse(aiohttp.ClientResponse):  # type: ignore
         if self._body is None:
             await self.read()
 
-        return self._body.decode("utf-8", "surrogatepass")  # type: ignore
+        return self._body.decode("utf-8", "surrogatepass")
