@@ -110,6 +110,18 @@ class TestBulk(OpenSearchTestCase):
         self.assertFalse(response["errors"])
         self.assertEqual(1, len(response["items"]))
 
+    def test_bulk_works_with_delete(self) -> None:
+        docs = '{ "index" : { "_index" : "bulk_test_index", "_id" : "1" } }\n{"answer": 42}\n{ "delete" : { "_index" : "bulk_test_index", "_id": "1" } }'
+        response = self.client.bulk(body=docs)
+
+        self.assertFalse(response["errors"])
+        self.assertEqual(2, len(response["items"]))
+
+        # Check insertion status
+        self.assertEqual(201, response["items"][0]["index"]["status"])
+        # Check deletion status
+        self.assertEqual(200, response["items"][1]["delete"]["status"])
+
 
 class TestClose(OpenSearchTestCase):
     def test_close_doesnt_break_client(self) -> None:
