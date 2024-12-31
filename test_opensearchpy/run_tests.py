@@ -68,9 +68,12 @@ def fetch_opensearch_repo() -> None:
 
     # find out the sha of the running client
     try:
+        password = environ.get("OPENSEARCH_INITIAL_ADMIN_PASSWORD")
+        if password is None:
+            password = environ.get("OPENSEARCH_PASSWORD", "admin")
         client = get_client(
             verify_certs=False,
-            http_auth=("admin", environ.get("OPENSEARCH_PASSWORD", "admin")),
+            http_auth=("admin", password),
         )
         sha = client.info()["version"]["build_hash"]
     except (SkipTest, KeyError):
