@@ -493,3 +493,187 @@ class MlClient(NamespacedClient):
             headers=headers,
             body=body,
         )
+
+    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    async def predict(
+        self,
+        algorithm_name: Any,
+        model_id: Any,
+        body: Any = None,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Predicts new data with trained model.
+
+
+        :arg error_trace: Whether to include the stack trace of returned
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
+        :arg human: Whether to return human readable values for
+            statistics. Default is True.
+        :arg pretty: Whether to pretty format the returned JSON
+            response. Default is false.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        """
+        for param in (algorithm_name, model_id):
+            if param in SKIP_IN_PATH:
+                raise ValueError("Empty value passed for a required argument.")
+
+        return await self.transport.perform_request(
+            "POST",
+            _make_path("_plugins", "_ml", "_predict", algorithm_name, model_id),
+            params=params,
+            headers=headers,
+            body=body,
+        )
+
+    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    async def search_model_group(
+        self,
+        body: Any = None,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Searches for model groups.
+
+
+        :arg error_trace: Whether to include the stack trace of returned
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
+        :arg human: Whether to return human readable values for
+            statistics. Default is True.
+        :arg pretty: Whether to pretty format the returned JSON
+            response. Default is false.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        """
+        return await self.transport.perform_request(
+            "POST",
+            "/_plugins/_ml/model_groups/_search",
+            params=params,
+            headers=headers,
+            body=body,
+        )
+
+    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    async def train(
+        self,
+        algorithm_name: Any,
+        body: Any = None,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Trains a model synchronously.
+
+
+        :arg error_trace: Whether to include the stack trace of returned
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
+        :arg human: Whether to return human readable values for
+            statistics. Default is True.
+        :arg pretty: Whether to pretty format the returned JSON
+            response. Default is false.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        """
+        if algorithm_name in SKIP_IN_PATH:
+            raise ValueError(
+                "Empty value passed for a required argument 'algorithm_name'."
+            )
+
+        return await self.transport.perform_request(
+            "POST",
+            _make_path("_plugins", "_ml", "_train", algorithm_name),
+            params=params,
+            headers=headers,
+            body=body,
+        )
+
+    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    async def train_predict(
+        self,
+        algorithm_name: Any,
+        body: Any = None,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Trains a model and predicts against the same training dataset.
+
+
+        :arg error_trace: Whether to include the stack trace of returned
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
+        :arg human: Whether to return human readable values for
+            statistics. Default is True.
+        :arg pretty: Whether to pretty format the returned JSON
+            response. Default is false.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        """
+        if algorithm_name in SKIP_IN_PATH:
+            raise ValueError(
+                "Empty value passed for a required argument 'algorithm_name'."
+            )
+
+        return await self.transport.perform_request(
+            "POST",
+            _make_path("_plugins", "_ml", "_train_predict", algorithm_name),
+            params=params,
+            headers=headers,
+            body=body,
+        )
+
+    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    async def update_model_group(
+        self,
+        model_group_id: Any,
+        body: Any = None,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Updates a model group.
+
+
+        :arg error_trace: Whether to include the stack trace of returned
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
+        :arg human: Whether to return human readable values for
+            statistics. Default is True.
+        :arg pretty: Whether to pretty format the returned JSON
+            response. Default is false.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        """
+        if model_group_id in SKIP_IN_PATH:
+            raise ValueError(
+                "Empty value passed for a required argument 'model_group_id'."
+            )
+
+        return await self.transport.perform_request(
+            "PUT",
+            _make_path("_plugins", "_ml", "model_groups", model_group_id),
+            params=params,
+            headers=headers,
+            body=body,
+        )
