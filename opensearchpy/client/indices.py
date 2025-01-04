@@ -1638,7 +1638,7 @@ class IndicesClient(NamespacedClient):
             parameter can only be used when the `q` query string parameter is
             specified.
         :arg default_operator: The default operator for query string
-            query: `AND` or `OR`. Valid choices are and, or.
+            query: `AND` or `OR`. Valid choices are and, AND, or, OR.
         :arg df: Field to use as default where no field prefix is given
             in the query string. This parameter can only be used when the `q` query
             string parameter is specified.

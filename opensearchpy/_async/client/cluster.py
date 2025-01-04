@@ -127,7 +127,7 @@ class ClusterClient(NamespacedClient):
         :arg wait_for_status: One of green, yellow or red. Will wait
             (until the timeout provided) until the status of the cluster changes to
             the one provided or better, i.e. green > yellow > red. By default, will
-            not wait for any status. Valid choices are green, red, yellow.
+            not wait for any status.
         """
         return await self.transport.perform_request(
             "GET",
@@ -609,6 +609,7 @@ class ClusterClient(NamespacedClient):
         "cluster_manager_timeout",
         "error_trace",
         "filter_path",
+        "flat_settings",
         "human",
         "local",
         "master_timeout",
@@ -635,6 +636,8 @@ class ClusterClient(NamespacedClient):
             takes a comma-separated list of filters. It supports using wildcards to
             match any field or part of a field’s name. You can also exclude fields
             with "-".
+        :arg flat_settings: If `true`, returns settings in flat format.
+            Default is false.
         :arg human: Whether to return human readable values for
             statistics. Default is True.
         :arg local: If `true`, the request retrieves information from
