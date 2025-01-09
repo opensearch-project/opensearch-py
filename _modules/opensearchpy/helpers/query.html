@@ -6,7 +6,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>opensearchpy.helpers.query &mdash; OpenSearch Python Client  documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=7f485136" />
@@ -105,17 +105,17 @@
 <span class="c1">#  specific language governing permissions and limitations</span>
 <span class="c1">#  under the License.</span>
 
-<span class="kn">import</span> <span class="nn">collections.abc</span> <span class="k">as</span> <span class="nn">collections_abc</span>
-<span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">chain</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Optional</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">collections_abc</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">itertools</span><span class="w"> </span><span class="kn">import</span> <span class="n">chain</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Optional</span>
 
 <span class="c1"># &#39;SF&#39; looks unused but the test suite assumes it&#39;s available</span>
 <span class="c1"># from this module so others are liable to do so as well.</span>
-<span class="kn">from</span> <span class="nn">..helpers.function</span> <span class="kn">import</span> <span class="n">SF</span><span class="p">,</span> <span class="n">ScoreFunction</span>
-<span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">DslBase</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..helpers.function</span><span class="w"> </span><span class="kn">import</span> <span class="n">SF</span><span class="p">,</span> <span class="n">ScoreFunction</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">DslBase</span>
 
 
-<span class="k">def</span> <span class="nf">Q</span><span class="p">(</span>  <span class="c1"># pylint: disable=invalid-name</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">Q</span><span class="p">(</span>  <span class="c1"># pylint: disable=invalid-name</span>
     <span class="n">name_or_query</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="s2">&quot;match_all&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">:</span> <span class="n">Any</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
     <span class="c1"># {&quot;match&quot;: {&quot;title&quot;: &quot;python&quot;}}</span>
@@ -146,29 +146,29 @@
     <span class="k">return</span> <span class="n">Query</span><span class="o">.</span><span class="n">get_dsl_class</span><span class="p">(</span><span class="n">name_or_query</span><span class="p">)(</span><span class="o">**</span><span class="n">params</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="Query"><a class="viewcode-back" href="../../../api-ref/helpers/query.html#opensearchpy.helpers.query.Query">[docs]</a><span class="k">class</span> <span class="nc">Query</span><span class="p">(</span><span class="n">DslBase</span><span class="p">):</span>
+<div class="viewcode-block" id="Query"><a class="viewcode-back" href="../../../api-ref/helpers/query.html#opensearchpy.helpers.query.Query">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">Query</span><span class="p">(</span><span class="n">DslBase</span><span class="p">):</span>
     <span class="n">_type_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;query&quot;</span>
     <span class="n">_type_shortcut</span> <span class="o">=</span> <span class="nb">staticmethod</span><span class="p">(</span><span class="n">Q</span><span class="p">)</span>
     <span class="n">name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
 
-    <span class="k">def</span> <span class="fm">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="c1"># make sure we give queries that know how to combine themselves</span>
         <span class="c1"># preference</span>
         <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="s2">&quot;__radd__&quot;</span><span class="p">):</span>
             <span class="k">return</span> <span class="n">other</span><span class="o">.</span><span class="fm">__radd__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">Bool</span><span class="p">(</span><span class="n">must</span><span class="o">=</span><span class="p">[</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">])</span>
 
-    <span class="k">def</span> <span class="fm">__invert__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__invert__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">Bool</span><span class="p">(</span><span class="n">must_not</span><span class="o">=</span><span class="p">[</span><span class="bp">self</span><span class="p">])</span>
 
-    <span class="k">def</span> <span class="fm">__or__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__or__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="c1"># make sure we give queries that know how to combine themselves</span>
         <span class="c1"># preference</span>
         <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="s2">&quot;__ror__&quot;</span><span class="p">):</span>
             <span class="k">return</span> <span class="n">other</span><span class="o">.</span><span class="fm">__ror__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">Bool</span><span class="p">(</span><span class="n">should</span><span class="o">=</span><span class="p">[</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">])</span>
 
-    <span class="k">def</span> <span class="fm">__and__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__and__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="c1"># make sure we give queries that know how to combine themselves</span>
         <span class="c1"># preference</span>
         <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="s2">&quot;__rand__&quot;</span><span class="p">):</span>
@@ -176,44 +176,44 @@
         <span class="k">return</span> <span class="n">Bool</span><span class="p">(</span><span class="n">must</span><span class="o">=</span><span class="p">[</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">])</span></div>
 
 
-<span class="k">class</span> <span class="nc">MatchAll</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">MatchAll</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;match_all&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">other</span><span class="o">.</span><span class="n">_clone</span><span class="p">()</span>
 
     <span class="fm">__and__</span> <span class="o">=</span> <span class="fm">__rand__</span> <span class="o">=</span> <span class="fm">__radd__</span> <span class="o">=</span> <span class="fm">__add__</span>
 
-    <span class="k">def</span> <span class="fm">__or__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;MatchAll&quot;</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__or__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;MatchAll&quot;</span><span class="p">:</span>
         <span class="k">return</span> <span class="bp">self</span>
 
     <span class="fm">__ror__</span> <span class="o">=</span> <span class="fm">__or__</span>
 
-    <span class="k">def</span> <span class="fm">__invert__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__invert__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">MatchNone</span><span class="p">()</span>
 
 
 <span class="n">EMPTY_QUERY</span> <span class="o">=</span> <span class="n">MatchAll</span><span class="p">()</span>
 
 
-<span class="k">class</span> <span class="nc">MatchNone</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">MatchNone</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;match_none&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;MatchNone&quot;</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;MatchNone&quot;</span><span class="p">:</span>
         <span class="k">return</span> <span class="bp">self</span>
 
     <span class="fm">__and__</span> <span class="o">=</span> <span class="fm">__rand__</span> <span class="o">=</span> <span class="fm">__radd__</span> <span class="o">=</span> <span class="fm">__add__</span>
 
-    <span class="k">def</span> <span class="fm">__or__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__or__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">other</span><span class="o">.</span><span class="n">_clone</span><span class="p">()</span>
 
     <span class="fm">__ror__</span> <span class="o">=</span> <span class="fm">__or__</span>
 
-    <span class="k">def</span> <span class="fm">__invert__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__invert__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">MatchAll</span><span class="p">()</span>
 
 
-<span class="k">class</span> <span class="nc">Bool</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Bool</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;bool&quot;</span>
     <span class="n">_param_defs</span> <span class="o">=</span> <span class="p">{</span>
         <span class="s2">&quot;must&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;query&quot;</span><span class="p">,</span> <span class="s2">&quot;multi&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">},</span>
@@ -222,7 +222,7 @@
         <span class="s2">&quot;filter&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;query&quot;</span><span class="p">,</span> <span class="s2">&quot;multi&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">},</span>
     <span class="p">}</span>
 
-    <span class="k">def</span> <span class="fm">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="s2">&quot;Bool&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="s2">&quot;Bool&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="n">q</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_clone</span><span class="p">()</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">Bool</span><span class="p">):</span>
             <span class="n">q</span><span class="o">.</span><span class="n">must</span> <span class="o">+=</span> <span class="n">other</span><span class="o">.</span><span class="n">must</span>
@@ -235,7 +235,7 @@
 
     <span class="fm">__radd__</span> <span class="o">=</span> <span class="fm">__add__</span>
 
-    <span class="k">def</span> <span class="fm">__or__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="s2">&quot;Bool&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__or__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="s2">&quot;Bool&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="k">for</span> <span class="n">q</span> <span class="ow">in</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">Bool</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">(</span>
                 <span class="p">(</span><span class="n">q</span><span class="o">.</span><span class="n">must</span><span class="p">,</span> <span class="n">q</span><span class="o">.</span><span class="n">must_not</span><span class="p">,</span> <span class="n">q</span><span class="o">.</span><span class="n">filter</span><span class="p">,</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="s2">&quot;minimum_should_match&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">))</span>
@@ -260,14 +260,14 @@
     <span class="fm">__ror__</span> <span class="o">=</span> <span class="fm">__or__</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">_min_should_match</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_min_should_match</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="s2">&quot;minimum_should_match&quot;</span><span class="p">,</span>
             <span class="mi">0</span> <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">should</span> <span class="ow">or</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">must</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">filter</span><span class="p">)</span> <span class="k">else</span> <span class="mi">1</span><span class="p">,</span>
         <span class="p">)</span>
 
-    <span class="k">def</span> <span class="fm">__invert__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__invert__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="c1"># Because an empty Bool query is treated like</span>
         <span class="c1"># MatchAll the inverse should be MatchNone</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">(</span><span class="n">chain</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">must</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">filter</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">should</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">must_not</span><span class="p">)):</span>
@@ -287,7 +287,7 @@
             <span class="k">return</span> <span class="n">negations</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">Bool</span><span class="p">(</span><span class="n">should</span><span class="o">=</span><span class="n">negations</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="fm">__and__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="s2">&quot;Bool&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__and__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="s2">&quot;Bool&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="n">q</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_clone</span><span class="p">()</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">Bool</span><span class="p">):</span>
             <span class="n">q</span><span class="o">.</span><span class="n">must</span> <span class="o">+=</span> <span class="n">other</span><span class="o">.</span><span class="n">must</span>
@@ -328,7 +328,7 @@
     <span class="fm">__rand__</span> <span class="o">=</span> <span class="fm">__and__</span>
 
 
-<span class="k">class</span> <span class="nc">FunctionScore</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">FunctionScore</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;function_score&quot;</span>
     <span class="n">_param_defs</span> <span class="o">=</span> <span class="p">{</span>
         <span class="s2">&quot;query&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;query&quot;</span><span class="p">},</span>
@@ -336,7 +336,7 @@
         <span class="s2">&quot;functions&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;score_function&quot;</span><span class="p">,</span> <span class="s2">&quot;multi&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">},</span>
     <span class="p">}</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">if</span> <span class="s2">&quot;functions&quot;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
             <span class="k">pass</span>
         <span class="k">else</span><span class="p">:</span>
@@ -348,88 +348,88 @@
 
 
 <span class="c1"># compound queries</span>
-<span class="k">class</span> <span class="nc">Boosting</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Boosting</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;boosting&quot;</span>
     <span class="n">_param_defs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;positive&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;query&quot;</span><span class="p">},</span> <span class="s2">&quot;negative&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;query&quot;</span><span class="p">}}</span>
 
 
-<span class="k">class</span> <span class="nc">ConstantScore</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">ConstantScore</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;constant_score&quot;</span>
     <span class="n">_param_defs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;query&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;query&quot;</span><span class="p">},</span> <span class="s2">&quot;filter&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;query&quot;</span><span class="p">}}</span>
 
 
-<span class="k">class</span> <span class="nc">DisMax</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">DisMax</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;dis_max&quot;</span>
     <span class="n">_param_defs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;queries&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;query&quot;</span><span class="p">,</span> <span class="s2">&quot;multi&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}}</span>
 
 
-<span class="k">class</span> <span class="nc">Filtered</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Filtered</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;filtered&quot;</span>
     <span class="n">_param_defs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;query&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;query&quot;</span><span class="p">},</span> <span class="s2">&quot;filter&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;query&quot;</span><span class="p">}}</span>
 
 
-<span class="k">class</span> <span class="nc">Indices</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Indices</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;indices&quot;</span>
     <span class="n">_param_defs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;query&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;query&quot;</span><span class="p">},</span> <span class="s2">&quot;no_match_query&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;query&quot;</span><span class="p">}}</span>
 
 
-<span class="k">class</span> <span class="nc">Percolate</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Percolate</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;percolate&quot;</span>
 
 
 <span class="c1"># relationship queries</span>
-<span class="k">class</span> <span class="nc">Nested</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Nested</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;nested&quot;</span>
     <span class="n">_param_defs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;query&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;query&quot;</span><span class="p">}}</span>
 
 
-<span class="k">class</span> <span class="nc">HasChild</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">HasChild</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;has_child&quot;</span>
     <span class="n">_param_defs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;query&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;query&quot;</span><span class="p">}}</span>
 
 
-<span class="k">class</span> <span class="nc">HasParent</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">HasParent</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;has_parent&quot;</span>
     <span class="n">_param_defs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;query&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;query&quot;</span><span class="p">}}</span>
 
 
-<span class="k">class</span> <span class="nc">TopChildren</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">TopChildren</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;top_children&quot;</span>
     <span class="n">_param_defs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;query&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;query&quot;</span><span class="p">}}</span>
 
 
 <span class="c1"># compount span queries</span>
-<span class="k">class</span> <span class="nc">SpanFirst</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">SpanFirst</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;span_first&quot;</span>
     <span class="n">_param_defs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;match&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;query&quot;</span><span class="p">}}</span>
 
 
-<span class="k">class</span> <span class="nc">SpanMulti</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">SpanMulti</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;span_multi&quot;</span>
     <span class="n">_param_defs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;match&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;query&quot;</span><span class="p">}}</span>
 
 
-<span class="k">class</span> <span class="nc">SpanNear</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">SpanNear</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;span_near&quot;</span>
     <span class="n">_param_defs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;clauses&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;query&quot;</span><span class="p">,</span> <span class="s2">&quot;multi&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}}</span>
 
 
-<span class="k">class</span> <span class="nc">SpanNot</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">SpanNot</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;span_not&quot;</span>
     <span class="n">_param_defs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;exclude&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;query&quot;</span><span class="p">},</span> <span class="s2">&quot;include&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;query&quot;</span><span class="p">}}</span>
 
 
-<span class="k">class</span> <span class="nc">SpanOr</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">SpanOr</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;span_or&quot;</span>
     <span class="n">_param_defs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;clauses&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;query&quot;</span><span class="p">,</span> <span class="s2">&quot;multi&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}}</span>
 
 
-<span class="k">class</span> <span class="nc">FieldMaskingSpan</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">FieldMaskingSpan</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;field_masking_span&quot;</span>
     <span class="n">_param_defs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;query&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;query&quot;</span><span class="p">}}</span>
 
 
-<span class="k">class</span> <span class="nc">SpanContaining</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">SpanContaining</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;span_containing&quot;</span>
     <span class="n">_param_defs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;little&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;query&quot;</span><span class="p">},</span> <span class="s2">&quot;big&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;query&quot;</span><span class="p">}}</span>
 
@@ -439,170 +439,170 @@
 <span class="n">SpanContainining</span> <span class="o">=</span> <span class="n">SpanContaining</span>
 
 
-<span class="k">class</span> <span class="nc">SpanWithin</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">SpanWithin</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;span_within&quot;</span>
     <span class="n">_param_defs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;little&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;query&quot;</span><span class="p">},</span> <span class="s2">&quot;big&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;query&quot;</span><span class="p">}}</span>
 
 
 <span class="c1"># core queries</span>
-<span class="k">class</span> <span class="nc">Common</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Common</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;common&quot;</span>
 
 
-<span class="k">class</span> <span class="nc">Fuzzy</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Fuzzy</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;fuzzy&quot;</span>
 
 
-<span class="k">class</span> <span class="nc">FuzzyLikeThis</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">FuzzyLikeThis</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;fuzzy_like_this&quot;</span>
 
 
-<span class="k">class</span> <span class="nc">FuzzyLikeThisField</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">FuzzyLikeThisField</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;fuzzy_like_this_field&quot;</span>
 
 
-<span class="k">class</span> <span class="nc">RankFeature</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">RankFeature</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;rank_feature&quot;</span>
 
 
-<span class="k">class</span> <span class="nc">DistanceFeature</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">DistanceFeature</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;distance_feature&quot;</span>
 
 
-<span class="k">class</span> <span class="nc">GeoBoundingBox</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">GeoBoundingBox</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;geo_bounding_box&quot;</span>
 
 
-<span class="k">class</span> <span class="nc">GeoDistance</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">GeoDistance</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;geo_distance&quot;</span>
 
 
-<span class="k">class</span> <span class="nc">GeoDistanceRange</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">GeoDistanceRange</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;geo_distance_range&quot;</span>
 
 
-<span class="k">class</span> <span class="nc">GeoPolygon</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">GeoPolygon</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;geo_polygon&quot;</span>
 
 
-<span class="k">class</span> <span class="nc">GeoShape</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">GeoShape</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;geo_shape&quot;</span>
 
 
-<span class="k">class</span> <span class="nc">GeohashCell</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">GeohashCell</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;geohash_cell&quot;</span>
 
 
-<span class="k">class</span> <span class="nc">Ids</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Ids</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;ids&quot;</span>
 
 
-<span class="k">class</span> <span class="nc">Intervals</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Intervals</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;intervals&quot;</span>
 
 
-<span class="k">class</span> <span class="nc">Limit</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Limit</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;limit&quot;</span>
 
 
-<span class="k">class</span> <span class="nc">Match</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Match</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;match&quot;</span>
 
 
-<span class="k">class</span> <span class="nc">MatchPhrase</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">MatchPhrase</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;match_phrase&quot;</span>
 
 
-<span class="k">class</span> <span class="nc">MatchPhrasePrefix</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">MatchPhrasePrefix</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;match_phrase_prefix&quot;</span>
 
 
-<span class="k">class</span> <span class="nc">MatchBoolPrefix</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">MatchBoolPrefix</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;match_bool_prefix&quot;</span>
 
 
-<span class="k">class</span> <span class="nc">Exists</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Exists</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;exists&quot;</span>
 
 
-<span class="k">class</span> <span class="nc">MoreLikeThis</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">MoreLikeThis</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;more_like_this&quot;</span>
 
 
-<span class="k">class</span> <span class="nc">MoreLikeThisField</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">MoreLikeThisField</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;more_like_this_field&quot;</span>
 
 
-<span class="k">class</span> <span class="nc">MultiMatch</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">MultiMatch</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;multi_match&quot;</span>
 
 
-<span class="k">class</span> <span class="nc">Prefix</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Prefix</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;prefix&quot;</span>
 
 
-<span class="k">class</span> <span class="nc">QueryString</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">QueryString</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;query_string&quot;</span>
 
 
-<span class="k">class</span> <span class="nc">Range</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Range</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;range&quot;</span>
 
 
-<span class="k">class</span> <span class="nc">Regexp</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Regexp</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;regexp&quot;</span>
 
 
-<span class="k">class</span> <span class="nc">Shape</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Shape</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;shape&quot;</span>
 
 
-<span class="k">class</span> <span class="nc">SimpleQueryString</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">SimpleQueryString</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;simple_query_string&quot;</span>
 
 
-<span class="k">class</span> <span class="nc">SpanTerm</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">SpanTerm</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;span_term&quot;</span>
 
 
-<span class="k">class</span> <span class="nc">Template</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Template</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;template&quot;</span>
 
 
-<span class="k">class</span> <span class="nc">Term</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Term</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;term&quot;</span>
 
 
-<span class="k">class</span> <span class="nc">Terms</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Terms</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;terms&quot;</span>
 
 
-<span class="k">class</span> <span class="nc">TermsSet</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">TermsSet</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;terms_set&quot;</span>
 
 
-<span class="k">class</span> <span class="nc">Wildcard</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Wildcard</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;wildcard&quot;</span>
 
 
-<span class="k">class</span> <span class="nc">Script</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Script</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;script&quot;</span>
 
 
-<span class="k">class</span> <span class="nc">ScriptScore</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">ScriptScore</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;script_score&quot;</span>
     <span class="n">_param_defs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;query&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;query&quot;</span><span class="p">}}</span>
 
 
-<span class="k">class</span> <span class="nc">Type</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Type</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;type&quot;</span>
 
 
-<span class="k">class</span> <span class="nc">ParentId</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">ParentId</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;parent_id&quot;</span>
 
 
-<span class="k">class</span> <span class="nc">Wrapper</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Wrapper</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;wrapper&quot;</span>
 
 

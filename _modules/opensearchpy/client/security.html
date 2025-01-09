@@ -6,7 +6,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>opensearchpy.client.security &mdash; OpenSearch Python Client  documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=7f485136" />
@@ -98,16 +98,16 @@
 <span class="c1"># -----------------------------------------------------------------------------------------+</span>
 
 
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span>
 
-<span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">SKIP_IN_PATH</span><span class="p">,</span> <span class="n">NamespacedClient</span><span class="p">,</span> <span class="n">_make_path</span><span class="p">,</span> <span class="n">query_params</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">SKIP_IN_PATH</span><span class="p">,</span> <span class="n">NamespacedClient</span><span class="p">,</span> <span class="n">_make_path</span><span class="p">,</span> <span class="n">query_params</span>
 
 
-<div class="viewcode-block" id="SecurityClient"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient">[docs]</a><span class="k">class</span> <span class="nc">SecurityClient</span><span class="p">(</span><span class="n">NamespacedClient</span><span class="p">):</span>
-    <span class="kn">from</span> <span class="nn">._patch</span> <span class="kn">import</span> <span class="n">health_check</span><span class="p">,</span> <span class="n">update_audit_config</span>  <span class="c1"># type: ignore</span>
+<div class="viewcode-block" id="SecurityClient"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">SecurityClient</span><span class="p">(</span><span class="n">NamespacedClient</span><span class="p">):</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">._patch</span><span class="w"> </span><span class="kn">import</span> <span class="n">health_check</span><span class="p">,</span> <span class="n">update_audit_config</span>  <span class="c1"># type: ignore</span>
 
 <div class="viewcode-block" id="SecurityClient.get_account_details"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.get_account_details">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">get_account_details</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_account_details</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -134,7 +134,7 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="SecurityClient.change_password"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.change_password">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">change_password</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">change_password</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">body</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -169,7 +169,7 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="SecurityClient.get_action_group"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.get_action_group">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">get_action_group</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_action_group</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">action_group</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -206,7 +206,7 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="SecurityClient.get_action_groups"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.get_action_groups">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">get_action_groups</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_action_groups</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -236,7 +236,7 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="SecurityClient.delete_action_group"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.delete_action_group">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">delete_action_group</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">delete_action_group</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">action_group</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -273,7 +273,7 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="SecurityClient.create_action_group"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.create_action_group">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">create_action_group</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">create_action_group</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">action_group</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">body</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
@@ -312,7 +312,7 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="SecurityClient.patch_action_group"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.patch_action_group">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">patch_action_group</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">patch_action_group</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">action_group</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">body</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
@@ -350,7 +350,7 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="SecurityClient.patch_action_groups"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.patch_action_groups">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">patch_action_groups</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">patch_action_groups</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">body</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -385,7 +385,7 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="SecurityClient.get_user"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.get_user">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">get_user</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_user</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">username</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -420,7 +420,7 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="SecurityClient.get_users"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.get_users">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">get_users</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_users</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -450,7 +450,7 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="SecurityClient.delete_user"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.delete_user">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">delete_user</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">delete_user</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">username</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -485,7 +485,7 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="SecurityClient.create_user"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.create_user">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">create_user</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">create_user</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">username</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">body</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
@@ -523,7 +523,7 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="SecurityClient.patch_user"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.patch_user">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">patch_user</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">patch_user</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">username</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">body</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
@@ -561,7 +561,7 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="SecurityClient.patch_users"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.patch_users">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">patch_users</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">patch_users</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">body</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -596,7 +596,7 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="SecurityClient.get_role"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.get_role">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">get_role</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_role</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">role</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -630,7 +630,7 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="SecurityClient.get_roles"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.get_roles">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">get_roles</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_roles</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -657,7 +657,7 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="SecurityClient.delete_role"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.delete_role">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">delete_role</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">delete_role</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">role</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -692,7 +692,7 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="SecurityClient.create_role"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.create_role">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">create_role</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">create_role</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">role</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">body</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
@@ -730,7 +730,7 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="SecurityClient.patch_role"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.patch_role">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">patch_role</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">patch_role</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">role</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">body</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
@@ -768,7 +768,7 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="SecurityClient.patch_roles"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.patch_roles">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">patch_roles</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">patch_roles</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">body</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -803,7 +803,7 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="SecurityClient.get_role_mapping"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.get_role_mapping">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">get_role_mapping</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_role_mapping</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">role</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -837,7 +837,7 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="SecurityClient.get_role_mappings"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.get_role_mappings">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">get_role_mappings</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_role_mappings</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -867,7 +867,7 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="SecurityClient.delete_role_mapping"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.delete_role_mapping">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">delete_role_mapping</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">delete_role_mapping</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">role</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -902,7 +902,7 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="SecurityClient.create_role_mapping"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.create_role_mapping">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">create_role_mapping</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">create_role_mapping</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">role</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">body</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
@@ -940,7 +940,7 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="SecurityClient.patch_role_mapping"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.patch_role_mapping">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">patch_role_mapping</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">patch_role_mapping</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">role</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">body</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
@@ -978,7 +978,7 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="SecurityClient.patch_role_mappings"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.patch_role_mappings">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">patch_role_mappings</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">patch_role_mappings</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">body</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -1013,7 +1013,7 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="SecurityClient.get_tenant"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.get_tenant">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">get_tenant</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_tenant</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">tenant</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -1048,7 +1048,7 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="SecurityClient.get_tenants"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.get_tenants">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">get_tenants</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_tenants</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -1075,7 +1075,7 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="SecurityClient.delete_tenant"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.delete_tenant">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">delete_tenant</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">delete_tenant</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">tenant</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -1110,7 +1110,7 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="SecurityClient.create_tenant"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.create_tenant">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">create_tenant</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">create_tenant</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">tenant</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">body</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
@@ -1148,7 +1148,7 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="SecurityClient.patch_tenant"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.patch_tenant">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">patch_tenant</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">patch_tenant</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">tenant</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">body</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
@@ -1186,7 +1186,7 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="SecurityClient.patch_tenants"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.patch_tenants">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">patch_tenants</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">patch_tenants</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">body</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -1221,7 +1221,7 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="SecurityClient.get_configuration"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.get_configuration">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">get_configuration</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_configuration</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -1251,7 +1251,7 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="SecurityClient.update_configuration"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.update_configuration">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">update_configuration</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">update_configuration</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">body</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -1287,7 +1287,7 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="SecurityClient.patch_configuration"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.patch_configuration">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">patch_configuration</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">patch_configuration</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">body</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -1324,7 +1324,7 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="SecurityClient.get_distinguished_names"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.get_distinguished_names">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;show_all&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">get_distinguished_names</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_distinguished_names</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -1354,7 +1354,7 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="SecurityClient.get_certificates"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.get_certificates">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">get_certificates</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_certificates</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -1381,7 +1381,7 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="SecurityClient.reload_transport_certificates"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.reload_transport_certificates">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">reload_transport_certificates</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">reload_transport_certificates</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -1411,7 +1411,7 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="SecurityClient.reload_http_certificates"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.reload_http_certificates">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">reload_http_certificates</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">reload_http_certificates</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -1441,7 +1441,7 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="SecurityClient.flush_cache"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.flush_cache">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">flush_cache</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">flush_cache</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -1468,7 +1468,7 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="SecurityClient.health"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.health">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;mode&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">health</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">health</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -1498,7 +1498,7 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="SecurityClient.get_audit_configuration"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.get_audit_configuration">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">get_audit_configuration</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_audit_configuration</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -1525,7 +1525,7 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="SecurityClient.update_audit_configuration"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.update_audit_configuration">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">update_audit_configuration</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">update_audit_configuration</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">body</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -1560,7 +1560,7 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="SecurityClient.patch_audit_configuration"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.patch_audit_configuration">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">patch_audit_configuration</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">patch_audit_configuration</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">body</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -1595,7 +1595,7 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="SecurityClient.patch_distinguished_names"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.patch_distinguished_names">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">patch_distinguished_names</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">patch_distinguished_names</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">body</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -1639,7 +1639,7 @@
         <span class="s2">&quot;source&quot;</span><span class="p">,</span>
         <span class="s2">&quot;verbose&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">authinfo</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">authinfo</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -1669,7 +1669,7 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="SecurityClient.authtoken"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.authtoken">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">authtoken</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">authtoken</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -1696,7 +1696,7 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="SecurityClient.cache"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.cache">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">cache</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">cache</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -1723,7 +1723,7 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="SecurityClient.config_upgrade_check"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.config_upgrade_check">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">config_upgrade_check</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">config_upgrade_check</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -1754,7 +1754,7 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="SecurityClient.config_upgrade_perform"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.config_upgrade_perform">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">config_upgrade_perform</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">config_upgrade_perform</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">body</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -1786,7 +1786,7 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="SecurityClient.create_allowlist"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.create_allowlist">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">create_allowlist</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">create_allowlist</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">body</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -1822,7 +1822,7 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="SecurityClient.create_update_tenancy_config"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.create_update_tenancy_config">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">create_update_tenancy_config</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">create_update_tenancy_config</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">body</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -1858,7 +1858,7 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="SecurityClient.create_user_legacy"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.create_user_legacy">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">create_user_legacy</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">create_user_legacy</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">username</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">body</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
@@ -1896,7 +1896,7 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="SecurityClient.delete_distinguished_name"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.delete_distinguished_name">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">delete_distinguished_name</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">delete_distinguished_name</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">cluster_name</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -1935,7 +1935,7 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="SecurityClient.delete_user_legacy"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.delete_user_legacy">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">delete_user_legacy</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">delete_user_legacy</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">username</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -1970,7 +1970,7 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="SecurityClient.generate_obo_token"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.generate_obo_token">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">generate_obo_token</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">generate_obo_token</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">body</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -2005,7 +2005,7 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="SecurityClient.generate_user_token"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.generate_user_token">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">generate_user_token</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">generate_user_token</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">username</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -2043,7 +2043,7 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="SecurityClient.generate_user_token_legacy"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.generate_user_token_legacy">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">generate_user_token_legacy</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">generate_user_token_legacy</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">username</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -2079,7 +2079,7 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="SecurityClient.get_allowlist"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.get_allowlist">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">get_allowlist</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_allowlist</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -2106,7 +2106,7 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="SecurityClient.get_dashboards_info"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.get_dashboards_info">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">get_dashboards_info</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_dashboards_info</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -2133,7 +2133,7 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="SecurityClient.get_distinguished_name"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.get_distinguished_name">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;show_all&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">get_distinguished_name</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_distinguished_name</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">cluster_name</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -2174,7 +2174,7 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="SecurityClient.get_permissions_info"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.get_permissions_info">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">get_permissions_info</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_permissions_info</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -2204,7 +2204,7 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="SecurityClient.get_sslinfo"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.get_sslinfo">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;show_dn&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">get_sslinfo</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_sslinfo</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -2233,7 +2233,7 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="SecurityClient.get_tenancy_config"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.get_tenancy_config">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">get_tenancy_config</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_tenancy_config</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -2264,7 +2264,7 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="SecurityClient.get_user_legacy"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.get_user_legacy">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">get_user_legacy</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_user_legacy</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">username</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -2299,7 +2299,7 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="SecurityClient.get_users_legacy"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.get_users_legacy">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">get_users_legacy</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_users_legacy</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -2326,7 +2326,7 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="SecurityClient.migrate"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.migrate">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">migrate</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">migrate</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -2353,7 +2353,7 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="SecurityClient.patch_allowlist"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.patch_allowlist">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">patch_allowlist</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">patch_allowlist</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">body</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -2388,7 +2388,7 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="SecurityClient.patch_distinguished_name"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.patch_distinguished_name">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">patch_distinguished_name</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">patch_distinguished_name</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">cluster_name</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">body</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -2428,7 +2428,7 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="SecurityClient.post_dashboards_info"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.post_dashboards_info">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">post_dashboards_info</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">post_dashboards_info</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -2455,7 +2455,7 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="SecurityClient.tenant_info"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.tenant_info">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">tenant_info</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">tenant_info</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -2483,7 +2483,7 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="SecurityClient.update_distinguished_name"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.update_distinguished_name">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">update_distinguished_name</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">update_distinguished_name</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">cluster_name</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">body</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -2527,7 +2527,7 @@
 <div class="viewcode-block" id="SecurityClient.validate"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.validate">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;accept_invalid&quot;</span><span class="p">,</span> <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">validate</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">validate</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -2557,7 +2557,7 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="SecurityClient.who_am_i"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.who_am_i">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">who_am_i</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">who_am_i</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -2584,7 +2584,7 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="SecurityClient.who_am_i_protected"><a class="viewcode-back" href="../../../api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.who_am_i_protected">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">who_am_i_protected</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">who_am_i_protected</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -2621,7 +2621,7 @@
         <span class="s2">&quot;source&quot;</span><span class="p">,</span>
         <span class="s2">&quot;timeout&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">get_all_certificates</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_all_certificates</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -2663,7 +2663,7 @@
         <span class="s2">&quot;source&quot;</span><span class="p">,</span>
         <span class="s2">&quot;timeout&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">get_node_certificates</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_node_certificates</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">node_id</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>

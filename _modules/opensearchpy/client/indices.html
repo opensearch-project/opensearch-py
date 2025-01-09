@@ -6,7 +6,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>opensearchpy.client.indices &mdash; OpenSearch Python Client  documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=7f485136" />
@@ -116,14 +116,14 @@
 <span class="c1"># -----------------------------------------------------------------------------------------+</span>
 
 
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span>
 
-<span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">SKIP_IN_PATH</span><span class="p">,</span> <span class="n">NamespacedClient</span><span class="p">,</span> <span class="n">_make_path</span><span class="p">,</span> <span class="n">query_params</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">SKIP_IN_PATH</span><span class="p">,</span> <span class="n">NamespacedClient</span><span class="p">,</span> <span class="n">_make_path</span><span class="p">,</span> <span class="n">query_params</span>
 
 
-<div class="viewcode-block" id="IndicesClient"><a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient">[docs]</a><span class="k">class</span> <span class="nc">IndicesClient</span><span class="p">(</span><span class="n">NamespacedClient</span><span class="p">):</span>
+<div class="viewcode-block" id="IndicesClient"><a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">IndicesClient</span><span class="p">(</span><span class="n">NamespacedClient</span><span class="p">):</span>
 <div class="viewcode-block" id="IndicesClient.analyze"><a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.analyze">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">analyze</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">analyze</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">body</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">index</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -169,7 +169,7 @@
         <span class="s2">&quot;pretty&quot;</span><span class="p">,</span>
         <span class="s2">&quot;source&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">refresh</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">refresh</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">index</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -222,7 +222,7 @@
         <span class="s2">&quot;source&quot;</span><span class="p">,</span>
         <span class="s2">&quot;wait_if_ongoing&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">flush</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">flush</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">index</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -280,7 +280,7 @@
         <span class="s2">&quot;timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;wait_for_active_shards&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">create</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">index</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">body</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -340,7 +340,7 @@
         <span class="s2">&quot;wait_for_active_shards&quot;</span><span class="p">,</span>
         <span class="s2">&quot;wait_for_completion&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">clone</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">clone</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">index</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">target</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
@@ -413,7 +413,7 @@
         <span class="s2">&quot;pretty&quot;</span><span class="p">,</span>
         <span class="s2">&quot;source&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">index</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -487,7 +487,7 @@
         <span class="s2">&quot;wait_for_active_shards&quot;</span><span class="p">,</span>
         <span class="s2">&quot;wait_for_completion&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">open</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">open</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">index</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -566,7 +566,7 @@
         <span class="s2">&quot;timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;wait_for_active_shards&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">close</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">close</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">index</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -635,7 +635,7 @@
         <span class="s2">&quot;source&quot;</span><span class="p">,</span>
         <span class="s2">&quot;timeout&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">delete</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">index</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -703,7 +703,7 @@
         <span class="s2">&quot;pretty&quot;</span><span class="p">,</span>
         <span class="s2">&quot;source&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">exists</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">exists</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">index</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -768,7 +768,7 @@
         <span class="s2">&quot;timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;write_index_only&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">put_mapping</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">put_mapping</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">body</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">index</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -844,7 +844,7 @@
         <span class="s2">&quot;pretty&quot;</span><span class="p">,</span>
         <span class="s2">&quot;source&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">get_mapping</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_mapping</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">index</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -905,7 +905,7 @@
         <span class="s2">&quot;pretty&quot;</span><span class="p">,</span>
         <span class="s2">&quot;source&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">get_field_mapping</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_field_mapping</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">fields</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">index</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -970,7 +970,7 @@
         <span class="s2">&quot;pretty&quot;</span><span class="p">,</span>
         <span class="s2">&quot;source&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">exists_alias</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">exists_alias</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">name</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">index</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -1031,7 +1031,7 @@
         <span class="s2">&quot;pretty&quot;</span><span class="p">,</span>
         <span class="s2">&quot;source&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">get_alias</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_alias</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">index</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">name</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -1088,7 +1088,7 @@
         <span class="s2">&quot;source&quot;</span><span class="p">,</span>
         <span class="s2">&quot;timeout&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">update_aliases</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">update_aliases</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">body</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -1138,7 +1138,7 @@
         <span class="s2">&quot;source&quot;</span><span class="p">,</span>
         <span class="s2">&quot;timeout&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">delete_alias</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">delete_alias</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">index</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">name</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
@@ -1194,7 +1194,7 @@
         <span class="s2">&quot;pretty&quot;</span><span class="p">,</span>
         <span class="s2">&quot;source&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">put_template</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">put_template</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">name</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">body</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
@@ -1255,7 +1255,7 @@
         <span class="s2">&quot;pretty&quot;</span><span class="p">,</span>
         <span class="s2">&quot;source&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">exists_template</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">exists_template</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">name</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -1306,7 +1306,7 @@
         <span class="s2">&quot;pretty&quot;</span><span class="p">,</span>
         <span class="s2">&quot;source&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">get_template</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_template</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">name</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -1357,7 +1357,7 @@
         <span class="s2">&quot;source&quot;</span><span class="p">,</span>
         <span class="s2">&quot;timeout&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">delete_template</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">delete_template</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">name</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -1413,7 +1413,7 @@
         <span class="s2">&quot;pretty&quot;</span><span class="p">,</span>
         <span class="s2">&quot;source&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">get_settings</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_settings</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">index</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">name</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -1486,7 +1486,7 @@
         <span class="s2">&quot;source&quot;</span><span class="p">,</span>
         <span class="s2">&quot;timeout&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">put_settings</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">put_settings</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">body</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">index</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -1565,7 +1565,7 @@
         <span class="s2">&quot;pretty&quot;</span><span class="p">,</span>
         <span class="s2">&quot;source&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">stats</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">stats</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">index</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">metric</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -1631,7 +1631,7 @@
         <span class="s2">&quot;source&quot;</span><span class="p">,</span>
         <span class="s2">&quot;verbose&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">segments</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">segments</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">index</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -1693,7 +1693,7 @@
         <span class="s2">&quot;rewrite&quot;</span><span class="p">,</span>
         <span class="s2">&quot;source&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">validate_query</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">validate_query</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">body</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">index</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -1774,7 +1774,7 @@
         <span class="s2">&quot;request&quot;</span><span class="p">,</span>
         <span class="s2">&quot;source&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">clear_cache</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">clear_cache</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">index</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -1831,7 +1831,7 @@
         <span class="s2">&quot;pretty&quot;</span><span class="p">,</span>
         <span class="s2">&quot;source&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">recovery</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">recovery</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">index</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -1877,7 +1877,7 @@
         <span class="s2">&quot;source&quot;</span><span class="p">,</span>
         <span class="s2">&quot;wait_for_completion&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">upgrade</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">upgrade</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">index</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -1927,7 +1927,7 @@
         <span class="s2">&quot;pretty&quot;</span><span class="p">,</span>
         <span class="s2">&quot;source&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">get_upgrade</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_upgrade</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">index</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -1974,7 +1974,7 @@
         <span class="s2">&quot;source&quot;</span><span class="p">,</span>
         <span class="s2">&quot;status&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">shard_stores</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">shard_stores</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">index</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -2029,7 +2029,7 @@
         <span class="s2">&quot;source&quot;</span><span class="p">,</span>
         <span class="s2">&quot;wait_for_completion&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">forcemerge</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">forcemerge</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">index</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -2091,7 +2091,7 @@
         <span class="s2">&quot;wait_for_active_shards&quot;</span><span class="p">,</span>
         <span class="s2">&quot;wait_for_completion&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">shrink</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">shrink</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">index</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">target</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
@@ -2165,7 +2165,7 @@
         <span class="s2">&quot;wait_for_active_shards&quot;</span><span class="p">,</span>
         <span class="s2">&quot;wait_for_completion&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">split</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">split</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">index</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">target</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
@@ -2238,7 +2238,7 @@
         <span class="s2">&quot;timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;wait_for_active_shards&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">rollover</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">rollover</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">alias</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">body</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -2297,7 +2297,7 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="IndicesClient.create_data_stream"><a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.create_data_stream">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">create_data_stream</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">create_data_stream</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">name</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">body</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -2340,7 +2340,7 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="IndicesClient.delete_data_stream"><a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.delete_data_stream">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">delete_data_stream</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">delete_data_stream</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">name</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -2382,7 +2382,7 @@
         <span class="s2">&quot;source&quot;</span><span class="p">,</span>
         <span class="s2">&quot;timeout&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">delete_index_template</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">delete_index_template</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">name</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -2437,7 +2437,7 @@
         <span class="s2">&quot;pretty&quot;</span><span class="p">,</span>
         <span class="s2">&quot;source&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">exists_index_template</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">exists_index_template</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">name</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -2490,7 +2490,7 @@
         <span class="s2">&quot;pretty&quot;</span><span class="p">,</span>
         <span class="s2">&quot;source&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">get_index_template</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_index_template</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">name</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -2541,7 +2541,7 @@
         <span class="s2">&quot;pretty&quot;</span><span class="p">,</span>
         <span class="s2">&quot;source&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">put_index_template</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">put_index_template</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">name</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">body</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
@@ -2597,7 +2597,7 @@
         <span class="s2">&quot;pretty&quot;</span><span class="p">,</span>
         <span class="s2">&quot;source&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">simulate_index_template</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">simulate_index_template</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">name</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">body</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -2643,7 +2643,7 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="IndicesClient.get_data_stream"><a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.get_data_stream">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">get_data_stream</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_data_stream</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">name</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -2684,7 +2684,7 @@
         <span class="s2">&quot;pretty&quot;</span><span class="p">,</span>
         <span class="s2">&quot;source&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">simulate_template</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">simulate_template</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">body</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">name</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -2735,7 +2735,7 @@
 <div class="viewcode-block" id="IndicesClient.resolve_index"><a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.resolve_index">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;expand_wildcards&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">resolve_index</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">resolve_index</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">name</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -2786,7 +2786,7 @@
         <span class="s2">&quot;source&quot;</span><span class="p">,</span>
         <span class="s2">&quot;timeout&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">add_block</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_block</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">index</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">block</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
@@ -2835,7 +2835,7 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="IndicesClient.data_streams_stats"><a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.data_streams_stats">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">data_streams_stats</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">data_streams_stats</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">name</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -2878,7 +2878,7 @@
         <span class="s2">&quot;source&quot;</span><span class="p">,</span>
         <span class="s2">&quot;timeout&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">put_alias</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">put_alias</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">index</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">name</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>

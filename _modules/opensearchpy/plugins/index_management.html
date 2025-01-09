@@ -6,7 +6,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>opensearchpy.plugins.index_management &mdash; OpenSearch Python Client  documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=7f485136" />
@@ -89,14 +89,14 @@
 <span class="c1"># GitHub history for details.</span>
 
 
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span>
 
-<span class="kn">from</span> <span class="nn">..client.utils</span> <span class="kn">import</span> <span class="n">SKIP_IN_PATH</span><span class="p">,</span> <span class="n">NamespacedClient</span><span class="p">,</span> <span class="n">_make_path</span><span class="p">,</span> <span class="n">query_params</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..client.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">SKIP_IN_PATH</span><span class="p">,</span> <span class="n">NamespacedClient</span><span class="p">,</span> <span class="n">_make_path</span><span class="p">,</span> <span class="n">query_params</span>
 
 
-<div class="viewcode-block" id="IndexManagementClient"><a class="viewcode-back" href="../../../api-ref/plugins/index_management_plugin.html#opensearchpy.plugins.index_management.IndexManagementClient">[docs]</a><span class="k">class</span> <span class="nc">IndexManagementClient</span><span class="p">(</span><span class="n">NamespacedClient</span><span class="p">):</span>
+<div class="viewcode-block" id="IndexManagementClient"><a class="viewcode-back" href="../../../api-ref/plugins/index_management_plugin.html#opensearchpy.plugins.index_management.IndexManagementClient">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">IndexManagementClient</span><span class="p">(</span><span class="n">NamespacedClient</span><span class="p">):</span>
 <div class="viewcode-block" id="IndexManagementClient.put_policy"><a class="viewcode-back" href="../../../api-ref/plugins/index_management_plugin.html#opensearchpy.plugins.index_management.IndexManagementClient.put_policy">[docs]</a>    <span class="nd">@query_params</span><span class="p">()</span>
-    <span class="k">def</span> <span class="nf">put_policy</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">put_policy</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">policy</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">body</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -116,7 +116,7 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="IndexManagementClient.add_policy"><a class="viewcode-back" href="../../../api-ref/plugins/index_management_plugin.html#opensearchpy.plugins.index_management.IndexManagementClient.add_policy">[docs]</a>    <span class="nd">@query_params</span><span class="p">()</span>
-    <span class="k">def</span> <span class="nf">add_policy</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_policy</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">body</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -136,7 +136,7 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="IndexManagementClient.get_policy"><a class="viewcode-back" href="../../../api-ref/plugins/index_management_plugin.html#opensearchpy.plugins.index_management.IndexManagementClient.get_policy">[docs]</a>    <span class="nd">@query_params</span><span class="p">()</span>
-    <span class="k">def</span> <span class="nf">get_policy</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_policy</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">policy</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -153,7 +153,7 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="IndexManagementClient.remove_policy_from_index"><a class="viewcode-back" href="../../../api-ref/plugins/index_management_plugin.html#opensearchpy.plugins.index_management.IndexManagementClient.remove_policy_from_index">[docs]</a>    <span class="nd">@query_params</span><span class="p">()</span>
-    <span class="k">def</span> <span class="nf">remove_policy_from_index</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">remove_policy_from_index</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -172,7 +172,7 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="IndexManagementClient.change_policy"><a class="viewcode-back" href="../../../api-ref/plugins/index_management_plugin.html#opensearchpy.plugins.index_management.IndexManagementClient.change_policy">[docs]</a>    <span class="nd">@query_params</span><span class="p">()</span>
-    <span class="k">def</span> <span class="nf">change_policy</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">change_policy</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">body</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -192,7 +192,7 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="IndexManagementClient.retry"><a class="viewcode-back" href="../../../api-ref/plugins/index_management_plugin.html#opensearchpy.plugins.index_management.IndexManagementClient.retry">[docs]</a>    <span class="nd">@query_params</span><span class="p">()</span>
-    <span class="k">def</span> <span class="nf">retry</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">retry</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">body</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -212,7 +212,7 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="IndexManagementClient.explain_index"><a class="viewcode-back" href="../../../api-ref/plugins/index_management_plugin.html#opensearchpy.plugins.index_management.IndexManagementClient.explain_index">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;show_policy&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">explain_index</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">explain_index</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets the current state of the index.</span>
 
@@ -229,7 +229,7 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="IndexManagementClient.delete_policy"><a class="viewcode-back" href="../../../api-ref/plugins/index_management_plugin.html#opensearchpy.plugins.index_management.IndexManagementClient.delete_policy">[docs]</a>    <span class="nd">@query_params</span><span class="p">()</span>
-    <span class="k">def</span> <span class="nf">delete_policy</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">delete_policy</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">policy</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>

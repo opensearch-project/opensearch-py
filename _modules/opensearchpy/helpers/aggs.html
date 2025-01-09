@@ -6,7 +6,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>opensearchpy.helpers.aggs &mdash; OpenSearch Python Client  documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=7f485136" />
@@ -106,14 +106,14 @@
 <span class="c1">#  under the License.</span>
 
 
-<span class="kn">import</span> <span class="nn">collections.abc</span> <span class="k">as</span> <span class="nn">collections_abc</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Optional</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">collections_abc</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Optional</span>
 
-<span class="kn">from</span> <span class="nn">.response.aggs</span> <span class="kn">import</span> <span class="n">AggResponse</span><span class="p">,</span> <span class="n">BucketData</span><span class="p">,</span> <span class="n">FieldBucketData</span><span class="p">,</span> <span class="n">TopHitsData</span>
-<span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">DslBase</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.response.aggs</span><span class="w"> </span><span class="kn">import</span> <span class="n">AggResponse</span><span class="p">,</span> <span class="n">BucketData</span><span class="p">,</span> <span class="n">FieldBucketData</span><span class="p">,</span> <span class="n">TopHitsData</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">DslBase</span>
 
 
-<span class="k">def</span> <span class="nf">A</span><span class="p">(</span>  <span class="c1"># pylint: disable=invalid-name</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">A</span><span class="p">(</span>  <span class="c1"># pylint: disable=invalid-name</span>
     <span class="n">name_or_agg</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="nb">filter</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">:</span> <span class="n">Any</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
     <span class="k">if</span> <span class="nb">filter</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -161,33 +161,33 @@
     <span class="k">return</span> <span class="n">Agg</span><span class="o">.</span><span class="n">get_dsl_class</span><span class="p">(</span><span class="n">name_or_agg</span><span class="p">)(</span><span class="o">**</span><span class="n">params</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="Agg"><a class="viewcode-back" href="../../../api-ref/helpers/aggs.html#opensearchpy.helpers.aggs.Agg">[docs]</a><span class="k">class</span> <span class="nc">Agg</span><span class="p">(</span><span class="n">DslBase</span><span class="p">):</span>
+<div class="viewcode-block" id="Agg"><a class="viewcode-back" href="../../../api-ref/helpers/aggs.html#opensearchpy.helpers.aggs.Agg">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">Agg</span><span class="p">(</span><span class="n">DslBase</span><span class="p">):</span>
     <span class="n">_type_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;agg&quot;</span>
     <span class="n">_type_shortcut</span> <span class="o">=</span> <span class="nb">staticmethod</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
     <span class="n">name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
 
-    <span class="k">def</span> <span class="fm">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">False</span>
 
-<div class="viewcode-block" id="Agg.to_dict"><a class="viewcode-back" href="../../../api-ref/helpers/aggs.html#opensearchpy.helpers.aggs.Agg.to_dict">[docs]</a>    <span class="k">def</span> <span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<div class="viewcode-block" id="Agg.to_dict"><a class="viewcode-back" href="../../../api-ref/helpers/aggs.html#opensearchpy.helpers.aggs.Agg.to_dict">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="n">d</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
         <span class="k">if</span> <span class="s2">&quot;meta&quot;</span> <span class="ow">in</span> <span class="n">d</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">]:</span>
             <span class="n">d</span><span class="p">[</span><span class="s2">&quot;meta&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;meta&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">d</span></div>
 
-    <span class="k">def</span> <span class="nf">result</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">search</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">result</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">search</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">AggResponse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">search</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span></div>
 
 
-<span class="k">class</span> <span class="nc">AggBase</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">AggBase</span><span class="p">:</span>
     <span class="n">_param_defs</span> <span class="o">=</span> <span class="p">{</span>
         <span class="s2">&quot;aggs&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;agg&quot;</span><span class="p">,</span> <span class="s2">&quot;hash&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">},</span>
     <span class="p">}</span>
 
-    <span class="k">def</span> <span class="fm">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;aggs&quot;</span><span class="p">,</span> <span class="p">{})</span>
 
-    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">agg_name</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">agg_name</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="n">agg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_params</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;aggs&quot;</span><span class="p">,</span> <span class="p">{})[</span><span class="n">agg_name</span><span class="p">]</span>  <span class="c1"># propagate KeyError</span>
 
         <span class="c1"># make sure we&#39;re not mutating a shared state - whenever accessing a</span>
@@ -199,13 +199,13 @@
 
         <span class="k">return</span> <span class="n">agg</span>
 
-    <span class="k">def</span> <span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">agg_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">agg</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">agg_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">agg</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">aggs</span><span class="p">[</span><span class="n">agg_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">A</span><span class="p">(</span><span class="n">agg</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="k">return</span> <span class="nb">iter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">aggs</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">_agg</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_agg</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">bucket</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">agg_type</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">:</span> <span class="n">Any</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="n">agg</span> <span class="o">=</span> <span class="bp">self</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">A</span><span class="p">(</span><span class="n">agg_type</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span>
@@ -217,56 +217,56 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_base</span>
 
-    <span class="k">def</span> <span class="nf">metric</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">agg_type</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">metric</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">agg_type</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_agg</span><span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">agg_type</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">bucket</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">agg_type</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">bucket</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">agg_type</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_agg</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">agg_type</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">pipeline</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">agg_type</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">pipeline</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">agg_type</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_agg</span><span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">agg_type</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">result</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">search</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">result</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">search</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">BucketData</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">search</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
 
 
-<span class="k">class</span> <span class="nc">Bucket</span><span class="p">(</span><span class="n">AggBase</span><span class="p">,</span> <span class="n">Agg</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Bucket</span><span class="p">(</span><span class="n">AggBase</span><span class="p">,</span> <span class="n">Agg</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">params</span><span class="p">)</span>
         <span class="c1"># remember self for chaining</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_base</span> <span class="o">=</span> <span class="bp">self</span>
 
-    <span class="k">def</span> <span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="n">d</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">AggBase</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
         <span class="k">if</span> <span class="s2">&quot;aggs&quot;</span> <span class="ow">in</span> <span class="n">d</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">]:</span>
             <span class="n">d</span><span class="p">[</span><span class="s2">&quot;aggs&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;aggs&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">d</span>
 
 
-<span class="k">class</span> <span class="nc">Filter</span><span class="p">(</span><span class="n">Bucket</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Filter</span><span class="p">(</span><span class="n">Bucket</span><span class="p">):</span>
     <span class="n">name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;filter&quot;</span>
     <span class="n">_param_defs</span> <span class="o">=</span> <span class="p">{</span>
         <span class="s2">&quot;filter&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;query&quot;</span><span class="p">},</span>
         <span class="s2">&quot;aggs&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;agg&quot;</span><span class="p">,</span> <span class="s2">&quot;hash&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">},</span>
     <span class="p">}</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">filter</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">filter</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">if</span> <span class="nb">filter</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">params</span><span class="p">[</span><span class="s2">&quot;filter&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">filter</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">params</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="n">d</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
         <span class="n">d</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;filter&quot;</span><span class="p">,</span> <span class="p">{}))</span>
         <span class="k">return</span> <span class="n">d</span>
 
 
-<span class="k">class</span> <span class="nc">Pipeline</span><span class="p">(</span><span class="n">Agg</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Pipeline</span><span class="p">(</span><span class="n">Agg</span><span class="p">):</span>
     <span class="k">pass</span>
 
 
 <span class="c1"># bucket aggregations</span>
-<span class="k">class</span> <span class="nc">Filters</span><span class="p">(</span><span class="n">Bucket</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Filters</span><span class="p">(</span><span class="n">Bucket</span><span class="p">):</span>
     <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;filters&quot;</span>
     <span class="n">_param_defs</span> <span class="o">=</span> <span class="p">{</span>
         <span class="s2">&quot;filters&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;query&quot;</span><span class="p">,</span> <span class="s2">&quot;hash&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">},</span>
@@ -274,107 +274,107 @@
     <span class="p">}</span>
 
 
-<span class="k">class</span> <span class="nc">Children</span><span class="p">(</span><span class="n">Bucket</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Children</span><span class="p">(</span><span class="n">Bucket</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;children&quot;</span>
 
 
-<span class="k">class</span> <span class="nc">Parent</span><span class="p">(</span><span class="n">Bucket</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Parent</span><span class="p">(</span><span class="n">Bucket</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;parent&quot;</span>
 
 
-<span class="k">class</span> <span class="nc">DateHistogram</span><span class="p">(</span><span class="n">Bucket</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">DateHistogram</span><span class="p">(</span><span class="n">Bucket</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;date_histogram&quot;</span>
 
-    <span class="k">def</span> <span class="nf">result</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">search</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">result</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">search</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">FieldBucketData</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">search</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
 
 
-<span class="k">class</span> <span class="nc">AutoDateHistogram</span><span class="p">(</span><span class="n">DateHistogram</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">AutoDateHistogram</span><span class="p">(</span><span class="n">DateHistogram</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;auto_date_histogram&quot;</span>
 
 
-<span class="k">class</span> <span class="nc">DateRange</span><span class="p">(</span><span class="n">Bucket</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">DateRange</span><span class="p">(</span><span class="n">Bucket</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;date_range&quot;</span>
 
 
-<span class="k">class</span> <span class="nc">GeoDistance</span><span class="p">(</span><span class="n">Bucket</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">GeoDistance</span><span class="p">(</span><span class="n">Bucket</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;geo_distance&quot;</span>
 
 
-<span class="k">class</span> <span class="nc">GeohashGrid</span><span class="p">(</span><span class="n">Bucket</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">GeohashGrid</span><span class="p">(</span><span class="n">Bucket</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;geohash_grid&quot;</span>
 
 
-<span class="k">class</span> <span class="nc">GeotileGrid</span><span class="p">(</span><span class="n">Bucket</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">GeotileGrid</span><span class="p">(</span><span class="n">Bucket</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;geotile_grid&quot;</span>
 
 
-<span class="k">class</span> <span class="nc">GeoCentroid</span><span class="p">(</span><span class="n">Bucket</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">GeoCentroid</span><span class="p">(</span><span class="n">Bucket</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;geo_centroid&quot;</span>
 
 
-<span class="k">class</span> <span class="nc">Global</span><span class="p">(</span><span class="n">Bucket</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Global</span><span class="p">(</span><span class="n">Bucket</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;global&quot;</span>
 
 
-<span class="k">class</span> <span class="nc">Histogram</span><span class="p">(</span><span class="n">Bucket</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Histogram</span><span class="p">(</span><span class="n">Bucket</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;histogram&quot;</span>
 
-    <span class="k">def</span> <span class="nf">result</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">search</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">result</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">search</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">FieldBucketData</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">search</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
 
 
-<span class="k">class</span> <span class="nc">IPRange</span><span class="p">(</span><span class="n">Bucket</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">IPRange</span><span class="p">(</span><span class="n">Bucket</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;ip_range&quot;</span>
 
 
-<span class="k">class</span> <span class="nc">Missing</span><span class="p">(</span><span class="n">Bucket</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Missing</span><span class="p">(</span><span class="n">Bucket</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;missing&quot;</span>
 
 
-<span class="k">class</span> <span class="nc">Nested</span><span class="p">(</span><span class="n">Bucket</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Nested</span><span class="p">(</span><span class="n">Bucket</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;nested&quot;</span>
 
 
-<span class="k">class</span> <span class="nc">Range</span><span class="p">(</span><span class="n">Bucket</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Range</span><span class="p">(</span><span class="n">Bucket</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;range&quot;</span>
 
 
-<span class="k">class</span> <span class="nc">RareTerms</span><span class="p">(</span><span class="n">Bucket</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">RareTerms</span><span class="p">(</span><span class="n">Bucket</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;rare_terms&quot;</span>
 
-    <span class="k">def</span> <span class="nf">result</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">search</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">result</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">search</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">FieldBucketData</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">search</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
 
 
-<span class="k">class</span> <span class="nc">ReverseNested</span><span class="p">(</span><span class="n">Bucket</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">ReverseNested</span><span class="p">(</span><span class="n">Bucket</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;reverse_nested&quot;</span>
 
 
-<span class="k">class</span> <span class="nc">SignificantTerms</span><span class="p">(</span><span class="n">Bucket</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">SignificantTerms</span><span class="p">(</span><span class="n">Bucket</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;significant_terms&quot;</span>
 
 
-<span class="k">class</span> <span class="nc">SignificantText</span><span class="p">(</span><span class="n">Bucket</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">SignificantText</span><span class="p">(</span><span class="n">Bucket</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;significant_text&quot;</span>
 
 
-<span class="k">class</span> <span class="nc">Terms</span><span class="p">(</span><span class="n">Bucket</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Terms</span><span class="p">(</span><span class="n">Bucket</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;terms&quot;</span>
 
-    <span class="k">def</span> <span class="nf">result</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">search</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">result</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">search</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">FieldBucketData</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">search</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
 
 
-<span class="k">class</span> <span class="nc">Sampler</span><span class="p">(</span><span class="n">Bucket</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Sampler</span><span class="p">(</span><span class="n">Bucket</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;sampler&quot;</span>
 
 
-<span class="k">class</span> <span class="nc">DiversifiedSampler</span><span class="p">(</span><span class="n">Bucket</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">DiversifiedSampler</span><span class="p">(</span><span class="n">Bucket</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;diversified_sampler&quot;</span>
 
 
-<span class="k">class</span> <span class="nc">Composite</span><span class="p">(</span><span class="n">Bucket</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Composite</span><span class="p">(</span><span class="n">Bucket</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;composite&quot;</span>
     <span class="n">_param_defs</span> <span class="o">=</span> <span class="p">{</span>
         <span class="s2">&quot;sources&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;agg&quot;</span><span class="p">,</span> <span class="s2">&quot;hash&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;multi&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">},</span>
@@ -382,163 +382,163 @@
     <span class="p">}</span>
 
 
-<span class="k">class</span> <span class="nc">VariableWidthHistogram</span><span class="p">(</span><span class="n">Bucket</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">VariableWidthHistogram</span><span class="p">(</span><span class="n">Bucket</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;variable_width_histogram&quot;</span>
 
-    <span class="k">def</span> <span class="nf">result</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">search</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">result</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">search</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">FieldBucketData</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">search</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
 
 
-<span class="k">class</span> <span class="nc">MultiTerms</span><span class="p">(</span><span class="n">Bucket</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">MultiTerms</span><span class="p">(</span><span class="n">Bucket</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;multi_terms&quot;</span>
 
 
 <span class="c1"># metric aggregations</span>
-<span class="k">class</span> <span class="nc">TopHits</span><span class="p">(</span><span class="n">Agg</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">TopHits</span><span class="p">(</span><span class="n">Agg</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;top_hits&quot;</span>
 
-    <span class="k">def</span> <span class="nf">result</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">search</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">result</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">search</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">TopHitsData</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">search</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
 
 
-<span class="k">class</span> <span class="nc">Avg</span><span class="p">(</span><span class="n">Agg</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Avg</span><span class="p">(</span><span class="n">Agg</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;avg&quot;</span>
 
 
-<span class="k">class</span> <span class="nc">WeightedAvg</span><span class="p">(</span><span class="n">Agg</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">WeightedAvg</span><span class="p">(</span><span class="n">Agg</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;weighted_avg&quot;</span>
 
 
-<span class="k">class</span> <span class="nc">Cardinality</span><span class="p">(</span><span class="n">Agg</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Cardinality</span><span class="p">(</span><span class="n">Agg</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;cardinality&quot;</span>
 
 
-<span class="k">class</span> <span class="nc">ExtendedStats</span><span class="p">(</span><span class="n">Agg</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">ExtendedStats</span><span class="p">(</span><span class="n">Agg</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;extended_stats&quot;</span>
 
 
-<span class="k">class</span> <span class="nc">Boxplot</span><span class="p">(</span><span class="n">Agg</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Boxplot</span><span class="p">(</span><span class="n">Agg</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;boxplot&quot;</span>
 
 
-<span class="k">class</span> <span class="nc">GeoBounds</span><span class="p">(</span><span class="n">Agg</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">GeoBounds</span><span class="p">(</span><span class="n">Agg</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;geo_bounds&quot;</span>
 
 
-<span class="k">class</span> <span class="nc">Max</span><span class="p">(</span><span class="n">Agg</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Max</span><span class="p">(</span><span class="n">Agg</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;max&quot;</span>
 
 
-<span class="k">class</span> <span class="nc">MedianAbsoluteDeviation</span><span class="p">(</span><span class="n">Agg</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">MedianAbsoluteDeviation</span><span class="p">(</span><span class="n">Agg</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;median_absolute_deviation&quot;</span>
 
 
-<span class="k">class</span> <span class="nc">Min</span><span class="p">(</span><span class="n">Agg</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Min</span><span class="p">(</span><span class="n">Agg</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;min&quot;</span>
 
 
-<span class="k">class</span> <span class="nc">Percentiles</span><span class="p">(</span><span class="n">Agg</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Percentiles</span><span class="p">(</span><span class="n">Agg</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;percentiles&quot;</span>
 
 
-<span class="k">class</span> <span class="nc">PercentileRanks</span><span class="p">(</span><span class="n">Agg</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">PercentileRanks</span><span class="p">(</span><span class="n">Agg</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;percentile_ranks&quot;</span>
 
 
-<span class="k">class</span> <span class="nc">ScriptedMetric</span><span class="p">(</span><span class="n">Agg</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">ScriptedMetric</span><span class="p">(</span><span class="n">Agg</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;scripted_metric&quot;</span>
 
 
-<span class="k">class</span> <span class="nc">Stats</span><span class="p">(</span><span class="n">Agg</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Stats</span><span class="p">(</span><span class="n">Agg</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;stats&quot;</span>
 
 
-<span class="k">class</span> <span class="nc">Sum</span><span class="p">(</span><span class="n">Agg</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Sum</span><span class="p">(</span><span class="n">Agg</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;sum&quot;</span>
 
 
-<span class="k">class</span> <span class="nc">TTest</span><span class="p">(</span><span class="n">Agg</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">TTest</span><span class="p">(</span><span class="n">Agg</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;t_test&quot;</span>
 
 
-<span class="k">class</span> <span class="nc">ValueCount</span><span class="p">(</span><span class="n">Agg</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">ValueCount</span><span class="p">(</span><span class="n">Agg</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;value_count&quot;</span>
 
 
 <span class="c1"># pipeline aggregations</span>
-<span class="k">class</span> <span class="nc">AvgBucket</span><span class="p">(</span><span class="n">Pipeline</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">AvgBucket</span><span class="p">(</span><span class="n">Pipeline</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;avg_bucket&quot;</span>
 
 
-<span class="k">class</span> <span class="nc">BucketScript</span><span class="p">(</span><span class="n">Pipeline</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">BucketScript</span><span class="p">(</span><span class="n">Pipeline</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;bucket_script&quot;</span>
 
 
-<span class="k">class</span> <span class="nc">BucketSelector</span><span class="p">(</span><span class="n">Pipeline</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">BucketSelector</span><span class="p">(</span><span class="n">Pipeline</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;bucket_selector&quot;</span>
 
 
-<span class="k">class</span> <span class="nc">CumulativeSum</span><span class="p">(</span><span class="n">Pipeline</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">CumulativeSum</span><span class="p">(</span><span class="n">Pipeline</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;cumulative_sum&quot;</span>
 
 
-<span class="k">class</span> <span class="nc">CumulativeCardinality</span><span class="p">(</span><span class="n">Pipeline</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">CumulativeCardinality</span><span class="p">(</span><span class="n">Pipeline</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;cumulative_cardinality&quot;</span>
 
 
-<span class="k">class</span> <span class="nc">Derivative</span><span class="p">(</span><span class="n">Pipeline</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Derivative</span><span class="p">(</span><span class="n">Pipeline</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;derivative&quot;</span>
 
 
-<span class="k">class</span> <span class="nc">ExtendedStatsBucket</span><span class="p">(</span><span class="n">Pipeline</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">ExtendedStatsBucket</span><span class="p">(</span><span class="n">Pipeline</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;extended_stats_bucket&quot;</span>
 
 
-<span class="k">class</span> <span class="nc">Inference</span><span class="p">(</span><span class="n">Pipeline</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Inference</span><span class="p">(</span><span class="n">Pipeline</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;inference&quot;</span>
 
 
-<span class="k">class</span> <span class="nc">MaxBucket</span><span class="p">(</span><span class="n">Pipeline</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">MaxBucket</span><span class="p">(</span><span class="n">Pipeline</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;max_bucket&quot;</span>
 
 
-<span class="k">class</span> <span class="nc">MinBucket</span><span class="p">(</span><span class="n">Pipeline</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">MinBucket</span><span class="p">(</span><span class="n">Pipeline</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;min_bucket&quot;</span>
 
 
-<span class="k">class</span> <span class="nc">MovingFn</span><span class="p">(</span><span class="n">Pipeline</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">MovingFn</span><span class="p">(</span><span class="n">Pipeline</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;moving_fn&quot;</span>
 
 
-<span class="k">class</span> <span class="nc">MovingAvg</span><span class="p">(</span><span class="n">Pipeline</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">MovingAvg</span><span class="p">(</span><span class="n">Pipeline</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;moving_avg&quot;</span>
 
 
-<span class="k">class</span> <span class="nc">MovingPercentiles</span><span class="p">(</span><span class="n">Pipeline</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">MovingPercentiles</span><span class="p">(</span><span class="n">Pipeline</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;moving_percentiles&quot;</span>
 
 
-<span class="k">class</span> <span class="nc">Normalize</span><span class="p">(</span><span class="n">Pipeline</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Normalize</span><span class="p">(</span><span class="n">Pipeline</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;normalize&quot;</span>
 
 
-<span class="k">class</span> <span class="nc">PercentilesBucket</span><span class="p">(</span><span class="n">Pipeline</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">PercentilesBucket</span><span class="p">(</span><span class="n">Pipeline</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;percentiles_bucket&quot;</span>
 
 
-<span class="k">class</span> <span class="nc">SerialDiff</span><span class="p">(</span><span class="n">Pipeline</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">SerialDiff</span><span class="p">(</span><span class="n">Pipeline</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;serial_diff&quot;</span>
 
 
-<span class="k">class</span> <span class="nc">StatsBucket</span><span class="p">(</span><span class="n">Pipeline</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">StatsBucket</span><span class="p">(</span><span class="n">Pipeline</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;stats_bucket&quot;</span>
 
 
-<span class="k">class</span> <span class="nc">SumBucket</span><span class="p">(</span><span class="n">Pipeline</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">SumBucket</span><span class="p">(</span><span class="n">Pipeline</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;sum_bucket&quot;</span>
 
 
-<span class="k">class</span> <span class="nc">BucketSort</span><span class="p">(</span><span class="n">Pipeline</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">BucketSort</span><span class="p">(</span><span class="n">Pipeline</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;bucket_sort&quot;</span>
 </pre></div>
 

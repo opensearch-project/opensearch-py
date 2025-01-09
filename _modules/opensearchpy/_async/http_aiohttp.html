@@ -6,7 +6,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>opensearchpy._async.http_aiohttp &mdash; OpenSearch Python Client  documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=7f485136" />
@@ -106,33 +106,33 @@
 <span class="c1">#  under the License.</span>
 
 
-<span class="kn">import</span> <span class="nn">asyncio</span>
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">ssl</span>
-<span class="kn">import</span> <span class="nn">warnings</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Collection</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">asyncio</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">ssl</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Collection</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
 
-<span class="kn">import</span> <span class="nn">urllib3</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">urllib3</span>
 
-<span class="kn">from</span> <span class="nn">..compat</span> <span class="kn">import</span> <span class="n">reraise_exceptions</span><span class="p">,</span> <span class="n">urlencode</span>
-<span class="kn">from</span> <span class="nn">..connection.base</span> <span class="kn">import</span> <span class="n">Connection</span>
-<span class="kn">from</span> <span class="nn">..exceptions</span> <span class="kn">import</span> <span class="p">(</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..compat</span><span class="w"> </span><span class="kn">import</span> <span class="n">reraise_exceptions</span><span class="p">,</span> <span class="n">urlencode</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..connection.base</span><span class="w"> </span><span class="kn">import</span> <span class="n">Connection</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="ne">ConnectionError</span><span class="p">,</span>
     <span class="n">ConnectionTimeout</span><span class="p">,</span>
     <span class="n">ImproperlyConfigured</span><span class="p">,</span>
     <span class="n">SSLError</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">._extra_imports</span> <span class="kn">import</span> <span class="n">aiohttp</span><span class="p">,</span> <span class="n">aiohttp_exceptions</span><span class="p">,</span> <span class="n">yarl</span>  <span class="c1"># type: ignore</span>
-<span class="kn">from</span> <span class="nn">.compat</span> <span class="kn">import</span> <span class="n">get_running_loop</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">._extra_imports</span><span class="w"> </span><span class="kn">import</span> <span class="n">aiohttp</span><span class="p">,</span> <span class="n">aiohttp_exceptions</span><span class="p">,</span> <span class="n">yarl</span>  <span class="c1"># type: ignore</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.compat</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_running_loop</span>
 
 <span class="n">VERIFY_CERTS_DEFAULT</span> <span class="o">=</span> <span class="nb">object</span><span class="p">()</span>
 <span class="n">SSL_SHOW_WARN_DEFAULT</span> <span class="o">=</span> <span class="nb">object</span><span class="p">()</span>
 
 
-<span class="k">class</span> <span class="nc">AsyncConnection</span><span class="p">(</span><span class="n">Connection</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">AsyncConnection</span><span class="p">(</span><span class="n">Connection</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Base class for Async HTTP connection implementations&quot;&quot;&quot;</span>
 
-    <span class="k">async</span> <span class="k">def</span> <span class="nf">perform_request</span><span class="p">(</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">perform_request</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">method</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
         <span class="n">url</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
@@ -144,15 +144,15 @@
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span>
 
-    <span class="k">async</span> <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span>
 
 
-<div class="viewcode-block" id="AIOHttpConnection"><a class="viewcode-back" href="../../../api-ref/connection.html#opensearchpy.AIOHttpConnection">[docs]</a><span class="k">class</span> <span class="nc">AIOHttpConnection</span><span class="p">(</span><span class="n">AsyncConnection</span><span class="p">):</span>
+<div class="viewcode-block" id="AIOHttpConnection"><a class="viewcode-back" href="../../../api-ref/connection.html#opensearchpy.AIOHttpConnection">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">AIOHttpConnection</span><span class="p">(</span><span class="n">AsyncConnection</span><span class="p">):</span>
     <span class="n">session</span><span class="p">:</span> <span class="n">aiohttp</span><span class="o">.</span><span class="n">ClientSession</span>
     <span class="n">ssl_assert_fingerprint</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">host</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;localhost&quot;</span><span class="p">,</span>
         <span class="n">port</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -312,7 +312,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_ssl_context</span> <span class="o">=</span> <span class="n">ssl_context</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_trust_env</span> <span class="o">=</span> <span class="n">trust_env</span>
 
-    <span class="k">async</span> <span class="k">def</span> <span class="nf">perform_request</span><span class="p">(</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">perform_request</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">method</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
         <span class="n">url</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
@@ -430,7 +430,7 @@
 
         <span class="k">return</span> <span class="n">response</span><span class="o">.</span><span class="n">status</span><span class="p">,</span> <span class="n">response</span><span class="o">.</span><span class="n">headers</span><span class="p">,</span> <span class="n">raw_data</span>
 
-<div class="viewcode-block" id="AIOHttpConnection.close"><a class="viewcode-back" href="../../../api-ref/connection.html#opensearchpy.AIOHttpConnection.close">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<div class="viewcode-block" id="AIOHttpConnection.close"><a class="viewcode-back" href="../../../api-ref/connection.html#opensearchpy.AIOHttpConnection.close">[docs]</a>    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Explicitly closes connection</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -438,7 +438,7 @@
             <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">session</span> <span class="o">=</span> <span class="kc">None</span></div>
 
-<div class="viewcode-block" id="AIOHttpConnection._create_aiohttp_session"><a class="viewcode-back" href="../../../api-ref/connection.html#opensearchpy.AIOHttpConnection._create_aiohttp_session">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">_create_aiohttp_session</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<div class="viewcode-block" id="AIOHttpConnection._create_aiohttp_session"><a class="viewcode-back" href="../../../api-ref/connection.html#opensearchpy.AIOHttpConnection._create_aiohttp_session">[docs]</a>    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">_create_aiohttp_session</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Creates an aiohttp.ClientSession(). This is delayed until</span>
 <span class="sd">        the first call to perform_request() so that AsyncTransport has</span>
 <span class="sd">        a chance to set AIOHttpConnection.loop</span>
@@ -462,8 +462,8 @@
         <span class="p">)</span></div></div>
 
 
-<span class="k">class</span> <span class="nc">OpenSearchClientResponse</span><span class="p">(</span><span class="n">aiohttp</span><span class="o">.</span><span class="n">ClientResponse</span><span class="p">):</span>  <span class="c1"># type: ignore</span>
-    <span class="k">async</span> <span class="k">def</span> <span class="nf">text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">encoding</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">errors</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;strict&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">OpenSearchClientResponse</span><span class="p">(</span><span class="n">aiohttp</span><span class="o">.</span><span class="n">ClientResponse</span><span class="p">):</span>  <span class="c1"># type: ignore</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">encoding</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">errors</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;strict&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_body</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
 

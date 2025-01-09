@@ -6,7 +6,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>opensearchpy.client &mdash; OpenSearch Python Client  documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=7f485136" />
@@ -115,35 +115,35 @@
 <span class="c1"># -----------------------------------------------------------------------------------------+</span>
 
 
-<span class="kn">import</span> <span class="nn">logging</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Type</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Type</span>
 
-<span class="kn">from</span> <span class="nn">..transport</span> <span class="kn">import</span> <span class="n">Transport</span><span class="p">,</span> <span class="n">TransportError</span>
-<span class="kn">from</span> <span class="nn">.cat</span> <span class="kn">import</span> <span class="n">CatClient</span>
-<span class="kn">from</span> <span class="nn">.client</span> <span class="kn">import</span> <span class="n">Client</span>
-<span class="kn">from</span> <span class="nn">.cluster</span> <span class="kn">import</span> <span class="n">ClusterClient</span>
-<span class="kn">from</span> <span class="nn">.dangling_indices</span> <span class="kn">import</span> <span class="n">DanglingIndicesClient</span>
-<span class="kn">from</span> <span class="nn">.features</span> <span class="kn">import</span> <span class="n">FeaturesClient</span>
-<span class="kn">from</span> <span class="nn">.http</span> <span class="kn">import</span> <span class="n">HttpClient</span>
-<span class="kn">from</span> <span class="nn">.indices</span> <span class="kn">import</span> <span class="n">IndicesClient</span>
-<span class="kn">from</span> <span class="nn">.ingest</span> <span class="kn">import</span> <span class="n">IngestClient</span>
-<span class="kn">from</span> <span class="nn">.insights</span> <span class="kn">import</span> <span class="n">InsightsClient</span>
-<span class="kn">from</span> <span class="nn">.list</span> <span class="kn">import</span> <span class="n">ListClient</span>
-<span class="kn">from</span> <span class="nn">.nodes</span> <span class="kn">import</span> <span class="n">NodesClient</span>
-<span class="kn">from</span> <span class="nn">.plugins</span> <span class="kn">import</span> <span class="n">PluginsClient</span>
-<span class="kn">from</span> <span class="nn">.remote</span> <span class="kn">import</span> <span class="n">RemoteClient</span>
-<span class="kn">from</span> <span class="nn">.remote_store</span> <span class="kn">import</span> <span class="n">RemoteStoreClient</span>
-<span class="kn">from</span> <span class="nn">.search_pipeline</span> <span class="kn">import</span> <span class="n">SearchPipelineClient</span>
-<span class="kn">from</span> <span class="nn">.security</span> <span class="kn">import</span> <span class="n">SecurityClient</span>
-<span class="kn">from</span> <span class="nn">.snapshot</span> <span class="kn">import</span> <span class="n">SnapshotClient</span>
-<span class="kn">from</span> <span class="nn">.tasks</span> <span class="kn">import</span> <span class="n">TasksClient</span>
-<span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">SKIP_IN_PATH</span><span class="p">,</span> <span class="n">_bulk_body</span><span class="p">,</span> <span class="n">_make_path</span><span class="p">,</span> <span class="n">query_params</span>
-<span class="kn">from</span> <span class="nn">.wlm</span> <span class="kn">import</span> <span class="n">WlmClient</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..transport</span><span class="w"> </span><span class="kn">import</span> <span class="n">Transport</span><span class="p">,</span> <span class="n">TransportError</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.cat</span><span class="w"> </span><span class="kn">import</span> <span class="n">CatClient</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.client</span><span class="w"> </span><span class="kn">import</span> <span class="n">Client</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.cluster</span><span class="w"> </span><span class="kn">import</span> <span class="n">ClusterClient</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.dangling_indices</span><span class="w"> </span><span class="kn">import</span> <span class="n">DanglingIndicesClient</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.features</span><span class="w"> </span><span class="kn">import</span> <span class="n">FeaturesClient</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.http</span><span class="w"> </span><span class="kn">import</span> <span class="n">HttpClient</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.indices</span><span class="w"> </span><span class="kn">import</span> <span class="n">IndicesClient</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.ingest</span><span class="w"> </span><span class="kn">import</span> <span class="n">IngestClient</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.insights</span><span class="w"> </span><span class="kn">import</span> <span class="n">InsightsClient</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.list</span><span class="w"> </span><span class="kn">import</span> <span class="n">ListClient</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.nodes</span><span class="w"> </span><span class="kn">import</span> <span class="n">NodesClient</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.plugins</span><span class="w"> </span><span class="kn">import</span> <span class="n">PluginsClient</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.remote</span><span class="w"> </span><span class="kn">import</span> <span class="n">RemoteClient</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.remote_store</span><span class="w"> </span><span class="kn">import</span> <span class="n">RemoteStoreClient</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.search_pipeline</span><span class="w"> </span><span class="kn">import</span> <span class="n">SearchPipelineClient</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.security</span><span class="w"> </span><span class="kn">import</span> <span class="n">SecurityClient</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.snapshot</span><span class="w"> </span><span class="kn">import</span> <span class="n">SnapshotClient</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.tasks</span><span class="w"> </span><span class="kn">import</span> <span class="n">TasksClient</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">SKIP_IN_PATH</span><span class="p">,</span> <span class="n">_bulk_body</span><span class="p">,</span> <span class="n">_make_path</span><span class="p">,</span> <span class="n">query_params</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.wlm</span><span class="w"> </span><span class="kn">import</span> <span class="n">WlmClient</span>
 
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;opensearch&quot;</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="OpenSearch"><a class="viewcode-back" href="../../api-ref/clients/opensearch_client.html#opensearchpy.OpenSearch">[docs]</a><span class="k">class</span> <span class="nc">OpenSearch</span><span class="p">(</span><span class="n">Client</span><span class="p">):</span>
+<div class="viewcode-block" id="OpenSearch"><a class="viewcode-back" href="../../api-ref/clients/opensearch_client.html#opensearchpy.OpenSearch">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">OpenSearch</span><span class="p">(</span><span class="n">Client</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    OpenSearch client. Provides a straightforward mapping from</span>
 <span class="sd">    Python to OpenSearch REST endpoints.</span>
@@ -271,13 +271,13 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1"># include PIT functions inside _patch.py</span>
-    <span class="kn">from</span> <span class="nn">._patch</span> <span class="kn">import</span> <span class="p">(</span>  <span class="c1"># type: ignore</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">._patch</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>  <span class="c1"># type: ignore</span>
         <span class="n">create_point_in_time</span><span class="p">,</span>
         <span class="n">delete_point_in_time</span><span class="p">,</span>
         <span class="n">list_all_point_in_time</span><span class="p">,</span>
     <span class="p">)</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">hosts</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">transport_class</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">Transport</span><span class="p">]</span> <span class="o">=</span> <span class="n">Transport</span><span class="p">,</span>
@@ -320,7 +320,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">plugins</span> <span class="o">=</span> <span class="n">PluginsClient</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">http</span> <span class="o">=</span> <span class="n">HttpClient</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
-<div class="viewcode-block" id="OpenSearch.__repr__"><a class="viewcode-back" href="../../api-ref/clients/opensearch_client.html#opensearchpy.OpenSearch.__repr__">[docs]</a>    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<div class="viewcode-block" id="OpenSearch.__repr__"><a class="viewcode-back" href="../../api-ref/clients/opensearch_client.html#opensearchpy.OpenSearch.__repr__">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="c1"># get a list of all connections</span>
             <span class="n">cons</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">hosts</span>
@@ -332,21 +332,21 @@
             <span class="c1"># probably operating on custom transport and connection_pool, ignore</span>
             <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">()</span></div>
 
-    <span class="k">def</span> <span class="fm">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="p">,</span> <span class="s2">&quot;_async_call&quot;</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">_async_call</span><span class="p">()</span>
         <span class="k">return</span> <span class="bp">self</span>
 
-    <span class="k">def</span> <span class="fm">__exit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">_</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__exit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">_</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 
-<div class="viewcode-block" id="OpenSearch.close"><a class="viewcode-back" href="../../api-ref/clients/opensearch_client.html#opensearchpy.OpenSearch.close">[docs]</a>    <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="OpenSearch.close"><a class="viewcode-back" href="../../api-ref/clients/opensearch_client.html#opensearchpy.OpenSearch.close">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Closes the Transport and all internal connections&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
 
     <span class="c1"># AUTO-GENERATED-API-DEFINITIONS #</span>
 <div class="viewcode-block" id="OpenSearch.ping"><a class="viewcode-back" href="../../api-ref/clients/opensearch_client.html#opensearchpy.OpenSearch.ping">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">ping</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">ping</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -376,7 +376,7 @@
             <span class="k">return</span> <span class="kc">False</span></div>
 
 <div class="viewcode-block" id="OpenSearch.info"><a class="viewcode-back" href="../../api-ref/clients/opensearch_client.html#opensearchpy.OpenSearch.info">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">info</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">info</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -416,7 +416,7 @@
         <span class="s2">&quot;version_type&quot;</span><span class="p">,</span>
         <span class="s2">&quot;wait_for_active_shards&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">create</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">index</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="nb">id</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
@@ -501,7 +501,7 @@
         <span class="s2">&quot;version_type&quot;</span><span class="p">,</span>
         <span class="s2">&quot;wait_for_active_shards&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">index</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">index</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">index</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">body</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
@@ -593,7 +593,7 @@
         <span class="s2">&quot;timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;wait_for_active_shards&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">bulk</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">bulk</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">body</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">index</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -660,7 +660,7 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="OpenSearch.clear_scroll"><a class="viewcode-back" href="../../api-ref/clients/opensearch_client.html#opensearchpy.OpenSearch.clear_scroll">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">clear_scroll</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">clear_scroll</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">body</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">scroll_id</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -720,7 +720,7 @@
         <span class="s2">&quot;source&quot;</span><span class="p">,</span>
         <span class="s2">&quot;terminate_after&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">count</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">count</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">body</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">index</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -808,7 +808,7 @@
         <span class="s2">&quot;version_type&quot;</span><span class="p">,</span>
         <span class="s2">&quot;wait_for_active_shards&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">delete</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">index</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="nb">id</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
@@ -903,7 +903,7 @@
         <span class="s2">&quot;wait_for_active_shards&quot;</span><span class="p">,</span>
         <span class="s2">&quot;wait_for_completion&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">delete_by_query</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">delete_by_query</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">index</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">body</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
@@ -1025,7 +1025,7 @@
 <div class="viewcode-block" id="OpenSearch.delete_by_query_rethrottle"><a class="viewcode-back" href="../../api-ref/clients/opensearch_client.html#opensearchpy.OpenSearch.delete_by_query_rethrottle">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;requests_per_second&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">delete_by_query_rethrottle</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">delete_by_query_rethrottle</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">task_id</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -1072,7 +1072,7 @@
         <span class="s2">&quot;source&quot;</span><span class="p">,</span>
         <span class="s2">&quot;timeout&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">delete_script</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">delete_script</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="nb">id</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -1129,7 +1129,7 @@
         <span class="s2">&quot;version&quot;</span><span class="p">,</span>
         <span class="s2">&quot;version_type&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">exists</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">exists</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">index</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="nb">id</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
@@ -1203,7 +1203,7 @@
         <span class="s2">&quot;version&quot;</span><span class="p">,</span>
         <span class="s2">&quot;version_type&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">exists_source</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">exists_source</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">index</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="nb">id</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
@@ -1278,7 +1278,7 @@
         <span class="s2">&quot;source&quot;</span><span class="p">,</span>
         <span class="s2">&quot;stored_fields&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">explain</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">explain</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">index</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="nb">id</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
@@ -1353,7 +1353,7 @@
         <span class="s2">&quot;pretty&quot;</span><span class="p">,</span>
         <span class="s2">&quot;source&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">field_caps</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">field_caps</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">body</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">index</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -1423,7 +1423,7 @@
         <span class="s2">&quot;version&quot;</span><span class="p">,</span>
         <span class="s2">&quot;version_type&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">index</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="nb">id</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
@@ -1490,7 +1490,7 @@
         <span class="s2">&quot;pretty&quot;</span><span class="p">,</span>
         <span class="s2">&quot;source&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">get_script</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_script</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="nb">id</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -1542,7 +1542,7 @@
         <span class="s2">&quot;version&quot;</span><span class="p">,</span>
         <span class="s2">&quot;version_type&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">get_source</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_source</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">index</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="nb">id</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
@@ -1613,7 +1613,7 @@
         <span class="s2">&quot;source&quot;</span><span class="p">,</span>
         <span class="s2">&quot;stored_fields&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">mget</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">mget</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">body</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">index</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -1688,7 +1688,7 @@
         <span class="s2">&quot;source&quot;</span><span class="p">,</span>
         <span class="s2">&quot;typed_keys&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">msearch</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">msearch</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">body</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">index</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -1763,7 +1763,7 @@
         <span class="s2">&quot;source&quot;</span><span class="p">,</span>
         <span class="s2">&quot;typed_keys&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">msearch_template</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">msearch_template</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">body</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">index</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -1835,7 +1835,7 @@
         <span class="s2">&quot;version&quot;</span><span class="p">,</span>
         <span class="s2">&quot;version_type&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">mtermvectors</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">mtermvectors</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">body</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">index</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -1906,7 +1906,7 @@
         <span class="s2">&quot;source&quot;</span><span class="p">,</span>
         <span class="s2">&quot;timeout&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">put_script</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">put_script</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="nb">id</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">body</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
@@ -1969,7 +1969,7 @@
         <span class="s2">&quot;search_type&quot;</span><span class="p">,</span>
         <span class="s2">&quot;source&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">rank_eval</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">rank_eval</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">body</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">index</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -2038,7 +2038,7 @@
         <span class="s2">&quot;wait_for_active_shards&quot;</span><span class="p">,</span>
         <span class="s2">&quot;wait_for_completion&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">reindex</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">reindex</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">body</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -2094,7 +2094,7 @@
 <div class="viewcode-block" id="OpenSearch.reindex_rethrottle"><a class="viewcode-back" href="../../api-ref/clients/opensearch_client.html#opensearchpy.OpenSearch.reindex_rethrottle">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;requests_per_second&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">reindex_rethrottle</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">reindex_rethrottle</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">task_id</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -2131,7 +2131,7 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="OpenSearch.render_search_template"><a class="viewcode-back" href="../../api-ref/clients/opensearch_client.html#opensearchpy.OpenSearch.render_search_template">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">render_search_template</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">render_search_template</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">body</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="nb">id</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -2167,7 +2167,7 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="OpenSearch.scripts_painless_execute"><a class="viewcode-back" href="../../api-ref/clients/opensearch_client.html#opensearchpy.OpenSearch.scripts_painless_execute">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">scripts_painless_execute</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">scripts_painless_execute</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">body</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -2208,7 +2208,7 @@
         <span class="s2">&quot;scroll&quot;</span><span class="p">,</span>
         <span class="s2">&quot;source&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">scroll</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">scroll</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">body</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">scroll_id</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -2304,7 +2304,7 @@
         <span class="s2">&quot;typed_keys&quot;</span><span class="p">,</span>
         <span class="s2">&quot;version&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">search</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">search</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">body</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">index</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -2530,7 +2530,7 @@
         <span class="s2">&quot;routing&quot;</span><span class="p">,</span>
         <span class="s2">&quot;source&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">search_shards</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">search_shards</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">index</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -2599,7 +2599,7 @@
         <span class="s2">&quot;source&quot;</span><span class="p">,</span>
         <span class="s2">&quot;typed_keys&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">search_template</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">search_template</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">body</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">index</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -2687,7 +2687,7 @@
         <span class="s2">&quot;version&quot;</span><span class="p">,</span>
         <span class="s2">&quot;version_type&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">termvectors</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">termvectors</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">index</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">body</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -2770,7 +2770,7 @@
         <span class="s2">&quot;timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;wait_for_active_shards&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">update</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">index</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="nb">id</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
@@ -2881,7 +2881,7 @@
         <span class="s2">&quot;wait_for_active_shards&quot;</span><span class="p">,</span>
         <span class="s2">&quot;wait_for_completion&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">update_by_query</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">update_by_query</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">index</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">body</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -3007,7 +3007,7 @@
 <div class="viewcode-block" id="OpenSearch.update_by_query_rethrottle"><a class="viewcode-back" href="../../api-ref/clients/opensearch_client.html#opensearchpy.OpenSearch.update_by_query_rethrottle">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;requests_per_second&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">update_by_query_rethrottle</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">update_by_query_rethrottle</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">task_id</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -3045,7 +3045,7 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="OpenSearch.get_script_context"><a class="viewcode-back" href="../../api-ref/clients/opensearch_client.html#opensearchpy.OpenSearch.get_script_context">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">get_script_context</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_script_context</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -3072,7 +3072,7 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="OpenSearch.get_script_languages"><a class="viewcode-back" href="../../api-ref/clients/opensearch_client.html#opensearchpy.OpenSearch.get_script_languages">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">get_script_languages</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_script_languages</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -3110,7 +3110,7 @@
         <span class="s2">&quot;routing&quot;</span><span class="p">,</span>
         <span class="s2">&quot;source&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">create_pit</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">create_pit</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">index</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -3154,7 +3154,7 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="OpenSearch.delete_all_pits"><a class="viewcode-back" href="../../api-ref/clients/opensearch_client.html#opensearchpy.OpenSearch.delete_all_pits">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">delete_all_pits</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">delete_all_pits</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -3181,7 +3181,7 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="OpenSearch.delete_pit"><a class="viewcode-back" href="../../api-ref/clients/opensearch_client.html#opensearchpy.OpenSearch.delete_pit">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">delete_pit</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">delete_pit</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">body</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -3214,7 +3214,7 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="OpenSearch.get_all_pits"><a class="viewcode-back" href="../../api-ref/clients/opensearch_client.html#opensearchpy.OpenSearch.get_all_pits">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">get_all_pits</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_all_pits</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -3258,7 +3258,7 @@
         <span class="s2">&quot;timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;wait_for_active_shards&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">bulk_stream</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">bulk_stream</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">body</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">index</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>

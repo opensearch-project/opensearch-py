@@ -6,7 +6,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>opensearchpy.client.snapshot &mdash; OpenSearch Python Client  documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=7f485136" />
@@ -116,12 +116,12 @@
 <span class="c1"># -----------------------------------------------------------------------------------------+</span>
 
 
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span>
 
-<span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">SKIP_IN_PATH</span><span class="p">,</span> <span class="n">NamespacedClient</span><span class="p">,</span> <span class="n">_make_path</span><span class="p">,</span> <span class="n">query_params</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">SKIP_IN_PATH</span><span class="p">,</span> <span class="n">NamespacedClient</span><span class="p">,</span> <span class="n">_make_path</span><span class="p">,</span> <span class="n">query_params</span>
 
 
-<div class="viewcode-block" id="SnapshotClient"><a class="viewcode-back" href="../../../api-ref/clients/snapshot_client.html#opensearchpy.client.snapshot.SnapshotClient">[docs]</a><span class="k">class</span> <span class="nc">SnapshotClient</span><span class="p">(</span><span class="n">NamespacedClient</span><span class="p">):</span>
+<div class="viewcode-block" id="SnapshotClient"><a class="viewcode-back" href="../../../api-ref/clients/snapshot_client.html#opensearchpy.client.snapshot.SnapshotClient">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">SnapshotClient</span><span class="p">(</span><span class="n">NamespacedClient</span><span class="p">):</span>
 <div class="viewcode-block" id="SnapshotClient.create"><a class="viewcode-back" href="../../../api-ref/clients/snapshot_client.html#opensearchpy.client.snapshot.SnapshotClient.create">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
@@ -132,7 +132,7 @@
         <span class="s2">&quot;source&quot;</span><span class="p">,</span>
         <span class="s2">&quot;wait_for_completion&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">create</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">repository</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">snapshot</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
@@ -191,7 +191,7 @@
         <span class="s2">&quot;pretty&quot;</span><span class="p">,</span>
         <span class="s2">&quot;source&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">delete</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">repository</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">snapshot</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
@@ -244,7 +244,7 @@
         <span class="s2">&quot;source&quot;</span><span class="p">,</span>
         <span class="s2">&quot;verbose&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">repository</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">snapshot</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
@@ -308,7 +308,7 @@
         <span class="s2">&quot;source&quot;</span><span class="p">,</span>
         <span class="s2">&quot;timeout&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">delete_repository</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">delete_repository</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">repository</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -359,7 +359,7 @@
         <span class="s2">&quot;pretty&quot;</span><span class="p">,</span>
         <span class="s2">&quot;source&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">get_repository</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_repository</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">repository</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -405,7 +405,7 @@
         <span class="s2">&quot;timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;verify&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">create_repository</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">create_repository</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">repository</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">body</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
@@ -460,7 +460,7 @@
         <span class="s2">&quot;source&quot;</span><span class="p">,</span>
         <span class="s2">&quot;wait_for_completion&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">restore</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">restore</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">repository</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">snapshot</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
@@ -517,7 +517,7 @@
         <span class="s2">&quot;pretty&quot;</span><span class="p">,</span>
         <span class="s2">&quot;source&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">status</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">status</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">repository</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">snapshot</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -568,7 +568,7 @@
         <span class="s2">&quot;source&quot;</span><span class="p">,</span>
         <span class="s2">&quot;timeout&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">verify_repository</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">verify_repository</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">repository</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -618,7 +618,7 @@
         <span class="s2">&quot;source&quot;</span><span class="p">,</span>
         <span class="s2">&quot;timeout&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">cleanup_repository</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">cleanup_repository</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">repository</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -667,7 +667,7 @@
         <span class="s2">&quot;pretty&quot;</span><span class="p">,</span>
         <span class="s2">&quot;source&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">clone</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">clone</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">repository</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">snapshot</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>

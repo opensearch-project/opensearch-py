@@ -7,7 +7,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>faceted_search &mdash; OpenSearch Python Client  documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=7f485136" />
@@ -120,7 +120,7 @@
 <p>Abstraction for creating faceted navigation searches that takes care of
 composing the queries, aggregations and filters as needed as well as
 presenting the results in an easy-to-consume fashion:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">BlogSearch</span><span class="p">(</span><span class="n">FacetedSearch</span><span class="p">):</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">BlogSearch</span><span class="p">(</span><span class="n">FacetedSearch</span><span class="p">):</span>
     <span class="n">index</span> <span class="o">=</span> <span class="s1">&#39;blogs&#39;</span>
     <span class="n">doc_types</span> <span class="o">=</span> <span class="p">[</span><span class="n">Blog</span><span class="p">,</span> <span class="n">Post</span><span class="p">]</span>
     <span class="n">fields</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;title^5&#39;</span><span class="p">,</span> <span class="s1">&#39;category&#39;</span><span class="p">,</span> <span class="s1">&#39;description&#39;</span><span class="p">,</span> <span class="s1">&#39;body&#39;</span><span class="p">]</span>
@@ -131,7 +131,7 @@ presenting the results in an easy-to-consume fashion:</p>
         <span class="s1">&#39;weekly_posts&#39;</span><span class="p">:</span> <span class="n">DateHistogramFacet</span><span class="p">(</span><span class="n">field</span><span class="o">=</span><span class="s1">&#39;published_from&#39;</span><span class="p">,</span> <span class="n">interval</span><span class="o">=</span><span class="s1">&#39;week&#39;</span><span class="p">)</span>
     <span class="p">}</span>
 
-    <span class="k">def</span> <span class="nf">search</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">search</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="s1">&#39; Override search to add your own filters &#39;</span>
         <span class="n">s</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">BlogSearch</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">search</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">s</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="s1">&#39;term&#39;</span><span class="p">,</span> <span class="n">published</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>

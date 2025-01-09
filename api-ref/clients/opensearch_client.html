@@ -7,7 +7,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>OpenSearch Client &mdash; OpenSearch Python Client  documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=7f485136" />
@@ -215,10 +215,10 @@ in conflict with other options:</p>
 <p>By default, <a class="reference external" href="https://github.com/opensearch-project/opensearch-py/blob/master/opensearch/serializer.py#L24">JSONSerializer</a>
 is used to encode all outgoing requests.
 However, you can implement your own custom serializer:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">opensearchpy.serializer</span> <span class="kn">import</span> <span class="n">JSONSerializer</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">opensearchpy.serializer</span><span class="w"> </span><span class="kn">import</span> <span class="n">JSONSerializer</span>
 
-<span class="k">class</span> <span class="nc">SetEncoder</span><span class="p">(</span><span class="n">JSONSerializer</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">default</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">SetEncoder</span><span class="p">(</span><span class="n">JSONSerializer</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">default</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="nb">set</span><span class="p">):</span>
             <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">Something</span><span class="p">):</span>
@@ -2805,10 +2805,10 @@ in conflict with other options:</p>
 <p>By default, <a class="reference external" href="https://github.com/opensearch-project/opensearch-py/blob/master/opensearch/serializer.py#L24">JSONSerializer</a>
 is used to encode all outgoing requests.
 However, you can implement your own custom serializer:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">opensearchpy.serializer</span> <span class="kn">import</span> <span class="n">JSONSerializer</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">opensearchpy.serializer</span><span class="w"> </span><span class="kn">import</span> <span class="n">JSONSerializer</span>
 
-<span class="k">class</span> <span class="nc">SetEncoder</span><span class="p">(</span><span class="n">JSONSerializer</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">default</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">SetEncoder</span><span class="p">(</span><span class="n">JSONSerializer</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">default</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="nb">set</span><span class="p">):</span>
             <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">Something</span><span class="p">):</span>

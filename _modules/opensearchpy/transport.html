@@ -6,7 +6,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>opensearchpy.transport &mdash; OpenSearch Python Client  documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=7f485136" />
@@ -106,24 +106,24 @@
 <span class="c1">#  under the License.</span>
 
 
-<span class="kn">import</span> <span class="nn">time</span>
-<span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">chain</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Collection</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Type</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">itertools</span><span class="w"> </span><span class="kn">import</span> <span class="n">chain</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Collection</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Type</span><span class="p">,</span> <span class="n">Union</span>
 
-<span class="kn">from</span> <span class="nn">opensearchpy.metrics</span> <span class="kn">import</span> <span class="n">Metrics</span><span class="p">,</span> <span class="n">MetricsNone</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">opensearchpy.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">Metrics</span><span class="p">,</span> <span class="n">MetricsNone</span>
 
-<span class="kn">from</span> <span class="nn">.connection</span> <span class="kn">import</span> <span class="n">Connection</span><span class="p">,</span> <span class="n">Urllib3HttpConnection</span>
-<span class="kn">from</span> <span class="nn">.connection_pool</span> <span class="kn">import</span> <span class="n">ConnectionPool</span><span class="p">,</span> <span class="n">DummyConnectionPool</span><span class="p">,</span> <span class="n">EmptyConnectionPool</span>
-<span class="kn">from</span> <span class="nn">.exceptions</span> <span class="kn">import</span> <span class="p">(</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.connection</span><span class="w"> </span><span class="kn">import</span> <span class="n">Connection</span><span class="p">,</span> <span class="n">Urllib3HttpConnection</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.connection_pool</span><span class="w"> </span><span class="kn">import</span> <span class="n">ConnectionPool</span><span class="p">,</span> <span class="n">DummyConnectionPool</span><span class="p">,</span> <span class="n">EmptyConnectionPool</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="ne">ConnectionError</span><span class="p">,</span>
     <span class="n">ConnectionTimeout</span><span class="p">,</span>
     <span class="n">SerializationError</span><span class="p">,</span>
     <span class="n">TransportError</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">.serializer</span> <span class="kn">import</span> <span class="n">DEFAULT_SERIALIZERS</span><span class="p">,</span> <span class="n">Deserializer</span><span class="p">,</span> <span class="n">JSONSerializer</span><span class="p">,</span> <span class="n">Serializer</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.serializer</span><span class="w"> </span><span class="kn">import</span> <span class="n">DEFAULT_SERIALIZERS</span><span class="p">,</span> <span class="n">Deserializer</span><span class="p">,</span> <span class="n">JSONSerializer</span><span class="p">,</span> <span class="n">Serializer</span>
 
 
-<span class="k">def</span> <span class="nf">get_host_info</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_host_info</span><span class="p">(</span>
     <span class="n">node_info</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">host</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
@@ -145,7 +145,7 @@
     <span class="k">return</span> <span class="n">host</span>
 
 
-<div class="viewcode-block" id="Transport"><a class="viewcode-back" href="../../api-ref/transport.html#opensearchpy.Transport">[docs]</a><span class="k">class</span> <span class="nc">Transport</span><span class="p">:</span>
+<div class="viewcode-block" id="Transport"><a class="viewcode-back" href="../../api-ref/transport.html#opensearchpy.Transport">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">Transport</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Encapsulation of transport-related to logic. Handles instantiation of the</span>
 <span class="sd">    individual connections as well as creating a connection pool to hold them.</span>
@@ -176,7 +176,7 @@
     <span class="n">host_info_callback</span><span class="p">:</span> <span class="n">Any</span>
     <span class="n">metrics</span><span class="p">:</span> <span class="n">Metrics</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">hosts</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">connection_class</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Type</span><span class="p">[</span><span class="n">Connection</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -298,7 +298,7 @@
         <span class="k">if</span> <span class="n">sniff_on_start</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">sniff_hosts</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
 
-<div class="viewcode-block" id="Transport.add_connection"><a class="viewcode-back" href="../../api-ref/transport.html#opensearchpy.Transport.add_connection">[docs]</a>    <span class="k">def</span> <span class="nf">add_connection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">host</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="Transport.add_connection"><a class="viewcode-back" href="../../api-ref/transport.html#opensearchpy.Transport.add_connection">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">add_connection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">host</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Create a new :class:`~opensearchpy.Connection` instance and add it to the pool.</span>
 
@@ -307,7 +307,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">hosts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">host</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">set_connections</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">hosts</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Transport.set_connections"><a class="viewcode-back" href="../../api-ref/transport.html#opensearchpy.Transport.set_connections">[docs]</a>    <span class="k">def</span> <span class="nf">set_connections</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">hosts</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="Transport.set_connections"><a class="viewcode-back" href="../../api-ref/transport.html#opensearchpy.Transport.set_connections">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">set_connections</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">hosts</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Instantiate all the connections and create new connection pool to hold them.</span>
 <span class="sd">        Tries to identify unchanged hosts and re-use existing</span>
@@ -317,7 +317,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="c1"># construct the connections</span>
-        <span class="k">def</span> <span class="nf">_create_connection</span><span class="p">(</span><span class="n">host</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">_create_connection</span><span class="p">(</span><span class="n">host</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
             <span class="c1"># if this is not the initial setup look at the existing connection</span>
             <span class="c1"># options and identify connections that haven&#39;t changed and can be</span>
             <span class="c1"># kept around.</span>
@@ -342,7 +342,7 @@
                 <span class="n">connections</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span>
             <span class="p">)</span></div>
 
-<div class="viewcode-block" id="Transport.get_connection"><a class="viewcode-back" href="../../api-ref/transport.html#opensearchpy.Transport.get_connection">[docs]</a>    <span class="k">def</span> <span class="nf">get_connection</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<div class="viewcode-block" id="Transport.get_connection"><a class="viewcode-back" href="../../api-ref/transport.html#opensearchpy.Transport.get_connection">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_connection</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Retrieve a :class:`~opensearchpy.Connection` instance from the</span>
 <span class="sd">        :class:`~opensearchpy.ConnectionPool` instance.</span>
@@ -352,7 +352,7 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">sniff_hosts</span><span class="p">()</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">connection_pool</span><span class="o">.</span><span class="n">get_connection</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="Transport._get_sniff_data"><a class="viewcode-back" href="../../api-ref/transport.html#opensearchpy.Transport._get_sniff_data">[docs]</a>    <span class="k">def</span> <span class="nf">_get_sniff_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">initial</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<div class="viewcode-block" id="Transport._get_sniff_data"><a class="viewcode-back" href="../../api-ref/transport.html#opensearchpy.Transport._get_sniff_data">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">_get_sniff_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">initial</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Perform the request to get sniffing information. Returns a list of</span>
 <span class="sd">        dictionaries (one per node) containing all the information from the</span>
@@ -400,7 +400,7 @@
 
         <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">node_info</span><span class="p">[</span><span class="s2">&quot;nodes&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">())</span></div>
 
-    <span class="k">def</span> <span class="nf">_get_host_info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">host_info</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_get_host_info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">host_info</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="n">host</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="n">address</span> <span class="o">=</span> <span class="n">host_info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;http&quot;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;publish_address&quot;</span><span class="p">)</span>
 
@@ -421,7 +421,7 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">host_info_callback</span><span class="p">(</span><span class="n">host_info</span><span class="p">,</span> <span class="n">host</span><span class="p">)</span>
 
-<div class="viewcode-block" id="Transport.sniff_hosts"><a class="viewcode-back" href="../../api-ref/transport.html#opensearchpy.Transport.sniff_hosts">[docs]</a>    <span class="k">def</span> <span class="nf">sniff_hosts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">initial</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<div class="viewcode-block" id="Transport.sniff_hosts"><a class="viewcode-back" href="../../api-ref/transport.html#opensearchpy.Transport.sniff_hosts">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">sniff_hosts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">initial</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Obtain a list of nodes from the cluster and create a new connection</span>
 <span class="sd">        pool using the information retrieved.</span>
@@ -444,7 +444,7 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">set_connections</span><span class="p">(</span><span class="n">hosts</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Transport.mark_dead"><a class="viewcode-back" href="../../api-ref/transport.html#opensearchpy.Transport.mark_dead">[docs]</a>    <span class="k">def</span> <span class="nf">mark_dead</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">connection</span><span class="p">:</span> <span class="n">Connection</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="Transport.mark_dead"><a class="viewcode-back" href="../../api-ref/transport.html#opensearchpy.Transport.mark_dead">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">mark_dead</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">connection</span><span class="p">:</span> <span class="n">Connection</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Mark a connection as dead (failed) in the connection pool. If sniffing</span>
 <span class="sd">        on failure is enabled this will initiate the sniffing process.</span>
@@ -456,7 +456,7 @@
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">sniff_on_connection_fail</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">sniff_hosts</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="Transport.perform_request"><a class="viewcode-back" href="../../api-ref/transport.html#opensearchpy.Transport.perform_request">[docs]</a>    <span class="k">def</span> <span class="nf">perform_request</span><span class="p">(</span>
+<div class="viewcode-block" id="Transport.perform_request"><a class="viewcode-back" href="../../api-ref/transport.html#opensearchpy.Transport.perform_request">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">perform_request</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">method</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
         <span class="n">url</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
@@ -550,13 +550,13 @@
                     <span class="p">)</span>
                 <span class="k">return</span> <span class="n">data</span></div>
 
-<div class="viewcode-block" id="Transport.close"><a class="viewcode-back" href="../../api-ref/transport.html#opensearchpy.Transport.close">[docs]</a>    <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<div class="viewcode-block" id="Transport.close"><a class="viewcode-back" href="../../api-ref/transport.html#opensearchpy.Transport.close">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Explicitly closes connections</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">connection_pool</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="Transport._resolve_request_args"><a class="viewcode-back" href="../../api-ref/transport.html#opensearchpy.Transport._resolve_request_args">[docs]</a>    <span class="k">def</span> <span class="nf">_resolve_request_args</span><span class="p">(</span>
+<div class="viewcode-block" id="Transport._resolve_request_args"><a class="viewcode-back" href="../../api-ref/transport.html#opensearchpy.Transport._resolve_request_args">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">_resolve_request_args</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">method</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>

@@ -6,7 +6,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>opensearchpy.exceptions &mdash; OpenSearch Python Client  documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=7f485136" />
@@ -106,7 +106,7 @@
 <span class="c1">#  under the License.</span>
 
 
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Type</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Type</span><span class="p">,</span> <span class="n">Union</span>
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
     <span class="s2">&quot;ImproperlyConfigured&quot;</span><span class="p">,</span>
@@ -130,27 +130,27 @@
 <span class="p">]</span>
 
 
-<div class="viewcode-block" id="ImproperlyConfigured"><a class="viewcode-back" href="../../api-ref/exceptions.html#opensearchpy.ImproperlyConfigured">[docs]</a><span class="k">class</span> <span class="nc">ImproperlyConfigured</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<div class="viewcode-block" id="ImproperlyConfigured"><a class="viewcode-back" href="../../api-ref/exceptions.html#opensearchpy.ImproperlyConfigured">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">ImproperlyConfigured</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Exception raised when the config passed to the client is inconsistent or invalid.</span>
 <span class="sd">    &quot;&quot;&quot;</span></div>
 
 
-<div class="viewcode-block" id="OpenSearchException"><a class="viewcode-back" href="../../api-ref/exceptions.html#opensearchpy.OpenSearchException">[docs]</a><span class="k">class</span> <span class="nc">OpenSearchException</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<div class="viewcode-block" id="OpenSearchException"><a class="viewcode-back" href="../../api-ref/exceptions.html#opensearchpy.OpenSearchException">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">OpenSearchException</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Base class for all exceptions raised by this package&#39;s operations (doesn&#39;t</span>
 <span class="sd">    apply to :class:`~opensearchpy.ImproperlyConfigured`).</span>
 <span class="sd">    &quot;&quot;&quot;</span></div>
 
 
-<div class="viewcode-block" id="SerializationError"><a class="viewcode-back" href="../../api-ref/exceptions.html#opensearchpy.SerializationError">[docs]</a><span class="k">class</span> <span class="nc">SerializationError</span><span class="p">(</span><span class="n">OpenSearchException</span><span class="p">):</span>
+<div class="viewcode-block" id="SerializationError"><a class="viewcode-back" href="../../api-ref/exceptions.html#opensearchpy.SerializationError">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">SerializationError</span><span class="p">(</span><span class="n">OpenSearchException</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Data passed in failed to serialize properly in the ``Serializer`` being</span>
 <span class="sd">    used.</span>
 <span class="sd">    &quot;&quot;&quot;</span></div>
 
 
-<div class="viewcode-block" id="TransportError"><a class="viewcode-back" href="../../api-ref/exceptions.html#opensearchpy.TransportError">[docs]</a><span class="k">class</span> <span class="nc">TransportError</span><span class="p">(</span><span class="n">OpenSearchException</span><span class="p">):</span>
+<div class="viewcode-block" id="TransportError"><a class="viewcode-back" href="../../api-ref/exceptions.html#opensearchpy.TransportError">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">TransportError</span><span class="p">(</span><span class="n">OpenSearchException</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Exception raised when OpenSearch returns a non-OK (&gt;=400) HTTP status code. Or when</span>
 <span class="sd">    an actual connection error happens; in that case the ``status_code`` will</span>
@@ -158,7 +158,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">status_code</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">status_code</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        The HTTP status code of the response that precipitated the error or</span>
 <span class="sd">        ``&#39;N/A&#39;`` if not applicable.</span>
@@ -166,19 +166,19 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># type: ignore</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">error</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">error</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;A string error message.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># type: ignore</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">info</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="ne">Exception</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">info</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="ne">Exception</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Dict of returned error info from OpenSearch, where available, underlying</span>
 <span class="sd">        exception when not.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
 
-<div class="viewcode-block" id="TransportError.__str__"><a class="viewcode-back" href="../../api-ref/exceptions.html#opensearchpy.TransportError.__str__">[docs]</a>    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<div class="viewcode-block" id="TransportError.__str__"><a class="viewcode-back" href="../../api-ref/exceptions.html#opensearchpy.TransportError.__str__">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="n">cause</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">info</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">info</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span> <span class="ow">and</span> <span class="s2">&quot;error&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">info</span><span class="p">:</span>
@@ -204,14 +204,14 @@
         <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">(</span><span class="si">{</span><span class="n">msg</span><span class="si">}</span><span class="s2">)&quot;</span></div></div>
 
 
-<div class="viewcode-block" id="ConnectionError"><a class="viewcode-back" href="../../api-ref/exceptions.html#opensearchpy.ConnectionError">[docs]</a><span class="k">class</span> <span class="nc">ConnectionError</span><span class="p">(</span><span class="n">TransportError</span><span class="p">):</span>
+<div class="viewcode-block" id="ConnectionError"><a class="viewcode-back" href="../../api-ref/exceptions.html#opensearchpy.ConnectionError">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">ConnectionError</span><span class="p">(</span><span class="n">TransportError</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Error raised when there was an exception while talking to OpenSearch. Original</span>
 <span class="sd">    exception from the underlying :class:`~opensearchpy.Connection`</span>
 <span class="sd">    implementation is available as ``.info``.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="ConnectionError.__str__"><a class="viewcode-back" href="../../api-ref/exceptions.html#opensearchpy.ConnectionError.__str__">[docs]</a>    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<div class="viewcode-block" id="ConnectionError.__str__"><a class="viewcode-back" href="../../api-ref/exceptions.html#opensearchpy.ConnectionError.__str__">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="k">return</span> <span class="s2">&quot;ConnectionError(</span><span class="si">{}</span><span class="s2">) caused by: </span><span class="si">{}</span><span class="s2">(</span><span class="si">{}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">error</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span>
@@ -219,57 +219,57 @@
         <span class="p">)</span></div></div>
 
 
-<div class="viewcode-block" id="SSLError"><a class="viewcode-back" href="../../api-ref/exceptions.html#opensearchpy.SSLError">[docs]</a><span class="k">class</span> <span class="nc">SSLError</span><span class="p">(</span><span class="ne">ConnectionError</span><span class="p">):</span>
+<div class="viewcode-block" id="SSLError"><a class="viewcode-back" href="../../api-ref/exceptions.html#opensearchpy.SSLError">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">SSLError</span><span class="p">(</span><span class="ne">ConnectionError</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Error raised when encountering SSL errors.&quot;&quot;&quot;</span></div>
 
 
-<div class="viewcode-block" id="ConnectionTimeout"><a class="viewcode-back" href="../../api-ref/exceptions.html#opensearchpy.ConnectionTimeout">[docs]</a><span class="k">class</span> <span class="nc">ConnectionTimeout</span><span class="p">(</span><span class="ne">ConnectionError</span><span class="p">):</span>
+<div class="viewcode-block" id="ConnectionTimeout"><a class="viewcode-back" href="../../api-ref/exceptions.html#opensearchpy.ConnectionTimeout">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">ConnectionTimeout</span><span class="p">(</span><span class="ne">ConnectionError</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;A network timeout. Doesn&#39;t cause a node retry by default.&quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="ConnectionTimeout.__str__"><a class="viewcode-back" href="../../api-ref/exceptions.html#opensearchpy.ConnectionTimeout.__str__">[docs]</a>    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<div class="viewcode-block" id="ConnectionTimeout.__str__"><a class="viewcode-back" href="../../api-ref/exceptions.html#opensearchpy.ConnectionTimeout.__str__">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="k">return</span> <span class="s2">&quot;ConnectionTimeout caused by - </span><span class="si">{}</span><span class="s2">(</span><span class="si">{}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">info</span><span class="p">,</span>
         <span class="p">)</span></div></div>
 
 
-<div class="viewcode-block" id="NotFoundError"><a class="viewcode-back" href="../../api-ref/exceptions.html#opensearchpy.NotFoundError">[docs]</a><span class="k">class</span> <span class="nc">NotFoundError</span><span class="p">(</span><span class="n">TransportError</span><span class="p">):</span>
+<div class="viewcode-block" id="NotFoundError"><a class="viewcode-back" href="../../api-ref/exceptions.html#opensearchpy.NotFoundError">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">NotFoundError</span><span class="p">(</span><span class="n">TransportError</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Exception representing a 404 status code.&quot;&quot;&quot;</span></div>
 
 
-<div class="viewcode-block" id="ConflictError"><a class="viewcode-back" href="../../api-ref/exceptions.html#opensearchpy.ConflictError">[docs]</a><span class="k">class</span> <span class="nc">ConflictError</span><span class="p">(</span><span class="n">TransportError</span><span class="p">):</span>
+<div class="viewcode-block" id="ConflictError"><a class="viewcode-back" href="../../api-ref/exceptions.html#opensearchpy.ConflictError">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">ConflictError</span><span class="p">(</span><span class="n">TransportError</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Exception representing a 409 status code.&quot;&quot;&quot;</span></div>
 
 
-<div class="viewcode-block" id="RequestError"><a class="viewcode-back" href="../../api-ref/exceptions.html#opensearchpy.RequestError">[docs]</a><span class="k">class</span> <span class="nc">RequestError</span><span class="p">(</span><span class="n">TransportError</span><span class="p">):</span>
+<div class="viewcode-block" id="RequestError"><a class="viewcode-back" href="../../api-ref/exceptions.html#opensearchpy.RequestError">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">RequestError</span><span class="p">(</span><span class="n">TransportError</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Exception representing a 400 status code.&quot;&quot;&quot;</span></div>
 
 
-<div class="viewcode-block" id="AuthenticationException"><a class="viewcode-back" href="../../api-ref/exceptions.html#opensearchpy.AuthenticationException">[docs]</a><span class="k">class</span> <span class="nc">AuthenticationException</span><span class="p">(</span><span class="n">TransportError</span><span class="p">):</span>
+<div class="viewcode-block" id="AuthenticationException"><a class="viewcode-back" href="../../api-ref/exceptions.html#opensearchpy.AuthenticationException">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">AuthenticationException</span><span class="p">(</span><span class="n">TransportError</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Exception representing a 401 status code.&quot;&quot;&quot;</span></div>
 
 
-<div class="viewcode-block" id="AuthorizationException"><a class="viewcode-back" href="../../api-ref/exceptions.html#opensearchpy.AuthorizationException">[docs]</a><span class="k">class</span> <span class="nc">AuthorizationException</span><span class="p">(</span><span class="n">TransportError</span><span class="p">):</span>
+<div class="viewcode-block" id="AuthorizationException"><a class="viewcode-back" href="../../api-ref/exceptions.html#opensearchpy.AuthorizationException">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">AuthorizationException</span><span class="p">(</span><span class="n">TransportError</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Exception representing a 403 status code.&quot;&quot;&quot;</span></div>
 
 
-<div class="viewcode-block" id="OpenSearchDslException"><a class="viewcode-back" href="../../api-ref/exceptions.html#opensearchpy.OpenSearchDslException">[docs]</a><span class="k">class</span> <span class="nc">OpenSearchDslException</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<div class="viewcode-block" id="OpenSearchDslException"><a class="viewcode-back" href="../../api-ref/exceptions.html#opensearchpy.OpenSearchDslException">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">OpenSearchDslException</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Base class for all OpenSearchDsl exceptions&quot;&quot;&quot;</span></div>
 
 
-<div class="viewcode-block" id="UnknownDslObject"><a class="viewcode-back" href="../../api-ref/exceptions.html#opensearchpy.UnknownDslObject">[docs]</a><span class="k">class</span> <span class="nc">UnknownDslObject</span><span class="p">(</span><span class="n">OpenSearchDslException</span><span class="p">):</span>
+<div class="viewcode-block" id="UnknownDslObject"><a class="viewcode-back" href="../../api-ref/exceptions.html#opensearchpy.UnknownDslObject">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">UnknownDslObject</span><span class="p">(</span><span class="n">OpenSearchDslException</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Exception representing UnknownDSLObject&quot;&quot;&quot;</span></div>
 
 
-<div class="viewcode-block" id="ValidationException"><a class="viewcode-back" href="../../api-ref/exceptions.html#opensearchpy.ValidationException">[docs]</a><span class="k">class</span> <span class="nc">ValidationException</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="n">OpenSearchDslException</span><span class="p">):</span>
+<div class="viewcode-block" id="ValidationException"><a class="viewcode-back" href="../../api-ref/exceptions.html#opensearchpy.ValidationException">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">ValidationException</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="n">OpenSearchDslException</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Exception representing Validation Error&quot;&quot;&quot;</span></div>
 
 
-<div class="viewcode-block" id="IllegalOperation"><a class="viewcode-back" href="../../api-ref/exceptions.html#opensearchpy.IllegalOperation">[docs]</a><span class="k">class</span> <span class="nc">IllegalOperation</span><span class="p">(</span><span class="n">OpenSearchDslException</span><span class="p">):</span>
+<div class="viewcode-block" id="IllegalOperation"><a class="viewcode-back" href="../../api-ref/exceptions.html#opensearchpy.IllegalOperation">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">IllegalOperation</span><span class="p">(</span><span class="n">OpenSearchDslException</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Exception representing IllegalOperation&quot;&quot;&quot;</span></div>
 
 
-<div class="viewcode-block" id="OpenSearchWarning"><a class="viewcode-back" href="../../api-ref/exceptions.html#opensearchpy.OpenSearchWarning">[docs]</a><span class="k">class</span> <span class="nc">OpenSearchWarning</span><span class="p">(</span><span class="ne">Warning</span><span class="p">):</span>
+<div class="viewcode-block" id="OpenSearchWarning"><a class="viewcode-back" href="../../api-ref/exceptions.html#opensearchpy.OpenSearchWarning">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">OpenSearchWarning</span><span class="p">(</span><span class="ne">Warning</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Warning that is raised when a deprecated option</span>
 <span class="sd">    or incorrect usage is flagged via the &#39;Warning&#39; HTTP header.</span>
 <span class="sd">    &quot;&quot;&quot;</span></div>
