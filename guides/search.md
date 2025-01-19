@@ -268,9 +268,9 @@ search_body = {
 }
 
 # create a point in time
-pit = client.create_point_in_time(
+pit = client.create_pit(
   index = 'movies',
-  keep_alive = '1m'
+  params = {'keep_alive': '1m'}
 )
 
 # include pit info in the search body
@@ -288,14 +288,12 @@ page_1 = client.search(
   size = 2,
   body = pit_search_body
 )['hits']['hits']
-pit_search_body.update({'search_after':page_1[-1]['sort']})
+pit_search_body.update({'size': 2, 'search_after':page_1[-1]['sort']})
 page_2 = client.search(
-  size = 2,
   body = pit_search_body
 )['hits']['hits']
 pit_search_body.update({'search_after':page_2[-1]['sort']})
 page_3 = client.search(
-  size = 2,
   body = pit_search_body
 )['hits']['hits']
 
@@ -305,7 +303,7 @@ print([hit['_source']['title'] for hit in page_2])
 print([hit['_source']['title'] for hit in page_3])
 
 # delete the point in time
-client.delete_point_in_time(body = { 'pit_id': pit['pit_id'] })
+client.delete_pit(body = { 'pit_id': pit['pit_id'] })
 ```
 
 ## Cleanup
