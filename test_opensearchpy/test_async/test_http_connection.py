@@ -135,3 +135,17 @@ class TestAsyncHttpConnection:
             ),
             fingerprint=None,
         )
+
+    @pytest.mark.asyncio  # type: ignore
+    async def test_trust_env_default_off(self) -> None:
+        conn = AsyncHttpConnection(loop=get_running_loop())
+        await conn._create_aiohttp_session()
+        assert conn.session
+        assert not conn.session.trust_env
+
+    @pytest.mark.asyncio  # type: ignore
+    async def test_trust_env_on(self) -> None:
+        conn = AsyncHttpConnection(loop=get_running_loop(), trust_env=True)
+        await conn._create_aiohttp_session()
+        assert conn.session
+        assert conn.session.trust_env
