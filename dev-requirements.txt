@@ -21,5 +21,5 @@ twine
 
 # Requirements for testing [async] extra
 aiohttp>=3.9.4, <4
-pytest-asyncio<=0.25.1
+pytest-asyncio<=0.25.3
 unasync
