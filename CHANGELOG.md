@@ -17,6 +17,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 ### Dependencies
 - Bump `pytest-asyncio` from <=0.24.0 to <=0.25.1 ([#881](https://github.com/opensearch-project/opensearch-py/pull/881))
+- Bump `sphinx` from <8.2 to <8.3 ([#893](https://github.com/opensearch-project/opensearch-py/pull/893))
 
 ## [2.8.0]
 ### Added
