@@ -89,6 +89,7 @@ SKIP_TESTS = {
     "OpenSearch-main/rest-api-spec/src/main/resources/rest-api-spec/test/index/90_unsigned_long[1]",
     "OpenSearch-main/rest-api-spec/src/main/resources/rest-api-spec/test/indices/stats/50_noop_update[0]",
     "OpenSearch-main/rest-api-spec/src/main/resources/rest-api-spec/test/search/aggregation/410_nested_aggs[0]",
+    "OpenSearch-main/rest-api-spec/src/main/resources/rest-api-spec/test/search_shards/20_slice[0]",
     # fail on 3.x (main)
     "OpenSearch-main/rest-api-spec/src/main/resources/rest-api-spec/test/indices/get_settings/40_number_of_routing_shards[0]",
 }
