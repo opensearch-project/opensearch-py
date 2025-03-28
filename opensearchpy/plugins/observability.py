@@ -135,7 +135,7 @@ class ObservabilityClient(NamespacedClient):
         headers: Any = None,
     ) -> Any:
         """
-        Retrieves Local Stats of all observability objects.
+        Retrieves local stats of all observability objects.
 
 
         :arg error_trace: Whether to include the stack trace of returned
