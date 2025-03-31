@@ -54,6 +54,7 @@ class AsyncHttpConnection(AIOHttpConnection):
         http_compress: Optional[bool] = None,
         opaque_id: Optional[str] = None,
         loop: Any = None,
+        trust_env: Optional[bool] = False,
         **kwargs: Any,
     ) -> None:
         self.headers = {}
@@ -65,6 +66,7 @@ class AsyncHttpConnection(AIOHttpConnection):
             headers=headers,
             http_compress=http_compress,
             opaque_id=opaque_id,
+            trust_env=trust_env,
             **kwargs,
         )
 
@@ -290,6 +292,7 @@ class AsyncHttpConnection(AIOHttpConnection):
             connector=aiohttp.TCPConnector(
                 limit=self._limit, use_dns_cache=True, ssl=self._ssl_context
             ),
+            trust_env=self._trust_env,
         )
 
 
