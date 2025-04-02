@@ -2229,6 +2229,7 @@ class OpenSearch(Client):
         index: Any = None,
         params: Any = None,
         headers: Any = None,
+        http_method: str = "POST",  # New parameter to specify HTTP method
     ) -> Any:
         """
         Returns results matching a query.
@@ -2423,17 +2424,22 @@ class OpenSearch(Client):
             be prefixed by their respective types in the response.
         :arg version: If `true`, returns document version as part of a
             hit.
+        :arg http_method: HTTP method to use for the search request. Defaults to "POST".
+        Can be set to "GET" for read-only environments.
         """
         # from is a reserved word so it cannot be used, use from_ instead
         if "from_" in params:
             params["from"] = params.pop("from_")
 
+        if http_method not in ["GET", "POST"]:
+            raise ValueError("http_method must be either 'GET' or 'POST'")
+
         return self.transport.perform_request(
-            "POST",
-            _make_path(index, "_search"),
+            method=http_method,
+            url=_make_path(index, "_search"),
             params=params,
             headers=headers,
-            body=body,
+            body=body if http_method == "POST" else None,  # Only include body for POST
         )
 
     @query_params(
