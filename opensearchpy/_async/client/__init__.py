@@ -385,12 +385,11 @@ class AsyncOpenSearch(Client):
             The specified version must match the current version of the document for
             the request to succeed.
         :arg version_type: Specific version type: `external`,
-            `external_gte`. Valid choices are external, external_gte, force,
-            internal.
+            `external_gte`.
         :arg wait_for_active_shards: The number of shard copies that
             must be active before proceeding with the operation. Set to `all` or any
             positive integer up to the total number of shards in the index
-            (`number_of_replicas+1`). Valid choices are all, index-setting.
+            (`number_of_replicas+1`).
         """
         for param in (index, id, body):
             if param in SKIP_IN_PATH:
@@ -477,12 +476,11 @@ class AsyncOpenSearch(Client):
             The specified version must match the current version of the document for
             the request to succeed.
         :arg version_type: Specific version type: `external`,
-            `external_gte`. Valid choices are external, external_gte, force,
-            internal.
+            `external_gte`.
         :arg wait_for_active_shards: The number of shard copies that
             must be active before proceeding with the operation. Set to all or any
             positive integer up to the total number of shards in the index
-            (`number_of_replicas+1`). Valid choices are all, index-setting.
+            (`number_of_replicas+1`).
         """
         for param in (index, body):
             if param in SKIP_IN_PATH:
@@ -564,7 +562,7 @@ class AsyncOpenSearch(Client):
         :arg wait_for_active_shards: The number of shard copies that
             must be active before proceeding with the operation. Set to all or any
             positive integer up to the total number of shards in the index
-            (`number_of_replicas+1`). Valid choices are all, index-setting.
+            (`number_of_replicas+1`).
         """
         if body in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'body'.")
@@ -667,16 +665,12 @@ class AsyncOpenSearch(Client):
             specified.
         :arg default_operator: The default operator for query string
             query: `AND` or `OR`. This parameter can only be used when the `q` query
-            string parameter is specified. Valid choices are and, or.
+            string parameter is specified. Valid choices are and, AND, or, OR.
         :arg df: Field to use as default where no field prefix is given
             in the query string. This parameter can only be used when the `q` query
             string parameter is specified.
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
-        :arg expand_wildcards: Type of index that wildcard patterns can
-            match. If the request can target data streams, this argument determines
-            whether wildcard expressions match hidden data streams. Supports comma-
-            separated values, such as `open,hidden`.
         :arg filter_path: Used to reduce the response. This parameter
             takes a comma-separated list of filters. It supports using wildcards to
             match any field or part of a field’s name. You can also exclude fields
@@ -767,12 +761,11 @@ class AsyncOpenSearch(Client):
             The specified version must match the current version of the document for
             the request to succeed.
         :arg version_type: Specific version type: `external`,
-            `external_gte`. Valid choices are external, external_gte, force,
-            internal.
+            `external_gte`.
         :arg wait_for_active_shards: The number of shard copies that
             must be active before proceeding with the operation. Set to `all` or any
             positive integer up to the total number of shards in the index
-            (`number_of_replicas+1`). Valid choices are all, index-setting.
+            (`number_of_replicas+1`).
         """
         for param in (index, id):
             if param in SKIP_IN_PATH:
@@ -855,7 +848,7 @@ class AsyncOpenSearch(Client):
         :arg conflicts: What to do if delete by query hits version
             conflicts: `abort` or `proceed`. Valid choices are abort, proceed.
         :arg default_operator: The default operator for query string
-            query: `AND` or `OR`. Valid choices are and, or.
+            query: `AND` or `OR`. Valid choices are and, AND, or, OR.
         :arg df: Field to use as default where no field prefix is given
             in the query string.
         :arg error_trace: Whether to include the stack trace of returned
@@ -897,8 +890,7 @@ class AsyncOpenSearch(Client):
         :arg search_timeout: Explicit timeout for each search request.
             Defaults to no timeout.
         :arg search_type: The type of the search operation. Available
-            options: `query_then_fetch`, `dfs_query_then_fetch`. Valid choices are
-            dfs_query_then_fetch, query_then_fetch.
+            options: `query_then_fetch`, `dfs_query_then_fetch`.
         :arg size: Deprecated, use `max_docs` instead.
         :arg slices: The number of slices this task should be divided
             into. Valid choices are auto.
@@ -921,7 +913,7 @@ class AsyncOpenSearch(Client):
         :arg wait_for_active_shards: The number of shard copies that
             must be active before proceeding with the operation. Set to all or any
             positive integer up to the total number of shards in the index
-            (`number_of_replicas+1`). Valid choices are all, index-setting.
+            (`number_of_replicas+1`).
         :arg wait_for_completion: If `true`, the request blocks until
             the operation is complete. Default is True.
         """
@@ -1095,8 +1087,7 @@ class AsyncOpenSearch(Client):
             The specified version must match the current version of the document for
             the request to succeed.
         :arg version_type: Specific version type: `external`,
-            `external_gte`. Valid choices are external, external_gte, force,
-            internal.
+            `external_gte`.
         """
         for param in (index, id):
             if param in SKIP_IN_PATH:
@@ -1165,8 +1156,7 @@ class AsyncOpenSearch(Client):
             The specified version must match the current version of the document for
             the request to succeed.
         :arg version_type: Specific version type: `external`,
-            `external_gte`. Valid choices are external, external_gte, force,
-            internal.
+            `external_gte`.
         """
         for param in (index, id):
             if param in SKIP_IN_PATH:
@@ -1225,7 +1215,7 @@ class AsyncOpenSearch(Client):
             parameter can only be used when the `q` query string parameter is
             specified.
         :arg default_operator: The default operator for query string
-            query: `AND` or `OR`. Valid choices are and, or.
+            query: `AND` or `OR`. Valid choices are and, AND, or, OR.
         :arg df: Field to use as default where no field prefix is given
             in the query string. Default is _all.
         :arg error_trace: Whether to include the stack trace of returned
@@ -1389,8 +1379,7 @@ class AsyncOpenSearch(Client):
             The specified version must match the current version of the document for
             the request to succeed.
         :arg version_type: Specific version type: `internal`,
-            `external`, `external_gte`. Valid choices are external, external_gte,
-            force, internal.
+            `external`, `external_gte`.
         """
         for param in (index, id):
             if param in SKIP_IN_PATH:
@@ -1504,8 +1493,7 @@ class AsyncOpenSearch(Client):
             The specified version must match the current version of the document for
             the request to succeed.
         :arg version_type: Specific version type. One of `internal`,
-            `external`, `external_gte`. Valid choices are external, external_gte,
-            force, internal.
+            `external`, `external_gte`.
         """
         for param in (index, id):
             if param in SKIP_IN_PATH:
@@ -1651,8 +1639,7 @@ class AsyncOpenSearch(Client):
             returned as an integer in the response. Defaults to false, which returns
             an object. Default is false.
         :arg search_type: Indicates whether global term and document
-            frequencies should be used when scoring returned documents. Valid
-            choices are dfs_query_then_fetch, query_then_fetch.
+            frequencies should be used when scoring returned documents.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         :arg typed_keys: Specifies whether aggregation and suggester
@@ -1716,8 +1703,7 @@ class AsyncOpenSearch(Client):
             `hits.total` as an integer. If `false`, it returns `hits.total` as an
             object. Default is false.
         :arg search_type: The type of the search operation. Available
-            options: `query_then_fetch`, `dfs_query_then_fetch`. Valid choices are
-            dfs_query_then_fetch, query_then_fetch.
+            options: `query_then_fetch`, `dfs_query_then_fetch`.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         :arg typed_keys: If `true`, the response prefixes aggregation
@@ -1806,8 +1792,7 @@ class AsyncOpenSearch(Client):
             frequency and document frequency. Default is false.
         :arg version: If `true`, returns the document version as part of
             a hit.
-        :arg version_type: Specific version type. Valid choices are
-            external, external_gte, force, internal.
+        :arg version_type: Specific version type.
         """
         path = _make_path(index, "_mtermvectors")
 
@@ -1926,8 +1911,7 @@ class AsyncOpenSearch(Client):
             are not included in the response.
         :arg pretty: Whether to pretty format the returned JSON
             response. Default is false.
-        :arg search_type: Search operation type Valid choices are
-            dfs_query_then_fetch, query_then_fetch.
+        :arg search_type: Search operation type
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         """
@@ -1950,6 +1934,7 @@ class AsyncOpenSearch(Client):
         "pretty",
         "refresh",
         "requests_per_second",
+        "require_alias",
         "scroll",
         "slices",
         "source",
@@ -1999,7 +1984,7 @@ class AsyncOpenSearch(Client):
         :arg wait_for_active_shards: The number of shard copies that
             must be active before proceeding with the operation. Set to `all` or any
             positive integer up to the total number of shards in the index
-            (`number_of_replicas+1`). Valid choices are all, index-setting.
+            (`number_of_replicas+1`).
         :arg wait_for_completion: If `true`, the request blocks until
             the operation is complete. Default is True.
         """
@@ -2020,7 +2005,7 @@ class AsyncOpenSearch(Client):
         headers: Any = None,
     ) -> Any:
         """
-        Changes the number of requests per second for a particular Reindex operation.
+        Changes the number of requests per second for a particular reindex operation.
 
 
         :arg task_id: Identifier for the task.
@@ -2138,8 +2123,6 @@ class AsyncOpenSearch(Client):
         Allows to retrieve a large numbers of results from a single search request.
 
 
-        :arg body: The scroll ID if not passed by URL or query
-            parameter.
         :arg scroll_id: The scroll ID for scrolled search
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
@@ -2281,7 +2264,7 @@ class AsyncOpenSearch(Client):
             executing cross-cluster search (CCS) requests. Default is True.
         :arg default_operator: The default operator for query string
             query: AND or OR. This parameter can only be used when the `q` query
-            string parameter is specified. Valid choices are and, or.
+            string parameter is specified. Valid choices are and, AND, or, OR.
         :arg df: Field to use as default where no field prefix is given
             in the query string. This parameter can only be used when the q query
             string parameter is specified.
@@ -2371,8 +2354,7 @@ class AsyncOpenSearch(Client):
         :arg search_pipeline: Customizable sequence of processing stages
             applied to search queries.
         :arg search_type: How distributed term frequencies are
-            calculated for relevance scoring. Valid choices are
-            dfs_query_then_fetch, query_then_fetch.
+            calculated for relevance scoring.
         :arg seq_no_primary_term: If `true`, returns sequence number and
             primary term of the last modification of each hit.
         :arg size: Defines the number of hits to return. By default, you
@@ -2570,8 +2552,7 @@ class AsyncOpenSearch(Client):
             specific shard.
         :arg scroll: Specifies how long a consistent view of the index
             should be maintained for scrolled search.
-        :arg search_type: The type of the search operation. Valid
-            choices are dfs_query_then_fetch, query_then_fetch.
+        :arg search_type: The type of the search operation.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         :arg typed_keys: If `true`, the response prefixes aggregation
@@ -2658,8 +2639,7 @@ class AsyncOpenSearch(Client):
             frequency and document frequency. Default is false.
         :arg version: If `true`, returns the document version as part of
             a hit.
-        :arg version_type: Specific version type. Valid choices are
-            external, external_gte, force, internal.
+        :arg version_type: Specific version type.
         """
         if index in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'index'.")
@@ -2746,8 +2726,7 @@ class AsyncOpenSearch(Client):
         :arg wait_for_active_shards: The number of shard copies that
             must be active before proceeding with the operations. Set to 'all' or
             any positive integer up to the total number of shards in the index
-            (number_of_replicas+1). Defaults to 1 meaning the primary shard. Valid
-            choices are all, index-setting.
+            (number_of_replicas+1). Defaults to 1 meaning the primary shard.
         """
         for param in (index, id, body):
             if param in SKIP_IN_PATH:
@@ -2834,7 +2813,7 @@ class AsyncOpenSearch(Client):
         :arg conflicts: What to do if update by query hits version
             conflicts: `abort` or `proceed`. Valid choices are abort, proceed.
         :arg default_operator: The default operator for query string
-            query: `AND` or `OR`. Valid choices are and, or.
+            query: `AND` or `OR`. Valid choices are and, AND, or, OR.
         :arg df: Field to use as default where no field prefix is given
             in the query string.
         :arg error_trace: Whether to include the stack trace of returned
@@ -2880,8 +2859,7 @@ class AsyncOpenSearch(Client):
             operation. Default is 100.
         :arg search_timeout: Explicit timeout for each search request.
         :arg search_type: The type of the search operation. Available
-            options: `query_then_fetch`, `dfs_query_then_fetch`. Valid choices are
-            dfs_query_then_fetch, query_then_fetch.
+            options: `query_then_fetch`, `dfs_query_then_fetch`.
         :arg size: Deprecated, use `max_docs` instead.
         :arg slices: The number of slices this task should be divided
             into. Valid choices are auto.
@@ -2904,7 +2882,7 @@ class AsyncOpenSearch(Client):
         :arg wait_for_active_shards: The number of shard copies that
             must be active before proceeding with the operation. Set to `all` or any
             positive integer up to the total number of shards in the index
-            (`number_of_replicas+1`). Valid choices are all, index-setting.
+            (`number_of_replicas+1`).
         :arg wait_for_completion: If `true`, the request blocks until
             the operation is complete. Default is True.
         """
@@ -3235,7 +3213,7 @@ class AsyncOpenSearch(Client):
         :arg wait_for_active_shards: The number of shard copies that
             must be active before proceeding with the operation. Set to all or any
             positive integer up to the total number of shards in the index
-            (`number_of_replicas+1`). Valid choices are all, index-setting.
+            (`number_of_replicas+1`).
         """
         if body in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'body'.")

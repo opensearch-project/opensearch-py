@@ -236,7 +236,7 @@ class IndicesClient(NamespacedClient):
         :arg wait_for_active_shards: The number of shard copies that
             must be active before proceeding with the operation.  Set to `all` or
             any positive integer up to the total number of shards in the index
-            (`number_of_replicas+1`). Valid choices are all, index-setting.
+            (`number_of_replicas+1`).
         """
         if index in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'index'.")
@@ -300,7 +300,7 @@ class IndicesClient(NamespacedClient):
         :arg wait_for_active_shards: The number of shard copies that
             must be active before proceeding with the operation. Set to `all` or any
             positive integer up to the total number of shards in the index
-            (`number_of_replicas+1`). Valid choices are all, index-setting.
+            (`number_of_replicas+1`).
         :arg wait_for_completion: Should this request wait until the
             operation has completed before returning. Default is True.
         """
@@ -459,7 +459,7 @@ class IndicesClient(NamespacedClient):
         :arg wait_for_active_shards: The number of shard copies that
             must be active before proceeding with the operation. Set to `all` or any
             positive integer up to the total number of shards in the index
-            (`number_of_replicas+1`). Valid choices are all, index-setting.
+            (`number_of_replicas+1`).
         :arg wait_for_completion: Should this request wait until the
             operation has completed before returning. Default is True.
         """
@@ -531,7 +531,7 @@ class IndicesClient(NamespacedClient):
         :arg wait_for_active_shards: The number of shard copies that
             must be active before proceeding with the operation. Set to `all` or any
             positive integer up to the total number of shards in the index
-            (`number_of_replicas+1`). Valid choices are all, index-setting.
+            (`number_of_replicas+1`).
         """
         if index in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'index'.")
@@ -1638,7 +1638,7 @@ class IndicesClient(NamespacedClient):
             parameter can only be used when the `q` query string parameter is
             specified.
         :arg default_operator: The default operator for query string
-            query: `AND` or `OR`. Valid choices are and, or.
+            query: `AND` or `OR`. Valid choices are and, AND, or, OR.
         :arg df: Field to use as default where no field prefix is given
             in the query string. This parameter can only be used when the `q` query
             string parameter is specified.
@@ -2053,7 +2053,7 @@ class IndicesClient(NamespacedClient):
         :arg wait_for_active_shards: The number of shard copies that
             must be active before proceeding with the operation. Set to `all` or any
             positive integer up to the total number of shards in the index
-            (`number_of_replicas+1`). Valid choices are all, index-setting.
+            (`number_of_replicas+1`).
         :arg wait_for_completion: Should this request wait until the
             operation has completed before returning. Default is True.
         """
@@ -2128,7 +2128,7 @@ class IndicesClient(NamespacedClient):
         :arg wait_for_active_shards: The number of shard copies that
             must be active before proceeding with the operation. Set to `all` or any
             positive integer up to the total number of shards in the index
-            (`number_of_replicas+1`). Valid choices are all, index-setting.
+            (`number_of_replicas+1`).
         :arg wait_for_completion: Should this request wait until the
             operation has completed before returning. Default is True.
         """
@@ -2201,7 +2201,7 @@ class IndicesClient(NamespacedClient):
         :arg wait_for_active_shards: The number of shard copies that
             must be active before proceeding with the operation. Set to all or any
             positive integer up to the total number of shards in the index
-            (`number_of_replicas+1`). Valid choices are all, index-setting.
+            (`number_of_replicas+1`).
         """
         if alias in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'alias'.")
