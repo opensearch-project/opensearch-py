@@ -17,6 +17,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 ### Dependencies
 - Bump `pytest-asyncio` from <=0.24.0 to <=0.25.1 ([#881](https://github.com/opensearch-project/opensearch-py/pull/881))
+- Bump `setuptools` from 71.1.0 to 78.1.0 ([#900](https://github.com/opensearch-project/opensearch-py/pull/900))
 
 ## [2.8.0]
 ### Added
