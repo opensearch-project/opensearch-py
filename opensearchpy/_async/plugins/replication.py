@@ -29,7 +29,7 @@ class ReplicationClient(NamespacedClient):
         headers: Any = None,
     ) -> Any:
         """
-        Gets information about auto-follow activity and any replication rules
+        Retrieves information about any auto-follow activity and any replication rules
         configured on the specified cluster.
 
 
@@ -61,7 +61,7 @@ class ReplicationClient(NamespacedClient):
         headers: Any = None,
     ) -> Any:
         """
-        Automatically starts replication on indexes matching a specified pattern.
+        Automatically starts the replication on indexes matching a specified pattern.
 
 
         :arg error_trace: Whether to include the stack trace of returned
@@ -130,7 +130,8 @@ class ReplicationClient(NamespacedClient):
         headers: Any = None,
     ) -> Any:
         """
-        Gets information about follower (syncing) indexes on a specified cluster.
+        Retrieves information about any follower (syncing) indexes on a specified
+        cluster.
 
 
         :arg error_trace: Whether to include the stack trace of returned
@@ -160,7 +161,8 @@ class ReplicationClient(NamespacedClient):
         headers: Any = None,
     ) -> Any:
         """
-        Gets information about replicated leader indexes on a specified cluster.
+        Retrieves information about any replicated leader indexes on a specified
+        cluster.
 
 
         :arg error_trace: Whether to include the stack trace of returned
@@ -189,11 +191,11 @@ class ReplicationClient(NamespacedClient):
         headers: Any = None,
     ) -> Any:
         """
-        Pauses replication of the leader index.
+        Pauses the replication of the leader index.
 
 
-        :arg index: Name of the data stream, index, or index alias to
-            perform bulk actions on.
+        :arg index: The name of the data stream, index, or index alias
+            to perform bulk actions on.
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
         :arg filter_path: Used to reduce the response. This parameter
@@ -231,8 +233,8 @@ class ReplicationClient(NamespacedClient):
         Resumes replication of the leader index.
 
 
-        :arg index: Name of the data stream, index, or index alias to
-            perform bulk actions on.
+        :arg index: The name of the data stream, index, or index alias
+            to perform bulk actions on.
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
         :arg filter_path: Used to reduce the response. This parameter
@@ -267,12 +269,12 @@ class ReplicationClient(NamespacedClient):
         headers: Any = None,
     ) -> Any:
         """
-        Initiate replication of an index from the leader cluster to the follower
+        Initiates the replication of an index from the leader cluster to the follower
         cluster.
 
 
-        :arg index: Name of the data stream, index, or index alias to
-            perform bulk actions on.
+        :arg index: The name of the data stream, index, or index alias
+            to perform bulk actions on.
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
         :arg filter_path: Used to reduce the response. This parameter
@@ -306,11 +308,11 @@ class ReplicationClient(NamespacedClient):
         headers: Any = None,
     ) -> Any:
         """
-        Gets the status of index replication.
+        Retrieves the the status of an index replication.
 
 
-        :arg index: Name of the data stream, index, or index alias to
-            perform bulk actions on.
+        :arg index: The name of the data stream, index, or index alias
+            to perform bulk actions on.
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
         :arg filter_path: Used to reduce the response. This parameter
@@ -343,11 +345,11 @@ class ReplicationClient(NamespacedClient):
         headers: Any = None,
     ) -> Any:
         """
-        Terminates replication and converts the follower index to a standard index.
+        Terminates the replication and converts the follower index to a standard index.
 
 
-        :arg index: Name of the data stream, index, or index alias to
-            perform bulk actions on.
+        :arg index: The name of the data stream, index, or index alias
+            to perform bulk actions on.
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
         :arg filter_path: Used to reduce the response. This parameter
@@ -382,11 +384,11 @@ class ReplicationClient(NamespacedClient):
         headers: Any = None,
     ) -> Any:
         """
-        Updates settings on the follower index.
+        Updates any settings on the follower index.
 
 
-        :arg index: Name of the data stream, index, or index alias to
-            perform bulk actions on.
+        :arg index: The name of the data stream, index, or index alias
+            to perform bulk actions on.
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
         :arg filter_path: Used to reduce the response. This parameter
