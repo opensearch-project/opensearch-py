@@ -30,10 +30,10 @@ class QueryClient(NamespacedClient):
         headers: Any = None,
     ) -> Any:
         """
-        Deletes specific datasource specified by name.
+        Deletes a specific data source by name.
 
 
-        :arg datasource_name: The Name of the DataSource to delete.
+        :arg datasource_name: The name of the data source to delete.
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
         :arg filter_path: Used to reduce the response. This parameter
@@ -67,10 +67,10 @@ class QueryClient(NamespacedClient):
         headers: Any = None,
     ) -> Any:
         """
-        Retrieves specific datasource specified by name.
+        Retrieves a specific data source by name.
 
 
-        :arg datasource_name: The Name of the DataSource to retrieve.
+        :arg datasource_name: The name of the data source to retrieve.
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
         :arg filter_path: Used to reduce the response. This parameter
@@ -104,7 +104,7 @@ class QueryClient(NamespacedClient):
         headers: Any = None,
     ) -> Any:
         """
-        Creates a new query datasource.
+        Creates a new query data source.
 
 
         :arg error_trace: Whether to include the stack trace of returned
@@ -135,7 +135,7 @@ class QueryClient(NamespacedClient):
         headers: Any = None,
     ) -> Any:
         """
-        Retrieves list of all datasources.
+        Retrieves a list of all available data sources.
 
 
         :arg error_trace: Whether to include the stack trace of returned
@@ -163,7 +163,7 @@ class QueryClient(NamespacedClient):
         headers: Any = None,
     ) -> Any:
         """
-        Updates an existing query datasource.
+        Updates an existing query data source.
 
 
         :arg error_trace: Whether to include the stack trace of returned
