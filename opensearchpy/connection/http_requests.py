@@ -27,7 +27,7 @@
 
 import time
 import warnings
-from typing import Any, Collection, Mapping, Optional, Union
+from typing import Any, Collection, Mapping, MutableMapping, Optional, Union
 
 try:
     import requests
@@ -74,6 +74,7 @@ class RequestsHttpConnection(Connection):
     :arg metrics: metrics is an instance of a subclass of the
         :class:`~opensearchpy.Metrics` class, used for collecting
         and reporting metrics related to the client's operations;
+    :arg proxies: optional dictionary mapping protocol to the URL of the proxy.
     """
 
     def __init__(
@@ -92,6 +93,7 @@ class RequestsHttpConnection(Connection):
         opaque_id: Any = None,
         pool_maxsize: Any = None,
         metrics: Metrics = MetricsNone(),
+        proxies: Optional[MutableMapping[str, str]] = None,
         **kwargs: Any,
     ) -> None:
         self.metrics = metrics
@@ -131,6 +133,8 @@ class RequestsHttpConnection(Connection):
             elif isinstance(http_auth, string_types):
                 http_auth = tuple(http_auth.split(":", 1))  # type: ignore
             self.session.auth = http_auth
+
+        self.session.proxies = proxies or {}
 
         self.base_url = f"{self.host}{self.url_prefix}"
         self.session.verify = verify_certs
