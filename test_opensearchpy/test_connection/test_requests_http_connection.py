@@ -222,6 +222,10 @@ class TestRequestsHttpConnection(TestCase):
         con = RequestsHttpConnection(http_auth=["username", "secret"])
         self.assertEqual(("username", "secret"), con.session.auth)
 
+    def test_proxies(self) -> None:
+        con = RequestsHttpConnection(proxies={"http": "http://localhost:8118"})
+        self.assertEqual({"http": "http://localhost:8118"}, con.session.proxies)
+
     def test_repr(self) -> None:
         con = self._get_mock_connection({"host": "opensearchpy.com", "port": 443})
         self.assertEqual(
