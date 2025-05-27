@@ -390,7 +390,7 @@ class AsyncOpenSearch(Client):
         :arg wait_for_active_shards: The number of shard copies that
             must be active before proceeding with the operation. Set to `all` or any
             positive integer up to the total number of shards in the index
-            (`number_of_replicas+1`). Valid choices are all, index-setting.
+            (`number_of_replicas+1`).
         """
         for param in (index, id, body):
             if param in SKIP_IN_PATH:
@@ -482,7 +482,7 @@ class AsyncOpenSearch(Client):
         :arg wait_for_active_shards: The number of shard copies that
             must be active before proceeding with the operation. Set to all or any
             positive integer up to the total number of shards in the index
-            (`number_of_replicas+1`). Valid choices are all, index-setting.
+            (`number_of_replicas+1`).
         """
         for param in (index, body):
             if param in SKIP_IN_PATH:
@@ -564,7 +564,7 @@ class AsyncOpenSearch(Client):
         :arg wait_for_active_shards: The number of shard copies that
             must be active before proceeding with the operation. Set to all or any
             positive integer up to the total number of shards in the index
-            (`number_of_replicas+1`). Valid choices are all, index-setting.
+            (`number_of_replicas+1`).
         """
         if body in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'body'.")
@@ -673,10 +673,9 @@ class AsyncOpenSearch(Client):
             string parameter is specified.
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
-        :arg expand_wildcards: Type of index that wildcard patterns can
-            match. If the request can target data streams, this argument determines
-            whether wildcard expressions match hidden data streams. Supports comma-
-            separated values, such as `open,hidden`.
+        :arg expand_wildcards: Specifies the type of index that wildcard
+            expressions can match. Supports comma-separated values. Valid choices
+            are all, closed, hidden, none, open.
         :arg filter_path: Used to reduce the response. This parameter
             takes a comma-separated list of filters. It supports using wildcards to
             match any field or part of a field’s name. You can also exclude fields
@@ -772,7 +771,7 @@ class AsyncOpenSearch(Client):
         :arg wait_for_active_shards: The number of shard copies that
             must be active before proceeding with the operation. Set to `all` or any
             positive integer up to the total number of shards in the index
-            (`number_of_replicas+1`). Valid choices are all, index-setting.
+            (`number_of_replicas+1`).
         """
         for param in (index, id):
             if param in SKIP_IN_PATH:
@@ -884,7 +883,8 @@ class AsyncOpenSearch(Client):
             response. Default is false.
         :arg q: Query in the Lucene query string syntax.
         :arg refresh: If `true`, OpenSearch refreshes all shards
-            involved in the delete by query after the request completes.
+            involved in the delete by query after the request completes. Valid
+            choices are false, true, wait_for.
         :arg request_cache: If `true`, the request cache is used for
             this request. Defaults to the index-level setting.
         :arg requests_per_second: The throttle for this request in sub-
@@ -901,7 +901,7 @@ class AsyncOpenSearch(Client):
             dfs_query_then_fetch, query_then_fetch.
         :arg size: Deprecated, use `max_docs` instead.
         :arg slices: The number of slices this task should be divided
-            into. Valid choices are auto.
+            into.
         :arg sort: A comma-separated list of <field>:<direction> pairs.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
@@ -921,7 +921,7 @@ class AsyncOpenSearch(Client):
         :arg wait_for_active_shards: The number of shard copies that
             must be active before proceeding with the operation. Set to all or any
             positive integer up to the total number of shards in the index
-            (`number_of_replicas+1`). Valid choices are all, index-setting.
+            (`number_of_replicas+1`).
         :arg wait_for_completion: If `true`, the request blocks until
             the operation is complete. Default is True.
         """
@@ -1083,7 +1083,8 @@ class AsyncOpenSearch(Client):
         :arg realtime: If `true`, the request is real-time as opposed to
             near-real-time.
         :arg refresh: If `true`, OpenSearch refreshes all shards
-            involved in the delete by query after the request completes.
+            involved in the delete by query after the request completes. Valid
+            choices are false, true, wait_for.
         :arg routing: Target the specified primary shard.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
@@ -1157,7 +1158,8 @@ class AsyncOpenSearch(Client):
         :arg realtime: If `true`, the request is real-time as opposed to
             near-real-time.
         :arg refresh: If `true`, OpenSearch refreshes all shards
-            involved in the delete by query after the request completes.
+            involved in the delete by query after the request completes. Valid
+            choices are false, true, wait_for.
         :arg routing: Target the specified primary shard.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
@@ -1299,7 +1301,8 @@ class AsyncOpenSearch(Client):
         :arg expand_wildcards: Type of index that wildcard patterns can
             match. If the request can target data streams, this argument determines
             whether wildcard expressions match hidden data streams. Supports comma-
-            separated values, such as `open,hidden`.
+            separated values, such as `open,hidden`. Valid choices are all, closed,
+            hidden, none, open.
         :arg fields: Comma-separated list of fields to retrieve
             capabilities for. Wildcard (`*`) expressions are supported.
         :arg filter_path: Used to reduce the response. This parameter
@@ -1377,7 +1380,7 @@ class AsyncOpenSearch(Client):
             near-real-time.
         :arg refresh: If `true`, OpenSearch refreshes the affected
             shards to make this operation visible to search. If `false`, do nothing
-            with refreshes.
+            with refreshes. Valid choices are false, true, wait_for.
         :arg routing: Target the specified primary shard.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
@@ -1496,7 +1499,7 @@ class AsyncOpenSearch(Client):
             opposed to near-real-time.
         :arg refresh: If `true`, OpenSearch refreshes the affected
             shards to make this operation visible to search. If `false`, do nothing
-            with refreshes.
+            with refreshes. Valid choices are false, true, wait_for.
         :arg routing: Target the specified primary shard.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
@@ -1574,7 +1577,7 @@ class AsyncOpenSearch(Client):
         :arg realtime: If `true`, the request is real-time as opposed to
             near-real-time.
         :arg refresh: If `true`, the request refreshes relevant shards
-            before retrieving documents.
+            before retrieving documents. Valid choices are false, true, wait_for.
         :arg routing: Custom value used to route operations to a
             specific shard.
         :arg source: The URL-encoded request definition. Useful for
@@ -1915,7 +1918,8 @@ class AsyncOpenSearch(Client):
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
         :arg expand_wildcards: Whether to expand wildcard expression to
-            concrete indexes that are open, closed or both.
+            concrete indexes that are open, closed or both. Valid choices are all,
+            closed, hidden, none, open.
         :arg filter_path: Used to reduce the response. This parameter
             takes a comma-separated list of filters. It supports using wildcards to
             match any field or part of a field’s name. You can also exclude fields
@@ -1950,6 +1954,7 @@ class AsyncOpenSearch(Client):
         "pretty",
         "refresh",
         "requests_per_second",
+        "require_alias",
         "scroll",
         "slices",
         "source",
@@ -1984,14 +1989,14 @@ class AsyncOpenSearch(Client):
         :arg pretty: Whether to pretty format the returned JSON
             response. Default is false.
         :arg refresh: If `true`, the request refreshes affected shards
-            to make this operation visible to search.
+            to make this operation visible to search. Valid choices are false, true,
+            wait_for.
         :arg requests_per_second: The throttle for this request in sub-
             requests per second. Defaults to no throttle. Default is 0.
         :arg scroll: Specifies how long a consistent view of the index
             should be maintained for scrolled search.
         :arg slices: The number of slices this task should be divided
             into. Defaults to 1 slice, meaning the task isn't sliced into subtasks.
-            Valid choices are auto.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         :arg timeout: Period each indexing waits for automatic index
@@ -1999,7 +2004,7 @@ class AsyncOpenSearch(Client):
         :arg wait_for_active_shards: The number of shard copies that
             must be active before proceeding with the operation. Set to `all` or any
             positive integer up to the total number of shards in the index
-            (`number_of_replicas+1`). Valid choices are all, index-setting.
+            (`number_of_replicas+1`).
         :arg wait_for_completion: If `true`, the request blocks until
             the operation is complete. Default is True.
         """
@@ -2020,7 +2025,7 @@ class AsyncOpenSearch(Client):
         headers: Any = None,
     ) -> Any:
         """
-        Changes the number of requests per second for a particular Reindex operation.
+        Changes the number of requests per second for a particular reindex operation.
 
 
         :arg task_id: Identifier for the task.
@@ -2138,8 +2143,6 @@ class AsyncOpenSearch(Client):
         Allows to retrieve a large numbers of results from a single search request.
 
 
-        :arg body: The scroll ID if not passed by URL or query
-            parameter.
         :arg scroll_id: The scroll ID for scrolled search
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
@@ -2221,6 +2224,7 @@ class AsyncOpenSearch(Client):
         "track_scores",
         "track_total_hits",
         "typed_keys",
+        "verbose_pipeline",
         "version",
     )
     async def search(
@@ -2292,7 +2296,8 @@ class AsyncOpenSearch(Client):
         :arg expand_wildcards: Type of index that wildcard patterns can
             match. If the request can target data streams, this argument determines
             whether wildcard expressions match hidden data streams. Supports comma-
-            separated values, such as `open,hidden`.
+            separated values, such as `open,hidden`. Valid choices are all, closed,
+            hidden, none, open.
         :arg explain: If `true`, returns detailed information about
             score computation as part of a hit.
         :arg filter_path: Used to reduce the response. This parameter
@@ -2421,6 +2426,13 @@ class AsyncOpenSearch(Client):
             total number of hits matching the query.
         :arg typed_keys: If `true`, aggregation and suggester names are
             be prefixed by their respective types in the response.
+        :arg verbose_pipeline: Enables or disables verbose mode for the
+            search pipeline. When verbose mode is enabled, detailed information
+            about each processor in the search pipeline is included in the search
+            response. This includes the processor name, execution status, input,
+            output, and time taken for processing. This parameter is primarily
+            intended for debugging purposes, allowing users to track how data flows
+            and transforms through the search pipeline.
         :arg version: If `true`, returns document version as part of a
             hit.
         """
@@ -2730,7 +2742,7 @@ class AsyncOpenSearch(Client):
         :arg refresh: If 'true', OpenSearch refreshes the affected
             shards to make this operation visible to search, if `wait_for` then wait
             for a refresh to make this operation visible to search, if `false` do
-            nothing with refreshes.
+            nothing with refreshes. Valid choices are false, true, wait_for.
         :arg require_alias: If `true`, the destination must be an index
             alias. Default is false.
         :arg retry_on_conflict: Specify how many times should the
@@ -2746,8 +2758,7 @@ class AsyncOpenSearch(Client):
         :arg wait_for_active_shards: The number of shard copies that
             must be active before proceeding with the operations. Set to 'all' or
             any positive integer up to the total number of shards in the index
-            (number_of_replicas+1). Defaults to 1 meaning the primary shard. Valid
-            choices are all, index-setting.
+            (number_of_replicas+1). Defaults to 1 meaning the primary shard.
         """
         for param in (index, id, body):
             if param in SKIP_IN_PATH:
@@ -2868,7 +2879,8 @@ class AsyncOpenSearch(Client):
             response. Default is false.
         :arg q: Query in the Lucene query string syntax.
         :arg refresh: If `true`, OpenSearch refreshes affected shards to
-            make the operation visible to search.
+            make the operation visible to search. Valid choices are false, true,
+            wait_for.
         :arg request_cache: If `true`, the request cache is used for
             this request.
         :arg requests_per_second: The throttle for this request in sub-
@@ -2884,7 +2896,7 @@ class AsyncOpenSearch(Client):
             dfs_query_then_fetch, query_then_fetch.
         :arg size: Deprecated, use `max_docs` instead.
         :arg slices: The number of slices this task should be divided
-            into. Valid choices are auto.
+            into.
         :arg sort: A comma-separated list of <field>:<direction> pairs.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
@@ -2904,7 +2916,7 @@ class AsyncOpenSearch(Client):
         :arg wait_for_active_shards: The number of shard copies that
             must be active before proceeding with the operation. Set to `all` or any
             positive integer up to the total number of shards in the index
-            (`number_of_replicas+1`). Valid choices are all, index-setting.
+            (`number_of_replicas+1`).
         :arg wait_for_completion: If `true`, the request blocks until
             the operation is complete. Default is True.
         """
@@ -3046,7 +3058,8 @@ class AsyncOpenSearch(Client):
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
         :arg expand_wildcards: Whether to expand wildcard expression to
-            concrete indexes that are open, closed or both.
+            concrete indexes that are open, closed or both. Valid choices are all,
+            closed, hidden, none, open.
         :arg filter_path: Used to reduce the response. This parameter
             takes a comma-separated list of filters. It supports using wildcards to
             match any field or part of a field’s name. You can also exclude fields
@@ -3235,7 +3248,7 @@ class AsyncOpenSearch(Client):
         :arg wait_for_active_shards: The number of shard copies that
             must be active before proceeding with the operation. Set to all or any
             positive integer up to the total number of shards in the index
-            (`number_of_replicas+1`). Valid choices are all, index-setting.
+            (`number_of_replicas+1`).
         """
         if body in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'body'.")

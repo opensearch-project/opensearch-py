@@ -30,10 +30,10 @@ class RollupsClient(NamespacedClient):
         headers: Any = None,
     ) -> Any:
         """
-        Delete index rollup.
+        Deletes an index rollup job configuration.
 
 
-        :arg id: Rollup to access
+        :arg id: The ID of the rollup job.
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
         :arg filter_path: Used to reduce the response. This parameter
@@ -65,10 +65,10 @@ class RollupsClient(NamespacedClient):
         headers: Any = None,
     ) -> Any:
         """
-        Get a rollup's current status.
+        Retrieves the execution status information for an index rollup job.
 
 
-        :arg id: Rollup to access
+        :arg id: The ID of the rollup job.
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
         :arg filter_path: Used to reduce the response. This parameter
@@ -100,10 +100,10 @@ class RollupsClient(NamespacedClient):
         headers: Any = None,
     ) -> Any:
         """
-        Get an index rollup.
+        Retrieves an index rollup job configuration by ID.
 
 
-        :arg id: Rollup to access
+        :arg id: The ID of the rollup job.
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
         :arg filter_path: Used to reduce the response. This parameter
@@ -144,10 +144,10 @@ class RollupsClient(NamespacedClient):
         headers: Any = None,
     ) -> Any:
         """
-        Create or update index rollup.
+        Creates or updates an index rollup job configuration.
 
 
-        :arg id: Rollup to access
+        :arg id: The ID of the rollup job.
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
         :arg filter_path: Used to reduce the response. This parameter
@@ -156,10 +156,10 @@ class RollupsClient(NamespacedClient):
             with "-".
         :arg human: Whether to return human readable values for
             statistics. Default is True.
-        :arg if_primary_term: Only perform the operation if the document
-            has this primary term.
-        :arg if_seq_no: Only perform the operation if the document has
-            this sequence number.
+        :arg if_primary_term: Only performs the operation if the
+            document has the specified primary term.
+        :arg if_seq_no: Only performs the operation if the document has
+            the specified sequence number.
         :arg pretty: Whether to pretty format the returned JSON
             response. Default is false.
         :arg source: The URL-encoded request definition. Useful for
@@ -184,10 +184,10 @@ class RollupsClient(NamespacedClient):
         headers: Any = None,
     ) -> Any:
         """
-        Start rollup.
+        Starts the execution of an index rollup job.
 
 
-        :arg id: Rollup to access
+        :arg id: The ID of the rollup job.
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
         :arg filter_path: Used to reduce the response. This parameter
@@ -219,10 +219,10 @@ class RollupsClient(NamespacedClient):
         headers: Any = None,
     ) -> Any:
         """
-        Stop rollup.
+        Stops the execution of an index rollup job.
 
 
-        :arg id: Rollup to access
+        :arg id: The ID of the rollup job.
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
         :arg filter_path: Used to reduce the response. This parameter

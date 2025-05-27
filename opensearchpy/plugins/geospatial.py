@@ -18,21 +18,22 @@
 
 from typing import Any
 
-from ..client.utils import NamespacedClient, query_params
+from ..client.utils import SKIP_IN_PATH, NamespacedClient, _make_path, query_params
 
 
-class SqlClient(NamespacedClient):
-    @query_params(
-        "error_trace", "filter_path", "format", "human", "pretty", "sanitize", "source"
-    )
-    def close(
+class GeospatialClient(NamespacedClient):
+    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    def geojson_upload_post(
         self,
-        body: Any = None,
+        body: Any,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
         """
-        Closes an open cursor to free server-side resources.
+        Use an OpenSearch query to upload `GeoJSON`, operation will fail if index
+        exists. - When type is `geo_point`, only Point geometry is allowed - When type
+        is `geo_shape`, all geometry types are allowed (Point, MultiPoint, LineString,
+        MultiLineString, Polygon, MultiPolygon, GeometryCollection, Envelope).
 
 
         :arg error_trace: Whether to include the stack trace of returned
@@ -41,31 +42,36 @@ class SqlClient(NamespacedClient):
             takes a comma-separated list of filters. It supports using wildcards to
             match any field or part of a field’s name. You can also exclude fields
             with "-".
-        :arg format: Specifies the response format (JSON or YAML).
         :arg human: Whether to return human readable values for
             statistics. Default is True.
         :arg pretty: Whether to pretty format the returned JSON
             response. Default is false.
-        :arg sanitize: Whether to escape special characters in the
-            results. Default is True.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         """
+        if body in SKIP_IN_PATH:
+            raise ValueError("Empty value passed for a required argument 'body'.")
+
         return self.transport.perform_request(
-            "POST", "/_plugins/_sql/close", params=params, headers=headers, body=body
+            "POST",
+            "/_plugins/geospatial/geojson/_upload",
+            params=params,
+            headers=headers,
+            body=body,
         )
 
-    @query_params(
-        "error_trace", "filter_path", "format", "human", "pretty", "sanitize", "source"
-    )
-    def explain(
+    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    def geojson_upload_put(
         self,
-        body: Any = None,
+        body: Any,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
         """
-        Returns the execution plan for a SQL or PPL query.
+        Use an OpenSearch query to upload `GeoJSON` regardless if index exists. - When
+        type is `geo_point`, only Point geometry is allowed - When type is `geo_shape`,
+        all geometry types are allowed (Point, MultiPoint, LineString, MultiLineString,
+        Polygon, MultiPolygon, GeometryCollection, Envelope).
 
 
         :arg error_trace: Whether to include the stack trace of returned
@@ -74,136 +80,6 @@ class SqlClient(NamespacedClient):
             takes a comma-separated list of filters. It supports using wildcards to
             match any field or part of a field’s name. You can also exclude fields
             with "-".
-        :arg format: Specifies the response format (JSON or YAML).
-        :arg human: Whether to return human readable values for
-            statistics. Default is True.
-        :arg pretty: Whether to pretty format the returned JSON
-            response. Default is false.
-        :arg sanitize: Whether to escape special characters in the
-            results. Default is True.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
-        """
-        return self.transport.perform_request(
-            "POST", "/_plugins/_sql/_explain", params=params, headers=headers, body=body
-        )
-
-    @query_params(
-        "error_trace", "filter_path", "format", "human", "pretty", "sanitize", "source"
-    )
-    def get_stats(
-        self,
-        params: Any = None,
-        headers: Any = None,
-    ) -> Any:
-        """
-        Retrieves performance metrics for the SQL plugin.
-
-
-        :arg error_trace: Whether to include the stack trace of returned
-            errors. Default is false.
-        :arg filter_path: Used to reduce the response. This parameter
-            takes a comma-separated list of filters. It supports using wildcards to
-            match any field or part of a field’s name. You can also exclude fields
-            with "-".
-        :arg format: Specifies the response format (JSON or YAML).
-        :arg human: Whether to return human readable values for
-            statistics. Default is True.
-        :arg pretty: Whether to pretty format the returned JSON
-            response. Default is false.
-        :arg sanitize: Whether to escape special characters in the
-            results. Default is True.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
-        """
-        return self.transport.perform_request(
-            "GET", "/_plugins/_sql/stats", params=params, headers=headers
-        )
-
-    @query_params(
-        "error_trace", "filter_path", "format", "human", "pretty", "sanitize", "source"
-    )
-    def post_stats(
-        self,
-        body: Any = None,
-        params: Any = None,
-        headers: Any = None,
-    ) -> Any:
-        """
-        Retrieves filtered performance metrics for the SQL plugin.
-
-
-        :arg error_trace: Whether to include the stack trace of returned
-            errors. Default is false.
-        :arg filter_path: Used to reduce the response. This parameter
-            takes a comma-separated list of filters. It supports using wildcards to
-            match any field or part of a field’s name. You can also exclude fields
-            with "-".
-        :arg format: Specifies the response format (JSON or YAML).
-        :arg human: Whether to return human readable values for
-            statistics. Default is True.
-        :arg pretty: Whether to pretty format the returned JSON
-            response. Default is false.
-        :arg sanitize: Whether to escape special characters in the
-            results. Default is True.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
-        """
-        return self.transport.perform_request(
-            "POST", "/_plugins/_sql/stats", params=params, headers=headers, body=body
-        )
-
-    @query_params(
-        "error_trace", "filter_path", "format", "human", "pretty", "sanitize", "source"
-    )
-    def query(
-        self,
-        body: Any = None,
-        params: Any = None,
-        headers: Any = None,
-    ) -> Any:
-        """
-        Executes SQL or PPL queries against OpenSearch indexes.
-
-
-        :arg error_trace: Whether to include the stack trace of returned
-            errors. Default is false.
-        :arg filter_path: Used to reduce the response. This parameter
-            takes a comma-separated list of filters. It supports using wildcards to
-            match any field or part of a field’s name. You can also exclude fields
-            with "-".
-        :arg format: Specifies the response format (JSON or YAML).
-        :arg human: Whether to return human readable values for
-            statistics. Default is True.
-        :arg pretty: Whether to pretty format the returned JSON
-            response. Default is false.
-        :arg sanitize: Whether to escape special characters in the
-            results. Default is True.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
-        """
-        return self.transport.perform_request(
-            "POST", "/_plugins/_sql", params=params, headers=headers, body=body
-        )
-
-    @query_params("error_trace", "filter_path", "format", "human", "pretty", "source")
-    def settings(
-        self,
-        body: Any = None,
-        params: Any = None,
-        headers: Any = None,
-    ) -> Any:
-        """
-        Updates SQL plugin settings in the OpenSearch cluster configuration.
-
-
-        :arg error_trace: Whether to include the stack trace of returned
-            errors. Default is false.
-        :arg filter_path: Used to reduce the response. This parameter
-            takes a comma-separated list of filters. It supports using wildcards to
-            match any field or part of a field’s name. You can also exclude fields
-            with "-".
-        :arg format: Specifies the response format (JSON or YAML).
         :arg human: Whether to return human readable values for
             statistics. Default is True.
         :arg pretty: Whether to pretty format the returned JSON
@@ -211,9 +87,182 @@ class SqlClient(NamespacedClient):
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         """
+        if body in SKIP_IN_PATH:
+            raise ValueError("Empty value passed for a required argument 'body'.")
+
         return self.transport.perform_request(
             "PUT",
-            "/_plugins/_query/settings",
+            "/_plugins/geospatial/geojson/_upload",
+            params=params,
+            headers=headers,
+            body=body,
+        )
+
+    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    def get_upload_stats(
+        self,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Retrieves statistics for all geospatial uploads.
+
+
+        :arg error_trace: Whether to include the stack trace of returned
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
+        :arg human: Whether to return human readable values for
+            statistics. Default is True.
+        :arg pretty: Whether to pretty format the returned JSON
+            response. Default is false.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        """
+        return self.transport.perform_request(
+            "GET", "/_plugins/geospatial/_upload/stats", params=params, headers=headers
+        )
+
+    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    def delete_ip2geo_datasource(
+        self,
+        name: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Delete a specific IP2Geo data source.
+
+
+        :arg error_trace: Whether to include the stack trace of returned
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
+        :arg human: Whether to return human readable values for
+            statistics. Default is True.
+        :arg pretty: Whether to pretty format the returned JSON
+            response. Default is false.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        """
+        if name in SKIP_IN_PATH:
+            raise ValueError("Empty value passed for a required argument 'name'.")
+
+        return self.transport.perform_request(
+            "DELETE",
+            _make_path("_plugins", "geospatial", "ip2geo", "datasource", name),
+            params=params,
+            headers=headers,
+        )
+
+    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    def get_ip2geo_datasource(
+        self,
+        name: Any = None,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Get one or more IP2Geo data sources, defaulting to returning all if no names
+        specified.
+
+
+        :arg error_trace: Whether to include the stack trace of returned
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
+        :arg human: Whether to return human readable values for
+            statistics. Default is True.
+        :arg pretty: Whether to pretty format the returned JSON
+            response. Default is false.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        """
+        return self.transport.perform_request(
+            "GET",
+            _make_path("_plugins", "geospatial", "ip2geo", "datasource", name),
+            params=params,
+            headers=headers,
+        )
+
+    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    def put_ip2geo_datasource(
+        self,
+        name: Any,
+        body: Any = None,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Create a specific IP2Geo data source. Default values:   - `endpoint`:
+        `"https://geoip.maps.opensearch.org/v1/geolite2-city/manifest.json"`   -
+        `update_interval_in_days`: 3.
+
+
+        :arg error_trace: Whether to include the stack trace of returned
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
+        :arg human: Whether to return human readable values for
+            statistics. Default is True.
+        :arg pretty: Whether to pretty format the returned JSON
+            response. Default is false.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        """
+        if name in SKIP_IN_PATH:
+            raise ValueError("Empty value passed for a required argument 'name'.")
+
+        return self.transport.perform_request(
+            "PUT",
+            _make_path("_plugins", "geospatial", "ip2geo", "datasource", name),
+            params=params,
+            headers=headers,
+            body=body,
+        )
+
+    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    def put_ip2geo_datasource_settings(
+        self,
+        name: Any,
+        body: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Update a specific IP2Geo data source.
+
+
+        :arg error_trace: Whether to include the stack trace of returned
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
+        :arg human: Whether to return human readable values for
+            statistics. Default is True.
+        :arg pretty: Whether to pretty format the returned JSON
+            response. Default is false.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        """
+        for param in (name, body):
+            if param in SKIP_IN_PATH:
+                raise ValueError("Empty value passed for a required argument.")
+
+        return self.transport.perform_request(
+            "PUT",
+            _make_path(
+                "_plugins", "geospatial", "ip2geo", "datasource", name, "_settings"
+            ),
             params=params,
             headers=headers,
             body=body,

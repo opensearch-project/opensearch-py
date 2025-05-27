@@ -13,15 +13,19 @@ from typing import Any
 from ..plugins.alerting import AlertingClient
 from ..plugins.asynchronous_search import AsynchronousSearchClient
 from ..plugins.flow_framework import FlowFrameworkClient
+from ..plugins.geospatial import GeospatialClient
 from ..plugins.index_management import IndexManagementClient
 from ..plugins.knn import KnnClient
+from ..plugins.ltr import LtrClient
 from ..plugins.ml import MlClient
+from ..plugins.neural import NeuralClient
 from ..plugins.notifications import NotificationsClient
 from ..plugins.observability import ObservabilityClient
 from ..plugins.ppl import PplClient
 from ..plugins.query import QueryClient
 from ..plugins.replication import ReplicationClient
 from ..plugins.rollups import RollupsClient
+from ..plugins.sm import SmClient
 from ..plugins.sql import SqlClient
 from ..plugins.transforms import TransformsClient
 from .client import Client
@@ -29,6 +33,10 @@ from .utils import NamespacedClient
 
 
 class PluginsClient(NamespacedClient):
+    sm: Any
+    neural: Any
+    ltr: Any
+    geospatial: Any
     asynchronous_search: Any
     alerting: Any
     index_management: Any
@@ -45,6 +53,10 @@ class PluginsClient(NamespacedClient):
     def __init__(self, client: Client) -> None:
         super().__init__(client)
 
+        self.sm = SmClient(client)
+        self.neural = NeuralClient(client)
+        self.ltr = LtrClient(client)
+        self.geospatial = GeospatialClient(client)
         self.replication = ReplicationClient(client)
         self.flow_framework = FlowFrameworkClient(client)
         self.asynchronous_search = AsynchronousSearchClient(client)
@@ -66,6 +78,10 @@ class PluginsClient(NamespacedClient):
         # Issue : https://github.com/opensearch-project/opensearch-py/issues/90#issuecomment-1003396742
 
         plugins = [
+            "sm",
+            "neural",
+            "ltr",
+            "geospatial",
             "replication",
             "flow_framework",
             "asynchronous_search",
