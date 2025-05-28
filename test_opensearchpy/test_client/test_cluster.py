@@ -34,7 +34,7 @@ class TestCluster(OpenSearchTestCase):
         self.assert_url_called("GET", "/_cluster/stats")
 
     def test_stats_with_node_id(self) -> None:
-        self.client.cluster.stats("node-1")
+        self.client.cluster.stats(node_id="node-1")
         self.assert_url_called("GET", "/_cluster/stats/nodes/node-1")
 
         self.client.cluster.stats(node_id="node-2")

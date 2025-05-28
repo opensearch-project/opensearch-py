@@ -833,7 +833,7 @@ class ClusterClient(NamespacedClient):
         :arg human: Whether to return human readable values for
             statistics. Default is True.
         :arg local: When `true`, the request retrieves information from
-            the local node only. When `false, information is retrieved from the
+            the local node only. When `false`, information is retrieved from the
             cluster manager node. Default is false.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use `cluster_manager_timeout` instead.): A duration. Units can be

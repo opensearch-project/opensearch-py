@@ -27,9 +27,9 @@ class TestSearchPipeline(OpenSearchTestCase):
             ],
         }
 
-        self.client.search_pipeline.put("my_pipeline", body)
+        self.client.search_pipeline.put(id="my_pipeline", body=body)
         self.assert_url_called("PUT", "/_search/pipeline/my_pipeline")
 
     def test_get_search_pipeline(self) -> None:
-        self.client.search_pipeline.get("my_pipeline")
+        self.client.search_pipeline.get(id="my_pipeline")
         self.assert_url_called("GET", "/_search/pipeline/my_pipeline")

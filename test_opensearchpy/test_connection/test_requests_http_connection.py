@@ -589,7 +589,7 @@ class TestRequestsHttpConnection(TestCase):
             verify_certs=True,
             connection_class=MockConnection,
         )
-        client.index("index", {"test": "data"}, id=doc_id)
+        client.index(index="index", body={"test": "data"}, id=doc_id)
         self.assertEqual(
             signed_url,
             sent_url,

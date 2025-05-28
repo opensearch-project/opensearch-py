@@ -191,5 +191,5 @@ class TestAsyncSignerWithSpecialCharacters:
             verify_certs=True,
             connection_class=MockConnection,
         )
-        await client.index("index", {"test": "data"}, id=doc_id)
+        await client.index(index="index", body={"test": "data"}, id=doc_id)
         assert signed_url == sent_url, "URLs don't match"
