@@ -73,7 +73,7 @@ class TestStreamingBulk:
     async def test_actions_remain_unchanged(self, async_client: Any) -> None:
         actions1 = [{"_id": 1}, {"_id": 2}]
         async for ok, _ in actions.async_streaming_bulk(
-            async_client, actions1, index="test-index"
+            client=async_client, actions=actions1, index="test-index"
         ):
             assert ok
         assert [{"_id": 1}, {"_id": 2}] == actions1
@@ -81,7 +81,7 @@ class TestStreamingBulk:
     async def test_all_documents_get_inserted(self, async_client: Any) -> None:
         docs = [{"answer": x, "_id": x} for x in range(100)]
         async for ok, _ in actions.async_streaming_bulk(
-            async_client, docs, index="test-index", refresh=True
+            client=async_client, actions=docs, index="test-index", refresh=True
         ):
             assert ok
 
@@ -128,8 +128,8 @@ class TestStreamingBulk:
         self, async_client: Any
     ) -> None:
         await async_client.indices.create(
-            "i",
-            {
+            index="i",
+            body={
                 "mappings": {"properties": {"a": {"type": "integer"}}},
                 "settings": {"number_of_shards": 1, "number_of_replicas": 0},
             },
@@ -154,7 +154,7 @@ class TestStreamingBulk:
             {"_op_type": "delete", "_index": "i", "_id": 45},
             {"_op_type": "update", "_index": "i", "_id": 42, "doc": {"answer": 42}},
         ]
-        async for ok, _ in actions.async_streaming_bulk(async_client, docs):
+        async for ok, _ in actions.async_streaming_bulk(client=async_client, actions=docs):
             assert ok
 
         assert not await async_client.exists(index="i", id=45)
@@ -172,8 +172,8 @@ class TestStreamingBulk:
         results = [
             x
             async for x in actions.async_streaming_bulk(
-                failing_client,
-                docs,
+                client=failing_client,
+                actions=docs,
                 raise_on_exception=False,
                 raise_on_error=False,
                 chunk_size=1,
@@ -207,8 +207,8 @@ class TestStreamingBulk:
         results = [
             x
             async for x in actions.async_streaming_bulk(
-                failing_client,
-                docs,
+                client=failing_client,
+                actions=docs,
                 raise_on_exception=False,
                 raise_on_error=False,
                 chunk_size=1,
@@ -238,8 +238,8 @@ class TestStreamingBulk:
         results = [
             x
             async for x in actions.async_streaming_bulk(
-                failing_client,
-                docs,
+                client=failing_client,
+                actions=docs,
                 raise_on_exception=False,
                 raise_on_error=False,
                 chunk_size=1,
@@ -285,7 +285,7 @@ class TestBulk:
     async def test_bulk_works_with_single_item(self, async_client: Any) -> None:
         docs = [{"answer": 42, "_id": 1}]
         success, failed = await actions.async_bulk(
-            async_client, docs, index="test-index", refresh=True
+            client=async_client, actions=docs, index="test-index", refresh=True
         )
 
         assert 1 == success
@@ -298,7 +298,7 @@ class TestBulk:
     async def test_all_documents_get_inserted(self, async_client: Any) -> None:
         docs = [{"answer": x, "_id": x} for x in range(100)]
         success, failed = await actions.async_bulk(
-            async_client, docs, index="test-index", refresh=True
+            client=async_client, actions=docs, index="test-index", refresh=True
         )
 
         assert 100 == success
@@ -311,7 +311,7 @@ class TestBulk:
     async def test_stats_only_reports_numbers(self, async_client: Any) -> None:
         docs = [{"answer": x} for x in range(100)]
         success, failed = await actions.async_bulk(
-            async_client, docs, index="test-index", refresh=True, stats_only=True
+            client=async_client, actions=docs, index="test-index", refresh=True, stats_only=True
         )
 
         assert 100 == success
@@ -320,8 +320,8 @@ class TestBulk:
 
     async def test_errors_are_reported_correctly(self, async_client: Any) -> None:
         await async_client.indices.create(
-            "i",
-            {
+            index="i",
+            body={
                 "mappings": {"properties": {"a": {"type": "integer"}}},
                 "settings": {"number_of_shards": 1, "number_of_replicas": 0},
             },
@@ -347,8 +347,8 @@ class TestBulk:
 
     async def test_error_is_raised(self, async_client: Any) -> None:
         await async_client.indices.create(
-            "i",
-            {
+            index="i",
+            body={
                 "mappings": {"properties": {"a": {"type": "integer"}}},
                 "settings": {"number_of_shards": 1, "number_of_replicas": 0},
             },
@@ -361,7 +361,7 @@ class TestBulk:
     async def test_ignore_error_if_raised(self, async_client: Any) -> None:
         # ignore the status code 400 in tuple
         await actions.async_bulk(
-            async_client, [{"a": 42}, {"a": "c"}], index="i", ignore_status=(400,)
+            client=async_client, actions=[{"a": 42}, {"a": "c"}], index="i", ignore_status=(400,)
         )
 
         # ignore the status code 400 in list
@@ -393,8 +393,8 @@ class TestBulk:
 
     async def test_errors_are_collected_properly(self, async_client: Any) -> None:
         await async_client.indices.create(
-            "i",
-            {
+            index="i",
+            body={
                 "mappings": {"properties": {"a": {"type": "integer"}}},
                 "settings": {"number_of_shards": 1, "number_of_replicas": 0},
             },
@@ -461,7 +461,7 @@ class TestScan:
         for x in range(100):
             bulk.append({"index": {"_index": "test_index", "_id": x}})
             bulk.append({"answer": x, "correct": x == 42})
-        await async_client.bulk(bulk, refresh=True)
+        await async_client.bulk(body=bulk, refresh=True)
 
         docs = [
             doc
@@ -484,7 +484,7 @@ class TestScan:
         for x in range(100):
             bulk.append({"index": {"_index": "test_index", "_id": x}})
             bulk.append({"answer": x, "correct": x == 42})
-        await async_client.bulk(bulk, refresh=True)
+        await async_client.bulk(body=bulk, refresh=True)
 
         docs = [
             x
@@ -500,7 +500,7 @@ class TestScan:
         for x in range(4):
             bulk.append({"index": {"_index": "test_index"}})
             bulk.append({"value": x})
-        await async_client.bulk(bulk, refresh=True)
+        await async_client.bulk(body=bulk, refresh=True)
 
         with patch.object(async_client, "scroll", MockScroll()):
             data = [
@@ -608,7 +608,7 @@ class TestScan:
         for x in range(4):
             bulk.append({"index": {"_index": "test_index"}})
             bulk.append({"value": x})
-        await async_client.bulk(bulk, refresh=True)
+        await async_client.bulk(body=bulk, refresh=True)
 
         with patch.object(async_client, "scroll", MockScroll()):
             _ = [
@@ -649,7 +649,7 @@ class TestScan:
         for x in range(4):
             bulk.append({"index": {"_index": "test_index"}})
             bulk.append({"value": x})
-        await async_client.bulk(bulk, refresh=True)
+        await async_client.bulk(body=bulk, refresh=True)
 
         with patch.object(
             async_client, "clear_scroll", wraps=async_client.clear_scroll
@@ -820,7 +820,7 @@ async def reindex_setup(async_client: Any) -> Any:
                 "type": "answers" if x % 2 == 0 else "questions",
             }
         )
-    await async_client.bulk(bulk, refresh=True)
+    await async_client.bulk(body=bulk, refresh=True)
     yield
 
 
@@ -829,14 +829,14 @@ class TestReindex:
         self, async_client: Any, reindex_setup: Any
     ) -> None:
         await actions.async_reindex(
-            async_client,
-            "test_index",
-            "prod_index",
+            client=async_client,
+            source_index="test_index",
+            target_index="prod_index",
             scan_kwargs={"q": "type:answers"},
             bulk_kwargs={"refresh": True},
         )
 
-        assert await async_client.indices.exists("prod_index")
+        assert await async_client.indices.exists(index="prod_index")
         assert (
             50
             == (await async_client.count(index="prod_index", q="type:answers"))["count"]
@@ -850,14 +850,14 @@ class TestReindex:
         self, async_client: Any, reindex_setup: Any
     ) -> None:
         await actions.async_reindex(
-            async_client,
-            "test_index",
-            "prod_index",
+            client=async_client,
+            source_index="test_index",
+            target_index="prod_index",
             query={"query": {"bool": {"filter": {"term": {"type": "answers"}}}}},
         )
         await async_client.indices.refresh()
 
-        assert await async_client.indices.exists("prod_index")
+        assert await async_client.indices.exists(index="prod_index")
         assert (
             50
             == (await async_client.count(index="prod_index", q="type:answers"))["count"]
@@ -870,10 +870,10 @@ class TestReindex:
     async def test_all_documents_get_moved(
         self, async_client: Any, reindex_setup: Any
     ) -> None:
-        await actions.async_reindex(async_client, "test_index", "prod_index")
+        await actions.async_reindex(client=async_client, source_index="test_index", target_index="prod_index")
         await async_client.indices.refresh()
 
-        assert await async_client.indices.exists("prod_index")
+        assert await async_client.indices.exists(index="prod_index")
         assert (
             50
             == (await async_client.count(index="prod_index", q="type:questions"))[
@@ -922,7 +922,7 @@ class TestParentChildReindex:
     async def test_children_are_reindexed_correctly(
         self, async_client: Any, parent_reindex_setup: Any
     ) -> None:
-        await actions.async_reindex(async_client, "test-index", "real-index")
+        await actions.async_reindex(client=async_client, source_index="test-index", target_index="real-index")
         assert {"question_answer": "question"} == (
             await async_client.get(index="real-index", id=42)
         )["_source"]

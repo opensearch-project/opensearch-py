@@ -58,14 +58,14 @@ class FailingBulkClient:
 class TestStreamingBulk(OpenSearchTestCase):
     def test_actions_remain_unchanged(self) -> None:
         actions = [{"_id": 1}, {"_id": 2}]
-        for ok, _ in helpers.streaming_bulk(self.client, actions, index="test-index"):
+        for ok, _ in helpers.streaming_bulk(client=self.client, actions=actions, index="test-index"):
             self.assertTrue(ok)
         self.assertEqual([{"_id": 1}, {"_id": 2}], actions)
 
     def test_all_documents_get_inserted(self) -> None:
         docs = [{"answer": x, "_id": x} for x in range(100)]
         for ok, _ in helpers.streaming_bulk(
-            self.client, docs, index="test-index", refresh=True
+            client=self.client, actions=docs, index="test-index", refresh=True
         ):
             self.assertTrue(ok)
 
@@ -76,8 +76,8 @@ class TestStreamingBulk(OpenSearchTestCase):
 
     def test_all_errors_from_chunk_are_raised_on_failure(self) -> None:
         self.client.indices.create(
-            "i",
-            {
+            index="i",
+            body={
                 "mappings": {"properties": {"a": {"type": "integer"}}},
                 "settings": {"number_of_shards": 1, "number_of_replicas": 0},
             },
@@ -109,7 +109,7 @@ class TestStreamingBulk(OpenSearchTestCase):
                 "doc": {"answer": 42},
             },
         ]
-        for ok, _ in helpers.streaming_bulk(self.client, docs):
+        for ok, _ in helpers.streaming_bulk(client=self.client, actions=docs):
             self.assertTrue(ok)
 
         self.assertFalse(self.client.exists(index="i", id=45))
@@ -126,8 +126,8 @@ class TestStreamingBulk(OpenSearchTestCase):
 
         results = list(
             helpers.streaming_bulk(
-                failing_client,
-                docs,
+                client=failing_client,
+                actions=docs,
                 raise_on_exception=False,
                 raise_on_error=False,
                 chunk_size=1,
@@ -163,8 +163,8 @@ class TestStreamingBulk(OpenSearchTestCase):
         ]
         results = list(
             helpers.streaming_bulk(
-                failing_client,
-                docs,
+                client=failing_client,
+                actions=docs,
                 raise_on_exception=False,
                 raise_on_error=False,
                 chunk_size=1,
@@ -191,8 +191,8 @@ class TestStreamingBulk(OpenSearchTestCase):
         ]
         results = list(
             helpers.streaming_bulk(
-                failing_client,
-                docs,
+                client=failing_client,
+                actions=docs,
                 raise_on_exception=False,
                 raise_on_error=False,
                 chunk_size=1,
@@ -234,7 +234,7 @@ class TestBulk(OpenSearchTestCase):
     def test_bulk_works_with_single_item(self) -> None:
         docs = [{"answer": 42, "_id": 1}]
         success, failed = helpers.bulk(
-            self.client, docs, index="test-index", refresh=True
+            client=self.client, actions=docs, index="test-index", refresh=True
         )
 
         self.assertEqual(1, success)
@@ -247,7 +247,7 @@ class TestBulk(OpenSearchTestCase):
     def test_all_documents_get_inserted(self) -> None:
         docs = [{"answer": x, "_id": x} for x in range(100)]
         success, failed = helpers.bulk(
-            self.client, docs, index="test-index", refresh=True
+            client=self.client, actions=docs, index="test-index", refresh=True
         )
 
         self.assertEqual(100, success)
@@ -260,7 +260,7 @@ class TestBulk(OpenSearchTestCase):
     def test_stats_only_reports_numbers(self) -> None:
         docs = [{"answer": x} for x in range(100)]
         success, failed = helpers.bulk(
-            self.client, docs, index="test-index", refresh=True, stats_only=True
+            client=self.client, actions=docs, index="test-index", refresh=True, stats_only=True
         )
 
         self.assertEqual(100, success)
@@ -269,8 +269,8 @@ class TestBulk(OpenSearchTestCase):
 
     def test_errors_are_reported_correctly(self) -> None:
         self.client.indices.create(
-            "i",
-            {
+            index="i",
+            body={
                 "mappings": {"properties": {"a": {"type": "integer"}}},
                 "settings": {"number_of_shards": 1, "number_of_replicas": 0},
             },
@@ -278,8 +278,8 @@ class TestBulk(OpenSearchTestCase):
         self.client.cluster.health(wait_for_status="yellow")
 
         success, failed = helpers.bulk(
-            self.client,
-            [{"a": 42}, {"a": "c", "_id": 42}],
+            client=self.client,
+            actions=[{"a": 42}, {"a": "c", "_id": 42}],
             index="i",
             raise_on_error=False,
         )
@@ -296,8 +296,8 @@ class TestBulk(OpenSearchTestCase):
 
     def test_error_is_raised(self) -> None:
         self.client.indices.create(
-            "i",
-            {
+            index="i",
+            body={
                 "mappings": {"properties": {"a": {"type": "integer"}}},
                 "settings": {"number_of_shards": 1, "number_of_replicas": 0},
             },
@@ -315,13 +315,13 @@ class TestBulk(OpenSearchTestCase):
     def test_ignore_error_if_raised(self) -> None:
         # ignore the status code 400 in tuple
         helpers.bulk(
-            self.client, [{"a": 42}, {"a": "c"}], index="i", ignore_status=(400,)
+            client=self.client, actions=[{"a": 42}, {"a": "c"}], index="i", ignore_status=(400,)
         )
 
         # ignore the status code 400 in list
         helpers.bulk(
-            self.client,
-            [{"a": 42}, {"a": "c"}],
+            client=self.client,
+            actions=[{"a": 42}, {"a": "c"}],
             index="i",
             ignore_status=[
                 400,
@@ -329,7 +329,7 @@ class TestBulk(OpenSearchTestCase):
         )
 
         # ignore the status code 400
-        helpers.bulk(self.client, [{"a": 42}, {"a": "c"}], index="i", ignore_status=400)
+        helpers.bulk(client=self.client, actions=[{"a": 42}, {"a": "c"}], index="i", ignore_status=400)
 
         # ignore only the status code in the `ignore_status` argument
         self.assertRaises(
@@ -343,12 +343,12 @@ class TestBulk(OpenSearchTestCase):
 
         # ignore transport error exception
         failing_client = FailingBulkClient(self.client)
-        helpers.bulk(failing_client, [{"a": 42}], index="i", ignore_status=(599,))
+        helpers.bulk(client=failing_client, actions=[{"a": 42}], index="i", ignore_status=(599,))
 
     def test_errors_are_collected_properly(self) -> None:
         self.client.indices.create(
-            "i",
-            {
+            index="i",
+            body={
                 "mappings": {"properties": {"a": {"type": "integer"}}},
                 "settings": {"number_of_shards": 1, "number_of_replicas": 0},
             },
@@ -356,8 +356,8 @@ class TestBulk(OpenSearchTestCase):
         self.client.cluster.health(wait_for_status="yellow")
 
         success, failed = helpers.bulk(
-            self.client,
-            [{"a": 42}, {"a": "c"}],
+            client=self.client,
+            actions=[{"a": 42}, {"a": "c"}],
             index="i",
             stats_only=True,
             raise_on_error=False,
@@ -389,7 +389,7 @@ class TestScan(OpenSearchTestCase):
         for x in range(100):
             bulk.append({"index": {"_index": "test_index", "_id": x}})
             bulk.append({"answer": x, "correct": x == 42})
-        self.client.bulk(bulk, refresh=True)
+        self.client.bulk(body=bulk, refresh=True)
 
         docs = list(
             helpers.scan(
@@ -409,7 +409,7 @@ class TestScan(OpenSearchTestCase):
         for x in range(100):
             bulk.append({"index": {"_index": "test_index", "_id": x}})
             bulk.append({"answer": x, "correct": x == 42})
-        self.client.bulk(bulk, refresh=True)
+        self.client.bulk(body=bulk, refresh=True)
 
         docs = list(helpers.scan(self.client, index="test_index", size=2))
 
@@ -422,7 +422,7 @@ class TestScan(OpenSearchTestCase):
         for x in range(4):
             bulk.append({"index": {"_index": "test_index"}})
             bulk.append({"value": x})
-        self.client.bulk(bulk, refresh=True)
+        self.client.bulk(body=bulk, refresh=True)
 
         with patch.object(self.client, "scroll") as scroll_mock:
             scroll_mock.side_effect = self.mock_scroll_responses
@@ -558,7 +558,7 @@ class TestScan(OpenSearchTestCase):
         for x in range(4):
             bulk.append({"index": {"_index": "test_index"}})
             bulk.append({"value": x})
-        self.client.bulk(bulk, refresh=True)
+        self.client.bulk(body=bulk, refresh=True)
 
         with patch.object(self.client, "scroll") as scroll_mock:
             scroll_mock.side_effect = self.mock_scroll_responses
@@ -593,7 +593,7 @@ class TestScan(OpenSearchTestCase):
         for x in range(4):
             bulk.append({"index": {"_index": "test_index"}})
             bulk.append({"value": x})
-        self.client.bulk(bulk, refresh=True)
+        self.client.bulk(body=bulk, refresh=True)
 
         with patch.object(
             self.client, "clear_scroll", wraps=self.client.clear_scroll
@@ -655,18 +655,18 @@ class TestReindex(OpenSearchTestCase):
                     "type": "answers" if x % 2 == 0 else "questions",
                 }
             )
-        self.client.bulk(bulk, refresh=True)
+        self.client.bulk(body=bulk, refresh=True)
 
     def test_reindex_passes_kwargs_to_scan_and_bulk(self) -> None:
         helpers.reindex(
-            self.client,
-            "test_index",
-            "prod_index",
+            client=self.client,
+            source_index="test_index",
+            target_index="prod_index",
             scan_kwargs={"q": "type:answers"},
             bulk_kwargs={"refresh": True},
         )
 
-        self.assertTrue(self.client.indices.exists("prod_index"))
+        self.assertTrue(self.client.indices.exists(index="prod_index"))
         self.assertEqual(
             50, self.client.count(index="prod_index", q="type:answers")["count"]
         )
@@ -678,14 +678,14 @@ class TestReindex(OpenSearchTestCase):
 
     def test_reindex_accepts_a_query(self) -> None:
         helpers.reindex(
-            self.client,
-            "test_index",
-            "prod_index",
+            client=self.client,
+            source_index="test_index",
+            target_index="prod_index",
             query={"query": {"bool": {"filter": {"term": {"type": "answers"}}}}},
         )
         self.client.indices.refresh()
 
-        self.assertTrue(self.client.indices.exists("prod_index"))
+        self.assertTrue(self.client.indices.exists(index="prod_index"))
         self.assertEqual(
             50, self.client.count(index="prod_index", q="type:answers")["count"]
         )
@@ -696,10 +696,10 @@ class TestReindex(OpenSearchTestCase):
         )
 
     def test_all_documents_get_moved(self) -> None:
-        helpers.reindex(self.client, "test_index", "prod_index")
+        helpers.reindex(client=self.client, source_index="test_index", target_index="prod_index")
         self.client.indices.refresh()
 
-        self.assertTrue(self.client.indices.exists("prod_index"))
+        self.assertTrue(self.client.indices.exists(index="prod_index"))
         self.assertEqual(
             50, self.client.count(index="prod_index", q="type:questions")["count"]
         )
@@ -741,7 +741,7 @@ class TestParentChildReindex(OpenSearchTestCase):
         self.client.indices.refresh(index="test-index")
 
     def test_children_are_reindexed_correctly(self) -> None:
-        helpers.reindex(self.client, "test-index", "real-index")
+        helpers.reindex(client=self.client, source_index="test-index", target_index="real-index")
 
         self.assertEqual(
             {"question_answer": "question"},

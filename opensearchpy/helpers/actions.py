@@ -253,7 +253,7 @@ def _process_bulk_chunk(
 
     try:
         # send the actual request
-        resp = client.bulk("\n".join(bulk_actions) + "\n", *args, **kwargs)
+        resp = client.bulk(body="\n".join(bulk_actions) + "\n", *args, **kwargs)
     except TransportError as e:
         gen = _process_bulk_chunk_error(
             error=e,

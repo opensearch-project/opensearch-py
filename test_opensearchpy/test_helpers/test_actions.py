@@ -72,7 +72,7 @@ class TestParallelBulk(TestCase):
         actions = ({"x": i} for i in range(100))
         list(
             helpers.parallel_bulk(
-                OpenSearch(),
+                client=OpenSearch(),
                 actions=actions,
                 chunk_size=2,
                 raise_on_error=False,
@@ -85,7 +85,7 @@ class TestParallelBulk(TestCase):
 
         self.assertEqual(50, _bulk.call_count)
         _bulk.assert_called_with(
-            '{"index":{}}\n{"x":98}\n{"index":{}}\n{"x":99}\n', request_timeout=160
+            body='{"index":{}}\n{"x":98}\n{"index":{}}\n{"x":99}\n', request_timeout=160
         )
 
     @mock.patch("opensearchpy.helpers.actions._process_bulk_chunk")
@@ -96,7 +96,7 @@ class TestParallelBulk(TestCase):
         client = OpenSearch()
         list(
             helpers.parallel_bulk(
-                client,
+                client=client,
                 actions=actions,
                 chunk_size=2,
                 raise_on_error=True,

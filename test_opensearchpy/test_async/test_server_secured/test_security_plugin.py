@@ -55,7 +55,7 @@ class TestSecurityPlugin(IsolatedAsyncioTestCase):
     async def test_create_role(self) -> None:
         # Test to create role
         response = await self.client.security.create_role(
-            self.ROLE_NAME, body=self.ROLE_CONTENT
+            role=self.ROLE_NAME, body=self.ROLE_CONTENT
         )
 
         self.assertNotIn("errors", response)
@@ -63,7 +63,7 @@ class TestSecurityPlugin(IsolatedAsyncioTestCase):
 
     async def test_create_role_with_body_param_empty(self) -> None:
         try:
-            await self.client.security.create_role(self.ROLE_NAME, body="")
+            await self.client.security.create_role(role=self.ROLE_NAME, body="")
         except ValueError as error:
             assert str(error) == "Empty value passed for a required argument."
         else:
@@ -74,7 +74,7 @@ class TestSecurityPlugin(IsolatedAsyncioTestCase):
         await self.test_create_role()
 
         # Test to fetch the role
-        response = await self.client.security.get_role(self.ROLE_NAME)
+        response = await self.client.security.get_role(role=self.ROLE_NAME)
 
         self.assertNotIn("errors", response)
         self.assertIn(self.ROLE_NAME, response)
@@ -88,7 +88,7 @@ class TestSecurityPlugin(IsolatedAsyncioTestCase):
 
         # Test to update role
         response = await self.client.security.create_role(
-            self.ROLE_NAME, body=role_content
+            role=self.ROLE_NAME, body=role_content
         )
 
         self.assertNotIn("errors", response)
@@ -99,18 +99,18 @@ class TestSecurityPlugin(IsolatedAsyncioTestCase):
         await self.test_create_role()
 
         # Test to delete the role
-        response = await self.client.security.delete_role(self.ROLE_NAME)
+        response = await self.client.security.delete_role(role=self.ROLE_NAME)
 
         self.assertNotIn("errors", response)
 
         # Try fetching the role
         with self.assertRaises(NotFoundError):
-            response = await self.client.security.get_role(self.ROLE_NAME)
+            response = await self.client.security.get_role(role=self.ROLE_NAME)
 
     async def test_create_user(self) -> None:
         # Test to create user
         response = await self.client.security.create_user(
-            self.USER_NAME, body=self.USER_CONTENT
+            username=self.USER_NAME, body=self.USER_CONTENT
         )
 
         self.assertNotIn("errors", response)
@@ -118,7 +118,7 @@ class TestSecurityPlugin(IsolatedAsyncioTestCase):
 
     async def test_create_user_with_body_param_empty(self) -> None:
         try:
-            await self.client.security.create_user(self.USER_NAME, body="")
+            await self.client.security.create_user(username=self.USER_NAME, body="")
         except ValueError as error:
             assert str(error) == "Empty value passed for a required argument."
         else:
@@ -129,7 +129,7 @@ class TestSecurityPlugin(IsolatedAsyncioTestCase):
 
         # Test to create user
         response = await self.client.security.create_user(
-            self.USER_NAME,
+            username=self.USER_NAME,
             body={
                 "password": "opensearchpy@123",
                 "opendistro_security_roles": [self.ROLE_NAME],
@@ -144,7 +144,7 @@ class TestSecurityPlugin(IsolatedAsyncioTestCase):
         await self.test_create_user()
 
         # Test to fetch the user
-        response = await self.client.security.get_user(self.USER_NAME)
+        response = await self.client.security.get_user(username=self.USER_NAME)
 
         self.assertNotIn("errors", response)
         self.assertIn(self.USER_NAME, response)
@@ -158,7 +158,7 @@ class TestSecurityPlugin(IsolatedAsyncioTestCase):
 
         # Test to update user
         response = await self.client.security.create_user(
-            self.USER_NAME, body=user_content
+            username=self.USER_NAME, body=user_content
         )
 
         self.assertNotIn("errors", response)
@@ -169,13 +169,13 @@ class TestSecurityPlugin(IsolatedAsyncioTestCase):
         await self.test_create_user()
 
         # Test to delete the user
-        response = await self.client.security.delete_user(self.USER_NAME)
+        response = await self.client.security.delete_user(username=self.USER_NAME)
 
         self.assertNotIn("errors", response)
 
         # Try fetching the user
         with self.assertRaises(NotFoundError):
-            response = await self.client.security.get_user(self.USER_NAME)
+            response = await self.client.security.get_user(username=self.USER_NAME)
 
     async def test_health_check(self) -> None:
         response = await self.client.security.health_check()

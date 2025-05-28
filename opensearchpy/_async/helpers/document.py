@@ -216,7 +216,7 @@ class AsyncDocument(ObjectBase, metaclass=AsyncIndexMeta):
                 for doc in docs
             ]
         }
-        results = await opensearch.mget(body, index=cls._default_index(index), **kwargs)
+        results = await opensearch.mget(body=body, index=cls._default_index(index), **kwargs)
 
         objs: Any = []
         error_docs: Any = []

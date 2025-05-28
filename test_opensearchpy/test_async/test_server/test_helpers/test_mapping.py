@@ -126,7 +126,7 @@ async def test_mapping_gets_updated_from_opensearch(write_client: Any) -> None:
         },
     )
 
-    m = await mapping.AsyncMapping.from_opensearch("test-mapping", using=write_client)
+    m = await mapping.AsyncMapping.from_opensearch(index="test-mapping", using=write_client)
 
     assert ["comments", "created_at", "title"] == list(
         sorted(m.properties.properties._d_.keys())

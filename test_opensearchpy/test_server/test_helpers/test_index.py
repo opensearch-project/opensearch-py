@@ -60,7 +60,7 @@ def test_index_template_works(write_client: Any) -> None:
 
 
 def test_index_can_be_saved_even_with_settings(write_client: Any) -> None:
-    i = Index("test-blog", using=write_client)
+    i = Index(name="test-blog", using=write_client)
     i.settings(number_of_shards=3, number_of_replicas=0)
     i.save()
     i.settings(number_of_replicas=1)
@@ -77,7 +77,7 @@ def test_index_exists(data_client: Any) -> None:
 
 
 def test_index_can_be_created_with_settings_and_mappings(write_client: Any) -> None:
-    i = Index("test-blog", using=write_client)
+    i = Index(name="test-blog", using=write_client)
     i.document(Post)
     i.settings(number_of_replicas=0, number_of_shards=1)
     i.create()

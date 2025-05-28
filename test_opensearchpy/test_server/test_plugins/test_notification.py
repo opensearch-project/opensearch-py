@@ -27,7 +27,7 @@ class TestNotificationPlugin(OpenSearchTestCase):
             "description": "This ialerting.create_destination(dummy_destination)s a Slack channel",
             "config_type": "slack",
             "is_enabled": True,
-            "slack": {"url": "https://sample-slack-webhook"},
+            "slack": {"url": "https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX"},
         },
     }
 
@@ -36,7 +36,7 @@ class TestNotificationPlugin(OpenSearchTestCase):
         "Plugin not supported for opensearch version",
     )
     def test_create_config(self) -> None:
-        response = self.client.plugins.notifications.create_config(self.CONTENT)
+        response = self.client.plugins.notifications.create_config(body=self.CONTENT)
 
         self.assertNotIn("errors", response)
         self.assertIn("config_id", response)
@@ -89,7 +89,7 @@ class TestNotificationPlugin(OpenSearchTestCase):
         self.test_create_config()
 
         # Fetch the configuration
-        response = self.client.plugins.notifications.get_config(self.CONFIG_ID)
+        response = self.client.plugins.notifications.get_config(config_id=self.CONFIG_ID)
 
         channel_content = self.CONTENT.copy()
         channel_content["config"]["name"] = "Slack Channel"
@@ -98,7 +98,7 @@ class TestNotificationPlugin(OpenSearchTestCase):
         ] = "This is an updated channel configuration"
         channel_content["config"]["config_type"] = "slack"
         channel_content["config"]["is_enabled"] = True
-        channel_content["config"]["slack"]["url"] = "https://hooks.slack.com/sample-url"
+        channel_content["config"]["slack"]["url"] = "https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX"
 
         # Test to updat configuration
         response = self.client.plugins.notifications.update_config(
@@ -123,4 +123,4 @@ class TestNotificationPlugin(OpenSearchTestCase):
 
         # Try fetching the policy
         with self.assertRaises(NotFoundError):
-            response = self.client.plugins.notifications.get_config(self.CONFIG_ID)
+            response = self.client.plugins.notifications.get_config(config_id=self.CONFIG_ID)

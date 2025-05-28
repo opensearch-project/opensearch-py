@@ -70,8 +70,8 @@ async def match_version(info: Any) -> Any:
 @fixture  # type: ignore
 async def write_client(client: Any) -> Any:
     yield client
-    await client.indices.delete("test-*", ignore=404)
-    await client.indices.delete_template("test-template", ignore=404)
+    await client.indices.delete(index="test-*", ignore=404)
+    await client.indices.delete_template(name="test-template", ignore=404)
 
 
 @fixture  # type: ignore
@@ -85,8 +85,8 @@ async def data_client(client: Any) -> Any:
     await async_bulk(client, DATA, raise_on_error=True, refresh=True)
     await async_bulk(client, FLAT_DATA, raise_on_error=True, refresh=True)
     yield client
-    await client.indices.delete("git", ignore=404)
-    await client.indices.delete("flat-git", ignore=404)
+    await client.indices.delete(index="git", ignore=404)
+    await client.indices.delete(index="flat-git", ignore=404)
 
 
 @fixture  # type: ignore
