@@ -25,6 +25,7 @@ class SmClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def create_policy(
         self,
+        *,
         policy_name: Any,
         body: Any = None,
         params: Any = None,
@@ -65,6 +66,7 @@ class SmClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def delete_policy(
         self,
+        *,
         policy_name: Any,
         params: Any = None,
         headers: Any = None,
@@ -103,6 +105,7 @@ class SmClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def explain_policy(
         self,
+        *,
         policy_name: Any,
         params: Any = None,
         headers: Any = None,
@@ -152,6 +155,7 @@ class SmClient(NamespacedClient):
     )
     def get_policies(
         self,
+        *,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -193,6 +197,7 @@ class SmClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def get_policy(
         self,
+        *,
         policy_name: Any,
         params: Any = None,
         headers: Any = None,
@@ -231,6 +236,7 @@ class SmClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def start_policy(
         self,
+        *,
         policy_name: Any,
         params: Any = None,
         headers: Any = None,
@@ -269,6 +275,7 @@ class SmClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def stop_policy(
         self,
+        *,
         policy_name: Any,
         params: Any = None,
         headers: Any = None,
@@ -315,6 +322,7 @@ class SmClient(NamespacedClient):
     )
     def update_policy(
         self,
+        *,
         policy_name: Any,
         body: Any = None,
         params: Any = None,

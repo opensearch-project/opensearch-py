@@ -25,6 +25,7 @@ class ListClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def help(
         self,
+        *,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -75,6 +76,7 @@ class ListClient(NamespacedClient):
     )
     def indices(
         self,
+        *,
         index: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -159,6 +161,7 @@ class ListClient(NamespacedClient):
     )
     def shards(
         self,
+        *,
         index: Any = None,
         params: Any = None,
         headers: Any = None,

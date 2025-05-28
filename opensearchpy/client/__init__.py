@@ -267,6 +267,7 @@ class OpenSearch(Client):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def ping(
         self,
+        *,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -297,6 +298,7 @@ class OpenSearch(Client):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def info(
         self,
+        *,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -337,6 +339,7 @@ class OpenSearch(Client):
     )
     def create(
         self,
+        *,
         index: Any,
         id: Any,
         body: Any,
@@ -422,6 +425,7 @@ class OpenSearch(Client):
     )
     def index(
         self,
+        *,
         index: Any,
         body: Any,
         id: Any = None,
@@ -514,6 +518,7 @@ class OpenSearch(Client):
     )
     def bulk(
         self,
+        *,
         body: Any,
         index: Any = None,
         params: Any = None,
@@ -581,6 +586,7 @@ class OpenSearch(Client):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def clear_scroll(
         self,
+        *,
         body: Any = None,
         scroll_id: Any = None,
         params: Any = None,
@@ -641,6 +647,7 @@ class OpenSearch(Client):
     )
     def count(
         self,
+        *,
         body: Any = None,
         index: Any = None,
         params: Any = None,
@@ -728,6 +735,7 @@ class OpenSearch(Client):
     )
     def delete(
         self,
+        *,
         index: Any,
         id: Any,
         params: Any = None,
@@ -823,6 +831,7 @@ class OpenSearch(Client):
     )
     def delete_by_query(
         self,
+        *,
         index: Any,
         body: Any,
         params: Any = None,
@@ -946,6 +955,7 @@ class OpenSearch(Client):
     )
     def delete_by_query_rethrottle(
         self,
+        *,
         task_id: Any,
         params: Any = None,
         headers: Any = None,
@@ -993,6 +1003,7 @@ class OpenSearch(Client):
     )
     def delete_script(
         self,
+        *,
         id: Any,
         params: Any = None,
         headers: Any = None,
@@ -1050,6 +1061,7 @@ class OpenSearch(Client):
     )
     def exists(
         self,
+        *,
         index: Any,
         id: Any,
         params: Any = None,
@@ -1125,6 +1137,7 @@ class OpenSearch(Client):
     )
     def exists_source(
         self,
+        *,
         index: Any,
         id: Any,
         params: Any = None,
@@ -1201,6 +1214,7 @@ class OpenSearch(Client):
     )
     def explain(
         self,
+        *,
         index: Any,
         id: Any,
         body: Any = None,
@@ -1276,6 +1290,7 @@ class OpenSearch(Client):
     )
     def field_caps(
         self,
+        *,
         body: Any = None,
         index: Any = None,
         params: Any = None,
@@ -1347,6 +1362,7 @@ class OpenSearch(Client):
     )
     def get(
         self,
+        *,
         index: Any,
         id: Any,
         params: Any = None,
@@ -1414,6 +1430,7 @@ class OpenSearch(Client):
     )
     def get_script(
         self,
+        *,
         id: Any,
         params: Any = None,
         headers: Any = None,
@@ -1466,6 +1483,7 @@ class OpenSearch(Client):
     )
     def get_source(
         self,
+        *,
         index: Any,
         id: Any,
         params: Any = None,
@@ -1537,6 +1555,7 @@ class OpenSearch(Client):
     )
     def mget(
         self,
+        *,
         body: Any,
         index: Any = None,
         params: Any = None,
@@ -1612,6 +1631,7 @@ class OpenSearch(Client):
     )
     def msearch(
         self,
+        *,
         body: Any,
         index: Any = None,
         params: Any = None,
@@ -1687,6 +1707,7 @@ class OpenSearch(Client):
     )
     def msearch_template(
         self,
+        *,
         body: Any,
         index: Any = None,
         params: Any = None,
@@ -1759,6 +1780,7 @@ class OpenSearch(Client):
     )
     def mtermvectors(
         self,
+        *,
         body: Any = None,
         index: Any = None,
         params: Any = None,
@@ -1830,6 +1852,7 @@ class OpenSearch(Client):
     )
     def put_script(
         self,
+        *,
         id: Any,
         body: Any,
         context: Any = None,
@@ -1893,6 +1916,7 @@ class OpenSearch(Client):
     )
     def rank_eval(
         self,
+        *,
         body: Any,
         index: Any = None,
         params: Any = None,
@@ -1964,6 +1988,7 @@ class OpenSearch(Client):
     )
     def reindex(
         self,
+        *,
         body: Any,
         params: Any = None,
         headers: Any = None,
@@ -2020,6 +2045,7 @@ class OpenSearch(Client):
     )
     def reindex_rethrottle(
         self,
+        *,
         task_id: Any,
         params: Any = None,
         headers: Any = None,
@@ -2057,6 +2083,7 @@ class OpenSearch(Client):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def render_search_template(
         self,
+        *,
         body: Any = None,
         id: Any = None,
         params: Any = None,
@@ -2093,6 +2120,7 @@ class OpenSearch(Client):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def scripts_painless_execute(
         self,
+        *,
         body: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -2134,6 +2162,7 @@ class OpenSearch(Client):
     )
     def scroll(
         self,
+        *,
         body: Any = None,
         scroll_id: Any = None,
         params: Any = None,
@@ -2229,6 +2258,7 @@ class OpenSearch(Client):
     )
     def search(
         self,
+        *,
         body: Any = None,
         index: Any = None,
         params: Any = None,
@@ -2463,6 +2493,7 @@ class OpenSearch(Client):
     )
     def search_shards(
         self,
+        *,
         index: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -2532,6 +2563,7 @@ class OpenSearch(Client):
     )
     def search_template(
         self,
+        *,
         body: Any,
         index: Any = None,
         params: Any = None,
@@ -2620,6 +2652,7 @@ class OpenSearch(Client):
     )
     def termvectors(
         self,
+        *,
         index: Any,
         body: Any = None,
         id: Any = None,
@@ -2703,6 +2736,7 @@ class OpenSearch(Client):
     )
     def update(
         self,
+        *,
         index: Any,
         id: Any,
         body: Any,
@@ -2813,6 +2847,7 @@ class OpenSearch(Client):
     )
     def update_by_query(
         self,
+        *,
         index: Any,
         body: Any = None,
         params: Any = None,
@@ -2940,6 +2975,7 @@ class OpenSearch(Client):
     )
     def update_by_query_rethrottle(
         self,
+        *,
         task_id: Any,
         params: Any = None,
         headers: Any = None,
@@ -2978,6 +3014,7 @@ class OpenSearch(Client):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def get_script_context(
         self,
+        *,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -3005,6 +3042,7 @@ class OpenSearch(Client):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def get_script_languages(
         self,
+        *,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -3043,6 +3081,7 @@ class OpenSearch(Client):
     )
     def create_pit(
         self,
+        *,
         index: Any,
         params: Any = None,
         headers: Any = None,
@@ -3088,6 +3127,7 @@ class OpenSearch(Client):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def delete_all_pits(
         self,
+        *,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -3115,6 +3155,7 @@ class OpenSearch(Client):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def delete_pit(
         self,
+        *,
         body: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -3148,6 +3189,7 @@ class OpenSearch(Client):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def get_all_pits(
         self,
+        *,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -3192,6 +3234,7 @@ class OpenSearch(Client):
     )
     def bulk_stream(
         self,
+        *,
         body: Any,
         index: Any = None,
         params: Any = None,

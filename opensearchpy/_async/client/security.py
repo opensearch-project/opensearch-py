@@ -27,6 +27,7 @@ class SecurityClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def get_account_details(
         self,
+        *,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -54,6 +55,7 @@ class SecurityClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def change_password(
         self,
+        *,
         body: Any,
         params: Any = None,
         headers: Any = None,
@@ -89,6 +91,7 @@ class SecurityClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def get_action_group(
         self,
+        *,
         action_group: Any,
         params: Any = None,
         headers: Any = None,
@@ -126,6 +129,7 @@ class SecurityClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def get_action_groups(
         self,
+        *,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -156,6 +160,7 @@ class SecurityClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def delete_action_group(
         self,
+        *,
         action_group: Any,
         params: Any = None,
         headers: Any = None,
@@ -193,6 +198,7 @@ class SecurityClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def create_action_group(
         self,
+        *,
         action_group: Any,
         body: Any,
         params: Any = None,
@@ -232,6 +238,7 @@ class SecurityClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def patch_action_group(
         self,
+        *,
         action_group: Any,
         body: Any,
         params: Any = None,
@@ -270,6 +277,7 @@ class SecurityClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def patch_action_groups(
         self,
+        *,
         body: Any,
         params: Any = None,
         headers: Any = None,
@@ -305,6 +313,7 @@ class SecurityClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def get_user(
         self,
+        *,
         username: Any,
         params: Any = None,
         headers: Any = None,
@@ -340,6 +349,7 @@ class SecurityClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def get_users(
         self,
+        *,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -370,6 +380,7 @@ class SecurityClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def delete_user(
         self,
+        *,
         username: Any,
         params: Any = None,
         headers: Any = None,
@@ -405,6 +416,7 @@ class SecurityClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def create_user(
         self,
+        *,
         username: Any,
         body: Any,
         params: Any = None,
@@ -443,6 +455,7 @@ class SecurityClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def patch_user(
         self,
+        *,
         username: Any,
         body: Any,
         params: Any = None,
@@ -481,6 +494,7 @@ class SecurityClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def patch_users(
         self,
+        *,
         body: Any,
         params: Any = None,
         headers: Any = None,
@@ -516,6 +530,7 @@ class SecurityClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def get_role(
         self,
+        *,
         role: Any,
         params: Any = None,
         headers: Any = None,
@@ -551,6 +566,7 @@ class SecurityClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def get_roles(
         self,
+        *,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -578,6 +594,7 @@ class SecurityClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def delete_role(
         self,
+        *,
         role: Any,
         params: Any = None,
         headers: Any = None,
@@ -613,6 +630,7 @@ class SecurityClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def create_role(
         self,
+        *,
         role: Any,
         body: Any,
         params: Any = None,
@@ -651,6 +669,7 @@ class SecurityClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def patch_role(
         self,
+        *,
         role: Any,
         body: Any,
         params: Any = None,
@@ -689,6 +708,7 @@ class SecurityClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def patch_roles(
         self,
+        *,
         body: Any,
         params: Any = None,
         headers: Any = None,
@@ -724,6 +744,7 @@ class SecurityClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def get_role_mapping(
         self,
+        *,
         role: Any,
         params: Any = None,
         headers: Any = None,
@@ -759,6 +780,7 @@ class SecurityClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def get_role_mappings(
         self,
+        *,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -789,6 +811,7 @@ class SecurityClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def delete_role_mapping(
         self,
+        *,
         role: Any,
         params: Any = None,
         headers: Any = None,
@@ -825,6 +848,7 @@ class SecurityClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def create_role_mapping(
         self,
+        *,
         role: Any,
         body: Any,
         params: Any = None,
@@ -864,6 +888,7 @@ class SecurityClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def patch_role_mapping(
         self,
+        *,
         role: Any,
         body: Any,
         params: Any = None,
@@ -902,6 +927,7 @@ class SecurityClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def patch_role_mappings(
         self,
+        *,
         body: Any,
         params: Any = None,
         headers: Any = None,
@@ -937,6 +963,7 @@ class SecurityClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def get_tenant(
         self,
+        *,
         tenant: Any,
         params: Any = None,
         headers: Any = None,
@@ -972,6 +999,7 @@ class SecurityClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def get_tenants(
         self,
+        *,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -999,6 +1027,7 @@ class SecurityClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def delete_tenant(
         self,
+        *,
         tenant: Any,
         params: Any = None,
         headers: Any = None,
@@ -1034,6 +1063,7 @@ class SecurityClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def create_tenant(
         self,
+        *,
         tenant: Any,
         body: Any,
         params: Any = None,
@@ -1072,6 +1102,7 @@ class SecurityClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def patch_tenant(
         self,
+        *,
         tenant: Any,
         body: Any,
         params: Any = None,
@@ -1110,6 +1141,7 @@ class SecurityClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def patch_tenants(
         self,
+        *,
         body: Any,
         params: Any = None,
         headers: Any = None,
@@ -1145,6 +1177,7 @@ class SecurityClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def get_configuration(
         self,
+        *,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -1175,6 +1208,7 @@ class SecurityClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def update_configuration(
         self,
+        *,
         body: Any,
         params: Any = None,
         headers: Any = None,
@@ -1211,6 +1245,7 @@ class SecurityClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def patch_configuration(
         self,
+        *,
         body: Any,
         params: Any = None,
         headers: Any = None,
@@ -1247,6 +1282,7 @@ class SecurityClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "show_all", "source")
     async def get_distinguished_names(
         self,
+        *,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -1277,6 +1313,7 @@ class SecurityClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def get_certificates(
         self,
+        *,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -1304,6 +1341,7 @@ class SecurityClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def reload_transport_certificates(
         self,
+        *,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -1334,6 +1372,7 @@ class SecurityClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def reload_http_certificates(
         self,
+        *,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -1364,6 +1403,7 @@ class SecurityClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def flush_cache(
         self,
+        *,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -1391,6 +1431,7 @@ class SecurityClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "mode", "pretty", "source")
     async def health(
         self,
+        *,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -1422,6 +1463,7 @@ class SecurityClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def get_audit_configuration(
         self,
+        *,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -1449,6 +1491,7 @@ class SecurityClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def update_audit_configuration(
         self,
+        *,
         body: Any,
         params: Any = None,
         headers: Any = None,
@@ -1484,6 +1527,7 @@ class SecurityClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def patch_audit_configuration(
         self,
+        *,
         body: Any,
         params: Any = None,
         headers: Any = None,
@@ -1519,6 +1563,7 @@ class SecurityClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def patch_distinguished_names(
         self,
+        *,
         body: Any,
         params: Any = None,
         headers: Any = None,
@@ -1563,6 +1608,7 @@ class SecurityClient(NamespacedClient):
     )
     async def authinfo(
         self,
+        *,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -1593,6 +1639,7 @@ class SecurityClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def authtoken(
         self,
+        *,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -1620,6 +1667,7 @@ class SecurityClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def cache(
         self,
+        *,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -1647,6 +1695,7 @@ class SecurityClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def config_upgrade_check(
         self,
+        *,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -1678,6 +1727,7 @@ class SecurityClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def config_upgrade_perform(
         self,
+        *,
         body: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -1711,6 +1761,7 @@ class SecurityClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def create_allowlist(
         self,
+        *,
         body: Any,
         params: Any = None,
         headers: Any = None,
@@ -1747,6 +1798,7 @@ class SecurityClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def create_update_tenancy_config(
         self,
+        *,
         body: Any,
         params: Any = None,
         headers: Any = None,
@@ -1783,6 +1835,7 @@ class SecurityClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def create_user_legacy(
         self,
+        *,
         username: Any,
         body: Any,
         params: Any = None,
@@ -1821,6 +1874,7 @@ class SecurityClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def delete_distinguished_name(
         self,
+        *,
         cluster_name: Any,
         params: Any = None,
         headers: Any = None,
@@ -1860,6 +1914,7 @@ class SecurityClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def delete_user_legacy(
         self,
+        *,
         username: Any,
         params: Any = None,
         headers: Any = None,
@@ -1895,6 +1950,7 @@ class SecurityClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def generate_obo_token(
         self,
+        *,
         body: Any,
         params: Any = None,
         headers: Any = None,
@@ -1930,6 +1986,7 @@ class SecurityClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def generate_user_token(
         self,
+        *,
         username: Any,
         params: Any = None,
         headers: Any = None,
@@ -1968,6 +2025,7 @@ class SecurityClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def generate_user_token_legacy(
         self,
+        *,
         username: Any,
         params: Any = None,
         headers: Any = None,
@@ -2004,6 +2062,7 @@ class SecurityClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def get_allowlist(
         self,
+        *,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -2031,6 +2090,7 @@ class SecurityClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def get_dashboards_info(
         self,
+        *,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -2059,6 +2119,7 @@ class SecurityClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "show_all", "source")
     async def get_distinguished_name(
         self,
+        *,
         cluster_name: Any,
         params: Any = None,
         headers: Any = None,
@@ -2100,6 +2161,7 @@ class SecurityClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def get_permissions_info(
         self,
+        *,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -2130,6 +2192,7 @@ class SecurityClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "show_dn", "source")
     async def get_sslinfo(
         self,
+        *,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -2159,6 +2222,7 @@ class SecurityClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def get_tenancy_config(
         self,
+        *,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -2190,6 +2254,7 @@ class SecurityClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def get_user_legacy(
         self,
+        *,
         username: Any,
         params: Any = None,
         headers: Any = None,
@@ -2225,6 +2290,7 @@ class SecurityClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def get_users_legacy(
         self,
+        *,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -2252,6 +2318,7 @@ class SecurityClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def migrate(
         self,
+        *,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -2279,6 +2346,7 @@ class SecurityClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def patch_allowlist(
         self,
+        *,
         body: Any,
         params: Any = None,
         headers: Any = None,
@@ -2314,6 +2382,7 @@ class SecurityClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def patch_distinguished_name(
         self,
+        *,
         cluster_name: Any,
         body: Any = None,
         params: Any = None,
@@ -2355,6 +2424,7 @@ class SecurityClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def post_dashboards_info(
         self,
+        *,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -2383,6 +2453,7 @@ class SecurityClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def tenant_info(
         self,
+        *,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -2411,6 +2482,7 @@ class SecurityClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def update_distinguished_name(
         self,
+        *,
         cluster_name: Any,
         body: Any = None,
         params: Any = None,
@@ -2454,6 +2526,7 @@ class SecurityClient(NamespacedClient):
     )
     async def validate(
         self,
+        *,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -2484,6 +2557,7 @@ class SecurityClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def who_am_i(
         self,
+        *,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -2511,6 +2585,7 @@ class SecurityClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def who_am_i_protected(
         self,
+        *,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -2548,6 +2623,7 @@ class SecurityClient(NamespacedClient):
     )
     async def get_all_certificates(
         self,
+        *,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -2590,6 +2666,7 @@ class SecurityClient(NamespacedClient):
     )
     async def get_node_certificates(
         self,
+        *,
         node_id: Any,
         params: Any = None,
         headers: Any = None,

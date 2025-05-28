@@ -43,6 +43,7 @@ class IndicesClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def analyze(
         self,
+        *,
         body: Any = None,
         index: Any = None,
         params: Any = None,
@@ -89,6 +90,7 @@ class IndicesClient(NamespacedClient):
     )
     async def refresh(
         self,
+        *,
         index: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -142,6 +144,7 @@ class IndicesClient(NamespacedClient):
     )
     async def flush(
         self,
+        *,
         index: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -200,6 +203,7 @@ class IndicesClient(NamespacedClient):
     )
     async def create(
         self,
+        *,
         index: Any,
         body: Any = None,
         params: Any = None,
@@ -260,6 +264,7 @@ class IndicesClient(NamespacedClient):
     )
     async def clone(
         self,
+        *,
         index: Any,
         target: Any,
         body: Any = None,
@@ -333,6 +338,7 @@ class IndicesClient(NamespacedClient):
     )
     async def get(
         self,
+        *,
         index: Any,
         params: Any = None,
         headers: Any = None,
@@ -408,6 +414,7 @@ class IndicesClient(NamespacedClient):
     )
     async def open(
         self,
+        *,
         index: Any,
         params: Any = None,
         headers: Any = None,
@@ -487,6 +494,7 @@ class IndicesClient(NamespacedClient):
     )
     async def close(
         self,
+        *,
         index: Any,
         params: Any = None,
         headers: Any = None,
@@ -556,6 +564,7 @@ class IndicesClient(NamespacedClient):
     )
     async def delete(
         self,
+        *,
         index: Any,
         params: Any = None,
         headers: Any = None,
@@ -624,6 +633,7 @@ class IndicesClient(NamespacedClient):
     )
     async def exists(
         self,
+        *,
         index: Any,
         params: Any = None,
         headers: Any = None,
@@ -689,6 +699,7 @@ class IndicesClient(NamespacedClient):
     )
     async def put_mapping(
         self,
+        *,
         body: Any,
         index: Any = None,
         params: Any = None,
@@ -765,6 +776,7 @@ class IndicesClient(NamespacedClient):
     )
     async def get_mapping(
         self,
+        *,
         index: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -826,6 +838,7 @@ class IndicesClient(NamespacedClient):
     )
     async def get_field_mapping(
         self,
+        *,
         fields: Any,
         index: Any = None,
         params: Any = None,
@@ -891,6 +904,7 @@ class IndicesClient(NamespacedClient):
     )
     async def exists_alias(
         self,
+        *,
         name: Any,
         index: Any = None,
         params: Any = None,
@@ -952,6 +966,7 @@ class IndicesClient(NamespacedClient):
     )
     async def get_alias(
         self,
+        *,
         index: Any = None,
         name: Any = None,
         params: Any = None,
@@ -1009,6 +1024,7 @@ class IndicesClient(NamespacedClient):
     )
     async def update_aliases(
         self,
+        *,
         body: Any,
         params: Any = None,
         headers: Any = None,
@@ -1059,6 +1075,7 @@ class IndicesClient(NamespacedClient):
     )
     async def delete_alias(
         self,
+        *,
         index: Any,
         name: Any,
         params: Any = None,
@@ -1115,6 +1132,7 @@ class IndicesClient(NamespacedClient):
     )
     async def put_template(
         self,
+        *,
         name: Any,
         body: Any,
         params: Any = None,
@@ -1176,6 +1194,7 @@ class IndicesClient(NamespacedClient):
     )
     async def exists_template(
         self,
+        *,
         name: Any,
         params: Any = None,
         headers: Any = None,
@@ -1227,6 +1246,7 @@ class IndicesClient(NamespacedClient):
     )
     async def get_template(
         self,
+        *,
         name: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -1278,6 +1298,7 @@ class IndicesClient(NamespacedClient):
     )
     async def delete_template(
         self,
+        *,
         name: Any,
         params: Any = None,
         headers: Any = None,
@@ -1334,6 +1355,7 @@ class IndicesClient(NamespacedClient):
     )
     async def get_settings(
         self,
+        *,
         index: Any = None,
         name: Any = None,
         params: Any = None,
@@ -1408,6 +1430,7 @@ class IndicesClient(NamespacedClient):
     )
     async def put_settings(
         self,
+        *,
         body: Any,
         index: Any = None,
         params: Any = None,
@@ -1488,6 +1511,7 @@ class IndicesClient(NamespacedClient):
     )
     async def stats(
         self,
+        *,
         index: Any = None,
         metric: Any = None,
         params: Any = None,
@@ -1555,6 +1579,7 @@ class IndicesClient(NamespacedClient):
     )
     async def segments(
         self,
+        *,
         index: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -1617,6 +1642,7 @@ class IndicesClient(NamespacedClient):
     )
     async def validate_query(
         self,
+        *,
         body: Any = None,
         index: Any = None,
         params: Any = None,
@@ -1698,6 +1724,7 @@ class IndicesClient(NamespacedClient):
     )
     async def clear_cache(
         self,
+        *,
         index: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -1755,6 +1782,7 @@ class IndicesClient(NamespacedClient):
     )
     async def recovery(
         self,
+        *,
         index: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -1801,6 +1829,7 @@ class IndicesClient(NamespacedClient):
     )
     async def upgrade(
         self,
+        *,
         index: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -1852,6 +1881,7 @@ class IndicesClient(NamespacedClient):
     )
     async def get_upgrade(
         self,
+        *,
         index: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -1900,6 +1930,7 @@ class IndicesClient(NamespacedClient):
     )
     async def shard_stores(
         self,
+        *,
         index: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -1956,6 +1987,7 @@ class IndicesClient(NamespacedClient):
     )
     async def forcemerge(
         self,
+        *,
         index: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -2019,6 +2051,7 @@ class IndicesClient(NamespacedClient):
     )
     async def shrink(
         self,
+        *,
         index: Any,
         target: Any,
         body: Any = None,
@@ -2093,6 +2126,7 @@ class IndicesClient(NamespacedClient):
     )
     async def split(
         self,
+        *,
         index: Any,
         target: Any,
         body: Any = None,
@@ -2166,6 +2200,7 @@ class IndicesClient(NamespacedClient):
     )
     async def rollover(
         self,
+        *,
         alias: Any,
         body: Any = None,
         new_index: Any = None,
@@ -2225,6 +2260,7 @@ class IndicesClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def create_data_stream(
         self,
+        *,
         name: Any,
         body: Any = None,
         params: Any = None,
@@ -2268,6 +2304,7 @@ class IndicesClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def delete_data_stream(
         self,
+        *,
         name: Any,
         params: Any = None,
         headers: Any = None,
@@ -2310,6 +2347,7 @@ class IndicesClient(NamespacedClient):
     )
     async def delete_index_template(
         self,
+        *,
         name: Any,
         params: Any = None,
         headers: Any = None,
@@ -2365,6 +2403,7 @@ class IndicesClient(NamespacedClient):
     )
     async def exists_index_template(
         self,
+        *,
         name: Any,
         params: Any = None,
         headers: Any = None,
@@ -2418,6 +2457,7 @@ class IndicesClient(NamespacedClient):
     )
     async def get_index_template(
         self,
+        *,
         name: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -2469,6 +2509,7 @@ class IndicesClient(NamespacedClient):
     )
     async def put_index_template(
         self,
+        *,
         name: Any,
         body: Any,
         params: Any = None,
@@ -2525,6 +2566,7 @@ class IndicesClient(NamespacedClient):
     )
     async def simulate_index_template(
         self,
+        *,
         name: Any,
         body: Any = None,
         params: Any = None,
@@ -2571,6 +2613,7 @@ class IndicesClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def get_data_stream(
         self,
+        *,
         name: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -2612,6 +2655,7 @@ class IndicesClient(NamespacedClient):
     )
     async def simulate_template(
         self,
+        *,
         body: Any = None,
         name: Any = None,
         params: Any = None,
@@ -2663,6 +2707,7 @@ class IndicesClient(NamespacedClient):
     )
     async def resolve_index(
         self,
+        *,
         name: Any,
         params: Any = None,
         headers: Any = None,
@@ -2714,6 +2759,7 @@ class IndicesClient(NamespacedClient):
     )
     async def add_block(
         self,
+        *,
         index: Any,
         block: Any,
         params: Any = None,
@@ -2764,6 +2810,7 @@ class IndicesClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def data_streams_stats(
         self,
+        *,
         name: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -2807,6 +2854,7 @@ class IndicesClient(NamespacedClient):
     )
     async def put_alias(
         self,
+        *,
         index: Any = None,
         name: Any = None,
         body: Any = None,

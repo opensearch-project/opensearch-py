@@ -52,6 +52,7 @@ class SnapshotClient(NamespacedClient):
     )
     def create(
         self,
+        *,
         repository: Any,
         snapshot: Any,
         body: Any = None,
@@ -115,6 +116,7 @@ class SnapshotClient(NamespacedClient):
     )
     def delete(
         self,
+        *,
         repository: Any,
         snapshot: Any,
         params: Any = None,
@@ -172,6 +174,7 @@ class SnapshotClient(NamespacedClient):
     )
     def get(
         self,
+        *,
         repository: Any,
         snapshot: Any,
         params: Any = None,
@@ -239,6 +242,7 @@ class SnapshotClient(NamespacedClient):
     )
     def delete_repository(
         self,
+        *,
         repository: Any,
         params: Any = None,
         headers: Any = None,
@@ -293,6 +297,7 @@ class SnapshotClient(NamespacedClient):
     )
     def get_repository(
         self,
+        *,
         repository: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -342,6 +347,7 @@ class SnapshotClient(NamespacedClient):
     )
     def create_repository(
         self,
+        *,
         repository: Any,
         body: Any,
         params: Any = None,
@@ -401,6 +407,7 @@ class SnapshotClient(NamespacedClient):
     )
     def restore(
         self,
+        *,
         repository: Any,
         snapshot: Any,
         body: Any = None,
@@ -466,6 +473,7 @@ class SnapshotClient(NamespacedClient):
     )
     def status(
         self,
+        *,
         repository: Any = None,
         snapshot: Any = None,
         params: Any = None,
@@ -521,6 +529,7 @@ class SnapshotClient(NamespacedClient):
     )
     def verify_repository(
         self,
+        *,
         repository: Any,
         params: Any = None,
         headers: Any = None,
@@ -575,6 +584,7 @@ class SnapshotClient(NamespacedClient):
     )
     def cleanup_repository(
         self,
+        *,
         repository: Any,
         params: Any = None,
         headers: Any = None,
@@ -627,6 +637,7 @@ class SnapshotClient(NamespacedClient):
     )
     def clone(
         self,
+        *,
         repository: Any,
         snapshot: Any,
         target_snapshot: Any,

@@ -25,6 +25,7 @@ class MlClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def delete_model(
         self,
+        *,
         model_id: Any,
         params: Any = None,
         headers: Any = None,
@@ -59,6 +60,7 @@ class MlClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def delete_model_group(
         self,
+        *,
         model_group_id: Any,
         params: Any = None,
         headers: Any = None,
@@ -95,6 +97,7 @@ class MlClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def get_model_group(
         self,
+        *,
         model_group_id: Any,
         params: Any = None,
         headers: Any = None,
@@ -131,6 +134,7 @@ class MlClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def get_task(
         self,
+        *,
         task_id: Any,
         params: Any = None,
         headers: Any = None,
@@ -165,6 +169,7 @@ class MlClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def register_model(
         self,
+        *,
         body: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -197,6 +202,7 @@ class MlClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def register_model_group(
         self,
+        *,
         body: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -229,6 +235,7 @@ class MlClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def search_models(
         self,
+        *,
         body: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -261,6 +268,7 @@ class MlClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def deploy_model(
         self,
+        *,
         model_id: Any,
         params: Any = None,
         headers: Any = None,
@@ -295,6 +303,7 @@ class MlClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def undeploy_model(
         self,
+        *,
         body: Any = None,
         model_id: Any = None,
         params: Any = None,
@@ -328,6 +337,7 @@ class MlClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def create_connector(
         self,
+        *,
         body: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -360,6 +370,7 @@ class MlClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def delete_agent(
         self,
+        *,
         agent_id: Any,
         params: Any = None,
         headers: Any = None,
@@ -394,6 +405,7 @@ class MlClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def delete_connector(
         self,
+        *,
         connector_id: Any,
         params: Any = None,
         headers: Any = None,
@@ -430,6 +442,7 @@ class MlClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def delete_task(
         self,
+        *,
         task_id: Any,
         params: Any = None,
         headers: Any = None,
@@ -464,6 +477,7 @@ class MlClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def register_agents(
         self,
+        *,
         body: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -496,6 +510,7 @@ class MlClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def chunk_model(
         self,
+        *,
         model_id: Any,
         chunk_number: Any,
         body: Any = None,
@@ -537,6 +552,7 @@ class MlClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def create_controller(
         self,
+        *,
         model_id: Any,
         body: Any = None,
         params: Any = None,
@@ -573,6 +589,7 @@ class MlClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def create_memory(
         self,
+        *,
         body: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -601,6 +618,7 @@ class MlClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def create_message(
         self,
+        *,
         memory_id: Any,
         body: Any = None,
         params: Any = None,
@@ -637,6 +655,7 @@ class MlClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def create_model_meta(
         self,
+        *,
         body: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -672,6 +691,7 @@ class MlClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def delete_controller(
         self,
+        *,
         model_id: Any,
         params: Any = None,
         headers: Any = None,
@@ -706,6 +726,7 @@ class MlClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def delete_memory(
         self,
+        *,
         memory_id: Any,
         params: Any = None,
         headers: Any = None,
@@ -740,6 +761,7 @@ class MlClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def execute_agent(
         self,
+        *,
         agent_id: Any,
         body: Any = None,
         params: Any = None,
@@ -776,6 +798,7 @@ class MlClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def execute_algorithm(
         self,
+        *,
         algorithm_name: Any,
         body: Any = None,
         params: Any = None,
@@ -814,6 +837,7 @@ class MlClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def get_agent(
         self,
+        *,
         agent_id: Any,
         params: Any = None,
         headers: Any = None,
@@ -856,6 +880,7 @@ class MlClient(NamespacedClient):
     )
     def get_all_memories(
         self,
+        *,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -899,6 +924,7 @@ class MlClient(NamespacedClient):
     )
     def get_all_messages(
         self,
+        *,
         memory_id: Any,
         params: Any = None,
         headers: Any = None,
@@ -933,6 +959,7 @@ class MlClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def get_all_tools(
         self,
+        *,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -960,6 +987,7 @@ class MlClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def get_connector(
         self,
+        *,
         connector_id: Any,
         params: Any = None,
         headers: Any = None,
@@ -996,6 +1024,7 @@ class MlClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def get_controller(
         self,
+        *,
         model_id: Any,
         params: Any = None,
         headers: Any = None,
@@ -1030,6 +1059,7 @@ class MlClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def get_memory(
         self,
+        *,
         memory_id: Any,
         params: Any = None,
         headers: Any = None,
@@ -1064,6 +1094,7 @@ class MlClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def get_message(
         self,
+        *,
         message_id: Any,
         params: Any = None,
         headers: Any = None,
@@ -1106,6 +1137,7 @@ class MlClient(NamespacedClient):
     )
     def get_message_traces(
         self,
+        *,
         message_id: Any,
         params: Any = None,
         headers: Any = None,
@@ -1140,6 +1172,7 @@ class MlClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def get_model(
         self,
+        *,
         model_id: Any,
         params: Any = None,
         headers: Any = None,
@@ -1174,6 +1207,7 @@ class MlClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def get_profile(
         self,
+        *,
         body: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -1202,6 +1236,7 @@ class MlClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def get_profile_models(
         self,
+        *,
         body: Any = None,
         model_id: Any = None,
         params: Any = None,
@@ -1235,6 +1270,7 @@ class MlClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def get_profile_tasks(
         self,
+        *,
         body: Any = None,
         task_id: Any = None,
         params: Any = None,
@@ -1268,6 +1304,7 @@ class MlClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def get_stats(
         self,
+        *,
         node_id: Any = None,
         stat: Any = None,
         params: Any = None,
@@ -1300,6 +1337,7 @@ class MlClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def get_tool(
         self,
+        *,
         tool_name: Any,
         params: Any = None,
         headers: Any = None,
@@ -1334,6 +1372,7 @@ class MlClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def load_model(
         self,
+        *,
         model_id: Any,
         params: Any = None,
         headers: Any = None,
@@ -1371,6 +1410,7 @@ class MlClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def predict(
         self,
+        *,
         algorithm_name: Any,
         model_id: Any,
         body: Any = None,
@@ -1409,6 +1449,7 @@ class MlClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def predict_model(
         self,
+        *,
         model_id: Any,
         body: Any = None,
         params: Any = None,
@@ -1445,6 +1486,7 @@ class MlClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def register_model_meta(
         self,
+        *,
         body: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -1477,6 +1519,7 @@ class MlClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def search_agents(
         self,
+        *,
         body: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -1509,6 +1552,7 @@ class MlClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def search_connectors(
         self,
+        *,
         body: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -1541,6 +1585,7 @@ class MlClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def search_memory(
         self,
+        *,
         body: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -1573,6 +1618,7 @@ class MlClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def search_message(
         self,
+        *,
         memory_id: Any,
         body: Any = None,
         params: Any = None,
@@ -1609,6 +1655,7 @@ class MlClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def search_model_group(
         self,
+        *,
         body: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -1641,6 +1688,7 @@ class MlClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def search_tasks(
         self,
+        *,
         body: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -1673,6 +1721,7 @@ class MlClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def train(
         self,
+        *,
         algorithm_name: Any,
         body: Any = None,
         params: Any = None,
@@ -1711,6 +1760,7 @@ class MlClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def train_predict(
         self,
+        *,
         algorithm_name: Any,
         body: Any = None,
         params: Any = None,
@@ -1749,6 +1799,7 @@ class MlClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def unload_model(
         self,
+        *,
         body: Any = None,
         model_id: Any = None,
         params: Any = None,
@@ -1785,6 +1836,7 @@ class MlClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def update_connector(
         self,
+        *,
         connector_id: Any,
         body: Any = None,
         params: Any = None,
@@ -1823,6 +1875,7 @@ class MlClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def update_controller(
         self,
+        *,
         model_id: Any,
         body: Any = None,
         params: Any = None,
@@ -1859,6 +1912,7 @@ class MlClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def update_memory(
         self,
+        *,
         memory_id: Any,
         body: Any = None,
         params: Any = None,
@@ -1895,6 +1949,7 @@ class MlClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def update_message(
         self,
+        *,
         message_id: Any,
         body: Any = None,
         params: Any = None,
@@ -1931,6 +1986,7 @@ class MlClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def update_model(
         self,
+        *,
         model_id: Any,
         body: Any = None,
         params: Any = None,
@@ -1967,6 +2023,7 @@ class MlClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def update_model_group(
         self,
+        *,
         model_group_id: Any,
         body: Any = None,
         params: Any = None,
@@ -2005,6 +2062,7 @@ class MlClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def upload_chunk(
         self,
+        *,
         model_id: Any,
         chunk_number: Any,
         body: Any = None,
@@ -2045,6 +2103,7 @@ class MlClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def upload_model(
         self,
+        *,
         body: Any = None,
         params: Any = None,
         headers: Any = None,

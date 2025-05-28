@@ -56,6 +56,7 @@ class CatClient(NamespacedClient):
     )
     def aliases(
         self,
+        *,
         name: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -113,6 +114,7 @@ class CatClient(NamespacedClient):
     )
     def all_pit_segments(
         self,
+        *,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -165,6 +167,7 @@ class CatClient(NamespacedClient):
     )
     def allocation(
         self,
+        *,
         node_id: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -230,6 +233,7 @@ class CatClient(NamespacedClient):
     )
     def cluster_manager(
         self,
+        *,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -283,6 +287,7 @@ class CatClient(NamespacedClient):
     )
     def count(
         self,
+        *,
         index: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -335,6 +340,7 @@ class CatClient(NamespacedClient):
     )
     def fielddata(
         self,
+        *,
         fields: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -392,6 +398,7 @@ class CatClient(NamespacedClient):
     )
     def health(
         self,
+        *,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -431,6 +438,7 @@ class CatClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def help(
         self,
+        *,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -478,6 +486,7 @@ class CatClient(NamespacedClient):
     )
     def indices(
         self,
+        *,
         index: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -553,6 +562,7 @@ class CatClient(NamespacedClient):
     )
     def master(
         self,
+        *,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -614,6 +624,7 @@ class CatClient(NamespacedClient):
     )
     def nodeattrs(
         self,
+        *,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -673,6 +684,7 @@ class CatClient(NamespacedClient):
     )
     def nodes(
         self,
+        *,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -739,6 +751,7 @@ class CatClient(NamespacedClient):
     )
     def pending_tasks(
         self,
+        *,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -797,6 +810,7 @@ class CatClient(NamespacedClient):
     )
     def pit_segments(
         self,
+        *,
         body: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -849,6 +863,7 @@ class CatClient(NamespacedClient):
     )
     def plugins(
         self,
+        *,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -907,6 +922,7 @@ class CatClient(NamespacedClient):
     )
     def recovery(
         self,
+        *,
         index: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -970,6 +986,7 @@ class CatClient(NamespacedClient):
     )
     def repositories(
         self,
+        *,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -1034,6 +1051,7 @@ class CatClient(NamespacedClient):
     )
     def segment_replication(
         self,
+        *,
         index: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -1117,6 +1135,7 @@ class CatClient(NamespacedClient):
     )
     def segments(
         self,
+        *,
         index: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -1179,6 +1198,7 @@ class CatClient(NamespacedClient):
     )
     def shards(
         self,
+        *,
         index: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -1247,6 +1267,7 @@ class CatClient(NamespacedClient):
     )
     def thread_pool(
         self,
+        *,
         thread_pool_patterns: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -1312,6 +1333,7 @@ class CatClient(NamespacedClient):
     )
     def snapshots(
         self,
+        *,
         repository: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -1382,6 +1404,7 @@ class CatClient(NamespacedClient):
     )
     def tasks(
         self,
+        *,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -1445,6 +1468,7 @@ class CatClient(NamespacedClient):
     )
     def templates(
         self,
+        *,
         name: Any = None,
         params: Any = None,
         headers: Any = None,

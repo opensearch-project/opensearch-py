@@ -57,6 +57,7 @@ class TasksClient(NamespacedClient):
     )
     def list(
         self,
+        *,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -111,6 +112,7 @@ class TasksClient(NamespacedClient):
     )
     def cancel(
         self,
+        *,
         task_id: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -163,6 +165,7 @@ class TasksClient(NamespacedClient):
     )
     def get(
         self,
+        *,
         task_id: Any = None,
         params: Any = None,
         headers: Any = None,

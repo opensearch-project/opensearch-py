@@ -25,6 +25,7 @@ class LtrClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def cache_stats(
         self,
+        *,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -52,6 +53,7 @@ class LtrClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def clear_cache(
         self,
+        *,
         store: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -85,6 +87,7 @@ class LtrClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def create_default_store(
         self,
+        *,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -112,6 +115,7 @@ class LtrClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def create_store(
         self,
+        *,
         store: Any,
         params: Any = None,
         headers: Any = None,
@@ -144,6 +148,7 @@ class LtrClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def delete_default_store(
         self,
+        *,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -171,6 +176,7 @@ class LtrClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def delete_store(
         self,
+        *,
         store: Any,
         params: Any = None,
         headers: Any = None,
@@ -203,6 +209,7 @@ class LtrClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def get_store(
         self,
+        *,
         store: Any,
         params: Any = None,
         headers: Any = None,
@@ -235,6 +242,7 @@ class LtrClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def list_stores(
         self,
+        *,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -262,6 +270,7 @@ class LtrClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source", "timeout")
     async def stats(
         self,
+        *,
         node_id: Any = None,
         stat: Any = None,
         params: Any = None,

@@ -36,6 +36,7 @@ class FlowFrameworkClient(NamespacedClient):
     )
     async def create(
         self,
+        *,
         body: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -80,6 +81,7 @@ class FlowFrameworkClient(NamespacedClient):
     )
     async def delete(
         self,
+        *,
         workflow_id: Any,
         params: Any = None,
         headers: Any = None,
@@ -122,6 +124,7 @@ class FlowFrameworkClient(NamespacedClient):
     )
     async def deprovision(
         self,
+        *,
         workflow_id: Any,
         params: Any = None,
         headers: Any = None,
@@ -163,6 +166,7 @@ class FlowFrameworkClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def get(
         self,
+        *,
         workflow_id: Any,
         params: Any = None,
         headers: Any = None,
@@ -200,6 +204,7 @@ class FlowFrameworkClient(NamespacedClient):
     @query_params("all", "error_trace", "filter_path", "human", "pretty", "source")
     async def get_status(
         self,
+        *,
         workflow_id: Any,
         params: Any = None,
         headers: Any = None,
@@ -243,6 +248,7 @@ class FlowFrameworkClient(NamespacedClient):
     )
     async def get_steps(
         self,
+        *,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -274,6 +280,7 @@ class FlowFrameworkClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def provision(
         self,
+        *,
         workflow_id: Any,
         body: Any = None,
         params: Any = None,
@@ -316,6 +323,7 @@ class FlowFrameworkClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def search(
         self,
+        *,
         body: Any,
         params: Any = None,
         headers: Any = None,
@@ -351,6 +359,7 @@ class FlowFrameworkClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def search_state(
         self,
+        *,
         body: Any,
         params: Any = None,
         headers: Any = None,
@@ -397,6 +406,7 @@ class FlowFrameworkClient(NamespacedClient):
     )
     async def update(
         self,
+        *,
         workflow_id: Any,
         body: Any = None,
         params: Any = None,

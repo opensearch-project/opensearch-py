@@ -51,6 +51,7 @@ class IngestClient(NamespacedClient):
     )
     def get_pipeline(
         self,
+        *,
         id: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -97,6 +98,7 @@ class IngestClient(NamespacedClient):
     )
     def put_pipeline(
         self,
+        *,
         id: Any,
         body: Any,
         params: Any = None,
@@ -152,6 +154,7 @@ class IngestClient(NamespacedClient):
     )
     def delete_pipeline(
         self,
+        *,
         id: Any,
         params: Any = None,
         headers: Any = None,
@@ -196,6 +199,7 @@ class IngestClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source", "verbose")
     def simulate(
         self,
+        *,
         body: Any,
         id: Any = None,
         params: Any = None,
@@ -237,6 +241,7 @@ class IngestClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "s", "source")
     def processor_grok(
         self,
+        *,
         params: Any = None,
         headers: Any = None,
     ) -> Any:

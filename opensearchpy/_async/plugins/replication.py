@@ -25,6 +25,7 @@ class ReplicationClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def autofollow_stats(
         self,
+        *,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -56,6 +57,7 @@ class ReplicationClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def create_replication_rule(
         self,
+        *,
         body: Any,
         params: Any = None,
         headers: Any = None,
@@ -91,6 +93,7 @@ class ReplicationClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def delete_replication_rule(
         self,
+        *,
         body: Any,
         params: Any = None,
         headers: Any = None,
@@ -126,6 +129,7 @@ class ReplicationClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def follower_stats(
         self,
+        *,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -157,6 +161,7 @@ class ReplicationClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def leader_stats(
         self,
+        *,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -185,6 +190,7 @@ class ReplicationClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def pause(
         self,
+        *,
         index: Any,
         body: Any,
         params: Any = None,
@@ -224,6 +230,7 @@ class ReplicationClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def resume(
         self,
+        *,
         index: Any,
         body: Any,
         params: Any = None,
@@ -263,6 +270,7 @@ class ReplicationClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def start(
         self,
+        *,
         index: Any,
         body: Any,
         params: Any = None,
@@ -303,6 +311,7 @@ class ReplicationClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def status(
         self,
+        *,
         index: Any,
         params: Any = None,
         headers: Any = None,
@@ -339,6 +348,7 @@ class ReplicationClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def stop(
         self,
+        *,
         index: Any,
         body: Any,
         params: Any = None,
@@ -378,6 +388,7 @@ class ReplicationClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def update_settings(
         self,
+        *,
         index: Any,
         body: Any,
         params: Any = None,

@@ -25,6 +25,7 @@ class GeospatialClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def geojson_upload_post(
         self,
+        *,
         body: Any,
         params: Any = None,
         headers: Any = None,
@@ -63,6 +64,7 @@ class GeospatialClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def geojson_upload_put(
         self,
+        *,
         body: Any,
         params: Any = None,
         headers: Any = None,
@@ -101,6 +103,7 @@ class GeospatialClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def get_upload_stats(
         self,
+        *,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -128,6 +131,7 @@ class GeospatialClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def delete_ip2geo_datasource(
         self,
+        *,
         name: Any,
         params: Any = None,
         headers: Any = None,
@@ -162,6 +166,7 @@ class GeospatialClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def get_ip2geo_datasource(
         self,
+        *,
         name: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -194,6 +199,7 @@ class GeospatialClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def put_ip2geo_datasource(
         self,
+        *,
         name: Any,
         body: Any = None,
         params: Any = None,
@@ -232,6 +238,7 @@ class GeospatialClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def put_ip2geo_datasource_settings(
         self,
+        *,
         name: Any,
         body: Any,
         params: Any = None,

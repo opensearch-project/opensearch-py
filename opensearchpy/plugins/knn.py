@@ -25,6 +25,7 @@ class KnnClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def delete_model(
         self,
+        *,
         model_id: Any,
         params: Any = None,
         headers: Any = None,
@@ -60,6 +61,7 @@ class KnnClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def get_model(
         self,
+        *,
         model_id: Any,
         params: Any = None,
         headers: Any = None,
@@ -143,6 +145,7 @@ class KnnClient(NamespacedClient):
     )
     def search_models(
         self,
+        *,
         body: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -270,6 +273,7 @@ class KnnClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source", "timeout")
     def stats(
         self,
+        *,
         node_id: Any = None,
         stat: Any = None,
         params: Any = None,
@@ -311,6 +315,7 @@ class KnnClient(NamespacedClient):
     )
     def train_model(
         self,
+        *,
         body: Any = None,
         model_id: Any = None,
         params: Any = None,
@@ -347,6 +352,7 @@ class KnnClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def warmup(
         self,
+        *,
         index: Any,
         params: Any = None,
         headers: Any = None,

@@ -33,6 +33,7 @@ class NeuralClient(NamespacedClient):
     )
     def stats(
         self,
+        *,
         node_id: Any = None,
         stat: Any = None,
         params: Any = None,

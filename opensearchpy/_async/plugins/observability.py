@@ -25,6 +25,7 @@ class ObservabilityClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def create_object(
         self,
+        *,
         body: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -57,6 +58,7 @@ class ObservabilityClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def delete_object(
         self,
+        *,
         object_id: Any,
         params: Any = None,
         headers: Any = None,
@@ -100,6 +102,7 @@ class ObservabilityClient(NamespacedClient):
     )
     async def delete_objects(
         self,
+        *,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -131,6 +134,7 @@ class ObservabilityClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def get_localstats(
         self,
+        *,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -161,6 +165,7 @@ class ObservabilityClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def get_object(
         self,
+        *,
         object_id: Any,
         params: Any = None,
         headers: Any = None,
@@ -196,6 +201,7 @@ class ObservabilityClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def list_objects(
         self,
+        *,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -223,6 +229,7 @@ class ObservabilityClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def update_object(
         self,
+        *,
         object_id: Any,
         body: Any = None,
         params: Any = None,

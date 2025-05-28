@@ -53,6 +53,7 @@ class DanglingIndicesClient(NamespacedClient):
     )
     def delete_dangling_index(
         self,
+        *,
         index_uuid: Any,
         params: Any = None,
         headers: Any = None,
@@ -106,6 +107,7 @@ class DanglingIndicesClient(NamespacedClient):
     )
     def import_dangling_index(
         self,
+        *,
         index_uuid: Any,
         params: Any = None,
         headers: Any = None,
@@ -146,6 +148,7 @@ class DanglingIndicesClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def list_dangling_indices(
         self,
+        *,
         params: Any = None,
         headers: Any = None,
     ) -> Any:

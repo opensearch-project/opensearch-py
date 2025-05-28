@@ -43,6 +43,7 @@ class NodesClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source", "timeout")
     def reload_secure_settings(
         self,
+        *,
         body: Any = None,
         node_id: Any = None,
         params: Any = None,
@@ -91,6 +92,7 @@ class NodesClient(NamespacedClient):
     )
     def info(
         self,
+        *,
         node_id: Any = None,
         metric: Any = None,
         node_id_or_metric: Any = None,
@@ -147,6 +149,7 @@ class NodesClient(NamespacedClient):
     )
     def stats(
         self,
+        *,
         node_id: Any = None,
         metric: Any = None,
         index_metric: Any = None,
@@ -218,6 +221,7 @@ class NodesClient(NamespacedClient):
     )
     def hot_threads(
         self,
+        *,
         node_id: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -271,6 +275,7 @@ class NodesClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source", "timeout")
     def usage(
         self,
+        *,
         node_id: Any = None,
         metric: Any = None,
         params: Any = None,

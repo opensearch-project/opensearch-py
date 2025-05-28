@@ -27,6 +27,7 @@ class PplClient(NamespacedClient):
     )
     async def explain(
         self,
+        *,
         body: Any,
         params: Any = None,
         headers: Any = None,
@@ -63,6 +64,7 @@ class PplClient(NamespacedClient):
     )
     async def get_stats(
         self,
+        *,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -95,6 +97,7 @@ class PplClient(NamespacedClient):
     )
     async def post_stats(
         self,
+        *,
         body: Any,
         params: Any = None,
         headers: Any = None,
@@ -131,6 +134,7 @@ class PplClient(NamespacedClient):
     )
     async def query(
         self,
+        *,
         body: Any,
         params: Any = None,
         headers: Any = None,

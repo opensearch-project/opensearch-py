@@ -25,6 +25,7 @@ class QueryClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def datasource_delete(
         self,
+        *,
         datasource_name: Any,
         params: Any = None,
         headers: Any = None,
@@ -62,6 +63,7 @@ class QueryClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def datasource_retrieve(
         self,
+        *,
         datasource_name: Any,
         params: Any = None,
         headers: Any = None,
@@ -99,6 +101,7 @@ class QueryClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def datasources_create(
         self,
+        *,
         body: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -131,6 +134,7 @@ class QueryClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def datasources_list(
         self,
+        *,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -158,6 +162,7 @@ class QueryClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def datasources_update(
         self,
+        *,
         body: Any = None,
         params: Any = None,
         headers: Any = None,

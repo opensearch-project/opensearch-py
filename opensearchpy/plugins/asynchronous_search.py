@@ -25,6 +25,7 @@ class AsynchronousSearchClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def delete(
         self,
+        *,
         id: Any,
         params: Any = None,
         headers: Any = None,
@@ -59,6 +60,7 @@ class AsynchronousSearchClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def get(
         self,
+        *,
         id: Any,
         params: Any = None,
         headers: Any = None,
@@ -103,6 +105,7 @@ class AsynchronousSearchClient(NamespacedClient):
     )
     def search(
         self,
+        *,
         body: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -150,6 +153,7 @@ class AsynchronousSearchClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def stats(
         self,
+        *,
         params: Any = None,
         headers: Any = None,
     ) -> Any:

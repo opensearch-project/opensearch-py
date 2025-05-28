@@ -25,6 +25,7 @@ class InsightsClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def top_queries(
         self,
+        *,
         params: Any = None,
         headers: Any = None,
     ) -> Any:

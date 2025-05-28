@@ -62,6 +62,7 @@ class ClusterClient(NamespacedClient):
     )
     def health(
         self,
+        *,
         index: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -144,6 +145,7 @@ class ClusterClient(NamespacedClient):
     )
     def pending_tasks(
         self,
+        *,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -200,6 +202,7 @@ class ClusterClient(NamespacedClient):
     )
     def state(
         self,
+        *,
         metric: Any = None,
         index: Any = None,
         params: Any = None,
@@ -277,6 +280,7 @@ class ClusterClient(NamespacedClient):
     )
     def stats(
         self,
+        *,
         node_id: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -346,6 +350,7 @@ class ClusterClient(NamespacedClient):
     )
     def reroute(
         self,
+        *,
         body: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -409,6 +414,7 @@ class ClusterClient(NamespacedClient):
     )
     def get_settings(
         self,
+        *,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -466,6 +472,7 @@ class ClusterClient(NamespacedClient):
     )
     def put_settings(
         self,
+        *,
         body: Any,
         params: Any = None,
         headers: Any = None,
@@ -516,6 +523,7 @@ class ClusterClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def remote_info(
         self,
+        *,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -551,6 +559,7 @@ class ClusterClient(NamespacedClient):
     )
     def allocation_explain(
         self,
+        *,
         body: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -602,6 +611,7 @@ class ClusterClient(NamespacedClient):
     )
     def delete_component_template(
         self,
+        *,
         name: Any,
         params: Any = None,
         headers: Any = None,
@@ -662,6 +672,7 @@ class ClusterClient(NamespacedClient):
     )
     def get_component_template(
         self,
+        *,
         name: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -722,6 +733,7 @@ class ClusterClient(NamespacedClient):
     )
     def put_component_template(
         self,
+        *,
         name: Any,
         body: Any,
         params: Any = None,
@@ -796,6 +808,7 @@ class ClusterClient(NamespacedClient):
     )
     def exists_component_template(
         self,
+        *,
         name: Any,
         params: Any = None,
         headers: Any = None,
@@ -820,7 +833,7 @@ class ClusterClient(NamespacedClient):
         :arg human: Whether to return human readable values for
             statistics. Default is True.
         :arg local: When `true`, the request retrieves information from
-            the local node only. When `false`, information is retrieved from the
+            the local node only. When `false, information is retrieved from the
             cluster manager node. Default is false.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use `cluster_manager_timeout` instead.): A duration. Units can be
@@ -847,6 +860,7 @@ class ClusterClient(NamespacedClient):
     )
     def delete_voting_config_exclusions(
         self,
+        *,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -892,6 +906,7 @@ class ClusterClient(NamespacedClient):
     )
     def post_voting_config_exclusions(
         self,
+        *,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -933,6 +948,7 @@ class ClusterClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def delete_decommission_awareness(
         self,
+        *,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -960,6 +976,7 @@ class ClusterClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def delete_weighted_routing(
         self,
+        *,
         body: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -992,6 +1009,7 @@ class ClusterClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def get_decommission_awareness(
         self,
+        *,
         awareness_attribute_name: Any,
         params: Any = None,
         headers: Any = None,
@@ -1036,6 +1054,7 @@ class ClusterClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def get_weighted_routing(
         self,
+        *,
         attribute: Any,
         params: Any = None,
         headers: Any = None,
@@ -1071,6 +1090,7 @@ class ClusterClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def put_decommission_awareness(
         self,
+        *,
         awareness_attribute_name: Any,
         awareness_attribute_value: Any,
         params: Any = None,
@@ -1122,6 +1142,7 @@ class ClusterClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def put_weighted_routing(
         self,
+        *,
         attribute: Any,
         body: Any = None,
         params: Any = None,

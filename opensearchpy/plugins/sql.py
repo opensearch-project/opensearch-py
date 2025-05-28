@@ -27,6 +27,7 @@ class SqlClient(NamespacedClient):
     )
     def close(
         self,
+        *,
         body: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -60,6 +61,7 @@ class SqlClient(NamespacedClient):
     )
     def explain(
         self,
+        *,
         body: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -93,6 +95,7 @@ class SqlClient(NamespacedClient):
     )
     def get_stats(
         self,
+        *,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -125,6 +128,7 @@ class SqlClient(NamespacedClient):
     )
     def post_stats(
         self,
+        *,
         body: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -158,6 +162,7 @@ class SqlClient(NamespacedClient):
     )
     def query(
         self,
+        *,
         body: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -189,6 +194,7 @@ class SqlClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "format", "human", "pretty", "source")
     def settings(
         self,
+        *,
         body: Any = None,
         params: Any = None,
         headers: Any = None,
