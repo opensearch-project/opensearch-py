@@ -22,8 +22,6 @@ from .utils import SKIP_IN_PATH, NamespacedClient, _make_path, query_params
 
 
 class SecurityClient(NamespacedClient):
-    from ._patch import health_check, update_audit_config  # type: ignore
-
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def get_account_details(
         self,

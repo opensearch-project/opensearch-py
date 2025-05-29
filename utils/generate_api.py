@@ -143,11 +143,6 @@ class Module:
                     for line in content.split("\n"):
                         header_lines.append(line)
                         if line.startswith("class"):
-                            if "security.py" in str(self.filepath):
-                                # TODO: FIXME, import code
-                                header_lines.append(
-                                    "    from ._patch import health_check, update_audit_config  # type: ignore"  # pylint: disable=line-too-long
-                                )
                             break
                 self.header = "\n".join(header_lines)
                 self.orders = re.findall(

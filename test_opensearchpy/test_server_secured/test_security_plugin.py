@@ -168,11 +168,6 @@ class TestSecurityPlugin(TestCase):
         with self.assertRaises(NotFoundError):
             response = self.client.security.get_user(username=self.USER_NAME)
 
-    def test_health_check(self) -> None:
-        response = self.client.security.health_check()
-        self.assertNotIn("errors", response)
-        self.assertEqual("UP", response.get("status"))
-
     def test_health(self) -> None:
         response = self.client.security.health()
         self.assertNotIn("errors", response)
@@ -205,13 +200,6 @@ class TestSecurityPlugin(TestCase):
             "internal_config": True,
         },
     }
-
-    def test_update_audit_config(self) -> None:
-        response = self.client.security.update_audit_config(
-            body=self.AUDIT_CONFIG_SETTINGS
-        )
-        self.assertNotIn("errors", response)
-        self.assertEqual("OK", response.get("status"))
 
     def test_update_audit_configuration(self) -> None:
         response = self.client.security.update_audit_configuration(

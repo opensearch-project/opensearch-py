@@ -189,13 +189,6 @@ class OpenSearch(Client):
 
     """
 
-    # include PIT functions inside _patch.py
-    from ._patch import (  # type: ignore
-        create_point_in_time,
-        delete_point_in_time,
-        list_all_point_in_time,
-    )
-
     def __init__(
         self,
         hosts: Any = None,
