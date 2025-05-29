@@ -154,7 +154,9 @@ class TestStreamingBulk:
             {"_op_type": "delete", "_index": "i", "_id": 45},
             {"_op_type": "update", "_index": "i", "_id": 42, "doc": {"answer": 42}},
         ]
-        async for ok, _ in actions.async_streaming_bulk(client=async_client, actions=docs):
+        async for ok, _ in actions.async_streaming_bulk(
+            client=async_client, actions=docs
+        ):
             assert ok
 
         assert not await async_client.exists(index="i", id=45)
@@ -311,7 +313,11 @@ class TestBulk:
     async def test_stats_only_reports_numbers(self, async_client: Any) -> None:
         docs = [{"answer": x} for x in range(100)]
         success, failed = await actions.async_bulk(
-            client=async_client, actions=docs, index="test-index", refresh=True, stats_only=True
+            client=async_client,
+            actions=docs,
+            index="test-index",
+            refresh=True,
+            stats_only=True,
         )
 
         assert 100 == success
@@ -361,7 +367,10 @@ class TestBulk:
     async def test_ignore_error_if_raised(self, async_client: Any) -> None:
         # ignore the status code 400 in tuple
         await actions.async_bulk(
-            client=async_client, actions=[{"a": 42}, {"a": "c"}], index="i", ignore_status=(400,)
+            client=async_client,
+            actions=[{"a": 42}, {"a": "c"}],
+            index="i",
+            ignore_status=(400,),
         )
 
         # ignore the status code 400 in list
@@ -870,7 +879,9 @@ class TestReindex:
     async def test_all_documents_get_moved(
         self, async_client: Any, reindex_setup: Any
     ) -> None:
-        await actions.async_reindex(client=async_client, source_index="test_index", target_index="prod_index")
+        await actions.async_reindex(
+            client=async_client, source_index="test_index", target_index="prod_index"
+        )
         await async_client.indices.refresh()
 
         assert await async_client.indices.exists(index="prod_index")
@@ -922,7 +933,9 @@ class TestParentChildReindex:
     async def test_children_are_reindexed_correctly(
         self, async_client: Any, parent_reindex_setup: Any
     ) -> None:
-        await actions.async_reindex(client=async_client, source_index="test-index", target_index="real-index")
+        await actions.async_reindex(
+            client=async_client, source_index="test-index", target_index="real-index"
+        )
         assert {"question_answer": "question"} == (
             await async_client.get(index="real-index", id=42)
         )["_source"]

@@ -78,7 +78,9 @@ class TestSecurityPlugin(TestCase):
         role_content["cluster_permissions"] = ["cluster_all"]
 
         # Test to update role
-        response = self.client.security.create_role(role=self.ROLE_NAME, body=role_content)
+        response = self.client.security.create_role(
+            role=self.ROLE_NAME, body=role_content
+        )
 
         self.assertNotIn("errors", response)
         self.assertEqual("OK", response.get("status"))
@@ -146,7 +148,9 @@ class TestSecurityPlugin(TestCase):
         user_content["password"] = "123@opensearchpy"
 
         # Test to update user
-        response = self.client.security.create_user(username=self.USER_NAME, body=user_content)
+        response = self.client.security.create_user(
+            username=self.USER_NAME, body=user_content
+        )
 
         self.assertNotIn("errors", response)
         self.assertEqual("OK", response.get("status"))

@@ -58,7 +58,9 @@ class FailingBulkClient:
 class TestStreamingBulk(OpenSearchTestCase):
     def test_actions_remain_unchanged(self) -> None:
         actions = [{"_id": 1}, {"_id": 2}]
-        for ok, _ in helpers.streaming_bulk(client=self.client, actions=actions, index="test-index"):
+        for ok, _ in helpers.streaming_bulk(
+            client=self.client, actions=actions, index="test-index"
+        ):
             self.assertTrue(ok)
         self.assertEqual([{"_id": 1}, {"_id": 2}], actions)
 
@@ -260,7 +262,11 @@ class TestBulk(OpenSearchTestCase):
     def test_stats_only_reports_numbers(self) -> None:
         docs = [{"answer": x} for x in range(100)]
         success, failed = helpers.bulk(
-            client=self.client, actions=docs, index="test-index", refresh=True, stats_only=True
+            client=self.client,
+            actions=docs,
+            index="test-index",
+            refresh=True,
+            stats_only=True,
         )
 
         self.assertEqual(100, success)
@@ -315,7 +321,10 @@ class TestBulk(OpenSearchTestCase):
     def test_ignore_error_if_raised(self) -> None:
         # ignore the status code 400 in tuple
         helpers.bulk(
-            client=self.client, actions=[{"a": 42}, {"a": "c"}], index="i", ignore_status=(400,)
+            client=self.client,
+            actions=[{"a": 42}, {"a": "c"}],
+            index="i",
+            ignore_status=(400,),
         )
 
         # ignore the status code 400 in list
@@ -329,7 +338,12 @@ class TestBulk(OpenSearchTestCase):
         )
 
         # ignore the status code 400
-        helpers.bulk(client=self.client, actions=[{"a": 42}, {"a": "c"}], index="i", ignore_status=400)
+        helpers.bulk(
+            client=self.client,
+            actions=[{"a": 42}, {"a": "c"}],
+            index="i",
+            ignore_status=400,
+        )
 
         # ignore only the status code in the `ignore_status` argument
         self.assertRaises(
@@ -343,7 +357,9 @@ class TestBulk(OpenSearchTestCase):
 
         # ignore transport error exception
         failing_client = FailingBulkClient(self.client)
-        helpers.bulk(client=failing_client, actions=[{"a": 42}], index="i", ignore_status=(599,))
+        helpers.bulk(
+            client=failing_client, actions=[{"a": 42}], index="i", ignore_status=(599,)
+        )
 
     def test_errors_are_collected_properly(self) -> None:
         self.client.indices.create(
@@ -696,7 +712,9 @@ class TestReindex(OpenSearchTestCase):
         )
 
     def test_all_documents_get_moved(self) -> None:
-        helpers.reindex(client=self.client, source_index="test_index", target_index="prod_index")
+        helpers.reindex(
+            client=self.client, source_index="test_index", target_index="prod_index"
+        )
         self.client.indices.refresh()
 
         self.assertTrue(self.client.indices.exists(index="prod_index"))
@@ -741,7 +759,9 @@ class TestParentChildReindex(OpenSearchTestCase):
         self.client.indices.refresh(index="test-index")
 
     def test_children_are_reindexed_correctly(self) -> None:
-        helpers.reindex(client=self.client, source_index="test-index", target_index="real-index")
+        helpers.reindex(
+            client=self.client, source_index="test-index", target_index="real-index"
+        )
 
         self.assertEqual(
             {"question_answer": "question"},
