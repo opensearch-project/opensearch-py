@@ -3,8 +3,19 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 ## [Unreleased]
 ### Added
+### Updated APIs
+### Changed
+### Deprecated
+### Removed
+### Fixed
+### Security
+### Dependencies
+
+## [3.0.0]
+### Added
 - Added option to pass custom headers to 'AWSV4SignerAsyncAuth' ([863](https://github.com/opensearch-project/opensearch-py/pull/863))
 - Added sync and async sample that uses `search_after` parameter ([859](https://github.com/opensearch-project/opensearch-py/pull/859))
+- Enforced mandatory keyword-only arguments for calling auto-generated OpenSearch-py APIs ([#907](https://github.com/opensearch-project/opensearch-py/pull/907))
 ### Updated APIs
 - Updated opensearch-py APIs to reflect [opensearch-api-specification@4315439](https://github.com/opensearch-project/opensearch-api-specification/commit/43154391bf18fd1cad0a60839ad865988eddf4ca)
 ### Changed
@@ -267,7 +278,8 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - Fixed link checker failing due to relative link ([#760](https://github.com/opensearch-project/opensearch-py/pull/760))
 ### Security
 
-[Unreleased]: https://github.com/opensearch-project/opensearch-py/compare/v2.8.0...HEAD
+[Unreleased]: https://github.com/opensearch-project/opensearch-py/compare/v3.0.0...HEAD
+[3.0.0]: https://github.com/opensearch-project/opensearch-py/compare/v2.8.0...v3.0.0
 [2.8.0]: https://github.com/opensearch-project/opensearch-py/compare/v2.7.1...v2.8.0
 [2.7.1]: https://github.com/opensearch-project/opensearch-py/compare/v2.7.0...v2.7.1
 [2.7.0]: https://github.com/opensearch-project/opensearch-py/compare/v2.6.0...v2.7.0
