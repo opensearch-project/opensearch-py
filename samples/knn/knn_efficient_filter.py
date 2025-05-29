@@ -36,9 +36,9 @@ def main() -> None:
     # check whether an index exists
     index_name = "hotels-index"
 
-    if not client.indices.exists(index_name):
+    if not client.indices.exists(index=index_name):
         client.indices.create(
-            index_name,
+            index=index_name,
             body={
                 "settings": {
                     "index.knn": True,

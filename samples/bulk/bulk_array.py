@@ -35,9 +35,9 @@ def main() -> None:
     # check whether an index exists
     index_name = "my-index"
 
-    if not client.indices.exists(index_name):
+    if not client.indices.exists(index=index_name):
         client.indices.create(
-            index_name,
+            index=index_name,
             body={
                 "mappings": {
                     "properties": {
@@ -53,7 +53,7 @@ def main() -> None:
         data.append({"index": {"_index": index_name, "_id": i}})
         data.append({"value": i})
 
-    rc = client.bulk(data)  # pylint: disable=invalid-name
+    rc = client.bulk(body=data)  # pylint: disable=invalid-name
     if rc["errors"]:
         print("There were errors:")
         for item in rc["items"]:

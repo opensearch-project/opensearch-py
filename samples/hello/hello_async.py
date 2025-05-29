@@ -51,7 +51,7 @@ async def main() -> None:
         index_body = {"settings": {"index": {"number_of_shards": 4}}}
 
         if not await client.indices.exists(index=index_name):
-            await client.indices.create(index_name, body=index_body)
+            await client.indices.create(index=index_name, body=index_body)
 
         # add some documents to the index, asynchronously
         await asyncio.gather(

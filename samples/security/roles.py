@@ -52,14 +52,14 @@ def main() -> None:
         ],
     }
 
-    response = client.security.create_role(role_name, body=role_content)
+    response = client.security.create_role(role=role_name, body=role_content)
     print(response)
 
     # Get a Role
 
     role_name = "test-role"
 
-    response = client.security.get_role(role_name)
+    response = client.security.get_role(role=role_name)
     print(response)
 
 

@@ -45,7 +45,7 @@ data = [
     { "name": "baz"}
 ]
 
-response = client.bulk(data)
+response = client.bulk(body=data)
 if response["errors"]:
     print(f"There were errors!")
     for item in response["items"]:

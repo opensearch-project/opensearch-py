@@ -47,7 +47,7 @@ def main() -> None:
 
     user_name = "test-user"
 
-    response = client.security.get_user(user_name)
+    response = client.security.get_user(username=user_name)
     print(response)
 
 
