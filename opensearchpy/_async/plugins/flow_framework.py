@@ -41,7 +41,7 @@ class FlowFrameworkClient(NamespacedClient):
         headers: Any = None,
     ) -> Any:
         """
-        Create a workflow.
+        Creates a new workflow template.
 
 
         :arg error_trace: Whether to include the stack trace of returned
@@ -56,8 +56,7 @@ class FlowFrameworkClient(NamespacedClient):
             response. Default is false.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
-        :arg use_case: To use a workflow template, specify it in the
-            `use_case` query parameter when creating a workflow.
+        :arg use_case: Specifies the workflow template to use.
         """
         return await self.transport.perform_request(
             "POST",
@@ -77,7 +76,7 @@ class FlowFrameworkClient(NamespacedClient):
         headers: Any = None,
     ) -> Any:
         """
-        Delete a workflow.
+        Deletes a workflow template.
 
 
         :arg error_trace: Whether to include the stack trace of returned
@@ -115,7 +114,7 @@ class FlowFrameworkClient(NamespacedClient):
         headers: Any = None,
     ) -> Any:
         """
-        Deprovision workflow's resources when you no longer need it.
+        Deprovision workflow's resources when you no longer need them.
 
 
         :arg error_trace: Whether to include the stack trace of returned
@@ -153,7 +152,7 @@ class FlowFrameworkClient(NamespacedClient):
         headers: Any = None,
     ) -> Any:
         """
-        Get a workflow.
+        Retrieves a workflow template.
 
 
         :arg error_trace: Whether to include the stack trace of returned
@@ -189,11 +188,11 @@ class FlowFrameworkClient(NamespacedClient):
         headers: Any = None,
     ) -> Any:
         """
-        Get the provisioning deployment status until it is complete.
+        Retrieves the current workflow provisioning status.
 
 
-        :arg all: The all parameter specifies whether the response
-            should return all fields. Default is false.
+        :arg all: Whether to return all fields in the response. Default
+            is false.
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
         :arg filter_path: Used to reduce the response. This parameter
@@ -230,7 +229,7 @@ class FlowFrameworkClient(NamespacedClient):
         headers: Any = None,
     ) -> Any:
         """
-        Get a list of workflow steps.
+        Retrieves available workflow steps.
 
 
         :arg error_trace: Whether to include the stack trace of returned
@@ -384,8 +383,7 @@ class FlowFrameworkClient(NamespacedClient):
         headers: Any = None,
     ) -> Any:
         """
-        Update a workflow. You can only update a complete workflow if it has not yet
-        been provisioned.
+        Updates a workflow template that has not been provisioned.
 
 
         :arg error_trace: Whether to include the stack trace of returned
@@ -400,8 +398,7 @@ class FlowFrameworkClient(NamespacedClient):
             response. Default is false.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
-        :arg use_case: To use a workflow template, specify it in the
-            `use_case` query parameter when creating a workflow.
+        :arg use_case: Specifies the workflow template to use.
         """
         if workflow_id in SKIP_IN_PATH:
             raise ValueError(

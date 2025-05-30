@@ -18,22 +18,20 @@
 
 from typing import Any
 
-from ..client.utils import SKIP_IN_PATH, NamespacedClient, _make_path, query_params
+from .utils import SKIP_IN_PATH, NamespacedClient, _make_path, query_params
 
 
-class RollupsClient(NamespacedClient):
+class LtrClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
-    def delete(
+    async def cache_stats(
         self,
-        id: Any,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
         """
-        Deletes an index rollup job configuration.
+        Retrieves cache statistics for all feature stores.
 
 
-        :arg id: The ID of the rollup job.
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
         :arg filter_path: Used to reduce the response. This parameter
@@ -47,28 +45,23 @@ class RollupsClient(NamespacedClient):
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         """
-        if id in SKIP_IN_PATH:
-            raise ValueError("Empty value passed for a required argument 'id'.")
-
-        return self.transport.perform_request(
-            "DELETE",
-            _make_path("_plugins", "_rollup", "jobs", id),
-            params=params,
-            headers=headers,
+        return await self.transport.perform_request(
+            "GET", "/_ltr/_cachestats", params=params, headers=headers
         )
 
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
-    def explain(
+    async def clear_cache(
         self,
-        id: Any,
+        store: Any = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
         """
-        Retrieves the execution status information for an index rollup job.
+        Clears the store caches.
 
 
-        :arg id: The ID of the rollup job.
+        :arg store: The name of the feature store for which to clear the
+            cache.
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
         :arg filter_path: Used to reduce the response. This parameter
@@ -82,147 +75,23 @@ class RollupsClient(NamespacedClient):
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         """
-        if id in SKIP_IN_PATH:
-            raise ValueError("Empty value passed for a required argument 'id'.")
-
-        return self.transport.perform_request(
-            "GET",
-            _make_path("_plugins", "_rollup", "jobs", id, "_explain"),
-            params=params,
-            headers=headers,
-        )
-
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
-    def get(
-        self,
-        id: Any,
-        params: Any = None,
-        headers: Any = None,
-    ) -> Any:
-        """
-        Retrieves an index rollup job configuration by ID.
-
-
-        :arg id: The ID of the rollup job.
-        :arg error_trace: Whether to include the stack trace of returned
-            errors. Default is false.
-        :arg filter_path: Used to reduce the response. This parameter
-            takes a comma-separated list of filters. It supports using wildcards to
-            match any field or part of a field’s name. You can also exclude fields
-            with "-".
-        :arg human: Whether to return human readable values for
-            statistics. Default is True.
-        :arg pretty: Whether to pretty format the returned JSON
-            response. Default is false.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
-        """
-        if id in SKIP_IN_PATH:
-            raise ValueError("Empty value passed for a required argument 'id'.")
-
-        return self.transport.perform_request(
-            "GET",
-            _make_path("_plugins", "_rollup", "jobs", id),
-            params=params,
-            headers=headers,
-        )
-
-    @query_params(
-        "error_trace",
-        "filter_path",
-        "human",
-        "if_primary_term",
-        "if_seq_no",
-        "pretty",
-        "source",
-    )
-    def put(
-        self,
-        id: Any,
-        body: Any = None,
-        params: Any = None,
-        headers: Any = None,
-    ) -> Any:
-        """
-        Creates or updates an index rollup job configuration.
-
-
-        :arg id: The ID of the rollup job.
-        :arg error_trace: Whether to include the stack trace of returned
-            errors. Default is false.
-        :arg filter_path: Used to reduce the response. This parameter
-            takes a comma-separated list of filters. It supports using wildcards to
-            match any field or part of a field’s name. You can also exclude fields
-            with "-".
-        :arg human: Whether to return human readable values for
-            statistics. Default is True.
-        :arg if_primary_term: Only performs the operation if the
-            document has the specified primary term.
-        :arg if_seq_no: Only performs the operation if the document has
-            the specified sequence number.
-        :arg pretty: Whether to pretty format the returned JSON
-            response. Default is false.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
-        """
-        if id in SKIP_IN_PATH:
-            raise ValueError("Empty value passed for a required argument 'id'.")
-
-        return self.transport.perform_request(
-            "PUT",
-            _make_path("_plugins", "_rollup", "jobs", id),
-            params=params,
-            headers=headers,
-            body=body,
-        )
-
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
-    def start(
-        self,
-        id: Any,
-        params: Any = None,
-        headers: Any = None,
-    ) -> Any:
-        """
-        Starts the execution of an index rollup job.
-
-
-        :arg id: The ID of the rollup job.
-        :arg error_trace: Whether to include the stack trace of returned
-            errors. Default is false.
-        :arg filter_path: Used to reduce the response. This parameter
-            takes a comma-separated list of filters. It supports using wildcards to
-            match any field or part of a field’s name. You can also exclude fields
-            with "-".
-        :arg human: Whether to return human readable values for
-            statistics. Default is True.
-        :arg pretty: Whether to pretty format the returned JSON
-            response. Default is false.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
-        """
-        if id in SKIP_IN_PATH:
-            raise ValueError("Empty value passed for a required argument 'id'.")
-
-        return self.transport.perform_request(
+        return await self.transport.perform_request(
             "POST",
-            _make_path("_plugins", "_rollup", "jobs", id, "_start"),
+            _make_path("_ltr", store, "_clearcache"),
             params=params,
             headers=headers,
         )
 
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
-    def stop(
+    async def create_default_store(
         self,
-        id: Any,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
         """
-        Stops the execution of an index rollup job.
+        Creates the default feature store.
 
 
-        :arg id: The ID of the rollup job.
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
         :arg filter_path: Used to reduce the response. This parameter
@@ -236,12 +105,195 @@ class RollupsClient(NamespacedClient):
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         """
-        if id in SKIP_IN_PATH:
-            raise ValueError("Empty value passed for a required argument 'id'.")
+        return await self.transport.perform_request(
+            "PUT", "/_ltr", params=params, headers=headers
+        )
 
-        return self.transport.perform_request(
-            "POST",
-            _make_path("_plugins", "_rollup", "jobs", id, "_stop"),
+    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    async def create_store(
+        self,
+        store: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Creates a new feature store with the specified name.
+
+
+        :arg store: The name of the feature store.
+        :arg error_trace: Whether to include the stack trace of returned
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
+        :arg human: Whether to return human readable values for
+            statistics. Default is True.
+        :arg pretty: Whether to pretty format the returned JSON
+            response. Default is false.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        """
+        if store in SKIP_IN_PATH:
+            raise ValueError("Empty value passed for a required argument 'store'.")
+
+        return await self.transport.perform_request(
+            "PUT", _make_path("_ltr", store), params=params, headers=headers
+        )
+
+    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    async def delete_default_store(
+        self,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Deletes the default feature store.
+
+
+        :arg error_trace: Whether to include the stack trace of returned
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
+        :arg human: Whether to return human readable values for
+            statistics. Default is True.
+        :arg pretty: Whether to pretty format the returned JSON
+            response. Default is false.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        """
+        return await self.transport.perform_request(
+            "DELETE", "/_ltr", params=params, headers=headers
+        )
+
+    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    async def delete_store(
+        self,
+        store: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Deletes a feature store with the specified name.
+
+
+        :arg store: The name of the feature store.
+        :arg error_trace: Whether to include the stack trace of returned
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
+        :arg human: Whether to return human readable values for
+            statistics. Default is True.
+        :arg pretty: Whether to pretty format the returned JSON
+            response. Default is false.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        """
+        if store in SKIP_IN_PATH:
+            raise ValueError("Empty value passed for a required argument 'store'.")
+
+        return await self.transport.perform_request(
+            "DELETE", _make_path("_ltr", store), params=params, headers=headers
+        )
+
+    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    async def get_store(
+        self,
+        store: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Checks if a store exists.
+
+
+        :arg store: The name of the feature store.
+        :arg error_trace: Whether to include the stack trace of returned
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
+        :arg human: Whether to return human readable values for
+            statistics. Default is True.
+        :arg pretty: Whether to pretty format the returned JSON
+            response. Default is false.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        """
+        if store in SKIP_IN_PATH:
+            raise ValueError("Empty value passed for a required argument 'store'.")
+
+        return await self.transport.perform_request(
+            "GET", _make_path("_ltr", store), params=params, headers=headers
+        )
+
+    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    async def list_stores(
+        self,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Lists all available feature stores.
+
+
+        :arg error_trace: Whether to include the stack trace of returned
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
+        :arg human: Whether to return human readable values for
+            statistics. Default is True.
+        :arg pretty: Whether to pretty format the returned JSON
+            response. Default is false.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        """
+        return await self.transport.perform_request(
+            "GET", "/_ltr", params=params, headers=headers
+        )
+
+    @query_params("error_trace", "filter_path", "human", "pretty", "source", "timeout")
+    async def stats(
+        self,
+        node_id: Any = None,
+        stat: Any = None,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Provides information about the current status of the LTR plugin.
+
+
+        :arg node_id: Comma-separated list of node IDs or names to limit
+            the returned information; use `_local` to return information from the
+            node you're connecting to, leave empty to get information from all
+            nodes.
+        :arg stat: Comma-separated list of stats to retrieve; use `_all`
+            or empty string to retrieve all stats.
+        :arg error_trace: Whether to include the stack trace of returned
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
+        :arg human: Whether to return human readable values for
+            statistics. Default is True.
+        :arg pretty: Whether to pretty format the returned JSON
+            response. Default is false.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        :arg timeout: The time in milliseconds to wait for a response.
+        """
+        return await self.transport.perform_request(
+            "GET",
+            _make_path("_plugins", "_ltr", node_id, "stats", stat),
             params=params,
             headers=headers,
         )

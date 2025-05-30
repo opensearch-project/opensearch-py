@@ -48,6 +48,7 @@ from .indices import IndicesClient
 from .ingest import IngestClient
 from .insights import InsightsClient
 from .list import ListClient
+from .ltr import LtrClient
 from .nodes import NodesClient
 from .plugins import PluginsClient
 from .remote import RemoteClient
@@ -219,6 +220,7 @@ class OpenSearch(Client):
         super().__init__(hosts, transport_class, **kwargs)
 
         # namespaced clients for compatibility with API names
+        self.ltr = LtrClient(self)
         self.wlm = WlmClient(self)
         self.list = ListClient(self)
         self.insights = InsightsClient(self)
@@ -385,12 +387,11 @@ class OpenSearch(Client):
             The specified version must match the current version of the document for
             the request to succeed.
         :arg version_type: Specific version type: `external`,
-            `external_gte`. Valid choices are external, external_gte, force,
-            internal.
+            `external_gte`.
         :arg wait_for_active_shards: The number of shard copies that
             must be active before proceeding with the operation. Set to `all` or any
             positive integer up to the total number of shards in the index
-            (`number_of_replicas+1`). Valid choices are all, index-setting.
+            (`number_of_replicas+1`).
         """
         for param in (index, id, body):
             if param in SKIP_IN_PATH:
@@ -477,12 +478,11 @@ class OpenSearch(Client):
             The specified version must match the current version of the document for
             the request to succeed.
         :arg version_type: Specific version type: `external`,
-            `external_gte`. Valid choices are external, external_gte, force,
-            internal.
+            `external_gte`.
         :arg wait_for_active_shards: The number of shard copies that
             must be active before proceeding with the operation. Set to all or any
             positive integer up to the total number of shards in the index
-            (`number_of_replicas+1`). Valid choices are all, index-setting.
+            (`number_of_replicas+1`).
         """
         for param in (index, body):
             if param in SKIP_IN_PATH:
@@ -564,7 +564,7 @@ class OpenSearch(Client):
         :arg wait_for_active_shards: The number of shard copies that
             must be active before proceeding with the operation. Set to all or any
             positive integer up to the total number of shards in the index
-            (`number_of_replicas+1`). Valid choices are all, index-setting.
+            (`number_of_replicas+1`).
         """
         if body in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'body'.")
@@ -667,16 +667,12 @@ class OpenSearch(Client):
             specified.
         :arg default_operator: The default operator for query string
             query: `AND` or `OR`. This parameter can only be used when the `q` query
-            string parameter is specified. Valid choices are and, or.
+            string parameter is specified. Valid choices are and, AND, or, OR.
         :arg df: Field to use as default where no field prefix is given
             in the query string. This parameter can only be used when the `q` query
             string parameter is specified.
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
-        :arg expand_wildcards: Type of index that wildcard patterns can
-            match. If the request can target data streams, this argument determines
-            whether wildcard expressions match hidden data streams. Supports comma-
-            separated values, such as `open,hidden`.
         :arg filter_path: Used to reduce the response. This parameter
             takes a comma-separated list of filters. It supports using wildcards to
             match any field or part of a field’s name. You can also exclude fields
@@ -767,12 +763,11 @@ class OpenSearch(Client):
             The specified version must match the current version of the document for
             the request to succeed.
         :arg version_type: Specific version type: `external`,
-            `external_gte`. Valid choices are external, external_gte, force,
-            internal.
+            `external_gte`.
         :arg wait_for_active_shards: The number of shard copies that
             must be active before proceeding with the operation. Set to `all` or any
             positive integer up to the total number of shards in the index
-            (`number_of_replicas+1`). Valid choices are all, index-setting.
+            (`number_of_replicas+1`).
         """
         for param in (index, id):
             if param in SKIP_IN_PATH:
@@ -853,9 +848,9 @@ class OpenSearch(Client):
             are analyzed. Default is false.
         :arg analyzer: Analyzer to use for the query string.
         :arg conflicts: What to do if delete by query hits version
-            conflicts: `abort` or `proceed`. Valid choices are abort, proceed.
+            conflicts: `abort` or `proceed`.
         :arg default_operator: The default operator for query string
-            query: `AND` or `OR`. Valid choices are and, or.
+            query: `AND` or `OR`. Valid choices are and, AND, or, OR.
         :arg df: Field to use as default where no field prefix is given
             in the query string.
         :arg error_trace: Whether to include the stack trace of returned
@@ -897,11 +892,10 @@ class OpenSearch(Client):
         :arg search_timeout: Explicit timeout for each search request.
             Defaults to no timeout.
         :arg search_type: The type of the search operation. Available
-            options: `query_then_fetch`, `dfs_query_then_fetch`. Valid choices are
-            dfs_query_then_fetch, query_then_fetch.
+            options: `query_then_fetch`, `dfs_query_then_fetch`.
         :arg size: Deprecated, use `max_docs` instead.
         :arg slices: The number of slices this task should be divided
-            into. Valid choices are auto.
+            into.
         :arg sort: A comma-separated list of <field>:<direction> pairs.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
@@ -921,7 +915,7 @@ class OpenSearch(Client):
         :arg wait_for_active_shards: The number of shard copies that
             must be active before proceeding with the operation. Set to all or any
             positive integer up to the total number of shards in the index
-            (`number_of_replicas+1`). Valid choices are all, index-setting.
+            (`number_of_replicas+1`).
         :arg wait_for_completion: If `true`, the request blocks until
             the operation is complete. Default is True.
         """
@@ -1095,8 +1089,7 @@ class OpenSearch(Client):
             The specified version must match the current version of the document for
             the request to succeed.
         :arg version_type: Specific version type: `external`,
-            `external_gte`. Valid choices are external, external_gte, force,
-            internal.
+            `external_gte`.
         """
         for param in (index, id):
             if param in SKIP_IN_PATH:
@@ -1165,8 +1158,7 @@ class OpenSearch(Client):
             The specified version must match the current version of the document for
             the request to succeed.
         :arg version_type: Specific version type: `external`,
-            `external_gte`. Valid choices are external, external_gte, force,
-            internal.
+            `external_gte`.
         """
         for param in (index, id):
             if param in SKIP_IN_PATH:
@@ -1225,7 +1217,7 @@ class OpenSearch(Client):
             parameter can only be used when the `q` query string parameter is
             specified.
         :arg default_operator: The default operator for query string
-            query: `AND` or `OR`. Valid choices are and, or.
+            query: `AND` or `OR`. Valid choices are and, AND, or, OR.
         :arg df: Field to use as default where no field prefix is given
             in the query string. Default is _all.
         :arg error_trace: Whether to include the stack trace of returned
@@ -1389,8 +1381,7 @@ class OpenSearch(Client):
             The specified version must match the current version of the document for
             the request to succeed.
         :arg version_type: Specific version type: `internal`,
-            `external`, `external_gte`. Valid choices are external, external_gte,
-            force, internal.
+            `external`, `external_gte`.
         """
         for param in (index, id):
             if param in SKIP_IN_PATH:
@@ -1504,8 +1495,7 @@ class OpenSearch(Client):
             The specified version must match the current version of the document for
             the request to succeed.
         :arg version_type: Specific version type. One of `internal`,
-            `external`, `external_gte`. Valid choices are external, external_gte,
-            force, internal.
+            `external`, `external_gte`.
         """
         for param in (index, id):
             if param in SKIP_IN_PATH:
@@ -1651,8 +1641,7 @@ class OpenSearch(Client):
             returned as an integer in the response. Defaults to false, which returns
             an object. Default is false.
         :arg search_type: Indicates whether global term and document
-            frequencies should be used when scoring returned documents. Valid
-            choices are dfs_query_then_fetch, query_then_fetch.
+            frequencies should be used when scoring returned documents.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         :arg typed_keys: Specifies whether aggregation and suggester
@@ -1716,8 +1705,7 @@ class OpenSearch(Client):
             `hits.total` as an integer. If `false`, it returns `hits.total` as an
             object. Default is false.
         :arg search_type: The type of the search operation. Available
-            options: `query_then_fetch`, `dfs_query_then_fetch`. Valid choices are
-            dfs_query_then_fetch, query_then_fetch.
+            options: `query_then_fetch`, `dfs_query_then_fetch`.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         :arg typed_keys: If `true`, the response prefixes aggregation
@@ -1806,8 +1794,7 @@ class OpenSearch(Client):
             frequency and document frequency. Default is false.
         :arg version: If `true`, returns the document version as part of
             a hit.
-        :arg version_type: Specific version type. Valid choices are
-            external, external_gte, force, internal.
+        :arg version_type: Specific version type.
         """
         path = _make_path(index, "_mtermvectors")
 
@@ -1926,8 +1913,7 @@ class OpenSearch(Client):
             are not included in the response.
         :arg pretty: Whether to pretty format the returned JSON
             response. Default is false.
-        :arg search_type: Search operation type Valid choices are
-            dfs_query_then_fetch, query_then_fetch.
+        :arg search_type: Search operation type
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         """
@@ -1950,6 +1936,7 @@ class OpenSearch(Client):
         "pretty",
         "refresh",
         "requests_per_second",
+        "require_alias",
         "scroll",
         "slices",
         "source",
@@ -1991,7 +1978,6 @@ class OpenSearch(Client):
             should be maintained for scrolled search.
         :arg slices: The number of slices this task should be divided
             into. Defaults to 1 slice, meaning the task isn't sliced into subtasks.
-            Valid choices are auto.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         :arg timeout: Period each indexing waits for automatic index
@@ -1999,7 +1985,7 @@ class OpenSearch(Client):
         :arg wait_for_active_shards: The number of shard copies that
             must be active before proceeding with the operation. Set to `all` or any
             positive integer up to the total number of shards in the index
-            (`number_of_replicas+1`). Valid choices are all, index-setting.
+            (`number_of_replicas+1`).
         :arg wait_for_completion: If `true`, the request blocks until
             the operation is complete. Default is True.
         """
@@ -2020,7 +2006,7 @@ class OpenSearch(Client):
         headers: Any = None,
     ) -> Any:
         """
-        Changes the number of requests per second for a particular Reindex operation.
+        Changes the number of requests per second for a particular reindex operation.
 
 
         :arg task_id: Identifier for the task.
@@ -2138,8 +2124,6 @@ class OpenSearch(Client):
         Allows to retrieve a large numbers of results from a single search request.
 
 
-        :arg body: The scroll ID if not passed by URL or query
-            parameter.
         :arg scroll_id: The scroll ID for scrolled search
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
@@ -2221,6 +2205,7 @@ class OpenSearch(Client):
         "track_scores",
         "track_total_hits",
         "typed_keys",
+        "verbose_pipeline",
         "version",
     )
     def search(
@@ -2281,7 +2266,7 @@ class OpenSearch(Client):
             executing cross-cluster search (CCS) requests. Default is True.
         :arg default_operator: The default operator for query string
             query: AND or OR. This parameter can only be used when the `q` query
-            string parameter is specified. Valid choices are and, or.
+            string parameter is specified. Valid choices are and, AND, or, OR.
         :arg df: Field to use as default where no field prefix is given
             in the query string. This parameter can only be used when the q query
             string parameter is specified.
@@ -2371,8 +2356,7 @@ class OpenSearch(Client):
         :arg search_pipeline: Customizable sequence of processing stages
             applied to search queries.
         :arg search_type: How distributed term frequencies are
-            calculated for relevance scoring. Valid choices are
-            dfs_query_then_fetch, query_then_fetch.
+            calculated for relevance scoring.
         :arg seq_no_primary_term: If `true`, returns sequence number and
             primary term of the last modification of each hit.
         :arg size: Defines the number of hits to return. By default, you
@@ -2421,6 +2405,13 @@ class OpenSearch(Client):
             total number of hits matching the query.
         :arg typed_keys: If `true`, aggregation and suggester names are
             be prefixed by their respective types in the response.
+        :arg verbose_pipeline: Enables or disables verbose mode for the
+            search pipeline. When verbose mode is enabled, detailed information
+            about each processor in the search pipeline is included in the search
+            response. This includes the processor name, execution status, input,
+            output, and time taken for processing. This parameter is primarily
+            intended for debugging purposes, allowing users to track how data flows
+            and transforms through the search pipeline.
         :arg version: If `true`, returns document version as part of a
             hit.
         """
@@ -2451,6 +2442,7 @@ class OpenSearch(Client):
     )
     def search_shards(
         self,
+        body: Any = None,
         index: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -2495,7 +2487,11 @@ class OpenSearch(Client):
             libraries that do not accept a request body for non-POST requests.
         """
         return self.transport.perform_request(
-            "GET", _make_path(index, "_search_shards"), params=params, headers=headers
+            "POST",
+            _make_path(index, "_search_shards"),
+            params=params,
+            headers=headers,
+            body=body,
         )
 
     @query_params(
@@ -2570,8 +2566,7 @@ class OpenSearch(Client):
             specific shard.
         :arg scroll: Specifies how long a consistent view of the index
             should be maintained for scrolled search.
-        :arg search_type: The type of the search operation. Valid
-            choices are dfs_query_then_fetch, query_then_fetch.
+        :arg search_type: The type of the search operation.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         :arg typed_keys: If `true`, the response prefixes aggregation
@@ -2658,8 +2653,7 @@ class OpenSearch(Client):
             frequency and document frequency. Default is false.
         :arg version: If `true`, returns the document version as part of
             a hit.
-        :arg version_type: Specific version type. Valid choices are
-            external, external_gte, force, internal.
+        :arg version_type: Specific version type.
         """
         if index in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'index'.")
@@ -2746,8 +2740,7 @@ class OpenSearch(Client):
         :arg wait_for_active_shards: The number of shard copies that
             must be active before proceeding with the operations. Set to 'all' or
             any positive integer up to the total number of shards in the index
-            (number_of_replicas+1). Defaults to 1 meaning the primary shard. Valid
-            choices are all, index-setting.
+            (number_of_replicas+1). Defaults to 1 meaning the primary shard.
         """
         for param in (index, id, body):
             if param in SKIP_IN_PATH:
@@ -2832,9 +2825,9 @@ class OpenSearch(Client):
             are analyzed. Default is false.
         :arg analyzer: Analyzer to use for the query string.
         :arg conflicts: What to do if update by query hits version
-            conflicts: `abort` or `proceed`. Valid choices are abort, proceed.
+            conflicts: `abort` or `proceed`.
         :arg default_operator: The default operator for query string
-            query: `AND` or `OR`. Valid choices are and, or.
+            query: `AND` or `OR`. Valid choices are and, AND, or, OR.
         :arg df: Field to use as default where no field prefix is given
             in the query string.
         :arg error_trace: Whether to include the stack trace of returned
@@ -2880,11 +2873,10 @@ class OpenSearch(Client):
             operation. Default is 100.
         :arg search_timeout: Explicit timeout for each search request.
         :arg search_type: The type of the search operation. Available
-            options: `query_then_fetch`, `dfs_query_then_fetch`. Valid choices are
-            dfs_query_then_fetch, query_then_fetch.
+            options: `query_then_fetch`, `dfs_query_then_fetch`.
         :arg size: Deprecated, use `max_docs` instead.
         :arg slices: The number of slices this task should be divided
-            into. Valid choices are auto.
+            into.
         :arg sort: A comma-separated list of <field>:<direction> pairs.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
@@ -2904,7 +2896,7 @@ class OpenSearch(Client):
         :arg wait_for_active_shards: The number of shard copies that
             must be active before proceeding with the operation. Set to `all` or any
             positive integer up to the total number of shards in the index
-            (`number_of_replicas+1`). Valid choices are all, index-setting.
+            (`number_of_replicas+1`).
         :arg wait_for_completion: If `true`, the request blocks until
             the operation is complete. Default is True.
         """
@@ -3235,7 +3227,7 @@ class OpenSearch(Client):
         :arg wait_for_active_shards: The number of shard copies that
             must be active before proceeding with the operation. Set to all or any
             positive integer up to the total number of shards in the index
-            (`number_of_replicas+1`). Valid choices are all, index-setting.
+            (`number_of_replicas+1`).
         """
         if body in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'body'.")

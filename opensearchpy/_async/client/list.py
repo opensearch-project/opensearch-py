@@ -87,8 +87,7 @@ class ListClient(NamespacedClient):
         :arg index: Comma-separated list of data streams, indexes, and
             aliases used to limit the request. Supports wildcards (`*`). To target
             all data streams and indexes, omit this parameter or use `*` or `_all`.
-        :arg bytes: The unit used to display byte values. Valid choices
-            are b, g, gb, k, kb, m, mb, p, pb, t, tb.
+        :arg bytes: The unit used to display byte values.
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
         :arg error_trace: Whether to include the stack trace of returned
@@ -103,8 +102,7 @@ class ListClient(NamespacedClient):
             `JSON`, `YAML`.
         :arg h: Comma-separated list of column names to display.
         :arg health: The health status used to limit returned indexes.
-            By default, the response includes indexes of any health status. Valid
-            choices are green, red, yellow.
+            By default, the response includes indexes of any health status.
         :arg help: Return help information. Default is false.
         :arg human: Whether to return human readable values for
             statistics. Default is True.
@@ -129,8 +127,7 @@ class ListClient(NamespacedClient):
             indexes would be displayed first. Valid choices are asc, desc.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
-        :arg time: The unit used to display time values. Valid choices
-            are d, h, m, micros, ms, nanos, s.
+        :arg time: The unit used to display time values.
         :arg v: Verbose mode. Display column headers. Default is false.
         """
         return await self.transport.perform_request(
@@ -170,8 +167,7 @@ class ListClient(NamespacedClient):
         :arg index: A comma-separated list of data streams, indexes, and
             aliases used to limit the request. Supports wildcards (`*`). To target
             all data streams and indexes, omit this parameter or use `*` or `_all`.
-        :arg bytes: The unit used to display byte values. Valid choices
-            are b, g, gb, k, kb, m, mb, p, pb, t, tb.
+        :arg bytes: The unit used to display byte values.
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
         :arg error_trace: Whether to include the stack trace of returned
@@ -202,8 +198,7 @@ class ListClient(NamespacedClient):
             shards would be displayed first. Valid choices are asc, desc.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
-        :arg time: The unit in which to display time values. Valid
-            choices are d, h, m, micros, ms, nanos, s.
+        :arg time: The unit in which to display time values.
         :arg v: Verbose mode. Display column headers. Default is false.
         """
         return await self.transport.perform_request(

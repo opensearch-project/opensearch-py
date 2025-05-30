@@ -175,7 +175,7 @@ class KnnClient(NamespacedClient):
             trips should be minimized as part of cross-cluster search requests
             execution. Default is True.
         :arg default_operator: The default operator for query string
-            query (AND or OR). Valid choices are AND, OR.
+            query (AND or OR). Valid choices are and, AND, or, OR.
         :arg df: The field to use as default where no field prefix is
             given in the query string.
         :arg docvalue_fields: Comma-separated list of fields to return
@@ -223,8 +223,7 @@ class KnnClient(NamespacedClient):
         :arg routing: Comma-separated list of specific routing values.
         :arg scroll: Specify how long a consistent view of the index
             should be maintained for scrolled search.
-        :arg search_type: Search operation type. Valid choices are
-            dfs_query_then_fetch, query_then_fetch.
+        :arg search_type: Search operation type.
         :arg seq_no_primary_term: Specify whether to return sequence
             number and primary term of the last modification of each hit.
         :arg size: Number of hits to return. Default is 10.
@@ -310,7 +309,7 @@ class KnnClient(NamespacedClient):
     )
     def train_model(
         self,
-        body: Any,
+        body: Any = None,
         model_id: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -335,9 +334,6 @@ class KnnClient(NamespacedClient):
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         """
-        if body in SKIP_IN_PATH:
-            raise ValueError("Empty value passed for a required argument 'body'.")
-
         return self.transport.perform_request(
             "POST",
             _make_path("_plugins", "_knn", "models", model_id, "_train"),
