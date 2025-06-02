@@ -1,5 +1,5 @@
 requests>=2, <3
-pytest=8.3.5
+pytest==8.3.5
 pytest-cov
 coverage
 sphinx<8.2
