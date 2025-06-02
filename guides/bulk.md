@@ -127,3 +127,4 @@ if len(failed) > 0:
 if len(succeeded) > 0:
     print(f"Bulk-inserted {len(succeeded)} items (streaming_bulk).")
 ```
+

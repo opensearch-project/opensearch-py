@@ -2487,6 +2487,7 @@ class OpenSearch(Client):
     def search_shards(
         self,
         *,
+        body: Any = None,
         index: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -2531,7 +2532,11 @@ class OpenSearch(Client):
             libraries that do not accept a request body for non-POST requests.
         """
         return self.transport.perform_request(
-            "GET", _make_path(index, "_search_shards"), params=params, headers=headers
+            "POST",
+            _make_path(index, "_search_shards"),
+            params=params,
+            headers=headers,
+            body=body,
         )
 
     @query_params(
