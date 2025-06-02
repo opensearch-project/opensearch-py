@@ -7,7 +7,7 @@
 
 ![OpenSearch logo](https://github.com/opensearch-project/opensearch-py/raw/main/OpenSearch.svg)
 
-OpenSearch Python Client
+OpenSearch Python Clients
 
 - [Welcome!](https://github.com/opensearch-project/opensearch-py#welcome)
 - [User Guide](https://github.com/opensearch-project/opensearch-py#user-guide)
