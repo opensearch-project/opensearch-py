@@ -177,11 +177,6 @@ class TestSecurityPlugin(IsolatedAsyncioTestCase):
         with self.assertRaises(NotFoundError):
             response = await self.client.security.get_user(username=self.USER_NAME)
 
-    async def test_health_check(self) -> None:
-        response = await self.client.security.health_check()
-        self.assertNotIn("errors", response)
-        self.assertEqual("UP", response.get("status"))
-
     async def test_health(self) -> None:
         response = await self.client.security.health()
         self.assertNotIn("errors", response)
@@ -214,13 +209,6 @@ class TestSecurityPlugin(IsolatedAsyncioTestCase):
             "internal_config": True,
         },
     }
-
-    async def test_update_audit_config(self) -> None:
-        response = await self.client.security.update_audit_config(
-            body=self.AUDIT_CONFIG_SETTINGS
-        )
-        self.assertNotIn("errors", response)
-        self.assertEqual("OK", response.get("status"))
 
     async def test_update_audit_configuration(self) -> None:
         response = await self.client.security.update_audit_configuration(
