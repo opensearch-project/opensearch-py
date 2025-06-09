@@ -93,6 +93,8 @@ SKIP_TESTS = {
     "OpenSearch-main/rest-api-spec/src/main/resources/rest-api-spec/test/search/aggregation/410_nested_aggs[0]",
     # fail on 3.x (main)
     "OpenSearch-main/rest-api-spec/src/main/resources/rest-api-spec/test/indices/get_settings/40_number_of_routing_shards[0]",
+    # TODO:  Enable below test once paginated wlm/stats API spec is added  https://github.com/opensearch-project/opensearch-api-specification/issues/913
+    "OpenSearch-main/rest-api-spec/src/main/resources/rest-api-spec/test/wlm_stats/10_basic",
 }
 
 
