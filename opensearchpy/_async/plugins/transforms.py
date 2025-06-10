@@ -25,6 +25,7 @@ class TransformsClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def delete(
         self,
+        *,
         id: Any,
         params: Any = None,
         headers: Any = None,
@@ -60,6 +61,7 @@ class TransformsClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def explain(
         self,
+        *,
         id: Any,
         params: Any = None,
         headers: Any = None,
@@ -95,6 +97,7 @@ class TransformsClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def get(
         self,
+        *,
         id: Any,
         params: Any = None,
         headers: Any = None,
@@ -130,6 +133,7 @@ class TransformsClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def preview(
         self,
+        *,
         body: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -170,6 +174,7 @@ class TransformsClient(NamespacedClient):
     )
     async def put(
         self,
+        *,
         id: Any,
         body: Any = None,
         params: Any = None,
@@ -223,6 +228,7 @@ class TransformsClient(NamespacedClient):
     )
     async def search(
         self,
+        *,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -261,6 +267,7 @@ class TransformsClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def start(
         self,
+        *,
         id: Any,
         params: Any = None,
         headers: Any = None,
@@ -296,6 +303,7 @@ class TransformsClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def stop(
         self,
+        *,
         id: Any,
         params: Any = None,
         headers: Any = None,

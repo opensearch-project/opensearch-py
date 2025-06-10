@@ -277,7 +277,7 @@ class Document(ObjectBase, metaclass=IndexMeta):
                 for doc in docs
             ]
         }
-        results = opensearch.mget(body, index=cls._default_index(index), **kwargs)
+        results = opensearch.mget(body=body, index=cls._default_index(index), **kwargs)
 
         objs: Any = []
         error_docs: Any = []

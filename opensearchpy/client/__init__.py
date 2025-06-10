@@ -189,13 +189,6 @@ class OpenSearch(Client):
 
     """
 
-    # include PIT functions inside _patch.py
-    from ._patch import (  # type: ignore
-        create_point_in_time,
-        delete_point_in_time,
-        list_all_point_in_time,
-    )
-
     def __init__(
         self,
         hosts: Any = None,
@@ -267,6 +260,7 @@ class OpenSearch(Client):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def ping(
         self,
+        *,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -297,6 +291,7 @@ class OpenSearch(Client):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def info(
         self,
+        *,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -337,6 +332,7 @@ class OpenSearch(Client):
     )
     def create(
         self,
+        *,
         index: Any,
         id: Any,
         body: Any,
@@ -390,7 +386,7 @@ class OpenSearch(Client):
         :arg wait_for_active_shards: The number of shard copies that
             must be active before proceeding with the operation. Set to `all` or any
             positive integer up to the total number of shards in the index
-            (`number_of_replicas+1`). Valid choices are all, index-setting.
+            (`number_of_replicas+1`).
         """
         for param in (index, id, body):
             if param in SKIP_IN_PATH:
@@ -422,6 +418,7 @@ class OpenSearch(Client):
     )
     def index(
         self,
+        *,
         index: Any,
         body: Any,
         id: Any = None,
@@ -482,7 +479,7 @@ class OpenSearch(Client):
         :arg wait_for_active_shards: The number of shard copies that
             must be active before proceeding with the operation. Set to all or any
             positive integer up to the total number of shards in the index
-            (`number_of_replicas+1`). Valid choices are all, index-setting.
+            (`number_of_replicas+1`).
         """
         for param in (index, body):
             if param in SKIP_IN_PATH:
@@ -514,6 +511,7 @@ class OpenSearch(Client):
     )
     def bulk(
         self,
+        *,
         body: Any,
         index: Any = None,
         params: Any = None,
@@ -564,7 +562,7 @@ class OpenSearch(Client):
         :arg wait_for_active_shards: The number of shard copies that
             must be active before proceeding with the operation. Set to all or any
             positive integer up to the total number of shards in the index
-            (`number_of_replicas+1`). Valid choices are all, index-setting.
+            (`number_of_replicas+1`).
         """
         if body in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'body'.")
@@ -581,6 +579,7 @@ class OpenSearch(Client):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def clear_scroll(
         self,
+        *,
         body: Any = None,
         scroll_id: Any = None,
         params: Any = None,
@@ -641,6 +640,7 @@ class OpenSearch(Client):
     )
     def count(
         self,
+        *,
         body: Any = None,
         index: Any = None,
         params: Any = None,
@@ -673,10 +673,9 @@ class OpenSearch(Client):
             string parameter is specified.
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
-        :arg expand_wildcards: Type of index that wildcard patterns can
-            match. If the request can target data streams, this argument determines
-            whether wildcard expressions match hidden data streams. Supports comma-
-            separated values, such as `open,hidden`.
+        :arg expand_wildcards: Specifies the type of index that wildcard
+            expressions can match. Supports comma-separated values. Valid choices
+            are all, closed, hidden, none, open.
         :arg filter_path: Used to reduce the response. This parameter
             takes a comma-separated list of filters. It supports using wildcards to
             match any field or part of a field’s name. You can also exclude fields
@@ -729,6 +728,7 @@ class OpenSearch(Client):
     )
     def delete(
         self,
+        *,
         index: Any,
         id: Any,
         params: Any = None,
@@ -772,7 +772,7 @@ class OpenSearch(Client):
         :arg wait_for_active_shards: The number of shard copies that
             must be active before proceeding with the operation. Set to `all` or any
             positive integer up to the total number of shards in the index
-            (`number_of_replicas+1`). Valid choices are all, index-setting.
+            (`number_of_replicas+1`).
         """
         for param in (index, id):
             if param in SKIP_IN_PATH:
@@ -824,6 +824,7 @@ class OpenSearch(Client):
     )
     def delete_by_query(
         self,
+        *,
         index: Any,
         body: Any,
         params: Any = None,
@@ -884,7 +885,8 @@ class OpenSearch(Client):
             response. Default is false.
         :arg q: Query in the Lucene query string syntax.
         :arg refresh: If `true`, OpenSearch refreshes all shards
-            involved in the delete by query after the request completes.
+            involved in the delete by query after the request completes. Valid
+            choices are false, true, wait_for.
         :arg request_cache: If `true`, the request cache is used for
             this request. Defaults to the index-level setting.
         :arg requests_per_second: The throttle for this request in sub-
@@ -901,7 +903,7 @@ class OpenSearch(Client):
             dfs_query_then_fetch, query_then_fetch.
         :arg size: Deprecated, use `max_docs` instead.
         :arg slices: The number of slices this task should be divided
-            into. Valid choices are auto.
+            into.
         :arg sort: A comma-separated list of <field>:<direction> pairs.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
@@ -921,7 +923,7 @@ class OpenSearch(Client):
         :arg wait_for_active_shards: The number of shard copies that
             must be active before proceeding with the operation. Set to all or any
             positive integer up to the total number of shards in the index
-            (`number_of_replicas+1`). Valid choices are all, index-setting.
+            (`number_of_replicas+1`).
         :arg wait_for_completion: If `true`, the request blocks until
             the operation is complete. Default is True.
         """
@@ -946,6 +948,7 @@ class OpenSearch(Client):
     )
     def delete_by_query_rethrottle(
         self,
+        *,
         task_id: Any,
         params: Any = None,
         headers: Any = None,
@@ -993,6 +996,7 @@ class OpenSearch(Client):
     )
     def delete_script(
         self,
+        *,
         id: Any,
         params: Any = None,
         headers: Any = None,
@@ -1050,6 +1054,7 @@ class OpenSearch(Client):
     )
     def exists(
         self,
+        *,
         index: Any,
         id: Any,
         params: Any = None,
@@ -1083,7 +1088,8 @@ class OpenSearch(Client):
         :arg realtime: If `true`, the request is real-time as opposed to
             near-real-time.
         :arg refresh: If `true`, OpenSearch refreshes all shards
-            involved in the delete by query after the request completes.
+            involved in the delete by query after the request completes. Valid
+            choices are false, true, wait_for.
         :arg routing: Target the specified primary shard.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
@@ -1124,6 +1130,7 @@ class OpenSearch(Client):
     )
     def exists_source(
         self,
+        *,
         index: Any,
         id: Any,
         params: Any = None,
@@ -1157,7 +1164,8 @@ class OpenSearch(Client):
         :arg realtime: If `true`, the request is real-time as opposed to
             near-real-time.
         :arg refresh: If `true`, OpenSearch refreshes all shards
-            involved in the delete by query after the request completes.
+            involved in the delete by query after the request completes. Valid
+            choices are false, true, wait_for.
         :arg routing: Target the specified primary shard.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
@@ -1199,6 +1207,7 @@ class OpenSearch(Client):
     )
     def explain(
         self,
+        *,
         index: Any,
         id: Any,
         body: Any = None,
@@ -1274,6 +1283,7 @@ class OpenSearch(Client):
     )
     def field_caps(
         self,
+        *,
         body: Any = None,
         index: Any = None,
         params: Any = None,
@@ -1299,7 +1309,8 @@ class OpenSearch(Client):
         :arg expand_wildcards: Type of index that wildcard patterns can
             match. If the request can target data streams, this argument determines
             whether wildcard expressions match hidden data streams. Supports comma-
-            separated values, such as `open,hidden`.
+            separated values, such as `open,hidden`. Valid choices are all, closed,
+            hidden, none, open.
         :arg fields: Comma-separated list of fields to retrieve
             capabilities for. Wildcard (`*`) expressions are supported.
         :arg filter_path: Used to reduce the response. This parameter
@@ -1344,6 +1355,7 @@ class OpenSearch(Client):
     )
     def get(
         self,
+        *,
         index: Any,
         id: Any,
         params: Any = None,
@@ -1377,7 +1389,7 @@ class OpenSearch(Client):
             near-real-time.
         :arg refresh: If `true`, OpenSearch refreshes the affected
             shards to make this operation visible to search. If `false`, do nothing
-            with refreshes.
+            with refreshes. Valid choices are false, true, wait_for.
         :arg routing: Target the specified primary shard.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
@@ -1411,6 +1423,7 @@ class OpenSearch(Client):
     )
     def get_script(
         self,
+        *,
         id: Any,
         params: Any = None,
         headers: Any = None,
@@ -1463,6 +1476,7 @@ class OpenSearch(Client):
     )
     def get_source(
         self,
+        *,
         index: Any,
         id: Any,
         params: Any = None,
@@ -1496,7 +1510,7 @@ class OpenSearch(Client):
             opposed to near-real-time.
         :arg refresh: If `true`, OpenSearch refreshes the affected
             shards to make this operation visible to search. If `false`, do nothing
-            with refreshes.
+            with refreshes. Valid choices are false, true, wait_for.
         :arg routing: Target the specified primary shard.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
@@ -1534,6 +1548,7 @@ class OpenSearch(Client):
     )
     def mget(
         self,
+        *,
         body: Any,
         index: Any = None,
         params: Any = None,
@@ -1574,7 +1589,7 @@ class OpenSearch(Client):
         :arg realtime: If `true`, the request is real-time as opposed to
             near-real-time.
         :arg refresh: If `true`, the request refreshes relevant shards
-            before retrieving documents.
+            before retrieving documents. Valid choices are false, true, wait_for.
         :arg routing: Custom value used to route operations to a
             specific shard.
         :arg source: The URL-encoded request definition. Useful for
@@ -1609,6 +1624,7 @@ class OpenSearch(Client):
     )
     def msearch(
         self,
+        *,
         body: Any,
         index: Any = None,
         params: Any = None,
@@ -1684,6 +1700,7 @@ class OpenSearch(Client):
     )
     def msearch_template(
         self,
+        *,
         body: Any,
         index: Any = None,
         params: Any = None,
@@ -1756,6 +1773,7 @@ class OpenSearch(Client):
     )
     def mtermvectors(
         self,
+        *,
         body: Any = None,
         index: Any = None,
         params: Any = None,
@@ -1827,6 +1845,7 @@ class OpenSearch(Client):
     )
     def put_script(
         self,
+        *,
         id: Any,
         body: Any,
         context: Any = None,
@@ -1890,6 +1909,7 @@ class OpenSearch(Client):
     )
     def rank_eval(
         self,
+        *,
         body: Any,
         index: Any = None,
         params: Any = None,
@@ -1915,7 +1935,8 @@ class OpenSearch(Client):
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
         :arg expand_wildcards: Whether to expand wildcard expression to
-            concrete indexes that are open, closed or both.
+            concrete indexes that are open, closed or both. Valid choices are all,
+            closed, hidden, none, open.
         :arg filter_path: Used to reduce the response. This parameter
             takes a comma-separated list of filters. It supports using wildcards to
             match any field or part of a field’s name. You can also exclude fields
@@ -1950,6 +1971,7 @@ class OpenSearch(Client):
         "pretty",
         "refresh",
         "requests_per_second",
+        "require_alias",
         "scroll",
         "slices",
         "source",
@@ -1959,6 +1981,7 @@ class OpenSearch(Client):
     )
     def reindex(
         self,
+        *,
         body: Any,
         params: Any = None,
         headers: Any = None,
@@ -1984,14 +2007,14 @@ class OpenSearch(Client):
         :arg pretty: Whether to pretty format the returned JSON
             response. Default is false.
         :arg refresh: If `true`, the request refreshes affected shards
-            to make this operation visible to search.
+            to make this operation visible to search. Valid choices are false, true,
+            wait_for.
         :arg requests_per_second: The throttle for this request in sub-
             requests per second. Defaults to no throttle. Default is 0.
         :arg scroll: Specifies how long a consistent view of the index
             should be maintained for scrolled search.
         :arg slices: The number of slices this task should be divided
             into. Defaults to 1 slice, meaning the task isn't sliced into subtasks.
-            Valid choices are auto.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         :arg timeout: Period each indexing waits for automatic index
@@ -1999,7 +2022,7 @@ class OpenSearch(Client):
         :arg wait_for_active_shards: The number of shard copies that
             must be active before proceeding with the operation. Set to `all` or any
             positive integer up to the total number of shards in the index
-            (`number_of_replicas+1`). Valid choices are all, index-setting.
+            (`number_of_replicas+1`).
         :arg wait_for_completion: If `true`, the request blocks until
             the operation is complete. Default is True.
         """
@@ -2015,12 +2038,13 @@ class OpenSearch(Client):
     )
     def reindex_rethrottle(
         self,
+        *,
         task_id: Any,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
         """
-        Changes the number of requests per second for a particular Reindex operation.
+        Changes the number of requests per second for a particular reindex operation.
 
 
         :arg task_id: Identifier for the task.
@@ -2052,6 +2076,7 @@ class OpenSearch(Client):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def render_search_template(
         self,
+        *,
         body: Any = None,
         id: Any = None,
         params: Any = None,
@@ -2088,6 +2113,7 @@ class OpenSearch(Client):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def scripts_painless_execute(
         self,
+        *,
         body: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -2129,6 +2155,7 @@ class OpenSearch(Client):
     )
     def scroll(
         self,
+        *,
         body: Any = None,
         scroll_id: Any = None,
         params: Any = None,
@@ -2138,8 +2165,6 @@ class OpenSearch(Client):
         Allows to retrieve a large numbers of results from a single search request.
 
 
-        :arg body: The scroll ID if not passed by URL or query
-            parameter.
         :arg scroll_id: The scroll ID for scrolled search
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
@@ -2221,10 +2246,12 @@ class OpenSearch(Client):
         "track_scores",
         "track_total_hits",
         "typed_keys",
+        "verbose_pipeline",
         "version",
     )
     def search(
         self,
+        *,
         body: Any = None,
         index: Any = None,
         params: Any = None,
@@ -2292,7 +2319,8 @@ class OpenSearch(Client):
         :arg expand_wildcards: Type of index that wildcard patterns can
             match. If the request can target data streams, this argument determines
             whether wildcard expressions match hidden data streams. Supports comma-
-            separated values, such as `open,hidden`.
+            separated values, such as `open,hidden`. Valid choices are all, closed,
+            hidden, none, open.
         :arg explain: If `true`, returns detailed information about
             score computation as part of a hit.
         :arg filter_path: Used to reduce the response. This parameter
@@ -2421,6 +2449,13 @@ class OpenSearch(Client):
             total number of hits matching the query.
         :arg typed_keys: If `true`, aggregation and suggester names are
             be prefixed by their respective types in the response.
+        :arg verbose_pipeline: Enables or disables verbose mode for the
+            search pipeline. When verbose mode is enabled, detailed information
+            about each processor in the search pipeline is included in the search
+            response. This includes the processor name, execution status, input,
+            output, and time taken for processing. This parameter is primarily
+            intended for debugging purposes, allowing users to track how data flows
+            and transforms through the search pipeline.
         :arg version: If `true`, returns document version as part of a
             hit.
         """
@@ -2451,6 +2486,8 @@ class OpenSearch(Client):
     )
     def search_shards(
         self,
+        *,
+        body: Any = None,
         index: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -2495,7 +2532,11 @@ class OpenSearch(Client):
             libraries that do not accept a request body for non-POST requests.
         """
         return self.transport.perform_request(
-            "GET", _make_path(index, "_search_shards"), params=params, headers=headers
+            "POST",
+            _make_path(index, "_search_shards"),
+            params=params,
+            headers=headers,
+            body=body,
         )
 
     @query_params(
@@ -2520,6 +2561,7 @@ class OpenSearch(Client):
     )
     def search_template(
         self,
+        *,
         body: Any,
         index: Any = None,
         params: Any = None,
@@ -2608,6 +2650,7 @@ class OpenSearch(Client):
     )
     def termvectors(
         self,
+        *,
         index: Any,
         body: Any = None,
         id: Any = None,
@@ -2691,6 +2734,7 @@ class OpenSearch(Client):
     )
     def update(
         self,
+        *,
         index: Any,
         id: Any,
         body: Any,
@@ -2730,7 +2774,7 @@ class OpenSearch(Client):
         :arg refresh: If 'true', OpenSearch refreshes the affected
             shards to make this operation visible to search, if `wait_for` then wait
             for a refresh to make this operation visible to search, if `false` do
-            nothing with refreshes.
+            nothing with refreshes. Valid choices are false, true, wait_for.
         :arg require_alias: If `true`, the destination must be an index
             alias. Default is false.
         :arg retry_on_conflict: Specify how many times should the
@@ -2746,8 +2790,7 @@ class OpenSearch(Client):
         :arg wait_for_active_shards: The number of shard copies that
             must be active before proceeding with the operations. Set to 'all' or
             any positive integer up to the total number of shards in the index
-            (number_of_replicas+1). Defaults to 1 meaning the primary shard. Valid
-            choices are all, index-setting.
+            (number_of_replicas+1). Defaults to 1 meaning the primary shard.
         """
         for param in (index, id, body):
             if param in SKIP_IN_PATH:
@@ -2802,6 +2845,7 @@ class OpenSearch(Client):
     )
     def update_by_query(
         self,
+        *,
         index: Any,
         body: Any = None,
         params: Any = None,
@@ -2868,7 +2912,8 @@ class OpenSearch(Client):
             response. Default is false.
         :arg q: Query in the Lucene query string syntax.
         :arg refresh: If `true`, OpenSearch refreshes affected shards to
-            make the operation visible to search.
+            make the operation visible to search. Valid choices are false, true,
+            wait_for.
         :arg request_cache: If `true`, the request cache is used for
             this request.
         :arg requests_per_second: The throttle for this request in sub-
@@ -2884,7 +2929,7 @@ class OpenSearch(Client):
             dfs_query_then_fetch, query_then_fetch.
         :arg size: Deprecated, use `max_docs` instead.
         :arg slices: The number of slices this task should be divided
-            into. Valid choices are auto.
+            into.
         :arg sort: A comma-separated list of <field>:<direction> pairs.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
@@ -2904,7 +2949,7 @@ class OpenSearch(Client):
         :arg wait_for_active_shards: The number of shard copies that
             must be active before proceeding with the operation. Set to `all` or any
             positive integer up to the total number of shards in the index
-            (`number_of_replicas+1`). Valid choices are all, index-setting.
+            (`number_of_replicas+1`).
         :arg wait_for_completion: If `true`, the request blocks until
             the operation is complete. Default is True.
         """
@@ -2928,6 +2973,7 @@ class OpenSearch(Client):
     )
     def update_by_query_rethrottle(
         self,
+        *,
         task_id: Any,
         params: Any = None,
         headers: Any = None,
@@ -2966,6 +3012,7 @@ class OpenSearch(Client):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def get_script_context(
         self,
+        *,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -2993,6 +3040,7 @@ class OpenSearch(Client):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def get_script_languages(
         self,
+        *,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -3031,6 +3079,7 @@ class OpenSearch(Client):
     )
     def create_pit(
         self,
+        *,
         index: Any,
         params: Any = None,
         headers: Any = None,
@@ -3046,7 +3095,8 @@ class OpenSearch(Client):
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
         :arg expand_wildcards: Whether to expand wildcard expression to
-            concrete indexes that are open, closed or both.
+            concrete indexes that are open, closed or both. Valid choices are all,
+            closed, hidden, none, open.
         :arg filter_path: Used to reduce the response. This parameter
             takes a comma-separated list of filters. It supports using wildcards to
             match any field or part of a field’s name. You can also exclude fields
@@ -3075,6 +3125,7 @@ class OpenSearch(Client):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def delete_all_pits(
         self,
+        *,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -3102,6 +3153,7 @@ class OpenSearch(Client):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def delete_pit(
         self,
+        *,
         body: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -3135,6 +3187,7 @@ class OpenSearch(Client):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def get_all_pits(
         self,
+        *,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -3179,6 +3232,7 @@ class OpenSearch(Client):
     )
     def bulk_stream(
         self,
+        *,
         body: Any,
         index: Any = None,
         params: Any = None,
@@ -3235,7 +3289,7 @@ class OpenSearch(Client):
         :arg wait_for_active_shards: The number of shard copies that
             must be active before proceeding with the operation. Set to all or any
             positive integer up to the total number of shards in the index
-            (`number_of_replicas+1`). Valid choices are all, index-setting.
+            (`number_of_replicas+1`).
         """
         if body in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'body'.")

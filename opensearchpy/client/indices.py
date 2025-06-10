@@ -43,6 +43,7 @@ class IndicesClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def analyze(
         self,
+        *,
         body: Any = None,
         index: Any = None,
         params: Any = None,
@@ -89,6 +90,7 @@ class IndicesClient(NamespacedClient):
     )
     def refresh(
         self,
+        *,
         index: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -142,6 +144,7 @@ class IndicesClient(NamespacedClient):
     )
     def flush(
         self,
+        *,
         index: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -200,6 +203,7 @@ class IndicesClient(NamespacedClient):
     )
     def create(
         self,
+        *,
         index: Any,
         body: Any = None,
         params: Any = None,
@@ -234,9 +238,9 @@ class IndicesClient(NamespacedClient):
             received before the timeout expires, the request fails and returns an
             error.
         :arg wait_for_active_shards: The number of shard copies that
-            must be active before proceeding with the operation.  Set to `all` or
-            any positive integer up to the total number of shards in the index
-            (`number_of_replicas+1`). Valid choices are all, index-setting.
+            must be active before proceeding with the operation. Set to `all` or any
+            positive integer up to the total number of shards in the index
+            (`number_of_replicas+1`).
         """
         if index in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'index'.")
@@ -260,6 +264,7 @@ class IndicesClient(NamespacedClient):
     )
     def clone(
         self,
+        *,
         index: Any,
         target: Any,
         body: Any = None,
@@ -300,7 +305,7 @@ class IndicesClient(NamespacedClient):
         :arg wait_for_active_shards: The number of shard copies that
             must be active before proceeding with the operation. Set to `all` or any
             positive integer up to the total number of shards in the index
-            (`number_of_replicas+1`). Valid choices are all, index-setting.
+            (`number_of_replicas+1`).
         :arg wait_for_completion: Should this request wait until the
             operation has completed before returning. Default is True.
         """
@@ -333,6 +338,7 @@ class IndicesClient(NamespacedClient):
     )
     def get(
         self,
+        *,
         index: Any,
         params: Any = None,
         headers: Any = None,
@@ -357,7 +363,8 @@ class IndicesClient(NamespacedClient):
         :arg expand_wildcards: Type of index that wildcard expressions
             can match. If the request can target data streams, this argument
             determines whether wildcard expressions match hidden data streams.
-            Supports comma-separated values, such as `open,hidden`.
+            Supports comma-separated values, such as `open,hidden`. Valid choices
+            are all, closed, hidden, none, open.
         :arg filter_path: Used to reduce the response. This parameter
             takes a comma-separated list of filters. It supports using wildcards to
             match any field or part of a field’s name. You can also exclude fields
@@ -407,6 +414,7 @@ class IndicesClient(NamespacedClient):
     )
     def open(
         self,
+        *,
         index: Any,
         params: Any = None,
         headers: Any = None,
@@ -459,7 +467,7 @@ class IndicesClient(NamespacedClient):
         :arg wait_for_active_shards: The number of shard copies that
             must be active before proceeding with the operation. Set to `all` or any
             positive integer up to the total number of shards in the index
-            (`number_of_replicas+1`). Valid choices are all, index-setting.
+            (`number_of_replicas+1`).
         :arg wait_for_completion: Should this request wait until the
             operation has completed before returning. Default is True.
         """
@@ -486,6 +494,7 @@ class IndicesClient(NamespacedClient):
     )
     def close(
         self,
+        *,
         index: Any,
         params: Any = None,
         headers: Any = None,
@@ -531,7 +540,7 @@ class IndicesClient(NamespacedClient):
         :arg wait_for_active_shards: The number of shard copies that
             must be active before proceeding with the operation. Set to `all` or any
             positive integer up to the total number of shards in the index
-            (`number_of_replicas+1`). Valid choices are all, index-setting.
+            (`number_of_replicas+1`).
         """
         if index in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'index'.")
@@ -555,6 +564,7 @@ class IndicesClient(NamespacedClient):
     )
     def delete(
         self,
+        *,
         index: Any,
         params: Any = None,
         headers: Any = None,
@@ -623,6 +633,7 @@ class IndicesClient(NamespacedClient):
     )
     def exists(
         self,
+        *,
         index: Any,
         params: Any = None,
         headers: Any = None,
@@ -688,6 +699,7 @@ class IndicesClient(NamespacedClient):
     )
     def put_mapping(
         self,
+        *,
         body: Any,
         index: Any = None,
         params: Any = None,
@@ -764,6 +776,7 @@ class IndicesClient(NamespacedClient):
     )
     def get_mapping(
         self,
+        *,
         index: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -825,6 +838,7 @@ class IndicesClient(NamespacedClient):
     )
     def get_field_mapping(
         self,
+        *,
         fields: Any,
         index: Any = None,
         params: Any = None,
@@ -890,6 +904,7 @@ class IndicesClient(NamespacedClient):
     )
     def exists_alias(
         self,
+        *,
         name: Any,
         index: Any = None,
         params: Any = None,
@@ -951,6 +966,7 @@ class IndicesClient(NamespacedClient):
     )
     def get_alias(
         self,
+        *,
         index: Any = None,
         name: Any = None,
         params: Any = None,
@@ -1008,6 +1024,7 @@ class IndicesClient(NamespacedClient):
     )
     def update_aliases(
         self,
+        *,
         body: Any,
         params: Any = None,
         headers: Any = None,
@@ -1058,6 +1075,7 @@ class IndicesClient(NamespacedClient):
     )
     def delete_alias(
         self,
+        *,
         index: Any,
         name: Any,
         params: Any = None,
@@ -1114,6 +1132,7 @@ class IndicesClient(NamespacedClient):
     )
     def put_template(
         self,
+        *,
         name: Any,
         body: Any,
         params: Any = None,
@@ -1175,6 +1194,7 @@ class IndicesClient(NamespacedClient):
     )
     def exists_template(
         self,
+        *,
         name: Any,
         params: Any = None,
         headers: Any = None,
@@ -1226,6 +1246,7 @@ class IndicesClient(NamespacedClient):
     )
     def get_template(
         self,
+        *,
         name: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -1277,6 +1298,7 @@ class IndicesClient(NamespacedClient):
     )
     def delete_template(
         self,
+        *,
         name: Any,
         params: Any = None,
         headers: Any = None,
@@ -1333,6 +1355,7 @@ class IndicesClient(NamespacedClient):
     )
     def get_settings(
         self,
+        *,
         index: Any = None,
         name: Any = None,
         params: Any = None,
@@ -1360,7 +1383,8 @@ class IndicesClient(NamespacedClient):
         :arg expand_wildcards: Type of index that wildcard patterns can
             match. If the request can target data streams, this argument determines
             whether wildcard expressions match hidden data streams. Supports comma-
-            separated values, such as `open,hidden`.
+            separated values, such as `open,hidden`. Valid choices are all, closed,
+            hidden, none, open.
         :arg filter_path: Used to reduce the response. This parameter
             takes a comma-separated list of filters. It supports using wildcards to
             match any field or part of a field’s name. You can also exclude fields
@@ -1406,6 +1430,7 @@ class IndicesClient(NamespacedClient):
     )
     def put_settings(
         self,
+        *,
         body: Any,
         index: Any = None,
         params: Any = None,
@@ -1431,7 +1456,8 @@ class IndicesClient(NamespacedClient):
         :arg expand_wildcards: Type of index that wildcard patterns can
             match. If the request can target data streams, this argument determines
             whether wildcard expressions match hidden data streams. Supports comma-
-            separated values, such as `open,hidden`.
+            separated values, such as `open,hidden`. Valid choices are all, closed,
+            hidden, none, open.
         :arg filter_path: Used to reduce the response. This parameter
             takes a comma-separated list of filters. It supports using wildcards to
             match any field or part of a field’s name. You can also exclude fields
@@ -1453,7 +1479,7 @@ class IndicesClient(NamespacedClient):
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         :arg timeout: Period to wait for a response. If no response is
-            received before the  timeout expires, the request fails and returns an
+            received before the timeout expires, the request fails and returns an
             error.
         """
         if body in SKIP_IN_PATH:
@@ -1485,6 +1511,7 @@ class IndicesClient(NamespacedClient):
     )
     def stats(
         self,
+        *,
         index: Any = None,
         metric: Any = None,
         params: Any = None,
@@ -1505,7 +1532,8 @@ class IndicesClient(NamespacedClient):
         :arg expand_wildcards: Type of index that wildcard patterns can
             match. If the request can target data streams, this argument determines
             whether wildcard expressions match hidden data streams. Supports comma-
-            separated values, such as `open,hidden`.
+            separated values, such as `open,hidden`. Valid choices are all, closed,
+            hidden, none, open.
         :arg fielddata_fields: Comma-separated list or wildcard
             expressions of fields to include in field data statistics.
         :arg fields: Comma-separated list or wildcard expressions of
@@ -1551,6 +1579,7 @@ class IndicesClient(NamespacedClient):
     )
     def segments(
         self,
+        *,
         index: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -1613,6 +1642,7 @@ class IndicesClient(NamespacedClient):
     )
     def validate_query(
         self,
+        *,
         body: Any = None,
         index: Any = None,
         params: Any = None,
@@ -1694,6 +1724,7 @@ class IndicesClient(NamespacedClient):
     )
     def clear_cache(
         self,
+        *,
         index: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -1751,6 +1782,7 @@ class IndicesClient(NamespacedClient):
     )
     def recovery(
         self,
+        *,
         index: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -1797,6 +1829,7 @@ class IndicesClient(NamespacedClient):
     )
     def upgrade(
         self,
+        *,
         index: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -1813,7 +1846,8 @@ class IndicesClient(NamespacedClient):
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
         :arg expand_wildcards: Whether to expand wildcard expression to
-            concrete indexes that are open, closed or both.
+            concrete indexes that are open, closed or both. Valid choices are all,
+            closed, hidden, none, open.
         :arg filter_path: Used to reduce the response. This parameter
             takes a comma-separated list of filters. It supports using wildcards to
             match any field or part of a field’s name. You can also exclude fields
@@ -1847,6 +1881,7 @@ class IndicesClient(NamespacedClient):
     )
     def get_upgrade(
         self,
+        *,
         index: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -1863,7 +1898,8 @@ class IndicesClient(NamespacedClient):
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
         :arg expand_wildcards: Whether to expand wildcard expression to
-            concrete indexes that are open, closed or both.
+            concrete indexes that are open, closed or both. Valid choices are all,
+            closed, hidden, none, open.
         :arg filter_path: Used to reduce the response. This parameter
             takes a comma-separated list of filters. It supports using wildcards to
             match any field or part of a field’s name. You can also exclude fields
@@ -1894,6 +1930,7 @@ class IndicesClient(NamespacedClient):
     )
     def shard_stores(
         self,
+        *,
         index: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -1912,7 +1949,8 @@ class IndicesClient(NamespacedClient):
             errors. Default is false.
         :arg expand_wildcards: Type of index that wildcard patterns can
             match. If the request can target data streams, this argument determines
-            whether wildcard expressions match hidden data streams.
+            whether wildcard expressions match hidden data streams. Valid choices
+            are all, closed, hidden, none, open.
         :arg filter_path: Used to reduce the response. This parameter
             takes a comma-separated list of filters. It supports using wildcards to
             match any field or part of a field’s name. You can also exclude fields
@@ -1949,6 +1987,7 @@ class IndicesClient(NamespacedClient):
     )
     def forcemerge(
         self,
+        *,
         index: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -1965,7 +2004,8 @@ class IndicesClient(NamespacedClient):
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
         :arg expand_wildcards: Whether to expand wildcard expression to
-            concrete indexes that are open, closed or both.
+            concrete indexes that are open, closed or both. Valid choices are all,
+            closed, hidden, none, open.
         :arg filter_path: Used to reduce the response. This parameter
             takes a comma-separated list of filters. It supports using wildcards to
             match any field or part of a field’s name. You can also exclude fields
@@ -2011,6 +2051,7 @@ class IndicesClient(NamespacedClient):
     )
     def shrink(
         self,
+        *,
         index: Any,
         target: Any,
         body: Any = None,
@@ -2053,7 +2094,7 @@ class IndicesClient(NamespacedClient):
         :arg wait_for_active_shards: The number of shard copies that
             must be active before proceeding with the operation. Set to `all` or any
             positive integer up to the total number of shards in the index
-            (`number_of_replicas+1`). Valid choices are all, index-setting.
+            (`number_of_replicas+1`).
         :arg wait_for_completion: Should this request wait until the
             operation has completed before returning. Default is True.
         """
@@ -2085,6 +2126,7 @@ class IndicesClient(NamespacedClient):
     )
     def split(
         self,
+        *,
         index: Any,
         target: Any,
         body: Any = None,
@@ -2128,7 +2170,7 @@ class IndicesClient(NamespacedClient):
         :arg wait_for_active_shards: The number of shard copies that
             must be active before proceeding with the operation. Set to `all` or any
             positive integer up to the total number of shards in the index
-            (`number_of_replicas+1`). Valid choices are all, index-setting.
+            (`number_of_replicas+1`).
         :arg wait_for_completion: Should this request wait until the
             operation has completed before returning. Default is True.
         """
@@ -2158,6 +2200,7 @@ class IndicesClient(NamespacedClient):
     )
     def rollover(
         self,
+        *,
         alias: Any,
         body: Any = None,
         new_index: Any = None,
@@ -2201,7 +2244,7 @@ class IndicesClient(NamespacedClient):
         :arg wait_for_active_shards: The number of shard copies that
             must be active before proceeding with the operation. Set to all or any
             positive integer up to the total number of shards in the index
-            (`number_of_replicas+1`). Valid choices are all, index-setting.
+            (`number_of_replicas+1`).
         """
         if alias in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'alias'.")
@@ -2217,6 +2260,7 @@ class IndicesClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def create_data_stream(
         self,
+        *,
         name: Any,
         body: Any = None,
         params: Any = None,
@@ -2260,6 +2304,7 @@ class IndicesClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def delete_data_stream(
         self,
+        *,
         name: Any,
         params: Any = None,
         headers: Any = None,
@@ -2302,6 +2347,7 @@ class IndicesClient(NamespacedClient):
     )
     def delete_index_template(
         self,
+        *,
         name: Any,
         params: Any = None,
         headers: Any = None,
@@ -2357,6 +2403,7 @@ class IndicesClient(NamespacedClient):
     )
     def exists_index_template(
         self,
+        *,
         name: Any,
         params: Any = None,
         headers: Any = None,
@@ -2410,6 +2457,7 @@ class IndicesClient(NamespacedClient):
     )
     def get_index_template(
         self,
+        *,
         name: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -2461,6 +2509,7 @@ class IndicesClient(NamespacedClient):
     )
     def put_index_template(
         self,
+        *,
         name: Any,
         body: Any,
         params: Any = None,
@@ -2517,6 +2566,7 @@ class IndicesClient(NamespacedClient):
     )
     def simulate_index_template(
         self,
+        *,
         name: Any,
         body: Any = None,
         params: Any = None,
@@ -2563,6 +2613,7 @@ class IndicesClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def get_data_stream(
         self,
+        *,
         name: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -2604,6 +2655,7 @@ class IndicesClient(NamespacedClient):
     )
     def simulate_template(
         self,
+        *,
         body: Any = None,
         name: Any = None,
         params: Any = None,
@@ -2655,6 +2707,7 @@ class IndicesClient(NamespacedClient):
     )
     def resolve_index(
         self,
+        *,
         name: Any,
         params: Any = None,
         headers: Any = None,
@@ -2706,6 +2759,7 @@ class IndicesClient(NamespacedClient):
     )
     def add_block(
         self,
+        *,
         index: Any,
         block: Any,
         params: Any = None,
@@ -2726,7 +2780,8 @@ class IndicesClient(NamespacedClient):
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
         :arg expand_wildcards: Whether to expand wildcard expression to
-            concrete indexes that are open, closed or both.
+            concrete indexes that are open, closed or both. Valid choices are all,
+            closed, hidden, none, open.
         :arg filter_path: Used to reduce the response. This parameter
             takes a comma-separated list of filters. It supports using wildcards to
             match any field or part of a field’s name. You can also exclude fields
@@ -2755,6 +2810,7 @@ class IndicesClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def data_streams_stats(
         self,
+        *,
         name: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -2798,6 +2854,7 @@ class IndicesClient(NamespacedClient):
     )
     def put_alias(
         self,
+        *,
         index: Any = None,
         name: Any = None,
         body: Any = None,

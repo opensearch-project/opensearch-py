@@ -25,6 +25,7 @@ class ObservabilityClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def create_object(
         self,
+        *,
         body: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -57,6 +58,7 @@ class ObservabilityClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def delete_object(
         self,
+        *,
         object_id: Any,
         params: Any = None,
         headers: Any = None,
@@ -65,7 +67,7 @@ class ObservabilityClient(NamespacedClient):
         Deletes specific observability object specified by ID.
 
 
-        :arg object_id: The ID of the Observability Object.
+        :arg object_id: The ID of the observability object to delete.
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
         :arg filter_path: Used to reduce the response. This parameter
@@ -100,6 +102,7 @@ class ObservabilityClient(NamespacedClient):
     )
     def delete_objects(
         self,
+        *,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -115,10 +118,10 @@ class ObservabilityClient(NamespacedClient):
             with "-".
         :arg human: Whether to return human readable values for
             statistics. Default is True.
-        :arg objectId: The ID of a single Observability Object to
+        :arg objectId: The ID of a single observability object to
             delete.
-        :arg objectIdList: A comma-separated list of Observability
-            Object IDs to delete.
+        :arg objectIdList: A comma-separated list of observability
+            object IDs to delete.
         :arg pretty: Whether to pretty format the returned JSON
             response. Default is false.
         :arg source: The URL-encoded request definition. Useful for
@@ -131,11 +134,12 @@ class ObservabilityClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def get_localstats(
         self,
+        *,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
         """
-        Retrieves Local Stats of all observability objects.
+        Retrieves local stats of all observability objects.
 
 
         :arg error_trace: Whether to include the stack trace of returned
@@ -161,6 +165,7 @@ class ObservabilityClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def get_object(
         self,
+        *,
         object_id: Any,
         params: Any = None,
         headers: Any = None,
@@ -169,7 +174,7 @@ class ObservabilityClient(NamespacedClient):
         Retrieves specific observability object specified by ID.
 
 
-        :arg object_id: The ID of the Observability Object.
+        :arg object_id: The ID of the observability object to retrieve.
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
         :arg filter_path: Used to reduce the response. This parameter
@@ -196,6 +201,7 @@ class ObservabilityClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def list_objects(
         self,
+        *,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -223,6 +229,7 @@ class ObservabilityClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def update_object(
         self,
+        *,
         object_id: Any,
         body: Any = None,
         params: Any = None,
@@ -232,7 +239,7 @@ class ObservabilityClient(NamespacedClient):
         Updates an existing observability object.
 
 
-        :arg object_id: The ID of the Observability Object.
+        :arg object_id: The ID of the observability object to update.
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
         :arg filter_path: Used to reduce the response. This parameter

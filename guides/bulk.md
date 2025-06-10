@@ -45,7 +45,7 @@ data = [
     { "name": "baz"}
 ]
 
-response = client.bulk(data)
+response = client.bulk(body=data)
 if response["errors"]:
     print(f"There were errors!")
     for item in response["items"]:
@@ -127,3 +127,4 @@ if len(failed) > 0:
 if len(succeeded) > 0:
     print(f"Bulk-inserted {len(succeeded)} items (streaming_bulk).")
 ```
+

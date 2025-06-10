@@ -25,6 +25,7 @@ class ListClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def help(
         self,
+        *,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -75,6 +76,7 @@ class ListClient(NamespacedClient):
     )
     async def indices(
         self,
+        *,
         index: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -88,13 +90,13 @@ class ListClient(NamespacedClient):
             aliases used to limit the request. Supports wildcards (`*`). To target
             all data streams and indexes, omit this parameter or use `*` or `_all`.
         :arg bytes: The unit used to display byte values. Valid choices
-            are b, g, gb, k, kb, m, mb, p, pb, t, tb.
+            are b, kb, k, mb, m, gb, g, tb, t, pb, p.
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
         :arg expand_wildcards: The type of index that wildcard patterns
-            can match.
+            can match. Valid choices are all, closed, hidden, none, open.
         :arg filter_path: Used to reduce the response. This parameter
             takes a comma-separated list of filters. It supports using wildcards to
             match any field or part of a field’s name. You can also exclude fields
@@ -104,7 +106,7 @@ class ListClient(NamespacedClient):
         :arg h: Comma-separated list of column names to display.
         :arg health: The health status used to limit returned indexes.
             By default, the response includes indexes of any health status. Valid
-            choices are green, red, yellow.
+            choices are green, yellow, red.
         :arg help: Return help information. Default is false.
         :arg human: Whether to return human readable values for
             statistics. Default is True.
@@ -130,7 +132,7 @@ class ListClient(NamespacedClient):
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         :arg time: The unit used to display time values. Valid choices
-            are d, h, m, micros, ms, nanos, s.
+            are nanos, micros, ms, s, m, h, d.
         :arg v: Verbose mode. Display column headers. Default is false.
         """
         return await self.transport.perform_request(
@@ -159,6 +161,7 @@ class ListClient(NamespacedClient):
     )
     async def shards(
         self,
+        *,
         index: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -171,7 +174,7 @@ class ListClient(NamespacedClient):
             aliases used to limit the request. Supports wildcards (`*`). To target
             all data streams and indexes, omit this parameter or use `*` or `_all`.
         :arg bytes: The unit used to display byte values. Valid choices
-            are b, g, gb, k, kb, m, mb, p, pb, t, tb.
+            are b, kb, k, mb, m, gb, g, tb, t, pb, p.
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
         :arg error_trace: Whether to include the stack trace of returned
@@ -203,7 +206,7 @@ class ListClient(NamespacedClient):
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         :arg time: The unit in which to display time values. Valid
-            choices are d, h, m, micros, ms, nanos, s.
+            choices are nanos, micros, ms, s, m, h, d.
         :arg v: Verbose mode. Display column headers. Default is false.
         """
         return await self.transport.perform_request(

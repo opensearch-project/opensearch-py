@@ -21,17 +21,16 @@ from typing import Any
 from ..client.utils import SKIP_IN_PATH, NamespacedClient, _make_path, query_params
 
 
-class NotificationsClient(NamespacedClient):
+class LtrClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
-    def create_config(
+    async def cache_stats(
         self,
         *,
-        body: Any,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
         """
-        Create channel configuration.
+        Retrieves cache statistics for all feature stores.
 
 
         :arg error_trace: Whether to include the stack trace of returned
@@ -47,75 +46,55 @@ class NotificationsClient(NamespacedClient):
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         """
-        if body in SKIP_IN_PATH:
-            raise ValueError("Empty value passed for a required argument 'body'.")
+        return await self.transport.perform_request(
+            "GET", "/_ltr/_cachestats", params=params, headers=headers
+        )
 
-        return self.transport.perform_request(
+    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    async def clear_cache(
+        self,
+        *,
+        store: Any = None,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Clears the store caches.
+
+
+        :arg store: The name of the feature store for which to clear the
+            cache.
+        :arg error_trace: Whether to include the stack trace of returned
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
+        :arg human: Whether to return human readable values for
+            statistics. Default is True.
+        :arg pretty: Whether to pretty format the returned JSON
+            response. Default is false.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        """
+        return await self.transport.perform_request(
             "POST",
-            "/_plugins/_notifications/configs",
-            params=params,
-            headers=headers,
-            body=body,
-        )
-
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
-    def delete_config(
-        self,
-        *,
-        config_id: Any,
-        params: Any = None,
-        headers: Any = None,
-    ) -> Any:
-        """
-        Delete a channel configuration.
-
-
-        :arg config_id: The ID of the channel configuration to delete.
-        :arg error_trace: Whether to include the stack trace of returned
-            errors. Default is false.
-        :arg filter_path: Used to reduce the response. This parameter
-            takes a comma-separated list of filters. It supports using wildcards to
-            match any field or part of a field’s name. You can also exclude fields
-            with "-".
-        :arg human: Whether to return human readable values for
-            statistics. Default is True.
-        :arg pretty: Whether to pretty format the returned JSON
-            response. Default is false.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
-        """
-        if config_id in SKIP_IN_PATH:
-            raise ValueError("Empty value passed for a required argument 'config_id'.")
-
-        return self.transport.perform_request(
-            "DELETE",
-            _make_path("_plugins", "_notifications", "configs", config_id),
+            _make_path("_ltr", store, "_clearcache"),
             params=params,
             headers=headers,
         )
 
-    @query_params(
-        "config_id",
-        "config_id_list",
-        "error_trace",
-        "filter_path",
-        "human",
-        "pretty",
-        "source",
-    )
-    def delete_configs(
+    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    async def create_default_store(
         self,
         *,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
         """
-        Delete multiple channel configurations.
+        Creates the default feature store.
 
 
-        :arg config_id: The ID of the channel configuration to delete.
-        :arg config_id_list: A comma-separated list of channel IDs to
-            delete.
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
         :arg filter_path: Used to reduce the response. This parameter
@@ -129,20 +108,52 @@ class NotificationsClient(NamespacedClient):
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         """
-        return self.transport.perform_request(
-            "DELETE", "/_plugins/_notifications/configs", params=params, headers=headers
+        return await self.transport.perform_request(
+            "PUT", "/_ltr", params=params, headers=headers
         )
 
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
-    def get_config(
+    async def create_store(
         self,
         *,
-        config_id: Any,
+        store: Any,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
         """
-        Get a specific channel configuration.
+        Creates a new feature store with the specified name.
+
+
+        :arg store: The name of the feature store.
+        :arg error_trace: Whether to include the stack trace of returned
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
+        :arg human: Whether to return human readable values for
+            statistics. Default is True.
+        :arg pretty: Whether to pretty format the returned JSON
+            response. Default is false.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        """
+        if store in SKIP_IN_PATH:
+            raise ValueError("Empty value passed for a required argument 'store'.")
+
+        return await self.transport.perform_request(
+            "PUT", _make_path("_ltr", store), params=params, headers=headers
+        )
+
+    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    async def delete_default_store(
+        self,
+        *,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Deletes the default feature store.
 
 
         :arg error_trace: Whether to include the stack trace of returned
@@ -158,225 +169,140 @@ class NotificationsClient(NamespacedClient):
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         """
-        if config_id in SKIP_IN_PATH:
-            raise ValueError("Empty value passed for a required argument 'config_id'.")
+        return await self.transport.perform_request(
+            "DELETE", "/_ltr", params=params, headers=headers
+        )
 
-        return self.transport.perform_request(
+    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    async def delete_store(
+        self,
+        *,
+        store: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Deletes a feature store with the specified name.
+
+
+        :arg store: The name of the feature store.
+        :arg error_trace: Whether to include the stack trace of returned
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
+        :arg human: Whether to return human readable values for
+            statistics. Default is True.
+        :arg pretty: Whether to pretty format the returned JSON
+            response. Default is false.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        """
+        if store in SKIP_IN_PATH:
+            raise ValueError("Empty value passed for a required argument 'store'.")
+
+        return await self.transport.perform_request(
+            "DELETE", _make_path("_ltr", store), params=params, headers=headers
+        )
+
+    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    async def get_store(
+        self,
+        *,
+        store: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Checks if a store exists.
+
+
+        :arg store: The name of the feature store.
+        :arg error_trace: Whether to include the stack trace of returned
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
+        :arg human: Whether to return human readable values for
+            statistics. Default is True.
+        :arg pretty: Whether to pretty format the returned JSON
+            response. Default is false.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        """
+        if store in SKIP_IN_PATH:
+            raise ValueError("Empty value passed for a required argument 'store'.")
+
+        return await self.transport.perform_request(
+            "GET", _make_path("_ltr", store), params=params, headers=headers
+        )
+
+    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    async def list_stores(
+        self,
+        *,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Lists all available feature stores.
+
+
+        :arg error_trace: Whether to include the stack trace of returned
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
+        :arg human: Whether to return human readable values for
+            statistics. Default is True.
+        :arg pretty: Whether to pretty format the returned JSON
+            response. Default is false.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        """
+        return await self.transport.perform_request(
+            "GET", "/_ltr", params=params, headers=headers
+        )
+
+    @query_params("error_trace", "filter_path", "human", "pretty", "source", "timeout")
+    async def stats(
+        self,
+        *,
+        node_id: Any = None,
+        stat: Any = None,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Provides information about the current status of the LTR plugin.
+
+
+        :arg node_id: Comma-separated list of node IDs or names to limit
+            the returned information; use `_local` to return information from the
+            node you're connecting to, leave empty to get information from all
+            nodes.
+        :arg stat: Comma-separated list of stats to retrieve; use `_all`
+            or empty string to retrieve all stats.
+        :arg error_trace: Whether to include the stack trace of returned
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
+        :arg human: Whether to return human readable values for
+            statistics. Default is True.
+        :arg pretty: Whether to pretty format the returned JSON
+            response. Default is false.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        :arg timeout: The time in milliseconds to wait for a response.
+        """
+        return await self.transport.perform_request(
             "GET",
-            _make_path("_plugins", "_notifications", "configs", config_id),
+            _make_path("_plugins", "_ltr", node_id, "stats", stat),
             params=params,
             headers=headers,
-        )
-
-    @query_params(
-        "chime.url",
-        "chime.url.keyword",
-        "config_id",
-        "config_id_list",
-        "config_type",
-        "created_time_ms",
-        "description",
-        "description.keyword",
-        "email.email_account_id",
-        "email.email_group_id_list",
-        "email.recipient_list.recipient",
-        "email.recipient_list.recipient.keyword",
-        "email_group.recipient_list.recipient",
-        "email_group.recipient_list.recipient.keyword",
-        "error_trace",
-        "filter_path",
-        "human",
-        "is_enabled",
-        "last_updated_time_ms",
-        "microsoft_teams.url",
-        "microsoft_teams.url.keyword",
-        "name",
-        "name.keyword",
-        "pretty",
-        "query",
-        "ses_account.from_address",
-        "ses_account.from_address.keyword",
-        "ses_account.region",
-        "ses_account.role_arn",
-        "ses_account.role_arn.keyword",
-        "slack.url",
-        "slack.url.keyword",
-        "smtp_account.from_address",
-        "smtp_account.from_address.keyword",
-        "smtp_account.host",
-        "smtp_account.host.keyword",
-        "smtp_account.method",
-        "sns.role_arn",
-        "sns.role_arn.keyword",
-        "sns.topic_arn",
-        "sns.topic_arn.keyword",
-        "source",
-        "text_query",
-        "webhook.url",
-        "webhook.url.keyword",
-    )
-    def get_configs(
-        self,
-        *,
-        body: Any = None,
-        params: Any = None,
-        headers: Any = None,
-    ) -> Any:
-        """
-        Get multiple channel configurations with filtering.
-
-
-        :arg config_id: Notification configuration ID.
-        :arg config_id_list: Notification configuration IDs.
-        :arg config_type: Type of notification configuration. Valid
-            choices are chime, email, email_group, microsoft_teams, ses_account,
-            slack, smtp_account, sns, webhook.
-        :arg error_trace: Whether to include the stack trace of returned
-            errors. Default is false.
-        :arg filter_path: Used to reduce the response. This parameter
-            takes a comma-separated list of filters. It supports using wildcards to
-            match any field or part of a field’s name. You can also exclude fields
-            with "-".
-        :arg human: Whether to return human readable values for
-            statistics. Default is True.
-        :arg pretty: Whether to pretty format the returned JSON
-            response. Default is false.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
-        """
-        return self.transport.perform_request(
-            "GET",
-            "/_plugins/_notifications/configs",
-            params=params,
-            headers=headers,
-            body=body,
-        )
-
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
-    def list_features(
-        self,
-        *,
-        params: Any = None,
-        headers: Any = None,
-    ) -> Any:
-        """
-        List supported channel configurations.
-
-
-        :arg error_trace: Whether to include the stack trace of returned
-            errors. Default is false.
-        :arg filter_path: Used to reduce the response. This parameter
-            takes a comma-separated list of filters. It supports using wildcards to
-            match any field or part of a field’s name. You can also exclude fields
-            with "-".
-        :arg human: Whether to return human readable values for
-            statistics. Default is True.
-        :arg pretty: Whether to pretty format the returned JSON
-            response. Default is false.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
-        """
-        return self.transport.perform_request(
-            "GET", "/_plugins/_notifications/features", params=params, headers=headers
-        )
-
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
-    def send_test(
-        self,
-        *,
-        config_id: Any,
-        params: Any = None,
-        headers: Any = None,
-    ) -> Any:
-        """
-        Send a test notification.
-
-
-        :arg error_trace: Whether to include the stack trace of returned
-            errors. Default is false.
-        :arg filter_path: Used to reduce the response. This parameter
-            takes a comma-separated list of filters. It supports using wildcards to
-            match any field or part of a field’s name. You can also exclude fields
-            with "-".
-        :arg human: Whether to return human readable values for
-            statistics. Default is True.
-        :arg pretty: Whether to pretty format the returned JSON
-            response. Default is false.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
-        """
-        if config_id in SKIP_IN_PATH:
-            raise ValueError("Empty value passed for a required argument 'config_id'.")
-
-        return self.transport.perform_request(
-            "GET",
-            _make_path("_plugins", "_notifications", "feature", "test", config_id),
-            params=params,
-            headers=headers,
-        )
-
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
-    def update_config(
-        self,
-        *,
-        config_id: Any,
-        body: Any,
-        params: Any = None,
-        headers: Any = None,
-    ) -> Any:
-        """
-        Update channel configuration.
-
-
-        :arg error_trace: Whether to include the stack trace of returned
-            errors. Default is false.
-        :arg filter_path: Used to reduce the response. This parameter
-            takes a comma-separated list of filters. It supports using wildcards to
-            match any field or part of a field’s name. You can also exclude fields
-            with "-".
-        :arg human: Whether to return human readable values for
-            statistics. Default is True.
-        :arg pretty: Whether to pretty format the returned JSON
-            response. Default is false.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
-        """
-        for param in (config_id, body):
-            if param in SKIP_IN_PATH:
-                raise ValueError("Empty value passed for a required argument.")
-
-        return self.transport.perform_request(
-            "PUT",
-            _make_path("_plugins", "_notifications", "configs", config_id),
-            params=params,
-            headers=headers,
-            body=body,
-        )
-
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
-    def list_channels(
-        self,
-        *,
-        params: Any = None,
-        headers: Any = None,
-    ) -> Any:
-        """
-        List created notification channels.
-
-
-        :arg error_trace: Whether to include the stack trace of returned
-            errors. Default is false.
-        :arg filter_path: Used to reduce the response. This parameter
-            takes a comma-separated list of filters. It supports using wildcards to
-            match any field or part of a field’s name. You can also exclude fields
-            with "-".
-        :arg human: Whether to return human readable values for
-            statistics. Default is True.
-        :arg pretty: Whether to pretty format the returned JSON
-            response. Default is false.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
-        """
-        return self.transport.perform_request(
-            "GET", "/_plugins/_notifications/channels", params=params, headers=headers
         )

@@ -26,7 +26,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        opensearch_version: [ '2.14.0', '2.16.0' ]
+        opensearch_version: [  '2.18.0', '2.19.2', '3.0.0' ]
         secured: [ "true", "false" ]
         
     steps:

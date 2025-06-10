@@ -40,14 +40,14 @@ def main() -> None:
     user_name = "test-user"
     user_content = {"password": "opensearch@123", "opendistro_security_roles": []}
 
-    response = client.security.create_user(user_name, body=user_content)
+    response = client.security.create_user(username=user_name, body=user_content)
     print(response)
 
     # Get a User
 
     user_name = "test-user"
 
-    response = client.security.get_user(user_name)
+    response = client.security.get_user(username=user_name)
     print(response)
 
 

@@ -18,51 +18,61 @@
 
 from typing import Any
 
-from .utils import SKIP_IN_PATH, NamespacedClient, query_params
+from ..client.utils import NamespacedClient, _make_path, query_params
 
 
-class RemoteStoreClient(NamespacedClient):
+class NeuralClient(NamespacedClient):
     @query_params(
-        "cluster_manager_timeout",
         "error_trace",
         "filter_path",
+        "flat_stat_paths",
         "human",
+        "include_metadata",
         "pretty",
         "source",
-        "wait_for_completion",
     )
-    def restore(
+    async def stats(
         self,
         *,
-        body: Any,
+        node_id: Any = None,
+        stat: Any = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
         """
-        Restores from remote store.
+        Provides information about the current status of the neural-search plugin.
 
 
-        :arg body: Comma-separated list of index IDs
-        :arg cluster_manager_timeout: Operation timeout for connection
-            to cluster-manager node.
+        :arg node_id: Comma-separated list of node IDs or names to limit
+            the returned information; leave empty to get information from all nodes.
+        :arg stat: Comma-separated list of stats to retrieve; use empty
+            string to retrieve all stats.
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
         :arg filter_path: Used to reduce the response. This parameter
             takes a comma-separated list of filters. It supports using wildcards to
             match any field or part of a field’s name. You can also exclude fields
             with "-".
+        :arg flat_stat_paths: Whether to return stats in the flat form,
+            which can improve readability, especially for heavily nested stats. For
+            example, the flat form of `"processors": { "ingest": {
+            "text_embedding_executions": 20181212 } }` is
+            `"processors.ingest.text_embedding_executions": "20181212"`. Default is
+            false.
         :arg human: Whether to return human readable values for
             statistics. Default is True.
+        :arg include_metadata: Whether to return stat metadata instead
+            of the raw stat value, includes additional information about the stat.
+            These can include things like type hints, time since last stats being
+            recorded, or recent rolling interval values Default is false.
         :arg pretty: Whether to pretty format the returned JSON
             response. Default is false.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
-        :arg wait_for_completion: Should this request wait until the
-            operation has completed before returning. Default is false.
         """
-        if body in SKIP_IN_PATH:
-            raise ValueError("Empty value passed for a required argument 'body'.")
-
-        return self.transport.perform_request(
-            "POST", "/_remotestore/_restore", params=params, headers=headers, body=body
+        return await self.transport.perform_request(
+            "GET",
+            _make_path("_plugins", "_neural", node_id, "stats", stat),
+            params=params,
+            headers=headers,
         )

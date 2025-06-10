@@ -84,6 +84,8 @@ SKIP_TESTS = {
     "OpenSearch-main/rest-api-spec/src/main/resources/rest-api-spec/test/search/340_doc_values_field[1]",
     "OpenSearch-main/rest-api-spec/src/main/resources/rest-api-spec/test/search/aggregation/20_terms[4]",
     "OpenSearch-main/rest-api-spec/src/main/resources/rest-api-spec/test/tasks/list/10_basic[0]",
+    "OpenSearch-main/rest-api-spec/src/main/resources/rest-api-spec/test/scripts/25_get_script_languages[0]",
+    "OpenSearch-main/rest-api-spec/src/main/resources/rest-api-spec/test/search/aggregation/360_date_histogram[2]",
     # fail on 2.x
     "OpenSearch-main/rest-api-spec/src/main/resources/rest-api-spec/test/cat/nodes/10_basic[1]",
     "OpenSearch-main/rest-api-spec/src/main/resources/rest-api-spec/test/index/90_unsigned_long[1]",
@@ -91,6 +93,8 @@ SKIP_TESTS = {
     "OpenSearch-main/rest-api-spec/src/main/resources/rest-api-spec/test/search/aggregation/410_nested_aggs[0]",
     # fail on 3.x (main)
     "OpenSearch-main/rest-api-spec/src/main/resources/rest-api-spec/test/indices/get_settings/40_number_of_routing_shards[0]",
+    # TODO:  Enable below test once paginated wlm/stats API spec is added  https://github.com/opensearch-project/opensearch-api-specification/issues/913
+    "OpenSearch-main/rest-api-spec/src/main/resources/rest-api-spec/test/wlm_stats/10_basic",
 }
 
 

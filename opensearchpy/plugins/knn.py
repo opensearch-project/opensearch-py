@@ -25,6 +25,7 @@ class KnnClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def delete_model(
         self,
+        *,
         model_id: Any,
         params: Any = None,
         headers: Any = None,
@@ -60,6 +61,7 @@ class KnnClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def get_model(
         self,
+        *,
         model_id: Any,
         params: Any = None,
         headers: Any = None,
@@ -143,6 +145,7 @@ class KnnClient(NamespacedClient):
     )
     def search_models(
         self,
+        *,
         body: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -175,7 +178,7 @@ class KnnClient(NamespacedClient):
             trips should be minimized as part of cross-cluster search requests
             execution. Default is True.
         :arg default_operator: The default operator for query string
-            query (AND or OR). Valid choices are AND, OR.
+            query (AND or OR). Valid choices are and, or.
         :arg df: The field to use as default where no field prefix is
             given in the query string.
         :arg docvalue_fields: Comma-separated list of fields to return
@@ -183,7 +186,8 @@ class KnnClient(NamespacedClient):
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
         :arg expand_wildcards: Whether to expand wildcard expression to
-            concrete indexes that are open, closed or both.
+            concrete indexes that are open, closed or both. Valid choices are all,
+            closed, hidden, none, open.
         :arg explain: Specify whether to return detailed information
             about score computation as part of a hit.
         :arg filter_path: Used to reduce the response. This parameter
@@ -269,6 +273,7 @@ class KnnClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source", "timeout")
     def stats(
         self,
+        *,
         node_id: Any = None,
         stat: Any = None,
         params: Any = None,
@@ -310,7 +315,8 @@ class KnnClient(NamespacedClient):
     )
     def train_model(
         self,
-        body: Any,
+        *,
+        body: Any = None,
         model_id: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -335,9 +341,6 @@ class KnnClient(NamespacedClient):
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         """
-        if body in SKIP_IN_PATH:
-            raise ValueError("Empty value passed for a required argument 'body'.")
-
         return self.transport.perform_request(
             "POST",
             _make_path("_plugins", "_knn", "models", model_id, "_train"),
@@ -349,6 +352,7 @@ class KnnClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     def warmup(
         self,
+        *,
         index: Any,
         params: Any = None,
         headers: Any = None,

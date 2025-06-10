@@ -94,7 +94,7 @@ class TestMetricsEvents(OpenSearchTestCase):
         index_name = "test-index"
         index_body = {"settings": {"index": {"number_of_shards": 4}}}
         start1 = time.perf_counter()
-        client.indices.create(index_name, body=index_body)
+        client.indices.create(index=index_name, body=index_body)
         duration1 = time.perf_counter() - start1
         create_index_service_time = metrics.service_time
         assert (

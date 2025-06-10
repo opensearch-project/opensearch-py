@@ -27,12 +27,13 @@ class SqlClient(NamespacedClient):
     )
     def close(
         self,
+        *,
         body: Any = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
         """
-        Clear the cursor context.
+        Closes an open cursor to free server-side resources.
 
 
         :arg error_trace: Whether to include the stack trace of returned
@@ -41,14 +42,13 @@ class SqlClient(NamespacedClient):
             takes a comma-separated list of filters. It supports using wildcards to
             match any field or part of a field’s name. You can also exclude fields
             with "-".
-        :arg format: A short version of the Accept header (for example,
-            `json`, `yaml`).
+        :arg format: Specifies the response format (JSON or YAML).
         :arg human: Whether to return human readable values for
             statistics. Default is True.
         :arg pretty: Whether to pretty format the returned JSON
             response. Default is false.
-        :arg sanitize: Specifies whether to escape special characters in
-            the results Default is True.
+        :arg sanitize: Whether to escape special characters in the
+            results. Default is True.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         """
@@ -61,12 +61,13 @@ class SqlClient(NamespacedClient):
     )
     def explain(
         self,
+        *,
         body: Any = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
         """
-        Shows how a query is executed against OpenSearch.
+        Returns the execution plan for a SQL or PPL query.
 
 
         :arg error_trace: Whether to include the stack trace of returned
@@ -75,14 +76,13 @@ class SqlClient(NamespacedClient):
             takes a comma-separated list of filters. It supports using wildcards to
             match any field or part of a field’s name. You can also exclude fields
             with "-".
-        :arg format: A short version of the Accept header (for example,
-            `json`, `yaml`).
+        :arg format: Specifies the response format (JSON or YAML).
         :arg human: Whether to return human readable values for
             statistics. Default is True.
         :arg pretty: Whether to pretty format the returned JSON
             response. Default is false.
-        :arg sanitize: Specifies whether to escape special characters in
-            the results Default is True.
+        :arg sanitize: Whether to escape special characters in the
+            results. Default is True.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         """
@@ -95,11 +95,12 @@ class SqlClient(NamespacedClient):
     )
     def get_stats(
         self,
+        *,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
         """
-        Collect metrics for the plugin within the interval.
+        Retrieves performance metrics for the SQL plugin.
 
 
         :arg error_trace: Whether to include the stack trace of returned
@@ -108,14 +109,13 @@ class SqlClient(NamespacedClient):
             takes a comma-separated list of filters. It supports using wildcards to
             match any field or part of a field’s name. You can also exclude fields
             with "-".
-        :arg format: A short version of the Accept header (for example,
-            `json`, `yaml`).
+        :arg format: Specifies the response format (JSON or YAML).
         :arg human: Whether to return human readable values for
             statistics. Default is True.
         :arg pretty: Whether to pretty format the returned JSON
             response. Default is false.
-        :arg sanitize: Specifies whether to escape special characters in
-            the results Default is True.
+        :arg sanitize: Whether to escape special characters in the
+            results. Default is True.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         """
@@ -128,13 +128,13 @@ class SqlClient(NamespacedClient):
     )
     def post_stats(
         self,
+        *,
         body: Any = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
         """
-        By a stats endpoint, you are able to collect metrics for the plugin within the
-        interval.
+        Retrieves filtered performance metrics for the SQL plugin.
 
 
         :arg error_trace: Whether to include the stack trace of returned
@@ -143,14 +143,13 @@ class SqlClient(NamespacedClient):
             takes a comma-separated list of filters. It supports using wildcards to
             match any field or part of a field’s name. You can also exclude fields
             with "-".
-        :arg format: A short version of the Accept header (for example,
-            `json`, `yaml`).
+        :arg format: Specifies the response format (JSON or YAML).
         :arg human: Whether to return human readable values for
             statistics. Default is True.
         :arg pretty: Whether to pretty format the returned JSON
             response. Default is false.
-        :arg sanitize: Specifies whether to escape special characters in
-            the results Default is True.
+        :arg sanitize: Whether to escape special characters in the
+            results. Default is True.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         """
@@ -163,12 +162,13 @@ class SqlClient(NamespacedClient):
     )
     def query(
         self,
+        *,
         body: Any = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
         """
-        Send a SQL/PPL query to the SQL plugin.
+        Executes SQL or PPL queries against OpenSearch indexes.
 
 
         :arg error_trace: Whether to include the stack trace of returned
@@ -177,14 +177,13 @@ class SqlClient(NamespacedClient):
             takes a comma-separated list of filters. It supports using wildcards to
             match any field or part of a field’s name. You can also exclude fields
             with "-".
-        :arg format: A short version of the Accept header (for example,
-            `json`, `yaml`).
+        :arg format: Specifies the response format (JSON or YAML).
         :arg human: Whether to return human readable values for
             statistics. Default is True.
         :arg pretty: Whether to pretty format the returned JSON
             response. Default is false.
-        :arg sanitize: Specifies whether to escape special characters in
-            the results Default is True.
+        :arg sanitize: Whether to escape special characters in the
+            results. Default is True.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         """
@@ -195,12 +194,13 @@ class SqlClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "format", "human", "pretty", "source")
     def settings(
         self,
+        *,
         body: Any = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
         """
-        Adds SQL settings to the standard OpenSearch cluster settings.
+        Updates SQL plugin settings in the OpenSearch cluster configuration.
 
 
         :arg error_trace: Whether to include the stack trace of returned
@@ -209,8 +209,7 @@ class SqlClient(NamespacedClient):
             takes a comma-separated list of filters. It supports using wildcards to
             match any field or part of a field’s name. You can also exclude fields
             with "-".
-        :arg format: A short version of the Accept header (for example,
-            `json`, `yaml`).
+        :arg format: Specifies the response format (JSON or YAML).
         :arg human: Whether to return human readable values for
             statistics. Default is True.
         :arg pretty: Whether to pretty format the returned JSON

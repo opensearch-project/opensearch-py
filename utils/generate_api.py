@@ -37,7 +37,7 @@ from functools import lru_cache
 from itertools import chain, groupby
 from operator import itemgetter
 from pathlib import Path
-from typing import Any, Dict
+from typing import Any, Dict, List, Optional
 
 import black
 import deepmerge
@@ -143,11 +143,6 @@ class Module:
                     for line in content.split("\n"):
                         header_lines.append(line)
                         if line.startswith("class"):
-                            if "security.py" in str(self.filepath):
-                                # TODO: FIXME, import code
-                                header_lines.append(
-                                    "    from ._patch import health_check, update_audit_config  # type: ignore"  # pylint: disable=line-too-long
-                                )
                             break
                 self.header = "\n".join(header_lines)
                 self.orders = re.findall(
@@ -190,7 +185,7 @@ class Module:
                     )
                     content = content.replace(
                         "class PluginsClient(NamespacedClient):\n",
-                        f"class PluginsClient(NamespacedClient): \n    {self.namespace}: Any\n",  # pylint: disable=line-too-long
+                        f"class PluginsClient(NamespacedClient):\n    {self.namespace}: Any\n",  # pylint: disable=line-too-long
                         1,
                     )
                     content = content.replace(
@@ -559,6 +554,95 @@ class API:
         )
 
 
+def extract_enum_options(
+    schema: Dict[str, Any], root_schema: Optional[Dict[str, Any]] = None
+) -> Optional[Dict[str, Any]]:
+    """Extracts enum options for the given parameter from the schema."""
+    if not schema:
+        return None
+
+    root_schema = root_schema or schema
+
+    def resolve_ref(ref: str) -> Optional[Dict[str, Any]]:
+        """Resolves a local $ref path within the root JSON schema."""
+        if not root_schema or not ref.startswith("#/"):
+            return None
+        parts = ref.lstrip("#/").split("/")
+        resolved = root_schema
+        for part in parts:
+            if not isinstance(resolved, dict):
+                return None
+            next_resolved = resolved.get(part)
+            if not isinstance(next_resolved, dict):
+                return None
+            resolved = next_resolved
+        return resolved
+
+    def collect_options(subschema: Dict[str, Any]) -> List[str]:
+        """Recursively collects enum, const, and oneOf string values from a subschema."""
+        options = []
+        if "$ref" in subschema:
+            resolved = resolve_ref(subschema["$ref"])
+            if resolved:
+                options.extend(collect_options(resolved))
+        elif "const" in subschema and isinstance(subschema["const"], str):
+            options.append(subschema["const"])
+        elif "enum" in subschema and isinstance(subschema["enum"], list):
+            options.extend([v for v in subschema["enum"] if isinstance(v, str)])
+        elif "oneOf" in subschema and isinstance(subschema["oneOf"], list):
+            for s in subschema["oneOf"]:
+                if isinstance(s, dict):
+                    options.extend(collect_options(s))
+        return options
+
+    raw_options: List[str] = []
+    if "enum" in schema and schema.get("type") == "string":
+        raw_options = [v for v in schema["enum"] if isinstance(v, str)]
+    elif "oneOf" in schema and isinstance(schema["oneOf"], list):
+        for s in schema["oneOf"]:
+            if isinstance(s, dict):
+                raw_options.extend(collect_options(s))
+    elif "$ref" in schema:
+        resolved = resolve_ref(schema["$ref"])
+        if resolved:
+            return extract_enum_options(resolved, root_schema)
+
+    if not raw_options:
+        return None
+
+    seen_lower = set()
+    deduped_options = []
+    for opt in raw_options:
+        lower_opt = opt.lower()
+        if lower_opt not in seen_lower:
+            seen_lower.add(lower_opt)
+            deduped_options.append(opt)
+
+    if len(deduped_options) < 2:
+        return None
+
+    return {"type": "enum", "options": deduped_options}
+
+
+def clean_description(text: str) -> str:
+    """Cleans and flattens multiline description strings."""
+    if not isinstance(text, str):
+        return ""
+    lines = text.strip().splitlines()
+    cleaned = []
+    for line in lines:
+        line = line.strip()
+        if line.startswith("-| "):
+            line = line[3:]
+        elif line.startswith("- "):
+            line = line[2:]
+        cleaned.append(line)
+    combined = " ".join(cleaned)
+    combined = combined.replace(". - ", ". ")
+    combined = combined.replace(") - ", ") ")
+    return combined
+
+
 def read_modules() -> Any:
     """
     checks the opensearch-api spec at
@@ -607,6 +691,7 @@ def read_modules() -> Any:
                     schema_path_ref = param["schema"]["$ref"].split("/")[-1]
                     param["schema"] = data["components"]["schemas"][schema_path_ref]
                     if "oneOf" in param["schema"]:
+                        param["schema_metadata"] = param["schema"]
                         for element in param["schema"]["oneOf"]:
                             if "$ref" in element:
                                 common_schema_path_ref = element["$ref"].split("/")[-1]
@@ -629,10 +714,16 @@ def read_modules() -> Any:
 
             for param in params:
                 param_dict: Dict[str, Any] = {}
-                if "description" in param:
-                    param_dict.update(
-                        description=param["description"].replace("\n", " ")
-                    )
+                for description_source in (
+                    param.get("description"),
+                    param.get("schema_metadata", {}).get("description"),
+                    param.get("schema", {}).get("description"),
+                ):
+                    if isinstance(description_source, str):
+                        param_dict["description"] = clean_description(
+                            description_source
+                        )
+                        break
 
                 if "type" in param["schema"]:
                     param_dict.update({"type": param["schema"]["type"]})
@@ -640,9 +731,8 @@ def read_modules() -> Any:
                 if "default" in param["schema"]:
                     param_dict.update({"default": param["schema"]["default"]})
 
-                if "enum" in param["schema"]:
-                    param_dict.update({"type": "enum"})
-                    param_dict.update({"options": param["schema"]["enum"]})
+                if enum_info := extract_enum_options(param["schema"]):
+                    param_dict.update(enum_info)
 
                 if "deprecated" in param:
                     param_dict.update({"deprecated": param["deprecated"]})
@@ -674,10 +764,13 @@ def read_modules() -> Any:
                 if "type" in part["schema"]:
                     parts_dict.update(type=part["schema"]["type"])
 
-                if "description" in part:
-                    parts_dict.update(
-                        {"description": part["description"].replace("\n", " ")}
-                    )
+                description = (
+                    part.get("description")
+                    or part.get("schema_metadata", {}).get("description")
+                    or part.get("schema", {}).get("description")
+                )
+                if description:
+                    parts_dict.update(description=clean_description(description))
 
                 if "x-enum-options" in part["schema"]:
                     parts_dict.update({"options": part["schema"]["x-enum-options"]})
@@ -806,7 +899,9 @@ def read_modules() -> Any:
         api = apply_patch(namespace, name, api)
 
         is_plugin = False
-        if "_plugins" in api["url"]["paths"][0]["path"] and namespace != "security":
+        if (
+            "_plugins" in api["url"]["paths"][0]["path"] and namespace != "security"
+        ) or namespace == "ltr":
             is_plugin = True
 
         if namespace not in modules:

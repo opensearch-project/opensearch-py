@@ -46,7 +46,7 @@ class TestSecurityPlugin(TestCase):
     def test_create_role(self) -> None:
         # Test to create role
         response = self.client.security.create_role(
-            self.ROLE_NAME, body=self.ROLE_CONTENT
+            role=self.ROLE_NAME, body=self.ROLE_CONTENT
         )
 
         self.assertNotIn("errors", response)
@@ -54,7 +54,7 @@ class TestSecurityPlugin(TestCase):
 
     def test_create_role_with_body_param_empty(self) -> None:
         try:
-            self.client.security.create_role(self.ROLE_NAME, body="")
+            self.client.security.create_role(role=self.ROLE_NAME, body="")
         except ValueError as error:
             assert str(error) == "Empty value passed for a required argument."
         else:
@@ -65,7 +65,7 @@ class TestSecurityPlugin(TestCase):
         self.test_create_role()
 
         # Test to fetch the role
-        response = self.client.security.get_role(self.ROLE_NAME)
+        response = self.client.security.get_role(role=self.ROLE_NAME)
 
         self.assertNotIn("errors", response)
         self.assertIn(self.ROLE_NAME, response)
@@ -78,7 +78,9 @@ class TestSecurityPlugin(TestCase):
         role_content["cluster_permissions"] = ["cluster_all"]
 
         # Test to update role
-        response = self.client.security.create_role(self.ROLE_NAME, body=role_content)
+        response = self.client.security.create_role(
+            role=self.ROLE_NAME, body=role_content
+        )
 
         self.assertNotIn("errors", response)
         self.assertEqual("OK", response.get("status"))
@@ -88,18 +90,18 @@ class TestSecurityPlugin(TestCase):
         self.test_create_role()
 
         # Test to delete the role
-        response = self.client.security.delete_role(self.ROLE_NAME)
+        response = self.client.security.delete_role(role=self.ROLE_NAME)
 
         self.assertNotIn("errors", response)
 
         # Try fetching the role
         with self.assertRaises(NotFoundError):
-            response = self.client.security.get_role(self.ROLE_NAME)
+            response = self.client.security.get_role(role=self.ROLE_NAME)
 
     def test_create_user(self) -> None:
         # Test to create user
         response = self.client.security.create_user(
-            self.USER_NAME, body=self.USER_CONTENT
+            username=self.USER_NAME, body=self.USER_CONTENT
         )
 
         self.assertNotIn("errors", response)
@@ -107,7 +109,7 @@ class TestSecurityPlugin(TestCase):
 
     def test_create_user_with_body_param_empty(self) -> None:
         try:
-            self.client.security.create_user(self.USER_NAME, body="")
+            self.client.security.create_user(username=self.USER_NAME, body="")
         except ValueError as error:
             assert str(error) == "Empty value passed for a required argument."
         else:
@@ -118,7 +120,7 @@ class TestSecurityPlugin(TestCase):
 
         # Test to create user
         response = self.client.security.create_user(
-            self.USER_NAME,
+            username=self.USER_NAME,
             body={
                 "password": "opensearchpy@123",
                 "opendistro_security_roles": [self.ROLE_NAME],
@@ -133,7 +135,7 @@ class TestSecurityPlugin(TestCase):
         self.test_create_user()
 
         # Test to fetch the user
-        response = self.client.security.get_user(self.USER_NAME)
+        response = self.client.security.get_user(username=self.USER_NAME)
 
         self.assertNotIn("errors", response)
         self.assertIn(self.USER_NAME, response)
@@ -146,7 +148,9 @@ class TestSecurityPlugin(TestCase):
         user_content["password"] = "123@opensearchpy"
 
         # Test to update user
-        response = self.client.security.create_user(self.USER_NAME, body=user_content)
+        response = self.client.security.create_user(
+            username=self.USER_NAME, body=user_content
+        )
 
         self.assertNotIn("errors", response)
         self.assertEqual("OK", response.get("status"))
@@ -156,18 +160,13 @@ class TestSecurityPlugin(TestCase):
         self.test_create_user()
 
         # Test to delete the user
-        response = self.client.security.delete_user(self.USER_NAME)
+        response = self.client.security.delete_user(username=self.USER_NAME)
 
         self.assertNotIn("errors", response)
 
         # Try fetching the user
         with self.assertRaises(NotFoundError):
-            response = self.client.security.get_user(self.USER_NAME)
-
-    def test_health_check(self) -> None:
-        response = self.client.security.health_check()
-        self.assertNotIn("errors", response)
-        self.assertEqual("UP", response.get("status"))
+            response = self.client.security.get_user(username=self.USER_NAME)
 
     def test_health(self) -> None:
         response = self.client.security.health()
@@ -201,13 +200,6 @@ class TestSecurityPlugin(TestCase):
             "internal_config": True,
         },
     }
-
-    def test_update_audit_config(self) -> None:
-        response = self.client.security.update_audit_config(
-            body=self.AUDIT_CONFIG_SETTINGS
-        )
-        self.assertNotIn("errors", response)
-        self.assertEqual("OK", response.get("status"))
 
     def test_update_audit_configuration(self) -> None:
         response = self.client.security.update_audit_configuration(

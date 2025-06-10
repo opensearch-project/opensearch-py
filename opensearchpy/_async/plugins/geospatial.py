@@ -21,9 +21,9 @@ from typing import Any
 from ..client.utils import SKIP_IN_PATH, NamespacedClient, _make_path, query_params
 
 
-class NotificationsClient(NamespacedClient):
+class GeospatialClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
-    def create_config(
+    async def geojson_upload_post(
         self,
         *,
         body: Any,
@@ -31,7 +31,10 @@ class NotificationsClient(NamespacedClient):
         headers: Any = None,
     ) -> Any:
         """
-        Create channel configuration.
+        Use an OpenSearch query to upload `GeoJSON`, operation will fail if index
+        exists. - When type is `geo_point`, only Point geometry is allowed - When type
+        is `geo_shape`, all geometry types are allowed (Point, MultiPoint, LineString,
+        MultiLineString, Polygon, MultiPolygon, GeometryCollection, Envelope).
 
 
         :arg error_trace: Whether to include the stack trace of returned
@@ -50,282 +53,27 @@ class NotificationsClient(NamespacedClient):
         if body in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'body'.")
 
-        return self.transport.perform_request(
+        return await self.transport.perform_request(
             "POST",
-            "/_plugins/_notifications/configs",
+            "/_plugins/geospatial/geojson/_upload",
             params=params,
             headers=headers,
             body=body,
         )
 
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
-    def delete_config(
+    async def geojson_upload_put(
         self,
         *,
-        config_id: Any,
-        params: Any = None,
-        headers: Any = None,
-    ) -> Any:
-        """
-        Delete a channel configuration.
-
-
-        :arg config_id: The ID of the channel configuration to delete.
-        :arg error_trace: Whether to include the stack trace of returned
-            errors. Default is false.
-        :arg filter_path: Used to reduce the response. This parameter
-            takes a comma-separated list of filters. It supports using wildcards to
-            match any field or part of a field’s name. You can also exclude fields
-            with "-".
-        :arg human: Whether to return human readable values for
-            statistics. Default is True.
-        :arg pretty: Whether to pretty format the returned JSON
-            response. Default is false.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
-        """
-        if config_id in SKIP_IN_PATH:
-            raise ValueError("Empty value passed for a required argument 'config_id'.")
-
-        return self.transport.perform_request(
-            "DELETE",
-            _make_path("_plugins", "_notifications", "configs", config_id),
-            params=params,
-            headers=headers,
-        )
-
-    @query_params(
-        "config_id",
-        "config_id_list",
-        "error_trace",
-        "filter_path",
-        "human",
-        "pretty",
-        "source",
-    )
-    def delete_configs(
-        self,
-        *,
-        params: Any = None,
-        headers: Any = None,
-    ) -> Any:
-        """
-        Delete multiple channel configurations.
-
-
-        :arg config_id: The ID of the channel configuration to delete.
-        :arg config_id_list: A comma-separated list of channel IDs to
-            delete.
-        :arg error_trace: Whether to include the stack trace of returned
-            errors. Default is false.
-        :arg filter_path: Used to reduce the response. This parameter
-            takes a comma-separated list of filters. It supports using wildcards to
-            match any field or part of a field’s name. You can also exclude fields
-            with "-".
-        :arg human: Whether to return human readable values for
-            statistics. Default is True.
-        :arg pretty: Whether to pretty format the returned JSON
-            response. Default is false.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
-        """
-        return self.transport.perform_request(
-            "DELETE", "/_plugins/_notifications/configs", params=params, headers=headers
-        )
-
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
-    def get_config(
-        self,
-        *,
-        config_id: Any,
-        params: Any = None,
-        headers: Any = None,
-    ) -> Any:
-        """
-        Get a specific channel configuration.
-
-
-        :arg error_trace: Whether to include the stack trace of returned
-            errors. Default is false.
-        :arg filter_path: Used to reduce the response. This parameter
-            takes a comma-separated list of filters. It supports using wildcards to
-            match any field or part of a field’s name. You can also exclude fields
-            with "-".
-        :arg human: Whether to return human readable values for
-            statistics. Default is True.
-        :arg pretty: Whether to pretty format the returned JSON
-            response. Default is false.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
-        """
-        if config_id in SKIP_IN_PATH:
-            raise ValueError("Empty value passed for a required argument 'config_id'.")
-
-        return self.transport.perform_request(
-            "GET",
-            _make_path("_plugins", "_notifications", "configs", config_id),
-            params=params,
-            headers=headers,
-        )
-
-    @query_params(
-        "chime.url",
-        "chime.url.keyword",
-        "config_id",
-        "config_id_list",
-        "config_type",
-        "created_time_ms",
-        "description",
-        "description.keyword",
-        "email.email_account_id",
-        "email.email_group_id_list",
-        "email.recipient_list.recipient",
-        "email.recipient_list.recipient.keyword",
-        "email_group.recipient_list.recipient",
-        "email_group.recipient_list.recipient.keyword",
-        "error_trace",
-        "filter_path",
-        "human",
-        "is_enabled",
-        "last_updated_time_ms",
-        "microsoft_teams.url",
-        "microsoft_teams.url.keyword",
-        "name",
-        "name.keyword",
-        "pretty",
-        "query",
-        "ses_account.from_address",
-        "ses_account.from_address.keyword",
-        "ses_account.region",
-        "ses_account.role_arn",
-        "ses_account.role_arn.keyword",
-        "slack.url",
-        "slack.url.keyword",
-        "smtp_account.from_address",
-        "smtp_account.from_address.keyword",
-        "smtp_account.host",
-        "smtp_account.host.keyword",
-        "smtp_account.method",
-        "sns.role_arn",
-        "sns.role_arn.keyword",
-        "sns.topic_arn",
-        "sns.topic_arn.keyword",
-        "source",
-        "text_query",
-        "webhook.url",
-        "webhook.url.keyword",
-    )
-    def get_configs(
-        self,
-        *,
-        body: Any = None,
-        params: Any = None,
-        headers: Any = None,
-    ) -> Any:
-        """
-        Get multiple channel configurations with filtering.
-
-
-        :arg config_id: Notification configuration ID.
-        :arg config_id_list: Notification configuration IDs.
-        :arg config_type: Type of notification configuration. Valid
-            choices are chime, email, email_group, microsoft_teams, ses_account,
-            slack, smtp_account, sns, webhook.
-        :arg error_trace: Whether to include the stack trace of returned
-            errors. Default is false.
-        :arg filter_path: Used to reduce the response. This parameter
-            takes a comma-separated list of filters. It supports using wildcards to
-            match any field or part of a field’s name. You can also exclude fields
-            with "-".
-        :arg human: Whether to return human readable values for
-            statistics. Default is True.
-        :arg pretty: Whether to pretty format the returned JSON
-            response. Default is false.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
-        """
-        return self.transport.perform_request(
-            "GET",
-            "/_plugins/_notifications/configs",
-            params=params,
-            headers=headers,
-            body=body,
-        )
-
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
-    def list_features(
-        self,
-        *,
-        params: Any = None,
-        headers: Any = None,
-    ) -> Any:
-        """
-        List supported channel configurations.
-
-
-        :arg error_trace: Whether to include the stack trace of returned
-            errors. Default is false.
-        :arg filter_path: Used to reduce the response. This parameter
-            takes a comma-separated list of filters. It supports using wildcards to
-            match any field or part of a field’s name. You can also exclude fields
-            with "-".
-        :arg human: Whether to return human readable values for
-            statistics. Default is True.
-        :arg pretty: Whether to pretty format the returned JSON
-            response. Default is false.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
-        """
-        return self.transport.perform_request(
-            "GET", "/_plugins/_notifications/features", params=params, headers=headers
-        )
-
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
-    def send_test(
-        self,
-        *,
-        config_id: Any,
-        params: Any = None,
-        headers: Any = None,
-    ) -> Any:
-        """
-        Send a test notification.
-
-
-        :arg error_trace: Whether to include the stack trace of returned
-            errors. Default is false.
-        :arg filter_path: Used to reduce the response. This parameter
-            takes a comma-separated list of filters. It supports using wildcards to
-            match any field or part of a field’s name. You can also exclude fields
-            with "-".
-        :arg human: Whether to return human readable values for
-            statistics. Default is True.
-        :arg pretty: Whether to pretty format the returned JSON
-            response. Default is false.
-        :arg source: The URL-encoded request definition. Useful for
-            libraries that do not accept a request body for non-POST requests.
-        """
-        if config_id in SKIP_IN_PATH:
-            raise ValueError("Empty value passed for a required argument 'config_id'.")
-
-        return self.transport.perform_request(
-            "GET",
-            _make_path("_plugins", "_notifications", "feature", "test", config_id),
-            params=params,
-            headers=headers,
-        )
-
-    @query_params("error_trace", "filter_path", "human", "pretty", "source")
-    def update_config(
-        self,
-        *,
-        config_id: Any,
         body: Any,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
         """
-        Update channel configuration.
+        Use an OpenSearch query to upload `GeoJSON` regardless if index exists. - When
+        type is `geo_point`, only Point geometry is allowed - When type is `geo_shape`,
+        all geometry types are allowed (Point, MultiPoint, LineString, MultiLineString,
+        Polygon, MultiPolygon, GeometryCollection, Envelope).
 
 
         :arg error_trace: Whether to include the stack trace of returned
@@ -341,27 +89,26 @@ class NotificationsClient(NamespacedClient):
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         """
-        for param in (config_id, body):
-            if param in SKIP_IN_PATH:
-                raise ValueError("Empty value passed for a required argument.")
+        if body in SKIP_IN_PATH:
+            raise ValueError("Empty value passed for a required argument 'body'.")
 
-        return self.transport.perform_request(
+        return await self.transport.perform_request(
             "PUT",
-            _make_path("_plugins", "_notifications", "configs", config_id),
+            "/_plugins/geospatial/geojson/_upload",
             params=params,
             headers=headers,
             body=body,
         )
 
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
-    def list_channels(
+    async def get_upload_stats(
         self,
         *,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
         """
-        List created notification channels.
+        Retrieves statistics for all geospatial uploads.
 
 
         :arg error_trace: Whether to include the stack trace of returned
@@ -377,6 +124,153 @@ class NotificationsClient(NamespacedClient):
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         """
-        return self.transport.perform_request(
-            "GET", "/_plugins/_notifications/channels", params=params, headers=headers
+        return await self.transport.perform_request(
+            "GET", "/_plugins/geospatial/_upload/stats", params=params, headers=headers
+        )
+
+    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    async def delete_ip2geo_datasource(
+        self,
+        *,
+        name: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Delete a specific IP2Geo data source.
+
+
+        :arg error_trace: Whether to include the stack trace of returned
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
+        :arg human: Whether to return human readable values for
+            statistics. Default is True.
+        :arg pretty: Whether to pretty format the returned JSON
+            response. Default is false.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        """
+        if name in SKIP_IN_PATH:
+            raise ValueError("Empty value passed for a required argument 'name'.")
+
+        return await self.transport.perform_request(
+            "DELETE",
+            _make_path("_plugins", "geospatial", "ip2geo", "datasource", name),
+            params=params,
+            headers=headers,
+        )
+
+    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    async def get_ip2geo_datasource(
+        self,
+        *,
+        name: Any = None,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Get one or more IP2Geo data sources, defaulting to returning all if no names
+        specified.
+
+
+        :arg error_trace: Whether to include the stack trace of returned
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
+        :arg human: Whether to return human readable values for
+            statistics. Default is True.
+        :arg pretty: Whether to pretty format the returned JSON
+            response. Default is false.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        """
+        return await self.transport.perform_request(
+            "GET",
+            _make_path("_plugins", "geospatial", "ip2geo", "datasource", name),
+            params=params,
+            headers=headers,
+        )
+
+    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    async def put_ip2geo_datasource(
+        self,
+        *,
+        name: Any,
+        body: Any = None,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Create a specific IP2Geo data source. Default values:   - `endpoint`:
+        `"https://geoip.maps.opensearch.org/v1/geolite2-city/manifest.json"`   -
+        `update_interval_in_days`: 3.
+
+
+        :arg error_trace: Whether to include the stack trace of returned
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
+        :arg human: Whether to return human readable values for
+            statistics. Default is True.
+        :arg pretty: Whether to pretty format the returned JSON
+            response. Default is false.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        """
+        if name in SKIP_IN_PATH:
+            raise ValueError("Empty value passed for a required argument 'name'.")
+
+        return await self.transport.perform_request(
+            "PUT",
+            _make_path("_plugins", "geospatial", "ip2geo", "datasource", name),
+            params=params,
+            headers=headers,
+            body=body,
+        )
+
+    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    async def put_ip2geo_datasource_settings(
+        self,
+        *,
+        name: Any,
+        body: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Update a specific IP2Geo data source.
+
+
+        :arg error_trace: Whether to include the stack trace of returned
+            errors. Default is false.
+        :arg filter_path: Used to reduce the response. This parameter
+            takes a comma-separated list of filters. It supports using wildcards to
+            match any field or part of a field’s name. You can also exclude fields
+            with "-".
+        :arg human: Whether to return human readable values for
+            statistics. Default is True.
+        :arg pretty: Whether to pretty format the returned JSON
+            response. Default is false.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        """
+        for param in (name, body):
+            if param in SKIP_IN_PATH:
+                raise ValueError("Empty value passed for a required argument.")
+
+        return await self.transport.perform_request(
+            "PUT",
+            _make_path(
+                "_plugins", "geospatial", "ip2geo", "datasource", name, "_settings"
+            ),
+            params=params,
+            headers=headers,
+            body=body,
         )

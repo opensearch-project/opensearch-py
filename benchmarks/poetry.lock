@@ -505,7 +505,7 @@ files = [
 
 [[package]]
 name = "opensearch-py"
-version = "2.8.1"
+version = "3.0.0"
 description = "Python client for OpenSearch"
 optional = false
 python-versions = ">=3.8, <4"

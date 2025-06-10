@@ -11,7 +11,7 @@ jobs:
         entry:
           - { branch: "1.x", java-version: "11" }
           - { branch: "2.x", java-version: "17" }
-          - { branch: "main", java-version: "17" }
+          - { branch: "main", java-version: "21" }
 
     steps:
       - name: Checkout OpenSearch

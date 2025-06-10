@@ -79,8 +79,8 @@ def match_version(info: Any) -> Any:
 @fixture  # type: ignore
 def write_client(client: Any) -> Any:
     yield client
-    client.indices.delete("test-*", ignore=404)
-    client.indices.delete_template("test-template", ignore=404)
+    client.indices.delete(index="test-*", ignore=404)
+    client.indices.delete_template(name="test-template", ignore=404)
 
 
 @fixture(scope="session")  # type: ignore
@@ -92,8 +92,8 @@ def data_client(client: Any) -> Any:
     bulk(client, DATA, raise_on_error=True, refresh=True)
     bulk(client, FLAT_DATA, raise_on_error=True, refresh=True)
     yield client
-    client.indices.delete("git", ignore=404)
-    client.indices.delete("flat-git", ignore=404)
+    client.indices.delete(index="git", ignore=404)
+    client.indices.delete(index="flat-git", ignore=404)
 
 
 @fixture  # type: ignore

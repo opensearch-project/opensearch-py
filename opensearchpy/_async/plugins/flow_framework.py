@@ -36,12 +36,13 @@ class FlowFrameworkClient(NamespacedClient):
     )
     async def create(
         self,
+        *,
         body: Any = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
         """
-        Create a workflow.
+        Creates a new workflow template.
 
 
         :arg error_trace: Whether to include the stack trace of returned
@@ -54,10 +55,18 @@ class FlowFrameworkClient(NamespacedClient):
             statistics. Default is True.
         :arg pretty: Whether to pretty format the returned JSON
             response. Default is false.
+        :arg provision: Whether to provision the workflow as part of the
+            request. Default is false.
+        :arg reprovision: Whether to reprovision an existing workflow.
+            Default is false.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
-        :arg use_case: To use a workflow template, specify it in the
-            `use_case` query parameter when creating a workflow.
+        :arg update_fields: Whether to update only the fields included
+            in the request body.. Default is false.
+        :arg use_case: Specifies the workflow template to use.
+        :arg validation: Specifies the validation type. Valid values are
+            `all` (validate the template) and `none` (do not validate the template).
+            Default is all.
         """
         return await self.transport.perform_request(
             "POST",
@@ -72,14 +81,19 @@ class FlowFrameworkClient(NamespacedClient):
     )
     async def delete(
         self,
+        *,
         workflow_id: Any,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
         """
-        Delete a workflow.
+        Deletes a workflow template.
 
 
+        :arg workflow_id: The ID of the workflow.
+        :arg clear_status: Whether to delete the workflow state without
+            deprovisioning resources. OpenSearch deletes the workflow state only if
+            the provisioning status is not `IN_PROGRESS`. . Default is false.
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
         :arg filter_path: Used to reduce the response. This parameter
@@ -110,14 +124,18 @@ class FlowFrameworkClient(NamespacedClient):
     )
     async def deprovision(
         self,
+        *,
         workflow_id: Any,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
         """
-        Deprovision workflow's resources when you no longer need it.
+        Deprovision workflow's resources when you no longer need them.
 
 
+        :arg workflow_id: The ID of the workflow.
+        :arg allow_delete: Specifies whether to allow deletion of
+            resources with potential data loss.
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
         :arg filter_path: Used to reduce the response. This parameter
@@ -148,14 +166,16 @@ class FlowFrameworkClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def get(
         self,
+        *,
         workflow_id: Any,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
         """
-        Get a workflow.
+        Retrieves a workflow template.
 
 
+        :arg workflow_id: The ID of the workflow.
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
         :arg filter_path: Used to reduce the response. This parameter
@@ -184,16 +204,18 @@ class FlowFrameworkClient(NamespacedClient):
     @query_params("all", "error_trace", "filter_path", "human", "pretty", "source")
     async def get_status(
         self,
+        *,
         workflow_id: Any,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
         """
-        Get the provisioning deployment status until it is complete.
+        Retrieves the current workflow provisioning status.
 
 
-        :arg all: The all parameter specifies whether the response
-            should return all fields. Default is false.
+        :arg workflow_id: The ID of the workflow.
+        :arg all: Whether to return all fields in the response. Default
+            is false.
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
         :arg filter_path: Used to reduce the response. This parameter
@@ -226,11 +248,12 @@ class FlowFrameworkClient(NamespacedClient):
     )
     async def get_steps(
         self,
+        *,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
         """
-        Get a list of workflow steps.
+        Retrieves available workflow steps.
 
 
         :arg error_trace: Whether to include the stack trace of returned
@@ -245,6 +268,7 @@ class FlowFrameworkClient(NamespacedClient):
             response. Default is false.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
+        :arg workflow_step: The name of the workflow step.
         """
         return await self.transport.perform_request(
             "GET",
@@ -256,6 +280,7 @@ class FlowFrameworkClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def provision(
         self,
+        *,
         workflow_id: Any,
         body: Any = None,
         params: Any = None,
@@ -266,6 +291,7 @@ class FlowFrameworkClient(NamespacedClient):
         Workflow API is called with the provision parameter set to true.
 
 
+        :arg workflow_id: The ID of the workflow.
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
         :arg filter_path: Used to reduce the response. This parameter
@@ -297,6 +323,7 @@ class FlowFrameworkClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def search(
         self,
+        *,
         body: Any,
         params: Any = None,
         headers: Any = None,
@@ -332,6 +359,7 @@ class FlowFrameworkClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def search_state(
         self,
+        *,
         body: Any,
         params: Any = None,
         headers: Any = None,
@@ -378,16 +406,17 @@ class FlowFrameworkClient(NamespacedClient):
     )
     async def update(
         self,
+        *,
         workflow_id: Any,
         body: Any = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
         """
-        Update a workflow. You can only update a complete workflow if it has not yet
-        been provisioned.
+        Updates a workflow template that has not been provisioned.
 
 
+        :arg workflow_id: The ID of the workflow.
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
         :arg filter_path: Used to reduce the response. This parameter
@@ -398,10 +427,18 @@ class FlowFrameworkClient(NamespacedClient):
             statistics. Default is True.
         :arg pretty: Whether to pretty format the returned JSON
             response. Default is false.
+        :arg provision: Whether to provision the workflow as part of the
+            request. Default is false.
+        :arg reprovision: Whether to reprovision an existing workflow.
+            Default is false.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
-        :arg use_case: To use a workflow template, specify it in the
-            `use_case` query parameter when creating a workflow.
+        :arg update_fields: Whether to update only the fields included
+            in the request body.. Default is false.
+        :arg use_case: Specifies the workflow template to use.
+        :arg validation: Specifies the validation type. Valid values are
+            `all` (validate the template) and `none` (do not validate the template).
+            Default is all.
         """
         if workflow_id in SKIP_IN_PATH:
             raise ValueError(

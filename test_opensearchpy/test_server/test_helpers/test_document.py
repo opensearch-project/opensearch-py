@@ -384,7 +384,7 @@ COMMIT_DOCS_WITH_MISSING = [
 
 
 def test_mget(data_client: Any) -> None:
-    commits = Commit.mget(COMMIT_DOCS_WITH_MISSING)
+    commits = Commit.mget(docs=COMMIT_DOCS_WITH_MISSING)
     assert commits[0] is None
     assert commits[1].meta.id == "3ca6e1e73a071a705b4babd2f581c91a2a3e5037"
     assert commits[2] is None
@@ -393,16 +393,16 @@ def test_mget(data_client: Any) -> None:
 
 def test_mget_raises_exception_when_missing_param_is_invalid(data_client: Any) -> None:
     with raises(ValueError):
-        Commit.mget(COMMIT_DOCS_WITH_MISSING, missing="raj")
+        Commit.mget(docs=COMMIT_DOCS_WITH_MISSING, missing="raj")
 
 
 def test_mget_raises_404_when_missing_param_is_raise(data_client: Any) -> None:
     with raises(NotFoundError):
-        Commit.mget(COMMIT_DOCS_WITH_MISSING, missing="raise")
+        Commit.mget(docs=COMMIT_DOCS_WITH_MISSING, missing="raise")
 
 
 def test_mget_ignores_missing_docs_when_missing_param_is_skip(data_client: Any) -> None:
-    commits = Commit.mget(COMMIT_DOCS_WITH_MISSING, missing="skip")
+    commits = Commit.mget(docs=COMMIT_DOCS_WITH_MISSING, missing="skip")
     assert commits[0].meta.id == "3ca6e1e73a071a705b4babd2f581c91a2a3e5037"
     assert commits[1].meta.id == "eb3e543323f189fd7b698e66295427204fff5755"
 

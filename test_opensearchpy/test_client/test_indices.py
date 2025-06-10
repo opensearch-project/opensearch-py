@@ -30,15 +30,15 @@ from test_opensearchpy.test_cases import OpenSearchTestCase
 
 class TestIndices(OpenSearchTestCase):
     def test_create_one_index(self) -> None:
-        self.client.indices.create("test-index")
+        self.client.indices.create(index="test-index")
         self.assert_url_called("PUT", "/test-index")
 
     def test_delete_multiple_indices(self) -> None:
-        self.client.indices.delete(["test-index", "second.index", "third/index"])
+        self.client.indices.delete(index=["test-index", "second.index", "third/index"])
         self.assert_url_called("DELETE", "/test-index,second.index,third%2Findex")
 
     def test_exists_index(self) -> None:
-        self.client.indices.exists("second.index,third/index")
+        self.client.indices.exists(index="second.index,third/index")
         self.assert_url_called("HEAD", "/second.index,third%2Findex")
 
     def test_passing_empty_value_for_required_param_raises_exception(self) -> None:
@@ -47,6 +47,6 @@ class TestIndices(OpenSearchTestCase):
         self.assertRaises(ValueError, self.client.indices.exists, index="")
 
     def test_create_alias(self) -> None:
-        self.client.indices.create("test-index")
-        self.client.indices.put_alias("test-index", "test-alias")
+        self.client.indices.create(index="test-index")
+        self.client.indices.put_alias(index="test-index", name="test-alias")
         self.assert_url_called("PUT", "/test-index/_alias/test-alias")

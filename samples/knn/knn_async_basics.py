@@ -39,9 +39,9 @@ async def main() -> None:
     index_name = "my-index"
     dimensions = 5
 
-    if not await client.indices.exists(index_name):
+    if not await client.indices.exists(index=index_name):
         await client.indices.create(
-            index_name,
+            index=index_name,
             body={
                 "settings": {"index.knn": True},
                 "mappings": {
