@@ -134,6 +134,7 @@
     <span class="p">)</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">create</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
         <span class="n">repository</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">snapshot</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">body</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -141,15 +142,19 @@
         <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Creates a snapshot in a repository.</span>
+<span class="sd">        Creates a snapshot within an existing repository.</span>
 
 
-<span class="sd">        :arg repository: Repository for the snapshot.</span>
-<span class="sd">        :arg snapshot: Name of the snapshot. Must be unique in the</span>
+<span class="sd">        :arg repository: The name of the repository where the snapshot</span>
+<span class="sd">            will be stored.</span>
+<span class="sd">        :arg snapshot: The name of the snapshot. Must be unique in the</span>
 <span class="sd">            repository.</span>
-<span class="sd">        :arg body: The snapshot definition</span>
-<span class="sd">        :arg cluster_manager_timeout: Operation timeout for connection</span>
-<span class="sd">            to cluster-manager node.</span>
+<span class="sd">        :arg body: The snapshot definition.</span>
+<span class="sd">        :arg cluster_manager_timeout: The amount of time to wait for a</span>
+<span class="sd">            response from the cluster manager node. For more information about</span>
+<span class="sd">            supported time units, see [Common</span>
+<span class="sd">            parameters](https://opensearch.org/docs/latest/api-reference/common-</span>
+<span class="sd">            parameters/#time-units).</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
 <span class="sd">            errors. Default is false.</span>
 <span class="sd">        :arg filter_path: Used to reduce the response. This parameter</span>
@@ -166,9 +171,9 @@
 <span class="sd">            response. Default is false.</span>
 <span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
 <span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
-<span class="sd">        :arg wait_for_completion: If `true`, the request returns a</span>
-<span class="sd">            response when the snapshot is complete. If `false`, the request returns</span>
-<span class="sd">            a response when the snapshot initializes. Default is false.</span>
+<span class="sd">        :arg wait_for_completion: When `true`, the request returns a</span>
+<span class="sd">            response when the snapshot is complete. When `false`, the request</span>
+<span class="sd">            returns a response when the snapshot initializes. Default is false.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="p">(</span><span class="n">repository</span><span class="p">,</span> <span class="n">snapshot</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
@@ -193,6 +198,7 @@
     <span class="p">)</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">delete</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
         <span class="n">repository</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">snapshot</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -202,10 +208,14 @@
 <span class="sd">        Deletes a snapshot.</span>
 
 
-<span class="sd">        :arg repository: A repository name</span>
-<span class="sd">        :arg snapshot: A comma-separated list of snapshot names</span>
-<span class="sd">        :arg cluster_manager_timeout: Operation timeout for connection</span>
-<span class="sd">            to cluster-manager node.</span>
+<span class="sd">        :arg repository: The name of the snapshot repository to delete.</span>
+<span class="sd">        :arg snapshot: A comma-separated list of snapshot names to</span>
+<span class="sd">            delete from the repository.</span>
+<span class="sd">        :arg cluster_manager_timeout: The amount of time to wait for a</span>
+<span class="sd">            response from the cluster manager node. For more information about</span>
+<span class="sd">            supported time units, see [Common</span>
+<span class="sd">            parameters](https://opensearch.org/docs/latest/api-reference/common-</span>
+<span class="sd">            parameters/#time-units).</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
 <span class="sd">            errors. Default is false.</span>
 <span class="sd">        :arg filter_path: Used to reduce the response. This parameter</span>
@@ -246,6 +256,7 @@
     <span class="p">)</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">get</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
         <span class="n">repository</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">snapshot</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -255,15 +266,18 @@
 <span class="sd">        Returns information about a snapshot.</span>
 
 
-<span class="sd">        :arg repository: Comma-separated list of snapshot repository</span>
+<span class="sd">        :arg repository: A comma-separated list of snapshot repository</span>
 <span class="sd">            names used to limit the request. Wildcard (*) expressions are supported.</span>
-<span class="sd">        :arg snapshot: Comma-separated list of snapshot names to</span>
-<span class="sd">            retrieve. Also accepts wildcards (`*`). - To get information about all</span>
-<span class="sd">            snapshots in a registered repository, use a wildcard (`*`) or `_all`. -</span>
-<span class="sd">            To get information about any snapshots that are currently running, use</span>
-<span class="sd">            `_current`.</span>
-<span class="sd">        :arg cluster_manager_timeout: Operation timeout for connection</span>
-<span class="sd">            to cluster-manager node.</span>
+<span class="sd">        :arg snapshot: A comma-separated list of snapshot names to</span>
+<span class="sd">            retrieve. Also accepts wildcard expressions. (`*`). To get information</span>
+<span class="sd">            about all snapshots in a registered repository, use a wildcard (`*`) or</span>
+<span class="sd">            `_all`. To get information about any snapshots that are currently</span>
+<span class="sd">            running, use `_current`.</span>
+<span class="sd">        :arg cluster_manager_timeout: The amount of time to wait for a</span>
+<span class="sd">            response from the cluster manager node. For more information about</span>
+<span class="sd">            supported time units, see [Common</span>
+<span class="sd">            parameters](https://opensearch.org/docs/latest/api-reference/common-</span>
+<span class="sd">            parameters/#time-units).</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
 <span class="sd">            errors. Default is false.</span>
 <span class="sd">        :arg filter_path: Used to reduce the response. This parameter</span>
@@ -272,7 +286,7 @@
 <span class="sd">            with &quot;-&quot;.</span>
 <span class="sd">        :arg human: Whether to return human readable values for</span>
 <span class="sd">            statistics. Default is True.</span>
-<span class="sd">        :arg ignore_unavailable: If `false`, the request returns an</span>
+<span class="sd">        :arg ignore_unavailable: When `false`, the request returns an</span>
 <span class="sd">            error for any snapshots that are unavailable. Default is false.</span>
 <span class="sd">        :arg master_timeout (Deprecated: To promote inclusive language,</span>
 <span class="sd">            use `cluster_manager_timeout` instead.): Period to wait for a connection</span>
@@ -282,10 +296,10 @@
 <span class="sd">            response. Default is false.</span>
 <span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
 <span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
-<span class="sd">        :arg verbose: If `true`, returns additional information about</span>
+<span class="sd">        :arg verbose: When `true`, returns additional information about</span>
 <span class="sd">            each snapshot such as the version of OpenSearch which took the snapshot,</span>
 <span class="sd">            the start and end times of the snapshot, and the number of shards</span>
-<span class="sd">            snapshotted.</span>
+<span class="sd">            contained in the snapshot.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="p">(</span><span class="n">repository</span><span class="p">,</span> <span class="n">snapshot</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
@@ -310,18 +324,22 @@
     <span class="p">)</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">delete_repository</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
         <span class="n">repository</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Deletes a repository.</span>
+<span class="sd">        Deletes a snapshot repository.</span>
 
 
-<span class="sd">        :arg repository: Name of the snapshot repository to unregister.</span>
-<span class="sd">            Wildcard (`*`) patterns are supported.</span>
-<span class="sd">        :arg cluster_manager_timeout: Operation timeout for connection</span>
-<span class="sd">            to cluster-manager node.</span>
+<span class="sd">        :arg repository: The name of the snapshot repository to</span>
+<span class="sd">            unregister. Wildcard (`*`) patterns are supported.</span>
+<span class="sd">        :arg cluster_manager_timeout: The amount of time to wait for a</span>
+<span class="sd">            response from the cluster manager node. For more information about</span>
+<span class="sd">            supported time units, see [Common</span>
+<span class="sd">            parameters](https://opensearch.org/docs/latest/api-reference/common-</span>
+<span class="sd">            parameters/#time-units).</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
 <span class="sd">            errors. Default is false.</span>
 <span class="sd">        :arg filter_path: Used to reduce the response. This parameter</span>
@@ -337,7 +355,7 @@
 <span class="sd">            response. Default is false.</span>
 <span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
 <span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
-<span class="sd">        :arg timeout: Explicit operation timeout</span>
+<span class="sd">        :arg timeout: The amount of time to wait for a response.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">repository</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Empty value passed for a required argument &#39;repository&#39;.&quot;</span><span class="p">)</span>
@@ -361,17 +379,21 @@
     <span class="p">)</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_repository</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
         <span class="n">repository</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Returns information about a repository.</span>
+<span class="sd">        Returns information about a snapshot repository.</span>
 
 
-<span class="sd">        :arg repository: A comma-separated list of repository names</span>
-<span class="sd">        :arg cluster_manager_timeout: Operation timeout for connection</span>
-<span class="sd">            to cluster-manager node.</span>
+<span class="sd">        :arg repository: A comma-separated list of repository names.</span>
+<span class="sd">        :arg cluster_manager_timeout: The amount of time to wait for a</span>
+<span class="sd">            response from the cluster manager node. For more information about</span>
+<span class="sd">            supported time units, see [Common</span>
+<span class="sd">            parameters](https://opensearch.org/docs/latest/api-reference/common-</span>
+<span class="sd">            parameters/#time-units).</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
 <span class="sd">            errors. Default is false.</span>
 <span class="sd">        :arg filter_path: Used to reduce the response. This parameter</span>
@@ -380,8 +402,8 @@
 <span class="sd">            with &quot;-&quot;.</span>
 <span class="sd">        :arg human: Whether to return human readable values for</span>
 <span class="sd">            statistics. Default is True.</span>
-<span class="sd">        :arg local: Return local information, do not retrieve the state</span>
-<span class="sd">            from cluster-manager node. Default is false.</span>
+<span class="sd">        :arg local: Whether to get information from the local node.</span>
+<span class="sd">            Default is false.</span>
 <span class="sd">        :arg master_timeout (Deprecated: To promote inclusive language,</span>
 <span class="sd">            use `cluster_manager_timeout` instead.): Explicit operation timeout for</span>
 <span class="sd">            connection to cluster-manager node</span>
@@ -407,19 +429,23 @@
     <span class="p">)</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">create_repository</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
         <span class="n">repository</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">body</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Creates a repository.</span>
+<span class="sd">        Creates a snapshot repository.</span>
 
 
-<span class="sd">        :arg repository: A repository name</span>
-<span class="sd">        :arg body: The repository definition</span>
-<span class="sd">        :arg cluster_manager_timeout: Operation timeout for connection</span>
-<span class="sd">            to cluster-manager node.</span>
+<span class="sd">        :arg repository: The name for the newly registered repository.</span>
+<span class="sd">        :arg body: The repository definition.</span>
+<span class="sd">        :arg cluster_manager_timeout: The amount of time to wait for a</span>
+<span class="sd">            response from the cluster manager node. For more information about</span>
+<span class="sd">            supported time units, see [Common</span>
+<span class="sd">            parameters](https://opensearch.org/docs/latest/api-reference/common-</span>
+<span class="sd">            parameters/#time-units).</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
 <span class="sd">            errors. Default is false.</span>
 <span class="sd">        :arg filter_path: Used to reduce the response. This parameter</span>
@@ -435,8 +461,9 @@
 <span class="sd">            response. Default is false.</span>
 <span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
 <span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
-<span class="sd">        :arg timeout: Explicit operation timeout</span>
-<span class="sd">        :arg verify: Whether to verify the repository after creation</span>
+<span class="sd">        :arg timeout: The amount of time to wait for a response.</span>
+<span class="sd">        :arg verify: When `true`, verifies the creation of the snapshot</span>
+<span class="sd">            repository.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="p">(</span><span class="n">repository</span><span class="p">,</span> <span class="n">body</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
@@ -462,6 +489,7 @@
     <span class="p">)</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">restore</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
         <span class="n">repository</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">snapshot</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">body</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -472,11 +500,16 @@
 <span class="sd">        Restores a snapshot.</span>
 
 
-<span class="sd">        :arg repository: A repository name</span>
-<span class="sd">        :arg snapshot: A snapshot name</span>
-<span class="sd">        :arg body: Details of what to restore</span>
-<span class="sd">        :arg cluster_manager_timeout: Operation timeout for connection</span>
-<span class="sd">            to cluster-manager node.</span>
+<span class="sd">        :arg repository: The name of the repository containing the</span>
+<span class="sd">            snapshot</span>
+<span class="sd">        :arg snapshot: The name of the snapshot to restore.</span>
+<span class="sd">        :arg body: Determines which settings and indexes to restore when</span>
+<span class="sd">            restoring a snapshot</span>
+<span class="sd">        :arg cluster_manager_timeout: The amount of time to wait for a</span>
+<span class="sd">            response from the cluster manager node. For more information about</span>
+<span class="sd">            supported time units, see [Common</span>
+<span class="sd">            parameters](https://opensearch.org/docs/latest/api-reference/common-</span>
+<span class="sd">            parameters/#time-units).</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
 <span class="sd">            errors. Default is false.</span>
 <span class="sd">        :arg filter_path: Used to reduce the response. This parameter</span>
@@ -492,8 +525,11 @@
 <span class="sd">            response. Default is false.</span>
 <span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
 <span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
-<span class="sd">        :arg wait_for_completion: Should this request wait until the</span>
-<span class="sd">            operation has completed before returning Default is false.</span>
+<span class="sd">        :arg wait_for_completion: Whether to return a response after the</span>
+<span class="sd">            restore operation has completed. When `false`, the request returns a</span>
+<span class="sd">            response when the restore operation initializes. When `true`, the</span>
+<span class="sd">            request returns a response when the restore operation completes. Default</span>
+<span class="sd">            is false.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="p">(</span><span class="n">repository</span><span class="p">,</span> <span class="n">snapshot</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
@@ -519,6 +555,7 @@
     <span class="p">)</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">status</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
         <span class="n">repository</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">snapshot</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -528,10 +565,14 @@
 <span class="sd">        Returns information about the status of a snapshot.</span>
 
 
-<span class="sd">        :arg repository: A repository name</span>
-<span class="sd">        :arg snapshot: A comma-separated list of snapshot names</span>
-<span class="sd">        :arg cluster_manager_timeout: Operation timeout for connection</span>
-<span class="sd">            to cluster-manager node.</span>
+<span class="sd">        :arg repository: The name of the repository containing the</span>
+<span class="sd">            snapshot.</span>
+<span class="sd">        :arg snapshot: A comma-separated list of snapshot names.</span>
+<span class="sd">        :arg cluster_manager_timeout: The amount of time to wait for a</span>
+<span class="sd">            response from the cluster manager node. For more information about</span>
+<span class="sd">            supported time units, see [Common</span>
+<span class="sd">            parameters](https://opensearch.org/docs/latest/api-reference/common-</span>
+<span class="sd">            parameters/#time-units).</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
 <span class="sd">            errors. Default is false.</span>
 <span class="sd">        :arg filter_path: Used to reduce the response. This parameter</span>
@@ -540,9 +581,9 @@
 <span class="sd">            with &quot;-&quot;.</span>
 <span class="sd">        :arg human: Whether to return human readable values for</span>
 <span class="sd">            statistics. Default is True.</span>
-<span class="sd">        :arg ignore_unavailable: Whether to ignore unavailable</span>
-<span class="sd">            snapshots, defaults to `false` which means a SnapshotMissingException is</span>
-<span class="sd">            thrown Default is false.</span>
+<span class="sd">        :arg ignore_unavailable: Whether to ignore any unavailable</span>
+<span class="sd">            snapshots, When `false`, a `SnapshotMissingException` is thrown. Default</span>
+<span class="sd">            is false.</span>
 <span class="sd">        :arg master_timeout (Deprecated: To promote inclusive language,</span>
 <span class="sd">            use `cluster_manager_timeout` instead.): Explicit operation timeout for</span>
 <span class="sd">            connection to cluster-manager node</span>
@@ -570,6 +611,7 @@
     <span class="p">)</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">verify_repository</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
         <span class="n">repository</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -578,9 +620,13 @@
 <span class="sd">        Verifies a repository.</span>
 
 
-<span class="sd">        :arg repository: A repository name</span>
-<span class="sd">        :arg cluster_manager_timeout: Operation timeout for connection</span>
-<span class="sd">            to cluster-manager node.</span>
+<span class="sd">        :arg repository: The name of the repository containing the</span>
+<span class="sd">            snapshot.</span>
+<span class="sd">        :arg cluster_manager_timeout: The amount of time to wait for a</span>
+<span class="sd">            response from the cluster manager node. For more information about</span>
+<span class="sd">            supported time units, see [Common</span>
+<span class="sd">            parameters](https://opensearch.org/docs/latest/api-reference/common-</span>
+<span class="sd">            parameters/#time-units).</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
 <span class="sd">            errors. Default is false.</span>
 <span class="sd">        :arg filter_path: Used to reduce the response. This parameter</span>
@@ -596,7 +642,7 @@
 <span class="sd">            response. Default is false.</span>
 <span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
 <span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
-<span class="sd">        :arg timeout: Explicit operation timeout</span>
+<span class="sd">        :arg timeout: The amount of time to wait for a response.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">repository</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Empty value passed for a required argument &#39;repository&#39;.&quot;</span><span class="p">)</span>
@@ -620,17 +666,21 @@
     <span class="p">)</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">cleanup_repository</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
         <span class="n">repository</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Removes stale data from repository.</span>
+<span class="sd">        Removes any stale data from a snapshot repository.</span>
 
 
 <span class="sd">        :arg repository: Snapshot repository to clean up.</span>
-<span class="sd">        :arg cluster_manager_timeout: Operation timeout for connection</span>
-<span class="sd">            to cluster-manager node.</span>
+<span class="sd">        :arg cluster_manager_timeout: The amount of time to wait for a</span>
+<span class="sd">            response from the cluster manager node. For more information about</span>
+<span class="sd">            supported time units, see [Common</span>
+<span class="sd">            parameters](https://opensearch.org/docs/latest/api-reference/common-</span>
+<span class="sd">            parameters/#time-units).</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
 <span class="sd">            errors. Default is false.</span>
 <span class="sd">        :arg filter_path: Used to reduce the response. This parameter</span>
@@ -646,7 +696,7 @@
 <span class="sd">            response. Default is false.</span>
 <span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
 <span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
-<span class="sd">        :arg timeout: Period to wait for a response.</span>
+<span class="sd">        :arg timeout: The amount of time to wait for a response.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">repository</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Empty value passed for a required argument &#39;repository&#39;.&quot;</span><span class="p">)</span>
@@ -669,6 +719,7 @@
     <span class="p">)</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">clone</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
         <span class="n">repository</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">snapshot</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">target_snapshot</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
@@ -677,15 +728,20 @@
         <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Clones indexes from one snapshot into another snapshot in the same repository.</span>
+<span class="sd">        Creates a clone of all or part of a snapshot in the same repository as the</span>
+<span class="sd">        original snapshot.</span>
 
 
-<span class="sd">        :arg repository: A repository name</span>
-<span class="sd">        :arg snapshot: The name of the snapshot to clone from</span>
-<span class="sd">        :arg target_snapshot: The name of the cloned snapshot to create</span>
-<span class="sd">        :arg body: The snapshot clone definition</span>
-<span class="sd">        :arg cluster_manager_timeout: Operation timeout for connection</span>
-<span class="sd">            to cluster-manager node.</span>
+<span class="sd">        :arg repository: The name of repository which will contain the</span>
+<span class="sd">            snapshots clone.</span>
+<span class="sd">        :arg snapshot: The name of the original snapshot.</span>
+<span class="sd">        :arg target_snapshot: The name of the cloned snapshot.</span>
+<span class="sd">        :arg body: The snapshot clone definition.</span>
+<span class="sd">        :arg cluster_manager_timeout: The amount of time to wait for a</span>
+<span class="sd">            response from the cluster manager node. For more information about</span>
+<span class="sd">            supported time units, see [Common</span>
+<span class="sd">            parameters](https://opensearch.org/docs/latest/api-reference/common-</span>
+<span class="sd">            parameters/#time-units).</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
 <span class="sd">            errors. Default is false.</span>
 <span class="sd">        :arg filter_path: Used to reduce the response. This parameter</span>

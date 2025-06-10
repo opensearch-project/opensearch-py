@@ -125,9 +125,9 @@
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.client.cat.CatClient.aliases">
-<span class="sig-name descname"><span class="pre">aliases</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cat.html#CatClient.aliases"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cat.CatClient.aliases" title="Permalink to this definition"></a></dt>
-<dd><p>Shows information about currently configured aliases to indexes including
-filter and routing info.</p>
+<span class="sig-name descname"><span class="pre">aliases</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cat.html#CatClient.aliases"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cat.CatClient.aliases" title="Permalink to this definition"></a></dt>
+<dd><p>Shows information about aliases currently configured to indexes, including
+filter and routing information.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -136,27 +136,29 @@ Supports wildcards (<cite>*</cite>).  To retrieve all aliases, omit this paramet
 or use <cite>*</cite> or <cite>_all</cite>.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
-<li><p><strong>expand_wildcards</strong> – Whether to expand wildcard expression to
-concrete indexes that are open, closed or both.</p></li>
+<li><p><strong>expand_wildcards</strong> – Specifies the type of index that wildcard
+expressions can match. Supports comma-separated values. Valid choices
+are all, closed, hidden, none, open.</p></li>
 <li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
 takes a comma-separated list of filters. It supports using wildcards to
 match any field or part of a field’s name. You can also exclude fields
 with “-“.</p></li>
-<li><p><strong>format</strong> – A short version of the Accept header (for example,
-<cite>json</cite>, <cite>yaml</cite>).</p></li>
-<li><p><strong>h</strong> – Comma-separated list of column names to display.</p></li>
-<li><p><strong>help</strong> – Return help information. Default is false.</p></li>
+<li><p><strong>format</strong> – A short version of the <cite>Accept</cite> header, such as
+<cite>json</cite> or <cite>yaml</cite>.</p></li>
+<li><p><strong>h</strong> – A comma-separated list of column names to display.</p></li>
+<li><p><strong>help</strong> – Returns help information. Default is false.</p></li>
 <li><p><strong>human</strong> – Whether to return human readable values for
 statistics. Default is True.</p></li>
-<li><p><strong>local</strong> – Return local information, do not retrieve the state
-from cluster-manager node. Default is false.</p></li>
+<li><p><strong>local</strong> – Whether to return information from the local node
+only instead of from the cluster manager node. Default is false.</p></li>
 <li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
 response. Default is false.</p></li>
-<li><p><strong>s</strong> – Comma-separated list of column names or column aliases
+<li><p><strong>s</strong> – A comma-separated list of column names or column aliases
 to sort by.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
-<li><p><strong>v</strong> – Verbose mode. Display column headers. Default is false.</p></li>
+<li><p><strong>v</strong> – Enables verbose mode, which displays column headers.
+Default is false.</p></li>
 <li><p><strong>name</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – </p></li>
 <li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – </p></li>
@@ -170,32 +172,33 @@ libraries that do not accept a request body for non-POST requests.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.client.cat.CatClient.all_pit_segments">
-<span class="sig-name descname"><span class="pre">all_pit_segments</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cat.html#CatClient.all_pit_segments"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cat.CatClient.all_pit_segments" title="Permalink to this definition"></a></dt>
-<dd><p>Lists all active point-in-time segments.</p>
+<span class="sig-name descname"><span class="pre">all_pit_segments</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cat.html#CatClient.all_pit_segments"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cat.CatClient.all_pit_segments" title="Permalink to this definition"></a></dt>
+<dd><p>Lists all active CAT point-in-time segments.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>bytes</strong> – The unit in which to display byte values. Valid
-choices are b, g, gb, k, kb, m, mb, p, pb, t, tb.</p></li>
+<li><p><strong>bytes</strong> – The units used to display byte values. Valid choices
+are b, kb, k, mb, m, gb, g, tb, t, pb, p.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
 <li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
 takes a comma-separated list of filters. It supports using wildcards to
 match any field or part of a field’s name. You can also exclude fields
 with “-“.</p></li>
-<li><p><strong>format</strong> – A short version of the Accept header (for example,
-<cite>json</cite>, <cite>yaml</cite>).</p></li>
-<li><p><strong>h</strong> – Comma-separated list of column names to display.</p></li>
-<li><p><strong>help</strong> – Return help information. Default is false.</p></li>
+<li><p><strong>format</strong> – A short version of the <cite>Accept</cite> header, such as
+<cite>json</cite> or <cite>yaml</cite>.</p></li>
+<li><p><strong>h</strong> – A comma-separated list of column names to display.</p></li>
+<li><p><strong>help</strong> – Returns help information. Default is false.</p></li>
 <li><p><strong>human</strong> – Whether to return human readable values for
 statistics. Default is True.</p></li>
 <li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
 response. Default is false.</p></li>
-<li><p><strong>s</strong> – Comma-separated list of column names or column aliases
+<li><p><strong>s</strong> – A comma-separated list of column names or column aliases
 to sort by.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
-<li><p><strong>v</strong> – Verbose mode. Display column headers. Default is false.</p></li>
+<li><p><strong>v</strong> – Enables verbose mode, which displays column headers.
+Default is false.</p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – </p></li>
 <li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – </p></li>
 </ul>
@@ -208,42 +211,43 @@ libraries that do not accept a request body for non-POST requests.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.client.cat.CatClient.allocation">
-<span class="sig-name descname"><span class="pre">allocation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cat.html#CatClient.allocation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cat.CatClient.allocation" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">allocation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">node_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cat.html#CatClient.allocation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cat.CatClient.allocation" title="Permalink to this definition"></a></dt>
 <dd><p>Provides a snapshot of how many shards are allocated to each data node and how
 much disk space they are using.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>node_id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Comma-separated list of node identifiers or names
-used to limit the returned information.</p></li>
-<li><p><strong>bytes</strong> – The unit used to display byte values. Valid choices
-are b, g, gb, k, kb, m, mb, p, pb, t, tb.</p></li>
-<li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
-to cluster-manager node.</p></li>
+<li><p><strong>node_id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – A comma-separated list of node IDs or names used
+to limit the returned information.</p></li>
+<li><p><strong>bytes</strong> – The units used to display byte values. Valid choices
+are b, kb, k, mb, m, gb, g, tb, t, pb, p.</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – A timeout for connection to the
+cluster manager node.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
 <li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
 takes a comma-separated list of filters. It supports using wildcards to
 match any field or part of a field’s name. You can also exclude fields
 with “-“.</p></li>
-<li><p><strong>format</strong> – A short version of the Accept header (for example,
-<cite>json</cite>, <cite>yaml</cite>).</p></li>
-<li><p><strong>h</strong> – Comma-separated list of column names to display.</p></li>
-<li><p><strong>help</strong> – Return help information. Default is false.</p></li>
+<li><p><strong>format</strong> – A short version of the HTTP <cite>Accept</cite> header, such
+as <cite>json</cite> or <cite>yaml</cite>.</p></li>
+<li><p><strong>h</strong> – A comma-separated list of column names to display.</p></li>
+<li><p><strong>help</strong> – Returns help information. Default is false.</p></li>
 <li><p><strong>human</strong> – Whether to return human readable values for
 statistics. Default is True.</p></li>
-<li><p><strong>local</strong> – Return local information, do not retrieve the state
-from cluster-manager node. Default is false.</p></li>
+<li><p><strong>local</strong> – Returns local information but does not retrieve the
+state from cluster-manager node. Default is false.</p></li>
 <li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
-use <cite>cluster_manager_timeout</cite> instead.): Operation timeout for
-connection to cluster-manager node.</p></li>
+use <cite>cluster_manager_timeout</cite> instead.): A timeout for connection to the
+cluster manager node.</p></li>
 <li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
 response. Default is false.</p></li>
-<li><p><strong>s</strong> – Comma-separated list of column names or column aliases
+<li><p><strong>s</strong> – A comma-separated list of column names or column aliases
 to sort by.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
-<li><p><strong>v</strong> – Verbose mode. Display column headers. Default is false.</p></li>
+<li><p><strong>v</strong> – Enables verbose mode, which displays column headers.
+Default is false.</p></li>
 <li><p><strong>node_id</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – </p></li>
 <li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – </p></li>
@@ -257,37 +261,38 @@ libraries that do not accept a request body for non-POST requests.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.client.cat.CatClient.cluster_manager">
-<span class="sig-name descname"><span class="pre">cluster_manager</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cat.html#CatClient.cluster_manager"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cat.CatClient.cluster_manager" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">cluster_manager</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cat.html#CatClient.cluster_manager"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cat.CatClient.cluster_manager" title="Permalink to this definition"></a></dt>
 <dd><p>Returns information about the cluster-manager node.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
-to cluster-manager node.</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – A timeout for connection to the
+cluster manager node.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
 <li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
 takes a comma-separated list of filters. It supports using wildcards to
 match any field or part of a field’s name. You can also exclude fields
 with “-“.</p></li>
-<li><p><strong>format</strong> – A short version of the Accept header (for example,
-<cite>json</cite>, <cite>yaml</cite>).</p></li>
-<li><p><strong>h</strong> – Comma-separated list of column names to display.</p></li>
-<li><p><strong>help</strong> – Return help information. Default is false.</p></li>
+<li><p><strong>format</strong> – A short version of the HTTP <cite>Accept</cite> header, such
+as <cite>json</cite> or <cite>yaml</cite>.</p></li>
+<li><p><strong>h</strong> – A comma-separated list of column names to display.</p></li>
+<li><p><strong>help</strong> – Returns help information. Default is false.</p></li>
 <li><p><strong>human</strong> – Whether to return human readable values for
 statistics. Default is True.</p></li>
-<li><p><strong>local</strong> – Return local information, do not retrieve the state
-from cluster-manager node. Default is false.</p></li>
+<li><p><strong>local</strong> – Returns local information but does not retrieve the
+state from the cluster manager node. Default is false.</p></li>
 <li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
-use <cite>cluster_manager_timeout</cite> instead.): Operation timeout for
-connection to cluster-manager node.</p></li>
+use <cite>cluster_manager_timeout</cite> instead.): A timeout for connection to the
+cluster manager node.</p></li>
 <li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
 response. Default is false.</p></li>
-<li><p><strong>s</strong> – Comma-separated list of column names or column aliases
+<li><p><strong>s</strong> – A comma-separated list of column names or column aliases
 to sort by.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
-<li><p><strong>v</strong> – Verbose mode. Display column headers. Default is false.</p></li>
+<li><p><strong>v</strong> – Enables verbose mode, which displays column headers.
+Default is false.</p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – </p></li>
 <li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – </p></li>
 </ul>
@@ -300,9 +305,9 @@ libraries that do not accept a request body for non-POST requests.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.client.cat.CatClient.count">
-<span class="sig-name descname"><span class="pre">count</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cat.html#CatClient.count"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cat.CatClient.count" title="Permalink to this definition"></a></dt>
-<dd><p>Provides quick access to the document count of the entire cluster, or
-individual indexes.</p>
+<span class="sig-name descname"><span class="pre">count</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cat.html#CatClient.count"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cat.CatClient.count" title="Permalink to this definition"></a></dt>
+<dd><p>Provides quick access to the document count of the entire cluster or of an
+individual index.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -315,19 +320,20 @@ errors. Default is false.</p></li>
 takes a comma-separated list of filters. It supports using wildcards to
 match any field or part of a field’s name. You can also exclude fields
 with “-“.</p></li>
-<li><p><strong>format</strong> – A short version of the Accept header (for example,
-<cite>json</cite>, <cite>yaml</cite>).</p></li>
-<li><p><strong>h</strong> – Comma-separated list of column names to display.</p></li>
-<li><p><strong>help</strong> – Return help information. Default is false.</p></li>
+<li><p><strong>format</strong> – A short version of the <cite>Accept</cite> header, such as
+<cite>json</cite> or <cite>yaml</cite>.</p></li>
+<li><p><strong>h</strong> – A comma-separated list of column names to display.</p></li>
+<li><p><strong>help</strong> – Returns help information. Default is false.</p></li>
 <li><p><strong>human</strong> – Whether to return human readable values for
 statistics. Default is True.</p></li>
 <li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
 response. Default is false.</p></li>
-<li><p><strong>s</strong> – Comma-separated list of column names or column aliases
+<li><p><strong>s</strong> – A comma-separated list of column names or column aliases
 to sort by.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
-<li><p><strong>v</strong> – Verbose mode. Display column headers. Default is false.</p></li>
+<li><p><strong>v</strong> – Enables verbose mode, which displays column headers.
+Default is false.</p></li>
 <li><p><strong>index</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – </p></li>
 <li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – </p></li>
@@ -341,35 +347,36 @@ libraries that do not accept a request body for non-POST requests.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.client.cat.CatClient.fielddata">
-<span class="sig-name descname"><span class="pre">fielddata</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fields</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cat.html#CatClient.fielddata"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cat.CatClient.fielddata" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">fielddata</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fields</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cat.html#CatClient.fielddata"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cat.CatClient.fielddata" title="Permalink to this definition"></a></dt>
 <dd><p>Shows how much heap memory is currently being used by field data on every data
 node in the cluster.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>fields</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Comma-separated list of fields used to limit
-returned information.</p></li>
-<li><p><strong>bytes</strong> – The unit used to display byte values. Valid choices
-are b, g, gb, k, kb, m, mb, p, pb, t, tb.</p></li>
+<li><p><strong>fields</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – A comma-separated list of fields used to limit the
+amount of returned information.</p></li>
+<li><p><strong>bytes</strong> – The units used to display byte values. Valid choices
+are b, kb, k, mb, m, gb, g, tb, t, pb, p.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
 <li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
 takes a comma-separated list of filters. It supports using wildcards to
 match any field or part of a field’s name. You can also exclude fields
 with “-“.</p></li>
-<li><p><strong>format</strong> – A short version of the Accept header (for example,
-<cite>json</cite>, <cite>yaml</cite>).</p></li>
-<li><p><strong>h</strong> – Comma-separated list of column names to display.</p></li>
-<li><p><strong>help</strong> – Return help information. Default is false.</p></li>
+<li><p><strong>format</strong> – A short version of the <cite>Accept</cite> header, such as
+<cite>json</cite> or <cite>yaml</cite>.</p></li>
+<li><p><strong>h</strong> – A comma-separated list of column names to display.</p></li>
+<li><p><strong>help</strong> – Returns help information. Default is false.</p></li>
 <li><p><strong>human</strong> – Whether to return human readable values for
 statistics. Default is True.</p></li>
 <li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
 response. Default is false.</p></li>
-<li><p><strong>s</strong> – Comma-separated list of column names or column aliases
+<li><p><strong>s</strong> – A comma-separated list of column names or column aliases
 to sort by.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
-<li><p><strong>v</strong> – Verbose mode. Display column headers. Default is false.</p></li>
+<li><p><strong>v</strong> – Enables verbose mode, which displays column headers.
+Default is false.</p></li>
 <li><p><strong>fields</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – </p></li>
 <li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – </p></li>
@@ -383,7 +390,7 @@ libraries that do not accept a request body for non-POST requests.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.client.cat.CatClient.health">
-<span class="sig-name descname"><span class="pre">health</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cat.html#CatClient.health"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cat.CatClient.health" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">health</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cat.html#CatClient.health"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cat.CatClient.health" title="Permalink to this definition"></a></dt>
 <dd><p>Returns a concise representation of the cluster health.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -394,23 +401,24 @@ errors. Default is false.</p></li>
 takes a comma-separated list of filters. It supports using wildcards to
 match any field or part of a field’s name. You can also exclude fields
 with “-“.</p></li>
-<li><p><strong>format</strong> – A short version of the Accept header (for example,
-<cite>json</cite>, <cite>yaml</cite>).</p></li>
-<li><p><strong>h</strong> – Comma-separated list of column names to display.</p></li>
-<li><p><strong>help</strong> – Return help information. Default is false.</p></li>
+<li><p><strong>format</strong> – A short version of the <cite>Accept</cite> header, such as
+<cite>json</cite> or <cite>yaml</cite>.</p></li>
+<li><p><strong>h</strong> – A comma-separated list of column names to display.</p></li>
+<li><p><strong>help</strong> – Returns help information. Default is false.</p></li>
 <li><p><strong>human</strong> – Whether to return human readable values for
 statistics. Default is True.</p></li>
 <li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
 response. Default is false.</p></li>
-<li><p><strong>s</strong> – Comma-separated list of column names or column aliases
+<li><p><strong>s</strong> – A comma-separated list of column names or column aliases
 to sort by.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
 <li><p><strong>time</strong> – The unit used to display time values. Valid choices
-are d, h, m, micros, ms, nanos, s.</p></li>
-<li><p><strong>ts</strong> – If <cite>true</cite>, returns <cite>HH:MM:SS</cite> and Unix epoch
+are nanos, micros, ms, s, m, h, d.</p></li>
+<li><p><strong>ts</strong> – When <cite>true</cite>, returns <cite>HH:MM:SS</cite> and Unix epoch
 timestamps. Default is True.</p></li>
-<li><p><strong>v</strong> – Verbose mode. Display column headers. Default is false.</p></li>
+<li><p><strong>v</strong> – Enables verbose mode, which displays column headers.
+Default is false.</p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – </p></li>
 <li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – </p></li>
 </ul>
@@ -423,7 +431,7 @@ timestamps. Default is True.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.client.cat.CatClient.help">
-<span class="sig-name descname"><span class="pre">help</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cat.html#CatClient.help"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cat.CatClient.help" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">help</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cat.html#CatClient.help"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cat.CatClient.help" title="Permalink to this definition"></a></dt>
 <dd><p>Returns help for the Cat APIs.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -452,55 +460,56 @@ libraries that do not accept a request body for non-POST requests.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.client.cat.CatClient.indices">
-<span class="sig-name descname"><span class="pre">indices</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cat.html#CatClient.indices"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cat.CatClient.indices" title="Permalink to this definition"></a></dt>
-<dd><p>Returns information about indexes: number of primaries and replicas, document
-counts, disk size, …</p>
+<span class="sig-name descname"><span class="pre">indices</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cat.html#CatClient.indices"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cat.CatClient.indices" title="Permalink to this definition"></a></dt>
+<dd><p>Lists information related to indexes, that is, how much disk space they are
+using, how many shards they have, their health status, and so on.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Comma-separated list of data streams, indexes, and
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – A comma-separated list of data streams, indexes, and
 aliases used to limit the request. Supports wildcards (<cite>*</cite>). To target
 all data streams and indexes, omit this parameter or use <cite>*</cite> or <cite>_all</cite>.</p></li>
-<li><p><strong>bytes</strong> – The unit used to display byte values. Valid choices
-are b, g, gb, k, kb, m, mb, p, pb, t, tb.</p></li>
-<li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
-to cluster-manager node.</p></li>
+<li><p><strong>bytes</strong> – The units used to display byte values. Valid choices
+are b, kb, k, mb, m, gb, g, tb, t, pb, p.</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – The amount of time allowed to
+establish a connection to the cluster manager node.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
-<li><p><strong>expand_wildcards</strong> – The type of index that wildcard patterns
-can match.</p></li>
+<li><p><strong>expand_wildcards</strong> – Specifies the type of index that wildcard
+expressions can match. Supports comma-separated values. Valid choices
+are all, closed, hidden, none, open.</p></li>
 <li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
 takes a comma-separated list of filters. It supports using wildcards to
 match any field or part of a field’s name. You can also exclude fields
 with “-“.</p></li>
-<li><p><strong>format</strong> – A short version of the Accept header (for example,
-<cite>json</cite>, <cite>yaml</cite>).</p></li>
-<li><p><strong>h</strong> – Comma-separated list of column names to display.</p></li>
-<li><p><strong>health</strong> – The health status used to limit returned indexes.
-By default, the response includes indexes of any health status. Valid
-choices are green, red, yellow.</p></li>
-<li><p><strong>help</strong> – Return help information. Default is false.</p></li>
+<li><p><strong>format</strong> – A short version of the <cite>Accept</cite> header, such as
+<cite>json</cite> or <cite>yaml</cite>.</p></li>
+<li><p><strong>h</strong> – A comma-separated list of column names to display.</p></li>
+<li><p><strong>health</strong> – Limits indexes based on their health status.
+Supported values are <cite>green</cite>, <cite>yellow</cite>, and <cite>red</cite>. Valid choices are
+green, yellow, red.</p></li>
+<li><p><strong>help</strong> – Returns help information. Default is false.</p></li>
 <li><p><strong>human</strong> – Whether to return human readable values for
 statistics. Default is True.</p></li>
-<li><p><strong>include_unloaded_segments</strong> – If <cite>true</cite>, the response includes
-information from segments that are not loaded into memory. Default is
-false.</p></li>
-<li><p><strong>local</strong> – Return local information, do not retrieve the state
-from cluster-manager node. Default is false.</p></li>
+<li><p><strong>include_unloaded_segments</strong> – Whether to include information
+from segments not loaded into memory. Default is false.</p></li>
+<li><p><strong>local</strong> – Returns local information but does not retrieve the
+state from the cluster manager node. Default is false.</p></li>
 <li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
-use <cite>cluster_manager_timeout</cite> instead.): Operation timeout for
-connection to cluster-manager node.</p></li>
+use <cite>cluster_manager_timeout</cite> instead.): The amount of time allowed to
+establish a connection to the cluster manager node.</p></li>
 <li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
 response. Default is false.</p></li>
-<li><p><strong>pri</strong> – If <cite>true</cite>, the response only includes information from
-primary shards. Default is false.</p></li>
-<li><p><strong>s</strong> – Comma-separated list of column names or column aliases
+<li><p><strong>pri</strong> – When <cite>true</cite>, returns information only from the primary
+shards. Default is false.</p></li>
+<li><p><strong>s</strong> – A comma-separated list of column names or column aliases
 to sort by.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
-<li><p><strong>time</strong> – The unit used to display time values. Valid choices
-are d, h, m, micros, ms, nanos, s.</p></li>
-<li><p><strong>v</strong> – Verbose mode. Display column headers. Default is false.</p></li>
+<li><p><strong>time</strong> – Specifies the time units. Valid choices are nanos,
+micros, ms, s, m, h, d.</p></li>
+<li><p><strong>v</strong> – Enables verbose mode, which displays column headers.
+Default is false.</p></li>
 <li><p><strong>index</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – </p></li>
 <li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – </p></li>
@@ -514,37 +523,38 @@ are d, h, m, micros, ms, nanos, s.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.client.cat.CatClient.master">
-<span class="sig-name descname"><span class="pre">master</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cat.html#CatClient.master"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cat.CatClient.master" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">master</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cat.html#CatClient.master"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cat.CatClient.master" title="Permalink to this definition"></a></dt>
 <dd><p>Returns information about the cluster-manager node.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
-to cluster-manager node.</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – The amount of time allowed to
+establish a connection to the cluster manager node.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
 <li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
 takes a comma-separated list of filters. It supports using wildcards to
 match any field or part of a field’s name. You can also exclude fields
 with “-“.</p></li>
-<li><p><strong>format</strong> – A short version of the Accept header (for example,
-<cite>json</cite>, <cite>yaml</cite>).</p></li>
-<li><p><strong>h</strong> – Comma-separated list of column names to display.</p></li>
-<li><p><strong>help</strong> – Return help information. Default is false.</p></li>
+<li><p><strong>format</strong> – A short version of the <cite>Accept</cite> header, such as
+<cite>json</cite> or <cite>yaml</cite>.</p></li>
+<li><p><strong>h</strong> – A comma-separated list of column names to display.</p></li>
+<li><p><strong>help</strong> – Returns help information. Default is false.</p></li>
 <li><p><strong>human</strong> – Whether to return human readable values for
 statistics. Default is True.</p></li>
-<li><p><strong>local</strong> – Return local information, do not retrieve the state
-from cluster-manager node. Default is false.</p></li>
+<li><p><strong>local</strong> – Returns local information but does not retrieve the
+state from the cluster manager node. Default is false.</p></li>
 <li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
-use <cite>cluster_manager_timeout</cite> instead.): Operation timeout for
-connection to cluster-manager node.</p></li>
+use <cite>cluster_manager_timeout</cite> instead.): The amount of time allowed to
+establish a connection to the cluster manager node.</p></li>
 <li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
 response. Default is false.</p></li>
-<li><p><strong>s</strong> – Comma-separated list of column names or column aliases
+<li><p><strong>s</strong> – A comma-separated list of column names or column aliases
 to sort by.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
-<li><p><strong>v</strong> – Verbose mode. Display column headers. Default is false.</p></li>
+<li><p><strong>v</strong> – Enables verbose mode, which displays column headers.
+Default is false.</p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – </p></li>
 <li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – </p></li>
 </ul>
@@ -557,37 +567,38 @@ libraries that do not accept a request body for non-POST requests.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.client.cat.CatClient.nodeattrs">
-<span class="sig-name descname"><span class="pre">nodeattrs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cat.html#CatClient.nodeattrs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cat.CatClient.nodeattrs" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">nodeattrs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cat.html#CatClient.nodeattrs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cat.CatClient.nodeattrs" title="Permalink to this definition"></a></dt>
 <dd><p>Returns information about custom node attributes.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
-to cluster-manager node.</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – The amount of time allowed to
+establish a connection to the cluster manager node.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
 <li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
 takes a comma-separated list of filters. It supports using wildcards to
 match any field or part of a field’s name. You can also exclude fields
 with “-“.</p></li>
-<li><p><strong>format</strong> – A short version of the Accept header (for example,
-<cite>json</cite>, <cite>yaml</cite>).</p></li>
-<li><p><strong>h</strong> – Comma-separated list of column names to display.</p></li>
-<li><p><strong>help</strong> – Return help information. Default is false.</p></li>
+<li><p><strong>format</strong> – A short version of the <cite>Accept</cite> header, such as
+<cite>json</cite> or <cite>yaml</cite>.</p></li>
+<li><p><strong>h</strong> – A comma-separated list of column names to display.</p></li>
+<li><p><strong>help</strong> – Returns help information. Default is false.</p></li>
 <li><p><strong>human</strong> – Whether to return human readable values for
 statistics. Default is True.</p></li>
-<li><p><strong>local</strong> – Return local information, do not retrieve the state
-from cluster-manager node. Default is false.</p></li>
+<li><p><strong>local</strong> – Returns local information but does not retrieve the
+state from the cluster manager node. Default is false.</p></li>
 <li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
-use <cite>cluster_manager_timeout</cite> instead.): Operation timeout for
-connection to cluster-manager node.</p></li>
+use <cite>cluster_manager_timeout</cite> instead.): The amount of time allowed to
+establish a connection to the cluster manager node.</p></li>
 <li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
 response. Default is false.</p></li>
-<li><p><strong>s</strong> – Comma-separated list of column names or column aliases
+<li><p><strong>s</strong> – A comma-separated list of column names or column aliases
 to sort by.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
-<li><p><strong>v</strong> – Verbose mode. Display column headers. Default is false.</p></li>
+<li><p><strong>v</strong> – Enables verbose mode, which displays column headers.
+Default is false.</p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – </p></li>
 <li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – </p></li>
 </ul>
@@ -600,44 +611,47 @@ libraries that do not accept a request body for non-POST requests.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.client.cat.CatClient.nodes">
-<span class="sig-name descname"><span class="pre">nodes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cat.html#CatClient.nodes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cat.CatClient.nodes" title="Permalink to this definition"></a></dt>
-<dd><p>Returns basic statistics about performance of cluster nodes.</p>
+<span class="sig-name descname"><span class="pre">nodes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cat.html#CatClient.nodes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cat.CatClient.nodes" title="Permalink to this definition"></a></dt>
+<dd><p>Returns basic statistics about the performance of cluster nodes.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>bytes</strong> – The unit used to display byte values. Valid choices
-are b, g, gb, k, kb, m, mb, p, pb, t, tb.</p></li>
-<li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
-to cluster-manager node.</p></li>
+<li><p><strong>bytes</strong> – The units used to display byte values. Valid choices
+are b, kb, k, mb, m, gb, g, tb, t, pb, p.</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – The amount of time allowed to
+establish a connection to the cluster manager node.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
 <li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
 takes a comma-separated list of filters. It supports using wildcards to
 match any field or part of a field’s name. You can also exclude fields
 with “-“.</p></li>
-<li><p><strong>format</strong> – A short version of the Accept header (for example,
-<cite>json</cite>, <cite>yaml</cite>).</p></li>
-<li><p><strong>full_id</strong> – If <cite>true</cite>, return the full node ID. If <cite>false</cite>,
-return the shortened node ID. Default is false.</p></li>
-<li><p><strong>h</strong> – Comma-separated list of column names to display.</p></li>
-<li><p><strong>help</strong> – Return help information. Default is false.</p></li>
+<li><p><strong>format</strong> – A short version of the <cite>Accept</cite> header, such as
+<cite>json</cite> or <cite>yaml</cite>.</p></li>
+<li><p><strong>full_id</strong> – When <cite>true</cite>, returns the full node ID. When
+<cite>false</cite>, returns the shortened node ID.</p></li>
+<li><p><strong>h</strong> – A comma-separated list of column names to display.</p></li>
+<li><p><strong>help</strong> – Returns help information. Default is false.</p></li>
 <li><p><strong>human</strong> – Whether to return human readable values for
 statistics. Default is True.</p></li>
 <li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – This parameter does not cause this API
-to act locally.): Return local information, do not retrieve the state
-from cluster-manager node. Default is false.</p></li>
+to act locally.): Returns local information but does not retrieve the
+state from the cluster manager node. Default is false.</p></li>
 <li><p><strong>(</strong><strong>Deprecated</strong> – To promote inclusive language,
-use <cite>cluster_manager_timeout</cite> instead.): Operation timeout for
-connection to cluster-manager node.</p></li>
+use <cite>cluster_manager_timeout</cite> instead.): The amount of time allowed to
+establish a connection to the cluster manager node.</p></li>
 <li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
 response. Default is false.</p></li>
-<li><p><strong>s</strong> – Comma-separated list of column names or column aliases
+<li><p><strong>s</strong> – A comma-separated list of column names or column aliases
 to sort by.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
-<li><p><strong>time</strong> – The unit in which to display time values. Valid
-choices are d, h, m, micros, ms, nanos, s.</p></li>
-<li><p><strong>v</strong> – Verbose mode. Display column headers. Default is false.</p></li>
+<li><p><strong>time</strong> – Specifies the time units, for example, <cite>5d</cite> or <cite>7h</cite>.
+For more information, see [Supported
+units](<a class="reference external" href="https://opensearch.org/docs/latest/api-reference/units/">https://opensearch.org/docs/latest/api-reference/units/</a>). Valid
+choices are nanos, micros, ms, s, m, h, d.</p></li>
+<li><p><strong>v</strong> – Enables verbose mode, which displays column headers.
+Default is false.</p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – </p></li>
 <li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – </p></li>
 </ul>
@@ -650,39 +664,42 @@ choices are d, h, m, micros, ms, nanos, s.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.client.cat.CatClient.pending_tasks">
-<span class="sig-name descname"><span class="pre">pending_tasks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cat.html#CatClient.pending_tasks"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cat.CatClient.pending_tasks" title="Permalink to this definition"></a></dt>
-<dd><p>Returns a concise representation of the cluster pending tasks.</p>
+<span class="sig-name descname"><span class="pre">pending_tasks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cat.html#CatClient.pending_tasks"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cat.CatClient.pending_tasks" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a concise representation of the cluster’s pending tasks.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
-to cluster-manager node.</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – The amount of time allowed to
+establish a connection to the cluster manager node.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
 <li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
 takes a comma-separated list of filters. It supports using wildcards to
 match any field or part of a field’s name. You can also exclude fields
 with “-“.</p></li>
-<li><p><strong>format</strong> – A short version of the Accept header (for example,
-<cite>json</cite>, <cite>yaml</cite>).</p></li>
-<li><p><strong>h</strong> – Comma-separated list of column names to display.</p></li>
-<li><p><strong>help</strong> – Return help information. Default is false.</p></li>
+<li><p><strong>format</strong> – A short version of the <cite>Accept</cite> header, such as
+<cite>json</cite> or <cite>yaml</cite>.</p></li>
+<li><p><strong>h</strong> – A comma-separated list of column names to display.</p></li>
+<li><p><strong>help</strong> – Returns help information. Default is false.</p></li>
 <li><p><strong>human</strong> – Whether to return human readable values for
 statistics. Default is True.</p></li>
-<li><p><strong>local</strong> – Return local information, do not retrieve the state
-from cluster-manager node. Default is false.</p></li>
+<li><p><strong>local</strong> – Returns local information but does not retrieve the
+state from the cluster manager node. Default is false.</p></li>
 <li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
-use <cite>cluster_manager_timeout</cite> instead.): Operation timeout for
-connection to cluster-manager node.</p></li>
+use <cite>cluster_manager_timeout</cite> instead.): The amount of time allowed to
+establish a connection to the cluster manager node.</p></li>
 <li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
 response. Default is false.</p></li>
-<li><p><strong>s</strong> – Comma-separated list of column names or column aliases
+<li><p><strong>s</strong> – A comma-separated list of column names or column aliases
 to sort by.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
-<li><p><strong>time</strong> – The unit in which to display time values. Valid
-choices are d, h, m, micros, ms, nanos, s.</p></li>
-<li><p><strong>v</strong> – Verbose mode. Display column headers. Default is false.</p></li>
+<li><p><strong>time</strong> – Specifies the time units, for example, <cite>5d</cite> or <cite>7h</cite>.
+For more information, see [Supported
+units](<a class="reference external" href="https://opensearch.org/docs/latest/api-reference/units/">https://opensearch.org/docs/latest/api-reference/units/</a>). Valid
+choices are nanos, micros, ms, s, m, h, d.</p></li>
+<li><p><strong>v</strong> – Enables verbose mode, which displays column headers.
+Default is false.</p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – </p></li>
 <li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – </p></li>
 </ul>
@@ -695,32 +712,33 @@ choices are d, h, m, micros, ms, nanos, s.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.client.cat.CatClient.pit_segments">
-<span class="sig-name descname"><span class="pre">pit_segments</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">body</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cat.html#CatClient.pit_segments"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cat.CatClient.pit_segments" title="Permalink to this definition"></a></dt>
-<dd><p>List segments for one or several PITs.</p>
+<span class="sig-name descname"><span class="pre">pit_segments</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">body</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cat.html#CatClient.pit_segments"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cat.CatClient.pit_segments" title="Permalink to this definition"></a></dt>
+<dd><p>Lists one or several CAT point-in-time segments.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>bytes</strong> – The unit in which to display byte values. Valid
-choices are b, g, gb, k, kb, m, mb, p, pb, t, tb.</p></li>
+<li><p><strong>bytes</strong> – The units used to display byte values. Valid choices
+are b, kb, k, mb, m, gb, g, tb, t, pb, p.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
 <li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
 takes a comma-separated list of filters. It supports using wildcards to
 match any field or part of a field’s name. You can also exclude fields
 with “-“.</p></li>
-<li><p><strong>format</strong> – A short version of the Accept header (for example,
-<cite>json</cite>, <cite>yaml</cite>).</p></li>
-<li><p><strong>h</strong> – Comma-separated list of column names to display.</p></li>
-<li><p><strong>help</strong> – Return help information. Default is false.</p></li>
+<li><p><strong>format</strong> – A short version of the <cite>Accept</cite> header, such as
+<cite>json</cite> or <cite>yaml</cite>.</p></li>
+<li><p><strong>h</strong> – A comma-separated list of column names to display.</p></li>
+<li><p><strong>help</strong> – Returns help information. Default is false.</p></li>
 <li><p><strong>human</strong> – Whether to return human readable values for
 statistics. Default is True.</p></li>
 <li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
 response. Default is false.</p></li>
-<li><p><strong>s</strong> – Comma-separated list of column names or column aliases
+<li><p><strong>s</strong> – A comma-separated list of column names or column aliases
 to sort by.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
-<li><p><strong>v</strong> – Verbose mode. Display column headers. Default is false.</p></li>
+<li><p><strong>v</strong> – Enables verbose mode, which displays column headers.
+Default is false.</p></li>
 <li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – </p></li>
 <li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – </p></li>
@@ -734,37 +752,39 @@ libraries that do not accept a request body for non-POST requests.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.client.cat.CatClient.plugins">
-<span class="sig-name descname"><span class="pre">plugins</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cat.html#CatClient.plugins"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cat.CatClient.plugins" title="Permalink to this definition"></a></dt>
-<dd><p>Returns information about installed plugins across nodes node.</p>
+<span class="sig-name descname"><span class="pre">plugins</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cat.html#CatClient.plugins"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cat.CatClient.plugins" title="Permalink to this definition"></a></dt>
+<dd><p>Returns information about the names, components, and versions of the installed
+plugins.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
-to cluster-manager node.</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – The amount of time allowed to
+establish a connection to the cluster manager node.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
 <li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
 takes a comma-separated list of filters. It supports using wildcards to
 match any field or part of a field’s name. You can also exclude fields
 with “-“.</p></li>
-<li><p><strong>format</strong> – A short version of the Accept header (for example,
-<cite>json</cite>, <cite>yaml</cite>).</p></li>
-<li><p><strong>h</strong> – Comma-separated list of column names to display.</p></li>
-<li><p><strong>help</strong> – Return help information. Default is false.</p></li>
+<li><p><strong>format</strong> – A short version of the <cite>Accept</cite> header, such as
+<cite>json</cite> or <cite>yaml</cite>.</p></li>
+<li><p><strong>h</strong> – A comma-separated list of column names to display.</p></li>
+<li><p><strong>help</strong> – Returns help information. Default is false.</p></li>
 <li><p><strong>human</strong> – Whether to return human readable values for
 statistics. Default is True.</p></li>
-<li><p><strong>local</strong> – Return local information, do not retrieve the state
-from cluster-manager node. Default is false.</p></li>
+<li><p><strong>local</strong> – Returns local information but does not retrieve the
+state from the cluster manager node. Default is false.</p></li>
 <li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
-use <cite>cluster_manager_timeout</cite> instead.): Operation timeout for
-connection to cluster-manager node.</p></li>
+use <cite>cluster_manager_timeout</cite> instead.): The amount of time allowed to
+establish a connection to the cluster manager node.</p></li>
 <li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
 response. Default is false.</p></li>
-<li><p><strong>s</strong> – Comma-separated list of column names or column aliases
+<li><p><strong>s</strong> – A comma-separated list of column names or column aliases
 to sort by.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
-<li><p><strong>v</strong> – Verbose mode. Display column headers. Default is false.</p></li>
+<li><p><strong>v</strong> – Enables verbose mode, which displays column headers.
+Default is false.</p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – </p></li>
 <li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – </p></li>
 </ul>
@@ -777,40 +797,44 @@ libraries that do not accept a request body for non-POST requests.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.client.cat.CatClient.recovery">
-<span class="sig-name descname"><span class="pre">recovery</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cat.html#CatClient.recovery"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cat.CatClient.recovery" title="Permalink to this definition"></a></dt>
-<dd><p>Returns information about index shard recoveries, both on-going completed.</p>
+<span class="sig-name descname"><span class="pre">recovery</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cat.html#CatClient.recovery"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cat.CatClient.recovery" title="Permalink to this definition"></a></dt>
+<dd><p>Returns all completed and ongoing index and shard recoveries.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Comma-separated list or wildcard expression of index
-names to limit the returned information.</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – A comma-separated list of data streams, indexes, and
+aliases used to limit the request. Supports wildcards (<cite>*</cite>). To target
+all data streams and indexes, omit this parameter or use <cite>*</cite> or <cite>_all</cite>.</p></li>
 <li><p><strong>active_only</strong> – If <cite>true</cite>, the response only includes ongoing
 shard recoveries. Default is false.</p></li>
-<li><p><strong>bytes</strong> – The unit used to display byte values. Valid choices
-are b, g, gb, k, kb, m, mb, p, pb, t, tb.</p></li>
-<li><p><strong>detailed</strong> – If <cite>true</cite>, the response includes detailed
-information about shard recoveries. Default is false.</p></li>
+<li><p><strong>bytes</strong> – The units used to display byte values. Valid choices
+are b, kb, k, mb, m, gb, g, tb, t, pb, p.</p></li>
+<li><p><strong>detailed</strong> – When <cite>true</cite>, includes detailed information about
+shard recoveries. Default is false.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
 <li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
 takes a comma-separated list of filters. It supports using wildcards to
 match any field or part of a field’s name. You can also exclude fields
 with “-“.</p></li>
-<li><p><strong>format</strong> – A short version of the Accept header (for example,
-<cite>json</cite>, <cite>yaml</cite>).</p></li>
-<li><p><strong>h</strong> – Comma-separated list of column names to display.</p></li>
-<li><p><strong>help</strong> – Return help information. Default is false.</p></li>
+<li><p><strong>format</strong> – A short version of the <cite>Accept</cite> header, such as
+<cite>json</cite> or <cite>yaml</cite>.</p></li>
+<li><p><strong>h</strong> – A comma-separated list of column names to display.</p></li>
+<li><p><strong>help</strong> – Returns help information. Default is false.</p></li>
 <li><p><strong>human</strong> – Whether to return human readable values for
 statistics. Default is True.</p></li>
 <li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
 response. Default is false.</p></li>
-<li><p><strong>s</strong> – Comma-separated list of column names or column aliases
+<li><p><strong>s</strong> – A comma-separated list of column names or column aliases
 to sort by.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
-<li><p><strong>time</strong> – The unit in which to display time values. Valid
-choices are d, h, m, micros, ms, nanos, s.</p></li>
-<li><p><strong>v</strong> – Verbose mode. Display column headers. Default is false.</p></li>
+<li><p><strong>time</strong> – Specifies the time units, for example, <cite>5d</cite> or <cite>7h</cite>.
+For more information, see [Supported
+units](<a class="reference external" href="https://opensearch.org/docs/latest/api-reference/units/">https://opensearch.org/docs/latest/api-reference/units/</a>). Valid
+choices are nanos, micros, ms, s, m, h, d.</p></li>
+<li><p><strong>v</strong> – Enables verbose mode, which displays column headers.
+Default is false.</p></li>
 <li><p><strong>index</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – </p></li>
 <li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – </p></li>
@@ -824,37 +848,38 @@ choices are d, h, m, micros, ms, nanos, s.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.client.cat.CatClient.repositories">
-<span class="sig-name descname"><span class="pre">repositories</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cat.html#CatClient.repositories"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cat.CatClient.repositories" title="Permalink to this definition"></a></dt>
-<dd><p>Returns information about snapshot repositories registered in the cluster.</p>
+<span class="sig-name descname"><span class="pre">repositories</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cat.html#CatClient.repositories"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cat.CatClient.repositories" title="Permalink to this definition"></a></dt>
+<dd><p>Returns information about all snapshot repositories for a cluster.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
-to cluster-manager node.</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – The amount of time allowed to
+establish a connection to the cluster manager node.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
 <li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
 takes a comma-separated list of filters. It supports using wildcards to
 match any field or part of a field’s name. You can also exclude fields
 with “-“.</p></li>
-<li><p><strong>format</strong> – A short version of the Accept header (for example,
-<cite>json</cite>, <cite>yaml</cite>).</p></li>
-<li><p><strong>h</strong> – Comma-separated list of column names to display.</p></li>
-<li><p><strong>help</strong> – Return help information. Default is false.</p></li>
+<li><p><strong>format</strong> – A short version of the <cite>Accept</cite> header, such as
+<cite>json</cite> or <cite>yaml</cite>.</p></li>
+<li><p><strong>h</strong> – A comma-separated list of column names to display.</p></li>
+<li><p><strong>help</strong> – Returns help information. Default is false.</p></li>
 <li><p><strong>human</strong> – Whether to return human readable values for
 statistics. Default is True.</p></li>
-<li><p><strong>local</strong> – Return local information, do not retrieve the state
-from cluster-manager node. Default is false.</p></li>
+<li><p><strong>local</strong> – Returns local information but does not retrieve the
+state from the cluster manager node. Default is false.</p></li>
 <li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
-use <cite>cluster_manager_timeout</cite> instead.): Operation timeout for
-connection to cluster-manager node.</p></li>
+use <cite>cluster_manager_timeout</cite> instead.): The amount of time allowed to
+establish a connection to the cluster manager node.</p></li>
 <li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
 response. Default is false.</p></li>
-<li><p><strong>s</strong> – Comma-separated list of column names or column aliases
+<li><p><strong>s</strong> – A comma-separated list of column names or column aliases
 to sort by.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
-<li><p><strong>v</strong> – Verbose mode. Display column headers. Default is false.</p></li>
+<li><p><strong>v</strong> – Enables verbose mode, which displays column headers.
+Default is false.</p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – </p></li>
 <li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – </p></li>
 </ul>
@@ -867,54 +892,61 @@ libraries that do not accept a request body for non-POST requests.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.client.cat.CatClient.segment_replication">
-<span class="sig-name descname"><span class="pre">segment_replication</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cat.html#CatClient.segment_replication"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cat.CatClient.segment_replication" title="Permalink to this definition"></a></dt>
-<dd><p>Returns information about both on-going and latest completed Segment
-Replication events.</p>
+<span class="sig-name descname"><span class="pre">segment_replication</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cat.html#CatClient.segment_replication"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cat.CatClient.segment_replication" title="Permalink to this definition"></a></dt>
+<dd><p>Returns information about active and last-completed segment replication events
+on each replica shard, including related shard-level metrics.  These metrics
+provide information about how far behind the primary shard the replicas are
+lagging.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Comma-separated list or wildcard expression of index
-names to limit the returned information.</p></li>
-<li><p><strong>active_only</strong> – If <cite>true</cite>, the response only includes ongoing
-segment replication events. Default is false.</p></li>
-<li><p><strong>allow_no_indices</strong> – Whether to ignore if a wildcard indexes
-expression resolves into no concrete indexes. (This includes <cite>_all</cite>
-string or when no indexes have been specified).</p></li>
-<li><p><strong>bytes</strong> – The unit in which to display byte values. Valid
-choices are b, g, gb, k, kb, m, mb, p, pb, t, tb.</p></li>
-<li><p><strong>completed_only</strong> – If <cite>true</cite>, the response only includes
-latest completed segment replication events. Default is false.</p></li>
-<li><p><strong>detailed</strong> – If <cite>true</cite>, the response includes detailed
-information about segment replications. Default is false.</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – A comma-separated list of data streams, indexes, and
+aliases used to limit the request. Supports wildcards (<cite>*</cite>). To target
+all data streams and indexes, omit this parameter or use <cite>*</cite> or <cite>_all</cite>.</p></li>
+<li><p><strong>active_only</strong> – When <cite>true</cite>, the response only includes
+ongoing segment replication events. Default is false.</p></li>
+<li><p><strong>allow_no_indices</strong> – Whether to ignore the index if a wildcard
+index expression resolves to no concrete indexes. This includes the
+<cite>_all</cite> string or when no indexes have been specified.</p></li>
+<li><p><strong>bytes</strong> – The units used to display byte values. Valid choices
+are b, kb, k, mb, m, gb, g, tb, t, pb, p.</p></li>
+<li><p><strong>completed_only</strong> – When <cite>true</cite>, the response only includes the
+last-completed segment replication events. Default is false.</p></li>
+<li><p><strong>detailed</strong> – When <cite>true</cite>, the response includes additional
+metrics for each stage of a segment replication event. Default is false.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
-<li><p><strong>expand_wildcards</strong> – Whether to expand wildcard expression to
-concrete indexes that are open, closed or both.</p></li>
+<li><p><strong>expand_wildcards</strong> – Specifies the type of index that wildcard
+expressions can match. Supports comma-separated values. Valid choices
+are all, closed, hidden, none, open.</p></li>
 <li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
 takes a comma-separated list of filters. It supports using wildcards to
 match any field or part of a field’s name. You can also exclude fields
 with “-“.</p></li>
-<li><p><strong>format</strong> – A short version of the Accept header (for example,
-<cite>json</cite>, <cite>yaml</cite>).</p></li>
-<li><p><strong>h</strong> – Comma-separated list of column names to display.</p></li>
-<li><p><strong>help</strong> – Return help information. Default is false.</p></li>
+<li><p><strong>format</strong> – A short version of the <cite>Accept</cite> header, such as
+<cite>json</cite> or <cite>yaml</cite>.</p></li>
+<li><p><strong>h</strong> – A comma-separated list of column names to display.</p></li>
+<li><p><strong>help</strong> – Returns help information. Default is false.</p></li>
 <li><p><strong>human</strong> – Whether to return human readable values for
 statistics. Default is True.</p></li>
-<li><p><strong>ignore_throttled</strong> – Whether specified concrete, expanded or
+<li><p><strong>ignore_throttled</strong> – Whether specified concrete, expanded, or
 aliased indexes should be ignored when throttled.</p></li>
-<li><p><strong>ignore_unavailable</strong> – Whether specified concrete indexes
-should be ignored when unavailable (missing or closed).</p></li>
+<li><p><strong>ignore_unavailable</strong> – Whether the specified concrete indexes
+should be ignored when missing or closed.</p></li>
 <li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
 response. Default is false.</p></li>
-<li><p><strong>s</strong> – Comma-separated list of column names or column aliases
+<li><p><strong>s</strong> – A comma-separated list of column names or column aliases
 to sort by.</p></li>
-<li><p><strong>shards</strong> – Comma-separated list of shards to display.</p></li>
+<li><p><strong>shards</strong> – A comma-separated list of shards to display.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
-<li><p><strong>time</strong> – The unit in which to display time values. Valid
-choices are d, h, m, micros, ms, nanos, s.</p></li>
-<li><p><strong>timeout</strong> – Operation timeout.</p></li>
-<li><p><strong>v</strong> – Verbose mode. Display column headers. Default is false.</p></li>
+<li><p><strong>time</strong> – Specifies the time units, for example, <cite>5d</cite> or <cite>7h</cite>.
+For more information, see [Supported
+units](<a class="reference external" href="https://opensearch.org/docs/latest/api-reference/units/">https://opensearch.org/docs/latest/api-reference/units/</a>). Valid
+choices are nanos, micros, ms, s, m, h, d.</p></li>
+<li><p><strong>timeout</strong> – The operation timeout.</p></li>
+<li><p><strong>v</strong> – Enables verbose mode, which displays column headers.
+Default is false.</p></li>
 <li><p><strong>index</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – </p></li>
 <li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – </p></li>
@@ -928,7 +960,7 @@ choices are d, h, m, micros, ms, nanos, s.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.client.cat.CatClient.segments">
-<span class="sig-name descname"><span class="pre">segments</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cat.html#CatClient.segments"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cat.CatClient.segments" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">segments</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cat.html#CatClient.segments"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cat.CatClient.segments" title="Permalink to this definition"></a></dt>
 <dd><p>Provides low-level information about the segments in the shards of an index.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -936,32 +968,33 @@ choices are d, h, m, micros, ms, nanos, s.</p></li>
 <li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – A comma-separated list of data streams, indexes, and
 aliases used to limit the request. Supports wildcards (<cite>*</cite>). To target
 all data streams and indexes, omit this parameter or use <cite>*</cite> or <cite>_all</cite>.</p></li>
-<li><p><strong>bytes</strong> – The unit used to display byte values. Valid choices
-are b, g, gb, k, kb, m, mb, p, pb, t, tb.</p></li>
-<li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
-to cluster-manager node.</p></li>
+<li><p><strong>bytes</strong> – The units used to display byte values. Valid choices
+are b, kb, k, mb, m, gb, g, tb, t, pb, p.</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – The amount of time allowed to
+establish a connection to the cluster manager node.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
 <li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
 takes a comma-separated list of filters. It supports using wildcards to
 match any field or part of a field’s name. You can also exclude fields
 with “-“.</p></li>
-<li><p><strong>format</strong> – A short version of the Accept header (for example,
-<cite>json</cite>, <cite>yaml</cite>).</p></li>
-<li><p><strong>h</strong> – Comma-separated list of column names to display.</p></li>
-<li><p><strong>help</strong> – Return help information. Default is false.</p></li>
+<li><p><strong>format</strong> – A short version of the <cite>Accept</cite> header, such as
+<cite>json</cite> or <cite>yaml</cite>.</p></li>
+<li><p><strong>h</strong> – A comma-separated list of column names to display.</p></li>
+<li><p><strong>help</strong> – Returns help information. Default is false.</p></li>
 <li><p><strong>human</strong> – Whether to return human readable values for
 statistics. Default is True.</p></li>
 <li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
-use <cite>cluster_manager_timeout</cite> instead.): Operation timeout for
-connection to cluster-manager node.</p></li>
+use <cite>cluster_manager_timeout</cite> instead.): The amount of time allowed to
+establish a connection to the cluster manager node.</p></li>
 <li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
 response. Default is false.</p></li>
-<li><p><strong>s</strong> – Comma-separated list of column names or column aliases
+<li><p><strong>s</strong> – A comma-separated list of column names or column aliases
 to sort by.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
-<li><p><strong>v</strong> – Verbose mode. Display column headers. Default is false.</p></li>
+<li><p><strong>v</strong> – Enables verbose mode, which displays column headers.
+Default is false.</p></li>
 <li><p><strong>index</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – </p></li>
 <li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – </p></li>
@@ -975,44 +1008,48 @@ libraries that do not accept a request body for non-POST requests.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.client.cat.CatClient.shards">
-<span class="sig-name descname"><span class="pre">shards</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cat.html#CatClient.shards"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cat.CatClient.shards" title="Permalink to this definition"></a></dt>
-<dd><p>Provides a detailed view of shard allocation on nodes.</p>
+<span class="sig-name descname"><span class="pre">shards</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cat.html#CatClient.shards"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cat.CatClient.shards" title="Permalink to this definition"></a></dt>
+<dd><p>Lists the states of all primary and replica shards and how they are
+distributed.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – A comma-separated list of data streams, indexes, and
 aliases used to limit the request. Supports wildcards (<cite>*</cite>). To target
 all data streams and indexes, omit this parameter or use <cite>*</cite> or <cite>_all</cite>.</p></li>
-<li><p><strong>bytes</strong> – The unit used to display byte values. Valid choices
-are b, g, gb, k, kb, m, mb, p, pb, t, tb.</p></li>
-<li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
-to cluster-manager node.</p></li>
+<li><p><strong>bytes</strong> – The units used to display byte values. Valid choices
+are b, kb, k, mb, m, gb, g, tb, t, pb, p.</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – The amount of time allowed to
+establish a connection to the cluster manager node.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
 <li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
 takes a comma-separated list of filters. It supports using wildcards to
 match any field or part of a field’s name. You can also exclude fields
 with “-“.</p></li>
-<li><p><strong>format</strong> – A short version of the Accept header (for example,
-<cite>json</cite>, <cite>yaml</cite>).</p></li>
-<li><p><strong>h</strong> – Comma-separated list of column names to display.</p></li>
-<li><p><strong>help</strong> – Return help information. Default is false.</p></li>
+<li><p><strong>format</strong> – A short version of the <cite>Accept</cite> header, such as
+<cite>json</cite> or <cite>yaml</cite>.</p></li>
+<li><p><strong>h</strong> – A comma-separated list of column names to display.</p></li>
+<li><p><strong>help</strong> – Returns help information. Default is false.</p></li>
 <li><p><strong>human</strong> – Whether to return human readable values for
 statistics. Default is True.</p></li>
-<li><p><strong>local</strong> – Return local information, do not retrieve the state
-from cluster-manager node. Default is false.</p></li>
+<li><p><strong>local</strong> – Returns local information but does not retrieve the
+state from the cluster manager node. Default is false.</p></li>
 <li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
-use <cite>cluster_manager_timeout</cite> instead.): Operation timeout for
-connection to cluster-manager node.</p></li>
+use <cite>cluster_manager_timeout</cite> instead.): The amount of time allowed to
+establish a connection to the cluster manager node.</p></li>
 <li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
 response. Default is false.</p></li>
-<li><p><strong>s</strong> – Comma-separated list of column names or column aliases
+<li><p><strong>s</strong> – A comma-separated list of column names or column aliases
 to sort by.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
-<li><p><strong>time</strong> – The unit in which to display time values. Valid
-choices are d, h, m, micros, ms, nanos, s.</p></li>
-<li><p><strong>v</strong> – Verbose mode. Display column headers. Default is false.</p></li>
+<li><p><strong>time</strong> – Specifies the time units, for example, <cite>5d</cite> or <cite>7h</cite>.
+For more information, see [Supported
+units](<a class="reference external" href="https://opensearch.org/docs/latest/api-reference/units/">https://opensearch.org/docs/latest/api-reference/units/</a>). Valid
+choices are nanos, micros, ms, s, m, h, d.</p></li>
+<li><p><strong>v</strong> – Enables verbose mode, which displays column headers.
+Default is false.</p></li>
 <li><p><strong>index</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – </p></li>
 <li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – </p></li>
@@ -1026,8 +1063,8 @@ choices are d, h, m, micros, ms, nanos, s.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.client.cat.CatClient.snapshots">
-<span class="sig-name descname"><span class="pre">snapshots</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">repository</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cat.html#CatClient.snapshots"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cat.CatClient.snapshots" title="Permalink to this definition"></a></dt>
-<dd><p>Returns all snapshots in a specific repository.</p>
+<span class="sig-name descname"><span class="pre">snapshots</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">repository</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cat.html#CatClient.snapshots"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cat.CatClient.snapshots" title="Permalink to this definition"></a></dt>
+<dd><p>Lists all of the snapshots stored in a specific repository.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -1035,34 +1072,37 @@ choices are d, h, m, micros, ms, nanos, s.</p></li>
 used to limit the request. Accepts wildcard expressions. <cite>_all</cite> returns
 all repositories. If any repository fails during the request, OpenSearch
 returns an error.</p></li>
-<li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
-to cluster-manager node.</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – The amount of time allowed to
+establish a connection to the cluster manager node.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
 <li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
 takes a comma-separated list of filters. It supports using wildcards to
 match any field or part of a field’s name. You can also exclude fields
 with “-“.</p></li>
-<li><p><strong>format</strong> – A short version of the Accept header (for example,
-<cite>json</cite>, <cite>yaml</cite>).</p></li>
-<li><p><strong>h</strong> – Comma-separated list of column names to display.</p></li>
-<li><p><strong>help</strong> – Return help information. Default is false.</p></li>
+<li><p><strong>format</strong> – A short version of the <cite>Accept</cite> header, such as
+<cite>json</cite> or <cite>yaml</cite>.</p></li>
+<li><p><strong>h</strong> – A comma-separated list of column names to display.</p></li>
+<li><p><strong>help</strong> – Returns help information. Default is false.</p></li>
 <li><p><strong>human</strong> – Whether to return human readable values for
 statistics. Default is True.</p></li>
-<li><p><strong>ignore_unavailable</strong> – If <cite>true</cite>, the response does not
+<li><p><strong>ignore_unavailable</strong> – When <cite>true</cite>, the response does not
 include information from unavailable snapshots. Default is false.</p></li>
 <li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
-use <cite>cluster_manager_timeout</cite> instead.): Operation timeout for
-connection to cluster-manager node.</p></li>
+use <cite>cluster_manager_timeout</cite> instead.): The amount of time allowed to
+establish a connection to the cluster manager node.</p></li>
 <li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
 response. Default is false.</p></li>
-<li><p><strong>s</strong> – Comma-separated list of column names or column aliases
+<li><p><strong>s</strong> – A comma-separated list of column names or column aliases
 to sort by.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
-<li><p><strong>time</strong> – The unit in which to display time values. Valid
-choices are d, h, m, micros, ms, nanos, s.</p></li>
-<li><p><strong>v</strong> – Verbose mode. Display column headers. Default is false.</p></li>
+<li><p><strong>time</strong> – Specifies the time units, for example, <cite>5d</cite> or <cite>7h</cite>.
+For more information, see [Supported
+units](<a class="reference external" href="https://opensearch.org/docs/latest/api-reference/units/">https://opensearch.org/docs/latest/api-reference/units/</a>). Valid
+choices are nanos, micros, ms, s, m, h, d.</p></li>
+<li><p><strong>v</strong> – Enables verbose mode, which displays column headers.
+Default is false.</p></li>
 <li><p><strong>repository</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – </p></li>
 <li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – </p></li>
@@ -1076,14 +1116,12 @@ choices are d, h, m, micros, ms, nanos, s.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.client.cat.CatClient.tasks">
-<span class="sig-name descname"><span class="pre">tasks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cat.html#CatClient.tasks"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cat.CatClient.tasks" title="Permalink to this definition"></a></dt>
-<dd><p>Returns information about the tasks currently executing on one or more nodes in
-the cluster.</p>
+<span class="sig-name descname"><span class="pre">tasks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cat.html#CatClient.tasks"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cat.CatClient.tasks" title="Permalink to this definition"></a></dt>
+<dd><p>Lists the progress of all tasks currently running on the cluster.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>actions</strong> – The task action names, which are used to limit the
-response.</p></li>
+<li><p><strong>actions</strong> – The task action names used to limit the response.</p></li>
 <li><p><strong>detailed</strong> – If <cite>true</cite>, the response includes detailed
 information about shard recoveries. Default is false.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
@@ -1092,27 +1130,31 @@ errors. Default is false.</p></li>
 takes a comma-separated list of filters. It supports using wildcards to
 match any field or part of a field’s name. You can also exclude fields
 with “-“.</p></li>
-<li><p><strong>format</strong> – A short version of the Accept header (for example,
-<cite>json</cite>, <cite>yaml</cite>).</p></li>
-<li><p><strong>h</strong> – Comma-separated list of column names to display.</p></li>
-<li><p><strong>help</strong> – Return help information. Default is false.</p></li>
+<li><p><strong>format</strong> – A short version of the <cite>Accept</cite> header, such as
+<cite>json</cite> or <cite>yaml</cite>.</p></li>
+<li><p><strong>h</strong> – A comma-separated list of column names to display.</p></li>
+<li><p><strong>help</strong> – Returns help information. Default is false.</p></li>
 <li><p><strong>human</strong> – Whether to return human readable values for
 statistics. Default is True.</p></li>
-<li><p><strong>nodes</strong> – Comma-separated list of node IDs or names to limit
-the returned information; use <cite>_local</cite> to return information from the
-node you’re connecting to, leave empty to get information from all
-nodes.</p></li>
+<li><p><strong>nodes</strong> – A comma-separated list of node IDs or names used to
+limit the returned information. Use <cite>_local</cite> to return information from
+the node to which you’re connecting, specify a specific node from which
+to get information, or keep the parameter empty to get information from
+all nodes.</p></li>
 <li><p><strong>parent_task_id</strong> – The parent task identifier, which is used
 to limit the response.</p></li>
 <li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
 response. Default is false.</p></li>
-<li><p><strong>s</strong> – Comma-separated list of column names or column aliases
+<li><p><strong>s</strong> – A comma-separated list of column names or column aliases
 to sort by.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
-<li><p><strong>time</strong> – The unit in which to display time values. Valid
-choices are d, h, m, micros, ms, nanos, s.</p></li>
-<li><p><strong>v</strong> – Verbose mode. Display column headers. Default is false.</p></li>
+<li><p><strong>time</strong> – Specifies the time units, for example, <cite>5d</cite> or <cite>7h</cite>.
+For more information, see [Supported
+units](<a class="reference external" href="https://opensearch.org/docs/latest/api-reference/units/">https://opensearch.org/docs/latest/api-reference/units/</a>). Valid
+choices are nanos, micros, ms, s, m, h, d.</p></li>
+<li><p><strong>v</strong> – Enables verbose mode, which displays column headers.
+Default is false.</p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – </p></li>
 <li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – </p></li>
 </ul>
@@ -1125,39 +1167,41 @@ choices are d, h, m, micros, ms, nanos, s.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.client.cat.CatClient.templates">
-<span class="sig-name descname"><span class="pre">templates</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cat.html#CatClient.templates"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cat.CatClient.templates" title="Permalink to this definition"></a></dt>
-<dd><p>Returns information about existing templates.</p>
+<span class="sig-name descname"><span class="pre">templates</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cat.html#CatClient.templates"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cat.CatClient.templates" title="Permalink to this definition"></a></dt>
+<dd><p>Lists the names, patterns, order numbers, and version numbers of index
+templates.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The name of the template to return. Accepts wildcard
 expressions. If omitted, all templates are returned.</p></li>
-<li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
-to cluster-manager node.</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – The amount of time allowed to
+establish a connection to the cluster manager node.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
 <li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
 takes a comma-separated list of filters. It supports using wildcards to
 match any field or part of a field’s name. You can also exclude fields
 with “-“.</p></li>
-<li><p><strong>format</strong> – A short version of the Accept header (for example,
-<cite>json</cite>, <cite>yaml</cite>).</p></li>
-<li><p><strong>h</strong> – Comma-separated list of column names to display.</p></li>
-<li><p><strong>help</strong> – Return help information. Default is false.</p></li>
+<li><p><strong>format</strong> – A short version of the <cite>Accept</cite> header, such as
+<cite>json</cite> or <cite>yaml</cite>.</p></li>
+<li><p><strong>h</strong> – A comma-separated list of column names to display.</p></li>
+<li><p><strong>help</strong> – Returns help information. Default is false.</p></li>
 <li><p><strong>human</strong> – Whether to return human readable values for
 statistics. Default is True.</p></li>
-<li><p><strong>local</strong> – Return local information, do not retrieve the state
-from cluster-manager node. Default is false.</p></li>
+<li><p><strong>local</strong> – Returns local information but does not retrieve the
+state from the cluster manager node. Default is false.</p></li>
 <li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
-use <cite>cluster_manager_timeout</cite> instead.): Operation timeout for
-connection to cluster-manager node.</p></li>
+use <cite>cluster_manager_timeout</cite> instead.): The amount of time allowed to
+establish a connection to the cluster manager node.</p></li>
 <li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
 response. Default is false.</p></li>
-<li><p><strong>s</strong> – Comma-separated list of column names or column aliases
+<li><p><strong>s</strong> – A comma-separated list of column names or column aliases
 to sort by.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
-<li><p><strong>v</strong> – Verbose mode. Display column headers. Default is false.</p></li>
+<li><p><strong>v</strong> – Enables verbose mode, which displays column headers.
+Default is false.</p></li>
 <li><p><strong>name</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – </p></li>
 <li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – </p></li>
@@ -1171,41 +1215,42 @@ libraries that do not accept a request body for non-POST requests.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.client.cat.CatClient.thread_pool">
-<span class="sig-name descname"><span class="pre">thread_pool</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">thread_pool_patterns</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cat.html#CatClient.thread_pool"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cat.CatClient.thread_pool" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">thread_pool</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">thread_pool_patterns</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cat.html#CatClient.thread_pool"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cat.CatClient.thread_pool" title="Permalink to this definition"></a></dt>
 <dd><p>Returns cluster-wide thread pool statistics per node. By default the active,
-queue and rejected statistics are returned for all thread pools.</p>
+queued, and rejected statistics are returned for all thread pools.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>thread_pool_patterns</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – A comma-separated list of thread pool
 names used to limit the request. Accepts wildcard expressions.</p></li>
-<li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
-to cluster-manager node.</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – A timeout for connection to the
+cluster manager node.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
 <li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
 takes a comma-separated list of filters. It supports using wildcards to
 match any field or part of a field’s name. You can also exclude fields
 with “-“.</p></li>
-<li><p><strong>format</strong> – A short version of the Accept header (for example,
-<cite>json</cite>, <cite>yaml</cite>).</p></li>
-<li><p><strong>h</strong> – Comma-separated list of column names to display.</p></li>
-<li><p><strong>help</strong> – Return help information. Default is false.</p></li>
+<li><p><strong>format</strong> – A short version of the <cite>Accept</cite> header, such as
+<cite>json</cite> or <cite>yaml</cite>.</p></li>
+<li><p><strong>h</strong> – A comma-separated list of column names to display.</p></li>
+<li><p><strong>help</strong> – Returns help information. Default is false.</p></li>
 <li><p><strong>human</strong> – Whether to return human readable values for
 statistics. Default is True.</p></li>
-<li><p><strong>local</strong> – Return local information, do not retrieve the state
-from cluster-manager node. Default is false.</p></li>
+<li><p><strong>local</strong> – Returns local information but does not retrieve the
+state from the cluster manager node. Default is false.</p></li>
 <li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
-use <cite>cluster_manager_timeout</cite> instead.): Operation timeout for
-connection to cluster-manager node.</p></li>
+use <cite>cluster_manager_timeout</cite> instead.): The amount of time allowed to
+establish a connection to the cluster manager node.</p></li>
 <li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
 response. Default is false.</p></li>
-<li><p><strong>s</strong> – Comma-separated list of column names or column aliases
+<li><p><strong>s</strong> – A comma-separated list of column names or column aliases
 to sort by.</p></li>
 <li><p><strong>size</strong> – The multiplier in which to display values.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
-<li><p><strong>v</strong> – Verbose mode. Display column headers. Default is false.</p></li>
+<li><p><strong>v</strong> – Enables verbose mode, which displays column headers.
+Default is false.</p></li>
 <li><p><strong>thread_pool_patterns</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – </p></li>
 <li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – </p></li>

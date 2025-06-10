@@ -125,14 +125,17 @@
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.client.snapshot.SnapshotClient.cleanup_repository">
-<span class="sig-name descname"><span class="pre">cleanup_repository</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">repository</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/snapshot.html#SnapshotClient.cleanup_repository"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.snapshot.SnapshotClient.cleanup_repository" title="Permalink to this definition"></a></dt>
-<dd><p>Removes stale data from repository.</p>
+<span class="sig-name descname"><span class="pre">cleanup_repository</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">repository</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/snapshot.html#SnapshotClient.cleanup_repository"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.snapshot.SnapshotClient.cleanup_repository" title="Permalink to this definition"></a></dt>
+<dd><p>Removes any stale data from a snapshot repository.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>repository</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Snapshot repository to clean up.</p></li>
-<li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
-to cluster-manager node.</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – The amount of time to wait for a
+response from the cluster manager node. For more information about
+supported time units, see [Common
+parameters](<a class="reference external" href="https://opensearch.org/docs/latest/api-reference/common">https://opensearch.org/docs/latest/api-reference/common</a>-
+parameters/#time-units).</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
 <li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
@@ -148,7 +151,7 @@ to the cluster-manager node.</p></li>
 response. Default is false.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
-<li><p><strong>timeout</strong> – Period to wait for a response.</p></li>
+<li><p><strong>timeout</strong> – The amount of time to wait for a response.</p></li>
 <li><p><strong>repository</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – </p></li>
 <li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – </p></li>
@@ -162,17 +165,22 @@ libraries that do not accept a request body for non-POST requests.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.client.snapshot.SnapshotClient.clone">
-<span class="sig-name descname"><span class="pre">clone</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">repository</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">snapshot</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_snapshot</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">body</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/snapshot.html#SnapshotClient.clone"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.snapshot.SnapshotClient.clone" title="Permalink to this definition"></a></dt>
-<dd><p>Clones indexes from one snapshot into another snapshot in the same repository.</p>
+<span class="sig-name descname"><span class="pre">clone</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">repository</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">snapshot</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_snapshot</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">body</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/snapshot.html#SnapshotClient.clone"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.snapshot.SnapshotClient.clone" title="Permalink to this definition"></a></dt>
+<dd><p>Creates a clone of all or part of a snapshot in the same repository as the
+original snapshot.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>repository</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – A repository name</p></li>
-<li><p><strong>snapshot</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The name of the snapshot to clone from</p></li>
-<li><p><strong>target_snapshot</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The name of the cloned snapshot to create</p></li>
-<li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The snapshot clone definition</p></li>
-<li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
-to cluster-manager node.</p></li>
+<li><p><strong>repository</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The name of repository which will contain the
+snapshots clone.</p></li>
+<li><p><strong>snapshot</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The name of the original snapshot.</p></li>
+<li><p><strong>target_snapshot</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The name of the cloned snapshot.</p></li>
+<li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The snapshot clone definition.</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – The amount of time to wait for a
+response from the cluster manager node. For more information about
+supported time units, see [Common
+parameters](<a class="reference external" href="https://opensearch.org/docs/latest/api-reference/common">https://opensearch.org/docs/latest/api-reference/common</a>-
+parameters/#time-units).</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
 <li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
@@ -204,17 +212,21 @@ libraries that do not accept a request body for non-POST requests.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.client.snapshot.SnapshotClient.create">
-<span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">repository</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">snapshot</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">body</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/snapshot.html#SnapshotClient.create"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.snapshot.SnapshotClient.create" title="Permalink to this definition"></a></dt>
-<dd><p>Creates a snapshot in a repository.</p>
+<span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">repository</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">snapshot</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">body</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/snapshot.html#SnapshotClient.create"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.snapshot.SnapshotClient.create" title="Permalink to this definition"></a></dt>
+<dd><p>Creates a snapshot within an existing repository.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>repository</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Repository for the snapshot.</p></li>
-<li><p><strong>snapshot</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Name of the snapshot. Must be unique in the
+<li><p><strong>repository</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The name of the repository where the snapshot
+will be stored.</p></li>
+<li><p><strong>snapshot</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The name of the snapshot. Must be unique in the
 repository.</p></li>
-<li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The snapshot definition</p></li>
-<li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
-to cluster-manager node.</p></li>
+<li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The snapshot definition.</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – The amount of time to wait for a
+response from the cluster manager node. For more information about
+supported time units, see [Common
+parameters](<a class="reference external" href="https://opensearch.org/docs/latest/api-reference/common">https://opensearch.org/docs/latest/api-reference/common</a>-
+parameters/#time-units).</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
 <li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
@@ -231,9 +243,9 @@ timeout expires, the request fails and returns an error.</p></li>
 response. Default is false.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
-<li><p><strong>wait_for_completion</strong> – If <cite>true</cite>, the request returns a
-response when the snapshot is complete. If <cite>false</cite>, the request returns
-a response when the snapshot initializes. Default is false.</p></li>
+<li><p><strong>wait_for_completion</strong> – When <cite>true</cite>, the request returns a
+response when the snapshot is complete. When <cite>false</cite>, the request
+returns a response when the snapshot initializes. Default is false.</p></li>
 <li><p><strong>repository</strong> – </p></li>
 <li><p><strong>snapshot</strong> – </p></li>
 <li><p><strong>body</strong> – </p></li>
@@ -249,15 +261,18 @@ a response when the snapshot initializes. Default is false.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.client.snapshot.SnapshotClient.create_repository">
-<span class="sig-name descname"><span class="pre">create_repository</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">repository</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">body</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/snapshot.html#SnapshotClient.create_repository"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.snapshot.SnapshotClient.create_repository" title="Permalink to this definition"></a></dt>
-<dd><p>Creates a repository.</p>
+<span class="sig-name descname"><span class="pre">create_repository</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">repository</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">body</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/snapshot.html#SnapshotClient.create_repository"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.snapshot.SnapshotClient.create_repository" title="Permalink to this definition"></a></dt>
+<dd><p>Creates a snapshot repository.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>repository</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – A repository name</p></li>
-<li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The repository definition</p></li>
-<li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
-to cluster-manager node.</p></li>
+<li><p><strong>repository</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The name for the newly registered repository.</p></li>
+<li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The repository definition.</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – The amount of time to wait for a
+response from the cluster manager node. For more information about
+supported time units, see [Common
+parameters](<a class="reference external" href="https://opensearch.org/docs/latest/api-reference/common">https://opensearch.org/docs/latest/api-reference/common</a>-
+parameters/#time-units).</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
 <li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
@@ -273,8 +288,9 @@ connection to cluster-manager node</p></li>
 response. Default is false.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
-<li><p><strong>timeout</strong> – Explicit operation timeout</p></li>
-<li><p><strong>verify</strong> – Whether to verify the repository after creation</p></li>
+<li><p><strong>timeout</strong> – The amount of time to wait for a response.</p></li>
+<li><p><strong>verify</strong> – When <cite>true</cite>, verifies the creation of the snapshot
+repository.</p></li>
 <li><p><strong>repository</strong> – </p></li>
 <li><p><strong>body</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – </p></li>
@@ -289,15 +305,19 @@ libraries that do not accept a request body for non-POST requests.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.client.snapshot.SnapshotClient.delete">
-<span class="sig-name descname"><span class="pre">delete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">repository</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">snapshot</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/snapshot.html#SnapshotClient.delete"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.snapshot.SnapshotClient.delete" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">delete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">repository</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">snapshot</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/snapshot.html#SnapshotClient.delete"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.snapshot.SnapshotClient.delete" title="Permalink to this definition"></a></dt>
 <dd><p>Deletes a snapshot.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>repository</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – A repository name</p></li>
-<li><p><strong>snapshot</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – A comma-separated list of snapshot names</p></li>
-<li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
-to cluster-manager node.</p></li>
+<li><p><strong>repository</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The name of the snapshot repository to delete.</p></li>
+<li><p><strong>snapshot</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – A comma-separated list of snapshot names to
+delete from the repository.</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – The amount of time to wait for a
+response from the cluster manager node. For more information about
+supported time units, see [Common
+parameters](<a class="reference external" href="https://opensearch.org/docs/latest/api-reference/common">https://opensearch.org/docs/latest/api-reference/common</a>-
+parameters/#time-units).</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
 <li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
@@ -327,15 +347,18 @@ libraries that do not accept a request body for non-POST requests.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.client.snapshot.SnapshotClient.delete_repository">
-<span class="sig-name descname"><span class="pre">delete_repository</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">repository</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/snapshot.html#SnapshotClient.delete_repository"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.snapshot.SnapshotClient.delete_repository" title="Permalink to this definition"></a></dt>
-<dd><p>Deletes a repository.</p>
+<span class="sig-name descname"><span class="pre">delete_repository</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">repository</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/snapshot.html#SnapshotClient.delete_repository"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.snapshot.SnapshotClient.delete_repository" title="Permalink to this definition"></a></dt>
+<dd><p>Deletes a snapshot repository.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>repository</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Name of the snapshot repository to unregister.
-Wildcard (<cite>*</cite>) patterns are supported.</p></li>
-<li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
-to cluster-manager node.</p></li>
+<li><p><strong>repository</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The name of the snapshot repository to
+unregister. Wildcard (<cite>*</cite>) patterns are supported.</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – The amount of time to wait for a
+response from the cluster manager node. For more information about
+supported time units, see [Common
+parameters](<a class="reference external" href="https://opensearch.org/docs/latest/api-reference/common">https://opensearch.org/docs/latest/api-reference/common</a>-
+parameters/#time-units).</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
 <li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
@@ -351,7 +374,7 @@ connection to cluster-manager node</p></li>
 response. Default is false.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
-<li><p><strong>timeout</strong> – Explicit operation timeout</p></li>
+<li><p><strong>timeout</strong> – The amount of time to wait for a response.</p></li>
 <li><p><strong>repository</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – </p></li>
 <li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – </p></li>
@@ -365,20 +388,23 @@ libraries that do not accept a request body for non-POST requests.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.client.snapshot.SnapshotClient.get">
-<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">repository</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">snapshot</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/snapshot.html#SnapshotClient.get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.snapshot.SnapshotClient.get" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">repository</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">snapshot</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/snapshot.html#SnapshotClient.get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.snapshot.SnapshotClient.get" title="Permalink to this definition"></a></dt>
 <dd><p>Returns information about a snapshot.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>repository</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Comma-separated list of snapshot repository
+<li><p><strong>repository</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – A comma-separated list of snapshot repository
 names used to limit the request. Wildcard (*) expressions are supported.</p></li>
-<li><p><strong>snapshot</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Comma-separated list of snapshot names to
-retrieve. Also accepts wildcards (<cite>*</cite>). - To get information about all
-snapshots in a registered repository, use a wildcard (<cite>*</cite>) or <cite>_all</cite>. -
-To get information about any snapshots that are currently running, use
-<cite>_current</cite>.</p></li>
-<li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
-to cluster-manager node.</p></li>
+<li><p><strong>snapshot</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – A comma-separated list of snapshot names to
+retrieve. Also accepts wildcard expressions. (<cite>*</cite>). To get information
+about all snapshots in a registered repository, use a wildcard (<cite>*</cite>) or
+<cite>_all</cite>. To get information about any snapshots that are currently
+running, use <cite>_current</cite>.</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – The amount of time to wait for a
+response from the cluster manager node. For more information about
+supported time units, see [Common
+parameters](<a class="reference external" href="https://opensearch.org/docs/latest/api-reference/common">https://opensearch.org/docs/latest/api-reference/common</a>-
+parameters/#time-units).</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
 <li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
@@ -387,7 +413,7 @@ match any field or part of a field’s name. You can also exclude fields
 with “-“.</p></li>
 <li><p><strong>human</strong> – Whether to return human readable values for
 statistics. Default is True.</p></li>
-<li><p><strong>ignore_unavailable</strong> – If <cite>false</cite>, the request returns an
+<li><p><strong>ignore_unavailable</strong> – When <cite>false</cite>, the request returns an
 error for any snapshots that are unavailable. Default is false.</p></li>
 <li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
 use <cite>cluster_manager_timeout</cite> instead.): Period to wait for a connection
@@ -397,10 +423,10 @@ timeout expires, the request fails and returns an error.</p></li>
 response. Default is false.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
-<li><p><strong>verbose</strong> – If <cite>true</cite>, returns additional information about
+<li><p><strong>verbose</strong> – When <cite>true</cite>, returns additional information about
 each snapshot such as the version of OpenSearch which took the snapshot,
 the start and end times of the snapshot, and the number of shards
-snapshotted.</p></li>
+contained in the snapshot.</p></li>
 <li><p><strong>repository</strong> – </p></li>
 <li><p><strong>snapshot</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – </p></li>
@@ -415,14 +441,17 @@ snapshotted.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.client.snapshot.SnapshotClient.get_repository">
-<span class="sig-name descname"><span class="pre">get_repository</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">repository</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/snapshot.html#SnapshotClient.get_repository"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.snapshot.SnapshotClient.get_repository" title="Permalink to this definition"></a></dt>
-<dd><p>Returns information about a repository.</p>
+<span class="sig-name descname"><span class="pre">get_repository</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">repository</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/snapshot.html#SnapshotClient.get_repository"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.snapshot.SnapshotClient.get_repository" title="Permalink to this definition"></a></dt>
+<dd><p>Returns information about a snapshot repository.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>repository</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – A comma-separated list of repository names</p></li>
-<li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
-to cluster-manager node.</p></li>
+<li><p><strong>repository</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – A comma-separated list of repository names.</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – The amount of time to wait for a
+response from the cluster manager node. For more information about
+supported time units, see [Common
+parameters](<a class="reference external" href="https://opensearch.org/docs/latest/api-reference/common">https://opensearch.org/docs/latest/api-reference/common</a>-
+parameters/#time-units).</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
 <li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
@@ -431,8 +460,8 @@ match any field or part of a field’s name. You can also exclude fields
 with “-“.</p></li>
 <li><p><strong>human</strong> – Whether to return human readable values for
 statistics. Default is True.</p></li>
-<li><p><strong>local</strong> – Return local information, do not retrieve the state
-from cluster-manager node. Default is false.</p></li>
+<li><p><strong>local</strong> – Whether to get information from the local node.
+Default is false.</p></li>
 <li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
 use <cite>cluster_manager_timeout</cite> instead.): Explicit operation timeout for
 connection to cluster-manager node</p></li>
@@ -453,16 +482,21 @@ libraries that do not accept a request body for non-POST requests.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.client.snapshot.SnapshotClient.restore">
-<span class="sig-name descname"><span class="pre">restore</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">repository</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">snapshot</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">body</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/snapshot.html#SnapshotClient.restore"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.snapshot.SnapshotClient.restore" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">restore</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">repository</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">snapshot</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">body</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/snapshot.html#SnapshotClient.restore"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.snapshot.SnapshotClient.restore" title="Permalink to this definition"></a></dt>
 <dd><p>Restores a snapshot.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>repository</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – A repository name</p></li>
-<li><p><strong>snapshot</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – A snapshot name</p></li>
-<li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Details of what to restore</p></li>
-<li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
-to cluster-manager node.</p></li>
+<li><p><strong>repository</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The name of the repository containing the
+snapshot</p></li>
+<li><p><strong>snapshot</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The name of the snapshot to restore.</p></li>
+<li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Determines which settings and indexes to restore when
+restoring a snapshot</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – The amount of time to wait for a
+response from the cluster manager node. For more information about
+supported time units, see [Common
+parameters](<a class="reference external" href="https://opensearch.org/docs/latest/api-reference/common">https://opensearch.org/docs/latest/api-reference/common</a>-
+parameters/#time-units).</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
 <li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
@@ -478,8 +512,11 @@ connection to cluster-manager node</p></li>
 response. Default is false.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
-<li><p><strong>wait_for_completion</strong> – Should this request wait until the
-operation has completed before returning Default is false.</p></li>
+<li><p><strong>wait_for_completion</strong> – Whether to return a response after the
+restore operation has completed. When <cite>false</cite>, the request returns a
+response when the restore operation initializes. When <cite>true</cite>, the
+request returns a response when the restore operation completes. Default
+is false.</p></li>
 <li><p><strong>repository</strong> – </p></li>
 <li><p><strong>snapshot</strong> – </p></li>
 <li><p><strong>body</strong> – </p></li>
@@ -495,15 +532,19 @@ operation has completed before returning Default is false.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.client.snapshot.SnapshotClient.status">
-<span class="sig-name descname"><span class="pre">status</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">repository</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">snapshot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/snapshot.html#SnapshotClient.status"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.snapshot.SnapshotClient.status" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">status</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">repository</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">snapshot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/snapshot.html#SnapshotClient.status"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.snapshot.SnapshotClient.status" title="Permalink to this definition"></a></dt>
 <dd><p>Returns information about the status of a snapshot.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>repository</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – A repository name</p></li>
-<li><p><strong>snapshot</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – A comma-separated list of snapshot names</p></li>
-<li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
-to cluster-manager node.</p></li>
+<li><p><strong>repository</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The name of the repository containing the
+snapshot.</p></li>
+<li><p><strong>snapshot</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – A comma-separated list of snapshot names.</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – The amount of time to wait for a
+response from the cluster manager node. For more information about
+supported time units, see [Common
+parameters](<a class="reference external" href="https://opensearch.org/docs/latest/api-reference/common">https://opensearch.org/docs/latest/api-reference/common</a>-
+parameters/#time-units).</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
 <li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
@@ -512,9 +553,9 @@ match any field or part of a field’s name. You can also exclude fields
 with “-“.</p></li>
 <li><p><strong>human</strong> – Whether to return human readable values for
 statistics. Default is True.</p></li>
-<li><p><strong>ignore_unavailable</strong> – Whether to ignore unavailable
-snapshots, defaults to <cite>false</cite> which means a SnapshotMissingException is
-thrown Default is false.</p></li>
+<li><p><strong>ignore_unavailable</strong> – Whether to ignore any unavailable
+snapshots, When <cite>false</cite>, a <cite>SnapshotMissingException</cite> is thrown. Default
+is false.</p></li>
 <li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
 use <cite>cluster_manager_timeout</cite> instead.): Explicit operation timeout for
 connection to cluster-manager node</p></li>
@@ -536,14 +577,18 @@ libraries that do not accept a request body for non-POST requests.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.client.snapshot.SnapshotClient.verify_repository">
-<span class="sig-name descname"><span class="pre">verify_repository</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">repository</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/snapshot.html#SnapshotClient.verify_repository"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.snapshot.SnapshotClient.verify_repository" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">verify_repository</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">repository</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/snapshot.html#SnapshotClient.verify_repository"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.snapshot.SnapshotClient.verify_repository" title="Permalink to this definition"></a></dt>
 <dd><p>Verifies a repository.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>repository</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – A repository name</p></li>
-<li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
-to cluster-manager node.</p></li>
+<li><p><strong>repository</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The name of the repository containing the
+snapshot.</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – The amount of time to wait for a
+response from the cluster manager node. For more information about
+supported time units, see [Common
+parameters](<a class="reference external" href="https://opensearch.org/docs/latest/api-reference/common">https://opensearch.org/docs/latest/api-reference/common</a>-
+parameters/#time-units).</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
 <li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
@@ -559,7 +604,7 @@ connection to cluster-manager node</p></li>
 response. Default is false.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
-<li><p><strong>timeout</strong> – Explicit operation timeout</p></li>
+<li><p><strong>timeout</strong> – The amount of time to wait for a response.</p></li>
 <li><p><strong>repository</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – </p></li>
 <li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – </p></li>

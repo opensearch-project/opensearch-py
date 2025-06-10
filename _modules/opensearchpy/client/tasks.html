@@ -139,6 +139,7 @@
     <span class="p">)</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">list</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
@@ -146,9 +147,9 @@
 <span class="sd">        Returns a list of tasks.</span>
 
 
-<span class="sd">        :arg actions: Comma-separated list or wildcard expression of</span>
-<span class="sd">            actions used to limit the request.</span>
-<span class="sd">        :arg detailed: If `true`, the response includes detailed</span>
+<span class="sd">        :arg actions: A comma-separated list of actions that should be</span>
+<span class="sd">            returned. Keep empty to return all.</span>
+<span class="sd">        :arg detailed: When `true`, the response includes detailed</span>
 <span class="sd">            information about shard recoveries. Default is false.</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
 <span class="sd">            errors. Default is false.</span>
@@ -156,26 +157,25 @@
 <span class="sd">            takes a comma-separated list of filters. It supports using wildcards to</span>
 <span class="sd">            match any field or part of a field’s name. You can also exclude fields</span>
 <span class="sd">            with &quot;-&quot;.</span>
-<span class="sd">        :arg group_by: Key used to group tasks in the response. Valid</span>
-<span class="sd">            choices are nodes, none, parents.</span>
+<span class="sd">        :arg group_by: Groups tasks by parent/child relationships or</span>
+<span class="sd">            nodes. Valid choices are nodes, none, parents.</span>
 <span class="sd">        :arg human: Whether to return human readable values for</span>
 <span class="sd">            statistics. Default is True.</span>
-<span class="sd">        :arg nodes: Comma-separated list of node IDs or names to limit</span>
-<span class="sd">            the returned information; use `_local` to return information from the</span>
-<span class="sd">            node you&#39;re connecting to, leave empty to get information from all</span>
-<span class="sd">            nodes.</span>
-<span class="sd">        :arg parent_task_id: Parent task ID used to limit returned</span>
-<span class="sd">            information. To return all tasks, omit this parameter or use a value of</span>
-<span class="sd">            `-1`.</span>
+<span class="sd">        :arg nodes: A comma-separated list of node IDs or names used to</span>
+<span class="sd">            limit the returned information. Use `_local` to return information from</span>
+<span class="sd">            the node you&#39;re connecting to, specify the node name to get information</span>
+<span class="sd">            from a specific node, or keep the parameter empty to get information</span>
+<span class="sd">            from all nodes.</span>
+<span class="sd">        :arg parent_task_id: Returns tasks with a specified parent task</span>
+<span class="sd">            ID (`node_id:task_number`). Keep empty or set to -1 to return all.</span>
 <span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
 <span class="sd">            response. Default is false.</span>
 <span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
 <span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
-<span class="sd">        :arg timeout: Period to wait for a response. If no response is</span>
-<span class="sd">            received before the timeout expires, the request fails and returns an</span>
-<span class="sd">            error.</span>
-<span class="sd">        :arg wait_for_completion: If `true`, the request blocks until</span>
-<span class="sd">            the operation is complete. Default is false.</span>
+<span class="sd">        :arg timeout: The amount of time to wait for a response.</span>
+<span class="sd">        :arg wait_for_completion: Waits for the matching task to</span>
+<span class="sd">            complete. When `true`, the request is blocked until the task has</span>
+<span class="sd">            completed. Default is false.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
             <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="s2">&quot;/_tasks&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
@@ -194,6 +194,7 @@
     <span class="p">)</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">cancel</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
         <span class="n">task_id</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -202,9 +203,9 @@
 <span class="sd">        Cancels a task, if it can be cancelled through an API.</span>
 
 
-<span class="sd">        :arg task_id: ID of the task.</span>
-<span class="sd">        :arg actions: Comma-separated list or wildcard expression of</span>
-<span class="sd">            actions used to limit the request.</span>
+<span class="sd">        :arg task_id: The task ID.</span>
+<span class="sd">        :arg actions: A comma-separated list of actions that should be</span>
+<span class="sd">            returned. Keep empty to return all.</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
 <span class="sd">            errors. Default is false.</span>
 <span class="sd">        :arg filter_path: Used to reduce the response. This parameter</span>
@@ -213,16 +214,20 @@
 <span class="sd">            with &quot;-&quot;.</span>
 <span class="sd">        :arg human: Whether to return human readable values for</span>
 <span class="sd">            statistics. Default is True.</span>
-<span class="sd">        :arg nodes: Comma-separated list of node IDs or names used to</span>
-<span class="sd">            limit the request.</span>
-<span class="sd">        :arg parent_task_id: Parent task ID used to limit the tasks.</span>
+<span class="sd">        :arg nodes: A comma-separated list of node IDs or names used to</span>
+<span class="sd">            limit the returned information. Use `_local` to return information from</span>
+<span class="sd">            the node you&#39;re connecting to, specify the node name to get information</span>
+<span class="sd">            from a specific node, or keep the parameter empty to get information</span>
+<span class="sd">            from all nodes.</span>
+<span class="sd">        :arg parent_task_id: Returns tasks with a specified parent task</span>
+<span class="sd">            ID (`node_id:task_number`). Keep empty or set to -1 to return all.</span>
 <span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
 <span class="sd">            response. Default is false.</span>
 <span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
 <span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
-<span class="sd">        :arg wait_for_completion: Should the request block until the</span>
-<span class="sd">            cancellation of the task and its descendant tasks is completed. Defaults</span>
-<span class="sd">            to false Default is false.</span>
+<span class="sd">        :arg wait_for_completion: Waits for the matching task to</span>
+<span class="sd">            complete. When `true`, the request is blocked until the task has</span>
+<span class="sd">            completed. Default is false.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
             <span class="s2">&quot;POST&quot;</span><span class="p">,</span>
@@ -242,6 +247,7 @@
     <span class="p">)</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">get</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
         <span class="n">task_id</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -250,7 +256,7 @@
 <span class="sd">        Returns information about a task.</span>
 
 
-<span class="sd">        :arg task_id: ID of the task.</span>
+<span class="sd">        :arg task_id: The task ID.</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
 <span class="sd">            errors. Default is false.</span>
 <span class="sd">        :arg filter_path: Used to reduce the response. This parameter</span>
@@ -263,11 +269,10 @@
 <span class="sd">            response. Default is false.</span>
 <span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
 <span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
-<span class="sd">        :arg timeout: Period to wait for a response. If no response is</span>
-<span class="sd">            received before the timeout expires, the request fails and returns an</span>
-<span class="sd">            error.</span>
-<span class="sd">        :arg wait_for_completion: If `true`, the request blocks until</span>
-<span class="sd">            the task has completed. Default is false.</span>
+<span class="sd">        :arg timeout: The amount of time to wait for a response.</span>
+<span class="sd">        :arg wait_for_completion: Waits for the matching task to</span>
+<span class="sd">            complete. When `true`, the request is blocked until the task has</span>
+<span class="sd">            completed. Default is false.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">task_id</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
             <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>

@@ -125,13 +125,15 @@
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.client.cluster.ClusterClient.allocation_explain">
-<span class="sig-name descname"><span class="pre">allocation_explain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">body</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cluster.html#ClusterClient.allocation_explain"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cluster.ClusterClient.allocation_explain" title="Permalink to this definition"></a></dt>
-<dd><p>Provides explanations for shard allocations in the cluster.</p>
+<span class="sig-name descname"><span class="pre">allocation_explain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">body</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cluster.html#ClusterClient.allocation_explain"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cluster.ClusterClient.allocation_explain" title="Permalink to this definition"></a></dt>
+<dd><p>Explains how shards are allocated in the current cluster and provides an
+explanation for why unassigned shards can’t be allocated to a node.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The index, shard, and primary flag to explain. Empty
-means ‘explain the first unassigned shard’</p></li>
+<li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The index, shard, and primary flag for which to
+generate an explanation. Leave this empty to generate an explanation for
+the first unassigned shard.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
 <li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
@@ -140,10 +142,12 @@ match any field or part of a field’s name. You can also exclude fields
 with “-“.</p></li>
 <li><p><strong>human</strong> – Whether to return human readable values for
 statistics. Default is True.</p></li>
-<li><p><strong>include_disk_info</strong> – If <cite>true</cite>, returns information about
+<li><p><strong>include_disk_info</strong> – When <cite>true</cite>, returns information about
 disk usage and shard sizes. Default is false.</p></li>
-<li><p><strong>include_yes_decisions</strong> – If <cite>true</cite>, returns YES decisions in
-explanation. Default is false.</p></li>
+<li><p><strong>include_yes_decisions</strong> – When <cite>true</cite>, returns any <cite>YES</cite>
+decisions in the allocation explanation. <cite>YES</cite> decisions indicate when a
+particular shard allocation attempt was successful for the given node.
+Default is false.</p></li>
 <li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
@@ -161,15 +165,18 @@ libraries that do not accept a request body for non-POST requests.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.client.cluster.ClusterClient.delete_component_template">
-<span class="sig-name descname"><span class="pre">delete_component_template</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cluster.html#ClusterClient.delete_component_template"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cluster.ClusterClient.delete_component_template" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">delete_component_template</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cluster.html#ClusterClient.delete_component_template"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cluster.ClusterClient.delete_component_template" title="Permalink to this definition"></a></dt>
 <dd><p>Deletes a component template.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Name of the component template to delete. Wildcard
-(*) expressions are supported.</p></li>
-<li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
-to cluster-manager node.</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The name of the component template to delete.
+Supports wildcard (*) expressions.</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – The amount of time to wait for a
+response from the cluster manager node. For more information about
+supported time units, see [Common
+parameters](<a class="reference external" href="https://opensearch.org/docs/latest/api-reference/common">https://opensearch.org/docs/latest/api-reference/common</a>-
+parameters/#time-units).</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
 <li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
@@ -179,16 +186,18 @@ with “-“.</p></li>
 <li><p><strong>human</strong> – Whether to return human readable values for
 statistics. Default is True.</p></li>
 <li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
-use <cite>cluster_manager_timeout</cite> instead.): Period to wait for a connection
-to the cluster-manager node. If no response is received before the
-timeout expires, the request fails and returns an error.</p></li>
+use <cite>cluster_manager_timeout</cite> instead.): A duration. Units can be
+<cite>nanos</cite>, <cite>micros</cite>, <cite>ms</cite> (milliseconds), <cite>s</cite> (seconds), <cite>m</cite> (minutes),
+<cite>h</cite> (hours) and <cite>d</cite> (days). Also accepts <cite>0</cite> without a unit and <cite>-1</cite> to
+indicate an unspecified value.</p></li>
 <li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
-<li><p><strong>timeout</strong> – Period to wait for a response. If no response is
-received before the timeout expires, the request fails and returns an
-error.</p></li>
+<li><p><strong>timeout</strong> – A duration. Units can be <cite>nanos</cite>, <cite>micros</cite>, <cite>ms</cite>
+(milliseconds), <cite>s</cite> (seconds), <cite>m</cite> (minutes), <cite>h</cite> (hours) and <cite>d</cite>
+(days). Also accepts <cite>0</cite> without a unit and <cite>-1</cite> to indicate an
+unspecified value.</p></li>
 <li><p><strong>name</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – </p></li>
 <li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – </p></li>
@@ -202,8 +211,8 @@ error.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.client.cluster.ClusterClient.delete_decommission_awareness">
-<span class="sig-name descname"><span class="pre">delete_decommission_awareness</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cluster.html#ClusterClient.delete_decommission_awareness"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cluster.ClusterClient.delete_decommission_awareness" title="Permalink to this definition"></a></dt>
-<dd><p>Delete any existing decommission.</p>
+<span class="sig-name descname"><span class="pre">delete_decommission_awareness</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cluster.html#ClusterClient.delete_decommission_awareness"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cluster.ClusterClient.delete_decommission_awareness" title="Permalink to this definition"></a></dt>
+<dd><p>Recommissions a decommissioned zone.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -231,8 +240,8 @@ libraries that do not accept a request body for non-POST requests.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.client.cluster.ClusterClient.delete_voting_config_exclusions">
-<span class="sig-name descname"><span class="pre">delete_voting_config_exclusions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cluster.html#ClusterClient.delete_voting_config_exclusions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cluster.ClusterClient.delete_voting_config_exclusions" title="Permalink to this definition"></a></dt>
-<dd><p>Clears cluster voting config exclusions.</p>
+<span class="sig-name descname"><span class="pre">delete_voting_config_exclusions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cluster.html#ClusterClient.delete_voting_config_exclusions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cluster.ClusterClient.delete_voting_config_exclusions" title="Permalink to this definition"></a></dt>
+<dd><p>Clears any cluster voting configuration exclusions.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -250,11 +259,10 @@ response. Default is false.</p></li>
 libraries that do not accept a request body for non-POST requests.</p></li>
 <li><p><strong>wait_for_removal</strong> – Specifies whether to wait for all
 excluded nodes to be removed from the cluster before clearing the voting
-configuration exclusions list. Defaults to true, meaning that all
-excluded nodes must be removed from the cluster before this API takes
-any action. If set to <cite>false</cite> then the voting configuration exclusions
-list is cleared even if some excluded nodes are still in the cluster.
-Default is True.</p></li>
+configuration exclusions list. When <cite>true</cite>, all excluded nodes are
+removed from the cluster before this API takes any action. When <cite>false</cite>,
+the voting configuration exclusions list is cleared even if some
+excluded nodes are still in the cluster. Default is True.</p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – </p></li>
 <li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – </p></li>
 </ul>
@@ -267,7 +275,7 @@ Default is True.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.client.cluster.ClusterClient.delete_weighted_routing">
-<span class="sig-name descname"><span class="pre">delete_weighted_routing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">body</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cluster.html#ClusterClient.delete_weighted_routing"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cluster.ClusterClient.delete_weighted_routing" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">delete_weighted_routing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">body</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cluster.html#ClusterClient.delete_weighted_routing"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cluster.ClusterClient.delete_weighted_routing" title="Permalink to this definition"></a></dt>
 <dd><p>Delete weighted shard routing weights.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -297,15 +305,18 @@ libraries that do not accept a request body for non-POST requests.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.client.cluster.ClusterClient.exists_component_template">
-<span class="sig-name descname"><span class="pre">exists_component_template</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cluster.html#ClusterClient.exists_component_template"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cluster.ClusterClient.exists_component_template" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">exists_component_template</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cluster.html#ClusterClient.exists_component_template"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cluster.ClusterClient.exists_component_template" title="Permalink to this definition"></a></dt>
 <dd><p>Returns information about whether a particular component template exist.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Name of the component template to check existence of.
-Wildcard (*) expressions are supported.</p></li>
-<li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
-to cluster-manager node.</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The name of the component template. Wildcard (*)
+expressions are supported.</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – The amount of time to wait for a
+response from the cluster manager node. For more information about
+supported time units, see [Common
+parameters](<a class="reference external" href="https://opensearch.org/docs/latest/api-reference/common">https://opensearch.org/docs/latest/api-reference/common</a>-
+parameters/#time-units).</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
 <li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
@@ -314,13 +325,14 @@ match any field or part of a field’s name. You can also exclude fields
 with “-“.</p></li>
 <li><p><strong>human</strong> – Whether to return human readable values for
 statistics. Default is True.</p></li>
-<li><p><strong>local</strong> – If <cite>true</cite>, the request retrieves information from
-the local node only. Defaults to false, which means information is
-retrieved from the cluster-manager node. Default is false.</p></li>
+<li><p><strong>local</strong> – When <cite>true</cite>, the request retrieves information from
+the local node only. When <cite>false</cite>, information is retrieved from the
+cluster manager node. Default is false.</p></li>
 <li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
-use <cite>cluster_manager_timeout</cite> instead.): Period to wait for a connection
-to the cluster-manager node. If no response is received before the
-timeout expires, the request fails and returns an error.</p></li>
+use <cite>cluster_manager_timeout</cite> instead.): A duration. Units can be
+<cite>nanos</cite>, <cite>micros</cite>, <cite>ms</cite> (milliseconds), <cite>s</cite> (seconds), <cite>m</cite> (minutes),
+<cite>h</cite> (hours) and <cite>d</cite> (days). Also accepts <cite>0</cite> without a unit and <cite>-1</cite> to
+indicate an unspecified value.</p></li>
 <li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
@@ -338,30 +350,38 @@ libraries that do not accept a request body for non-POST requests.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.client.cluster.ClusterClient.get_component_template">
-<span class="sig-name descname"><span class="pre">get_component_template</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cluster.html#ClusterClient.get_component_template"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cluster.ClusterClient.get_component_template" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_component_template</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cluster.html#ClusterClient.get_component_template"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cluster.ClusterClient.get_component_template" title="Permalink to this definition"></a></dt>
 <dd><p>Returns one or more component templates.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Name of the component template to retrieve. Wildcard
-(<cite>*</cite>) expressions are supported.</p></li>
-<li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
-to cluster-manager node.</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The name of the component template to retrieve.
+Wildcard (<cite>*</cite>) expressions are supported.</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – The amount of time to wait for a
+response from the cluster manager node. For more information about
+supported time units, see [Common
+parameters](<a class="reference external" href="https://opensearch.org/docs/latest/api-reference/common">https://opensearch.org/docs/latest/api-reference/common</a>-
+parameters/#time-units).</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
 <li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
 takes a comma-separated list of filters. It supports using wildcards to
 match any field or part of a field’s name. You can also exclude fields
 with “-“.</p></li>
+<li><p><strong>flat_settings</strong> – Whether to return settings in the flat form,
+which can improve readability, especially for heavily nested settings.
+For example, the flat form of <cite>“cluster”: { “max_shards_per_node”: 500
+}</cite> is <cite>“cluster.max_shards_per_node”: “500”</cite>. Default is false.</p></li>
 <li><p><strong>human</strong> – Whether to return human readable values for
 statistics. Default is True.</p></li>
-<li><p><strong>local</strong> – If <cite>true</cite>, the request retrieves information from
-the local node only. If <cite>false</cite>, information is retrieved from the
-cluster-manager node. Default is false.</p></li>
+<li><p><strong>local</strong> – When <cite>true</cite>, the request retrieves information from
+the local node only. When <cite>false</cite>, information is retrieved from the
+cluster manager node. Default is false.</p></li>
 <li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
-use <cite>cluster_manager_timeout</cite> instead.): Period to wait for a connection
-to the cluster-manager node. If no response is received before the
-timeout expires, the request fails and returns an error.</p></li>
+use <cite>cluster_manager_timeout</cite> instead.): A duration. Units can be
+<cite>nanos</cite>, <cite>micros</cite>, <cite>ms</cite> (milliseconds), <cite>s</cite> (seconds), <cite>m</cite> (minutes),
+<cite>h</cite> (hours) and <cite>d</cite> (days). Also accepts <cite>0</cite> without a unit and <cite>-1</cite> to
+indicate an unspecified value.</p></li>
 <li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
@@ -379,12 +399,13 @@ libraries that do not accept a request body for non-POST requests.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.client.cluster.ClusterClient.get_decommission_awareness">
-<span class="sig-name descname"><span class="pre">get_decommission_awareness</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">awareness_attribute_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cluster.html#ClusterClient.get_decommission_awareness"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cluster.ClusterClient.get_decommission_awareness" title="Permalink to this definition"></a></dt>
-<dd><p>Get details and status of decommissioned attribute.</p>
+<span class="sig-name descname"><span class="pre">get_decommission_awareness</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">awareness_attribute_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cluster.html#ClusterClient.get_decommission_awareness"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cluster.ClusterClient.get_decommission_awareness" title="Permalink to this definition"></a></dt>
+<dd><p>Retrieves the decommission status for all zones.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>awareness_attribute_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Awareness attribute name.</p></li>
+<li><p><strong>awareness_attribute_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The name of the awareness
+attribute.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
 <li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
@@ -410,36 +431,43 @@ libraries that do not accept a request body for non-POST requests.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.client.cluster.ClusterClient.get_settings">
-<span class="sig-name descname"><span class="pre">get_settings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cluster.html#ClusterClient.get_settings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cluster.ClusterClient.get_settings" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_settings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cluster.html#ClusterClient.get_settings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cluster.ClusterClient.get_settings" title="Permalink to this definition"></a></dt>
 <dd><p>Returns cluster settings.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
-to cluster-manager node.</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – The amount of time to wait for a
+response from the cluster manager node. For more information about
+supported time units, see [Common
+parameters](<a class="reference external" href="https://opensearch.org/docs/latest/api-reference/common">https://opensearch.org/docs/latest/api-reference/common</a>-
+parameters/#time-units).</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
 <li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
 takes a comma-separated list of filters. It supports using wildcards to
 match any field or part of a field’s name. You can also exclude fields
 with “-“.</p></li>
-<li><p><strong>flat_settings</strong> – If <cite>true</cite>, returns settings in flat format.
-Default is false.</p></li>
+<li><p><strong>flat_settings</strong> – Whether to return settings in the flat form,
+which can improve readability, especially for heavily nested settings.
+For example, the flat form of <cite>“cluster”: { “max_shards_per_node”: 500
+}</cite> is <cite>“cluster.max_shards_per_node”: “500”</cite>. Default is false.</p></li>
 <li><p><strong>human</strong> – Whether to return human readable values for
 statistics. Default is True.</p></li>
-<li><p><strong>include_defaults</strong> – If <cite>true</cite>, returns default cluster
+<li><p><strong>include_defaults</strong> – When <cite>true</cite>, returns default cluster
 settings from the local node. Default is false.</p></li>
 <li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
-use <cite>cluster_manager_timeout</cite> instead.): Period to wait for a connection
-to the cluster-manager node. If no response is received before the
-timeout expires, the request fails and returns an error.</p></li>
+use <cite>cluster_manager_timeout</cite> instead.): A duration. Units can be
+<cite>nanos</cite>, <cite>micros</cite>, <cite>ms</cite> (milliseconds), <cite>s</cite> (seconds), <cite>m</cite> (minutes),
+<cite>h</cite> (hours) and <cite>d</cite> (days). Also accepts <cite>0</cite> without a unit and <cite>-1</cite> to
+indicate an unspecified value.</p></li>
 <li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
-<li><p><strong>timeout</strong> – Period to wait for a response. If no response is
-received before the timeout expires, the request fails and returns an
-error.</p></li>
+<li><p><strong>timeout</strong> – A duration. Units can be <cite>nanos</cite>, <cite>micros</cite>, <cite>ms</cite>
+(milliseconds), <cite>s</cite> (seconds), <cite>m</cite> (minutes), <cite>h</cite> (hours) and <cite>d</cite>
+(days). Also accepts <cite>0</cite> without a unit and <cite>-1</cite> to indicate an
+unspecified value.</p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – </p></li>
 <li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – </p></li>
 </ul>
@@ -452,12 +480,12 @@ error.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.client.cluster.ClusterClient.get_weighted_routing">
-<span class="sig-name descname"><span class="pre">get_weighted_routing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">attribute</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cluster.html#ClusterClient.get_weighted_routing"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cluster.ClusterClient.get_weighted_routing" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_weighted_routing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attribute</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cluster.html#ClusterClient.get_weighted_routing"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cluster.ClusterClient.get_weighted_routing" title="Permalink to this definition"></a></dt>
 <dd><p>Fetches weighted shard routing weights.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>attribute</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Awareness attribute name.</p></li>
+<li><p><strong>attribute</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The name of the awareness attribute.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
 <li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
@@ -483,69 +511,65 @@ libraries that do not accept a request body for non-POST requests.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.client.cluster.ClusterClient.health">
-<span class="sig-name descname"><span class="pre">health</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cluster.html#ClusterClient.health"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cluster.ClusterClient.health" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">health</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cluster.html#ClusterClient.health"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cluster.ClusterClient.health" title="Permalink to this definition"></a></dt>
 <dd><p>Returns basic information about the health of the cluster.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Comma-separated list of data streams, indexes, and
-index aliases used to limit the request. Wildcard expressions (*) are
-supported. To target all data streams and indexes in a cluster, omit
-this parameter or use <cite>_all</cite> or <cite>*</cite>.</p></li>
-<li><p><strong>awareness_attribute</strong> – The awareness attribute for which the
-health is required.</p></li>
-<li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
-to cluster-manager node.</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – A comma-separated list of data streams, indexes, and
+aliases used to limit the request. Supports wildcards (<cite>*</cite>). To target
+all data streams and indexes, omit this parameter or use <cite>*</cite> or <cite>_all</cite>.</p></li>
+<li><p><strong>awareness_attribute</strong> – The name of the awareness attribute
+for which to return the cluster health status (for example, <cite>zone</cite>).
+Applicable only if <cite>level</cite> is set to <cite>awareness_attributes</cite>.</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – The amount of time to wait for a
+response from the cluster manager node. For more information about
+supported time units, see [Common
+parameters](<a class="reference external" href="https://opensearch.org/docs/latest/api-reference/common">https://opensearch.org/docs/latest/api-reference/common</a>-
+parameters/#time-units).</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
-<li><p><strong>expand_wildcards</strong> – Whether to expand wildcard expression to
-concrete indexes that are open, closed or both.</p></li>
+<li><p><strong>expand_wildcards</strong> – Specifies the type of index that wildcard
+expressions can match. Supports comma-separated values. Valid choices
+are all, closed, hidden, none, open.</p></li>
 <li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
 takes a comma-separated list of filters. It supports using wildcards to
 match any field or part of a field’s name. You can also exclude fields
 with “-“.</p></li>
 <li><p><strong>human</strong> – Whether to return human readable values for
 statistics. Default is True.</p></li>
-<li><p><strong>level</strong> – Can be one of cluster, indexes or shards. Controls
-the details level of the health information returned. Valid choices are
-awareness_attributes, cluster, indices, shards.</p></li>
-<li><p><strong>local</strong> – If <cite>true</cite>, the request retrieves information from
-the local node only. Defaults to false, which means information is
-retrieved from the cluster-manager node. Default is false.</p></li>
+<li><p><strong>level</strong> – Controls the amount of detail included in the
+cluster health response. Valid choices are awareness_attributes,
+cluster, indices, shards.</p></li>
+<li><p><strong>local</strong> – Whether to return information from the local node
+only instead of from the cluster manager node. Default is false.</p></li>
 <li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
-use <cite>cluster_manager_timeout</cite> instead.): Period to wait for a connection
-to the cluster-manager node. If no response is received before the
-timeout expires, the request fails and returns an error.</p></li>
+use <cite>cluster_manager_timeout</cite> instead.): A duration. Units can be
+<cite>nanos</cite>, <cite>micros</cite>, <cite>ms</cite> (milliseconds), <cite>s</cite> (seconds), <cite>m</cite> (minutes),
+<cite>h</cite> (hours) and <cite>d</cite> (days). Also accepts <cite>0</cite> without a unit and <cite>-1</cite> to
+indicate an unspecified value.</p></li>
 <li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
-<li><p><strong>timeout</strong> – Period to wait for a response. If no response is
-received before the timeout expires, the request fails and returns an
-error.</p></li>
-<li><p><strong>wait_for_active_shards</strong> – A number controlling to how many
-active shards to wait for, all to wait for all shards in the cluster to
-be active, or 0 to not wait. Valid choices are all, index-setting.</p></li>
-<li><p><strong>wait_for_events</strong> – Can be one of immediate, urgent, high,
-normal, low, languid. Wait until all currently queued events with the
-given priority are processed. Valid choices are high, immediate,
-languid, low, normal, urgent.</p></li>
-<li><p><strong>wait_for_no_initializing_shards</strong> – A Boolean value which
-controls whether to wait (until the timeout provided) for the cluster to
-have no shard initializations. Defaults to false, which means it will
-not wait for initializing shards.</p></li>
-<li><p><strong>wait_for_no_relocating_shards</strong> – A Boolean value which
-controls whether to wait (until the timeout provided) for the cluster to
-have no shard relocations. Defaults to false, which means it will not
-wait for relocating shards.</p></li>
-<li><p><strong>wait_for_nodes</strong> – The request waits until the specified
-number N of nodes is available. It also accepts &gt;=N, &lt;=N, &gt;N and &lt;N.
-Alternatively, it is possible to use ge(N), le(N), gt(N) and lt(N)
-notation.</p></li>
-<li><p><strong>wait_for_status</strong> – One of green, yellow or red. Will wait
-(until the timeout provided) until the status of the cluster changes to
-the one provided or better, i.e. green &gt; yellow &gt; red. By default, will
-not wait for any status. Valid choices are green, red, yellow.</p></li>
+<li><p><strong>timeout</strong> – The amount of time to wait for a response from the
+cluster manager node. For more information about supported time units,
+see [Common parameters](<a class="reference external" href="https://opensearch.org/docs/latest/api">https://opensearch.org/docs/latest/api</a>-
+reference/common-parameters/#time-units).</p></li>
+<li><p><strong>wait_for_active_shards</strong> – Waits until the specified number of
+shards is active before returning a response. Use <cite>all</cite> for all shards.</p></li>
+<li><p><strong>wait_for_events</strong> – Waits until all currently queued events
+with the given priority are processed. Valid choices are immediate,
+urgent, high, normal, low, languid.</p></li>
+<li><p><strong>wait_for_no_initializing_shards</strong> – Whether to wait until
+there are no initializing shards in the cluster. Default is false.</p></li>
+<li><p><strong>wait_for_no_relocating_shards</strong> – Whether to wait until there
+are no relocating shards in the cluster. Default is false.</p></li>
+<li><p><strong>wait_for_nodes</strong> – Waits until the specified number of nodes
+(<cite>N</cite>) is available. Accepts <cite>&gt;=N</cite>, <cite>&lt;=N</cite>, <cite>&gt;N</cite>, and <cite>&lt;N</cite>. You can also
+use <cite>ge(N)</cite>, <cite>le(N)</cite>, <cite>gt(N)</cite>, and <cite>lt(N)</cite> notation.</p></li>
+<li><p><strong>wait_for_status</strong> – Waits until the cluster health reaches the
+specified status or better. Valid choices are green, yellow, red.</p></li>
 <li><p><strong>index</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – </p></li>
 <li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – </p></li>
@@ -559,14 +583,17 @@ not wait for any status. Valid choices are green, red, yellow.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.client.cluster.ClusterClient.pending_tasks">
-<span class="sig-name descname"><span class="pre">pending_tasks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cluster.html#ClusterClient.pending_tasks"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cluster.ClusterClient.pending_tasks" title="Permalink to this definition"></a></dt>
-<dd><p>Returns a list of any cluster-level changes (e.g. create index, update mapping,
-allocate or fail shard) which have not yet been executed.</p>
+<span class="sig-name descname"><span class="pre">pending_tasks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cluster.html#ClusterClient.pending_tasks"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cluster.ClusterClient.pending_tasks" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a list of pending cluster-level tasks, such as index creation, mapping
+updates, or new allocations.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
-to cluster-manager node.</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – The amount of time to wait for a
+response from the cluster manager node. For more information about
+supported time units, see [Common
+parameters](<a class="reference external" href="https://opensearch.org/docs/latest/api-reference/common">https://opensearch.org/docs/latest/api-reference/common</a>-
+parameters/#time-units).</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
 <li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
@@ -575,13 +602,14 @@ match any field or part of a field’s name. You can also exclude fields
 with “-“.</p></li>
 <li><p><strong>human</strong> – Whether to return human readable values for
 statistics. Default is True.</p></li>
-<li><p><strong>local</strong> – If <cite>true</cite>, the request retrieves information from
-the local node only. If <cite>false</cite>, information is retrieved from the
-cluster-manager node. Default is false.</p></li>
+<li><p><strong>local</strong> – When <cite>true</cite>, the request retrieves information from
+the local node only. When <cite>false</cite>, information is retrieved from the
+cluster manager node. Default is false.</p></li>
 <li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
-use <cite>cluster_manager_timeout</cite> instead.): Period to wait for a connection
-to the cluster-manager node. If no response is received before the
-timeout expires, the request fails and returns an error.</p></li>
+use <cite>cluster_manager_timeout</cite> instead.): A duration. Units can be
+<cite>nanos</cite>, <cite>micros</cite>, <cite>ms</cite> (milliseconds), <cite>s</cite> (seconds), <cite>m</cite> (minutes),
+<cite>h</cite> (hours) and <cite>d</cite> (days). Also accepts <cite>0</cite> without a unit and <cite>-1</cite> to
+indicate an unspecified value.</p></li>
 <li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
@@ -598,8 +626,9 @@ libraries that do not accept a request body for non-POST requests.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.client.cluster.ClusterClient.post_voting_config_exclusions">
-<span class="sig-name descname"><span class="pre">post_voting_config_exclusions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cluster.html#ClusterClient.post_voting_config_exclusions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cluster.ClusterClient.post_voting_config_exclusions" title="Permalink to this definition"></a></dt>
-<dd><p>Updates the cluster voting config exclusions by node ids or node names.</p>
+<span class="sig-name descname"><span class="pre">post_voting_config_exclusions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cluster.html#ClusterClient.post_voting_config_exclusions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cluster.ClusterClient.post_voting_config_exclusions" title="Permalink to this definition"></a></dt>
+<dd><p>Updates the cluster voting configuration by excluding certain node IDs or
+names.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -611,20 +640,22 @@ match any field or part of a field’s name. You can also exclude fields
 with “-“.</p></li>
 <li><p><strong>human</strong> – Whether to return human readable values for
 statistics. Default is True.</p></li>
-<li><p><strong>node_ids</strong> – A comma-separated list of the persistent ids of
-the nodes to exclude from the voting configuration. If specified, you
-may not also specify <cite>node_names</cite>.</p></li>
-<li><p><strong>node_names</strong> – A comma-separated list of the names of the
-nodes to exclude from the voting configuration. If specified, you may
-not also specify <cite>node_ids</cite>.</p></li>
+<li><p><strong>node_ids</strong> – A comma-separated list of node IDs to exclude
+from the voting configuration. When using this setting, you cannot also
+specify <cite>node_names</cite>. Either <cite>node_ids</cite> or <cite>node_names</cite> are required to
+receive a valid response.</p></li>
+<li><p><strong>node_names</strong> – A comma-separated list of node names to exclude
+from the voting configuration. When using this setting, you cannot also
+specify <cite>node_ids</cite>. Either <cite>node_ids</cite> or <cite>node_names</cite> are required to
+receive a valid response.</p></li>
 <li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
 <li><p><strong>timeout</strong> – When adding a voting configuration exclusion, the
 API waits for the specified nodes to be excluded from the voting
-configuration before returning. If the timeout expires before the
-appropriate condition is satisfied, the request fails and returns an
+configuration before returning a response. If the timeout expires before
+the appropriate condition is satisfied, the request fails and returns an
 error.</p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – </p></li>
 <li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – </p></li>
@@ -638,25 +669,29 @@ error.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.client.cluster.ClusterClient.put_component_template">
-<span class="sig-name descname"><span class="pre">put_component_template</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">body</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cluster.html#ClusterClient.put_component_template"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cluster.ClusterClient.put_component_template" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">put_component_template</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">body</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cluster.html#ClusterClient.put_component_template"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cluster.ClusterClient.put_component_template" title="Permalink to this definition"></a></dt>
 <dd><p>Creates or updates a component template.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Name of the component template to create. OpenSearch
-includes the following built-in component templates: <cite>logs-mappings</cite>;
-‘logs-settings`; <cite>metrics-mappings</cite>; <cite>metrics-settings</cite>;`synthetics-
-mapping`; <cite>synthetics-settings</cite>. OpenSearch Agent uses these templates
-to configure backing indexes for its data streams. If you use OpenSearch
-Agent and want to overwrite one of these templates, set the <cite>version</cite>
-for your replacement template higher than the current version. If you
-don’t use OpenSearch Agent and want to disable all built-in component
-and index templates, set <cite>stack.templates.enabled</cite> to <cite>false</cite> using the
-cluster update settings API.</p></li>
-<li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The template definition</p></li>
-<li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
-to cluster-manager node.</p></li>
-<li><p><strong>create</strong> – If <cite>true</cite>, this request cannot replace or update
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The name of the component template to create.
+OpenSearch includes the following built-in component templates: <cite>logs-
+mappings</cite>, <cite>logs-settings</cite>, <cite>metrics-mappings</cite>, <cite>metrics-settings</cite>,
+<cite>synthetics-mapping</cite>, and <cite>synthetics-settings</cite>. OpenSearch uses these
+templates to configure backing indexes for its data streams. If you want
+to overwrite one of these templates, set the replacement template
+<cite>version</cite> to a higher value than the current version. If you want to
+disable all built-in component and index templates, set
+<cite>stack.templates.enabled</cite> to <cite>false</cite> using the [Cluster Update Settings
+API](<a class="reference external" href="https://opensearch.org/docs/latest/api-reference/cluster">https://opensearch.org/docs/latest/api-reference/cluster</a>-
+api/cluster-settings/).</p></li>
+<li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The template definition.</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – The amount of time to wait for a
+response from the cluster manager node. For more information about
+supported time units, see [Common
+parameters](<a class="reference external" href="https://opensearch.org/docs/latest/api-reference/common">https://opensearch.org/docs/latest/api-reference/common</a>-
+parameters/#time-units).</p></li>
+<li><p><strong>create</strong> – When <cite>true</cite>, this request cannot replace or update
 existing component templates. Default is false.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
@@ -667,14 +702,18 @@ with “-“.</p></li>
 <li><p><strong>human</strong> – Whether to return human readable values for
 statistics. Default is True.</p></li>
 <li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
-use <cite>cluster_manager_timeout</cite> instead.): Period to wait for a connection
-to the cluster-manager node. If no response is received before the
-timeout expires, the request fails and returns an error.</p></li>
+use <cite>cluster_manager_timeout</cite> instead.): A duration. Units can be
+<cite>nanos</cite>, <cite>micros</cite>, <cite>ms</cite> (milliseconds), <cite>s</cite> (seconds), <cite>m</cite> (minutes),
+<cite>h</cite> (hours) and <cite>d</cite> (days). Also accepts <cite>0</cite> without a unit and <cite>-1</cite> to
+indicate an unspecified value.</p></li>
 <li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
-<li><p><strong>timeout</strong> – Operation timeout.</p></li>
+<li><p><strong>timeout</strong> – A duration. Units can be <cite>nanos</cite>, <cite>micros</cite>, <cite>ms</cite>
+(milliseconds), <cite>s</cite> (seconds), <cite>m</cite> (minutes), <cite>h</cite> (hours) and <cite>d</cite>
+(days). Also accepts <cite>0</cite> without a unit and <cite>-1</cite> to indicate an
+unspecified value.</p></li>
 <li><p><strong>name</strong> – </p></li>
 <li><p><strong>body</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – </p></li>
@@ -689,13 +728,20 @@ libraries that do not accept a request body for non-POST requests.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.client.cluster.ClusterClient.put_decommission_awareness">
-<span class="sig-name descname"><span class="pre">put_decommission_awareness</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">awareness_attribute_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">awareness_attribute_value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cluster.html#ClusterClient.put_decommission_awareness"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cluster.ClusterClient.put_decommission_awareness" title="Permalink to this definition"></a></dt>
-<dd><p>Decommissions an awareness attribute.</p>
+<span class="sig-name descname"><span class="pre">put_decommission_awareness</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">awareness_attribute_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">awareness_attribute_value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cluster.html#ClusterClient.put_decommission_awareness"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cluster.ClusterClient.put_decommission_awareness" title="Permalink to this definition"></a></dt>
+<dd><p>Decommissions a cluster zone based on awareness. This can greatly benefit
+multi-zone deployments, where awareness attributes can aid in applying new
+upgrades to a cluster in a controlled fashion.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>awareness_attribute_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Awareness attribute name.</p></li>
-<li><p><strong>awareness_attribute_value</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Awareness attribute value.</p></li>
+<li><p><strong>awareness_attribute_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The name of the awareness
+attribute.</p></li>
+<li><p><strong>awareness_attribute_value</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The value of the awareness
+attribute. For example, if you have shards allocated in two different
+zones, you can give each zone a value of <cite>zone-a</cite> or <cite>zoneb</cite>. The
+cluster decommission operation decommissions the zone listed in the
+method.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
 <li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
@@ -722,33 +768,42 @@ libraries that do not accept a request body for non-POST requests.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.client.cluster.ClusterClient.put_settings">
-<span class="sig-name descname"><span class="pre">put_settings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">body</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cluster.html#ClusterClient.put_settings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cluster.ClusterClient.put_settings" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">put_settings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">body</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cluster.html#ClusterClient.put_settings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cluster.ClusterClient.put_settings" title="Permalink to this definition"></a></dt>
 <dd><p>Updates the cluster settings.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The settings to be updated. Can be either <cite>transient</cite>
-or <cite>persistent</cite> (survives cluster restart).</p></li>
-<li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
-to cluster-manager node.</p></li>
+<li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The cluster settings to update.</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – The amount of time to wait for a
+response from the cluster manager node. For more information about
+supported time units, see [Common
+parameters](<a class="reference external" href="https://opensearch.org/docs/latest/api-reference/common">https://opensearch.org/docs/latest/api-reference/common</a>-
+parameters/#time-units).</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
 <li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
 takes a comma-separated list of filters. It supports using wildcards to
 match any field or part of a field’s name. You can also exclude fields
 with “-“.</p></li>
-<li><p><strong>flat_settings</strong> – Return settings in flat format. Default is
-false.</p></li>
+<li><p><strong>flat_settings</strong> – Whether to return settings in the flat form,
+which can improve readability, especially for heavily nested settings.
+For example, the flat form of <cite>“cluster”: { “max_shards_per_node”: 500
+}</cite> is <cite>“cluster.max_shards_per_node”: “500”</cite>. Default is false.</p></li>
 <li><p><strong>human</strong> – Whether to return human readable values for
 statistics. Default is True.</p></li>
 <li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
-use <cite>cluster_manager_timeout</cite> instead.): Explicit operation timeout for
-connection to cluster-manager node</p></li>
+use <cite>cluster_manager_timeout</cite> instead.): A duration. Units can be
+<cite>nanos</cite>, <cite>micros</cite>, <cite>ms</cite> (milliseconds), <cite>s</cite> (seconds), <cite>m</cite> (minutes),
+<cite>h</cite> (hours) and <cite>d</cite> (days). Also accepts <cite>0</cite> without a unit and <cite>-1</cite> to
+indicate an unspecified value.</p></li>
 <li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
-<li><p><strong>timeout</strong> – Explicit operation timeout</p></li>
+<li><p><strong>timeout</strong> – A duration. Units can be <cite>nanos</cite>, <cite>micros</cite>, <cite>ms</cite>
+(milliseconds), <cite>s</cite> (seconds), <cite>m</cite> (minutes), <cite>h</cite> (hours) and <cite>d</cite>
+(days). Also accepts <cite>0</cite> without a unit and <cite>-1</cite> to indicate an
+unspecified value.</p></li>
 <li><p><strong>body</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – </p></li>
 <li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – </p></li>
@@ -762,12 +817,12 @@ libraries that do not accept a request body for non-POST requests.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.client.cluster.ClusterClient.put_weighted_routing">
-<span class="sig-name descname"><span class="pre">put_weighted_routing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">attribute</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">body</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cluster.html#ClusterClient.put_weighted_routing"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cluster.ClusterClient.put_weighted_routing" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">put_weighted_routing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attribute</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">body</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cluster.html#ClusterClient.put_weighted_routing"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cluster.ClusterClient.put_weighted_routing" title="Permalink to this definition"></a></dt>
 <dd><p>Updates weighted shard routing weights.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>attribute</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Awareness attribute name.</p></li>
+<li><p><strong>attribute</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The name of awareness attribute, usually <cite>zone</cite>.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
 <li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
@@ -794,7 +849,7 @@ libraries that do not accept a request body for non-POST requests.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.client.cluster.ClusterClient.remote_info">
-<span class="sig-name descname"><span class="pre">remote_info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cluster.html#ClusterClient.remote_info"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cluster.ClusterClient.remote_info" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">remote_info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cluster.html#ClusterClient.remote_info"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cluster.ClusterClient.remote_info" title="Permalink to this definition"></a></dt>
 <dd><p>Returns the information about configured remote clusters.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -823,21 +878,24 @@ libraries that do not accept a request body for non-POST requests.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.client.cluster.ClusterClient.reroute">
-<span class="sig-name descname"><span class="pre">reroute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">body</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cluster.html#ClusterClient.reroute"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cluster.ClusterClient.reroute" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">reroute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">body</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cluster.html#ClusterClient.reroute"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cluster.ClusterClient.reroute" title="Permalink to this definition"></a></dt>
 <dd><p>Allows to manually change the allocation of individual shards in the cluster.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The definition of <cite>commands</cite> to perform (<cite>move</cite>,
 <cite>cancel</cite>, <cite>allocate</cite>)</p></li>
-<li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
-to cluster-manager node.</p></li>
-<li><p><strong>dry_run</strong> – If <cite>true</cite>, then the request simulates the
-operation only and returns the resulting state.</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – The amount of time to wait for a
+response from the cluster manager node. For more information about
+supported time units, see [Common
+parameters](<a class="reference external" href="https://opensearch.org/docs/latest/api-reference/common">https://opensearch.org/docs/latest/api-reference/common</a>-
+parameters/#time-units).</p></li>
+<li><p><strong>dry_run</strong> – When <cite>true</cite>, the request simulates the operation
+and returns the resulting state.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
-<li><p><strong>explain</strong> – If <cite>true</cite>, then the response contains an
-explanation of why the commands can or cannot be executed.</p></li>
+<li><p><strong>explain</strong> – When <cite>true</cite>, the response contains an explanation
+of why reroute certain commands can or cannot be executed.</p></li>
 <li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
 takes a comma-separated list of filters. It supports using wildcards to
 match any field or part of a field’s name. You can also exclude fields
@@ -845,20 +903,22 @@ with “-“.</p></li>
 <li><p><strong>human</strong> – Whether to return human readable values for
 statistics. Default is True.</p></li>
 <li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
-use <cite>cluster_manager_timeout</cite> instead.): Period to wait for a connection
-to the cluster-manager node. If no response is received before the
-timeout expires, the request fails and returns an error.</p></li>
+use <cite>cluster_manager_timeout</cite> instead.): A duration. Units can be
+<cite>nanos</cite>, <cite>micros</cite>, <cite>ms</cite> (milliseconds), <cite>s</cite> (seconds), <cite>m</cite> (minutes),
+<cite>h</cite> (hours) and <cite>d</cite> (days). Also accepts <cite>0</cite> without a unit and <cite>-1</cite> to
+indicate an unspecified value.</p></li>
 <li><p><strong>metric</strong> – Limits the information returned to the specified
 metrics.</p></li>
 <li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
 response. Default is false.</p></li>
-<li><p><strong>retry_failed</strong> – If <cite>true</cite>, then retries allocation of shards
-that are blocked due to too many subsequent allocation failures.</p></li>
+<li><p><strong>retry_failed</strong> – When <cite>true</cite>, retries shard allocation if it
+was blocked because of too many subsequent failures.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
-<li><p><strong>timeout</strong> – Period to wait for a response. If no response is
-received before the timeout expires, the request fails and returns an
-error.</p></li>
+<li><p><strong>timeout</strong> – A duration. Units can be <cite>nanos</cite>, <cite>micros</cite>, <cite>ms</cite>
+(milliseconds), <cite>s</cite> (seconds), <cite>m</cite> (minutes), <cite>h</cite> (hours) and <cite>d</cite>
+(days). Also accepts <cite>0</cite> without a unit and <cite>-1</cite> to indicate an
+unspecified value.</p></li>
 <li><p><strong>body</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – </p></li>
 <li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – </p></li>
@@ -872,39 +932,49 @@ error.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.client.cluster.ClusterClient.state">
-<span class="sig-name descname"><span class="pre">state</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">metric</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cluster.html#ClusterClient.state"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cluster.ClusterClient.state" title="Permalink to this definition"></a></dt>
-<dd><p>Returns a comprehensive information about the state of the cluster.</p>
+<span class="sig-name descname"><span class="pre">state</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cluster.html#ClusterClient.state"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cluster.ClusterClient.state" title="Permalink to this definition"></a></dt>
+<dd><p>Returns comprehensive information about the state of the cluster.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>metric</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Limit the information returned to the specified
-metrics</p></li>
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – A comma-separated list of index names; use <cite>_all</cite> or
-empty string to perform the operation on all indexes</p></li>
-<li><p><strong>allow_no_indices</strong> – Whether to ignore if a wildcard indexes
-expression resolves into no concrete indexes. (This includes <cite>_all</cite>
-string or when no indexes have been specified)</p></li>
-<li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
-to cluster-manager node.</p></li>
+<li><p><strong>metric</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Limits the information returned to only the
+[specified metric groups](<a class="reference external" href="https://opensearch.org/docs/latest/api">https://opensearch.org/docs/latest/api</a>-
+reference/cluster-api/cluster-stats/#metric-groups).</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – A comma-separated list of data streams, indexes, and
+aliases used to limit the request. Supports wildcards (<cite>*</cite>). To target
+all data streams and indexes, omit this parameter or use <cite>*</cite> or <cite>_all</cite>.</p></li>
+<li><p><strong>allow_no_indices</strong> – Whether to ignore a wildcard index
+expression that resolves into no concrete indexes. This includes the
+<cite>_all</cite> string or when no indexes have been specified.</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – The amount of time to wait for a
+response from the cluster manager node. For more information about
+supported time units, see [Common
+parameters](<a class="reference external" href="https://opensearch.org/docs/latest/api-reference/common">https://opensearch.org/docs/latest/api-reference/common</a>-
+parameters/#time-units).</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
-<li><p><strong>expand_wildcards</strong> – Whether to expand wildcard expression to
-concrete indexes that are open, closed or both.</p></li>
+<li><p><strong>expand_wildcards</strong> – Specifies the type of index that wildcard
+expressions can match. Supports comma-separated values. Valid choices
+are all, closed, hidden, none, open.</p></li>
 <li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
 takes a comma-separated list of filters. It supports using wildcards to
 match any field or part of a field’s name. You can also exclude fields
 with “-“.</p></li>
-<li><p><strong>flat_settings</strong> – Return settings in flat format. Default is
-false.</p></li>
+<li><p><strong>flat_settings</strong> – Whether to return settings in the flat form,
+which can improve readability, especially for heavily nested settings.
+For example, the flat form of <cite>“cluster”: { “max_shards_per_node”: 500
+}</cite> is <cite>“cluster.max_shards_per_node”: “500”</cite>. Default is false.</p></li>
 <li><p><strong>human</strong> – Whether to return human readable values for
 statistics. Default is True.</p></li>
-<li><p><strong>ignore_unavailable</strong> – Whether specified concrete indexes
-should be ignored when unavailable (missing or closed)</p></li>
-<li><p><strong>local</strong> – Return local information, do not retrieve the state
-from cluster-manager node. Default is false.</p></li>
+<li><p><strong>ignore_unavailable</strong> – Whether the specified concrete indexes
+should be ignored when unavailable (missing or closed).</p></li>
+<li><p><strong>local</strong> – Whether to return information from the local node
+only instead of from the cluster manager node. Default is false.</p></li>
 <li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
-use <cite>cluster_manager_timeout</cite> instead.): Specify timeout for connection
-to cluster manager.</p></li>
+use <cite>cluster_manager_timeout</cite> instead.): A duration. Units can be
+<cite>nanos</cite>, <cite>micros</cite>, <cite>ms</cite> (milliseconds), <cite>s</cite> (seconds), <cite>m</cite> (minutes),
+<cite>h</cite> (hours) and <cite>d</cite> (days). Also accepts <cite>0</cite> without a unit and <cite>-1</cite> to
+indicate an unspecified value.</p></li>
 <li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
@@ -927,36 +997,40 @@ be equal or greater than the specified metadata version.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.client.cluster.ClusterClient.stats">
-<span class="sig-name descname"><span class="pre">stats</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index_metric</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cluster.html#ClusterClient.stats"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cluster.ClusterClient.stats" title="Permalink to this definition"></a></dt>
-<dd><p>Returns high-level overview of cluster statistics.</p>
+<span class="sig-name descname"><span class="pre">stats</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">node_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index_metric</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cluster.html#ClusterClient.stats"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cluster.ClusterClient.stats" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a high-level overview of cluster statistics.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>metric</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Limit the information returned to the specified
 metrics.</p></li>
-<li><p><strong>index_metric</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Limit the information returned for indexes
-metric to the specific index metrics. It can be used only if indexes (or
-all) metric is specified.</p></li>
-<li><p><strong>node_id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Comma-separated list of node filters used to limit
-returned information. Defaults to all nodes in the cluster.</p></li>
+<li><p><strong>index_metric</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – A comma-separated list of [index metric
+groups](<a class="reference external" href="https://opensearch.org/docs/latest/api-reference/cluster">https://opensearch.org/docs/latest/api-reference/cluster</a>-
+api/cluster-stats/#index-metric-groups), for example, <cite>docs,store</cite>.</p></li>
+<li><p><strong>node_id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – A comma-separated list of node IDs used to filter
+results. Supports [node filters](<a class="reference external" href="https://opensearch.org/docs/latest/api">https://opensearch.org/docs/latest/api</a>-
+reference/nodes-apis/index/#node-filters).</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
 <li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
 takes a comma-separated list of filters. It supports using wildcards to
 match any field or part of a field’s name. You can also exclude fields
 with “-“.</p></li>
-<li><p><strong>flat_settings</strong> – If <cite>true</cite>, returns settings in flat format.
-Default is false.</p></li>
+<li><p><strong>flat_settings</strong> – Whether to return settings in the flat form,
+which can improve readability, especially for heavily nested settings.
+For example, the flat form of <cite>“cluster”: { “max_shards_per_node”: 500
+}</cite> is <cite>“cluster.max_shards_per_node”: “500”</cite>. Default is false.</p></li>
 <li><p><strong>human</strong> – Whether to return human readable values for
 statistics. Default is True.</p></li>
 <li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
-<li><p><strong>timeout</strong> – Period to wait for each node to respond. If a node
-does not respond before its timeout expires, the response does not
-include its stats. However, timed out nodes are included in the
-response’s <cite>_nodes.failed</cite> property. Defaults to no timeout.</p></li>
+<li><p><strong>timeout</strong> – The amount of time to wait for each node to
+respond. If a node does not respond before its timeout expires, the
+response does not include its stats. However, timed out nodes are
+included in the response’s <cite>_nodes.failed</cite> property. Defaults to no
+timeout.</p></li>
 <li><p><strong>node_id</strong> – </p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – </p></li>
 <li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – </p></li>

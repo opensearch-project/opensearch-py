@@ -358,7 +358,7 @@
                 <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">docs</span>
             <span class="p">]</span>
         <span class="p">}</span>
-        <span class="n">results</span> <span class="o">=</span> <span class="n">opensearch</span><span class="o">.</span><span class="n">mget</span><span class="p">(</span><span class="n">body</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="bp">cls</span><span class="o">.</span><span class="n">_default_index</span><span class="p">(</span><span class="n">index</span><span class="p">),</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="n">opensearch</span><span class="o">.</span><span class="n">mget</span><span class="p">(</span><span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="bp">cls</span><span class="o">.</span><span class="n">_default_index</span><span class="p">(</span><span class="n">index</span><span class="p">),</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
         <span class="n">objs</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">error_docs</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="p">[]</span>

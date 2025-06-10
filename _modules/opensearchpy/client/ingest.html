@@ -133,19 +133,20 @@
     <span class="p">)</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_pipeline</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
         <span class="nb">id</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Returns a pipeline.</span>
+<span class="sd">        Returns an ingest pipeline.</span>
 
 
-<span class="sd">        :arg id: Comma-separated list of pipeline IDs to retrieve.</span>
+<span class="sd">        :arg id: A comma-separated list of pipeline IDs to retrieve.</span>
 <span class="sd">            Wildcard (`*`) expressions are supported. To get all ingest pipelines,</span>
 <span class="sd">            omit this parameter or use `*`.</span>
-<span class="sd">        :arg cluster_manager_timeout: Operation timeout for connection</span>
-<span class="sd">            to cluster-manager node.</span>
+<span class="sd">        :arg cluster_manager_timeout: The amount of time allowed to</span>
+<span class="sd">            establish a connection to the cluster manager node.</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
 <span class="sd">            errors. Default is false.</span>
 <span class="sd">        :arg filter_path: Used to reduce the response. This parameter</span>
@@ -179,19 +180,20 @@
     <span class="p">)</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">put_pipeline</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
         <span class="nb">id</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">body</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Creates or updates a pipeline.</span>
+<span class="sd">        Creates or updates an ingest pipeline.</span>
 
 
-<span class="sd">        :arg id: ID of the ingest pipeline to create or update.</span>
-<span class="sd">        :arg body: The ingest definition</span>
-<span class="sd">        :arg cluster_manager_timeout: Operation timeout for connection</span>
-<span class="sd">            to cluster-manager node.</span>
+<span class="sd">        :arg id: The ID of the ingest pipeline.</span>
+<span class="sd">        :arg body: The ingest definition.</span>
+<span class="sd">        :arg cluster_manager_timeout: The amount of time allowed to</span>
+<span class="sd">            establish a connection to the cluster manager node.</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
 <span class="sd">            errors. Default is false.</span>
 <span class="sd">        :arg filter_path: Used to reduce the response. This parameter</span>
@@ -208,9 +210,7 @@
 <span class="sd">            response. Default is false.</span>
 <span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
 <span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
-<span class="sd">        :arg timeout: Period to wait for a response. If no response is</span>
-<span class="sd">            received before the timeout expires, the request fails and returns an</span>
-<span class="sd">            error.</span>
+<span class="sd">        :arg timeout: The amount of time to wait for a response.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="p">(</span><span class="nb">id</span><span class="p">,</span> <span class="n">body</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
@@ -236,19 +236,20 @@
     <span class="p">)</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">delete_pipeline</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
         <span class="nb">id</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Deletes a pipeline.</span>
+<span class="sd">        Deletes an ingest pipeline.</span>
 
 
-<span class="sd">        :arg id: Pipeline ID or wildcard expression of pipeline IDs used</span>
-<span class="sd">            to limit the request. To delete all ingest pipelines in a cluster, use a</span>
-<span class="sd">            value of `*`.</span>
-<span class="sd">        :arg cluster_manager_timeout: Operation timeout for connection</span>
-<span class="sd">            to cluster-manager node.</span>
+<span class="sd">        :arg id: The pipeline ID or wildcard expression of pipeline IDs</span>
+<span class="sd">            used to limit the request. To delete all ingest pipelines in a cluster,</span>
+<span class="sd">            use a value of `*`.</span>
+<span class="sd">        :arg cluster_manager_timeout: The amount of time allowed to</span>
+<span class="sd">            establish a connection to the cluster manager node.</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
 <span class="sd">            errors. Default is false.</span>
 <span class="sd">        :arg filter_path: Used to reduce the response. This parameter</span>
@@ -265,9 +266,7 @@
 <span class="sd">            response. Default is false.</span>
 <span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
 <span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
-<span class="sd">        :arg timeout: Period to wait for a response. If no response is</span>
-<span class="sd">            received before the timeout expires, the request fails and returns an</span>
-<span class="sd">            error.</span>
+<span class="sd">        :arg timeout: The amount of time to wait for a response.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">id</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Empty value passed for a required argument &#39;id&#39;.&quot;</span><span class="p">)</span>
@@ -282,18 +281,19 @@
 <div class="viewcode-block" id="IngestClient.simulate"><a class="viewcode-back" href="../../../api-ref/clients/ingest_client.html#opensearchpy.client.ingest.IngestClient.simulate">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">,</span> <span class="s2">&quot;verbose&quot;</span><span class="p">)</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">simulate</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
         <span class="n">body</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="nb">id</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Allows to simulate a pipeline with example documents.</span>
+<span class="sd">        Simulates an ingest pipeline with example documents.</span>
 
 
 <span class="sd">        :arg body: The simulate definition</span>
-<span class="sd">        :arg id: Pipeline to test. If you don&#39;t specify a `pipeline` in</span>
-<span class="sd">            the request body, this parameter is required.</span>
+<span class="sd">        :arg id: The pipeline to test. If you don&#39;t specify a `pipeline`</span>
+<span class="sd">            in the request body, this parameter is required.</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
 <span class="sd">            errors. Default is false.</span>
 <span class="sd">        :arg filter_path: Used to reduce the response. This parameter</span>
@@ -306,8 +306,8 @@
 <span class="sd">            response. Default is false.</span>
 <span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
 <span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
-<span class="sd">        :arg verbose: If `true`, the response includes output data for</span>
-<span class="sd">            each processor in the executed pipeline. Default is false.</span>
+<span class="sd">        :arg verbose: When `true`, the response includes output data for</span>
+<span class="sd">            each processor in the pipeline Default is false.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">body</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Empty value passed for a required argument &#39;body&#39;.&quot;</span><span class="p">)</span>
@@ -323,11 +323,12 @@
 <div class="viewcode-block" id="IngestClient.processor_grok"><a class="viewcode-back" href="../../../api-ref/clients/ingest_client.html#opensearchpy.client.ingest.IngestClient.processor_grok">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;s&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">processor_grok</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Returns a list of the built-in patterns.</span>
+<span class="sd">        Returns a list of built-in grok patterns.</span>
 
 
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
@@ -340,7 +341,8 @@
 <span class="sd">            statistics. Default is True.</span>
 <span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
 <span class="sd">            response. Default is false.</span>
-<span class="sd">        :arg s: Sort returned patterns by key name. Default is false.</span>
+<span class="sd">        :arg s: Determines how to sort returned grok patterns by key</span>
+<span class="sd">            name. Default is false.</span>
 <span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
 <span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
