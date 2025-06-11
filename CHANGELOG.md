@@ -4,6 +4,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ## [Unreleased]
 ### Added
 ### Updated APIs
+- Updated opensearch-py APIs to reflect [opensearch-api-specification@acebe7b](https://github.com/opensearch-project/opensearch-api-specification/commit/acebe7b352b08feaa3ccfbd300514e143cff61d8)
 ### Changed
 ### Deprecated
 ### Removed
