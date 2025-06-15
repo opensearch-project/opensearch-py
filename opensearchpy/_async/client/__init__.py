@@ -370,7 +370,7 @@ class AsyncOpenSearch(Client):
             shards to make this operation visible to search, if `wait_for` then wait
             for a refresh to make this operation visible to search, if `false` do
             nothing with refreshes. Valid values: `true`, `false`, `wait_for`.
-        :arg routing: Custom value used to route operations to a
+        :arg routing: A custom value used to route operations to a
             specific shard.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
@@ -463,7 +463,7 @@ class AsyncOpenSearch(Client):
             nothing with refreshes. Valid values: `true`, `false`, `wait_for`.
         :arg require_alias: If `true`, the destination must be an index
             alias. Default is false.
-        :arg routing: Custom value used to route operations to a
+        :arg routing: A custom value used to route operations to a
             specific shard.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
@@ -552,7 +552,7 @@ class AsyncOpenSearch(Client):
             nothing with refreshes. Valid values: `true`, `false`, `wait_for`.
         :arg require_alias: If `true`, the request's actions must target
             an index alias. Default is false.
-        :arg routing: Custom value used to route operations to a
+        :arg routing: A custom value used to route operations to a
             specific shard.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
@@ -695,7 +695,7 @@ class AsyncOpenSearch(Client):
         :arg pretty: Whether to pretty format the returned JSON
             response. Default is false.
         :arg q: Query in the Lucene query string syntax.
-        :arg routing: Custom value used to route operations to a
+        :arg routing: A custom value used to route operations to a
             specific shard.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
@@ -758,7 +758,7 @@ class AsyncOpenSearch(Client):
             shards to make this operation visible to search, if `wait_for` then wait
             for a refresh to make this operation visible to search, if `false` do
             nothing with refreshes. Valid values: `true`, `false`, `wait_for`.
-        :arg routing: Custom value used to route operations to a
+        :arg routing: A custom value used to route operations to a
             specific shard.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
@@ -891,7 +891,7 @@ class AsyncOpenSearch(Client):
             this request. Defaults to the index-level setting.
         :arg requests_per_second: The throttle for this request in sub-
             requests per second. Default is 0.
-        :arg routing: Custom value used to route operations to a
+        :arg routing: A custom value used to route operations to a
             specific shard.
         :arg scroll: Period to retain the search context for scrolling.
         :arg scroll_size: Size of the scroll request that powers the
@@ -1215,7 +1215,8 @@ class AsyncOpenSearch(Client):
         headers: Any = None,
     ) -> Any:
         """
-        Returns information about why a specific matches (or doesn't match) a query.
+        Returns information about why a specific document matches (or doesn't match) a
+        query.
 
 
         :arg index: Index names used to limit the request. Only a single
@@ -1252,7 +1253,7 @@ class AsyncOpenSearch(Client):
         :arg pretty: Whether to pretty format the returned JSON
             response. Default is false.
         :arg q: Query in the Lucene query string syntax.
-        :arg routing: Custom value used to route operations to a
+        :arg routing: A custom value used to route operations to a
             specific shard.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
@@ -1365,8 +1366,8 @@ class AsyncOpenSearch(Client):
         Returns a document.
 
 
-        :arg index: Name of the index that contains the document.
-        :arg id: Unique identifier of the document.
+        :arg index: The name of the index that contains the document.
+        :arg id: The unique identifier of the document.
         :arg _source: Set to `true` or `false` to return the `_source`
             field or not, or a list of fields to return.
         :arg _source_excludes: A comma-separated list of source fields
@@ -1486,8 +1487,8 @@ class AsyncOpenSearch(Client):
         Returns the source of a document.
 
 
-        :arg index: Name of the index that contains the document.
-        :arg id: Unique identifier of the document.
+        :arg index: The name of the index that contains the document.
+        :arg id: The unique identifier of the document.
         :arg _source: Set to `true` or `false` to return the `_source`
             field or not, or a list of fields to return.
         :arg _source_excludes: A comma-separated list of source fields
@@ -1590,7 +1591,7 @@ class AsyncOpenSearch(Client):
             near-real-time.
         :arg refresh: If `true`, the request refreshes relevant shards
             before retrieving documents. Valid choices are false, true, wait_for.
-        :arg routing: Custom value used to route operations to a
+        :arg routing: A custom value used to route operations to a
             specific shard.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
@@ -1786,37 +1787,43 @@ class AsyncOpenSearch(Client):
         :arg body: Define ids, documents, parameters or a list of
             parameters per document here. You must at least provide a list of
             document ids. See documentation.
-        :arg index: Name of the index that contains the documents.
+        :arg index: The name of the index that contains the document.
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
         :arg field_statistics: If `true`, the response includes the
             document count, sum of document frequencies, and sum of total term
             frequencies. Default is True.
-        :arg fields: Comma-separated list or wildcard expressions of
-            fields to include in the statistics. Used as the default list unless a
-            specific field list is provided in the `completion_fields` or
-            `fielddata_fields` parameters.
+        :arg fields: A comma-separated list or a wildcard expression
+            specifying the fields to include in the statistics. Used as the default
+            list unless a specific field list is provided in the `completion_fields`
+            or `fielddata_fields` parameters.
         :arg filter_path: Used to reduce the response. This parameter
             takes a comma-separated list of filters. It supports using wildcards to
             match any field or part of a field’s name. You can also exclude fields
             with "-".
         :arg human: Whether to return human readable values for
             statistics. Default is True.
-        :arg ids: A comma-separated list of documents ids. You must
-            define ids as parameter or set "ids" or "docs" in the request body
+        :arg ids: A comma-separated list of documents IDs. You must
+            provide either the `docs` field in the request body or specify `ids` as
+            a query parameter or in the request body.
         :arg offsets: If `true`, the response includes term offsets.
             Default is True.
         :arg payloads: If `true`, the response includes term payloads.
             Default is True.
         :arg positions: If `true`, the response includes term positions.
             Default is True.
-        :arg preference: Specifies the node or shard the operation
-            should be performed on. Random by default. Default is random.
+        :arg preference: Specifies the node or shard on which the
+            operation should be performed. See [preference query
+            parameter]({{site.url}}{{site.baseurl}}/api-reference/search-
+            apis/search/#the-preference-query-parameter) for a list of available
+            options. By default the requests are routed randomly to available shard
+            copies (primary or replica), with no guarantee of consistency across
+            repeated queries.
         :arg pretty: Whether to pretty format the returned JSON
             response. Default is false.
         :arg realtime: If `true`, the request is real-time as opposed to
             near-real-time. Default is True.
-        :arg routing: Custom value used to route operations to a
+        :arg routing: A custom value used to route operations to a
             specific shard.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
@@ -1824,7 +1831,7 @@ class AsyncOpenSearch(Client):
             frequency and document frequency. Default is false.
         :arg version: If `true`, returns the document version as part of
             a hit.
-        :arg version_type: Specific version type. Valid choices are
+        :arg version_type: The specific version type. Valid choices are
             external, external_gte, force, internal.
         """
         path = _make_path(index, "_mtermvectors")
@@ -2390,7 +2397,7 @@ class AsyncOpenSearch(Client):
         :arg rest_total_hits_as_int: Indicates whether `hits.total`
             should be rendered as an integer or an object in the rest search
             response. Default is false.
-        :arg routing: Custom value used to route operations to a
+        :arg routing: A custom value used to route operations to a
             specific shard.
         :arg scroll: Period to retain the search context for scrolling.
             See Scroll search results. By default, this value cannot exceed `1d` (24
@@ -2526,7 +2533,7 @@ class AsyncOpenSearch(Client):
             should be performed on. Random by default. Default is random.
         :arg pretty: Whether to pretty format the returned JSON
             response. Default is false.
-        :arg routing: Custom value used to route operations to a
+        :arg routing: A custom value used to route operations to a
             specific shard.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
@@ -2608,7 +2615,7 @@ class AsyncOpenSearch(Client):
         :arg profile: If `true`, the query execution is profiled.
         :arg rest_total_hits_as_int: If `true`, `hits.total` are
             rendered as an integer in the response. Default is false.
-        :arg routing: Custom value used to route operations to a
+        :arg routing: A custom value used to route operations to a
             specific shard.
         :arg scroll: Specifies how long a consistent view of the index
             should be maintained for scrolled search.
@@ -2662,19 +2669,19 @@ class AsyncOpenSearch(Client):
         document.
 
 
-        :arg index: Name of the index that contains the document.
+        :arg index: The name of the index that contains the document.
         :arg body: Define parameters and or supply a document to get
             termvectors for. See documentation.
-        :arg id: Unique identifier of the document.
+        :arg id: The unique identifier of the document.
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
         :arg field_statistics: If `true`, the response includes the
             document count, sum of document frequencies, and sum of total term
             frequencies. Default is True.
-        :arg fields: Comma-separated list or wildcard expressions of
-            fields to include in the statistics. Used as the default list unless a
-            specific field list is provided in the `completion_fields` or
-            `fielddata_fields` parameters.
+        :arg fields: A comma-separated list or a wildcard expression
+            specifying the fields to include in the statistics. Used as the default
+            list unless a specific field list is provided in the `completion_fields`
+            or `fielddata_fields` parameters.
         :arg filter_path: Used to reduce the response. This parameter
             takes a comma-separated list of filters. It supports using wildcards to
             match any field or part of a field’s name. You can also exclude fields
@@ -2687,13 +2694,18 @@ class AsyncOpenSearch(Client):
             Default is True.
         :arg positions: If `true`, the response includes term positions.
             Default is True.
-        :arg preference: Specifies the node or shard the operation
-            should be performed on. Random by default. Default is random.
+        :arg preference: Specifies the node or shard on which the
+            operation should be performed. See [preference query
+            parameter]({{site.url}}{{site.baseurl}}/api-reference/search-
+            apis/search/#the-preference-query-parameter) for a list of available
+            options. By default the requests are routed randomly to available shard
+            copies (primary or replica), with no guarantee of consistency across
+            repeated queries.
         :arg pretty: Whether to pretty format the returned JSON
             response. Default is false.
         :arg realtime: If `true`, the request is real-time as opposed to
             near-real-time. Default is True.
-        :arg routing: Custom value used to route operations to a
+        :arg routing: A custom value used to route operations to a
             specific shard.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
@@ -2701,7 +2713,7 @@ class AsyncOpenSearch(Client):
             frequency and document frequency. Default is false.
         :arg version: If `true`, returns the document version as part of
             a hit.
-        :arg version_type: Specific version type. Valid choices are
+        :arg version_type: The specific version type. Valid choices are
             external, external_gte, force, internal.
         """
         if index in SKIP_IN_PATH:
@@ -2779,7 +2791,7 @@ class AsyncOpenSearch(Client):
             alias. Default is false.
         :arg retry_on_conflict: Specify how many times should the
             operation be retried when a conflict occurs. Default is 0.
-        :arg routing: Custom value used to route operations to a
+        :arg routing: A custom value used to route operations to a
             specific shard.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
@@ -2918,7 +2930,7 @@ class AsyncOpenSearch(Client):
             this request.
         :arg requests_per_second: The throttle for this request in sub-
             requests per second. Default is 0.
-        :arg routing: Custom value used to route operations to a
+        :arg routing: A custom value used to route operations to a
             specific shard.
         :arg scroll: Period to retain the search context for scrolling.
         :arg scroll_size: Size of the scroll request that powers the
@@ -3279,7 +3291,7 @@ class AsyncOpenSearch(Client):
             nothing with refreshes. Valid values: `true`, `false`, `wait_for`.
         :arg require_alias: If `true`, the request's actions must target
             an index alias. Default is false.
-        :arg routing: Custom value used to route operations to a
+        :arg routing: A custom value used to route operations to a
             specific shard.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
