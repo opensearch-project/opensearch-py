@@ -27,6 +27,9 @@ class NeuralClient(NamespacedClient):
         "filter_path",
         "flat_stat_paths",
         "human",
+        "include_all_nodes",
+        "include_individual_nodes",
+        "include_info",
         "include_metadata",
         "pretty",
         "source",
@@ -61,6 +64,15 @@ class NeuralClient(NamespacedClient):
             false.
         :arg human: Whether to return human readable values for
             statistics. Default is True.
+        :arg include_all_nodes: When `true` includes aggregated
+            statistics across all nodes in the `all_nodes` category. When `false`,
+            excludes the `all_nodes` category from the response. Default is True.
+        :arg include_individual_nodes: When `true` includes statistics
+            for individual nodes in the `nodes` category. When `false`, excludes the
+            `nodes` category from the response. Default is True.
+        :arg include_info: When `true` includes cluster-wide information
+            in the `info` category. When `false`, excludes the `info` category from
+            the response. Default is True.
         :arg include_metadata: Whether to return stat metadata instead
             of the raw stat value, includes additional information about the stat.
             These can include things like type hints, time since last stats being
