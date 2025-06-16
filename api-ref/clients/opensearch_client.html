@@ -296,7 +296,7 @@ for a refresh to make this operation visible to search, if <cite>false</cite> do
 nothing with refreshes. Valid values: <cite>true</cite>, <cite>false</cite>, <cite>wait_for</cite>.</p></li>
 <li><p><strong>require_alias</strong> – If <cite>true</cite>, the request’s actions must target
 an index alias. Default is false.</p></li>
-<li><p><strong>routing</strong> – Custom value used to route operations to a
+<li><p><strong>routing</strong> – A custom value used to route operations to a
 specific shard.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
@@ -363,7 +363,7 @@ for a refresh to make this operation visible to search, if <cite>false</cite> do
 nothing with refreshes. Valid values: <cite>true</cite>, <cite>false</cite>, <cite>wait_for</cite>.</p></li>
 <li><p><strong>require_alias</strong> – If <cite>true</cite>, the request’s actions must target
 an index alias. Default is false.</p></li>
-<li><p><strong>routing</strong> – Custom value used to route operations to a
+<li><p><strong>routing</strong> – A custom value used to route operations to a
 specific shard.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
@@ -484,7 +484,7 @@ should be performed on. Random by default. Default is random.</p></li>
 <li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>q</strong> – Query in the Lucene query string syntax.</p></li>
-<li><p><strong>routing</strong> – Custom value used to route operations to a
+<li><p><strong>routing</strong> – A custom value used to route operations to a
 specific shard.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
@@ -537,7 +537,7 @@ response. Default is false.</p></li>
 shards to make this operation visible to search, if <cite>wait_for</cite> then wait
 for a refresh to make this operation visible to search, if <cite>false</cite> do
 nothing with refreshes. Valid values: <cite>true</cite>, <cite>false</cite>, <cite>wait_for</cite>.</p></li>
-<li><p><strong>routing</strong> – Custom value used to route operations to a
+<li><p><strong>routing</strong> – A custom value used to route operations to a
 specific shard.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
@@ -635,7 +635,7 @@ response. Default is false.</p></li>
 shards to make this operation visible to search, if <cite>wait_for</cite> then wait
 for a refresh to make this operation visible to search, if <cite>false</cite> do
 nothing with refreshes. Valid values: <cite>true</cite>, <cite>false</cite>, <cite>wait_for</cite>.</p></li>
-<li><p><strong>routing</strong> – Custom value used to route operations to a
+<li><p><strong>routing</strong> – A custom value used to route operations to a
 specific shard.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
@@ -755,7 +755,7 @@ choices are false, true, wait_for.</p></li>
 this request. Defaults to the index-level setting.</p></li>
 <li><p><strong>requests_per_second</strong> – The throttle for this request in sub-
 requests per second. Default is 0.</p></li>
-<li><p><strong>routing</strong> – Custom value used to route operations to a
+<li><p><strong>routing</strong> – A custom value used to route operations to a
 specific shard.</p></li>
 <li><p><strong>scroll</strong> – Period to retain the search context for scrolling.</p></li>
 <li><p><strong>scroll_size</strong> – Size of the scroll request that powers the
@@ -1022,7 +1022,8 @@ internal.</p></li>
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.OpenSearch.explain">
 <span class="sig-name descname"><span class="pre">explain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">body</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client.html#OpenSearch.explain"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.OpenSearch.explain" title="Permalink to this definition"></a></dt>
-<dd><p>Returns information about why a specific matches (or doesn’t match) a query.</p>
+<dd><p>Returns information about why a specific document matches (or doesn’t match) a
+query.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -1060,7 +1061,7 @@ should be performed on. Random by default. Default is random.</p></li>
 <li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>q</strong> – Query in the Lucene query string syntax.</p></li>
-<li><p><strong>routing</strong> – Custom value used to route operations to a
+<li><p><strong>routing</strong> – A custom value used to route operations to a
 specific shard.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
@@ -1139,8 +1140,8 @@ libraries that do not accept a request body for non-POST requests.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Name of the index that contains the document.</p></li>
-<li><p><strong>id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Unique identifier of the document.</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The name of the index that contains the document.</p></li>
+<li><p><strong>id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The unique identifier of the document.</p></li>
 <li><p><strong>_source</strong> – Set to <cite>true</cite> or <cite>false</cite> to return the <cite>_source</cite>
 field or not, or a list of fields to return.</p></li>
 <li><p><strong>_source_excludes</strong> – A comma-separated list of source fields
@@ -1319,8 +1320,8 @@ libraries that do not accept a request body for non-POST requests.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Name of the index that contains the document.</p></li>
-<li><p><strong>id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Unique identifier of the document.</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The name of the index that contains the document.</p></li>
+<li><p><strong>id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The unique identifier of the document.</p></li>
 <li><p><strong>_source</strong> – Set to <cite>true</cite> or <cite>false</cite> to return the <cite>_source</cite>
 field or not, or a list of fields to return.</p></li>
 <li><p><strong>_source_excludes</strong> – A comma-separated list of source fields
@@ -1406,7 +1407,7 @@ for a refresh to make this operation visible to search, if <cite>false</cite> do
 nothing with refreshes. Valid values: <cite>true</cite>, <cite>false</cite>, <cite>wait_for</cite>.</p></li>
 <li><p><strong>require_alias</strong> – If <cite>true</cite>, the destination must be an index
 alias. Default is false.</p></li>
-<li><p><strong>routing</strong> – Custom value used to route operations to a
+<li><p><strong>routing</strong> – A custom value used to route operations to a
 specific shard.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
@@ -1504,7 +1505,7 @@ response. Default is false.</p></li>
 near-real-time.</p></li>
 <li><p><strong>refresh</strong> – If <cite>true</cite>, the request refreshes relevant shards
 before retrieving documents. Valid choices are false, true, wait_for.</p></li>
-<li><p><strong>routing</strong> – Custom value used to route operations to a
+<li><p><strong>routing</strong> – A custom value used to route operations to a
 specific shard.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
@@ -1638,37 +1639,43 @@ and suggester names with their respective types.</p></li>
 <li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Define ids, documents, parameters or a list of
 parameters per document here. You must at least provide a list of
 document ids. See documentation.</p></li>
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Name of the index that contains the documents.</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The name of the index that contains the document.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
 <li><p><strong>field_statistics</strong> – If <cite>true</cite>, the response includes the
 document count, sum of document frequencies, and sum of total term
 frequencies. Default is True.</p></li>
-<li><p><strong>fields</strong> – Comma-separated list or wildcard expressions of
-fields to include in the statistics. Used as the default list unless a
-specific field list is provided in the <cite>completion_fields</cite> or
-<cite>fielddata_fields</cite> parameters.</p></li>
+<li><p><strong>fields</strong> – A comma-separated list or a wildcard expression
+specifying the fields to include in the statistics. Used as the default
+list unless a specific field list is provided in the <cite>completion_fields</cite>
+or <cite>fielddata_fields</cite> parameters.</p></li>
 <li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
 takes a comma-separated list of filters. It supports using wildcards to
 match any field or part of a field’s name. You can also exclude fields
 with “-“.</p></li>
 <li><p><strong>human</strong> – Whether to return human readable values for
 statistics. Default is True.</p></li>
-<li><p><strong>ids</strong> – A comma-separated list of documents ids. You must
-define ids as parameter or set “ids” or “docs” in the request body</p></li>
+<li><p><strong>ids</strong> – A comma-separated list of documents IDs. You must
+provide either the <cite>docs</cite> field in the request body or specify <cite>ids</cite> as
+a query parameter or in the request body.</p></li>
 <li><p><strong>offsets</strong> – If <cite>true</cite>, the response includes term offsets.
 Default is True.</p></li>
 <li><p><strong>payloads</strong> – If <cite>true</cite>, the response includes term payloads.
 Default is True.</p></li>
 <li><p><strong>positions</strong> – If <cite>true</cite>, the response includes term positions.
 Default is True.</p></li>
-<li><p><strong>preference</strong> – Specifies the node or shard the operation
-should be performed on. Random by default. Default is random.</p></li>
+<li><p><strong>preference</strong> – Specifies the node or shard on which the
+operation should be performed. See [preference query
+parameter]({{site.url}}{{site.baseurl}}/api-reference/search-
+apis/search/#the-preference-query-parameter) for a list of available
+options. By default the requests are routed randomly to available shard
+copies (primary or replica), with no guarantee of consistency across
+repeated queries.</p></li>
 <li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>realtime</strong> – If <cite>true</cite>, the request is real-time as opposed to
 near-real-time. Default is True.</p></li>
-<li><p><strong>routing</strong> – Custom value used to route operations to a
+<li><p><strong>routing</strong> – A custom value used to route operations to a
 specific shard.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
@@ -1676,7 +1683,7 @@ libraries that do not accept a request body for non-POST requests.</p></li>
 frequency and document frequency. Default is false.</p></li>
 <li><p><strong>version</strong> – If <cite>true</cite>, returns the document version as part of
 a hit.</p></li>
-<li><p><strong>version_type</strong> – Specific version type. Valid choices are
+<li><p><strong>version_type</strong> – The specific version type. Valid choices are
 external, external_gte, force, internal.</p></li>
 <li><p><strong>body</strong> – </p></li>
 <li><p><strong>index</strong> – </p></li>
@@ -2141,7 +2148,7 @@ settings.</p></li>
 <li><p><strong>rest_total_hits_as_int</strong> – Indicates whether <cite>hits.total</cite>
 should be rendered as an integer or an object in the rest search
 response. Default is false.</p></li>
-<li><p><strong>routing</strong> – Custom value used to route operations to a
+<li><p><strong>routing</strong> – A custom value used to route operations to a
 specific shard.</p></li>
 <li><p><strong>scroll</strong> – Period to retain the search context for scrolling.
 See Scroll search results. By default, this value cannot exceed <cite>1d</cite> (24
@@ -2258,7 +2265,7 @@ the local node only. Default is false.</p></li>
 should be performed on. Random by default. Default is random.</p></li>
 <li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
 response. Default is false.</p></li>
-<li><p><strong>routing</strong> – Custom value used to route operations to a
+<li><p><strong>routing</strong> – A custom value used to route operations to a
 specific shard.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
@@ -2318,7 +2325,7 @@ response. Default is false.</p></li>
 <li><p><strong>profile</strong> – If <cite>true</cite>, the query execution is profiled.</p></li>
 <li><p><strong>rest_total_hits_as_int</strong> – If <cite>true</cite>, <cite>hits.total</cite> are
 rendered as an integer in the response. Default is false.</p></li>
-<li><p><strong>routing</strong> – Custom value used to route operations to a
+<li><p><strong>routing</strong> – A custom value used to route operations to a
 specific shard.</p></li>
 <li><p><strong>scroll</strong> – Specifies how long a consistent view of the index
 should be maintained for scrolled search.</p></li>
@@ -2348,19 +2355,19 @@ document.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Name of the index that contains the document.</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The name of the index that contains the document.</p></li>
 <li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Define parameters and or supply a document to get
 termvectors for. See documentation.</p></li>
-<li><p><strong>id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Unique identifier of the document.</p></li>
+<li><p><strong>id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The unique identifier of the document.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
 <li><p><strong>field_statistics</strong> – If <cite>true</cite>, the response includes the
 document count, sum of document frequencies, and sum of total term
 frequencies. Default is True.</p></li>
-<li><p><strong>fields</strong> – Comma-separated list or wildcard expressions of
-fields to include in the statistics. Used as the default list unless a
-specific field list is provided in the <cite>completion_fields</cite> or
-<cite>fielddata_fields</cite> parameters.</p></li>
+<li><p><strong>fields</strong> – A comma-separated list or a wildcard expression
+specifying the fields to include in the statistics. Used as the default
+list unless a specific field list is provided in the <cite>completion_fields</cite>
+or <cite>fielddata_fields</cite> parameters.</p></li>
 <li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
 takes a comma-separated list of filters. It supports using wildcards to
 match any field or part of a field’s name. You can also exclude fields
@@ -2373,13 +2380,18 @@ Default is True.</p></li>
 Default is True.</p></li>
 <li><p><strong>positions</strong> – If <cite>true</cite>, the response includes term positions.
 Default is True.</p></li>
-<li><p><strong>preference</strong> – Specifies the node or shard the operation
-should be performed on. Random by default. Default is random.</p></li>
+<li><p><strong>preference</strong> – Specifies the node or shard on which the
+operation should be performed. See [preference query
+parameter]({{site.url}}{{site.baseurl}}/api-reference/search-
+apis/search/#the-preference-query-parameter) for a list of available
+options. By default the requests are routed randomly to available shard
+copies (primary or replica), with no guarantee of consistency across
+repeated queries.</p></li>
 <li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>realtime</strong> – If <cite>true</cite>, the request is real-time as opposed to
 near-real-time. Default is True.</p></li>
-<li><p><strong>routing</strong> – Custom value used to route operations to a
+<li><p><strong>routing</strong> – A custom value used to route operations to a
 specific shard.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
@@ -2387,7 +2399,7 @@ libraries that do not accept a request body for non-POST requests.</p></li>
 frequency and document frequency. Default is false.</p></li>
 <li><p><strong>version</strong> – If <cite>true</cite>, returns the document version as part of
 a hit.</p></li>
-<li><p><strong>version_type</strong> – Specific version type. Valid choices are
+<li><p><strong>version_type</strong> – The specific version type. Valid choices are
 external, external_gte, force, internal.</p></li>
 <li><p><strong>index</strong> – </p></li>
 <li><p><strong>body</strong> – </p></li>
@@ -2443,7 +2455,7 @@ nothing with refreshes. Valid choices are false, true, wait_for.</p></li>
 alias. Default is false.</p></li>
 <li><p><strong>retry_on_conflict</strong> – Specify how many times should the
 operation be retried when a conflict occurs. Default is 0.</p></li>
-<li><p><strong>routing</strong> – Custom value used to route operations to a
+<li><p><strong>routing</strong> – A custom value used to route operations to a
 specific shard.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
@@ -2538,7 +2550,7 @@ wait_for.</p></li>
 this request.</p></li>
 <li><p><strong>requests_per_second</strong> – The throttle for this request in sub-
 requests per second. Default is 0.</p></li>
-<li><p><strong>routing</strong> – Custom value used to route operations to a
+<li><p><strong>routing</strong> – A custom value used to route operations to a
 specific shard.</p></li>
 <li><p><strong>scroll</strong> – Period to retain the search context for scrolling.</p></li>
 <li><p><strong>scroll_size</strong> – Size of the scroll request that powers the
@@ -2812,7 +2824,7 @@ for a refresh to make this operation visible to search, if <cite>false</cite> do
 nothing with refreshes. Valid values: <cite>true</cite>, <cite>false</cite>, <cite>wait_for</cite>.</p></li>
 <li><p><strong>require_alias</strong> – If <cite>true</cite>, the request’s actions must target
 an index alias. Default is false.</p></li>
-<li><p><strong>routing</strong> – Custom value used to route operations to a
+<li><p><strong>routing</strong> – A custom value used to route operations to a
 specific shard.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
@@ -2879,7 +2891,7 @@ for a refresh to make this operation visible to search, if <cite>false</cite> do
 nothing with refreshes. Valid values: <cite>true</cite>, <cite>false</cite>, <cite>wait_for</cite>.</p></li>
 <li><p><strong>require_alias</strong> – If <cite>true</cite>, the request’s actions must target
 an index alias. Default is false.</p></li>
-<li><p><strong>routing</strong> – Custom value used to route operations to a
+<li><p><strong>routing</strong> – A custom value used to route operations to a
 specific shard.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
@@ -3000,7 +3012,7 @@ should be performed on. Random by default. Default is random.</p></li>
 <li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>q</strong> – Query in the Lucene query string syntax.</p></li>
-<li><p><strong>routing</strong> – Custom value used to route operations to a
+<li><p><strong>routing</strong> – A custom value used to route operations to a
 specific shard.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
@@ -3053,7 +3065,7 @@ response. Default is false.</p></li>
 shards to make this operation visible to search, if <cite>wait_for</cite> then wait
 for a refresh to make this operation visible to search, if <cite>false</cite> do
 nothing with refreshes. Valid values: <cite>true</cite>, <cite>false</cite>, <cite>wait_for</cite>.</p></li>
-<li><p><strong>routing</strong> – Custom value used to route operations to a
+<li><p><strong>routing</strong> – A custom value used to route operations to a
 specific shard.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
@@ -3151,7 +3163,7 @@ response. Default is false.</p></li>
 shards to make this operation visible to search, if <cite>wait_for</cite> then wait
 for a refresh to make this operation visible to search, if <cite>false</cite> do
 nothing with refreshes. Valid values: <cite>true</cite>, <cite>false</cite>, <cite>wait_for</cite>.</p></li>
-<li><p><strong>routing</strong> – Custom value used to route operations to a
+<li><p><strong>routing</strong> – A custom value used to route operations to a
 specific shard.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
@@ -3271,7 +3283,7 @@ choices are false, true, wait_for.</p></li>
 this request. Defaults to the index-level setting.</p></li>
 <li><p><strong>requests_per_second</strong> – The throttle for this request in sub-
 requests per second. Default is 0.</p></li>
-<li><p><strong>routing</strong> – Custom value used to route operations to a
+<li><p><strong>routing</strong> – A custom value used to route operations to a
 specific shard.</p></li>
 <li><p><strong>scroll</strong> – Period to retain the search context for scrolling.</p></li>
 <li><p><strong>scroll_size</strong> – Size of the scroll request that powers the
@@ -3538,7 +3550,8 @@ internal.</p></li>
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.AsyncOpenSearch.explain">
 <span class="sig-name descname"><span class="pre">explain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">body</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/_async/client.html#AsyncOpenSearch.explain"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.AsyncOpenSearch.explain" title="Permalink to this definition"></a></dt>
-<dd><p>Returns information about why a specific matches (or doesn’t match) a query.</p>
+<dd><p>Returns information about why a specific document matches (or doesn’t match) a
+query.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -3576,7 +3589,7 @@ should be performed on. Random by default. Default is random.</p></li>
 <li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>q</strong> – Query in the Lucene query string syntax.</p></li>
-<li><p><strong>routing</strong> – Custom value used to route operations to a
+<li><p><strong>routing</strong> – A custom value used to route operations to a
 specific shard.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
@@ -3655,8 +3668,8 @@ libraries that do not accept a request body for non-POST requests.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Name of the index that contains the document.</p></li>
-<li><p><strong>id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Unique identifier of the document.</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The name of the index that contains the document.</p></li>
+<li><p><strong>id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The unique identifier of the document.</p></li>
 <li><p><strong>_source</strong> – Set to <cite>true</cite> or <cite>false</cite> to return the <cite>_source</cite>
 field or not, or a list of fields to return.</p></li>
 <li><p><strong>_source_excludes</strong> – A comma-separated list of source fields
@@ -3835,8 +3848,8 @@ libraries that do not accept a request body for non-POST requests.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Name of the index that contains the document.</p></li>
-<li><p><strong>id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Unique identifier of the document.</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The name of the index that contains the document.</p></li>
+<li><p><strong>id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The unique identifier of the document.</p></li>
 <li><p><strong>_source</strong> – Set to <cite>true</cite> or <cite>false</cite> to return the <cite>_source</cite>
 field or not, or a list of fields to return.</p></li>
 <li><p><strong>_source_excludes</strong> – A comma-separated list of source fields
@@ -3922,7 +3935,7 @@ for a refresh to make this operation visible to search, if <cite>false</cite> do
 nothing with refreshes. Valid values: <cite>true</cite>, <cite>false</cite>, <cite>wait_for</cite>.</p></li>
 <li><p><strong>require_alias</strong> – If <cite>true</cite>, the destination must be an index
 alias. Default is false.</p></li>
-<li><p><strong>routing</strong> – Custom value used to route operations to a
+<li><p><strong>routing</strong> – A custom value used to route operations to a
 specific shard.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
@@ -4020,7 +4033,7 @@ response. Default is false.</p></li>
 near-real-time.</p></li>
 <li><p><strong>refresh</strong> – If <cite>true</cite>, the request refreshes relevant shards
 before retrieving documents. Valid choices are false, true, wait_for.</p></li>
-<li><p><strong>routing</strong> – Custom value used to route operations to a
+<li><p><strong>routing</strong> – A custom value used to route operations to a
 specific shard.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
@@ -4154,37 +4167,43 @@ and suggester names with their respective types.</p></li>
 <li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Define ids, documents, parameters or a list of
 parameters per document here. You must at least provide a list of
 document ids. See documentation.</p></li>
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Name of the index that contains the documents.</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The name of the index that contains the document.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
 <li><p><strong>field_statistics</strong> – If <cite>true</cite>, the response includes the
 document count, sum of document frequencies, and sum of total term
 frequencies. Default is True.</p></li>
-<li><p><strong>fields</strong> – Comma-separated list or wildcard expressions of
-fields to include in the statistics. Used as the default list unless a
-specific field list is provided in the <cite>completion_fields</cite> or
-<cite>fielddata_fields</cite> parameters.</p></li>
+<li><p><strong>fields</strong> – A comma-separated list or a wildcard expression
+specifying the fields to include in the statistics. Used as the default
+list unless a specific field list is provided in the <cite>completion_fields</cite>
+or <cite>fielddata_fields</cite> parameters.</p></li>
 <li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
 takes a comma-separated list of filters. It supports using wildcards to
 match any field or part of a field’s name. You can also exclude fields
 with “-“.</p></li>
 <li><p><strong>human</strong> – Whether to return human readable values for
 statistics. Default is True.</p></li>
-<li><p><strong>ids</strong> – A comma-separated list of documents ids. You must
-define ids as parameter or set “ids” or “docs” in the request body</p></li>
+<li><p><strong>ids</strong> – A comma-separated list of documents IDs. You must
+provide either the <cite>docs</cite> field in the request body or specify <cite>ids</cite> as
+a query parameter or in the request body.</p></li>
 <li><p><strong>offsets</strong> – If <cite>true</cite>, the response includes term offsets.
 Default is True.</p></li>
 <li><p><strong>payloads</strong> – If <cite>true</cite>, the response includes term payloads.
 Default is True.</p></li>
 <li><p><strong>positions</strong> – If <cite>true</cite>, the response includes term positions.
 Default is True.</p></li>
-<li><p><strong>preference</strong> – Specifies the node or shard the operation
-should be performed on. Random by default. Default is random.</p></li>
+<li><p><strong>preference</strong> – Specifies the node or shard on which the
+operation should be performed. See [preference query
+parameter]({{site.url}}{{site.baseurl}}/api-reference/search-
+apis/search/#the-preference-query-parameter) for a list of available
+options. By default the requests are routed randomly to available shard
+copies (primary or replica), with no guarantee of consistency across
+repeated queries.</p></li>
 <li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>realtime</strong> – If <cite>true</cite>, the request is real-time as opposed to
 near-real-time. Default is True.</p></li>
-<li><p><strong>routing</strong> – Custom value used to route operations to a
+<li><p><strong>routing</strong> – A custom value used to route operations to a
 specific shard.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
@@ -4192,7 +4211,7 @@ libraries that do not accept a request body for non-POST requests.</p></li>
 frequency and document frequency. Default is false.</p></li>
 <li><p><strong>version</strong> – If <cite>true</cite>, returns the document version as part of
 a hit.</p></li>
-<li><p><strong>version_type</strong> – Specific version type. Valid choices are
+<li><p><strong>version_type</strong> – The specific version type. Valid choices are
 external, external_gte, force, internal.</p></li>
 <li><p><strong>body</strong> – </p></li>
 <li><p><strong>index</strong> – </p></li>
@@ -4657,7 +4676,7 @@ settings.</p></li>
 <li><p><strong>rest_total_hits_as_int</strong> – Indicates whether <cite>hits.total</cite>
 should be rendered as an integer or an object in the rest search
 response. Default is false.</p></li>
-<li><p><strong>routing</strong> – Custom value used to route operations to a
+<li><p><strong>routing</strong> – A custom value used to route operations to a
 specific shard.</p></li>
 <li><p><strong>scroll</strong> – Period to retain the search context for scrolling.
 See Scroll search results. By default, this value cannot exceed <cite>1d</cite> (24
@@ -4774,7 +4793,7 @@ the local node only. Default is false.</p></li>
 should be performed on. Random by default. Default is random.</p></li>
 <li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
 response. Default is false.</p></li>
-<li><p><strong>routing</strong> – Custom value used to route operations to a
+<li><p><strong>routing</strong> – A custom value used to route operations to a
 specific shard.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
@@ -4834,7 +4853,7 @@ response. Default is false.</p></li>
 <li><p><strong>profile</strong> – If <cite>true</cite>, the query execution is profiled.</p></li>
 <li><p><strong>rest_total_hits_as_int</strong> – If <cite>true</cite>, <cite>hits.total</cite> are
 rendered as an integer in the response. Default is false.</p></li>
-<li><p><strong>routing</strong> – Custom value used to route operations to a
+<li><p><strong>routing</strong> – A custom value used to route operations to a
 specific shard.</p></li>
 <li><p><strong>scroll</strong> – Specifies how long a consistent view of the index
 should be maintained for scrolled search.</p></li>
@@ -4864,19 +4883,19 @@ document.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Name of the index that contains the document.</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The name of the index that contains the document.</p></li>
 <li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Define parameters and or supply a document to get
 termvectors for. See documentation.</p></li>
-<li><p><strong>id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Unique identifier of the document.</p></li>
+<li><p><strong>id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The unique identifier of the document.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
 <li><p><strong>field_statistics</strong> – If <cite>true</cite>, the response includes the
 document count, sum of document frequencies, and sum of total term
 frequencies. Default is True.</p></li>
-<li><p><strong>fields</strong> – Comma-separated list or wildcard expressions of
-fields to include in the statistics. Used as the default list unless a
-specific field list is provided in the <cite>completion_fields</cite> or
-<cite>fielddata_fields</cite> parameters.</p></li>
+<li><p><strong>fields</strong> – A comma-separated list or a wildcard expression
+specifying the fields to include in the statistics. Used as the default
+list unless a specific field list is provided in the <cite>completion_fields</cite>
+or <cite>fielddata_fields</cite> parameters.</p></li>
 <li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
 takes a comma-separated list of filters. It supports using wildcards to
 match any field or part of a field’s name. You can also exclude fields
@@ -4889,13 +4908,18 @@ Default is True.</p></li>
 Default is True.</p></li>
 <li><p><strong>positions</strong> – If <cite>true</cite>, the response includes term positions.
 Default is True.</p></li>
-<li><p><strong>preference</strong> – Specifies the node or shard the operation
-should be performed on. Random by default. Default is random.</p></li>
+<li><p><strong>preference</strong> – Specifies the node or shard on which the
+operation should be performed. See [preference query
+parameter]({{site.url}}{{site.baseurl}}/api-reference/search-
+apis/search/#the-preference-query-parameter) for a list of available
+options. By default the requests are routed randomly to available shard
+copies (primary or replica), with no guarantee of consistency across
+repeated queries.</p></li>
 <li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>realtime</strong> – If <cite>true</cite>, the request is real-time as opposed to
 near-real-time. Default is True.</p></li>
-<li><p><strong>routing</strong> – Custom value used to route operations to a
+<li><p><strong>routing</strong> – A custom value used to route operations to a
 specific shard.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
@@ -4903,7 +4927,7 @@ libraries that do not accept a request body for non-POST requests.</p></li>
 frequency and document frequency. Default is false.</p></li>
 <li><p><strong>version</strong> – If <cite>true</cite>, returns the document version as part of
 a hit.</p></li>
-<li><p><strong>version_type</strong> – Specific version type. Valid choices are
+<li><p><strong>version_type</strong> – The specific version type. Valid choices are
 external, external_gte, force, internal.</p></li>
 <li><p><strong>index</strong> – </p></li>
 <li><p><strong>body</strong> – </p></li>
@@ -4959,7 +4983,7 @@ nothing with refreshes. Valid choices are false, true, wait_for.</p></li>
 alias. Default is false.</p></li>
 <li><p><strong>retry_on_conflict</strong> – Specify how many times should the
 operation be retried when a conflict occurs. Default is 0.</p></li>
-<li><p><strong>routing</strong> – Custom value used to route operations to a
+<li><p><strong>routing</strong> – A custom value used to route operations to a
 specific shard.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
@@ -5054,7 +5078,7 @@ wait_for.</p></li>
 this request.</p></li>
 <li><p><strong>requests_per_second</strong> – The throttle for this request in sub-
 requests per second. Default is 0.</p></li>
-<li><p><strong>routing</strong> – Custom value used to route operations to a
+<li><p><strong>routing</strong> – A custom value used to route operations to a
 specific shard.</p></li>
 <li><p><strong>scroll</strong> – Period to retain the search context for scrolling.</p></li>
 <li><p><strong>scroll_size</strong> – Size of the scroll request that powers the
