@@ -11,6 +11,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ### Fixed
 ### Security
 ### Dependencies
+- Bump `pytest-asyncio` from <=0.25.1 to <=0.26.0 ([#901](https://github.com/opensearch-project/opensearch-py/pull/901))
 
 ## [3.0.0]
 ### Added
