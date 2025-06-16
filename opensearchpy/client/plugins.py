@@ -25,6 +25,7 @@ from ..plugins.ppl import PplClient
 from ..plugins.query import QueryClient
 from ..plugins.replication import ReplicationClient
 from ..plugins.rollups import RollupsClient
+from ..plugins.search_relevance import SearchRelevanceClient
 from ..plugins.sm import SmClient
 from ..plugins.sql import SqlClient
 from ..plugins.transforms import TransformsClient
@@ -33,6 +34,7 @@ from .utils import NamespacedClient
 
 
 class PluginsClient(NamespacedClient):
+    search_relevance: Any
     sm: Any
     neural: Any
     ltr: Any
@@ -53,6 +55,7 @@ class PluginsClient(NamespacedClient):
     def __init__(self, client: Client) -> None:
         super().__init__(client)
 
+        self.search_relevance = SearchRelevanceClient(client)
         self.sm = SmClient(client)
         self.neural = NeuralClient(client)
         self.ltr = LtrClient(client)
@@ -78,6 +81,7 @@ class PluginsClient(NamespacedClient):
         # Issue : https://github.com/opensearch-project/opensearch-py/issues/90#issuecomment-1003396742
 
         plugins = [
+            "search_relevance",
             "sm",
             "neural",
             "ltr",
