@@ -297,7 +297,7 @@ class CatClient(NamespacedClient):
         individual index.
 
 
-        :arg index: Comma-separated list of data streams, indexes, and
+        :arg index: A comma-separated list of data streams, indexes, and
             aliases used to limit the request. Supports wildcards (`*`). To target
             all data streams and indexes, omit this parameter or use `*` or `_all`.
         :arg error_trace: Whether to include the stack trace of returned

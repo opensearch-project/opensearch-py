@@ -181,7 +181,7 @@ class KnnClient(NamespacedClient):
             query (AND or OR). Valid choices are and, or.
         :arg df: The field to use as default where no field prefix is
             given in the query string.
-        :arg docvalue_fields: Comma-separated list of fields to return
+        :arg docvalue_fields: A comma-separated list of fields to return
             as the docvalue representation of a field for each hit.
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
@@ -224,7 +224,7 @@ class KnnClient(NamespacedClient):
         :arg rest_total_hits_as_int: Indicates whether `hits.total`
             should be rendered as an integer or an object in the rest search
             response. Default is false.
-        :arg routing: Comma-separated list of specific routing values.
+        :arg routing: A comma-separated list of specific routing values.
         :arg scroll: Specify how long a consistent view of the index
             should be maintained for scrolled search.
         :arg search_type: Search operation type. Valid choices are
@@ -232,12 +232,12 @@ class KnnClient(NamespacedClient):
         :arg seq_no_primary_term: Specify whether to return sequence
             number and primary term of the last modification of each hit.
         :arg size: Number of hits to return. Default is 10.
-        :arg sort: Comma-separated list of <field>:<direction> pairs.
+        :arg sort: A comma-separated list of <field>:<direction> pairs.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         :arg stats: Specific 'tag' of the request for logging and
             statistical purposes.
-        :arg stored_fields: Comma-separated list of stored fields to
+        :arg stored_fields: A comma-separated list of stored fields to
             return.
         :arg suggest_field: Specify which field to use for suggestions.
         :arg suggest_mode: Specify suggest mode. Valid choices are
@@ -283,12 +283,12 @@ class KnnClient(NamespacedClient):
         Provides information about the current status of the k-NN plugin.
 
 
-        :arg node_id: Comma-separated list of node IDs or names to limit
-            the returned information; use `_local` to return information from the
-            node you're connecting to, leave empty to get information from all
+        :arg node_id: A comma-separated list of node IDs or names to
+            limit the returned information; use `_local` to return information from
+            the node you're connecting to, leave empty to get information from all
             nodes.
-        :arg stat: Comma-separated list of stats to retrieve; use `_all`
-            or empty string to retrieve all stats.
+        :arg stat: A comma-separated list of stats to retrieve; use
+            `_all` or empty string to retrieve all stats.
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
         :arg filter_path: Used to reduce the response. This parameter
@@ -362,8 +362,8 @@ class KnnClient(NamespacedClient):
         specified indexes.
 
 
-        :arg index: Comma-separated list of indexes; use `_all` or empty
-            string to perform the operation on all indexes.
+        :arg index: A comma-separated list of indexes; use `_all` or
+            empty string to perform the operation on all indexes.
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
         :arg filter_path: Used to reduce the response. This parameter
