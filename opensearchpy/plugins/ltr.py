@@ -280,12 +280,12 @@ class LtrClient(NamespacedClient):
         Provides information about the current status of the LTR plugin.
 
 
-        :arg node_id: Comma-separated list of node IDs or names to limit
-            the returned information; use `_local` to return information from the
-            node you're connecting to, leave empty to get information from all
+        :arg node_id: A comma-separated list of node IDs or names to
+            limit the returned information; use `_local` to return information from
+            the node you're connecting to, leave empty to get information from all
             nodes.
-        :arg stat: Comma-separated list of stats to retrieve; use `_all`
-            or empty string to retrieve all stats.
+        :arg stat: A comma-separated list of stats to retrieve; use
+            `_all` or empty string to retrieve all stats.
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
         :arg filter_path: Used to reduce the response. This parameter

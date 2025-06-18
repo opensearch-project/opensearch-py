@@ -46,10 +46,11 @@ class NeuralClient(NamespacedClient):
         Provides information about the current status of the neural-search plugin.
 
 
-        :arg node_id: Comma-separated list of node IDs or names to limit
-            the returned information; leave empty to get information from all nodes.
-        :arg stat: Comma-separated list of stats to retrieve; use empty
-            string to retrieve all stats.
+        :arg node_id: A comma-separated list of node IDs or names to
+            limit the returned information; leave empty to get information from all
+            nodes.
+        :arg stat: A comma-separated list of stats to retrieve; use
+            empty string to retrieve all stats.
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
         :arg filter_path: Used to reduce the response. This parameter
