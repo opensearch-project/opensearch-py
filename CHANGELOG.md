@@ -6,6 +6,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ### Updated APIs
 - Updated opensearch-py APIs to reflect [opensearch-api-specification@578a78d](https://github.com/opensearch-project/opensearch-api-specification/commit/578a78dcec746e81da88f81ad442ab1836db7694)
 ### Changed
+- Rename `DenseVector` field type to `KnnVector` ([925](https://github.com/opensearch-project/opensearch-py/pull/925))
 ### Deprecated
 ### Removed
 ### Fixed
