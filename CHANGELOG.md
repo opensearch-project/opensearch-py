@@ -12,6 +12,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ### Fixed
 ### Security
 ### Dependencies
+- Bump `setuptools` from 71.1.0 to 80.9.0 ([#921](https://github.com/opensearch-project/opensearch-py/pull/921))
 
 ## [3.0.0]
 ### Added
