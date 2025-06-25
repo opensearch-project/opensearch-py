@@ -34,6 +34,9 @@ from dateutil import tz
 
 from opensearchpy import InnerDoc, Range, ValidationException
 from opensearchpy.helpers import field
+from opensearchpy.helpers.index import Index
+from opensearchpy.helpers.mapping import Mapping
+from opensearchpy.helpers.test import OpenSearchTestCase
 
 
 def test_date_range_deserialization() -> None:
@@ -221,3 +224,114 @@ def test_object_constructor() -> None:
 
     with pytest.raises(ValidationException):
         field.Object(doc_class=Inner, dynamic=False)
+
+
+def test_knn_vector() -> None:
+    f = field.KnnVector(dimension=128)
+    assert f.to_dict() == {"type": "knn_vector", "dimension": 128}
+
+    # Test that dimension parameter is required
+    with pytest.raises(TypeError):
+        field.KnnVector()  # type: ignore
+
+    assert f._multi is True
+
+
+def test_knn_vector_with_additional_params() -> None:
+    f = field.KnnVector(
+        dimension=256, method={"name": "hnsw", "space_type": "l2", "engine": "faiss"}
+    )
+    expected = {
+        "type": "knn_vector",
+        "dimension": 256,
+        "method": {"name": "hnsw", "space_type": "l2", "engine": "faiss"},
+    }
+    assert f.to_dict() == expected
+
+
+def test_knn_vector_serialization() -> None:
+    f = field.KnnVector(dimension=3)
+
+    vector_data = [1.0, 2.0, 3.0]
+    serialized = f.serialize(vector_data)
+    assert serialized == vector_data
+
+    assert f.serialize(None) is None
+
+
+def test_knn_vector_deserialization() -> None:
+    f = field.KnnVector(dimension=3)
+
+    vector_data = [1.0, 2.0, 3.0]
+    deserialized = f.deserialize(vector_data)
+    assert deserialized == vector_data
+
+    assert f.deserialize(None) is None
+
+
+def test_knn_vector_construct_from_dict() -> None:
+    f = field.construct_field({"type": "knn_vector", "dimension": 128})
+
+    assert isinstance(f, field.KnnVector)
+    assert f.to_dict() == {"type": "knn_vector", "dimension": 128}
+
+
+def test_knn_vector_construct_from_dict_with_method() -> None:
+    f = field.construct_field(
+        {
+            "type": "knn_vector",
+            "dimension": 256,
+            "method": {"name": "hnsw", "space_type": "cosinesimil", "engine": "lucene"},
+        }
+    )
+
+    assert isinstance(f, field.KnnVector)
+    expected = {
+        "type": "knn_vector",
+        "dimension": 256,
+        "method": {"name": "hnsw", "space_type": "cosinesimil", "engine": "lucene"},
+    }
+    assert f.to_dict() == expected
+
+
+class TestKnnVectorIntegration(OpenSearchTestCase):
+    def test_index_and_retrieve_knn_vector(self) -> None:
+        index_name = "itest-knn-vector"
+        # ensure clean state
+        self.client.indices.delete(index=index_name, ignore=404)
+
+        # Create index using DSL abstractions
+        idx = Index(index_name, using=self.client)
+        idx.settings(**{"index.knn": True})
+
+        mapping = Mapping()
+        mapping.field("vec", field.KnnVector(dimension=3))
+        idx.mapping(mapping)
+
+        result = idx.create()
+        assert result["acknowledged"] is True
+
+        field_mapping = idx.get_field_mapping(fields="vec")
+        assert field_mapping[index_name]["mappings"]["vec"]["mapping"]["vec"] == {
+            "type": "knn_vector",
+            "dimension": 3,
+        }
+
+        # search tests
+        doc = {"vec": [1.0, 2.0, 3.0]}
+        result = self.client.index(index=index_name, id=1, body=doc, refresh=True)
+        assert result["_shards"]["successful"] == 1
+        get_resp = self.client.get(index=index_name, id=1)
+        assert get_resp["_source"]["vec"] == doc["vec"]
+
+        search_body = {
+            "size": 1,
+            "query": {"knn": {"vec": {"vector": [1.0, 2.0, 3.0], "k": 1}}},
+        }
+        search_resp = self.client.search(index=index_name, body=search_body)
+        hits = search_resp["hits"]["hits"]
+        assert len(hits) == 1
+        assert hits[0]["_id"] == "1"
+
+        # cleanup
+        self.client.indices.delete(index=index_name)
