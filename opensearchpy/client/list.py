@@ -86,7 +86,7 @@ class ListClient(NamespacedClient):
         replicas, document counts, disk size.
 
 
-        :arg index: Comma-separated list of data streams, indexes, and
+        :arg index: A comma-separated list of data streams, indexes, and
             aliases used to limit the request. Supports wildcards (`*`). To target
             all data streams and indexes, omit this parameter or use `*` or `_all`.
         :arg bytes: The unit used to display byte values. Valid choices
@@ -103,7 +103,7 @@ class ListClient(NamespacedClient):
             with "-".
         :arg format: A short version of the Accept header, such as
             `JSON`, `YAML`.
-        :arg h: Comma-separated list of column names to display.
+        :arg h: A comma-separated list of column names to display.
         :arg health: The health status used to limit returned indexes.
             By default, the response includes indexes of any health status. Valid
             choices are green, yellow, red.
@@ -123,7 +123,7 @@ class ListClient(NamespacedClient):
             response. Default is false.
         :arg pri: If `true`, the response only includes information from
             primary shards. Default is false.
-        :arg s: Comma-separated list of column names or column aliases
+        :arg s: A comma-separated list of column names or column aliases
             to sort by.
         :arg size: Maximum number of indexes to be displayed in a page.
         :arg sort: Defines order in which indexes will be displayed.
@@ -185,7 +185,7 @@ class ListClient(NamespacedClient):
             with "-".
         :arg format: A short version of the Accept header, such as
             `JSON`, `YAML`.
-        :arg h: Comma-separated list of column names to display.
+        :arg h: A comma-separated list of column names to display.
         :arg help: Return help information. Default is false.
         :arg human: Whether to return human readable values for
             statistics. Default is True.
@@ -197,7 +197,7 @@ class ListClient(NamespacedClient):
         :arg next_token: Token to retrieve next page of shards.
         :arg pretty: Whether to pretty format the returned JSON
             response. Default is false.
-        :arg s: Comma-separated list of column names or column aliases
+        :arg s: A comma-separated list of column names or column aliases
             to sort by.
         :arg size: Maximum number of shards to be displayed in a page.
         :arg sort: Defines order in which shards will be displayed.
