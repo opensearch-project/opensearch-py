@@ -349,7 +349,7 @@ class OpenSearch(Client):
             an index template with a `data_stream` definition, this request creates
             the data stream. If the target doesn't exist and doesn't match a data
             stream template, this request creates the index.
-        :arg id: Unique identifier for the document.
+        :arg id: The unique identifier for the document.
         :arg body: The document
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
@@ -380,7 +380,7 @@ class OpenSearch(Client):
         :arg version: Explicit version number for concurrency control.
             The specified version must match the current version of the document for
             the request to succeed.
-        :arg version_type: Specific version type: `external`,
+        :arg version_type: The specific version type: `external`,
             `external_gte`. Valid choices are external, external_gte, force,
             internal.
         :arg wait_for_active_shards: The number of shard copies that
@@ -431,7 +431,7 @@ class OpenSearch(Client):
 
         :arg index: Name of the data stream or index to target.
         :arg body: The document
-        :arg id: Unique identifier for the document.
+        :arg id: The unique identifier for the document.
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
         :arg filter_path: Used to reduce the response. This parameter
@@ -473,7 +473,7 @@ class OpenSearch(Client):
         :arg version: Explicit version number for concurrency control.
             The specified version must match the current version of the document for
             the request to succeed.
-        :arg version_type: Specific version type: `external`,
+        :arg version_type: The specific version type: `external`,
             `external_gte`. Valid choices are external, external_gte, force,
             internal.
         :arg wait_for_active_shards: The number of shard copies that
@@ -589,10 +589,10 @@ class OpenSearch(Client):
         Explicitly clears the search context for a scroll.
 
 
-        :arg body: Comma-separated list of scroll IDs to clear if none
+        :arg body: A comma-separated list of scroll IDs to clear if none
             was specified using the `scroll_id` parameter
-        :arg scroll_id: Comma-separated list of scroll IDs to clear. To
-            clear all scroll IDs, use `_all`.
+        :arg scroll_id: A comma-separated list of scroll IDs to clear.
+            To clear all scroll IDs, use `_all`.
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
         :arg filter_path: Used to reduce the response. This parameter
@@ -652,7 +652,7 @@ class OpenSearch(Client):
 
         :arg body: Query to restrict the results specified with the
             Query DSL (optional)
-        :arg index: Comma-separated list of data streams, indexes, and
+        :arg index: A comma-separated list of data streams, indexes, and
             aliases to search. Supports wildcards (`*`). To search all data streams
             and indexes, omit this parameter or use `*` or `_all`.
         :arg allow_no_indices: If `false`, the request returns an error
@@ -739,7 +739,7 @@ class OpenSearch(Client):
 
 
         :arg index: Name of the target index.
-        :arg id: Unique identifier for the document.
+        :arg id: The unique identifier for the document.
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
         :arg filter_path: Used to reduce the response. This parameter
@@ -766,7 +766,7 @@ class OpenSearch(Client):
         :arg version: Explicit version number for concurrency control.
             The specified version must match the current version of the document for
             the request to succeed.
-        :arg version_type: Specific version type: `external`,
+        :arg version_type: The specific version type: `external`,
             `external_gte`. Valid choices are external, external_gte, force,
             internal.
         :arg wait_for_active_shards: The number of shard copies that
@@ -834,7 +834,7 @@ class OpenSearch(Client):
         Deletes documents matching the provided query.
 
 
-        :arg index: Comma-separated list of data streams, indexes, and
+        :arg index: A comma-separated list of data streams, indexes, and
             aliases to search. Supports wildcards (`*`). To search all data streams
             or indexes, omit this parameter or use `*` or `_all`.
         :arg body: The search definition using the Query DSL
@@ -1064,7 +1064,7 @@ class OpenSearch(Client):
         Returns information about whether a document exists in an index.
 
 
-        :arg index: Comma-separated list of data streams, indexes, and
+        :arg index: A comma-separated list of data streams, indexes, and
             aliases. Supports wildcards (`*`).
         :arg id: Identifier of the document.
         :arg _source: `true` or `false` to return the `_source` field or
@@ -1085,8 +1085,8 @@ class OpenSearch(Client):
             should be performed on. Random by default. Default is random.
         :arg pretty: Whether to pretty format the returned JSON
             response. Default is false.
-        :arg realtime: If `true`, the request is real-time as opposed to
-            near-real-time.
+        :arg realtime: If `true`, the request is real time as opposed to
+            near real time.
         :arg refresh: If `true`, OpenSearch refreshes all shards
             involved in the delete by query after the request completes. Valid
             choices are false, true, wait_for.
@@ -1100,7 +1100,7 @@ class OpenSearch(Client):
         :arg version: Explicit version number for concurrency control.
             The specified version must match the current version of the document for
             the request to succeed.
-        :arg version_type: Specific version type: `external`,
+        :arg version_type: The specific version type: `external`,
             `external_gte`. Valid choices are external, external_gte, force,
             internal.
         """
@@ -1140,7 +1140,7 @@ class OpenSearch(Client):
         Returns information about whether a document source exists in an index.
 
 
-        :arg index: Comma-separated list of data streams, indexes, and
+        :arg index: A comma-separated list of data streams, indexes, and
             aliases. Supports wildcards (`*`).
         :arg id: Identifier of the document.
         :arg _source: `true` or `false` to return the `_source` field or
@@ -1161,8 +1161,8 @@ class OpenSearch(Client):
             should be performed on. Random by default. Default is random.
         :arg pretty: Whether to pretty format the returned JSON
             response. Default is false.
-        :arg realtime: If `true`, the request is real-time as opposed to
-            near-real-time.
+        :arg realtime: If `true`, the request is real time as opposed to
+            near real time.
         :arg refresh: If `true`, OpenSearch refreshes all shards
             involved in the delete by query after the request completes. Valid
             choices are false, true, wait_for.
@@ -1172,7 +1172,7 @@ class OpenSearch(Client):
         :arg version: Explicit version number for concurrency control.
             The specified version must match the current version of the document for
             the request to succeed.
-        :arg version_type: Specific version type: `external`,
+        :arg version_type: The specific version type: `external`,
             `external_gte`. Valid choices are external, external_gte, force,
             internal.
         """
@@ -1296,7 +1296,7 @@ class OpenSearch(Client):
 
 
         :arg body: An index filter specified with the Query DSL
-        :arg index: Comma-separated list of data streams, indexes, and
+        :arg index: A comma-separated list of data streams, indexes, and
             aliases used to limit the request. Supports wildcards (*). To target all
             data streams and indexes, omit this parameter or use * or `_all`.
         :arg allow_no_indices: If `false`, the request returns an error
@@ -1312,7 +1312,7 @@ class OpenSearch(Client):
             whether wildcard expressions match hidden data streams. Supports comma-
             separated values, such as `open,hidden`. Valid choices are all, closed,
             hidden, none, open.
-        :arg fields: Comma-separated list of fields to retrieve
+        :arg fields: A comma-separated list of fields to retrieve
             capabilities for. Wildcard (`*`) expressions are supported.
         :arg filter_path: Used to reduce the response. This parameter
             takes a comma-separated list of filters. It supports using wildcards to
@@ -1366,7 +1366,7 @@ class OpenSearch(Client):
         Returns a document.
 
 
-        :arg index: The name of the index that contains the document.
+        :arg index: The name of the index containing the document.
         :arg id: The unique identifier of the document.
         :arg _source: Set to `true` or `false` to return the `_source`
             field or not, or a list of fields to return.
@@ -1386,8 +1386,8 @@ class OpenSearch(Client):
             should be performed on. Random by default. Default is random.
         :arg pretty: Whether to pretty format the returned JSON
             response. Default is false.
-        :arg realtime: If `true`, the request is real-time as opposed to
-            near-real-time.
+        :arg realtime: If `true`, the request is real time as opposed to
+            near real time.
         :arg refresh: If `true`, OpenSearch refreshes the affected
             shards to make this operation visible to search. If `false`, do nothing
             with refreshes. Valid choices are false, true, wait_for.
@@ -1401,7 +1401,7 @@ class OpenSearch(Client):
         :arg version: Explicit version number for concurrency control.
             The specified version must match the current version of the document for
             the request to succeed.
-        :arg version_type: Specific version type: `internal`,
+        :arg version_type: The specific version type: `internal`,
             `external`, `external_gte`. Valid choices are external, external_gte,
             force, internal.
         """
@@ -1487,7 +1487,7 @@ class OpenSearch(Client):
         Returns the source of a document.
 
 
-        :arg index: The name of the index that contains the document.
+        :arg index: The name of the index containing the document.
         :arg id: The unique identifier of the document.
         :arg _source: Set to `true` or `false` to return the `_source`
             field or not, or a list of fields to return.
@@ -1507,8 +1507,8 @@ class OpenSearch(Client):
             should be performed on. Random by default. Default is random.
         :arg pretty: Whether to pretty format the returned JSON
             response. Default is false.
-        :arg realtime: Boolean) If `true`, the request is real-time as
-            opposed to near-real-time.
+        :arg realtime: Boolean) If `true`, the request is real time as
+            opposed to near real time.
         :arg refresh: If `true`, OpenSearch refreshes the affected
             shards to make this operation visible to search. If `false`, do nothing
             with refreshes. Valid choices are false, true, wait_for.
@@ -1518,7 +1518,7 @@ class OpenSearch(Client):
         :arg version: Explicit version number for concurrency control.
             The specified version must match the current version of the document for
             the request to succeed.
-        :arg version_type: Specific version type. One of `internal`,
+        :arg version_type: The specific version type. One of `internal`,
             `external`, `external_gte`. Valid choices are external, external_gte,
             force, internal.
         """
@@ -1562,9 +1562,9 @@ class OpenSearch(Client):
         :arg body: Document identifiers; can be either `docs`
             (containing full document information) or `ids` (when index is provided
             in the URL.
-        :arg index: Name of the index to retrieve documents from when
-            `ids` are specified, or when a document in the `docs` array does not
-            specify an index.
+        :arg index: The name of the index to retrieve documents from
+            when `ids` are specified, or when a document in the `docs` array does
+            not specify an index.
         :arg _source: Set to `true` or `false` to return the `_source`
             field or not, or a list of fields to return.
         :arg _source_excludes: A comma-separated list of source fields
@@ -1587,8 +1587,8 @@ class OpenSearch(Client):
             should be performed on. Random by default. Default is random.
         :arg pretty: Whether to pretty format the returned JSON
             response. Default is false.
-        :arg realtime: If `true`, the request is real-time as opposed to
-            near-real-time.
+        :arg realtime: If `true`, the request is real time as opposed to
+            near real time.
         :arg refresh: If `true`, the request refreshes relevant shards
             before retrieving documents. Valid choices are false, true, wait_for.
         :arg routing: A custom value used to route operations to a
@@ -1637,7 +1637,7 @@ class OpenSearch(Client):
 
         :arg body: The request definitions (metadata-search request
             definition pairs), separated by newlines
-        :arg index: Comma-separated list of data streams, indexes, and
+        :arg index: A comma-separated list of data streams, indexes, and
             index aliases to search.
         :arg ccs_minimize_roundtrips: If `true`, network round-trips
             between the coordinating node and remote clusters are minimized for
@@ -1713,7 +1713,7 @@ class OpenSearch(Client):
 
         :arg body: The request definitions (metadata-search request
             definition pairs), separated by newlines
-        :arg index: Comma-separated list of data streams, indexes, and
+        :arg index: A comma-separated list of data streams, indexes, and
             aliases to search. Supports wildcards (`*`). To search all data streams
             and indexes, omit this parameter or use `*`.
         :arg ccs_minimize_roundtrips: If `true`, network round-trips are
@@ -1821,8 +1821,8 @@ class OpenSearch(Client):
             repeated queries.
         :arg pretty: Whether to pretty format the returned JSON
             response. Default is false.
-        :arg realtime: If `true`, the request is real-time as opposed to
-            near-real-time. Default is True.
+        :arg realtime: If `true`, the request is real time as opposed to
+            near real time. Default is True.
         :arg routing: A custom value used to route operations to a
             specific shard.
         :arg source: The URL-encoded request definition. Useful for
@@ -1929,7 +1929,7 @@ class OpenSearch(Client):
 
         :arg body: The ranking evaluation search definition, including
             search requests, document ratings and ranking metric definition.
-        :arg index: Comma-separated list of data streams, indexes, and
+        :arg index: A comma-separated list of data streams, indexes, and
             index aliases used to limit the request. Wildcard (`*`) expressions are
             supported. To target all data streams and indexes in a cluster, omit
             this parameter or use `_all` or `*`.
@@ -2269,7 +2269,7 @@ class OpenSearch(Client):
 
 
         :arg body: The search definition using the Query DSL
-        :arg index: Comma-separated list of data streams, indexes, and
+        :arg index: A comma-separated list of data streams, indexes, and
             aliases to search. Supports wildcards (`*`). To search all data streams
             and indexes, omit this parameter or use `*` or `_all`.
         :arg _source: Indicates which source fields are returned for
@@ -2556,12 +2556,14 @@ class OpenSearch(Client):
         "human",
         "ignore_throttled",
         "ignore_unavailable",
+        "phase_took",
         "preference",
         "pretty",
         "profile",
         "rest_total_hits_as_int",
         "routing",
         "scroll",
+        "search_pipeline",
         "search_type",
         "source",
         "typed_keys",
@@ -2579,7 +2581,7 @@ class OpenSearch(Client):
 
 
         :arg body: The search definition template and its parameters.
-        :arg index: Comma-separated list of data streams, indexes, and
+        :arg index: A comma-separated list of data streams, indexes, and
             aliases to search. Supports wildcards (*).
         :arg allow_no_indices: If `false`, the request returns an error
             if any wildcard expression, index alias, or `_all` value targets only
@@ -2608,6 +2610,8 @@ class OpenSearch(Client):
             or aliased indexes are not included in the response when throttled.
         :arg ignore_unavailable: If `false`, the request returns an
             error if it targets a missing or closed index.
+        :arg phase_took: Indicates whether to return phase-level `took`
+            time values in the response. Default is false.
         :arg preference: Specifies the node or shard the operation
             should be performed on. Random by default. Default is random.
         :arg pretty: Whether to pretty format the returned JSON
@@ -2619,6 +2623,8 @@ class OpenSearch(Client):
             specific shard.
         :arg scroll: Specifies how long a consistent view of the index
             should be maintained for scrolled search.
+        :arg search_pipeline: Customizable sequence of processing stages
+            applied to search queries.
         :arg search_type: The type of the search operation. Valid
             choices are dfs_query_then_fetch, query_then_fetch.
         :arg source: The URL-encoded request definition. Useful for
@@ -2669,7 +2675,7 @@ class OpenSearch(Client):
         document.
 
 
-        :arg index: The name of the index that contains the document.
+        :arg index: The name of the index containing the document.
         :arg body: Define parameters and or supply a document to get
             termvectors for. See documentation.
         :arg id: The unique identifier of the document.
@@ -2703,8 +2709,8 @@ class OpenSearch(Client):
             repeated queries.
         :arg pretty: Whether to pretty format the returned JSON
             response. Default is false.
-        :arg realtime: If `true`, the request is real-time as opposed to
-            near-real-time. Default is True.
+        :arg realtime: If `true`, the request is real time as opposed to
+            near real time. Default is True.
         :arg routing: A custom value used to route operations to a
             specific shard.
         :arg source: The URL-encoded request definition. Useful for
@@ -2868,7 +2874,7 @@ class OpenSearch(Client):
         for example to pick up a mapping change.
 
 
-        :arg index: Comma-separated list of data streams, indexes, and
+        :arg index: A comma-separated list of data streams, indexes, and
             aliases to search. Supports wildcards (`*`). To search all data streams
             or indexes, omit this parameter or use `*` or `_all`.
         :arg body: The search definition using the Query DSL
@@ -3100,8 +3106,8 @@ class OpenSearch(Client):
         Creates point in time context.
 
 
-        :arg index: Comma-separated list of indexes; use `_all` or empty
-            string to perform the operation on all indexes.
+        :arg index: A comma-separated list of indexes; use `_all` or
+            empty string to perform the operation on all indexes.
         :arg allow_partial_pit_creation: Allow if point in time can be
             created with partial failures.
         :arg error_trace: Whether to include the stack trace of returned
@@ -3120,7 +3126,7 @@ class OpenSearch(Client):
             be performed on. Default is random.
         :arg pretty: Whether to pretty format the returned JSON
             response. Default is false.
-        :arg routing: Comma-separated list of specific routing values.
+        :arg routing: A comma-separated list of specific routing values.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         """
