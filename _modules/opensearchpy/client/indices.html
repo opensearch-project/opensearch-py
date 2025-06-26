@@ -181,7 +181,7 @@
 <span class="sd">        Performs the refresh operation in one or more indexes.</span>
 
 
-<span class="sd">        :arg index: Comma-separated list of data streams, indexes, and</span>
+<span class="sd">        :arg index: A comma-separated list of data streams, indexes, and</span>
 <span class="sd">            aliases used to limit the request. Supports wildcards (`*`). To target</span>
 <span class="sd">            all data streams and indexes, omit this parameter or use `*` or `_all`.</span>
 <span class="sd">        :arg allow_no_indices: If `false`, the request returns an error</span>
@@ -235,7 +235,7 @@
 <span class="sd">        Performs the flush operation on one or more indexes.</span>
 
 
-<span class="sd">        :arg index: Comma-separated list of data streams, indexes, and</span>
+<span class="sd">        :arg index: A comma-separated list of data streams, indexes, and</span>
 <span class="sd">            aliases to flush. Supports wildcards (`*`). To flush all data streams</span>
 <span class="sd">            and indexes, omit this parameter or use `*` or `_all`.</span>
 <span class="sd">        :arg allow_no_indices: If `false`, the request returns an error</span>
@@ -295,7 +295,7 @@
 <span class="sd">        Creates an index with optional settings and mappings.</span>
 
 
-<span class="sd">        :arg index: Name of the index you wish to create.</span>
+<span class="sd">        :arg index: The name of the index you wish to create.</span>
 <span class="sd">        :arg body: The configuration for the index (`settings` and</span>
 <span class="sd">            `mappings`)</span>
 <span class="sd">        :arg cluster_manager_timeout: Operation timeout for connection</span>
@@ -429,7 +429,7 @@
 <span class="sd">        Returns information about one or more indexes.</span>
 
 
-<span class="sd">        :arg index: Comma-separated list of data streams, indexes, and</span>
+<span class="sd">        :arg index: A comma-separated list of data streams, indexes, and</span>
 <span class="sd">            index aliases used to limit the request. Wildcard expressions (*) are</span>
 <span class="sd">            supported.</span>
 <span class="sd">        :arg allow_no_indices: If `false`, the request returns an error</span>
@@ -505,7 +505,7 @@
 <span class="sd">        Opens an index.</span>
 
 
-<span class="sd">        :arg index: Comma-separated list of data streams, indexes, and</span>
+<span class="sd">        :arg index: A comma-separated list of data streams, indexes, and</span>
 <span class="sd">            aliases used to limit the request. Supports wildcards (`*`). By default,</span>
 <span class="sd">            you must explicitly name the indexes you using to limit the request. To</span>
 <span class="sd">            limit a request using `_all`, `*`, or other wildcard expressions, change</span>
@@ -585,8 +585,8 @@
 <span class="sd">        Closes an index.</span>
 
 
-<span class="sd">        :arg index: Comma-separated list or wildcard expression of index</span>
-<span class="sd">            names used to limit the request.</span>
+<span class="sd">        :arg index: A comma-separated list or wildcard expression of</span>
+<span class="sd">            index names used to limit the request.</span>
 <span class="sd">        :arg allow_no_indices: If `false`, the request returns an error</span>
 <span class="sd">            if any wildcard expression, index alias, or `_all` value targets only</span>
 <span class="sd">            missing or closed indexes. This behavior applies even if the request</span>
@@ -655,7 +655,7 @@
 <span class="sd">        Deletes an index.</span>
 
 
-<span class="sd">        :arg index: Comma-separated list of indexes to delete. You</span>
+<span class="sd">        :arg index: A comma-separated list of indexes to delete. You</span>
 <span class="sd">            cannot specify index aliases. By default, this parameter does not</span>
 <span class="sd">            support wildcards (`*`) or `_all`. To use wildcards or `_all`, set the</span>
 <span class="sd">            `action.destructive_requires_name` cluster setting to `false`.</span>
@@ -724,7 +724,7 @@
 <span class="sd">        Returns information about whether a particular index exists.</span>
 
 
-<span class="sd">        :arg index: Comma-separated list of data streams, indexes, and</span>
+<span class="sd">        :arg index: A comma-separated list of data streams, indexes, and</span>
 <span class="sd">            aliases. Supports wildcards (`*`).</span>
 <span class="sd">        :arg allow_no_indices: If `false`, the request returns an error</span>
 <span class="sd">            if any wildcard expression, index alias, or `_all` value targets only</span>
@@ -867,7 +867,7 @@
 <span class="sd">        Returns mappings for one or more indexes.</span>
 
 
-<span class="sd">        :arg index: Comma-separated list of data streams, indexes, and</span>
+<span class="sd">        :arg index: A comma-separated list of data streams, indexes, and</span>
 <span class="sd">            aliases used to limit the request. Supports wildcards (`*`). To target</span>
 <span class="sd">            all data streams and indexes, omit this parameter or use `*` or `_all`.</span>
 <span class="sd">        :arg allow_no_indices: If `false`, the request returns an error</span>
@@ -930,9 +930,9 @@
 <span class="sd">        Returns mapping for one or more fields.</span>
 
 
-<span class="sd">        :arg fields: Comma-separated list or wildcard expression of</span>
+<span class="sd">        :arg fields: A comma-separated list or wildcard expression of</span>
 <span class="sd">            fields used to limit returned information.</span>
-<span class="sd">        :arg index: Comma-separated list of data streams, indexes, and</span>
+<span class="sd">        :arg index: A comma-separated list of data streams, indexes, and</span>
 <span class="sd">            aliases used to limit the request. Supports wildcards (`*`). To target</span>
 <span class="sd">            all data streams and indexes, omit this parameter or use `*` or `_all`.</span>
 <span class="sd">        :arg allow_no_indices: If `false`, the request returns an error</span>
@@ -996,10 +996,10 @@
 <span class="sd">        Returns information about whether a particular alias exists.</span>
 
 
-<span class="sd">        :arg name: Comma-separated list of aliases to check. Supports</span>
+<span class="sd">        :arg name: A comma-separated list of aliases to check. Supports</span>
 <span class="sd">            wildcards (`*`).</span>
-<span class="sd">        :arg index: Comma-separated list of data streams or indexes used</span>
-<span class="sd">            to limit the request. Supports wildcards (`*`). To target all data</span>
+<span class="sd">        :arg index: A comma-separated list of data streams or indexes</span>
+<span class="sd">            used to limit the request. Supports wildcards (`*`). To target all data</span>
 <span class="sd">            streams and indexes, omit this parameter or use `*` or `_all`.</span>
 <span class="sd">        :arg allow_no_indices: If `false`, the request returns an error</span>
 <span class="sd">            if any wildcard expression, index alias, or `_all` value targets only</span>
@@ -1058,12 +1058,12 @@
 <span class="sd">        Returns an alias.</span>
 
 
-<span class="sd">        :arg index: Comma-separated list of data streams or indexes used</span>
-<span class="sd">            to limit the request. Supports wildcards (`*`). To target all data</span>
+<span class="sd">        :arg index: A comma-separated list of data streams or indexes</span>
+<span class="sd">            used to limit the request. Supports wildcards (`*`). To target all data</span>
 <span class="sd">            streams and indexes, omit this parameter or use `*` or `_all`.</span>
-<span class="sd">        :arg name: Comma-separated list of aliases to retrieve. Supports</span>
-<span class="sd">            wildcards (`*`). To retrieve all aliases, omit this parameter or use `*`</span>
-<span class="sd">            or `_all`.</span>
+<span class="sd">        :arg name: A comma-separated list of aliases to retrieve.</span>
+<span class="sd">            Supports wildcards (`*`). To retrieve all aliases, omit this parameter</span>
+<span class="sd">            or use `*` or `_all`.</span>
 <span class="sd">        :arg allow_no_indices: If `false`, the request returns an error</span>
 <span class="sd">            if any wildcard expression, index alias, or `_all` value targets only</span>
 <span class="sd">            missing or closed indexes. This behavior applies even if the request</span>
@@ -1167,9 +1167,9 @@
 <span class="sd">        Deletes an alias.</span>
 
 
-<span class="sd">        :arg index: Comma-separated list of data streams or indexes used</span>
-<span class="sd">            to limit the request. Supports wildcards (`*`).</span>
-<span class="sd">        :arg name: Comma-separated list of aliases to remove. Supports</span>
+<span class="sd">        :arg index: A comma-separated list of data streams or indexes</span>
+<span class="sd">            used to limit the request. Supports wildcards (`*`).</span>
+<span class="sd">        :arg name: A comma-separated list of aliases to remove. Supports</span>
 <span class="sd">            wildcards (`*`). To remove all aliases, use `*` or `_all`.</span>
 <span class="sd">        :arg cluster_manager_timeout: Operation timeout for connection</span>
 <span class="sd">            to cluster-manager node.</span>
@@ -1337,10 +1337,10 @@
 <span class="sd">        Returns an index template.</span>
 
 
-<span class="sd">        :arg name: Comma-separated list of index template names used to</span>
-<span class="sd">            limit the request. Wildcard (`*`) expressions are supported. To return</span>
-<span class="sd">            all index templates, omit this parameter or use a value of `_all` or</span>
-<span class="sd">            `*`.</span>
+<span class="sd">        :arg name: A comma-separated list of index template names used</span>
+<span class="sd">            to limit the request. Wildcard (`*`) expressions are supported. To</span>
+<span class="sd">            return all index templates, omit this parameter or use a value of `_all`</span>
+<span class="sd">            or `*`.</span>
 <span class="sd">        :arg cluster_manager_timeout: Operation timeout for connection</span>
 <span class="sd">            to cluster-manager node.</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
@@ -1447,10 +1447,10 @@
 <span class="sd">        Returns settings for one or more indexes.</span>
 
 
-<span class="sd">        :arg index: Comma-separated list of data streams, indexes, and</span>
+<span class="sd">        :arg index: A comma-separated list of data streams, indexes, and</span>
 <span class="sd">            aliases used to limit the request. Supports wildcards (`*`). To target</span>
 <span class="sd">            all data streams and indexes, omit this parameter or use `*` or `_all`.</span>
-<span class="sd">        :arg name: Comma-separated list or wildcard expression of</span>
+<span class="sd">        :arg name: A comma-separated list or wildcard expression of</span>
 <span class="sd">            settings to retrieve.</span>
 <span class="sd">        :arg allow_no_indices: If `false`, the request returns an error</span>
 <span class="sd">            if any wildcard expression, index alias, or `_all` value targets only</span>
@@ -1522,7 +1522,7 @@
 <span class="sd">        Updates the index settings.</span>
 
 
-<span class="sd">        :arg index: Comma-separated list of data streams, indexes, and</span>
+<span class="sd">        :arg index: A comma-separated list of data streams, indexes, and</span>
 <span class="sd">            aliases used to limit the request. Supports wildcards (`*`). To target</span>
 <span class="sd">            all data streams and indexes, omit this parameter or use `*` or `_all`.</span>
 <span class="sd">        :arg allow_no_indices: If `false`, the request returns an error</span>
@@ -1607,7 +1607,7 @@
 <span class="sd">            empty string to perform the operation on all indexes</span>
 <span class="sd">        :arg metric: Limit the information returned the specific</span>
 <span class="sd">            metrics.</span>
-<span class="sd">        :arg completion_fields: Comma-separated list or wildcard</span>
+<span class="sd">        :arg completion_fields: A comma-separated list or wildcard</span>
 <span class="sd">            expressions of fields to include in field data and suggest statistics.</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
 <span class="sd">            errors. Default is false.</span>
@@ -1616,9 +1616,9 @@
 <span class="sd">            whether wildcard expressions match hidden data streams. Supports comma-</span>
 <span class="sd">            separated values, such as `open,hidden`. Valid choices are all, closed,</span>
 <span class="sd">            hidden, none, open.</span>
-<span class="sd">        :arg fielddata_fields: Comma-separated list or wildcard</span>
+<span class="sd">        :arg fielddata_fields: A comma-separated list or wildcard</span>
 <span class="sd">            expressions of fields to include in field data statistics.</span>
-<span class="sd">        :arg fields: Comma-separated list or wildcard expressions of</span>
+<span class="sd">        :arg fields: A comma-separated list or wildcard expressions of</span>
 <span class="sd">            fields to include in the statistics.</span>
 <span class="sd">        :arg filter_path: Used to reduce the response. This parameter</span>
 <span class="sd">            takes a comma-separated list of filters. It supports using wildcards to</span>
@@ -1626,8 +1626,8 @@
 <span class="sd">            with &quot;-&quot;.</span>
 <span class="sd">        :arg forbid_closed_indices: If `true`, statistics are not</span>
 <span class="sd">            collected from closed indexes. Default is True.</span>
-<span class="sd">        :arg groups: Comma-separated list of search groups to include in</span>
-<span class="sd">            the search statistics.</span>
+<span class="sd">        :arg groups: A comma-separated list of search groups to include</span>
+<span class="sd">            in the search statistics.</span>
 <span class="sd">        :arg human: Whether to return human readable values for</span>
 <span class="sd">            statistics. Default is True.</span>
 <span class="sd">        :arg include_segment_file_sizes: If `true`, the call reports the</span>
@@ -1670,7 +1670,7 @@
 <span class="sd">        Provides low-level information about segments in a Lucene index.</span>
 
 
-<span class="sd">        :arg index: Comma-separated list of data streams, indexes, and</span>
+<span class="sd">        :arg index: A comma-separated list of data streams, indexes, and</span>
 <span class="sd">            aliases used to limit the request. Supports wildcards (`*`). To target</span>
 <span class="sd">            all data streams and indexes, omit this parameter or use `*` or `_all`.</span>
 <span class="sd">        :arg allow_no_indices: If `false`, the request returns an error</span>
@@ -1735,7 +1735,7 @@
 
 
 <span class="sd">        :arg body: The query definition specified with the Query DSL</span>
-<span class="sd">        :arg index: Comma-separated list of data streams, indexes, and</span>
+<span class="sd">        :arg index: A comma-separated list of data streams, indexes, and</span>
 <span class="sd">            aliases to search. Supports wildcards (`*`). To search all data streams</span>
 <span class="sd">            or indexes, omit this parameter or use `*` or `_all`.</span>
 <span class="sd">        :arg all_shards: If `true`, the validation is executed on all</span>
@@ -1815,8 +1815,8 @@
 <span class="sd">        Clears all or specific caches for one or more indexes.</span>
 
 
-<span class="sd">        :arg index: Comma-separated list of indexes; use `_all` or empty</span>
-<span class="sd">            string to perform the operation on all indexes.</span>
+<span class="sd">        :arg index: A comma-separated list of indexes; use `_all` or</span>
+<span class="sd">            empty string to perform the operation on all indexes.</span>
 <span class="sd">        :arg allow_no_indices: If `false`, the request returns an error</span>
 <span class="sd">            if any wildcard expression, index alias, or `_all` value targets only</span>
 <span class="sd">            missing or closed indexes. This behavior applies even if the request</span>
@@ -1830,7 +1830,7 @@
 <span class="sd">            `open`, `closed`, `hidden`, `none`.</span>
 <span class="sd">        :arg fielddata: If `true`, clears the fields cache. Use the</span>
 <span class="sd">            `fields` parameter to clear the cache of specific fields only.</span>
-<span class="sd">        :arg fields: Comma-separated list of field names used to limit</span>
+<span class="sd">        :arg fields: A comma-separated list of field names used to limit</span>
 <span class="sd">            the `fielddata` parameter.</span>
 <span class="sd">        :arg file: If `true`, clears the unused entries from the file</span>
 <span class="sd">            cache on nodes with the Search role. Default is false.</span>
@@ -1873,7 +1873,7 @@
 <span class="sd">        Returns information about ongoing index shard recoveries.</span>
 
 
-<span class="sd">        :arg index: Comma-separated list of data streams, indexes, and</span>
+<span class="sd">        :arg index: A comma-separated list of data streams, indexes, and</span>
 <span class="sd">            aliases used to limit the request. Supports wildcards (`*`). To target</span>
 <span class="sd">            all data streams and indexes, omit this parameter or use `*` or `_all`.</span>
 <span class="sd">        :arg active_only: If `true`, the response only includes ongoing</span>
@@ -1920,8 +1920,8 @@
 <span class="sd">        The `_upgrade` API is no longer useful and will be removed.</span>
 
 
-<span class="sd">        :arg index: Comma-separated list of indexes; use `_all` or empty</span>
-<span class="sd">            string to perform the operation on all indexes.</span>
+<span class="sd">        :arg index: A comma-separated list of indexes; use `_all` or</span>
+<span class="sd">            empty string to perform the operation on all indexes.</span>
 <span class="sd">        :arg allow_no_indices: Whether to ignore if a wildcard indexes</span>
 <span class="sd">            expression resolves into no concrete indexes. (This includes `_all`</span>
 <span class="sd">            string or when no indexes have been specified).</span>
@@ -1972,8 +1972,8 @@
 <span class="sd">        The `_upgrade` API is no longer useful and will be removed.</span>
 
 
-<span class="sd">        :arg index: Comma-separated list of indexes; use `_all` or empty</span>
-<span class="sd">            string to perform the operation on all indexes.</span>
+<span class="sd">        :arg index: A comma-separated list of indexes; use `_all` or</span>
+<span class="sd">            empty string to perform the operation on all indexes.</span>
 <span class="sd">        :arg allow_no_indices: Whether to ignore if a wildcard indexes</span>
 <span class="sd">            expression resolves into no concrete indexes. (This includes `_all`</span>
 <span class="sd">            string or when no indexes have been specified).</span>
@@ -2026,7 +2026,7 @@
 <span class="sd">        :arg allow_no_indices: If `false`, the request returns an error</span>
 <span class="sd">            if any wildcard expression, index alias, or `_all` value targets only</span>
 <span class="sd">            missing or closed indexes. This behavior applies even if the request</span>
-<span class="sd">            targets other open indexes.</span>
+<span class="sd">            targets other open indexes. Default is false.</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
 <span class="sd">            errors. Default is false.</span>
 <span class="sd">        :arg expand_wildcards: Type of index that wildcard patterns can</span>
@@ -2040,13 +2040,13 @@
 <span class="sd">        :arg human: Whether to return human readable values for</span>
 <span class="sd">            statistics. Default is True.</span>
 <span class="sd">        :arg ignore_unavailable: If `true`, missing or closed indexes</span>
-<span class="sd">            are not included in the response.</span>
+<span class="sd">            are not included in the response. Default is false.</span>
 <span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
 <span class="sd">            response. Default is false.</span>
 <span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
 <span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
 <span class="sd">        :arg status: List of shard health statuses used to limit the</span>
-<span class="sd">            request.</span>
+<span class="sd">            request. Default is all.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
             <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="n">_make_path</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="s2">&quot;_shard_stores&quot;</span><span class="p">),</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
@@ -2297,8 +2297,8 @@
 <span class="sd">        :arg alias: Name of the data stream or index alias to roll over.</span>
 <span class="sd">        :arg body: The conditions that needs to be met for executing</span>
 <span class="sd">            rollover</span>
-<span class="sd">        :arg new_index: Name of the index to create. Supports date math.</span>
-<span class="sd">            Data streams do not support this parameter.</span>
+<span class="sd">        :arg new_index: The name of the index to create. Supports date</span>
+<span class="sd">            math. Data streams do not support this parameter.</span>
 <span class="sd">        :arg cluster_manager_timeout: Operation timeout for connection</span>
 <span class="sd">            to cluster-manager node.</span>
 <span class="sd">        :arg dry_run: If `true`, checks whether the current index</span>
@@ -2395,7 +2395,7 @@
 <span class="sd">        Deletes a data stream.</span>
 
 
-<span class="sd">        :arg name: Comma-separated list of data streams to delete.</span>
+<span class="sd">        :arg name: A comma-separated list of data streams to delete.</span>
 <span class="sd">            Wildcard (`*`) expressions are supported.</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
 <span class="sd">            errors. Default is false.</span>
@@ -2438,8 +2438,8 @@
 <span class="sd">        Deletes an index template.</span>
 
 
-<span class="sd">        :arg name: Name of the index template to delete. Wildcard (*)</span>
-<span class="sd">            expressions are supported.</span>
+<span class="sd">        :arg name: The name of the index template to delete. Wildcard</span>
+<span class="sd">            (*) expressions are supported.</span>
 <span class="sd">        :arg cluster_manager_timeout: Operation timeout for connection</span>
 <span class="sd">            to cluster-manager node.</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
@@ -2494,7 +2494,7 @@
 <span class="sd">        Returns information about whether a particular index template exists.</span>
 
 
-<span class="sd">        :arg name: Name of the index template to check existence of.</span>
+<span class="sd">        :arg name: The name of the index template to check existence of.</span>
 <span class="sd">            Wildcard (*) expressions are supported.</span>
 <span class="sd">        :arg cluster_manager_timeout: Operation timeout for connection</span>
 <span class="sd">            to cluster-manager node.</span>
@@ -2548,8 +2548,8 @@
 <span class="sd">        Returns an index template.</span>
 
 
-<span class="sd">        :arg name: Name of the index template to retrieve. Wildcard (*)</span>
-<span class="sd">            expressions are supported.</span>
+<span class="sd">        :arg name: The name of the index template to retrieve. Wildcard</span>
+<span class="sd">            (*) expressions are supported.</span>
 <span class="sd">        :arg cluster_manager_timeout: Operation timeout for connection</span>
 <span class="sd">            to cluster-manager node.</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
@@ -2704,7 +2704,7 @@
 <span class="sd">        Returns data streams.</span>
 
 
-<span class="sd">        :arg name: Comma-separated list of data stream names used to</span>
+<span class="sd">        :arg name: A comma-separated list of data stream names used to</span>
 <span class="sd">            limit the request. Wildcard (`*`) expressions are supported. If omitted,</span>
 <span class="sd">            all data streams are returned.</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
@@ -2747,7 +2747,7 @@
 <span class="sd">        Simulate resolving the given template name or body.</span>
 
 
-<span class="sd">        :arg name: Name of the index template to simulate. To test a</span>
+<span class="sd">        :arg name: The name of the index template to simulate. To test a</span>
 <span class="sd">            template configuration before you add it to the cluster, omit this</span>
 <span class="sd">            parameter and specify the template configuration in the request body.</span>
 <span class="sd">        :arg cause: User defined reason for dry-run creating the new</span>
@@ -2901,7 +2901,7 @@
 <span class="sd">        Provides statistics on operations happening in a data stream.</span>
 
 
-<span class="sd">        :arg name: Comma-separated list of data streams used to limit</span>
+<span class="sd">        :arg name: A comma-separated list of data streams used to limit</span>
 <span class="sd">            the request. Wildcard expressions (`*`) are supported. To target all</span>
 <span class="sd">            data streams in a cluster, omit this parameter or use `*`.</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
@@ -2949,7 +2949,7 @@
 
 <span class="sd">        :arg body: The settings for the alias, such as `routing` or</span>
 <span class="sd">            `filter`</span>
-<span class="sd">        :arg index: Comma-separated list of data streams or indexes to</span>
+<span class="sd">        :arg index: A comma-separated list of data streams or indexes to</span>
 <span class="sd">            add. Supports wildcards (`*`). Wildcard patterns that match both data</span>
 <span class="sd">            streams and indexes return an error.</span>
 <span class="sd">        :arg name: Alias to update. If the alias doesn&#39;t exist, the</span>

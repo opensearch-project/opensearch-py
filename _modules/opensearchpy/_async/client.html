@@ -430,7 +430,7 @@
 <span class="sd">            an index template with a `data_stream` definition, this request creates</span>
 <span class="sd">            the data stream. If the target doesn&#39;t exist and doesn&#39;t match a data</span>
 <span class="sd">            stream template, this request creates the index.</span>
-<span class="sd">        :arg id: Unique identifier for the document.</span>
+<span class="sd">        :arg id: The unique identifier for the document.</span>
 <span class="sd">        :arg body: The document</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
 <span class="sd">            errors. Default is false.</span>
@@ -461,7 +461,7 @@
 <span class="sd">        :arg version: Explicit version number for concurrency control.</span>
 <span class="sd">            The specified version must match the current version of the document for</span>
 <span class="sd">            the request to succeed.</span>
-<span class="sd">        :arg version_type: Specific version type: `external`,</span>
+<span class="sd">        :arg version_type: The specific version type: `external`,</span>
 <span class="sd">            `external_gte`. Valid choices are external, external_gte, force,</span>
 <span class="sd">            internal.</span>
 <span class="sd">        :arg wait_for_active_shards: The number of shard copies that</span>
@@ -512,7 +512,7 @@
 
 <span class="sd">        :arg index: Name of the data stream or index to target.</span>
 <span class="sd">        :arg body: The document</span>
-<span class="sd">        :arg id: Unique identifier for the document.</span>
+<span class="sd">        :arg id: The unique identifier for the document.</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
 <span class="sd">            errors. Default is false.</span>
 <span class="sd">        :arg filter_path: Used to reduce the response. This parameter</span>
@@ -554,7 +554,7 @@
 <span class="sd">        :arg version: Explicit version number for concurrency control.</span>
 <span class="sd">            The specified version must match the current version of the document for</span>
 <span class="sd">            the request to succeed.</span>
-<span class="sd">        :arg version_type: Specific version type: `external`,</span>
+<span class="sd">        :arg version_type: The specific version type: `external`,</span>
 <span class="sd">            `external_gte`. Valid choices are external, external_gte, force,</span>
 <span class="sd">            internal.</span>
 <span class="sd">        :arg wait_for_active_shards: The number of shard copies that</span>
@@ -670,10 +670,10 @@
 <span class="sd">        Explicitly clears the search context for a scroll.</span>
 
 
-<span class="sd">        :arg body: Comma-separated list of scroll IDs to clear if none</span>
+<span class="sd">        :arg body: A comma-separated list of scroll IDs to clear if none</span>
 <span class="sd">            was specified using the `scroll_id` parameter</span>
-<span class="sd">        :arg scroll_id: Comma-separated list of scroll IDs to clear. To</span>
-<span class="sd">            clear all scroll IDs, use `_all`.</span>
+<span class="sd">        :arg scroll_id: A comma-separated list of scroll IDs to clear.</span>
+<span class="sd">            To clear all scroll IDs, use `_all`.</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
 <span class="sd">            errors. Default is false.</span>
 <span class="sd">        :arg filter_path: Used to reduce the response. This parameter</span>
@@ -733,7 +733,7 @@
 
 <span class="sd">        :arg body: Query to restrict the results specified with the</span>
 <span class="sd">            Query DSL (optional)</span>
-<span class="sd">        :arg index: Comma-separated list of data streams, indexes, and</span>
+<span class="sd">        :arg index: A comma-separated list of data streams, indexes, and</span>
 <span class="sd">            aliases to search. Supports wildcards (`*`). To search all data streams</span>
 <span class="sd">            and indexes, omit this parameter or use `*` or `_all`.</span>
 <span class="sd">        :arg allow_no_indices: If `false`, the request returns an error</span>
@@ -820,7 +820,7 @@
 
 
 <span class="sd">        :arg index: Name of the target index.</span>
-<span class="sd">        :arg id: Unique identifier for the document.</span>
+<span class="sd">        :arg id: The unique identifier for the document.</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
 <span class="sd">            errors. Default is false.</span>
 <span class="sd">        :arg filter_path: Used to reduce the response. This parameter</span>
@@ -847,7 +847,7 @@
 <span class="sd">        :arg version: Explicit version number for concurrency control.</span>
 <span class="sd">            The specified version must match the current version of the document for</span>
 <span class="sd">            the request to succeed.</span>
-<span class="sd">        :arg version_type: Specific version type: `external`,</span>
+<span class="sd">        :arg version_type: The specific version type: `external`,</span>
 <span class="sd">            `external_gte`. Valid choices are external, external_gte, force,</span>
 <span class="sd">            internal.</span>
 <span class="sd">        :arg wait_for_active_shards: The number of shard copies that</span>
@@ -915,7 +915,7 @@
 <span class="sd">        Deletes documents matching the provided query.</span>
 
 
-<span class="sd">        :arg index: Comma-separated list of data streams, indexes, and</span>
+<span class="sd">        :arg index: A comma-separated list of data streams, indexes, and</span>
 <span class="sd">            aliases to search. Supports wildcards (`*`). To search all data streams</span>
 <span class="sd">            or indexes, omit this parameter or use `*` or `_all`.</span>
 <span class="sd">        :arg body: The search definition using the Query DSL</span>
@@ -1145,7 +1145,7 @@
 <span class="sd">        Returns information about whether a document exists in an index.</span>
 
 
-<span class="sd">        :arg index: Comma-separated list of data streams, indexes, and</span>
+<span class="sd">        :arg index: A comma-separated list of data streams, indexes, and</span>
 <span class="sd">            aliases. Supports wildcards (`*`).</span>
 <span class="sd">        :arg id: Identifier of the document.</span>
 <span class="sd">        :arg _source: `true` or `false` to return the `_source` field or</span>
@@ -1166,8 +1166,8 @@
 <span class="sd">            should be performed on. Random by default. Default is random.</span>
 <span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
 <span class="sd">            response. Default is false.</span>
-<span class="sd">        :arg realtime: If `true`, the request is real-time as opposed to</span>
-<span class="sd">            near-real-time.</span>
+<span class="sd">        :arg realtime: If `true`, the request is real time as opposed to</span>
+<span class="sd">            near real time.</span>
 <span class="sd">        :arg refresh: If `true`, OpenSearch refreshes all shards</span>
 <span class="sd">            involved in the delete by query after the request completes. Valid</span>
 <span class="sd">            choices are false, true, wait_for.</span>
@@ -1181,7 +1181,7 @@
 <span class="sd">        :arg version: Explicit version number for concurrency control.</span>
 <span class="sd">            The specified version must match the current version of the document for</span>
 <span class="sd">            the request to succeed.</span>
-<span class="sd">        :arg version_type: Specific version type: `external`,</span>
+<span class="sd">        :arg version_type: The specific version type: `external`,</span>
 <span class="sd">            `external_gte`. Valid choices are external, external_gte, force,</span>
 <span class="sd">            internal.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -1221,7 +1221,7 @@
 <span class="sd">        Returns information about whether a document source exists in an index.</span>
 
 
-<span class="sd">        :arg index: Comma-separated list of data streams, indexes, and</span>
+<span class="sd">        :arg index: A comma-separated list of data streams, indexes, and</span>
 <span class="sd">            aliases. Supports wildcards (`*`).</span>
 <span class="sd">        :arg id: Identifier of the document.</span>
 <span class="sd">        :arg _source: `true` or `false` to return the `_source` field or</span>
@@ -1242,8 +1242,8 @@
 <span class="sd">            should be performed on. Random by default. Default is random.</span>
 <span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
 <span class="sd">            response. Default is false.</span>
-<span class="sd">        :arg realtime: If `true`, the request is real-time as opposed to</span>
-<span class="sd">            near-real-time.</span>
+<span class="sd">        :arg realtime: If `true`, the request is real time as opposed to</span>
+<span class="sd">            near real time.</span>
 <span class="sd">        :arg refresh: If `true`, OpenSearch refreshes all shards</span>
 <span class="sd">            involved in the delete by query after the request completes. Valid</span>
 <span class="sd">            choices are false, true, wait_for.</span>
@@ -1253,7 +1253,7 @@
 <span class="sd">        :arg version: Explicit version number for concurrency control.</span>
 <span class="sd">            The specified version must match the current version of the document for</span>
 <span class="sd">            the request to succeed.</span>
-<span class="sd">        :arg version_type: Specific version type: `external`,</span>
+<span class="sd">        :arg version_type: The specific version type: `external`,</span>
 <span class="sd">            `external_gte`. Valid choices are external, external_gte, force,</span>
 <span class="sd">            internal.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -1377,7 +1377,7 @@
 
 
 <span class="sd">        :arg body: An index filter specified with the Query DSL</span>
-<span class="sd">        :arg index: Comma-separated list of data streams, indexes, and</span>
+<span class="sd">        :arg index: A comma-separated list of data streams, indexes, and</span>
 <span class="sd">            aliases used to limit the request. Supports wildcards (*). To target all</span>
 <span class="sd">            data streams and indexes, omit this parameter or use * or `_all`.</span>
 <span class="sd">        :arg allow_no_indices: If `false`, the request returns an error</span>
@@ -1393,7 +1393,7 @@
 <span class="sd">            whether wildcard expressions match hidden data streams. Supports comma-</span>
 <span class="sd">            separated values, such as `open,hidden`. Valid choices are all, closed,</span>
 <span class="sd">            hidden, none, open.</span>
-<span class="sd">        :arg fields: Comma-separated list of fields to retrieve</span>
+<span class="sd">        :arg fields: A comma-separated list of fields to retrieve</span>
 <span class="sd">            capabilities for. Wildcard (`*`) expressions are supported.</span>
 <span class="sd">        :arg filter_path: Used to reduce the response. This parameter</span>
 <span class="sd">            takes a comma-separated list of filters. It supports using wildcards to</span>
@@ -1447,7 +1447,7 @@
 <span class="sd">        Returns a document.</span>
 
 
-<span class="sd">        :arg index: The name of the index that contains the document.</span>
+<span class="sd">        :arg index: The name of the index containing the document.</span>
 <span class="sd">        :arg id: The unique identifier of the document.</span>
 <span class="sd">        :arg _source: Set to `true` or `false` to return the `_source`</span>
 <span class="sd">            field or not, or a list of fields to return.</span>
@@ -1467,8 +1467,8 @@
 <span class="sd">            should be performed on. Random by default. Default is random.</span>
 <span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
 <span class="sd">            response. Default is false.</span>
-<span class="sd">        :arg realtime: If `true`, the request is real-time as opposed to</span>
-<span class="sd">            near-real-time.</span>
+<span class="sd">        :arg realtime: If `true`, the request is real time as opposed to</span>
+<span class="sd">            near real time.</span>
 <span class="sd">        :arg refresh: If `true`, OpenSearch refreshes the affected</span>
 <span class="sd">            shards to make this operation visible to search. If `false`, do nothing</span>
 <span class="sd">            with refreshes. Valid choices are false, true, wait_for.</span>
@@ -1482,7 +1482,7 @@
 <span class="sd">        :arg version: Explicit version number for concurrency control.</span>
 <span class="sd">            The specified version must match the current version of the document for</span>
 <span class="sd">            the request to succeed.</span>
-<span class="sd">        :arg version_type: Specific version type: `internal`,</span>
+<span class="sd">        :arg version_type: The specific version type: `internal`,</span>
 <span class="sd">            `external`, `external_gte`. Valid choices are external, external_gte,</span>
 <span class="sd">            force, internal.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -1568,7 +1568,7 @@
 <span class="sd">        Returns the source of a document.</span>
 
 
-<span class="sd">        :arg index: The name of the index that contains the document.</span>
+<span class="sd">        :arg index: The name of the index containing the document.</span>
 <span class="sd">        :arg id: The unique identifier of the document.</span>
 <span class="sd">        :arg _source: Set to `true` or `false` to return the `_source`</span>
 <span class="sd">            field or not, or a list of fields to return.</span>
@@ -1588,8 +1588,8 @@
 <span class="sd">            should be performed on. Random by default. Default is random.</span>
 <span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
 <span class="sd">            response. Default is false.</span>
-<span class="sd">        :arg realtime: Boolean) If `true`, the request is real-time as</span>
-<span class="sd">            opposed to near-real-time.</span>
+<span class="sd">        :arg realtime: Boolean) If `true`, the request is real time as</span>
+<span class="sd">            opposed to near real time.</span>
 <span class="sd">        :arg refresh: If `true`, OpenSearch refreshes the affected</span>
 <span class="sd">            shards to make this operation visible to search. If `false`, do nothing</span>
 <span class="sd">            with refreshes. Valid choices are false, true, wait_for.</span>
@@ -1599,7 +1599,7 @@
 <span class="sd">        :arg version: Explicit version number for concurrency control.</span>
 <span class="sd">            The specified version must match the current version of the document for</span>
 <span class="sd">            the request to succeed.</span>
-<span class="sd">        :arg version_type: Specific version type. One of `internal`,</span>
+<span class="sd">        :arg version_type: The specific version type. One of `internal`,</span>
 <span class="sd">            `external`, `external_gte`. Valid choices are external, external_gte,</span>
 <span class="sd">            force, internal.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -1643,9 +1643,9 @@
 <span class="sd">        :arg body: Document identifiers; can be either `docs`</span>
 <span class="sd">            (containing full document information) or `ids` (when index is provided</span>
 <span class="sd">            in the URL.</span>
-<span class="sd">        :arg index: Name of the index to retrieve documents from when</span>
-<span class="sd">            `ids` are specified, or when a document in the `docs` array does not</span>
-<span class="sd">            specify an index.</span>
+<span class="sd">        :arg index: The name of the index to retrieve documents from</span>
+<span class="sd">            when `ids` are specified, or when a document in the `docs` array does</span>
+<span class="sd">            not specify an index.</span>
 <span class="sd">        :arg _source: Set to `true` or `false` to return the `_source`</span>
 <span class="sd">            field or not, or a list of fields to return.</span>
 <span class="sd">        :arg _source_excludes: A comma-separated list of source fields</span>
@@ -1668,8 +1668,8 @@
 <span class="sd">            should be performed on. Random by default. Default is random.</span>
 <span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
 <span class="sd">            response. Default is false.</span>
-<span class="sd">        :arg realtime: If `true`, the request is real-time as opposed to</span>
-<span class="sd">            near-real-time.</span>
+<span class="sd">        :arg realtime: If `true`, the request is real time as opposed to</span>
+<span class="sd">            near real time.</span>
 <span class="sd">        :arg refresh: If `true`, the request refreshes relevant shards</span>
 <span class="sd">            before retrieving documents. Valid choices are false, true, wait_for.</span>
 <span class="sd">        :arg routing: A custom value used to route operations to a</span>
@@ -1718,7 +1718,7 @@
 
 <span class="sd">        :arg body: The request definitions (metadata-search request</span>
 <span class="sd">            definition pairs), separated by newlines</span>
-<span class="sd">        :arg index: Comma-separated list of data streams, indexes, and</span>
+<span class="sd">        :arg index: A comma-separated list of data streams, indexes, and</span>
 <span class="sd">            index aliases to search.</span>
 <span class="sd">        :arg ccs_minimize_roundtrips: If `true`, network round-trips</span>
 <span class="sd">            between the coordinating node and remote clusters are minimized for</span>
@@ -1794,7 +1794,7 @@
 
 <span class="sd">        :arg body: The request definitions (metadata-search request</span>
 <span class="sd">            definition pairs), separated by newlines</span>
-<span class="sd">        :arg index: Comma-separated list of data streams, indexes, and</span>
+<span class="sd">        :arg index: A comma-separated list of data streams, indexes, and</span>
 <span class="sd">            aliases to search. Supports wildcards (`*`). To search all data streams</span>
 <span class="sd">            and indexes, omit this parameter or use `*`.</span>
 <span class="sd">        :arg ccs_minimize_roundtrips: If `true`, network round-trips are</span>
@@ -1902,8 +1902,8 @@
 <span class="sd">            repeated queries.</span>
 <span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
 <span class="sd">            response. Default is false.</span>
-<span class="sd">        :arg realtime: If `true`, the request is real-time as opposed to</span>
-<span class="sd">            near-real-time. Default is True.</span>
+<span class="sd">        :arg realtime: If `true`, the request is real time as opposed to</span>
+<span class="sd">            near real time. Default is True.</span>
 <span class="sd">        :arg routing: A custom value used to route operations to a</span>
 <span class="sd">            specific shard.</span>
 <span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
@@ -2010,7 +2010,7 @@
 
 <span class="sd">        :arg body: The ranking evaluation search definition, including</span>
 <span class="sd">            search requests, document ratings and ranking metric definition.</span>
-<span class="sd">        :arg index: Comma-separated list of data streams, indexes, and</span>
+<span class="sd">        :arg index: A comma-separated list of data streams, indexes, and</span>
 <span class="sd">            index aliases used to limit the request. Wildcard (`*`) expressions are</span>
 <span class="sd">            supported. To target all data streams and indexes in a cluster, omit</span>
 <span class="sd">            this parameter or use `_all` or `*`.</span>
@@ -2350,7 +2350,7 @@
 
 
 <span class="sd">        :arg body: The search definition using the Query DSL</span>
-<span class="sd">        :arg index: Comma-separated list of data streams, indexes, and</span>
+<span class="sd">        :arg index: A comma-separated list of data streams, indexes, and</span>
 <span class="sd">            aliases to search. Supports wildcards (`*`). To search all data streams</span>
 <span class="sd">            and indexes, omit this parameter or use `*` or `_all`.</span>
 <span class="sd">        :arg _source: Indicates which source fields are returned for</span>
@@ -2637,12 +2637,14 @@
         <span class="s2">&quot;human&quot;</span><span class="p">,</span>
         <span class="s2">&quot;ignore_throttled&quot;</span><span class="p">,</span>
         <span class="s2">&quot;ignore_unavailable&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;phase_took&quot;</span><span class="p">,</span>
         <span class="s2">&quot;preference&quot;</span><span class="p">,</span>
         <span class="s2">&quot;pretty&quot;</span><span class="p">,</span>
         <span class="s2">&quot;profile&quot;</span><span class="p">,</span>
         <span class="s2">&quot;rest_total_hits_as_int&quot;</span><span class="p">,</span>
         <span class="s2">&quot;routing&quot;</span><span class="p">,</span>
         <span class="s2">&quot;scroll&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;search_pipeline&quot;</span><span class="p">,</span>
         <span class="s2">&quot;search_type&quot;</span><span class="p">,</span>
         <span class="s2">&quot;source&quot;</span><span class="p">,</span>
         <span class="s2">&quot;typed_keys&quot;</span><span class="p">,</span>
@@ -2660,7 +2662,7 @@
 
 
 <span class="sd">        :arg body: The search definition template and its parameters.</span>
-<span class="sd">        :arg index: Comma-separated list of data streams, indexes, and</span>
+<span class="sd">        :arg index: A comma-separated list of data streams, indexes, and</span>
 <span class="sd">            aliases to search. Supports wildcards (*).</span>
 <span class="sd">        :arg allow_no_indices: If `false`, the request returns an error</span>
 <span class="sd">            if any wildcard expression, index alias, or `_all` value targets only</span>
@@ -2689,6 +2691,8 @@
 <span class="sd">            or aliased indexes are not included in the response when throttled.</span>
 <span class="sd">        :arg ignore_unavailable: If `false`, the request returns an</span>
 <span class="sd">            error if it targets a missing or closed index.</span>
+<span class="sd">        :arg phase_took: Indicates whether to return phase-level `took`</span>
+<span class="sd">            time values in the response. Default is false.</span>
 <span class="sd">        :arg preference: Specifies the node or shard the operation</span>
 <span class="sd">            should be performed on. Random by default. Default is random.</span>
 <span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
@@ -2700,6 +2704,8 @@
 <span class="sd">            specific shard.</span>
 <span class="sd">        :arg scroll: Specifies how long a consistent view of the index</span>
 <span class="sd">            should be maintained for scrolled search.</span>
+<span class="sd">        :arg search_pipeline: Customizable sequence of processing stages</span>
+<span class="sd">            applied to search queries.</span>
 <span class="sd">        :arg search_type: The type of the search operation. Valid</span>
 <span class="sd">            choices are dfs_query_then_fetch, query_then_fetch.</span>
 <span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
@@ -2750,7 +2756,7 @@
 <span class="sd">        document.</span>
 
 
-<span class="sd">        :arg index: The name of the index that contains the document.</span>
+<span class="sd">        :arg index: The name of the index containing the document.</span>
 <span class="sd">        :arg body: Define parameters and or supply a document to get</span>
 <span class="sd">            termvectors for. See documentation.</span>
 <span class="sd">        :arg id: The unique identifier of the document.</span>
@@ -2784,8 +2790,8 @@
 <span class="sd">            repeated queries.</span>
 <span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
 <span class="sd">            response. Default is false.</span>
-<span class="sd">        :arg realtime: If `true`, the request is real-time as opposed to</span>
-<span class="sd">            near-real-time. Default is True.</span>
+<span class="sd">        :arg realtime: If `true`, the request is real time as opposed to</span>
+<span class="sd">            near real time. Default is True.</span>
 <span class="sd">        :arg routing: A custom value used to route operations to a</span>
 <span class="sd">            specific shard.</span>
 <span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
@@ -2949,7 +2955,7 @@
 <span class="sd">        for example to pick up a mapping change.</span>
 
 
-<span class="sd">        :arg index: Comma-separated list of data streams, indexes, and</span>
+<span class="sd">        :arg index: A comma-separated list of data streams, indexes, and</span>
 <span class="sd">            aliases to search. Supports wildcards (`*`). To search all data streams</span>
 <span class="sd">            or indexes, omit this parameter or use `*` or `_all`.</span>
 <span class="sd">        :arg body: The search definition using the Query DSL</span>
@@ -3181,8 +3187,8 @@
 <span class="sd">        Creates point in time context.</span>
 
 
-<span class="sd">        :arg index: Comma-separated list of indexes; use `_all` or empty</span>
-<span class="sd">            string to perform the operation on all indexes.</span>
+<span class="sd">        :arg index: A comma-separated list of indexes; use `_all` or</span>
+<span class="sd">            empty string to perform the operation on all indexes.</span>
 <span class="sd">        :arg allow_partial_pit_creation: Allow if point in time can be</span>
 <span class="sd">            created with partial failures.</span>
 <span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
@@ -3201,7 +3207,7 @@
 <span class="sd">            be performed on. Default is random.</span>
 <span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
 <span class="sd">            response. Default is false.</span>
-<span class="sd">        :arg routing: Comma-separated list of specific routing values.</span>
+<span class="sd">        :arg routing: A comma-separated list of specific routing values.</span>
 <span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
 <span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
 <span class="sd">        &quot;&quot;&quot;</span>

@@ -393,10 +393,10 @@ positive integer up to the total number of shards in the index
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Comma-separated list of scroll IDs to clear if none
+<li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – A comma-separated list of scroll IDs to clear if none
 was specified using the <cite>scroll_id</cite> parameter</p></li>
-<li><p><strong>scroll_id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Comma-separated list of scroll IDs to clear. To
-clear all scroll IDs, use <cite>_all</cite>.</p></li>
+<li><p><strong>scroll_id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – A comma-separated list of scroll IDs to clear.
+To clear all scroll IDs, use <cite>_all</cite>.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
 <li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
@@ -441,7 +441,7 @@ libraries that do not accept a request body for non-POST requests.</p></li>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Query to restrict the results specified with the
 Query DSL (optional)</p></li>
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Comma-separated list of data streams, indexes, and
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – A comma-separated list of data streams, indexes, and
 aliases to search. Supports wildcards (<cite>*</cite>). To search all data streams
 and indexes, omit this parameter or use <cite>*</cite> or <cite>_all</cite>.</p></li>
 <li><p><strong>allow_no_indices</strong> – If <cite>false</cite>, the request returns an error
@@ -516,7 +516,7 @@ target doesn’t exist and matches the name or wildcard (<cite>*</cite>) pattern
 an index template with a <cite>data_stream</cite> definition, this request creates
 the data stream. If the target doesn’t exist and doesn’t match a data
 stream template, this request creates the index.</p></li>
-<li><p><strong>id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Unique identifier for the document.</p></li>
+<li><p><strong>id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The unique identifier for the document.</p></li>
 <li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The document</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
@@ -547,7 +547,7 @@ for active shards.</p></li>
 <li><p><strong>version</strong> – Explicit version number for concurrency control.
 The specified version must match the current version of the document for
 the request to succeed.</p></li>
-<li><p><strong>version_type</strong> – Specific version type: <cite>external</cite>,
+<li><p><strong>version_type</strong> – The specific version type: <cite>external</cite>,
 <cite>external_gte</cite>. Valid choices are external, external_gte, force,
 internal.</p></li>
 <li><p><strong>wait_for_active_shards</strong> – The number of shard copies that
@@ -574,8 +574,8 @@ positive integer up to the total number of shards in the index
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Comma-separated list of indexes; use <cite>_all</cite> or empty
-string to perform the operation on all indexes.</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – A comma-separated list of indexes; use <cite>_all</cite> or
+empty string to perform the operation on all indexes.</p></li>
 <li><p><strong>allow_partial_pit_creation</strong> – Allow if point in time can be
 created with partial failures.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
@@ -594,7 +594,7 @@ statistics. Default is True.</p></li>
 be performed on. Default is random.</p></li>
 <li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
 response. Default is false.</p></li>
-<li><p><strong>routing</strong> – Comma-separated list of specific routing values.</p></li>
+<li><p><strong>routing</strong> – A comma-separated list of specific routing values.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
 <li><p><strong>index</strong> – </p></li>
@@ -616,7 +616,7 @@ libraries that do not accept a request body for non-POST requests.</p></li>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Name of the target index.</p></li>
-<li><p><strong>id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Unique identifier for the document.</p></li>
+<li><p><strong>id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The unique identifier for the document.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
 <li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
@@ -643,7 +643,7 @@ libraries that do not accept a request body for non-POST requests.</p></li>
 <li><p><strong>version</strong> – Explicit version number for concurrency control.
 The specified version must match the current version of the document for
 the request to succeed.</p></li>
-<li><p><strong>version_type</strong> – Specific version type: <cite>external</cite>,
+<li><p><strong>version_type</strong> – The specific version type: <cite>external</cite>,
 <cite>external_gte</cite>. Valid choices are external, external_gte, force,
 internal.</p></li>
 <li><p><strong>wait_for_active_shards</strong> – The number of shard copies that
@@ -698,7 +698,7 @@ libraries that do not accept a request body for non-POST requests.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Comma-separated list of data streams, indexes, and
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – A comma-separated list of data streams, indexes, and
 aliases to search. Supports wildcards (<cite>*</cite>). To search all data streams
 or indexes, omit this parameter or use <cite>*</cite> or <cite>_all</cite>.</p></li>
 <li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The search definition using the Query DSL</p></li>
@@ -914,7 +914,7 @@ error.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Comma-separated list of data streams, indexes, and
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – A comma-separated list of data streams, indexes, and
 aliases. Supports wildcards (<cite>*</cite>).</p></li>
 <li><p><strong>id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Identifier of the document.</p></li>
 <li><p><strong>_source</strong> – <cite>true</cite> or <cite>false</cite> to return the <cite>_source</cite> field or
@@ -935,8 +935,8 @@ statistics. Default is True.</p></li>
 should be performed on. Random by default. Default is random.</p></li>
 <li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
 response. Default is false.</p></li>
-<li><p><strong>realtime</strong> – If <cite>true</cite>, the request is real-time as opposed to
-near-real-time.</p></li>
+<li><p><strong>realtime</strong> – If <cite>true</cite>, the request is real time as opposed to
+near real time.</p></li>
 <li><p><strong>refresh</strong> – If <cite>true</cite>, OpenSearch refreshes all shards
 involved in the delete by query after the request completes. Valid
 choices are false, true, wait_for.</p></li>
@@ -950,7 +950,7 @@ to false.</p></li>
 <li><p><strong>version</strong> – Explicit version number for concurrency control.
 The specified version must match the current version of the document for
 the request to succeed.</p></li>
-<li><p><strong>version_type</strong> – Specific version type: <cite>external</cite>,
+<li><p><strong>version_type</strong> – The specific version type: <cite>external</cite>,
 <cite>external_gte</cite>. Valid choices are external, external_gte, force,
 internal.</p></li>
 <li><p><strong>index</strong> – </p></li>
@@ -972,7 +972,7 @@ internal.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Comma-separated list of data streams, indexes, and
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – A comma-separated list of data streams, indexes, and
 aliases. Supports wildcards (<cite>*</cite>).</p></li>
 <li><p><strong>id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Identifier of the document.</p></li>
 <li><p><strong>_source</strong> – <cite>true</cite> or <cite>false</cite> to return the <cite>_source</cite> field or
@@ -993,8 +993,8 @@ statistics. Default is True.</p></li>
 should be performed on. Random by default. Default is random.</p></li>
 <li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
 response. Default is false.</p></li>
-<li><p><strong>realtime</strong> – If <cite>true</cite>, the request is real-time as opposed to
-near-real-time.</p></li>
+<li><p><strong>realtime</strong> – If <cite>true</cite>, the request is real time as opposed to
+near real time.</p></li>
 <li><p><strong>refresh</strong> – If <cite>true</cite>, OpenSearch refreshes all shards
 involved in the delete by query after the request completes. Valid
 choices are false, true, wait_for.</p></li>
@@ -1004,7 +1004,7 @@ libraries that do not accept a request body for non-POST requests.</p></li>
 <li><p><strong>version</strong> – Explicit version number for concurrency control.
 The specified version must match the current version of the document for
 the request to succeed.</p></li>
-<li><p><strong>version_type</strong> – Specific version type: <cite>external</cite>,
+<li><p><strong>version_type</strong> – The specific version type: <cite>external</cite>,
 <cite>external_gte</cite>. Valid choices are external, external_gte, force,
 internal.</p></li>
 <li><p><strong>index</strong> – </p></li>
@@ -1089,7 +1089,7 @@ indexes.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – An index filter specified with the Query DSL</p></li>
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Comma-separated list of data streams, indexes, and
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – A comma-separated list of data streams, indexes, and
 aliases used to limit the request. Supports wildcards (*). To target all
 data streams and indexes, omit this parameter or use * or <cite>_all</cite>.</p></li>
 <li><p><strong>allow_no_indices</strong> – If <cite>false</cite>, the request returns an error
@@ -1105,7 +1105,7 @@ match. If the request can target data streams, this argument determines
 whether wildcard expressions match hidden data streams. Supports comma-
 separated values, such as <cite>open,hidden</cite>. Valid choices are all, closed,
 hidden, none, open.</p></li>
-<li><p><strong>fields</strong> – Comma-separated list of fields to retrieve
+<li><p><strong>fields</strong> – A comma-separated list of fields to retrieve
 capabilities for. Wildcard (<cite>*</cite>) expressions are supported.</p></li>
 <li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
 takes a comma-separated list of filters. It supports using wildcards to
@@ -1140,7 +1140,7 @@ libraries that do not accept a request body for non-POST requests.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The name of the index that contains the document.</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The name of the index containing the document.</p></li>
 <li><p><strong>id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The unique identifier of the document.</p></li>
 <li><p><strong>_source</strong> – Set to <cite>true</cite> or <cite>false</cite> to return the <cite>_source</cite>
 field or not, or a list of fields to return.</p></li>
@@ -1160,8 +1160,8 @@ statistics. Default is True.</p></li>
 should be performed on. Random by default. Default is random.</p></li>
 <li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
 response. Default is false.</p></li>
-<li><p><strong>realtime</strong> – If <cite>true</cite>, the request is real-time as opposed to
-near-real-time.</p></li>
+<li><p><strong>realtime</strong> – If <cite>true</cite>, the request is real time as opposed to
+near real time.</p></li>
 <li><p><strong>refresh</strong> – If <cite>true</cite>, OpenSearch refreshes the affected
 shards to make this operation visible to search. If <cite>false</cite>, do nothing
 with refreshes. Valid choices are false, true, wait_for.</p></li>
@@ -1175,7 +1175,7 @@ to false.</p></li>
 <li><p><strong>version</strong> – Explicit version number for concurrency control.
 The specified version must match the current version of the document for
 the request to succeed.</p></li>
-<li><p><strong>version_type</strong> – Specific version type: <cite>internal</cite>,
+<li><p><strong>version_type</strong> – The specific version type: <cite>internal</cite>,
 <cite>external</cite>, <cite>external_gte</cite>. Valid choices are external, external_gte,
 force, internal.</p></li>
 <li><p><strong>index</strong> – </p></li>
@@ -1320,7 +1320,7 @@ libraries that do not accept a request body for non-POST requests.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The name of the index that contains the document.</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The name of the index containing the document.</p></li>
 <li><p><strong>id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The unique identifier of the document.</p></li>
 <li><p><strong>_source</strong> – Set to <cite>true</cite> or <cite>false</cite> to return the <cite>_source</cite>
 field or not, or a list of fields to return.</p></li>
@@ -1340,8 +1340,8 @@ statistics. Default is True.</p></li>
 should be performed on. Random by default. Default is random.</p></li>
 <li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
 response. Default is false.</p></li>
-<li><p><strong>realtime</strong> – Boolean) If <cite>true</cite>, the request is real-time as
-opposed to near-real-time.</p></li>
+<li><p><strong>realtime</strong> – Boolean) If <cite>true</cite>, the request is real time as
+opposed to near real time.</p></li>
 <li><p><strong>refresh</strong> – If <cite>true</cite>, OpenSearch refreshes the affected
 shards to make this operation visible to search. If <cite>false</cite>, do nothing
 with refreshes. Valid choices are false, true, wait_for.</p></li>
@@ -1351,7 +1351,7 @@ libraries that do not accept a request body for non-POST requests.</p></li>
 <li><p><strong>version</strong> – Explicit version number for concurrency control.
 The specified version must match the current version of the document for
 the request to succeed.</p></li>
-<li><p><strong>version_type</strong> – Specific version type. One of <cite>internal</cite>,
+<li><p><strong>version_type</strong> – The specific version type. One of <cite>internal</cite>,
 <cite>external</cite>, <cite>external_gte</cite>. Valid choices are external, external_gte,
 force, internal.</p></li>
 <li><p><strong>index</strong> – </p></li>
@@ -1375,7 +1375,7 @@ force, internal.</p></li>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Name of the data stream or index to target.</p></li>
 <li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The document</p></li>
-<li><p><strong>id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Unique identifier for the document.</p></li>
+<li><p><strong>id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The unique identifier for the document.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
 <li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
@@ -1417,7 +1417,7 @@ for active shards.</p></li>
 <li><p><strong>version</strong> – Explicit version number for concurrency control.
 The specified version must match the current version of the document for
 the request to succeed.</p></li>
-<li><p><strong>version_type</strong> – Specific version type: <cite>external</cite>,
+<li><p><strong>version_type</strong> – The specific version type: <cite>external</cite>,
 <cite>external_gte</cite>. Valid choices are external, external_gte, force,
 internal.</p></li>
 <li><p><strong>wait_for_active_shards</strong> – The number of shard copies that
@@ -1476,9 +1476,9 @@ libraries that do not accept a request body for non-POST requests.</p></li>
 <li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Document identifiers; can be either <cite>docs</cite>
 (containing full document information) or <cite>ids</cite> (when index is provided
 in the URL.</p></li>
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Name of the index to retrieve documents from when
-<cite>ids</cite> are specified, or when a document in the <cite>docs</cite> array does not
-specify an index.</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The name of the index to retrieve documents from
+when <cite>ids</cite> are specified, or when a document in the <cite>docs</cite> array does
+not specify an index.</p></li>
 <li><p><strong>_source</strong> – Set to <cite>true</cite> or <cite>false</cite> to return the <cite>_source</cite>
 field or not, or a list of fields to return.</p></li>
 <li><p><strong>_source_excludes</strong> – A comma-separated list of source fields
@@ -1501,8 +1501,8 @@ statistics. Default is True.</p></li>
 should be performed on. Random by default. Default is random.</p></li>
 <li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
 response. Default is false.</p></li>
-<li><p><strong>realtime</strong> – If <cite>true</cite>, the request is real-time as opposed to
-near-real-time.</p></li>
+<li><p><strong>realtime</strong> – If <cite>true</cite>, the request is real time as opposed to
+near real time.</p></li>
 <li><p><strong>refresh</strong> – If <cite>true</cite>, the request refreshes relevant shards
 before retrieving documents. Valid choices are false, true, wait_for.</p></li>
 <li><p><strong>routing</strong> – A custom value used to route operations to a
@@ -1532,7 +1532,7 @@ stored in the index rather than the document <cite>_source</cite>.</p></li>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The request definitions (metadata-search request
 definition pairs), separated by newlines</p></li>
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Comma-separated list of data streams, indexes, and
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – A comma-separated list of data streams, indexes, and
 index aliases to search.</p></li>
 <li><p><strong>ccs_minimize_roundtrips</strong> – If <cite>true</cite>, network round-trips
 between the coordinating node and remote clusters are minimized for
@@ -1590,7 +1590,7 @@ names should be prefixed by their respective types in the response.</p></li>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The request definitions (metadata-search request
 definition pairs), separated by newlines</p></li>
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Comma-separated list of data streams, indexes, and
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – A comma-separated list of data streams, indexes, and
 aliases to search. Supports wildcards (<cite>*</cite>). To search all data streams
 and indexes, omit this parameter or use <cite>*</cite>.</p></li>
 <li><p><strong>ccs_minimize_roundtrips</strong> – If <cite>true</cite>, network round-trips are
@@ -1673,8 +1673,8 @@ copies (primary or replica), with no guarantee of consistency across
 repeated queries.</p></li>
 <li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
 response. Default is false.</p></li>
-<li><p><strong>realtime</strong> – If <cite>true</cite>, the request is real-time as opposed to
-near-real-time. Default is True.</p></li>
+<li><p><strong>realtime</strong> – If <cite>true</cite>, the request is real time as opposed to
+near real time. Default is True.</p></li>
 <li><p><strong>routing</strong> – A custom value used to route operations to a
 specific shard.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
@@ -1783,7 +1783,7 @@ search queries.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The ranking evaluation search definition, including
 search requests, document ratings and ranking metric definition.</p></li>
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Comma-separated list of data streams, indexes, and
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – A comma-separated list of data streams, indexes, and
 index aliases used to limit the request. Wildcard (<cite>*</cite>) expressions are
 supported. To target all data streams and indexes in a cluster, omit
 this parameter or use <cite>_all</cite> or <cite>*</cite>.</p></li>
@@ -2020,7 +2020,7 @@ libraries that do not accept a request body for non-POST requests.</p></li>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The search definition using the Query DSL</p></li>
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Comma-separated list of data streams, indexes, and
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – A comma-separated list of data streams, indexes, and
 aliases to search. Supports wildcards (<cite>*</cite>). To search all data streams
 and indexes, omit this parameter or use <cite>*</cite> or <cite>_all</cite>.</p></li>
 <li><p><strong>_source</strong> – Indicates which source fields are returned for
@@ -2289,7 +2289,7 @@ libraries that do not accept a request body for non-POST requests.</p></li>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The search definition template and its parameters.</p></li>
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Comma-separated list of data streams, indexes, and
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – A comma-separated list of data streams, indexes, and
 aliases to search. Supports wildcards (*).</p></li>
 <li><p><strong>allow_no_indices</strong> – If <cite>false</cite>, the request returns an error
 if any wildcard expression, index alias, or <cite>_all</cite> value targets only
@@ -2318,6 +2318,8 @@ statistics. Default is True.</p></li>
 or aliased indexes are not included in the response when throttled.</p></li>
 <li><p><strong>ignore_unavailable</strong> – If <cite>false</cite>, the request returns an
 error if it targets a missing or closed index.</p></li>
+<li><p><strong>phase_took</strong> – Indicates whether to return phase-level <cite>took</cite>
+time values in the response. Default is false.</p></li>
 <li><p><strong>preference</strong> – Specifies the node or shard the operation
 should be performed on. Random by default. Default is random.</p></li>
 <li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
@@ -2329,6 +2331,8 @@ rendered as an integer in the response. Default is false.</p></li>
 specific shard.</p></li>
 <li><p><strong>scroll</strong> – Specifies how long a consistent view of the index
 should be maintained for scrolled search.</p></li>
+<li><p><strong>search_pipeline</strong> – Customizable sequence of processing stages
+applied to search queries.</p></li>
 <li><p><strong>search_type</strong> – The type of the search operation. Valid
 choices are dfs_query_then_fetch, query_then_fetch.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
@@ -2355,7 +2359,7 @@ document.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The name of the index that contains the document.</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The name of the index containing the document.</p></li>
 <li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Define parameters and or supply a document to get
 termvectors for. See documentation.</p></li>
 <li><p><strong>id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The unique identifier of the document.</p></li>
@@ -2389,8 +2393,8 @@ copies (primary or replica), with no guarantee of consistency across
 repeated queries.</p></li>
 <li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
 response. Default is false.</p></li>
-<li><p><strong>realtime</strong> – If <cite>true</cite>, the request is real-time as opposed to
-near-real-time. Default is True.</p></li>
+<li><p><strong>realtime</strong> – If <cite>true</cite>, the request is real time as opposed to
+near real time. Default is True.</p></li>
 <li><p><strong>routing</strong> – A custom value used to route operations to a
 specific shard.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
@@ -2488,7 +2492,7 @@ for example to pick up a mapping change.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Comma-separated list of data streams, indexes, and
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – A comma-separated list of data streams, indexes, and
 aliases to search. Supports wildcards (<cite>*</cite>). To search all data streams
 or indexes, omit this parameter or use <cite>*</cite> or <cite>_all</cite>.</p></li>
 <li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The search definition using the Query DSL</p></li>
@@ -2921,10 +2925,10 @@ positive integer up to the total number of shards in the index
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Comma-separated list of scroll IDs to clear if none
+<li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – A comma-separated list of scroll IDs to clear if none
 was specified using the <cite>scroll_id</cite> parameter</p></li>
-<li><p><strong>scroll_id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Comma-separated list of scroll IDs to clear. To
-clear all scroll IDs, use <cite>_all</cite>.</p></li>
+<li><p><strong>scroll_id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – A comma-separated list of scroll IDs to clear.
+To clear all scroll IDs, use <cite>_all</cite>.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
 <li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
@@ -2969,7 +2973,7 @@ libraries that do not accept a request body for non-POST requests.</p></li>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Query to restrict the results specified with the
 Query DSL (optional)</p></li>
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Comma-separated list of data streams, indexes, and
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – A comma-separated list of data streams, indexes, and
 aliases to search. Supports wildcards (<cite>*</cite>). To search all data streams
 and indexes, omit this parameter or use <cite>*</cite> or <cite>_all</cite>.</p></li>
 <li><p><strong>allow_no_indices</strong> – If <cite>false</cite>, the request returns an error
@@ -3044,7 +3048,7 @@ target doesn’t exist and matches the name or wildcard (<cite>*</cite>) pattern
 an index template with a <cite>data_stream</cite> definition, this request creates
 the data stream. If the target doesn’t exist and doesn’t match a data
 stream template, this request creates the index.</p></li>
-<li><p><strong>id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Unique identifier for the document.</p></li>
+<li><p><strong>id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The unique identifier for the document.</p></li>
 <li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The document</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
@@ -3075,7 +3079,7 @@ for active shards.</p></li>
 <li><p><strong>version</strong> – Explicit version number for concurrency control.
 The specified version must match the current version of the document for
 the request to succeed.</p></li>
-<li><p><strong>version_type</strong> – Specific version type: <cite>external</cite>,
+<li><p><strong>version_type</strong> – The specific version type: <cite>external</cite>,
 <cite>external_gte</cite>. Valid choices are external, external_gte, force,
 internal.</p></li>
 <li><p><strong>wait_for_active_shards</strong> – The number of shard copies that
@@ -3102,8 +3106,8 @@ positive integer up to the total number of shards in the index
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Comma-separated list of indexes; use <cite>_all</cite> or empty
-string to perform the operation on all indexes.</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – A comma-separated list of indexes; use <cite>_all</cite> or
+empty string to perform the operation on all indexes.</p></li>
 <li><p><strong>allow_partial_pit_creation</strong> – Allow if point in time can be
 created with partial failures.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
@@ -3122,7 +3126,7 @@ statistics. Default is True.</p></li>
 be performed on. Default is random.</p></li>
 <li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
 response. Default is false.</p></li>
-<li><p><strong>routing</strong> – Comma-separated list of specific routing values.</p></li>
+<li><p><strong>routing</strong> – A comma-separated list of specific routing values.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
 <li><p><strong>index</strong> – </p></li>
@@ -3144,7 +3148,7 @@ libraries that do not accept a request body for non-POST requests.</p></li>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Name of the target index.</p></li>
-<li><p><strong>id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Unique identifier for the document.</p></li>
+<li><p><strong>id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The unique identifier for the document.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
 <li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
@@ -3171,7 +3175,7 @@ libraries that do not accept a request body for non-POST requests.</p></li>
 <li><p><strong>version</strong> – Explicit version number for concurrency control.
 The specified version must match the current version of the document for
 the request to succeed.</p></li>
-<li><p><strong>version_type</strong> – Specific version type: <cite>external</cite>,
+<li><p><strong>version_type</strong> – The specific version type: <cite>external</cite>,
 <cite>external_gte</cite>. Valid choices are external, external_gte, force,
 internal.</p></li>
 <li><p><strong>wait_for_active_shards</strong> – The number of shard copies that
@@ -3226,7 +3230,7 @@ libraries that do not accept a request body for non-POST requests.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Comma-separated list of data streams, indexes, and
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – A comma-separated list of data streams, indexes, and
 aliases to search. Supports wildcards (<cite>*</cite>). To search all data streams
 or indexes, omit this parameter or use <cite>*</cite> or <cite>_all</cite>.</p></li>
 <li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The search definition using the Query DSL</p></li>
@@ -3442,7 +3446,7 @@ error.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Comma-separated list of data streams, indexes, and
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – A comma-separated list of data streams, indexes, and
 aliases. Supports wildcards (<cite>*</cite>).</p></li>
 <li><p><strong>id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Identifier of the document.</p></li>
 <li><p><strong>_source</strong> – <cite>true</cite> or <cite>false</cite> to return the <cite>_source</cite> field or
@@ -3463,8 +3467,8 @@ statistics. Default is True.</p></li>
 should be performed on. Random by default. Default is random.</p></li>
 <li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
 response. Default is false.</p></li>
-<li><p><strong>realtime</strong> – If <cite>true</cite>, the request is real-time as opposed to
-near-real-time.</p></li>
+<li><p><strong>realtime</strong> – If <cite>true</cite>, the request is real time as opposed to
+near real time.</p></li>
 <li><p><strong>refresh</strong> – If <cite>true</cite>, OpenSearch refreshes all shards
 involved in the delete by query after the request completes. Valid
 choices are false, true, wait_for.</p></li>
@@ -3478,7 +3482,7 @@ to false.</p></li>
 <li><p><strong>version</strong> – Explicit version number for concurrency control.
 The specified version must match the current version of the document for
 the request to succeed.</p></li>
-<li><p><strong>version_type</strong> – Specific version type: <cite>external</cite>,
+<li><p><strong>version_type</strong> – The specific version type: <cite>external</cite>,
 <cite>external_gte</cite>. Valid choices are external, external_gte, force,
 internal.</p></li>
 <li><p><strong>index</strong> – </p></li>
@@ -3500,7 +3504,7 @@ internal.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Comma-separated list of data streams, indexes, and
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – A comma-separated list of data streams, indexes, and
 aliases. Supports wildcards (<cite>*</cite>).</p></li>
 <li><p><strong>id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Identifier of the document.</p></li>
 <li><p><strong>_source</strong> – <cite>true</cite> or <cite>false</cite> to return the <cite>_source</cite> field or
@@ -3521,8 +3525,8 @@ statistics. Default is True.</p></li>
 should be performed on. Random by default. Default is random.</p></li>
 <li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
 response. Default is false.</p></li>
-<li><p><strong>realtime</strong> – If <cite>true</cite>, the request is real-time as opposed to
-near-real-time.</p></li>
+<li><p><strong>realtime</strong> – If <cite>true</cite>, the request is real time as opposed to
+near real time.</p></li>
 <li><p><strong>refresh</strong> – If <cite>true</cite>, OpenSearch refreshes all shards
 involved in the delete by query after the request completes. Valid
 choices are false, true, wait_for.</p></li>
@@ -3532,7 +3536,7 @@ libraries that do not accept a request body for non-POST requests.</p></li>
 <li><p><strong>version</strong> – Explicit version number for concurrency control.
 The specified version must match the current version of the document for
 the request to succeed.</p></li>
-<li><p><strong>version_type</strong> – Specific version type: <cite>external</cite>,
+<li><p><strong>version_type</strong> – The specific version type: <cite>external</cite>,
 <cite>external_gte</cite>. Valid choices are external, external_gte, force,
 internal.</p></li>
 <li><p><strong>index</strong> – </p></li>
@@ -3617,7 +3621,7 @@ indexes.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – An index filter specified with the Query DSL</p></li>
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Comma-separated list of data streams, indexes, and
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – A comma-separated list of data streams, indexes, and
 aliases used to limit the request. Supports wildcards (*). To target all
 data streams and indexes, omit this parameter or use * or <cite>_all</cite>.</p></li>
 <li><p><strong>allow_no_indices</strong> – If <cite>false</cite>, the request returns an error
@@ -3633,7 +3637,7 @@ match. If the request can target data streams, this argument determines
 whether wildcard expressions match hidden data streams. Supports comma-
 separated values, such as <cite>open,hidden</cite>. Valid choices are all, closed,
 hidden, none, open.</p></li>
-<li><p><strong>fields</strong> – Comma-separated list of fields to retrieve
+<li><p><strong>fields</strong> – A comma-separated list of fields to retrieve
 capabilities for. Wildcard (<cite>*</cite>) expressions are supported.</p></li>
 <li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
 takes a comma-separated list of filters. It supports using wildcards to
@@ -3668,7 +3672,7 @@ libraries that do not accept a request body for non-POST requests.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The name of the index that contains the document.</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The name of the index containing the document.</p></li>
 <li><p><strong>id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The unique identifier of the document.</p></li>
 <li><p><strong>_source</strong> – Set to <cite>true</cite> or <cite>false</cite> to return the <cite>_source</cite>
 field or not, or a list of fields to return.</p></li>
@@ -3688,8 +3692,8 @@ statistics. Default is True.</p></li>
 should be performed on. Random by default. Default is random.</p></li>
 <li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
 response. Default is false.</p></li>
-<li><p><strong>realtime</strong> – If <cite>true</cite>, the request is real-time as opposed to
-near-real-time.</p></li>
+<li><p><strong>realtime</strong> – If <cite>true</cite>, the request is real time as opposed to
+near real time.</p></li>
 <li><p><strong>refresh</strong> – If <cite>true</cite>, OpenSearch refreshes the affected
 shards to make this operation visible to search. If <cite>false</cite>, do nothing
 with refreshes. Valid choices are false, true, wait_for.</p></li>
@@ -3703,7 +3707,7 @@ to false.</p></li>
 <li><p><strong>version</strong> – Explicit version number for concurrency control.
 The specified version must match the current version of the document for
 the request to succeed.</p></li>
-<li><p><strong>version_type</strong> – Specific version type: <cite>internal</cite>,
+<li><p><strong>version_type</strong> – The specific version type: <cite>internal</cite>,
 <cite>external</cite>, <cite>external_gte</cite>. Valid choices are external, external_gte,
 force, internal.</p></li>
 <li><p><strong>index</strong> – </p></li>
@@ -3848,7 +3852,7 @@ libraries that do not accept a request body for non-POST requests.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The name of the index that contains the document.</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The name of the index containing the document.</p></li>
 <li><p><strong>id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The unique identifier of the document.</p></li>
 <li><p><strong>_source</strong> – Set to <cite>true</cite> or <cite>false</cite> to return the <cite>_source</cite>
 field or not, or a list of fields to return.</p></li>
@@ -3868,8 +3872,8 @@ statistics. Default is True.</p></li>
 should be performed on. Random by default. Default is random.</p></li>
 <li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
 response. Default is false.</p></li>
-<li><p><strong>realtime</strong> – Boolean) If <cite>true</cite>, the request is real-time as
-opposed to near-real-time.</p></li>
+<li><p><strong>realtime</strong> – Boolean) If <cite>true</cite>, the request is real time as
+opposed to near real time.</p></li>
 <li><p><strong>refresh</strong> – If <cite>true</cite>, OpenSearch refreshes the affected
 shards to make this operation visible to search. If <cite>false</cite>, do nothing
 with refreshes. Valid choices are false, true, wait_for.</p></li>
@@ -3879,7 +3883,7 @@ libraries that do not accept a request body for non-POST requests.</p></li>
 <li><p><strong>version</strong> – Explicit version number for concurrency control.
 The specified version must match the current version of the document for
 the request to succeed.</p></li>
-<li><p><strong>version_type</strong> – Specific version type. One of <cite>internal</cite>,
+<li><p><strong>version_type</strong> – The specific version type. One of <cite>internal</cite>,
 <cite>external</cite>, <cite>external_gte</cite>. Valid choices are external, external_gte,
 force, internal.</p></li>
 <li><p><strong>index</strong> – </p></li>
@@ -3903,7 +3907,7 @@ force, internal.</p></li>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Name of the data stream or index to target.</p></li>
 <li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The document</p></li>
-<li><p><strong>id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Unique identifier for the document.</p></li>
+<li><p><strong>id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The unique identifier for the document.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
 <li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
@@ -3945,7 +3949,7 @@ for active shards.</p></li>
 <li><p><strong>version</strong> – Explicit version number for concurrency control.
 The specified version must match the current version of the document for
 the request to succeed.</p></li>
-<li><p><strong>version_type</strong> – Specific version type: <cite>external</cite>,
+<li><p><strong>version_type</strong> – The specific version type: <cite>external</cite>,
 <cite>external_gte</cite>. Valid choices are external, external_gte, force,
 internal.</p></li>
 <li><p><strong>wait_for_active_shards</strong> – The number of shard copies that
@@ -4004,9 +4008,9 @@ libraries that do not accept a request body for non-POST requests.</p></li>
 <li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Document identifiers; can be either <cite>docs</cite>
 (containing full document information) or <cite>ids</cite> (when index is provided
 in the URL.</p></li>
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Name of the index to retrieve documents from when
-<cite>ids</cite> are specified, or when a document in the <cite>docs</cite> array does not
-specify an index.</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The name of the index to retrieve documents from
+when <cite>ids</cite> are specified, or when a document in the <cite>docs</cite> array does
+not specify an index.</p></li>
 <li><p><strong>_source</strong> – Set to <cite>true</cite> or <cite>false</cite> to return the <cite>_source</cite>
 field or not, or a list of fields to return.</p></li>
 <li><p><strong>_source_excludes</strong> – A comma-separated list of source fields
@@ -4029,8 +4033,8 @@ statistics. Default is True.</p></li>
 should be performed on. Random by default. Default is random.</p></li>
 <li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
 response. Default is false.</p></li>
-<li><p><strong>realtime</strong> – If <cite>true</cite>, the request is real-time as opposed to
-near-real-time.</p></li>
+<li><p><strong>realtime</strong> – If <cite>true</cite>, the request is real time as opposed to
+near real time.</p></li>
 <li><p><strong>refresh</strong> – If <cite>true</cite>, the request refreshes relevant shards
 before retrieving documents. Valid choices are false, true, wait_for.</p></li>
 <li><p><strong>routing</strong> – A custom value used to route operations to a
@@ -4060,7 +4064,7 @@ stored in the index rather than the document <cite>_source</cite>.</p></li>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The request definitions (metadata-search request
 definition pairs), separated by newlines</p></li>
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Comma-separated list of data streams, indexes, and
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – A comma-separated list of data streams, indexes, and
 index aliases to search.</p></li>
 <li><p><strong>ccs_minimize_roundtrips</strong> – If <cite>true</cite>, network round-trips
 between the coordinating node and remote clusters are minimized for
@@ -4118,7 +4122,7 @@ names should be prefixed by their respective types in the response.</p></li>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The request definitions (metadata-search request
 definition pairs), separated by newlines</p></li>
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Comma-separated list of data streams, indexes, and
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – A comma-separated list of data streams, indexes, and
 aliases to search. Supports wildcards (<cite>*</cite>). To search all data streams
 and indexes, omit this parameter or use <cite>*</cite>.</p></li>
 <li><p><strong>ccs_minimize_roundtrips</strong> – If <cite>true</cite>, network round-trips are
@@ -4201,8 +4205,8 @@ copies (primary or replica), with no guarantee of consistency across
 repeated queries.</p></li>
 <li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
 response. Default is false.</p></li>
-<li><p><strong>realtime</strong> – If <cite>true</cite>, the request is real-time as opposed to
-near-real-time. Default is True.</p></li>
+<li><p><strong>realtime</strong> – If <cite>true</cite>, the request is real time as opposed to
+near real time. Default is True.</p></li>
 <li><p><strong>routing</strong> – A custom value used to route operations to a
 specific shard.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
@@ -4311,7 +4315,7 @@ search queries.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The ranking evaluation search definition, including
 search requests, document ratings and ranking metric definition.</p></li>
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Comma-separated list of data streams, indexes, and
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – A comma-separated list of data streams, indexes, and
 index aliases used to limit the request. Wildcard (<cite>*</cite>) expressions are
 supported. To target all data streams and indexes in a cluster, omit
 this parameter or use <cite>_all</cite> or <cite>*</cite>.</p></li>
@@ -4548,7 +4552,7 @@ libraries that do not accept a request body for non-POST requests.</p></li>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The search definition using the Query DSL</p></li>
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Comma-separated list of data streams, indexes, and
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – A comma-separated list of data streams, indexes, and
 aliases to search. Supports wildcards (<cite>*</cite>). To search all data streams
 and indexes, omit this parameter or use <cite>*</cite> or <cite>_all</cite>.</p></li>
 <li><p><strong>_source</strong> – Indicates which source fields are returned for
@@ -4817,7 +4821,7 @@ libraries that do not accept a request body for non-POST requests.</p></li>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The search definition template and its parameters.</p></li>
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Comma-separated list of data streams, indexes, and
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – A comma-separated list of data streams, indexes, and
 aliases to search. Supports wildcards (*).</p></li>
 <li><p><strong>allow_no_indices</strong> – If <cite>false</cite>, the request returns an error
 if any wildcard expression, index alias, or <cite>_all</cite> value targets only
@@ -4846,6 +4850,8 @@ statistics. Default is True.</p></li>
 or aliased indexes are not included in the response when throttled.</p></li>
 <li><p><strong>ignore_unavailable</strong> – If <cite>false</cite>, the request returns an
 error if it targets a missing or closed index.</p></li>
+<li><p><strong>phase_took</strong> – Indicates whether to return phase-level <cite>took</cite>
+time values in the response. Default is false.</p></li>
 <li><p><strong>preference</strong> – Specifies the node or shard the operation
 should be performed on. Random by default. Default is random.</p></li>
 <li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
@@ -4857,6 +4863,8 @@ rendered as an integer in the response. Default is false.</p></li>
 specific shard.</p></li>
 <li><p><strong>scroll</strong> – Specifies how long a consistent view of the index
 should be maintained for scrolled search.</p></li>
+<li><p><strong>search_pipeline</strong> – Customizable sequence of processing stages
+applied to search queries.</p></li>
 <li><p><strong>search_type</strong> – The type of the search operation. Valid
 choices are dfs_query_then_fetch, query_then_fetch.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
@@ -4883,7 +4891,7 @@ document.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The name of the index that contains the document.</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The name of the index containing the document.</p></li>
 <li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Define parameters and or supply a document to get
 termvectors for. See documentation.</p></li>
 <li><p><strong>id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The unique identifier of the document.</p></li>
@@ -4917,8 +4925,8 @@ copies (primary or replica), with no guarantee of consistency across
 repeated queries.</p></li>
 <li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
 response. Default is false.</p></li>
-<li><p><strong>realtime</strong> – If <cite>true</cite>, the request is real-time as opposed to
-near-real-time. Default is True.</p></li>
+<li><p><strong>realtime</strong> – If <cite>true</cite>, the request is real time as opposed to
+near real time. Default is True.</p></li>
 <li><p><strong>routing</strong> – A custom value used to route operations to a
 specific shard.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
@@ -5016,7 +5024,7 @@ for example to pick up a mapping change.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Comma-separated list of data streams, indexes, and
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – A comma-separated list of data streams, indexes, and
 aliases to search. Supports wildcards (<cite>*</cite>). To search all data streams
 or indexes, omit this parameter or use <cite>*</cite> or <cite>_all</cite>.</p></li>
 <li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The search definition using the Query DSL</p></li>
