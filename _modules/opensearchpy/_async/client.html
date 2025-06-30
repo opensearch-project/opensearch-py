@@ -127,6 +127,7 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">.http</span><span class="w"> </span><span class="kn">import</span> <span class="n">HttpClient</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">.indices</span><span class="w"> </span><span class="kn">import</span> <span class="n">IndicesClient</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">.ingest</span><span class="w"> </span><span class="kn">import</span> <span class="n">IngestClient</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.ingestion</span><span class="w"> </span><span class="kn">import</span> <span class="n">IngestionClient</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">.insights</span><span class="w"> </span><span class="kn">import</span> <span class="n">InsightsClient</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">.list</span><span class="w"> </span><span class="kn">import</span> <span class="n">ListClient</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">.nodes</span><span class="w"> </span><span class="kn">import</span> <span class="n">NodesClient</span>
@@ -293,6 +294,7 @@
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">hosts</span><span class="p">,</span> <span class="n">transport_class</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
         <span class="c1"># namespaced clients for compatibility with API names</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ingestion</span> <span class="o">=</span> <span class="n">IngestionClient</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">wlm</span> <span class="o">=</span> <span class="n">WlmClient</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">list</span> <span class="o">=</span> <span class="n">ListClient</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">insights</span> <span class="o">=</span> <span class="n">InsightsClient</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
