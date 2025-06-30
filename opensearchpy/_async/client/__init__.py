@@ -46,6 +46,7 @@ from .features import FeaturesClient
 from .http import HttpClient
 from .indices import IndicesClient
 from .ingest import IngestClient
+from .ingestion import IngestionClient
 from .insights import InsightsClient
 from .list import ListClient
 from .nodes import NodesClient
@@ -212,6 +213,7 @@ class AsyncOpenSearch(Client):
         super().__init__(hosts, transport_class, **kwargs)
 
         # namespaced clients for compatibility with API names
+        self.ingestion = IngestionClient(self)
         self.wlm = WlmClient(self)
         self.list = ListClient(self)
         self.insights = InsightsClient(self)
