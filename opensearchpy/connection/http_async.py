@@ -205,7 +205,7 @@ class AsyncHttpConnection(AIOHttpConnection):
         if callable(self._http_auth):
             req_headers = {
                 **req_headers,
-                **self._http_auth(method, url, query_string, body),
+                **self._http_auth(method=method, url=url, body=body),
             }
 
         start = self.loop.time()
