@@ -808,6 +808,7 @@ class MlClient(NamespacedClient):
         Execute an algorithm.
 
 
+        :arg algorithm_name: The function name.
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
         :arg filter_path: Used to reduce the response. This parameter

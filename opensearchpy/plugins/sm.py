@@ -182,7 +182,7 @@ class SmClient(NamespacedClient):
         :arg sortField: The name of the field to sort the snapshot
             management policies by.
         :arg sortOrder: The order to sort the snapshot management
-            policies. Valid choices are asc, desc.Default is asc.
+            policies. Valid choices are asc, desc.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         """
