@@ -28,6 +28,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - Small refactor of AWS Signer classes for both sync and async clients ([866](https://github.com/opensearch-project/opensearch-py/pull/866))
 - Small refactor to fix overwriting the module files when generating apis ([874](https://github.com/opensearch-project/opensearch-py/pull/874))
 - Fixed a "type ignore" lint error
+- Added support for explicit proxy to RequestsHttpConnection ([908](https://github.com/opensearch-project/opensearch-py/pull/908))
 ### Deprecated
 ### Removed
 ### Fixed
