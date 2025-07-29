@@ -108,17 +108,29 @@ class TestAsyncHttpConnection:
     @pytest.mark.asyncio  # type: ignore
     @mock.patch("aiohttp.ClientSession.request")
     async def test_callable_in_request_session(self, mock_request: Any) -> None:
+        calls = []
+
         def auth_fn(*args: Any, **kwargs: Any) -> Any:
-            return {
-                "Test": "PASSED",
-            }
+            calls.append((args, kwargs))
+            return {"Test": "PASSED"}
 
         mock_request.return_value = TestAsyncHttpConnection.MockResponse()
 
         c = AsyncHttpConnection(http_auth=auth_fn, loop=get_running_loop())
-        c.headers = {}
+        c.headers = {"a-header": "a-value"}
         await c.perform_request("post", "/test")
 
+        assert calls == [
+            (
+                tuple(),
+                {
+                    "body": None,
+                    "headers": {"a-header": "a-value"},
+                    "method": "post",
+                    "url": "http://localhost:9200/test",
+                },
+            )
+        ]
         mock_request.assert_called_with(
             "post",
             yarl.URL("http://localhost:9200/test", encoded=True),
