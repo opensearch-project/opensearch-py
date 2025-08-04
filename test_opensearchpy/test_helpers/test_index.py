@@ -25,12 +25,13 @@
 #  under the License.
 
 import string
+import pytest
 from random import choice
 from typing import Any
 
 from pytest import raises
 
-from opensearchpy import Date, Document, Index, IndexTemplate, Text, analyzer
+from opensearchpy import Date, Document, Index, IndexTemplate, Text, analyzer, OpenSearch
 
 
 class Post(Document):
@@ -61,6 +62,41 @@ def test_search_is_limited_to_index_name() -> None:
     s = i.search()
 
     assert s._index == ["my-index"]
+
+def test_search_with_post_method(mocker):
+    transport_mock = mocker.Mock()
+    client = OpenSearch(transport=transport_mock)
+
+    client.search(index="test-index", body={"query": {"match_all": {}}}, http_method="POST")
+
+    transport_mock.perform_request.assert_called_once_with(
+        method="POST",
+        url="/test-index/_search",
+        params=None,
+        headers=None,
+        body={"query": {"match_all": {}}}
+    )
+
+def test_search_with_get_method(mocker):
+    transport_mock = mocker.Mock()
+    client = OpenSearch(transport=transport_mock)
+
+    client.search(index="test-index", params={"q": "test"}, http_method="GET")
+
+    transport_mock.perform_request.assert_called_once_with(
+        method="GET",
+        url="/test-index/_search",
+        params={"q": "test"},
+        headers=None,
+        body=None
+    )
+
+def test_search_invalid_http_method(mocker):
+    transport_mock = mocker.Mock()
+    client = OpenSearch(transport=transport_mock)
+
+    with pytest.raises(ValueError, match="http_method must be either 'GET' or 'POST'"):
+        client.search(index="test-index", http_method="PUT")
 
 
 def test_cloned_index_has_copied_settings_and_using() -> None:
