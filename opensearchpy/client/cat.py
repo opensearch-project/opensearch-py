@@ -74,19 +74,18 @@ class CatClient(NamespacedClient):
         :arg expand_wildcards: Specifies the type of index that wildcard
             expressions can match. Supports comma-separated values. Valid choices
             are all, closed, hidden, none, open.
-        :arg filter_path: Used to reduce the response. This parameter
-            takes a comma-separated list of filters. It supports using wildcards to
-            match any field or part of a field’s name. You can also exclude fields
-            with "-".
+        :arg filter_path: A comma-separated list of filters used to
+            filter the response. Use wildcards to match any field or part of a
+            field's name. To exclude fields, use `-`.
         :arg format: A short version of the `Accept` header, such as
             `json` or `yaml`.
         :arg h: A comma-separated list of column names to display.
         :arg help: Returns help information. Default is false.
-        :arg human: Whether to return human readable values for
-            statistics. Default is True.
+        :arg human: Whether to return human-readable values for
+            statistics. Default is false.
         :arg local: Whether to return information from the local node
             only instead of from the cluster manager node. Default is false.
-        :arg pretty: Whether to pretty format the returned JSON
+        :arg pretty: Whether to pretty-format the returned JSON
             response. Default is false.
         :arg s: A comma-separated list of column names or column aliases
             to sort by.
@@ -126,17 +125,16 @@ class CatClient(NamespacedClient):
             are b, kb, k, mb, m, gb, g, tb, t, pb, p.
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
-        :arg filter_path: Used to reduce the response. This parameter
-            takes a comma-separated list of filters. It supports using wildcards to
-            match any field or part of a field’s name. You can also exclude fields
-            with "-".
+        :arg filter_path: A comma-separated list of filters used to
+            filter the response. Use wildcards to match any field or part of a
+            field's name. To exclude fields, use `-`.
         :arg format: A short version of the `Accept` header, such as
             `json` or `yaml`.
         :arg h: A comma-separated list of column names to display.
         :arg help: Returns help information. Default is false.
-        :arg human: Whether to return human readable values for
-            statistics. Default is True.
-        :arg pretty: Whether to pretty format the returned JSON
+        :arg human: Whether to return human-readable values for
+            statistics. Default is false.
+        :arg pretty: Whether to pretty-format the returned JSON
             response. Default is false.
         :arg s: A comma-separated list of column names or column aliases
             to sort by.
@@ -185,22 +183,21 @@ class CatClient(NamespacedClient):
             cluster manager node.
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
-        :arg filter_path: Used to reduce the response. This parameter
-            takes a comma-separated list of filters. It supports using wildcards to
-            match any field or part of a field’s name. You can also exclude fields
-            with "-".
+        :arg filter_path: A comma-separated list of filters used to
+            filter the response. Use wildcards to match any field or part of a
+            field's name. To exclude fields, use `-`.
         :arg format: A short version of the HTTP `Accept` header, such
             as `json` or `yaml`.
         :arg h: A comma-separated list of column names to display.
         :arg help: Returns help information. Default is false.
-        :arg human: Whether to return human readable values for
-            statistics. Default is True.
+        :arg human: Whether to return human-readable values for
+            statistics. Default is false.
         :arg local: Returns local information but does not retrieve the
             state from cluster-manager node. Default is false.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use `cluster_manager_timeout` instead.): A timeout for connection to the
             cluster manager node.
-        :arg pretty: Whether to pretty format the returned JSON
+        :arg pretty: Whether to pretty-format the returned JSON
             response. Default is false.
         :arg s: A comma-separated list of column names or column aliases
             to sort by.
@@ -245,22 +242,21 @@ class CatClient(NamespacedClient):
             cluster manager node.
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
-        :arg filter_path: Used to reduce the response. This parameter
-            takes a comma-separated list of filters. It supports using wildcards to
-            match any field or part of a field’s name. You can also exclude fields
-            with "-".
+        :arg filter_path: A comma-separated list of filters used to
+            filter the response. Use wildcards to match any field or part of a
+            field's name. To exclude fields, use `-`.
         :arg format: A short version of the HTTP `Accept` header, such
             as `json` or `yaml`.
         :arg h: A comma-separated list of column names to display.
         :arg help: Returns help information. Default is false.
-        :arg human: Whether to return human readable values for
-            statistics. Default is True.
+        :arg human: Whether to return human-readable values for
+            statistics. Default is false.
         :arg local: Returns local information but does not retrieve the
             state from the cluster manager node. Default is false.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use `cluster_manager_timeout` instead.): A timeout for connection to the
             cluster manager node.
-        :arg pretty: Whether to pretty format the returned JSON
+        :arg pretty: Whether to pretty-format the returned JSON
             response. Default is false.
         :arg s: A comma-separated list of column names or column aliases
             to sort by.
@@ -302,17 +298,16 @@ class CatClient(NamespacedClient):
             all data streams and indexes, omit this parameter or use `*` or `_all`.
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
-        :arg filter_path: Used to reduce the response. This parameter
-            takes a comma-separated list of filters. It supports using wildcards to
-            match any field or part of a field’s name. You can also exclude fields
-            with "-".
+        :arg filter_path: A comma-separated list of filters used to
+            filter the response. Use wildcards to match any field or part of a
+            field's name. To exclude fields, use `-`.
         :arg format: A short version of the `Accept` header, such as
             `json` or `yaml`.
         :arg h: A comma-separated list of column names to display.
         :arg help: Returns help information. Default is false.
-        :arg human: Whether to return human readable values for
-            statistics. Default is True.
-        :arg pretty: Whether to pretty format the returned JSON
+        :arg human: Whether to return human-readable values for
+            statistics. Default is false.
+        :arg pretty: Whether to pretty-format the returned JSON
             response. Default is false.
         :arg s: A comma-separated list of column names or column aliases
             to sort by.
@@ -356,17 +351,16 @@ class CatClient(NamespacedClient):
             are b, kb, k, mb, m, gb, g, tb, t, pb, p.
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
-        :arg filter_path: Used to reduce the response. This parameter
-            takes a comma-separated list of filters. It supports using wildcards to
-            match any field or part of a field’s name. You can also exclude fields
-            with "-".
+        :arg filter_path: A comma-separated list of filters used to
+            filter the response. Use wildcards to match any field or part of a
+            field's name. To exclude fields, use `-`.
         :arg format: A short version of the `Accept` header, such as
             `json` or `yaml`.
         :arg h: A comma-separated list of column names to display.
         :arg help: Returns help information. Default is false.
-        :arg human: Whether to return human readable values for
-            statistics. Default is True.
-        :arg pretty: Whether to pretty format the returned JSON
+        :arg human: Whether to return human-readable values for
+            statistics. Default is false.
+        :arg pretty: Whether to pretty-format the returned JSON
             response. Default is false.
         :arg s: A comma-separated list of column names or column aliases
             to sort by.
@@ -408,17 +402,16 @@ class CatClient(NamespacedClient):
 
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
-        :arg filter_path: Used to reduce the response. This parameter
-            takes a comma-separated list of filters. It supports using wildcards to
-            match any field or part of a field’s name. You can also exclude fields
-            with "-".
+        :arg filter_path: A comma-separated list of filters used to
+            filter the response. Use wildcards to match any field or part of a
+            field's name. To exclude fields, use `-`.
         :arg format: A short version of the `Accept` header, such as
             `json` or `yaml`.
         :arg h: A comma-separated list of column names to display.
         :arg help: Returns help information. Default is false.
-        :arg human: Whether to return human readable values for
-            statistics. Default is True.
-        :arg pretty: Whether to pretty format the returned JSON
+        :arg human: Whether to return human-readable values for
+            statistics. Default is false.
+        :arg pretty: Whether to pretty-format the returned JSON
             response. Default is false.
         :arg s: A comma-separated list of column names or column aliases
             to sort by.
@@ -448,13 +441,12 @@ class CatClient(NamespacedClient):
 
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
-        :arg filter_path: Used to reduce the response. This parameter
-            takes a comma-separated list of filters. It supports using wildcards to
-            match any field or part of a field’s name. You can also exclude fields
-            with "-".
-        :arg human: Whether to return human readable values for
-            statistics. Default is True.
-        :arg pretty: Whether to pretty format the returned JSON
+        :arg filter_path: A comma-separated list of filters used to
+            filter the response. Use wildcards to match any field or part of a
+            field's name. To exclude fields, use `-`.
+        :arg human: Whether to return human-readable values for
+            statistics. Default is false.
+        :arg pretty: Whether to pretty-format the returned JSON
             response. Default is false.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
@@ -508,10 +500,9 @@ class CatClient(NamespacedClient):
         :arg expand_wildcards: Specifies the type of index that wildcard
             expressions can match. Supports comma-separated values. Valid choices
             are all, closed, hidden, none, open.
-        :arg filter_path: Used to reduce the response. This parameter
-            takes a comma-separated list of filters. It supports using wildcards to
-            match any field or part of a field’s name. You can also exclude fields
-            with "-".
+        :arg filter_path: A comma-separated list of filters used to
+            filter the response. Use wildcards to match any field or part of a
+            field's name. To exclude fields, use `-`.
         :arg format: A short version of the `Accept` header, such as
             `json` or `yaml`.
         :arg h: A comma-separated list of column names to display.
@@ -519,8 +510,8 @@ class CatClient(NamespacedClient):
             Supported values are `green`, `yellow`, and `red`. Valid choices are
             green, yellow, red.
         :arg help: Returns help information. Default is false.
-        :arg human: Whether to return human readable values for
-            statistics. Default is True.
+        :arg human: Whether to return human-readable values for
+            statistics. Default is false.
         :arg include_unloaded_segments: Whether to include information
             from segments not loaded into memory. Default is false.
         :arg local: Returns local information but does not retrieve the
@@ -528,7 +519,7 @@ class CatClient(NamespacedClient):
         :arg master_timeout (Deprecated: To promote inclusive language,
             use `cluster_manager_timeout` instead.): The amount of time allowed to
             establish a connection to the cluster manager node.
-        :arg pretty: Whether to pretty format the returned JSON
+        :arg pretty: Whether to pretty-format the returned JSON
             response. Default is false.
         :arg pri: When `true`, returns information only from the primary
             shards. Default is false.
@@ -574,22 +565,21 @@ class CatClient(NamespacedClient):
             establish a connection to the cluster manager node.
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
-        :arg filter_path: Used to reduce the response. This parameter
-            takes a comma-separated list of filters. It supports using wildcards to
-            match any field or part of a field’s name. You can also exclude fields
-            with "-".
+        :arg filter_path: A comma-separated list of filters used to
+            filter the response. Use wildcards to match any field or part of a
+            field's name. To exclude fields, use `-`.
         :arg format: A short version of the `Accept` header, such as
             `json` or `yaml`.
         :arg h: A comma-separated list of column names to display.
         :arg help: Returns help information. Default is false.
-        :arg human: Whether to return human readable values for
-            statistics. Default is True.
+        :arg human: Whether to return human-readable values for
+            statistics. Default is false.
         :arg local: Returns local information but does not retrieve the
             state from the cluster manager node. Default is false.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use `cluster_manager_timeout` instead.): The amount of time allowed to
             establish a connection to the cluster manager node.
-        :arg pretty: Whether to pretty format the returned JSON
+        :arg pretty: Whether to pretty-format the returned JSON
             response. Default is false.
         :arg s: A comma-separated list of column names or column aliases
             to sort by.
@@ -636,22 +626,21 @@ class CatClient(NamespacedClient):
             establish a connection to the cluster manager node.
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
-        :arg filter_path: Used to reduce the response. This parameter
-            takes a comma-separated list of filters. It supports using wildcards to
-            match any field or part of a field’s name. You can also exclude fields
-            with "-".
+        :arg filter_path: A comma-separated list of filters used to
+            filter the response. Use wildcards to match any field or part of a
+            field's name. To exclude fields, use `-`.
         :arg format: A short version of the `Accept` header, such as
             `json` or `yaml`.
         :arg h: A comma-separated list of column names to display.
         :arg help: Returns help information. Default is false.
-        :arg human: Whether to return human readable values for
-            statistics. Default is True.
+        :arg human: Whether to return human-readable values for
+            statistics. Default is false.
         :arg local: Returns local information but does not retrieve the
             state from the cluster manager node. Default is false.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use `cluster_manager_timeout` instead.): The amount of time allowed to
             establish a connection to the cluster manager node.
-        :arg pretty: Whether to pretty format the returned JSON
+        :arg pretty: Whether to pretty-format the returned JSON
             response. Default is false.
         :arg s: A comma-separated list of column names or column aliases
             to sort by.
@@ -698,25 +687,24 @@ class CatClient(NamespacedClient):
             establish a connection to the cluster manager node.
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
-        :arg filter_path: Used to reduce the response. This parameter
-            takes a comma-separated list of filters. It supports using wildcards to
-            match any field or part of a field’s name. You can also exclude fields
-            with "-".
+        :arg filter_path: A comma-separated list of filters used to
+            filter the response. Use wildcards to match any field or part of a
+            field's name. To exclude fields, use `-`.
         :arg format: A short version of the `Accept` header, such as
             `json` or `yaml`.
         :arg full_id: When `true`, returns the full node ID. When
             `false`, returns the shortened node ID.
         :arg h: A comma-separated list of column names to display.
         :arg help: Returns help information. Default is false.
-        :arg human: Whether to return human readable values for
-            statistics. Default is True.
+        :arg human: Whether to return human-readable values for
+            statistics. Default is false.
         :arg local (Deprecated: This parameter does not cause this API
             to act locally.): Returns local information but does not retrieve the
             state from the cluster manager node. Default is false.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use `cluster_manager_timeout` instead.): The amount of time allowed to
             establish a connection to the cluster manager node.
-        :arg pretty: Whether to pretty format the returned JSON
+        :arg pretty: Whether to pretty-format the returned JSON
             response. Default is false.
         :arg s: A comma-separated list of column names or column aliases
             to sort by.
@@ -763,22 +751,21 @@ class CatClient(NamespacedClient):
             establish a connection to the cluster manager node.
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
-        :arg filter_path: Used to reduce the response. This parameter
-            takes a comma-separated list of filters. It supports using wildcards to
-            match any field or part of a field’s name. You can also exclude fields
-            with "-".
+        :arg filter_path: A comma-separated list of filters used to
+            filter the response. Use wildcards to match any field or part of a
+            field's name. To exclude fields, use `-`.
         :arg format: A short version of the `Accept` header, such as
             `json` or `yaml`.
         :arg h: A comma-separated list of column names to display.
         :arg help: Returns help information. Default is false.
-        :arg human: Whether to return human readable values for
-            statistics. Default is True.
+        :arg human: Whether to return human-readable values for
+            statistics. Default is false.
         :arg local: Returns local information but does not retrieve the
             state from the cluster manager node. Default is false.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use `cluster_manager_timeout` instead.): The amount of time allowed to
             establish a connection to the cluster manager node.
-        :arg pretty: Whether to pretty format the returned JSON
+        :arg pretty: Whether to pretty-format the returned JSON
             response. Default is false.
         :arg s: A comma-separated list of column names or column aliases
             to sort by.
@@ -823,17 +810,16 @@ class CatClient(NamespacedClient):
             are b, kb, k, mb, m, gb, g, tb, t, pb, p.
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
-        :arg filter_path: Used to reduce the response. This parameter
-            takes a comma-separated list of filters. It supports using wildcards to
-            match any field or part of a field’s name. You can also exclude fields
-            with "-".
+        :arg filter_path: A comma-separated list of filters used to
+            filter the response. Use wildcards to match any field or part of a
+            field's name. To exclude fields, use `-`.
         :arg format: A short version of the `Accept` header, such as
             `json` or `yaml`.
         :arg h: A comma-separated list of column names to display.
         :arg help: Returns help information. Default is false.
-        :arg human: Whether to return human readable values for
-            statistics. Default is True.
-        :arg pretty: Whether to pretty format the returned JSON
+        :arg human: Whether to return human-readable values for
+            statistics. Default is false.
+        :arg pretty: Whether to pretty-format the returned JSON
             response. Default is false.
         :arg s: A comma-separated list of column names or column aliases
             to sort by.
@@ -876,22 +862,21 @@ class CatClient(NamespacedClient):
             establish a connection to the cluster manager node.
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
-        :arg filter_path: Used to reduce the response. This parameter
-            takes a comma-separated list of filters. It supports using wildcards to
-            match any field or part of a field’s name. You can also exclude fields
-            with "-".
+        :arg filter_path: A comma-separated list of filters used to
+            filter the response. Use wildcards to match any field or part of a
+            field's name. To exclude fields, use `-`.
         :arg format: A short version of the `Accept` header, such as
             `json` or `yaml`.
         :arg h: A comma-separated list of column names to display.
         :arg help: Returns help information. Default is false.
-        :arg human: Whether to return human readable values for
-            statistics. Default is True.
+        :arg human: Whether to return human-readable values for
+            statistics. Default is false.
         :arg local: Returns local information but does not retrieve the
             state from the cluster manager node. Default is false.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use `cluster_manager_timeout` instead.): The amount of time allowed to
             establish a connection to the cluster manager node.
-        :arg pretty: Whether to pretty format the returned JSON
+        :arg pretty: Whether to pretty-format the returned JSON
             response. Default is false.
         :arg s: A comma-separated list of column names or column aliases
             to sort by.
@@ -942,17 +927,16 @@ class CatClient(NamespacedClient):
             shard recoveries. Default is false.
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
-        :arg filter_path: Used to reduce the response. This parameter
-            takes a comma-separated list of filters. It supports using wildcards to
-            match any field or part of a field’s name. You can also exclude fields
-            with "-".
+        :arg filter_path: A comma-separated list of filters used to
+            filter the response. Use wildcards to match any field or part of a
+            field's name. To exclude fields, use `-`.
         :arg format: A short version of the `Accept` header, such as
             `json` or `yaml`.
         :arg h: A comma-separated list of column names to display.
         :arg help: Returns help information. Default is false.
-        :arg human: Whether to return human readable values for
-            statistics. Default is True.
-        :arg pretty: Whether to pretty format the returned JSON
+        :arg human: Whether to return human-readable values for
+            statistics. Default is false.
+        :arg pretty: Whether to pretty-format the returned JSON
             response. Default is false.
         :arg s: A comma-separated list of column names or column aliases
             to sort by.
@@ -998,22 +982,21 @@ class CatClient(NamespacedClient):
             establish a connection to the cluster manager node.
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
-        :arg filter_path: Used to reduce the response. This parameter
-            takes a comma-separated list of filters. It supports using wildcards to
-            match any field or part of a field’s name. You can also exclude fields
-            with "-".
+        :arg filter_path: A comma-separated list of filters used to
+            filter the response. Use wildcards to match any field or part of a
+            field's name. To exclude fields, use `-`.
         :arg format: A short version of the `Accept` header, such as
             `json` or `yaml`.
         :arg h: A comma-separated list of column names to display.
         :arg help: Returns help information. Default is false.
-        :arg human: Whether to return human readable values for
-            statistics. Default is True.
+        :arg human: Whether to return human-readable values for
+            statistics. Default is false.
         :arg local: Returns local information but does not retrieve the
             state from the cluster manager node. Default is false.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use `cluster_manager_timeout` instead.): The amount of time allowed to
             establish a connection to the cluster manager node.
-        :arg pretty: Whether to pretty format the returned JSON
+        :arg pretty: Whether to pretty-format the returned JSON
             response. Default is false.
         :arg s: A comma-separated list of column names or column aliases
             to sort by.
@@ -1082,21 +1065,20 @@ class CatClient(NamespacedClient):
         :arg expand_wildcards: Specifies the type of index that wildcard
             expressions can match. Supports comma-separated values. Valid choices
             are all, closed, hidden, none, open.
-        :arg filter_path: Used to reduce the response. This parameter
-            takes a comma-separated list of filters. It supports using wildcards to
-            match any field or part of a field’s name. You can also exclude fields
-            with "-".
+        :arg filter_path: A comma-separated list of filters used to
+            filter the response. Use wildcards to match any field or part of a
+            field's name. To exclude fields, use `-`.
         :arg format: A short version of the `Accept` header, such as
             `json` or `yaml`.
         :arg h: A comma-separated list of column names to display.
         :arg help: Returns help information. Default is false.
-        :arg human: Whether to return human readable values for
-            statistics. Default is True.
+        :arg human: Whether to return human-readable values for
+            statistics. Default is false.
         :arg ignore_throttled: Whether specified concrete, expanded, or
             aliased indexes should be ignored when throttled.
         :arg ignore_unavailable: Whether the specified concrete indexes
             should be ignored when missing or closed.
-        :arg pretty: Whether to pretty format the returned JSON
+        :arg pretty: Whether to pretty-format the returned JSON
             response. Default is false.
         :arg s: A comma-separated list of column names or column aliases
             to sort by.
@@ -1153,20 +1135,19 @@ class CatClient(NamespacedClient):
             establish a connection to the cluster manager node.
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
-        :arg filter_path: Used to reduce the response. This parameter
-            takes a comma-separated list of filters. It supports using wildcards to
-            match any field or part of a field’s name. You can also exclude fields
-            with "-".
+        :arg filter_path: A comma-separated list of filters used to
+            filter the response. Use wildcards to match any field or part of a
+            field's name. To exclude fields, use `-`.
         :arg format: A short version of the `Accept` header, such as
             `json` or `yaml`.
         :arg h: A comma-separated list of column names to display.
         :arg help: Returns help information. Default is false.
-        :arg human: Whether to return human readable values for
-            statistics. Default is True.
+        :arg human: Whether to return human-readable values for
+            statistics. Default is false.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use `cluster_manager_timeout` instead.): The amount of time allowed to
             establish a connection to the cluster manager node.
-        :arg pretty: Whether to pretty format the returned JSON
+        :arg pretty: Whether to pretty-format the returned JSON
             response. Default is false.
         :arg s: A comma-separated list of column names or column aliases
             to sort by.
@@ -1217,22 +1198,21 @@ class CatClient(NamespacedClient):
             establish a connection to the cluster manager node.
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
-        :arg filter_path: Used to reduce the response. This parameter
-            takes a comma-separated list of filters. It supports using wildcards to
-            match any field or part of a field’s name. You can also exclude fields
-            with "-".
+        :arg filter_path: A comma-separated list of filters used to
+            filter the response. Use wildcards to match any field or part of a
+            field's name. To exclude fields, use `-`.
         :arg format: A short version of the `Accept` header, such as
             `json` or `yaml`.
         :arg h: A comma-separated list of column names to display.
         :arg help: Returns help information. Default is false.
-        :arg human: Whether to return human readable values for
-            statistics. Default is True.
+        :arg human: Whether to return human-readable values for
+            statistics. Default is false.
         :arg local: Returns local information but does not retrieve the
             state from the cluster manager node. Default is false.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use `cluster_manager_timeout` instead.): The amount of time allowed to
             establish a connection to the cluster manager node.
-        :arg pretty: Whether to pretty format the returned JSON
+        :arg pretty: Whether to pretty-format the returned JSON
             response. Default is false.
         :arg s: A comma-separated list of column names or column aliases
             to sort by.
@@ -1283,22 +1263,21 @@ class CatClient(NamespacedClient):
             cluster manager node.
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
-        :arg filter_path: Used to reduce the response. This parameter
-            takes a comma-separated list of filters. It supports using wildcards to
-            match any field or part of a field’s name. You can also exclude fields
-            with "-".
+        :arg filter_path: A comma-separated list of filters used to
+            filter the response. Use wildcards to match any field or part of a
+            field's name. To exclude fields, use `-`.
         :arg format: A short version of the `Accept` header, such as
             `json` or `yaml`.
         :arg h: A comma-separated list of column names to display.
         :arg help: Returns help information. Default is false.
-        :arg human: Whether to return human readable values for
-            statistics. Default is True.
+        :arg human: Whether to return human-readable values for
+            statistics. Default is false.
         :arg local: Returns local information but does not retrieve the
             state from the cluster manager node. Default is false.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use `cluster_manager_timeout` instead.): The amount of time allowed to
             establish a connection to the cluster manager node.
-        :arg pretty: Whether to pretty format the returned JSON
+        :arg pretty: Whether to pretty-format the returned JSON
             response. Default is false.
         :arg s: A comma-separated list of column names or column aliases
             to sort by.
@@ -1350,22 +1329,21 @@ class CatClient(NamespacedClient):
             establish a connection to the cluster manager node.
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
-        :arg filter_path: Used to reduce the response. This parameter
-            takes a comma-separated list of filters. It supports using wildcards to
-            match any field or part of a field’s name. You can also exclude fields
-            with "-".
+        :arg filter_path: A comma-separated list of filters used to
+            filter the response. Use wildcards to match any field or part of a
+            field's name. To exclude fields, use `-`.
         :arg format: A short version of the `Accept` header, such as
             `json` or `yaml`.
         :arg h: A comma-separated list of column names to display.
         :arg help: Returns help information. Default is false.
-        :arg human: Whether to return human readable values for
-            statistics. Default is True.
+        :arg human: Whether to return human-readable values for
+            statistics. Default is false.
         :arg ignore_unavailable: When `true`, the response does not
             include information from unavailable snapshots. Default is false.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use `cluster_manager_timeout` instead.): The amount of time allowed to
             establish a connection to the cluster manager node.
-        :arg pretty: Whether to pretty format the returned JSON
+        :arg pretty: Whether to pretty-format the returned JSON
             response. Default is false.
         :arg s: A comma-separated list of column names or column aliases
             to sort by.
@@ -1417,16 +1395,15 @@ class CatClient(NamespacedClient):
             information about shard recoveries. Default is false.
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
-        :arg filter_path: Used to reduce the response. This parameter
-            takes a comma-separated list of filters. It supports using wildcards to
-            match any field or part of a field’s name. You can also exclude fields
-            with "-".
+        :arg filter_path: A comma-separated list of filters used to
+            filter the response. Use wildcards to match any field or part of a
+            field's name. To exclude fields, use `-`.
         :arg format: A short version of the `Accept` header, such as
             `json` or `yaml`.
         :arg h: A comma-separated list of column names to display.
         :arg help: Returns help information. Default is false.
-        :arg human: Whether to return human readable values for
-            statistics. Default is True.
+        :arg human: Whether to return human-readable values for
+            statistics. Default is false.
         :arg nodes: A comma-separated list of node IDs or names used to
             limit the returned information. Use `_local` to return information from
             the node to which you're connecting, specify a specific node from which
@@ -1434,7 +1411,7 @@ class CatClient(NamespacedClient):
             all nodes.
         :arg parent_task_id: The parent task identifier, which is used
             to limit the response.
-        :arg pretty: Whether to pretty format the returned JSON
+        :arg pretty: Whether to pretty-format the returned JSON
             response. Default is false.
         :arg s: A comma-separated list of column names or column aliases
             to sort by.
@@ -1484,22 +1461,21 @@ class CatClient(NamespacedClient):
             establish a connection to the cluster manager node.
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
-        :arg filter_path: Used to reduce the response. This parameter
-            takes a comma-separated list of filters. It supports using wildcards to
-            match any field or part of a field’s name. You can also exclude fields
-            with "-".
+        :arg filter_path: A comma-separated list of filters used to
+            filter the response. Use wildcards to match any field or part of a
+            field's name. To exclude fields, use `-`.
         :arg format: A short version of the `Accept` header, such as
             `json` or `yaml`.
         :arg h: A comma-separated list of column names to display.
         :arg help: Returns help information. Default is false.
-        :arg human: Whether to return human readable values for
-            statistics. Default is True.
+        :arg human: Whether to return human-readable values for
+            statistics. Default is false.
         :arg local: Returns local information but does not retrieve the
             state from the cluster manager node. Default is false.
         :arg master_timeout (Deprecated: To promote inclusive language,
             use `cluster_manager_timeout` instead.): The amount of time allowed to
             establish a connection to the cluster manager node.
-        :arg pretty: Whether to pretty format the returned JSON
+        :arg pretty: Whether to pretty-format the returned JSON
             response. Default is false.
         :arg s: A comma-separated list of column names or column aliases
             to sort by.
