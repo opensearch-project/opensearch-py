@@ -288,7 +288,12 @@ class AsyncIndex:
         state = await (await self._get_connection(using)).cluster.state(
             index=self._name, metric="metadata"
         )
-        return state["metadata"]["indices"][self._name]["state"] == "close"
+        index_name = (
+            next(iter(state["metadata"]["indices"].keys()))
+            if len(state["metadata"]["indices"].keys()) == 1
+            else self._name
+        )
+        return state["metadata"]["indices"][index_name]["state"] == "close"
 
     async def save(self, using: Any = None) -> Any:
         """
