@@ -3,7 +3,7 @@
         if task_id in SKIP_IN_PATH:
             warnings.warn(
                 "Calling client.tasks.get() without a task_id is deprecated "
-                "and will be removed in v8.0. Use client.tasks.list() instead.",
+                "and will be removed in a future version. Use client.tasks.list() instead.",
                 category=DeprecationWarning,
                 stacklevel=3,
             )
