@@ -7,4 +7,12 @@ updates:
     labels:
       - "dependabot"
       - "dependencies"
+  - directory: /
+    open-pull-requests-limit: 3
+    package-ecosystem: github-actions
+    schedule:
+      interval: weekly
+    labels:
+      - "dependabot"
+      - "dependencies"
 version: 2
