@@ -439,7 +439,9 @@ class TestTransport:
         assert 1 == len(conn_err.calls)
         assert 1 == len(conn_data.calls)
 
-    async def test_sniff_after_n_seconds(self, event_loop: Any) -> None:
+    async def test_sniff_after_n_seconds(self) -> None:
+        event_loop = asyncio.get_event_loop()
+
         t: Any = AsyncTransport(
             [{"data": CLUSTER_NODES}],
             connection_class=DummyConnection,
@@ -493,9 +495,7 @@ class TestTransport:
         await t2.close()
         assert all([conn.closed for conn in t2.connection_pool.connections])
 
-    async def test_sniff_on_start_error_if_no_sniffed_hosts(
-        self, event_loop: Any
-    ) -> None:
+    async def test_sniff_on_start_error_if_no_sniffed_hosts(self) -> None:
         t: Any = AsyncTransport(
             [
                 {"data": ""},
@@ -512,9 +512,9 @@ class TestTransport:
             await t._async_call()
         assert str(e.value) == "TransportError(N/A, 'Unable to sniff hosts.')"
 
-    async def test_sniff_on_start_waits_for_sniff_to_complete(
-        self, event_loop: Any
-    ) -> None:
+    async def test_sniff_on_start_waits_for_sniff_to_complete(self) -> None:
+        event_loop = asyncio.get_event_loop()
+
         t: Any = AsyncTransport(
             [
                 {"delay": 1, "data": ""},
@@ -550,9 +550,9 @@ class TestTransport:
         # and then resolved immediately after.
         assert 1 <= duration < 2
 
-    async def test_sniff_on_start_close_unlocks_async_calls(
-        self, event_loop: Any
-    ) -> None:
+    async def test_sniff_on_start_close_unlocks_async_calls(self) -> None:
+        event_loop = asyncio.get_event_loop()
+
         t: Any = AsyncTransport(
             [
                 {"delay": 10, "data": CLUSTER_NODES},
