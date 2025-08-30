@@ -53,18 +53,17 @@ class NeuralClient(NamespacedClient):
             empty string to retrieve all stats.
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
-        :arg filter_path: Used to reduce the response. This parameter
-            takes a comma-separated list of filters. It supports using wildcards to
-            match any field or part of a field’s name. You can also exclude fields
-            with "-".
+        :arg filter_path: A comma-separated list of filters used to
+            filter the response. Use wildcards to match any field or part of a
+            field's name. To exclude fields, use `-`.
         :arg flat_stat_paths: Whether to return stats in the flat form,
             which can improve readability, especially for heavily nested stats. For
             example, the flat form of `"processors": { "ingest": {
             "text_embedding_executions": 20181212 } }` is
             `"processors.ingest.text_embedding_executions": "20181212"`. Default is
             false.
-        :arg human: Whether to return human readable values for
-            statistics. Default is True.
+        :arg human: Whether to return human-readable values for
+            statistics. Default is false.
         :arg include_all_nodes: When `true` includes aggregated
             statistics across all nodes in the `all_nodes` category. When `false`,
             excludes the `all_nodes` category from the response. Default is True.
@@ -78,7 +77,7 @@ class NeuralClient(NamespacedClient):
             of the raw stat value, includes additional information about the stat.
             These can include things like type hints, time since last stats being
             recorded, or recent rolling interval values Default is false.
-        :arg pretty: Whether to pretty format the returned JSON
+        :arg pretty: Whether to pretty-format the returned JSON
             response. Default is false.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
