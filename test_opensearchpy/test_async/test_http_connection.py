@@ -140,6 +140,7 @@ class TestAsyncHttpConnection:
             auth=None,
             headers={
                 "Test": "PASSED",
+                "a-header": "a-value",
             },
             timeout=aiohttp.ClientTimeout(
                 total=10,

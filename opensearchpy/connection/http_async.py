@@ -221,9 +221,12 @@ class AsyncHttpConnection(AIOHttpConnection):
             self._http_auth if isinstance(self._http_auth, aiohttp.BasicAuth) else None
         )
         if callable(self._http_auth):
-            req_headers = self._http_auth(
-                method=method, url=url, body=body, headers=req_headers
-            )
+            req_headers = {
+                **req_headers,
+                **self._http_auth(
+                    method=method, url=url, body=body, headers=req_headers
+                ),
+            }
 
         start = self.loop.time()
         try:
