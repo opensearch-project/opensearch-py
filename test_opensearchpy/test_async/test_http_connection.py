@@ -73,9 +73,9 @@ class TestAsyncHttpConnection:
 
     def test_auth_as_callable(self) -> None:
         def auth_fn(
-            _method: str, _url: str, _body: Optional[bytes], headers: Dict[str, str]
+            _method: str, _url: str, _body: Optional[bytes], _headers: Dict[str, str]
         ) -> Dict[str, str]:
-            return headers
+            return {}
 
         c = AsyncHttpConnection(http_auth=auth_fn)
         assert callable(c._http_auth)
