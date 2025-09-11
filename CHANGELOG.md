@@ -12,11 +12,14 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ### Deprecated
 ### Removed
 ### Fixed
+- Moved client tests to dedicated files to ensure they are run ([944](https://github.com/opensearch-project/opensearch-py/pull/944))
 - Fix `Index.is_closed` not passing through aliases to the underlying index, preventing saving ([941](https://github.com/opensearch-project/opensearch-py/pull/941))
+
 ### Security
 ### Dependencies
 - Bumps `aiohttp` from >=3.9.4,<4 to >=3.10.11,<4 ([#920](https://github.com/opensearch-project/opensearch-py/pull/920))
-
+- Bump `pytest-asyncio` from <=0.25.1 to <=1.1.0 ([#936](https://github.com/opensearch-project/opensearch-py/pull/936))
+- Bumps `lycheeverse/lychee-action` from 1.9.3 to 2.0.2 ([#946](https://github.com/opensearch-project/opensearch-py/pull/946))
 
 ## [3.0.0]
 ### Added
