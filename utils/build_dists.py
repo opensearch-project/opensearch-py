@@ -27,7 +27,7 @@
 
 """A command line tool for building and verifying releases
 Can be used for building both 'opensearchpy' and 'opensearchpyX' dists.
-Only requires 'name' in 'setup.py' and the directory to be changed.
+Only requires 'name' in 'pyproject.toml' and the directory to be changed.
 """
 
 import contextlib
@@ -58,7 +58,7 @@ def set_tmp_dir() -> None:  # type: ignore
 def run(*argv: Any, expect_exit_code: int = 0) -> None:
     """
     runs a command within this script
-    :param argv: command to run e.g. "git" "checkout" "--" "setup.py" "opensearchpy/"
+    :param argv: command to run e.g. "git" "checkout" "--" "pyproject.toml" "opensearchpy/"
     :param expect_exit_code: code to compare with actual exit code from command.
     will exit the process if they do not
     match the proper exit code
@@ -200,9 +200,9 @@ def main() -> None:
     Notes: does not run on MacOS; this script is generally driven by a GitHub Action located in
     .github/workflows/unified-release.yml
     """
-    run("git", "checkout", "--", "setup.py", "opensearchpy/")
+    run("git", "checkout", "--", "pyproject.toml", "opensearchpy/")
     run("rm", "-rf", "build/", "dist/*", "*.egg-info", ".eggs")
-    run("python", "setup.py", "sdist", "bdist_wheel")
+    run("pyproject-build")
 
     # Grab the major version to be used as a suffix.
     version_path = os.path.join(BASE_DIR, "opensearchpy/_version.py")
@@ -286,25 +286,25 @@ def main() -> None:
             file.truncate()
             file.write(version_data)
 
-        # Rewrite setup.py with the new name.
-        setup_py_path = os.path.join(BASE_DIR, "setup.py")
+        # Rewrite pyproject.toml with the new name.
+        setup_py_path = os.path.join(BASE_DIR, "pyproject.toml")
         with open(setup_py_path, encoding="utf-8") as file:
             setup_py = file.read()
         with open(setup_py_path, "w", encoding="utf-8") as file:
             file.truncate()
-            assert 'PACKAGE_NAME = "opensearch-py"' in setup_py
+            assert 'name = "opensearch-py"' in setup_py
             file.write(
                 setup_py.replace(
-                    'PACKAGE_NAME = "opensearch-py"',
-                    f'PACKAGE_NAME = "opensearch-py{suffix}"',
+                    'name = "opensearch-py"',
+                    f'name = "opensearch-py{suffix}"',
                 )
             )
 
         # Build the sdist/wheels
-        run("python", "setup.py", "sdist", "bdist_wheel")
+        run("pyproject-build")
 
         # Clean up everything.
-        run("git", "checkout", "--", "setup.py", "opensearchpy/")
+        run("git", "checkout", "--", "pyproject.toml", "opensearchpy/")
         if suffix:
             run("rm", "-rf", f"opensearchpy{suffix}/")
 

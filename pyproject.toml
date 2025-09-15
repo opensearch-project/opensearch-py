@@ -65,8 +65,13 @@ docs = [
   "sphinx_rtd_theme",
   "myst_parser",
   "sphinx_copybutton",
+  # re-add async dependencies
+  "aiohttp>=3.10.11,<4",
 ]
 develop = [
+  "black>=24.3.0",
+  "jinja2",
+  # re-add tests dependencies
   "requests>=2.0.0,<3.0.0",
   "coverage<8.0.0",
   "pyyaml",
@@ -75,12 +80,13 @@ develop = [
   "pytz",
   "botocore",
   "pytest-mock<4.0.0",
+  # re-add docs dependencies
   "sphinx",
   "sphinx_rtd_theme",
   "myst_parser",
   "sphinx_copybutton",
-  "black>=24.3.0",
-  "jinja2",
+  # re-add async dependencies
+  "aiohttp>=3.10.11,<4",
 ]
 kerberos = ["requests_kerberos"]
 
@@ -90,7 +96,6 @@ Source = "https://github.com/opensearch-project/opensearch-py"
 "Issue Tracker" = "https://github.com/opensearch-project/opensearch-py/issues"
 
 [tool.setuptools]
-packages = ["opensearchpy"]
 zip-safe = false
 
 [tool.setuptools.package-data]
@@ -99,23 +104,7 @@ zip-safe = false
 [tool.setuptools.dynamic]
 version = { attr = "opensearchpy._version.__versionstr__" }
 
-[tool.bdist_rpm]
-requires = ["python", "python-urllib3"]
-
-[tool.flake8]
-ignore = ["E203", "E266", "E501", "W503"]
-max-line-length = 240
-
-[tool.pytest.ini_options]
-junit_family = "legacy"
-asyncio_mode = "auto"
-
-[tool.isort]
-profile = "black"
-
-[tool.black]
-line-length = 240
-target-version = ["py38"]
-
-[tool.mypy]
-ignore_missing_imports = true
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["opensearchpy*"]
+exclude = ["test_opensearchpy*"]

@@ -48,7 +48,7 @@ if [ "$COMPARE_VERSION" != "$OPENSEARCH_REQUIRED_VERSION" ]; then
   --name opensearch-py \
   --rm \
   opensearch-project/opensearch-py \
-  python setup.py test
+  python test_opensearchpy/run_tests.py
 else
   docker run \
   --network=${network_name} \
@@ -63,7 +63,7 @@ else
   --name opensearch-py \
   --rm \
   opensearch-project/opensearch-py \
-  python setup.py test
+  python test_opensearchpy/run_tests.py
 fi
 
 unset TEST_PATTERN
