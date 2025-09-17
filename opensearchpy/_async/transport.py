@@ -78,7 +78,7 @@ class AsyncTransport(Transport):
         retry_on_status: Any = (502, 503, 504),
         retry_on_timeout: bool = False,
         send_get_body_as: str = "GET",
-        **kwargs: Any
+        **kwargs: Any,
     ) -> None:
         """
         :arg hosts: list of dictionaries, each containing keyword arguments to
@@ -141,7 +141,7 @@ class AsyncTransport(Transport):
             retry_on_status=retry_on_status,
             retry_on_timeout=retry_on_timeout,
             send_get_body_as=send_get_body_as,
-            **kwargs
+            **kwargs,
         )
 
         # Since we defer connections / sniffing to not occur

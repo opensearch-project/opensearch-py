@@ -116,7 +116,7 @@ class Transport:
         retry_on_timeout: bool = False,
         send_get_body_as: str = "GET",
         metrics: Metrics = MetricsNone(),
-        **kwargs: Any
+        **kwargs: Any,
     ) -> None:
         """
         :arg hosts: list of dictionaries, each containing keyword arguments to

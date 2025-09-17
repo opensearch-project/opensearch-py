@@ -171,7 +171,7 @@ class HistogramFacet(Facet):
                     "gte": filter_value,
                     "lt": filter_value + self._params["interval"],
                 }
-            }
+            },
         )
 
 
@@ -244,7 +244,7 @@ class DateHistogramFacet(Facet):
                         filter_value
                     ),
                 }
-            }
+            },
         )
 
 

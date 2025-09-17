@@ -22,7 +22,7 @@ class Client:
         self,
         hosts: Optional[str] = None,
         transport_class: Type[Transport] = Transport,
-        **kwargs: Any
+        **kwargs: Any,
     ) -> None:
         """
         :arg hosts: list of nodes, or a single node, we should connect to.

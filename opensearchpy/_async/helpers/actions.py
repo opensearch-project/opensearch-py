@@ -84,7 +84,7 @@ async def _process_bulk_chunk(
     raise_on_error: bool = True,
     ignore_status: Any = (),
     *args: Any,
-    **kwargs: Any
+    **kwargs: Any,
 ) -> AsyncGenerator[Tuple[bool, Any], None]:
     """
     Send a bulk request to opensearch and process the output.
@@ -159,7 +159,7 @@ async def async_streaming_bulk(
     yield_ok: bool = True,
     ignore_status: Any = (),
     *args: Any,
-    **kwargs: Any
+    **kwargs: Any,
 ) -> AsyncGenerator[Tuple[bool, Any], None]:
     """
     Streaming bulk consumes actions from the iterable passed in and yields
@@ -261,7 +261,7 @@ async def async_bulk(
     stats_only: bool = False,
     ignore_status: Optional[Union[int, Collection[int]]] = (),
     *args: Any,
-    **kwargs: Any
+    **kwargs: Any,
 ) -> Tuple[int, Union[int, List[Any]]]:
     """
     Helper for the :meth:`~opensearchpy.AsyncOpenSearch.bulk` api that provides
@@ -322,7 +322,7 @@ async def async_scan(
     request_timeout: Any = None,
     clear_scroll: bool = True,
     scroll_kwargs: Any = None,
-    **kwargs: Any
+    **kwargs: Any,
 ) -> Any:
     """
     Simple abstraction on top of the
