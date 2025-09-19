@@ -262,8 +262,6 @@ class YamlRunner:
         self.last_response = exception.info
 
     def run_skip(self, skip: Any) -> Any:
-        global IMPLEMENTED_FEATURES
-
         if "features" in skip:
             features = skip["features"]
             if not isinstance(features, (tuple, list)):

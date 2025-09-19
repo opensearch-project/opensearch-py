@@ -63,7 +63,6 @@ def run(*argv: Any, expect_exit_code: int = 0) -> None:
     will exit the process if they do not
     match the proper exit code
     """
-    global TMP_DIR
     if TMP_DIR is None:
         os.chdir(BASE_DIR)
     else:

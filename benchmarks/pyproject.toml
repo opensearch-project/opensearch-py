@@ -7,7 +7,7 @@ license = "Apache 2.0"
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = "^3.9"
 opensearch-py = { path = "..", develop=true, extras=["async"] }
 richbench = "*"
 
