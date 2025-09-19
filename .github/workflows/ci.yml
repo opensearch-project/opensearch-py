@@ -9,13 +9,13 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
-      - name: Set up Python 3.8
+      - name: Set up Python 3.9
         uses: actions/setup-python@v5
         with:
-          python-version: 3.8
+          python-version: 3.9
       - name: Install dependencies
         run: |
-          python3.8 -m pip install nox
+          python3.9 -m pip install nox
       - name: Lint the code
         run: nox -s lint
   
@@ -24,13 +24,13 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
-      - name: Set up Python 3.8
+      - name: Set up Python 3.9
         uses: actions/setup-python@v5
         with:
-          python-version: 3.8
+          python-version: 3.9
       - name: Install dependencies
         run: |
-          python3.8 -m pip install nox
+          python3.9 -m pip install nox
       - name: Run the api generator
         run: nox -s generate
 
@@ -39,16 +39,16 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
-      - name: Set up Python 3.8
+      - name: Set up Python 3.9
         uses: actions/setup-python@v5
         with:
-          python-version: 3.8
+          python-version: 3.9
       - name: Install build tools
         run: |
-          python3.8 -m pip install --upgrade build
+          python3.9 -m pip install --upgrade build
       - name: Build project for distribution
         run: |
-          python3.8 -m build
+          python3.9 -m build
 
   twine-check:
     runs-on: ubuntu-latest

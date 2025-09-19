@@ -41,7 +41,7 @@ SOURCE_FILES = (
 )
 
 
-@nox.session(python=["3.8", "3.9", "3.10", "3.11", "3.12"])  # type: ignore
+@nox.session(python=["3.9", "3.10", "3.11", "3.12"])  # type: ignore
 def test(session: Any) -> None:
     """
     runs all tests with a fresh python environment using "python setup.py test"
@@ -61,7 +61,7 @@ def test(session: Any) -> None:
     session.run("python", "setup.py", "test")
 
 
-@nox.session(python=["3.8"])  # type: ignore
+@nox.session(python=["3.9"])  # type: ignore
 def format(session: Any) -> None:
     """
     runs black and isort to format the files accordingly
@@ -77,7 +77,7 @@ def format(session: Any) -> None:
     session.notify("lint")
 
 
-@nox.session(python=["3.8"])  # type: ignore
+@nox.session(python=["3.9"])  # type: ignore
 def lint(session: Any) -> None:
     """
     runs isort, black, flake8, pylint, and mypy to check the files according to each utility's function
