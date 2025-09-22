@@ -71,6 +71,6 @@ jobs:
           mkdir -p junit
           python -m pip install -U --no-cache-dir --disable-pip-version-check pip
           python -m pip install --no-cache-dir --disable-pip-version-check -r dev-requirements.txt
-          python -m pip install -e .
-          python setup.py test
+          python -m pip install -e .[tests]
+          python test_opensearchpy/run_tests.py
         working-directory: opensearch-py
