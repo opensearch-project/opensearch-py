@@ -277,18 +277,17 @@ to exclude from the response.</p></li>
 to include in the response.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
-<li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
-takes a comma-separated list of filters. It supports using wildcards to
-match any field or part of a field’s name. You can also exclude fields
-with “-“.</p></li>
-<li><p><strong>human</strong> – Whether to return human readable values for
-statistics. Default is True.</p></li>
+<li><p><strong>filter_path</strong> – A comma-separated list of filters used to
+filter the response. Use wildcards to match any field or part of a
+field’s name. To exclude fields, use <cite>-</cite>.</p></li>
+<li><p><strong>human</strong> – Whether to return human-readable values for
+statistics. Default is false.</p></li>
 <li><p><strong>pipeline</strong> – ID of the pipeline to use to preprocess incoming
 documents. If the index has a default ingest pipeline specified, then
 setting the value to <cite>_none</cite> disables the default ingest pipeline for
 this request. If a final pipeline is configured it will always run,
 regardless of the value of this parameter.</p></li>
-<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+<li><p><strong>pretty</strong> – Whether to pretty-format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>refresh</strong> – If <cite>true</cite>, OpenSearch refreshes the affected
 shards to make this operation visible to search, if <cite>wait_for</cite> then wait
@@ -344,18 +343,17 @@ nodes.</p></li>
 accumulated into a batch before sending the batch to data nodes.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
-<li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
-takes a comma-separated list of filters. It supports using wildcards to
-match any field or part of a field’s name. You can also exclude fields
-with “-“.</p></li>
-<li><p><strong>human</strong> – Whether to return human readable values for
-statistics. Default is True.</p></li>
+<li><p><strong>filter_path</strong> – A comma-separated list of filters used to
+filter the response. Use wildcards to match any field or part of a
+field’s name. To exclude fields, use <cite>-</cite>.</p></li>
+<li><p><strong>human</strong> – Whether to return human-readable values for
+statistics. Default is false.</p></li>
 <li><p><strong>pipeline</strong> – ID of the pipeline to use to preprocess incoming
 documents. If the index has a default ingest pipeline specified, then
 setting the value to <cite>_none</cite> disables the default ingest pipeline for
 this request. If a final pipeline is configured it will always run,
 regardless of the value of this parameter.</p></li>
-<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+<li><p><strong>pretty</strong> – Whether to pretty-format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>refresh</strong> – If <cite>true</cite>, OpenSearch refreshes the affected
 shards to make this operation visible to search, if <cite>wait_for</cite> then wait
@@ -399,13 +397,12 @@ was specified using the <cite>scroll_id</cite> parameter</p></li>
 To clear all scroll IDs, use <cite>_all</cite>.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
-<li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
-takes a comma-separated list of filters. It supports using wildcards to
-match any field or part of a field’s name. You can also exclude fields
-with “-“.</p></li>
-<li><p><strong>human</strong> – Whether to return human readable values for
-statistics. Default is True.</p></li>
-<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+<li><p><strong>filter_path</strong> – A comma-separated list of filters used to
+filter the response. Use wildcards to match any field or part of a
+field’s name. To exclude fields, use <cite>-</cite>.</p></li>
+<li><p><strong>human</strong> – Whether to return human-readable values for
+statistics. Default is false.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty-format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
@@ -465,12 +462,11 @@ errors. Default is false.</p></li>
 <li><p><strong>expand_wildcards</strong> – Specifies the type of index that wildcard
 expressions can match. Supports comma-separated values. Valid choices
 are all, closed, hidden, none, open.</p></li>
-<li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
-takes a comma-separated list of filters. It supports using wildcards to
-match any field or part of a field’s name. You can also exclude fields
-with “-“.</p></li>
-<li><p><strong>human</strong> – Whether to return human readable values for
-statistics. Default is True.</p></li>
+<li><p><strong>filter_path</strong> – A comma-separated list of filters used to
+filter the response. Use wildcards to match any field or part of a
+field’s name. To exclude fields, use <cite>-</cite>.</p></li>
+<li><p><strong>human</strong> – Whether to return human-readable values for
+statistics. Default is false.</p></li>
 <li><p><strong>ignore_throttled</strong> – If <cite>true</cite>, concrete, expanded or aliased
 indexes are ignored when frozen.</p></li>
 <li><p><strong>ignore_unavailable</strong> – If <cite>false</cite>, the request returns an
@@ -481,7 +477,7 @@ providing text to a numeric field) in the query string will be ignored.</p></li>
 must have to be included in the result.</p></li>
 <li><p><strong>preference</strong> – Specifies the node or shard the operation
 should be performed on. Random by default. Default is random.</p></li>
-<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+<li><p><strong>pretty</strong> – Whether to pretty-format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>q</strong> – Query in the Lucene query string syntax.</p></li>
 <li><p><strong>routing</strong> – A custom value used to route operations to a
@@ -520,18 +516,17 @@ stream template, this request creates the index.</p></li>
 <li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The document</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
-<li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
-takes a comma-separated list of filters. It supports using wildcards to
-match any field or part of a field’s name. You can also exclude fields
-with “-“.</p></li>
-<li><p><strong>human</strong> – Whether to return human readable values for
-statistics. Default is True.</p></li>
+<li><p><strong>filter_path</strong> – A comma-separated list of filters used to
+filter the response. Use wildcards to match any field or part of a
+field’s name. To exclude fields, use <cite>-</cite>.</p></li>
+<li><p><strong>human</strong> – Whether to return human-readable values for
+statistics. Default is false.</p></li>
 <li><p><strong>pipeline</strong> – ID of the pipeline to use to preprocess incoming
 documents. If the index has a default ingest pipeline specified, then
 setting the value to <cite>_none</cite> disables the default ingest pipeline for
 this request. If a final pipeline is configured it will always run,
 regardless of the value of this parameter.</p></li>
-<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+<li><p><strong>pretty</strong> – Whether to pretty-format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>refresh</strong> – If <cite>true</cite>, OpenSearch refreshes the affected
 shards to make this operation visible to search, if <cite>wait_for</cite> then wait
@@ -583,16 +578,15 @@ errors. Default is false.</p></li>
 <li><p><strong>expand_wildcards</strong> – Whether to expand wildcard expression to
 concrete indexes that are open, closed or both. Valid choices are all,
 closed, hidden, none, open.</p></li>
-<li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
-takes a comma-separated list of filters. It supports using wildcards to
-match any field or part of a field’s name. You can also exclude fields
-with “-“.</p></li>
-<li><p><strong>human</strong> – Whether to return human readable values for
-statistics. Default is True.</p></li>
+<li><p><strong>filter_path</strong> – A comma-separated list of filters used to
+filter the response. Use wildcards to match any field or part of a
+field’s name. To exclude fields, use <cite>-</cite>.</p></li>
+<li><p><strong>human</strong> – Whether to return human-readable values for
+statistics. Default is false.</p></li>
 <li><p><strong>keep_alive</strong> – Specify the keep alive for point in time.</p></li>
 <li><p><strong>preference</strong> – Specify the node or shard the operation should
 be performed on. Default is random.</p></li>
-<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+<li><p><strong>pretty</strong> – Whether to pretty-format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>routing</strong> – A comma-separated list of specific routing values.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
@@ -619,17 +613,16 @@ libraries that do not accept a request body for non-POST requests.</p></li>
 <li><p><strong>id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The unique identifier for the document.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
-<li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
-takes a comma-separated list of filters. It supports using wildcards to
-match any field or part of a field’s name. You can also exclude fields
-with “-“.</p></li>
-<li><p><strong>human</strong> – Whether to return human readable values for
-statistics. Default is True.</p></li>
+<li><p><strong>filter_path</strong> – A comma-separated list of filters used to
+filter the response. Use wildcards to match any field or part of a
+field’s name. To exclude fields, use <cite>-</cite>.</p></li>
+<li><p><strong>human</strong> – Whether to return human-readable values for
+statistics. Default is false.</p></li>
 <li><p><strong>if_primary_term</strong> – Only perform the operation if the document
 has this primary term.</p></li>
 <li><p><strong>if_seq_no</strong> – Only perform the operation if the document has
 this sequence number.</p></li>
-<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+<li><p><strong>pretty</strong> – Whether to pretty-format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>refresh</strong> – If <cite>true</cite>, OpenSearch refreshes the affected
 shards to make this operation visible to search, if <cite>wait_for</cite> then wait
@@ -671,13 +664,12 @@ positive integer up to the total number of shards in the index
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
-<li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
-takes a comma-separated list of filters. It supports using wildcards to
-match any field or part of a field’s name. You can also exclude fields
-with “-“.</p></li>
-<li><p><strong>human</strong> – Whether to return human readable values for
-statistics. Default is True.</p></li>
-<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+<li><p><strong>filter_path</strong> – A comma-separated list of filters used to
+filter the response. Use wildcards to match any field or part of a
+field’s name. To exclude fields, use <cite>-</cite>.</p></li>
+<li><p><strong>human</strong> – Whether to return human-readable values for
+statistics. Default is false.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty-format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
@@ -730,13 +722,12 @@ match. If the request can target data streams, this argument determines
 whether wildcard expressions match hidden data streams. Supports comma-
 separated values, such as <cite>open,hidden</cite>. Valid values are: <cite>all</cite>,
 <cite>open</cite>, <cite>closed</cite>, <cite>hidden</cite>, <cite>none</cite>.</p></li>
-<li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
-takes a comma-separated list of filters. It supports using wildcards to
-match any field or part of a field’s name. You can also exclude fields
-with “-“.</p></li>
+<li><p><strong>filter_path</strong> – A comma-separated list of filters used to
+filter the response. Use wildcards to match any field or part of a
+field’s name. To exclude fields, use <cite>-</cite>.</p></li>
 <li><p><strong>from</strong> – Starting offset. Default is 0.</p></li>
-<li><p><strong>human</strong> – Whether to return human readable values for
-statistics. Default is True.</p></li>
+<li><p><strong>human</strong> – Whether to return human-readable values for
+statistics. Default is false.</p></li>
 <li><p><strong>ignore_unavailable</strong> – If <cite>false</cite>, the request returns an
 error if it targets a missing or closed index.</p></li>
 <li><p><strong>lenient</strong> – If <cite>true</cite>, format-based query failures (such as
@@ -745,7 +736,7 @@ providing text to a numeric field) in the query string will be ignored.</p></li>
 to all documents.</p></li>
 <li><p><strong>preference</strong> – Specifies the node or shard the operation
 should be performed on. Random by default. Default is random.</p></li>
-<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+<li><p><strong>pretty</strong> – Whether to pretty-format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>q</strong> – Query in the Lucene query string syntax.</p></li>
 <li><p><strong>refresh</strong> – If <cite>true</cite>, OpenSearch refreshes all shards
@@ -813,13 +804,12 @@ operation.</p>
 <li><p><strong>task_id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The ID for the task.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
-<li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
-takes a comma-separated list of filters. It supports using wildcards to
-match any field or part of a field’s name. You can also exclude fields
-with “-“.</p></li>
-<li><p><strong>human</strong> – Whether to return human readable values for
-statistics. Default is True.</p></li>
-<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+<li><p><strong>filter_path</strong> – A comma-separated list of filters used to
+filter the response. Use wildcards to match any field or part of a
+field’s name. To exclude fields, use <cite>-</cite>.</p></li>
+<li><p><strong>human</strong> – Whether to return human-readable values for
+statistics. Default is false.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty-format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>requests_per_second</strong> – The throttle for this request in sub-
 requests per second.</p></li>
@@ -846,13 +836,12 @@ libraries that do not accept a request body for non-POST requests.</p></li>
 <li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The point-in-time ids to be deleted</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
-<li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
-takes a comma-separated list of filters. It supports using wildcards to
-match any field or part of a field’s name. You can also exclude fields
-with “-“.</p></li>
-<li><p><strong>human</strong> – Whether to return human readable values for
-statistics. Default is True.</p></li>
-<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+<li><p><strong>filter_path</strong> – A comma-separated list of filters used to
+filter the response. Use wildcards to match any field or part of a
+field’s name. To exclude fields, use <cite>-</cite>.</p></li>
+<li><p><strong>human</strong> – Whether to return human-readable values for
+statistics. Default is false.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty-format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
@@ -879,17 +868,16 @@ libraries that do not accept a request body for non-POST requests.</p></li>
 to cluster-manager node.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
-<li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
-takes a comma-separated list of filters. It supports using wildcards to
-match any field or part of a field’s name. You can also exclude fields
-with “-“.</p></li>
-<li><p><strong>human</strong> – Whether to return human readable values for
-statistics. Default is True.</p></li>
+<li><p><strong>filter_path</strong> – A comma-separated list of filters used to
+filter the response. Use wildcards to match any field or part of a
+field’s name. To exclude fields, use <cite>-</cite>.</p></li>
+<li><p><strong>human</strong> – Whether to return human-readable values for
+statistics. Default is false.</p></li>
 <li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
 use <cite>cluster_manager_timeout</cite> instead.): Period to wait for a connection
 to the cluster-manager node. If no response is received before the
 timeout expires, the request fails and returns an error.</p></li>
-<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+<li><p><strong>pretty</strong> – Whether to pretty-format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
@@ -925,15 +913,14 @@ to exclude in the response.</p></li>
 to include in the response.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
-<li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
-takes a comma-separated list of filters. It supports using wildcards to
-match any field or part of a field’s name. You can also exclude fields
-with “-“.</p></li>
-<li><p><strong>human</strong> – Whether to return human readable values for
-statistics. Default is True.</p></li>
+<li><p><strong>filter_path</strong> – A comma-separated list of filters used to
+filter the response. Use wildcards to match any field or part of a
+field’s name. To exclude fields, use <cite>-</cite>.</p></li>
+<li><p><strong>human</strong> – Whether to return human-readable values for
+statistics. Default is false.</p></li>
 <li><p><strong>preference</strong> – Specifies the node or shard the operation
 should be performed on. Random by default. Default is random.</p></li>
-<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+<li><p><strong>pretty</strong> – Whether to pretty-format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>realtime</strong> – If <cite>true</cite>, the request is real time as opposed to
 near real time.</p></li>
@@ -983,15 +970,14 @@ to exclude in the response.</p></li>
 to include in the response.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
-<li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
-takes a comma-separated list of filters. It supports using wildcards to
-match any field or part of a field’s name. You can also exclude fields
-with “-“.</p></li>
-<li><p><strong>human</strong> – Whether to return human readable values for
-statistics. Default is True.</p></li>
+<li><p><strong>filter_path</strong> – A comma-separated list of filters used to
+filter the response. Use wildcards to match any field or part of a
+field’s name. To exclude fields, use <cite>-</cite>.</p></li>
+<li><p><strong>human</strong> – Whether to return human-readable values for
+statistics. Default is false.</p></li>
 <li><p><strong>preference</strong> – Specifies the node or shard the operation
 should be performed on. Random by default. Default is random.</p></li>
-<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+<li><p><strong>pretty</strong> – Whether to pretty-format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>realtime</strong> – If <cite>true</cite>, the request is real time as opposed to
 near real time.</p></li>
@@ -1048,17 +1034,16 @@ query: <cite>AND</cite> or <cite>OR</cite>. Valid choices are and, or.</p></li>
 in the query string. Default is _all.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
-<li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
-takes a comma-separated list of filters. It supports using wildcards to
-match any field or part of a field’s name. You can also exclude fields
-with “-“.</p></li>
-<li><p><strong>human</strong> – Whether to return human readable values for
-statistics. Default is True.</p></li>
+<li><p><strong>filter_path</strong> – A comma-separated list of filters used to
+filter the response. Use wildcards to match any field or part of a
+field’s name. To exclude fields, use <cite>-</cite>.</p></li>
+<li><p><strong>human</strong> – Whether to return human-readable values for
+statistics. Default is false.</p></li>
 <li><p><strong>lenient</strong> – If <cite>true</cite>, format-based query failures (such as
 providing text to a numeric field) in the query string will be ignored.</p></li>
 <li><p><strong>preference</strong> – Specifies the node or shard the operation
 should be performed on. Random by default. Default is random.</p></li>
-<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+<li><p><strong>pretty</strong> – Whether to pretty-format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>q</strong> – Query in the Lucene query string syntax.</p></li>
 <li><p><strong>routing</strong> – A custom value used to route operations to a
@@ -1100,24 +1085,23 @@ returns an error if an index starts with foo but no index starts with
 bar.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
-<li><p><strong>expand_wildcards</strong> – Type of index that wildcard patterns can
-match. If the request can target data streams, this argument determines
-whether wildcard expressions match hidden data streams. Supports comma-
-separated values, such as <cite>open,hidden</cite>. Valid choices are all, closed,
-hidden, none, open.</p></li>
+<li><p><strong>expand_wildcards</strong> – The type of index that wildcard patterns
+can match. If the request can target data streams, this argument
+determines whether wildcard expressions match hidden data streams.
+Supports comma-separated values, such as <cite>open,hidden</cite>. Valid choices
+are all, closed, hidden, none, open.</p></li>
 <li><p><strong>fields</strong> – A comma-separated list of fields to retrieve
 capabilities for. Wildcard (<cite>*</cite>) expressions are supported.</p></li>
-<li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
-takes a comma-separated list of filters. It supports using wildcards to
-match any field or part of a field’s name. You can also exclude fields
-with “-“.</p></li>
-<li><p><strong>human</strong> – Whether to return human readable values for
-statistics. Default is True.</p></li>
+<li><p><strong>filter_path</strong> – A comma-separated list of filters used to
+filter the response. Use wildcards to match any field or part of a
+field’s name. To exclude fields, use <cite>-</cite>.</p></li>
+<li><p><strong>human</strong> – Whether to return human-readable values for
+statistics. Default is false.</p></li>
 <li><p><strong>ignore_unavailable</strong> – If <cite>true</cite>, missing or closed indexes
 are not included in the response.</p></li>
 <li><p><strong>include_unmapped</strong> – If <cite>true</cite>, unmapped fields are included
 in the response. Default is false.</p></li>
-<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+<li><p><strong>pretty</strong> – Whether to pretty-format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
@@ -1150,15 +1134,14 @@ to exclude in the response.</p></li>
 to include in the response.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
-<li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
-takes a comma-separated list of filters. It supports using wildcards to
-match any field or part of a field’s name. You can also exclude fields
-with “-“.</p></li>
-<li><p><strong>human</strong> – Whether to return human readable values for
-statistics. Default is True.</p></li>
+<li><p><strong>filter_path</strong> – A comma-separated list of filters used to
+filter the response. Use wildcards to match any field or part of a
+field’s name. To exclude fields, use <cite>-</cite>.</p></li>
+<li><p><strong>human</strong> – Whether to return human-readable values for
+statistics. Default is false.</p></li>
 <li><p><strong>preference</strong> – Specifies the node or shard the operation
 should be performed on. Random by default. Default is random.</p></li>
-<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+<li><p><strong>pretty</strong> – Whether to pretty-format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>realtime</strong> – If <cite>true</cite>, the request is real time as opposed to
 near real time.</p></li>
@@ -1199,13 +1182,12 @@ force, internal.</p></li>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
-<li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
-takes a comma-separated list of filters. It supports using wildcards to
-match any field or part of a field’s name. You can also exclude fields
-with “-“.</p></li>
-<li><p><strong>human</strong> – Whether to return human readable values for
-statistics. Default is True.</p></li>
-<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+<li><p><strong>filter_path</strong> – A comma-separated list of filters used to
+filter the response. Use wildcards to match any field or part of a
+field’s name. To exclude fields, use <cite>-</cite>.</p></li>
+<li><p><strong>human</strong> – Whether to return human-readable values for
+statistics. Default is false.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty-format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
@@ -1231,16 +1213,15 @@ libraries that do not accept a request body for non-POST requests.</p></li>
 to cluster-manager node.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
-<li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
-takes a comma-separated list of filters. It supports using wildcards to
-match any field or part of a field’s name. You can also exclude fields
-with “-“.</p></li>
-<li><p><strong>human</strong> – Whether to return human readable values for
-statistics. Default is True.</p></li>
+<li><p><strong>filter_path</strong> – A comma-separated list of filters used to
+filter the response. Use wildcards to match any field or part of a
+field’s name. To exclude fields, use <cite>-</cite>.</p></li>
+<li><p><strong>human</strong> – Whether to return human-readable values for
+statistics. Default is false.</p></li>
 <li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
 use <cite>cluster_manager_timeout</cite> instead.): Specify timeout for connection
 to master</p></li>
-<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+<li><p><strong>pretty</strong> – Whether to pretty-format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
@@ -1264,13 +1245,12 @@ libraries that do not accept a request body for non-POST requests.</p></li>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
-<li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
-takes a comma-separated list of filters. It supports using wildcards to
-match any field or part of a field’s name. You can also exclude fields
-with “-“.</p></li>
-<li><p><strong>human</strong> – Whether to return human readable values for
-statistics. Default is True.</p></li>
-<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+<li><p><strong>filter_path</strong> – A comma-separated list of filters used to
+filter the response. Use wildcards to match any field or part of a
+field’s name. To exclude fields, use <cite>-</cite>.</p></li>
+<li><p><strong>human</strong> – Whether to return human-readable values for
+statistics. Default is false.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty-format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
@@ -1293,13 +1273,12 @@ libraries that do not accept a request body for non-POST requests.</p></li>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
-<li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
-takes a comma-separated list of filters. It supports using wildcards to
-match any field or part of a field’s name. You can also exclude fields
-with “-“.</p></li>
-<li><p><strong>human</strong> – Whether to return human readable values for
-statistics. Default is True.</p></li>
-<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+<li><p><strong>filter_path</strong> – A comma-separated list of filters used to
+filter the response. Use wildcards to match any field or part of a
+field’s name. To exclude fields, use <cite>-</cite>.</p></li>
+<li><p><strong>human</strong> – Whether to return human-readable values for
+statistics. Default is false.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty-format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
@@ -1330,15 +1309,14 @@ to exclude in the response.</p></li>
 to include in the response.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
-<li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
-takes a comma-separated list of filters. It supports using wildcards to
-match any field or part of a field’s name. You can also exclude fields
-with “-“.</p></li>
-<li><p><strong>human</strong> – Whether to return human readable values for
-statistics. Default is True.</p></li>
+<li><p><strong>filter_path</strong> – A comma-separated list of filters used to
+filter the response. Use wildcards to match any field or part of a
+field’s name. To exclude fields, use <cite>-</cite>.</p></li>
+<li><p><strong>human</strong> – Whether to return human-readable values for
+statistics. Default is false.</p></li>
 <li><p><strong>preference</strong> – Specifies the node or shard the operation
 should be performed on. Random by default. Default is random.</p></li>
-<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+<li><p><strong>pretty</strong> – Whether to pretty-format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>realtime</strong> – Boolean) If <cite>true</cite>, the request is real time as
 opposed to near real time.</p></li>
@@ -1378,12 +1356,11 @@ force, internal.</p></li>
 <li><p><strong>id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The unique identifier for the document.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
-<li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
-takes a comma-separated list of filters. It supports using wildcards to
-match any field or part of a field’s name. You can also exclude fields
-with “-“.</p></li>
-<li><p><strong>human</strong> – Whether to return human readable values for
-statistics. Default is True.</p></li>
+<li><p><strong>filter_path</strong> – A comma-separated list of filters used to
+filter the response. Use wildcards to match any field or part of a
+field’s name. To exclude fields, use <cite>-</cite>.</p></li>
+<li><p><strong>human</strong> – Whether to return human-readable values for
+statistics. Default is false.</p></li>
 <li><p><strong>if_primary_term</strong> – Only perform the operation if the document
 has this primary term.</p></li>
 <li><p><strong>if_seq_no</strong> – Only perform the operation if the document has
@@ -1399,7 +1376,7 @@ documents. If the index has a default ingest pipeline specified, then
 setting the value to <cite>_none</cite> disables the default ingest pipeline for
 this request. If a final pipeline is configured it will always run,
 regardless of the value of this parameter.</p></li>
-<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+<li><p><strong>pretty</strong> – Whether to pretty-format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>refresh</strong> – If <cite>true</cite>, OpenSearch refreshes the affected
 shards to make this operation visible to search, if <cite>wait_for</cite> then wait
@@ -1446,13 +1423,12 @@ positive integer up to the total number of shards in the index
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
-<li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
-takes a comma-separated list of filters. It supports using wildcards to
-match any field or part of a field’s name. You can also exclude fields
-with “-“.</p></li>
-<li><p><strong>human</strong> – Whether to return human readable values for
-statistics. Default is True.</p></li>
-<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+<li><p><strong>filter_path</strong> – A comma-separated list of filters used to
+filter the response. Use wildcards to match any field or part of a
+field’s name. To exclude fields, use <cite>-</cite>.</p></li>
+<li><p><strong>human</strong> – Whether to return human-readable values for
+statistics. Default is false.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty-format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
@@ -1491,15 +1467,14 @@ using the <cite>_source_excludes</cite> query parameter. If the <cite>_source</c
 is <cite>false</cite>, this parameter is ignored.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
-<li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
-takes a comma-separated list of filters. It supports using wildcards to
-match any field or part of a field’s name. You can also exclude fields
-with “-“.</p></li>
-<li><p><strong>human</strong> – Whether to return human readable values for
-statistics. Default is True.</p></li>
+<li><p><strong>filter_path</strong> – A comma-separated list of filters used to
+filter the response. Use wildcards to match any field or part of a
+field’s name. To exclude fields, use <cite>-</cite>.</p></li>
+<li><p><strong>human</strong> – Whether to return human-readable values for
+statistics. Default is false.</p></li>
 <li><p><strong>preference</strong> – Specifies the node or shard the operation
 should be performed on. Random by default. Default is random.</p></li>
-<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+<li><p><strong>pretty</strong> – Whether to pretty-format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>realtime</strong> – If <cite>true</cite>, the request is real time as opposed to
 near real time.</p></li>
@@ -1539,12 +1514,11 @@ between the coordinating node and remote clusters are minimized for
 cross-cluster search requests. Default is True.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
-<li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
-takes a comma-separated list of filters. It supports using wildcards to
-match any field or part of a field’s name. You can also exclude fields
-with “-“.</p></li>
-<li><p><strong>human</strong> – Whether to return human readable values for
-statistics. Default is True.</p></li>
+<li><p><strong>filter_path</strong> – A comma-separated list of filters used to
+filter the response. Use wildcards to match any field or part of a
+field’s name. To exclude fields, use <cite>-</cite>.</p></li>
+<li><p><strong>human</strong> – Whether to return human-readable values for
+statistics. Default is false.</p></li>
 <li><p><strong>max_concurrent_searches</strong> – Maximum number of concurrent
 searches the multi search API can execute.</p></li>
 <li><p><strong>max_concurrent_shard_requests</strong> – Maximum number of concurrent
@@ -1557,7 +1531,7 @@ threshold. This filter roundtrip can limit the number of shards
 significantly if for instance a shard can not match any documents based
 on its rewrite method i.e., if date filters are mandatory to match but
 the shard bounds and the query are disjoint.</p></li>
-<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+<li><p><strong>pretty</strong> – Whether to pretty-format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>rest_total_hits_as_int</strong> – If <cite>true</cite>, <cite>hits.total</cite> are
 returned as an integer in the response. Defaults to false, which returns
@@ -1597,15 +1571,14 @@ and indexes, omit this parameter or use <cite>*</cite>.</p></li>
 minimized for cross-cluster search requests. Default is True.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
-<li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
-takes a comma-separated list of filters. It supports using wildcards to
-match any field or part of a field’s name. You can also exclude fields
-with “-“.</p></li>
-<li><p><strong>human</strong> – Whether to return human readable values for
-statistics. Default is True.</p></li>
+<li><p><strong>filter_path</strong> – A comma-separated list of filters used to
+filter the response. Use wildcards to match any field or part of a
+field’s name. To exclude fields, use <cite>-</cite>.</p></li>
+<li><p><strong>human</strong> – Whether to return human-readable values for
+statistics. Default is false.</p></li>
 <li><p><strong>max_concurrent_searches</strong> – Maximum number of concurrent
 searches the API can run.</p></li>
-<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+<li><p><strong>pretty</strong> – Whether to pretty-format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>rest_total_hits_as_int</strong> – If <cite>true</cite>, the response returns
 <cite>hits.total</cite> as an integer. If <cite>false</cite>, it returns <cite>hits.total</cite> as an
@@ -1649,12 +1622,11 @@ frequencies. Default is True.</p></li>
 specifying the fields to include in the statistics. Used as the default
 list unless a specific field list is provided in the <cite>completion_fields</cite>
 or <cite>fielddata_fields</cite> parameters.</p></li>
-<li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
-takes a comma-separated list of filters. It supports using wildcards to
-match any field or part of a field’s name. You can also exclude fields
-with “-“.</p></li>
-<li><p><strong>human</strong> – Whether to return human readable values for
-statistics. Default is True.</p></li>
+<li><p><strong>filter_path</strong> – A comma-separated list of filters used to
+filter the response. Use wildcards to match any field or part of a
+field’s name. To exclude fields, use <cite>-</cite>.</p></li>
+<li><p><strong>human</strong> – Whether to return human-readable values for
+statistics. Default is false.</p></li>
 <li><p><strong>ids</strong> – A comma-separated list of documents IDs. You must
 provide either the <cite>docs</cite> field in the request body or specify <cite>ids</cite> as
 a query parameter or in the request body.</p></li>
@@ -1671,7 +1643,7 @@ apis/search/#the-preference-query-parameter) for a list of available
 options. By default the requests are routed randomly to available shard
 copies (primary or replica), with no guarantee of consistency across
 repeated queries.</p></li>
-<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+<li><p><strong>pretty</strong> – Whether to pretty-format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>realtime</strong> – If <cite>true</cite>, the request is real time as opposed to
 near real time. Default is True.</p></li>
@@ -1706,13 +1678,12 @@ external, external_gte, force, internal.</p></li>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
-<li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
-takes a comma-separated list of filters. It supports using wildcards to
-match any field or part of a field’s name. You can also exclude fields
-with “-“.</p></li>
-<li><p><strong>human</strong> – Whether to return human readable values for
-statistics. Default is True.</p></li>
-<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+<li><p><strong>filter_path</strong> – A comma-separated list of filters used to
+filter the response. Use wildcards to match any field or part of a
+field’s name. To exclude fields, use <cite>-</cite>.</p></li>
+<li><p><strong>human</strong> – Whether to return human-readable values for
+statistics. Default is false.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty-format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
@@ -1743,17 +1714,16 @@ or template in this context.</p></li>
 to cluster-manager node.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
-<li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
-takes a comma-separated list of filters. It supports using wildcards to
-match any field or part of a field’s name. You can also exclude fields
-with “-“.</p></li>
-<li><p><strong>human</strong> – Whether to return human readable values for
-statistics. Default is True.</p></li>
+<li><p><strong>filter_path</strong> – A comma-separated list of filters used to
+filter the response. Use wildcards to match any field or part of a
+field’s name. To exclude fields, use <cite>-</cite>.</p></li>
+<li><p><strong>human</strong> – Whether to return human-readable values for
+statistics. Default is false.</p></li>
 <li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
 use <cite>cluster_manager_timeout</cite> instead.): Period to wait for a connection
 to the cluster-manager node. If no response is received before the
 timeout expires, the request fails and returns an error.</p></li>
-<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+<li><p><strong>pretty</strong> – Whether to pretty-format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
@@ -1798,15 +1768,14 @@ errors. Default is false.</p></li>
 <li><p><strong>expand_wildcards</strong> – Whether to expand wildcard expression to
 concrete indexes that are open, closed or both. Valid choices are all,
 closed, hidden, none, open.</p></li>
-<li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
-takes a comma-separated list of filters. It supports using wildcards to
-match any field or part of a field’s name. You can also exclude fields
-with “-“.</p></li>
-<li><p><strong>human</strong> – Whether to return human readable values for
-statistics. Default is True.</p></li>
+<li><p><strong>filter_path</strong> – A comma-separated list of filters used to
+filter the response. Use wildcards to match any field or part of a
+field’s name. To exclude fields, use <cite>-</cite>.</p></li>
+<li><p><strong>human</strong> – Whether to return human-readable values for
+statistics. Default is false.</p></li>
 <li><p><strong>ignore_unavailable</strong> – If <cite>true</cite>, missing or closed indexes
 are not included in the response.</p></li>
-<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+<li><p><strong>pretty</strong> – Whether to pretty-format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>search_type</strong> – Search operation type Valid choices are
 dfs_query_then_fetch, query_then_fetch.</p></li>
@@ -1837,15 +1806,14 @@ fetching the documents from a remote cluster.</p>
 prototype for the index request.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
-<li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
-takes a comma-separated list of filters. It supports using wildcards to
-match any field or part of a field’s name. You can also exclude fields
-with “-“.</p></li>
-<li><p><strong>human</strong> – Whether to return human readable values for
-statistics. Default is True.</p></li>
+<li><p><strong>filter_path</strong> – A comma-separated list of filters used to
+filter the response. Use wildcards to match any field or part of a
+field’s name. To exclude fields, use <cite>-</cite>.</p></li>
+<li><p><strong>human</strong> – Whether to return human-readable values for
+statistics. Default is false.</p></li>
 <li><p><strong>max_docs</strong> – Maximum number of documents to process. By
 default, all documents.</p></li>
-<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+<li><p><strong>pretty</strong> – Whether to pretty-format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>refresh</strong> – If <cite>true</cite>, the request refreshes affected shards
 to make this operation visible to search. Valid choices are false, true,
@@ -1887,13 +1855,12 @@ the operation is complete. Default is True.</p></li>
 <li><p><strong>task_id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Identifier for the task.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
-<li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
-takes a comma-separated list of filters. It supports using wildcards to
-match any field or part of a field’s name. You can also exclude fields
-with “-“.</p></li>
-<li><p><strong>human</strong> – Whether to return human readable values for
-statistics. Default is True.</p></li>
-<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+<li><p><strong>filter_path</strong> – A comma-separated list of filters used to
+filter the response. Use wildcards to match any field or part of a
+field’s name. To exclude fields, use <cite>-</cite>.</p></li>
+<li><p><strong>human</strong> – Whether to return human-readable values for
+statistics. Default is false.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty-format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>requests_per_second</strong> – The throttle for this request in sub-
 requests per second.</p></li>
@@ -1922,13 +1889,12 @@ libraries that do not accept a request body for non-POST requests.</p></li>
 specified, this or the <cite>id</cite> request body parameter is required.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
-<li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
-takes a comma-separated list of filters. It supports using wildcards to
-match any field or part of a field’s name. You can also exclude fields
-with “-“.</p></li>
-<li><p><strong>human</strong> – Whether to return human readable values for
-statistics. Default is True.</p></li>
-<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+<li><p><strong>filter_path</strong> – A comma-separated list of filters used to
+filter the response. Use wildcards to match any field or part of a
+field’s name. To exclude fields, use <cite>-</cite>.</p></li>
+<li><p><strong>human</strong> – Whether to return human-readable values for
+statistics. Default is false.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty-format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
@@ -1954,13 +1920,12 @@ libraries that do not accept a request body for non-POST requests.</p></li>
 <li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The script to execute</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
-<li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
-takes a comma-separated list of filters. It supports using wildcards to
-match any field or part of a field’s name. You can also exclude fields
-with “-“.</p></li>
-<li><p><strong>human</strong> – Whether to return human readable values for
-statistics. Default is True.</p></li>
-<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+<li><p><strong>filter_path</strong> – A comma-separated list of filters used to
+filter the response. Use wildcards to match any field or part of a
+field’s name. To exclude fields, use <cite>-</cite>.</p></li>
+<li><p><strong>human</strong> – Whether to return human-readable values for
+statistics. Default is false.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty-format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
@@ -1985,13 +1950,12 @@ libraries that do not accept a request body for non-POST requests.</p></li>
 <li><p><strong>scroll_id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The scroll ID for scrolled search</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
-<li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
-takes a comma-separated list of filters. It supports using wildcards to
-match any field or part of a field’s name. You can also exclude fields
-with “-“.</p></li>
-<li><p><strong>human</strong> – Whether to return human readable values for
-statistics. Default is True.</p></li>
-<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+<li><p><strong>filter_path</strong> – A comma-separated list of filters used to
+filter the response. Use wildcards to match any field or part of a
+field’s name. To exclude fields, use <cite>-</cite>.</p></li>
+<li><p><strong>human</strong> – Whether to return human-readable values for
+statistics. Default is false.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty-format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>rest_total_hits_as_int</strong> – If <cite>true</cite>, the API response’s
 <cite>hit.total</cite> property is returned as an integer. If <cite>false</cite>, the API
@@ -2081,16 +2045,15 @@ separated values, such as <cite>open,hidden</cite>. Valid choices are all, close
 hidden, none, open.</p></li>
 <li><p><strong>explain</strong> – If <cite>true</cite>, returns detailed information about
 score computation as part of a hit.</p></li>
-<li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
-takes a comma-separated list of filters. It supports using wildcards to
-match any field or part of a field’s name. You can also exclude fields
-with “-“.</p></li>
+<li><p><strong>filter_path</strong> – A comma-separated list of filters used to
+filter the response. Use wildcards to match any field or part of a
+field’s name. To exclude fields, use <cite>-</cite>.</p></li>
 <li><p><strong>from</strong> – Starting document offset. Needs to be non-negative.
 By default, you cannot page through more than 10,000 hits using the
 <cite>from</cite> and <cite>size</cite> parameters. To page through more hits, use the
 <cite>search_after</cite> parameter. Default is 0.</p></li>
-<li><p><strong>human</strong> – Whether to return human readable values for
-statistics. Default is True.</p></li>
+<li><p><strong>human</strong> – Whether to return human-readable values for
+statistics. Default is false.</p></li>
 <li><p><strong>ignore_throttled</strong> – If <cite>true</cite>, concrete, expanded or aliased
 indexes will be ignored when frozen.</p></li>
 <li><p><strong>ignore_unavailable</strong> – If <cite>false</cite>, the request returns an
@@ -2137,7 +2100,7 @@ to run the search only on the specified shards; <cite>&lt;custom-string&gt;</cit
 string that does not start with <cite>_</cite>) to route searches with the same
 <cite>&lt;custom-string&gt;</cite> to the same shards in the same order. Default is
 random.</p></li>
-<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+<li><p><strong>pretty</strong> – Whether to pretty-format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>q</strong> – Query in the Lucene query string syntax using query
 parameter search. Query parameter searches do not support the full
@@ -2251,19 +2214,18 @@ match. If the request can target data streams, this argument determines
 whether wildcard expressions match hidden data streams. Supports comma-
 separated values, such as <cite>open,hidden</cite>. Valid values are: <cite>all</cite>,
 <cite>open</cite>, <cite>closed</cite>, <cite>hidden</cite>, <cite>none</cite>.</p></li>
-<li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
-takes a comma-separated list of filters. It supports using wildcards to
-match any field or part of a field’s name. You can also exclude fields
-with “-“.</p></li>
-<li><p><strong>human</strong> – Whether to return human readable values for
-statistics. Default is True.</p></li>
+<li><p><strong>filter_path</strong> – A comma-separated list of filters used to
+filter the response. Use wildcards to match any field or part of a
+field’s name. To exclude fields, use <cite>-</cite>.</p></li>
+<li><p><strong>human</strong> – Whether to return human-readable values for
+statistics. Default is false.</p></li>
 <li><p><strong>ignore_unavailable</strong> – If <cite>false</cite>, the request returns an
 error if it targets a missing or closed index.</p></li>
 <li><p><strong>local</strong> – If <cite>true</cite>, the request retrieves information from
 the local node only. Default is false.</p></li>
 <li><p><strong>preference</strong> – Specifies the node or shard the operation
 should be performed on. Random by default. Default is random.</p></li>
-<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+<li><p><strong>pretty</strong> – Whether to pretty-format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>routing</strong> – A custom value used to route operations to a
 specific shard.</p></li>
@@ -2308,12 +2270,11 @@ separated values, such as <cite>open,hidden</cite>. Valid values are: <cite>all<
 <cite>open</cite>, <cite>closed</cite>, <cite>hidden</cite>, <cite>none</cite>.</p></li>
 <li><p><strong>explain</strong> – If <cite>true</cite>, the response includes additional
 details about score computation as part of a hit.</p></li>
-<li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
-takes a comma-separated list of filters. It supports using wildcards to
-match any field or part of a field’s name. You can also exclude fields
-with “-“.</p></li>
-<li><p><strong>human</strong> – Whether to return human readable values for
-statistics. Default is True.</p></li>
+<li><p><strong>filter_path</strong> – A comma-separated list of filters used to
+filter the response. Use wildcards to match any field or part of a
+field’s name. To exclude fields, use <cite>-</cite>.</p></li>
+<li><p><strong>human</strong> – Whether to return human-readable values for
+statistics. Default is false.</p></li>
 <li><p><strong>ignore_throttled</strong> – If <cite>true</cite>, specified concrete, expanded,
 or aliased indexes are not included in the response when throttled.</p></li>
 <li><p><strong>ignore_unavailable</strong> – If <cite>false</cite>, the request returns an
@@ -2322,7 +2283,7 @@ error if it targets a missing or closed index.</p></li>
 time values in the response. Default is false.</p></li>
 <li><p><strong>preference</strong> – Specifies the node or shard the operation
 should be performed on. Random by default. Default is random.</p></li>
-<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+<li><p><strong>pretty</strong> – Whether to pretty-format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>profile</strong> – If <cite>true</cite>, the query execution is profiled.</p></li>
 <li><p><strong>rest_total_hits_as_int</strong> – If <cite>true</cite>, <cite>hits.total</cite> are
@@ -2372,12 +2333,11 @@ frequencies. Default is True.</p></li>
 specifying the fields to include in the statistics. Used as the default
 list unless a specific field list is provided in the <cite>completion_fields</cite>
 or <cite>fielddata_fields</cite> parameters.</p></li>
-<li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
-takes a comma-separated list of filters. It supports using wildcards to
-match any field or part of a field’s name. You can also exclude fields
-with “-“.</p></li>
-<li><p><strong>human</strong> – Whether to return human readable values for
-statistics. Default is True.</p></li>
+<li><p><strong>filter_path</strong> – A comma-separated list of filters used to
+filter the response. Use wildcards to match any field or part of a
+field’s name. To exclude fields, use <cite>-</cite>.</p></li>
+<li><p><strong>human</strong> – Whether to return human-readable values for
+statistics. Default is false.</p></li>
 <li><p><strong>offsets</strong> – If <cite>true</cite>, the response includes term offsets.
 Default is True.</p></li>
 <li><p><strong>payloads</strong> – If <cite>true</cite>, the response includes term payloads.
@@ -2391,7 +2351,7 @@ apis/search/#the-preference-query-parameter) for a list of available
 options. By default the requests are routed randomly to available shard
 copies (primary or replica), with no guarantee of consistency across
 repeated queries.</p></li>
-<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+<li><p><strong>pretty</strong> – Whether to pretty-format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>realtime</strong> – If <cite>true</cite>, the request is real time as opposed to
 near real time. Default is True.</p></li>
@@ -2438,18 +2398,17 @@ exclude.</p></li>
 retrieve.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
-<li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
-takes a comma-separated list of filters. It supports using wildcards to
-match any field or part of a field’s name. You can also exclude fields
-with “-“.</p></li>
-<li><p><strong>human</strong> – Whether to return human readable values for
-statistics. Default is True.</p></li>
+<li><p><strong>filter_path</strong> – A comma-separated list of filters used to
+filter the response. Use wildcards to match any field or part of a
+field’s name. To exclude fields, use <cite>-</cite>.</p></li>
+<li><p><strong>human</strong> – Whether to return human-readable values for
+statistics. Default is false.</p></li>
 <li><p><strong>if_primary_term</strong> – Only perform the operation if the document
 has this primary term.</p></li>
 <li><p><strong>if_seq_no</strong> – Only perform the operation if the document has
 this sequence number.</p></li>
 <li><p><strong>lang</strong> – The script language. Default is painless.</p></li>
-<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+<li><p><strong>pretty</strong> – Whether to pretty-format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>refresh</strong> – If ‘true’, OpenSearch refreshes the affected
 shards to make this operation visible to search, if <cite>wait_for</cite> then wait
@@ -2524,13 +2483,12 @@ match. If the request can target data streams, this argument determines
 whether wildcard expressions match hidden data streams. Supports comma-
 separated values, such as <cite>open,hidden</cite>. Valid values are: <cite>all</cite>,
 <cite>open</cite>, <cite>closed</cite>, <cite>hidden</cite>, <cite>none</cite>.</p></li>
-<li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
-takes a comma-separated list of filters. It supports using wildcards to
-match any field or part of a field’s name. You can also exclude fields
-with “-“.</p></li>
+<li><p><strong>filter_path</strong> – A comma-separated list of filters used to
+filter the response. Use wildcards to match any field or part of a
+field’s name. To exclude fields, use <cite>-</cite>.</p></li>
 <li><p><strong>from</strong> – Starting offset. Default is 0.</p></li>
-<li><p><strong>human</strong> – Whether to return human readable values for
-statistics. Default is True.</p></li>
+<li><p><strong>human</strong> – Whether to return human-readable values for
+statistics. Default is false.</p></li>
 <li><p><strong>ignore_unavailable</strong> – If <cite>false</cite>, the request returns an
 error if it targets a missing or closed index.</p></li>
 <li><p><strong>lenient</strong> – If <cite>true</cite>, format-based query failures (such as
@@ -2544,7 +2502,7 @@ this request. If a final pipeline is configured it will always run,
 regardless of the value of this parameter.</p></li>
 <li><p><strong>preference</strong> – Specifies the node or shard the operation
 should be performed on. Random by default. Default is random.</p></li>
-<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+<li><p><strong>pretty</strong> – Whether to pretty-format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>q</strong> – Query in the Lucene query string syntax.</p></li>
 <li><p><strong>refresh</strong> – If <cite>true</cite>, OpenSearch refreshes affected shards to
@@ -2611,13 +2569,12 @@ operation.</p>
 <li><p><strong>task_id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The ID for the task.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
-<li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
-takes a comma-separated list of filters. It supports using wildcards to
-match any field or part of a field’s name. You can also exclude fields
-with “-“.</p></li>
-<li><p><strong>human</strong> – Whether to return human readable values for
-statistics. Default is True.</p></li>
-<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+<li><p><strong>filter_path</strong> – A comma-separated list of filters used to
+filter the response. Use wildcards to match any field or part of a
+field’s name. To exclude fields, use <cite>-</cite>.</p></li>
+<li><p><strong>human</strong> – Whether to return human-readable values for
+statistics. Default is false.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty-format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>requests_per_second</strong> – The throttle for this request in sub-
 requests per second.</p></li>
@@ -2809,18 +2766,17 @@ to exclude from the response.</p></li>
 to include in the response.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
-<li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
-takes a comma-separated list of filters. It supports using wildcards to
-match any field or part of a field’s name. You can also exclude fields
-with “-“.</p></li>
-<li><p><strong>human</strong> – Whether to return human readable values for
-statistics. Default is True.</p></li>
+<li><p><strong>filter_path</strong> – A comma-separated list of filters used to
+filter the response. Use wildcards to match any field or part of a
+field’s name. To exclude fields, use <cite>-</cite>.</p></li>
+<li><p><strong>human</strong> – Whether to return human-readable values for
+statistics. Default is false.</p></li>
 <li><p><strong>pipeline</strong> – ID of the pipeline to use to preprocess incoming
 documents. If the index has a default ingest pipeline specified, then
 setting the value to <cite>_none</cite> disables the default ingest pipeline for
 this request. If a final pipeline is configured it will always run,
 regardless of the value of this parameter.</p></li>
-<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+<li><p><strong>pretty</strong> – Whether to pretty-format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>refresh</strong> – If <cite>true</cite>, OpenSearch refreshes the affected
 shards to make this operation visible to search, if <cite>wait_for</cite> then wait
@@ -2876,18 +2832,17 @@ nodes.</p></li>
 accumulated into a batch before sending the batch to data nodes.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
-<li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
-takes a comma-separated list of filters. It supports using wildcards to
-match any field or part of a field’s name. You can also exclude fields
-with “-“.</p></li>
-<li><p><strong>human</strong> – Whether to return human readable values for
-statistics. Default is True.</p></li>
+<li><p><strong>filter_path</strong> – A comma-separated list of filters used to
+filter the response. Use wildcards to match any field or part of a
+field’s name. To exclude fields, use <cite>-</cite>.</p></li>
+<li><p><strong>human</strong> – Whether to return human-readable values for
+statistics. Default is false.</p></li>
 <li><p><strong>pipeline</strong> – ID of the pipeline to use to preprocess incoming
 documents. If the index has a default ingest pipeline specified, then
 setting the value to <cite>_none</cite> disables the default ingest pipeline for
 this request. If a final pipeline is configured it will always run,
 regardless of the value of this parameter.</p></li>
-<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+<li><p><strong>pretty</strong> – Whether to pretty-format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>refresh</strong> – If <cite>true</cite>, OpenSearch refreshes the affected
 shards to make this operation visible to search, if <cite>wait_for</cite> then wait
@@ -2931,13 +2886,12 @@ was specified using the <cite>scroll_id</cite> parameter</p></li>
 To clear all scroll IDs, use <cite>_all</cite>.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
-<li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
-takes a comma-separated list of filters. It supports using wildcards to
-match any field or part of a field’s name. You can also exclude fields
-with “-“.</p></li>
-<li><p><strong>human</strong> – Whether to return human readable values for
-statistics. Default is True.</p></li>
-<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+<li><p><strong>filter_path</strong> – A comma-separated list of filters used to
+filter the response. Use wildcards to match any field or part of a
+field’s name. To exclude fields, use <cite>-</cite>.</p></li>
+<li><p><strong>human</strong> – Whether to return human-readable values for
+statistics. Default is false.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty-format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
@@ -2997,12 +2951,11 @@ errors. Default is false.</p></li>
 <li><p><strong>expand_wildcards</strong> – Specifies the type of index that wildcard
 expressions can match. Supports comma-separated values. Valid choices
 are all, closed, hidden, none, open.</p></li>
-<li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
-takes a comma-separated list of filters. It supports using wildcards to
-match any field or part of a field’s name. You can also exclude fields
-with “-“.</p></li>
-<li><p><strong>human</strong> – Whether to return human readable values for
-statistics. Default is True.</p></li>
+<li><p><strong>filter_path</strong> – A comma-separated list of filters used to
+filter the response. Use wildcards to match any field or part of a
+field’s name. To exclude fields, use <cite>-</cite>.</p></li>
+<li><p><strong>human</strong> – Whether to return human-readable values for
+statistics. Default is false.</p></li>
 <li><p><strong>ignore_throttled</strong> – If <cite>true</cite>, concrete, expanded or aliased
 indexes are ignored when frozen.</p></li>
 <li><p><strong>ignore_unavailable</strong> – If <cite>false</cite>, the request returns an
@@ -3013,7 +2966,7 @@ providing text to a numeric field) in the query string will be ignored.</p></li>
 must have to be included in the result.</p></li>
 <li><p><strong>preference</strong> – Specifies the node or shard the operation
 should be performed on. Random by default. Default is random.</p></li>
-<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+<li><p><strong>pretty</strong> – Whether to pretty-format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>q</strong> – Query in the Lucene query string syntax.</p></li>
 <li><p><strong>routing</strong> – A custom value used to route operations to a
@@ -3052,18 +3005,17 @@ stream template, this request creates the index.</p></li>
 <li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The document</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
-<li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
-takes a comma-separated list of filters. It supports using wildcards to
-match any field or part of a field’s name. You can also exclude fields
-with “-“.</p></li>
-<li><p><strong>human</strong> – Whether to return human readable values for
-statistics. Default is True.</p></li>
+<li><p><strong>filter_path</strong> – A comma-separated list of filters used to
+filter the response. Use wildcards to match any field or part of a
+field’s name. To exclude fields, use <cite>-</cite>.</p></li>
+<li><p><strong>human</strong> – Whether to return human-readable values for
+statistics. Default is false.</p></li>
 <li><p><strong>pipeline</strong> – ID of the pipeline to use to preprocess incoming
 documents. If the index has a default ingest pipeline specified, then
 setting the value to <cite>_none</cite> disables the default ingest pipeline for
 this request. If a final pipeline is configured it will always run,
 regardless of the value of this parameter.</p></li>
-<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+<li><p><strong>pretty</strong> – Whether to pretty-format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>refresh</strong> – If <cite>true</cite>, OpenSearch refreshes the affected
 shards to make this operation visible to search, if <cite>wait_for</cite> then wait
@@ -3115,16 +3067,15 @@ errors. Default is false.</p></li>
 <li><p><strong>expand_wildcards</strong> – Whether to expand wildcard expression to
 concrete indexes that are open, closed or both. Valid choices are all,
 closed, hidden, none, open.</p></li>
-<li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
-takes a comma-separated list of filters. It supports using wildcards to
-match any field or part of a field’s name. You can also exclude fields
-with “-“.</p></li>
-<li><p><strong>human</strong> – Whether to return human readable values for
-statistics. Default is True.</p></li>
+<li><p><strong>filter_path</strong> – A comma-separated list of filters used to
+filter the response. Use wildcards to match any field or part of a
+field’s name. To exclude fields, use <cite>-</cite>.</p></li>
+<li><p><strong>human</strong> – Whether to return human-readable values for
+statistics. Default is false.</p></li>
 <li><p><strong>keep_alive</strong> – Specify the keep alive for point in time.</p></li>
 <li><p><strong>preference</strong> – Specify the node or shard the operation should
 be performed on. Default is random.</p></li>
-<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+<li><p><strong>pretty</strong> – Whether to pretty-format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>routing</strong> – A comma-separated list of specific routing values.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
@@ -3151,17 +3102,16 @@ libraries that do not accept a request body for non-POST requests.</p></li>
 <li><p><strong>id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The unique identifier for the document.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
-<li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
-takes a comma-separated list of filters. It supports using wildcards to
-match any field or part of a field’s name. You can also exclude fields
-with “-“.</p></li>
-<li><p><strong>human</strong> – Whether to return human readable values for
-statistics. Default is True.</p></li>
+<li><p><strong>filter_path</strong> – A comma-separated list of filters used to
+filter the response. Use wildcards to match any field or part of a
+field’s name. To exclude fields, use <cite>-</cite>.</p></li>
+<li><p><strong>human</strong> – Whether to return human-readable values for
+statistics. Default is false.</p></li>
 <li><p><strong>if_primary_term</strong> – Only perform the operation if the document
 has this primary term.</p></li>
 <li><p><strong>if_seq_no</strong> – Only perform the operation if the document has
 this sequence number.</p></li>
-<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+<li><p><strong>pretty</strong> – Whether to pretty-format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>refresh</strong> – If <cite>true</cite>, OpenSearch refreshes the affected
 shards to make this operation visible to search, if <cite>wait_for</cite> then wait
@@ -3203,13 +3153,12 @@ positive integer up to the total number of shards in the index
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
-<li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
-takes a comma-separated list of filters. It supports using wildcards to
-match any field or part of a field’s name. You can also exclude fields
-with “-“.</p></li>
-<li><p><strong>human</strong> – Whether to return human readable values for
-statistics. Default is True.</p></li>
-<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+<li><p><strong>filter_path</strong> – A comma-separated list of filters used to
+filter the response. Use wildcards to match any field or part of a
+field’s name. To exclude fields, use <cite>-</cite>.</p></li>
+<li><p><strong>human</strong> – Whether to return human-readable values for
+statistics. Default is false.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty-format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
@@ -3262,13 +3211,12 @@ match. If the request can target data streams, this argument determines
 whether wildcard expressions match hidden data streams. Supports comma-
 separated values, such as <cite>open,hidden</cite>. Valid values are: <cite>all</cite>,
 <cite>open</cite>, <cite>closed</cite>, <cite>hidden</cite>, <cite>none</cite>.</p></li>
-<li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
-takes a comma-separated list of filters. It supports using wildcards to
-match any field or part of a field’s name. You can also exclude fields
-with “-“.</p></li>
+<li><p><strong>filter_path</strong> – A comma-separated list of filters used to
+filter the response. Use wildcards to match any field or part of a
+field’s name. To exclude fields, use <cite>-</cite>.</p></li>
 <li><p><strong>from</strong> – Starting offset. Default is 0.</p></li>
-<li><p><strong>human</strong> – Whether to return human readable values for
-statistics. Default is True.</p></li>
+<li><p><strong>human</strong> – Whether to return human-readable values for
+statistics. Default is false.</p></li>
 <li><p><strong>ignore_unavailable</strong> – If <cite>false</cite>, the request returns an
 error if it targets a missing or closed index.</p></li>
 <li><p><strong>lenient</strong> – If <cite>true</cite>, format-based query failures (such as
@@ -3277,7 +3225,7 @@ providing text to a numeric field) in the query string will be ignored.</p></li>
 to all documents.</p></li>
 <li><p><strong>preference</strong> – Specifies the node or shard the operation
 should be performed on. Random by default. Default is random.</p></li>
-<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+<li><p><strong>pretty</strong> – Whether to pretty-format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>q</strong> – Query in the Lucene query string syntax.</p></li>
 <li><p><strong>refresh</strong> – If <cite>true</cite>, OpenSearch refreshes all shards
@@ -3345,13 +3293,12 @@ operation.</p>
 <li><p><strong>task_id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The ID for the task.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
-<li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
-takes a comma-separated list of filters. It supports using wildcards to
-match any field or part of a field’s name. You can also exclude fields
-with “-“.</p></li>
-<li><p><strong>human</strong> – Whether to return human readable values for
-statistics. Default is True.</p></li>
-<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+<li><p><strong>filter_path</strong> – A comma-separated list of filters used to
+filter the response. Use wildcards to match any field or part of a
+field’s name. To exclude fields, use <cite>-</cite>.</p></li>
+<li><p><strong>human</strong> – Whether to return human-readable values for
+statistics. Default is false.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty-format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>requests_per_second</strong> – The throttle for this request in sub-
 requests per second.</p></li>
@@ -3378,13 +3325,12 @@ libraries that do not accept a request body for non-POST requests.</p></li>
 <li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The point-in-time ids to be deleted</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
-<li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
-takes a comma-separated list of filters. It supports using wildcards to
-match any field or part of a field’s name. You can also exclude fields
-with “-“.</p></li>
-<li><p><strong>human</strong> – Whether to return human readable values for
-statistics. Default is True.</p></li>
-<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+<li><p><strong>filter_path</strong> – A comma-separated list of filters used to
+filter the response. Use wildcards to match any field or part of a
+field’s name. To exclude fields, use <cite>-</cite>.</p></li>
+<li><p><strong>human</strong> – Whether to return human-readable values for
+statistics. Default is false.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty-format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
@@ -3411,17 +3357,16 @@ libraries that do not accept a request body for non-POST requests.</p></li>
 to cluster-manager node.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
-<li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
-takes a comma-separated list of filters. It supports using wildcards to
-match any field or part of a field’s name. You can also exclude fields
-with “-“.</p></li>
-<li><p><strong>human</strong> – Whether to return human readable values for
-statistics. Default is True.</p></li>
+<li><p><strong>filter_path</strong> – A comma-separated list of filters used to
+filter the response. Use wildcards to match any field or part of a
+field’s name. To exclude fields, use <cite>-</cite>.</p></li>
+<li><p><strong>human</strong> – Whether to return human-readable values for
+statistics. Default is false.</p></li>
 <li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
 use <cite>cluster_manager_timeout</cite> instead.): Period to wait for a connection
 to the cluster-manager node. If no response is received before the
 timeout expires, the request fails and returns an error.</p></li>
-<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+<li><p><strong>pretty</strong> – Whether to pretty-format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
@@ -3457,15 +3402,14 @@ to exclude in the response.</p></li>
 to include in the response.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
-<li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
-takes a comma-separated list of filters. It supports using wildcards to
-match any field or part of a field’s name. You can also exclude fields
-with “-“.</p></li>
-<li><p><strong>human</strong> – Whether to return human readable values for
-statistics. Default is True.</p></li>
+<li><p><strong>filter_path</strong> – A comma-separated list of filters used to
+filter the response. Use wildcards to match any field or part of a
+field’s name. To exclude fields, use <cite>-</cite>.</p></li>
+<li><p><strong>human</strong> – Whether to return human-readable values for
+statistics. Default is false.</p></li>
 <li><p><strong>preference</strong> – Specifies the node or shard the operation
 should be performed on. Random by default. Default is random.</p></li>
-<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+<li><p><strong>pretty</strong> – Whether to pretty-format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>realtime</strong> – If <cite>true</cite>, the request is real time as opposed to
 near real time.</p></li>
@@ -3515,15 +3459,14 @@ to exclude in the response.</p></li>
 to include in the response.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
-<li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
-takes a comma-separated list of filters. It supports using wildcards to
-match any field or part of a field’s name. You can also exclude fields
-with “-“.</p></li>
-<li><p><strong>human</strong> – Whether to return human readable values for
-statistics. Default is True.</p></li>
+<li><p><strong>filter_path</strong> – A comma-separated list of filters used to
+filter the response. Use wildcards to match any field or part of a
+field’s name. To exclude fields, use <cite>-</cite>.</p></li>
+<li><p><strong>human</strong> – Whether to return human-readable values for
+statistics. Default is false.</p></li>
 <li><p><strong>preference</strong> – Specifies the node or shard the operation
 should be performed on. Random by default. Default is random.</p></li>
-<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+<li><p><strong>pretty</strong> – Whether to pretty-format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>realtime</strong> – If <cite>true</cite>, the request is real time as opposed to
 near real time.</p></li>
@@ -3580,17 +3523,16 @@ query: <cite>AND</cite> or <cite>OR</cite>. Valid choices are and, or.</p></li>
 in the query string. Default is _all.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
-<li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
-takes a comma-separated list of filters. It supports using wildcards to
-match any field or part of a field’s name. You can also exclude fields
-with “-“.</p></li>
-<li><p><strong>human</strong> – Whether to return human readable values for
-statistics. Default is True.</p></li>
+<li><p><strong>filter_path</strong> – A comma-separated list of filters used to
+filter the response. Use wildcards to match any field or part of a
+field’s name. To exclude fields, use <cite>-</cite>.</p></li>
+<li><p><strong>human</strong> – Whether to return human-readable values for
+statistics. Default is false.</p></li>
 <li><p><strong>lenient</strong> – If <cite>true</cite>, format-based query failures (such as
 providing text to a numeric field) in the query string will be ignored.</p></li>
 <li><p><strong>preference</strong> – Specifies the node or shard the operation
 should be performed on. Random by default. Default is random.</p></li>
-<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+<li><p><strong>pretty</strong> – Whether to pretty-format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>q</strong> – Query in the Lucene query string syntax.</p></li>
 <li><p><strong>routing</strong> – A custom value used to route operations to a
@@ -3632,24 +3574,23 @@ returns an error if an index starts with foo but no index starts with
 bar.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
-<li><p><strong>expand_wildcards</strong> – Type of index that wildcard patterns can
-match. If the request can target data streams, this argument determines
-whether wildcard expressions match hidden data streams. Supports comma-
-separated values, such as <cite>open,hidden</cite>. Valid choices are all, closed,
-hidden, none, open.</p></li>
+<li><p><strong>expand_wildcards</strong> – The type of index that wildcard patterns
+can match. If the request can target data streams, this argument
+determines whether wildcard expressions match hidden data streams.
+Supports comma-separated values, such as <cite>open,hidden</cite>. Valid choices
+are all, closed, hidden, none, open.</p></li>
 <li><p><strong>fields</strong> – A comma-separated list of fields to retrieve
 capabilities for. Wildcard (<cite>*</cite>) expressions are supported.</p></li>
-<li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
-takes a comma-separated list of filters. It supports using wildcards to
-match any field or part of a field’s name. You can also exclude fields
-with “-“.</p></li>
-<li><p><strong>human</strong> – Whether to return human readable values for
-statistics. Default is True.</p></li>
+<li><p><strong>filter_path</strong> – A comma-separated list of filters used to
+filter the response. Use wildcards to match any field or part of a
+field’s name. To exclude fields, use <cite>-</cite>.</p></li>
+<li><p><strong>human</strong> – Whether to return human-readable values for
+statistics. Default is false.</p></li>
 <li><p><strong>ignore_unavailable</strong> – If <cite>true</cite>, missing or closed indexes
 are not included in the response.</p></li>
 <li><p><strong>include_unmapped</strong> – If <cite>true</cite>, unmapped fields are included
 in the response. Default is false.</p></li>
-<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+<li><p><strong>pretty</strong> – Whether to pretty-format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
@@ -3682,15 +3623,14 @@ to exclude in the response.</p></li>
 to include in the response.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
-<li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
-takes a comma-separated list of filters. It supports using wildcards to
-match any field or part of a field’s name. You can also exclude fields
-with “-“.</p></li>
-<li><p><strong>human</strong> – Whether to return human readable values for
-statistics. Default is True.</p></li>
+<li><p><strong>filter_path</strong> – A comma-separated list of filters used to
+filter the response. Use wildcards to match any field or part of a
+field’s name. To exclude fields, use <cite>-</cite>.</p></li>
+<li><p><strong>human</strong> – Whether to return human-readable values for
+statistics. Default is false.</p></li>
 <li><p><strong>preference</strong> – Specifies the node or shard the operation
 should be performed on. Random by default. Default is random.</p></li>
-<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+<li><p><strong>pretty</strong> – Whether to pretty-format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>realtime</strong> – If <cite>true</cite>, the request is real time as opposed to
 near real time.</p></li>
@@ -3731,13 +3671,12 @@ force, internal.</p></li>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
-<li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
-takes a comma-separated list of filters. It supports using wildcards to
-match any field or part of a field’s name. You can also exclude fields
-with “-“.</p></li>
-<li><p><strong>human</strong> – Whether to return human readable values for
-statistics. Default is True.</p></li>
-<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+<li><p><strong>filter_path</strong> – A comma-separated list of filters used to
+filter the response. Use wildcards to match any field or part of a
+field’s name. To exclude fields, use <cite>-</cite>.</p></li>
+<li><p><strong>human</strong> – Whether to return human-readable values for
+statistics. Default is false.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty-format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
@@ -3763,16 +3702,15 @@ libraries that do not accept a request body for non-POST requests.</p></li>
 to cluster-manager node.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
-<li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
-takes a comma-separated list of filters. It supports using wildcards to
-match any field or part of a field’s name. You can also exclude fields
-with “-“.</p></li>
-<li><p><strong>human</strong> – Whether to return human readable values for
-statistics. Default is True.</p></li>
+<li><p><strong>filter_path</strong> – A comma-separated list of filters used to
+filter the response. Use wildcards to match any field or part of a
+field’s name. To exclude fields, use <cite>-</cite>.</p></li>
+<li><p><strong>human</strong> – Whether to return human-readable values for
+statistics. Default is false.</p></li>
 <li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
 use <cite>cluster_manager_timeout</cite> instead.): Specify timeout for connection
 to master</p></li>
-<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+<li><p><strong>pretty</strong> – Whether to pretty-format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
@@ -3796,13 +3734,12 @@ libraries that do not accept a request body for non-POST requests.</p></li>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
-<li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
-takes a comma-separated list of filters. It supports using wildcards to
-match any field or part of a field’s name. You can also exclude fields
-with “-“.</p></li>
-<li><p><strong>human</strong> – Whether to return human readable values for
-statistics. Default is True.</p></li>
-<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+<li><p><strong>filter_path</strong> – A comma-separated list of filters used to
+filter the response. Use wildcards to match any field or part of a
+field’s name. To exclude fields, use <cite>-</cite>.</p></li>
+<li><p><strong>human</strong> – Whether to return human-readable values for
+statistics. Default is false.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty-format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
@@ -3825,13 +3762,12 @@ libraries that do not accept a request body for non-POST requests.</p></li>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
-<li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
-takes a comma-separated list of filters. It supports using wildcards to
-match any field or part of a field’s name. You can also exclude fields
-with “-“.</p></li>
-<li><p><strong>human</strong> – Whether to return human readable values for
-statistics. Default is True.</p></li>
-<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+<li><p><strong>filter_path</strong> – A comma-separated list of filters used to
+filter the response. Use wildcards to match any field or part of a
+field’s name. To exclude fields, use <cite>-</cite>.</p></li>
+<li><p><strong>human</strong> – Whether to return human-readable values for
+statistics. Default is false.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty-format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
@@ -3862,15 +3798,14 @@ to exclude in the response.</p></li>
 to include in the response.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
-<li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
-takes a comma-separated list of filters. It supports using wildcards to
-match any field or part of a field’s name. You can also exclude fields
-with “-“.</p></li>
-<li><p><strong>human</strong> – Whether to return human readable values for
-statistics. Default is True.</p></li>
+<li><p><strong>filter_path</strong> – A comma-separated list of filters used to
+filter the response. Use wildcards to match any field or part of a
+field’s name. To exclude fields, use <cite>-</cite>.</p></li>
+<li><p><strong>human</strong> – Whether to return human-readable values for
+statistics. Default is false.</p></li>
 <li><p><strong>preference</strong> – Specifies the node or shard the operation
 should be performed on. Random by default. Default is random.</p></li>
-<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+<li><p><strong>pretty</strong> – Whether to pretty-format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>realtime</strong> – Boolean) If <cite>true</cite>, the request is real time as
 opposed to near real time.</p></li>
@@ -3910,12 +3845,11 @@ force, internal.</p></li>
 <li><p><strong>id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The unique identifier for the document.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
-<li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
-takes a comma-separated list of filters. It supports using wildcards to
-match any field or part of a field’s name. You can also exclude fields
-with “-“.</p></li>
-<li><p><strong>human</strong> – Whether to return human readable values for
-statistics. Default is True.</p></li>
+<li><p><strong>filter_path</strong> – A comma-separated list of filters used to
+filter the response. Use wildcards to match any field or part of a
+field’s name. To exclude fields, use <cite>-</cite>.</p></li>
+<li><p><strong>human</strong> – Whether to return human-readable values for
+statistics. Default is false.</p></li>
 <li><p><strong>if_primary_term</strong> – Only perform the operation if the document
 has this primary term.</p></li>
 <li><p><strong>if_seq_no</strong> – Only perform the operation if the document has
@@ -3931,7 +3865,7 @@ documents. If the index has a default ingest pipeline specified, then
 setting the value to <cite>_none</cite> disables the default ingest pipeline for
 this request. If a final pipeline is configured it will always run,
 regardless of the value of this parameter.</p></li>
-<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+<li><p><strong>pretty</strong> – Whether to pretty-format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>refresh</strong> – If <cite>true</cite>, OpenSearch refreshes the affected
 shards to make this operation visible to search, if <cite>wait_for</cite> then wait
@@ -3978,13 +3912,12 @@ positive integer up to the total number of shards in the index
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
-<li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
-takes a comma-separated list of filters. It supports using wildcards to
-match any field or part of a field’s name. You can also exclude fields
-with “-“.</p></li>
-<li><p><strong>human</strong> – Whether to return human readable values for
-statistics. Default is True.</p></li>
-<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+<li><p><strong>filter_path</strong> – A comma-separated list of filters used to
+filter the response. Use wildcards to match any field or part of a
+field’s name. To exclude fields, use <cite>-</cite>.</p></li>
+<li><p><strong>human</strong> – Whether to return human-readable values for
+statistics. Default is false.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty-format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
@@ -4023,15 +3956,14 @@ using the <cite>_source_excludes</cite> query parameter. If the <cite>_source</c
 is <cite>false</cite>, this parameter is ignored.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
-<li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
-takes a comma-separated list of filters. It supports using wildcards to
-match any field or part of a field’s name. You can also exclude fields
-with “-“.</p></li>
-<li><p><strong>human</strong> – Whether to return human readable values for
-statistics. Default is True.</p></li>
+<li><p><strong>filter_path</strong> – A comma-separated list of filters used to
+filter the response. Use wildcards to match any field or part of a
+field’s name. To exclude fields, use <cite>-</cite>.</p></li>
+<li><p><strong>human</strong> – Whether to return human-readable values for
+statistics. Default is false.</p></li>
 <li><p><strong>preference</strong> – Specifies the node or shard the operation
 should be performed on. Random by default. Default is random.</p></li>
-<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+<li><p><strong>pretty</strong> – Whether to pretty-format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>realtime</strong> – If <cite>true</cite>, the request is real time as opposed to
 near real time.</p></li>
@@ -4071,12 +4003,11 @@ between the coordinating node and remote clusters are minimized for
 cross-cluster search requests. Default is True.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
-<li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
-takes a comma-separated list of filters. It supports using wildcards to
-match any field or part of a field’s name. You can also exclude fields
-with “-“.</p></li>
-<li><p><strong>human</strong> – Whether to return human readable values for
-statistics. Default is True.</p></li>
+<li><p><strong>filter_path</strong> – A comma-separated list of filters used to
+filter the response. Use wildcards to match any field or part of a
+field’s name. To exclude fields, use <cite>-</cite>.</p></li>
+<li><p><strong>human</strong> – Whether to return human-readable values for
+statistics. Default is false.</p></li>
 <li><p><strong>max_concurrent_searches</strong> – Maximum number of concurrent
 searches the multi search API can execute.</p></li>
 <li><p><strong>max_concurrent_shard_requests</strong> – Maximum number of concurrent
@@ -4089,7 +4020,7 @@ threshold. This filter roundtrip can limit the number of shards
 significantly if for instance a shard can not match any documents based
 on its rewrite method i.e., if date filters are mandatory to match but
 the shard bounds and the query are disjoint.</p></li>
-<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+<li><p><strong>pretty</strong> – Whether to pretty-format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>rest_total_hits_as_int</strong> – If <cite>true</cite>, <cite>hits.total</cite> are
 returned as an integer in the response. Defaults to false, which returns
@@ -4129,15 +4060,14 @@ and indexes, omit this parameter or use <cite>*</cite>.</p></li>
 minimized for cross-cluster search requests. Default is True.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
-<li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
-takes a comma-separated list of filters. It supports using wildcards to
-match any field or part of a field’s name. You can also exclude fields
-with “-“.</p></li>
-<li><p><strong>human</strong> – Whether to return human readable values for
-statistics. Default is True.</p></li>
+<li><p><strong>filter_path</strong> – A comma-separated list of filters used to
+filter the response. Use wildcards to match any field or part of a
+field’s name. To exclude fields, use <cite>-</cite>.</p></li>
+<li><p><strong>human</strong> – Whether to return human-readable values for
+statistics. Default is false.</p></li>
 <li><p><strong>max_concurrent_searches</strong> – Maximum number of concurrent
 searches the API can run.</p></li>
-<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+<li><p><strong>pretty</strong> – Whether to pretty-format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>rest_total_hits_as_int</strong> – If <cite>true</cite>, the response returns
 <cite>hits.total</cite> as an integer. If <cite>false</cite>, it returns <cite>hits.total</cite> as an
@@ -4181,12 +4111,11 @@ frequencies. Default is True.</p></li>
 specifying the fields to include in the statistics. Used as the default
 list unless a specific field list is provided in the <cite>completion_fields</cite>
 or <cite>fielddata_fields</cite> parameters.</p></li>
-<li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
-takes a comma-separated list of filters. It supports using wildcards to
-match any field or part of a field’s name. You can also exclude fields
-with “-“.</p></li>
-<li><p><strong>human</strong> – Whether to return human readable values for
-statistics. Default is True.</p></li>
+<li><p><strong>filter_path</strong> – A comma-separated list of filters used to
+filter the response. Use wildcards to match any field or part of a
+field’s name. To exclude fields, use <cite>-</cite>.</p></li>
+<li><p><strong>human</strong> – Whether to return human-readable values for
+statistics. Default is false.</p></li>
 <li><p><strong>ids</strong> – A comma-separated list of documents IDs. You must
 provide either the <cite>docs</cite> field in the request body or specify <cite>ids</cite> as
 a query parameter or in the request body.</p></li>
@@ -4203,7 +4132,7 @@ apis/search/#the-preference-query-parameter) for a list of available
 options. By default the requests are routed randomly to available shard
 copies (primary or replica), with no guarantee of consistency across
 repeated queries.</p></li>
-<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+<li><p><strong>pretty</strong> – Whether to pretty-format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>realtime</strong> – If <cite>true</cite>, the request is real time as opposed to
 near real time. Default is True.</p></li>
@@ -4238,13 +4167,12 @@ external, external_gte, force, internal.</p></li>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
-<li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
-takes a comma-separated list of filters. It supports using wildcards to
-match any field or part of a field’s name. You can also exclude fields
-with “-“.</p></li>
-<li><p><strong>human</strong> – Whether to return human readable values for
-statistics. Default is True.</p></li>
-<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+<li><p><strong>filter_path</strong> – A comma-separated list of filters used to
+filter the response. Use wildcards to match any field or part of a
+field’s name. To exclude fields, use <cite>-</cite>.</p></li>
+<li><p><strong>human</strong> – Whether to return human-readable values for
+statistics. Default is false.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty-format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
@@ -4275,17 +4203,16 @@ or template in this context.</p></li>
 to cluster-manager node.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
-<li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
-takes a comma-separated list of filters. It supports using wildcards to
-match any field or part of a field’s name. You can also exclude fields
-with “-“.</p></li>
-<li><p><strong>human</strong> – Whether to return human readable values for
-statistics. Default is True.</p></li>
+<li><p><strong>filter_path</strong> – A comma-separated list of filters used to
+filter the response. Use wildcards to match any field or part of a
+field’s name. To exclude fields, use <cite>-</cite>.</p></li>
+<li><p><strong>human</strong> – Whether to return human-readable values for
+statistics. Default is false.</p></li>
 <li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
 use <cite>cluster_manager_timeout</cite> instead.): Period to wait for a connection
 to the cluster-manager node. If no response is received before the
 timeout expires, the request fails and returns an error.</p></li>
-<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+<li><p><strong>pretty</strong> – Whether to pretty-format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
@@ -4330,15 +4257,14 @@ errors. Default is false.</p></li>
 <li><p><strong>expand_wildcards</strong> – Whether to expand wildcard expression to
 concrete indexes that are open, closed or both. Valid choices are all,
 closed, hidden, none, open.</p></li>
-<li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
-takes a comma-separated list of filters. It supports using wildcards to
-match any field or part of a field’s name. You can also exclude fields
-with “-“.</p></li>
-<li><p><strong>human</strong> – Whether to return human readable values for
-statistics. Default is True.</p></li>
+<li><p><strong>filter_path</strong> – A comma-separated list of filters used to
+filter the response. Use wildcards to match any field or part of a
+field’s name. To exclude fields, use <cite>-</cite>.</p></li>
+<li><p><strong>human</strong> – Whether to return human-readable values for
+statistics. Default is false.</p></li>
 <li><p><strong>ignore_unavailable</strong> – If <cite>true</cite>, missing or closed indexes
 are not included in the response.</p></li>
-<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+<li><p><strong>pretty</strong> – Whether to pretty-format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>search_type</strong> – Search operation type Valid choices are
 dfs_query_then_fetch, query_then_fetch.</p></li>
@@ -4369,15 +4295,14 @@ fetching the documents from a remote cluster.</p>
 prototype for the index request.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
-<li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
-takes a comma-separated list of filters. It supports using wildcards to
-match any field or part of a field’s name. You can also exclude fields
-with “-“.</p></li>
-<li><p><strong>human</strong> – Whether to return human readable values for
-statistics. Default is True.</p></li>
+<li><p><strong>filter_path</strong> – A comma-separated list of filters used to
+filter the response. Use wildcards to match any field or part of a
+field’s name. To exclude fields, use <cite>-</cite>.</p></li>
+<li><p><strong>human</strong> – Whether to return human-readable values for
+statistics. Default is false.</p></li>
 <li><p><strong>max_docs</strong> – Maximum number of documents to process. By
 default, all documents.</p></li>
-<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+<li><p><strong>pretty</strong> – Whether to pretty-format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>refresh</strong> – If <cite>true</cite>, the request refreshes affected shards
 to make this operation visible to search. Valid choices are false, true,
@@ -4419,13 +4344,12 @@ the operation is complete. Default is True.</p></li>
 <li><p><strong>task_id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Identifier for the task.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
-<li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
-takes a comma-separated list of filters. It supports using wildcards to
-match any field or part of a field’s name. You can also exclude fields
-with “-“.</p></li>
-<li><p><strong>human</strong> – Whether to return human readable values for
-statistics. Default is True.</p></li>
-<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+<li><p><strong>filter_path</strong> – A comma-separated list of filters used to
+filter the response. Use wildcards to match any field or part of a
+field’s name. To exclude fields, use <cite>-</cite>.</p></li>
+<li><p><strong>human</strong> – Whether to return human-readable values for
+statistics. Default is false.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty-format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>requests_per_second</strong> – The throttle for this request in sub-
 requests per second.</p></li>
@@ -4454,13 +4378,12 @@ libraries that do not accept a request body for non-POST requests.</p></li>
 specified, this or the <cite>id</cite> request body parameter is required.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
-<li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
-takes a comma-separated list of filters. It supports using wildcards to
-match any field or part of a field’s name. You can also exclude fields
-with “-“.</p></li>
-<li><p><strong>human</strong> – Whether to return human readable values for
-statistics. Default is True.</p></li>
-<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+<li><p><strong>filter_path</strong> – A comma-separated list of filters used to
+filter the response. Use wildcards to match any field or part of a
+field’s name. To exclude fields, use <cite>-</cite>.</p></li>
+<li><p><strong>human</strong> – Whether to return human-readable values for
+statistics. Default is false.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty-format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
@@ -4486,13 +4409,12 @@ libraries that do not accept a request body for non-POST requests.</p></li>
 <li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The script to execute</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
-<li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
-takes a comma-separated list of filters. It supports using wildcards to
-match any field or part of a field’s name. You can also exclude fields
-with “-“.</p></li>
-<li><p><strong>human</strong> – Whether to return human readable values for
-statistics. Default is True.</p></li>
-<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+<li><p><strong>filter_path</strong> – A comma-separated list of filters used to
+filter the response. Use wildcards to match any field or part of a
+field’s name. To exclude fields, use <cite>-</cite>.</p></li>
+<li><p><strong>human</strong> – Whether to return human-readable values for
+statistics. Default is false.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty-format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>source</strong> – The URL-encoded request definition. Useful for
 libraries that do not accept a request body for non-POST requests.</p></li>
@@ -4517,13 +4439,12 @@ libraries that do not accept a request body for non-POST requests.</p></li>
 <li><p><strong>scroll_id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The scroll ID for scrolled search</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
-<li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
-takes a comma-separated list of filters. It supports using wildcards to
-match any field or part of a field’s name. You can also exclude fields
-with “-“.</p></li>
-<li><p><strong>human</strong> – Whether to return human readable values for
-statistics. Default is True.</p></li>
-<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+<li><p><strong>filter_path</strong> – A comma-separated list of filters used to
+filter the response. Use wildcards to match any field or part of a
+field’s name. To exclude fields, use <cite>-</cite>.</p></li>
+<li><p><strong>human</strong> – Whether to return human-readable values for
+statistics. Default is false.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty-format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>rest_total_hits_as_int</strong> – If <cite>true</cite>, the API response’s
 <cite>hit.total</cite> property is returned as an integer. If <cite>false</cite>, the API
@@ -4613,16 +4534,15 @@ separated values, such as <cite>open,hidden</cite>. Valid choices are all, close
 hidden, none, open.</p></li>
 <li><p><strong>explain</strong> – If <cite>true</cite>, returns detailed information about
 score computation as part of a hit.</p></li>
-<li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
-takes a comma-separated list of filters. It supports using wildcards to
-match any field or part of a field’s name. You can also exclude fields
-with “-“.</p></li>
+<li><p><strong>filter_path</strong> – A comma-separated list of filters used to
+filter the response. Use wildcards to match any field or part of a
+field’s name. To exclude fields, use <cite>-</cite>.</p></li>
 <li><p><strong>from</strong> – Starting document offset. Needs to be non-negative.
 By default, you cannot page through more than 10,000 hits using the
 <cite>from</cite> and <cite>size</cite> parameters. To page through more hits, use the
 <cite>search_after</cite> parameter. Default is 0.</p></li>
-<li><p><strong>human</strong> – Whether to return human readable values for
-statistics. Default is True.</p></li>
+<li><p><strong>human</strong> – Whether to return human-readable values for
+statistics. Default is false.</p></li>
 <li><p><strong>ignore_throttled</strong> – If <cite>true</cite>, concrete, expanded or aliased
 indexes will be ignored when frozen.</p></li>
 <li><p><strong>ignore_unavailable</strong> – If <cite>false</cite>, the request returns an
@@ -4669,7 +4589,7 @@ to run the search only on the specified shards; <cite>&lt;custom-string&gt;</cit
 string that does not start with <cite>_</cite>) to route searches with the same
 <cite>&lt;custom-string&gt;</cite> to the same shards in the same order. Default is
 random.</p></li>
-<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+<li><p><strong>pretty</strong> – Whether to pretty-format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>q</strong> – Query in the Lucene query string syntax using query
 parameter search. Query parameter searches do not support the full
@@ -4783,19 +4703,18 @@ match. If the request can target data streams, this argument determines
 whether wildcard expressions match hidden data streams. Supports comma-
 separated values, such as <cite>open,hidden</cite>. Valid values are: <cite>all</cite>,
 <cite>open</cite>, <cite>closed</cite>, <cite>hidden</cite>, <cite>none</cite>.</p></li>
-<li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
-takes a comma-separated list of filters. It supports using wildcards to
-match any field or part of a field’s name. You can also exclude fields
-with “-“.</p></li>
-<li><p><strong>human</strong> – Whether to return human readable values for
-statistics. Default is True.</p></li>
+<li><p><strong>filter_path</strong> – A comma-separated list of filters used to
+filter the response. Use wildcards to match any field or part of a
+field’s name. To exclude fields, use <cite>-</cite>.</p></li>
+<li><p><strong>human</strong> – Whether to return human-readable values for
+statistics. Default is false.</p></li>
 <li><p><strong>ignore_unavailable</strong> – If <cite>false</cite>, the request returns an
 error if it targets a missing or closed index.</p></li>
 <li><p><strong>local</strong> – If <cite>true</cite>, the request retrieves information from
 the local node only. Default is false.</p></li>
 <li><p><strong>preference</strong> – Specifies the node or shard the operation
 should be performed on. Random by default. Default is random.</p></li>
-<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+<li><p><strong>pretty</strong> – Whether to pretty-format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>routing</strong> – A custom value used to route operations to a
 specific shard.</p></li>
@@ -4840,12 +4759,11 @@ separated values, such as <cite>open,hidden</cite>. Valid values are: <cite>all<
 <cite>open</cite>, <cite>closed</cite>, <cite>hidden</cite>, <cite>none</cite>.</p></li>
 <li><p><strong>explain</strong> – If <cite>true</cite>, the response includes additional
 details about score computation as part of a hit.</p></li>
-<li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
-takes a comma-separated list of filters. It supports using wildcards to
-match any field or part of a field’s name. You can also exclude fields
-with “-“.</p></li>
-<li><p><strong>human</strong> – Whether to return human readable values for
-statistics. Default is True.</p></li>
+<li><p><strong>filter_path</strong> – A comma-separated list of filters used to
+filter the response. Use wildcards to match any field or part of a
+field’s name. To exclude fields, use <cite>-</cite>.</p></li>
+<li><p><strong>human</strong> – Whether to return human-readable values for
+statistics. Default is false.</p></li>
 <li><p><strong>ignore_throttled</strong> – If <cite>true</cite>, specified concrete, expanded,
 or aliased indexes are not included in the response when throttled.</p></li>
 <li><p><strong>ignore_unavailable</strong> – If <cite>false</cite>, the request returns an
@@ -4854,7 +4772,7 @@ error if it targets a missing or closed index.</p></li>
 time values in the response. Default is false.</p></li>
 <li><p><strong>preference</strong> – Specifies the node or shard the operation
 should be performed on. Random by default. Default is random.</p></li>
-<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+<li><p><strong>pretty</strong> – Whether to pretty-format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>profile</strong> – If <cite>true</cite>, the query execution is profiled.</p></li>
 <li><p><strong>rest_total_hits_as_int</strong> – If <cite>true</cite>, <cite>hits.total</cite> are
@@ -4904,12 +4822,11 @@ frequencies. Default is True.</p></li>
 specifying the fields to include in the statistics. Used as the default
 list unless a specific field list is provided in the <cite>completion_fields</cite>
 or <cite>fielddata_fields</cite> parameters.</p></li>
-<li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
-takes a comma-separated list of filters. It supports using wildcards to
-match any field or part of a field’s name. You can also exclude fields
-with “-“.</p></li>
-<li><p><strong>human</strong> – Whether to return human readable values for
-statistics. Default is True.</p></li>
+<li><p><strong>filter_path</strong> – A comma-separated list of filters used to
+filter the response. Use wildcards to match any field or part of a
+field’s name. To exclude fields, use <cite>-</cite>.</p></li>
+<li><p><strong>human</strong> – Whether to return human-readable values for
+statistics. Default is false.</p></li>
 <li><p><strong>offsets</strong> – If <cite>true</cite>, the response includes term offsets.
 Default is True.</p></li>
 <li><p><strong>payloads</strong> – If <cite>true</cite>, the response includes term payloads.
@@ -4923,7 +4840,7 @@ apis/search/#the-preference-query-parameter) for a list of available
 options. By default the requests are routed randomly to available shard
 copies (primary or replica), with no guarantee of consistency across
 repeated queries.</p></li>
-<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+<li><p><strong>pretty</strong> – Whether to pretty-format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>realtime</strong> – If <cite>true</cite>, the request is real time as opposed to
 near real time. Default is True.</p></li>
@@ -4970,18 +4887,17 @@ exclude.</p></li>
 retrieve.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
-<li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
-takes a comma-separated list of filters. It supports using wildcards to
-match any field or part of a field’s name. You can also exclude fields
-with “-“.</p></li>
-<li><p><strong>human</strong> – Whether to return human readable values for
-statistics. Default is True.</p></li>
+<li><p><strong>filter_path</strong> – A comma-separated list of filters used to
+filter the response. Use wildcards to match any field or part of a
+field’s name. To exclude fields, use <cite>-</cite>.</p></li>
+<li><p><strong>human</strong> – Whether to return human-readable values for
+statistics. Default is false.</p></li>
 <li><p><strong>if_primary_term</strong> – Only perform the operation if the document
 has this primary term.</p></li>
 <li><p><strong>if_seq_no</strong> – Only perform the operation if the document has
 this sequence number.</p></li>
 <li><p><strong>lang</strong> – The script language. Default is painless.</p></li>
-<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+<li><p><strong>pretty</strong> – Whether to pretty-format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>refresh</strong> – If ‘true’, OpenSearch refreshes the affected
 shards to make this operation visible to search, if <cite>wait_for</cite> then wait
@@ -5056,13 +4972,12 @@ match. If the request can target data streams, this argument determines
 whether wildcard expressions match hidden data streams. Supports comma-
 separated values, such as <cite>open,hidden</cite>. Valid values are: <cite>all</cite>,
 <cite>open</cite>, <cite>closed</cite>, <cite>hidden</cite>, <cite>none</cite>.</p></li>
-<li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
-takes a comma-separated list of filters. It supports using wildcards to
-match any field or part of a field’s name. You can also exclude fields
-with “-“.</p></li>
+<li><p><strong>filter_path</strong> – A comma-separated list of filters used to
+filter the response. Use wildcards to match any field or part of a
+field’s name. To exclude fields, use <cite>-</cite>.</p></li>
 <li><p><strong>from</strong> – Starting offset. Default is 0.</p></li>
-<li><p><strong>human</strong> – Whether to return human readable values for
-statistics. Default is True.</p></li>
+<li><p><strong>human</strong> – Whether to return human-readable values for
+statistics. Default is false.</p></li>
 <li><p><strong>ignore_unavailable</strong> – If <cite>false</cite>, the request returns an
 error if it targets a missing or closed index.</p></li>
 <li><p><strong>lenient</strong> – If <cite>true</cite>, format-based query failures (such as
@@ -5076,7 +4991,7 @@ this request. If a final pipeline is configured it will always run,
 regardless of the value of this parameter.</p></li>
 <li><p><strong>preference</strong> – Specifies the node or shard the operation
 should be performed on. Random by default. Default is random.</p></li>
-<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+<li><p><strong>pretty</strong> – Whether to pretty-format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>q</strong> – Query in the Lucene query string syntax.</p></li>
 <li><p><strong>refresh</strong> – If <cite>true</cite>, OpenSearch refreshes affected shards to
@@ -5143,13 +5058,12 @@ operation.</p>
 <li><p><strong>task_id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – The ID for the task.</p></li>
 <li><p><strong>error_trace</strong> – Whether to include the stack trace of returned
 errors. Default is false.</p></li>
-<li><p><strong>filter_path</strong> – Used to reduce the response. This parameter
-takes a comma-separated list of filters. It supports using wildcards to
-match any field or part of a field’s name. You can also exclude fields
-with “-“.</p></li>
-<li><p><strong>human</strong> – Whether to return human readable values for
-statistics. Default is True.</p></li>
-<li><p><strong>pretty</strong> – Whether to pretty format the returned JSON
+<li><p><strong>filter_path</strong> – A comma-separated list of filters used to
+filter the response. Use wildcards to match any field or part of a
+field’s name. To exclude fields, use <cite>-</cite>.</p></li>
+<li><p><strong>human</strong> – Whether to return human-readable values for
+statistics. Default is false.</p></li>
+<li><p><strong>pretty</strong> – Whether to pretty-format the returned JSON
 response. Default is false.</p></li>
 <li><p><strong>requests_per_second</strong> – The throttle for this request in sub-
 requests per second.</p></li>
