@@ -37,13 +37,12 @@ class KnnClient(NamespacedClient):
         :arg model_id: The id of the model.
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
-        :arg filter_path: Used to reduce the response. This parameter
-            takes a comma-separated list of filters. It supports using wildcards to
-            match any field or part of a field’s name. You can also exclude fields
-            with "-".
-        :arg human: Whether to return human readable values for
-            statistics. Default is True.
-        :arg pretty: Whether to pretty format the returned JSON
+        :arg filter_path: A comma-separated list of filters used to
+            filter the response. Use wildcards to match any field or part of a
+            field's name. To exclude fields, use `-`.
+        :arg human: Whether to return human-readable values for
+            statistics. Default is false.
+        :arg pretty: Whether to pretty-format the returned JSON
             response. Default is false.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
@@ -73,13 +72,12 @@ class KnnClient(NamespacedClient):
         :arg model_id: The id of the model.
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
-        :arg filter_path: Used to reduce the response. This parameter
-            takes a comma-separated list of filters. It supports using wildcards to
-            match any field or part of a field’s name. You can also exclude fields
-            with "-".
-        :arg human: Whether to return human readable values for
-            statistics. Default is True.
-        :arg pretty: Whether to pretty format the returned JSON
+        :arg filter_path: A comma-separated list of filters used to
+            filter the response. Use wildcards to match any field or part of a
+            field's name. To exclude fields, use `-`.
+        :arg human: Whether to return human-readable values for
+            statistics. Default is false.
+        :arg pretty: Whether to pretty-format the returned JSON
             response. Default is false.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
@@ -190,13 +188,12 @@ class KnnClient(NamespacedClient):
             closed, hidden, none, open.
         :arg explain: Specify whether to return detailed information
             about score computation as part of a hit.
-        :arg filter_path: Used to reduce the response. This parameter
-            takes a comma-separated list of filters. It supports using wildcards to
-            match any field or part of a field’s name. You can also exclude fields
-            with "-".
+        :arg filter_path: A comma-separated list of filters used to
+            filter the response. Use wildcards to match any field or part of a
+            field's name. To exclude fields, use `-`.
         :arg from_: Starting offset. Default is 0.
-        :arg human: Whether to return human readable values for
-            statistics. Default is True.
+        :arg human: Whether to return human-readable values for
+            statistics. Default is false.
         :arg ignore_throttled: Whether specified concrete, expanded or
             aliased indexes should be ignored when throttled.
         :arg ignore_unavailable: Whether specified concrete indexes
@@ -216,7 +213,7 @@ class KnnClient(NamespacedClient):
             bounds and the query are disjoint.
         :arg preference: Specify the node or shard the operation should
             be performed on. Default is random.
-        :arg pretty: Whether to pretty format the returned JSON
+        :arg pretty: Whether to pretty-format the returned JSON
             response. Default is false.
         :arg q: Query in the Lucene query string syntax.
         :arg request_cache: Specify if request cache should be used for
@@ -291,13 +288,12 @@ class KnnClient(NamespacedClient):
             `_all` or empty string to retrieve all stats.
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
-        :arg filter_path: Used to reduce the response. This parameter
-            takes a comma-separated list of filters. It supports using wildcards to
-            match any field or part of a field’s name. You can also exclude fields
-            with "-".
-        :arg human: Whether to return human readable values for
-            statistics. Default is True.
-        :arg pretty: Whether to pretty format the returned JSON
+        :arg filter_path: A comma-separated list of filters used to
+            filter the response. Use wildcards to match any field or part of a
+            field's name. To exclude fields, use `-`.
+        :arg human: Whether to return human-readable values for
+            statistics. Default is false.
+        :arg pretty: Whether to pretty-format the returned JSON
             response. Default is false.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
@@ -329,14 +325,13 @@ class KnnClient(NamespacedClient):
         :arg model_id: The id of the model.
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
-        :arg filter_path: Used to reduce the response. This parameter
-            takes a comma-separated list of filters. It supports using wildcards to
-            match any field or part of a field’s name. You can also exclude fields
-            with "-".
-        :arg human: Whether to return human readable values for
-            statistics. Default is True.
+        :arg filter_path: A comma-separated list of filters used to
+            filter the response. Use wildcards to match any field or part of a
+            field's name. To exclude fields, use `-`.
+        :arg human: Whether to return human-readable values for
+            statistics. Default is false.
         :arg preference: Preferred node to execute training.
-        :arg pretty: Whether to pretty format the returned JSON
+        :arg pretty: Whether to pretty-format the returned JSON
             response. Default is false.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
@@ -366,13 +361,12 @@ class KnnClient(NamespacedClient):
             empty string to perform the operation on all indexes.
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
-        :arg filter_path: Used to reduce the response. This parameter
-            takes a comma-separated list of filters. It supports using wildcards to
-            match any field or part of a field’s name. You can also exclude fields
-            with "-".
-        :arg human: Whether to return human readable values for
-            statistics. Default is True.
-        :arg pretty: Whether to pretty format the returned JSON
+        :arg filter_path: A comma-separated list of filters used to
+            filter the response. Use wildcards to match any field or part of a
+            field's name. To exclude fields, use `-`.
+        :arg human: Whether to return human-readable values for
+            statistics. Default is false.
+        :arg pretty: Whether to pretty-format the returned JSON
             response. Default is false.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.

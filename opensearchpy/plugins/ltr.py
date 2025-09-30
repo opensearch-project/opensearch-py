@@ -35,13 +35,12 @@ class LtrClient(NamespacedClient):
 
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
-        :arg filter_path: Used to reduce the response. This parameter
-            takes a comma-separated list of filters. It supports using wildcards to
-            match any field or part of a field’s name. You can also exclude fields
-            with "-".
-        :arg human: Whether to return human readable values for
-            statistics. Default is True.
-        :arg pretty: Whether to pretty format the returned JSON
+        :arg filter_path: A comma-separated list of filters used to
+            filter the response. Use wildcards to match any field or part of a
+            field's name. To exclude fields, use `-`.
+        :arg human: Whether to return human-readable values for
+            statistics. Default is false.
+        :arg pretty: Whether to pretty-format the returned JSON
             response. Default is false.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
@@ -66,13 +65,12 @@ class LtrClient(NamespacedClient):
             cache.
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
-        :arg filter_path: Used to reduce the response. This parameter
-            takes a comma-separated list of filters. It supports using wildcards to
-            match any field or part of a field’s name. You can also exclude fields
-            with "-".
-        :arg human: Whether to return human readable values for
-            statistics. Default is True.
-        :arg pretty: Whether to pretty format the returned JSON
+        :arg filter_path: A comma-separated list of filters used to
+            filter the response. Use wildcards to match any field or part of a
+            field's name. To exclude fields, use `-`.
+        :arg human: Whether to return human-readable values for
+            statistics. Default is false.
+        :arg pretty: Whether to pretty-format the returned JSON
             response. Default is false.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
@@ -97,13 +95,12 @@ class LtrClient(NamespacedClient):
 
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
-        :arg filter_path: Used to reduce the response. This parameter
-            takes a comma-separated list of filters. It supports using wildcards to
-            match any field or part of a field’s name. You can also exclude fields
-            with "-".
-        :arg human: Whether to return human readable values for
-            statistics. Default is True.
-        :arg pretty: Whether to pretty format the returned JSON
+        :arg filter_path: A comma-separated list of filters used to
+            filter the response. Use wildcards to match any field or part of a
+            field's name. To exclude fields, use `-`.
+        :arg human: Whether to return human-readable values for
+            statistics. Default is false.
+        :arg pretty: Whether to pretty-format the returned JSON
             response. Default is false.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
@@ -127,13 +124,12 @@ class LtrClient(NamespacedClient):
         :arg store: The name of the feature store.
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
-        :arg filter_path: Used to reduce the response. This parameter
-            takes a comma-separated list of filters. It supports using wildcards to
-            match any field or part of a field’s name. You can also exclude fields
-            with "-".
-        :arg human: Whether to return human readable values for
-            statistics. Default is True.
-        :arg pretty: Whether to pretty format the returned JSON
+        :arg filter_path: A comma-separated list of filters used to
+            filter the response. Use wildcards to match any field or part of a
+            field's name. To exclude fields, use `-`.
+        :arg human: Whether to return human-readable values for
+            statistics. Default is false.
+        :arg pretty: Whether to pretty-format the returned JSON
             response. Default is false.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
@@ -158,13 +154,12 @@ class LtrClient(NamespacedClient):
 
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
-        :arg filter_path: Used to reduce the response. This parameter
-            takes a comma-separated list of filters. It supports using wildcards to
-            match any field or part of a field’s name. You can also exclude fields
-            with "-".
-        :arg human: Whether to return human readable values for
-            statistics. Default is True.
-        :arg pretty: Whether to pretty format the returned JSON
+        :arg filter_path: A comma-separated list of filters used to
+            filter the response. Use wildcards to match any field or part of a
+            field's name. To exclude fields, use `-`.
+        :arg human: Whether to return human-readable values for
+            statistics. Default is false.
+        :arg pretty: Whether to pretty-format the returned JSON
             response. Default is false.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
@@ -188,13 +183,12 @@ class LtrClient(NamespacedClient):
         :arg store: The name of the feature store.
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
-        :arg filter_path: Used to reduce the response. This parameter
-            takes a comma-separated list of filters. It supports using wildcards to
-            match any field or part of a field’s name. You can also exclude fields
-            with "-".
-        :arg human: Whether to return human readable values for
-            statistics. Default is True.
-        :arg pretty: Whether to pretty format the returned JSON
+        :arg filter_path: A comma-separated list of filters used to
+            filter the response. Use wildcards to match any field or part of a
+            field's name. To exclude fields, use `-`.
+        :arg human: Whether to return human-readable values for
+            statistics. Default is false.
+        :arg pretty: Whether to pretty-format the returned JSON
             response. Default is false.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
@@ -221,13 +215,12 @@ class LtrClient(NamespacedClient):
         :arg store: The name of the feature store.
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
-        :arg filter_path: Used to reduce the response. This parameter
-            takes a comma-separated list of filters. It supports using wildcards to
-            match any field or part of a field’s name. You can also exclude fields
-            with "-".
-        :arg human: Whether to return human readable values for
-            statistics. Default is True.
-        :arg pretty: Whether to pretty format the returned JSON
+        :arg filter_path: A comma-separated list of filters used to
+            filter the response. Use wildcards to match any field or part of a
+            field's name. To exclude fields, use `-`.
+        :arg human: Whether to return human-readable values for
+            statistics. Default is false.
+        :arg pretty: Whether to pretty-format the returned JSON
             response. Default is false.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
@@ -252,13 +245,12 @@ class LtrClient(NamespacedClient):
 
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
-        :arg filter_path: Used to reduce the response. This parameter
-            takes a comma-separated list of filters. It supports using wildcards to
-            match any field or part of a field’s name. You can also exclude fields
-            with "-".
-        :arg human: Whether to return human readable values for
-            statistics. Default is True.
-        :arg pretty: Whether to pretty format the returned JSON
+        :arg filter_path: A comma-separated list of filters used to
+            filter the response. Use wildcards to match any field or part of a
+            field's name. To exclude fields, use `-`.
+        :arg human: Whether to return human-readable values for
+            statistics. Default is false.
+        :arg pretty: Whether to pretty-format the returned JSON
             response. Default is false.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
@@ -288,13 +280,12 @@ class LtrClient(NamespacedClient):
             `_all` or empty string to retrieve all stats.
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
-        :arg filter_path: Used to reduce the response. This parameter
-            takes a comma-separated list of filters. It supports using wildcards to
-            match any field or part of a field’s name. You can also exclude fields
-            with "-".
-        :arg human: Whether to return human readable values for
-            statistics. Default is True.
-        :arg pretty: Whether to pretty format the returned JSON
+        :arg filter_path: A comma-separated list of filters used to
+            filter the response. Use wildcards to match any field or part of a
+            field's name. To exclude fields, use `-`.
+        :arg human: Whether to return human-readable values for
+            statistics. Default is false.
+        :arg pretty: Whether to pretty-format the returned JSON
             response. Default is false.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
@@ -334,15 +325,14 @@ class LtrClient(NamespacedClient):
         :arg store: The name of the feature store.
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
-        :arg filter_path: Used to reduce the response. This parameter
-            takes a comma-separated list of filters. It supports using wildcards to
-            match any field or part of a field’s name. You can also exclude fields
-            with "-".
-        :arg human: Whether to return human readable values for
-            statistics. Default is True.
+        :arg filter_path: A comma-separated list of filters used to
+            filter the response. Use wildcards to match any field or part of a
+            field's name. To exclude fields, use `-`.
+        :arg human: Whether to return human-readable values for
+            statistics. Default is false.
         :arg merge: Whether to merge the feature list or append only.
             Default is false.
-        :arg pretty: Whether to pretty format the returned JSON
+        :arg pretty: Whether to pretty-format the returned JSON
             response. Default is false.
         :arg routing: Specific routing value.
         :arg source: The URL-encoded request definition. Useful for
@@ -392,15 +382,14 @@ class LtrClient(NamespacedClient):
         :arg store: The name of the feature store.
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
-        :arg filter_path: Used to reduce the response. This parameter
-            takes a comma-separated list of filters. It supports using wildcards to
-            match any field or part of a field’s name. You can also exclude fields
-            with "-".
-        :arg human: Whether to return human readable values for
-            statistics. Default is True.
+        :arg filter_path: A comma-separated list of filters used to
+            filter the response. Use wildcards to match any field or part of a
+            field's name. To exclude fields, use `-`.
+        :arg human: Whether to return human-readable values for
+            statistics. Default is false.
         :arg merge: Whether to merge the feature list or append only.
             Default is false.
-        :arg pretty: Whether to pretty format the returned JSON
+        :arg pretty: Whether to pretty-format the returned JSON
             response. Default is false.
         :arg routing: Specific routing value.
         :arg source: The URL-encoded request definition. Useful for
@@ -437,13 +426,12 @@ class LtrClient(NamespacedClient):
         :arg store: The name of the feature store.
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
-        :arg filter_path: Used to reduce the response. This parameter
-            takes a comma-separated list of filters. It supports using wildcards to
-            match any field or part of a field’s name. You can also exclude fields
-            with "-".
-        :arg human: Whether to return human readable values for
-            statistics. Default is True.
-        :arg pretty: Whether to pretty format the returned JSON
+        :arg filter_path: A comma-separated list of filters used to
+            filter the response. Use wildcards to match any field or part of a
+            field's name. To exclude fields, use `-`.
+        :arg human: Whether to return human-readable values for
+            statistics. Default is false.
+        :arg pretty: Whether to pretty-format the returned JSON
             response. Default is false.
         :arg routing: Specific routing value.
         :arg source: The URL-encoded request definition. Useful for
@@ -479,13 +467,12 @@ class LtrClient(NamespacedClient):
         :arg store: The name of the feature store.
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
-        :arg filter_path: Used to reduce the response. This parameter
-            takes a comma-separated list of filters. It supports using wildcards to
-            match any field or part of a field’s name. You can also exclude fields
-            with "-".
-        :arg human: Whether to return human readable values for
-            statistics. Default is True.
-        :arg pretty: Whether to pretty format the returned JSON
+        :arg filter_path: A comma-separated list of filters used to
+            filter the response. Use wildcards to match any field or part of a
+            field's name. To exclude fields, use `-`.
+        :arg human: Whether to return human-readable values for
+            statistics. Default is false.
+        :arg pretty: Whether to pretty-format the returned JSON
             response. Default is false.
         :arg routing: Specific routing value.
         :arg source: The URL-encoded request definition. Useful for
@@ -521,13 +508,12 @@ class LtrClient(NamespacedClient):
         :arg store: The name of the feature store.
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
-        :arg filter_path: Used to reduce the response. This parameter
-            takes a comma-separated list of filters. It supports using wildcards to
-            match any field or part of a field’s name. You can also exclude fields
-            with "-".
-        :arg human: Whether to return human readable values for
-            statistics. Default is True.
-        :arg pretty: Whether to pretty format the returned JSON
+        :arg filter_path: A comma-separated list of filters used to
+            filter the response. Use wildcards to match any field or part of a
+            field's name. To exclude fields, use `-`.
+        :arg human: Whether to return human-readable values for
+            statistics. Default is false.
+        :arg pretty: Whether to pretty-format the returned JSON
             response. Default is false.
         :arg routing: Specific routing value.
         :arg source: The URL-encoded request definition. Useful for
@@ -564,13 +550,12 @@ class LtrClient(NamespacedClient):
         :arg store: The name of the feature store.
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
-        :arg filter_path: Used to reduce the response. This parameter
-            takes a comma-separated list of filters. It supports using wildcards to
-            match any field or part of a field’s name. You can also exclude fields
-            with "-".
-        :arg human: Whether to return human readable values for
-            statistics. Default is True.
-        :arg pretty: Whether to pretty format the returned JSON
+        :arg filter_path: A comma-separated list of filters used to
+            filter the response. Use wildcards to match any field or part of a
+            field's name. To exclude fields, use `-`.
+        :arg human: Whether to return human-readable values for
+            statistics. Default is false.
+        :arg pretty: Whether to pretty-format the returned JSON
             response. Default is false.
         :arg routing: Specific routing value.
         :arg source: The URL-encoded request definition. Useful for
@@ -605,13 +590,12 @@ class LtrClient(NamespacedClient):
         :arg store: The name of the feature store.
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
-        :arg filter_path: Used to reduce the response. This parameter
-            takes a comma-separated list of filters. It supports using wildcards to
-            match any field or part of a field’s name. You can also exclude fields
-            with "-".
-        :arg human: Whether to return human readable values for
-            statistics. Default is True.
-        :arg pretty: Whether to pretty format the returned JSON
+        :arg filter_path: A comma-separated list of filters used to
+            filter the response. Use wildcards to match any field or part of a
+            field's name. To exclude fields, use `-`.
+        :arg human: Whether to return human-readable values for
+            statistics. Default is false.
+        :arg pretty: Whether to pretty-format the returned JSON
             response. Default is false.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
@@ -643,13 +627,12 @@ class LtrClient(NamespacedClient):
         :arg store: The name of the feature store.
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
-        :arg filter_path: Used to reduce the response. This parameter
-            takes a comma-separated list of filters. It supports using wildcards to
-            match any field or part of a field’s name. You can also exclude fields
-            with "-".
-        :arg human: Whether to return human readable values for
-            statistics. Default is True.
-        :arg pretty: Whether to pretty format the returned JSON
+        :arg filter_path: A comma-separated list of filters used to
+            filter the response. Use wildcards to match any field or part of a
+            field's name. To exclude fields, use `-`.
+        :arg human: Whether to return human-readable values for
+            statistics. Default is false.
+        :arg pretty: Whether to pretty-format the returned JSON
             response. Default is false.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
@@ -681,13 +664,12 @@ class LtrClient(NamespacedClient):
         :arg store: The name of the feature store.
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
-        :arg filter_path: Used to reduce the response. This parameter
-            takes a comma-separated list of filters. It supports using wildcards to
-            match any field or part of a field’s name. You can also exclude fields
-            with "-".
-        :arg human: Whether to return human readable values for
-            statistics. Default is True.
-        :arg pretty: Whether to pretty format the returned JSON
+        :arg filter_path: A comma-separated list of filters used to
+            filter the response. Use wildcards to match any field or part of a
+            field's name. To exclude fields, use `-`.
+        :arg human: Whether to return human-readable values for
+            statistics. Default is false.
+        :arg pretty: Whether to pretty-format the returned JSON
             response. Default is false.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
@@ -719,13 +701,12 @@ class LtrClient(NamespacedClient):
         :arg store: The name of the feature store.
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
-        :arg filter_path: Used to reduce the response. This parameter
-            takes a comma-separated list of filters. It supports using wildcards to
-            match any field or part of a field’s name. You can also exclude fields
-            with "-".
-        :arg human: Whether to return human readable values for
-            statistics. Default is True.
-        :arg pretty: Whether to pretty format the returned JSON
+        :arg filter_path: A comma-separated list of filters used to
+            filter the response. Use wildcards to match any field or part of a
+            field's name. To exclude fields, use `-`.
+        :arg human: Whether to return human-readable values for
+            statistics. Default is false.
+        :arg pretty: Whether to pretty-format the returned JSON
             response. Default is false.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
@@ -757,13 +738,12 @@ class LtrClient(NamespacedClient):
         :arg store: The name of the feature store.
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
-        :arg filter_path: Used to reduce the response. This parameter
-            takes a comma-separated list of filters. It supports using wildcards to
-            match any field or part of a field’s name. You can also exclude fields
-            with "-".
-        :arg human: Whether to return human readable values for
-            statistics. Default is True.
-        :arg pretty: Whether to pretty format the returned JSON
+        :arg filter_path: A comma-separated list of filters used to
+            filter the response. Use wildcards to match any field or part of a
+            field's name. To exclude fields, use `-`.
+        :arg human: Whether to return human-readable values for
+            statistics. Default is false.
+        :arg pretty: Whether to pretty-format the returned JSON
             response. Default is false.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
@@ -795,13 +775,12 @@ class LtrClient(NamespacedClient):
         :arg store: The name of the feature store.
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
-        :arg filter_path: Used to reduce the response. This parameter
-            takes a comma-separated list of filters. It supports using wildcards to
-            match any field or part of a field’s name. You can also exclude fields
-            with "-".
-        :arg human: Whether to return human readable values for
-            statistics. Default is True.
-        :arg pretty: Whether to pretty format the returned JSON
+        :arg filter_path: A comma-separated list of filters used to
+            filter the response. Use wildcards to match any field or part of a
+            field's name. To exclude fields, use `-`.
+        :arg human: Whether to return human-readable values for
+            statistics. Default is false.
+        :arg pretty: Whether to pretty-format the returned JSON
             response. Default is false.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
@@ -840,16 +819,15 @@ class LtrClient(NamespacedClient):
         :arg store: The name of the feature store.
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
-        :arg filter_path: Used to reduce the response. This parameter
-            takes a comma-separated list of filters. It supports using wildcards to
-            match any field or part of a field’s name. You can also exclude fields
-            with "-".
+        :arg filter_path: A comma-separated list of filters used to
+            filter the response. Use wildcards to match any field or part of a
+            field's name. To exclude fields, use `-`.
         :arg from_: The offset from the first result (for pagination).
             Default is 0.
-        :arg human: Whether to return human readable values for
-            statistics. Default is True.
+        :arg human: Whether to return human-readable values for
+            statistics. Default is false.
         :arg prefix: A name prefix to filter features by.
-        :arg pretty: Whether to pretty format the returned JSON
+        :arg pretty: Whether to pretty-format the returned JSON
             response. Default is false.
         :arg size: The number of features to return. Default is 20.
         :arg source: The URL-encoded request definition. Useful for
@@ -887,16 +865,15 @@ class LtrClient(NamespacedClient):
         :arg store: The name of the feature store.
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
-        :arg filter_path: Used to reduce the response. This parameter
-            takes a comma-separated list of filters. It supports using wildcards to
-            match any field or part of a field’s name. You can also exclude fields
-            with "-".
+        :arg filter_path: A comma-separated list of filters used to
+            filter the response. Use wildcards to match any field or part of a
+            field's name. To exclude fields, use `-`.
         :arg from_: The offset from the first result (for pagination).
             Default is 0.
-        :arg human: Whether to return human readable values for
-            statistics. Default is True.
+        :arg human: Whether to return human-readable values for
+            statistics. Default is false.
         :arg prefix: A name prefix to filter feature sets by.
-        :arg pretty: Whether to pretty format the returned JSON
+        :arg pretty: Whether to pretty-format the returned JSON
             response. Default is false.
         :arg size: The number of feature sets to return. Default is 20.
         :arg source: The URL-encoded request definition. Useful for
@@ -937,16 +914,15 @@ class LtrClient(NamespacedClient):
         :arg store: The name of the feature store.
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
-        :arg filter_path: Used to reduce the response. This parameter
-            takes a comma-separated list of filters. It supports using wildcards to
-            match any field or part of a field’s name. You can also exclude fields
-            with "-".
+        :arg filter_path: A comma-separated list of filters used to
+            filter the response. Use wildcards to match any field or part of a
+            field's name. To exclude fields, use `-`.
         :arg from_: The offset from the first result (for pagination).
             Default is 0.
-        :arg human: Whether to return human readable values for
-            statistics. Default is True.
+        :arg human: Whether to return human-readable values for
+            statistics. Default is false.
         :arg prefix: A name prefix to filter models by.
-        :arg pretty: Whether to pretty format the returned JSON
+        :arg pretty: Whether to pretty-format the returned JSON
             response. Default is false.
         :arg size: The number of models to return. Default is 20.
         :arg source: The URL-encoded request definition. Useful for
@@ -978,13 +954,12 @@ class LtrClient(NamespacedClient):
         :arg store: The name of the feature store.
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
-        :arg filter_path: Used to reduce the response. This parameter
-            takes a comma-separated list of filters. It supports using wildcards to
-            match any field or part of a field’s name. You can also exclude fields
-            with "-".
-        :arg human: Whether to return human readable values for
-            statistics. Default is True.
-        :arg pretty: Whether to pretty format the returned JSON
+        :arg filter_path: A comma-separated list of filters used to
+            filter the response. Use wildcards to match any field or part of a
+            field's name. To exclude fields, use `-`.
+        :arg human: Whether to return human-readable values for
+            statistics. Default is false.
+        :arg pretty: Whether to pretty-format the returned JSON
             response. Default is false.
         :arg routing: Specific routing value.
         :arg source: The URL-encoded request definition. Useful for
@@ -1020,13 +995,12 @@ class LtrClient(NamespacedClient):
         :arg store: The name of the feature store.
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
-        :arg filter_path: Used to reduce the response. This parameter
-            takes a comma-separated list of filters. It supports using wildcards to
-            match any field or part of a field’s name. You can also exclude fields
-            with "-".
-        :arg human: Whether to return human readable values for
-            statistics. Default is True.
-        :arg pretty: Whether to pretty format the returned JSON
+        :arg filter_path: A comma-separated list of filters used to
+            filter the response. Use wildcards to match any field or part of a
+            field's name. To exclude fields, use `-`.
+        :arg human: Whether to return human-readable values for
+            statistics. Default is false.
+        :arg pretty: Whether to pretty-format the returned JSON
             response. Default is false.
         :arg routing: Specific routing value.
         :arg source: The URL-encoded request definition. Useful for
