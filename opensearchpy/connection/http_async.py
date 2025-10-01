@@ -13,7 +13,17 @@ import asyncio
 import os
 import ssl
 import warnings
-from typing import Any, Collection, Mapping, Optional, Union
+from typing import (
+    Any,
+    Callable,
+    Collection,
+    Dict,
+    List,
+    Mapping,
+    Optional,
+    Tuple,
+    Union,
+)
 
 import yarl
 
@@ -39,7 +49,15 @@ class AsyncHttpConnection(AIOHttpConnection):
         self,
         host: str = "localhost",
         port: Optional[int] = None,
-        http_auth: Any = None,
+        http_auth: Optional[
+            Union[
+                Tuple[str, str],
+                List[str],
+                str,
+                bytes,
+                Callable[[str, str, Optional[bytes], Dict[Any, Any]], Dict[Any, Any]],
+            ]
+        ] = None,
         use_ssl: bool = False,
         verify_certs: Any = VERIFY_CERTS_DEFAULT,
         ssl_show_warn: Any = SSL_SHOW_WARN_DEFAULT,
@@ -205,7 +223,9 @@ class AsyncHttpConnection(AIOHttpConnection):
         if callable(self._http_auth):
             req_headers = {
                 **req_headers,
-                **self._http_auth(method, url, query_string, body),
+                **self._http_auth(
+                    method=method, url=url, body=body, headers=req_headers
+                ),
             }
 
         start = self.loop.time()
