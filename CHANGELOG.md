@@ -20,6 +20,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - Bump `pytest-asyncio` from <=0.25.1 to <=1.2.0 ([#936](https://github.com/opensearch-project/opensearch-py/pull/936), [#950](https://github.com/opensearch-project/opensearch-py/pull/950))
 - Bumps `lycheeverse/lychee-action` from 1.9.3 to 2.0.2 ([#946](https://github.com/opensearch-project/opensearch-py/pull/946))
 - Bump `actions/download-artifact` from 4 to 5 ([#957](https://github.com/opensearch-project/opensearch-py/pull/957))
+- Bump `actions/cache` from 3 to 4 ([#958](https://github.com/opensearch-project/opensearch-py/pull/958))
 
 ## [3.0.0]
 ### Added
