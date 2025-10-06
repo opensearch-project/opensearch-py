@@ -23,6 +23,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - Bumps `lycheeverse/lychee-action` from 1.9.3 to 2.0.2 ([#946](https://github.com/opensearch-project/opensearch-py/pull/946))
 - Bump `actions/download-artifact` from 4 to 5 ([#957](https://github.com/opensearch-project/opensearch-py/pull/957))
 - Bump `actions/cache` from 3 to 4 ([#958](https://github.com/opensearch-project/opensearch-py/pull/958))
+- Bump `peter-evans/create-pull-request` from 6 to 7 ([#959](https://github.com/opensearch-project/opensearch-py/pull/959))
 
 ## [3.0.0]
 ### Added
