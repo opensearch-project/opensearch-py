@@ -238,9 +238,9 @@ async def test_custom_field_in_nested() -> None:
 async def test_multi_works_after_doc_has_been_saved() -> None:
     c = SimpleCommit()
     c.full_clean()
-    c.files.append("setup.py")
+    c.files.append("pyproject.toml")
 
-    assert c.to_dict() == {"files": ["setup.py"]}
+    assert c.to_dict() == {"files": ["pyproject.toml"]}
 
 
 async def test_multi_works_in_nested_after_doc_has_been_serialized() -> None:
