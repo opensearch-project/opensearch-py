@@ -117,7 +117,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="opensearchpy.ConnectionPool">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opensearchpy.</span></span><span class="sig-name descname"><span class="pre">ConnectionPool</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">connections</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dead_timeout=60</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout_cutoff=5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">selector_class=&lt;class</span> <span class="pre">'opensearchpy.connection_pool.RoundRobinSelector'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">randomize_hosts=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opensearchpy/connection_pool.html#ConnectionPool"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.ConnectionPool" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Container holding the <a class="reference internal" href="connection.html#opensearchpy.Connection" title="opensearchpy.Connection"><code class="xref py py-class docutils literal notranslate"><span class="pre">Connection</span></code></a> instances,
 managing the selection process (via a
 <a class="reference internal" href="#opensearchpy.ConnectionSelector" title="opensearchpy.ConnectionSelector"><code class="xref py py-class docutils literal notranslate"><span class="pre">ConnectionSelector</span></code></a>) and dead connections.</p>
@@ -137,22 +137,22 @@ succeeds will be marked as live (its fail count will be deleted).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>connections</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – list of tuples containing the
+<li><p><strong>connections</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>) – list of tuples containing the
 <a class="reference internal" href="connection.html#opensearchpy.Connection" title="opensearchpy.Connection"><code class="xref py py-class docutils literal notranslate"><span class="pre">Connection</span></code></a> instance and its options</p></li>
-<li><p><strong>dead_timeout</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – number of seconds a connection should be retired for
+<li><p><strong>dead_timeout</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – number of seconds a connection should be retired for
 after a failure, increases on consecutive failures</p></li>
-<li><p><strong>timeout_cutoff</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – number of consecutive failures after which the
+<li><p><strong>timeout_cutoff</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – number of consecutive failures after which the
 timeout doesn’t increase</p></li>
-<li><p><strong>selector_class</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Type" title="(in Python v3.13)"><em>Type</em></a><em>[</em><a class="reference internal" href="#opensearchpy.ConnectionSelector" title="opensearchpy.connection_pool.ConnectionSelector"><em>ConnectionSelector</em></a><em>]</em>) – <a class="reference internal" href="#opensearchpy.ConnectionSelector" title="opensearchpy.ConnectionSelector"><code class="xref py py-class docutils literal notranslate"><span class="pre">ConnectionSelector</span></code></a>
+<li><p><strong>selector_class</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Type" title="(in Python v3.14)"><em>Type</em></a><em>[</em><a class="reference internal" href="#opensearchpy.ConnectionSelector" title="opensearchpy.connection_pool.ConnectionSelector"><em>ConnectionSelector</em></a><em>]</em>) – <a class="reference internal" href="#opensearchpy.ConnectionSelector" title="opensearchpy.ConnectionSelector"><code class="xref py py-class docutils literal notranslate"><span class="pre">ConnectionSelector</span></code></a>
 subclass to use if more than one connection is live</p></li>
-<li><p><strong>randomize_hosts</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – shuffle the list of connections upon arrival to
+<li><p><strong>randomize_hosts</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – shuffle the list of connections upon arrival to
 avoid dog piling effect across processes</p></li>
 <li><p><strong>connections</strong> – </p></li>
 <li><p><strong>dead_timeout</strong> – </p></li>
 <li><p><strong>timeout_cutoff</strong> – </p></li>
 <li><p><strong>selector_class</strong> – </p></li>
 <li><p><strong>randomize_hosts</strong> – </p></li>
-<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – </p></li>
+<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>) – </p></li>
 </ul>
 </dd>
 </dl>
@@ -162,7 +162,7 @@ avoid dog piling effect across processes</p></li>
 <dd><p>Return repr(self).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -173,7 +173,7 @@ avoid dog piling effect across processes</p></li>
 <dd><p>Explicitly closes connections</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -189,7 +189,7 @@ the selector instance to choose from.</p>
 <p>Returns a connection instance and its current fail count.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -202,9 +202,9 @@ put it on a timeout.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>connection</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – the failed instance</p></li>
+<li><p><strong>connection</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>) – the failed instance</p></li>
 <li><p><strong>connection</strong> – </p></li>
-<li><p><strong>now</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a><em> | </em><em>None</em>) – </p></li>
+<li><p><strong>now</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em> | </em><em>None</em>) – </p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
@@ -221,7 +221,7 @@ counter for the connection.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>connection</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – the connection to redeem</p></li>
+<li><p><strong>connection</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>) – the connection to redeem</p></li>
 <li><p><strong>connection</strong> – </p></li>
 </ul>
 </dd>
@@ -240,14 +240,14 @@ return to the live pool. Any resurrected connection is also returned.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>force</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – resurrect a connection even if there is none eligible (used
+<li><p><strong>force</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – resurrect a connection even if there is none eligible (used
 when we have no live connections). If force is specified resurrect
 always returns a connection.</p></li>
 <li><p><strong>force</strong> – </p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -257,7 +257,7 @@ always returns a connection.</p></li>
 <dl class="py class">
 <dt class="sig sig-object py" id="opensearchpy.ConnectionSelector">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opensearchpy.</span></span><span class="sig-name descname"><span class="pre">ConnectionSelector</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">opts</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opensearchpy/connection_pool.html#ConnectionSelector"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.ConnectionSelector" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Simple class used to select a connection from a list of currently live
 connection instances. In init time it is passed a dictionary containing all
 the connections’ options which it can then use during the selection
@@ -274,7 +274,7 @@ connections where there would be none in its zones.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>opts</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.13)"><em>Sequence</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.13)"><em>Tuple</em></a><em>[</em><a class="reference internal" href="connection.html#opensearchpy.Connection" title="opensearchpy.connection.base.Connection"><em>Connection</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a><em>]</em><em>]</em>) – dictionary of connection instances and their options</p></li>
+<li><p><strong>opts</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.14)"><em>Sequence</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.14)"><em>Tuple</em></a><em>[</em><a class="reference internal" href="connection.html#opensearchpy.Connection" title="opensearchpy.connection.base.Connection"><em>Connection</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a><em>]</em><em>]</em>) – dictionary of connection instances and their options</p></li>
 <li><p><strong>opts</strong> – </p></li>
 </ul>
 </dd>
@@ -286,7 +286,7 @@ connections where there would be none in its zones.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>connections</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.13)"><em>Sequence</em></a><em>[</em><a class="reference internal" href="connection.html#opensearchpy.Connection" title="opensearchpy.connection.base.Connection"><em>Connection</em></a><em>]</em>) – list of live connections to choose from</p></li>
+<li><p><strong>connections</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.14)"><em>Sequence</em></a><em>[</em><a class="reference internal" href="connection.html#opensearchpy.Connection" title="opensearchpy.connection.base.Connection"><em>Connection</em></a><em>]</em>) – list of live connections to choose from</p></li>
 <li><p><strong>connections</strong> – </p></li>
 </ul>
 </dd>
@@ -306,7 +306,7 @@ connections where there would be none in its zones.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>opts</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.13)"><em>Sequence</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.13)"><em>Tuple</em></a><em>[</em><a class="reference internal" href="connection.html#opensearchpy.Connection" title="opensearchpy.connection.base.Connection"><em>Connection</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a><em>]</em><em>]</em>) – dictionary of connection instances and their options</p></li>
+<li><p><strong>opts</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.14)"><em>Sequence</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.14)"><em>Tuple</em></a><em>[</em><a class="reference internal" href="connection.html#opensearchpy.Connection" title="opensearchpy.connection.base.Connection"><em>Connection</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a><em>]</em><em>]</em>) – dictionary of connection instances and their options</p></li>
 <li><p><strong>opts</strong> – </p></li>
 </ul>
 </dd>
@@ -318,12 +318,12 @@ connections where there would be none in its zones.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>connections</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.13)"><em>Sequence</em></a><em>[</em><a class="reference internal" href="connection.html#opensearchpy.Connection" title="opensearchpy.connection.base.Connection"><em>Connection</em></a><em>]</em>) – list of live connections to choose from</p></li>
+<li><p><strong>connections</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.14)"><em>Sequence</em></a><em>[</em><a class="reference internal" href="connection.html#opensearchpy.Connection" title="opensearchpy.connection.base.Connection"><em>Connection</em></a><em>]</em>) – list of live connections to choose from</p></li>
 <li><p><strong>connections</strong> – </p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a></p>
 </dd>
 </dl>
 </dd></dl>

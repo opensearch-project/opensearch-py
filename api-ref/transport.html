@@ -113,45 +113,45 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="opensearchpy.Transport">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opensearchpy.</span></span><span class="sig-name descname"><span class="pre">Transport</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hosts</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">connection_class=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">connection_pool_class=&lt;class</span> <span class="pre">'opensearchpy.connection_pool.ConnectionPool'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">host_info_callback=&lt;function</span> <span class="pre">get_host_info&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sniff_on_start=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sniffer_timeout=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sniff_timeout=0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sniff_on_connection_fail=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">serializer=&lt;opensearchpy.serializer.JSONSerializer</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">serializers=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default_mimetype='application/json'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_retries=3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pool_maxsize=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">retry_on_status=(502</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">503</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">504)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">retry_on_timeout=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">send_get_body_as='GET'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metrics=&lt;opensearchpy.metrics.metrics_none.MetricsNone</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opensearchpy/transport.html#Transport"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.Transport" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Encapsulation of transport-related to logic. Handles instantiation of the
 individual connections as well as creating a connection pool to hold them.</p>
 <p>Main interface is the <cite>perform_request</cite> method.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>hosts</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – list of dictionaries, each containing keyword arguments to
+<li><p><strong>hosts</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>) – list of dictionaries, each containing keyword arguments to
 create a <cite>connection_class</cite> instance</p></li>
-<li><p><strong>connection_class</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Type" title="(in Python v3.13)"><em>Type</em></a><em>[</em><a class="reference internal" href="connection.html#opensearchpy.Connection" title="opensearchpy.connection.base.Connection"><em>Connection</em></a><em>]</em>) – subclass of <a class="reference internal" href="connection.html#opensearchpy.Connection" title="opensearchpy.Connection"><code class="xref py py-class docutils literal notranslate"><span class="pre">Connection</span></code></a> to use</p></li>
-<li><p><strong>connection_pool_class</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – subclass of <a class="reference internal" href="connection_pool.html#opensearchpy.ConnectionPool" title="opensearchpy.ConnectionPool"><code class="xref py py-class docutils literal notranslate"><span class="pre">ConnectionPool</span></code></a> to use</p></li>
-<li><p><strong>host_info_callback</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – callback responsible for taking the node information from
+<li><p><strong>connection_class</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Type" title="(in Python v3.14)"><em>Type</em></a><em>[</em><a class="reference internal" href="connection.html#opensearchpy.Connection" title="opensearchpy.connection.base.Connection"><em>Connection</em></a><em>]</em>) – subclass of <a class="reference internal" href="connection.html#opensearchpy.Connection" title="opensearchpy.Connection"><code class="xref py py-class docutils literal notranslate"><span class="pre">Connection</span></code></a> to use</p></li>
+<li><p><strong>connection_pool_class</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>) – subclass of <a class="reference internal" href="connection_pool.html#opensearchpy.ConnectionPool" title="opensearchpy.ConnectionPool"><code class="xref py py-class docutils literal notranslate"><span class="pre">ConnectionPool</span></code></a> to use</p></li>
+<li><p><strong>host_info_callback</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>) – callback responsible for taking the node information from
 <cite>/_cluster/nodes</cite>, along with already extracted information, and
 producing a list of arguments (same as <cite>hosts</cite> parameter)</p></li>
-<li><p><strong>sniff_on_start</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – flag indicating whether to obtain a list of nodes
+<li><p><strong>sniff_on_start</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – flag indicating whether to obtain a list of nodes
 from the cluster at startup time</p></li>
-<li><p><strong>sniffer_timeout</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a><em> | </em><em>None</em>) – number of seconds between automatic sniffs</p></li>
-<li><p><strong>sniff_on_connection_fail</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – flag controlling if connection failure triggers a sniff</p></li>
-<li><p><strong>sniff_timeout</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a><em> | </em><em>None</em>) – timeout used for the sniff request - it should be a
+<li><p><strong>sniffer_timeout</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em> | </em><em>None</em>) – number of seconds between automatic sniffs</p></li>
+<li><p><strong>sniff_on_connection_fail</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – flag controlling if connection failure triggers a sniff</p></li>
+<li><p><strong>sniff_timeout</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em> | </em><em>None</em>) – timeout used for the sniff request - it should be a
 fast api call and we are talking potentially to more nodes so we want
 to fail quickly. Not used during initial sniffing (if
 <code class="docutils literal notranslate"><span class="pre">sniff_on_start</span></code> is on) when the connection still isn’t
 initialized.</p></li>
 <li><p><strong>serializer</strong> (<em>Serializer</em>) – serializer instance</p></li>
-<li><p><strong>serializers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Mapping" title="(in Python v3.13)"><em>Mapping</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>Serializer</em><em>] </em><em>| </em><em>None</em>) – optional dict of serializer instances that will be
+<li><p><strong>serializers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Mapping" title="(in Python v3.14)"><em>Mapping</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>Serializer</em><em>] </em><em>| </em><em>None</em>) – optional dict of serializer instances that will be
 used for deserializing data coming from the server. (key is the mimetype)</p></li>
-<li><p><strong>default_mimetype</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – when no mimetype is specified by the server
+<li><p><strong>default_mimetype</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – when no mimetype is specified by the server
 response assume this mimetype, defaults to <cite>‘application/json’</cite></p></li>
-<li><p><strong>max_retries</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – maximum number of retries before an exception is propagated</p></li>
-<li><p><strong>retry_on_status</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Collection" title="(in Python v3.13)"><em>Collection</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em>]</em>) – set of HTTP status codes on which we should retry
+<li><p><strong>max_retries</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – maximum number of retries before an exception is propagated</p></li>
+<li><p><strong>retry_on_status</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Collection" title="(in Python v3.14)"><em>Collection</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>]</em>) – set of HTTP status codes on which we should retry
 on a different node. defaults to <code class="docutils literal notranslate"><span class="pre">(502,</span> <span class="pre">503,</span> <span class="pre">504)</span></code></p></li>
-<li><p><strong>retry_on_timeout</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – should timeout trigger a retry on different
+<li><p><strong>retry_on_timeout</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – should timeout trigger a retry on different
 node? (default <cite>False</cite>)</p></li>
-<li><p><strong>send_get_body_as</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – for GET requests with body this option allows
+<li><p><strong>send_get_body_as</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – for GET requests with body this option allows
 you to specify an alternate way of execution for environments that
 don’t support passing bodies with GET requests. If you set this to
 ‘POST’ a POST method will be used instead, if to ‘source’ then the body
 will be serialized and passed as a query parameter <cite>source</cite>.</p></li>
-<li><p><strong>pool_maxsize</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em> | </em><em>None</em>) – Maximum connection pool size used by pool-manager
+<li><p><strong>pool_maxsize</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em> | </em><em>None</em>) – Maximum connection pool size used by pool-manager
 For custom connection-pooling on current session</p></li>
 <li><p><strong>metrics</strong> (<a class="reference internal" href="metrics.html#opensearchpy.Metrics" title="opensearchpy.metrics.metrics.Metrics"><em>Metrics</em></a>) – metrics is an instance of a subclass of the
 <a class="reference internal" href="metrics.html#opensearchpy.Metrics" title="opensearchpy.Metrics"><code class="xref py py-class docutils literal notranslate"><span class="pre">Metrics</span></code></a> class, used for collecting
@@ -173,7 +173,7 @@ and reporting metrics related to the client’s operations;</p></li>
 <li><p><strong>retry_on_timeout</strong> – </p></li>
 <li><p><strong>send_get_body_as</strong> – </p></li>
 <li><p><strong>metrics</strong> – </p></li>
-<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – </p></li>
+<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>) – </p></li>
 </ul>
 </dd>
 </dl>
@@ -198,10 +198,10 @@ custom Transport class to serve data from alternative source like
 configuration management.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>initial</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – </p>
+<dd class="field-odd"><p><strong>initial</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – </p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -213,15 +213,15 @@ configuration management.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>method</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – </p></li>
-<li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – </p></li>
-<li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – </p></li>
-<li><p><strong>ignore</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Collection" title="(in Python v3.13)"><em>Collection</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em>]</em>) – </p></li>
-<li><p><strong>timeout</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a><em> | </em><em>None</em>) – </p></li>
+<li><p><strong>method</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – </p></li>
+<li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>) – </p></li>
+<li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>) – </p></li>
+<li><p><strong>ignore</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Collection" title="(in Python v3.14)"><em>Collection</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>]</em>) – </p></li>
+<li><p><strong>timeout</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em> | </em><em>None</em>) – </p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -233,7 +233,7 @@ configuration management.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>host</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – kwargs that will be used to create the instance</p></li>
+<li><p><strong>host</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>) – kwargs that will be used to create the instance</p></li>
 <li><p><strong>host</strong> – </p></li>
 </ul>
 </dd>
@@ -249,7 +249,7 @@ configuration management.</p>
 <dd><p>Explicitly closes connections</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -261,7 +261,7 @@ configuration management.</p>
 <a class="reference internal" href="connection_pool.html#opensearchpy.ConnectionPool" title="opensearchpy.ConnectionPool"><code class="xref py py-class docutils literal notranslate"><span class="pre">ConnectionPool</span></code></a> instance.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -297,27 +297,27 @@ marked as dead, mark it as live, resetting its failure count.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>method</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – HTTP method to use</p></li>
-<li><p><strong>url</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – absolute url (without host) to target</p></li>
-<li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Mapping" title="(in Python v3.13)"><em>Mapping</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>] </em><em>| </em><em>None</em>) – dictionary of headers, will be handed over to the
+<li><p><strong>method</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – HTTP method to use</p></li>
+<li><p><strong>url</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – absolute url (without host) to target</p></li>
+<li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Mapping" title="(in Python v3.14)"><em>Mapping</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>] </em><em>| </em><em>None</em>) – dictionary of headers, will be handed over to the
 underlying <a class="reference internal" href="connection.html#opensearchpy.Connection" title="opensearchpy.Connection"><code class="xref py py-class docutils literal notranslate"><span class="pre">Connection</span></code></a> class</p></li>
-<li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Mapping" title="(in Python v3.13)"><em>Mapping</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a><em>] </em><em>| </em><em>None</em>) – dictionary of query parameters, will be handed over to the
+<li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Mapping" title="(in Python v3.14)"><em>Mapping</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a><em>] </em><em>| </em><em>None</em>) – dictionary of query parameters, will be handed over to the
 underlying <a class="reference internal" href="connection.html#opensearchpy.Connection" title="opensearchpy.Connection"><code class="xref py py-class docutils literal notranslate"><span class="pre">Connection</span></code></a> class for serialization</p></li>
-<li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a><em> | </em><em>None</em>) – body of the request, will be serialized using serializer and
+<li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a><em> | </em><em>None</em>) – body of the request, will be serialized using serializer and
 passed to the connection</p></li>
-<li><p><strong>timeout</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a><em> | </em><em>None</em>) – timeout of the request. If it is not presented as argument
+<li><p><strong>timeout</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em> | </em><em>None</em>) – timeout of the request. If it is not presented as argument
 will be extracted from <cite>params</cite></p></li>
 <li><p><strong>method</strong> – </p></li>
 <li><p><strong>url</strong> – </p></li>
 <li><p><strong>params</strong> – </p></li>
 <li><p><strong>body</strong> – </p></li>
 <li><p><strong>timeout</strong> – </p></li>
-<li><p><strong>ignore</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Collection" title="(in Python v3.13)"><em>Collection</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em>]</em>) – </p></li>
+<li><p><strong>ignore</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Collection" title="(in Python v3.14)"><em>Collection</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>]</em>) – </p></li>
 <li><p><strong>headers</strong> – </p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -331,7 +331,7 @@ Tries to identify unchanged hosts and re-use existing
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>hosts</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – same as <cite>__init__</cite></p></li>
+<li><p><strong>hosts</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>) – same as <cite>__init__</cite></p></li>
 <li><p><strong>hosts</strong> – </p></li>
 </ul>
 </dd>
@@ -350,13 +350,13 @@ pool using the information retrieved.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>initial</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – flag indicating if this is during startup
+<li><p><strong>initial</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – flag indicating if this is during startup
 (<code class="docutils literal notranslate"><span class="pre">sniff_on_start</span></code>), ignore the <code class="docutils literal notranslate"><span class="pre">sniff_timeout</span></code> if <code class="docutils literal notranslate"><span class="pre">True</span></code></p></li>
 <li><p><strong>initial</strong> – </p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a></p>
 </dd>
 </dl>
 </dd></dl>
