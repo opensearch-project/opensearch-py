@@ -26,6 +26,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - Bump `peter-evans/create-pull-request` from 6 to 7 ([#959](https://github.com/opensearch-project/opensearch-py/pull/959))
 - Bump `actions/setup-python` from 5 to 6 ([#961](https://github.com/opensearch-project/opensearch-py/pull/961))
 - Bump `dangoslen/dependabot-changelog-helper` from 3 to 4 ([#960](https://github.com/opensearch-project/opensearch-py/pull/960))
+- Bump `stefanzweifel/git-auto-commit-action` from 5 to 7 ([#962](https://github.com/opensearch-project/opensearch-py/pull/962))
 
 ## [3.0.0]
 ### Added
