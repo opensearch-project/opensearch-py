@@ -979,7 +979,7 @@ DATA = [
             "commit_repo": {"name": "commit", "parent": "opensearch-py"},
             "files": [
                 "opensearchpy/query.py",
-                "setup.py",
+                "pyproject.toml",
                 "test_opensearchpy/test_dsl/test_query.py",
             ],
             "committer": {"name": "Honza Kr\xe1l", "email": "honza.kral@gmail.com"},
@@ -1043,7 +1043,7 @@ DATA = [
             "files": [
                 "opensearchpy/__init__.py",
                 "test_opensearchpy/test_dsl/run_tests.py",
-                "setup.py",
+                "pyproject.toml",
                 "README.rst",
                 "test_opensearchpy/test_dsl/__init__.py",
             ],

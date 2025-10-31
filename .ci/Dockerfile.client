@@ -13,4 +13,4 @@ RUN python -m pip install \
     -r dev-requirements.txt
 
 COPY . .
-RUN python -m pip install -e .
+RUN python -m pip install -e .[tests]

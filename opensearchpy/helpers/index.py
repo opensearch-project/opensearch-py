@@ -44,7 +44,7 @@ class IndexTemplate:
         template: Any,
         index: Any = None,
         order: Any = None,
-        **kwargs: Any
+        **kwargs: Any,
     ) -> None:
         if index is None:
             self._index = Index(template, **kwargs)
