@@ -59,6 +59,7 @@ install_requires = [
     "requests>=2.32.0, <3.0.0",
     "python-dateutil",
     "certifi>=2024.07.04",
+    "opensearch-protobufs==0.19.0",
     "Events",
 ]
 tests_require = [
