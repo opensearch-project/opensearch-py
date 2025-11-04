@@ -30,11 +30,13 @@ from ..plugins.security_analytics import SecurityAnalyticsClient
 from ..plugins.sm import SmClient
 from ..plugins.sql import SqlClient
 from ..plugins.transforms import TransformsClient
+from ..plugins.ubi import UbiClient
 from .client import Client
 from .utils import NamespacedClient
 
 
 class PluginsClient(NamespacedClient):
+    ubi: Any
     security_analytics: Any
     search_relevance: Any
     sm: Any
@@ -57,6 +59,7 @@ class PluginsClient(NamespacedClient):
     def __init__(self, client: Client) -> None:
         super().__init__(client)
 
+        self.ubi = UbiClient(client)
         self.security_analytics = SecurityAnalyticsClient(client)
         self.search_relevance = SearchRelevanceClient(client)
         self.sm = SmClient(client)
@@ -84,6 +87,7 @@ class PluginsClient(NamespacedClient):
         # Issue : https://github.com/opensearch-project/opensearch-py/issues/90#issuecomment-1003396742
 
         plugins = [
+            "ubi",
             "security_analytics",
             "search_relevance",
             "sm",
