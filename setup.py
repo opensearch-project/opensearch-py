@@ -73,7 +73,7 @@ tests_require = [
     "pytest-mock<4.0.0",
 ]
 
-async_require = ["aiohttp>=3.10.11,<4"]
+async_require = ["aiohttp>=3.12.14,<4"]
 
 docs_require = ["sphinx", "sphinx_rtd_theme", "myst_parser", "sphinx_copybutton"]
 generate_require = ["black>=24.3.0", "jinja2"]
