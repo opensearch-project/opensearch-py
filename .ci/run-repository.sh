@@ -36,6 +36,7 @@ OPENSEARCH_REQUIRED_VERSION="2.12.0"
 COMPARE_VERSION=`echo $OPENSEARCH_REQUIRED_VERSION $OPENSEARCH_VERSION | tr ' ' '\n' | sort -V | uniq | head -n 1`
 if [ "$COMPARE_VERSION" != "$OPENSEARCH_REQUIRED_VERSION" ]; then
   docker run \
+  --tty \
   --network=${network_name} \
   --env "STACK_VERSION=${STACK_VERSION}" \
   --env "OPENSEARCH_URL=${opensearch_url}" \
@@ -48,9 +49,10 @@ if [ "$COMPARE_VERSION" != "$OPENSEARCH_REQUIRED_VERSION" ]; then
   --name opensearch-py \
   --rm \
   opensearch-project/opensearch-py \
-  python setup.py test
+  python test_opensearchpy/run_tests.py
 else
   docker run \
+  --tty \
   --network=${network_name} \
   --env "STACK_VERSION=${STACK_VERSION}" \
   --env "OPENSEARCH_URL=${opensearch_url}" \
@@ -63,7 +65,7 @@ else
   --name opensearch-py \
   --rm \
   opensearch-project/opensearch-py \
-  python setup.py test
+  python test_opensearchpy/run_tests.py
 fi
 
 unset TEST_PATTERN

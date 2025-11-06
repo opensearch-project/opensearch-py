@@ -54,13 +54,13 @@ export OPENSEARCH_PASSWORD=myStrongPassword123!
 If you have one running.
 
 ```
-python setup.py test
+python test_opensearchpy/run_tests.py
 ```
 
 To run tests in a specific test file.
 
 ```
-python setup.py test -s test_opensearchpy/test_connection/test_base_connection.py
+python test_opensearchpy/run_tests.py -s test_opensearchpy/test_connection/test_base_connection.py
 ```
 
 If you want to auto-start one, the following will start a new instance and run tests against the latest version of OpenSearch.

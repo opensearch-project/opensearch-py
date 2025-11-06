@@ -12,7 +12,7 @@ push:
 	PYTHON_VERSION=${PYTHON_VERSION} docker-compose push client
 
 run_tests:
-	OPENSEARCH_VERSION=${OPENSEARCH_VERSION} PYTHON_VERSION=${PYTHON_VERSION} docker-compose -p "${OPEN_VERSION}-${PYTHON_VERSION}" run client python setup.py test
+	OPENSEARCH_VERSION=${OPENSEARCH_VERSION} PYTHON_VERSION=${PYTHON_VERSION} docker-compose -p "${OPEN_VERSION}-${PYTHON_VERSION}" run client python test_opensearchpy/run_tests.py
 
 start_opensearch:
 	OPENSEARCH_VERSION=${OPENSEARCH_VERSION} docker-compose up -d opensearch

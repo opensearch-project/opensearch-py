@@ -30,7 +30,6 @@ from typing import Any
 import nox
 
 SOURCE_FILES = (
-    "setup.py",
     "noxfile.py",
     "opensearchpy/",
     "test_opensearchpy/",
@@ -44,7 +43,7 @@ SOURCE_FILES = (
 @nox.session(python=["3.8", "3.9", "3.10", "3.11", "3.12"])  # type: ignore
 def test(session: Any) -> None:
     """
-    runs all tests with a fresh python environment using "python setup.py test"
+    runs all tests with a fresh python environment
     :param session: current nox session
     """
     session.install(".")
@@ -56,9 +55,10 @@ def test(session: Any) -> None:
         "python", "-c", "import opensearchpy\nprint(opensearchpy.AsyncOpenSearch())"
     )
 
+    session.install(".[tests]")
     session.install("-r", "dev-requirements.txt")
 
-    session.run("python", "setup.py", "test")
+    session.run("python", "test_opensearchpy/run_tests.py")
 
 
 @nox.session(python=["3.8"])  # type: ignore

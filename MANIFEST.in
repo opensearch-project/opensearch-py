@@ -4,7 +4,7 @@ include CONTRIBUTING.md
 include LICENSE
 include MANIFEST.in
 include README.md
-include setup.py
+include pyproject.toml
 recursive-include opensearch* py.typed
 
 prune test_opensearch

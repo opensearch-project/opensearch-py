@@ -61,9 +61,9 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          python -m pip install setuptools wheel twine
+          python -m pip install twine build
       - name: Build source distribution
-        run: python setup.py sdist bdist_wheel
+        run: pyproject-build
       - name: Check with Twine
         working-directory: dist
         run: twine check *

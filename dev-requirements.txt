@@ -9,6 +9,7 @@ pytz
 deepmerge
 Events
 setuptools==71.1.0
+build
 
 numpy; python_version<="3.12"
 pandas; python_version<="3.12"

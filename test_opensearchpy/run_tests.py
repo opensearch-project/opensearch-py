@@ -63,12 +63,13 @@ def fetch_opensearch_repo() -> None:
     if environ.get("TEST_OPENSEARCH_NOFETCH", False):
         return
 
-    from test_opensearchpy.test_cases import SkipTest
-    from test_opensearchpy.test_server import get_client
+    from unittest import SkipTest
+
+    from opensearchpy.helpers import test
 
     # find out the sha of the running client
     try:
-        client = get_client()
+        client = test.get_test_client()
         sha = client.info()["version"]["build_hash"]
     except (SkipTest, KeyError):
         print("No running opensearch >1.X server...")
@@ -123,7 +124,7 @@ def run_all(argv: Any = None) -> None:
         fetch_opensearch_repo()
 
     # always insert coverage when running tests
-    if argv is None:
+    if argv is None or (argv and "run_tests.py" in argv[0]):
         junit_xml = join(
             abspath(dirname(dirname(__file__))), "junit", "opensearch-py-junit.xml"
         )
