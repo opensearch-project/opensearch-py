@@ -183,9 +183,9 @@ class Object(Field):
             # no InnerDoc subclass, creating one instead...
             self._doc_class = type("InnerDoc", (InnerDoc,), {})
             for name, field in (properties or {}).items():
-                self._doc_class._doc_type.mapping.field(name, field)  # type: ignore
+                self._doc_class._doc_type.mapping.field(name, field)
             if dynamic is not None:
-                self._doc_class._doc_type.mapping.meta("dynamic", dynamic)  # type: ignore
+                self._doc_class._doc_type.mapping.meta("dynamic", dynamic)
 
         self._mapping = copy.deepcopy(self._doc_class._doc_type.mapping)
         super().__init__(**kwargs)

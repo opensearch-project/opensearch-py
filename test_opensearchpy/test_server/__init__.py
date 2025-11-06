@@ -31,6 +31,7 @@ from unittest import SkipTest
 from opensearchpy.helpers import test
 from opensearchpy.helpers.test import OpenSearchTestCase as BaseTestCase
 
+# pylint: disable=invalid-name
 CLIENT: Any = None
 
 

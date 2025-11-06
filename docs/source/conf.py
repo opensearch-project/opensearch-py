@@ -7,6 +7,8 @@
 # Modifications Copyright OpenSearch Contributors. See
 # GitHub history for details.
 
+# pylint: disable=invalid-name
+
 # Configuration file for the Sphinx documentation builder.
 #
 # This file only contains a selection of the most common options. For a full
