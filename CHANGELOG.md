@@ -12,6 +12,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ### Changed
 - Rename `DenseVector` field type to `KnnVector` ([925](https://github.com/opensearch-project/opensearch-py/pull/925))
 ### Deprecated
+- Deprecate python 3.8 and 3.9 support which are end of life. ([966](https://github.com/opensearch-project/opensearch-py/pull/966)) 
 ### Removed
 ### Fixed
 - Moved client tests to dedicated files to ensure they are run ([944](https://github.com/opensearch-project/opensearch-py/pull/944))
