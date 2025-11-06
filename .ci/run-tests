@@ -4,7 +4,7 @@
 
 # Default environment variables
 export TEST_SUITE="${TEST_SUITE:=oss}"
-export PYTHON_VERSION="${PYTHON_VERSION:=3.9}"
+export PYTHON_VERSION="${PYTHON_VERSION:=3.10}"
 export PYTHON_CONNECTION_CLASS="${PYTHON_CONNECTION_CLASS:=Urllib3HttpConnection}"
 export CLUSTER="${CLUSTER:-opensearch}"
 export SECURE_INTEGRATION="${1:-false}"
