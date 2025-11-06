@@ -38,6 +38,7 @@ from .query import Q
 from .utils import AttrDict, AttrList, DslBase
 from .wrappers import Range
 
+# pylint: disable=invalid-name
 unicode: Type[str] = str
 
 
