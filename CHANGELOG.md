@@ -32,6 +32,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - Bump `stefanzweifel/git-auto-commit-action` from 5 to 7 ([#962](https://github.com/opensearch-project/opensearch-py/pull/962))
 - Bump `actions/checkout` from 4 to 5 ([#967](https://github.com/opensearch-project/opensearch-py/pull/967))
 - Bump `VachaShah/backport` from 1.1.4 to 2.2.0 ([#969](https://github.com/opensearch-project/opensearch-py/pull/969))
+- Bump `actions/upload-artifact` from 4 to 5 ([#972](https://github.com/opensearch-project/opensearch-py/pull/972))
 
 ## [3.0.0]
 ### Added
