@@ -7,8 +7,6 @@ jobs:
     strategy:
       matrix:
         entry:
-          - { os: 'ubuntu-latest', python-version: "3.8" }
-          - { os: 'ubuntu-latest', python-version: "3.9" }
           - { os: 'ubuntu-latest', python-version: "3.10" }
           - { os: 'ubuntu-latest', python-version: "3.11" }
           - { os: 'macos-latest', python-version: "3.11" }
@@ -16,7 +14,7 @@ jobs:
           - { os: 'ubuntu-latest', python-version: "3.12" }
           - { os: 'macos-latest', python-version: "3.12" }
           - { os: 'windows-latest', python-version: "3.12" }
-          
+
     name: test (os=${{ matrix.entry.os }}, python=${{ matrix.entry.python-version }})
     continue-on-error: ${{ matrix.entry.experimental || false }}
     runs-on: ${{ matrix.entry.os }}

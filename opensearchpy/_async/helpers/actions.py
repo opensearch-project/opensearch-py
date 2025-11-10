@@ -122,7 +122,7 @@ def aiter(x: Union[Iterable[T], AsyncIterable[T]]) -> Any:
     if hasattr(x, "__anext__"):
         return x
     elif hasattr(x, "__aiter__"):
-        return x.__aiter__()
+        return aiter(x)
 
     async def f() -> Any:
         for item in x:
@@ -140,7 +140,7 @@ async def azip(
     aiters = [aiter(x) for x in iterables]
     try:
         while True:
-            yield tuple([await x.__anext__() for x in aiters])
+            yield tuple([await anext(x) for x in aiters])
     except StopAsyncIteration:
         pass
 
