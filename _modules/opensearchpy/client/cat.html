@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en">
+<html class="writer-html5" lang="en" data-content_root="../../../">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -14,9 +14,9 @@
   
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js?v=b3ba4146"></script>
-      <script src="../../../_static/doctools.js?v=888ff710"></script>
-      <script src="../../../_static/sphinx_highlight.js?v=4825356b"></script>
+      <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="../../../_static/copybutton.js?v=f281be69"></script>
     <script src="../../../_static/js/theme.js"></script>
@@ -121,8 +121,12 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">NamespacedClient</span><span class="p">,</span> <span class="n">_make_path</span><span class="p">,</span> <span class="n">query_params</span>
 
 
-<div class="viewcode-block" id="CatClient"><a class="viewcode-back" href="../../../api-ref/clients/cat_client.html#opensearchpy.client.cat.CatClient">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">CatClient</span><span class="p">(</span><span class="n">NamespacedClient</span><span class="p">):</span>
-<div class="viewcode-block" id="CatClient.aliases"><a class="viewcode-back" href="../../../api-ref/clients/cat_client.html#opensearchpy.client.cat.CatClient.aliases">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+<div class="viewcode-block" id="CatClient">
+<a class="viewcode-back" href="../../../api-ref/clients/cat_client.html#opensearchpy.client.cat.CatClient">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">CatClient</span><span class="p">(</span><span class="n">NamespacedClient</span><span class="p">):</span>
+<div class="viewcode-block" id="CatClient.aliases">
+<a class="viewcode-back" href="../../../api-ref/clients/cat_client.html#opensearchpy.client.cat.CatClient.aliases">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
         <span class="s2">&quot;expand_wildcards&quot;</span><span class="p">,</span>
         <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span>
@@ -180,7 +184,10 @@
             <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="n">_make_path</span><span class="p">(</span><span class="s2">&quot;_cat&quot;</span><span class="p">,</span> <span class="s2">&quot;aliases&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">),</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="CatClient.all_pit_segments"><a class="viewcode-back" href="../../../api-ref/clients/cat_client.html#opensearchpy.client.cat.CatClient.all_pit_segments">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="CatClient.all_pit_segments">
+<a class="viewcode-back" href="../../../api-ref/clients/cat_client.html#opensearchpy.client.cat.CatClient.all_pit_segments">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;bytes&quot;</span><span class="p">,</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
         <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span>
@@ -229,7 +236,10 @@
             <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="s2">&quot;/_cat/pit_segments/_all&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="CatClient.allocation"><a class="viewcode-back" href="../../../api-ref/clients/cat_client.html#opensearchpy.client.cat.CatClient.allocation">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="CatClient.allocation">
+<a class="viewcode-back" href="../../../api-ref/clients/cat_client.html#opensearchpy.client.cat.CatClient.allocation">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;bytes&quot;</span><span class="p">,</span>
         <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
@@ -295,7 +305,10 @@
             <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="CatClient.cluster_manager"><a class="viewcode-back" href="../../../api-ref/clients/cat_client.html#opensearchpy.client.cat.CatClient.cluster_manager">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="CatClient.cluster_manager">
+<a class="viewcode-back" href="../../../api-ref/clients/cat_client.html#opensearchpy.client.cat.CatClient.cluster_manager">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
         <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span>
@@ -351,7 +364,10 @@
             <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="s2">&quot;/_cat/cluster_manager&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="CatClient.count"><a class="viewcode-back" href="../../../api-ref/clients/cat_client.html#opensearchpy.client.cat.CatClient.count">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="CatClient.count">
+<a class="viewcode-back" href="../../../api-ref/clients/cat_client.html#opensearchpy.client.cat.CatClient.count">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
         <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span>
         <span class="s2">&quot;format&quot;</span><span class="p">,</span>
@@ -402,7 +418,10 @@
             <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="n">_make_path</span><span class="p">(</span><span class="s2">&quot;_cat&quot;</span><span class="p">,</span> <span class="s2">&quot;count&quot;</span><span class="p">,</span> <span class="n">index</span><span class="p">),</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="CatClient.fielddata"><a class="viewcode-back" href="../../../api-ref/clients/cat_client.html#opensearchpy.client.cat.CatClient.fielddata">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="CatClient.fielddata">
+<a class="viewcode-back" href="../../../api-ref/clients/cat_client.html#opensearchpy.client.cat.CatClient.fielddata">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;bytes&quot;</span><span class="p">,</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
         <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span>
@@ -458,7 +477,10 @@
             <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="CatClient.health"><a class="viewcode-back" href="../../../api-ref/clients/cat_client.html#opensearchpy.client.cat.CatClient.health">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="CatClient.health">
+<a class="viewcode-back" href="../../../api-ref/clients/cat_client.html#opensearchpy.client.cat.CatClient.health">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
         <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span>
         <span class="s2">&quot;format&quot;</span><span class="p">,</span>
@@ -510,7 +532,10 @@
             <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="s2">&quot;/_cat/health&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="CatClient.help"><a class="viewcode-back" href="../../../api-ref/clients/cat_client.html#opensearchpy.client.cat.CatClient.help">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="CatClient.help">
+<a class="viewcode-back" href="../../../api-ref/clients/cat_client.html#opensearchpy.client.cat.CatClient.help">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">help</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
@@ -537,7 +562,10 @@
             <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="s2">&quot;/_cat&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="CatClient.indices"><a class="viewcode-back" href="../../../api-ref/clients/cat_client.html#opensearchpy.client.cat.CatClient.indices">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="CatClient.indices">
+<a class="viewcode-back" href="../../../api-ref/clients/cat_client.html#opensearchpy.client.cat.CatClient.indices">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;bytes&quot;</span><span class="p">,</span>
         <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
@@ -618,7 +646,10 @@
             <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="n">_make_path</span><span class="p">(</span><span class="s2">&quot;_cat&quot;</span><span class="p">,</span> <span class="s2">&quot;indices&quot;</span><span class="p">,</span> <span class="n">index</span><span class="p">),</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="CatClient.master"><a class="viewcode-back" href="../../../api-ref/clients/cat_client.html#opensearchpy.client.cat.CatClient.master">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="CatClient.master">
+<a class="viewcode-back" href="../../../api-ref/clients/cat_client.html#opensearchpy.client.cat.CatClient.master">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
         <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span>
@@ -679,7 +710,10 @@
             <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="s2">&quot;/_cat/master&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="CatClient.nodeattrs"><a class="viewcode-back" href="../../../api-ref/clients/cat_client.html#opensearchpy.client.cat.CatClient.nodeattrs">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="CatClient.nodeattrs">
+<a class="viewcode-back" href="../../../api-ref/clients/cat_client.html#opensearchpy.client.cat.CatClient.nodeattrs">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
         <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span>
@@ -735,7 +769,10 @@
             <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="s2">&quot;/_cat/nodeattrs&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="CatClient.nodes"><a class="viewcode-back" href="../../../api-ref/clients/cat_client.html#opensearchpy.client.cat.CatClient.nodes">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="CatClient.nodes">
+<a class="viewcode-back" href="../../../api-ref/clients/cat_client.html#opensearchpy.client.cat.CatClient.nodes">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;bytes&quot;</span><span class="p">,</span>
         <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
@@ -803,7 +840,10 @@
             <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="s2">&quot;/_cat/nodes&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="CatClient.pending_tasks"><a class="viewcode-back" href="../../../api-ref/clients/cat_client.html#opensearchpy.client.cat.CatClient.pending_tasks">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="CatClient.pending_tasks">
+<a class="viewcode-back" href="../../../api-ref/clients/cat_client.html#opensearchpy.client.cat.CatClient.pending_tasks">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
         <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span>
@@ -864,7 +904,10 @@
             <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="s2">&quot;/_cat/pending_tasks&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="CatClient.pit_segments"><a class="viewcode-back" href="../../../api-ref/clients/cat_client.html#opensearchpy.client.cat.CatClient.pit_segments">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="CatClient.pit_segments">
+<a class="viewcode-back" href="../../../api-ref/clients/cat_client.html#opensearchpy.client.cat.CatClient.pit_segments">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;bytes&quot;</span><span class="p">,</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
         <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span>
@@ -914,7 +957,10 @@
             <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="s2">&quot;/_cat/pit_segments&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">body</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="CatClient.plugins"><a class="viewcode-back" href="../../../api-ref/clients/cat_client.html#opensearchpy.client.cat.CatClient.plugins">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="CatClient.plugins">
+<a class="viewcode-back" href="../../../api-ref/clients/cat_client.html#opensearchpy.client.cat.CatClient.plugins">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
         <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span>
@@ -971,7 +1017,10 @@
             <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="s2">&quot;/_cat/plugins&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="CatClient.recovery"><a class="viewcode-back" href="../../../api-ref/clients/cat_client.html#opensearchpy.client.cat.CatClient.recovery">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="CatClient.recovery">
+<a class="viewcode-back" href="../../../api-ref/clients/cat_client.html#opensearchpy.client.cat.CatClient.recovery">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;active_only&quot;</span><span class="p">,</span>
         <span class="s2">&quot;bytes&quot;</span><span class="p">,</span>
         <span class="s2">&quot;detailed&quot;</span><span class="p">,</span>
@@ -1035,7 +1084,10 @@
             <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="n">_make_path</span><span class="p">(</span><span class="s2">&quot;_cat&quot;</span><span class="p">,</span> <span class="s2">&quot;recovery&quot;</span><span class="p">,</span> <span class="n">index</span><span class="p">),</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="CatClient.repositories"><a class="viewcode-back" href="../../../api-ref/clients/cat_client.html#opensearchpy.client.cat.CatClient.repositories">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="CatClient.repositories">
+<a class="viewcode-back" href="../../../api-ref/clients/cat_client.html#opensearchpy.client.cat.CatClient.repositories">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
         <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span>
@@ -1091,7 +1143,10 @@
             <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="s2">&quot;/_cat/repositories&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="CatClient.segment_replication"><a class="viewcode-back" href="../../../api-ref/clients/cat_client.html#opensearchpy.client.cat.CatClient.segment_replication">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="CatClient.segment_replication">
+<a class="viewcode-back" href="../../../api-ref/clients/cat_client.html#opensearchpy.client.cat.CatClient.segment_replication">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;active_only&quot;</span><span class="p">,</span>
         <span class="s2">&quot;allow_no_indices&quot;</span><span class="p">,</span>
         <span class="s2">&quot;bytes&quot;</span><span class="p">,</span>
@@ -1182,7 +1237,10 @@
             <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="CatClient.segments"><a class="viewcode-back" href="../../../api-ref/clients/cat_client.html#opensearchpy.client.cat.CatClient.segments">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="CatClient.segments">
+<a class="viewcode-back" href="../../../api-ref/clients/cat_client.html#opensearchpy.client.cat.CatClient.segments">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;bytes&quot;</span><span class="p">,</span>
         <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
@@ -1242,7 +1300,10 @@
             <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="n">_make_path</span><span class="p">(</span><span class="s2">&quot;_cat&quot;</span><span class="p">,</span> <span class="s2">&quot;segments&quot;</span><span class="p">,</span> <span class="n">index</span><span class="p">),</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="CatClient.shards"><a class="viewcode-back" href="../../../api-ref/clients/cat_client.html#opensearchpy.client.cat.CatClient.shards">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="CatClient.shards">
+<a class="viewcode-back" href="../../../api-ref/clients/cat_client.html#opensearchpy.client.cat.CatClient.shards">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;bytes&quot;</span><span class="p">,</span>
         <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
@@ -1311,7 +1372,10 @@
             <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="n">_make_path</span><span class="p">(</span><span class="s2">&quot;_cat&quot;</span><span class="p">,</span> <span class="s2">&quot;shards&quot;</span><span class="p">,</span> <span class="n">index</span><span class="p">),</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="CatClient.thread_pool"><a class="viewcode-back" href="../../../api-ref/clients/cat_client.html#opensearchpy.client.cat.CatClient.thread_pool">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="CatClient.thread_pool">
+<a class="viewcode-back" href="../../../api-ref/clients/cat_client.html#opensearchpy.client.cat.CatClient.thread_pool">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
         <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span>
@@ -1376,7 +1440,10 @@
             <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="CatClient.snapshots"><a class="viewcode-back" href="../../../api-ref/clients/cat_client.html#opensearchpy.client.cat.CatClient.snapshots">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="CatClient.snapshots">
+<a class="viewcode-back" href="../../../api-ref/clients/cat_client.html#opensearchpy.client.cat.CatClient.snapshots">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
         <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span>
@@ -1445,7 +1512,10 @@
             <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="CatClient.tasks"><a class="viewcode-back" href="../../../api-ref/clients/cat_client.html#opensearchpy.client.cat.CatClient.tasks">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="CatClient.tasks">
+<a class="viewcode-back" href="../../../api-ref/clients/cat_client.html#opensearchpy.client.cat.CatClient.tasks">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;actions&quot;</span><span class="p">,</span>
         <span class="s2">&quot;detailed&quot;</span><span class="p">,</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
@@ -1510,7 +1580,10 @@
             <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="s2">&quot;/_cat/tasks&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="CatClient.templates"><a class="viewcode-back" href="../../../api-ref/clients/cat_client.html#opensearchpy.client.cat.CatClient.templates">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="CatClient.templates">
+<a class="viewcode-back" href="../../../api-ref/clients/cat_client.html#opensearchpy.client.cat.CatClient.templates">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
         <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span>
@@ -1568,7 +1641,9 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
             <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="n">_make_path</span><span class="p">(</span><span class="s2">&quot;_cat&quot;</span><span class="p">,</span> <span class="s2">&quot;templates&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">),</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
-        <span class="p">)</span></div></div>
+        <span class="p">)</span></div>
+</div>
+
 </pre></div>
 
            </div>

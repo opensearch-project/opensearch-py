@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en">
+<html class="writer-html5" lang="en" data-content_root="../../../">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -14,9 +14,9 @@
   
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js?v=b3ba4146"></script>
-      <script src="../../../_static/doctools.js?v=888ff710"></script>
-      <script src="../../../_static/sphinx_highlight.js?v=4825356b"></script>
+      <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="../../../_static/copybutton.js?v=f281be69"></script>
     <script src="../../../_static/js/theme.js"></script>
@@ -397,7 +397,9 @@
         <span class="k">return</span> <span class="n">s</span>
 
 
-<div class="viewcode-block" id="Search"><a class="viewcode-back" href="../../../api-ref/helpers/search.html#opensearchpy.helpers.search.Search">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">Search</span><span class="p">(</span><span class="n">Request</span><span class="p">):</span>
+<div class="viewcode-block" id="Search">
+<a class="viewcode-back" href="../../../api-ref/helpers/search.html#opensearchpy.helpers.search.Search">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Search</span><span class="p">(</span><span class="n">Request</span><span class="p">):</span>
     <span class="n">query</span> <span class="o">=</span> <span class="n">ProxyDescriptor</span><span class="p">(</span><span class="s2">&quot;query&quot;</span><span class="p">)</span>
     <span class="n">post_filter</span> <span class="o">=</span> <span class="n">ProxyDescriptor</span><span class="p">(</span><span class="s2">&quot;post_filter&quot;</span><span class="p">)</span>
 
@@ -433,13 +435,18 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">exclude</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">Bool</span><span class="p">(</span><span class="nb">filter</span><span class="o">=</span><span class="p">[</span><span class="o">~</span><span class="n">Q</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)]))</span>
 
-<div class="viewcode-block" id="Search.__iter__"><a class="viewcode-back" href="../../../api-ref/helpers/search.html#opensearchpy.helpers.search.Search.__iter__">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<div class="viewcode-block" id="Search.__iter__">
+<a class="viewcode-back" href="../../../api-ref/helpers/search.html#opensearchpy.helpers.search.Search.__iter__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Iterate over the hits.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">iter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">execute</span><span class="p">())</span></div>
 
-<div class="viewcode-block" id="Search.__getitem__"><a class="viewcode-back" href="../../../api-ref/helpers/search.html#opensearchpy.helpers.search.Search.__getitem__">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+
+<div class="viewcode-block" id="Search.__getitem__">
+<a class="viewcode-back" href="../../../api-ref/helpers/search.html#opensearchpy.helpers.search.Search.__getitem__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Support slicing the `Search` instance for pagination.</span>
 
@@ -473,7 +480,10 @@
             <span class="n">s</span><span class="o">.</span><span class="n">_extra</span><span class="p">[</span><span class="s2">&quot;size&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
             <span class="k">return</span> <span class="n">s</span></div>
 
-<div class="viewcode-block" id="Search.from_dict"><a class="viewcode-back" href="../../../api-ref/helpers/search.html#opensearchpy.helpers.search.Search.from_dict">[docs]</a>    <span class="nd">@classmethod</span>
+
+<div class="viewcode-block" id="Search.from_dict">
+<a class="viewcode-back" href="../../../api-ref/helpers/search.html#opensearchpy.helpers.search.Search.from_dict">[docs]</a>
+    <span class="nd">@classmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">from_dict</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">d</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Construct a new `Search` instance from a raw dict containing the search</span>
@@ -495,7 +505,10 @@
         <span class="n">s</span><span class="o">.</span><span class="n">update_from_dict</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">s</span></div>
 
-<div class="viewcode-block" id="Search._clone"><a class="viewcode-back" href="../../../api-ref/helpers/search.html#opensearchpy.helpers.search.Search._clone">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">_clone</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+
+<div class="viewcode-block" id="Search._clone">
+<a class="viewcode-back" href="../../../api-ref/helpers/search.html#opensearchpy.helpers.search.Search._clone">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_clone</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return a clone of the current search request. Performs a shallow copy</span>
 <span class="sd">        of all the underlying objects. Used internally by most state modifying</span>
@@ -519,7 +532,10 @@
             <span class="n">s</span><span class="o">.</span><span class="n">aggs</span><span class="o">.</span><span class="n">_params</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;aggs&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">aggs</span><span class="o">.</span><span class="n">_params</span><span class="p">[</span><span class="s2">&quot;aggs&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()}</span>
         <span class="k">return</span> <span class="n">s</span></div>
 
-<div class="viewcode-block" id="Search.response_class"><a class="viewcode-back" href="../../../api-ref/helpers/search.html#opensearchpy.helpers.search.Search.response_class">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">response_class</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">cls</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+
+<div class="viewcode-block" id="Search.response_class">
+<a class="viewcode-back" href="../../../api-ref/helpers/search.html#opensearchpy.helpers.search.Search.response_class">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">response_class</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">cls</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Override the default wrapper used for the response.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -527,7 +543,10 @@
         <span class="n">s</span><span class="o">.</span><span class="n">_response_class</span> <span class="o">=</span> <span class="bp">cls</span>
         <span class="k">return</span> <span class="n">s</span></div>
 
-<div class="viewcode-block" id="Search.update_from_dict"><a class="viewcode-back" href="../../../api-ref/helpers/search.html#opensearchpy.helpers.search.Search.update_from_dict">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">update_from_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">d</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Search&quot;</span><span class="p">:</span>
+
+<div class="viewcode-block" id="Search.update_from_dict">
+<a class="viewcode-back" href="../../../api-ref/helpers/search.html#opensearchpy.helpers.search.Search.update_from_dict">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">update_from_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">d</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Search&quot;</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Apply options from a serialized body to the current instance. Modifies</span>
 <span class="sd">        the object in-place. Used mostly by ``from_dict``.</span>
@@ -562,7 +581,10 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_extra</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span></div>
 
-<div class="viewcode-block" id="Search.script_fields"><a class="viewcode-back" href="../../../api-ref/helpers/search.html#opensearchpy.helpers.search.Search.script_fields">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">script_fields</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+
+<div class="viewcode-block" id="Search.script_fields">
+<a class="viewcode-back" href="../../../api-ref/helpers/search.html#opensearchpy.helpers.search.Search.script_fields">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">script_fields</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Define script fields to be calculated on hits.</span>
 
@@ -588,7 +610,10 @@
         <span class="n">s</span><span class="o">.</span><span class="n">_script_fields</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">s</span></div>
 
-<div class="viewcode-block" id="Search.source"><a class="viewcode-back" href="../../../api-ref/helpers/search.html#opensearchpy.helpers.search.Search.source">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">source</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fields</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+
+<div class="viewcode-block" id="Search.source">
+<a class="viewcode-back" href="../../../api-ref/helpers/search.html#opensearchpy.helpers.search.Search.source">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">source</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fields</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Selectively control how the _source field is returned.</span>
 
@@ -633,7 +658,10 @@
 
         <span class="k">return</span> <span class="n">s</span></div>
 
-<div class="viewcode-block" id="Search.sort"><a class="viewcode-back" href="../../../api-ref/helpers/search.html#opensearchpy.helpers.search.Search.sort">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">sort</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">keys</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+
+<div class="viewcode-block" id="Search.sort">
+<a class="viewcode-back" href="../../../api-ref/helpers/search.html#opensearchpy.helpers.search.Search.sort">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">sort</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">keys</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Add sorting information to the search request. If called without</span>
 <span class="sd">        arguments it will remove all sort requirements. Otherwise it will</span>
@@ -666,7 +694,10 @@
             <span class="n">s</span><span class="o">.</span><span class="n">_sort</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">s</span></div>
 
-<div class="viewcode-block" id="Search.collapse"><a class="viewcode-back" href="../../../api-ref/helpers/search.html#opensearchpy.helpers.search.Search.collapse">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">collapse</span><span class="p">(</span>
+
+<div class="viewcode-block" id="Search.collapse">
+<a class="viewcode-back" href="../../../api-ref/helpers/search.html#opensearchpy.helpers.search.Search.collapse">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">collapse</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">field</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">inner_hits</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -694,7 +725,10 @@
             <span class="n">s</span><span class="o">.</span><span class="n">_collapse</span><span class="p">[</span><span class="s2">&quot;max_concurrent_group_searches&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">max_concurrent_group_searches</span>
         <span class="k">return</span> <span class="n">s</span></div>
 
-<div class="viewcode-block" id="Search.highlight_options"><a class="viewcode-back" href="../../../api-ref/helpers/search.html#opensearchpy.helpers.search.Search.highlight_options">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">highlight_options</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+
+<div class="viewcode-block" id="Search.highlight_options">
+<a class="viewcode-back" href="../../../api-ref/helpers/search.html#opensearchpy.helpers.search.Search.highlight_options">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">highlight_options</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Update the global highlighting options used for this request. For</span>
 <span class="sd">        example::</span>
@@ -706,7 +740,10 @@
         <span class="n">s</span><span class="o">.</span><span class="n">_highlight_opts</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">s</span></div>
 
-<div class="viewcode-block" id="Search.highlight"><a class="viewcode-back" href="../../../api-ref/helpers/search.html#opensearchpy.helpers.search.Search.highlight">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">highlight</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">fields</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+
+<div class="viewcode-block" id="Search.highlight">
+<a class="viewcode-back" href="../../../api-ref/helpers/search.html#opensearchpy.helpers.search.Search.highlight">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">highlight</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">fields</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Request highlighting of some fields. All keyword arguments passed in will be</span>
 <span class="sd">        used as parameters for all the fields in the ``fields`` parameter. Example::</span>
@@ -746,7 +783,10 @@
             <span class="n">s</span><span class="o">.</span><span class="n">_highlight</span><span class="p">[</span><span class="n">f</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span>
         <span class="k">return</span> <span class="n">s</span></div>
 
-<div class="viewcode-block" id="Search.suggest"><a class="viewcode-back" href="../../../api-ref/helpers/search.html#opensearchpy.helpers.search.Search.suggest">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">suggest</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+
+<div class="viewcode-block" id="Search.suggest">
+<a class="viewcode-back" href="../../../api-ref/helpers/search.html#opensearchpy.helpers.search.Search.suggest">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">suggest</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Add a suggestions request to the search.</span>
 
@@ -763,7 +803,10 @@
         <span class="n">s</span><span class="o">.</span><span class="n">_suggest</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">s</span></div>
 
-<div class="viewcode-block" id="Search.to_dict"><a class="viewcode-back" href="../../../api-ref/helpers/search.html#opensearchpy.helpers.search.Search.to_dict">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">count</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+
+<div class="viewcode-block" id="Search.to_dict">
+<a class="viewcode-back" href="../../../api-ref/helpers/search.html#opensearchpy.helpers.search.Search.to_dict">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">count</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Serialize the search into the dictionary that will be sent over as the</span>
 <span class="sd">        request&#39;s body.</span>
@@ -810,7 +853,10 @@
         <span class="n">d</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">recursive_to_dict</span><span class="p">(</span><span class="n">kwargs</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">d</span></div>
 
-<div class="viewcode-block" id="Search.count"><a class="viewcode-back" href="../../../api-ref/helpers/search.html#opensearchpy.helpers.search.Search.count">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">count</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+
+<div class="viewcode-block" id="Search.count">
+<a class="viewcode-back" href="../../../api-ref/helpers/search.html#opensearchpy.helpers.search.Search.count">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">count</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return the number of hits matching the query and filters. Note that</span>
 <span class="sd">        only the actual number is returned.</span>
@@ -824,7 +870,10 @@
         <span class="c1"># TODO: failed shards detection</span>
         <span class="k">return</span> <span class="n">opensearch</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_index</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">d</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">_params</span><span class="p">)[</span><span class="s2">&quot;count&quot;</span><span class="p">]</span></div>
 
-<div class="viewcode-block" id="Search.execute"><a class="viewcode-back" href="../../../api-ref/helpers/search.html#opensearchpy.helpers.search.Search.execute">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ignore_cache</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+
+<div class="viewcode-block" id="Search.execute">
+<a class="viewcode-back" href="../../../api-ref/helpers/search.html#opensearchpy.helpers.search.Search.execute">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ignore_cache</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Execute the search and return an instance of ``Response`` wrapping all</span>
 <span class="sd">        the data.</span>
@@ -843,7 +892,10 @@
             <span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_response</span></div>
 
-<div class="viewcode-block" id="Search.scan"><a class="viewcode-back" href="../../../api-ref/helpers/search.html#opensearchpy.helpers.search.Search.scan">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">scan</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+
+<div class="viewcode-block" id="Search.scan">
+<a class="viewcode-back" href="../../../api-ref/helpers/search.html#opensearchpy.helpers.search.Search.scan">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">scan</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Turn the search into a scan search and return a generator that will</span>
 <span class="sd">        iterate over all the documents matching the query.</span>
@@ -859,7 +911,10 @@
         <span class="p">):</span>
             <span class="k">yield</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_result</span><span class="p">(</span><span class="n">hit</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Search.delete"><a class="viewcode-back" href="../../../api-ref/helpers/search.html#opensearchpy.helpers.search.Search.delete">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+
+<div class="viewcode-block" id="Search.delete">
+<a class="viewcode-back" href="../../../api-ref/helpers/search.html#opensearchpy.helpers.search.Search.delete">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        delete() executes the query by delegating to delete_by_query()</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -870,7 +925,9 @@
             <span class="n">opensearch</span><span class="o">.</span><span class="n">delete_by_query</span><span class="p">(</span>
                 <span class="n">index</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_index</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(),</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">_params</span>
             <span class="p">)</span>
-        <span class="p">)</span></div></div>
+        <span class="p">)</span></div>
+</div>
+
 
 
 <span class="k">class</span><span class="w"> </span><span class="nc">MultiSearch</span><span class="p">(</span><span class="n">Request</span><span class="p">):</span>

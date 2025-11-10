@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en">
+<html class="writer-html5" lang="en" data-content_root="../../../">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -14,9 +14,9 @@
   
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js?v=b3ba4146"></script>
-      <script src="../../../_static/doctools.js?v=888ff710"></script>
-      <script src="../../../_static/sphinx_highlight.js?v=4825356b"></script>
+      <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="../../../_static/copybutton.js?v=f281be69"></script>
     <script src="../../../_static/js/theme.js"></script>
@@ -157,7 +157,9 @@
         <span class="p">)</span>
 
 
-<div class="viewcode-block" id="Index"><a class="viewcode-back" href="../../../api-ref/helpers/index.html#opensearchpy.helpers.index.Index">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">Index</span><span class="p">:</span>
+<div class="viewcode-block" id="Index">
+<a class="viewcode-back" href="../../../api-ref/helpers/index.html#opensearchpy.helpers.index.Index">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Index</span><span class="p">:</span>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">using</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="s2">&quot;default&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        :arg name: name of the index</span>
@@ -209,7 +211,9 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">,</span> <span class="n">using</span><span class="o">=</span><span class="n">using</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_using</span>
         <span class="p">)</span>
 
-<div class="viewcode-block" id="Index.clone"><a class="viewcode-back" href="../../../api-ref/helpers/index.html#opensearchpy.helpers.index.Index.clone">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">clone</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">using</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<div class="viewcode-block" id="Index.clone">
+<a class="viewcode-back" href="../../../api-ref/helpers/index.html#opensearchpy.helpers.index.Index.clone">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">clone</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">using</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Create a copy of the instance with another name or connection alias.</span>
 <span class="sd">        Useful for creating multiple indices with shared configuration::</span>
@@ -233,6 +237,7 @@
             <span class="n">i</span><span class="o">.</span><span class="n">_mapping</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mapping</span><span class="o">.</span><span class="n">_clone</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">i</span></div>
 
+
     <span class="k">def</span><span class="w"> </span><span class="nf">_get_connection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">using</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;You cannot perform API calls on the default index.&quot;</span><span class="p">)</span>
@@ -240,7 +245,9 @@
 
     <span class="n">connection</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">_get_connection</span><span class="p">)</span>
 
-<div class="viewcode-block" id="Index.mapping"><a class="viewcode-back" href="../../../api-ref/helpers/index.html#opensearchpy.helpers.index.Index.mapping">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">mapping</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mapping</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<div class="viewcode-block" id="Index.mapping">
+<a class="viewcode-back" href="../../../api-ref/helpers/index.html#opensearchpy.helpers.index.Index.mapping">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">mapping</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mapping</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Associate a mapping (an instance of</span>
 <span class="sd">        :class:`~opensearchpy.Mapping`) with this index.</span>
@@ -249,7 +256,10 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">get_or_create_mapping</span><span class="p">()</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">mapping</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Index.document"><a class="viewcode-back" href="../../../api-ref/helpers/index.html#opensearchpy.helpers.index.Index.document">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">document</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">document</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+
+<div class="viewcode-block" id="Index.document">
+<a class="viewcode-back" href="../../../api-ref/helpers/index.html#opensearchpy.helpers.index.Index.document">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">document</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">document</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Associate a :class:`~opensearchpy.Document` subclass with an index.</span>
 <span class="sd">        This means that, when this index is created, it will contain the</span>
@@ -280,7 +290,10 @@
 
         <span class="k">return</span> <span class="n">document</span></div>
 
-<div class="viewcode-block" id="Index.settings"><a class="viewcode-back" href="../../../api-ref/helpers/index.html#opensearchpy.helpers.index.Index.settings">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">settings</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+
+<div class="viewcode-block" id="Index.settings">
+<a class="viewcode-back" href="../../../api-ref/helpers/index.html#opensearchpy.helpers.index.Index.settings">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">settings</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Add settings to the index::</span>
 
@@ -293,7 +306,10 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_settings</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span></div>
 
-<div class="viewcode-block" id="Index.aliases"><a class="viewcode-back" href="../../../api-ref/helpers/index.html#opensearchpy.helpers.index.Index.aliases">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">aliases</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+
+<div class="viewcode-block" id="Index.aliases">
+<a class="viewcode-back" href="../../../api-ref/helpers/index.html#opensearchpy.helpers.index.Index.aliases">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">aliases</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Add aliases to the index definition::</span>
 
@@ -303,7 +319,10 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_aliases</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span></div>
 
-<div class="viewcode-block" id="Index.analyzer"><a class="viewcode-back" href="../../../api-ref/helpers/index.html#opensearchpy.helpers.index.Index.analyzer">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">analyzer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+
+<div class="viewcode-block" id="Index.analyzer">
+<a class="viewcode-back" href="../../../api-ref/helpers/index.html#opensearchpy.helpers.index.Index.analyzer">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">analyzer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Explicitly add an analyzer to an index. Note that all custom analyzers</span>
 <span class="sd">        defined in mappings will also be created. This is useful for search analyzers.</span>
@@ -330,6 +349,7 @@
         <span class="c1"># merge the definition</span>
         <span class="n">merge</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_analysis</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span></div>
 
+
     <span class="k">def</span><span class="w"> </span><span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="n">out</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_settings</span><span class="p">:</span>
@@ -349,7 +369,9 @@
             <span class="n">out</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;settings&quot;</span><span class="p">,</span> <span class="p">{})[</span><span class="s2">&quot;analysis&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">analysis</span>
         <span class="k">return</span> <span class="n">out</span>
 
-<div class="viewcode-block" id="Index.search"><a class="viewcode-back" href="../../../api-ref/helpers/index.html#opensearchpy.helpers.index.Index.search">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">search</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">using</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">OpenSearch</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Search</span><span class="p">:</span>
+<div class="viewcode-block" id="Index.search">
+<a class="viewcode-back" href="../../../api-ref/helpers/index.html#opensearchpy.helpers.index.Index.search">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">search</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">using</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">OpenSearch</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Search</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return a :class:`~opensearchpy.Search` object searching over the</span>
 <span class="sd">        index (or all the indices belonging to this template) and its</span>
@@ -359,7 +381,10 @@
             <span class="n">using</span><span class="o">=</span><span class="n">using</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_using</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">,</span> <span class="n">doc_type</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_doc_types</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="Index.updateByQuery"><a class="viewcode-back" href="../../../api-ref/helpers/index.html#opensearchpy.helpers.index.Index.updateByQuery">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">updateByQuery</span><span class="p">(</span>  <span class="c1"># pylint: disable=invalid-name</span>
+
+<div class="viewcode-block" id="Index.updateByQuery">
+<a class="viewcode-back" href="../../../api-ref/helpers/index.html#opensearchpy.helpers.index.Index.updateByQuery">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">updateByQuery</span><span class="p">(</span>  <span class="c1"># pylint: disable=invalid-name</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">using</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">OpenSearch</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">UpdateByQuery</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -375,7 +400,10 @@
             <span class="n">index</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="Index.create"><a class="viewcode-back" href="../../../api-ref/helpers/index.html#opensearchpy.helpers.index.Index.create">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">using</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">OpenSearch</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+
+<div class="viewcode-block" id="Index.create">
+<a class="viewcode-back" href="../../../api-ref/helpers/index.html#opensearchpy.helpers.index.Index.create">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">using</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">OpenSearch</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Creates the index in opensearch.</span>
 
@@ -386,13 +414,16 @@
             <span class="n">index</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(),</span> <span class="o">**</span><span class="n">kwargs</span>
         <span class="p">)</span></div>
 
+
     <span class="k">def</span><span class="w"> </span><span class="nf">is_closed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">using</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">OpenSearch</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="n">state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_connection</span><span class="p">(</span><span class="n">using</span><span class="p">)</span><span class="o">.</span><span class="n">cluster</span><span class="o">.</span><span class="n">state</span><span class="p">(</span>
             <span class="n">index</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s2">&quot;metadata&quot;</span>
         <span class="p">)</span>
         <span class="k">return</span> <span class="n">state</span><span class="p">[</span><span class="s2">&quot;metadata&quot;</span><span class="p">][</span><span class="s2">&quot;indices&quot;</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">][</span><span class="s2">&quot;state&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;close&quot;</span>
 
-<div class="viewcode-block" id="Index.save"><a class="viewcode-back" href="../../../api-ref/helpers/index.html#opensearchpy.helpers.index.Index.save">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">using</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">OpenSearch</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<div class="viewcode-block" id="Index.save">
+<a class="viewcode-back" href="../../../api-ref/helpers/index.html#opensearchpy.helpers.index.Index.save">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">using</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">OpenSearch</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Sync the index definition with opensearch, creating the index if it</span>
 <span class="sd">        doesn&#39;t exist and updating its settings and mappings if it does.</span>
@@ -455,7 +486,10 @@
         <span class="k">if</span> <span class="n">mappings</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">put_mapping</span><span class="p">(</span><span class="n">using</span><span class="o">=</span><span class="n">using</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">mappings</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Index.analyze"><a class="viewcode-back" href="../../../api-ref/helpers/index.html#opensearchpy.helpers.index.Index.analyze">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">analyze</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">using</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">OpenSearch</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+
+<div class="viewcode-block" id="Index.analyze">
+<a class="viewcode-back" href="../../../api-ref/helpers/index.html#opensearchpy.helpers.index.Index.analyze">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">analyze</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">using</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">OpenSearch</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Perform the analysis process on a text and return the tokens breakdown</span>
 <span class="sd">        of the text.</span>
@@ -465,7 +499,10 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_connection</span><span class="p">(</span><span class="n">using</span><span class="p">)</span><span class="o">.</span><span class="n">indices</span><span class="o">.</span><span class="n">analyze</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Index.refresh"><a class="viewcode-back" href="../../../api-ref/helpers/index.html#opensearchpy.helpers.index.Index.refresh">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">refresh</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">using</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">OpenSearch</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+
+<div class="viewcode-block" id="Index.refresh">
+<a class="viewcode-back" href="../../../api-ref/helpers/index.html#opensearchpy.helpers.index.Index.refresh">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">refresh</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">using</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">OpenSearch</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Performs a refresh operation on the index.</span>
 
@@ -474,7 +511,10 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_connection</span><span class="p">(</span><span class="n">using</span><span class="p">)</span><span class="o">.</span><span class="n">indices</span><span class="o">.</span><span class="n">refresh</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Index.flush"><a class="viewcode-back" href="../../../api-ref/helpers/index.html#opensearchpy.helpers.index.Index.flush">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">flush</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">using</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">OpenSearch</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+
+<div class="viewcode-block" id="Index.flush">
+<a class="viewcode-back" href="../../../api-ref/helpers/index.html#opensearchpy.helpers.index.Index.flush">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">flush</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">using</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">OpenSearch</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Performs a flush operation on the index.</span>
 
@@ -483,7 +523,10 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_connection</span><span class="p">(</span><span class="n">using</span><span class="p">)</span><span class="o">.</span><span class="n">indices</span><span class="o">.</span><span class="n">flush</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Index.get"><a class="viewcode-back" href="../../../api-ref/helpers/index.html#opensearchpy.helpers.index.Index.get">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">using</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">OpenSearch</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+
+<div class="viewcode-block" id="Index.get">
+<a class="viewcode-back" href="../../../api-ref/helpers/index.html#opensearchpy.helpers.index.Index.get">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">using</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">OpenSearch</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        The get index API allows to retrieve information about the index.</span>
 
@@ -492,7 +535,10 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_connection</span><span class="p">(</span><span class="n">using</span><span class="p">)</span><span class="o">.</span><span class="n">indices</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Index.open"><a class="viewcode-back" href="../../../api-ref/helpers/index.html#opensearchpy.helpers.index.Index.open">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">open</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">using</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">OpenSearch</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+
+<div class="viewcode-block" id="Index.open">
+<a class="viewcode-back" href="../../../api-ref/helpers/index.html#opensearchpy.helpers.index.Index.open">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">open</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">using</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">OpenSearch</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Opens the index in opensearch.</span>
 
@@ -501,7 +547,10 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_connection</span><span class="p">(</span><span class="n">using</span><span class="p">)</span><span class="o">.</span><span class="n">indices</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Index.close"><a class="viewcode-back" href="../../../api-ref/helpers/index.html#opensearchpy.helpers.index.Index.close">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">using</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">OpenSearch</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+
+<div class="viewcode-block" id="Index.close">
+<a class="viewcode-back" href="../../../api-ref/helpers/index.html#opensearchpy.helpers.index.Index.close">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">using</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">OpenSearch</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Closes the index in opensearch.</span>
 
@@ -510,7 +559,10 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_connection</span><span class="p">(</span><span class="n">using</span><span class="p">)</span><span class="o">.</span><span class="n">indices</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Index.delete"><a class="viewcode-back" href="../../../api-ref/helpers/index.html#opensearchpy.helpers.index.Index.delete">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">using</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">OpenSearch</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+
+<div class="viewcode-block" id="Index.delete">
+<a class="viewcode-back" href="../../../api-ref/helpers/index.html#opensearchpy.helpers.index.Index.delete">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">using</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">OpenSearch</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Deletes the index in opensearch.</span>
 
@@ -519,7 +571,10 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_connection</span><span class="p">(</span><span class="n">using</span><span class="p">)</span><span class="o">.</span><span class="n">indices</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Index.exists"><a class="viewcode-back" href="../../../api-ref/helpers/index.html#opensearchpy.helpers.index.Index.exists">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">exists</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">using</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">OpenSearch</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+
+<div class="viewcode-block" id="Index.exists">
+<a class="viewcode-back" href="../../../api-ref/helpers/index.html#opensearchpy.helpers.index.Index.exists">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">exists</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">using</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">OpenSearch</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns ``True`` if the index already exists in opensearch.</span>
 
@@ -528,7 +583,10 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_connection</span><span class="p">(</span><span class="n">using</span><span class="p">)</span><span class="o">.</span><span class="n">indices</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Index.put_mapping"><a class="viewcode-back" href="../../../api-ref/helpers/index.html#opensearchpy.helpers.index.Index.put_mapping">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">put_mapping</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">using</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">OpenSearch</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+
+<div class="viewcode-block" id="Index.put_mapping">
+<a class="viewcode-back" href="../../../api-ref/helpers/index.html#opensearchpy.helpers.index.Index.put_mapping">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">put_mapping</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">using</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">OpenSearch</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Register specific mapping definition for a specific type.</span>
 
@@ -539,7 +597,10 @@
             <span class="n">index</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="Index.get_mapping"><a class="viewcode-back" href="../../../api-ref/helpers/index.html#opensearchpy.helpers.index.Index.get_mapping">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_mapping</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">using</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">OpenSearch</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+
+<div class="viewcode-block" id="Index.get_mapping">
+<a class="viewcode-back" href="../../../api-ref/helpers/index.html#opensearchpy.helpers.index.Index.get_mapping">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_mapping</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">using</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">OpenSearch</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Retrieve specific mapping definition for a specific type.</span>
 
@@ -550,7 +611,10 @@
             <span class="n">index</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="Index.get_field_mapping"><a class="viewcode-back" href="../../../api-ref/helpers/index.html#opensearchpy.helpers.index.Index.get_field_mapping">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_field_mapping</span><span class="p">(</span>
+
+<div class="viewcode-block" id="Index.get_field_mapping">
+<a class="viewcode-back" href="../../../api-ref/helpers/index.html#opensearchpy.helpers.index.Index.get_field_mapping">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_field_mapping</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">using</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">OpenSearch</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -563,7 +627,10 @@
             <span class="n">index</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="Index.put_alias"><a class="viewcode-back" href="../../../api-ref/helpers/index.html#opensearchpy.helpers.index.Index.put_alias">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">put_alias</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">using</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">OpenSearch</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+
+<div class="viewcode-block" id="Index.put_alias">
+<a class="viewcode-back" href="../../../api-ref/helpers/index.html#opensearchpy.helpers.index.Index.put_alias">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">put_alias</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">using</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">OpenSearch</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Create an alias for the index.</span>
 
@@ -572,7 +639,10 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_connection</span><span class="p">(</span><span class="n">using</span><span class="p">)</span><span class="o">.</span><span class="n">indices</span><span class="o">.</span><span class="n">put_alias</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Index.exists_alias"><a class="viewcode-back" href="../../../api-ref/helpers/index.html#opensearchpy.helpers.index.Index.exists_alias">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">exists_alias</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">using</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">OpenSearch</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+
+<div class="viewcode-block" id="Index.exists_alias">
+<a class="viewcode-back" href="../../../api-ref/helpers/index.html#opensearchpy.helpers.index.Index.exists_alias">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">exists_alias</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">using</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">OpenSearch</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return a boolean indicating whether given alias exists for this index.</span>
 
@@ -583,7 +653,10 @@
             <span class="n">index</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="Index.get_alias"><a class="viewcode-back" href="../../../api-ref/helpers/index.html#opensearchpy.helpers.index.Index.get_alias">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_alias</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">using</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">OpenSearch</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+
+<div class="viewcode-block" id="Index.get_alias">
+<a class="viewcode-back" href="../../../api-ref/helpers/index.html#opensearchpy.helpers.index.Index.get_alias">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_alias</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">using</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">OpenSearch</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Retrieve a specified alias.</span>
 
@@ -592,7 +665,10 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_connection</span><span class="p">(</span><span class="n">using</span><span class="p">)</span><span class="o">.</span><span class="n">indices</span><span class="o">.</span><span class="n">get_alias</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Index.delete_alias"><a class="viewcode-back" href="../../../api-ref/helpers/index.html#opensearchpy.helpers.index.Index.delete_alias">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">delete_alias</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">using</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">OpenSearch</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+
+<div class="viewcode-block" id="Index.delete_alias">
+<a class="viewcode-back" href="../../../api-ref/helpers/index.html#opensearchpy.helpers.index.Index.delete_alias">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">delete_alias</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">using</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">OpenSearch</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Delete specific alias.</span>
 
@@ -603,7 +679,10 @@
             <span class="n">index</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="Index.get_settings"><a class="viewcode-back" href="../../../api-ref/helpers/index.html#opensearchpy.helpers.index.Index.get_settings">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_settings</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">using</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">OpenSearch</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+
+<div class="viewcode-block" id="Index.get_settings">
+<a class="viewcode-back" href="../../../api-ref/helpers/index.html#opensearchpy.helpers.index.Index.get_settings">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_settings</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">using</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">OpenSearch</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Retrieve settings for the index.</span>
 
@@ -614,7 +693,10 @@
             <span class="n">index</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="Index.put_settings"><a class="viewcode-back" href="../../../api-ref/helpers/index.html#opensearchpy.helpers.index.Index.put_settings">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">put_settings</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">using</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">OpenSearch</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+
+<div class="viewcode-block" id="Index.put_settings">
+<a class="viewcode-back" href="../../../api-ref/helpers/index.html#opensearchpy.helpers.index.Index.put_settings">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">put_settings</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">using</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">OpenSearch</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Change specific index level settings in real time.</span>
 
@@ -625,7 +707,10 @@
             <span class="n">index</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="Index.stats"><a class="viewcode-back" href="../../../api-ref/helpers/index.html#opensearchpy.helpers.index.Index.stats">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">stats</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">using</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">OpenSearch</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+
+<div class="viewcode-block" id="Index.stats">
+<a class="viewcode-back" href="../../../api-ref/helpers/index.html#opensearchpy.helpers.index.Index.stats">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">stats</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">using</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">OpenSearch</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Retrieve statistics on different operations happening on the index.</span>
 
@@ -634,7 +719,10 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_connection</span><span class="p">(</span><span class="n">using</span><span class="p">)</span><span class="o">.</span><span class="n">indices</span><span class="o">.</span><span class="n">stats</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Index.segments"><a class="viewcode-back" href="../../../api-ref/helpers/index.html#opensearchpy.helpers.index.Index.segments">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">segments</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">using</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">OpenSearch</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+
+<div class="viewcode-block" id="Index.segments">
+<a class="viewcode-back" href="../../../api-ref/helpers/index.html#opensearchpy.helpers.index.Index.segments">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">segments</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">using</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">OpenSearch</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Provide low level segments information that a Lucene index (shard</span>
 <span class="sd">        level) is built with.</span>
@@ -644,7 +732,10 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_connection</span><span class="p">(</span><span class="n">using</span><span class="p">)</span><span class="o">.</span><span class="n">indices</span><span class="o">.</span><span class="n">segments</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Index.validate_query"><a class="viewcode-back" href="../../../api-ref/helpers/index.html#opensearchpy.helpers.index.Index.validate_query">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">validate_query</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">using</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">OpenSearch</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+
+<div class="viewcode-block" id="Index.validate_query">
+<a class="viewcode-back" href="../../../api-ref/helpers/index.html#opensearchpy.helpers.index.Index.validate_query">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">validate_query</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">using</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">OpenSearch</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Validate a potentially expensive query without executing it.</span>
 
@@ -655,7 +746,10 @@
             <span class="n">index</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="Index.clear_cache"><a class="viewcode-back" href="../../../api-ref/helpers/index.html#opensearchpy.helpers.index.Index.clear_cache">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">clear_cache</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">using</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">OpenSearch</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+
+<div class="viewcode-block" id="Index.clear_cache">
+<a class="viewcode-back" href="../../../api-ref/helpers/index.html#opensearchpy.helpers.index.Index.clear_cache">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">clear_cache</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">using</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">OpenSearch</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Clear all caches or specific cached associated with the index.</span>
 
@@ -666,7 +760,10 @@
             <span class="n">index</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="Index.recovery"><a class="viewcode-back" href="../../../api-ref/helpers/index.html#opensearchpy.helpers.index.Index.recovery">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">recovery</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">using</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">OpenSearch</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+
+<div class="viewcode-block" id="Index.recovery">
+<a class="viewcode-back" href="../../../api-ref/helpers/index.html#opensearchpy.helpers.index.Index.recovery">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">recovery</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">using</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">OpenSearch</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        The indices recovery API provides insight into on-going shard</span>
 <span class="sd">        recoveries for the index.</span>
@@ -676,7 +773,10 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_connection</span><span class="p">(</span><span class="n">using</span><span class="p">)</span><span class="o">.</span><span class="n">indices</span><span class="o">.</span><span class="n">recovery</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Index.upgrade"><a class="viewcode-back" href="../../../api-ref/helpers/index.html#opensearchpy.helpers.index.Index.upgrade">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">upgrade</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">using</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">OpenSearch</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+
+<div class="viewcode-block" id="Index.upgrade">
+<a class="viewcode-back" href="../../../api-ref/helpers/index.html#opensearchpy.helpers.index.Index.upgrade">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">upgrade</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">using</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">OpenSearch</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Upgrade the index to the latest format.</span>
 
@@ -685,7 +785,10 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_connection</span><span class="p">(</span><span class="n">using</span><span class="p">)</span><span class="o">.</span><span class="n">indices</span><span class="o">.</span><span class="n">upgrade</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Index.get_upgrade"><a class="viewcode-back" href="../../../api-ref/helpers/index.html#opensearchpy.helpers.index.Index.get_upgrade">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_upgrade</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">using</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">OpenSearch</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+
+<div class="viewcode-block" id="Index.get_upgrade">
+<a class="viewcode-back" href="../../../api-ref/helpers/index.html#opensearchpy.helpers.index.Index.get_upgrade">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_upgrade</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">using</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">OpenSearch</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Monitor how much of the index is upgraded.</span>
 
@@ -696,7 +799,10 @@
             <span class="n">index</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="Index.shard_stores"><a class="viewcode-back" href="../../../api-ref/helpers/index.html#opensearchpy.helpers.index.Index.shard_stores">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">shard_stores</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">using</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">OpenSearch</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+
+<div class="viewcode-block" id="Index.shard_stores">
+<a class="viewcode-back" href="../../../api-ref/helpers/index.html#opensearchpy.helpers.index.Index.shard_stores">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">shard_stores</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">using</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">OpenSearch</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Provides store information for shard copies of the index. Store</span>
 <span class="sd">        information reports on which nodes shard copies exist, the shard copy</span>
@@ -710,7 +816,10 @@
             <span class="n">index</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="Index.forcemerge"><a class="viewcode-back" href="../../../api-ref/helpers/index.html#opensearchpy.helpers.index.Index.forcemerge">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">forcemerge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">using</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">OpenSearch</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+
+<div class="viewcode-block" id="Index.forcemerge">
+<a class="viewcode-back" href="../../../api-ref/helpers/index.html#opensearchpy.helpers.index.Index.forcemerge">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">forcemerge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">using</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">OpenSearch</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        The force merge API allows to force merging of the index through an</span>
 <span class="sd">        API. The merge relates to the number of segments a Lucene index holds</span>
@@ -728,7 +837,10 @@
             <span class="n">index</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="Index.shrink"><a class="viewcode-back" href="../../../api-ref/helpers/index.html#opensearchpy.helpers.index.Index.shrink">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">shrink</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">using</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">OpenSearch</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+
+<div class="viewcode-block" id="Index.shrink">
+<a class="viewcode-back" href="../../../api-ref/helpers/index.html#opensearchpy.helpers.index.Index.shrink">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">shrink</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">using</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">OpenSearch</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        The shrink index API allows you to shrink an existing index into a new</span>
 <span class="sd">        index with fewer primary shards. The number of primary shards in the</span>
@@ -743,7 +855,9 @@
 <span class="sd">        Any additional keyword arguments will be passed to</span>
 <span class="sd">        ``OpenSearch.indices.shrink`` unchanged.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_connection</span><span class="p">(</span><span class="n">using</span><span class="p">)</span><span class="o">.</span><span class="n">indices</span><span class="o">.</span><span class="n">shrink</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_connection</span><span class="p">(</span><span class="n">using</span><span class="p">)</span><span class="o">.</span><span class="n">indices</span><span class="o">.</span><span class="n">shrink</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+</div>
+
 </pre></div>
 
            </div>

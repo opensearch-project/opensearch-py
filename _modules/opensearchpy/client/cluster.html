@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en">
+<html class="writer-html5" lang="en" data-content_root="../../../">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -14,9 +14,9 @@
   
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js?v=b3ba4146"></script>
-      <script src="../../../_static/doctools.js?v=888ff710"></script>
-      <script src="../../../_static/sphinx_highlight.js?v=4825356b"></script>
+      <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="../../../_static/copybutton.js?v=f281be69"></script>
     <script src="../../../_static/js/theme.js"></script>
@@ -121,8 +121,12 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">SKIP_IN_PATH</span><span class="p">,</span> <span class="n">NamespacedClient</span><span class="p">,</span> <span class="n">_make_path</span><span class="p">,</span> <span class="n">query_params</span>
 
 
-<div class="viewcode-block" id="ClusterClient"><a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">ClusterClient</span><span class="p">(</span><span class="n">NamespacedClient</span><span class="p">):</span>
-<div class="viewcode-block" id="ClusterClient.health"><a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.health">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+<div class="viewcode-block" id="ClusterClient">
+<a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">ClusterClient</span><span class="p">(</span><span class="n">NamespacedClient</span><span class="p">):</span>
+<div class="viewcode-block" id="ClusterClient.health">
+<a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.health">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;awareness_attribute&quot;</span><span class="p">,</span>
         <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
@@ -214,7 +218,10 @@
             <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="ClusterClient.pending_tasks"><a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.pending_tasks">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="ClusterClient.pending_tasks">
+<a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.pending_tasks">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
         <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span>
@@ -264,7 +271,10 @@
             <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="s2">&quot;/_cluster/pending_tasks&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="ClusterClient.state"><a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.state">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="ClusterClient.state">
+<a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.state">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;allow_no_indices&quot;</span><span class="p">,</span>
         <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
@@ -348,7 +358,10 @@
             <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="ClusterClient.stats"><a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.stats">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="ClusterClient.stats">
+<a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.stats">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
         <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span>
         <span class="s2">&quot;flat_settings&quot;</span><span class="p">,</span>
@@ -412,7 +425,10 @@
             <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="ClusterClient.reroute"><a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.reroute">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="ClusterClient.reroute">
+<a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.reroute">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;dry_run&quot;</span><span class="p">,</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
@@ -477,7 +493,10 @@
             <span class="s2">&quot;POST&quot;</span><span class="p">,</span> <span class="s2">&quot;/_cluster/reroute&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">body</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="ClusterClient.get_settings"><a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.get_settings">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="ClusterClient.get_settings">
+<a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.get_settings">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
         <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span>
@@ -535,7 +554,10 @@
             <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="s2">&quot;/_cluster/settings&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="ClusterClient.put_settings"><a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.put_settings">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="ClusterClient.put_settings">
+<a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.put_settings">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
         <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span>
@@ -595,7 +617,10 @@
             <span class="s2">&quot;PUT&quot;</span><span class="p">,</span> <span class="s2">&quot;/_cluster/settings&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">body</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="ClusterClient.remote_info"><a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.remote_info">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="ClusterClient.remote_info">
+<a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.remote_info">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">remote_info</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
@@ -622,7 +647,10 @@
             <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="s2">&quot;/_remote/info&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="ClusterClient.allocation_explain"><a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.allocation_explain">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="ClusterClient.allocation_explain">
+<a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.allocation_explain">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
         <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span>
         <span class="s2">&quot;human&quot;</span><span class="p">,</span>
@@ -672,7 +700,10 @@
             <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="ClusterClient.delete_component_template"><a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.delete_component_template">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="ClusterClient.delete_component_template">
+<a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.delete_component_template">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
         <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span>
@@ -731,7 +762,10 @@
             <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="ClusterClient.get_component_template"><a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.get_component_template">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="ClusterClient.get_component_template">
+<a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.get_component_template">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
         <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span>
@@ -791,7 +825,10 @@
             <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="ClusterClient.put_component_template"><a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.put_component_template">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="ClusterClient.put_component_template">
+<a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.put_component_template">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;create&quot;</span><span class="p">,</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
@@ -866,7 +903,10 @@
             <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="ClusterClient.exists_component_template"><a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.exists_component_template">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="ClusterClient.exists_component_template">
+<a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.exists_component_template">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
         <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span>
@@ -924,7 +964,10 @@
             <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="ClusterClient.delete_voting_config_exclusions"><a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.delete_voting_config_exclusions">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="ClusterClient.delete_voting_config_exclusions">
+<a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.delete_voting_config_exclusions">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">,</span> <span class="s2">&quot;wait_for_removal&quot;</span>
     <span class="p">)</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">delete_voting_config_exclusions</span><span class="p">(</span>
@@ -962,7 +1005,10 @@
             <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="ClusterClient.post_voting_config_exclusions"><a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.post_voting_config_exclusions">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="ClusterClient.post_voting_config_exclusions">
+<a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.post_voting_config_exclusions">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
         <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span>
         <span class="s2">&quot;human&quot;</span><span class="p">,</span>
@@ -1012,7 +1058,10 @@
             <span class="s2">&quot;POST&quot;</span><span class="p">,</span> <span class="s2">&quot;/_cluster/voting_config_exclusions&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="ClusterClient.delete_decommission_awareness"><a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.delete_decommission_awareness">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="ClusterClient.delete_decommission_awareness">
+<a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.delete_decommission_awareness">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">delete_decommission_awareness</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
@@ -1039,7 +1088,10 @@
             <span class="s2">&quot;DELETE&quot;</span><span class="p">,</span> <span class="s2">&quot;/_cluster/decommission/awareness&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="ClusterClient.delete_weighted_routing"><a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.delete_weighted_routing">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="ClusterClient.delete_weighted_routing">
+<a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.delete_weighted_routing">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">delete_weighted_routing</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
@@ -1071,7 +1123,10 @@
             <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="ClusterClient.get_decommission_awareness"><a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.get_decommission_awareness">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="ClusterClient.get_decommission_awareness">
+<a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.get_decommission_awareness">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_decommission_awareness</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
@@ -1115,7 +1170,10 @@
             <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="ClusterClient.get_weighted_routing"><a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.get_weighted_routing">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="ClusterClient.get_weighted_routing">
+<a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.get_weighted_routing">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_weighted_routing</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
@@ -1150,7 +1208,10 @@
             <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="ClusterClient.put_decommission_awareness"><a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.put_decommission_awareness">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="ClusterClient.put_decommission_awareness">
+<a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.put_decommission_awareness">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">put_decommission_awareness</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
@@ -1201,7 +1262,10 @@
             <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="ClusterClient.put_weighted_routing"><a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.put_weighted_routing">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="ClusterClient.put_weighted_routing">
+<a class="viewcode-back" href="../../../api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.put_weighted_routing">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">put_weighted_routing</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
@@ -1236,7 +1300,9 @@
             <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span>
             <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
             <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
-        <span class="p">)</span></div></div>
+        <span class="p">)</span></div>
+</div>
+
 </pre></div>
 
            </div>

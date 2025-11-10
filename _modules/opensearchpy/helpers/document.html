@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en">
+<html class="writer-html5" lang="en" data-content_root="../../../">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -14,9 +14,9 @@
   
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js?v=b3ba4146"></script>
-      <script src="../../../_static/doctools.js?v=888ff710"></script>
-      <script src="../../../_static/sphinx_highlight.js?v=4825356b"></script>
+      <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="../../../_static/copybutton.js?v=f281be69"></script>
     <script src="../../../_static/js/theme.js"></script>
@@ -221,7 +221,9 @@
         <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">from_opensearch</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="Document"><a class="viewcode-back" href="../../../api-ref/helpers/document.html#opensearchpy.helpers.document.Document">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">Document</span><span class="p">(</span><span class="n">ObjectBase</span><span class="p">,</span> <span class="n">metaclass</span><span class="o">=</span><span class="n">IndexMeta</span><span class="p">):</span>
+<div class="viewcode-block" id="Document">
+<a class="viewcode-back" href="../../../api-ref/helpers/document.html#opensearchpy.helpers.document.Document">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Document</span><span class="p">(</span><span class="n">ObjectBase</span><span class="p">,</span> <span class="n">metaclass</span><span class="o">=</span><span class="n">IndexMeta</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Model-like class for persisting documents in opensearch.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -244,7 +246,9 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">_default_index</span><span class="p">(</span><span class="bp">cls</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">index</span> <span class="ow">or</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_index</span><span class="o">.</span><span class="n">_name</span>
 
-<div class="viewcode-block" id="Document.init"><a class="viewcode-back" href="../../../api-ref/helpers/document.html#opensearchpy.helpers.document.Document.init">[docs]</a>    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Document.init">
+<a class="viewcode-back" href="../../../api-ref/helpers/document.html#opensearchpy.helpers.document.Document.init">[docs]</a>
+    <span class="nd">@classmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">init</span><span class="p">(</span><span class="bp">cls</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">using</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Create the index and populate the mappings in opensearch.</span>
@@ -253,6 +257,7 @@
         <span class="k">if</span> <span class="n">index</span><span class="p">:</span>
             <span class="n">i</span> <span class="o">=</span> <span class="n">i</span><span class="o">.</span><span class="n">clone</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">index</span><span class="p">)</span>
         <span class="n">i</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">using</span><span class="o">=</span><span class="n">using</span><span class="p">)</span></div>
+
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_get_index</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">required</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">index</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -265,7 +270,9 @@
             <span class="k">raise</span> <span class="n">ValidationException</span><span class="p">(</span><span class="s2">&quot;You cannot write to a wildcard index.&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">index</span>
 
-<div class="viewcode-block" id="Document.__repr__"><a class="viewcode-back" href="../../../api-ref/helpers/document.html#opensearchpy.helpers.document.Document.__repr__">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<div class="viewcode-block" id="Document.__repr__">
+<a class="viewcode-back" href="../../../api-ref/helpers/document.html#opensearchpy.helpers.document.Document.__repr__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="k">return</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">(</span><span class="si">{}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span>
             <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
@@ -275,7 +282,10 @@
             <span class="p">),</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="Document.search"><a class="viewcode-back" href="../../../api-ref/helpers/document.html#opensearchpy.helpers.document.Document.search">[docs]</a>    <span class="nd">@classmethod</span>
+
+<div class="viewcode-block" id="Document.search">
+<a class="viewcode-back" href="../../../api-ref/helpers/document.html#opensearchpy.helpers.document.Document.search">[docs]</a>
+    <span class="nd">@classmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">search</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">using</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Create an :class:`~opensearchpy.Search` instance that will search</span>
@@ -285,7 +295,10 @@
             <span class="n">using</span><span class="o">=</span><span class="bp">cls</span><span class="o">.</span><span class="n">_get_using</span><span class="p">(</span><span class="n">using</span><span class="p">),</span> <span class="n">index</span><span class="o">=</span><span class="bp">cls</span><span class="o">.</span><span class="n">_default_index</span><span class="p">(</span><span class="n">index</span><span class="p">),</span> <span class="n">doc_type</span><span class="o">=</span><span class="p">[</span><span class="bp">cls</span><span class="p">]</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="Document.get"><a class="viewcode-back" href="../../../api-ref/helpers/document.html#opensearchpy.helpers.document.Document.get">[docs]</a>    <span class="nd">@classmethod</span>
+
+<div class="viewcode-block" id="Document.get">
+<a class="viewcode-back" href="../../../api-ref/helpers/document.html#opensearchpy.helpers.document.Document.get">[docs]</a>
+    <span class="nd">@classmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">get</span><span class="p">(</span><span class="bp">cls</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">using</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>  <span class="c1"># type: ignore</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Retrieve a single document from opensearch using its ``id``.</span>
@@ -304,7 +317,10 @@
             <span class="k">return</span> <span class="kc">None</span>
         <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">from_opensearch</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Document.exists"><a class="viewcode-back" href="../../../api-ref/helpers/document.html#opensearchpy.helpers.document.Document.exists">[docs]</a>    <span class="nd">@classmethod</span>
+
+<div class="viewcode-block" id="Document.exists">
+<a class="viewcode-back" href="../../../api-ref/helpers/document.html#opensearchpy.helpers.document.Document.exists">[docs]</a>
+    <span class="nd">@classmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">exists</span><span class="p">(</span>
         <span class="bp">cls</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">using</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
@@ -322,7 +338,10 @@
         <span class="n">opensearch</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_get_connection</span><span class="p">(</span><span class="n">using</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">opensearch</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="bp">cls</span><span class="o">.</span><span class="n">_default_index</span><span class="p">(</span><span class="n">index</span><span class="p">),</span> <span class="nb">id</span><span class="o">=</span><span class="nb">id</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Document.mget"><a class="viewcode-back" href="../../../api-ref/helpers/document.html#opensearchpy.helpers.document.Document.mget">[docs]</a>    <span class="nd">@classmethod</span>
+
+<div class="viewcode-block" id="Document.mget">
+<a class="viewcode-back" href="../../../api-ref/helpers/document.html#opensearchpy.helpers.document.Document.mget">[docs]</a>
+    <span class="nd">@classmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">mget</span><span class="p">(</span>
         <span class="bp">cls</span><span class="p">,</span>
         <span class="n">docs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
@@ -395,7 +414,10 @@
             <span class="k">raise</span> <span class="n">NotFoundError</span><span class="p">(</span><span class="mi">404</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;docs&quot;</span><span class="p">:</span> <span class="n">missing_docs</span><span class="p">})</span>
         <span class="k">return</span> <span class="n">objs</span></div>
 
-<div class="viewcode-block" id="Document.delete"><a class="viewcode-back" href="../../../api-ref/helpers/document.html#opensearchpy.helpers.document.Document.delete">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">using</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+
+<div class="viewcode-block" id="Document.delete">
+<a class="viewcode-back" href="../../../api-ref/helpers/document.html#opensearchpy.helpers.document.Document.delete">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">using</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Delete the instance in opensearch.</span>
 
@@ -418,7 +440,10 @@
         <span class="n">doc_meta</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="n">opensearch</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_index</span><span class="p">(</span><span class="n">index</span><span class="p">),</span> <span class="o">**</span><span class="n">doc_meta</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Document.to_dict"><a class="viewcode-back" href="../../../api-ref/helpers/document.html#opensearchpy.helpers.document.Document.to_dict">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">include_meta</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">skip_empty</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>  <span class="c1"># type: ignore</span>
+
+<div class="viewcode-block" id="Document.to_dict">
+<a class="viewcode-back" href="../../../api-ref/helpers/document.html#opensearchpy.helpers.document.Document.to_dict">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">include_meta</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">skip_empty</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>  <span class="c1"># type: ignore</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Serialize the instance into a dictionary so that it can be saved in opensearch.</span>
 
@@ -444,7 +469,10 @@
         <span class="n">meta</span><span class="p">[</span><span class="s2">&quot;_source&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">d</span>
         <span class="k">return</span> <span class="n">meta</span></div>
 
-<div class="viewcode-block" id="Document.update"><a class="viewcode-back" href="../../../api-ref/helpers/document.html#opensearchpy.helpers.document.Document.update">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">update</span><span class="p">(</span>
+
+<div class="viewcode-block" id="Document.update">
+<a class="viewcode-back" href="../../../api-ref/helpers/document.html#opensearchpy.helpers.document.Document.update">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">update</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">using</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">index</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -549,7 +577,10 @@
 
         <span class="k">return</span> <span class="n">meta</span> <span class="k">if</span> <span class="n">return_doc_meta</span> <span class="k">else</span> <span class="n">meta</span><span class="p">[</span><span class="s2">&quot;result&quot;</span><span class="p">]</span></div>
 
-<div class="viewcode-block" id="Document.save"><a class="viewcode-back" href="../../../api-ref/helpers/document.html#opensearchpy.helpers.document.Document.save">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">save</span><span class="p">(</span>
+
+<div class="viewcode-block" id="Document.save">
+<a class="viewcode-back" href="../../../api-ref/helpers/document.html#opensearchpy.helpers.document.Document.save">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">save</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">using</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">index</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -601,7 +632,9 @@
             <span class="k">if</span> <span class="s2">&quot;_&quot;</span> <span class="o">+</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">meta</span><span class="p">:</span>
                 <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">meta</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">meta</span><span class="p">[</span><span class="s2">&quot;_&quot;</span> <span class="o">+</span> <span class="n">k</span><span class="p">])</span>
 
-        <span class="k">return</span> <span class="n">meta</span> <span class="k">if</span> <span class="n">return_doc_meta</span> <span class="k">else</span> <span class="n">meta</span><span class="p">[</span><span class="s2">&quot;result&quot;</span><span class="p">]</span></div></div>
+        <span class="k">return</span> <span class="n">meta</span> <span class="k">if</span> <span class="n">return_doc_meta</span> <span class="k">else</span> <span class="n">meta</span><span class="p">[</span><span class="s2">&quot;result&quot;</span><span class="p">]</span></div>
+</div>
+
 </pre></div>
 
            </div>

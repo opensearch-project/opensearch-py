@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en">
+<html class="writer-html5" lang="en" data-content_root="../../../">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -14,9 +14,9 @@
   
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js?v=b3ba4146"></script>
-      <script src="../../../_static/doctools.js?v=888ff710"></script>
-      <script src="../../../_static/sphinx_highlight.js?v=4825356b"></script>
+      <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="../../../_static/copybutton.js?v=f281be69"></script>
     <script src="../../../_static/js/theme.js"></script>
@@ -146,7 +146,9 @@
     <span class="k">return</span> <span class="n">Query</span><span class="o">.</span><span class="n">get_dsl_class</span><span class="p">(</span><span class="n">name_or_query</span><span class="p">)(</span><span class="o">**</span><span class="n">params</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="Query"><a class="viewcode-back" href="../../../api-ref/helpers/query.html#opensearchpy.helpers.query.Query">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">Query</span><span class="p">(</span><span class="n">DslBase</span><span class="p">):</span>
+<div class="viewcode-block" id="Query">
+<a class="viewcode-back" href="../../../api-ref/helpers/query.html#opensearchpy.helpers.query.Query">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Query</span><span class="p">(</span><span class="n">DslBase</span><span class="p">):</span>
     <span class="n">_type_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;query&quot;</span>
     <span class="n">_type_shortcut</span> <span class="o">=</span> <span class="nb">staticmethod</span><span class="p">(</span><span class="n">Q</span><span class="p">)</span>
     <span class="n">name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
@@ -161,12 +163,15 @@
     <span class="k">def</span><span class="w"> </span><span class="fm">__invert__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">Bool</span><span class="p">(</span><span class="n">must_not</span><span class="o">=</span><span class="p">[</span><span class="bp">self</span><span class="p">])</span>
 
+<div class="viewcode-block" id="Query.__or__">
+<a class="viewcode-back" href="../../../api-ref/helpers/query.html#opensearchpy.helpers.query.Query.__or__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__or__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="c1"># make sure we give queries that know how to combine themselves</span>
         <span class="c1"># preference</span>
         <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="s2">&quot;__ror__&quot;</span><span class="p">):</span>
             <span class="k">return</span> <span class="n">other</span><span class="o">.</span><span class="fm">__ror__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">Bool</span><span class="p">(</span><span class="n">should</span><span class="o">=</span><span class="p">[</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">Bool</span><span class="p">(</span><span class="n">should</span><span class="o">=</span><span class="p">[</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">])</span></div>
+
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__and__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="c1"># make sure we give queries that know how to combine themselves</span>
@@ -174,6 +179,7 @@
         <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="s2">&quot;__rand__&quot;</span><span class="p">):</span>
             <span class="k">return</span> <span class="n">other</span><span class="o">.</span><span class="fm">__rand__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">Bool</span><span class="p">(</span><span class="n">must</span><span class="o">=</span><span class="p">[</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">])</span></div>
+
 
 
 <span class="k">class</span><span class="w"> </span><span class="nc">MatchAll</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>

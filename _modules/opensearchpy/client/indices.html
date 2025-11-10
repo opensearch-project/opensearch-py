@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en">
+<html class="writer-html5" lang="en" data-content_root="../../../">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -14,9 +14,9 @@
   
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js?v=b3ba4146"></script>
-      <script src="../../../_static/doctools.js?v=888ff710"></script>
-      <script src="../../../_static/sphinx_highlight.js?v=4825356b"></script>
+      <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="../../../_static/copybutton.js?v=f281be69"></script>
     <script src="../../../_static/js/theme.js"></script>
@@ -121,8 +121,12 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">SKIP_IN_PATH</span><span class="p">,</span> <span class="n">NamespacedClient</span><span class="p">,</span> <span class="n">_make_path</span><span class="p">,</span> <span class="n">query_params</span>
 
 
-<div class="viewcode-block" id="IndicesClient"><a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">IndicesClient</span><span class="p">(</span><span class="n">NamespacedClient</span><span class="p">):</span>
-<div class="viewcode-block" id="IndicesClient.analyze"><a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.analyze">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
+<div class="viewcode-block" id="IndicesClient">
+<a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">IndicesClient</span><span class="p">(</span><span class="n">NamespacedClient</span><span class="p">):</span>
+<div class="viewcode-block" id="IndicesClient.analyze">
+<a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.analyze">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">analyze</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
@@ -159,7 +163,10 @@
             <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="IndicesClient.refresh"><a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.refresh">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="IndicesClient.refresh">
+<a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.refresh">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;allow_no_indices&quot;</span><span class="p">,</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
         <span class="s2">&quot;expand_wildcards&quot;</span><span class="p">,</span>
@@ -210,7 +217,10 @@
             <span class="s2">&quot;POST&quot;</span><span class="p">,</span> <span class="n">_make_path</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="s2">&quot;_refresh&quot;</span><span class="p">),</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="IndicesClient.flush"><a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.flush">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="IndicesClient.flush">
+<a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.flush">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;allow_no_indices&quot;</span><span class="p">,</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
         <span class="s2">&quot;expand_wildcards&quot;</span><span class="p">,</span>
@@ -269,7 +279,10 @@
             <span class="s2">&quot;POST&quot;</span><span class="p">,</span> <span class="n">_make_path</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="s2">&quot;_flush&quot;</span><span class="p">),</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="IndicesClient.create"><a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.create">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="IndicesClient.create">
+<a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.create">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
         <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span>
@@ -327,7 +340,10 @@
             <span class="s2">&quot;PUT&quot;</span><span class="p">,</span> <span class="n">_make_path</span><span class="p">(</span><span class="n">index</span><span class="p">),</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">body</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="IndicesClient.clone"><a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.clone">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="IndicesClient.clone">
+<a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.clone">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
         <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span>
@@ -398,7 +414,10 @@
             <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="IndicesClient.get"><a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.get">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="IndicesClient.get">
+<a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.get">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;allow_no_indices&quot;</span><span class="p">,</span>
         <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
@@ -472,7 +491,10 @@
             <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="n">_make_path</span><span class="p">(</span><span class="n">index</span><span class="p">),</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="IndicesClient.open"><a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.open">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="IndicesClient.open">
+<a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.open">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;allow_no_indices&quot;</span><span class="p">,</span>
         <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
@@ -553,7 +575,10 @@
             <span class="s2">&quot;POST&quot;</span><span class="p">,</span> <span class="n">_make_path</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="s2">&quot;_open&quot;</span><span class="p">),</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="IndicesClient.close"><a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.close">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="IndicesClient.close">
+<a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.close">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;allow_no_indices&quot;</span><span class="p">,</span>
         <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
@@ -623,7 +648,10 @@
             <span class="s2">&quot;POST&quot;</span><span class="p">,</span> <span class="n">_make_path</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="s2">&quot;_close&quot;</span><span class="p">),</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="IndicesClient.delete"><a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.delete">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="IndicesClient.delete">
+<a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.delete">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;allow_no_indices&quot;</span><span class="p">,</span>
         <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
@@ -690,7 +718,10 @@
             <span class="s2">&quot;DELETE&quot;</span><span class="p">,</span> <span class="n">_make_path</span><span class="p">(</span><span class="n">index</span><span class="p">),</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="IndicesClient.exists"><a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.exists">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="IndicesClient.exists">
+<a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.exists">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;allow_no_indices&quot;</span><span class="p">,</span>
         <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
@@ -755,7 +786,10 @@
             <span class="s2">&quot;HEAD&quot;</span><span class="p">,</span> <span class="n">_make_path</span><span class="p">(</span><span class="n">index</span><span class="p">),</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="IndicesClient.put_mapping"><a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.put_mapping">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="IndicesClient.put_mapping">
+<a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.put_mapping">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;allow_no_indices&quot;</span><span class="p">,</span>
         <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
@@ -832,7 +866,10 @@
             <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="IndicesClient.get_mapping"><a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.get_mapping">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="IndicesClient.get_mapping">
+<a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.get_mapping">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;allow_no_indices&quot;</span><span class="p">,</span>
         <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
@@ -894,7 +931,10 @@
             <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="n">_make_path</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="s2">&quot;_mapping&quot;</span><span class="p">),</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="IndicesClient.get_field_mapping"><a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.get_field_mapping">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="IndicesClient.get_field_mapping">
+<a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.get_field_mapping">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;allow_no_indices&quot;</span><span class="p">,</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
         <span class="s2">&quot;expand_wildcards&quot;</span><span class="p">,</span>
@@ -960,7 +1000,10 @@
             <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="IndicesClient.exists_alias"><a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.exists_alias">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="IndicesClient.exists_alias">
+<a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.exists_alias">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;allow_no_indices&quot;</span><span class="p">,</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
         <span class="s2">&quot;expand_wildcards&quot;</span><span class="p">,</span>
@@ -1021,7 +1064,10 @@
             <span class="s2">&quot;HEAD&quot;</span><span class="p">,</span> <span class="n">_make_path</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="s2">&quot;_alias&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">),</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="IndicesClient.get_alias"><a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.get_alias">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="IndicesClient.get_alias">
+<a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.get_alias">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;allow_no_indices&quot;</span><span class="p">,</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
         <span class="s2">&quot;expand_wildcards&quot;</span><span class="p">,</span>
@@ -1079,7 +1125,10 @@
             <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="n">_make_path</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="s2">&quot;_alias&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">),</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="IndicesClient.update_aliases"><a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.update_aliases">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="IndicesClient.update_aliases">
+<a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.update_aliases">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
         <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span>
@@ -1129,7 +1178,10 @@
             <span class="s2">&quot;POST&quot;</span><span class="p">,</span> <span class="s2">&quot;/_aliases&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">body</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="IndicesClient.delete_alias"><a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.delete_alias">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="IndicesClient.delete_alias">
+<a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.delete_alias">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
         <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span>
@@ -1184,7 +1236,10 @@
             <span class="s2">&quot;DELETE&quot;</span><span class="p">,</span> <span class="n">_make_path</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="s2">&quot;_alias&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">),</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="IndicesClient.put_template"><a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.put_template">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="IndicesClient.put_template">
+<a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.put_template">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;create&quot;</span><span class="p">,</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
@@ -1245,7 +1300,10 @@
             <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="IndicesClient.exists_template"><a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.exists_template">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="IndicesClient.exists_template">
+<a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.exists_template">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
         <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span>
@@ -1296,7 +1354,10 @@
             <span class="s2">&quot;HEAD&quot;</span><span class="p">,</span> <span class="n">_make_path</span><span class="p">(</span><span class="s2">&quot;_template&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">),</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="IndicesClient.get_template"><a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.get_template">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="IndicesClient.get_template">
+<a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.get_template">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
         <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span>
@@ -1348,7 +1409,10 @@
             <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="n">_make_path</span><span class="p">(</span><span class="s2">&quot;_template&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">),</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="IndicesClient.delete_template"><a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.delete_template">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="IndicesClient.delete_template">
+<a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.delete_template">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
         <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span>
@@ -1399,7 +1463,10 @@
             <span class="s2">&quot;DELETE&quot;</span><span class="p">,</span> <span class="n">_make_path</span><span class="p">(</span><span class="s2">&quot;_template&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">),</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="IndicesClient.get_settings"><a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.get_settings">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="IndicesClient.get_settings">
+<a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.get_settings">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;allow_no_indices&quot;</span><span class="p">,</span>
         <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
@@ -1473,7 +1540,10 @@
             <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="n">_make_path</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="s2">&quot;_settings&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">),</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="IndicesClient.put_settings"><a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.put_settings">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="IndicesClient.put_settings">
+<a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.put_settings">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;allow_no_indices&quot;</span><span class="p">,</span>
         <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
@@ -1552,7 +1622,10 @@
             <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="IndicesClient.stats"><a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.stats">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="IndicesClient.stats">
+<a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.stats">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;completion_fields&quot;</span><span class="p">,</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
         <span class="s2">&quot;expand_wildcards&quot;</span><span class="p">,</span>
@@ -1624,7 +1697,10 @@
             <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="n">_make_path</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="s2">&quot;_stats&quot;</span><span class="p">,</span> <span class="n">metric</span><span class="p">),</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="IndicesClient.segments"><a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.segments">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="IndicesClient.segments">
+<a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.segments">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;allow_no_indices&quot;</span><span class="p">,</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
         <span class="s2">&quot;expand_wildcards&quot;</span><span class="p">,</span>
@@ -1678,7 +1754,10 @@
             <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="n">_make_path</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="s2">&quot;_segments&quot;</span><span class="p">),</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="IndicesClient.validate_query"><a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.validate_query">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="IndicesClient.validate_query">
+<a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.validate_query">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;all_shards&quot;</span><span class="p">,</span>
         <span class="s2">&quot;allow_no_indices&quot;</span><span class="p">,</span>
         <span class="s2">&quot;analyze_wildcard&quot;</span><span class="p">,</span>
@@ -1763,7 +1842,10 @@
             <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="IndicesClient.clear_cache"><a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.clear_cache">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="IndicesClient.clear_cache">
+<a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.clear_cache">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;allow_no_indices&quot;</span><span class="p">,</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
         <span class="s2">&quot;expand_wildcards&quot;</span><span class="p">,</span>
@@ -1826,7 +1908,10 @@
             <span class="s2">&quot;POST&quot;</span><span class="p">,</span> <span class="n">_make_path</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="s2">&quot;_cache&quot;</span><span class="p">,</span> <span class="s2">&quot;clear&quot;</span><span class="p">),</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="IndicesClient.recovery"><a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.recovery">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="IndicesClient.recovery">
+<a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.recovery">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;active_only&quot;</span><span class="p">,</span>
         <span class="s2">&quot;detailed&quot;</span><span class="p">,</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
@@ -1869,7 +1954,10 @@
             <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="n">_make_path</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="s2">&quot;_recovery&quot;</span><span class="p">),</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="IndicesClient.upgrade"><a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.upgrade">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="IndicesClient.upgrade">
+<a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.upgrade">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;allow_no_indices&quot;</span><span class="p">,</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
         <span class="s2">&quot;expand_wildcards&quot;</span><span class="p">,</span>
@@ -1922,7 +2010,10 @@
             <span class="s2">&quot;POST&quot;</span><span class="p">,</span> <span class="n">_make_path</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="s2">&quot;_upgrade&quot;</span><span class="p">),</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="IndicesClient.get_upgrade"><a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.get_upgrade">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="IndicesClient.get_upgrade">
+<a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.get_upgrade">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;allow_no_indices&quot;</span><span class="p">,</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
         <span class="s2">&quot;expand_wildcards&quot;</span><span class="p">,</span>
@@ -1969,7 +2060,10 @@
             <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="n">_make_path</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="s2">&quot;_upgrade&quot;</span><span class="p">),</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="IndicesClient.shard_stores"><a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.shard_stores">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="IndicesClient.shard_stores">
+<a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.shard_stores">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;allow_no_indices&quot;</span><span class="p">,</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
         <span class="s2">&quot;expand_wildcards&quot;</span><span class="p">,</span>
@@ -2022,7 +2116,10 @@
             <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="n">_make_path</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="s2">&quot;_shard_stores&quot;</span><span class="p">),</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="IndicesClient.forcemerge"><a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.forcemerge">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="IndicesClient.forcemerge">
+<a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.forcemerge">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;allow_no_indices&quot;</span><span class="p">,</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
         <span class="s2">&quot;expand_wildcards&quot;</span><span class="p">,</span>
@@ -2086,7 +2183,10 @@
             <span class="s2">&quot;POST&quot;</span><span class="p">,</span> <span class="n">_make_path</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="s2">&quot;_forcemerge&quot;</span><span class="p">),</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="IndicesClient.shrink"><a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.shrink">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="IndicesClient.shrink">
+<a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.shrink">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;copy_settings&quot;</span><span class="p">,</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
@@ -2160,7 +2260,10 @@
             <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="IndicesClient.split"><a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.split">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="IndicesClient.split">
+<a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.split">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;copy_settings&quot;</span><span class="p">,</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
@@ -2235,7 +2338,10 @@
             <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="IndicesClient.rollover"><a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.rollover">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="IndicesClient.rollover">
+<a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.rollover">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;dry_run&quot;</span><span class="p">,</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
@@ -2305,7 +2411,10 @@
             <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="IndicesClient.create_data_stream"><a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.create_data_stream">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="IndicesClient.create_data_stream">
+<a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.create_data_stream">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">create_data_stream</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
@@ -2348,7 +2457,10 @@
             <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="IndicesClient.delete_data_stream"><a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.delete_data_stream">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="IndicesClient.delete_data_stream">
+<a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.delete_data_stream">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">delete_data_stream</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
@@ -2381,7 +2493,10 @@
             <span class="s2">&quot;DELETE&quot;</span><span class="p">,</span> <span class="n">_make_path</span><span class="p">(</span><span class="s2">&quot;_data_stream&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">),</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="IndicesClient.delete_index_template"><a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.delete_index_template">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="IndicesClient.delete_index_template">
+<a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.delete_index_template">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
         <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span>
@@ -2435,7 +2550,10 @@
             <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="IndicesClient.exists_index_template"><a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.exists_index_template">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="IndicesClient.exists_index_template">
+<a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.exists_index_template">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
         <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span>
@@ -2488,7 +2606,10 @@
             <span class="s2">&quot;HEAD&quot;</span><span class="p">,</span> <span class="n">_make_path</span><span class="p">(</span><span class="s2">&quot;_index_template&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">),</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="IndicesClient.get_index_template"><a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.get_index_template">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="IndicesClient.get_index_template">
+<a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.get_index_template">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
         <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span>
@@ -2539,7 +2660,10 @@
             <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="n">_make_path</span><span class="p">(</span><span class="s2">&quot;_index_template&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">),</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="IndicesClient.put_index_template"><a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.put_index_template">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="IndicesClient.put_index_template">
+<a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.put_index_template">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;cause&quot;</span><span class="p">,</span>
         <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;create&quot;</span><span class="p">,</span>
@@ -2597,7 +2721,10 @@
             <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="IndicesClient.simulate_index_template"><a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.simulate_index_template">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="IndicesClient.simulate_index_template">
+<a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.simulate_index_template">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
         <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span>
@@ -2651,7 +2778,10 @@
             <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="IndicesClient.get_data_stream"><a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.get_data_stream">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="IndicesClient.get_data_stream">
+<a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.get_data_stream">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_data_stream</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
@@ -2682,7 +2812,10 @@
             <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="n">_make_path</span><span class="p">(</span><span class="s2">&quot;_data_stream&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">),</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="IndicesClient.simulate_template"><a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.simulate_template">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="IndicesClient.simulate_template">
+<a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.simulate_template">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;cause&quot;</span><span class="p">,</span>
         <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;create&quot;</span><span class="p">,</span>
@@ -2741,7 +2874,10 @@
             <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="IndicesClient.resolve_index"><a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.resolve_index">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="IndicesClient.resolve_index">
+<a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.resolve_index">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;expand_wildcards&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span>
     <span class="p">)</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">resolve_index</span><span class="p">(</span>
@@ -2782,7 +2918,10 @@
             <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="n">_make_path</span><span class="p">(</span><span class="s2">&quot;_resolve&quot;</span><span class="p">,</span> <span class="s2">&quot;index&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">),</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="IndicesClient.add_block"><a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.add_block">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="IndicesClient.add_block">
+<a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.add_block">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;allow_no_indices&quot;</span><span class="p">,</span>
         <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
@@ -2844,7 +2983,10 @@
             <span class="s2">&quot;PUT&quot;</span><span class="p">,</span> <span class="n">_make_path</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="s2">&quot;_block&quot;</span><span class="p">,</span> <span class="n">block</span><span class="p">),</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="IndicesClient.data_streams_stats"><a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.data_streams_stats">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="IndicesClient.data_streams_stats">
+<a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.data_streams_stats">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">data_streams_stats</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
@@ -2878,7 +3020,10 @@
             <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="IndicesClient.put_alias"><a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.put_alias">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="IndicesClient.put_alias">
+<a class="viewcode-back" href="../../../api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.put_alias">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
         <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span>
@@ -2935,7 +3080,9 @@
             <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span>
             <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
             <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
-        <span class="p">)</span></div></div>
+        <span class="p">)</span></div>
+</div>
+
 </pre></div>
 
            </div>

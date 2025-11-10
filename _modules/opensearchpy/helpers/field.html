@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en">
+<html class="writer-html5" lang="en" data-content_root="../../../">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -14,9 +14,9 @@
   
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js?v=b3ba4146"></script>
-      <script src="../../../_static/doctools.js?v=888ff710"></script>
-      <script src="../../../_static/sphinx_highlight.js?v=4825356b"></script>
+      <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="../../../_static/copybutton.js?v=f281be69"></script>
     <script src="../../../_static/js/theme.js"></script>
@@ -119,6 +119,7 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">AttrDict</span><span class="p">,</span> <span class="n">AttrList</span><span class="p">,</span> <span class="n">DslBase</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">.wrappers</span><span class="w"> </span><span class="kn">import</span> <span class="n">Range</span>
 
+<span class="c1"># pylint: disable=invalid-name</span>
 <span class="n">unicode</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span>
 
 
@@ -153,7 +154,9 @@
     <span class="k">return</span> <span class="n">Field</span><span class="o">.</span><span class="n">get_dsl_class</span><span class="p">(</span><span class="n">name_or_field</span><span class="p">)(</span><span class="o">**</span><span class="n">params</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="Field"><a class="viewcode-back" href="../../../api-ref/helpers/field.html#opensearchpy.helpers.field.Field">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">Field</span><span class="p">(</span><span class="n">DslBase</span><span class="p">):</span>
+<div class="viewcode-block" id="Field">
+<a class="viewcode-back" href="../../../api-ref/helpers/field.html#opensearchpy.helpers.field.Field">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Field</span><span class="p">(</span><span class="n">DslBase</span><span class="p">):</span>
     <span class="n">_type_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;field&quot;</span>
     <span class="n">_type_shortcut</span> <span class="o">=</span> <span class="nb">staticmethod</span><span class="p">(</span><span class="n">construct_field</span><span class="p">)</span>
     <span class="c1"># all fields can be multifields</span>
@@ -209,11 +212,15 @@
             <span class="k">raise</span> <span class="n">ValidationException</span><span class="p">(</span><span class="s2">&quot;Value required for this field.&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">data</span>
 
-<div class="viewcode-block" id="Field.to_dict"><a class="viewcode-back" href="../../../api-ref/helpers/field.html#opensearchpy.helpers.field.Field.to_dict">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<div class="viewcode-block" id="Field.to_dict">
+<a class="viewcode-back" href="../../../api-ref/helpers/field.html#opensearchpy.helpers.field.Field.to_dict">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="n">d</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
         <span class="n">name</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">popitem</span><span class="p">()</span>
         <span class="n">value</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">name</span>
-        <span class="k">return</span> <span class="n">value</span></div></div>
+        <span class="k">return</span> <span class="n">value</span></div>
+</div>
+
 
 
 <span class="k">class</span><span class="w"> </span><span class="nc">CustomField</span><span class="p">(</span><span class="n">Field</span><span class="p">):</span>
@@ -263,9 +270,9 @@
             <span class="c1"># no InnerDoc subclass, creating one instead...</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_doc_class</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="s2">&quot;InnerDoc&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">InnerDoc</span><span class="p">,),</span> <span class="p">{})</span>
             <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">field</span> <span class="ow">in</span> <span class="p">(</span><span class="n">properties</span> <span class="ow">or</span> <span class="p">{})</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_doc_class</span><span class="o">.</span><span class="n">_doc_type</span><span class="o">.</span><span class="n">mapping</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">field</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_doc_class</span><span class="o">.</span><span class="n">_doc_type</span><span class="o">.</span><span class="n">mapping</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">field</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">dynamic</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_doc_class</span><span class="o">.</span><span class="n">_doc_type</span><span class="o">.</span><span class="n">mapping</span><span class="o">.</span><span class="n">meta</span><span class="p">(</span><span class="s2">&quot;dynamic&quot;</span><span class="p">,</span> <span class="n">dynamic</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_doc_class</span><span class="o">.</span><span class="n">_doc_type</span><span class="o">.</span><span class="n">mapping</span><span class="o">.</span><span class="n">meta</span><span class="p">(</span><span class="s2">&quot;dynamic&quot;</span><span class="p">,</span> <span class="n">dynamic</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_mapping</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_doc_class</span><span class="o">.</span><span class="n">_doc_type</span><span class="o">.</span><span class="n">mapping</span><span class="p">)</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>

@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en">
+<html class="writer-html5" lang="en" data-content_root="../../">
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
@@ -15,9 +15,9 @@
   
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js?v=b3ba4146"></script>
-      <script src="../../_static/doctools.js?v=888ff710"></script>
-      <script src="../../_static/sphinx_highlight.js?v=4825356b"></script>
+      <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="../../_static/copybutton.js?v=f281be69"></script>
     <script src="../../_static/js/theme.js"></script>
@@ -112,10 +112,10 @@
            <div itemprop="articleBody">
              
   <section id="search">
-<h1>search<a class="headerlink" href="#search" title="Permalink to this heading"></a></h1>
+<h1>search<a class="headerlink" href="#search" title="Link to this heading"></a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="opensearchpy.helpers.search.Search">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opensearchpy.helpers.search.</span></span><span class="sig-name descname"><span class="pre">Search</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/search.html#Search"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.search.Search" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opensearchpy.helpers.search.</span></span><span class="sig-name descname"><span class="pre">Search</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/search.html#Search"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.search.Search" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Request</span></code></p>
 <p>Search request to opensearch.</p>
 <dl class="field-list simple">
@@ -124,7 +124,7 @@
 <li><p><strong>using</strong> – <cite>OpenSearch</cite> instance to use</p></li>
 <li><p><strong>index</strong> – limit the search to index</p></li>
 <li><p><strong>doc_type</strong> – only query this type.</p></li>
-<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>) – </p></li>
+<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>)</p></li>
 </ul>
 </dd>
 </dl>
@@ -132,7 +132,7 @@
 overridden by methods (<cite>using</cite>, <cite>index</cite> and <cite>doc_type</cite> respectively).</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.helpers.search.Search.__getitem__">
-<span class="sig-name descname"><span class="pre">__getitem__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/search.html#Search.__getitem__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.search.Search.__getitem__" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">__getitem__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/search.html#Search.__getitem__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.search.Search.__getitem__" title="Link to this definition"></a></dt>
 <dd><p>Support slicing the <cite>Search</cite> instance for pagination.</p>
 <p>Slicing equates to the from/size parameters. E.g.:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="n">Search</span><span class="p">()</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="o">...</span><span class="p">)[</span><span class="mi">0</span><span class="p">:</span><span class="mi">25</span><span class="p">]</span>
@@ -144,7 +144,7 @@ overridden by methods (<cite>using</cite>, <cite>index</cite> and <cite>doc_type
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>n</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>) – </p>
+<dd class="field-odd"><p><strong>n</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>)</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a></p>
@@ -154,7 +154,7 @@ overridden by methods (<cite>using</cite>, <cite>index</cite> and <cite>doc_type
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.helpers.search.Search.__iter__">
-<span class="sig-name descname"><span class="pre">__iter__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/search.html#Search.__iter__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.search.Search.__iter__" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">__iter__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/search.html#Search.__iter__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.search.Search.__iter__" title="Link to this definition"></a></dt>
 <dd><p>Iterate over the hits.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -165,7 +165,7 @@ overridden by methods (<cite>using</cite>, <cite>index</cite> and <cite>doc_type
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.helpers.search.Search._clone">
-<span class="sig-name descname"><span class="pre">_clone</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/search.html#Search._clone"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.search.Search._clone" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">_clone</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/search.html#Search._clone"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.search.Search._clone" title="Link to this definition"></a></dt>
 <dd><p>Return a clone of the current search request. Performs a shallow copy
 of all the underlying objects. Used internally by most state modifying
 APIs.</p>
@@ -178,7 +178,7 @@ APIs.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.helpers.search.Search.collapse">
-<span class="sig-name descname"><span class="pre">collapse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inner_hits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_concurrent_group_searches</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/search.html#Search.collapse"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.search.Search.collapse" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">collapse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inner_hits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_concurrent_group_searches</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/search.html#Search.collapse"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.search.Search.collapse" title="Link to this definition"></a></dt>
 <dd><p>Add collapsing information to the search request.</p>
 <p>If called without providing <code class="docutils literal notranslate"><span class="pre">field</span></code>, it will remove all collapse
 requirements, otherwise it will replace them with the provided
@@ -187,9 +187,9 @@ arguments.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>field</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a><em> | </em><em>None</em>) – </p></li>
-<li><p><strong>inner_hits</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a><em> | </em><em>None</em>) – </p></li>
-<li><p><strong>max_concurrent_group_searches</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a><em> | </em><em>None</em>) – </p></li>
+<li><p><strong>field</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a><em> | </em><em>None</em>)</p></li>
+<li><p><strong>inner_hits</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a><em> | </em><em>None</em>)</p></li>
+<li><p><strong>max_concurrent_group_searches</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a><em> | </em><em>None</em>)</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
@@ -200,7 +200,7 @@ arguments.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.helpers.search.Search.count">
-<span class="sig-name descname"><span class="pre">count</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/search.html#Search.count"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.search.Search.count" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">count</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/search.html#Search.count"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.search.Search.count" title="Link to this definition"></a></dt>
 <dd><p>Return the number of hits matching the query and filters. Note that
 only the actual number is returned.</p>
 <dl class="field-list simple">
@@ -212,7 +212,7 @@ only the actual number is returned.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.helpers.search.Search.delete">
-<span class="sig-name descname"><span class="pre">delete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">)</span> <span class="pre">executes</span> <span class="pre">the</span> <span class="pre">query</span> <span class="pre">by</span> <span class="pre">delegating</span> <span class="pre">to</span> <span class="pre">delete_by_query(</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/search.html#Search.delete"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.search.Search.delete" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">delete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">)</span> <span class="pre">executes</span> <span class="pre">the</span> <span class="pre">query</span> <span class="pre">by</span> <span class="pre">delegating</span> <span class="pre">to</span> <span class="pre">delete_by_query(</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/search.html#Search.delete"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.search.Search.delete" title="Link to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a></p>
@@ -222,7 +222,7 @@ only the actual number is returned.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.helpers.search.Search.execute">
-<span class="sig-name descname"><span class="pre">execute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ignore_cache</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/search.html#Search.execute"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.search.Search.execute" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">execute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ignore_cache</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/search.html#Search.execute"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.search.Search.execute" title="Link to this definition"></a></dt>
 <dd><p>Execute the search and return an instance of <code class="docutils literal notranslate"><span class="pre">Response</span></code> wrapping all
 the data.</p>
 <dl class="field-list simple">
@@ -230,7 +230,7 @@ the data.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>ignore_cache</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – if set to <code class="docutils literal notranslate"><span class="pre">True</span></code>, consecutive calls will hit
 OpenSearch, while cached result will be ignored. Defaults to <cite>False</cite></p></li>
-<li><p><strong>ignore_cache</strong> – </p></li>
+<li><p><strong>ignore_cache</strong></p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
@@ -241,7 +241,7 @@ OpenSearch, while cached result will be ignored. Defaults to <cite>False</cite><
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.helpers.search.Search.from_dict">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/search.html#Search.from_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.search.Search.from_dict" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/search.html#Search.from_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.search.Search.from_dict" title="Link to this definition"></a></dt>
 <dd><p>Construct a new <cite>Search</cite> instance from a raw dict containing the search
 body. Useful when migrating from raw dictionaries.</p>
 <p>Example:</p>
@@ -258,7 +258,7 @@ body. Useful when migrating from raw dictionaries.</p>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>d</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>) – </p>
+<dd class="field-odd"><p><strong>d</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>)</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a></p>
@@ -268,7 +268,7 @@ body. Useful when migrating from raw dictionaries.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.helpers.search.Search.highlight">
-<span class="sig-name descname"><span class="pre">highlight</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">fields</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/search.html#Search.highlight"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.search.Search.highlight" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">highlight</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">fields</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/search.html#Search.highlight"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.search.Search.highlight" title="Link to this definition"></a></dt>
 <dd><p>Request highlighting of some fields. All keyword arguments passed in will be
 used as parameters for all the fields in the <code class="docutils literal notranslate"><span class="pre">fields</span></code> parameter. Example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Search</span><span class="p">()</span><span class="o">.</span><span class="n">highlight</span><span class="p">(</span><span class="s1">&#39;title&#39;</span><span class="p">,</span> <span class="s1">&#39;body&#39;</span><span class="p">,</span> <span class="n">fragment_size</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
@@ -304,8 +304,8 @@ you can call <code class="docutils literal notranslate"><span class="pre">highli
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>fields</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>) – </p></li>
-<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>) – </p></li>
+<li><p><strong>fields</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>)</p></li>
+<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>)</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
@@ -316,7 +316,7 @@ you can call <code class="docutils literal notranslate"><span class="pre">highli
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.helpers.search.Search.highlight_options">
-<span class="sig-name descname"><span class="pre">highlight_options</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/search.html#Search.highlight_options"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.search.Search.highlight_options" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">highlight_options</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/search.html#Search.highlight_options"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.search.Search.highlight_options" title="Link to this definition"></a></dt>
 <dd><p>Update the global highlighting options used for this request. For
 example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="n">Search</span><span class="p">()</span>
@@ -325,7 +325,7 @@ example:</p>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>) – </p>
+<dd class="field-odd"><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>)</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a></p>
@@ -335,11 +335,11 @@ example:</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.helpers.search.Search.response_class">
-<span class="sig-name descname"><span class="pre">response_class</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cls</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/search.html#Search.response_class"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.search.Search.response_class" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">response_class</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cls</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/search.html#Search.response_class"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.search.Search.response_class" title="Link to this definition"></a></dt>
 <dd><p>Override the default wrapper used for the response.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>cls</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>) – </p>
+<dd class="field-odd"><p><strong>cls</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>)</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a></p>
@@ -349,7 +349,7 @@ example:</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.helpers.search.Search.scan">
-<span class="sig-name descname"><span class="pre">scan</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/search.html#Search.scan"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.search.Search.scan" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">scan</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/search.html#Search.scan"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.search.Search.scan" title="Link to this definition"></a></dt>
 <dd><p>Turn the search into a scan search and return a generator that will
 iterate over all the documents matching the query.</p>
 <p>Use <code class="docutils literal notranslate"><span class="pre">params</span></code> method to specify any additional arguments you with to
@@ -363,7 +363,7 @@ pass to the underlying <code class="docutils literal notranslate"><span class="p
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.helpers.search.Search.script_fields">
-<span class="sig-name descname"><span class="pre">script_fields</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/search.html#Search.script_fields"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.search.Search.script_fields" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">script_fields</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/search.html#Search.script_fields"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.search.Search.script_fields" title="Link to this definition"></a></dt>
 <dd><p>Define script fields to be calculated on hits.</p>
 <p>Example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="n">Search</span><span class="p">()</span>
@@ -381,7 +381,7 @@ pass to the underlying <code class="docutils literal notranslate"><span class="p
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>) – </p>
+<dd class="field-odd"><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>)</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a></p>
@@ -391,7 +391,7 @@ pass to the underlying <code class="docutils literal notranslate"><span class="p
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.helpers.search.Search.sort">
-<span class="sig-name descname"><span class="pre">sort</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">keys</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/search.html#Search.sort"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.search.Search.sort" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">sort</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">keys</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/search.html#Search.sort"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.search.Search.sort" title="Link to this definition"></a></dt>
 <dd><p>Add sorting information to the search request. If called without
 arguments it will remove all sort requirements. Otherwise it will
 replace them. Acceptable arguments are:</p>
@@ -413,7 +413,7 @@ replace them. Acceptable arguments are:</p>
 <p>The API returns a copy of the Search object and can thus be chained.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>keys</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>) – </p>
+<dd class="field-odd"><p><strong>keys</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>)</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a></p>
@@ -423,14 +423,14 @@ replace them. Acceptable arguments are:</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.helpers.search.Search.source">
-<span class="sig-name descname"><span class="pre">source</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fields</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/search.html#Search.source"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.search.Search.source" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">source</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fields</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/search.html#Search.source"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.search.Search.source" title="Link to this definition"></a></dt>
 <dd><p>Selectively control how the _source field is returned.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>fields</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a><em> | </em><em>None</em>) – wildcard string, array of wildcards, or dictionary of includes and excludes</p></li>
-<li><p><strong>fields</strong> – </p></li>
-<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>) – </p></li>
+<li><p><strong>fields</strong></p></li>
+<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>)</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
@@ -454,16 +454,16 @@ previous values with the new ones.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.helpers.search.Search.suggest">
-<span class="sig-name descname"><span class="pre">suggest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/search.html#Search.suggest"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.search.Search.suggest" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">suggest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/search.html#Search.suggest"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.search.Search.suggest" title="Link to this definition"></a></dt>
 <dd><p>Add a suggestions request to the search.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>) – name of the suggestion</p></li>
 <li><p><strong>text</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>) – text to suggest on</p></li>
-<li><p><strong>name</strong> – </p></li>
-<li><p><strong>text</strong> – </p></li>
-<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>) – </p></li>
+<li><p><strong>name</strong></p></li>
+<li><p><strong>text</strong></p></li>
+<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>)</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
@@ -479,7 +479,7 @@ previous values with the new ones.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.helpers.search.Search.to_dict">
-<span class="sig-name descname"><span class="pre">to_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">count</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/search.html#Search.to_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.search.Search.to_dict" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">to_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">count</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/search.html#Search.to_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.search.Search.to_dict" title="Link to this definition"></a></dt>
 <dd><p>Serialize the search into the dictionary that will be sent over as the
 request’s body.</p>
 <dl class="field-list simple">
@@ -487,8 +487,8 @@ request’s body.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>count</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – a flag to specify if we are interested in a body for count -
 no aggregations, no pagination bounds etc.</p></li>
-<li><p><strong>count</strong> – </p></li>
-<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>) – </p></li>
+<li><p><strong>count</strong></p></li>
+<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>)</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
@@ -500,12 +500,12 @@ no aggregations, no pagination bounds etc.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.helpers.search.Search.update_from_dict">
-<span class="sig-name descname"><span class="pre">update_from_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/search.html#Search.update_from_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.search.Search.update_from_dict" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">update_from_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/search.html#Search.update_from_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.search.Search.update_from_dict" title="Link to this definition"></a></dt>
 <dd><p>Apply options from a serialized body to the current instance. Modifies
 the object in-place. Used mostly by <code class="docutils literal notranslate"><span class="pre">from_dict</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>d</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>) – </p>
+<dd class="field-odd"><p><strong>d</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>)</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference internal" href="#opensearchpy.helpers.search.Search" title="opensearchpy.helpers.search.Search"><em>Search</em></a></p>

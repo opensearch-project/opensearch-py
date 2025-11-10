@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en">
+<html class="writer-html5" lang="en" data-content_root="../../">
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
@@ -15,9 +15,9 @@
   
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js?v=b3ba4146"></script>
-      <script src="../../_static/doctools.js?v=888ff710"></script>
-      <script src="../../_static/sphinx_highlight.js?v=4825356b"></script>
+      <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="../../_static/copybutton.js?v=f281be69"></script>
     <script src="../../_static/js/theme.js"></script>
@@ -112,10 +112,10 @@
            <div itemprop="articleBody">
              
   <section id="faceted-search">
-<h1>faceted_search<a class="headerlink" href="#faceted-search" title="Permalink to this heading"></a></h1>
+<h1>faceted_search<a class="headerlink" href="#faceted-search" title="Link to this heading"></a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="opensearchpy.helpers.faceted_search.FacetedSearch">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opensearchpy.helpers.faceted_search.</span></span><span class="sig-name descname"><span class="pre">FacetedSearch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sort</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/faceted_search.html#FacetedSearch"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.faceted_search.FacetedSearch" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opensearchpy.helpers.faceted_search.</span></span><span class="sig-name descname"><span class="pre">FacetedSearch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sort</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/faceted_search.html#FacetedSearch"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.faceted_search.FacetedSearch" title="Link to this definition"></a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Abstraction for creating faceted navigation searches that takes care of
 composing the queries, aggregations and filters as needed as well as
@@ -161,21 +161,21 @@ presenting the results in an easy-to-consume fashion:</p>
 <li><p><strong>query</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>) – the text to search for</p></li>
 <li><p><strong>filters</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>) – facet values to filter</p></li>
 <li><p><strong>sort</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>) – sort information to be passed to <code class="xref py py-class docutils literal notranslate"><span class="pre">Search</span></code></p></li>
-<li><p><strong>query</strong> – </p></li>
-<li><p><strong>filters</strong> – </p></li>
-<li><p><strong>sort</strong> – </p></li>
+<li><p><strong>query</strong></p></li>
+<li><p><strong>filters</strong></p></li>
+<li><p><strong>sort</strong></p></li>
 </ul>
 </dd>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.helpers.faceted_search.FacetedSearch.add_filter">
-<span class="sig-name descname"><span class="pre">add_filter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter_values</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/faceted_search.html#FacetedSearch.add_filter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.faceted_search.FacetedSearch.add_filter" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">add_filter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter_values</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/faceted_search.html#FacetedSearch.add_filter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.faceted_search.FacetedSearch.add_filter" title="Link to this definition"></a></dt>
 <dd><p>Add a filter for a facet.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>) – </p></li>
-<li><p><strong>filter_values</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>) – </p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>)</p></li>
+<li><p><strong>filter_values</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>)</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
@@ -186,12 +186,12 @@ presenting the results in an easy-to-consume fashion:</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.helpers.faceted_search.FacetedSearch.aggregate">
-<span class="sig-name descname"><span class="pre">aggregate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">search</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/faceted_search.html#FacetedSearch.aggregate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.faceted_search.FacetedSearch.aggregate" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">aggregate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">search</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/faceted_search.html#FacetedSearch.aggregate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.faceted_search.FacetedSearch.aggregate" title="Link to this definition"></a></dt>
 <dd><p>Add aggregations representing the facets selected, including potential
 filters.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>search</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>) – </p>
+<dd class="field-odd"><p><strong>search</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>)</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a></p>
@@ -201,7 +201,7 @@ filters.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.helpers.faceted_search.FacetedSearch.build_search">
-<span class="sig-name descname"><span class="pre">build_search</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/faceted_search.html#FacetedSearch.build_search"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.faceted_search.FacetedSearch.build_search" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">build_search</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/faceted_search.html#FacetedSearch.build_search"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.faceted_search.FacetedSearch.build_search" title="Link to this definition"></a></dt>
 <dd><p>Construct the <code class="docutils literal notranslate"><span class="pre">Search</span></code> object.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -212,7 +212,7 @@ filters.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.helpers.faceted_search.FacetedSearch.execute">
-<span class="sig-name descname"><span class="pre">execute</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/faceted_search.html#FacetedSearch.execute"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.faceted_search.FacetedSearch.execute" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">execute</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/faceted_search.html#FacetedSearch.execute"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.faceted_search.FacetedSearch.execute" title="Link to this definition"></a></dt>
 <dd><p>Execute the search and return the response.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -223,12 +223,12 @@ filters.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.helpers.faceted_search.FacetedSearch.filter">
-<span class="sig-name descname"><span class="pre">filter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">search</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/faceted_search.html#FacetedSearch.filter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.faceted_search.FacetedSearch.filter" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">filter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">search</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/faceted_search.html#FacetedSearch.filter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.faceted_search.FacetedSearch.filter" title="Link to this definition"></a></dt>
 <dd><p>Add a <code class="docutils literal notranslate"><span class="pre">post_filter</span></code> to the search request narrowing the results based
 on the facet filters.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>search</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>) – </p>
+<dd class="field-odd"><p><strong>search</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>)</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a></p>
@@ -238,11 +238,11 @@ on the facet filters.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.helpers.faceted_search.FacetedSearch.highlight">
-<span class="sig-name descname"><span class="pre">highlight</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">search</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/faceted_search.html#FacetedSearch.highlight"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.faceted_search.FacetedSearch.highlight" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">highlight</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">search</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/faceted_search.html#FacetedSearch.highlight"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.faceted_search.FacetedSearch.highlight" title="Link to this definition"></a></dt>
 <dd><p>Add highlighting for all the fields</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>search</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>) – </p>
+<dd class="field-odd"><p><strong>search</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>)</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a></p>
@@ -252,14 +252,14 @@ on the facet filters.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.helpers.faceted_search.FacetedSearch.query">
-<span class="sig-name descname"><span class="pre">query</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">search</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/faceted_search.html#FacetedSearch.query"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.faceted_search.FacetedSearch.query" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">query</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">search</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/faceted_search.html#FacetedSearch.query"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.faceted_search.FacetedSearch.query" title="Link to this definition"></a></dt>
 <dd><p>Add query part to <code class="docutils literal notranslate"><span class="pre">search</span></code>.</p>
 <p>Override this if you wish to customize the query used.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>search</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>) – </p></li>
-<li><p><strong>query</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>) – </p></li>
+<li><p><strong>search</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>)</p></li>
+<li><p><strong>query</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>)</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
@@ -270,7 +270,7 @@ on the facet filters.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.helpers.faceted_search.FacetedSearch.search">
-<span class="sig-name descname"><span class="pre">search</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/faceted_search.html#FacetedSearch.search"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.faceted_search.FacetedSearch.search" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">search</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/faceted_search.html#FacetedSearch.search"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.faceted_search.FacetedSearch.search" title="Link to this definition"></a></dt>
 <dd><p>Returns the base Search object to which the facets are added.</p>
 <p>You can customize the query by overriding this method and returning a
 modified search object.</p>
@@ -283,11 +283,11 @@ modified search object.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.helpers.faceted_search.FacetedSearch.sort">
-<span class="sig-name descname"><span class="pre">sort</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">search</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/faceted_search.html#FacetedSearch.sort"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.faceted_search.FacetedSearch.sort" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">sort</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">search</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/faceted_search.html#FacetedSearch.sort"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.faceted_search.FacetedSearch.sort" title="Link to this definition"></a></dt>
 <dd><p>Add sorting information to the request.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>search</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>) – </p>
+<dd class="field-odd"><p><strong>search</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>)</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a></p>

@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en">
+<html class="writer-html5" lang="en" data-content_root="../../../">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -14,9 +14,9 @@
   
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js?v=b3ba4146"></script>
-      <script src="../../../_static/doctools.js?v=888ff710"></script>
-      <script src="../../../_static/sphinx_highlight.js?v=4825356b"></script>
+      <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="../../../_static/copybutton.js?v=f281be69"></script>
     <script src="../../../_static/js/theme.js"></script>
@@ -121,8 +121,12 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">SKIP_IN_PATH</span><span class="p">,</span> <span class="n">NamespacedClient</span><span class="p">,</span> <span class="n">_make_path</span><span class="p">,</span> <span class="n">query_params</span>
 
 
-<div class="viewcode-block" id="IngestClient"><a class="viewcode-back" href="../../../api-ref/clients/ingest_client.html#opensearchpy.client.ingest.IngestClient">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">IngestClient</span><span class="p">(</span><span class="n">NamespacedClient</span><span class="p">):</span>
-<div class="viewcode-block" id="IngestClient.get_pipeline"><a class="viewcode-back" href="../../../api-ref/clients/ingest_client.html#opensearchpy.client.ingest.IngestClient.get_pipeline">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+<div class="viewcode-block" id="IngestClient">
+<a class="viewcode-back" href="../../../api-ref/clients/ingest_client.html#opensearchpy.client.ingest.IngestClient">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">IngestClient</span><span class="p">(</span><span class="n">NamespacedClient</span><span class="p">):</span>
+<div class="viewcode-block" id="IngestClient.get_pipeline">
+<a class="viewcode-back" href="../../../api-ref/clients/ingest_client.html#opensearchpy.client.ingest.IngestClient.get_pipeline">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
         <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span>
@@ -167,7 +171,10 @@
             <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="n">_make_path</span><span class="p">(</span><span class="s2">&quot;_ingest&quot;</span><span class="p">,</span> <span class="s2">&quot;pipeline&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="p">),</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="IngestClient.put_pipeline"><a class="viewcode-back" href="../../../api-ref/clients/ingest_client.html#opensearchpy.client.ingest.IngestClient.put_pipeline">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="IngestClient.put_pipeline">
+<a class="viewcode-back" href="../../../api-ref/clients/ingest_client.html#opensearchpy.client.ingest.IngestClient.put_pipeline">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
         <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span>
@@ -222,7 +229,10 @@
             <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="IngestClient.delete_pipeline"><a class="viewcode-back" href="../../../api-ref/clients/ingest_client.html#opensearchpy.client.ingest.IngestClient.delete_pipeline">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="IngestClient.delete_pipeline">
+<a class="viewcode-back" href="../../../api-ref/clients/ingest_client.html#opensearchpy.client.ingest.IngestClient.delete_pipeline">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
         <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span>
@@ -275,7 +285,10 @@
             <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="IngestClient.simulate"><a class="viewcode-back" href="../../../api-ref/clients/ingest_client.html#opensearchpy.client.ingest.IngestClient.simulate">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">,</span> <span class="s2">&quot;verbose&quot;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="IngestClient.simulate">
+<a class="viewcode-back" href="../../../api-ref/clients/ingest_client.html#opensearchpy.client.ingest.IngestClient.simulate">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">,</span> <span class="s2">&quot;verbose&quot;</span><span class="p">)</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">simulate</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
@@ -316,7 +329,10 @@
             <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="IngestClient.processor_grok"><a class="viewcode-back" href="../../../api-ref/clients/ingest_client.html#opensearchpy.client.ingest.IngestClient.processor_grok">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;s&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="IngestClient.processor_grok">
+<a class="viewcode-back" href="../../../api-ref/clients/ingest_client.html#opensearchpy.client.ingest.IngestClient.processor_grok">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;s&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">processor_grok</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
@@ -343,7 +359,9 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
             <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="s2">&quot;/_ingest/processor/grok&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
-        <span class="p">)</span></div></div>
+        <span class="p">)</span></div>
+</div>
+
 </pre></div>
 
            </div>

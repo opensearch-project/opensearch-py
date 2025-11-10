@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en">
+<html class="writer-html5" lang="en" data-content_root="../../../">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -14,9 +14,9 @@
   
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js?v=b3ba4146"></script>
-      <script src="../../../_static/doctools.js?v=888ff710"></script>
-      <script src="../../../_static/sphinx_highlight.js?v=4825356b"></script>
+      <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="../../../_static/copybutton.js?v=f281be69"></script>
     <script src="../../../_static/js/theme.js"></script>
@@ -144,7 +144,9 @@
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;opensearch&quot;</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="AsyncOpenSearch"><a class="viewcode-back" href="../../../api-ref/clients/opensearch_client.html#opensearchpy.AsyncOpenSearch">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">AsyncOpenSearch</span><span class="p">(</span><span class="n">Client</span><span class="p">):</span>
+<div class="viewcode-block" id="AsyncOpenSearch">
+<a class="viewcode-back" href="../../../api-ref/clients/opensearch_client.html#opensearchpy.AsyncOpenSearch">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">AsyncOpenSearch</span><span class="p">(</span><span class="n">Client</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    OpenSearch client. Provides a straightforward mapping from</span>
 <span class="sd">    Python to OpenSearch REST endpoints.</span>
@@ -315,7 +317,9 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">plugins</span> <span class="o">=</span> <span class="n">PluginsClient</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">http</span> <span class="o">=</span> <span class="n">HttpClient</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
-<div class="viewcode-block" id="AsyncOpenSearch.__repr__"><a class="viewcode-back" href="../../../api-ref/clients/opensearch_client.html#opensearchpy.AsyncOpenSearch.__repr__">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<div class="viewcode-block" id="AsyncOpenSearch.__repr__">
+<a class="viewcode-back" href="../../../api-ref/clients/opensearch_client.html#opensearchpy.AsyncOpenSearch.__repr__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="c1"># get a list of all connections</span>
             <span class="n">cons</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">hosts</span>
@@ -327,6 +331,7 @@
             <span class="c1"># probably operating on custom transport and connection_pool, ignore</span>
             <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">()</span></div>
 
+
     <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="fm">__aenter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="p">,</span> <span class="s2">&quot;_async_call&quot;</span><span class="p">):</span>
             <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">_async_call</span><span class="p">()</span>
@@ -335,12 +340,17 @@
     <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="fm">__aexit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">_</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 
-<div class="viewcode-block" id="AsyncOpenSearch.close"><a class="viewcode-back" href="../../../api-ref/clients/opensearch_client.html#opensearchpy.AsyncOpenSearch.close">[docs]</a>    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="AsyncOpenSearch.close">
+<a class="viewcode-back" href="../../../api-ref/clients/opensearch_client.html#opensearchpy.AsyncOpenSearch.close">[docs]</a>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Closes the Transport and all internal connections&quot;&quot;&quot;</span>
         <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
 
+
     <span class="c1"># AUTO-GENERATED-API-DEFINITIONS #</span>
-<div class="viewcode-block" id="AsyncOpenSearch.ping"><a class="viewcode-back" href="../../../api-ref/clients/opensearch_client.html#opensearchpy.AsyncOpenSearch.ping">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
+<div class="viewcode-block" id="AsyncOpenSearch.ping">
+<a class="viewcode-back" href="../../../api-ref/clients/opensearch_client.html#opensearchpy.AsyncOpenSearch.ping">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
     <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">ping</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
@@ -370,7 +380,10 @@
         <span class="k">except</span> <span class="n">TransportError</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">False</span></div>
 
-<div class="viewcode-block" id="AsyncOpenSearch.info"><a class="viewcode-back" href="../../../api-ref/clients/opensearch_client.html#opensearchpy.AsyncOpenSearch.info">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="AsyncOpenSearch.info">
+<a class="viewcode-back" href="../../../api-ref/clients/opensearch_client.html#opensearchpy.AsyncOpenSearch.info">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
     <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">info</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
@@ -397,7 +410,10 @@
             <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="AsyncOpenSearch.create"><a class="viewcode-back" href="../../../api-ref/clients/opensearch_client.html#opensearchpy.AsyncOpenSearch.create">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="AsyncOpenSearch.create">
+<a class="viewcode-back" href="../../../api-ref/clients/opensearch_client.html#opensearchpy.AsyncOpenSearch.create">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
         <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span>
         <span class="s2">&quot;human&quot;</span><span class="p">,</span>
@@ -478,7 +494,10 @@
             <span class="s2">&quot;PUT&quot;</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">body</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="AsyncOpenSearch.index"><a class="viewcode-back" href="../../../api-ref/clients/opensearch_client.html#opensearchpy.AsyncOpenSearch.index">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="AsyncOpenSearch.index">
+<a class="viewcode-back" href="../../../api-ref/clients/opensearch_client.html#opensearchpy.AsyncOpenSearch.index">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
         <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span>
         <span class="s2">&quot;human&quot;</span><span class="p">,</span>
@@ -572,7 +591,10 @@
             <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="AsyncOpenSearch.bulk"><a class="viewcode-back" href="../../../api-ref/clients/opensearch_client.html#opensearchpy.AsyncOpenSearch.bulk">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="AsyncOpenSearch.bulk">
+<a class="viewcode-back" href="../../../api-ref/clients/opensearch_client.html#opensearchpy.AsyncOpenSearch.bulk">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;_source&quot;</span><span class="p">,</span>
         <span class="s2">&quot;_source_excludes&quot;</span><span class="p">,</span>
         <span class="s2">&quot;_source_includes&quot;</span><span class="p">,</span>
@@ -654,7 +676,10 @@
             <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="AsyncOpenSearch.clear_scroll"><a class="viewcode-back" href="../../../api-ref/clients/opensearch_client.html#opensearchpy.AsyncOpenSearch.clear_scroll">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="AsyncOpenSearch.clear_scroll">
+<a class="viewcode-back" href="../../../api-ref/clients/opensearch_client.html#opensearchpy.AsyncOpenSearch.clear_scroll">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
     <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">clear_scroll</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
@@ -694,7 +719,10 @@
             <span class="s2">&quot;DELETE&quot;</span><span class="p">,</span> <span class="s2">&quot;/_search/scroll&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">body</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="AsyncOpenSearch.count"><a class="viewcode-back" href="../../../api-ref/clients/opensearch_client.html#opensearchpy.AsyncOpenSearch.count">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="AsyncOpenSearch.count">
+<a class="viewcode-back" href="../../../api-ref/clients/opensearch_client.html#opensearchpy.AsyncOpenSearch.count">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;allow_no_indices&quot;</span><span class="p">,</span>
         <span class="s2">&quot;analyze_wildcard&quot;</span><span class="p">,</span>
         <span class="s2">&quot;analyzer&quot;</span><span class="p">,</span>
@@ -787,7 +815,10 @@
             <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="AsyncOpenSearch.delete"><a class="viewcode-back" href="../../../api-ref/clients/opensearch_client.html#opensearchpy.AsyncOpenSearch.delete">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="AsyncOpenSearch.delete">
+<a class="viewcode-back" href="../../../api-ref/clients/opensearch_client.html#opensearchpy.AsyncOpenSearch.delete">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
         <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span>
         <span class="s2">&quot;human&quot;</span><span class="p">,</span>
@@ -857,7 +888,10 @@
             <span class="s2">&quot;DELETE&quot;</span><span class="p">,</span> <span class="n">_make_path</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="s2">&quot;_doc&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="p">),</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="AsyncOpenSearch.delete_by_query"><a class="viewcode-back" href="../../../api-ref/clients/opensearch_client.html#opensearchpy.AsyncOpenSearch.delete_by_query">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="AsyncOpenSearch.delete_by_query">
+<a class="viewcode-back" href="../../../api-ref/clients/opensearch_client.html#opensearchpy.AsyncOpenSearch.delete_by_query">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;_source&quot;</span><span class="p">,</span>
         <span class="s2">&quot;_source_excludes&quot;</span><span class="p">,</span>
         <span class="s2">&quot;_source_includes&quot;</span><span class="p">,</span>
@@ -1017,7 +1051,10 @@
             <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="AsyncOpenSearch.delete_by_query_rethrottle"><a class="viewcode-back" href="../../../api-ref/clients/opensearch_client.html#opensearchpy.AsyncOpenSearch.delete_by_query_rethrottle">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="AsyncOpenSearch.delete_by_query_rethrottle">
+<a class="viewcode-back" href="../../../api-ref/clients/opensearch_client.html#opensearchpy.AsyncOpenSearch.delete_by_query_rethrottle">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;requests_per_second&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span>
     <span class="p">)</span>
     <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">delete_by_query_rethrottle</span><span class="p">(</span>
@@ -1057,7 +1094,10 @@
             <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="AsyncOpenSearch.delete_script"><a class="viewcode-back" href="../../../api-ref/clients/opensearch_client.html#opensearchpy.AsyncOpenSearch.delete_script">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="AsyncOpenSearch.delete_script">
+<a class="viewcode-back" href="../../../api-ref/clients/opensearch_client.html#opensearchpy.AsyncOpenSearch.delete_script">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
         <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span>
@@ -1107,7 +1147,10 @@
             <span class="s2">&quot;DELETE&quot;</span><span class="p">,</span> <span class="n">_make_path</span><span class="p">(</span><span class="s2">&quot;_scripts&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="p">),</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="AsyncOpenSearch.exists"><a class="viewcode-back" href="../../../api-ref/clients/opensearch_client.html#opensearchpy.AsyncOpenSearch.exists">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="AsyncOpenSearch.exists">
+<a class="viewcode-back" href="../../../api-ref/clients/opensearch_client.html#opensearchpy.AsyncOpenSearch.exists">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;_source&quot;</span><span class="p">,</span>
         <span class="s2">&quot;_source_excludes&quot;</span><span class="p">,</span>
         <span class="s2">&quot;_source_includes&quot;</span><span class="p">,</span>
@@ -1183,7 +1226,10 @@
             <span class="s2">&quot;HEAD&quot;</span><span class="p">,</span> <span class="n">_make_path</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="s2">&quot;_doc&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="p">),</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="AsyncOpenSearch.exists_source"><a class="viewcode-back" href="../../../api-ref/clients/opensearch_client.html#opensearchpy.AsyncOpenSearch.exists_source">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="AsyncOpenSearch.exists_source">
+<a class="viewcode-back" href="../../../api-ref/clients/opensearch_client.html#opensearchpy.AsyncOpenSearch.exists_source">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;_source&quot;</span><span class="p">,</span>
         <span class="s2">&quot;_source_excludes&quot;</span><span class="p">,</span>
         <span class="s2">&quot;_source_includes&quot;</span><span class="p">,</span>
@@ -1256,7 +1302,10 @@
             <span class="s2">&quot;HEAD&quot;</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="AsyncOpenSearch.explain"><a class="viewcode-back" href="../../../api-ref/clients/opensearch_client.html#opensearchpy.AsyncOpenSearch.explain">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="AsyncOpenSearch.explain">
+<a class="viewcode-back" href="../../../api-ref/clients/opensearch_client.html#opensearchpy.AsyncOpenSearch.explain">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;_source&quot;</span><span class="p">,</span>
         <span class="s2">&quot;_source_excludes&quot;</span><span class="p">,</span>
         <span class="s2">&quot;_source_includes&quot;</span><span class="p">,</span>
@@ -1339,7 +1388,10 @@
             <span class="s2">&quot;POST&quot;</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">body</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="AsyncOpenSearch.field_caps"><a class="viewcode-back" href="../../../api-ref/clients/opensearch_client.html#opensearchpy.AsyncOpenSearch.field_caps">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="AsyncOpenSearch.field_caps">
+<a class="viewcode-back" href="../../../api-ref/clients/opensearch_client.html#opensearchpy.AsyncOpenSearch.field_caps">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;allow_no_indices&quot;</span><span class="p">,</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
         <span class="s2">&quot;expand_wildcards&quot;</span><span class="p">,</span>
@@ -1405,7 +1457,10 @@
             <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="AsyncOpenSearch.get"><a class="viewcode-back" href="../../../api-ref/clients/opensearch_client.html#opensearchpy.AsyncOpenSearch.get">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="AsyncOpenSearch.get">
+<a class="viewcode-back" href="../../../api-ref/clients/opensearch_client.html#opensearchpy.AsyncOpenSearch.get">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;_source&quot;</span><span class="p">,</span>
         <span class="s2">&quot;_source_excludes&quot;</span><span class="p">,</span>
         <span class="s2">&quot;_source_includes&quot;</span><span class="p">,</span>
@@ -1480,7 +1535,10 @@
             <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="n">_make_path</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="s2">&quot;_doc&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="p">),</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="AsyncOpenSearch.get_script"><a class="viewcode-back" href="../../../api-ref/clients/opensearch_client.html#opensearchpy.AsyncOpenSearch.get_script">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="AsyncOpenSearch.get_script">
+<a class="viewcode-back" href="../../../api-ref/clients/opensearch_client.html#opensearchpy.AsyncOpenSearch.get_script">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
         <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span>
@@ -1525,7 +1583,10 @@
             <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="n">_make_path</span><span class="p">(</span><span class="s2">&quot;_scripts&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="p">),</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="AsyncOpenSearch.get_source"><a class="viewcode-back" href="../../../api-ref/clients/opensearch_client.html#opensearchpy.AsyncOpenSearch.get_source">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="AsyncOpenSearch.get_source">
+<a class="viewcode-back" href="../../../api-ref/clients/opensearch_client.html#opensearchpy.AsyncOpenSearch.get_source">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;_source&quot;</span><span class="p">,</span>
         <span class="s2">&quot;_source_excludes&quot;</span><span class="p">,</span>
         <span class="s2">&quot;_source_includes&quot;</span><span class="p">,</span>
@@ -1597,7 +1658,10 @@
             <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="AsyncOpenSearch.mget"><a class="viewcode-back" href="../../../api-ref/clients/opensearch_client.html#opensearchpy.AsyncOpenSearch.mget">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="AsyncOpenSearch.mget">
+<a class="viewcode-back" href="../../../api-ref/clients/opensearch_client.html#opensearchpy.AsyncOpenSearch.mget">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;_source&quot;</span><span class="p">,</span>
         <span class="s2">&quot;_source_excludes&quot;</span><span class="p">,</span>
         <span class="s2">&quot;_source_includes&quot;</span><span class="p">,</span>
@@ -1673,7 +1737,10 @@
             <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="AsyncOpenSearch.msearch"><a class="viewcode-back" href="../../../api-ref/clients/opensearch_client.html#opensearchpy.AsyncOpenSearch.msearch">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="AsyncOpenSearch.msearch">
+<a class="viewcode-back" href="../../../api-ref/clients/opensearch_client.html#opensearchpy.AsyncOpenSearch.msearch">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;ccs_minimize_roundtrips&quot;</span><span class="p">,</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
         <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span>
@@ -1750,7 +1817,10 @@
             <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="AsyncOpenSearch.msearch_template"><a class="viewcode-back" href="../../../api-ref/clients/opensearch_client.html#opensearchpy.AsyncOpenSearch.msearch_template">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="AsyncOpenSearch.msearch_template">
+<a class="viewcode-back" href="../../../api-ref/clients/opensearch_client.html#opensearchpy.AsyncOpenSearch.msearch_template">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;ccs_minimize_roundtrips&quot;</span><span class="p">,</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
         <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span>
@@ -1815,7 +1885,10 @@
             <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="AsyncOpenSearch.mtermvectors"><a class="viewcode-back" href="../../../api-ref/clients/opensearch_client.html#opensearchpy.AsyncOpenSearch.mtermvectors">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="AsyncOpenSearch.mtermvectors">
+<a class="viewcode-back" href="../../../api-ref/clients/opensearch_client.html#opensearchpy.AsyncOpenSearch.mtermvectors">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
         <span class="s2">&quot;field_statistics&quot;</span><span class="p">,</span>
         <span class="s2">&quot;fields&quot;</span><span class="p">,</span>
@@ -1901,7 +1974,10 @@
             <span class="s2">&quot;POST&quot;</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">body</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="AsyncOpenSearch.put_script"><a class="viewcode-back" href="../../../api-ref/clients/opensearch_client.html#opensearchpy.AsyncOpenSearch.put_script">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="AsyncOpenSearch.put_script">
+<a class="viewcode-back" href="../../../api-ref/clients/opensearch_client.html#opensearchpy.AsyncOpenSearch.put_script">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
         <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span>
@@ -1963,7 +2039,10 @@
             <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="AsyncOpenSearch.rank_eval"><a class="viewcode-back" href="../../../api-ref/clients/opensearch_client.html#opensearchpy.AsyncOpenSearch.rank_eval">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="AsyncOpenSearch.rank_eval">
+<a class="viewcode-back" href="../../../api-ref/clients/opensearch_client.html#opensearchpy.AsyncOpenSearch.rank_eval">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;allow_no_indices&quot;</span><span class="p">,</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
         <span class="s2">&quot;expand_wildcards&quot;</span><span class="p">,</span>
@@ -2029,7 +2108,10 @@
             <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="AsyncOpenSearch.reindex"><a class="viewcode-back" href="../../../api-ref/clients/opensearch_client.html#opensearchpy.AsyncOpenSearch.reindex">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="AsyncOpenSearch.reindex">
+<a class="viewcode-back" href="../../../api-ref/clients/opensearch_client.html#opensearchpy.AsyncOpenSearch.reindex">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
         <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span>
         <span class="s2">&quot;human&quot;</span><span class="p">,</span>
@@ -2098,7 +2180,10 @@
             <span class="s2">&quot;POST&quot;</span><span class="p">,</span> <span class="s2">&quot;/_reindex&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">body</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="AsyncOpenSearch.reindex_rethrottle"><a class="viewcode-back" href="../../../api-ref/clients/opensearch_client.html#opensearchpy.AsyncOpenSearch.reindex_rethrottle">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="AsyncOpenSearch.reindex_rethrottle">
+<a class="viewcode-back" href="../../../api-ref/clients/opensearch_client.html#opensearchpy.AsyncOpenSearch.reindex_rethrottle">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;requests_per_second&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span>
     <span class="p">)</span>
     <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">reindex_rethrottle</span><span class="p">(</span>
@@ -2137,7 +2222,10 @@
             <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="AsyncOpenSearch.render_search_template"><a class="viewcode-back" href="../../../api-ref/clients/opensearch_client.html#opensearchpy.AsyncOpenSearch.render_search_template">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="AsyncOpenSearch.render_search_template">
+<a class="viewcode-back" href="../../../api-ref/clients/opensearch_client.html#opensearchpy.AsyncOpenSearch.render_search_template">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
     <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">render_search_template</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
@@ -2173,7 +2261,10 @@
             <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="AsyncOpenSearch.scripts_painless_execute"><a class="viewcode-back" href="../../../api-ref/clients/opensearch_client.html#opensearchpy.AsyncOpenSearch.scripts_painless_execute">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="AsyncOpenSearch.scripts_painless_execute">
+<a class="viewcode-back" href="../../../api-ref/clients/opensearch_client.html#opensearchpy.AsyncOpenSearch.scripts_painless_execute">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
     <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">scripts_painless_execute</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
@@ -2206,7 +2297,10 @@
             <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="AsyncOpenSearch.scroll"><a class="viewcode-back" href="../../../api-ref/clients/opensearch_client.html#opensearchpy.AsyncOpenSearch.scroll">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="AsyncOpenSearch.scroll">
+<a class="viewcode-back" href="../../../api-ref/clients/opensearch_client.html#opensearchpy.AsyncOpenSearch.scroll">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
         <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span>
         <span class="s2">&quot;human&quot;</span><span class="p">,</span>
@@ -2256,7 +2350,10 @@
             <span class="s2">&quot;POST&quot;</span><span class="p">,</span> <span class="s2">&quot;/_search/scroll&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">body</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="AsyncOpenSearch.search"><a class="viewcode-back" href="../../../api-ref/clients/opensearch_client.html#opensearchpy.AsyncOpenSearch.search">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="AsyncOpenSearch.search">
+<a class="viewcode-back" href="../../../api-ref/clients/opensearch_client.html#opensearchpy.AsyncOpenSearch.search">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;_source&quot;</span><span class="p">,</span>
         <span class="s2">&quot;_source_excludes&quot;</span><span class="p">,</span>
         <span class="s2">&quot;_source_includes&quot;</span><span class="p">,</span>
@@ -2531,7 +2628,10 @@
             <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="AsyncOpenSearch.search_shards"><a class="viewcode-back" href="../../../api-ref/clients/opensearch_client.html#opensearchpy.AsyncOpenSearch.search_shards">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="AsyncOpenSearch.search_shards">
+<a class="viewcode-back" href="../../../api-ref/clients/opensearch_client.html#opensearchpy.AsyncOpenSearch.search_shards">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;allow_no_indices&quot;</span><span class="p">,</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
         <span class="s2">&quot;expand_wildcards&quot;</span><span class="p">,</span>
@@ -2598,7 +2698,10 @@
             <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="AsyncOpenSearch.search_template"><a class="viewcode-back" href="../../../api-ref/clients/opensearch_client.html#opensearchpy.AsyncOpenSearch.search_template">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="AsyncOpenSearch.search_template">
+<a class="viewcode-back" href="../../../api-ref/clients/opensearch_client.html#opensearchpy.AsyncOpenSearch.search_template">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;allow_no_indices&quot;</span><span class="p">,</span>
         <span class="s2">&quot;ccs_minimize_roundtrips&quot;</span><span class="p">,</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
@@ -2694,7 +2797,10 @@
             <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="AsyncOpenSearch.termvectors"><a class="viewcode-back" href="../../../api-ref/clients/opensearch_client.html#opensearchpy.AsyncOpenSearch.termvectors">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="AsyncOpenSearch.termvectors">
+<a class="viewcode-back" href="../../../api-ref/clients/opensearch_client.html#opensearchpy.AsyncOpenSearch.termvectors">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
         <span class="s2">&quot;field_statistics&quot;</span><span class="p">,</span>
         <span class="s2">&quot;fields&quot;</span><span class="p">,</span>
@@ -2781,7 +2887,10 @@
             <span class="s2">&quot;POST&quot;</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">body</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="AsyncOpenSearch.update"><a class="viewcode-back" href="../../../api-ref/clients/opensearch_client.html#opensearchpy.AsyncOpenSearch.update">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="AsyncOpenSearch.update">
+<a class="viewcode-back" href="../../../api-ref/clients/opensearch_client.html#opensearchpy.AsyncOpenSearch.update">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;_source&quot;</span><span class="p">,</span>
         <span class="s2">&quot;_source_excludes&quot;</span><span class="p">,</span>
         <span class="s2">&quot;_source_includes&quot;</span><span class="p">,</span>
@@ -2869,7 +2978,10 @@
             <span class="s2">&quot;POST&quot;</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">body</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="AsyncOpenSearch.update_by_query"><a class="viewcode-back" href="../../../api-ref/clients/opensearch_client.html#opensearchpy.AsyncOpenSearch.update_by_query">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="AsyncOpenSearch.update_by_query">
+<a class="viewcode-back" href="../../../api-ref/clients/opensearch_client.html#opensearchpy.AsyncOpenSearch.update_by_query">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;_source&quot;</span><span class="p">,</span>
         <span class="s2">&quot;_source_excludes&quot;</span><span class="p">,</span>
         <span class="s2">&quot;_source_includes&quot;</span><span class="p">,</span>
@@ -3034,7 +3146,10 @@
             <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="AsyncOpenSearch.update_by_query_rethrottle"><a class="viewcode-back" href="../../../api-ref/clients/opensearch_client.html#opensearchpy.AsyncOpenSearch.update_by_query_rethrottle">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="AsyncOpenSearch.update_by_query_rethrottle">
+<a class="viewcode-back" href="../../../api-ref/clients/opensearch_client.html#opensearchpy.AsyncOpenSearch.update_by_query_rethrottle">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;requests_per_second&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span>
     <span class="p">)</span>
     <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">update_by_query_rethrottle</span><span class="p">(</span>
@@ -3074,7 +3189,10 @@
             <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="AsyncOpenSearch.get_script_context"><a class="viewcode-back" href="../../../api-ref/clients/opensearch_client.html#opensearchpy.AsyncOpenSearch.get_script_context">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="AsyncOpenSearch.get_script_context">
+<a class="viewcode-back" href="../../../api-ref/clients/opensearch_client.html#opensearchpy.AsyncOpenSearch.get_script_context">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
     <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_script_context</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
@@ -3101,7 +3219,10 @@
             <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="s2">&quot;/_script_context&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="AsyncOpenSearch.get_script_languages"><a class="viewcode-back" href="../../../api-ref/clients/opensearch_client.html#opensearchpy.AsyncOpenSearch.get_script_languages">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="AsyncOpenSearch.get_script_languages">
+<a class="viewcode-back" href="../../../api-ref/clients/opensearch_client.html#opensearchpy.AsyncOpenSearch.get_script_languages">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
     <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_script_languages</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
@@ -3128,7 +3249,10 @@
             <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="s2">&quot;/_script_language&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="AsyncOpenSearch.create_pit"><a class="viewcode-back" href="../../../api-ref/clients/opensearch_client.html#opensearchpy.AsyncOpenSearch.create_pit">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="AsyncOpenSearch.create_pit">
+<a class="viewcode-back" href="../../../api-ref/clients/opensearch_client.html#opensearchpy.AsyncOpenSearch.create_pit">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;allow_partial_pit_creation&quot;</span><span class="p">,</span>
         <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
         <span class="s2">&quot;expand_wildcards&quot;</span><span class="p">,</span>
@@ -3184,7 +3308,10 @@
             <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="AsyncOpenSearch.delete_all_pits"><a class="viewcode-back" href="../../../api-ref/clients/opensearch_client.html#opensearchpy.AsyncOpenSearch.delete_all_pits">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="AsyncOpenSearch.delete_all_pits">
+<a class="viewcode-back" href="../../../api-ref/clients/opensearch_client.html#opensearchpy.AsyncOpenSearch.delete_all_pits">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
     <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">delete_all_pits</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
@@ -3211,7 +3338,10 @@
             <span class="s2">&quot;DELETE&quot;</span><span class="p">,</span> <span class="s2">&quot;/_search/point_in_time/_all&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="AsyncOpenSearch.delete_pit"><a class="viewcode-back" href="../../../api-ref/clients/opensearch_client.html#opensearchpy.AsyncOpenSearch.delete_pit">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="AsyncOpenSearch.delete_pit">
+<a class="viewcode-back" href="../../../api-ref/clients/opensearch_client.html#opensearchpy.AsyncOpenSearch.delete_pit">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
     <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">delete_pit</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
@@ -3244,7 +3374,10 @@
             <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="AsyncOpenSearch.get_all_pits"><a class="viewcode-back" href="../../../api-ref/clients/opensearch_client.html#opensearchpy.AsyncOpenSearch.get_all_pits">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="AsyncOpenSearch.get_all_pits">
+<a class="viewcode-back" href="../../../api-ref/clients/opensearch_client.html#opensearchpy.AsyncOpenSearch.get_all_pits">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
     <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_all_pits</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
@@ -3271,7 +3404,10 @@
             <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="s2">&quot;/_search/point_in_time/_all&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="AsyncOpenSearch.bulk_stream"><a class="viewcode-back" href="../../../api-ref/clients/opensearch_client.html#opensearchpy.AsyncOpenSearch.bulk_stream">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+
+<div class="viewcode-block" id="AsyncOpenSearch.bulk_stream">
+<a class="viewcode-back" href="../../../api-ref/clients/opensearch_client.html#opensearchpy.AsyncOpenSearch.bulk_stream">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;_source&quot;</span><span class="p">,</span>
         <span class="s2">&quot;_source_excludes&quot;</span><span class="p">,</span>
         <span class="s2">&quot;_source_includes&quot;</span><span class="p">,</span>
@@ -3359,7 +3495,9 @@
             <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span>
             <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
             <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
-        <span class="p">)</span></div></div>
+        <span class="p">)</span></div>
+</div>
+
 </pre></div>
 
            </div>
