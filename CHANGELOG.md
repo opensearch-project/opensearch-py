@@ -12,6 +12,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ### Changed
 - Rename `DenseVector` field type to `KnnVector` ([925](https://github.com/opensearch-project/opensearch-py/pull/925))
 ### Deprecated
+- Deprecate python 3.8 and 3.9 support which are end of life. ([966](https://github.com/opensearch-project/opensearch-py/pull/966)) 
 ### Removed
 ### Fixed
 - Moved client tests to dedicated files to ensure they are run ([944](https://github.com/opensearch-project/opensearch-py/pull/944))
@@ -20,6 +21,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ### Security
 ### Dependencies
 - Bumps `aiohttp` from >=3.9.4,<4 to >=3.10.11,<4 ([#920](https://github.com/opensearch-project/opensearch-py/pull/920))
+- Bumps `aiohttp` from >=3.10.11 to >=3.12.14 ([#966](https://github.com/opensearch-project/opensearch-py/pull/966))
 - Bump `pytest-asyncio` from <=0.25.1 to <=1.2.0 ([#936](https://github.com/opensearch-project/opensearch-py/pull/936), [#950](https://github.com/opensearch-project/opensearch-py/pull/950))
 - Bumps `lycheeverse/lychee-action` from 1.9.3 to 2.0.2 ([#946](https://github.com/opensearch-project/opensearch-py/pull/946))
 - Bump `actions/download-artifact` from 4 to 6 ([#957](https://github.com/opensearch-project/opensearch-py/pull/957), [#968](https://github.com/opensearch-project/opensearch-py/pull/968))
@@ -31,6 +33,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - Bump `actions/checkout` from 4 to 5 ([#967](https://github.com/opensearch-project/opensearch-py/pull/967))
 - Bump `VachaShah/backport` from 1.1.4 to 2.2.0 ([#969](https://github.com/opensearch-project/opensearch-py/pull/969))
 - Bump `actions/github-script` from 7 to 8 ([#973](https://github.com/opensearch-project/opensearch-py/pull/973))
+- Bump `actions/upload-artifact` from 4 to 5 ([#972](https://github.com/opensearch-project/opensearch-py/pull/972))
 
 ## [3.0.0]
 ### Added

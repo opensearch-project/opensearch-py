@@ -102,6 +102,8 @@ def opensearch_version(client: opensearchpy.client.OpenSearch) -> Any:
     return _get_version(client.info()["version"]["number"])
 
 
+# pylint: disable=invalid-name
+OPENSEARCH_VERSION = None
 if "OPENSEARCH_VERSION" in os.environ:
     OPENSEARCH_VERSION = _get_version(os.environ["OPENSEARCH_VERSION"])
 else:

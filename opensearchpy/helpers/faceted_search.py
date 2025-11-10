@@ -224,7 +224,7 @@ class DateHistogramFacet(Facet):
             if bucket["key"] is None:
                 bucket["key"] = 0
             # Preserve milliseconds in the datetime
-            return datetime.utcfromtimestamp(int(bucket["key"]) / 1000.0)  # type: ignore
+            return datetime.utcfromtimestamp(int(bucket["key"]) / 1000.0)
         else:
             return bucket["key"]
 

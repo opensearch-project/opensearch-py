@@ -97,7 +97,7 @@ SKIP_TESTS = {
     "OpenSearch-main/rest-api-spec/src/main/resources/rest-api-spec/test/wlm_stats/10_basic",
 }
 
-
+# pylint: disable=invalid-name
 OPENSEARCH_VERSION = None
 RUN_ASYNC_REST_API_TESTS = (
     os.environ.get("PYTHON_CONNECTION_CLASS") == "RequestsHttpConnection"
@@ -262,8 +262,6 @@ class YamlRunner:
         self.last_response = exception.info
 
     def run_skip(self, skip: Any) -> Any:
-        global IMPLEMENTED_FEATURES
-
         if "features" in skip:
             features = skip["features"]
             if not isinstance(features, (tuple, list)):

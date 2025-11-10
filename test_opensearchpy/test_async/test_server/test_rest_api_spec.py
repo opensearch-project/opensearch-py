@@ -50,6 +50,7 @@ from ...test_server.test_rest_api_spec import (
 
 pytestmark: MarkDecorator = pytest.mark.asyncio
 
+# pylint: disable=invalid-name
 OPENSEARCH_VERSION = None
 
 
