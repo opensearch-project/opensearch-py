@@ -33,6 +33,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - Bump `actions/checkout` from 4 to 5 ([#967](https://github.com/opensearch-project/opensearch-py/pull/967))
 - Bump `VachaShah/backport` from 1.1.4 to 2.2.0 ([#969](https://github.com/opensearch-project/opensearch-py/pull/969))
 - Bump `actions/upload-artifact` from 4 to 5 ([#972](https://github.com/opensearch-project/opensearch-py/pull/972))
+- Bump `actions/setup-java` from 4 to 5 ([#974](https://github.com/opensearch-project/opensearch-py/pull/974))
 
 ## [3.0.0]
 ### Added
