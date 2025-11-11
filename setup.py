@@ -62,7 +62,7 @@ install_requires = [
     "Events",
     # License: Apache 2.0
     # gRPC transport client libraries
-    "opensearch-protobufs==0.19.0"
+    "opensearch-protobufs==0.19.0",
 ]
 tests_require = [
     "requests>=2.0.0, <3.0.0",
