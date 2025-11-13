@@ -3,6 +3,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 ## [Unreleased]
 ### Added
+- Add dependency on opensearch-protobufs to provide client libraries for gRPC transport ([#977](https://github.com/opensearch-project/opensearch-py/pull/977))
 ### Updated APIs
 - Updated opensearch-py APIs to reflect [opensearch-api-specification@eaf4bf8](https://github.com/opensearch-project/opensearch-api-specification/commit/eaf4bf830fac71c6800c3fb2b6293de0641f1ca7)
 - Updated opensearch-py APIs to reflect [opensearch-api-specification@3be80d7](https://github.com/opensearch-project/opensearch-api-specification/commit/3be80d700cccc60093ad6265a9582572c0b1e9f4)
