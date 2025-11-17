@@ -3,6 +3,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 ## [Unreleased]
 ### Added
+- Add dependency on opensearch-protobufs to provide client libraries for gRPC transport ([#977](https://github.com/opensearch-project/opensearch-py/pull/977))
 ### Updated APIs
 - Updated opensearch-py APIs to reflect [opensearch-api-specification@eaf4bf8](https://github.com/opensearch-project/opensearch-api-specification/commit/eaf4bf830fac71c6800c3fb2b6293de0641f1ca7)
 - Updated opensearch-py APIs to reflect [opensearch-api-specification@3be80d7](https://github.com/opensearch-project/opensearch-api-specification/commit/3be80d700cccc60093ad6265a9582572c0b1e9f4)
@@ -41,7 +42,6 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - Added option to pass custom headers to 'AWSV4SignerAsyncAuth' ([863](https://github.com/opensearch-project/opensearch-py/pull/863))
 - Added sync and async sample that uses `search_after` parameter ([859](https://github.com/opensearch-project/opensearch-py/pull/859))
 - Enforced mandatory keyword-only arguments for calling auto-generated OpenSearch-py APIs ([#907](https://github.com/opensearch-project/opensearch-py/pull/907))
-- Add dependency on opensearch-protobufs to provide client libraries for gRPC transport ([#977](https://github.com/opensearch-project/opensearch-py/pull/977))
 ### Updated APIs
 - Updated opensearch-py APIs to reflect [opensearch-api-specification@d4eab1a](https://github.com/opensearch-project/opensearch-api-specification/commit/d4eab1a2e59db2b28e58a83df29bd72fc99c71b4)
 ### Changed
