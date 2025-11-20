@@ -5,6 +5,16 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ### Added
 - Add dependency on opensearch-protobufs to provide client libraries for gRPC transport ([#977](https://github.com/opensearch-project/opensearch-py/pull/977))
 ### Updated APIs
+### Changed
+### Deprecated
+### Removed
+### Fixed
+### Security
+### Dependencies
+
+## [3.1.0]
+### Added
+### Updated APIs
 - Updated opensearch-py APIs to reflect [opensearch-api-specification@eaf4bf8](https://github.com/opensearch-project/opensearch-api-specification/commit/eaf4bf830fac71c6800c3fb2b6293de0641f1ca7)
 - Updated opensearch-py APIs to reflect [opensearch-api-specification@3be80d7](https://github.com/opensearch-project/opensearch-api-specification/commit/3be80d700cccc60093ad6265a9582572c0b1e9f4)
 - Updated opensearch-py APIs to reflect [opensearch-api-specification@89c586c](https://github.com/opensearch-project/opensearch-api-specification/commit/89c586cfe65584f789e8fccc5f6c416cee1e8b3b)
@@ -305,7 +315,8 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - Fixed link checker failing due to relative link ([#760](https://github.com/opensearch-project/opensearch-py/pull/760))
 ### Security
 
-[Unreleased]: https://github.com/opensearch-project/opensearch-py/compare/v3.0.0...HEAD
+[Unreleased]: https://github.com/opensearch-project/opensearch-py/compare/v3.1.0...HEAD
+[3.1.0]: https://github.com/opensearch-project/opensearch-py/compare/v3.0.0...v3.1.0
 [3.0.0]: https://github.com/opensearch-project/opensearch-py/compare/v2.8.0...v3.0.0
 [2.8.0]: https://github.com/opensearch-project/opensearch-py/compare/v2.7.1...v2.8.0
 [2.7.1]: https://github.com/opensearch-project/opensearch-py/compare/v2.7.0...v2.7.1
