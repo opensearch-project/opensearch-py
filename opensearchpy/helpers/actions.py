@@ -502,7 +502,7 @@ def parallel_bulk(
             yield from result
 
     finally:
-        pool.close()
+        pool.terminate()
         pool.join()
 
 
