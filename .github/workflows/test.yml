@@ -35,7 +35,7 @@ jobs:
         run: |
           python -m nox -rs test-${{ matrix.entry.python-version }}
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v4
+        uses: codecov/codecov-action@v5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: ./junit/opensearch-py-codecov.xml
