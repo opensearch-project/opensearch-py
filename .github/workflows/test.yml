@@ -20,7 +20,7 @@ jobs:
     runs-on: ${{ matrix.entry.os }}
     steps:
       - name: Checkout Source Code
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
       - name: Set Up Python - ${{ matrix.entry.python-version }}
         uses: actions/setup-python@v6
         with:
