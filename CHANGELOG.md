@@ -9,6 +9,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ### Deprecated
 ### Removed
 ### Fixed
+- Fixed the `linkchecker` CI step ([#987](https://github.com/opensearch-project/opensearch-py/pull/987))
 ### Security
 ### Dependencies
 - Bump `actions/checkout` from 5 to 6 ([#986](https://github.com/opensearch-project/opensearch-py/pull/986))
