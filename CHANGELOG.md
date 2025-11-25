@@ -30,6 +30,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ### Fixed
 - Moved client tests to dedicated files to ensure they are run ([944](https://github.com/opensearch-project/opensearch-py/pull/944))
 - Fix Async request signer ([932](https://github.com/opensearch-project/opensearch-py/pull/932))
+- Fix memory leak in parallel_bulk ([981](https://github.com/opensearch-project/opensearch-py/pull/981))
 
 ### Security
 ### Dependencies
