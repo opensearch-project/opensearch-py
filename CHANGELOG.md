@@ -12,6 +12,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - Fixed the `linkchecker` CI step ([#987](https://github.com/opensearch-project/opensearch-py/pull/987))
 ### Security
 ### Dependencies
+- Bump `pytest-asyncio` from <=1.2.0 to <=1.3.0 ([#984](https://github.com/opensearch-project/opensearch-py/pull/984))
 - Bump `actions/checkout` from 5 to 6 ([#986](https://github.com/opensearch-project/opensearch-py/pull/986))
 - Bump `codecov/codecov-action` from 4 to 5 ([#985](https://github.com/opensearch-project/opensearch-py/pull/985))
 
