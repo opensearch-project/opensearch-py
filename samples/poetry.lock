@@ -544,7 +544,7 @@ urllib3 = [
 async = ["aiohttp (>=3.9.4,<4)"]
 develop = ["black (>=24.3.0)", "botocore", "coverage (<8.0.0)", "jinja2", "myst_parser", "pytest (>=3.0.0)", "pytest-cov", "pytest-mock (<4.0.0)", "pytz", "pyyaml", "requests (>=2.0.0,<3.0.0)", "sphinx", "sphinx_copybutton", "sphinx_rtd_theme"]
 docs = ["aiohttp (>=3.9.4,<4)", "myst_parser", "sphinx", "sphinx_copybutton", "sphinx_rtd_theme"]
-kerberos = ["requests_kerberos"]
+kerberos = ["requests_gssapi"]
 
 [package.source]
 type = "directory"
