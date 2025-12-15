@@ -15,6 +15,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - Bump `pytest-asyncio` from <=1.2.0 to <=1.3.0 ([#984](https://github.com/opensearch-project/opensearch-py/pull/984))
 - Bump `actions/checkout` from 5 to 6 ([#986](https://github.com/opensearch-project/opensearch-py/pull/986))
 - Bump `codecov/codecov-action` from 4 to 5 ([#985](https://github.com/opensearch-project/opensearch-py/pull/985))
+- Bump `peter-evans/create-pull-request` from 7 to 8 ([#990](https://github.com/opensearch-project/opensearch-py/pull/990))
 
 ## [3.1.0]
 ### Added
