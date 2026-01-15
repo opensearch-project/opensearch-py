@@ -566,7 +566,7 @@ def test_script_score() -> None:
     assert q.to_dict() == d
 
 
-@pytest.mark.parametrize(  # type: ignore[misc]
+@pytest.mark.parametrize(  # type: ignore[untyped-decorator]
     "minimum_should_match",
     [1, -1, "1", "-1", "50%", "-50%", "1<50%"],
 )

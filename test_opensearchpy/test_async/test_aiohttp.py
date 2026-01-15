@@ -40,7 +40,7 @@ class TestAIOHttp:
         assert client.transport.connection_class == AsyncHttpConnection
         assert client.transport.pool_maxsize == 42
 
-    @pytest.mark.parametrize(  # type: ignore[misc]
+    @pytest.mark.parametrize(  # type: ignore[untyped-decorator]
         "connection_class", [AIOHttpConnection, AsyncHttpConnection]
     )
     async def test_default_limit(self, connection_class: Type[AsyncConnection]) -> None:
@@ -57,7 +57,7 @@ class TestAIOHttp:
             == 10
         )
 
-    @pytest.mark.parametrize(  # type: ignore[misc]
+    @pytest.mark.parametrize(  # type: ignore[untyped-decorator]
         "connection_class", [AIOHttpConnection, AsyncHttpConnection]
     )
     async def test_custom_limit(self, connection_class: Type[AsyncConnection]) -> None:
