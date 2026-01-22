@@ -150,13 +150,14 @@ Note that some of the parameters, such as `mutual_authentication` might depend o
 
 ```python
 from opensearchpy import OpenSearch, RequestsHttpConnection
-from requests_kerberos import HTTPKerberosAuth, OPTIONAL
+from requests_gssapi import HTTPSPNEGOAuth, OPTIONAL
 
 client = OpenSearch(
-    ['htps://...'],
+    hosts=['https://...'],
     use_ssl=True,
     verify_certs=True,
-    http_auth=HTTPKerberosAuth(mutual_authentication=OPTIONAL)
+    connection_class=RequestsHttpConnection,
+    http_auth=HTTPSPNEGOAuth(mutual_authentication=OPTIONAL),
 )
 
 health = client.cluster.health()
