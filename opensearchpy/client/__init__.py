@@ -380,8 +380,7 @@ class OpenSearch(Client):
             The specified version must match the current version of the document for
             the request to succeed.
         :arg version_type: The specific version type: `external`,
-            `external_gte`. Valid choices are external, external_gte, force,
-            internal.
+            `external_gte`. Valid choices are external, external_gte, internal.
         :arg wait_for_active_shards: The number of shard copies that
             must be active before proceeding with the operation. Set to `all` or any
             positive integer up to the total number of shards in the index
@@ -472,8 +471,7 @@ class OpenSearch(Client):
             The specified version must match the current version of the document for
             the request to succeed.
         :arg version_type: The specific version type: `external`,
-            `external_gte`. Valid choices are external, external_gte, force,
-            internal.
+            `external_gte`. Valid choices are external, external_gte, internal.
         :arg wait_for_active_shards: The number of shard copies that
             must be active before proceeding with the operation. Set to all or any
             positive integer up to the total number of shards in the index
@@ -761,8 +759,7 @@ class OpenSearch(Client):
             The specified version must match the current version of the document for
             the request to succeed.
         :arg version_type: The specific version type: `external`,
-            `external_gte`. Valid choices are external, external_gte, force,
-            internal.
+            `external_gte`. Valid choices are external, external_gte, internal.
         :arg wait_for_active_shards: The number of shard copies that
             must be active before proceeding with the operation. Set to `all` or any
             positive integer up to the total number of shards in the index
@@ -1091,8 +1088,7 @@ class OpenSearch(Client):
             The specified version must match the current version of the document for
             the request to succeed.
         :arg version_type: The specific version type: `external`,
-            `external_gte`. Valid choices are external, external_gte, force,
-            internal.
+            `external_gte`. Valid choices are external, external_gte, internal.
         """
         for param in (index, id):
             if param in SKIP_IN_PATH:
@@ -1162,8 +1158,7 @@ class OpenSearch(Client):
             The specified version must match the current version of the document for
             the request to succeed.
         :arg version_type: The specific version type: `external`,
-            `external_gte`. Valid choices are external, external_gte, force,
-            internal.
+            `external_gte`. Valid choices are external, external_gte, internal.
         """
         for param in (index, id):
             if param in SKIP_IN_PATH:
@@ -1389,7 +1384,7 @@ class OpenSearch(Client):
             the request to succeed.
         :arg version_type: The specific version type: `internal`,
             `external`, `external_gte`. Valid choices are external, external_gte,
-            force, internal.
+            internal.
         """
         for param in (index, id):
             if param in SKIP_IN_PATH:
@@ -1504,7 +1499,7 @@ class OpenSearch(Client):
             the request to succeed.
         :arg version_type: The specific version type. One of `internal`,
             `external`, `external_gte`. Valid choices are external, external_gte,
-            force, internal.
+            internal.
         """
         for param in (index, id):
             if param in SKIP_IN_PATH:
@@ -1812,7 +1807,7 @@ class OpenSearch(Client):
         :arg version: If `true`, returns the document version as part of
             a hit.
         :arg version_type: The specific version type. Valid choices are
-            external, external_gte, force, internal.
+            external, external_gte, internal.
         """
         path = _make_path(index, "_mtermvectors")
 
@@ -2689,7 +2684,7 @@ class OpenSearch(Client):
         :arg version: If `true`, returns the document version as part of
             a hit.
         :arg version_type: The specific version type. Valid choices are
-            external, external_gte, force, internal.
+            external, external_gte, internal.
         """
         if index in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'index'.")

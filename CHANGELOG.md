@@ -6,6 +6,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - Add dependency on opensearch-protobufs to provide client libraries for gRPC transport ([#977](https://github.com/opensearch-project/opensearch-py/pull/977))
 - Add ML Commons plugin documentation ([#992](https://github.com/opensearch-project/opensearch-py/pull/992))
 ### Updated APIs
+- Updated opensearch-py APIs to reflect [opensearch-api-specification@2954600](https://github.com/opensearch-project/opensearch-api-specification/commit/2954600ddafbd98a1ab9f530054bb1b62380a92a)
 ### Changed
 ### Deprecated
 ### Removed

@@ -2077,3 +2077,607 @@ class MlClient(NamespacedClient):
             headers=headers,
             body=body,
         )
+
+    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    def add_agentic_memory(
+        self,
+        *,
+        memory_container_id: Any,
+        body: Any = None,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Add agentic memory to a memory container.
+
+
+        :arg error_trace: Whether to include the stack trace of returned
+            errors. Default is false.
+        :arg filter_path: A comma-separated list of filters used to
+            filter the response. Use wildcards to match any field or part of a
+            field's name. To exclude fields, use `-`.
+        :arg human: Whether to return human-readable values for
+            statistics. Default is false.
+        :arg pretty: Whether to pretty-format the returned JSON
+            response. Default is false.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        """
+        if memory_container_id in SKIP_IN_PATH:
+            raise ValueError(
+                "Empty value passed for a required argument 'memory_container_id'."
+            )
+
+        return self.transport.perform_request(
+            "POST",
+            _make_path(
+                "_plugins", "_ml", "memory_containers", memory_container_id, "memories"
+            ),
+            params=params,
+            headers=headers,
+            body=body,
+        )
+
+    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    def create_memory_container(
+        self,
+        *,
+        body: Any = None,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Create a memory container.
+
+
+        :arg error_trace: Whether to include the stack trace of returned
+            errors. Default is false.
+        :arg filter_path: A comma-separated list of filters used to
+            filter the response. Use wildcards to match any field or part of a
+            field's name. To exclude fields, use `-`.
+        :arg human: Whether to return human-readable values for
+            statistics. Default is false.
+        :arg pretty: Whether to pretty-format the returned JSON
+            response. Default is false.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        """
+        return self.transport.perform_request(
+            "POST",
+            "/_plugins/_ml/memory_containers/_create",
+            params=params,
+            headers=headers,
+            body=body,
+        )
+
+    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    def create_memory_container_session(
+        self,
+        *,
+        memory_container_id: Any,
+        body: Any = None,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Create session in a memory container.
+
+
+        :arg error_trace: Whether to include the stack trace of returned
+            errors. Default is false.
+        :arg filter_path: A comma-separated list of filters used to
+            filter the response. Use wildcards to match any field or part of a
+            field's name. To exclude fields, use `-`.
+        :arg human: Whether to return human-readable values for
+            statistics. Default is false.
+        :arg pretty: Whether to pretty-format the returned JSON
+            response. Default is false.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        """
+        if memory_container_id in SKIP_IN_PATH:
+            raise ValueError(
+                "Empty value passed for a required argument 'memory_container_id'."
+            )
+
+        return self.transport.perform_request(
+            "POST",
+            _make_path(
+                "_plugins",
+                "_ml",
+                "memory_containers",
+                memory_container_id,
+                "memories",
+                "sessions",
+            ),
+            params=params,
+            headers=headers,
+            body=body,
+        )
+
+    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    def delete_agentic_memory(
+        self,
+        *,
+        memory_container_id: Any,
+        doc_type: Any,
+        id: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Delete a specific memory by its type and ID.
+
+
+        :arg error_trace: Whether to include the stack trace of returned
+            errors. Default is false.
+        :arg filter_path: A comma-separated list of filters used to
+            filter the response. Use wildcards to match any field or part of a
+            field's name. To exclude fields, use `-`.
+        :arg human: Whether to return human-readable values for
+            statistics. Default is false.
+        :arg pretty: Whether to pretty-format the returned JSON
+            response. Default is false.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        """
+        for param in (memory_container_id, doc_type, id):
+            if param in SKIP_IN_PATH:
+                raise ValueError("Empty value passed for a required argument.")
+
+        return self.transport.perform_request(
+            "DELETE",
+            _make_path(
+                "_plugins",
+                "_ml",
+                "memory_containers",
+                memory_container_id,
+                "memories",
+                doc_type,
+                id,
+            ),
+            params=params,
+            headers=headers,
+        )
+
+    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    def delete_agentic_memory_query(
+        self,
+        *,
+        memory_container_id: Any,
+        doc_type: Any,
+        body: Any = None,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Delete multiple memories using a query to match specific criteria.
+
+
+        :arg error_trace: Whether to include the stack trace of returned
+            errors. Default is false.
+        :arg filter_path: A comma-separated list of filters used to
+            filter the response. Use wildcards to match any field or part of a
+            field's name. To exclude fields, use `-`.
+        :arg human: Whether to return human-readable values for
+            statistics. Default is false.
+        :arg pretty: Whether to pretty-format the returned JSON
+            response. Default is false.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        """
+        for param in (memory_container_id, doc_type):
+            if param in SKIP_IN_PATH:
+                raise ValueError("Empty value passed for a required argument.")
+
+        return self.transport.perform_request(
+            "POST",
+            _make_path(
+                "_plugins",
+                "_ml",
+                "memory_containers",
+                memory_container_id,
+                "memories",
+                doc_type,
+                "_delete_by_query",
+            ),
+            params=params,
+            headers=headers,
+            body=body,
+        )
+
+    @query_params(
+        "delete_all_memories",
+        "delete_memories",
+        "error_trace",
+        "filter_path",
+        "human",
+        "pretty",
+        "source",
+    )
+    def delete_memory_container(
+        self,
+        *,
+        memory_container_id: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Delete a memory container.
+
+
+        :arg error_trace: Whether to include the stack trace of returned
+            errors. Default is false.
+        :arg filter_path: A comma-separated list of filters used to
+            filter the response. Use wildcards to match any field or part of a
+            field's name. To exclude fields, use `-`.
+        :arg human: Whether to return human-readable values for
+            statistics. Default is false.
+        :arg pretty: Whether to pretty-format the returned JSON
+            response. Default is false.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        """
+        if memory_container_id in SKIP_IN_PATH:
+            raise ValueError(
+                "Empty value passed for a required argument 'memory_container_id'."
+            )
+
+        return self.transport.perform_request(
+            "DELETE",
+            _make_path("_plugins", "_ml", "memory_containers", memory_container_id),
+            params=params,
+            headers=headers,
+        )
+
+    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    def execute_agent_stream(
+        self,
+        *,
+        agent_id: Any,
+        body: Any = None,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Execute an agent in streaming mode.
+
+
+        :arg error_trace: Whether to include the stack trace of returned
+            errors. Default is false.
+        :arg filter_path: A comma-separated list of filters used to
+            filter the response. Use wildcards to match any field or part of a
+            field's name. To exclude fields, use `-`.
+        :arg human: Whether to return human-readable values for
+            statistics. Default is false.
+        :arg pretty: Whether to pretty-format the returned JSON
+            response. Default is false.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        """
+        if agent_id in SKIP_IN_PATH:
+            raise ValueError("Empty value passed for a required argument 'agent_id'.")
+
+        return self.transport.perform_request(
+            "POST",
+            _make_path("_plugins", "_ml", "agents", agent_id, "_execute", "stream"),
+            params=params,
+            headers=headers,
+            body=body,
+        )
+
+    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    def execute_tool(
+        self,
+        *,
+        tool_name: Any,
+        body: Any = None,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Execute a tool.
+
+
+        :arg error_trace: Whether to include the stack trace of returned
+            errors. Default is false.
+        :arg filter_path: A comma-separated list of filters used to
+            filter the response. Use wildcards to match any field or part of a
+            field's name. To exclude fields, use `-`.
+        :arg human: Whether to return human-readable values for
+            statistics. Default is false.
+        :arg pretty: Whether to pretty-format the returned JSON
+            response. Default is false.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        """
+        if tool_name in SKIP_IN_PATH:
+            raise ValueError("Empty value passed for a required argument 'tool_name'.")
+
+        return self.transport.perform_request(
+            "POST",
+            _make_path("_plugins", "_ml", "tools", "_execute", tool_name),
+            params=params,
+            headers=headers,
+            body=body,
+        )
+
+    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    def get_agentic_memory(
+        self,
+        *,
+        memory_container_id: Any,
+        doc_type: Any,
+        id: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Get a specific memory by its type and ID.
+
+
+        :arg error_trace: Whether to include the stack trace of returned
+            errors. Default is false.
+        :arg filter_path: A comma-separated list of filters used to
+            filter the response. Use wildcards to match any field or part of a
+            field's name. To exclude fields, use `-`.
+        :arg human: Whether to return human-readable values for
+            statistics. Default is false.
+        :arg pretty: Whether to pretty-format the returned JSON
+            response. Default is false.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        """
+        for param in (memory_container_id, doc_type, id):
+            if param in SKIP_IN_PATH:
+                raise ValueError("Empty value passed for a required argument.")
+
+        return self.transport.perform_request(
+            "GET",
+            _make_path(
+                "_plugins",
+                "_ml",
+                "memory_containers",
+                memory_container_id,
+                "memories",
+                doc_type,
+                id,
+            ),
+            params=params,
+            headers=headers,
+        )
+
+    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    def get_memory_container(
+        self,
+        *,
+        memory_container_id: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Get a memory container.
+
+
+        :arg error_trace: Whether to include the stack trace of returned
+            errors. Default is false.
+        :arg filter_path: A comma-separated list of filters used to
+            filter the response. Use wildcards to match any field or part of a
+            field's name. To exclude fields, use `-`.
+        :arg human: Whether to return human-readable values for
+            statistics. Default is false.
+        :arg pretty: Whether to pretty-format the returned JSON
+            response. Default is false.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        """
+        if memory_container_id in SKIP_IN_PATH:
+            raise ValueError(
+                "Empty value passed for a required argument 'memory_container_id'."
+            )
+
+        return self.transport.perform_request(
+            "GET",
+            _make_path("_plugins", "_ml", "memory_containers", memory_container_id),
+            params=params,
+            headers=headers,
+        )
+
+    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    def predict_model_stream(
+        self,
+        *,
+        model_id: Any,
+        body: Any = None,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Predicts a model in streaming mode.
+
+
+        :arg error_trace: Whether to include the stack trace of returned
+            errors. Default is false.
+        :arg filter_path: A comma-separated list of filters used to
+            filter the response. Use wildcards to match any field or part of a
+            field's name. To exclude fields, use `-`.
+        :arg human: Whether to return human-readable values for
+            statistics. Default is false.
+        :arg pretty: Whether to pretty-format the returned JSON
+            response. Default is false.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        """
+        if model_id in SKIP_IN_PATH:
+            raise ValueError("Empty value passed for a required argument 'model_id'.")
+
+        return self.transport.perform_request(
+            "POST",
+            _make_path("_plugins", "_ml", "models", model_id, "_predict", "stream"),
+            params=params,
+            headers=headers,
+            body=body,
+        )
+
+    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    def search_agentic_memory(
+        self,
+        *,
+        memory_container_id: Any,
+        doc_type: Any,
+        body: Any = None,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Search for memories of a specific type within a memory container.
+
+
+        :arg error_trace: Whether to include the stack trace of returned
+            errors. Default is false.
+        :arg filter_path: A comma-separated list of filters used to
+            filter the response. Use wildcards to match any field or part of a
+            field's name. To exclude fields, use `-`.
+        :arg human: Whether to return human-readable values for
+            statistics. Default is false.
+        :arg pretty: Whether to pretty-format the returned JSON
+            response. Default is false.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        """
+        for param in (memory_container_id, doc_type):
+            if param in SKIP_IN_PATH:
+                raise ValueError("Empty value passed for a required argument.")
+
+        return self.transport.perform_request(
+            "GET",
+            _make_path(
+                "_plugins",
+                "_ml",
+                "memory_containers",
+                memory_container_id,
+                "memories",
+                doc_type,
+                "_search",
+            ),
+            params=params,
+            headers=headers,
+            body=body,
+        )
+
+    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    def search_memory_container(
+        self,
+        *,
+        body: Any = None,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Search memory containers.
+
+
+        :arg error_trace: Whether to include the stack trace of returned
+            errors. Default is false.
+        :arg filter_path: A comma-separated list of filters used to
+            filter the response. Use wildcards to match any field or part of a
+            field's name. To exclude fields, use `-`.
+        :arg human: Whether to return human-readable values for
+            statistics. Default is false.
+        :arg pretty: Whether to pretty-format the returned JSON
+            response. Default is false.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        """
+        return self.transport.perform_request(
+            "POST",
+            "/_plugins/_ml/memory_containers/_search",
+            params=params,
+            headers=headers,
+            body=body,
+        )
+
+    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    def update_agentic_memory(
+        self,
+        *,
+        memory_container_id: Any,
+        doc_type: Any,
+        id: Any,
+        body: Any = None,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Update a specific memory by its type and ID.
+
+
+        :arg error_trace: Whether to include the stack trace of returned
+            errors. Default is false.
+        :arg filter_path: A comma-separated list of filters used to
+            filter the response. Use wildcards to match any field or part of a
+            field's name. To exclude fields, use `-`.
+        :arg human: Whether to return human-readable values for
+            statistics. Default is false.
+        :arg pretty: Whether to pretty-format the returned JSON
+            response. Default is false.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        """
+        for param in (memory_container_id, doc_type, id):
+            if param in SKIP_IN_PATH:
+                raise ValueError("Empty value passed for a required argument.")
+
+        return self.transport.perform_request(
+            "PUT",
+            _make_path(
+                "_plugins",
+                "_ml",
+                "memory_containers",
+                memory_container_id,
+                "memories",
+                doc_type,
+                id,
+            ),
+            params=params,
+            headers=headers,
+            body=body,
+        )
+
+    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    def update_memory_container(
+        self,
+        *,
+        memory_container_id: Any,
+        body: Any = None,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Update a memory container.
+
+
+        :arg error_trace: Whether to include the stack trace of returned
+            errors. Default is false.
+        :arg filter_path: A comma-separated list of filters used to
+            filter the response. Use wildcards to match any field or part of a
+            field's name. To exclude fields, use `-`.
+        :arg human: Whether to return human-readable values for
+            statistics. Default is false.
+        :arg pretty: Whether to pretty-format the returned JSON
+            response. Default is false.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        """
+        if memory_container_id in SKIP_IN_PATH:
+            raise ValueError(
+                "Empty value passed for a required argument 'memory_container_id'."
+            )
+
+        return self.transport.perform_request(
+            "PUT",
+            _make_path("_plugins", "_ml", "memory_containers", memory_container_id),
+            params=params,
+            headers=headers,
+            body=body,
+        )
