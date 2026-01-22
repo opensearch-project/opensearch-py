@@ -2336,6 +2336,655 @@
             <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
             <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
         <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="MlClient.add_agentic_memory">
+<a class="viewcode-back" href="../../../api-ref/plugins/ml_plugin.html#opensearchpy.plugins.ml.MlClient.add_agentic_memory">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_agentic_memory</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">memory_container_id</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+        <span class="n">body</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add agentic memory to a memory container.</span>
+
+
+<span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
+<span class="sd">            errors. Default is false.</span>
+<span class="sd">        :arg filter_path: A comma-separated list of filters used to</span>
+<span class="sd">            filter the response. Use wildcards to match any field or part of a</span>
+<span class="sd">            field&#39;s name. To exclude fields, use `-`.</span>
+<span class="sd">        :arg human: Whether to return human-readable values for</span>
+<span class="sd">            statistics. Default is false.</span>
+<span class="sd">        :arg pretty: Whether to pretty-format the returned JSON</span>
+<span class="sd">            response. Default is false.</span>
+<span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
+<span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">memory_container_id</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;Empty value passed for a required argument &#39;memory_container_id&#39;.&quot;</span>
+            <span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
+            <span class="s2">&quot;POST&quot;</span><span class="p">,</span>
+            <span class="n">_make_path</span><span class="p">(</span>
+                <span class="s2">&quot;_plugins&quot;</span><span class="p">,</span> <span class="s2">&quot;_ml&quot;</span><span class="p">,</span> <span class="s2">&quot;memory_containers&quot;</span><span class="p">,</span> <span class="n">memory_container_id</span><span class="p">,</span> <span class="s2">&quot;memories&quot;</span>
+            <span class="p">),</span>
+            <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span>
+            <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
+            <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="MlClient.create_memory_container">
+<a class="viewcode-back" href="../../../api-ref/plugins/ml_plugin.html#opensearchpy.plugins.ml.MlClient.create_memory_container">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">create_memory_container</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">body</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create a memory container.</span>
+
+
+<span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
+<span class="sd">            errors. Default is false.</span>
+<span class="sd">        :arg filter_path: A comma-separated list of filters used to</span>
+<span class="sd">            filter the response. Use wildcards to match any field or part of a</span>
+<span class="sd">            field&#39;s name. To exclude fields, use `-`.</span>
+<span class="sd">        :arg human: Whether to return human-readable values for</span>
+<span class="sd">            statistics. Default is false.</span>
+<span class="sd">        :arg pretty: Whether to pretty-format the returned JSON</span>
+<span class="sd">            response. Default is false.</span>
+<span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
+<span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
+            <span class="s2">&quot;POST&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;/_plugins/_ml/memory_containers/_create&quot;</span><span class="p">,</span>
+            <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span>
+            <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
+            <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="MlClient.create_memory_container_session">
+<a class="viewcode-back" href="../../../api-ref/plugins/ml_plugin.html#opensearchpy.plugins.ml.MlClient.create_memory_container_session">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">create_memory_container_session</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">memory_container_id</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+        <span class="n">body</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create session in a memory container.</span>
+
+
+<span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
+<span class="sd">            errors. Default is false.</span>
+<span class="sd">        :arg filter_path: A comma-separated list of filters used to</span>
+<span class="sd">            filter the response. Use wildcards to match any field or part of a</span>
+<span class="sd">            field&#39;s name. To exclude fields, use `-`.</span>
+<span class="sd">        :arg human: Whether to return human-readable values for</span>
+<span class="sd">            statistics. Default is false.</span>
+<span class="sd">        :arg pretty: Whether to pretty-format the returned JSON</span>
+<span class="sd">            response. Default is false.</span>
+<span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
+<span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">memory_container_id</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;Empty value passed for a required argument &#39;memory_container_id&#39;.&quot;</span>
+            <span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
+            <span class="s2">&quot;POST&quot;</span><span class="p">,</span>
+            <span class="n">_make_path</span><span class="p">(</span>
+                <span class="s2">&quot;_plugins&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;_ml&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;memory_containers&quot;</span><span class="p">,</span>
+                <span class="n">memory_container_id</span><span class="p">,</span>
+                <span class="s2">&quot;memories&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;sessions&quot;</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span>
+            <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
+            <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="MlClient.delete_agentic_memory">
+<a class="viewcode-back" href="../../../api-ref/plugins/ml_plugin.html#opensearchpy.plugins.ml.MlClient.delete_agentic_memory">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">delete_agentic_memory</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">memory_container_id</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+        <span class="n">doc_type</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+        <span class="nb">id</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+        <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Delete a specific memory by its type and ID.</span>
+
+
+<span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
+<span class="sd">            errors. Default is false.</span>
+<span class="sd">        :arg filter_path: A comma-separated list of filters used to</span>
+<span class="sd">            filter the response. Use wildcards to match any field or part of a</span>
+<span class="sd">            field&#39;s name. To exclude fields, use `-`.</span>
+<span class="sd">        :arg human: Whether to return human-readable values for</span>
+<span class="sd">            statistics. Default is false.</span>
+<span class="sd">        :arg pretty: Whether to pretty-format the returned JSON</span>
+<span class="sd">            response. Default is false.</span>
+<span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
+<span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="p">(</span><span class="n">memory_container_id</span><span class="p">,</span> <span class="n">doc_type</span><span class="p">,</span> <span class="nb">id</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Empty value passed for a required argument.&quot;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
+            <span class="s2">&quot;DELETE&quot;</span><span class="p">,</span>
+            <span class="n">_make_path</span><span class="p">(</span>
+                <span class="s2">&quot;_plugins&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;_ml&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;memory_containers&quot;</span><span class="p">,</span>
+                <span class="n">memory_container_id</span><span class="p">,</span>
+                <span class="s2">&quot;memories&quot;</span><span class="p">,</span>
+                <span class="n">doc_type</span><span class="p">,</span>
+                <span class="nb">id</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span>
+            <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="MlClient.delete_agentic_memory_query">
+<a class="viewcode-back" href="../../../api-ref/plugins/ml_plugin.html#opensearchpy.plugins.ml.MlClient.delete_agentic_memory_query">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">delete_agentic_memory_query</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">memory_container_id</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+        <span class="n">doc_type</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+        <span class="n">body</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Delete multiple memories using a query to match specific criteria.</span>
+
+
+<span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
+<span class="sd">            errors. Default is false.</span>
+<span class="sd">        :arg filter_path: A comma-separated list of filters used to</span>
+<span class="sd">            filter the response. Use wildcards to match any field or part of a</span>
+<span class="sd">            field&#39;s name. To exclude fields, use `-`.</span>
+<span class="sd">        :arg human: Whether to return human-readable values for</span>
+<span class="sd">            statistics. Default is false.</span>
+<span class="sd">        :arg pretty: Whether to pretty-format the returned JSON</span>
+<span class="sd">            response. Default is false.</span>
+<span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
+<span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="p">(</span><span class="n">memory_container_id</span><span class="p">,</span> <span class="n">doc_type</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Empty value passed for a required argument.&quot;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
+            <span class="s2">&quot;POST&quot;</span><span class="p">,</span>
+            <span class="n">_make_path</span><span class="p">(</span>
+                <span class="s2">&quot;_plugins&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;_ml&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;memory_containers&quot;</span><span class="p">,</span>
+                <span class="n">memory_container_id</span><span class="p">,</span>
+                <span class="s2">&quot;memories&quot;</span><span class="p">,</span>
+                <span class="n">doc_type</span><span class="p">,</span>
+                <span class="s2">&quot;_delete_by_query&quot;</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span>
+            <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
+            <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="MlClient.delete_memory_container">
+<a class="viewcode-back" href="../../../api-ref/plugins/ml_plugin.html#opensearchpy.plugins.ml.MlClient.delete_memory_container">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span>
+        <span class="s2">&quot;delete_all_memories&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;delete_memories&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;human&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;pretty&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;source&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">delete_memory_container</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">memory_container_id</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+        <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Delete a memory container.</span>
+
+
+<span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
+<span class="sd">            errors. Default is false.</span>
+<span class="sd">        :arg filter_path: A comma-separated list of filters used to</span>
+<span class="sd">            filter the response. Use wildcards to match any field or part of a</span>
+<span class="sd">            field&#39;s name. To exclude fields, use `-`.</span>
+<span class="sd">        :arg human: Whether to return human-readable values for</span>
+<span class="sd">            statistics. Default is false.</span>
+<span class="sd">        :arg pretty: Whether to pretty-format the returned JSON</span>
+<span class="sd">            response. Default is false.</span>
+<span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
+<span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">memory_container_id</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;Empty value passed for a required argument &#39;memory_container_id&#39;.&quot;</span>
+            <span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
+            <span class="s2">&quot;DELETE&quot;</span><span class="p">,</span>
+            <span class="n">_make_path</span><span class="p">(</span><span class="s2">&quot;_plugins&quot;</span><span class="p">,</span> <span class="s2">&quot;_ml&quot;</span><span class="p">,</span> <span class="s2">&quot;memory_containers&quot;</span><span class="p">,</span> <span class="n">memory_container_id</span><span class="p">),</span>
+            <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span>
+            <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="MlClient.execute_agent_stream">
+<a class="viewcode-back" href="../../../api-ref/plugins/ml_plugin.html#opensearchpy.plugins.ml.MlClient.execute_agent_stream">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">execute_agent_stream</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">agent_id</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+        <span class="n">body</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Execute an agent in streaming mode.</span>
+
+
+<span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
+<span class="sd">            errors. Default is false.</span>
+<span class="sd">        :arg filter_path: A comma-separated list of filters used to</span>
+<span class="sd">            filter the response. Use wildcards to match any field or part of a</span>
+<span class="sd">            field&#39;s name. To exclude fields, use `-`.</span>
+<span class="sd">        :arg human: Whether to return human-readable values for</span>
+<span class="sd">            statistics. Default is false.</span>
+<span class="sd">        :arg pretty: Whether to pretty-format the returned JSON</span>
+<span class="sd">            response. Default is false.</span>
+<span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
+<span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">agent_id</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Empty value passed for a required argument &#39;agent_id&#39;.&quot;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
+            <span class="s2">&quot;POST&quot;</span><span class="p">,</span>
+            <span class="n">_make_path</span><span class="p">(</span><span class="s2">&quot;_plugins&quot;</span><span class="p">,</span> <span class="s2">&quot;_ml&quot;</span><span class="p">,</span> <span class="s2">&quot;agents&quot;</span><span class="p">,</span> <span class="n">agent_id</span><span class="p">,</span> <span class="s2">&quot;_execute&quot;</span><span class="p">,</span> <span class="s2">&quot;stream&quot;</span><span class="p">),</span>
+            <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span>
+            <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
+            <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="MlClient.execute_tool">
+<a class="viewcode-back" href="../../../api-ref/plugins/ml_plugin.html#opensearchpy.plugins.ml.MlClient.execute_tool">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">execute_tool</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">tool_name</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+        <span class="n">body</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Execute a tool.</span>
+
+
+<span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
+<span class="sd">            errors. Default is false.</span>
+<span class="sd">        :arg filter_path: A comma-separated list of filters used to</span>
+<span class="sd">            filter the response. Use wildcards to match any field or part of a</span>
+<span class="sd">            field&#39;s name. To exclude fields, use `-`.</span>
+<span class="sd">        :arg human: Whether to return human-readable values for</span>
+<span class="sd">            statistics. Default is false.</span>
+<span class="sd">        :arg pretty: Whether to pretty-format the returned JSON</span>
+<span class="sd">            response. Default is false.</span>
+<span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
+<span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">tool_name</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Empty value passed for a required argument &#39;tool_name&#39;.&quot;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
+            <span class="s2">&quot;POST&quot;</span><span class="p">,</span>
+            <span class="n">_make_path</span><span class="p">(</span><span class="s2">&quot;_plugins&quot;</span><span class="p">,</span> <span class="s2">&quot;_ml&quot;</span><span class="p">,</span> <span class="s2">&quot;tools&quot;</span><span class="p">,</span> <span class="s2">&quot;_execute&quot;</span><span class="p">,</span> <span class="n">tool_name</span><span class="p">),</span>
+            <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span>
+            <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
+            <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="MlClient.get_agentic_memory">
+<a class="viewcode-back" href="../../../api-ref/plugins/ml_plugin.html#opensearchpy.plugins.ml.MlClient.get_agentic_memory">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_agentic_memory</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">memory_container_id</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+        <span class="n">doc_type</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+        <span class="nb">id</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+        <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get a specific memory by its type and ID.</span>
+
+
+<span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
+<span class="sd">            errors. Default is false.</span>
+<span class="sd">        :arg filter_path: A comma-separated list of filters used to</span>
+<span class="sd">            filter the response. Use wildcards to match any field or part of a</span>
+<span class="sd">            field&#39;s name. To exclude fields, use `-`.</span>
+<span class="sd">        :arg human: Whether to return human-readable values for</span>
+<span class="sd">            statistics. Default is false.</span>
+<span class="sd">        :arg pretty: Whether to pretty-format the returned JSON</span>
+<span class="sd">            response. Default is false.</span>
+<span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
+<span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="p">(</span><span class="n">memory_container_id</span><span class="p">,</span> <span class="n">doc_type</span><span class="p">,</span> <span class="nb">id</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Empty value passed for a required argument.&quot;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
+            <span class="s2">&quot;GET&quot;</span><span class="p">,</span>
+            <span class="n">_make_path</span><span class="p">(</span>
+                <span class="s2">&quot;_plugins&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;_ml&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;memory_containers&quot;</span><span class="p">,</span>
+                <span class="n">memory_container_id</span><span class="p">,</span>
+                <span class="s2">&quot;memories&quot;</span><span class="p">,</span>
+                <span class="n">doc_type</span><span class="p">,</span>
+                <span class="nb">id</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span>
+            <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="MlClient.get_memory_container">
+<a class="viewcode-back" href="../../../api-ref/plugins/ml_plugin.html#opensearchpy.plugins.ml.MlClient.get_memory_container">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_memory_container</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">memory_container_id</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+        <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get a memory container.</span>
+
+
+<span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
+<span class="sd">            errors. Default is false.</span>
+<span class="sd">        :arg filter_path: A comma-separated list of filters used to</span>
+<span class="sd">            filter the response. Use wildcards to match any field or part of a</span>
+<span class="sd">            field&#39;s name. To exclude fields, use `-`.</span>
+<span class="sd">        :arg human: Whether to return human-readable values for</span>
+<span class="sd">            statistics. Default is false.</span>
+<span class="sd">        :arg pretty: Whether to pretty-format the returned JSON</span>
+<span class="sd">            response. Default is false.</span>
+<span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
+<span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">memory_container_id</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;Empty value passed for a required argument &#39;memory_container_id&#39;.&quot;</span>
+            <span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
+            <span class="s2">&quot;GET&quot;</span><span class="p">,</span>
+            <span class="n">_make_path</span><span class="p">(</span><span class="s2">&quot;_plugins&quot;</span><span class="p">,</span> <span class="s2">&quot;_ml&quot;</span><span class="p">,</span> <span class="s2">&quot;memory_containers&quot;</span><span class="p">,</span> <span class="n">memory_container_id</span><span class="p">),</span>
+            <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span>
+            <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="MlClient.predict_model_stream">
+<a class="viewcode-back" href="../../../api-ref/plugins/ml_plugin.html#opensearchpy.plugins.ml.MlClient.predict_model_stream">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">predict_model_stream</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">model_id</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+        <span class="n">body</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Predicts a model in streaming mode.</span>
+
+
+<span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
+<span class="sd">            errors. Default is false.</span>
+<span class="sd">        :arg filter_path: A comma-separated list of filters used to</span>
+<span class="sd">            filter the response. Use wildcards to match any field or part of a</span>
+<span class="sd">            field&#39;s name. To exclude fields, use `-`.</span>
+<span class="sd">        :arg human: Whether to return human-readable values for</span>
+<span class="sd">            statistics. Default is false.</span>
+<span class="sd">        :arg pretty: Whether to pretty-format the returned JSON</span>
+<span class="sd">            response. Default is false.</span>
+<span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
+<span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">model_id</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Empty value passed for a required argument &#39;model_id&#39;.&quot;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
+            <span class="s2">&quot;POST&quot;</span><span class="p">,</span>
+            <span class="n">_make_path</span><span class="p">(</span><span class="s2">&quot;_plugins&quot;</span><span class="p">,</span> <span class="s2">&quot;_ml&quot;</span><span class="p">,</span> <span class="s2">&quot;models&quot;</span><span class="p">,</span> <span class="n">model_id</span><span class="p">,</span> <span class="s2">&quot;_predict&quot;</span><span class="p">,</span> <span class="s2">&quot;stream&quot;</span><span class="p">),</span>
+            <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span>
+            <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
+            <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="MlClient.search_agentic_memory">
+<a class="viewcode-back" href="../../../api-ref/plugins/ml_plugin.html#opensearchpy.plugins.ml.MlClient.search_agentic_memory">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">search_agentic_memory</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">memory_container_id</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+        <span class="n">doc_type</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+        <span class="n">body</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Search for memories of a specific type within a memory container.</span>
+
+
+<span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
+<span class="sd">            errors. Default is false.</span>
+<span class="sd">        :arg filter_path: A comma-separated list of filters used to</span>
+<span class="sd">            filter the response. Use wildcards to match any field or part of a</span>
+<span class="sd">            field&#39;s name. To exclude fields, use `-`.</span>
+<span class="sd">        :arg human: Whether to return human-readable values for</span>
+<span class="sd">            statistics. Default is false.</span>
+<span class="sd">        :arg pretty: Whether to pretty-format the returned JSON</span>
+<span class="sd">            response. Default is false.</span>
+<span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
+<span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="p">(</span><span class="n">memory_container_id</span><span class="p">,</span> <span class="n">doc_type</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Empty value passed for a required argument.&quot;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
+            <span class="s2">&quot;GET&quot;</span><span class="p">,</span>
+            <span class="n">_make_path</span><span class="p">(</span>
+                <span class="s2">&quot;_plugins&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;_ml&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;memory_containers&quot;</span><span class="p">,</span>
+                <span class="n">memory_container_id</span><span class="p">,</span>
+                <span class="s2">&quot;memories&quot;</span><span class="p">,</span>
+                <span class="n">doc_type</span><span class="p">,</span>
+                <span class="s2">&quot;_search&quot;</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span>
+            <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
+            <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="MlClient.search_memory_container">
+<a class="viewcode-back" href="../../../api-ref/plugins/ml_plugin.html#opensearchpy.plugins.ml.MlClient.search_memory_container">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">search_memory_container</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">body</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Search memory containers.</span>
+
+
+<span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
+<span class="sd">            errors. Default is false.</span>
+<span class="sd">        :arg filter_path: A comma-separated list of filters used to</span>
+<span class="sd">            filter the response. Use wildcards to match any field or part of a</span>
+<span class="sd">            field&#39;s name. To exclude fields, use `-`.</span>
+<span class="sd">        :arg human: Whether to return human-readable values for</span>
+<span class="sd">            statistics. Default is false.</span>
+<span class="sd">        :arg pretty: Whether to pretty-format the returned JSON</span>
+<span class="sd">            response. Default is false.</span>
+<span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
+<span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
+            <span class="s2">&quot;POST&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;/_plugins/_ml/memory_containers/_search&quot;</span><span class="p">,</span>
+            <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span>
+            <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
+            <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="MlClient.update_agentic_memory">
+<a class="viewcode-back" href="../../../api-ref/plugins/ml_plugin.html#opensearchpy.plugins.ml.MlClient.update_agentic_memory">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">update_agentic_memory</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">memory_container_id</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+        <span class="n">doc_type</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+        <span class="nb">id</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+        <span class="n">body</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Update a specific memory by its type and ID.</span>
+
+
+<span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
+<span class="sd">            errors. Default is false.</span>
+<span class="sd">        :arg filter_path: A comma-separated list of filters used to</span>
+<span class="sd">            filter the response. Use wildcards to match any field or part of a</span>
+<span class="sd">            field&#39;s name. To exclude fields, use `-`.</span>
+<span class="sd">        :arg human: Whether to return human-readable values for</span>
+<span class="sd">            statistics. Default is false.</span>
+<span class="sd">        :arg pretty: Whether to pretty-format the returned JSON</span>
+<span class="sd">            response. Default is false.</span>
+<span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
+<span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="p">(</span><span class="n">memory_container_id</span><span class="p">,</span> <span class="n">doc_type</span><span class="p">,</span> <span class="nb">id</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Empty value passed for a required argument.&quot;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
+            <span class="s2">&quot;PUT&quot;</span><span class="p">,</span>
+            <span class="n">_make_path</span><span class="p">(</span>
+                <span class="s2">&quot;_plugins&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;_ml&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;memory_containers&quot;</span><span class="p">,</span>
+                <span class="n">memory_container_id</span><span class="p">,</span>
+                <span class="s2">&quot;memories&quot;</span><span class="p">,</span>
+                <span class="n">doc_type</span><span class="p">,</span>
+                <span class="nb">id</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span>
+            <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
+            <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="MlClient.update_memory_container">
+<a class="viewcode-back" href="../../../api-ref/plugins/ml_plugin.html#opensearchpy.plugins.ml.MlClient.update_memory_container">[docs]</a>
+    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;error_trace&quot;</span><span class="p">,</span> <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">update_memory_container</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">memory_container_id</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+        <span class="n">body</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Update a memory container.</span>
+
+
+<span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
+<span class="sd">            errors. Default is false.</span>
+<span class="sd">        :arg filter_path: A comma-separated list of filters used to</span>
+<span class="sd">            filter the response. Use wildcards to match any field or part of a</span>
+<span class="sd">            field&#39;s name. To exclude fields, use `-`.</span>
+<span class="sd">        :arg human: Whether to return human-readable values for</span>
+<span class="sd">            statistics. Default is false.</span>
+<span class="sd">        :arg pretty: Whether to pretty-format the returned JSON</span>
+<span class="sd">            response. Default is false.</span>
+<span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
+<span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">memory_container_id</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;Empty value passed for a required argument &#39;memory_container_id&#39;.&quot;</span>
+            <span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
+            <span class="s2">&quot;PUT&quot;</span><span class="p">,</span>
+            <span class="n">_make_path</span><span class="p">(</span><span class="s2">&quot;_plugins&quot;</span><span class="p">,</span> <span class="s2">&quot;_ml&quot;</span><span class="p">,</span> <span class="s2">&quot;memory_containers&quot;</span><span class="p">,</span> <span class="n">memory_container_id</span><span class="p">),</span>
+            <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span>
+            <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
+            <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
+        <span class="p">)</span></div>
 </div>
 
 </pre></div>

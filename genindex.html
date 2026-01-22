@@ -172,6 +172,8 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api-ref/plugins/alerting_plugin.html#opensearchpy.plugins.alerting.AlertingClient.acknowledge_alert">acknowledge_alert() (opensearchpy.plugins.alerting.AlertingClient method)</a>
 </li>
+      <li><a href="api-ref/plugins/ml_plugin.html#opensearchpy.plugins.ml.MlClient.add_agentic_memory">add_agentic_memory() (opensearchpy.plugins.ml.MlClient method)</a>
+</li>
       <li><a href="api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.add_block">add_block() (opensearchpy.client.indices.IndicesClient method)</a>
 </li>
       <li><a href="api-ref/transport.html#opensearchpy.Transport.add_connection">add_connection() (opensearchpy.Transport method)</a>
@@ -320,10 +322,10 @@
 </li>
       <li><a href="api-ref/exceptions.html#opensearchpy.ConnectionError">ConnectionError (class in opensearchpy)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api-ref/connection_pool.html#opensearchpy.ConnectionPool">ConnectionPool (class in opensearchpy)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api-ref/connection.html#opensearchpy.connections">connections (in module opensearchpy)</a>
 </li>
       <li><a href="api-ref/connection_pool.html#opensearchpy.ConnectionSelector">ConnectionSelector (class in opensearchpy)</a>
@@ -365,6 +367,10 @@
       <li><a href="api-ref/plugins/alerting_plugin.html#opensearchpy.plugins.alerting.AlertingClient.create_destination">create_destination() (opensearchpy.plugins.alerting.AlertingClient method)</a>
 </li>
       <li><a href="api-ref/plugins/ml_plugin.html#opensearchpy.plugins.ml.MlClient.create_memory">create_memory() (opensearchpy.plugins.ml.MlClient method)</a>
+</li>
+      <li><a href="api-ref/plugins/ml_plugin.html#opensearchpy.plugins.ml.MlClient.create_memory_container">create_memory_container() (opensearchpy.plugins.ml.MlClient method)</a>
+</li>
+      <li><a href="api-ref/plugins/ml_plugin.html#opensearchpy.plugins.ml.MlClient.create_memory_container_session">create_memory_container_session() (opensearchpy.plugins.ml.MlClient method)</a>
 </li>
       <li><a href="api-ref/plugins/ml_plugin.html#opensearchpy.plugins.ml.MlClient.create_message">create_message() (opensearchpy.plugins.ml.MlClient method)</a>
 </li>
@@ -428,6 +434,10 @@
 </li>
       <li><a href="api-ref/plugins/ml_plugin.html#opensearchpy.plugins.ml.MlClient.delete_agent">delete_agent() (opensearchpy.plugins.ml.MlClient method)</a>
 </li>
+      <li><a href="api-ref/plugins/ml_plugin.html#opensearchpy.plugins.ml.MlClient.delete_agentic_memory">delete_agentic_memory() (opensearchpy.plugins.ml.MlClient method)</a>
+</li>
+      <li><a href="api-ref/plugins/ml_plugin.html#opensearchpy.plugins.ml.MlClient.delete_agentic_memory_query">delete_agentic_memory_query() (opensearchpy.plugins.ml.MlClient method)</a>
+</li>
       <li><a href="api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.delete_alias">delete_alias() (opensearchpy.client.indices.IndicesClient method)</a>
 
       <ul>
@@ -460,10 +470,10 @@
 </li>
       <li><a href="api-ref/clients/dangling_indices_client.html#opensearchpy.client.dangling_indices.DanglingIndicesClient.delete_dangling_index">delete_dangling_index() (opensearchpy.client.dangling_indices.DanglingIndicesClient method)</a>
 </li>
-      <li><a href="api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.delete_data_stream">delete_data_stream() (opensearchpy.client.indices.IndicesClient method)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.delete_data_stream">delete_data_stream() (opensearchpy.client.indices.IndicesClient method)</a>
+</li>
       <li><a href="api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.delete_decommission_awareness">delete_decommission_awareness() (opensearchpy.client.cluster.ClusterClient method)</a>
 </li>
       <li><a href="api-ref/plugins/alerting_plugin.html#opensearchpy.plugins.alerting.AlertingClient.delete_destination">delete_destination() (opensearchpy.plugins.alerting.AlertingClient method)</a>
@@ -473,6 +483,8 @@
       <li><a href="api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.delete_index_template">delete_index_template() (opensearchpy.client.indices.IndicesClient method)</a>
 </li>
       <li><a href="api-ref/plugins/ml_plugin.html#opensearchpy.plugins.ml.MlClient.delete_memory">delete_memory() (opensearchpy.plugins.ml.MlClient method)</a>
+</li>
+      <li><a href="api-ref/plugins/ml_plugin.html#opensearchpy.plugins.ml.MlClient.delete_memory_container">delete_memory_container() (opensearchpy.plugins.ml.MlClient method)</a>
 </li>
       <li><a href="api-ref/plugins/ml_plugin.html#opensearchpy.plugins.ml.MlClient.delete_model">delete_model() (opensearchpy.plugins.ml.MlClient method)</a>
 </li>
@@ -540,7 +552,11 @@
       </ul></li>
       <li><a href="api-ref/plugins/ml_plugin.html#opensearchpy.plugins.ml.MlClient.execute_agent">execute_agent() (opensearchpy.plugins.ml.MlClient method)</a>
 </li>
+      <li><a href="api-ref/plugins/ml_plugin.html#opensearchpy.plugins.ml.MlClient.execute_agent_stream">execute_agent_stream() (opensearchpy.plugins.ml.MlClient method)</a>
+</li>
       <li><a href="api-ref/plugins/ml_plugin.html#opensearchpy.plugins.ml.MlClient.execute_algorithm">execute_algorithm() (opensearchpy.plugins.ml.MlClient method)</a>
+</li>
+      <li><a href="api-ref/plugins/ml_plugin.html#opensearchpy.plugins.ml.MlClient.execute_tool">execute_tool() (opensearchpy.plugins.ml.MlClient method)</a>
 </li>
       <li><a href="api-ref/clients/opensearch_client.html#opensearchpy.AsyncOpenSearch.exists">exists() (opensearchpy.AsyncOpenSearch method)</a>
 
@@ -664,6 +680,8 @@
 </li>
       <li><a href="api-ref/plugins/ml_plugin.html#opensearchpy.plugins.ml.MlClient.get_agent">get_agent() (opensearchpy.plugins.ml.MlClient method)</a>
 </li>
+      <li><a href="api-ref/plugins/ml_plugin.html#opensearchpy.plugins.ml.MlClient.get_agentic_memory">get_agentic_memory() (opensearchpy.plugins.ml.MlClient method)</a>
+</li>
       <li><a href="api-ref/plugins/alerting_plugin.html#opensearchpy.plugins.alerting.AlertingClient.get_alerts">get_alerts() (opensearchpy.plugins.alerting.AlertingClient method)</a>
 </li>
       <li><a href="api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.get_alias">get_alias() (opensearchpy.client.indices.IndicesClient method)</a>
@@ -737,6 +755,8 @@
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api-ref/plugins/ml_plugin.html#opensearchpy.plugins.ml.MlClient.get_memory">get_memory() (opensearchpy.plugins.ml.MlClient method)</a>
+</li>
+      <li><a href="api-ref/plugins/ml_plugin.html#opensearchpy.plugins.ml.MlClient.get_memory_container">get_memory_container() (opensearchpy.plugins.ml.MlClient method)</a>
 </li>
       <li><a href="api-ref/plugins/ml_plugin.html#opensearchpy.plugins.ml.MlClient.get_message">get_message() (opensearchpy.plugins.ml.MlClient method)</a>
 </li>
@@ -1088,10 +1108,10 @@
 </li>
       <li><a href="api-ref/clients/cat_client.html#opensearchpy.client.cat.CatClient.plugins">plugins() (opensearchpy.client.cat.CatClient method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api-ref/clients/http_client.html#opensearchpy.client.http.HttpClient.post">post() (opensearchpy.client.http.HttpClient method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.post_dashboards_info">post_dashboards_info() (opensearchpy.client.security.SecurityClient method)</a>
 </li>
       <li><a href="api-ref/clients/cluster_client.html#opensearchpy.client.cluster.ClusterClient.post_voting_config_exclusions">post_voting_config_exclusions() (opensearchpy.client.cluster.ClusterClient method)</a>
@@ -1099,6 +1119,8 @@
       <li><a href="api-ref/plugins/ml_plugin.html#opensearchpy.plugins.ml.MlClient.predict">predict() (opensearchpy.plugins.ml.MlClient method)</a>
 </li>
       <li><a href="api-ref/plugins/ml_plugin.html#opensearchpy.plugins.ml.MlClient.predict_model">predict_model() (opensearchpy.plugins.ml.MlClient method)</a>
+</li>
+      <li><a href="api-ref/plugins/ml_plugin.html#opensearchpy.plugins.ml.MlClient.predict_model_stream">predict_model_stream() (opensearchpy.plugins.ml.MlClient method)</a>
 </li>
       <li><a href="api-ref/clients/ingest_client.html#opensearchpy.client.ingest.IngestClient.processor_grok">processor_grok() (opensearchpy.client.ingest.IngestClient method)</a>
 </li>
@@ -1300,11 +1322,15 @@
         <li><a href="api-ref/clients/opensearch_client.html#opensearchpy.OpenSearch.search">(opensearchpy.OpenSearch method)</a>
 </li>
       </ul></li>
+      <li><a href="api-ref/plugins/ml_plugin.html#opensearchpy.plugins.ml.MlClient.search_agentic_memory">search_agentic_memory() (opensearchpy.plugins.ml.MlClient method)</a>
+</li>
       <li><a href="api-ref/plugins/ml_plugin.html#opensearchpy.plugins.ml.MlClient.search_agents">search_agents() (opensearchpy.plugins.ml.MlClient method)</a>
 </li>
       <li><a href="api-ref/plugins/ml_plugin.html#opensearchpy.plugins.ml.MlClient.search_connectors">search_connectors() (opensearchpy.plugins.ml.MlClient method)</a>
 </li>
       <li><a href="api-ref/plugins/ml_plugin.html#opensearchpy.plugins.ml.MlClient.search_memory">search_memory() (opensearchpy.plugins.ml.MlClient method)</a>
+</li>
+      <li><a href="api-ref/plugins/ml_plugin.html#opensearchpy.plugins.ml.MlClient.search_memory_container">search_memory_container() (opensearchpy.plugins.ml.MlClient method)</a>
 </li>
       <li><a href="api-ref/plugins/ml_plugin.html#opensearchpy.plugins.ml.MlClient.search_message">search_message() (opensearchpy.plugins.ml.MlClient method)</a>
 </li>
@@ -1332,6 +1358,8 @@
 </li>
       <li><a href="api-ref/clients/cat_client.html#opensearchpy.client.cat.CatClient.segment_replication">segment_replication() (opensearchpy.client.cat.CatClient method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api-ref/clients/cat_client.html#opensearchpy.client.cat.CatClient.segments">segments() (opensearchpy.client.cat.CatClient method)</a>
 
       <ul>
@@ -1340,8 +1368,6 @@
         <li><a href="api-ref/helpers/index.html#opensearchpy.helpers.index.Index.segments">(opensearchpy.helpers.index.Index method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api-ref/connection_pool.html#opensearchpy.ConnectionSelector.select">select() (opensearchpy.ConnectionSelector method)</a>
 
       <ul>
@@ -1476,6 +1502,8 @@
         <li><a href="api-ref/clients/opensearch_client.html#opensearchpy.OpenSearch.update">(opensearchpy.OpenSearch method)</a>
 </li>
       </ul></li>
+      <li><a href="api-ref/plugins/ml_plugin.html#opensearchpy.plugins.ml.MlClient.update_agentic_memory">update_agentic_memory() (opensearchpy.plugins.ml.MlClient method)</a>
+</li>
       <li><a href="api-ref/clients/indices_client.html#opensearchpy.client.indices.IndicesClient.update_aliases">update_aliases() (opensearchpy.client.indices.IndicesClient method)</a>
 </li>
       <li><a href="api-ref/clients/security_client.html#opensearchpy.client.security.SecurityClient.update_audit_configuration">update_audit_configuration() (opensearchpy.client.security.SecurityClient method)</a>
@@ -1511,6 +1539,8 @@
 </li>
       </ul></li>
       <li><a href="api-ref/plugins/ml_plugin.html#opensearchpy.plugins.ml.MlClient.update_memory">update_memory() (opensearchpy.plugins.ml.MlClient method)</a>
+</li>
+      <li><a href="api-ref/plugins/ml_plugin.html#opensearchpy.plugins.ml.MlClient.update_memory_container">update_memory_container() (opensearchpy.plugins.ml.MlClient method)</a>
 </li>
       <li><a href="api-ref/plugins/ml_plugin.html#opensearchpy.plugins.ml.MlClient.update_message">update_message() (opensearchpy.plugins.ml.MlClient method)</a>
 </li>
