@@ -18,6 +18,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - Bump `actions/checkout` from 5 to 6 ([#986](https://github.com/opensearch-project/opensearch-py/pull/986))
 - Bump `codecov/codecov-action` from 4 to 5 ([#985](https://github.com/opensearch-project/opensearch-py/pull/985))
 - Bump `actions/upload-artifact` from 5 to 6 ([#989](https://github.com/opensearch-project/opensearch-py/pull/989))
+- Bump `actions/download-artifact` from 6 to 7 ([#988](https://github.com/opensearch-project/opensearch-py/pull/988))
 
 ## [3.1.0]
 ### Added
