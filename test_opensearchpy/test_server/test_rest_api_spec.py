@@ -493,7 +493,7 @@ def load_rest_api_tests() -> None:
         http = urllib3.PoolManager(retries=10)
 
         package_url = (
-            "https://codeload.github.com/opensearch-project/OpenSearch/zip/refs/heads/main"
+            "https://github.com/opensearch-project/OpenSearch/archive/main.zip"
         )
 
         # Download the zip and start reading YAML from the files in memory
