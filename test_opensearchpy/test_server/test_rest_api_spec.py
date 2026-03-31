@@ -217,6 +217,27 @@ class YamlRunner:
         for k in args:
             args[k] = self._resolve(args[k])
 
+        # YAML tests may pass 'timeout' as a server-side query parameter
+        # (e.g. "30s"). The client intercepts 'timeout' kwargs as a connection
+        # timeout, which urllib3 rejects if it's a duration string. Parse it
+        # to a numeric value in seconds.
+        if "timeout" in args and isinstance(args["timeout"], str):
+            timeout_str = args["timeout"]
+            match = re.match(r"^(\d+)(s|m|h|d|ms|micros|nanos)?$", timeout_str)
+            if match:
+                val = int(match.group(1))
+                unit = match.group(2) or "ms"
+                multipliers = {
+                    "nanos": 1e-9,
+                    "micros": 1e-6,
+                    "ms": 0.001,
+                    "s": 1,
+                    "m": 60,
+                    "h": 3600,
+                    "d": 86400,
+                }
+                args["timeout"] = val * multipliers.get(unit, 1)
+
         warnings.simplefilter("always", category=OpenSearchWarning)
         with warnings.catch_warnings(record=True) as caught_warnings:
             try:
@@ -327,25 +348,45 @@ class YamlRunner:
 
     def run_match(self, action: Any) -> None:
         for path, expected in action.items():
-            value = self._lookup(path)
             expected = self._resolve(expected)
 
-            if (
-                isinstance(expected, str)
-                and expected.strip().startswith("/")
-                and expected.strip().endswith("/")
-            ):
-                expected = re.compile(expected.strip()[1:-1], re.VERBOSE | re.MULTILINE)
-                assert expected.search(value), f"{value!r} does not match {expected!r}"
+            if expected is None:
+                try:
+                    value = self._lookup(path)
+                except (KeyError, AssertionError):
+                    # Key doesn't exist, which matches None
+                    continue
+                assert value is None, f"Expected None but got {value!r}"
             else:
-                self._assert_match_equals(value, expected)
+                value = self._lookup(path)
+                if (
+                    isinstance(expected, str)
+                    and expected.strip().startswith("/")
+                    and expected.strip().endswith("/")
+                ):
+                    expected = re.compile(
+                        expected.strip()[1:-1], re.VERBOSE | re.MULTILINE
+                    )
+                    assert expected.search(
+                        value
+                    ), f"{value!r} does not match {expected!r}"
+                else:
+                    self._assert_match_equals(value, expected)
 
     def run_contains(self, action: Any) -> None:
         for path, expected in action.items():
             value = self._lookup(path)  # list[dict[str,str]] is returned
             expected = self._resolve(expected)  # dict[str, str]
 
-            if expected not in value:
+            if isinstance(expected, dict):
+                for item in value:
+                    if isinstance(item, dict) and all(
+                        item.get(k) == v for k, v in expected.items()
+                    ):
+                        break
+                else:
+                    raise AssertionError(f"{expected} is not contained by {value}")
+            elif expected not in value:
                 raise AssertionError(f"{expected} is not contained by {value}")
 
     def run_transform_and_set(self, action: Any) -> None:
@@ -437,7 +478,7 @@ def load_rest_api_tests() -> None:
         http = urllib3.PoolManager(retries=10)
 
         package_url = (
-            "https://github.com/opensearch-project/OpenSearch/archive/main.zip"
+            "https://codeload.github.com/opensearch-project/OpenSearch/zip/refs/heads/main"
         )
 
         # Download the zip and start reading YAML from the files in memory
