@@ -21,6 +21,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - Bump `actions/download-artifact` from 6 to 7 ([#988](https://github.com/opensearch-project/opensearch-py/pull/988))
 - Bump `peter-evans/create-pull-request` from 7 to 8 ([#990](https://github.com/opensearch-project/opensearch-py/pull/990))
 - Bump `opensearch-protobufs` from 0.19.0 to 1.2.0 ([#1000](https://github.com/opensearch-project/opensearch-py/pull/1000))
+- Bump `setuptools` from 71.1.0 to 82.0.1 ([#1005](https://github.com/opensearch-project/opensearch-py/pull/1005))
 
 
 ## [3.1.0]
