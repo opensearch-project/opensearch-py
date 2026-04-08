@@ -48,7 +48,9 @@ class AWSV4Signer:
         signature_host = self._fetch_url(url, headers or dict())
 
         # create an AWS request object and sign it using SigV4Auth
-        aws_request = AWSRequest(method=method.upper(), url=signature_host, data=body)
+        aws_request = AWSRequest(
+            method=method.upper(), url=signature_host, data=body, headers=headers or {}
+        )
 
         # credentials objects expose access_key, secret_key and token attributes
         # via @property annotations that call _refresh() on every access,

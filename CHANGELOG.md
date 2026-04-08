@@ -11,6 +11,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ### Deprecated
 ### Removed
 ### Fixed
+- Fixed `AWSV4Signer.sign()` not passing custom headers to `AWSRequest`, causing `x-amz-*` headers to be excluded from SigV4 signature ([#1034](https://github.com/opensearch-project/opensearch-py/issues/1034))
 - Fixed the `linkchecker` CI step ([#987](https://github.com/opensearch-project/opensearch-py/pull/987))
 ### Security
 ### Dependencies
