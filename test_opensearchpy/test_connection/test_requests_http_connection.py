@@ -479,9 +479,36 @@ class TestRequestsHttpConnection(TestCase):
             ).prepare()
             auth(prepared_request)
 
-            mock_aws_request.assert_called_with(
-                method="GET", url="http://otherhost:443/?foo=bar", data=None
-            )
+            mock_aws_request.assert_called_once()
+            call_kwargs = mock_aws_request.call_args[1]
+            self.assertEqual(call_kwargs["method"], "GET")
+            self.assertEqual(call_kwargs["url"], "http://otherhost:443/?foo=bar")
+            self.assertIsNone(call_kwargs["data"])
+            self.assertIn("host", call_kwargs["headers"])
+            self.assertEqual(call_kwargs["headers"]["host"], "otherhost:443")
+
+    def test_aws_signer_signs_custom_headers(self) -> None:
+        region = "us-west-2"
+        service = "aoss"
+
+        import requests
+
+        from opensearchpy.helpers.signer import RequestsAWSV4SignerAuth
+
+        auth = RequestsAWSV4SignerAuth(self.mock_session(), region, service)
+        prepared_request = requests.Request(
+            "GET",
+            "http://localhost",
+            headers={
+                "x-amz-aoss-collection-id": "col-id",
+                "x-amz-aoss-collection-name": "col-name",
+            },
+        ).prepare()
+        auth(prepared_request)
+
+        auth_header = prepared_request.headers["Authorization"]
+        self.assertIn("x-amz-aoss-collection-id", auth_header)
+        self.assertIn("x-amz-aoss-collection-name", auth_header)
 
     def test_aws_signer_as_http_auth(self) -> None:
         region = "us-west-2"
