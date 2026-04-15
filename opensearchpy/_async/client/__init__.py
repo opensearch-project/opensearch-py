@@ -1588,6 +1588,7 @@ class AsyncOpenSearch(Client):
         )
 
     @query_params(
+        "allow_partial_results",
         "ccs_minimize_roundtrips",
         "error_trace",
         "filter_path",
@@ -1617,6 +1618,9 @@ class AsyncOpenSearch(Client):
             definition pairs), separated by newlines
         :arg index: A comma-separated list of data streams, indexes, and
             index aliases to search.
+        :arg allow_partial_results: Specifies whether to return partial
+            results if there are shard request timeouts or shard failures Default is
+            True.
         :arg ccs_minimize_roundtrips: If `true`, network round-trips
             between the coordinating node and remote clusters are minimized for
             cross-cluster search requests. Default is True.
