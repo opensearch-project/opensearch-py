@@ -12,6 +12,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ### Removed
 ### Fixed
 - Fixed `AWSV4Signer.sign()` not passing custom headers to `AWSRequest`, causing `x-amz-*` headers to be excluded from SigV4 signature ([#1034](https://github.com/opensearch-project/opensearch-py/issues/1034))
+- Fixed `AWSV4Signer.sign()` not setting `X-Amz-Content-SHA256` before `SigV4Auth.add_auth()`, causing the header to be absent from `SignedHeaders` in the `Authorization` header. The fix uses a guarded assignment that preserves caller-provided values (e.g., `UNSIGNED-PAYLOAD`, precomputed hashes) ([#1038](https://github.com/opensearch-project/opensearch-py/issues/1038))
 - Fixed the `linkchecker` CI step ([#987](https://github.com/opensearch-project/opensearch-py/pull/987))
 ### Security
 ### Dependencies
