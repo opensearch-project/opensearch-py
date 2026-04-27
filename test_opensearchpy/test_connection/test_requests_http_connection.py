@@ -546,6 +546,42 @@ class TestRequestsHttpConnection(TestCase):
         self.assertIn("X-Amz-Date", prepared_request.headers)
         self.assertIn("X-Amz-Security-Token", prepared_request.headers)
 
+    def test_aws_signer_signs_content_sha256(self) -> None:
+        region = "us-west-2"
+
+        import requests
+
+        from opensearchpy.helpers.signer import RequestsAWSV4SignerAuth
+
+        auth = RequestsAWSV4SignerAuth(self.mock_session(), region)
+        prepared_request = requests.Request("GET", "http://localhost").prepare()
+        auth(prepared_request)
+
+        self.assertIn("X-Amz-Content-SHA256", prepared_request.headers)
+        auth_header = prepared_request.headers["Authorization"]
+        signed_headers = auth_header.split("SignedHeaders=")[1].split(",")[0]
+        self.assertIn("x-amz-content-sha256", signed_headers)
+
+    def test_aws_signer_preserves_caller_content_sha256(self) -> None:
+        import requests
+
+        from opensearchpy.helpers.signer import RequestsAWSV4SignerAuth
+
+        auth = RequestsAWSV4SignerAuth(self.mock_session(), "us-west-2")
+        prepared_request = requests.Request(
+            "GET",
+            "http://localhost",
+            headers={"X-Amz-Content-SHA256": "UNSIGNED-PAYLOAD"},
+        ).prepare()
+        auth(prepared_request)
+
+        self.assertEqual(
+            prepared_request.headers["X-Amz-Content-SHA256"], "UNSIGNED-PAYLOAD"
+        )
+        auth_header = prepared_request.headers["Authorization"]
+        signed_headers = auth_header.split("SignedHeaders=")[1].split(",")[0]
+        self.assertIn("x-amz-content-sha256", signed_headers)
+
     @patch("opensearchpy.helpers.signer.AWSV4Signer.sign")
     def test_aws_signer_signs_with_query_string(self, mock_sign: Any) -> None:
         region = "us-west-1"
