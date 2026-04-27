@@ -72,7 +72,9 @@ class AWSV4Signer:
         # Per the SigV4 spec, x-amz-* headers must be signed. Preserve any
         # caller-provided value (e.g., UNSIGNED-PAYLOAD or precomputed hashes).
         if "X-Amz-Content-SHA256" not in aws_request.headers:
-            aws_request.headers["X-Amz-Content-SHA256"] = sig_v4_auth.payload(aws_request)
+            aws_request.headers["X-Amz-Content-SHA256"] = sig_v4_auth.payload(
+                aws_request
+            )
 
         sig_v4_auth.add_auth(aws_request)
 
