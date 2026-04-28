@@ -60,9 +60,6 @@ install_requires = [
     "python-dateutil",
     "certifi>=2024.07.04",
     "Events",
-    # License: Apache 2.0
-    # gRPC transport client libraries
-    "opensearch-protobufs==1.2.0",
 ]
 tests_require = [
     "requests>=2.0.0, <3.0.0",
@@ -121,6 +118,7 @@ setup(
         "develop": tests_require + docs_require + generate_require,
         "docs": docs_require + async_require,
         "async": async_require,
+        "grpc": ["opensearch-protobufs==1.2.0"],
         "kerberos": ["requests_kerberos"],
     },
 )
