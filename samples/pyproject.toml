@@ -10,6 +10,13 @@ readme = "README.md"
 python = "^3.10"
 opensearch-py = { path = "../", extras=["async"], develop = true }
 boto3 = "^1.28"
+# Direct constraints to force transitive resolution past known CVE ranges.
+# botocore leaves urllib3 open at !=2.2.0,<3,>=1.25.4 which would otherwise
+# resolve to 2.2.2. These floors pull in fixes for urllib3 CVE-2025-50181,
+# CVE-2025-66418, CVE-2025-66471, CVE-2026-21441 and requests CVE-2024-47081,
+# CVE-2026-25645.
+urllib3 = ">=2.6.3,<3"
+requests = ">=2.33.0,<3"
 
 [build-system]
 requires = ["poetry-core"]
