@@ -10,6 +10,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ### Fixed
 ### Security
 ### Dependencies
+- Refresh `samples/` poetry lock to pick up aiohttp 3.13.5, urllib3 2.6.3, requests 2.33.1 (clears Mend CVE findings) ([#1045](https://github.com/opensearch-project/opensearch-py/pull/1045))
 
 ## [3.2.0]
 ### Added
