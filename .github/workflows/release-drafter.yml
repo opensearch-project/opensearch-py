@@ -1,4 +1,4 @@
-name: Release drafter
+name: Release Workflow
 
 on:
   push:
@@ -6,62 +6,31 @@ on:
       - "*"
 
 jobs:
-  draft-a-release:
+  release-to-pypi:
+    environment: release-approval
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      issues: write
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v6
-      - id: get_approvers
-        run: |
-          echo "approvers=$(cat .github/CODEOWNERS | grep @ | tr -d '* ' | sed 's/@/,/g' | sed 's/,//1')" >> $GITHUB_OUTPUT
-      - uses: trstringer/manual-approval@v1
-        with:
-          secret: ${{ github.TOKEN }}
-          approvers: ${{ steps.get_approvers.outputs.approvers }}
-          minimum-approvals: 1
-          issue-title: 'Release opensearch-py'
-          issue-body: "Please approve or deny the release of opensearch-py. **Tag**: ${{ github.ref_name }}  **Commit**: ${{ github.sha }}"
-          exclude-workflow-initiator-as-approver: true
-      - name: Set up Python 3
-        uses: actions/setup-python@v6
-        with:
-          python-version: '3.x'
-      - name: Install build tools
-        run: |
-          python -m pip install --upgrade build
-      - name: Build project for distribution
-        run: |
-          python -m build
-      - name: upload windows dists
-        uses: actions/upload-artifact@v6
-        with:
-          name: release-dists
-          path: dist/
-
-  pypi-publish:
-    runs-on: ubuntu-latest
-    needs:
-      - draft-a-release
     permissions:
       id-token: write
       contents: write
     steps:
-      - name: Retrieve release distributions
-        uses: actions/download-artifact@v7
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Set up Python 3
+        uses: actions/setup-python@v6
         with:
-          name: release-dists
-          path: dist
-      - name: Generate the artifacts
-        run: |
-          tar -zvcf artifacts.tar.gz dist
+          python-version: '3.x'
+
+      - name: Install build tools
+        run: python -m pip install --upgrade build
+
+      - name: Build project for distribution
+        run: python -m build
+
       - name: Publish package distributions to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
-      - name: Release
+
+      - name: Release on Github
         uses: softprops/action-gh-release@v2
         with:
           generate_release_notes: true
-          files: |
-            artifacts.tar.gz
