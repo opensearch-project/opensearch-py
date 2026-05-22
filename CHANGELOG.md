@@ -8,6 +8,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ### Deprecated
 ### Removed
 ### Fixed
+- Fixed `AWSV4Signer.sign()` including hop-by-hop headers (e.g., `connection`) in SigV4 signature, causing 403 errors when the HTTP transport layer modifies these headers after signing ([#1044](https://github.com/opensearch-project/opensearch-py/issues/1044))
 ### Security
 ### Dependencies
 

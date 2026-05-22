@@ -127,6 +127,68 @@ class TestAsyncSignerWithFrozenCredentials(TestAsyncSigner):
         assert len(mock_session.get_frozen_credentials.mock_calls) == 1
 
 
+class TestAsyncSignerHopByHopHeaders:
+    def mock_session(self) -> Mock:
+        access_key = uuid.uuid4().hex
+        secret_key = uuid.uuid4().hex
+        token = uuid.uuid4().hex
+        dummy_session = Mock()
+        dummy_session.access_key = access_key
+        dummy_session.secret_key = secret_key
+        dummy_session.token = token
+
+        del dummy_session.get_frozen_credentials
+
+        return dummy_session
+
+    async def test_connection_header_excluded_from_signing(self) -> None:
+        """connection header must not be included in SigV4 SignedHeaders.
+
+        aiohttp (and other HTTP libraries) may override hop-by-hop headers
+        after signing. If 'connection' is signed but then modified by the
+        transport, the signature will not match and AWS returns 403.
+        """
+        region = "us-west-2"
+
+        from opensearchpy.helpers.asyncsigner import AWSV4SignerAsyncAuth
+
+        auth = AWSV4SignerAsyncAuth(self.mock_session(), region)
+        headers = auth(
+            "GET",
+            "http://localhost",
+            headers={"connection": "keep-alive", "host": "localhost"},
+        )
+        assert "Authorization" in headers
+        auth_header = headers["Authorization"]
+        signed_headers_part = auth_header.split("SignedHeaders=")[1].split(",")[0]
+        assert "connection" not in signed_headers_part.split(";")
+
+    async def test_connection_nominated_headers_excluded_from_signing(self) -> None:
+        """Headers nominated by the Connection header must also be excluded."""
+        region = "us-west-2"
+
+        from opensearchpy.helpers.asyncsigner import AWSV4SignerAsyncAuth
+
+        auth = AWSV4SignerAsyncAuth(self.mock_session(), region)
+        headers = auth(
+            "GET",
+            "http://localhost",
+            headers={
+                "connection": "keep-alive, x-custom-hop",
+                "x-custom-hop": "some-value",
+                "host": "localhost",
+                "x-safe-header": "keep-me",
+            },
+        )
+        assert "Authorization" in headers
+        auth_header = headers["Authorization"]
+        signed_headers_part = auth_header.split("SignedHeaders=")[1].split(",")[0]
+        signed_list = signed_headers_part.split(";")
+        assert "connection" not in signed_list
+        assert "x-custom-hop" not in signed_list
+        assert "x-safe-header" in signed_list
+
+
 class TestAsyncSignerWithSpecialCharacters:
     def mock_session(self) -> Mock:
         access_key = uuid.uuid4().hex
