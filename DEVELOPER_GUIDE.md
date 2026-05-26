@@ -13,7 +13,7 @@
 Python 3.10 or newer is required.
 
 ```
-$ python --version
+$ python3 --version
 Python 3.11.1
 ```
 
@@ -22,7 +22,7 @@ You can install dev requirements with `pip install -r dev-requirements.txt`, but
 Install [Nox](https://nox.thea.codes/en/stable/) for task management.
 
 ```
-$ python -m pip install nox
+$ python3 -m pip install nox
 ```
 
 ## Install Docker Image
