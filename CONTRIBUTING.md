@@ -1,3 +1,4 @@
+Hello!
 - [Contributing to OpenSearch](#contributing-to-opensearch)
 - [First Things First](#first-things-first)
 - [Ways to Contribute](#ways-to-contribute)
