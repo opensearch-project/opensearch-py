@@ -140,3 +140,4 @@ OpenSearch publishes an [OpenAPI specification](https://github.com/opensearch-pr
 ```
 nox -rs generate
 ```
+Hello world
