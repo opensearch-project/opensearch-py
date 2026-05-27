@@ -106,3 +106,49 @@ python test_bulk_stream.py
 
 ### Files Modified
 # OpenSearch/gradle/run.gradle — added aux.transport.types setting for gRPC
+
+## 2026-05-27: simpledoc_gRPC — Full Round-Trip Translation Layer
+
+### Files Created
+# opensearch_grpc/simpledoc_gRPC.py — Single document gRPC translation layer
+#   - Handles full round-trip: Python Dict → Protobuf → gRPC → Protobuf → Python Dict
+#   - Public functions: index_document(), create_document(), update_document(), delete_document()
+#   - _build_single_request(): Converts Python dict to protobuf BulkRequest
+#   - _send_grpc_request(): Sends protobuf over gRPC channel to OpenSearch
+#   - _response_to_dict(): Converts protobuf BulkResponse back to opensearch-py format dict
+#   - Includes detailed comments and print statements showing each conversion step
+
+# test_opensearchpy/test_translation/test_simpledoc.py — Integration test
+#   - Tests all 4 operations: index, create, update, delete
+#   - Verifies response is a Python dict (not protobuf)
+#   - Asserts _index, _id, and result fields match expected values
+#   - Run with: python -m test_opensearchpy.test_translation.test_simpledoc
+
+# client_upload.py — Consumer-side client script
+#   - Simulates a company user uploading product data to OpenSearch
+#   - Uses simpledoc_gRPC functions like the opensearch-py low-level client
+#   - Indexes 3 products, creates 1, updates 1, deletes 1
+#   - Run with: python client_upload.py
+
+# docs/simpledoc_gRPC.md — Code documentation explaining architecture and flow
+# docs/test_simpledoc.md — Test documentation explaining what each test verifies
+
+### Files Removed
+# test_single_doc.py — Replaced by test_opensearchpy/test_translation/test_simpledoc.py
+
+### Key Design: Full Round-Trip
+# The gRPC transport is invisible to the user. They pass Python dicts in and get Python dicts back.
+# Under the hood:
+#   1. User calls index_document(index="x", body={"title": "Hello"}, id="1")
+#   2. simpledoc_gRPC converts the dict to a protobuf BulkRequest message
+#   3. The protobuf is serialized to binary and sent over gRPC (port 9400)
+#   4. OpenSearch processes the operation and returns a protobuf BulkResponse
+#   5. simpledoc_gRPC converts the response protobuf back to a Python dict
+#   6. User receives: {"_index": "x", "_id": "1", "result": "created", ...}
+
+### Wire Size Comparison (per document)
+# JSON (REST):     ~220 bytes per document
+# Protobuf (gRPC): ~215 bytes per document (~1.4% smaller)
+# Note: Document body is still JSON bytes inside protobuf. The savings come from
+#       binary-encoded metadata (index, id, routing). Real gRPC advantage is:
+#       no HTTP overhead, persistent connections, binary framing, streaming support.
