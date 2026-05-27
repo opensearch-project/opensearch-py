@@ -1,0 +1,108 @@
+# py_client_contents - Command & Script Log
+# Project: python-client-grpc
+# Started: 2026-05-22
+
+## Commands Run
+
+# Start OpenSearch node (background, security disabled)
+cd /Users/jeadayao/projs/opensearch/python-client-grpc/OpenSearch && ./gradlew run -Dsecurity.enabled=false --daemon > /tmp/opensearch-run.log 2>&1 &
+
+# Create Python venv and install opensearch-py
+cd /Users/jeadayao/projs/opensearch/python-client-grpc && python3 -m venv .venv && source .venv/bin/activate && pip install opensearch-py --quiet
+
+# Clone opensearch-protobufs
+cd /Users/jeadayao/projs/opensearch/python-client-grpc && git clone https://github.com/opensearch-project/opensearch-protobufs.git
+
+## Scripts Created
+
+### bulk_request.py
+#!/usr/bin/env python3
+"""Bulk request script for OpenSearch."""
+
+from opensearchpy import OpenSearch
+
+client = OpenSearch(
+    hosts=[{"host": "localhost", "port": 9200}],
+    use_ssl=False,
+)
+
+INDEX = "test-bulk"
+
+# Create index
+client.indices.create(index=INDEX, body={"settings": {"number_of_shards": 1}}, ignore=400)
+
+# Bulk request
+actions = []
+for i in range(100):
+    actions.append({"index": {"_index": INDEX, "_id": i}})
+    actions.append({"title": f"Document {i}", "value": i})
+
+resp = client.bulk(body=actions, refresh=True)
+print(f"Bulk indexed {len(actions)//2} docs, errors: {resp['errors']}")
+
+# Verify
+count = client.count(index=INDEX)
+print(f"Total docs in '{INDEX}': {count['count']}")
+
+## 2026-05-26: Translation Layer Document
+
+### Commands Run
+# Explored opensearch-protobufs proto files
+find /Users/jeadayao/projs/opensearch/python-client-grpc/opensearch-protobufs -name "*.proto"
+
+# Read proto schemas
+# - protos/schemas/common.proto (BulkRequest, BulkRequestBody, OperationContainer, etc.)
+# - protos/services/document_service.proto (DocumentService with Bulk RPC)
+
+### Files Created
+# docs/translation_layer_bulk_request.md — Full design doc for bulk dict → protobuf translation layer
+
+## Reference Links
+# Low-level Python client docs: https://docs.opensearch.org/latest/clients/python-low-level/
+# Key insight: bulk body accepts NDJSON string OR list of dicts — translation layer handles both
+
+## 2026-05-26: Added OpenSearchGrpc Client Constructor
+# OpenSearchGrpc extends opensearch-py OpenSearch class
+# Adds grpc_port param (default 9400), creates grpc.insecure_channel
+# DocumentServiceStub for bidirectional streaming bulk
+# Context manager support for cleanup
+
+## 2026-05-26: Added Integration Test for Bidirectional Streaming
+# test_bidirectional_bulk_stream() — connects to localhost:9400, streams BulkRequestBody messages
+# Uses a generator to yield messages one at a time (client-side streaming)
+# Reads BulkResponse messages as server processes them (server-side streaming)
+
+## 2026-05-26: Built and Tested gRPC Bulk Stream
+
+### Commands Run
+# Install grpcio and grpcio-tools
+pip install grpcio grpcio-tools --quiet
+
+# Generate Python protobuf stubs
+python -m grpc_tools.protoc -I opensearch-protobufs --python_out=opensearch_grpc/proto --grpc_python_out=opensearch_grpc/proto opensearch-protobufs/protos/schemas/common.proto opensearch-protobufs/protos/services/document_service.proto
+
+# Fix imports in generated stubs (from protos.schemas -> from .)
+sed -i '' 's|from protos.schemas import common_pb2 as protos_dot_schemas_dot_common__pb2|from . import common_pb2 as protos_dot_schemas_dot_common__pb2|g' opensearch_grpc/proto/document_service_pb2_grpc.py
+
+# Added gRPC transport setting to OpenSearch/gradle/run.gradle:
+#   setting 'aux.transport.types', 'transport-grpc'
+
+# Started OpenSearch with gRPC enabled (port 9400)
+cd OpenSearch && ./gradlew run -Dsecurity.enabled=false
+
+# Ran integration test
+python test_bulk_stream.py
+# Result: 5 operations (index, create, update, delete) all succeeded over gRPC
+
+### Files Created
+# opensearch_grpc/__init__.py
+# opensearch_grpc/proto/__init__.py
+# opensearch_grpc/proto/common_pb2.py (generated)
+# opensearch_grpc/proto/common_pb2_grpc.py (generated)
+# opensearch_grpc/proto/document_service_pb2.py (generated)
+# opensearch_grpc/proto/document_service_pb2_grpc.py (generated)
+# opensearch_grpc/translation.py — toProtoBulkRequest() implementation
+# test_bulk_stream.py — integration test sending bulk ops over gRPC
+
+### Files Modified
+# OpenSearch/gradle/run.gradle — added aux.transport.types setting for gRPC
