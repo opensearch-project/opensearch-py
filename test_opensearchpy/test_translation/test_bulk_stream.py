@@ -2,7 +2,7 @@
 """Integration test: send bulk data over gRPC bidirectional stream."""
 
 import grpc
-from opensearch_grpc.proto import common_pb2, document_service_pb2_grpc
+from opensearch_grpc.proto_adapter import DocumentServiceStub
 from opensearch_grpc.translation import toProtoBulkRequest
 
 
@@ -28,7 +28,7 @@ def test_bulk_stream():
     print(f"Connecting to gRPC at {target}...")
 
     channel = grpc.insecure_channel(target)
-    stub = document_service_pb2_grpc.DocumentServiceStub(channel)
+    stub = DocumentServiceStub(channel)
 
     request = generate_bulk_request()
     print(f"Sending {len(request.bulk_request_body)} operations...")

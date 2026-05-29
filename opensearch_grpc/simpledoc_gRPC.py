@@ -292,66 +292,168 @@ def _send_grpc_request(request, grpc_target):
 # ═══════════════════════════════════════════════════════════════════════════════
 
 
+class ResponseConverter:
+    """
+    Converts protobuf responses back to the Python client format.
+
+    This is the return path of the round-trip:
+        Protobuf BulkResponse → Python dict (opensearch-py format)
+
+    The client originally sent a Python dict. After the server processes it
+    and returns a protobuf response, this class converts it back so the
+    client sees the same format they would get from the REST API.
+
+    Usage:
+        converter = ResponseConverter()
+        python_dict = converter.from_bulk_response(protobuf_response)
+    """
+
+    @staticmethod
+    def from_bulk_response(response):
+        """
+        Convert a protobuf BulkResponse to the Python dict format
+        that opensearch-py returns to the client.
+
+        Input (protobuf):
+            BulkResponse {
+                errors: false,
+                items: [ResponseItem { x_index: "idx", x_id: "1", result: "created", ... }],
+                took: 50
+            }
+
+        Output (Python dict — what the client sees):
+            {
+                "_index": "idx",
+                "_id": "1",
+                "result": "created",
+                "_version": 1,
+                "_seq_no": 0,
+                "_primary_term": 1,
+                "_shards": {"total": 2, "successful": 1, "failed": 0}
+            }
+        """
+        print(f"[ResponseConverter] Converting protobuf BulkResponse → Python dict...")
+        print(f"[ResponseConverter] Server reported: errors={response.errors}, took={response.took}ms")
+
+        # For single-doc operations, there's exactly one item
+        item = response.items[0]
+
+        # Determine which operation type the response is for
+        for op_type in ("index", "create", "update", "delete"):
+            if item.HasField(op_type):
+                resp_item = getattr(item, op_type)
+                break
+        else:
+            return {"error": "Unknown response type"}
+
+        # Build the Python dict matching opensearch-py format
+        result = {
+            "_index": resp_item.x_index,
+            "_id": resp_item.x_id if resp_item.x_id else None,
+            "result": resp_item.result if resp_item.result else None,
+            "_version": resp_item.x_version if resp_item.HasField("x_version") else None,
+            "_seq_no": resp_item.x_seq_no if resp_item.HasField("x_seq_no") else None,
+            "_primary_term": resp_item.x_primary_term if resp_item.HasField("x_primary_term") else None,
+        }
+
+        # Add shard info if present
+        if resp_item.HasField("x_shards"):
+            result["_shards"] = {
+                "total": resp_item.x_shards.total,
+                "successful": resp_item.x_shards.successful,
+                "failed": resp_item.x_shards.failed,
+            }
+
+        # Add error info if present
+        if resp_item.HasField("error"):
+            result["error"] = {
+                "type": resp_item.error.type,
+                "reason": resp_item.error.reason if resp_item.error.HasField("reason") else None,
+            }
+
+        # Remove None values for cleaner output
+        result = {k: v for k, v in result.items() if v is not None}
+
+        print(f"[ResponseConverter] Converted to client format: {result}")
+        return result
+
+    @staticmethod
+    def from_proto_request(request):
+        """
+        Convert a protobuf BulkRequest back to the original Python client format.
+
+        This reconstructs what the client originally sent, useful for debugging
+        or logging the round-trip.
+
+        Input (protobuf BulkRequest):
+            BulkRequest with one BulkRequestBody containing an IndexOperation + object bytes
+
+        Output (Python dict — what the client originally passed):
+            {
+                "operation": "index",
+                "index": "my-index",
+                "id": "doc-1",
+                "body": {"title": "Hello", "value": 42}
+            }
+        """
+        print(f"[ResponseConverter] Reconstructing original client request from protobuf...")
+
+        body = request.bulk_request_body[0]
+        op_container = body.operation_container
+
+        # Determine operation type and extract metadata
+        if op_container.HasField("index"):
+            op = op_container.index
+            op_type = "index"
+        elif op_container.HasField("create"):
+            op = op_container.create
+            op_type = "create"
+        elif op_container.HasField("update"):
+            op = op_container.update
+            op_type = "update"
+        elif op_container.HasField("delete"):
+            op = op_container.delete
+            op_type = "delete"
+        else:
+            return {"error": "Unknown operation type"}
+
+        # Reconstruct the original client call
+        original = {
+            "operation": op_type,
+            "index": op.x_index if op.x_index else request.index,
+            "id": op.x_id if op.x_id else None,
+        }
+
+        # Reconstruct the document body from JSON bytes
+        if body.HasField("object") and body.object:
+            original["body"] = json.loads(body.object.decode("utf-8"))
+        elif body.HasField("update_action"):
+            # Reconstruct update body
+            update_body = {}
+            action = body.update_action
+            if action.HasField("doc") and action.doc:
+                update_body["doc"] = json.loads(action.doc.decode("utf-8"))
+            if action.HasField("doc_as_upsert"):
+                update_body["doc_as_upsert"] = action.doc_as_upsert
+            if action.HasField("upsert") and action.upsert:
+                update_body["upsert"] = json.loads(action.upsert.decode("utf-8"))
+            if action.HasField("scripted_upsert"):
+                update_body["scripted_upsert"] = action.scripted_upsert
+            if action.HasField("detect_noop"):
+                update_body["detect_noop"] = action.detect_noop
+            original["body"] = update_body
+
+        # Remove None values
+        original = {k: v for k, v in original.items() if v is not None}
+
+        print(f"[ResponseConverter] Original client request: {original}")
+        return original
+
+
+# Keep the private function for backward compatibility
 def _response_to_dict(response):
-    """
-    Convert a protobuf BulkResponse back into the Python dict format
-    that the opensearch-py client would normally return.
-
-    The opensearch-py client returns responses like:
-        {
-            "_index": "my-index",
-            "_id": "doc-1",
-            "_version": 1,
-            "result": "created",
-            "_shards": {"total": 2, "successful": 1, "failed": 0},
-            "_seq_no": 0,
-            "_primary_term": 1
-        }
-
-    This function reconstructs that dict from the protobuf response.
-    """
-    print(f"[simpledoc_gRPC] Converting protobuf response → Python dict...")
-
-    # For single-doc operations, there's exactly one item in the response
-    item = response.items[0]
-
-    # Determine which operation type the response is for
-    for op_type in ("index", "create", "update", "delete"):
-        if item.HasField(op_type):
-            resp_item = getattr(item, op_type)
-            break
-    else:
-        return {"error": "Unknown response type"}
-
-    # Build the Python dict matching opensearch-py format
-    result = {
-        "_index": resp_item.x_index,
-        "_id": resp_item.x_id if resp_item.x_id else None,
-        "result": resp_item.result if resp_item.result else None,
-        "_version": resp_item.x_version if resp_item.HasField("x_version") else None,
-        "_seq_no": resp_item.x_seq_no if resp_item.HasField("x_seq_no") else None,
-        "_primary_term": resp_item.x_primary_term if resp_item.HasField("x_primary_term") else None,
-    }
-
-    # Add shard info if present
-    if resp_item.HasField("x_shards"):
-        result["_shards"] = {
-            "total": resp_item.x_shards.total,
-            "successful": resp_item.x_shards.successful,
-            "failed": resp_item.x_shards.failed,
-        }
-
-    # Add error info if present
-    if resp_item.HasField("error"):
-        result["error"] = {
-            "type": resp_item.error.type,
-            "reason": resp_item.error.reason if resp_item.error.HasField("reason") else None,
-        }
-
-    # Remove None values for cleaner output
-    result = {k: v for k, v in result.items() if v is not None}
-
-    return result
+    """Legacy wrapper — use ResponseConverter.from_bulk_response() instead."""
+    return ResponseConverter.from_bulk_response(response)
 
 
 # ═══════════════════════════════════════════════════════════════════════════════

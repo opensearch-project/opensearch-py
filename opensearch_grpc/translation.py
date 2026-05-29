@@ -271,3 +271,64 @@ _OP_BUILDERS = {
     "update": _build_update_op,
     "delete": _build_delete_op,
 }
+
+
+# ─── Bulk Request (multi-document) ────────────────────────────────────────────
+
+
+def toProtoBulkRequest(body, index=None, pipeline=None, routing=None,
+                       refresh=None, timeout=None, require_alias=None):
+    """
+    Convert an opensearch-py bulk body (list of action/source dicts or NDJSON string)
+    into a protobuf BulkRequest.
+
+    Mirrors: client.bulk(body=..., index=..., ...)
+    """
+    request = BulkRequest()
+    body = _normalize_body(body)
+
+    if index is not None:
+        request.index = index
+    if pipeline is not None:
+        request.pipeline = pipeline
+    if routing is not None:
+        request.routing = routing
+    if timeout is not None:
+        request.timeout = timeout
+    if require_alias is not None:
+        request.require_alias = require_alias
+    if refresh is not None:
+        request.refresh = _map_refresh(refresh)
+
+    i = 0
+    while i < len(body):
+        action_dict = body[i]
+        i += 1
+        op_type = next(iter(action_dict))
+        meta = action_dict[op_type]
+
+        source = None
+        if op_type != "delete" and i < len(body):
+            source = body[i]
+            i += 1
+
+        bulk_body = BulkRequestBody()
+        op_container = OperationContainer()
+        _OP_BUILDERS[op_type](op_container, meta)
+        bulk_body.operation_container.CopyFrom(op_container)
+
+        if op_type == "update" and source is not None:
+            bulk_body.update_action.CopyFrom(_build_update_action(source))
+        elif source is not None:
+            bulk_body.object = json.dumps(source).encode("utf-8")
+
+        request.bulk_request_body.append(bulk_body)
+
+    return request
+
+
+def _normalize_body(body):
+    if isinstance(body, str):
+        lines = [line.strip() for line in body.split("\n") if line.strip()]
+        return [json.loads(line) for line in lines]
+    return body
