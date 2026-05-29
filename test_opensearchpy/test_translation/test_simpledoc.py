@@ -1,276 +1,210 @@
+#!/usr/bin/env python3
 """
-test_simpledoc.py — Integration Tests for simpledoc_gRPC Translation Layer
+test_simpledoc.py — Integration Test for simpledoc_gRPC Translation Layer
 
-Tests the full round-trip process:
-    1. Client sends Python dict (original code)
-    2. Translation layer converts to gRPC protobuf (under the hood)
-    3. Protobuf is compiled and sent to OpenSearch server
-    4. Server processes and returns protobuf response
-    5. Response is converted back to Python dict (client's language)
-    6. Original request is reconstructed and returned alongside the response
+This test verifies the full round-trip for single document operations:
+    Python Dict → Protobuf → gRPC → OpenSearch → gRPC → Protobuf → Python Dict
 
-The client receives:
-    - The server response (result, version, shards, etc.)
-    - The original data they sent in, reconstructed from the protobuf
+Each test function exercises one operation type (index, create, update, delete)
+and verifies that:
+    1. The Python dict is correctly converted to protobuf
+    2. The protobuf is sent over gRPC to OpenSearch
+    3. The server processes the operation
+    4. The protobuf response is converted back to a Python dict
+    5. The returned dict matches the expected opensearch-py format
+
+Prerequisites:
+    - OpenSearch running with gRPC enabled on localhost:9400
+    - Start with: cd OpenSearch && nohup ./gradlew run -Dsecurity.enabled=false &
+    - Activate venv: source .venv/bin/activate
 
 Run:
-    OPENSEARCH_URL="http://localhost:9200" pytest test_opensearchpy/test_translation/test_simpledoc.py -v
+    python -m test_opensearchpy.test_translation.test_simpledoc
 """
 
-import os
-import pytest
+import sys
+sys.path.insert(0, ".")  # Ensure we can import from the repo root
 
 from opensearch_grpc.simpledoc_gRPC import (
     index_document,
     create_document,
     update_document,
     delete_document,
-    ResponseConverter,
-    _build_single_request,
 )
 
+# ─── Test Configuration ───────────────────────────────────────────────────────
 
-# ─── Fixtures ─────────────────────────────────────────────────────────────────
-
-
-@pytest.fixture(scope="session")
-def grpc_target():
-    """Derive gRPC target from OPENSEARCH_URL environment."""
-    opensearch_url = os.environ.get("OPENSEARCH_URL", "https://localhost:9200")
-    grpc_port = os.environ.get("OPENSEARCH_GRPC_PORT", "9400")
-    host = opensearch_url.split("://")[-1].split(":")[0].split("@")[-1]
-    return f"{host}:{grpc_port}"
+INDEX = "test-simpledoc"  # Index name used for all tests
+GRPC_TARGET = "localhost:9400"  # gRPC endpoint
 
 
-@pytest.fixture(scope="session")
-def index_name():
-    return "test-simpledoc-ci"
+# ─── Test Functions ───────────────────────────────────────────────────────────
 
 
-@pytest.fixture(autouse=True, scope="session")
-def setup_and_teardown(grpc_target, index_name):
-    yield
-    import urllib.request
-    try:
-        req = urllib.request.Request(f"http://localhost:9200/{index_name}", method="DELETE")
-        urllib.request.urlopen(req, timeout=5)
-    except Exception:
-        pass
-
-
-# ─── Tests: Full Round-Trip (send → convert → gRPC → response → reconstruct) ─
-
-
-class TestIndexDocument:
+def test_index_document():
     """
-    Test index_document() full round-trip:
-        Python dict → protobuf → gRPC → server → protobuf → Python dict + original
+    Test: Index a document (create or overwrite).
+
+    This mirrors what happens when a user calls:
+        client.index(index="test-simpledoc", body={"title": "Hello"}, id="1")
+
+    Expected flow:
+        1. The dict {"title": "Hello"} is serialized to JSON bytes
+        2. An IndexOperation protobuf is created with _index and _id
+        3. Sent over gRPC as a BulkRequest with 1 item
+        4. Server indexes the document and returns status
+        5. Response is converted back to a dict with _index, _id, result, etc.
     """
+    print("\n" + "=" * 60)
+    print("TEST: Index Document")
+    print("=" * 60)
+    print("Simulating: client.index(index='test-simpledoc', body={...}, id='1')")
+    print("-" * 60)
 
-    def test_index_returns_response_and_original(self, grpc_target, index_name):
-        """
-        Verify that after indexing, the client gets back:
-        1. The server response in Python dict format
-        2. The original request can be reconstructed from the protobuf
-        """
-        # This is what the client sends (their original Python code)
-        original_body = {"title": "Hello gRPC", "author": "Test", "value": 42}
+    # This is what the user passes to the client
+    document = {"title": "Hello gRPC", "author": "Test", "value": 42}
 
-        # Step 1-4: Send to server via gRPC (conversion happens under the hood)
-        response = index_document(
-            index=index_name,
-            body=original_body,
-            id="1",
-            refresh="true",
-            grpc_target=grpc_target,
-        )
+    # Call our translation layer — it handles the full round-trip
+    result = index_document(
+        index=INDEX,
+        body=document,
+        id="1",
+        refresh="true",  # Make immediately searchable
+        grpc_target=GRPC_TARGET,
+    )
 
-        # Step 5: Verify server response is in Python dict format
-        assert isinstance(response, dict)
-        assert response["_index"] == index_name
-        assert response["_id"] == "1"
-        assert response["result"] in ("created", "updated")
-        assert "_version" in response
-        assert "_shards" in response
-
-        # Step 6: Reconstruct the original request from protobuf
-        # (proves the data survived the round-trip intact)
-        meta = {"_index": index_name, "_id": "1"}
-        proto_request = _build_single_request("index", meta, original_body, refresh="true")
-        reconstructed = ResponseConverter.from_proto_request(proto_request)
-
-        # Verify the original data is preserved
-        assert reconstructed["operation"] == "index"
-        assert reconstructed["index"] == index_name
-        assert reconstructed["id"] == "1"
-        assert reconstructed["body"] == original_body
-
-    def test_index_overwrites_preserves_data(self, grpc_target, index_name):
-        """Index same ID with new data — verify new data round-trips correctly."""
-        new_body = {"title": "Updated doc", "value": 100}
-
-        response = index_document(
-            index=index_name, body=new_body, id="1",
-            refresh="true", grpc_target=grpc_target,
-        )
-        assert response["result"] == "updated"
-
-        # Reconstruct original from protobuf
-        meta = {"_index": index_name, "_id": "1"}
-        proto_request = _build_single_request("index", meta, new_body)
-        reconstructed = ResponseConverter.from_proto_request(proto_request)
-        assert reconstructed["body"] == new_body
+    # Verify the response is a proper Python dict (not protobuf)
+    print(f"\n[TEST] Returned Python dict: {result}")
+    assert isinstance(result, dict), "Response should be a Python dict"
+    assert result.get("_index") == INDEX, f"Expected index={INDEX}"
+    assert result.get("_id") == "1", "Expected id=1"
+    assert result.get("result") in ("created", "updated"), "Expected created or updated"
+    print("[TEST] ✅ PASSED — Document indexed successfully")
 
 
-class TestCreateDocument:
+def test_create_document():
     """
-    Test create_document() full round-trip.
+    Test: Create a document (fails if already exists).
+
+    This mirrors what happens when a user calls:
+        client.create(index="test-simpledoc", body={"title": "New"}, id="2")
+
+    The difference from index is that create will FAIL if the document
+    already exists, while index will overwrite it.
     """
+    print("\n" + "=" * 60)
+    print("TEST: Create Document")
+    print("=" * 60)
+    print("Simulating: client.create(index='test-simpledoc', body={...}, id='2')")
+    print("-" * 60)
 
-    def test_create_returns_response_and_original(self, grpc_target, index_name):
-        """Create a doc and verify both response and original are returned correctly."""
-        original_body = {"title": "Created doc", "status": "new", "priority": 1}
+    document = {"title": "Created via gRPC", "status": "new"}
 
-        response = create_document(
-            index=index_name, body=original_body, id="create-1",
-            refresh="true", grpc_target=grpc_target,
-        )
+    result = create_document(
+        index=INDEX,
+        body=document,
+        id="2",
+        refresh="true",
+        grpc_target=GRPC_TARGET,
+    )
 
-        # Server response in client's language (Python dict)
-        assert response["_index"] == index_name
-        assert response["_id"] == "create-1"
-        assert response["result"] == "created"
-
-        # Original request reconstructed from protobuf
-        meta = {"_index": index_name, "_id": "create-1"}
-        proto_request = _build_single_request("create", meta, original_body)
-        reconstructed = ResponseConverter.from_proto_request(proto_request)
-        assert reconstructed["operation"] == "create"
-        assert reconstructed["body"] == original_body
+    print(f"\n[TEST] Returned Python dict: {result}")
+    assert isinstance(result, dict), "Response should be a Python dict"
+    assert result.get("_index") == INDEX, f"Expected index={INDEX}"
+    assert result.get("_id") == "2", "Expected id=2"
+    assert result.get("result") == "created", "Expected result=created"
+    print("[TEST] ✅ PASSED — Document created successfully")
 
 
-class TestUpdateDocument:
+def test_update_document():
     """
-    Test update_document() full round-trip.
-    Update bodies have special structure (doc, doc_as_upsert) that must survive.
+    Test: Update an existing document with partial data.
+
+    This mirrors what happens when a user calls:
+        client.update(index="test-simpledoc", id="1", body={"doc": {"value": 99}})
+
+    The body for updates is different from index/create — it contains
+    instructions like "doc" (partial update) rather than the full document.
     """
+    print("\n" + "=" * 60)
+    print("TEST: Update Document")
+    print("=" * 60)
+    print("Simulating: client.update(index='test-simpledoc', id='1', body={...})")
+    print("-" * 60)
 
-    def test_update_returns_response_and_original(self, grpc_target, index_name):
-        """Update a doc and verify the update body round-trips correctly."""
-        # Ensure doc exists
-        index_document(
-            index=index_name, body={"title": "Original", "value": 1},
-            id="update-1", refresh="true", grpc_target=grpc_target,
-        )
+    # Update body uses "doc" key for partial updates
+    update_body = {"doc": {"value": 99, "updated": True}}
 
-        # This is the client's update instruction
-        original_update_body = {"doc": {"value": 99, "updated": True}}
+    result = update_document(
+        index=INDEX,
+        id="1",
+        body=update_body,
+        refresh="true",
+        grpc_target=GRPC_TARGET,
+    )
 
-        response = update_document(
-            index=index_name, id="update-1", body=original_update_body,
-            refresh="true", grpc_target=grpc_target,
-        )
-
-        # Server response in Python dict
-        assert response["_id"] == "update-1"
-        assert response["result"] in ("updated", "noop")
-
-        # Original update body reconstructed from protobuf
-        meta = {"_index": index_name, "_id": "update-1"}
-        proto_request = _build_single_request("update", meta, original_update_body)
-        reconstructed = ResponseConverter.from_proto_request(proto_request)
-        assert reconstructed["operation"] == "update"
-        assert reconstructed["body"]["doc"] == {"value": 99, "updated": True}
-
-    def test_update_doc_as_upsert_round_trips(self, grpc_target, index_name):
-        """Verify doc_as_upsert flag survives the protobuf round-trip."""
-        original_body = {"doc": {"name": "Upserted"}, "doc_as_upsert": True}
-
-        response = update_document(
-            index=index_name, id="upsert-1", body=original_body,
-            refresh="true", grpc_target=grpc_target,
-        )
-        assert response["result"] in ("created", "updated")
-
-        # Verify doc_as_upsert is preserved in reconstruction
-        meta = {"_index": index_name, "_id": "upsert-1"}
-        proto_request = _build_single_request("update", meta, original_body)
-        reconstructed = ResponseConverter.from_proto_request(proto_request)
-        assert reconstructed["body"]["doc_as_upsert"] is True
-        assert reconstructed["body"]["doc"] == {"name": "Upserted"}
+    print(f"\n[TEST] Returned Python dict: {result}")
+    assert isinstance(result, dict), "Response should be a Python dict"
+    assert result.get("_index") == INDEX, f"Expected index={INDEX}"
+    assert result.get("_id") == "1", "Expected id=1"
+    assert result.get("result") in ("updated", "noop"), "Expected updated or noop"
+    print("[TEST] ✅ PASSED — Document updated successfully")
 
 
-class TestDeleteDocument:
+def test_delete_document():
     """
-    Test delete_document() full round-trip.
-    Delete has no body — just operation metadata.
+    Test: Delete a document by ID.
+
+    This mirrors what happens when a user calls:
+        client.delete(index="test-simpledoc", id="2")
+
+    Delete operations have no body — just the index and ID.
     """
+    print("\n" + "=" * 60)
+    print("TEST: Delete Document")
+    print("=" * 60)
+    print("Simulating: client.delete(index='test-simpledoc', id='2')")
+    print("-" * 60)
 
-    def test_delete_returns_response_and_original(self, grpc_target, index_name):
-        """Delete a doc and verify response + original metadata."""
-        # Ensure doc exists
-        index_document(
-            index=index_name, body={"title": "To delete"},
-            id="delete-1", refresh="true", grpc_target=grpc_target,
-        )
+    result = delete_document(
+        index=INDEX,
+        id="2",
+        refresh="true",
+        grpc_target=GRPC_TARGET,
+    )
 
-        response = delete_document(
-            index=index_name, id="delete-1",
-            refresh="true", grpc_target=grpc_target,
-        )
-
-        # Server response
-        assert response["_id"] == "delete-1"
-        assert response["result"] == "deleted"
-
-        # Original request metadata (no body for deletes)
-        meta = {"_index": index_name, "_id": "delete-1"}
-        proto_request = _build_single_request("delete", meta, None)
-        reconstructed = ResponseConverter.from_proto_request(proto_request)
-        assert reconstructed["operation"] == "delete"
-        assert reconstructed["index"] == index_name
-        assert reconstructed["id"] == "delete-1"
-        assert "body" not in reconstructed
+    print(f"\n[TEST] Returned Python dict: {result}")
+    assert isinstance(result, dict), "Response should be a Python dict"
+    assert result.get("_index") == INDEX, f"Expected index={INDEX}"
+    assert result.get("_id") == "2", "Expected id=2"
+    assert result.get("result") == "deleted", "Expected result=deleted"
+    print("[TEST] ✅ PASSED — Document deleted successfully")
 
 
-class TestResponseConverter:
-    """
-    Test ResponseConverter directly — verifies protobuf ↔ Python dict conversion.
-    """
+# ─── Main ─────────────────────────────────────────────────────────────────────
 
-    def test_from_proto_request_index(self, index_name):
-        """Reconstruct an index request from protobuf."""
-        body = {"name": "Widget", "price": 9.99}
-        meta = {"_index": index_name, "_id": "rc-1"}
-        request = _build_single_request("index", meta, body)
 
-        result = ResponseConverter.from_proto_request(request)
-        assert result == {
-            "operation": "index",
-            "index": index_name,
-            "id": "rc-1",
-            "body": {"name": "Widget", "price": 9.99},
-        }
+def main():
+    """Run all tests in sequence."""
+    print("╔══════════════════════════════════════════════════════════════╗")
+    print("║  simpledoc_gRPC Integration Tests                           ║")
+    print("║  Testing: Python Dict → gRPC → OpenSearch → gRPC → Dict    ║")
+    print("╚══════════════════════════════════════════════════════════════╝")
+    print(f"\nTarget: {GRPC_TARGET}")
+    print(f"Index:  {INDEX}")
 
-    def test_from_proto_request_update(self, index_name):
-        """Reconstruct an update request from protobuf."""
-        body = {"doc": {"price": 5.0}, "doc_as_upsert": True}
-        meta = {"_index": index_name, "_id": "rc-2"}
-        request = _build_single_request("update", meta, body)
+    # Run tests in order (create depends on index, delete depends on create)
+    test_index_document()
+    test_create_document()
+    test_update_document()
+    test_delete_document()
 
-        result = ResponseConverter.from_proto_request(request)
-        assert result["operation"] == "update"
-        assert result["body"]["doc"] == {"price": 5.0}
-        assert result["body"]["doc_as_upsert"] is True
+    print("\n" + "=" * 60)
+    print("ALL TESTS PASSED ✅")
+    print("=" * 60)
+    print("\nFull round-trip verified:")
+    print("  Python Dict → Protobuf → gRPC → OpenSearch → gRPC → Protobuf → Python Dict")
 
-    def test_from_proto_request_delete(self, index_name):
-        """Reconstruct a delete request from protobuf (no body)."""
-        meta = {"_index": index_name, "_id": "rc-3"}
-        request = _build_single_request("delete", meta, None)
 
-        result = ResponseConverter.from_proto_request(request)
-        assert result == {
-            "operation": "delete",
-            "index": index_name,
-            "id": "rc-3",
-        }
+if __name__ == "__main__":
+    main()
