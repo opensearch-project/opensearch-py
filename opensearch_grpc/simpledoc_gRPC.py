@@ -18,7 +18,25 @@ This is transparent to the user — they interact with normal Python dicts.
 import json
 import grpc
 
-from opensearch_grpc.proto import common_pb2, document_service_pb2_grpc
+from opensearch_grpc.proto_adapter import (
+    BulkRequest,
+    BulkRequestBody,
+    OperationContainer,
+    IndexOperation,
+    WriteOperation,
+    UpdateOperation,
+    DeleteOperation,
+    UpdateAction,
+    DocumentServiceStub,
+    REFRESH_TRUE,
+    REFRESH_FALSE,
+    REFRESH_WAIT_FOR,
+    REFRESH_UNSPECIFIED,
+    VERSION_TYPE_INTERNAL,
+    VERSION_TYPE_EXTERNAL,
+    VERSION_TYPE_EXTERNAL_GTE,
+    VERSION_TYPE_UNSPECIFIED,
+)
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -257,7 +275,7 @@ def _send_grpc_request(request, grpc_target):
     print(f"[simpledoc_gRPC] Sending protobuf over gRPC to {grpc_target}...")
 
     channel = grpc.insecure_channel(grpc_target)
-    stub = document_service_pb2_grpc.DocumentServiceStub(channel)
+    stub = DocumentServiceStub(channel)
 
     # The Bulk RPC accepts a BulkRequest and returns a BulkResponse
     response = stub.Bulk(request)
@@ -348,7 +366,7 @@ def _build_single_request(op_type, meta, source, refresh=None, timeout=None):
     This is where the Python dict gets converted into protobuf format
     for transport over gRPC.
     """
-    request = common_pb2.BulkRequest()
+    request = BulkRequest()
 
     # Set the default index at the request level
     request.index = meta["_index"]
@@ -360,10 +378,10 @@ def _build_single_request(op_type, meta, source, refresh=None, timeout=None):
         request.timeout = timeout
 
     # Build the single BulkRequestBody
-    body = common_pb2.BulkRequestBody()
+    body = BulkRequestBody()
 
     # Build the operation container (tells the server what operation to perform)
-    op_container = common_pb2.OperationContainer()
+    op_container = OperationContainer()
     _OP_BUILDERS[op_type](op_container, meta)
     body.operation_container.CopyFrom(op_container)
 
@@ -390,23 +408,23 @@ def _build_single_request(op_type, meta, source, refresh=None, timeout=None):
 def _map_refresh(value):
     """Map refresh parameter string/bool to protobuf Refresh enum."""
     mapping = {
-        "true": common_pb2.REFRESH_TRUE,
-        "false": common_pb2.REFRESH_FALSE,
-        "wait_for": common_pb2.REFRESH_WAIT_FOR,
-        True: common_pb2.REFRESH_TRUE,
-        False: common_pb2.REFRESH_FALSE,
+        "true": REFRESH_TRUE,
+        "false": REFRESH_FALSE,
+        "wait_for": REFRESH_WAIT_FOR,
+        True: REFRESH_TRUE,
+        False: REFRESH_FALSE,
     }
-    return mapping.get(value, common_pb2.REFRESH_UNSPECIFIED)
+    return mapping.get(value, REFRESH_UNSPECIFIED)
 
 
 def _map_version_type(value):
     """Map version_type string to protobuf VersionType enum."""
     mapping = {
-        "internal": common_pb2.VERSION_TYPE_INTERNAL,
-        "external": common_pb2.VERSION_TYPE_EXTERNAL,
-        "external_gte": common_pb2.VERSION_TYPE_EXTERNAL_GTE,
+        "internal": VERSION_TYPE_INTERNAL,
+        "external": VERSION_TYPE_EXTERNAL,
+        "external_gte": VERSION_TYPE_EXTERNAL_GTE,
     }
-    return mapping.get(value, common_pb2.VERSION_TYPE_UNSPECIFIED)
+    return mapping.get(value, VERSION_TYPE_UNSPECIFIED)
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -416,7 +434,7 @@ def _map_version_type(value):
 
 def _build_index_op(container, meta):
     """Build an IndexOperation protobuf from the action metadata dict."""
-    op = common_pb2.IndexOperation()
+    op = IndexOperation()
     if "_id" in meta:
         op.x_id = meta["_id"]
     if "_index" in meta:
@@ -440,7 +458,7 @@ def _build_index_op(container, meta):
 
 def _build_create_op(container, meta):
     """Build a WriteOperation (create) protobuf from the action metadata dict."""
-    op = common_pb2.WriteOperation()
+    op = WriteOperation()
     if "_id" in meta:
         op.x_id = meta["_id"]
     if "_index" in meta:
@@ -456,7 +474,7 @@ def _build_create_op(container, meta):
 
 def _build_update_op(container, meta):
     """Build an UpdateOperation protobuf from the action metadata dict."""
-    op = common_pb2.UpdateOperation()
+    op = UpdateOperation()
     if "_id" in meta:
         op.x_id = meta["_id"]
     if "_index" in meta:
@@ -476,7 +494,7 @@ def _build_update_op(container, meta):
 
 def _build_delete_op(container, meta):
     """Build a DeleteOperation protobuf from the action metadata dict."""
-    op = common_pb2.DeleteOperation()
+    op = DeleteOperation()
     if "_id" in meta:
         op.x_id = meta["_id"]
     if "_index" in meta:
@@ -501,7 +519,7 @@ def _build_update_action(source):
     Update bodies have special fields like "doc", "upsert", "script"
     that are different from a normal document body.
     """
-    action = common_pb2.UpdateAction()
+    action = UpdateAction()
     if "doc" in source:
         # Partial document to merge — serialized as JSON bytes
         action.doc = json.dumps(source["doc"]).encode("utf-8")

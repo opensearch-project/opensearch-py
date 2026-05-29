@@ -1,89 +1,147 @@
-"""Translation layer: opensearch-py bulk dict → protobuf BulkRequest."""
+"""Translation layer: opensearch-py single document operations → protobuf BulkRequest.
+
+Single document operations (index, create, update, delete) are transported
+as a BulkRequest containing one BulkRequestBody. This will be extended
+later for multi-document bulk requests.
+"""
 
 import json
-from typing import Any, Union
 
-from opensearch_grpc.proto import common_pb2
+from opensearch_grpc.proto_adapter import (
+    BulkRequest,
+    BulkRequestBody,
+    OperationContainer,
+    IndexOperation,
+    WriteOperation,
+    UpdateOperation,
+    DeleteOperation,
+    UpdateAction,
+    REFRESH_TRUE,
+    REFRESH_FALSE,
+    REFRESH_WAIT_FOR,
+    REFRESH_UNSPECIFIED,
+    VERSION_TYPE_INTERNAL,
+    VERSION_TYPE_EXTERNAL,
+    VERSION_TYPE_EXTERNAL_GTE,
+    VERSION_TYPE_UNSPECIFIED,
+)
 
 
-def toProtoBulkRequest(
-    body: Union[str, list],
-    index: str = None,
-    pipeline: str = None,
-    routing: str = None,
-    refresh: str = None,
-    timeout: str = None,
-    require_alias: bool = None,
-) -> common_pb2.BulkRequest:
-    """Convert opensearch-py bulk body into a protobuf BulkRequest."""
-    request = common_pb2.BulkRequest()
-    body = _normalize_body(body)
+# ─── Single Document Operations ──────────────────────────────────────────────
 
-    if index is not None:
-        request.index = index
-    if pipeline is not None:
-        request.pipeline = pipeline
+
+def toProtoIndexRequest(index, body, id=None, routing=None, pipeline=None,
+                        refresh=None, timeout=None, require_alias=None,
+                        if_primary_term=None, if_seq_no=None,
+                        version=None, version_type=None):
+    """
+    Convert a single index operation to a protobuf BulkRequest.
+
+    Mirrors: client.index(index=..., body=..., id=..., ...)
+    """
+    meta = {"_index": index}
+    if id is not None:
+        meta["_id"] = id
     if routing is not None:
-        request.routing = routing
-    if timeout is not None:
-        request.timeout = timeout
+        meta["routing"] = routing
+    if pipeline is not None:
+        meta["pipeline"] = pipeline
     if require_alias is not None:
-        request.require_alias = require_alias
+        meta["require_alias"] = require_alias
+    if if_primary_term is not None:
+        meta["if_primary_term"] = if_primary_term
+    if if_seq_no is not None:
+        meta["if_seq_no"] = if_seq_no
+    if version is not None:
+        meta["version"] = version
+    if version_type is not None:
+        meta["version_type"] = version_type
+
+    return _build_single_request("index", meta, body, refresh=refresh, timeout=timeout)
+
+
+def toProtoCreateRequest(index, body, id=None, routing=None, pipeline=None,
+                         refresh=None, timeout=None, require_alias=None):
+    """
+    Convert a single create operation to a protobuf BulkRequest.
+
+    Mirrors: client.create(index=..., body=..., id=..., ...)
+    """
+    meta = {"_index": index}
+    if id is not None:
+        meta["_id"] = id
+    if routing is not None:
+        meta["routing"] = routing
+    if pipeline is not None:
+        meta["pipeline"] = pipeline
+    if require_alias is not None:
+        meta["require_alias"] = require_alias
+
+    return _build_single_request("create", meta, body, refresh=refresh, timeout=timeout)
+
+
+def toProtoUpdateRequest(index, id, body, routing=None, refresh=None,
+                         timeout=None, require_alias=None,
+                         if_primary_term=None, if_seq_no=None,
+                         retry_on_conflict=None):
+    """
+    Convert a single update operation to a protobuf BulkRequest.
+
+    Mirrors: client.update(index=..., id=..., body=..., ...)
+    """
+    meta = {"_index": index, "_id": id}
+    if routing is not None:
+        meta["routing"] = routing
+    if require_alias is not None:
+        meta["require_alias"] = require_alias
+    if if_primary_term is not None:
+        meta["if_primary_term"] = if_primary_term
+    if if_seq_no is not None:
+        meta["if_seq_no"] = if_seq_no
+    if retry_on_conflict is not None:
+        meta["retry_on_conflict"] = retry_on_conflict
+
+    return _build_single_request("update", meta, body, refresh=refresh, timeout=timeout)
+
+
+def toProtoDeleteRequest(index, id, routing=None, refresh=None, timeout=None,
+                         if_primary_term=None, if_seq_no=None,
+                         version=None, version_type=None):
+    """
+    Convert a single delete operation to a protobuf BulkRequest.
+
+    Mirrors: client.delete(index=..., id=..., ...)
+    """
+    meta = {"_index": index, "_id": id}
+    if routing is not None:
+        meta["routing"] = routing
+    if if_primary_term is not None:
+        meta["if_primary_term"] = if_primary_term
+    if if_seq_no is not None:
+        meta["if_seq_no"] = if_seq_no
+    if version is not None:
+        meta["version"] = version
+    if version_type is not None:
+        meta["version_type"] = version_type
+
+    return _build_single_request("delete", meta, None, refresh=refresh, timeout=timeout)
+
+
+# ─── Internal Helpers ─────────────────────────────────────────────────────────
+
+
+def _build_single_request(op_type, meta, source, refresh=None, timeout=None):
+    """Build a BulkRequest with a single operation."""
+    request = BulkRequest()
+    request.index = meta["_index"]
+
     if refresh is not None:
         request.refresh = _map_refresh(refresh)
+    if timeout is not None:
+        request.timeout = timeout
 
-    i = 0
-    while i < len(body):
-        action_dict = body[i]
-        i += 1
-        op_type, meta = _parse_action(action_dict)
-
-        source = None
-        if op_type != "delete" and i < len(body):
-            source = body[i]
-            i += 1
-
-        bulk_body = _build_bulk_request_body(op_type, meta, source)
-        request.bulk_request_body.append(bulk_body)
-
-    return request
-
-
-def _normalize_body(body):
-    if isinstance(body, str):
-        lines = [line.strip() for line in body.split("\n") if line.strip()]
-        return [json.loads(line) for line in lines]
-    return body
-
-
-def _parse_action(action_dict):
-    op_type = next(iter(action_dict))
-    return op_type, action_dict[op_type]
-
-
-def _map_refresh(value):
-    mapping = {
-        "true": common_pb2.REFRESH_TRUE,
-        "false": common_pb2.REFRESH_FALSE,
-        "wait_for": common_pb2.REFRESH_WAIT_FOR,
-        True: common_pb2.REFRESH_TRUE,
-        False: common_pb2.REFRESH_FALSE,
-    }
-    return mapping.get(value, common_pb2.REFRESH_UNSPECIFIED)
-
-
-def _map_version_type(value):
-    mapping = {
-        "internal": common_pb2.VERSION_TYPE_INTERNAL,
-        "external": common_pb2.VERSION_TYPE_EXTERNAL,
-        "external_gte": common_pb2.VERSION_TYPE_EXTERNAL_GTE,
-    }
-    return mapping.get(value, common_pb2.VERSION_TYPE_UNSPECIFIED)
-
-
-def _build_bulk_request_body(op_type, meta, source):
-    body = common_pb2.BulkRequestBody()
-    op_container = common_pb2.OperationContainer()
+    body = BulkRequestBody()
+    op_container = OperationContainer()
     _OP_BUILDERS[op_type](op_container, meta)
     body.operation_container.CopyFrom(op_container)
 
@@ -92,11 +150,32 @@ def _build_bulk_request_body(op_type, meta, source):
     elif source is not None:
         body.object = json.dumps(source).encode("utf-8")
 
-    return body
+    request.bulk_request_body.append(body)
+    return request
+
+
+def _map_refresh(value):
+    mapping = {
+        "true": REFRESH_TRUE,
+        "false": REFRESH_FALSE,
+        "wait_for": REFRESH_WAIT_FOR,
+        True: REFRESH_TRUE,
+        False: REFRESH_FALSE,
+    }
+    return mapping.get(value, REFRESH_UNSPECIFIED)
+
+
+def _map_version_type(value):
+    mapping = {
+        "internal": VERSION_TYPE_INTERNAL,
+        "external": VERSION_TYPE_EXTERNAL,
+        "external_gte": VERSION_TYPE_EXTERNAL_GTE,
+    }
+    return mapping.get(value, VERSION_TYPE_UNSPECIFIED)
 
 
 def _build_index_op(container, meta):
-    op = common_pb2.IndexOperation()
+    op = IndexOperation()
     if "_id" in meta:
         op.x_id = meta["_id"]
     if "_index" in meta:
@@ -119,7 +198,7 @@ def _build_index_op(container, meta):
 
 
 def _build_create_op(container, meta):
-    op = common_pb2.WriteOperation()
+    op = WriteOperation()
     if "_id" in meta:
         op.x_id = meta["_id"]
     if "_index" in meta:
@@ -134,7 +213,7 @@ def _build_create_op(container, meta):
 
 
 def _build_update_op(container, meta):
-    op = common_pb2.UpdateOperation()
+    op = UpdateOperation()
     if "_id" in meta:
         op.x_id = meta["_id"]
     if "_index" in meta:
@@ -153,7 +232,7 @@ def _build_update_op(container, meta):
 
 
 def _build_delete_op(container, meta):
-    op = common_pb2.DeleteOperation()
+    op = DeleteOperation()
     if "_id" in meta:
         op.x_id = meta["_id"]
     if "_index" in meta:
@@ -172,7 +251,7 @@ def _build_delete_op(container, meta):
 
 
 def _build_update_action(source):
-    action = common_pb2.UpdateAction()
+    action = UpdateAction()
     if "doc" in source:
         action.doc = json.dumps(source["doc"]).encode("utf-8")
     if "doc_as_upsert" in source:
