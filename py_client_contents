@@ -152,3 +152,99 @@ python test_bulk_stream.py
 # Note: Document body is still JSON bytes inside protobuf. The savings come from
 #       binary-encoded metadata (index, id, routing). Real gRPC advantage is:
 #       no HTTP overhead, persistent connections, binary framing, streaming support.
+
+## 2026-05-29: proto_adapter.py — Restructured Proto Imports
+
+### Files Created
+# opensearch_grpc/proto_adapter.py — Single import point for all protobuf types and gRPC stubs
+#   - All modules import from proto_adapter instead of directly from proto/
+#   - When opensearch-protobufs PyPI package publishes real stubs, only this file changes
+#   - Re-exports: BulkRequest, BulkRequestBody, OperationContainer, IndexOperation,
+#     WriteOperation, UpdateOperation, DeleteOperation, UpdateAction, DocumentServiceStub
+#   - Re-exports enums: REFRESH_TRUE/FALSE/WAIT_FOR, VERSION_TYPE_INTERNAL/EXTERNAL/EXTERNAL_GTE
+
+### Files Modified
+# opensearch_grpc/simpledoc_gRPC.py — Changed imports from proto/ to proto_adapter
+# opensearch_grpc/translation.py — Changed imports from proto/ to proto_adapter
+
+### Explanation
+# Previously every file imported directly: from opensearch_grpc.proto import common_pb2
+# Now they import from proto_adapter which abstracts the source.
+# When opensearch-protobufs package is ready, swap 2 lines in proto_adapter.py — nothing else changes.
+
+## 2026-05-29: ResponseConverter Class — Full Round-Trip Response Handling
+
+### Added to opensearch_grpc/simpledoc_gRPC.py:
+# class ResponseConverter:
+#   @staticmethod from_bulk_response(response):
+#     - Converts protobuf BulkResponse → Python dict (opensearch-py format)
+#     - Extracts: _index, _id, result, _version, _seq_no, _primary_term, _shards, error
+#     - This is what the client receives back in their language (Python dict)
+#
+#   @staticmethod from_proto_request(request):
+#     - Reconstructs the original Python dict the client sent from the protobuf
+#     - Decodes JSON bytes back to dict for index/create bodies
+#     - Reconstructs update bodies (doc, doc_as_upsert, upsert, scripted_upsert, detect_noop)
+#     - Proves data survived the round-trip intact
+
+### Process Flow (what the code does end-to-end):
+# 1. Client sends Python dict → index_document(index="x", body={"title": "Hi"}, id="1")
+# 2. _build_single_request() converts dict → protobuf BulkRequest (binary format)
+# 3. _send_grpc_request() sends protobuf over gRPC to OpenSearch server (port 9400)
+# 4. Server processes, returns protobuf BulkResponse
+# 5. ResponseConverter.from_bulk_response() converts response → Python dict
+# 6. ResponseConverter.from_proto_request() can reconstruct original client data
+# 7. Client receives Python dict: {"_index": "x", "_id": "1", "result": "created", ...}
+
+## 2026-05-29: Pytest CI Tests — test_simpledoc_ci.py
+
+### Files Created
+# test_opensearchpy/test_translation/test_simpledoc_ci.py — Pytest-based CI tests
+#   - Uses pytest fixtures (grpc_target, index_name, setup_and_teardown)
+#   - Derives gRPC target from OPENSEARCH_URL env var (same as CI infrastructure)
+#   - TestIndexDocument: test_index_returns_response_and_original, test_index_overwrites_preserves_data
+#   - TestCreateDocument: test_create_returns_response_and_original
+#   - TestUpdateDocument: test_update_returns_response_and_original, test_update_doc_as_upsert_round_trips
+#   - TestDeleteDocument: test_delete_returns_response_and_original
+#   - TestResponseConverter: test_from_proto_request_index/update/delete
+#   - Each test verifies BOTH server response AND original data reconstruction
+#   - Run with: OPENSEARCH_URL="http://localhost:9200" pytest test_opensearchpy/test_translation/test_simpledoc_ci.py -v
+
+### Files Kept
+# test_opensearchpy/test_translation/test_simpledoc.py — Original unit test (manual run)
+#   - Run with: python -m test_opensearchpy.test_translation.test_simpledoc
+
+### Explanation
+# test_simpledoc.py = quick manual test with print output (developer use)
+# test_simpledoc_ci.py = proper pytest with fixtures and assertions (CI use)
+
+## 2026-05-29: Restored toProtoBulkRequest in translation.py
+
+### Files Modified
+# opensearch_grpc/translation.py — Added back toProtoBulkRequest() for multi-doc bulk operations
+#   - Accepts list of dicts or NDJSON string
+#   - Iterates action/source pairs, builds BulkRequestBody for each
+#   - Used by test_bulk_stream.py
+# test_opensearchpy/test_translation/test_bulk_stream.py — Fixed imports to use proto_adapter
+
+## 2026-05-29: File Upload — upload_file.py
+
+### Files Created
+# upload_file.py — CLI tool to upload files to OpenSearch via gRPC
+#   - Supports: .json (single object or array), .csv (rows as docs), .ndjson/.jsonl
+#   - Uses simpledoc_gRPC.index_document() for each document
+#   - --id-field flag: use a document field as the _id
+#   - --index flag: target index name (required)
+#   - --grpc-target flag: gRPC endpoint (default localhost:9400)
+#   - Run with: python upload_file.py data/sample_products.json --index products --id-field product_id
+
+# data/sample_products.json — Sample JSON array (3 products)
+# data/sample_logs.csv — Sample CSV (3 log entries)
+
+## 2026-05-29: pip upgraded to 26.0.1
+# pip install --upgrade pip
+
+## 2026-05-29: Installed opensearch-protobufs PyPI package (v0.0.2)
+# pip install opensearch-protobufs
+# Note: v0.0.2 is namespace reservation only — no actual proto stubs yet
+# We keep local proto/ folder as fallback until package publishes real modules
