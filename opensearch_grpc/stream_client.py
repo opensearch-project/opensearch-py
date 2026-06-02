@@ -164,7 +164,7 @@ class StreamClient:
         Send all queued operations to the server and return responses.
 
         Returns:
-            List of Python dicts (one per operation) in opensearch-py format.
+            List of dicts in bulk format: [{"index": {...}}, {"create": {...}}, ...]
         """
         if self._pending_count == 0:
             return []
@@ -175,19 +175,41 @@ class StreamClient:
         # Send over gRPC
         response = self._stub.Bulk(request)
 
-        # Convert response back to Python dicts
-        result = ResponseConverter.from_bulk_response(response)
+        # Convert response — always use bulk format for consistency
+        items = []
+        for item in response.items:
+            for op_type in ("index", "create", "update", "delete"):
+                if item.HasField(op_type):
+                    resp_item = getattr(item, op_type)
+                    item_dict = {
+                        "_index": resp_item.x_index,
+                        "_id": resp_item.x_id if resp_item.x_id else None,
+                        "result": resp_item.result if resp_item.result else None,
+                        "_version": resp_item.x_version if resp_item.HasField("x_version") else None,
+                        "_seq_no": resp_item.x_seq_no if resp_item.HasField("x_seq_no") else None,
+                        "_primary_term": resp_item.x_primary_term if resp_item.HasField("x_primary_term") else None,
+                        "status": resp_item.status,
+                    }
+                    if resp_item.HasField("x_shards"):
+                        item_dict["_shards"] = {
+                            "total": resp_item.x_shards.total,
+                            "successful": resp_item.x_shards.successful,
+                            "failed": resp_item.x_shards.failed,
+                        }
+                    if resp_item.HasField("error"):
+                        item_dict["error"] = {
+                            "type": resp_item.error.type,
+                            "reason": resp_item.error.reason if resp_item.error.HasField("reason") else None,
+                        }
+                    item_dict = {k: v for k, v in item_dict.items() if v is not None}
+                    items.append({op_type: item_dict})
+                    break
 
         # Reset the converter for next batch
         self._converter = RequestConverter(refresh=self._refresh, timeout=self._timeout)
         self._pending_count = 0
 
-        # Normalize: always return a list
-        if isinstance(result, dict) and "items" in result:
-            return result["items"]
-        elif isinstance(result, dict):
-            return [result]
-        return result
+        return items
 
     @property
     def pending(self):
