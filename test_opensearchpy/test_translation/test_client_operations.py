@@ -91,47 +91,63 @@ class TestAddDocuments:
 
     def test_index_single_document(self, client, index_name, rest_url):
         """Client sends one document, gets response with _id and result."""
+        print("\n[TEST] Indexing single document: {title: 'First Document', value: 1}")
         client.index(index_name, body={"title": "First Document", "value": 1}, id="doc-1")
         responses = client.flush()
+        print(f"[TEST] Response: {responses[0]}")
 
         assert len(responses) == 1
         resp = responses[0]["index"]
         assert resp["_index"] == index_name
         assert resp["_id"] == "doc-1"
         assert resp["result"] == "created"
+        print(f"[TEST] ✅ Document doc-1 created successfully")
 
         # Verify via REST
         doc = _get_doc(rest_url, index_name, "doc-1")
         assert doc["_source"]["title"] == "First Document"
+        print(f"[TEST] ✅ Verified via REST: {doc['_source']}")
 
     def test_index_multiple_documents(self, client, index_name, rest_url):
         """Client sends multiple documents in one batch."""
+        print("\n[TEST] Indexing 3 documents in one batch")
         client.index(index_name, body={"title": "Doc 2", "value": 2}, id="doc-2")
         client.index(index_name, body={"title": "Doc 3", "value": 3}, id="doc-3")
         client.index(index_name, body={"title": "Doc 4", "value": 4}, id="doc-4")
         responses = client.flush()
+        print(f"[TEST] Got {len(responses)} responses")
+        for r in responses:
+            print(f"[TEST]   {r}")
 
         assert len(responses) == 3
         for resp in responses:
             assert resp["index"]["result"] == "created"
+        print("[TEST] ✅ All 3 documents created")
 
     def test_create_document(self, client, index_name):
         """Client creates a document (fails if already exists)."""
+        print("\n[TEST] Creating document doc-5 (will fail if exists)")
         client.create(index_name, body={"title": "Created Doc", "value": 5}, id="doc-5")
         responses = client.flush()
+        print(f"[TEST] Response: {responses[0]}")
 
         assert len(responses) == 1
         assert responses[0]["create"]["_id"] == "doc-5"
         assert responses[0]["create"]["result"] == "created"
+        print("[TEST] ✅ Document doc-5 created")
 
     def test_index_without_id(self, client, index_name):
         """Client indexes without specifying an ID — server generates one."""
+        print("\n[TEST] Indexing document without ID (server will auto-generate)")
         client.index(index_name, body={"title": "Auto ID Doc", "value": 99})
         responses = client.flush()
+        print(f"[TEST] Response: {responses[0]}")
+        print(f"[TEST] Auto-generated ID: {responses[0]['index']['_id']}")
 
         assert len(responses) == 1
         assert responses[0]["index"]["_id"] is not None
         assert responses[0]["index"]["result"] == "created"
+        print("[TEST] ✅ Document created with auto-generated ID")
 
 
 # ─── Test: Updating Documents ─────────────────────────────────────────────────
@@ -142,8 +158,10 @@ class TestUpdateDocuments:
 
     def test_update_partial_document(self, client, index_name, rest_url):
         """Client updates one field of an existing document."""
+        print("\n[TEST] Updating doc-1: setting value=100")
         client.update(index_name, id="doc-1", body={"doc": {"value": 100}})
         responses = client.flush()
+        print(f"[TEST] Response: {responses[0]}")
 
         assert len(responses) == 1
         assert responses[0]["update"]["_id"] == "doc-1"
@@ -153,14 +171,17 @@ class TestUpdateDocuments:
         doc = _get_doc(rest_url, index_name, "doc-1")
         assert doc["_source"]["value"] == 100
         assert doc["_source"]["title"] == "First Document"  # unchanged
+        print(f"[TEST] ✅ Updated doc-1: value={doc['_source']['value']}, title unchanged")
 
     def test_update_with_upsert(self, client, index_name, rest_url):
         """Client upserts — creates doc if it doesn't exist."""
+        print("\n[TEST] Upserting doc-upsert (creates if missing)")
         client.update(
             index_name, id="doc-upsert",
             body={"doc": {"title": "Upserted", "value": 50}, "doc_as_upsert": True}
         )
         responses = client.flush()
+        print(f"[TEST] Response: {responses[0]}")
 
         assert len(responses) == 1
         result = responses[0]["update"]["result"]
@@ -168,6 +189,7 @@ class TestUpdateDocuments:
 
         doc = _get_doc(rest_url, index_name, "doc-upsert")
         assert doc["_source"]["title"] == "Upserted"
+        print(f"[TEST] ✅ Upserted doc-upsert: result={result}")
 
 
 # ─── Test: Deleting Documents ─────────────────────────────────────────────────
@@ -178,13 +200,14 @@ class TestDeleteDocuments:
 
     def test_delete_existing_document(self, client, index_name, rest_url):
         """Client deletes a document that exists."""
-        # Ensure doc exists
+        print("\n[TEST] Creating doc-del, then deleting it")
         client.index(index_name, body={"title": "To Delete"}, id="doc-del")
         client.flush()
 
         # Delete it
         client.delete(index_name, id="doc-del")
         responses = client.flush()
+        print(f"[TEST] Delete response: {responses[0]}")
 
         assert len(responses) == 1
         assert responses[0]["delete"]["_id"] == "doc-del"
@@ -193,14 +216,18 @@ class TestDeleteDocuments:
         # Verify it's gone
         doc = _get_doc(rest_url, index_name, "doc-del")
         assert doc is None or doc.get("found") is False
+        print("[TEST] ✅ Document doc-del deleted and verified gone")
 
     def test_delete_nonexistent_document(self, client, index_name):
         """Client tries to delete a doc that doesn't exist — gets not_found."""
+        print("\n[TEST] Deleting non-existent document 'does-not-exist'")
         client.delete(index_name, id="does-not-exist")
         responses = client.flush()
+        print(f"[TEST] Response: {responses[0]}")
 
         assert len(responses) == 1
         assert responses[0]["delete"]["result"] == "not_found"
+        print("[TEST] ✅ Got expected 'not_found' response")
 
 
 # ─── Test: Document Count ─────────────────────────────────────────────────────
@@ -212,8 +239,10 @@ class TestDocumentCount:
     def test_count_after_operations(self, client, index_name, rest_url):
         """Verify the document count matches what we indexed."""
         count = _get_count(rest_url, index_name)
+        print(f"\n[TEST] Document count in '{index_name}': {count}")
         # We should have: doc-1, doc-2, doc-3, doc-4, doc-5, auto-id, doc-upsert = 7
         assert count >= 7, f"Expected at least 7 docs, got {count}"
+        print(f"[TEST] ✅ Count is {count} (expected >= 7)")
 
 
 # ─── Test: Error Handling ─────────────────────────────────────────────────────
@@ -224,14 +253,17 @@ class TestErrorHandling:
 
     def test_create_duplicate_document(self, client, index_name):
         """Creating a doc that already exists returns an error."""
+        print("\n[TEST] Attempting to create doc-1 again (should fail — already exists)")
         # doc-1 already exists from earlier tests
         client.create(index_name, body={"title": "Duplicate"}, id="doc-1")
         responses = client.flush()
+        print(f"[TEST] Response: {responses[0]}")
 
         assert len(responses) == 1
         resp = responses[0]["create"]
         # Should have error or non-created result
         assert "error" in resp or resp.get("result") != "created"
+        print("[TEST] ✅ Got expected error for duplicate create")
 
 
 # ─── Test: Mixed Batch ────────────────────────────────────────────────────────
@@ -242,12 +274,17 @@ class TestMixedBatch:
 
     def test_mixed_operations_batch(self, client, index_name):
         """Client sends index + update + delete in one flush."""
+        print("\n[TEST] Sending mixed batch: index + update + delete")
         client.index(index_name, body={"title": "Batch New"}, id="batch-1")
         client.update(index_name, id="doc-1", body={"doc": {"batch": True}})
         client.delete(index_name, id="doc-5")
         responses = client.flush()
+        print(f"[TEST] Got {len(responses)} responses:")
+        for r in responses:
+            print(f"[TEST]   {r}")
 
         assert len(responses) == 3
         assert responses[0]["index"]["result"] == "created"
         assert responses[1]["update"]["result"] == "updated"
         assert responses[2]["delete"]["result"] == "deleted"
+        print("[TEST] ✅ Mixed batch: index=created, update=updated, delete=deleted")
