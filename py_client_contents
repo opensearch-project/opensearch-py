@@ -318,3 +318,36 @@ python test_bulk_stream.py
 #   - https://docs.opensearch.org/latest/api-reference/grpc-apis/bulk/ (Bulk gRPC API)
 #   - https://docs.opensearch.org/latest/api-reference/grpc-apis/index/ (gRPC overview)
 #   - https://docs.opensearch.org/latest/clients/python-low-level/ (client API pattern)
+
+## 2026-06-02: Integration Tests — test_client_operations.py
+
+### Files Created
+# test_opensearchpy/test_translation/test_client_operations.py — 11 integration tests
+#   - Uses StreamClient to simulate a real client sending docs over gRPC
+#   - TestAddDocuments: index single, multiple, create, auto-id (4 tests)
+#   - TestUpdateDocuments: partial update, upsert (2 tests)
+#   - TestDeleteDocuments: existing doc, nonexistent doc (2 tests)
+#   - TestDocumentCount: verify count via REST (1 test)
+#   - TestErrorHandling: create duplicate doc (1 test)
+#   - TestMixedBatch: index + update + delete in one flush (1 test)
+#   - All tests include print statements showing what's happening
+#   - Uses REST API to verify data was actually stored/deleted
+#   - Run: OPENSEARCH_URL="http://localhost:9200" pytest test_opensearchpy/test_translation/test_client_operations.py -v -s
+
+# docs/test_client_operations.md — Documentation for the integration tests
+
+### Files Modified
+# opensearch_grpc/stream_client.py — Fixed flush() to always return consistent bulk format
+#   - Single-item responses now return same format as multi-item: [{"index": {...}}]
+#   - Previously single items returned flat dict, multi returned nested — now consistent
+
+## 2026-06-02: StreamClient flush() Fix
+
+### Problem
+# flush() returned different formats for single vs multi operations:
+#   Single: [{"_index": "x", "_id": "1", "result": "created"}]  (flat)
+#   Multi:  [{"index": {"_index": "x", ...}}]                    (nested by op_type)
+
+### Fix
+# Now always returns bulk format: [{"index": {...}}, {"create": {...}}, ...]
+# Tests can consistently access responses[0]["index"]["_id"] regardless of batch size
