@@ -248,3 +248,43 @@ python test_bulk_stream.py
 # pip install opensearch-protobufs
 # Note: v0.0.2 is namespace reservation only — no actual proto stubs yet
 # We keep local proto/ folder as fallback until package publishes real modules
+
+## 2026-06-02: Unified Translation Layer — RequestConverter + ResponseConverter
+
+### Refactored opensearch_grpc/translation.py
+# Now contains only TWO classes that handle the full round-trip:
+#
+# class RequestConverter:
+#   - One class for ALL requests (single-doc AND bulk)
+#   - Methods: .index(), .create(), .update(), .delete(), .build()
+#   - .from_body(): Parse raw NDJSON string or list of action/source dicts
+#   - Chainable: RequestConverter(index="x").index(body={...}).create(body={...}).build()
+#   - Replaces: toProtoIndexRequest, toProtoCreateRequest, toProtoUpdateRequest,
+#               toProtoDeleteRequest, toProtoBulkRequest, BulkRequestBuilder
+#
+# class ResponseConverter:
+#   - One class for ALL responses (single-doc AND bulk)
+#   - .from_bulk_response(response): Protobuf BulkResponse → Python dict
+#     - Single item: returns {"_index": ..., "_id": ..., "result": ..., ...}
+#     - Multiple items: returns {"took": ..., "errors": ..., "items": [...]}
+#   - .from_proto_request(request): Reconstructs original client data from protobuf
+#     - Single item: returns {"operation": "index", "index": ..., "body": {...}}
+#     - Multiple items: returns list of dicts
+#
+# Backward compatibility preserved:
+#   - BulkRequestBuilder = RequestConverter (alias)
+#   - toProtoBulkRequest() still works (delegates to RequestConverter.from_body)
+#   - _build_single_request() still works (used by simpledoc_gRPC.py)
+
+### Moved ResponseConverter from simpledoc_gRPC.py → translation.py
+# simpledoc_gRPC.py now imports from translation.py
+# Both request and response conversion in one file
+
+### Created test_opensearchpy/test_translation/test_bulk_request.py
+# Pytest tests for bulk operations:
+#   - TestBulkRequestBuilder: mixed ops, update/delete, per-op index, len(), chaining
+#   - TestToProtoBulkRequest: list of dicts, NDJSON string, default index
+#   - TestBulkResponseConverter: verify bulk responses convert back correctly
+# Run: OPENSEARCH_URL="http://localhost:9200" pytest test_opensearchpy/test_translation/test_bulk_request.py -v
+
+### All 23 tests pass across all test files

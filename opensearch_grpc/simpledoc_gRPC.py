@@ -37,6 +37,7 @@ from opensearch_grpc.proto_adapter import (
     VERSION_TYPE_EXTERNAL_GTE,
     VERSION_TYPE_UNSPECIFIED,
 )
+from opensearch_grpc.translation import ResponseConverter, _build_single_request
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -107,7 +108,7 @@ def index_document(index, body, id=None, routing=None, pipeline=None,
     response = _send_grpc_request(request, grpc_target)
 
     # Step 4: Convert protobuf response back to Python dict
-    result = _response_to_dict(response)
+    result = ResponseConverter.from_bulk_response(response)
     print(f"[simpledoc_gRPC] Response converted back to Python dict: {result}")
     return result
 
@@ -152,7 +153,7 @@ def create_document(index, body, id=None, routing=None, pipeline=None,
 
     response = _send_grpc_request(request, grpc_target)
 
-    result = _response_to_dict(response)
+    result = ResponseConverter.from_bulk_response(response)
     print(f"[simpledoc_gRPC] Response converted back to Python dict: {result}")
     return result
 
@@ -207,7 +208,7 @@ def update_document(index, id, body, routing=None, refresh=None,
 
     response = _send_grpc_request(request, grpc_target)
 
-    result = _response_to_dict(response)
+    result = ResponseConverter.from_bulk_response(response)
     print(f"[simpledoc_gRPC] Response converted back to Python dict: {result}")
     return result
 
@@ -255,7 +256,7 @@ def delete_document(index, id, routing=None, refresh=None, timeout=None,
 
     response = _send_grpc_request(request, grpc_target)
 
-    result = _response_to_dict(response)
+    result = ResponseConverter.from_bulk_response(response)
     print(f"[simpledoc_gRPC] Response converted back to Python dict: {result}")
     return result
 
@@ -286,362 +287,3 @@ def _send_grpc_request(request, grpc_target):
     channel.close()
     return response
 
-
-# ═══════════════════════════════════════════════════════════════════════════════
-# RESPONSE CONVERSION — Protobuf BulkResponse → Python dict
-# ═══════════════════════════════════════════════════════════════════════════════
-
-
-class ResponseConverter:
-    """
-    Converts protobuf responses back to the Python client format.
-
-    This is the return path of the round-trip:
-        Protobuf BulkResponse → Python dict (opensearch-py format)
-
-    The client originally sent a Python dict. After the server processes it
-    and returns a protobuf response, this class converts it back so the
-    client sees the same format they would get from the REST API.
-
-    Usage:
-        converter = ResponseConverter()
-        python_dict = converter.from_bulk_response(protobuf_response)
-    """
-
-    @staticmethod
-    def from_bulk_response(response):
-        """
-        Convert a protobuf BulkResponse to the Python dict format
-        that opensearch-py returns to the client.
-
-        Input (protobuf):
-            BulkResponse {
-                errors: false,
-                items: [ResponseItem { x_index: "idx", x_id: "1", result: "created", ... }],
-                took: 50
-            }
-
-        Output (Python dict — what the client sees):
-            {
-                "_index": "idx",
-                "_id": "1",
-                "result": "created",
-                "_version": 1,
-                "_seq_no": 0,
-                "_primary_term": 1,
-                "_shards": {"total": 2, "successful": 1, "failed": 0}
-            }
-        """
-        print(f"[ResponseConverter] Converting protobuf BulkResponse → Python dict...")
-        print(f"[ResponseConverter] Server reported: errors={response.errors}, took={response.took}ms")
-
-        # For single-doc operations, there's exactly one item
-        item = response.items[0]
-
-        # Determine which operation type the response is for
-        for op_type in ("index", "create", "update", "delete"):
-            if item.HasField(op_type):
-                resp_item = getattr(item, op_type)
-                break
-        else:
-            return {"error": "Unknown response type"}
-
-        # Build the Python dict matching opensearch-py format
-        result = {
-            "_index": resp_item.x_index,
-            "_id": resp_item.x_id if resp_item.x_id else None,
-            "result": resp_item.result if resp_item.result else None,
-            "_version": resp_item.x_version if resp_item.HasField("x_version") else None,
-            "_seq_no": resp_item.x_seq_no if resp_item.HasField("x_seq_no") else None,
-            "_primary_term": resp_item.x_primary_term if resp_item.HasField("x_primary_term") else None,
-        }
-
-        # Add shard info if present
-        if resp_item.HasField("x_shards"):
-            result["_shards"] = {
-                "total": resp_item.x_shards.total,
-                "successful": resp_item.x_shards.successful,
-                "failed": resp_item.x_shards.failed,
-            }
-
-        # Add error info if present
-        if resp_item.HasField("error"):
-            result["error"] = {
-                "type": resp_item.error.type,
-                "reason": resp_item.error.reason if resp_item.error.HasField("reason") else None,
-            }
-
-        # Remove None values for cleaner output
-        result = {k: v for k, v in result.items() if v is not None}
-
-        print(f"[ResponseConverter] Converted to client format: {result}")
-        return result
-
-    @staticmethod
-    def from_proto_request(request):
-        """
-        Convert a protobuf BulkRequest back to the original Python client format.
-
-        This reconstructs what the client originally sent, useful for debugging
-        or logging the round-trip.
-
-        Input (protobuf BulkRequest):
-            BulkRequest with one BulkRequestBody containing an IndexOperation + object bytes
-
-        Output (Python dict — what the client originally passed):
-            {
-                "operation": "index",
-                "index": "my-index",
-                "id": "doc-1",
-                "body": {"title": "Hello", "value": 42}
-            }
-        """
-        print(f"[ResponseConverter] Reconstructing original client request from protobuf...")
-
-        body = request.bulk_request_body[0]
-        op_container = body.operation_container
-
-        # Determine operation type and extract metadata
-        if op_container.HasField("index"):
-            op = op_container.index
-            op_type = "index"
-        elif op_container.HasField("create"):
-            op = op_container.create
-            op_type = "create"
-        elif op_container.HasField("update"):
-            op = op_container.update
-            op_type = "update"
-        elif op_container.HasField("delete"):
-            op = op_container.delete
-            op_type = "delete"
-        else:
-            return {"error": "Unknown operation type"}
-
-        # Reconstruct the original client call
-        original = {
-            "operation": op_type,
-            "index": op.x_index if op.x_index else request.index,
-            "id": op.x_id if op.x_id else None,
-        }
-
-        # Reconstruct the document body from JSON bytes
-        if body.HasField("object") and body.object:
-            original["body"] = json.loads(body.object.decode("utf-8"))
-        elif body.HasField("update_action"):
-            # Reconstruct update body
-            update_body = {}
-            action = body.update_action
-            if action.HasField("doc") and action.doc:
-                update_body["doc"] = json.loads(action.doc.decode("utf-8"))
-            if action.HasField("doc_as_upsert"):
-                update_body["doc_as_upsert"] = action.doc_as_upsert
-            if action.HasField("upsert") and action.upsert:
-                update_body["upsert"] = json.loads(action.upsert.decode("utf-8"))
-            if action.HasField("scripted_upsert"):
-                update_body["scripted_upsert"] = action.scripted_upsert
-            if action.HasField("detect_noop"):
-                update_body["detect_noop"] = action.detect_noop
-            original["body"] = update_body
-
-        # Remove None values
-        original = {k: v for k, v in original.items() if v is not None}
-
-        print(f"[ResponseConverter] Original client request: {original}")
-        return original
-
-
-# Keep the private function for backward compatibility
-def _response_to_dict(response):
-    """Legacy wrapper — use ResponseConverter.from_bulk_response() instead."""
-    return ResponseConverter.from_bulk_response(response)
-
-
-# ═══════════════════════════════════════════════════════════════════════════════
-# REQUEST CONVERSION — Python dict → Protobuf BulkRequest
-# ═══════════════════════════════════════════════════════════════════════════════
-
-
-def _build_single_request(op_type, meta, source, refresh=None, timeout=None):
-    """
-    Build a protobuf BulkRequest containing a single operation.
-
-    This is where the Python dict gets converted into protobuf format
-    for transport over gRPC.
-    """
-    request = BulkRequest()
-
-    # Set the default index at the request level
-    request.index = meta["_index"]
-
-    # Set optional request-level parameters
-    if refresh is not None:
-        request.refresh = _map_refresh(refresh)
-    if timeout is not None:
-        request.timeout = timeout
-
-    # Build the single BulkRequestBody
-    body = BulkRequestBody()
-
-    # Build the operation container (tells the server what operation to perform)
-    op_container = OperationContainer()
-    _OP_BUILDERS[op_type](op_container, meta)
-    body.operation_container.CopyFrom(op_container)
-
-    # Attach the document source or update action
-    if op_type == "update" and source is not None:
-        # Update operations have special structure (doc, upsert, script, etc.)
-        body.update_action.CopyFrom(_build_update_action(source))
-    elif source is not None:
-        # Index/create operations: serialize the document as JSON bytes
-        body.object = json.dumps(source).encode("utf-8")
-
-    # Add the single operation to the request
-    request.bulk_request_body.append(body)
-
-    print(f"[simpledoc_gRPC] Built protobuf: op={op_type}, index={meta['_index']}, id={meta.get('_id', 'auto')}")
-    return request
-
-
-# ═══════════════════════════════════════════════════════════════════════════════
-# ENUM MAPPERS — Convert Python strings to protobuf enum values
-# ═══════════════════════════════════════════════════════════════════════════════
-
-
-def _map_refresh(value):
-    """Map refresh parameter string/bool to protobuf Refresh enum."""
-    mapping = {
-        "true": REFRESH_TRUE,
-        "false": REFRESH_FALSE,
-        "wait_for": REFRESH_WAIT_FOR,
-        True: REFRESH_TRUE,
-        False: REFRESH_FALSE,
-    }
-    return mapping.get(value, REFRESH_UNSPECIFIED)
-
-
-def _map_version_type(value):
-    """Map version_type string to protobuf VersionType enum."""
-    mapping = {
-        "internal": VERSION_TYPE_INTERNAL,
-        "external": VERSION_TYPE_EXTERNAL,
-        "external_gte": VERSION_TYPE_EXTERNAL_GTE,
-    }
-    return mapping.get(value, VERSION_TYPE_UNSPECIFIED)
-
-
-# ═══════════════════════════════════════════════════════════════════════════════
-# OPERATION BUILDERS — Populate protobuf operation messages from metadata
-# ═══════════════════════════════════════════════════════════════════════════════
-
-
-def _build_index_op(container, meta):
-    """Build an IndexOperation protobuf from the action metadata dict."""
-    op = IndexOperation()
-    if "_id" in meta:
-        op.x_id = meta["_id"]
-    if "_index" in meta:
-        op.x_index = meta["_index"]
-    if "routing" in meta:
-        op.routing = meta["routing"]
-    if "pipeline" in meta:
-        op.pipeline = meta["pipeline"]
-    if "if_primary_term" in meta:
-        op.if_primary_term = meta["if_primary_term"]
-    if "if_seq_no" in meta:
-        op.if_seq_no = meta["if_seq_no"]
-    if "require_alias" in meta:
-        op.require_alias = meta["require_alias"]
-    if "version" in meta:
-        op.version = meta["version"]
-    if "version_type" in meta:
-        op.version_type = _map_version_type(meta["version_type"])
-    container.index.CopyFrom(op)
-
-
-def _build_create_op(container, meta):
-    """Build a WriteOperation (create) protobuf from the action metadata dict."""
-    op = WriteOperation()
-    if "_id" in meta:
-        op.x_id = meta["_id"]
-    if "_index" in meta:
-        op.x_index = meta["_index"]
-    if "routing" in meta:
-        op.routing = meta["routing"]
-    if "pipeline" in meta:
-        op.pipeline = meta["pipeline"]
-    if "require_alias" in meta:
-        op.require_alias = meta["require_alias"]
-    container.create.CopyFrom(op)
-
-
-def _build_update_op(container, meta):
-    """Build an UpdateOperation protobuf from the action metadata dict."""
-    op = UpdateOperation()
-    if "_id" in meta:
-        op.x_id = meta["_id"]
-    if "_index" in meta:
-        op.x_index = meta["_index"]
-    if "routing" in meta:
-        op.routing = meta["routing"]
-    if "if_primary_term" in meta:
-        op.if_primary_term = meta["if_primary_term"]
-    if "if_seq_no" in meta:
-        op.if_seq_no = meta["if_seq_no"]
-    if "require_alias" in meta:
-        op.require_alias = meta["require_alias"]
-    if "retry_on_conflict" in meta:
-        op.retry_on_conflict = meta["retry_on_conflict"]
-    container.update.CopyFrom(op)
-
-
-def _build_delete_op(container, meta):
-    """Build a DeleteOperation protobuf from the action metadata dict."""
-    op = DeleteOperation()
-    if "_id" in meta:
-        op.x_id = meta["_id"]
-    if "_index" in meta:
-        op.x_index = meta["_index"]
-    if "routing" in meta:
-        op.routing = meta["routing"]
-    if "if_primary_term" in meta:
-        op.if_primary_term = meta["if_primary_term"]
-    if "if_seq_no" in meta:
-        op.if_seq_no = meta["if_seq_no"]
-    if "version" in meta:
-        op.version = meta["version"]
-    if "version_type" in meta:
-        op.version_type = _map_version_type(meta["version_type"])
-    container.delete.CopyFrom(op)
-
-
-def _build_update_action(source):
-    """
-    Build an UpdateAction protobuf from the update body dict.
-
-    Update bodies have special fields like "doc", "upsert", "script"
-    that are different from a normal document body.
-    """
-    action = UpdateAction()
-    if "doc" in source:
-        # Partial document to merge — serialized as JSON bytes
-        action.doc = json.dumps(source["doc"]).encode("utf-8")
-    if "doc_as_upsert" in source:
-        # If True, use the doc as the upsert value
-        action.doc_as_upsert = source["doc_as_upsert"]
-    if "upsert" in source:
-        # Document to insert if it doesn't exist
-        action.upsert = json.dumps(source["upsert"]).encode("utf-8")
-    if "scripted_upsert" in source:
-        action.scripted_upsert = source["scripted_upsert"]
-    if "detect_noop" in source:
-        action.detect_noop = source["detect_noop"]
-    return action
-
-
-# Operation type → builder function mapping
-_OP_BUILDERS = {
-    "index": _build_index_op,
-    "create": _build_create_op,
-    "update": _build_update_op,
-    "delete": _build_delete_op,
-}
