@@ -14,11 +14,18 @@
 # or in the OpenSearch API specification, and run `nox -rs generate`. See DEVELOPER_GUIDE.md
 # and https://github.com/opensearch-project/opensearch-api-specification for details.
 # -----------------------------------------------------------------------------------------+
+from __future__ import annotations
 
-
-from typing import Any
+from typing import TYPE_CHECKING, Any, Optional, cast
 
 from ..client.utils import SKIP_IN_PATH, NamespacedClient, _make_path, query_params
+
+if TYPE_CHECKING:
+    from opensearchpy._types._internal import (
+        FieldCommonWriteResponseBase,
+        MLExecuteAgentStreamRequestBody,
+        MLPredictModelStreamRequestBody,
+    )
 
 
 class MlClient(NamespacedClient):
@@ -29,7 +36,7 @@ class MlClient(NamespacedClient):
         model_id: Any,
         params: Any = None,
         headers: Any = None,
-    ) -> Any:
+    ) -> FieldCommonWriteResponseBase:
         """
         Deletes a model.
 
@@ -49,11 +56,14 @@ class MlClient(NamespacedClient):
         if model_id in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'model_id'.")
 
-        return self.transport.perform_request(
-            "DELETE",
-            _make_path("_plugins", "_ml", "models", model_id),
-            params=params,
-            headers=headers,
+        return cast(
+            Any,
+            self.transport.perform_request(
+                "DELETE",
+                _make_path("_plugins", "_ml", "models", model_id),
+                params=params,
+                headers=headers,
+            ),
         )
 
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
@@ -63,7 +73,7 @@ class MlClient(NamespacedClient):
         model_group_id: Any,
         params: Any = None,
         headers: Any = None,
-    ) -> Any:
+    ) -> FieldCommonWriteResponseBase:
         """
         Deletes a model group.
 
@@ -85,11 +95,14 @@ class MlClient(NamespacedClient):
                 "Empty value passed for a required argument 'model_group_id'."
             )
 
-        return self.transport.perform_request(
-            "DELETE",
-            _make_path("_plugins", "_ml", "model_groups", model_group_id),
-            params=params,
-            headers=headers,
+        return cast(
+            Any,
+            self.transport.perform_request(
+                "DELETE",
+                _make_path("_plugins", "_ml", "model_groups", model_group_id),
+                params=params,
+                headers=headers,
+            ),
         )
 
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
@@ -364,7 +377,7 @@ class MlClient(NamespacedClient):
         agent_id: Any,
         params: Any = None,
         headers: Any = None,
-    ) -> Any:
+    ) -> FieldCommonWriteResponseBase:
         """
         Delete an agent.
 
@@ -384,11 +397,14 @@ class MlClient(NamespacedClient):
         if agent_id in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'agent_id'.")
 
-        return self.transport.perform_request(
-            "DELETE",
-            _make_path("_plugins", "_ml", "agents", agent_id),
-            params=params,
-            headers=headers,
+        return cast(
+            Any,
+            self.transport.perform_request(
+                "DELETE",
+                _make_path("_plugins", "_ml", "agents", agent_id),
+                params=params,
+                headers=headers,
+            ),
         )
 
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
@@ -398,7 +414,7 @@ class MlClient(NamespacedClient):
         connector_id: Any,
         params: Any = None,
         headers: Any = None,
-    ) -> Any:
+    ) -> FieldCommonWriteResponseBase:
         """
         Deletes a standalone connector.
 
@@ -420,11 +436,14 @@ class MlClient(NamespacedClient):
                 "Empty value passed for a required argument 'connector_id'."
             )
 
-        return self.transport.perform_request(
-            "DELETE",
-            _make_path("_plugins", "_ml", "connectors", connector_id),
-            params=params,
-            headers=headers,
+        return cast(
+            Any,
+            self.transport.perform_request(
+                "DELETE",
+                _make_path("_plugins", "_ml", "connectors", connector_id),
+                params=params,
+                headers=headers,
+            ),
         )
 
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
@@ -434,7 +453,7 @@ class MlClient(NamespacedClient):
         task_id: Any,
         params: Any = None,
         headers: Any = None,
-    ) -> Any:
+    ) -> FieldCommonWriteResponseBase:
         """
         Deletes a task.
 
@@ -454,11 +473,14 @@ class MlClient(NamespacedClient):
         if task_id in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'task_id'.")
 
-        return self.transport.perform_request(
-            "DELETE",
-            _make_path("_plugins", "_ml", "tasks", task_id),
-            params=params,
-            headers=headers,
+        return cast(
+            Any,
+            self.transport.perform_request(
+                "DELETE",
+                _make_path("_plugins", "_ml", "tasks", task_id),
+                params=params,
+                headers=headers,
+            ),
         )
 
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
@@ -676,7 +698,7 @@ class MlClient(NamespacedClient):
         model_id: Any,
         params: Any = None,
         headers: Any = None,
-    ) -> Any:
+    ) -> FieldCommonWriteResponseBase:
         """
         Deletes a controller.
 
@@ -696,11 +718,14 @@ class MlClient(NamespacedClient):
         if model_id in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'model_id'.")
 
-        return self.transport.perform_request(
-            "DELETE",
-            _make_path("_plugins", "_ml", "controllers", model_id),
-            params=params,
-            headers=headers,
+        return cast(
+            Any,
+            self.transport.perform_request(
+                "DELETE",
+                _make_path("_plugins", "_ml", "controllers", model_id),
+                params=params,
+                headers=headers,
+            ),
         )
 
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
@@ -1791,7 +1816,7 @@ class MlClient(NamespacedClient):
         body: Any = None,
         params: Any = None,
         headers: Any = None,
-    ) -> Any:
+    ) -> FieldCommonWriteResponseBase:
         """
         Updates a standalone connector.
 
@@ -1813,12 +1838,15 @@ class MlClient(NamespacedClient):
                 "Empty value passed for a required argument 'connector_id'."
             )
 
-        return self.transport.perform_request(
-            "PUT",
-            _make_path("_plugins", "_ml", "connectors", connector_id),
-            params=params,
-            headers=headers,
-            body=body,
+        return cast(
+            Any,
+            self.transport.perform_request(
+                "PUT",
+                _make_path("_plugins", "_ml", "connectors", connector_id),
+                params=params,
+                headers=headers,
+                body=body,
+            ),
         )
 
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
@@ -1829,7 +1857,7 @@ class MlClient(NamespacedClient):
         body: Any = None,
         params: Any = None,
         headers: Any = None,
-    ) -> Any:
+    ) -> FieldCommonWriteResponseBase:
         """
         Updates a controller.
 
@@ -1849,12 +1877,15 @@ class MlClient(NamespacedClient):
         if model_id in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'model_id'.")
 
-        return self.transport.perform_request(
-            "PUT",
-            _make_path("_plugins", "_ml", "controllers", model_id),
-            params=params,
-            headers=headers,
-            body=body,
+        return cast(
+            Any,
+            self.transport.perform_request(
+                "PUT",
+                _make_path("_plugins", "_ml", "controllers", model_id),
+                params=params,
+                headers=headers,
+                body=body,
+            ),
         )
 
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
@@ -1865,7 +1896,7 @@ class MlClient(NamespacedClient):
         body: Any = None,
         params: Any = None,
         headers: Any = None,
-    ) -> Any:
+    ) -> FieldCommonWriteResponseBase:
         """
         Update a memory.
 
@@ -1885,12 +1916,15 @@ class MlClient(NamespacedClient):
         if memory_id in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'memory_id'.")
 
-        return self.transport.perform_request(
-            "PUT",
-            _make_path("_plugins", "_ml", "memory", memory_id),
-            params=params,
-            headers=headers,
-            body=body,
+        return cast(
+            Any,
+            self.transport.perform_request(
+                "PUT",
+                _make_path("_plugins", "_ml", "memory", memory_id),
+                params=params,
+                headers=headers,
+                body=body,
+            ),
         )
 
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
@@ -1901,7 +1935,7 @@ class MlClient(NamespacedClient):
         body: Any = None,
         params: Any = None,
         headers: Any = None,
-    ) -> Any:
+    ) -> FieldCommonWriteResponseBase:
         """
         Update a message.
 
@@ -1921,12 +1955,15 @@ class MlClient(NamespacedClient):
         if message_id in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'message_id'.")
 
-        return self.transport.perform_request(
-            "PUT",
-            _make_path("_plugins", "_ml", "memory", "message", message_id),
-            params=params,
-            headers=headers,
-            body=body,
+        return cast(
+            Any,
+            self.transport.perform_request(
+                "PUT",
+                _make_path("_plugins", "_ml", "memory", "message", message_id),
+                params=params,
+                headers=headers,
+                body=body,
+            ),
         )
 
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
@@ -1937,7 +1974,7 @@ class MlClient(NamespacedClient):
         body: Any = None,
         params: Any = None,
         headers: Any = None,
-    ) -> Any:
+    ) -> FieldCommonWriteResponseBase:
         """
         Updates a model.
 
@@ -1957,12 +1994,15 @@ class MlClient(NamespacedClient):
         if model_id in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'model_id'.")
 
-        return self.transport.perform_request(
-            "PUT",
-            _make_path("_plugins", "_ml", "models", model_id),
-            params=params,
-            headers=headers,
-            body=body,
+        return cast(
+            Any,
+            self.transport.perform_request(
+                "PUT",
+                _make_path("_plugins", "_ml", "models", model_id),
+                params=params,
+                headers=headers,
+                body=body,
+            ),
         )
 
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
@@ -2204,7 +2244,7 @@ class MlClient(NamespacedClient):
         id: Any,
         params: Any = None,
         headers: Any = None,
-    ) -> Any:
+    ) -> FieldCommonWriteResponseBase:
         """
         Delete a specific memory by its type and ID.
 
@@ -2225,19 +2265,22 @@ class MlClient(NamespacedClient):
             if param in SKIP_IN_PATH:
                 raise ValueError("Empty value passed for a required argument.")
 
-        return self.transport.perform_request(
-            "DELETE",
-            _make_path(
-                "_plugins",
-                "_ml",
-                "memory_containers",
-                memory_container_id,
-                "memories",
-                doc_type,
-                id,
+        return cast(
+            Any,
+            self.transport.perform_request(
+                "DELETE",
+                _make_path(
+                    "_plugins",
+                    "_ml",
+                    "memory_containers",
+                    memory_container_id,
+                    "memories",
+                    doc_type,
+                    id,
+                ),
+                params=params,
+                headers=headers,
             ),
-            params=params,
-            headers=headers,
         )
 
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
@@ -2301,7 +2344,7 @@ class MlClient(NamespacedClient):
         memory_container_id: Any,
         params: Any = None,
         headers: Any = None,
-    ) -> Any:
+    ) -> FieldCommonWriteResponseBase:
         """
         Delete a memory container.
 
@@ -2323,11 +2366,14 @@ class MlClient(NamespacedClient):
                 "Empty value passed for a required argument 'memory_container_id'."
             )
 
-        return self.transport.perform_request(
-            "DELETE",
-            _make_path("_plugins", "_ml", "memory_containers", memory_container_id),
-            params=params,
-            headers=headers,
+        return cast(
+            Any,
+            self.transport.perform_request(
+                "DELETE",
+                _make_path("_plugins", "_ml", "memory_containers", memory_container_id),
+                params=params,
+                headers=headers,
+            ),
         )
 
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
@@ -2335,7 +2381,7 @@ class MlClient(NamespacedClient):
         self,
         *,
         agent_id: Any,
-        body: Any = None,
+        body: Optional[MLExecuteAgentStreamRequestBody] = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -2488,7 +2534,7 @@ class MlClient(NamespacedClient):
         self,
         *,
         model_id: Any,
-        body: Any = None,
+        body: Optional[MLPredictModelStreamRequestBody] = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -2607,7 +2653,7 @@ class MlClient(NamespacedClient):
         body: Any = None,
         params: Any = None,
         headers: Any = None,
-    ) -> Any:
+    ) -> FieldCommonWriteResponseBase:
         """
         Update a specific memory by its type and ID.
 
@@ -2628,20 +2674,23 @@ class MlClient(NamespacedClient):
             if param in SKIP_IN_PATH:
                 raise ValueError("Empty value passed for a required argument.")
 
-        return self.transport.perform_request(
-            "PUT",
-            _make_path(
-                "_plugins",
-                "_ml",
-                "memory_containers",
-                memory_container_id,
-                "memories",
-                doc_type,
-                id,
+        return cast(
+            Any,
+            self.transport.perform_request(
+                "PUT",
+                _make_path(
+                    "_plugins",
+                    "_ml",
+                    "memory_containers",
+                    memory_container_id,
+                    "memories",
+                    doc_type,
+                    id,
+                ),
+                params=params,
+                headers=headers,
+                body=body,
             ),
-            params=params,
-            headers=headers,
-            body=body,
         )
 
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
@@ -2652,7 +2701,7 @@ class MlClient(NamespacedClient):
         body: Any = None,
         params: Any = None,
         headers: Any = None,
-    ) -> Any:
+    ) -> FieldCommonWriteResponseBase:
         """
         Update a memory container.
 
@@ -2674,10 +2723,13 @@ class MlClient(NamespacedClient):
                 "Empty value passed for a required argument 'memory_container_id'."
             )
 
-        return self.transport.perform_request(
-            "PUT",
-            _make_path("_plugins", "_ml", "memory_containers", memory_container_id),
-            params=params,
-            headers=headers,
-            body=body,
+        return cast(
+            Any,
+            self.transport.perform_request(
+                "PUT",
+                _make_path("_plugins", "_ml", "memory_containers", memory_container_id),
+                params=params,
+                headers=headers,
+                body=body,
+            ),
         )

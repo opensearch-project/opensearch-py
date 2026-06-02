@@ -32,11 +32,17 @@
 # or in the OpenSearch API specification, and run `nox -rs generate`. See DEVELOPER_GUIDE.md
 # and https://github.com/opensearch-project/opensearch-api-specification for details.
 # -----------------------------------------------------------------------------------------+
+from __future__ import annotations
 
-
-from typing import Any
+from typing import TYPE_CHECKING, Any, cast
 
 from .utils import SKIP_IN_PATH, NamespacedClient, _make_path, query_params
+
+if TYPE_CHECKING:
+    from opensearchpy._types._internal import (
+        FieldCommonAcknowledgedResponseBase,
+        HealthHealthResponseBody,
+    )
 
 
 class ClusterClient(NamespacedClient):
@@ -66,7 +72,7 @@ class ClusterClient(NamespacedClient):
         index: Any = None,
         params: Any = None,
         headers: Any = None,
-    ) -> Any:
+    ) -> HealthHealthResponseBody:
         """
         Returns basic information about the health of the cluster.
 
@@ -125,11 +131,14 @@ class ClusterClient(NamespacedClient):
         :arg wait_for_status: Waits until the cluster health reaches the
             specified status or better. Valid choices are green, yellow, red.
         """
-        return self.transport.perform_request(
-            "GET",
-            _make_path("_cluster", "health", index),
-            params=params,
-            headers=headers,
+        return cast(
+            Any,
+            self.transport.perform_request(
+                "GET",
+                _make_path("_cluster", "health", index),
+                params=params,
+                headers=headers,
+            ),
         )
 
     @query_params(
@@ -606,7 +615,7 @@ class ClusterClient(NamespacedClient):
         name: Any,
         params: Any = None,
         headers: Any = None,
-    ) -> Any:
+    ) -> FieldCommonAcknowledgedResponseBase:
         """
         Deletes a component template.
 
@@ -642,11 +651,14 @@ class ClusterClient(NamespacedClient):
         if name in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'name'.")
 
-        return self.transport.perform_request(
-            "DELETE",
-            _make_path("_component_template", name),
-            params=params,
-            headers=headers,
+        return cast(
+            Any,
+            self.transport.perform_request(
+                "DELETE",
+                _make_path("_component_template", name),
+                params=params,
+                headers=headers,
+            ),
         )
 
     @query_params(
@@ -727,7 +739,7 @@ class ClusterClient(NamespacedClient):
         body: Any,
         params: Any = None,
         headers: Any = None,
-    ) -> Any:
+    ) -> FieldCommonAcknowledgedResponseBase:
         """
         Creates or updates a component template.
 
@@ -776,12 +788,15 @@ class ClusterClient(NamespacedClient):
             if param in SKIP_IN_PATH:
                 raise ValueError("Empty value passed for a required argument.")
 
-        return self.transport.perform_request(
-            "PUT",
-            _make_path("_component_template", name),
-            params=params,
-            headers=headers,
-            body=body,
+        return cast(
+            Any,
+            self.transport.perform_request(
+                "PUT",
+                _make_path("_component_template", name),
+                params=params,
+                headers=headers,
+                body=body,
+            ),
         )
 
     @query_params(
@@ -936,7 +951,7 @@ class ClusterClient(NamespacedClient):
         *,
         params: Any = None,
         headers: Any = None,
-    ) -> Any:
+    ) -> FieldCommonAcknowledgedResponseBase:
         """
         Recommissions a decommissioned zone.
 
@@ -953,8 +968,14 @@ class ClusterClient(NamespacedClient):
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         """
-        return self.transport.perform_request(
-            "DELETE", "/_cluster/decommission/awareness", params=params, headers=headers
+        return cast(
+            Any,
+            self.transport.perform_request(
+                "DELETE",
+                "/_cluster/decommission/awareness",
+                params=params,
+                headers=headers,
+            ),
         )
 
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
@@ -964,7 +985,7 @@ class ClusterClient(NamespacedClient):
         body: Any = None,
         params: Any = None,
         headers: Any = None,
-    ) -> Any:
+    ) -> FieldCommonAcknowledgedResponseBase:
         """
         Delete weighted shard routing weights.
 
@@ -981,12 +1002,15 @@ class ClusterClient(NamespacedClient):
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         """
-        return self.transport.perform_request(
-            "DELETE",
-            "/_cluster/routing/awareness/weights",
-            params=params,
-            headers=headers,
-            body=body,
+        return cast(
+            Any,
+            self.transport.perform_request(
+                "DELETE",
+                "/_cluster/routing/awareness/weights",
+                params=params,
+                headers=headers,
+                body=body,
+            ),
         )
 
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
@@ -1076,7 +1100,7 @@ class ClusterClient(NamespacedClient):
         awareness_attribute_value: Any,
         params: Any = None,
         headers: Any = None,
-    ) -> Any:
+    ) -> FieldCommonAcknowledgedResponseBase:
         """
         Decommissions a cluster zone based on awareness. This can greatly benefit
         multi-zone deployments, where awareness attributes can aid in applying new
@@ -1106,17 +1130,20 @@ class ClusterClient(NamespacedClient):
             if param in SKIP_IN_PATH:
                 raise ValueError("Empty value passed for a required argument.")
 
-        return self.transport.perform_request(
-            "PUT",
-            _make_path(
-                "_cluster",
-                "decommission",
-                "awareness",
-                awareness_attribute_name,
-                awareness_attribute_value,
+        return cast(
+            Any,
+            self.transport.perform_request(
+                "PUT",
+                _make_path(
+                    "_cluster",
+                    "decommission",
+                    "awareness",
+                    awareness_attribute_name,
+                    awareness_attribute_value,
+                ),
+                params=params,
+                headers=headers,
             ),
-            params=params,
-            headers=headers,
         )
 
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
@@ -1127,7 +1154,7 @@ class ClusterClient(NamespacedClient):
         body: Any = None,
         params: Any = None,
         headers: Any = None,
-    ) -> Any:
+    ) -> FieldCommonAcknowledgedResponseBase:
         """
         Updates weighted shard routing weights.
 
@@ -1148,10 +1175,13 @@ class ClusterClient(NamespacedClient):
         if attribute in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'attribute'.")
 
-        return self.transport.perform_request(
-            "PUT",
-            _make_path("_cluster", "routing", "awareness", attribute, "weights"),
-            params=params,
-            headers=headers,
-            body=body,
+        return cast(
+            Any,
+            self.transport.perform_request(
+                "PUT",
+                _make_path("_cluster", "routing", "awareness", attribute, "weights"),
+                params=params,
+                headers=headers,
+                body=body,
+            ),
         )

@@ -14,11 +14,14 @@
 # or in the OpenSearch API specification, and run `nox -rs generate`. See DEVELOPER_GUIDE.md
 # and https://github.com/opensearch-project/opensearch-api-specification for details.
 # -----------------------------------------------------------------------------------------+
+from __future__ import annotations
 
-
-from typing import Any
+from typing import TYPE_CHECKING, Any, cast
 
 from ..client.utils import SKIP_IN_PATH, NamespacedClient, _make_path, query_params
+
+if TYPE_CHECKING:
+    from opensearchpy._types._internal import FieldCommonAcknowledgedResponseBase
 
 
 class ReplicationClient(NamespacedClient):
@@ -60,7 +63,7 @@ class ReplicationClient(NamespacedClient):
         body: Any,
         params: Any = None,
         headers: Any = None,
-    ) -> Any:
+    ) -> FieldCommonAcknowledgedResponseBase:
         """
         Automatically starts the replication on indexes matching a specified pattern.
 
@@ -80,12 +83,15 @@ class ReplicationClient(NamespacedClient):
         if body in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'body'.")
 
-        return self.transport.perform_request(
-            "POST",
-            "/_plugins/_replication/_autofollow",
-            params=params,
-            headers=headers,
-            body=body,
+        return cast(
+            Any,
+            self.transport.perform_request(
+                "POST",
+                "/_plugins/_replication/_autofollow",
+                params=params,
+                headers=headers,
+                body=body,
+            ),
         )
 
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
@@ -95,7 +101,7 @@ class ReplicationClient(NamespacedClient):
         body: Any,
         params: Any = None,
         headers: Any = None,
-    ) -> Any:
+    ) -> FieldCommonAcknowledgedResponseBase:
         """
         Deletes the specified replication rule.
 
@@ -115,12 +121,15 @@ class ReplicationClient(NamespacedClient):
         if body in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'body'.")
 
-        return self.transport.perform_request(
-            "DELETE",
-            "/_plugins/_replication/_autofollow",
-            params=params,
-            headers=headers,
-            body=body,
+        return cast(
+            Any,
+            self.transport.perform_request(
+                "DELETE",
+                "/_plugins/_replication/_autofollow",
+                params=params,
+                headers=headers,
+                body=body,
+            ),
         )
 
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
@@ -190,7 +199,7 @@ class ReplicationClient(NamespacedClient):
         body: Any,
         params: Any = None,
         headers: Any = None,
-    ) -> Any:
+    ) -> FieldCommonAcknowledgedResponseBase:
         """
         Pauses the replication of the leader index.
 
@@ -213,12 +222,15 @@ class ReplicationClient(NamespacedClient):
             if param in SKIP_IN_PATH:
                 raise ValueError("Empty value passed for a required argument.")
 
-        return self.transport.perform_request(
-            "POST",
-            _make_path("_plugins", "_replication", index, "_pause"),
-            params=params,
-            headers=headers,
-            body=body,
+        return cast(
+            Any,
+            self.transport.perform_request(
+                "POST",
+                _make_path("_plugins", "_replication", index, "_pause"),
+                params=params,
+                headers=headers,
+                body=body,
+            ),
         )
 
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
@@ -229,7 +241,7 @@ class ReplicationClient(NamespacedClient):
         body: Any,
         params: Any = None,
         headers: Any = None,
-    ) -> Any:
+    ) -> FieldCommonAcknowledgedResponseBase:
         """
         Resumes replication of the leader index.
 
@@ -252,12 +264,15 @@ class ReplicationClient(NamespacedClient):
             if param in SKIP_IN_PATH:
                 raise ValueError("Empty value passed for a required argument.")
 
-        return self.transport.perform_request(
-            "POST",
-            _make_path("_plugins", "_replication", index, "_resume"),
-            params=params,
-            headers=headers,
-            body=body,
+        return cast(
+            Any,
+            self.transport.perform_request(
+                "POST",
+                _make_path("_plugins", "_replication", index, "_resume"),
+                params=params,
+                headers=headers,
+                body=body,
+            ),
         )
 
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
@@ -268,7 +283,7 @@ class ReplicationClient(NamespacedClient):
         body: Any,
         params: Any = None,
         headers: Any = None,
-    ) -> Any:
+    ) -> FieldCommonAcknowledgedResponseBase:
         """
         Initiates the replication of an index from the leader cluster to the follower
         cluster.
@@ -292,12 +307,15 @@ class ReplicationClient(NamespacedClient):
             if param in SKIP_IN_PATH:
                 raise ValueError("Empty value passed for a required argument.")
 
-        return self.transport.perform_request(
-            "PUT",
-            _make_path("_plugins", "_replication", index, "_start"),
-            params=params,
-            headers=headers,
-            body=body,
+        return cast(
+            Any,
+            self.transport.perform_request(
+                "PUT",
+                _make_path("_plugins", "_replication", index, "_start"),
+                params=params,
+                headers=headers,
+                body=body,
+            ),
         )
 
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
@@ -344,7 +362,7 @@ class ReplicationClient(NamespacedClient):
         body: Any,
         params: Any = None,
         headers: Any = None,
-    ) -> Any:
+    ) -> FieldCommonAcknowledgedResponseBase:
         """
         Terminates the replication and converts the follower index to a standard index.
 
@@ -367,12 +385,15 @@ class ReplicationClient(NamespacedClient):
             if param in SKIP_IN_PATH:
                 raise ValueError("Empty value passed for a required argument.")
 
-        return self.transport.perform_request(
-            "POST",
-            _make_path("_plugins", "_replication", index, "_stop"),
-            params=params,
-            headers=headers,
-            body=body,
+        return cast(
+            Any,
+            self.transport.perform_request(
+                "POST",
+                _make_path("_plugins", "_replication", index, "_stop"),
+                params=params,
+                headers=headers,
+                body=body,
+            ),
         )
 
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
@@ -383,7 +404,7 @@ class ReplicationClient(NamespacedClient):
         body: Any,
         params: Any = None,
         headers: Any = None,
-    ) -> Any:
+    ) -> FieldCommonAcknowledgedResponseBase:
         """
         Updates any settings on the follower index.
 
@@ -406,10 +427,13 @@ class ReplicationClient(NamespacedClient):
             if param in SKIP_IN_PATH:
                 raise ValueError("Empty value passed for a required argument.")
 
-        return self.transport.perform_request(
-            "PUT",
-            _make_path("_plugins", "_replication", index, "_update"),
-            params=params,
-            headers=headers,
-            body=body,
+        return cast(
+            Any,
+            self.transport.perform_request(
+                "PUT",
+                _make_path("_plugins", "_replication", index, "_update"),
+                params=params,
+                headers=headers,
+                body=body,
+            ),
         )

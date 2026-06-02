@@ -15,7 +15,6 @@
 # and https://github.com/opensearch-project/opensearch-api-specification for details.
 # -----------------------------------------------------------------------------------------+
 
-
 from typing import Any
 
 from ..client.utils import SKIP_IN_PATH, NamespacedClient, _make_path, query_params

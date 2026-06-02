@@ -32,11 +32,14 @@
 # or in the OpenSearch API specification, and run `nox -rs generate`. See DEVELOPER_GUIDE.md
 # and https://github.com/opensearch-project/opensearch-api-specification for details.
 # -----------------------------------------------------------------------------------------+
+from __future__ import annotations
 
-
-from typing import Any
+from typing import TYPE_CHECKING, Any, cast
 
 from .utils import SKIP_IN_PATH, NamespacedClient, _make_path, query_params
+
+if TYPE_CHECKING:
+    from opensearchpy._types._internal import FieldCommonAcknowledgedResponseBase
 
 
 class DanglingIndicesClient(NamespacedClient):
@@ -57,7 +60,7 @@ class DanglingIndicesClient(NamespacedClient):
         index_uuid: Any,
         params: Any = None,
         headers: Any = None,
-    ) -> Any:
+    ) -> FieldCommonAcknowledgedResponseBase:
         """
         Deletes the specified dangling index.
 
@@ -86,11 +89,14 @@ class DanglingIndicesClient(NamespacedClient):
         if index_uuid in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'index_uuid'.")
 
-        return self.transport.perform_request(
-            "DELETE",
-            _make_path("_dangling", index_uuid),
-            params=params,
-            headers=headers,
+        return cast(
+            Any,
+            self.transport.perform_request(
+                "DELETE",
+                _make_path("_dangling", index_uuid),
+                params=params,
+                headers=headers,
+            ),
         )
 
     @query_params(
@@ -110,7 +116,7 @@ class DanglingIndicesClient(NamespacedClient):
         index_uuid: Any,
         params: Any = None,
         headers: Any = None,
-    ) -> Any:
+    ) -> FieldCommonAcknowledgedResponseBase:
         """
         Imports the specified dangling index.
 
@@ -139,8 +145,14 @@ class DanglingIndicesClient(NamespacedClient):
         if index_uuid in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'index_uuid'.")
 
-        return self.transport.perform_request(
-            "POST", _make_path("_dangling", index_uuid), params=params, headers=headers
+        return cast(
+            Any,
+            self.transport.perform_request(
+                "POST",
+                _make_path("_dangling", index_uuid),
+                params=params,
+                headers=headers,
+            ),
         )
 
     @query_params("error_trace", "filter_path", "human", "pretty", "source")

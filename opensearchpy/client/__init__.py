@@ -32,10 +32,24 @@
 # or in the OpenSearch API specification, and run `nox -rs generate`. See DEVELOPER_GUIDE.md
 # and https://github.com/opensearch-project/opensearch-api-specification for details.
 # -----------------------------------------------------------------------------------------+
+from __future__ import annotations
 
+from typing import TYPE_CHECKING, Any, Optional, Type, cast
+
+from .utils import SKIP_IN_PATH, _bulk_body, _make_path, query_params
+
+if TYPE_CHECKING:
+    from opensearchpy._types._internal import (
+        BulkBulkResponse,
+        FieldCommonAcknowledgedResponseBase,
+        FieldCommonWriteResponseBase,
+        MsearchMultiSearchResult,
+        SearchRequestBody,
+        SearchSearchResponse,
+        UpdateUpdateWriteResponseBase,
+    )
 
 import logging
-from typing import Any, Type
 
 from ..transport import Transport, TransportError
 from .cat import CatClient
@@ -57,7 +71,6 @@ from .search_pipeline import SearchPipelineClient
 from .security import SecurityClient
 from .snapshot import SnapshotClient
 from .tasks import TasksClient
-from .utils import SKIP_IN_PATH, _bulk_body, _make_path, query_params
 from .wlm import WlmClient
 
 logger = logging.getLogger("opensearch")
@@ -338,7 +351,7 @@ class OpenSearch(Client):
         body: Any,
         params: Any = None,
         headers: Any = None,
-    ) -> Any:
+    ) -> FieldCommonWriteResponseBase:
         """
         Creates a new document in the index.  Returns a 409 response when a document
         with a same ID already exists in the index.
@@ -422,7 +435,7 @@ class OpenSearch(Client):
         id: Any = None,
         params: Any = None,
         headers: Any = None,
-    ) -> Any:
+    ) -> FieldCommonWriteResponseBase:
         """
         Creates or updates a document in an index.
 
@@ -512,7 +525,7 @@ class OpenSearch(Client):
         index: Any = None,
         params: Any = None,
         headers: Any = None,
-    ) -> Any:
+    ) -> BulkBulkResponse:
         """
         Allows to perform multiple index/update/delete operations in a single request.
 
@@ -563,12 +576,15 @@ class OpenSearch(Client):
             raise ValueError("Empty value passed for a required argument 'body'.")
 
         body = _bulk_body(self.transport.serializer, body)
-        return self.transport.perform_request(
-            "POST",
-            _make_path(index, "_bulk"),
-            params=params,
-            headers=headers,
-            body=body,
+        return cast(
+            Any,
+            self.transport.perform_request(
+                "POST",
+                _make_path(index, "_bulk"),
+                params=params,
+                headers=headers,
+                body=body,
+            ),
         )
 
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
@@ -726,7 +742,7 @@ class OpenSearch(Client):
         id: Any,
         params: Any = None,
         headers: Any = None,
-    ) -> Any:
+    ) -> FieldCommonWriteResponseBase:
         """
         Removes a document from the index.
 
@@ -769,8 +785,11 @@ class OpenSearch(Client):
             if param in SKIP_IN_PATH:
                 raise ValueError("Empty value passed for a required argument.")
 
-        return self.transport.perform_request(
-            "DELETE", _make_path(index, "_doc", id), params=params, headers=headers
+        return cast(
+            Any,
+            self.transport.perform_request(
+                "DELETE", _make_path(index, "_doc", id), params=params, headers=headers
+            ),
         )
 
     @query_params(
@@ -989,7 +1008,7 @@ class OpenSearch(Client):
         id: Any,
         params: Any = None,
         headers: Any = None,
-    ) -> Any:
+    ) -> FieldCommonAcknowledgedResponseBase:
         """
         Deletes a script.
 
@@ -1019,8 +1038,11 @@ class OpenSearch(Client):
         if id in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'id'.")
 
-        return self.transport.perform_request(
-            "DELETE", _make_path("_scripts", id), params=params, headers=headers
+        return cast(
+            Any,
+            self.transport.perform_request(
+                "DELETE", _make_path("_scripts", id), params=params, headers=headers
+            ),
         )
 
     @query_params(
@@ -1588,6 +1610,7 @@ class OpenSearch(Client):
         )
 
     @query_params(
+        "allow_partial_results",
         "ccs_minimize_roundtrips",
         "error_trace",
         "filter_path",
@@ -1608,7 +1631,7 @@ class OpenSearch(Client):
         index: Any = None,
         params: Any = None,
         headers: Any = None,
-    ) -> Any:
+    ) -> MsearchMultiSearchResult:
         """
         Allows to execute several search operations in one request.
 
@@ -1617,6 +1640,9 @@ class OpenSearch(Client):
             definition pairs), separated by newlines
         :arg index: A comma-separated list of data streams, indexes, and
             index aliases to search.
+        :arg allow_partial_results: Specifies whether to return partial
+            results if there are shard request timeouts or shard failures Default is
+            True.
         :arg ccs_minimize_roundtrips: If `true`, network round-trips
             between the coordinating node and remote clusters are minimized for
             cross-cluster search requests. Default is True.
@@ -1656,12 +1682,15 @@ class OpenSearch(Client):
             raise ValueError("Empty value passed for a required argument 'body'.")
 
         body = _bulk_body(self.transport.serializer, body)
-        return self.transport.perform_request(
-            "POST",
-            _make_path(index, "_msearch"),
-            params=params,
-            headers=headers,
-            body=body,
+        return cast(
+            Any,
+            self.transport.perform_request(
+                "POST",
+                _make_path(index, "_msearch"),
+                params=params,
+                headers=headers,
+                body=body,
+            ),
         )
 
     @query_params(
@@ -1683,7 +1712,7 @@ class OpenSearch(Client):
         index: Any = None,
         params: Any = None,
         headers: Any = None,
-    ) -> Any:
+    ) -> MsearchMultiSearchResult:
         """
         Allows to execute several search template operations in one request.
 
@@ -1721,12 +1750,15 @@ class OpenSearch(Client):
             raise ValueError("Empty value passed for a required argument 'body'.")
 
         body = _bulk_body(self.transport.serializer, body)
-        return self.transport.perform_request(
-            "POST",
-            _make_path(index, "_msearch", "template"),
-            params=params,
-            headers=headers,
-            body=body,
+        return cast(
+            Any,
+            self.transport.perform_request(
+                "POST",
+                _make_path(index, "_msearch", "template"),
+                params=params,
+                headers=headers,
+                body=body,
+            ),
         )
 
     @query_params(
@@ -1833,7 +1865,7 @@ class OpenSearch(Client):
         context: Any = None,
         params: Any = None,
         headers: Any = None,
-    ) -> Any:
+    ) -> FieldCommonAcknowledgedResponseBase:
         """
         Creates or updates a script.
 
@@ -1869,12 +1901,15 @@ class OpenSearch(Client):
             if param in SKIP_IN_PATH:
                 raise ValueError("Empty value passed for a required argument.")
 
-        return self.transport.perform_request(
-            "PUT",
-            _make_path("_scripts", id, context),
-            params=params,
-            headers=headers,
-            body=body,
+        return cast(
+            Any,
+            self.transport.perform_request(
+                "PUT",
+                _make_path("_scripts", id, context),
+                params=params,
+                headers=headers,
+                body=body,
+            ),
         )
 
     @query_params(
@@ -2136,7 +2171,7 @@ class OpenSearch(Client):
         scroll_id: Any = None,
         params: Any = None,
         headers: Any = None,
-    ) -> Any:
+    ) -> SearchSearchResponse:
         """
         Allows to retrieve a large numbers of results from a single search request.
 
@@ -2166,8 +2201,11 @@ class OpenSearch(Client):
         elif scroll_id:
             params["scroll_id"] = scroll_id
 
-        return self.transport.perform_request(
-            "POST", "/_search/scroll", params=params, headers=headers, body=body
+        return cast(
+            Any,
+            self.transport.perform_request(
+                "POST", "/_search/scroll", params=params, headers=headers, body=body
+            ),
         )
 
     @query_params(
@@ -2227,11 +2265,11 @@ class OpenSearch(Client):
     def search(
         self,
         *,
-        body: Any = None,
+        body: Optional[SearchRequestBody] = None,
         index: Any = None,
         params: Any = None,
         headers: Any = None,
-    ) -> Any:
+    ) -> SearchSearchResponse:
         """
         Returns results matching a query.
 
@@ -2437,12 +2475,15 @@ class OpenSearch(Client):
         if "from_" in params:
             params["from"] = params.pop("from_")
 
-        return self.transport.perform_request(
-            "POST",
-            _make_path(index, "_search"),
-            params=params,
-            headers=headers,
-            body=body,
+        return cast(
+            Any,
+            self.transport.perform_request(
+                "POST",
+                _make_path(index, "_search"),
+                params=params,
+                headers=headers,
+                body=body,
+            ),
         )
 
     @query_params(
@@ -2722,7 +2763,7 @@ class OpenSearch(Client):
         body: Any,
         params: Any = None,
         headers: Any = None,
-    ) -> Any:
+    ) -> UpdateUpdateWriteResponseBase:
         """
         Updates a document with a script or partial document.
 
@@ -3210,7 +3251,7 @@ class OpenSearch(Client):
         index: Any = None,
         params: Any = None,
         headers: Any = None,
-    ) -> Any:
+    ) -> BulkBulkResponse:
         """
         Allows to perform multiple index/update/delete operations using request
         response streaming.
@@ -3267,10 +3308,13 @@ class OpenSearch(Client):
             raise ValueError("Empty value passed for a required argument 'body'.")
 
         body = _bulk_body(self.transport.serializer, body)
-        return self.transport.perform_request(
-            "PUT",
-            _make_path(index, "_bulk", "stream"),
-            params=params,
-            headers=headers,
-            body=body,
+        return cast(
+            Any,
+            self.transport.perform_request(
+                "PUT",
+                _make_path(index, "_bulk", "stream"),
+                params=params,
+                headers=headers,
+                body=body,
+            ),
         )

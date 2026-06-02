@@ -154,3 +154,6 @@ test_opensearch/local.py
 
 # Visual Studio Code
 .vscode
+
+# OpenAPI/type generation cache (committed output lives in opensearchpy/_types/)
+utils/.cache/

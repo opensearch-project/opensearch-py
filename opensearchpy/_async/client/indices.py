@@ -32,11 +32,18 @@
 # or in the OpenSearch API specification, and run `nox -rs generate`. See DEVELOPER_GUIDE.md
 # and https://github.com/opensearch-project/opensearch-api-specification for details.
 # -----------------------------------------------------------------------------------------+
+from __future__ import annotations
 
-
-from typing import Any
+from typing import TYPE_CHECKING, Any, cast
 
 from .utils import SKIP_IN_PATH, NamespacedClient, _make_path, query_params
+
+if TYPE_CHECKING:
+    from opensearchpy._types._internal import (
+        FieldCommonAcknowledgedResponseBase,
+        FieldCommonIndicesResponseBase,
+        FieldCommonShardsOperationResponseBase,
+    )
 
 
 class IndicesClient(NamespacedClient):
@@ -93,7 +100,7 @@ class IndicesClient(NamespacedClient):
         index: Any = None,
         params: Any = None,
         headers: Any = None,
-    ) -> Any:
+    ) -> FieldCommonShardsOperationResponseBase:
         """
         Performs the refresh operation in one or more indexes.
 
@@ -124,8 +131,11 @@ class IndicesClient(NamespacedClient):
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         """
-        return await self.transport.perform_request(
-            "POST", _make_path(index, "_refresh"), params=params, headers=headers
+        return cast(
+            Any,
+            await self.transport.perform_request(
+                "POST", _make_path(index, "_refresh"), params=params, headers=headers
+            ),
         )
 
     @query_params(
@@ -146,7 +156,7 @@ class IndicesClient(NamespacedClient):
         index: Any = None,
         params: Any = None,
         headers: Any = None,
-    ) -> Any:
+    ) -> FieldCommonShardsOperationResponseBase:
         """
         Performs the flush operation on one or more indexes.
 
@@ -183,8 +193,11 @@ class IndicesClient(NamespacedClient):
             OpenSearch returns an error if you request a flush when another flush
             operation is running. Default is True.
         """
-        return await self.transport.perform_request(
-            "POST", _make_path(index, "_flush"), params=params, headers=headers
+        return cast(
+            Any,
+            await self.transport.perform_request(
+                "POST", _make_path(index, "_flush"), params=params, headers=headers
+            ),
         )
 
     @query_params(
@@ -560,7 +573,7 @@ class IndicesClient(NamespacedClient):
         index: Any,
         params: Any = None,
         headers: Any = None,
-    ) -> Any:
+    ) -> FieldCommonIndicesResponseBase:
         """
         Deletes an index.
 
@@ -604,8 +617,11 @@ class IndicesClient(NamespacedClient):
         if index in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'index'.")
 
-        return await self.transport.perform_request(
-            "DELETE", _make_path(index), params=params, headers=headers
+        return cast(
+            Any,
+            await self.transport.perform_request(
+                "DELETE", _make_path(index), params=params, headers=headers
+            ),
         )
 
     @query_params(
@@ -694,7 +710,7 @@ class IndicesClient(NamespacedClient):
         index: Any = None,
         params: Any = None,
         headers: Any = None,
-    ) -> Any:
+    ) -> FieldCommonIndicesResponseBase:
         """
         Updates the index mappings.
 
@@ -742,12 +758,15 @@ class IndicesClient(NamespacedClient):
         if index in SKIP_IN_PATH:
             index = "_all"
 
-        return await self.transport.perform_request(
-            "PUT",
-            _make_path(index, "_mapping"),
-            params=params,
-            headers=headers,
-            body=body,
+        return cast(
+            Any,
+            await self.transport.perform_request(
+                "PUT",
+                _make_path(index, "_mapping"),
+                params=params,
+                headers=headers,
+                body=body,
+            ),
         )
 
     @query_params(
@@ -1013,7 +1032,7 @@ class IndicesClient(NamespacedClient):
         body: Any,
         params: Any = None,
         headers: Any = None,
-    ) -> Any:
+    ) -> FieldCommonAcknowledgedResponseBase:
         """
         Updates index aliases.
 
@@ -1043,8 +1062,11 @@ class IndicesClient(NamespacedClient):
         if body in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'body'.")
 
-        return await self.transport.perform_request(
-            "POST", "/_aliases", params=params, headers=headers, body=body
+        return cast(
+            Any,
+            await self.transport.perform_request(
+                "POST", "/_aliases", params=params, headers=headers, body=body
+            ),
         )
 
     @query_params(
@@ -1064,7 +1086,7 @@ class IndicesClient(NamespacedClient):
         name: Any,
         params: Any = None,
         headers: Any = None,
-    ) -> Any:
+    ) -> FieldCommonAcknowledgedResponseBase:
         """
         Deletes an alias.
 
@@ -1098,8 +1120,14 @@ class IndicesClient(NamespacedClient):
             if param in SKIP_IN_PATH:
                 raise ValueError("Empty value passed for a required argument.")
 
-        return await self.transport.perform_request(
-            "DELETE", _make_path(index, "_alias", name), params=params, headers=headers
+        return cast(
+            Any,
+            await self.transport.perform_request(
+                "DELETE",
+                _make_path(index, "_alias", name),
+                params=params,
+                headers=headers,
+            ),
         )
 
     @query_params(
@@ -1120,7 +1148,7 @@ class IndicesClient(NamespacedClient):
         body: Any,
         params: Any = None,
         headers: Any = None,
-    ) -> Any:
+    ) -> FieldCommonAcknowledgedResponseBase:
         """
         Creates or updates an index template.
 
@@ -1155,12 +1183,15 @@ class IndicesClient(NamespacedClient):
             if param in SKIP_IN_PATH:
                 raise ValueError("Empty value passed for a required argument.")
 
-        return await self.transport.perform_request(
-            "PUT",
-            _make_path("_template", name),
-            params=params,
-            headers=headers,
-            body=body,
+        return cast(
+            Any,
+            await self.transport.perform_request(
+                "PUT",
+                _make_path("_template", name),
+                params=params,
+                headers=headers,
+                body=body,
+            ),
         )
 
     @query_params(
@@ -1282,7 +1313,7 @@ class IndicesClient(NamespacedClient):
         name: Any,
         params: Any = None,
         headers: Any = None,
-    ) -> Any:
+    ) -> FieldCommonAcknowledgedResponseBase:
         """
         Deletes an index template.
 
@@ -1313,8 +1344,11 @@ class IndicesClient(NamespacedClient):
         if name in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'name'.")
 
-        return await self.transport.perform_request(
-            "DELETE", _make_path("_template", name), params=params, headers=headers
+        return cast(
+            Any,
+            await self.transport.perform_request(
+                "DELETE", _make_path("_template", name), params=params, headers=headers
+            ),
         )
 
     @query_params(
@@ -1413,7 +1447,7 @@ class IndicesClient(NamespacedClient):
         index: Any = None,
         params: Any = None,
         headers: Any = None,
-    ) -> Any:
+    ) -> FieldCommonAcknowledgedResponseBase:
         """
         Updates the index settings.
 
@@ -1462,12 +1496,15 @@ class IndicesClient(NamespacedClient):
         if body in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'body'.")
 
-        return await self.transport.perform_request(
-            "PUT",
-            _make_path(index, "_settings"),
-            params=params,
-            headers=headers,
-            body=body,
+        return cast(
+            Any,
+            await self.transport.perform_request(
+                "PUT",
+                _make_path(index, "_settings"),
+                params=params,
+                headers=headers,
+                body=body,
+            ),
         )
 
     @query_params(
@@ -1702,7 +1739,7 @@ class IndicesClient(NamespacedClient):
         index: Any = None,
         params: Any = None,
         headers: Any = None,
-    ) -> Any:
+    ) -> FieldCommonShardsOperationResponseBase:
         """
         Clears all or specific caches for one or more indexes.
 
@@ -1740,8 +1777,14 @@ class IndicesClient(NamespacedClient):
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         """
-        return await self.transport.perform_request(
-            "POST", _make_path(index, "_cache", "clear"), params=params, headers=headers
+        return cast(
+            Any,
+            await self.transport.perform_request(
+                "POST",
+                _make_path(index, "_cache", "clear"),
+                params=params,
+                headers=headers,
+            ),
         )
 
     @query_params(
@@ -2231,7 +2274,7 @@ class IndicesClient(NamespacedClient):
         body: Any = None,
         params: Any = None,
         headers: Any = None,
-    ) -> Any:
+    ) -> FieldCommonAcknowledgedResponseBase:
         """
         Creates or updates a data stream.
 
@@ -2258,12 +2301,15 @@ class IndicesClient(NamespacedClient):
         if name in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'name'.")
 
-        return await self.transport.perform_request(
-            "PUT",
-            _make_path("_data_stream", name),
-            params=params,
-            headers=headers,
-            body=body,
+        return cast(
+            Any,
+            await self.transport.perform_request(
+                "PUT",
+                _make_path("_data_stream", name),
+                params=params,
+                headers=headers,
+                body=body,
+            ),
         )
 
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
@@ -2273,7 +2319,7 @@ class IndicesClient(NamespacedClient):
         name: Any,
         params: Any = None,
         headers: Any = None,
-    ) -> Any:
+    ) -> FieldCommonAcknowledgedResponseBase:
         """
         Deletes a data stream.
 
@@ -2295,8 +2341,14 @@ class IndicesClient(NamespacedClient):
         if name in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'name'.")
 
-        return await self.transport.perform_request(
-            "DELETE", _make_path("_data_stream", name), params=params, headers=headers
+        return cast(
+            Any,
+            await self.transport.perform_request(
+                "DELETE",
+                _make_path("_data_stream", name),
+                params=params,
+                headers=headers,
+            ),
         )
 
     @query_params(
@@ -2315,7 +2367,7 @@ class IndicesClient(NamespacedClient):
         name: Any,
         params: Any = None,
         headers: Any = None,
-    ) -> Any:
+    ) -> FieldCommonAcknowledgedResponseBase:
         """
         Deletes an index template.
 
@@ -2346,11 +2398,14 @@ class IndicesClient(NamespacedClient):
         if name in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'name'.")
 
-        return await self.transport.perform_request(
-            "DELETE",
-            _make_path("_index_template", name),
-            params=params,
-            headers=headers,
+        return cast(
+            Any,
+            await self.transport.perform_request(
+                "DELETE",
+                _make_path("_index_template", name),
+                params=params,
+                headers=headers,
+            ),
         )
 
     @query_params(
@@ -2475,7 +2530,7 @@ class IndicesClient(NamespacedClient):
         body: Any,
         params: Any = None,
         headers: Any = None,
-    ) -> Any:
+    ) -> FieldCommonAcknowledgedResponseBase:
         """
         Creates or updates an index template.
 
@@ -2507,12 +2562,15 @@ class IndicesClient(NamespacedClient):
             if param in SKIP_IN_PATH:
                 raise ValueError("Empty value passed for a required argument.")
 
-        return await self.transport.perform_request(
-            "PUT",
-            _make_path("_index_template", name),
-            params=params,
-            headers=headers,
-            body=body,
+        return cast(
+            Any,
+            await self.transport.perform_request(
+                "PUT",
+                _make_path("_index_template", name),
+                params=params,
+                headers=headers,
+                body=body,
+            ),
         )
 
     @query_params(
@@ -2814,7 +2872,7 @@ class IndicesClient(NamespacedClient):
         body: Any = None,
         params: Any = None,
         headers: Any = None,
-    ) -> Any:
+    ) -> FieldCommonAcknowledgedResponseBase:
         """
         Creates or updates an alias.
 
@@ -2847,10 +2905,13 @@ class IndicesClient(NamespacedClient):
             received before the timeout expires, the request fails and returns an
             error.
         """
-        return await self.transport.perform_request(
-            "PUT",
-            _make_path(index, "_alias", name),
-            params=params,
-            headers=headers,
-            body=body,
+        return cast(
+            Any,
+            await self.transport.perform_request(
+                "PUT",
+                _make_path(index, "_alias", name),
+                params=params,
+                headers=headers,
+                body=body,
+            ),
         )

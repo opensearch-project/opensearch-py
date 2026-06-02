@@ -14,11 +14,14 @@
 # or in the OpenSearch API specification, and run `nox -rs generate`. See DEVELOPER_GUIDE.md
 # and https://github.com/opensearch-project/opensearch-api-specification for details.
 # -----------------------------------------------------------------------------------------+
+from __future__ import annotations
 
-
-from typing import Any
+from typing import TYPE_CHECKING, Any, cast
 
 from ..client.utils import SKIP_IN_PATH, NamespacedClient, _make_path, query_params
+
+if TYPE_CHECKING:
+    from opensearchpy._types._internal import FieldCommonAcknowledgedResponseBase
 
 
 class GeospatialClient(NamespacedClient):
@@ -132,7 +135,7 @@ class GeospatialClient(NamespacedClient):
         name: Any,
         params: Any = None,
         headers: Any = None,
-    ) -> Any:
+    ) -> FieldCommonAcknowledgedResponseBase:
         """
         Delete a specific IP2Geo data source.
 
@@ -152,11 +155,14 @@ class GeospatialClient(NamespacedClient):
         if name in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'name'.")
 
-        return await self.transport.perform_request(
-            "DELETE",
-            _make_path("_plugins", "geospatial", "ip2geo", "datasource", name),
-            params=params,
-            headers=headers,
+        return cast(
+            Any,
+            await self.transport.perform_request(
+                "DELETE",
+                _make_path("_plugins", "geospatial", "ip2geo", "datasource", name),
+                params=params,
+                headers=headers,
+            ),
         )
 
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
@@ -199,7 +205,7 @@ class GeospatialClient(NamespacedClient):
         body: Any = None,
         params: Any = None,
         headers: Any = None,
-    ) -> Any:
+    ) -> FieldCommonAcknowledgedResponseBase:
         """
         Create a specific IP2Geo data source. Default values:   - `endpoint`:
         `"https://geoip.maps.opensearch.org/v1/geolite2-city/manifest.json"`   -
@@ -221,12 +227,15 @@ class GeospatialClient(NamespacedClient):
         if name in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'name'.")
 
-        return await self.transport.perform_request(
-            "PUT",
-            _make_path("_plugins", "geospatial", "ip2geo", "datasource", name),
-            params=params,
-            headers=headers,
-            body=body,
+        return cast(
+            Any,
+            await self.transport.perform_request(
+                "PUT",
+                _make_path("_plugins", "geospatial", "ip2geo", "datasource", name),
+                params=params,
+                headers=headers,
+                body=body,
+            ),
         )
 
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
@@ -237,7 +246,7 @@ class GeospatialClient(NamespacedClient):
         body: Any,
         params: Any = None,
         headers: Any = None,
-    ) -> Any:
+    ) -> FieldCommonAcknowledgedResponseBase:
         """
         Update a specific IP2Geo data source.
 
@@ -258,12 +267,15 @@ class GeospatialClient(NamespacedClient):
             if param in SKIP_IN_PATH:
                 raise ValueError("Empty value passed for a required argument.")
 
-        return await self.transport.perform_request(
-            "PUT",
-            _make_path(
-                "_plugins", "geospatial", "ip2geo", "datasource", name, "_settings"
+        return cast(
+            Any,
+            await self.transport.perform_request(
+                "PUT",
+                _make_path(
+                    "_plugins", "geospatial", "ip2geo", "datasource", name, "_settings"
+                ),
+                params=params,
+                headers=headers,
+                body=body,
             ),
-            params=params,
-            headers=headers,
-            body=body,
         )

@@ -7,6 +7,13 @@
         elif scroll_id:
             params["scroll_id"] = scroll_id
 
+        {% if api.return_type != 'Any' %}
+        return cast(
+            Any,
+            await self.transport.perform_request("{{ api.method }}", "/_search/scroll", params=params, headers=headers, body=body),
+        )
+        {% else %}
         return await self.transport.perform_request("{{ api.method }}", "/_search/scroll", params=params, headers=headers, body=body)
+        {% endif %}
 {% endblock %}
 

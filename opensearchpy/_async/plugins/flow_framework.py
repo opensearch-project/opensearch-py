@@ -14,11 +14,23 @@
 # or in the OpenSearch API specification, and run `nox -rs generate`. See DEVELOPER_GUIDE.md
 # and https://github.com/opensearch-project/opensearch-api-specification for details.
 # -----------------------------------------------------------------------------------------+
+from __future__ import annotations
 
-
-from typing import Any
+from typing import TYPE_CHECKING, Any, Optional, cast
 
 from ..client.utils import SKIP_IN_PATH, NamespacedClient, _make_path, query_params
+
+if TYPE_CHECKING:
+    from opensearchpy._types._internal import FieldCommonWriteResponseBase
+    from opensearchpy._types.flow_framework import (
+        CommonFlowFrameworkCreate,
+        CommonFlowFrameworkGetResponse,
+        CommonFlowFrameworkUpdate,
+        CommonSearchWorkflowRequest,
+        CommonWorkflowIDResponse,
+        CommonWorkflowSearchResponse,
+        CommonWorkflowSearchStateResponse,
+    )
 
 
 class FlowFrameworkClient(NamespacedClient):
@@ -37,7 +49,7 @@ class FlowFrameworkClient(NamespacedClient):
     async def create(
         self,
         *,
-        body: Any = None,
+        body: Optional[CommonFlowFrameworkCreate] = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:
@@ -84,7 +96,7 @@ class FlowFrameworkClient(NamespacedClient):
         workflow_id: Any,
         params: Any = None,
         headers: Any = None,
-    ) -> Any:
+    ) -> FieldCommonWriteResponseBase:
         """
         Deletes a workflow template.
 
@@ -110,11 +122,14 @@ class FlowFrameworkClient(NamespacedClient):
                 "Empty value passed for a required argument 'workflow_id'."
             )
 
-        return await self.transport.perform_request(
-            "DELETE",
-            _make_path("_plugins", "_flow_framework", "workflow", workflow_id),
-            params=params,
-            headers=headers,
+        return cast(
+            Any,
+            await self.transport.perform_request(
+                "DELETE",
+                _make_path("_plugins", "_flow_framework", "workflow", workflow_id),
+                params=params,
+                headers=headers,
+            ),
         )
 
     @query_params(
@@ -126,7 +141,7 @@ class FlowFrameworkClient(NamespacedClient):
         workflow_id: Any,
         params: Any = None,
         headers: Any = None,
-    ) -> Any:
+    ) -> CommonWorkflowIDResponse:
         """
         Deprovision workflow's resources when you no longer need them.
 
@@ -151,13 +166,20 @@ class FlowFrameworkClient(NamespacedClient):
                 "Empty value passed for a required argument 'workflow_id'."
             )
 
-        return await self.transport.perform_request(
-            "POST",
-            _make_path(
-                "_plugins", "_flow_framework", "workflow", workflow_id, "_deprovision"
+        return cast(
+            Any,
+            await self.transport.perform_request(
+                "POST",
+                _make_path(
+                    "_plugins",
+                    "_flow_framework",
+                    "workflow",
+                    workflow_id,
+                    "_deprovision",
+                ),
+                params=params,
+                headers=headers,
             ),
-            params=params,
-            headers=headers,
         )
 
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
@@ -167,7 +189,7 @@ class FlowFrameworkClient(NamespacedClient):
         workflow_id: Any,
         params: Any = None,
         headers: Any = None,
-    ) -> Any:
+    ) -> CommonFlowFrameworkGetResponse:
         """
         Retrieves a workflow template.
 
@@ -190,11 +212,14 @@ class FlowFrameworkClient(NamespacedClient):
                 "Empty value passed for a required argument 'workflow_id'."
             )
 
-        return await self.transport.perform_request(
-            "GET",
-            _make_path("_plugins", "_flow_framework", "workflow", workflow_id),
-            params=params,
-            headers=headers,
+        return cast(
+            Any,
+            await self.transport.perform_request(
+                "GET",
+                _make_path("_plugins", "_flow_framework", "workflow", workflow_id),
+                params=params,
+                headers=headers,
+            ),
         )
 
     @query_params("all", "error_trace", "filter_path", "human", "pretty", "source")
@@ -279,7 +304,7 @@ class FlowFrameworkClient(NamespacedClient):
         body: Any = None,
         params: Any = None,
         headers: Any = None,
-    ) -> Any:
+    ) -> CommonWorkflowIDResponse:
         """
         Provisioning a workflow. This API is also executed when the Create or Update
         Workflow API is called with the provision parameter set to true.
@@ -303,24 +328,27 @@ class FlowFrameworkClient(NamespacedClient):
                 "Empty value passed for a required argument 'workflow_id'."
             )
 
-        return await self.transport.perform_request(
-            "POST",
-            _make_path(
-                "_plugins", "_flow_framework", "workflow", workflow_id, "_provision"
+        return cast(
+            Any,
+            await self.transport.perform_request(
+                "POST",
+                _make_path(
+                    "_plugins", "_flow_framework", "workflow", workflow_id, "_provision"
+                ),
+                params=params,
+                headers=headers,
+                body=body,
             ),
-            params=params,
-            headers=headers,
-            body=body,
         )
 
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def search(
         self,
         *,
-        body: Any,
+        body: CommonSearchWorkflowRequest,
         params: Any = None,
         headers: Any = None,
-    ) -> Any:
+    ) -> CommonWorkflowSearchResponse:
         """
         Search for workflows by using a query matching a field.
 
@@ -340,22 +368,25 @@ class FlowFrameworkClient(NamespacedClient):
         if body in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'body'.")
 
-        return await self.transport.perform_request(
-            "POST",
-            "/_plugins/_flow_framework/workflow/_search",
-            params=params,
-            headers=headers,
-            body=body,
+        return cast(
+            Any,
+            await self.transport.perform_request(
+                "POST",
+                "/_plugins/_flow_framework/workflow/_search",
+                params=params,
+                headers=headers,
+                body=body,
+            ),
         )
 
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def search_state(
         self,
         *,
-        body: Any,
+        body: CommonSearchWorkflowRequest,
         params: Any = None,
         headers: Any = None,
-    ) -> Any:
+    ) -> CommonWorkflowSearchStateResponse:
         """
         Search for workflows by using a query matching a field.
 
@@ -375,12 +406,15 @@ class FlowFrameworkClient(NamespacedClient):
         if body in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'body'.")
 
-        return await self.transport.perform_request(
-            "POST",
-            "/_plugins/_flow_framework/workflow/state/_search",
-            params=params,
-            headers=headers,
-            body=body,
+        return cast(
+            Any,
+            await self.transport.perform_request(
+                "POST",
+                "/_plugins/_flow_framework/workflow/state/_search",
+                params=params,
+                headers=headers,
+                body=body,
+            ),
         )
 
     @query_params(
@@ -399,7 +433,7 @@ class FlowFrameworkClient(NamespacedClient):
         self,
         *,
         workflow_id: Any,
-        body: Any = None,
+        body: Optional[CommonFlowFrameworkUpdate] = None,
         params: Any = None,
         headers: Any = None,
     ) -> Any:

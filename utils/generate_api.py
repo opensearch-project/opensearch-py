@@ -33,11 +33,12 @@
 import json
 import os
 import re
+from collections import defaultdict
 from functools import lru_cache
 from itertools import chain, groupby
 from operator import itemgetter
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Set, cast
 
 import black
 import deepmerge
@@ -59,6 +60,7 @@ SUBSTITUTIONS = {"type": "doc_type", "from": "from_"}
 # api path(s)
 BRANCH_NAME = "7.x"
 CODE_ROOT = Path(__file__).absolute().parent.parent
+TYPE_INDEX_PATH = CODE_ROOT / "utils" / ".cache" / "type_index.json"
 GLOBAL_QUERY_PARAMS = {
     "pretty": "Optional[bool]",
     "human": "Optional[bool]",
@@ -83,6 +85,15 @@ jinja_env = Environment(
     trim_blocks=True,
     lstrip_blocks=True,
 )
+
+
+def load_operation_types() -> Dict[str, Dict[str, Optional[str]]]:
+    """Load operation-group to TypedDict name mappings from the type index."""
+    if not TYPE_INDEX_PATH.exists():
+        return {}
+    with TYPE_INDEX_PATH.open(encoding="utf-8") as handle:
+        payload = json.load(handle)
+    return cast(Dict[str, Dict[str, Optional[str]]], payload.get("operations", {}))
 
 
 def blacken(filename: Any) -> None:
@@ -160,6 +171,59 @@ class Module:
         sorts the list of APIs by the Module._position key
         """
         self._apis.sort(key=self._position)
+
+    @staticmethod
+    def _strip_type_import_blocks(content: str) -> str:
+        content = re.sub(r"\nfrom __future__ import annotations\n", "\n", content)
+        while True:
+            updated = re.sub(
+                r"\nif TYPE_CHECKING:.*?(?=\n(?:from |import |class |\Z))",
+                "\n",
+                content,
+                count=1,
+                flags=re.DOTALL,
+            )
+            if updated == content:
+                break
+            content = updated
+        content = re.sub(
+            r"\nfrom typing import TYPE_CHECKING[^\n]*\n",
+            "\n",
+            content,
+        )
+        content = re.sub(
+            r"\nfrom typing import cast\nfrom typing import TYPE_CHECKING\n",
+            "\n",
+            content,
+        )
+        content = re.sub(
+            r"\nfrom typing import Optional\nfrom typing import TYPE_CHECKING\n",
+            "\n",
+            content,
+        )
+        content = re.sub(r"^from typing import .+\n", "", content, flags=re.MULTILINE)
+        return content
+
+    def _type_checking_imports(self) -> str:
+        imports_by_module: Dict[str, Set[str]] = defaultdict(set)
+        for api in self._apis:
+            if api.request_type and api.request_module:
+                imports_by_module[api.request_module].add(api.request_type)
+            if api.response_type and api.response_module:
+                imports_by_module[api.response_module].add(api.response_type)
+
+        if not imports_by_module:
+            return ""
+
+        lines: List[str] = [
+            "from typing import TYPE_CHECKING",
+            "",
+            "if TYPE_CHECKING:",
+        ]
+        for module in sorted(imports_by_module):
+            names = ", ".join(sorted(imports_by_module[module]))
+            lines.append(f"    from opensearchpy._types.{module} import {names}")
+        return "\n".join(lines)
 
     def dump(self) -> None:
         """
@@ -266,6 +330,7 @@ class Module:
             for line in self.header.split("\n")
             if "from " + utils + " import" not in line
         )
+        self.header = self._strip_type_import_blocks(self.header)
 
         module_content = ""
         if update_header is True:
@@ -309,10 +374,113 @@ class Module:
             utils_imports = "from " + utils + " import"
             result = f"{utils_imports} {', '.join(present_keywords)}"
             utils_imports = result
-        module_content = module_content.replace("#replace_token#", utils_imports)
+
+        type_import_lines = self._type_checking_imports()
+        replacement = utils_imports
+        if type_import_lines:
+            replacement = (
+                f"{utils_imports}\n\n{type_import_lines}"
+                if utils_imports
+                else type_import_lines
+            )
+        module_content = module_content.replace("#replace_token#", replacement)
+
+        if type_import_lines:
+            future_import = "from __future__ import annotations\n\n"
+            header_end = module_content.find(
+                "# -----------------------------------------------------------------------------------------+"
+            )
+            if header_end != -1:
+                insert_at = module_content.find("\n", header_end) + 1
+                module_content = (
+                    module_content[:insert_at]
+                    + future_import
+                    + module_content[insert_at:]
+                )
+
+        module_content = self._ensure_typing_imports(module_content)
 
         with open(self.filepath, "w", encoding="utf-8") as file:
             file.write(module_content)
+
+    @staticmethod
+    def _consolidate_typing_imports(module_content: str) -> str:
+        """Merge duplicate ``from typing import ...`` lines into one."""
+        imports = re.findall(r"^from typing import (.+)$", module_content, re.MULTILINE)
+        if not imports:
+            return module_content
+
+        names: List[str] = []
+        for import_line in imports:
+            for part in import_line.split(","):
+                part = part.strip()
+                if part and part not in names:
+                    names.append(part)
+
+        needs_cast = "cast(" in module_content
+        needs_optional = "Optional[" in module_content
+        needs_any = re.search(r"\bAny\b", module_content) is not None
+        needs_type = "Type[" in module_content
+        for required, needed in (
+            ("cast", needs_cast),
+            ("Optional", needs_optional),
+            ("Any", needs_any),
+            ("Type", needs_type),
+        ):
+            if needed and required not in names:
+                names.append(required)
+        if "TYPE_CHECKING" in module_content and "TYPE_CHECKING" not in names:
+            names.insert(0, "TYPE_CHECKING")
+        if "Type" in names and "Type[" not in module_content:
+            names.remove("Type")
+
+        merged = f"from typing import {', '.join(names)}\n"
+        without = re.sub(
+            r"^from typing import .+\n", "", module_content, flags=re.MULTILINE
+        )
+        insert_at = without.find("from __future__ import annotations")
+        if insert_at != -1:
+            line_end = without.find("\n", insert_at) + 1
+            return without[:line_end] + "\n" + merged + without[line_end:]
+
+        header_end = without.find(
+            "# -----------------------------------------------------------------------------------------+"
+        )
+        if header_end != -1:
+            insert_at = without.find("\n", header_end) + 1
+            return without[:insert_at] + "\n" + merged + without[insert_at:]
+
+        return merged + without
+
+    @staticmethod
+    def _ensure_typing_imports(module_content: str) -> str:
+        needs_any = re.search(r"\bAny\b", module_content) is not None
+        needs_cast = "cast(" in module_content
+        needs_optional = "Optional[" in module_content
+        needs_type = "Type[" in module_content
+        if not (needs_any or needs_cast or needs_optional or needs_type):
+            return module_content
+
+        if re.search(r"^from typing import ", module_content, re.MULTILINE):
+            return Module._consolidate_typing_imports(module_content)
+
+        names: List[str] = []
+        if needs_any:
+            names.append("Any")
+        if needs_cast:
+            names.append("cast")
+        if needs_optional:
+            names.append("Optional")
+        if needs_type:
+            names.append("Type")
+        insert = f"from typing import {', '.join(names)}\n\n"
+        header_end = module_content.find(
+            "# -----------------------------------------------------------------------------------------+"
+        )
+        if header_end != -1:
+            insert_at = module_content.find("\n", header_end) + 1
+            return module_content[:insert_at] + insert + module_content[insert_at:]
+        return insert + module_content
 
     @property
     def filepath(self) -> Any:
@@ -326,9 +494,22 @@ class Module:
 
 
 class API:
-    def __init__(self, namespace: str, name: str, definition: Any) -> None:
+    def __init__(
+        self,
+        namespace: str,
+        name: str,
+        definition: Any,
+        operation_group: str,
+        operation_types: Optional[Dict[str, Optional[str]]] = None,
+    ) -> None:
         self.namespace = namespace
         self.name = name
+        self.operation_group = operation_group
+        operation_types = operation_types or {}
+        self.request_type = operation_types.get("request_type")
+        self.request_module = operation_types.get("request_module")
+        self.response_type = operation_types.get("response_type")
+        self.response_module = operation_types.get("response_module")
 
         # overwrite the dict to maintain key order
         definition["params"] = {
@@ -451,6 +632,20 @@ class API:
         if body_api_spec:
             body_api_spec.setdefault("required", False)
         return body_api_spec
+
+    @property
+    def body_type(self) -> str:
+        """Return the annotated type for the request body parameter."""
+        if self.body and self.request_type:
+            if self.body.get("required"):
+                return self.request_type
+            return f"Optional[{self.request_type}]"
+        return "Any"
+
+    @property
+    def return_type(self) -> str:
+        """Return the annotated return type for the API method."""
+        return self.response_type or "Any"
 
     @property
     def query_params(self) -> Any:
@@ -651,6 +846,7 @@ def read_modules() -> Any:
     :return: a dict of API objects
     """
     modules = {}
+    operation_types = load_operation_types()
 
     # Load the OpenAPI specification file
     response = requests.get(
@@ -907,7 +1103,7 @@ def read_modules() -> Any:
         if namespace not in modules:
             modules[namespace] = Module(namespace, is_plugin)
 
-        modules[namespace].add(API(namespace, name, api))
+        modules[namespace].add(API(namespace, name, api, key, operation_types.get(key)))
 
     return modules
 
