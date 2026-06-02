@@ -288,3 +288,33 @@ python test_bulk_stream.py
 # Run: OPENSEARCH_URL="http://localhost:9200" pytest test_opensearchpy/test_translation/test_bulk_request.py -v
 
 ### All 23 tests pass across all test files
+
+## Reference Links (updated)
+# gRPC Python Basics: https://grpc.io/docs/languages/python/basics/
+#   - Covers: defining services, generating stubs, creating clients/servers
+#   - Unary RPC, server streaming, client streaming, bidirectional streaming
+#   - Relevant for our DocumentService.Bulk() which is a unary RPC currently
+
+## 2026-06-02: StreamClient — Bidirectional Streaming gRPC Client
+
+### Files Created
+# opensearch_grpc/stream_client.py — Persistent streaming client
+#   - Maintains a persistent gRPC channel (no reconnection per request)
+#   - Client streams operations continuously: .index(), .create(), .update(), .delete()
+#   - .flush() sends all queued ops as one BulkRequest, returns responses
+#   - Auto-flush mode: set batch_size=N to auto-send every N operations
+#   - Context manager: with StreamClient() as client: ...
+#   - On close: flushes remaining ops and closes channel
+#
+# How bidirectional works:
+#   - Current proto: DocumentService.Bulk is unary (BulkRequest → BulkResponse)
+#   - We simulate bidirectional by: persistent channel + batched flushes
+#   - Client keeps queueing operations → flush sends batch → server responds
+#   - Multiple flushes on same channel = continuous streaming without reconnection
+#   - When proto adds true stream RPC, internal changes but API stays same
+#
+# References used:
+#   - https://grpc.io/docs/languages/python/basics/ (gRPC streaming patterns)
+#   - https://docs.opensearch.org/latest/api-reference/grpc-apis/bulk/ (Bulk gRPC API)
+#   - https://docs.opensearch.org/latest/api-reference/grpc-apis/index/ (gRPC overview)
+#   - https://docs.opensearch.org/latest/clients/python-low-level/ (client API pattern)
