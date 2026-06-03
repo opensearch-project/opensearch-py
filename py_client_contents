@@ -381,3 +381,42 @@ python test_bulk_stream.py
 #       client.search(...)        # → REST
 #       client.index(...)         # → REST
 #   - Additional kwargs: grpc_port (default 9400), grpc_host (override)
+
+## 2026-06-03: GrpcTransport — Dedicated gRPC Methods for All Document Operations
+
+### Files Modified
+# opensearch_grpc/grpc_transport.py — Rewritten with per-operation gRPC handlers
+#   - _handle_bulk(): Native DocumentService.Bulk for multi-doc operations
+#   - _handle_index(): Single-doc index wrapped in 1-item BulkRequest
+#   - _handle_create(): Single-doc create wrapped in 1-item BulkRequest
+#   - _handle_update(): Single-doc update wrapped in 1-item BulkRequest
+#   - _handle_delete(): Single-doc delete wrapped in 1-item BulkRequest
+#   - _handle_search(): REST fallback (hook ready for future SearchService.Search)
+#   - URL pattern matching via _get_grpc_handler() routes to correct handler
+#   - _single_doc_response(): Unwraps BulkResponse back to single-doc format
+#
+# Routing table:
+#   client.bulk()   → gRPC (DocumentService.Bulk, native)
+#   client.index()  → gRPC (single-item BulkRequest)
+#   client.create() → gRPC (single-item BulkRequest)
+#   client.update() → gRPC (single-item BulkRequest)
+#   client.delete() → gRPC (single-item BulkRequest)
+#   client.search() → REST fallback (SearchService stub ready for future)
+#   client.count()  → REST fallback (no gRPC RPC exists)
+#   client.get()    → REST fallback (no gRPC RPC exists)
+#   client.indices.*→ REST fallback (no gRPC RPC exists)
+
+### Files Created
+# opensearch_grpc/proto/search_service_pb2.py — Generated protobuf stubs for SearchService
+# opensearch_grpc/proto/search_service_pb2_grpc.py — Generated gRPC stubs for SearchService
+#   - SearchService.Search(SearchRequest) → SearchResponse
+#   - SearchService.ServerStreamSearch(SearchRequest) → stream SearchResponse
+#   - Ready for native gRPC search when query DSL → protobuf converter is built
+
+### Single-Item Bulk Wrapper Explanation
+# The OpenSearch gRPC server only exposes DocumentService.Bulk as the document RPC.
+# For single-doc operations (index, create, update, delete), we wrap them in a
+# BulkRequest with exactly 1 BulkRequestBody. The server processes it normally.
+# The response is a BulkResponse with 1 item, which we unwrap back to the
+# single-doc format that opensearch-py expects.
+# For massive bulk requests, the native path is used directly — no wrapping.
