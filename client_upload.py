@@ -23,7 +23,7 @@ from opensearch_grpc.simpledoc_gRPC import (
 
 host = "localhost"
 grpc_port = 9400
-grpc_target = f"{host}:{grpc_port}"
+grpc_host = f"{host}:{grpc_port}"
 
 index_name = "company-products"
 
@@ -33,7 +33,7 @@ index_name = "company-products"
 print("=" * 60)
 print("OpenSearch Client — Document Upload (gRPC Transport)")
 print("=" * 60)
-print(f"Target: {grpc_target}")
+print(f"Target: {grpc_host}")
 print(f"Index:  {index_name}")
 print()
 
@@ -56,7 +56,7 @@ response = index_document(
     },
     id="product-1",
     refresh="true",
-    grpc_target=grpc_target,
+    grpc_host=grpc_host,
 )
 print(f"Result: {response}\n")
 
@@ -72,7 +72,7 @@ response = index_document(
     },
     id="product-2",
     refresh="true",
-    grpc_target=grpc_target,
+    grpc_host=grpc_host,
 )
 print(f"Result: {response}\n")
 
@@ -88,7 +88,7 @@ response = index_document(
     },
     id="product-3",
     refresh="true",
-    grpc_target=grpc_target,
+    grpc_host=grpc_host,
 )
 print(f"Result: {response}\n")
 
@@ -110,7 +110,7 @@ response = create_document(
     },
     id="product-4",
     refresh="true",
-    grpc_target=grpc_target,
+    grpc_host=grpc_host,
 )
 print(f"Result: {response}\n")
 
@@ -126,7 +126,7 @@ response = update_document(
     id="product-3",
     body={"doc": {"price": 449.99, "in_stock": True}},
     refresh="true",
-    grpc_target=grpc_target,
+    grpc_host=grpc_host,
 )
 print(f"Result: {response}\n")
 
@@ -141,7 +141,7 @@ response = delete_document(
     index=index_name,
     id="product-4",
     refresh="true",
-    grpc_target=grpc_target,
+    grpc_host=grpc_host,
 )
 print(f"Result: {response}\n")
 

@@ -35,7 +35,7 @@ from opensearch_grpc.simpledoc_gRPC import (
 # ─── Test Configuration ───────────────────────────────────────────────────────
 
 INDEX = "test-simpledoc"  # Index name used for all tests
-GRPC_TARGET = "localhost:9400"  # gRPC endpoint
+GRPC_HOST = "localhost:9400"  # gRPC endpoint
 
 
 # ─── Test Functions ───────────────────────────────────────────────────────────
@@ -70,7 +70,7 @@ def test_index_document():
         body=document,
         id="1",
         refresh="true",  # Make immediately searchable
-        grpc_target=GRPC_TARGET,
+        grpc_host=GRPC_HOST,
     )
 
     # Verify the response is a proper Python dict (not protobuf)
@@ -105,7 +105,7 @@ def test_create_document():
         body=document,
         id="2",
         refresh="true",
-        grpc_target=GRPC_TARGET,
+        grpc_host=GRPC_HOST,
     )
 
     print(f"\n[TEST] Returned Python dict: {result}")
@@ -140,7 +140,7 @@ def test_update_document():
         id="1",
         body=update_body,
         refresh="true",
-        grpc_target=GRPC_TARGET,
+        grpc_host=GRPC_HOST,
     )
 
     print(f"\n[TEST] Returned Python dict: {result}")
@@ -170,7 +170,7 @@ def test_delete_document():
         index=INDEX,
         id="2",
         refresh="true",
-        grpc_target=GRPC_TARGET,
+        grpc_host=GRPC_HOST,
     )
 
     print(f"\n[TEST] Returned Python dict: {result}")
@@ -190,7 +190,7 @@ def main():
     print("║  simpledoc_gRPC Integration Tests                           ║")
     print("║  Testing: Python Dict → gRPC → OpenSearch → gRPC → Dict    ║")
     print("╚══════════════════════════════════════════════════════════════╝")
-    print(f"\nTarget: {GRPC_TARGET}")
+    print(f"\nTarget: {GRPC_HOST}")
     print(f"Index:  {INDEX}")
 
     # Run tests in order (create depends on index, delete depends on create)

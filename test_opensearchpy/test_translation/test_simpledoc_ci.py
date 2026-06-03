@@ -34,7 +34,7 @@ from opensearch_grpc.simpledoc_gRPC import (
 
 
 @pytest.fixture(scope="session")
-def grpc_target():
+def grpc_host():
     """Derive gRPC target from OPENSEARCH_URL environment."""
     opensearch_url = os.environ.get("OPENSEARCH_URL", "https://localhost:9200")
     grpc_port = os.environ.get("OPENSEARCH_GRPC_PORT", "9400")
@@ -48,7 +48,7 @@ def index_name():
 
 
 @pytest.fixture(autouse=True, scope="session")
-def setup_and_teardown(grpc_target, index_name):
+def setup_and_teardown(grpc_host, index_name):
     yield
     import urllib.request
     try:
@@ -67,7 +67,7 @@ class TestIndexDocument:
         Python dict → protobuf → gRPC → server → protobuf → Python dict + original
     """
 
-    def test_index_returns_response_and_original(self, grpc_target, index_name):
+    def test_index_returns_response_and_original(self, grpc_host, index_name):
         """
         Verify that after indexing, the client gets back:
         1. The server response in Python dict format
@@ -82,7 +82,7 @@ class TestIndexDocument:
             body=original_body,
             id="1",
             refresh="true",
-            grpc_target=grpc_target,
+            grpc_host=grpc_host,
         )
 
         # Step 5: Verify server response is in Python dict format
@@ -105,13 +105,13 @@ class TestIndexDocument:
         assert reconstructed["id"] == "1"
         assert reconstructed["body"] == original_body
 
-    def test_index_overwrites_preserves_data(self, grpc_target, index_name):
+    def test_index_overwrites_preserves_data(self, grpc_host, index_name):
         """Index same ID with new data — verify new data round-trips correctly."""
         new_body = {"title": "Updated doc", "value": 100}
 
         response = index_document(
             index=index_name, body=new_body, id="1",
-            refresh="true", grpc_target=grpc_target,
+            refresh="true", grpc_host=grpc_host,
         )
         assert response["result"] == "updated"
 
@@ -127,13 +127,13 @@ class TestCreateDocument:
     Test create_document() full round-trip.
     """
 
-    def test_create_returns_response_and_original(self, grpc_target, index_name):
+    def test_create_returns_response_and_original(self, grpc_host, index_name):
         """Create a doc and verify both response and original are returned correctly."""
         original_body = {"title": "Created doc", "status": "new", "priority": 1}
 
         response = create_document(
             index=index_name, body=original_body, id="create-1",
-            refresh="true", grpc_target=grpc_target,
+            refresh="true", grpc_host=grpc_host,
         )
 
         # Server response in client's language (Python dict)
@@ -155,12 +155,12 @@ class TestUpdateDocument:
     Update bodies have special structure (doc, doc_as_upsert) that must survive.
     """
 
-    def test_update_returns_response_and_original(self, grpc_target, index_name):
+    def test_update_returns_response_and_original(self, grpc_host, index_name):
         """Update a doc and verify the update body round-trips correctly."""
         # Ensure doc exists
         index_document(
             index=index_name, body={"title": "Original", "value": 1},
-            id="update-1", refresh="true", grpc_target=grpc_target,
+            id="update-1", refresh="true", grpc_host=grpc_host,
         )
 
         # This is the client's update instruction
@@ -168,7 +168,7 @@ class TestUpdateDocument:
 
         response = update_document(
             index=index_name, id="update-1", body=original_update_body,
-            refresh="true", grpc_target=grpc_target,
+            refresh="true", grpc_host=grpc_host,
         )
 
         # Server response in Python dict
@@ -182,13 +182,13 @@ class TestUpdateDocument:
         assert reconstructed["operation"] == "update"
         assert reconstructed["body"]["doc"] == {"value": 99, "updated": True}
 
-    def test_update_doc_as_upsert_round_trips(self, grpc_target, index_name):
+    def test_update_doc_as_upsert_round_trips(self, grpc_host, index_name):
         """Verify doc_as_upsert flag survives the protobuf round-trip."""
         original_body = {"doc": {"name": "Upserted"}, "doc_as_upsert": True}
 
         response = update_document(
             index=index_name, id="upsert-1", body=original_body,
-            refresh="true", grpc_target=grpc_target,
+            refresh="true", grpc_host=grpc_host,
         )
         assert response["result"] in ("created", "updated")
 
@@ -206,17 +206,17 @@ class TestDeleteDocument:
     Delete has no body — just operation metadata.
     """
 
-    def test_delete_returns_response_and_original(self, grpc_target, index_name):
+    def test_delete_returns_response_and_original(self, grpc_host, index_name):
         """Delete a doc and verify response + original metadata."""
         # Ensure doc exists
         index_document(
             index=index_name, body={"title": "To delete"},
-            id="delete-1", refresh="true", grpc_target=grpc_target,
+            id="delete-1", refresh="true", grpc_host=grpc_host,
         )
 
         response = delete_document(
             index=index_name, id="delete-1",
-            refresh="true", grpc_target=grpc_target,
+            refresh="true", grpc_host=grpc_host,
         )
 
         # Server response

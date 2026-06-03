@@ -49,7 +49,7 @@ def index_document(index, body, id=None, routing=None, pipeline=None,
                    refresh=None, timeout=None, require_alias=None,
                    if_primary_term=None, if_seq_no=None,
                    version=None, version_type=None,
-                   grpc_target="localhost:9400"):
+                   grpc_host="localhost:9400"):
     """
     Index a single document via gRPC.
 
@@ -73,7 +73,7 @@ def index_document(index, body, id=None, routing=None, pipeline=None,
         if_seq_no: Optimistic concurrency control — sequence number check.
         version: Explicit version for external versioning.
         version_type: Version type ("internal", "external", "external_gte").
-        grpc_target: gRPC server address (default "localhost:9400").
+        grpc_host: gRPC server address (default "localhost:9400").
 
     Returns:
         A Python dict matching the opensearch-py response format.
@@ -105,7 +105,7 @@ def index_document(index, body, id=None, routing=None, pipeline=None,
     print(f"[simpledoc_gRPC] Converted to protobuf BulkRequest with 1 operation")
 
     # Step 3: Send over gRPC and get response
-    response = _send_grpc_request(request, grpc_target)
+    response = _send_grpc_request(request, grpc_host)
 
     # Step 4: Convert protobuf response back to Python dict
     result = ResponseConverter.from_bulk_response(response)
@@ -115,7 +115,7 @@ def index_document(index, body, id=None, routing=None, pipeline=None,
 
 def create_document(index, body, id=None, routing=None, pipeline=None,
                     refresh=None, timeout=None, require_alias=None,
-                    grpc_target="localhost:9400"):
+                    grpc_host="localhost:9400"):
     """
     Create a single document via gRPC (fails if document already exists).
 
@@ -130,7 +130,7 @@ def create_document(index, body, id=None, routing=None, pipeline=None,
         refresh: Refresh policy.
         timeout: Request timeout.
         require_alias: If True, index must be an alias.
-        grpc_target: gRPC server address.
+        grpc_host: gRPC server address.
 
     Returns:
         A Python dict matching the opensearch-py response format.
@@ -151,7 +151,7 @@ def create_document(index, body, id=None, routing=None, pipeline=None,
     request = _build_single_request("create", meta, body, refresh=refresh, timeout=timeout)
     print(f"[simpledoc_gRPC] Converted to protobuf BulkRequest with 1 operation")
 
-    response = _send_grpc_request(request, grpc_target)
+    response = _send_grpc_request(request, grpc_host)
 
     result = ResponseConverter.from_bulk_response(response)
     print(f"[simpledoc_gRPC] Response converted back to Python dict: {result}")
@@ -162,7 +162,7 @@ def update_document(index, id, body, routing=None, refresh=None,
                     timeout=None, require_alias=None,
                     if_primary_term=None, if_seq_no=None,
                     retry_on_conflict=None,
-                    grpc_target="localhost:9400"):
+                    grpc_host="localhost:9400"):
     """
     Update a single document via gRPC.
 
@@ -183,7 +183,7 @@ def update_document(index, id, body, routing=None, refresh=None,
         if_primary_term: Optimistic concurrency — primary term.
         if_seq_no: Optimistic concurrency — sequence number.
         retry_on_conflict: Number of retries on version conflict.
-        grpc_target: gRPC server address.
+        grpc_host: gRPC server address.
 
     Returns:
         A Python dict matching the opensearch-py response format.
@@ -206,7 +206,7 @@ def update_document(index, id, body, routing=None, refresh=None,
     request = _build_single_request("update", meta, body, refresh=refresh, timeout=timeout)
     print(f"[simpledoc_gRPC] Converted to protobuf BulkRequest with 1 operation")
 
-    response = _send_grpc_request(request, grpc_target)
+    response = _send_grpc_request(request, grpc_host)
 
     result = ResponseConverter.from_bulk_response(response)
     print(f"[simpledoc_gRPC] Response converted back to Python dict: {result}")
@@ -216,7 +216,7 @@ def update_document(index, id, body, routing=None, refresh=None,
 def delete_document(index, id, routing=None, refresh=None, timeout=None,
                     if_primary_term=None, if_seq_no=None,
                     version=None, version_type=None,
-                    grpc_target="localhost:9400"):
+                    grpc_host="localhost:9400"):
     """
     Delete a single document via gRPC.
 
@@ -232,7 +232,7 @@ def delete_document(index, id, routing=None, refresh=None, timeout=None,
         if_seq_no: Optimistic concurrency — sequence number.
         version: Explicit version for external versioning.
         version_type: Version type.
-        grpc_target: gRPC server address.
+        grpc_host: gRPC server address.
 
     Returns:
         A Python dict matching the opensearch-py response format.
@@ -254,7 +254,7 @@ def delete_document(index, id, routing=None, refresh=None, timeout=None,
     request = _build_single_request("delete", meta, None, refresh=refresh, timeout=timeout)
     print(f"[simpledoc_gRPC] Converted to protobuf BulkRequest with 1 operation")
 
-    response = _send_grpc_request(request, grpc_target)
+    response = _send_grpc_request(request, grpc_host)
 
     result = ResponseConverter.from_bulk_response(response)
     print(f"[simpledoc_gRPC] Response converted back to Python dict: {result}")
@@ -266,16 +266,16 @@ def delete_document(index, id, routing=None, refresh=None, timeout=None,
 # ═══════════════════════════════════════════════════════════════════════════════
 
 
-def _send_grpc_request(request, grpc_target):
+def _send_grpc_request(request, grpc_host):
     """
     Open a gRPC channel, send the BulkRequest, and return the BulkResponse.
 
     This is the actual network transport step — the protobuf bytes go over
     the wire to OpenSearch's gRPC endpoint.
     """
-    print(f"[simpledoc_gRPC] Sending protobuf over gRPC to {grpc_target}...")
+    print(f"[simpledoc_gRPC] Sending protobuf over gRPC to {grpc_host}...")
 
-    channel = grpc.insecure_channel(grpc_target)
+    channel = grpc.insecure_channel(grpc_host)
     stub = DocumentServiceStub(channel)
 
     # The Bulk RPC accepts a BulkRequest and returns a BulkResponse

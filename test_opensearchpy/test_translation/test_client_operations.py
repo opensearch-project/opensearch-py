@@ -28,7 +28,7 @@ from opensearch_grpc.stream_client import StreamClient
 
 
 @pytest.fixture(scope="session")
-def grpc_target():
+def grpc_host():
     opensearch_url = os.environ.get("OPENSEARCH_URL", "https://localhost:9200")
     grpc_port = os.environ.get("OPENSEARCH_GRPC_PORT", "9400")
     host = opensearch_url.split("://")[-1].split(":")[0].split("@")[-1]
@@ -46,8 +46,8 @@ def index_name():
 
 
 @pytest.fixture(scope="session")
-def client(grpc_target):
-    c = StreamClient(grpc_target, refresh="true")
+def client(grpc_host):
+    c = StreamClient(grpc_host, refresh="true")
     c.connect()
     yield c
     c.close()

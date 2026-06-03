@@ -26,7 +26,7 @@ from opensearch_grpc.translation import RequestConverter, ResponseConverter
 
 
 @pytest.fixture(scope="session")
-def grpc_target():
+def grpc_host():
     opensearch_url = os.environ.get("OPENSEARCH_URL", "https://localhost:9200")
     grpc_port = os.environ.get("OPENSEARCH_GRPC_PORT", "9400")
     host = opensearch_url.split("://")[-1].split(":")[0].split("@")[-1]
@@ -70,10 +70,10 @@ def _rest_get(base_url, path):
 class TestConnectionLifecycle:
     """Test that the gRPC connection opens, works, closes, and reopens correctly."""
 
-    def test_connect_and_flush(self, grpc_target, index_name):
+    def test_connect_and_flush(self, grpc_host, index_name):
         """Basic: open channel, send one doc, get response, close."""
         print("\n[E2E] Testing basic connect → flush → close")
-        client = StreamClient(grpc_target, refresh="true")
+        client = StreamClient(grpc_host, refresh="true")
         client.connect()
 
         client.index(index_name, body={"test": "lifecycle"}, id="lc-1")
@@ -86,19 +86,19 @@ class TestConnectionLifecycle:
         client.close()
         print("[E2E] ✅ Connection closed cleanly")
 
-    def test_context_manager(self, grpc_target, index_name):
+    def test_context_manager(self, grpc_host, index_name):
         """Context manager opens and closes the connection."""
         print("\n[E2E] Testing context manager lifecycle")
-        with StreamClient(grpc_target, refresh="true") as client:
+        with StreamClient(grpc_host, refresh="true") as client:
             client.index(index_name, body={"test": "context"}, id="lc-2")
             responses = client.flush()
             assert responses[0]["index"]["result"] == "created"
         print("[E2E] ✅ Context manager opened and closed connection")
 
-    def test_reconnect_after_close(self, grpc_target, index_name):
+    def test_reconnect_after_close(self, grpc_host, index_name):
         """Can reconnect and use client after closing."""
         print("\n[E2E] Testing reconnect after close")
-        client = StreamClient(grpc_target, refresh="true")
+        client = StreamClient(grpc_host, refresh="true")
 
         # First connection
         client.connect()
@@ -120,10 +120,10 @@ class TestConnectionLifecycle:
 class TestChannelPersistence:
     """Test that a single channel handles multiple flush cycles."""
 
-    def test_multiple_flushes_same_channel(self, grpc_target, index_name):
+    def test_multiple_flushes_same_channel(self, grpc_host, index_name):
         """Send multiple batches on the same connection without reconnecting."""
         print("\n[E2E] Testing multiple flushes on one channel")
-        with StreamClient(grpc_target, refresh="true") as client:
+        with StreamClient(grpc_host, refresh="true") as client:
             # Batch 1
             client.index(index_name, body={"batch": 1}, id="ch-1")
             r1 = client.flush()
@@ -151,12 +151,12 @@ class TestChannelPersistence:
 class TestLargeBatch:
     """Test throughput with larger document batches."""
 
-    def test_100_documents(self, grpc_target, index_name, rest_url):
+    def test_100_documents(self, grpc_host, index_name, rest_url):
         """Index 100 documents in one flush."""
         print("\n[E2E] Indexing 100 documents in one batch")
         start = time.time()
 
-        with StreamClient(grpc_target, refresh="true") as client:
+        with StreamClient(grpc_host, refresh="true") as client:
             for i in range(100):
                 client.index(index_name, body={"seq": i, "data": f"doc-{i}"}, id=f"bulk-{i}")
             responses = client.flush()
@@ -169,12 +169,12 @@ class TestLargeBatch:
         assert len(errors) == 0
         print(f"[E2E] ✅ 100 documents indexed, 0 errors, {elapsed:.2f}s")
 
-    def test_auto_flush_batching(self, grpc_target, index_name):
+    def test_auto_flush_batching(self, grpc_host, index_name):
         """Auto-flush sends batches automatically at threshold."""
         print("\n[E2E] Testing auto-flush with batch_size=25")
         batches_flushed = 0
 
-        with StreamClient(grpc_target, batch_size=25, refresh="true") as client:
+        with StreamClient(grpc_host, batch_size=25, refresh="true") as client:
             for i in range(60):
                 result = client.index(index_name, body={"auto": i}, id=f"auto-{i}")
                 if result:
@@ -189,7 +189,7 @@ class TestLargeBatch:
 class TestDataIntegrity:
     """Test that data survives the full round-trip without corruption."""
 
-    def test_complex_document_round_trip(self, grpc_target, index_name, rest_url):
+    def test_complex_document_round_trip(self, grpc_host, index_name, rest_url):
         """Send a complex document and verify every field comes back intact."""
         print("\n[E2E] Testing complex document round-trip")
         original = {
@@ -203,7 +203,7 @@ class TestDataIntegrity:
             "unicode": "日本語テスト 🚀",
         }
 
-        with StreamClient(grpc_target, refresh="true") as client:
+        with StreamClient(grpc_host, refresh="true") as client:
             client.index(index_name, body=original, id="integrity-1")
             client.flush()
 
@@ -247,10 +247,10 @@ class TestDataIntegrity:
 class TestErrorRecovery:
     """Test that the client handles errors without breaking the connection."""
 
-    def test_error_doesnt_break_channel(self, grpc_target, index_name):
+    def test_error_doesnt_break_channel(self, grpc_host, index_name):
         """An error in one batch doesn't prevent the next batch from working."""
         print("\n[E2E] Testing error recovery — channel stays alive after error")
-        with StreamClient(grpc_target, refresh="true") as client:
+        with StreamClient(grpc_host, refresh="true") as client:
             # First: create a doc
             client.index(index_name, body={"x": 1}, id="err-1")
             r1 = client.flush()

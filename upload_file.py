@@ -26,7 +26,7 @@ import sys
 from opensearch_grpc.simpledoc_gRPC import index_document
 
 
-def upload_json(filepath, index, grpc_target, id_field=None):
+def upload_json(filepath, index, grpc_host, id_field=None):
     """
     Upload a JSON file. Handles both single objects and arrays.
 
@@ -47,10 +47,10 @@ def upload_json(filepath, index, grpc_target, id_field=None):
         return
 
     print(f"[upload] Found {len(docs)} document(s) to index")
-    _index_docs(docs, index, grpc_target, id_field)
+    _index_docs(docs, index, grpc_host, id_field)
 
 
-def upload_csv(filepath, index, grpc_target, id_field=None):
+def upload_csv(filepath, index, grpc_host, id_field=None):
     """
     Upload a CSV file. Each row becomes a document.
 
@@ -74,10 +74,10 @@ def upload_csv(filepath, index, grpc_target, id_field=None):
             docs.append(doc)
 
     print(f"[upload] Found {len(docs)} row(s) to index")
-    _index_docs(docs, index, grpc_target, id_field)
+    _index_docs(docs, index, grpc_host, id_field)
 
 
-def upload_ndjson(filepath, index, grpc_target, id_field=None):
+def upload_ndjson(filepath, index, grpc_host, id_field=None):
     """
     Upload an NDJSON file (one JSON object per line).
     """
@@ -90,10 +90,10 @@ def upload_ndjson(filepath, index, grpc_target, id_field=None):
                 docs.append(json.loads(line))
 
     print(f"[upload] Found {len(docs)} document(s) to index")
-    _index_docs(docs, index, grpc_target, id_field)
+    _index_docs(docs, index, grpc_host, id_field)
 
 
-def _index_docs(docs, index, grpc_target, id_field=None):
+def _index_docs(docs, index, grpc_host, id_field=None):
     """Index a list of documents one at a time via gRPC."""
     success = 0
     errors = 0
@@ -107,7 +107,7 @@ def _index_docs(docs, index, grpc_target, id_field=None):
             body=doc,
             id=doc_id,
             refresh="false",  # Don't refresh per doc for performance
-            grpc_target=grpc_target,
+            grpc_host=grpc_host,
         )
 
         if "error" in result:
@@ -125,7 +125,7 @@ def main():
     parser.add_argument("filepath", help="Path to file (JSON, CSV, or NDJSON)")
     parser.add_argument("--index", required=True, help="Target index name")
     parser.add_argument("--id-field", help="Document field to use as _id")
-    parser.add_argument("--grpc-target", default="localhost:9400", help="gRPC endpoint")
+    parser.add_argument("--grpc-host", default="localhost:9400", help="gRPC endpoint")
     args = parser.parse_args()
 
     filepath = args.filepath
@@ -136,11 +136,11 @@ def main():
     ext = os.path.splitext(filepath)[1].lower()
 
     if ext == ".json":
-        upload_json(filepath, args.index, args.grpc_target, args.id_field)
+        upload_json(filepath, args.index, args.grpc_host, args.id_field)
     elif ext == ".csv":
-        upload_csv(filepath, args.index, args.grpc_target, args.id_field)
+        upload_csv(filepath, args.index, args.grpc_host, args.id_field)
     elif ext in (".ndjson", ".jsonl"):
-        upload_ndjson(filepath, args.index, args.grpc_target, args.id_field)
+        upload_ndjson(filepath, args.index, args.grpc_host, args.id_field)
     else:
         print(f"[upload] ERROR: Unsupported file type: {ext}")
         print("[upload] Supported: .json, .csv, .ndjson, .jsonl")
