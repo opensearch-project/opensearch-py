@@ -79,7 +79,7 @@ class GrpcTransport(Transport):
         """
         # Check if this is a bulk request we can handle via gRPC
         if self._is_bulk_request(method, url):
-            return self._perform_grpc_bulk(body, params)
+            return self._perform_grpc_bulk(url, body, params)
 
         # Fall back to REST for everything else
         return super().perform_request(
@@ -89,15 +89,21 @@ class GrpcTransport(Transport):
 
     def _is_bulk_request(self, method, url):
         """Check if this request is a bulk operation."""
-        return method == "POST" and ("/_bulk" in url or url.endswith("/_bulk"))
+        return method in ("POST", "PUT") and url.rstrip("/").endswith("_bulk")
 
-    def _perform_grpc_bulk(self, body, params):
+    def _perform_grpc_bulk(self, url, body, params):
         """
         Handle a bulk request over gRPC.
 
         Converts the body to protobuf, sends via gRPC, converts response back.
         Returns the response dict directly (same as REST transport would).
         """
+        # Extract index from URL if present (e.g. "/my-index/_bulk" → "my-index")
+        url_index = None
+        parts = url.strip("/").split("/")
+        if len(parts) >= 2 and parts[-1] == "_bulk":
+            url_index = "/".join(parts[:-1])
+
         # Parse params for request-level options
         refresh = params.get("refresh") if params else None
         timeout = params.get("timeout") if params else None
@@ -106,7 +112,7 @@ class GrpcTransport(Transport):
 
         # Convert body to protobuf BulkRequest
         converter = RequestConverter.from_body(
-            body, refresh=refresh, timeout=timeout,
+            body, index=url_index, refresh=refresh, timeout=timeout,
             pipeline=pipeline, routing=routing,
         )
         request = converter.build()
