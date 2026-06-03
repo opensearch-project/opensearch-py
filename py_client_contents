@@ -362,3 +362,22 @@ python test_bulk_stream.py
 #   - TestDataIntegrity: complex doc round-trip (nested, arrays, unicode), converter preserves data (2 tests)
 #   - TestErrorRecovery: error in one batch doesn't break the channel (1 test)
 #   - Run: OPENSEARCH_URL="http://localhost:9200" pytest test_opensearchpy/test_translation/test_e2e_connection.py -v -s
+
+## 2026-06-03: GrpcTransport — Drop-in Transport for opensearch-py
+
+### Files Created
+# opensearch_grpc/grpc_transport.py — GrpcTransport class
+#   - Extends opensearchpy.transport.Transport
+#   - Intercepts bulk requests (POST /_bulk) and routes over gRPC
+#   - Falls back to REST for all other operations (search, index, delete, etc.)
+#   - Maintains persistent gRPC channel alongside REST connection pool
+#   - Drop-in usage:
+#       client = OpenSearch(
+#           hosts=[{"host": "localhost", "port": 9200}],
+#           transport_class=GrpcTransport,
+#           grpc_port=9400,
+#       )
+#       client.bulk(body=[...])   # → gRPC
+#       client.search(...)        # → REST
+#       client.index(...)         # → REST
+#   - Additional kwargs: grpc_port (default 9400), grpc_host (override)
