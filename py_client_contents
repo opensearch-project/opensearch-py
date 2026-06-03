@@ -351,3 +351,14 @@ python test_bulk_stream.py
 ### Fix
 # Now always returns bulk format: [{"index": {...}}, {"create": {...}}, ...]
 # Tests can consistently access responses[0]["index"]["_id"] regardless of batch size
+
+## 2026-06-03: End-to-End Connection Tests — test_e2e_connection.py
+
+### Files Created
+# test_opensearchpy/test_translation/test_e2e_connection.py — 9 E2E integration tests
+#   - TestConnectionLifecycle: connect/flush/close, context manager, reconnect after close (3 tests)
+#   - TestChannelPersistence: multiple flushes on same channel without reconnecting (1 test)
+#   - TestLargeBatch: 100 docs in one batch, auto-flush batching (2 tests)
+#   - TestDataIntegrity: complex doc round-trip (nested, arrays, unicode), converter preserves data (2 tests)
+#   - TestErrorRecovery: error in one batch doesn't break the channel (1 test)
+#   - Run: OPENSEARCH_URL="http://localhost:9200" pytest test_opensearchpy/test_translation/test_e2e_connection.py -v -s
