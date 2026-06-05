@@ -1,3 +1,28 @@
+# SPDX-License-Identifier: Apache-2.0
+#
+# The OpenSearch Contributors require contributions made to
+# this file be licensed under the Apache-2.0 license or a
+# compatible open source license.
+#
+# Modifications Copyright OpenSearch Contributors. See
+# GitHub history for details.
+#
+#  Licensed to Elasticsearch B.V. under one or more contributor
+#  license agreements. See the NOTICE file distributed with
+#  this work for additional information regarding copyright
+#  ownership. Elasticsearch B.V. licenses this file to you under
+#  the Apache License, Version 2.0 (the "License"); you may
+#  not use this file except in compliance with the License.
+#  You may obtain a copy of the License at
+#
+# 	http://www.apache.org/licenses/LICENSE-2.0
+#
+#  Unless required by applicable law or agreed to in writing,
+#  software distributed under the License is distributed on an
+#  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+#  KIND, either express or implied.  See the License for the
+#  specific language governing permissions and limitations
+#  under the License.
 """
 test_client_operations.py — Integration Tests: Client Document Operations
 
@@ -92,7 +117,9 @@ class TestAddDocuments:
     def test_index_single_document(self, client, index_name, rest_url):
         """Client sends one document, gets response with _id and result."""
         print("\n[TEST] Indexing single document: {title: 'First Document', value: 1}")
-        client.index(index_name, body={"title": "First Document", "value": 1}, id="doc-1")
+        client.index(
+            index_name, body={"title": "First Document", "value": 1}, id="doc-1"
+        )
         responses = client.flush()
         print(f"[TEST] Response: {responses[0]}")
 
@@ -171,14 +198,17 @@ class TestUpdateDocuments:
         doc = _get_doc(rest_url, index_name, "doc-1")
         assert doc["_source"]["value"] == 100
         assert doc["_source"]["title"] == "First Document"  # unchanged
-        print(f"[TEST] ✅ Updated doc-1: value={doc['_source']['value']}, title unchanged")
+        print(
+            f"[TEST] ✅ Updated doc-1: value={doc['_source']['value']}, title unchanged"
+        )
 
     def test_update_with_upsert(self, client, index_name, rest_url):
         """Client upserts — creates doc if it doesn't exist."""
         print("\n[TEST] Upserting doc-upsert (creates if missing)")
         client.update(
-            index_name, id="doc-upsert",
-            body={"doc": {"title": "Upserted", "value": 50}, "doc_as_upsert": True}
+            index_name,
+            id="doc-upsert",
+            body={"doc": {"title": "Upserted", "value": 50}, "doc_as_upsert": True},
         )
         responses = client.flush()
         print(f"[TEST] Response: {responses[0]}")
@@ -253,7 +283,9 @@ class TestErrorHandling:
 
     def test_create_duplicate_document(self, client, index_name):
         """Creating a doc that already exists returns an error."""
-        print("\n[TEST] Attempting to create doc-1 again (should fail — already exists)")
+        print(
+            "\n[TEST] Attempting to create doc-1 again (should fail — already exists)"
+        )
         # doc-1 already exists from earlier tests
         client.create(index_name, body={"title": "Duplicate"}, id="doc-1")
         responses = client.flush()

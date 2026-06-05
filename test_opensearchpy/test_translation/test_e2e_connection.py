@@ -1,3 +1,28 @@
+# SPDX-License-Identifier: Apache-2.0
+#
+# The OpenSearch Contributors require contributions made to
+# this file be licensed under the Apache-2.0 license or a
+# compatible open source license.
+#
+# Modifications Copyright OpenSearch Contributors. See
+# GitHub history for details.
+#
+#  Licensed to Elasticsearch B.V. under one or more contributor
+#  license agreements. See the NOTICE file distributed with
+#  this work for additional information regarding copyright
+#  ownership. Elasticsearch B.V. licenses this file to you under
+#  the Apache License, Version 2.0 (the "License"); you may
+#  not use this file except in compliance with the License.
+#  You may obtain a copy of the License at
+#
+# 	http://www.apache.org/licenses/LICENSE-2.0
+#
+#  Unless required by applicable law or agreed to in writing,
+#  software distributed under the License is distributed on an
+#  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+#  KIND, either express or implied.  See the License for the
+#  specific language governing permissions and limitations
+#  under the License.
 """
 test_e2e_connection.py — End-to-End Connection Tests for the Translation Layer
 
@@ -82,7 +107,9 @@ class TestConnectionLifecycle:
 
         assert len(responses) == 1
         assert responses[0]["index"]["result"] == "created"
-        print(f"[E2E] ✅ Connected, flushed, got response: {responses[0]['index']['result']}")
+        print(
+            f"[E2E] ✅ Connected, flushed, got response: {responses[0]['index']['result']}"
+        )
 
         client.close()
         print("[E2E] ✅ Connection closed cleanly")
@@ -140,7 +167,9 @@ class TestChannelPersistence:
             client.update(index_name, id="ch-1", body={"doc": {"batch": 99}})
             client.delete(index_name, id="ch-2")
             r3 = client.flush()
-            print(f"[E2E]   Batch 3: update={r3[0]['update']['result']}, delete={r3[1]['delete']['result']}")
+            print(
+                f"[E2E]   Batch 3: update={r3[0]['update']['result']}, delete={r3[1]['delete']['result']}"
+            )
 
         assert r1[0]["index"]["result"] == "created"
         assert len(r2) == 2
@@ -159,7 +188,9 @@ class TestLargeBatch:
 
         with StreamClient(grpc_host, refresh="true") as client:
             for i in range(100):
-                client.index(index_name, body={"seq": i, "data": f"doc-{i}"}, id=f"bulk-{i}")
+                client.index(
+                    index_name, body={"seq": i, "data": f"doc-{i}"}, id=f"bulk-{i}"
+                )
             responses = client.flush()
 
         elapsed = time.time() - start
@@ -184,7 +215,9 @@ class TestLargeBatch:
 
         # 60 docs / 25 batch_size = 2 auto-flushes + 10 remaining on close
         assert batches_flushed == 2
-        print(f"[E2E] ✅ Auto-flushed {batches_flushed} times (remaining flushed on close)")
+        print(
+            f"[E2E] ✅ Auto-flushed {batches_flushed} times (remaining flushed on close)"
+        )
 
 
 class TestDataIntegrity:

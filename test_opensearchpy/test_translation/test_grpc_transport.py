@@ -1,3 +1,28 @@
+# SPDX-License-Identifier: Apache-2.0
+#
+# The OpenSearch Contributors require contributions made to
+# this file be licensed under the Apache-2.0 license or a
+# compatible open source license.
+#
+# Modifications Copyright OpenSearch Contributors. See
+# GitHub history for details.
+#
+#  Licensed to Elasticsearch B.V. under one or more contributor
+#  license agreements. See the NOTICE file distributed with
+#  this work for additional information regarding copyright
+#  ownership. Elasticsearch B.V. licenses this file to you under
+#  the Apache License, Version 2.0 (the "License"); you may
+#  not use this file except in compliance with the License.
+#  You may obtain a copy of the License at
+#
+# 	http://www.apache.org/licenses/LICENSE-2.0
+#
+#  Unless required by applicable law or agreed to in writing,
+#  software distributed under the License is distributed on an
+#  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+#  KIND, either express or implied.  See the License for the
+#  specific language governing permissions and limitations
+#  under the License.
 """
 test_grpc_transport.py — Automated Integration Tests: OpenSearch Client with GrpcTransport
 
@@ -117,21 +142,27 @@ class TestSingleDocViaGrpc:
 
     def test_index_single_document(self, client, index_name):
         """client.index() creates a document via gRPC."""
-        resp = client.index(index=index_name, body={"title": "Single"}, id="single-1", refresh=True)
+        resp = client.index(
+            index=index_name, body={"title": "Single"}, id="single-1", refresh=True
+        )
 
         assert resp["result"] == "created"
         assert resp["_id"] == "single-1"
 
     def test_create_document(self, client, index_name):
         """client.create() creates a document, fails if exists."""
-        resp = client.create(index=index_name, body={"title": "Created"}, id="create-1", refresh=True)
+        resp = client.create(
+            index=index_name, body={"title": "Created"}, id="create-1", refresh=True
+        )
 
         assert resp["result"] == "created"
         assert resp["_id"] == "create-1"
 
     def test_update_document(self, client, index_name):
         """client.update() partially updates a document via gRPC."""
-        resp = client.update(index=index_name, id="single-1", body={"doc": {"value": 999}}, refresh=True)
+        resp = client.update(
+            index=index_name, id="single-1", body={"doc": {"value": 999}}, refresh=True
+        )
 
         assert resp["result"] == "updated"
         assert resp["_id"] == "single-1"
@@ -170,7 +201,9 @@ class TestRestFallback:
     def test_create_and_delete_index(self, client):
         """client.indices.create/delete() uses REST."""
         idx = "test-grpc-auto-compat"
-        resp = client.indices.create(index=idx, body={"settings": {"number_of_shards": 1}})
+        resp = client.indices.create(
+            index=idx, body={"settings": {"number_of_shards": 1}}
+        )
         assert resp["acknowledged"] is True
 
         resp = client.indices.delete(index=idx)
@@ -191,8 +224,7 @@ class TestEndToEndWorkflow:
 
         client.indices.refresh(index=index_name)
         search_resp = client.search(
-            index=index_name,
-            body={"query": {"match": {"category": "automated"}}}
+            index=index_name, body={"query": {"match": {"category": "automated"}}}
         )
         hits = search_resp["hits"]["hits"]
         assert len(hits) >= 1
@@ -200,7 +232,12 @@ class TestEndToEndWorkflow:
 
     def test_index_then_get(self, client, index_name):
         """Index via gRPC, then get via REST returns the document."""
-        client.index(index=index_name, body={"title": "Get test", "x": 42}, id="get-1", refresh=True)
+        client.index(
+            index=index_name,
+            body={"title": "Get test", "x": 42},
+            id="get-1",
+            refresh=True,
+        )
 
         resp = client.get(index=index_name, id="get-1")
         assert resp["found"] is True
@@ -208,7 +245,9 @@ class TestEndToEndWorkflow:
 
     def test_update_then_get(self, client, index_name):
         """Update via gRPC, then get via REST shows updated values."""
-        client.update(index=index_name, id="get-1", body={"doc": {"x": 99}}, refresh=True)
+        client.update(
+            index=index_name, id="get-1", body={"doc": {"x": 99}}, refresh=True
+        )
 
         resp = client.get(index=index_name, id="get-1")
         assert resp["_source"]["x"] == 99

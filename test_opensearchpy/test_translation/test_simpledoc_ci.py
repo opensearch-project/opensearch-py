@@ -1,3 +1,28 @@
+# SPDX-License-Identifier: Apache-2.0
+#
+# The OpenSearch Contributors require contributions made to
+# this file be licensed under the Apache-2.0 license or a
+# compatible open source license.
+#
+# Modifications Copyright OpenSearch Contributors. See
+# GitHub history for details.
+#
+#  Licensed to Elasticsearch B.V. under one or more contributor
+#  license agreements. See the NOTICE file distributed with
+#  this work for additional information regarding copyright
+#  ownership. Elasticsearch B.V. licenses this file to you under
+#  the Apache License, Version 2.0 (the "License"); you may
+#  not use this file except in compliance with the License.
+#  You may obtain a copy of the License at
+#
+# 	http://www.apache.org/licenses/LICENSE-2.0
+#
+#  Unless required by applicable law or agreed to in writing,
+#  software distributed under the License is distributed on an
+#  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+#  KIND, either express or implied.  See the License for the
+#  specific language governing permissions and limitations
+#  under the License.
 """
 test_simpledoc_ci.py — Integration Tests for Translation Layer Round-Trip
 
@@ -50,8 +75,11 @@ def client(grpc_host):
 def setup_and_teardown(index_name):
     yield
     import urllib.request
+
     try:
-        req = urllib.request.Request(f"http://localhost:9200/{index_name}", method="DELETE")
+        req = urllib.request.Request(
+            f"http://localhost:9200/{index_name}", method="DELETE"
+        )
         urllib.request.urlopen(req, timeout=5)
     except Exception:
         pass
@@ -73,7 +101,9 @@ class TestIndexDocument:
 
         # Reconstruct original from protobuf
         meta = {"_index": index_name, "_id": "1"}
-        proto_request = _build_single_request("index", meta, original_body, refresh="true")
+        proto_request = _build_single_request(
+            "index", meta, original_body, refresh="true"
+        )
         reconstructed = ResponseConverter.from_proto_request(proto_request)
         assert reconstructed["operation"] == "index"
         assert reconstructed["index"] == index_name
@@ -182,8 +212,10 @@ class TestResponseConverter:
         request = _build_single_request("index", meta, body)
         result = ResponseConverter.from_proto_request(request)
         assert result == {
-            "operation": "index", "index": index_name,
-            "id": "rc-1", "body": {"name": "Widget", "price": 9.99},
+            "operation": "index",
+            "index": index_name,
+            "id": "rc-1",
+            "body": {"name": "Widget", "price": 9.99},
         }
 
     def test_from_proto_request_update(self, index_name):
