@@ -162,7 +162,5 @@ upload_file.py
 py_client_contents
 data/
 opensearch_grpc/simpledoc_gRPC.py
-docs/test_simpledoc.md
-docs/test_client_operations.md
-docs/simpledoc_gRPC.md
+docs/
 test_opensearchpy/test_translation/test_simpledoc.py
