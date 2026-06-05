@@ -70,6 +70,7 @@ tests_require = [
     "pytz",
     "botocore",
     "pytest-mock<4.0.0",
+    "opensearch-protobufs==1.4.0",
 ]
 
 async_require = ["aiohttp>=3.12.14,<4"]
