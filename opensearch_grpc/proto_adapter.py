@@ -19,8 +19,7 @@ Future state (when package has real stubs):
 #   from opensearch_protobufs.schemas import common_pb2
 #   from opensearch_protobufs.services import document_service_pb2_grpc
 
-from opensearch_grpc.proto import common_pb2
-from opensearch_grpc.proto import document_service_pb2_grpc
+from opensearch_grpc.proto import common_pb2, document_service_pb2_grpc
 
 # ─── Re-export everything that other modules need ─────────────────────────────
 

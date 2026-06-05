@@ -11,15 +11,16 @@ Run:
 """
 
 import os
+
+import grpc
 import pytest
 
+from opensearch_grpc.proto_adapter import DocumentServiceStub
 from opensearch_grpc.translation import (
     BulkRequestBuilder,
-    toProtoBulkRequest,
     ResponseConverter,
+    toProtoBulkRequest,
 )
-from opensearch_grpc.proto_adapter import DocumentServiceStub
-import grpc
 
 
 @pytest.fixture(scope="session")

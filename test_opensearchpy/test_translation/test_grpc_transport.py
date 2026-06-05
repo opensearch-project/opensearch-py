@@ -13,10 +13,11 @@ Run:
 """
 
 import os
+
 import pytest
 
-from opensearchpy import OpenSearch
 from opensearch_grpc.grpc_transport import GrpcTransport
+from opensearchpy import OpenSearch
 
 
 @pytest.fixture(scope="session")

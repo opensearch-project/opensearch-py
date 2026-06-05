@@ -13,24 +13,23 @@ ResponseConverter converts server responses back to the format the client sent i
 import json
 
 from opensearch_grpc.proto_adapter import (
-    BulkRequest,
-    BulkRequestBody,
-    OperationContainer,
-    IndexOperation,
-    WriteOperation,
-    UpdateOperation,
-    DeleteOperation,
-    UpdateAction,
-    REFRESH_TRUE,
     REFRESH_FALSE,
-    REFRESH_WAIT_FOR,
+    REFRESH_TRUE,
     REFRESH_UNSPECIFIED,
-    VERSION_TYPE_INTERNAL,
+    REFRESH_WAIT_FOR,
     VERSION_TYPE_EXTERNAL,
     VERSION_TYPE_EXTERNAL_GTE,
+    VERSION_TYPE_INTERNAL,
     VERSION_TYPE_UNSPECIFIED,
+    BulkRequest,
+    BulkRequestBody,
+    DeleteOperation,
+    IndexOperation,
+    OperationContainer,
+    UpdateAction,
+    UpdateOperation,
+    WriteOperation,
 )
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # REQUEST CONVERTER — Python client dict → Protobuf BulkRequest

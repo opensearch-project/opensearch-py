@@ -15,10 +15,11 @@ Run:
     OPENSEARCH_URL="http://localhost:9200" pytest test_opensearchpy/test_translation/test_e2e_connection.py -v -s
 """
 
-import os
 import json
+import os
 import time
 import urllib.request
+
 import pytest
 
 from opensearch_grpc.stream_client import StreamClient

@@ -14,10 +14,15 @@ Run:
 """
 
 import os
+
 import pytest
 
-from opensearch_grpc.translation import RequestConverter, ResponseConverter, _build_single_request
 from opensearch_grpc.stream_client import StreamClient
+from opensearch_grpc.translation import (
+    RequestConverter,
+    ResponseConverter,
+    _build_single_request,
+)
 
 
 @pytest.fixture(scope="session")

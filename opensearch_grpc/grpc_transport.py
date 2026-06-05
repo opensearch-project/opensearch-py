@@ -24,15 +24,17 @@ Usage:
 """
 
 import json
+
 import grpc
 
-from opensearchpy.transport import Transport
-from opensearchpy.serializer import JSONSerializer
-
-from opensearch_grpc.proto import common_pb2
-from opensearch_grpc.proto import document_service_pb2_grpc
-from opensearch_grpc.proto import search_service_pb2_grpc
+from opensearch_grpc.proto import (
+    common_pb2,
+    document_service_pb2_grpc,
+    search_service_pb2_grpc,
+)
 from opensearch_grpc.translation import RequestConverter, ResponseConverter
+from opensearchpy.serializer import JSONSerializer
+from opensearchpy.transport import Transport
 
 
 class GrpcTransport(Transport):

@@ -2,6 +2,7 @@
 """Integration test: send bulk data over gRPC bidirectional stream."""
 
 import grpc
+
 from opensearch_grpc.proto_adapter import DocumentServiceStub
 from opensearch_grpc.translation import toProtoBulkRequest
 

@@ -16,13 +16,13 @@ Run:
     OPENSEARCH_URL="http://localhost:9200" pytest test_opensearchpy/test_translation/test_client_operations.py -v
 """
 
-import os
 import json
+import os
 import urllib.request
+
 import pytest
 
 from opensearch_grpc.stream_client import StreamClient
-
 
 # ─── Fixtures ─────────────────────────────────────────────────────────────────
 
