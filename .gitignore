@@ -154,3 +154,14 @@ test_opensearch/local.py
 
 # Visual Studio Code
 .vscode
+
+# Local scratch files (not for PR)
+bulk_request.py
+client_upload.py
+upload_file.py
+py_client_contents
+data/
+opensearch_grpc/simpledoc_gRPC.py
+docs/test_simpledoc.md
+docs/test_client_operations.md
+docs/simpledoc_gRPC.md

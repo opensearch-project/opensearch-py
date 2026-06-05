@@ -536,7 +536,7 @@ def toProtoIndexRequest(index, body, id=None, **kwargs):
 
 
 def _build_single_request(op_type, meta, source, refresh=None, timeout=None):
-    """Legacy internal function — kept for simpledoc_gRPC compatibility."""
+    """Legacy internal function — kept for backward compatibility."""
     req = RequestConverter(index=meta.get("_index"), refresh=refresh, timeout=timeout)
     if op_type == "index":
         req._operations.append(("index", meta, source))
