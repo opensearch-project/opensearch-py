@@ -39,8 +39,8 @@ import os
 
 import grpc
 import pytest
-
 from opensearch.protobufs.services.document_service_pb2_grpc import DocumentServiceStub
+
 from opensearch_grpc.translation import (
     BulkRequestBuilder,
     ResponseConverter,

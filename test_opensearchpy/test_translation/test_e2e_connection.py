@@ -194,7 +194,7 @@ class TestLargeBatch:
             responses = client.flush()
 
         elapsed = time.time() - start
-        print(f"[E2E]   Sent 100 docs in {elapsed:.2f}s ({100/elapsed:.0f} docs/sec)")
+        print(f"[E2E]   Sent 100 docs in {elapsed:.2f}s ({100 / elapsed:.0f} docs/sec)")
 
         assert len(responses) == 100
         errors = [r for r in responses if "error" in r.get("index", {})]
@@ -295,7 +295,7 @@ class TestErrorRecovery:
             client.create(index_name, body={"x": 2}, id="err-1")
             r2 = client.flush()
             assert "error" in r2[0]["create"]
-            print(f"[E2E]   Batch 2 (duplicate): Got expected error")
+            print("[E2E]   Batch 2 (duplicate): Got expected error")
 
             # Third: channel still works
             client.index(index_name, body={"x": 3}, id="err-2")

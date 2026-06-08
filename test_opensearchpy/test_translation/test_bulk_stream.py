@@ -23,12 +23,11 @@
 #  KIND, either express or implied.  See the License for the
 #  specific language governing permissions and limitations
 #  under the License.
-#!/usr/bin/env python3
 """Integration test: send bulk data over gRPC bidirectional stream."""
 
 import grpc
-
 from opensearch.protobufs.services.document_service_pb2_grpc import DocumentServiceStub
+
 from opensearch_grpc.translation import toProtoBulkRequest
 
 
@@ -61,7 +60,7 @@ def test_bulk_stream():
 
     try:
         response = stub.Bulk(request)
-        print(f"\n--- Response ---")
+        print("\n--- Response ---")
         print(f"  errors: {response.errors}")
         print(f"  took: {response.took}ms")
         print(f"  items: {len(response.items)}")
