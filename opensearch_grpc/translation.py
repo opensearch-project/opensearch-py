@@ -12,7 +12,7 @@ ResponseConverter converts server responses back to the format the client sent i
 
 import json
 
-from opensearch_grpc.proto_adapter import (
+from opensearch.protobufs.schemas.common_pb2 import (
     REFRESH_FALSE,
     REFRESH_TRUE,
     REFRESH_UNSPECIFIED,

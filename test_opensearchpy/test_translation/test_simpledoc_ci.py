@@ -24,15 +24,16 @@
 #  specific language governing permissions and limitations
 #  under the License.
 """
-test_simpledoc_ci.py — Integration Tests for Translation Layer Round-Trip
+test_simpledoc_ci.py — General gRPC Integration Tests
 
-Tests the full round-trip process:
-    1. Client sends Python dict
-    2. Translation layer converts to gRPC protobuf
-    3. Protobuf is sent to OpenSearch server
-    4. Server responds with protobuf
-    5. Response is converted back to Python dict
-    6. Original request is reconstructable from protobuf
+Tests all gRPC functionality: conversion, transport, and round-trip.
+Can be used to verify any part of the gRPC pipeline works correctly.
+
+Covers:
+    - RequestConverter: Python dict → protobuf conversion
+    - ResponseConverter: protobuf → Python dict conversion
+    - GrpcTransport: drop-in transport with standard OpenSearch client
+    - Round-trip data integrity
 
 Run:
     OPENSEARCH_URL="http://localhost:9200" pytest test_opensearchpy/test_translation/test_simpledoc_ci.py -v
@@ -42,193 +43,189 @@ import os
 
 import pytest
 
-from opensearch_grpc.stream_client import StreamClient
+from opensearch_grpc.grpc_transport import GrpcTransport
 from opensearch_grpc.translation import (
     RequestConverter,
     ResponseConverter,
     _build_single_request,
 )
+from opensearchpy import OpenSearch
 
-
-@pytest.fixture(scope="session")
-def grpc_host():
-    opensearch_url = os.environ.get("OPENSEARCH_URL", "https://localhost:9200")
-    grpc_port = os.environ.get("OPENSEARCH_GRPC_PORT", "9400")
-    host = opensearch_url.split("://")[-1].split(":")[0].split("@")[-1]
-    return f"{host}:{grpc_port}"
+# ─── Fixtures ─────────────────────────────────────────────────────────────────
 
 
 @pytest.fixture(scope="session")
 def index_name():
-    return "test-simpledoc-ci"
+    return "test-grpc-integration"
 
 
 @pytest.fixture(scope="session")
-def client(grpc_host):
-    c = StreamClient(grpc_host, refresh="true")
-    c.connect()
+def client():
+    opensearch_url = os.environ.get("OPENSEARCH_URL", "http://localhost:9200")
+    grpc_port = int(os.environ.get("OPENSEARCH_GRPC_PORT", "9400"))
+    host = opensearch_url.split("://")[-1].split(":")[0].split("@")[-1]
+    port = int(opensearch_url.split(":")[-1])
+
+    c = OpenSearch(
+        hosts=[{"host": host, "port": port}],
+        grpc_hosts=[{"host": host, "port": grpc_port}],
+        transport_class=GrpcTransport,
+        use_ssl=False,
+    )
     yield c
     c.close()
 
 
 @pytest.fixture(autouse=True, scope="session")
-def setup_and_teardown(index_name):
+def cleanup(client, index_name):
+    client.indices.delete(index=index_name, ignore=[404])
     yield
-    import urllib.request
+    client.indices.delete(index=index_name, ignore=[404])
 
-    try:
-        req = urllib.request.Request(
-            f"http://localhost:9200/{index_name}", method="DELETE"
+
+# ─── Test: RequestConverter (Python dict → Protobuf) ──────────────────────────
+
+
+class TestRequestConversion:
+    """Test that Python dicts are correctly converted to protobuf."""
+
+    def test_single_index_conversion(self, index_name):
+        req = RequestConverter(index=index_name, refresh="true")
+        req.index(body={"title": "Test"}, id="1")
+        proto = req.build()
+
+        assert len(proto.bulk_request_body) == 1
+        assert proto.index == index_name
+        op = proto.bulk_request_body[0].operation_container
+        assert op.HasField("index")
+        assert op.index.x_id == "1"
+
+    def test_bulk_conversion(self, index_name):
+        req = RequestConverter(index=index_name)
+        req.index(body={"a": 1}, id="1")
+        req.create(body={"b": 2}, id="2")
+        req.update(id="1", body={"doc": {"a": 10}})
+        req.delete(id="2")
+        proto = req.build()
+
+        assert len(proto.bulk_request_body) == 4
+
+    def test_from_body_list(self, index_name):
+        body = [
+            {"index": {"_index": index_name, "_id": "1"}},
+            {"title": "Doc"},
+        ]
+        req = RequestConverter.from_body(body)
+        proto = req.build()
+
+        assert len(proto.bulk_request_body) == 1
+
+    def test_from_body_ndjson(self, index_name):
+        ndjson = (
+            f'{{"index": {{"_index": "{index_name}", "_id": "1"}}}}\n'
+            f'{{"title": "Doc"}}\n'
         )
-        urllib.request.urlopen(req, timeout=5)
-    except Exception:
-        pass
+        req = RequestConverter.from_body(ndjson)
+        proto = req.build()
+
+        assert len(proto.bulk_request_body) == 1
 
 
-class TestIndexDocument:
-    """Test index full round-trip: Python dict → gRPC → response → reconstruct."""
+# ─── Test: ResponseConverter (Protobuf → Python dict) ─────────────────────────
 
-    def test_index_returns_response_and_original(self, client, index_name):
-        original_body = {"title": "Hello gRPC", "author": "Test", "value": 42}
 
-        client.index(index_name, body=original_body, id="1")
-        responses = client.flush()
+class TestResponseConversion:
+    """Test that protobuf responses/requests are correctly converted back."""
 
-        resp = responses[0]["index"]
-        assert resp["_index"] == index_name
-        assert resp["_id"] == "1"
-        assert resp["result"] in ("created", "updated")
-
-        # Reconstruct original from protobuf
+    def test_reconstruct_index_request(self, index_name):
         meta = {"_index": index_name, "_id": "1"}
-        proto_request = _build_single_request(
-            "index", meta, original_body, refresh="true"
-        )
-        reconstructed = ResponseConverter.from_proto_request(proto_request)
-        assert reconstructed["operation"] == "index"
-        assert reconstructed["index"] == index_name
-        assert reconstructed["id"] == "1"
-        assert reconstructed["body"] == original_body
+        body = {"title": "Hello", "price": 9.99}
+        proto = _build_single_request("index", meta, body)
 
-    def test_index_overwrites_preserves_data(self, client, index_name):
-        new_body = {"title": "Updated doc", "value": 100}
+        result = ResponseConverter.from_proto_request(proto)
+        assert result["operation"] == "index"
+        assert result["index"] == index_name
+        assert result["id"] == "1"
+        assert result["body"] == body
 
-        client.index(index_name, body=new_body, id="1")
-        responses = client.flush()
-        assert responses[0]["index"]["result"] == "updated"
-
+    def test_reconstruct_update_request(self, index_name):
         meta = {"_index": index_name, "_id": "1"}
-        proto_request = _build_single_request("index", meta, new_body)
-        reconstructed = ResponseConverter.from_proto_request(proto_request)
-        assert reconstructed["body"] == new_body
-
-
-class TestCreateDocument:
-    """Test create full round-trip."""
-
-    def test_create_returns_response_and_original(self, client, index_name):
-        original_body = {"title": "Created doc", "status": "new", "priority": 1}
-
-        client.create(index_name, body=original_body, id="create-1")
-        responses = client.flush()
-
-        resp = responses[0]["create"]
-        assert resp["_index"] == index_name
-        assert resp["_id"] == "create-1"
-        assert resp["result"] == "created"
-
-        meta = {"_index": index_name, "_id": "create-1"}
-        proto_request = _build_single_request("create", meta, original_body)
-        reconstructed = ResponseConverter.from_proto_request(proto_request)
-        assert reconstructed["operation"] == "create"
-        assert reconstructed["body"] == original_body
-
-
-class TestUpdateDocument:
-    """Test update full round-trip."""
-
-    def test_update_returns_response_and_original(self, client, index_name):
-        # Ensure doc exists
-        client.index(index_name, body={"title": "Original", "value": 1}, id="update-1")
-        client.flush()
-
-        original_update_body = {"doc": {"value": 99, "updated": True}}
-        client.update(index_name, id="update-1", body=original_update_body)
-        responses = client.flush()
-
-        resp = responses[0]["update"]
-        assert resp["_id"] == "update-1"
-        assert resp["result"] in ("updated", "noop")
-
-        meta = {"_index": index_name, "_id": "update-1"}
-        proto_request = _build_single_request("update", meta, original_update_body)
-        reconstructed = ResponseConverter.from_proto_request(proto_request)
-        assert reconstructed["operation"] == "update"
-        assert reconstructed["body"]["doc"] == {"value": 99, "updated": True}
-
-    def test_update_doc_as_upsert_round_trips(self, client, index_name):
-        original_body = {"doc": {"name": "Upserted"}, "doc_as_upsert": True}
-
-        client.update(index_name, id="upsert-1", body=original_body)
-        responses = client.flush()
-        assert responses[0]["update"]["result"] in ("created", "updated")
-
-        meta = {"_index": index_name, "_id": "upsert-1"}
-        proto_request = _build_single_request("update", meta, original_body)
-        reconstructed = ResponseConverter.from_proto_request(proto_request)
-        assert reconstructed["body"]["doc_as_upsert"] is True
-        assert reconstructed["body"]["doc"] == {"name": "Upserted"}
-
-
-class TestDeleteDocument:
-    """Test delete full round-trip."""
-
-    def test_delete_returns_response_and_original(self, client, index_name):
-        client.index(index_name, body={"title": "To delete"}, id="delete-1")
-        client.flush()
-
-        client.delete(index_name, id="delete-1")
-        responses = client.flush()
-
-        resp = responses[0]["delete"]
-        assert resp["_id"] == "delete-1"
-        assert resp["result"] == "deleted"
-
-        meta = {"_index": index_name, "_id": "delete-1"}
-        proto_request = _build_single_request("delete", meta, None)
-        reconstructed = ResponseConverter.from_proto_request(proto_request)
-        assert reconstructed["operation"] == "delete"
-        assert reconstructed["index"] == index_name
-        assert reconstructed["id"] == "delete-1"
-        assert "body" not in reconstructed
-
-
-class TestResponseConverter:
-    """Test ResponseConverter directly."""
-
-    def test_from_proto_request_index(self, index_name):
-        body = {"name": "Widget", "price": 9.99}
-        meta = {"_index": index_name, "_id": "rc-1"}
-        request = _build_single_request("index", meta, body)
-        result = ResponseConverter.from_proto_request(request)
-        assert result == {
-            "operation": "index",
-            "index": index_name,
-            "id": "rc-1",
-            "body": {"name": "Widget", "price": 9.99},
-        }
-
-    def test_from_proto_request_update(self, index_name):
         body = {"doc": {"price": 5.0}, "doc_as_upsert": True}
-        meta = {"_index": index_name, "_id": "rc-2"}
-        request = _build_single_request("update", meta, body)
-        result = ResponseConverter.from_proto_request(request)
+        proto = _build_single_request("update", meta, body)
+
+        result = ResponseConverter.from_proto_request(proto)
         assert result["operation"] == "update"
         assert result["body"]["doc"] == {"price": 5.0}
         assert result["body"]["doc_as_upsert"] is True
 
-    def test_from_proto_request_delete(self, index_name):
-        meta = {"_index": index_name, "_id": "rc-3"}
-        request = _build_single_request("delete", meta, None)
-        result = ResponseConverter.from_proto_request(request)
-        assert result == {"operation": "delete", "index": index_name, "id": "rc-3"}
+    def test_reconstruct_delete_request(self, index_name):
+        meta = {"_index": index_name, "_id": "1"}
+        proto = _build_single_request("delete", meta, None)
+
+        result = ResponseConverter.from_proto_request(proto)
+        assert result == {"operation": "delete", "index": index_name, "id": "1"}
+
+    def test_reconstruct_bulk_request(self, index_name):
+        req = RequestConverter(index=index_name)
+        req.index(body={"a": 1}, id="1")
+        req.delete(id="2")
+        proto = req.build()
+
+        result = ResponseConverter.from_proto_request(proto)
+        assert len(result) == 2
+        assert result[0]["operation"] == "index"
+        assert result[1]["operation"] == "delete"
+
+
+# ─── Test: GrpcTransport (Drop-in with Standard Client) ──────────────────────
+
+
+class TestGrpcTransport:
+    """Test GrpcTransport as drop-in replacement for standard client."""
+
+    def test_bulk_via_grpc(self, client, index_name):
+        body = [
+            {"index": {"_index": index_name, "_id": "t1"}},
+            {"title": "Transport doc"},
+        ]
+        resp = client.bulk(body=body, refresh=True)
+
+        assert resp["errors"] is False
+        assert len(resp["items"]) == 1
+
+    def test_index_via_grpc(self, client, index_name):
+        resp = client.index(
+            index=index_name, body={"title": "Single"}, id="t2", refresh=True
+        )
+
+        assert resp["result"] in ("created", "updated")
+
+    def test_create_via_grpc(self, client, index_name):
+        resp = client.create(
+            index=index_name, body={"title": "Created"}, id="t3", refresh=True
+        )
+
+        assert resp["result"] == "created"
+
+    def test_update_via_grpc(self, client, index_name):
+        resp = client.update(
+            index=index_name, id="t2", body={"doc": {"value": 99}}, refresh=True
+        )
+
+        assert resp["result"] == "updated"
+
+    def test_delete_via_grpc(self, client, index_name):
+        resp = client.delete(index=index_name, id="t3", refresh=True)
+
+        assert resp["result"] == "deleted"
+
+    def test_search_via_rest(self, client, index_name):
+        client.indices.refresh(index=index_name)
+        resp = client.search(index=index_name, body={"query": {"match_all": {}}})
+
+        assert resp["hits"]["total"]["value"] >= 1
+
+    def test_count_via_rest(self, client, index_name):
+        resp = client.count(index=index_name)
+
+        assert resp["count"] >= 1

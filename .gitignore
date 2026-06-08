@@ -165,3 +165,5 @@ opensearch_grpc/simpledoc_gRPC.py
 docs/
 test_opensearchpy/test_translation/test_simpledoc.py
 opensearch_grpc/proto/
+opensearch_grpc/stream_client.py
+opensearch_grpc/proto_adapter.py
