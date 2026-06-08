@@ -23,15 +23,10 @@ Usage:
     )
 """
 
-import json
 
 import grpc
+from opensearch.protobufs.services import document_service_pb2_grpc, search_service_pb2_grpc
 
-from opensearch_grpc.proto import (
-    common_pb2,
-    document_service_pb2_grpc,
-    search_service_pb2_grpc,
-)
 from opensearch_grpc.translation import RequestConverter, ResponseConverter
 from opensearchpy.serializer import JSONSerializer
 from opensearchpy.transport import Transport

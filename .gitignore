@@ -164,3 +164,4 @@ data/
 opensearch_grpc/simpledoc_gRPC.py
 docs/
 test_opensearchpy/test_translation/test_simpledoc.py
+opensearch_grpc/proto/
