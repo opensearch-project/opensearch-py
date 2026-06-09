@@ -47,34 +47,19 @@ class AWSV4Signer:
 
         signature_host = self._fetch_url(url, headers or dict())
 
-        # Exclude hop-by-hop headers from signing. These headers (e.g.,
-        # "connection") may be modified or removed by the HTTP transport layer
-        # (aiohttp, urllib3) after signing, which would cause a signature
-        # mismatch and result in a 403 from AWS.
-        hop_by_hop = frozenset(
-            (
-                "connection",
-                "keep-alive",
-                "proxy-authenticate",
-                "proxy-authorization",
-                "te",
-                "trailer",
-                "transfer-encoding",
-                "upgrade",
-            )
-        )
+        # Only sign headers required by the SigV4 spec: host and x-amz-*.
+        # Passing all headers risks a signature mismatch when the HTTP
+        # transport layer (aiohttp, urllib3) modifies them after signing.
         headers_lower = {k.lower(): v for k, v in (headers or {}).items()}
-        conn_nominated = frozenset(
-            token.strip().lower()
-            for token in headers_lower.get("connection", "").split(",")
-            if token.strip()
-        )
-        exclude = hop_by_hop | conn_nominated
         signing_headers = {
-            k: v for k, v in (headers or {}).items() if k.lower() not in exclude
+            "host": headers_lower.get("host") or urlparse(url).netloc,
+            **{
+                k: v
+                for k, v in (headers or {}).items()
+                if k.lower().startswith("x-amz-")
+            },
         }
 
-        # create an AWS request object and sign it using SigV4Auth
         aws_request = AWSRequest(
             method=method.upper(),
             url=signature_host,
