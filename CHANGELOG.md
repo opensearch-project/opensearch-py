@@ -3,6 +3,8 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 ## [Unreleased]
 ### Added
+- Add gRPC translation layer with `RequestConverter` and `ResponseConverter` for converting between opensearch-py Python dicts and protobuf `BulkRequest`/`BulkResponse` messages, enabling transparent gRPC transport for document operations ([#TBD](https://github.com/opensearch-project/opensearch-py/pull/TBD))
+- Add `grpc_hosts` parameter to `OpenSearch` client constructor for configuring gRPC endpoints
 ### Updated APIs
 ### Changed
 ### Deprecated
