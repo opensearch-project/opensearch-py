@@ -175,10 +175,11 @@ class TestResponseConverterFromProtoRequest:
         proto = _build_single_request("index", meta, body)
 
         result = ResponseConverter.from_proto_request(proto)
-        assert result["operation"]  # type: ignore[index] == "index"
-        assert result["index"]  # type: ignore[index] == "idx"
-        assert result["id"]  # type: ignore[index] == "1"
-        assert result["body"]  # type: ignore[index] == body
+        assert isinstance(result, dict)
+        assert result["operation"] == "index"
+        assert result["index"] == "idx"
+        assert result["id"] == "1"
+        assert result["body"] == body
 
     def test_reconstruct_update(self) -> None:
         """Reconstructs an update request with doc and doc_as_upsert."""
@@ -187,9 +188,10 @@ class TestResponseConverterFromProtoRequest:
         proto = _build_single_request("update", meta, body)
 
         result = ResponseConverter.from_proto_request(proto)
-        assert result["operation"]  # type: ignore[index] == "update"
-        assert result["body"]  # type: ignore[index]["doc"] == {"value": 5}
-        assert result["body"]  # type: ignore[index]["doc_as_upsert"] is True
+        assert isinstance(result, dict)
+        assert result["operation"] == "update"
+        assert result["body"]["doc"] == {"value": 5}
+        assert result["body"]["doc_as_upsert"] is True
 
     def test_reconstruct_delete(self) -> None:
         """Reconstructs a delete request (no body)."""
@@ -233,7 +235,7 @@ class TestToProtoBulkRequest:
 
     def test_sets_request_level_params(self) -> None:
         """Sets refresh, timeout, pipeline on the request."""
-        body = [{"index": {"_id": "1"}}, {"x": 1}]
+        body: List[Dict[str, Any]] = [{"index": {"_id": "1"}}, {"x": 1}]
         proto = toProtoBulkRequest(body, index="idx", timeout="30s")
         assert proto.index == "idx"
         assert proto.timeout == "30s"
