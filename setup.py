@@ -70,6 +70,7 @@ tests_require = [
     "pytz",
     "botocore",
     "pytest-mock<4.0.0",
+    "opensearch-protobufs>=1.2.0",
 ]
 
 async_require = ["aiohttp>=3.12.14,<4"]
@@ -118,7 +119,7 @@ setup(
         "develop": tests_require + docs_require + generate_require,
         "docs": docs_require + async_require,
         "async": async_require,
-        "grpc": ["opensearch-protobufs==1.2.0"],
+        "grpc": ["opensearch-protobufs>=1.2.0", "grpcio", "grpcio-tools"],
         "kerberos": ["requests_kerberos"],
     },
 )
