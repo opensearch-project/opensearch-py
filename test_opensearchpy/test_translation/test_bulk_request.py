@@ -33,7 +33,6 @@ Run:
     pytest test_opensearchpy/test_translation/test_bulk_request.py -v
 """
 
-
 from opensearch_grpc.translation import (
     RequestConverter,
     ResponseConverter,
