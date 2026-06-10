@@ -33,6 +33,8 @@ Run:
     pytest test_opensearchpy/test_translation/test_bulk_request.py -v
 """
 
+from typing import Any, Dict, List
+
 from opensearch_grpc.translation import (
     RequestConverter,
     ResponseConverter,
@@ -44,7 +46,7 @@ from opensearch_grpc.translation import (
 class TestRequestConverterBuild:
     """Test RequestConverter builds correct protobuf structures."""
 
-    def test_single_index_builds_one_body(self):
+    def test_single_index_builds_one_body(self) -> None:
         """Single index operation produces one BulkRequestBody."""
         req = RequestConverter(index="test-index", refresh="true")
         req.index(body={"title": "Doc 1"}, id="1")
@@ -57,7 +59,7 @@ class TestRequestConverterBuild:
         assert op.index.x_id == "1"
         assert op.index.x_index == "test-index"
 
-    def test_bulk_builds_multiple_bodies(self):
+    def test_bulk_builds_multiple_bodies(self) -> None:
         """Multiple operations produce correct number of BulkRequestBody."""
         req = RequestConverter(index="test-index")
         req.index(body={"a": 1}, id="1")
@@ -68,7 +70,7 @@ class TestRequestConverterBuild:
 
         assert len(proto.bulk_request_body) == 4
 
-    def test_index_operation_sets_correct_fields(self):
+    def test_index_operation_sets_correct_fields(self) -> None:
         """Index operation has correct operation container type."""
         req = RequestConverter(index="idx")
         req.index(body={"x": 1}, id="doc-1", routing="r1", pipeline="p1")
@@ -80,7 +82,7 @@ class TestRequestConverterBuild:
         assert op.index.routing == "r1"
         assert op.index.pipeline == "p1"
 
-    def test_create_operation_sets_correct_fields(self):
+    def test_create_operation_sets_correct_fields(self) -> None:
         """Create operation uses WriteOperation."""
         req = RequestConverter(index="idx")
         req.create(body={"x": 1}, id="doc-1")
@@ -90,7 +92,7 @@ class TestRequestConverterBuild:
         assert op.HasField("create")
         assert op.create.x_id == "doc-1"
 
-    def test_update_operation_sets_correct_fields(self):
+    def test_update_operation_sets_correct_fields(self) -> None:
         """Update operation includes update_action with doc bytes."""
         req = RequestConverter(index="idx")
         req.update(id="doc-1", body={"doc": {"value": 99}})
@@ -101,7 +103,7 @@ class TestRequestConverterBuild:
         assert op.update.x_id == "doc-1"
         assert proto.bulk_request_body[0].HasField("update_action")
 
-    def test_delete_operation_sets_correct_fields(self):
+    def test_delete_operation_sets_correct_fields(self) -> None:
         """Delete operation has no object or update_action."""
         req = RequestConverter(index="idx")
         req.delete(id="doc-1")
@@ -111,7 +113,7 @@ class TestRequestConverterBuild:
         assert op.HasField("delete")
         assert op.delete.x_id == "doc-1"
 
-    def test_builder_len(self):
+    def test_builder_len(self) -> None:
         """len() returns number of queued operations."""
         bulk = RequestConverter(index="test")
         assert len(bulk) == 0
@@ -119,7 +121,7 @@ class TestRequestConverterBuild:
         bulk.delete(id="2")
         assert len(bulk) == 2
 
-    def test_builder_chaining(self):
+    def test_builder_chaining(self) -> None:
         """Operations can be chained."""
         bulk = (
             RequestConverter(index="test")
@@ -134,9 +136,9 @@ class TestRequestConverterBuild:
 class TestRequestConverterFromBody:
     """Test RequestConverter.from_body with different input formats."""
 
-    def test_from_list_of_dicts(self):
+    def test_from_list_of_dicts(self) -> None:
         """Parses a list of action/source dicts."""
-        body = [
+        body: List[Dict[str, Any]] = [
             {"index": {"_index": "idx", "_id": "1"}},
             {"title": "Doc 1"},
             {"delete": {"_index": "idx", "_id": "2"}},
@@ -146,7 +148,7 @@ class TestRequestConverterFromBody:
 
         assert len(proto.bulk_request_body) == 2
 
-    def test_from_ndjson_string(self):
+    def test_from_ndjson_string(self) -> None:
         """Parses an NDJSON string."""
         ndjson = '{"index": {"_index": "idx", "_id": "1"}}\n{"title": "Doc"}\n'
         req = RequestConverter.from_body(ndjson)
@@ -154,9 +156,9 @@ class TestRequestConverterFromBody:
 
         assert len(proto.bulk_request_body) == 1
 
-    def test_from_body_with_default_index(self):
+    def test_from_body_with_default_index(self) -> None:
         """Default index is set on the request."""
-        body = [{"index": {"_id": "1"}}, {"title": "Doc"}]
+        body: List[Dict[str, Any]] = [{"index": {"_id": "1"}}, {"title": "Doc"}]
         req = RequestConverter.from_body(body, index="my-index")
         proto = req.build()
 
@@ -166,30 +168,30 @@ class TestRequestConverterFromBody:
 class TestResponseConverterFromProtoRequest:
     """Test ResponseConverter.from_proto_request reconstructs original data."""
 
-    def test_reconstruct_index(self):
+    def test_reconstruct_index(self) -> None:
         """Reconstructs an index request."""
         meta = {"_index": "idx", "_id": "1"}
         body = {"title": "Hello", "value": 42}
         proto = _build_single_request("index", meta, body)
 
         result = ResponseConverter.from_proto_request(proto)
-        assert result["operation"] == "index"
-        assert result["index"] == "idx"
-        assert result["id"] == "1"
-        assert result["body"] == body
+        assert result["operation"]  # type: ignore[index] == "index"
+        assert result["index"]  # type: ignore[index] == "idx"
+        assert result["id"]  # type: ignore[index] == "1"
+        assert result["body"]  # type: ignore[index] == body
 
-    def test_reconstruct_update(self):
+    def test_reconstruct_update(self) -> None:
         """Reconstructs an update request with doc and doc_as_upsert."""
         meta = {"_index": "idx", "_id": "1"}
         body = {"doc": {"value": 5}, "doc_as_upsert": True}
         proto = _build_single_request("update", meta, body)
 
         result = ResponseConverter.from_proto_request(proto)
-        assert result["operation"] == "update"
-        assert result["body"]["doc"] == {"value": 5}
-        assert result["body"]["doc_as_upsert"] is True
+        assert result["operation"]  # type: ignore[index] == "update"
+        assert result["body"]  # type: ignore[index]["doc"] == {"value": 5}
+        assert result["body"]  # type: ignore[index]["doc_as_upsert"] is True
 
-    def test_reconstruct_delete(self):
+    def test_reconstruct_delete(self) -> None:
         """Reconstructs a delete request (no body)."""
         meta = {"_index": "idx", "_id": "1"}
         proto = _build_single_request("delete", meta, None)
@@ -197,7 +199,7 @@ class TestResponseConverterFromProtoRequest:
         result = ResponseConverter.from_proto_request(proto)
         assert result == {"operation": "delete", "index": "idx", "id": "1"}
 
-    def test_reconstruct_bulk(self):
+    def test_reconstruct_bulk(self) -> None:
         """Reconstructs a multi-operation request."""
         req = RequestConverter(index="idx")
         req.index(body={"a": 1}, id="1")
@@ -205,6 +207,7 @@ class TestResponseConverterFromProtoRequest:
         proto = req.build()
 
         result = ResponseConverter.from_proto_request(proto)
+        assert isinstance(result, list)
         assert len(result) == 2
         assert result[0]["operation"] == "index"
         assert result[1]["operation"] == "delete"
@@ -213,22 +216,22 @@ class TestResponseConverterFromProtoRequest:
 class TestToProtoBulkRequest:
     """Test the legacy toProtoBulkRequest function."""
 
-    def test_builds_from_list(self):
+    def test_builds_from_list(self) -> None:
         """Converts list of dicts to protobuf."""
-        body = [
+        body: List[Dict[str, Any]] = [
             {"index": {"_index": "idx", "_id": "1"}},
             {"title": "Doc"},
         ]
         proto = toProtoBulkRequest(body)
         assert len(proto.bulk_request_body) == 1
 
-    def test_builds_from_ndjson(self):
+    def test_builds_from_ndjson(self) -> None:
         """Converts NDJSON string to protobuf."""
         ndjson = '{"index": {"_index": "idx", "_id": "1"}}\n{"title": "Doc"}\n'
         proto = toProtoBulkRequest(ndjson)
         assert len(proto.bulk_request_body) == 1
 
-    def test_sets_request_level_params(self):
+    def test_sets_request_level_params(self) -> None:
         """Sets refresh, timeout, pipeline on the request."""
         body = [{"index": {"_id": "1"}}, {"x": 1}]
         proto = toProtoBulkRequest(body, index="idx", timeout="30s")

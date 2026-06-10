@@ -11,6 +11,7 @@ ResponseConverter converts server responses back to the format the client sent i
 """
 
 import json
+from typing import Any, Dict, List, Optional, Tuple, Union
 
 from opensearch.protobufs.schemas.common_pb2 import (
     REFRESH_FALSE,
@@ -62,21 +63,40 @@ class RequestConverter:
         proto_request = req.build()
     """
 
-    def __init__(self, index=None, refresh=None, timeout=None,
-                 pipeline=None, routing=None, require_alias=None):
+    def __init__(
+        self,
+        index: Optional[str] = None,
+        refresh: Optional[str] = None,
+        timeout: Optional[str] = None,
+        pipeline: Optional[str] = None,
+        routing: Optional[str] = None,
+        require_alias: Optional[bool] = None,
+    ) -> None:
         self._index = index
         self._refresh = refresh
         self._timeout = timeout
         self._pipeline = pipeline
         self._routing = routing
         self._require_alias = require_alias
-        self._operations = []
+        self._operations: List[Tuple[str, Dict[str, Any], Optional[Dict[str, Any]]]] = (
+            []
+        )
 
-    def index(self, body, index=None, id=None, routing=None, pipeline=None,
-              require_alias=None, if_primary_term=None, if_seq_no=None,
-              version=None, version_type=None):
+    def index(
+        self,
+        body: Dict[str, Any],
+        index: Optional[str] = None,
+        id: Optional[str] = None,
+        routing: Optional[str] = None,
+        pipeline: Optional[str] = None,
+        require_alias: Optional[bool] = None,
+        if_primary_term: Optional[int] = None,
+        if_seq_no: Optional[int] = None,
+        version: Optional[int] = None,
+        version_type: Optional[str] = None,
+    ) -> "RequestConverter":
         """Queue an index operation. Mirrors client.index()."""
-        meta = {"_index": index or self._index}
+        meta: Dict[str, Any] = {"_index": index or self._index}
         if id is not None:
             meta["_id"] = id
         if routing is not None:
@@ -96,10 +116,17 @@ class RequestConverter:
         self._operations.append(("index", meta, body))
         return self
 
-    def create(self, body, index=None, id=None, routing=None, pipeline=None,
-               require_alias=None):
+    def create(
+        self,
+        body: Dict[str, Any],
+        index: Optional[str] = None,
+        id: Optional[str] = None,
+        routing: Optional[str] = None,
+        pipeline: Optional[str] = None,
+        require_alias: Optional[bool] = None,
+    ) -> "RequestConverter":
         """Queue a create operation. Mirrors client.create()."""
-        meta = {"_index": index or self._index}
+        meta: Dict[str, Any] = {"_index": index or self._index}
         if id is not None:
             meta["_id"] = id
         if routing is not None:
@@ -111,10 +138,19 @@ class RequestConverter:
         self._operations.append(("create", meta, body))
         return self
 
-    def update(self, id, body, index=None, routing=None, require_alias=None,
-               if_primary_term=None, if_seq_no=None, retry_on_conflict=None):
+    def update(
+        self,
+        id: str,
+        body: Dict[str, Any],
+        index: Optional[str] = None,
+        routing: Optional[str] = None,
+        require_alias: Optional[bool] = None,
+        if_primary_term: Optional[int] = None,
+        if_seq_no: Optional[int] = None,
+        retry_on_conflict: Optional[int] = None,
+    ) -> "RequestConverter":
         """Queue an update operation. Mirrors client.update()."""
-        meta = {"_index": index or self._index, "_id": id}
+        meta: Dict[str, Any] = {"_index": index or self._index, "_id": id}
         if routing is not None:
             meta["routing"] = routing
         if require_alias is not None:
@@ -128,11 +164,18 @@ class RequestConverter:
         self._operations.append(("update", meta, body))
         return self
 
-    def delete(self, id, index=None, routing=None,
-               if_primary_term=None, if_seq_no=None,
-               version=None, version_type=None):
+    def delete(
+        self,
+        id: str,
+        index: Optional[str] = None,
+        routing: Optional[str] = None,
+        if_primary_term: Optional[int] = None,
+        if_seq_no: Optional[int] = None,
+        version: Optional[int] = None,
+        version_type: Optional[str] = None,
+    ) -> "RequestConverter":
         """Queue a delete operation. Mirrors client.delete()."""
-        meta = {"_index": index or self._index, "_id": id}
+        meta: Dict[str, Any] = {"_index": index or self._index, "_id": id}
         if routing is not None:
             meta["routing"] = routing
         if if_primary_term is not None:
@@ -146,7 +189,7 @@ class RequestConverter:
         self._operations.append(("delete", meta, None))
         return self
 
-    def build(self):
+    def build(self) -> Any:
         """Build the protobuf BulkRequest from all queued operations."""
         request = BulkRequest()
 
@@ -179,15 +222,29 @@ class RequestConverter:
         return request
 
     @classmethod
-    def from_body(cls, body, index=None, refresh=None, timeout=None,
-                  pipeline=None, routing=None, require_alias=None):
+    def from_body(
+        cls,
+        body: Union[str, List[Dict[str, Any]]],
+        index: Optional[str] = None,
+        refresh: Optional[str] = None,
+        timeout: Optional[str] = None,
+        pipeline: Optional[str] = None,
+        routing: Optional[str] = None,
+        require_alias: Optional[bool] = None,
+    ) -> "RequestConverter":
         """
         Create a RequestConverter from raw bulk body (list of dicts or NDJSON string).
 
         Mirrors: client.bulk(body=..., index=..., ...)
         """
-        converter = cls(index=index, refresh=refresh, timeout=timeout,
-                        pipeline=pipeline, routing=routing, require_alias=require_alias)
+        converter = cls(
+            index=index,
+            refresh=refresh,
+            timeout=timeout,
+            pipeline=pipeline,
+            routing=routing,
+            require_alias=require_alias,
+        )
 
         if isinstance(body, str):
             lines = [line.strip() for line in body.split("\n") if line.strip()]
@@ -209,7 +266,7 @@ class RequestConverter:
 
         return converter
 
-    def __len__(self):
+    def __len__(self) -> int:
         return len(self._operations)
 
 
@@ -234,7 +291,7 @@ class ResponseConverter:
     """
 
     @staticmethod
-    def from_bulk_response(response):
+    def from_bulk_response(response: Any) -> Dict[str, Any]:
         """
         Convert protobuf BulkResponse → Python dict (opensearch-py format).
 
@@ -253,7 +310,7 @@ class ResponseConverter:
             return ResponseConverter._convert_bulk_items(response)
 
     @staticmethod
-    def _convert_single_item(response):
+    def _convert_single_item(response: Any) -> Dict[str, Any]:
         """Convert a single-item response to opensearch-py dict format."""
         item = response.items[0]
 
@@ -268,9 +325,15 @@ class ResponseConverter:
             "_index": resp_item.x_index,
             "_id": resp_item.x_id if resp_item.x_id else None,
             "result": resp_item.result if resp_item.result else None,
-            "_version": resp_item.x_version if resp_item.HasField("x_version") else None,
+            "_version": (
+                resp_item.x_version if resp_item.HasField("x_version") else None
+            ),
             "_seq_no": resp_item.x_seq_no if resp_item.HasField("x_seq_no") else None,
-            "_primary_term": resp_item.x_primary_term if resp_item.HasField("x_primary_term") else None,
+            "_primary_term": (
+                resp_item.x_primary_term
+                if resp_item.HasField("x_primary_term")
+                else None
+            ),
         }
 
         if resp_item.HasField("x_shards"):
@@ -283,13 +346,17 @@ class ResponseConverter:
         if resp_item.HasField("error"):
             result["error"] = {
                 "type": resp_item.error.type,
-                "reason": resp_item.error.reason if resp_item.error.HasField("reason") else None,
+                "reason": (
+                    resp_item.error.reason
+                    if resp_item.error.HasField("reason")
+                    else None
+                ),
             }
 
         return {k: v for k, v in result.items() if v is not None}
 
     @staticmethod
-    def _convert_bulk_items(response):
+    def _convert_bulk_items(response: Any) -> Dict[str, Any]:
         """Convert a multi-item bulk response to opensearch-py dict format."""
         items = []
         for item in response.items:
@@ -300,9 +367,21 @@ class ResponseConverter:
                         "_index": resp_item.x_index,
                         "_id": resp_item.x_id if resp_item.x_id else None,
                         "result": resp_item.result if resp_item.result else None,
-                        "_version": resp_item.x_version if resp_item.HasField("x_version") else None,
-                        "_seq_no": resp_item.x_seq_no if resp_item.HasField("x_seq_no") else None,
-                        "_primary_term": resp_item.x_primary_term if resp_item.HasField("x_primary_term") else None,
+                        "_version": (
+                            resp_item.x_version
+                            if resp_item.HasField("x_version")
+                            else None
+                        ),
+                        "_seq_no": (
+                            resp_item.x_seq_no
+                            if resp_item.HasField("x_seq_no")
+                            else None
+                        ),
+                        "_primary_term": (
+                            resp_item.x_primary_term
+                            if resp_item.HasField("x_primary_term")
+                            else None
+                        ),
                         "status": resp_item.status,
                     }
                     if resp_item.HasField("x_shards"):
@@ -314,7 +393,11 @@ class ResponseConverter:
                     if resp_item.HasField("error"):
                         item_dict["error"] = {
                             "type": resp_item.error.type,
-                            "reason": resp_item.error.reason if resp_item.error.HasField("reason") else None,
+                            "reason": (
+                                resp_item.error.reason
+                                if resp_item.error.HasField("reason")
+                                else None
+                            ),
                         }
                     item_dict = {k: v for k, v in item_dict.items() if v is not None}
                     items.append({op_type: item_dict})
@@ -327,7 +410,7 @@ class ResponseConverter:
         }
 
     @staticmethod
-    def from_proto_request(request):
+    def from_proto_request(request: Any) -> Union[Dict[str, Any], List[Dict[str, Any]]]:
         """
         Reconstruct the original Python client request from protobuf.
 
@@ -395,7 +478,7 @@ class ResponseConverter:
 # ═══════════════════════════════════════════════════════════════════════════════
 
 
-def _map_refresh(value):
+def _map_refresh(value: Union[str, bool]) -> Any:
     mapping = {
         "true": REFRESH_TRUE,
         "false": REFRESH_FALSE,
@@ -406,7 +489,7 @@ def _map_refresh(value):
     return mapping.get(value, REFRESH_UNSPECIFIED)
 
 
-def _map_version_type(value):
+def _map_version_type(value: str) -> Any:
     mapping = {
         "internal": VERSION_TYPE_INTERNAL,
         "external": VERSION_TYPE_EXTERNAL,
@@ -415,7 +498,7 @@ def _map_version_type(value):
     return mapping.get(value, VERSION_TYPE_UNSPECIFIED)
 
 
-def _build_index_op(container, meta):
+def _build_index_op(container: Any, meta: Dict[str, Any]) -> None:
     op = IndexOperation()
     if "_id" in meta:
         op.x_id = meta["_id"]
@@ -438,7 +521,7 @@ def _build_index_op(container, meta):
     container.index.CopyFrom(op)
 
 
-def _build_create_op(container, meta):
+def _build_create_op(container: Any, meta: Dict[str, Any]) -> None:
     op = WriteOperation()
     if "_id" in meta:
         op.x_id = meta["_id"]
@@ -453,7 +536,7 @@ def _build_create_op(container, meta):
     container.create.CopyFrom(op)
 
 
-def _build_update_op(container, meta):
+def _build_update_op(container: Any, meta: Dict[str, Any]) -> None:
     op = UpdateOperation()
     if "_id" in meta:
         op.x_id = meta["_id"]
@@ -472,7 +555,7 @@ def _build_update_op(container, meta):
     container.update.CopyFrom(op)
 
 
-def _build_delete_op(container, meta):
+def _build_delete_op(container: Any, meta: Dict[str, Any]) -> None:
     op = DeleteOperation()
     if "_id" in meta:
         op.x_id = meta["_id"]
@@ -491,7 +574,7 @@ def _build_delete_op(container, meta):
     container.delete.CopyFrom(op)
 
 
-def _build_update_action(source):
+def _build_update_action(source: Dict[str, Any]) -> Any:
     action = UpdateAction()
     if "doc" in source:
         action.doc = json.dumps(source["doc"]).encode("utf-8")
@@ -520,21 +603,52 @@ _OP_BUILDERS = {
 BulkRequestBuilder = RequestConverter
 
 
-def toProtoBulkRequest(body, index=None, pipeline=None, routing=None,
-                       refresh=None, timeout=None, require_alias=None):
+def toProtoBulkRequest(
+    body: Union[str, List[Dict[str, Any]]],
+    index: Optional[str] = None,
+    pipeline: Optional[str] = None,
+    routing: Optional[str] = None,
+    refresh: Optional[str] = None,
+    timeout: Optional[str] = None,
+    require_alias: Optional[bool] = None,
+) -> Any:
     """Legacy function — use RequestConverter.from_body() instead."""
     return RequestConverter.from_body(
-        body, index=index, refresh=refresh, timeout=timeout,
-        pipeline=pipeline, routing=routing, require_alias=require_alias
+        body,
+        index=index,
+        refresh=refresh,
+        timeout=timeout,
+        pipeline=pipeline,
+        routing=routing,
+        require_alias=require_alias,
     ).build()
 
 
-def toProtoIndexRequest(index, body, id=None, **kwargs):
+def toProtoIndexRequest(
+    index: str, body: Dict[str, Any], id: Optional[str] = None, **kwargs: Any
+) -> Any:
     """Legacy function — use RequestConverter().index().build() instead."""
-    return RequestConverter(index=index, **{k: v for k, v in kwargs.items() if k in ('refresh', 'timeout')}).index(body=body, id=id, **{k: v for k, v in kwargs.items() if k not in ('refresh', 'timeout')}).build()
+    return (
+        RequestConverter(
+            index=index,
+            **{k: v for k, v in kwargs.items() if k in ("refresh", "timeout")}
+        )
+        .index(
+            body=body,
+            id=id,
+            **{k: v for k, v in kwargs.items() if k not in ("refresh", "timeout")}
+        )
+        .build()
+    )
 
 
-def _build_single_request(op_type, meta, source, refresh=None, timeout=None):
+def _build_single_request(
+    op_type: str,
+    meta: Dict[str, Any],
+    source: Optional[Dict[str, Any]],
+    refresh: Optional[str] = None,
+    timeout: Optional[str] = None,
+) -> Any:
     """Legacy internal function — kept for backward compatibility."""
     req = RequestConverter(index=meta.get("_index"), refresh=refresh, timeout=timeout)
     if op_type == "index":
