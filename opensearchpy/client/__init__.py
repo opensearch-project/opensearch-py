@@ -194,7 +194,6 @@ class OpenSearch(Client):
         self,
         hosts: Any = None,
         transport_class: Type[Transport] = Transport,
-        grpc_hosts: Any = None,
         **kwargs: Any,
     ) -> None:
         """
@@ -207,18 +206,10 @@ class OpenSearch(Client):
 
         :arg transport_class: :class:`~opensearchpy.Transport` subclass to use.
 
-        :arg grpc_hosts: list of gRPC nodes for document operations.
-            Node should be a dictionary ({"host": "localhost", "port": 9400}).
-            When provided with a gRPC-capable transport_class, bulk and document
-            operations are routed over gRPC for better performance.
-            Example: grpc_hosts=[{"host": "localhost", "port": 9400}]
-
         :arg kwargs: any additional arguments will be passed on to the
             :class:`~opensearchpy.Transport` class and, subsequently, to the
             :class:`~opensearchpy.Connection` instances.
         """
-        if grpc_hosts is not None:
-            kwargs["grpc_hosts"] = grpc_hosts
         super().__init__(hosts, transport_class, **kwargs)
 
         # namespaced clients for compatibility with API names
