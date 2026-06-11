@@ -50,9 +50,8 @@ class AWSV4Signer:
         # Only sign headers required by the SigV4 spec: host and x-amz-*.
         # Passing all headers risks a signature mismatch when the HTTP
         # transport layer (aiohttp, urllib3) modifies them after signing.
-        headers_lower = {k.lower(): v for k, v in (headers or {}).items()}
-        signing_headers = {
-            "host": headers_lower.get("host") or urlparse(url).netloc,
+        signature_headers = {
+            "host": urlparse(signature_host).netloc,
             **{
                 k: v
                 for k, v in (headers or {}).items()
@@ -64,7 +63,7 @@ class AWSV4Signer:
             method=method.upper(),
             url=signature_host,
             data=body,
-            headers=signing_headers,
+            headers=signature_headers,
         )
 
         # credentials objects expose access_key, secret_key and token attributes
