@@ -7,7 +7,6 @@ sphinx_rtd_theme
 jinja2
 pytz
 deepmerge
-Events
 setuptools==71.1.0
 
 numpy; python_version<="3.12"

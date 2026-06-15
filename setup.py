@@ -59,7 +59,6 @@ install_requires = [
     "requests>=2.32.0, <3.0.0",
     "python-dateutil",
     "certifi>=2024.07.04",
-    "Events",
 ]
 tests_require = [
     "requests>=2.0.0, <3.0.0",

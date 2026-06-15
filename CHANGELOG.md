@@ -10,6 +10,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ### Fixed
 ### Security
 ### Dependencies
+- Removed dependency on [Events](https://pypi.org/project/Events/)
 
 ## [3.2.0]
 ### Added
