@@ -10,8 +10,6 @@
 import time
 from typing import Optional
 
-from events import Events
-
 from opensearchpy.metrics.metrics import Metrics
 
 
@@ -35,17 +33,12 @@ class MetricsEvents(Metrics):
         return self._service_time
 
     def __init__(self) -> None:
-        self.events = Events()
         self._start_time: Optional[float] = None
         self._end_time: Optional[float] = None
         self._service_time: Optional[float] = None
 
-        # Subscribe to the request_start and request_end events
-        self.events.request_start += self._on_request_start
-        self.events.request_end += self._on_request_end
-
     def request_start(self) -> None:
-        self.events.request_start()
+        self._on_request_start()
 
     def _on_request_start(self) -> None:
         self._start_time = time.perf_counter()
@@ -53,7 +46,7 @@ class MetricsEvents(Metrics):
         self._service_time = None
 
     def request_end(self) -> None:
-        self.events.request_end()
+        self._on_request_end()
 
     def _on_request_end(self) -> None:
         self._end_time = time.perf_counter()
