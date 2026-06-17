@@ -118,7 +118,9 @@ class Connection:
         self.scheme = scheme
         self.hostname = host
         self.port = port
-        if ":" in host:  # IPv6
+        if host.startswith("[") and host.endswith("]"):
+            self.host = f"{scheme}://{host}"
+        elif ":" in host:  # IPv6
             self.host = f"{scheme}://[{host}]"
         else:
             self.host = f"{scheme}://{host}"

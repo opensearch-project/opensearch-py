@@ -60,7 +60,10 @@ def _normalize_hosts(hosts: Any) -> Any:
                 host = f"//{host}"  # type: ignore
 
             parsed_url = urlparse(host)
-            h = {"host": parsed_url.hostname}
+            parsed_hostname = parsed_url.hostname
+            if parsed_hostname and ":" in parsed_hostname:
+                parsed_hostname = f"[{parsed_hostname}]"
+            h = {"host": parsed_hostname}
 
             if parsed_url.port:
                 h["port"] = parsed_url.port

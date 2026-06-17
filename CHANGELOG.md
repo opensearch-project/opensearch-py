@@ -8,6 +8,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ### Deprecated
 ### Removed
 ### Fixed
+- Fixed parsing bracketed IPv6 URLs passed as hosts ([#910](https://github.com/opensearch-project/opensearch-py/issues/910))
 ### Security
 ### Dependencies
 
