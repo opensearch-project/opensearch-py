@@ -24,7 +24,7 @@
 #  specific language governing permissions and limitations
 #  under the License.
 """
-test_bulk_request.py — Unit Tests for RequestConverter and ResponseConverter
+test_bulk_request.py — Unit Tests for BulkRequestProtoBuilder and ResponseConverter
 
 Tests the translation layer conversion logic without requiring a running
 OpenSearch server. No network calls are made.
@@ -36,19 +36,19 @@ Run:
 from typing import Any, Dict, List
 
 from opensearch_grpc.translation import (
-    RequestConverter,
+    BulkRequestProtoBuilder,
     ResponseConverter,
     _build_single_request,
     toProtoBulkRequest,
 )
 
 
-class TestRequestConverterBuild:
-    """Test RequestConverter builds correct protobuf structures."""
+class TestBulkRequestProtoBuilderBuild:
+    """Test BulkRequestProtoBuilder builds correct protobuf structures."""
 
     def test_single_index_builds_one_body(self) -> None:
         """Single index operation produces one BulkRequestBody."""
-        req = RequestConverter(index="test-index", refresh="true")
+        req = BulkRequestProtoBuilder(index="test-index", refresh="true")
         req.index(body={"title": "Doc 1"}, id="1")
         proto = req.build()
 
@@ -61,7 +61,7 @@ class TestRequestConverterBuild:
 
     def test_bulk_builds_multiple_bodies(self) -> None:
         """Multiple operations produce correct number of BulkRequestBody."""
-        req = RequestConverter(index="test-index")
+        req = BulkRequestProtoBuilder(index="test-index")
         req.index(body={"a": 1}, id="1")
         req.create(body={"b": 2}, id="2")
         req.update(id="1", body={"doc": {"a": 10}})
@@ -72,7 +72,7 @@ class TestRequestConverterBuild:
 
     def test_index_operation_sets_correct_fields(self) -> None:
         """Index operation has correct operation container type."""
-        req = RequestConverter(index="idx")
+        req = BulkRequestProtoBuilder(index="idx")
         req.index(body={"x": 1}, id="doc-1", routing="r1", pipeline="p1")
         proto = req.build()
 
@@ -84,7 +84,7 @@ class TestRequestConverterBuild:
 
     def test_create_operation_sets_correct_fields(self) -> None:
         """Create operation uses WriteOperation."""
-        req = RequestConverter(index="idx")
+        req = BulkRequestProtoBuilder(index="idx")
         req.create(body={"x": 1}, id="doc-1")
         proto = req.build()
 
@@ -94,7 +94,7 @@ class TestRequestConverterBuild:
 
     def test_update_operation_sets_correct_fields(self) -> None:
         """Update operation includes update_action with doc bytes."""
-        req = RequestConverter(index="idx")
+        req = BulkRequestProtoBuilder(index="idx")
         req.update(id="doc-1", body={"doc": {"value": 99}})
         proto = req.build()
 
@@ -105,7 +105,7 @@ class TestRequestConverterBuild:
 
     def test_delete_operation_sets_correct_fields(self) -> None:
         """Delete operation has no object or update_action."""
-        req = RequestConverter(index="idx")
+        req = BulkRequestProtoBuilder(index="idx")
         req.delete(id="doc-1")
         proto = req.build()
 
@@ -115,7 +115,7 @@ class TestRequestConverterBuild:
 
     def test_builder_len(self) -> None:
         """len() returns number of queued operations."""
-        bulk = RequestConverter(index="test")
+        bulk = BulkRequestProtoBuilder(index="test")
         assert len(bulk) == 0
         bulk.index(body={"a": 1}, id="1")
         bulk.delete(id="2")
@@ -124,7 +124,7 @@ class TestRequestConverterBuild:
     def test_builder_chaining(self) -> None:
         """Operations can be chained."""
         bulk = (
-            RequestConverter(index="test")
+            BulkRequestProtoBuilder(index="test")
             .index(body={"a": 1}, id="1")
             .create(body={"b": 2}, id="2")
             .update(id="1", body={"doc": {"a": 10}})
@@ -133,8 +133,8 @@ class TestRequestConverterBuild:
         assert len(bulk) == 4
 
 
-class TestRequestConverterFromBody:
-    """Test RequestConverter.from_body with different input formats."""
+class TestBulkRequestProtoBuilderFromBody:
+    """Test BulkRequestProtoBuilder.from_body with different input formats."""
 
     def test_from_list_of_dicts(self) -> None:
         """Parses a list of action/source dicts."""
@@ -143,7 +143,7 @@ class TestRequestConverterFromBody:
             {"title": "Doc 1"},
             {"delete": {"_index": "idx", "_id": "2"}},
         ]
-        req = RequestConverter.from_body(body)
+        req = BulkRequestProtoBuilder.from_body(body)
         proto = req.build()
 
         assert len(proto.bulk_request_body) == 2
@@ -151,7 +151,7 @@ class TestRequestConverterFromBody:
     def test_from_ndjson_string(self) -> None:
         """Parses an NDJSON string."""
         ndjson = '{"index": {"_index": "idx", "_id": "1"}}\n{"title": "Doc"}\n'
-        req = RequestConverter.from_body(ndjson)
+        req = BulkRequestProtoBuilder.from_body(ndjson)
         proto = req.build()
 
         assert len(proto.bulk_request_body) == 1
@@ -159,7 +159,7 @@ class TestRequestConverterFromBody:
     def test_from_body_with_default_index(self) -> None:
         """Default index is set on the request."""
         body: List[Dict[str, Any]] = [{"index": {"_id": "1"}}, {"title": "Doc"}]
-        req = RequestConverter.from_body(body, index="my-index")
+        req = BulkRequestProtoBuilder.from_body(body, index="my-index")
         proto = req.build()
 
         assert proto.index == "my-index"
@@ -203,7 +203,7 @@ class TestResponseConverterFromProtoRequest:
 
     def test_reconstruct_bulk(self) -> None:
         """Reconstructs a multi-operation request."""
-        req = RequestConverter(index="idx")
+        req = BulkRequestProtoBuilder(index="idx")
         req.index(body={"a": 1}, id="1")
         req.delete(id="2")
         proto = req.build()

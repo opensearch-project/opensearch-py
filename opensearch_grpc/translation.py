@@ -3,10 +3,10 @@ translation.py — gRPC Translation Layer
 
 Two classes handle the full round-trip:
 
-    RequestConverter  — Python client dict → Protobuf BulkRequest
+    BulkRequestProtoBuilder  — Python client dict → Protobuf BulkRequest
     ResponseConverter — Protobuf BulkResponse → Python client dict
 
-RequestConverter handles both single and bulk operations through one interface.
+BulkRequestProtoBuilder handles both single and bulk operations through one interface.
 ResponseConverter converts server responses back to the format the client sent in.
 """
 
@@ -37,7 +37,7 @@ from opensearch.protobufs.schemas.common_pb2 import (
 # ═══════════════════════════════════════════════════════════════════════════════
 
 
-class RequestConverter:
+class BulkRequestProtoBuilder:
     """
     Converts Python client operations into a protobuf BulkRequest.
 
@@ -45,12 +45,12 @@ class RequestConverter:
     Queue operations with index(), create(), update(), delete(), then call build().
 
     Single document usage:
-        req = RequestConverter(index="my-index", refresh="true")
+        req = BulkRequestProtoBuilder(index="my-index", refresh="true")
         req.index(body={"title": "Hello"}, id="1")
         proto_request = req.build()
 
     Bulk usage:
-        req = RequestConverter(index="my-index", refresh="true")
+        req = BulkRequestProtoBuilder(index="my-index", refresh="true")
         req.index(body={"title": "Doc 1"}, id="1")
         req.index(body={"title": "Doc 2"}, id="2")
         req.create(body={"title": "Doc 3"}, id="3")
@@ -59,7 +59,7 @@ class RequestConverter:
         proto_request = req.build()
 
     From raw body (NDJSON string or list of action/source dicts):
-        req = RequestConverter.from_body(body, index="my-index", refresh="true")
+        req = BulkRequestProtoBuilder.from_body(body, index="my-index", refresh="true")
         proto_request = req.build()
     """
 
@@ -94,7 +94,7 @@ class RequestConverter:
         if_seq_no: Optional[int] = None,
         version: Optional[int] = None,
         version_type: Optional[str] = None,
-    ) -> "RequestConverter":
+    ) -> "BulkRequestProtoBuilder":
         """Queue an index operation. Mirrors client.index()."""
         meta: Dict[str, Any] = {"_index": index or self._index}
         if id is not None:
@@ -124,7 +124,7 @@ class RequestConverter:
         routing: Optional[str] = None,
         pipeline: Optional[str] = None,
         require_alias: Optional[bool] = None,
-    ) -> "RequestConverter":
+    ) -> "BulkRequestProtoBuilder":
         """Queue a create operation. Mirrors client.create()."""
         meta: Dict[str, Any] = {"_index": index or self._index}
         if id is not None:
@@ -148,7 +148,7 @@ class RequestConverter:
         if_primary_term: Optional[int] = None,
         if_seq_no: Optional[int] = None,
         retry_on_conflict: Optional[int] = None,
-    ) -> "RequestConverter":
+    ) -> "BulkRequestProtoBuilder":
         """Queue an update operation. Mirrors client.update()."""
         meta: Dict[str, Any] = {"_index": index or self._index, "_id": id}
         if routing is not None:
@@ -173,7 +173,7 @@ class RequestConverter:
         if_seq_no: Optional[int] = None,
         version: Optional[int] = None,
         version_type: Optional[str] = None,
-    ) -> "RequestConverter":
+    ) -> "BulkRequestProtoBuilder":
         """Queue a delete operation. Mirrors client.delete()."""
         meta: Dict[str, Any] = {"_index": index or self._index, "_id": id}
         if routing is not None:
@@ -231,9 +231,9 @@ class RequestConverter:
         pipeline: Optional[str] = None,
         routing: Optional[str] = None,
         require_alias: Optional[bool] = None,
-    ) -> "RequestConverter":
+    ) -> "BulkRequestProtoBuilder":
         """
-        Create a RequestConverter from raw bulk body (list of dicts or NDJSON string).
+        Create a BulkRequestProtoBuilder from raw bulk body (list of dicts or NDJSON string).
 
         Mirrors: client.bulk(body=..., index=..., ...)
         """
@@ -600,7 +600,7 @@ _OP_BUILDERS = {
 # ─── Backward Compatibility ──────────────────────────────────────────────────
 # These keep existing code working without changes.
 
-BulkRequestBuilder = RequestConverter
+BulkRequestBuilder = BulkRequestProtoBuilder
 
 
 def toProtoBulkRequest(
@@ -612,8 +612,8 @@ def toProtoBulkRequest(
     timeout: Optional[str] = None,
     require_alias: Optional[bool] = None,
 ) -> Any:
-    """Legacy function — use RequestConverter.from_body() instead."""
-    return RequestConverter.from_body(
+    """Legacy function — use BulkRequestProtoBuilder.from_body() instead."""
+    return BulkRequestProtoBuilder.from_body(
         body,
         index=index,
         refresh=refresh,
@@ -627,9 +627,9 @@ def toProtoBulkRequest(
 def toProtoIndexRequest(
     index: str, body: Dict[str, Any], id: Optional[str] = None, **kwargs: Any
 ) -> Any:
-    """Legacy function — use RequestConverter().index().build() instead."""
+    """Legacy function — use BulkRequestProtoBuilder().index().build() instead."""
     return (
-        RequestConverter(
+        BulkRequestProtoBuilder(
             index=index,
             **{k: v for k, v in kwargs.items() if k in ("refresh", "timeout")}
         )
@@ -650,7 +650,7 @@ def _build_single_request(
     timeout: Optional[str] = None,
 ) -> Any:
     """Legacy internal function — kept for backward compatibility."""
-    req = RequestConverter(index=meta.get("_index"), refresh=refresh, timeout=timeout)
+    req = BulkRequestProtoBuilder(index=meta.get("_index"), refresh=refresh, timeout=timeout)
     if op_type == "index":
         req._operations.append(("index", meta, source))
     elif op_type == "create":
