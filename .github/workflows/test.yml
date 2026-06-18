@@ -20,9 +20,9 @@ jobs:
     runs-on: ${{ matrix.entry.os }}
     steps:
       - name: Checkout Source Code
-        uses: actions/checkout@v6
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
       - name: Set Up Python - ${{ matrix.entry.python-version }}
-        uses: actions/setup-python@v6
+        uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6
         with:
           python-version: ${{ matrix.entry.python-version }}
         env:
@@ -35,7 +35,7 @@ jobs:
         run: |
           python -m nox -rs test-${{ matrix.entry.python-version }}
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v5
+        uses: codecov/codecov-action@0fb7174895f61a3b6b78fc075e0cd60383518dac # v5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: ./junit/opensearch-py-codecov.xml
