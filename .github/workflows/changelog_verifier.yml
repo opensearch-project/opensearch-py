@@ -13,6 +13,6 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           ref: ${{ github.event.pull_request.head.sha }}
 
-      - uses: dangoslen/changelog-enforcer@v3
+      - uses: dangoslen/changelog-enforcer@8b5e9dc3121363bb7c0115f8533404d92af382de # v3
         with:
           skipLabels: "autocut, skip-changelog"

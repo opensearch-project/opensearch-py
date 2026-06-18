@@ -16,7 +16,7 @@ jobs:
       - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
       - name: lychee Link Checker
         id: lychee
-        uses: lycheeverse/lychee-action@v2.7.0
+        uses: lycheeverse/lychee-action@a8c4c7cb88f0c7386610c35eb25108e448569cb0 # v2.7.0
         with:
           args: --accept=200,403,429 "**/*.html" "**/*.md" "**/*.txt" "**/*.json" --exclude-file ".github/workflows/.lychee.excludes"
           fail: true
