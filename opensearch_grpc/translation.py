@@ -375,7 +375,10 @@ class ResponseConverter:
                             if resp_item.HasField("x_primary_term")
                             else None
                         ),
-                        "status": resp_item.status,
+                        "status": _grpc_to_rest_status(
+                            resp_item.status,
+                            resp_item.result if resp_item.result else None,
+                        ),
                     }
                     if resp_item.HasField("x_shards"):
                         item_dict["_shards"] = {
@@ -508,6 +511,46 @@ class ResponseConverter:
 # ═══════════════════════════════════════════════════════════════════════════════
 # INTERNAL HELPERS — Operation builders and enum mappers
 # ═══════════════════════════════════════════════════════════════════════════════
+
+
+def _grpc_to_rest_status(grpc_code: int, result: Optional[str] = None) -> int:
+    """Convert gRPC status code to REST HTTP status code.
+
+    gRPC uses different status codes than REST. The mapping is based on the
+    OpenSearch server's RestToGrpcStatusConverter.java:
+    https://github.com/opensearch-project/OpenSearch/blob/main/modules/transport-grpc/
+    src/main/java/org/opensearch/transport/grpc/util/RestToGrpcStatusConverter.java
+
+    For OK (0), the result field disambiguates the specific REST code:
+    - "created" -> 201
+    - "updated", "deleted", "noop" -> 200
+
+    See: https://grpc.io/docs/guides/status-codes/
+    """
+    if grpc_code == 0:  # OK - disambiguate using result field
+        if result == "created":
+            return 201
+        return 200
+    # Non-OK gRPC codes map to REST error codes
+    mapping = {
+        1: 499,  # CANCELLED
+        2: 500,  # UNKNOWN
+        3: 400,  # INVALID_ARGUMENT (BAD_REQUEST, CONFLICT)
+        4: 408,  # DEADLINE_EXCEEDED (REQUEST_TIMEOUT, GATEWAY_TIMEOUT)
+        5: 404,  # NOT_FOUND (NOT_FOUND, GONE)
+        6: 409,  # ALREADY_EXISTS (CONFLICT for create operations)
+        7: 403,  # PERMISSION_DENIED (UNAUTHORIZED, FORBIDDEN)
+        8: 429,  # RESOURCE_EXHAUSTED (TOO_MANY_REQUESTS)
+        9: 412,  # FAILED_PRECONDITION (redirects, LOCKED, FAILED_DEPENDENCY)
+        10: 409,  # ABORTED
+        11: 400,  # OUT_OF_RANGE
+        12: 501,  # UNIMPLEMENTED (METHOD_NOT_ALLOWED, NOT_IMPLEMENTED)
+        13: 500,  # INTERNAL (INTERNAL_SERVER_ERROR)
+        14: 503,  # UNAVAILABLE (BAD_GATEWAY, SERVICE_UNAVAILABLE)
+        15: 500,  # DATA_LOSS
+        16: 401,  # UNAUTHENTICATED (PROXY_AUTHENTICATION)
+    }
+    return mapping.get(grpc_code, 500)
 
 
 def _map_refresh(value: Union[str, bool]) -> Any:
