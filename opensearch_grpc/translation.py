@@ -14,6 +14,8 @@ import json
 from typing import Any, Dict, List, Optional, Tuple, Union
 
 from opensearch.protobufs.schemas.common_pb2 import (
+    OP_TYPE_CREATE,
+    OP_TYPE_INDEX,
     REFRESH_FALSE,
     REFRESH_TRUE,
     REFRESH_UNSPECIFIED,
@@ -22,15 +24,20 @@ from opensearch.protobufs.schemas.common_pb2 import (
     VERSION_TYPE_EXTERNAL_GTE,
     VERSION_TYPE_INTERNAL,
     VERSION_TYPE_UNSPECIFIED,
+    WAIT_FOR_ACTIVE_SHARD_OPTIONS_ALL,
     BulkRequest,
     BulkRequestBody,
     DeleteOperation,
     IndexOperation,
+    InlineScript,
     OperationContainer,
+    Script,
     SourceConfigParam,
+    StoredScriptId,
     StringArray,
     UpdateAction,
     UpdateOperation,
+    WaitForActiveShards,
     WriteOperation,
 )
 
@@ -76,6 +83,7 @@ class BulkRequestProtoBuilder:
         x_source: Optional[Union[bool, List[str]]] = None,
         x_source_excludes: Optional[List[str]] = None,
         x_source_includes: Optional[List[str]] = None,
+        wait_for_active_shards: Optional[Union[int, str]] = None,
     ) -> None:
         self._index = index
         self._refresh = refresh
@@ -86,6 +94,7 @@ class BulkRequestProtoBuilder:
         self._x_source = x_source
         self._x_source_excludes = x_source_excludes
         self._x_source_includes = x_source_includes
+        self._wait_for_active_shards = wait_for_active_shards
         self._operations: List[Tuple[str, Dict[str, Any], Optional[Dict[str, Any]]]] = (
             []
         )
@@ -102,6 +111,7 @@ class BulkRequestProtoBuilder:
         if_seq_no: Optional[int] = None,
         version: Optional[int] = None,
         version_type: Optional[str] = None,
+        op_type: Optional[str] = None,
     ) -> "BulkRequestProtoBuilder":
         """Queue an index operation. Mirrors client.index()."""
         meta: Dict[str, Any] = {"_index": index or self._index}
@@ -121,6 +131,8 @@ class BulkRequestProtoBuilder:
             meta["version"] = version
         if version_type is not None:
             meta["version_type"] = version_type
+        if op_type is not None:
+            meta["op_type"] = op_type
         self._operations.append(("index", meta, body))
         return self
 
@@ -224,6 +236,13 @@ class BulkRequestProtoBuilder:
             request.x_source_excludes.extend(self._x_source_excludes)
         if self._x_source_includes:
             request.x_source_includes.extend(self._x_source_includes)
+        if self._wait_for_active_shards is not None:
+            wfas = WaitForActiveShards()
+            if isinstance(self._wait_for_active_shards, int):
+                wfas.count = self._wait_for_active_shards
+            elif self._wait_for_active_shards == "all":
+                wfas.option = WAIT_FOR_ACTIVE_SHARD_OPTIONS_ALL
+            request.wait_for_active_shards.CopyFrom(wfas)
 
         for op_type, meta, source in self._operations:
             bulk_body = BulkRequestBody()
@@ -253,6 +272,7 @@ class BulkRequestProtoBuilder:
         x_source: Optional[Union[bool, List[str]]] = None,
         x_source_excludes: Optional[List[str]] = None,
         x_source_includes: Optional[List[str]] = None,
+        wait_for_active_shards: Optional[Union[int, str]] = None,
     ) -> "BulkRequestProtoBuilder":
         """
         Create a BulkRequestProtoBuilder from raw bulk body (list of dicts or NDJSON string).
@@ -269,6 +289,7 @@ class BulkRequestProtoBuilder:
             x_source=x_source,
             x_source_excludes=x_source_excludes,
             x_source_includes=x_source_includes,
+            wait_for_active_shards=wait_for_active_shards,
         )
 
         if isinstance(body, str):
@@ -543,6 +564,8 @@ def _build_index_op(container: Any, meta: Dict[str, Any]) -> None:
         op.version = meta["version"]
     if "version_type" in meta:
         op.version_type = _map_version_type(meta["version_type"])
+    if "op_type" in meta:
+        op.op_type = _map_op_type(meta["op_type"])
     container.index.CopyFrom(op)
 
 
@@ -611,7 +634,34 @@ def _build_update_action(source: Dict[str, Any]) -> Any:
         action.scripted_upsert = source["scripted_upsert"]
     if "detect_noop" in source:
         action.detect_noop = source["detect_noop"]
+    if "script" in source:
+        action.script.CopyFrom(_build_script(source["script"]))
     return action
+
+
+def _map_op_type(value: str) -> Any:
+    """Map op_type string to protobuf OpType enum."""
+    mapping = {
+        "index": OP_TYPE_INDEX,
+        "create": OP_TYPE_CREATE,
+    }
+    return mapping.get(value, OP_TYPE_INDEX)
+
+
+def _build_script(script_dict: Dict[str, Any]) -> Any:
+    """Build a Script protobuf from a script dict."""
+    script = Script()
+    if "source" in script_dict:
+        inline = InlineScript()
+        inline.source = script_dict["source"]
+        if "lang" in script_dict:
+            inline.lang.custom = script_dict["lang"]
+        script.inline.CopyFrom(inline)
+    elif "id" in script_dict:
+        stored = StoredScriptId()
+        stored.id = script_dict["id"]
+        script.stored.CopyFrom(stored)
+    return script
 
 
 _OP_BUILDERS = {
