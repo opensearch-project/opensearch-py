@@ -119,7 +119,7 @@ setup(
         "develop": tests_require + docs_require + generate_require,
         "docs": docs_require + async_require,
         "async": async_require,
-        "grpc": ["opensearch-protobufs>=1.2.0", "grpcio", "grpcio-tools"],
+        "grpc": ["opensearch-protobufs>=1.2.0"],
         "kerberos": ["requests_kerberos"],
     },
 )
