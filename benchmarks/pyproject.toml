@@ -10,6 +10,15 @@ readme = "README.md"
 python = "^3.10"
 opensearch-py = { path = "..", develop=true, extras=["async"] }
 richbench = "*"
+# Direct constraints to force transitive resolution past known CVE ranges.
+# Without these, the resolver would pick urllib3 2.2.2 and requests 2.32.3
+# (transitive pins from the opensearch-py wheel's release lock era) and
+# pygments 2.18.0 (via richbench -> rich). These floors pull in fixes for
+# urllib3 CVE-2025-50181/-66418/-66471/-2026-21441, requests
+# CVE-2024-47081/CVE-2026-25645, and pygments CVE-2026-4539 (low, local).
+urllib3 = ">=2.6.3,<3"
+requests = ">=2.33.0,<3"
+pygments = ">=2.20.0"
 
 [build-system]
 requires = ["poetry-core"]

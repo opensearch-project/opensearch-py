@@ -10,6 +10,6 @@ jobs:
     if: startsWith(github.event.pull_request.head.ref,'backport/')
     steps:
       - name: Delete merged branch
-        uses: SvanBoxel/delete-merged-branch@main
+        uses: SvanBoxel/delete-merged-branch@2b5b058e3db41a3328fd9a6a58fd4c2545a14353 # main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
