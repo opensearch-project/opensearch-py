@@ -90,6 +90,7 @@ class TestBaseConnection(TestCase):
     def test_ipv6_host_and_port(self) -> None:
         for kwargs, expected_host in [
             ({"host": "::1"}, "http://[::1]:9200"),
+            ({"host": "[::1]"}, "http://[::1]:9200"),
             ({"host": "::1", "port": 443}, "http://[::1]:443"),
             ({"host": "::1", "use_ssl": True}, "https://[::1]:9200"),
             ({"host": "127.0.0.1", "port": 1234}, "http://127.0.0.1:1234"),

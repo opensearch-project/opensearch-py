@@ -47,6 +47,12 @@ class TestNormalizeHosts(TestCase):
             _normalize_hosts(["opensearch.org:42", "user:secre%5D@opensearch.org"]),
         )
 
+    def test_ipv6_url_host_preserves_brackets(self) -> None:
+        self.assertEqual(
+            [{"host": "[fdbd:dc05:1a:10c::53]", "port": 9292}],
+            _normalize_hosts(["http://[fdbd:dc05:1a:10c::53]:9292"]),
+        )
+
     def test_strings_are_parsed_for_scheme(self) -> None:
         self.assertEqual(
             [
