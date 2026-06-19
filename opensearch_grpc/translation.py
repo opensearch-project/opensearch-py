@@ -32,7 +32,9 @@ from opensearch.protobufs.schemas.common_pb2 import (
     InlineScript,
     OperationContainer,
     Script,
+    SourceConfig,
     SourceConfigParam,
+    SourceFilter,
     StoredScriptId,
     StringArray,
     UpdateAction,
@@ -341,65 +343,10 @@ class ResponseConverter:
         """
         Convert protobuf BulkResponse → Python dict (opensearch-py format).
 
-        For single-doc operations, returns the one item as a dict.
-        For bulk operations, returns the full bulk response structure.
-
-        Single-doc output:
-            {"_index": "idx", "_id": "1", "result": "created", "_version": 1, ...}
-
-        Bulk output:
+        Always returns the bulk response structure:
             {"took": 50, "errors": False, "items": [{"index": {...}}, ...]}
         """
-        if len(response.items) == 1:
-            return ResponseConverter._convert_single_item(response)
-        else:
-            return ResponseConverter._convert_bulk_items(response)
-
-    @staticmethod
-    def _convert_single_item(response: Any) -> Dict[str, Any]:
-        """Convert a single-item response to opensearch-py dict format."""
-        item = response.items[0]
-
-        for op_type in ("index", "create", "update", "delete"):
-            if item.HasField(op_type):
-                resp_item = getattr(item, op_type)
-                break
-        else:
-            return {"error": "Unknown response type"}
-
-        result = {
-            "_index": resp_item.x_index,
-            "_id": resp_item.x_id if resp_item.x_id else None,
-            "result": resp_item.result if resp_item.result else None,
-            "_version": (
-                resp_item.x_version if resp_item.HasField("x_version") else None
-            ),
-            "_seq_no": resp_item.x_seq_no if resp_item.HasField("x_seq_no") else None,
-            "_primary_term": (
-                resp_item.x_primary_term
-                if resp_item.HasField("x_primary_term")
-                else None
-            ),
-        }
-
-        if resp_item.HasField("x_shards"):
-            result["_shards"] = {
-                "total": resp_item.x_shards.total,
-                "successful": resp_item.x_shards.successful,
-                "failed": resp_item.x_shards.failed,
-            }
-
-        if resp_item.HasField("error"):
-            result["error"] = {
-                "type": resp_item.error.type,
-                "reason": (
-                    resp_item.error.reason
-                    if resp_item.error.HasField("reason")
-                    else None
-                ),
-            }
-
-        return {k: v for k, v in result.items() if v is not None}
+        return ResponseConverter._convert_bulk_items(response)
 
     @staticmethod
     def _convert_bulk_items(response: Any) -> Dict[str, Any]:
@@ -445,15 +392,54 @@ class ResponseConverter:
                                 else None
                             ),
                         }
+                    # forced_refresh: Whether the doc was force-refreshed
+                    if resp_item.HasField("forced_refresh"):
+                        item_dict["forced_refresh"] = resp_item.forced_refresh
+                    # get: Inline get with document source
+                    if resp_item.HasField("get"):
+                        get_dict: Dict[str, Any] = {"found": resp_item.get.found}
+                        if resp_item.get.HasField("x_seq_no"):
+                            get_dict["_seq_no"] = resp_item.get.x_seq_no
+                        if resp_item.get.HasField("x_primary_term"):
+                            get_dict["_primary_term"] = resp_item.get.x_primary_term
+                        if resp_item.get.HasField("x_source"):
+                            get_dict["_source"] = resp_item.get.x_source.decode("utf-8")
+                        item_dict["get"] = get_dict
+                    # _shards.failures: Shard failure details
+                    if resp_item.HasField("x_shards") and resp_item.x_shards.failures:
+                        failures = []
+                        for f in resp_item.x_shards.failures:
+                            failure: Dict[str, Any] = {
+                                "shard": f.shard,
+                                "primary": f.primary,
+                                "reason": {
+                                    "type": f.reason.type,
+                                    "reason": (
+                                        f.reason.reason
+                                        if f.reason.HasField("reason")
+                                        else None
+                                    ),
+                                },
+                            }
+                            if f.HasField("index"):
+                                failure["index"] = f.index
+                            if f.HasField("node"):
+                                failure["node"] = f.node
+                            failures.append(failure)
+                        item_dict["_shards"]["failures"] = failures
                     item_dict = {k: v for k, v in item_dict.items() if v is not None}
                     items.append({op_type: item_dict})
                     break
 
-        return {
+        result: Dict[str, Any] = {
             "took": response.took,
             "errors": response.errors,
             "items": items,
         }
+        # ingest_took: Time in ms spent processing documents through ingest pipeline
+        if response.HasField("ingest_took"):
+            result["ingest_took"] = response.ingest_took
+        return result
 
     @staticmethod
     def from_proto_request(request: Any) -> Union[Dict[str, Any], List[Dict[str, Any]]]:
@@ -636,6 +622,20 @@ def _build_update_action(source: Dict[str, Any]) -> Any:
         action.detect_noop = source["detect_noop"]
     if "script" in source:
         action.script.CopyFrom(_build_script(source["script"]))
+    # _source: Controls which fields to return in the update response
+    if "_source" in source:
+        src = source["_source"]
+        source_config = SourceConfig()
+        if isinstance(src, bool):
+            source_config.fetch = src
+        elif isinstance(src, dict):
+            sf = SourceFilter()
+            if "includes" in src:
+                sf.includes.extend(src["includes"])
+            if "excludes" in src:
+                sf.excludes.extend(src["excludes"])
+            source_config.filter.CopyFrom(sf)
+        action.x_source.CopyFrom(source_config)
     return action
 
 
