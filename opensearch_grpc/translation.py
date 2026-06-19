@@ -27,6 +27,8 @@ from opensearch.protobufs.schemas.common_pb2 import (
     DeleteOperation,
     IndexOperation,
     OperationContainer,
+    SourceConfigParam,
+    StringArray,
     UpdateAction,
     UpdateOperation,
     WriteOperation,
@@ -71,6 +73,9 @@ class BulkRequestProtoBuilder:
         pipeline: Optional[str] = None,
         routing: Optional[str] = None,
         require_alias: Optional[bool] = None,
+        x_source: Optional[Union[bool, List[str]]] = None,
+        x_source_excludes: Optional[List[str]] = None,
+        x_source_includes: Optional[List[str]] = None,
     ) -> None:
         self._index = index
         self._refresh = refresh
@@ -78,6 +83,9 @@ class BulkRequestProtoBuilder:
         self._pipeline = pipeline
         self._routing = routing
         self._require_alias = require_alias
+        self._x_source = x_source
+        self._x_source_excludes = x_source_excludes
+        self._x_source_includes = x_source_includes
         self._operations: List[Tuple[str, Dict[str, Any], Optional[Dict[str, Any]]]] = (
             []
         )
@@ -205,6 +213,17 @@ class BulkRequestProtoBuilder:
             request.routing = self._routing
         if self._require_alias is not None:
             request.require_alias = self._require_alias
+        if self._x_source is not None:
+            source_param = SourceConfigParam()
+            if isinstance(self._x_source, bool):
+                source_param.fetch = self._x_source
+            elif isinstance(self._x_source, list):
+                source_param.fields.CopyFrom(StringArray(string_array=self._x_source))
+            request.x_source.CopyFrom(source_param)
+        if self._x_source_excludes:
+            request.x_source_excludes.extend(self._x_source_excludes)
+        if self._x_source_includes:
+            request.x_source_includes.extend(self._x_source_includes)
 
         for op_type, meta, source in self._operations:
             bulk_body = BulkRequestBody()
@@ -231,6 +250,9 @@ class BulkRequestProtoBuilder:
         pipeline: Optional[str] = None,
         routing: Optional[str] = None,
         require_alias: Optional[bool] = None,
+        x_source: Optional[Union[bool, List[str]]] = None,
+        x_source_excludes: Optional[List[str]] = None,
+        x_source_includes: Optional[List[str]] = None,
     ) -> "BulkRequestProtoBuilder":
         """
         Create a BulkRequestProtoBuilder from raw bulk body (list of dicts or NDJSON string).
@@ -244,6 +266,9 @@ class BulkRequestProtoBuilder:
             pipeline=pipeline,
             routing=routing,
             require_alias=require_alias,
+            x_source=x_source,
+            x_source_excludes=x_source_excludes,
+            x_source_includes=x_source_includes,
         )
 
         if isinstance(body, str):
@@ -650,7 +675,9 @@ def _build_single_request(
     timeout: Optional[str] = None,
 ) -> Any:
     """Legacy internal function — kept for backward compatibility."""
-    req = BulkRequestProtoBuilder(index=meta.get("_index"), refresh=refresh, timeout=timeout)
+    req = BulkRequestProtoBuilder(
+        index=meta.get("_index"), refresh=refresh, timeout=timeout
+    )
     if op_type == "index":
         req._operations.append(("index", meta, source))
     elif op_type == "create":
