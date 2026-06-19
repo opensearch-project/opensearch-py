@@ -24,7 +24,7 @@
 #  specific language governing permissions and limitations
 #  under the License.
 """
-test_bulk_request.py — Unit Tests for BulkRequestProtoBuilder and ResponseConverter
+test_bulk_request.py — Unit Tests for BulkRequestProtoBuilder
 
 Tests the translation layer conversion logic without requiring a running
 OpenSearch server. No network calls are made.
@@ -37,8 +37,6 @@ from typing import Any, Dict, List
 
 from opensearch_grpc.translation import (
     BulkRequestProtoBuilder,
-    ResponseConverter,
-    _build_single_request,
     toProtoBulkRequest,
 )
 
@@ -165,54 +163,71 @@ class TestBulkRequestProtoBuilderFromBody:
         assert proto.index == "my-index"
 
 
-class TestResponseConverterFromProtoRequest:
-    """Test ResponseConverter.from_proto_request reconstructs original data."""
+class TestProtoFieldAssertions:
+    """Test that built protobuf has correct fields set directly."""
 
-    def test_reconstruct_index(self) -> None:
-        """Reconstructs an index request."""
-        meta = {"_index": "idx", "_id": "1"}
-        body = {"title": "Hello", "value": 42}
-        proto = _build_single_request("index", meta, body)
-
-        result = ResponseConverter.from_proto_request(proto)
-        assert isinstance(result, dict)
-        assert result["operation"] == "index"
-        assert result["index"] == "idx"
-        assert result["id"] == "1"
-        assert result["body"] == body
-
-    def test_reconstruct_update(self) -> None:
-        """Reconstructs an update request with doc and doc_as_upsert."""
-        meta = {"_index": "idx", "_id": "1"}
-        body = {"doc": {"value": 5}, "doc_as_upsert": True}
-        proto = _build_single_request("update", meta, body)
-
-        result = ResponseConverter.from_proto_request(proto)
-        assert isinstance(result, dict)
-        assert result["operation"] == "update"
-        assert result["body"]["doc"] == {"value": 5}
-        assert result["body"]["doc_as_upsert"] is True
-
-    def test_reconstruct_delete(self) -> None:
-        """Reconstructs a delete request (no body)."""
-        meta = {"_index": "idx", "_id": "1"}
-        proto = _build_single_request("delete", meta, None)
-
-        result = ResponseConverter.from_proto_request(proto)
-        assert result == {"operation": "delete", "index": "idx", "id": "1"}
-
-    def test_reconstruct_bulk(self) -> None:
-        """Reconstructs a multi-operation request."""
-        req = BulkRequestProtoBuilder(index="idx")
-        req.index(body={"a": 1}, id="1")
-        req.delete(id="2")
+    def test_index_proto_fields(self) -> None:
+        """Assert index operation fields on the protobuf directly."""
+        req = BulkRequestProtoBuilder(
+            index="my-index", refresh="true", timeout="30s", pipeline="ingest-1"
+        )
+        req.index(
+            body={"title": "Hello"},
+            id="1",
+            routing="shard-1",
+            version=5,
+            version_type="external",
+        )
         proto = req.build()
 
-        result = ResponseConverter.from_proto_request(proto)
-        assert isinstance(result, list)
-        assert len(result) == 2
-        assert result[0]["operation"] == "index"
-        assert result[1]["operation"] == "delete"
+        assert proto.index == "my-index"
+        assert proto.timeout == "30s"
+        assert proto.pipeline == "ingest-1"
+
+        op = proto.bulk_request_body[0].operation_container.index
+        assert op.x_id == "1"
+        assert op.x_index == "my-index"
+        assert op.routing == "shard-1"
+        assert op.version == 5
+
+    def test_update_proto_fields(self) -> None:
+        """Assert update operation fields on the protobuf directly."""
+        req = BulkRequestProtoBuilder(index="idx")
+        req.update(id="1", body={"doc": {"value": 5}, "doc_as_upsert": True})
+        proto = req.build()
+
+        op = proto.bulk_request_body[0].operation_container.update
+        assert op.x_id == "1"
+        assert op.x_index == "idx"
+
+        action = proto.bulk_request_body[0].update_action
+        assert action.doc_as_upsert is True
+        assert action.HasField("doc")
+
+    def test_delete_proto_fields(self) -> None:
+        """Assert delete operation fields on the protobuf directly."""
+        req = BulkRequestProtoBuilder(index="idx")
+        req.delete(id="1", routing="r1")
+        proto = req.build()
+
+        op = proto.bulk_request_body[0].operation_container.delete
+        assert op.x_id == "1"
+        assert op.x_index == "idx"
+        assert op.routing == "r1"
+        assert not proto.bulk_request_body[0].HasField("object")
+
+    def test_bulk_proto_has_multiple_bodies(self) -> None:
+        """Assert bulk request has correct number of operations."""
+        req = BulkRequestProtoBuilder(index="idx")
+        req.index(body={"a": 1}, id="1")
+        req.create(body={"b": 2}, id="2")
+        req.delete(id="3")
+        proto = req.build()
+
+        assert len(proto.bulk_request_body) == 3
+        assert proto.bulk_request_body[0].operation_container.HasField("index")
+        assert proto.bulk_request_body[1].operation_container.HasField("create")
+        assert proto.bulk_request_body[2].operation_container.HasField("delete")
 
 
 class TestToProtoBulkRequest:
