@@ -334,8 +334,6 @@ class ResponseConverter:
         # Convert server response to client format
         result = ResponseConverter.from_bulk_response(response)
 
-        # Reconstruct what the client originally sent
-        original = ResponseConverter.from_proto_request(request)
     """
 
     @staticmethod
@@ -443,69 +441,6 @@ class ResponseConverter:
         if response.HasField("ingest_took"):
             result["ingest_took"] = response.ingest_took
         return result
-
-    @staticmethod
-    def from_proto_request(request: Any) -> Union[Dict[str, Any], List[Dict[str, Any]]]:
-        """
-        Reconstruct the original Python client request from protobuf.
-
-        Returns what the client originally sent, in the same format they sent it.
-
-        Single-doc output:
-            {"operation": "index", "index": "my-index", "id": "doc-1", "body": {"title": "Hello"}}
-
-        Bulk output:
-            [
-                {"operation": "index", "index": "my-index", "id": "1", "body": {"title": "Doc 1"}},
-                {"operation": "delete", "index": "my-index", "id": "2"},
-            ]
-        """
-        results = []
-        for bulk_body in request.bulk_request_body:
-            op_container = bulk_body.operation_container
-
-            if op_container.HasField("index"):
-                op, op_type = op_container.index, "index"
-            elif op_container.HasField("create"):
-                op, op_type = op_container.create, "create"
-            elif op_container.HasField("update"):
-                op, op_type = op_container.update, "update"
-            elif op_container.HasField("delete"):
-                op, op_type = op_container.delete, "delete"
-            else:
-                results.append({"error": "Unknown operation type"})
-                continue
-
-            original = {
-                "operation": op_type,
-                "index": op.x_index if op.x_index else request.index,
-                "id": op.x_id if op.x_id else None,
-            }
-
-            if bulk_body.HasField("object") and bulk_body.object:
-                original["body"] = json.loads(bulk_body.object.decode("utf-8"))
-            elif bulk_body.HasField("update_action"):
-                update_body = {}
-                action = bulk_body.update_action
-                if action.HasField("doc") and action.doc:
-                    update_body["doc"] = json.loads(action.doc.decode("utf-8"))
-                if action.HasField("doc_as_upsert"):
-                    update_body["doc_as_upsert"] = action.doc_as_upsert
-                if action.HasField("upsert") and action.upsert:
-                    update_body["upsert"] = json.loads(action.upsert.decode("utf-8"))
-                if action.HasField("scripted_upsert"):
-                    update_body["scripted_upsert"] = action.scripted_upsert
-                if action.HasField("detect_noop"):
-                    update_body["detect_noop"] = action.detect_noop
-                original["body"] = update_body
-
-            original = {k: v for k, v in original.items() if v is not None}
-            results.append(original)
-
-        # Single doc: return just the one item. Bulk: return the list.
-        if len(results) == 1:
-            return results[0]
-        return results
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
