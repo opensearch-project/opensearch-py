@@ -32,11 +32,14 @@
 # or in the OpenSearch API specification, and run `nox -rs generate`. See DEVELOPER_GUIDE.md
 # and https://github.com/opensearch-project/opensearch-api-specification for details.
 # -----------------------------------------------------------------------------------------+
+from __future__ import annotations
 
-
-from typing import Any
+from typing import TYPE_CHECKING, Any, cast
 
 from .utils import SKIP_IN_PATH, NamespacedClient, _make_path, query_params
+
+if TYPE_CHECKING:
+    from opensearchpy._types._internal import FieldCommonAcknowledgedResponseBase
 
 
 class IngestClient(NamespacedClient):
@@ -102,7 +105,7 @@ class IngestClient(NamespacedClient):
         body: Any,
         params: Any = None,
         headers: Any = None,
-    ) -> Any:
+    ) -> FieldCommonAcknowledgedResponseBase:
         """
         Creates or updates an ingest pipeline.
 
@@ -132,12 +135,15 @@ class IngestClient(NamespacedClient):
             if param in SKIP_IN_PATH:
                 raise ValueError("Empty value passed for a required argument.")
 
-        return await self.transport.perform_request(
-            "PUT",
-            _make_path("_ingest", "pipeline", id),
-            params=params,
-            headers=headers,
-            body=body,
+        return cast(
+            Any,
+            await self.transport.perform_request(
+                "PUT",
+                _make_path("_ingest", "pipeline", id),
+                params=params,
+                headers=headers,
+                body=body,
+            ),
         )
 
     @query_params(
@@ -156,7 +162,7 @@ class IngestClient(NamespacedClient):
         id: Any,
         params: Any = None,
         headers: Any = None,
-    ) -> Any:
+    ) -> FieldCommonAcknowledgedResponseBase:
         """
         Deletes an ingest pipeline.
 
@@ -186,11 +192,14 @@ class IngestClient(NamespacedClient):
         if id in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'id'.")
 
-        return await self.transport.perform_request(
-            "DELETE",
-            _make_path("_ingest", "pipeline", id),
-            params=params,
-            headers=headers,
+        return cast(
+            Any,
+            await self.transport.perform_request(
+                "DELETE",
+                _make_path("_ingest", "pipeline", id),
+                params=params,
+                headers=headers,
+            ),
         )
 
     @query_params("error_trace", "filter_path", "human", "pretty", "source", "verbose")

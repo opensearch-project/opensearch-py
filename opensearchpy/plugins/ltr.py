@@ -14,11 +14,14 @@
 # or in the OpenSearch API specification, and run `nox -rs generate`. See DEVELOPER_GUIDE.md
 # and https://github.com/opensearch-project/opensearch-api-specification for details.
 # -----------------------------------------------------------------------------------------+
+from __future__ import annotations
 
-
-from typing import Any
+from typing import TYPE_CHECKING, Any, cast
 
 from ..client.utils import SKIP_IN_PATH, NamespacedClient, _make_path, query_params
+
+if TYPE_CHECKING:
+    from opensearchpy._types._internal import FieldCommonWriteResponseBase
 
 
 class LtrClient(NamespacedClient):
@@ -316,7 +319,7 @@ class LtrClient(NamespacedClient):
         store: Any = None,
         params: Any = None,
         headers: Any = None,
-    ) -> Any:
+    ) -> FieldCommonWriteResponseBase:
         """
         Add features to an existing feature set in the default feature store.
 
@@ -344,12 +347,15 @@ class LtrClient(NamespacedClient):
             if param in SKIP_IN_PATH:
                 raise ValueError("Empty value passed for a required argument.")
 
-        return self.transport.perform_request(
-            "POST",
-            _make_path("_ltr", store, "_featureset", name, "_addfeatures"),
-            params=params,
-            headers=headers,
-            body=body,
+        return cast(
+            Any,
+            self.transport.perform_request(
+                "POST",
+                _make_path("_ltr", store, "_featureset", name, "_addfeatures"),
+                params=params,
+                headers=headers,
+                body=body,
+            ),
         )
 
     @query_params(
@@ -370,7 +376,7 @@ class LtrClient(NamespacedClient):
         store: Any = None,
         params: Any = None,
         headers: Any = None,
-    ) -> Any:
+    ) -> FieldCommonWriteResponseBase:
         """
         Add features to an existing feature set in the default feature store.
 
@@ -401,11 +407,14 @@ class LtrClient(NamespacedClient):
             if param in SKIP_IN_PATH:
                 raise ValueError("Empty value passed for a required argument.")
 
-        return self.transport.perform_request(
-            "POST",
-            _make_path("_ltr", store, "_featureset", name, "_addfeatures", query),
-            params=params,
-            headers=headers,
+        return cast(
+            Any,
+            self.transport.perform_request(
+                "POST",
+                _make_path("_ltr", store, "_featureset", name, "_addfeatures", query),
+                params=params,
+                headers=headers,
+            ),
         )
 
     @query_params("error_trace", "filter_path", "human", "pretty", "routing", "source")
@@ -417,7 +426,7 @@ class LtrClient(NamespacedClient):
         store: Any = None,
         params: Any = None,
         headers: Any = None,
-    ) -> Any:
+    ) -> FieldCommonWriteResponseBase:
         """
         Create or update a feature in the default feature store.
 
@@ -441,12 +450,15 @@ class LtrClient(NamespacedClient):
             if param in SKIP_IN_PATH:
                 raise ValueError("Empty value passed for a required argument.")
 
-        return self.transport.perform_request(
-            "PUT",
-            _make_path("_ltr", store, "_feature", id),
-            params=params,
-            headers=headers,
-            body=body,
+        return cast(
+            Any,
+            self.transport.perform_request(
+                "PUT",
+                _make_path("_ltr", store, "_feature", id),
+                params=params,
+                headers=headers,
+                body=body,
+            ),
         )
 
     @query_params("error_trace", "filter_path", "human", "pretty", "routing", "source")
@@ -458,7 +470,7 @@ class LtrClient(NamespacedClient):
         store: Any = None,
         params: Any = None,
         headers: Any = None,
-    ) -> Any:
+    ) -> FieldCommonWriteResponseBase:
         """
         Create or update a feature set in the default feature store.
 
@@ -482,12 +494,15 @@ class LtrClient(NamespacedClient):
             if param in SKIP_IN_PATH:
                 raise ValueError("Empty value passed for a required argument.")
 
-        return self.transport.perform_request(
-            "PUT",
-            _make_path("_ltr", store, "_featureset", id),
-            params=params,
-            headers=headers,
-            body=body,
+        return cast(
+            Any,
+            self.transport.perform_request(
+                "PUT",
+                _make_path("_ltr", store, "_featureset", id),
+                params=params,
+                headers=headers,
+                body=body,
+            ),
         )
 
     @query_params("error_trace", "filter_path", "human", "pretty", "routing", "source")
@@ -499,7 +514,7 @@ class LtrClient(NamespacedClient):
         store: Any = None,
         params: Any = None,
         headers: Any = None,
-    ) -> Any:
+    ) -> FieldCommonWriteResponseBase:
         """
         Create or update a model in the default feature store.
 
@@ -523,12 +538,15 @@ class LtrClient(NamespacedClient):
             if param in SKIP_IN_PATH:
                 raise ValueError("Empty value passed for a required argument.")
 
-        return self.transport.perform_request(
-            "PUT",
-            _make_path("_ltr", store, "_model", id),
-            params=params,
-            headers=headers,
-            body=body,
+        return cast(
+            Any,
+            self.transport.perform_request(
+                "PUT",
+                _make_path("_ltr", store, "_model", id),
+                params=params,
+                headers=headers,
+                body=body,
+            ),
         )
 
     @query_params("error_trace", "filter_path", "human", "pretty", "routing", "source")
@@ -540,7 +558,7 @@ class LtrClient(NamespacedClient):
         store: Any = None,
         params: Any = None,
         headers: Any = None,
-    ) -> Any:
+    ) -> FieldCommonWriteResponseBase:
         """
         Create a model from an existing feature set in the default feature store.
 
@@ -565,12 +583,15 @@ class LtrClient(NamespacedClient):
             if param in SKIP_IN_PATH:
                 raise ValueError("Empty value passed for a required argument.")
 
-        return self.transport.perform_request(
-            "POST",
-            _make_path("_ltr", store, "_featureset", name, "_createmodel"),
-            params=params,
-            headers=headers,
-            body=body,
+        return cast(
+            Any,
+            self.transport.perform_request(
+                "POST",
+                _make_path("_ltr", store, "_featureset", name, "_createmodel"),
+                params=params,
+                headers=headers,
+                body=body,
+            ),
         )
 
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
@@ -581,7 +602,7 @@ class LtrClient(NamespacedClient):
         store: Any = None,
         params: Any = None,
         headers: Any = None,
-    ) -> Any:
+    ) -> FieldCommonWriteResponseBase:
         """
         Delete a feature from the default feature store.
 
@@ -603,11 +624,14 @@ class LtrClient(NamespacedClient):
         if id in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'id'.")
 
-        return self.transport.perform_request(
-            "DELETE",
-            _make_path("_ltr", store, "_feature", id),
-            params=params,
-            headers=headers,
+        return cast(
+            Any,
+            self.transport.perform_request(
+                "DELETE",
+                _make_path("_ltr", store, "_feature", id),
+                params=params,
+                headers=headers,
+            ),
         )
 
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
@@ -618,7 +642,7 @@ class LtrClient(NamespacedClient):
         store: Any = None,
         params: Any = None,
         headers: Any = None,
-    ) -> Any:
+    ) -> FieldCommonWriteResponseBase:
         """
         Delete a feature set from the default feature store.
 
@@ -640,11 +664,14 @@ class LtrClient(NamespacedClient):
         if id in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'id'.")
 
-        return self.transport.perform_request(
-            "DELETE",
-            _make_path("_ltr", store, "_featureset", id),
-            params=params,
-            headers=headers,
+        return cast(
+            Any,
+            self.transport.perform_request(
+                "DELETE",
+                _make_path("_ltr", store, "_featureset", id),
+                params=params,
+                headers=headers,
+            ),
         )
 
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
@@ -655,7 +682,7 @@ class LtrClient(NamespacedClient):
         store: Any = None,
         params: Any = None,
         headers: Any = None,
-    ) -> Any:
+    ) -> FieldCommonWriteResponseBase:
         """
         Delete a model from the default feature store.
 
@@ -677,11 +704,14 @@ class LtrClient(NamespacedClient):
         if id in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'id'.")
 
-        return self.transport.perform_request(
-            "DELETE",
-            _make_path("_ltr", store, "_model", id),
-            params=params,
-            headers=headers,
+        return cast(
+            Any,
+            self.transport.perform_request(
+                "DELETE",
+                _make_path("_ltr", store, "_model", id),
+                params=params,
+                headers=headers,
+            ),
         )
 
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
@@ -945,7 +975,7 @@ class LtrClient(NamespacedClient):
         store: Any = None,
         params: Any = None,
         headers: Any = None,
-    ) -> Any:
+    ) -> FieldCommonWriteResponseBase:
         """
         Update a feature in the default feature store.
 
@@ -969,12 +999,15 @@ class LtrClient(NamespacedClient):
             if param in SKIP_IN_PATH:
                 raise ValueError("Empty value passed for a required argument.")
 
-        return self.transport.perform_request(
-            "POST",
-            _make_path("_ltr", store, "_feature", id),
-            params=params,
-            headers=headers,
-            body=body,
+        return cast(
+            Any,
+            self.transport.perform_request(
+                "POST",
+                _make_path("_ltr", store, "_feature", id),
+                params=params,
+                headers=headers,
+                body=body,
+            ),
         )
 
     @query_params("error_trace", "filter_path", "human", "pretty", "routing", "source")
@@ -986,7 +1019,7 @@ class LtrClient(NamespacedClient):
         store: Any = None,
         params: Any = None,
         headers: Any = None,
-    ) -> Any:
+    ) -> FieldCommonWriteResponseBase:
         """
         Update a feature set in the default feature store.
 
@@ -1010,10 +1043,13 @@ class LtrClient(NamespacedClient):
             if param in SKIP_IN_PATH:
                 raise ValueError("Empty value passed for a required argument.")
 
-        return self.transport.perform_request(
-            "POST",
-            _make_path("_ltr", store, "_featureset", id),
-            params=params,
-            headers=headers,
-            body=body,
+        return cast(
+            Any,
+            self.transport.perform_request(
+                "POST",
+                _make_path("_ltr", store, "_featureset", id),
+                params=params,
+                headers=headers,
+                body=body,
+            ),
         )

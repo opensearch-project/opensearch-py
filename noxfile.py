@@ -116,6 +116,12 @@ def lint(session: Any) -> None:
     session.run("mypy", "--strict", *SOURCE_FILES)
     session.run("mypy", "--strict", "test_opensearchpy/test_types/sync_types.py")
     session.run("mypy", "--strict", "test_opensearchpy/test_types/async_types.py")
+    session.run(
+        "mypy",
+        "--strict",
+        "--follow-imports=skip",
+        "test_opensearchpy/test_types/search_api_types.py",
+    )
 
     # Make sure we don't require aiohttp to be installed for users to
     # receive type hint information from mypy.
@@ -143,6 +149,7 @@ def generate(session: Any) -> None:
     :param session: current nox session
     """
     session.install("-rdev-requirements.txt")
+    session.run("python", "utils/generate_types.py")
     session.run("python", "utils/generate_api.py")
     session.run("nox", "-s", "format", external=True)
     session.run("python", "utils/changelog_updater.py")

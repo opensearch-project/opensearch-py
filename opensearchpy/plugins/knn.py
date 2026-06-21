@@ -14,11 +14,14 @@
 # or in the OpenSearch API specification, and run `nox -rs generate`. See DEVELOPER_GUIDE.md
 # and https://github.com/opensearch-project/opensearch-api-specification for details.
 # -----------------------------------------------------------------------------------------+
+from __future__ import annotations
 
-
-from typing import Any
+from typing import TYPE_CHECKING, Any, cast
 
 from ..client.utils import SKIP_IN_PATH, NamespacedClient, _make_path, query_params
+
+if TYPE_CHECKING:
+    from opensearchpy._types._internal import FieldCommonShardsOperationResponseBase
 
 
 class KnnClient(NamespacedClient):
@@ -351,7 +354,7 @@ class KnnClient(NamespacedClient):
         index: Any,
         params: Any = None,
         headers: Any = None,
-    ) -> Any:
+    ) -> FieldCommonShardsOperationResponseBase:
         """
         Preloads native library files into memory, reducing initial search latency for
         specified indexes.
@@ -374,9 +377,12 @@ class KnnClient(NamespacedClient):
         if index in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'index'.")
 
-        return self.transport.perform_request(
-            "GET",
-            _make_path("_plugins", "_knn", "warmup", index),
-            params=params,
-            headers=headers,
+        return cast(
+            Any,
+            self.transport.perform_request(
+                "GET",
+                _make_path("_plugins", "_knn", "warmup", index),
+                params=params,
+                headers=headers,
+            ),
         )

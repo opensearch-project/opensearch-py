@@ -32,11 +32,14 @@
 # or in the OpenSearch API specification, and run `nox -rs generate`. See DEVELOPER_GUIDE.md
 # and https://github.com/opensearch-project/opensearch-api-specification for details.
 # -----------------------------------------------------------------------------------------+
+from __future__ import annotations
 
-
-from typing import Any
+from typing import TYPE_CHECKING, Any, cast
 
 from .utils import SKIP_IN_PATH, NamespacedClient, _make_path, query_params
+
+if TYPE_CHECKING:
+    from opensearchpy._types._internal import FieldCommonAcknowledgedResponseBase
 
 
 class SnapshotClient(NamespacedClient):
@@ -120,7 +123,7 @@ class SnapshotClient(NamespacedClient):
         snapshot: Any,
         params: Any = None,
         headers: Any = None,
-    ) -> Any:
+    ) -> FieldCommonAcknowledgedResponseBase:
         """
         Deletes a snapshot.
 
@@ -152,11 +155,14 @@ class SnapshotClient(NamespacedClient):
             if param in SKIP_IN_PATH:
                 raise ValueError("Empty value passed for a required argument.")
 
-        return self.transport.perform_request(
-            "DELETE",
-            _make_path("_snapshot", repository, snapshot),
-            params=params,
-            headers=headers,
+        return cast(
+            Any,
+            self.transport.perform_request(
+                "DELETE",
+                _make_path("_snapshot", repository, snapshot),
+                params=params,
+                headers=headers,
+            ),
         )
 
     @query_params(
@@ -246,7 +252,7 @@ class SnapshotClient(NamespacedClient):
         repository: Any,
         params: Any = None,
         headers: Any = None,
-    ) -> Any:
+    ) -> FieldCommonAcknowledgedResponseBase:
         """
         Deletes a snapshot repository.
 
@@ -277,11 +283,14 @@ class SnapshotClient(NamespacedClient):
         if repository in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'repository'.")
 
-        return self.transport.perform_request(
-            "DELETE",
-            _make_path("_snapshot", repository),
-            params=params,
-            headers=headers,
+        return cast(
+            Any,
+            self.transport.perform_request(
+                "DELETE",
+                _make_path("_snapshot", repository),
+                params=params,
+                headers=headers,
+            ),
         )
 
     @query_params(
@@ -350,7 +359,7 @@ class SnapshotClient(NamespacedClient):
         body: Any,
         params: Any = None,
         headers: Any = None,
-    ) -> Any:
+    ) -> FieldCommonAcknowledgedResponseBase:
         """
         Creates a snapshot repository.
 
@@ -384,12 +393,15 @@ class SnapshotClient(NamespacedClient):
             if param in SKIP_IN_PATH:
                 raise ValueError("Empty value passed for a required argument.")
 
-        return self.transport.perform_request(
-            "PUT",
-            _make_path("_snapshot", repository),
-            params=params,
-            headers=headers,
-            body=body,
+        return cast(
+            Any,
+            self.transport.perform_request(
+                "PUT",
+                _make_path("_snapshot", repository),
+                params=params,
+                headers=headers,
+                body=body,
+            ),
         )
 
     @query_params(
@@ -637,7 +649,7 @@ class SnapshotClient(NamespacedClient):
         body: Any,
         params: Any = None,
         headers: Any = None,
-    ) -> Any:
+    ) -> FieldCommonAcknowledgedResponseBase:
         """
         Creates a clone of all or part of a snapshot in the same repository as the
         original snapshot.
@@ -672,10 +684,15 @@ class SnapshotClient(NamespacedClient):
             if param in SKIP_IN_PATH:
                 raise ValueError("Empty value passed for a required argument.")
 
-        return self.transport.perform_request(
-            "PUT",
-            _make_path("_snapshot", repository, snapshot, "_clone", target_snapshot),
-            params=params,
-            headers=headers,
-            body=body,
+        return cast(
+            Any,
+            self.transport.perform_request(
+                "PUT",
+                _make_path(
+                    "_snapshot", repository, snapshot, "_clone", target_snapshot
+                ),
+                params=params,
+                headers=headers,
+                body=body,
+            ),
         )

@@ -1,3 +1,6 @@
+[MASTER]
+ignore-paths=^opensearchpy/_types/
+
 [MESSAGES CONTROL]
 disable=all
 enable=line-too-long,

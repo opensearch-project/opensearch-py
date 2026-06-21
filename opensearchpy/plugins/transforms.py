@@ -14,11 +14,17 @@
 # or in the OpenSearch API specification, and run `nox -rs generate`. See DEVELOPER_GUIDE.md
 # and https://github.com/opensearch-project/opensearch-api-specification for details.
 # -----------------------------------------------------------------------------------------+
+from __future__ import annotations
 
-
-from typing import Any
+from typing import TYPE_CHECKING, Any, cast
 
 from ..client.utils import SKIP_IN_PATH, NamespacedClient, _make_path, query_params
+
+if TYPE_CHECKING:
+    from opensearchpy._types._internal import (
+        BulkBulkResponse,
+        FieldCommonAcknowledgedResponseBase,
+    )
 
 
 class TransformsClient(NamespacedClient):
@@ -29,7 +35,7 @@ class TransformsClient(NamespacedClient):
         id: Any,
         params: Any = None,
         headers: Any = None,
-    ) -> Any:
+    ) -> BulkBulkResponse:
         """
         Delete an index transform.
 
@@ -50,11 +56,14 @@ class TransformsClient(NamespacedClient):
         if id in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'id'.")
 
-        return self.transport.perform_request(
-            "DELETE",
-            _make_path("_plugins", "_transform", id),
-            params=params,
-            headers=headers,
+        return cast(
+            Any,
+            self.transport.perform_request(
+                "DELETE",
+                _make_path("_plugins", "_transform", id),
+                params=params,
+                headers=headers,
+            ),
         )
 
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
@@ -265,7 +274,7 @@ class TransformsClient(NamespacedClient):
         id: Any,
         params: Any = None,
         headers: Any = None,
-    ) -> Any:
+    ) -> FieldCommonAcknowledgedResponseBase:
         """
         Start transform.
 
@@ -286,11 +295,14 @@ class TransformsClient(NamespacedClient):
         if id in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'id'.")
 
-        return self.transport.perform_request(
-            "POST",
-            _make_path("_plugins", "_transform", id, "_start"),
-            params=params,
-            headers=headers,
+        return cast(
+            Any,
+            self.transport.perform_request(
+                "POST",
+                _make_path("_plugins", "_transform", id, "_start"),
+                params=params,
+                headers=headers,
+            ),
         )
 
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
@@ -300,7 +312,7 @@ class TransformsClient(NamespacedClient):
         id: Any,
         params: Any = None,
         headers: Any = None,
-    ) -> Any:
+    ) -> FieldCommonAcknowledgedResponseBase:
         """
         Stop transform.
 
@@ -321,9 +333,12 @@ class TransformsClient(NamespacedClient):
         if id in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'id'.")
 
-        return self.transport.perform_request(
-            "POST",
-            _make_path("_plugins", "_transform", id, "_stop"),
-            params=params,
-            headers=headers,
+        return cast(
+            Any,
+            self.transport.perform_request(
+                "POST",
+                _make_path("_plugins", "_transform", id, "_stop"),
+                params=params,
+                headers=headers,
+            ),
         )

@@ -25,6 +25,8 @@
 #  under the License.
 
 
+import warnings
+
 # ------------------------------------------------------------------------------------------
 # THIS CODE IS AUTOMATICALLY GENERATED AND MANUAL EDITS WILL BE LOST
 #
@@ -32,9 +34,6 @@
 # or in the OpenSearch API specification, and run `nox -rs generate`. See DEVELOPER_GUIDE.md
 # and https://github.com/opensearch-project/opensearch-api-specification for details.
 # -----------------------------------------------------------------------------------------+
-
-
-import warnings
 from typing import Any
 
 from .utils import SKIP_IN_PATH, NamespacedClient, _make_path, query_params

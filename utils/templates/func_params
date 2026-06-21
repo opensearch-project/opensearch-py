@@ -3,7 +3,7 @@
 {% endfor %}
 
 {% if api.body %}
-  body{% if not api.body.required %}: Any=None{% else %}: Any{% endif %},
+  body{% if not api.body.required %}: {{ api.body_type }} = None{% else %}: {{ api.body_type }}{% endif %},
 {% endif %}
 
 {% for p, info in api.all_parts.items() %}

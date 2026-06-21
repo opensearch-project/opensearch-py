@@ -14,11 +14,18 @@
 # or in the OpenSearch API specification, and run `nox -rs generate`. See DEVELOPER_GUIDE.md
 # and https://github.com/opensearch-project/opensearch-api-specification for details.
 # -----------------------------------------------------------------------------------------+
+from __future__ import annotations
 
-
-from typing import Any
+from typing import TYPE_CHECKING, Any, cast
 
 from ..client.utils import NamespacedClient, query_params
+
+if TYPE_CHECKING:
+    from opensearchpy._types.security_analytics import (
+        AlertsGetAlertsResponse,
+        FindingsGetFindingsResponse,
+        FindingsSearchFindingCorrelationsResponse,
+    )
 
 
 class SecurityAnalyticsClient(NamespacedClient):
@@ -46,7 +53,7 @@ class SecurityAnalyticsClient(NamespacedClient):
         *,
         params: Any = None,
         headers: Any = None,
-    ) -> Any:
+    ) -> AlertsGetAlertsResponse:
         """
         Retrieve alerts related to a specific detector type or detector ID.
 
@@ -87,11 +94,14 @@ class SecurityAnalyticsClient(NamespacedClient):
         :arg startTime: The beginning timestamp (in ms) of the time
             window in which you want to retrieve alerts. Optional.
         """
-        return self.transport.perform_request(
-            "GET",
-            "/_plugins/_security_analytics/alerts",
-            params=params,
-            headers=headers,
+        return cast(
+            Any,
+            self.transport.perform_request(
+                "GET",
+                "/_plugins/_security_analytics/alerts",
+                params=params,
+                headers=headers,
+            ),
         )
 
     @query_params(
@@ -119,7 +129,7 @@ class SecurityAnalyticsClient(NamespacedClient):
         *,
         params: Any = None,
         headers: Any = None,
-    ) -> Any:
+    ) -> FindingsGetFindingsResponse:
         """
         Retrieve findings related to a specific detector type or detector ID.
 
@@ -168,11 +178,14 @@ class SecurityAnalyticsClient(NamespacedClient):
         :arg startTime: The beginning timestamp (in ms) of the time
             window in which you want to retrieve findings. Optional.
         """
-        return self.transport.perform_request(
-            "GET",
-            "/_plugins/_security_analytics/findings/_search",
-            params=params,
-            headers=headers,
+        return cast(
+            Any,
+            self.transport.perform_request(
+                "GET",
+                "/_plugins/_security_analytics/findings/_search",
+                params=params,
+                headers=headers,
+            ),
         )
 
     @query_params(
@@ -191,7 +204,7 @@ class SecurityAnalyticsClient(NamespacedClient):
         *,
         params: Any = None,
         headers: Any = None,
-    ) -> Any:
+    ) -> FindingsSearchFindingCorrelationsResponse:
         """
         List correlations for a finding.
 
@@ -216,9 +229,12 @@ class SecurityAnalyticsClient(NamespacedClient):
         :arg time_window: The time window (in ms) in which all of the
             correlations must have occurred together. Optional. Default is 300000.
         """
-        return self.transport.perform_request(
-            "GET",
-            "/_plugins/_security_analytics/findings/correlate",
-            params=params,
-            headers=headers,
+        return cast(
+            Any,
+            self.transport.perform_request(
+                "GET",
+                "/_plugins/_security_analytics/findings/correlate",
+                params=params,
+                headers=headers,
+            ),
         )

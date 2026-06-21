@@ -3,6 +3,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 ## [Unreleased]
 ### Added
+- Proof-of-concept OpenAPI-derived TypedDict types for generated client APIs ([#1056](https://github.com/opensearch-project/opensearch-py/pull/1056))
 ### Updated APIs
 ### Changed
 ### Deprecated
