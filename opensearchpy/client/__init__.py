@@ -3310,8 +3310,10 @@ class OpenSearchGrpc(OpenSearch):
     def __init__(
         self,
         hosts: Any = None,
+        grpc_hosts: Any = None,
         **kwargs: Any,
     ) -> None:
-
+        if grpc_hosts is not None:
+            kwargs["grpc_hosts"] = grpc_hosts
 
         super().__init__(hosts, transport_class=GrpcTransport, **kwargs)
