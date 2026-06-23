@@ -191,8 +191,8 @@ class TestBulkResponseConverterIntegration:
         response = stub.Bulk(request)
 
         result = ResponseConverter.from_bulk_response(response)
-        assert result["_index"] == index_name
-        assert result["_id"] == "conv1"
-        assert result["result"] in ("created", "updated")
-        assert "_version" in result
-        assert "_shards" in result
+        assert result["items"][0]["index"]["_index"] == index_name
+        assert result["items"][0]["index"]["_id"] == "conv1"
+        assert result["items"][0]["index"]["result"] in ("created", "updated")
+        assert "_version" in result["items"][0]["index"]
+        assert "_shards" in result["items"][0]["index"]

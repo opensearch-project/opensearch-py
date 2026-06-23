@@ -208,13 +208,13 @@ class TestDeleteDocuments:
         print("[TEST] ✅ Document doc-del deleted")
 
     def test_delete_nonexistent_document(self, client, index_name):
-        """Client tries to delete a doc that doesn't exist — gets not_found."""
+        """Client tries to delete a doc that doesn't exist — gets NotFoundError."""
         print("\n[TEST] Deleting non-existent document 'does-not-exist'")
-        resp = client.delete(index=index_name, id="does-not-exist", refresh=True)
-        print(f"[TEST] Response: {resp}")
+        from opensearchpy.exceptions import NotFoundError
 
-        assert resp["result"] == "not_found"
-        print("[TEST] ✅ Got expected 'not_found' response")
+        with pytest.raises(NotFoundError):
+            client.delete(index=index_name, id="does-not-exist", refresh=True)
+        print("[TEST] ✅ Got expected NotFoundError")
 
 
 class TestDocumentCount:

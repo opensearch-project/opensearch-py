@@ -3283,3 +3283,46 @@ class OpenSearch(Client):
             headers=headers,
             body=body,
         )
+
+
+
+class OpenSearchGrpc(OpenSearch):
+    """
+    OpenSearch client with gRPC transport for bulk document operations.
+
+    Extends the standard OpenSearch client with gRPC channel management.
+    Bulk requests are routed over gRPC for better performance; all other
+    operations fall through to REST automatically.
+
+    Usage::
+
+        from opensearchpy import OpenSearchGrpc
+
+        client = OpenSearchGrpc(
+            hosts=[{'host': 'localhost', 'port': 9200}],
+            grpc_hosts=[{'host': 'localhost', 'port': 9400}],
+        )
+
+        # Bulk goes over gRPC automatically
+        client.bulk(body=[...])
+
+        # Everything else uses REST
+        client.search(index='my-index', body={'query': {'match_all': {}}})
+
+    :arg hosts: list of REST nodes (same as OpenSearch client).
+    :arg grpc_hosts: list of gRPC nodes, e.g. [{'host': 'localhost', 'port': 9400}].
+    :arg kwargs: all other arguments passed to the OpenSearch client.
+    """
+
+    def __init__(
+        self,
+        hosts: Any = None,
+        grpc_hosts: Any = None,
+        **kwargs: Any,
+    ) -> None:
+        from opensearch_grpc.grpc_transport import GrpcTransport
+
+        if grpc_hosts is not None:
+            kwargs["grpc_hosts"] = grpc_hosts
+
+        super().__init__(hosts, transport_class=GrpcTransport, **kwargs)

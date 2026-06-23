@@ -3,16 +3,19 @@ translation.py — gRPC Translation Layer
 
 Two classes handle the full round-trip:
 
-    RequestConverter  — Python client dict → Protobuf BulkRequest
+    BulkRequestProtoBuilder  — Python client dict → Protobuf BulkRequest
     ResponseConverter — Protobuf BulkResponse → Python client dict
 
-RequestConverter handles both single and bulk operations through one interface.
+BulkRequestProtoBuilder handles both single and bulk operations through one interface.
 ResponseConverter converts server responses back to the format the client sent in.
 """
 
 import json
+from typing import Any, Dict, List, Optional, Tuple, Union
 
 from opensearch.protobufs.schemas.common_pb2 import (
+    OP_TYPE_CREATE,
+    OP_TYPE_INDEX,
     REFRESH_FALSE,
     REFRESH_TRUE,
     REFRESH_UNSPECIFIED,
@@ -21,13 +24,22 @@ from opensearch.protobufs.schemas.common_pb2 import (
     VERSION_TYPE_EXTERNAL_GTE,
     VERSION_TYPE_INTERNAL,
     VERSION_TYPE_UNSPECIFIED,
+    WAIT_FOR_ACTIVE_SHARD_OPTIONS_ALL,
     BulkRequest,
     BulkRequestBody,
     DeleteOperation,
     IndexOperation,
+    InlineScript,
     OperationContainer,
+    Script,
+    SourceConfig,
+    SourceConfigParam,
+    SourceFilter,
+    StoredScriptId,
+    StringArray,
     UpdateAction,
     UpdateOperation,
+    WaitForActiveShards,
     WriteOperation,
 )
 
@@ -36,7 +48,7 @@ from opensearch.protobufs.schemas.common_pb2 import (
 # ═══════════════════════════════════════════════════════════════════════════════
 
 
-class RequestConverter:
+class BulkRequestProtoBuilder:
     """
     Converts Python client operations into a protobuf BulkRequest.
 
@@ -44,12 +56,12 @@ class RequestConverter:
     Queue operations with index(), create(), update(), delete(), then call build().
 
     Single document usage:
-        req = RequestConverter(index="my-index", refresh="true")
+        req = BulkRequestProtoBuilder(index="my-index", refresh="true")
         req.index(body={"title": "Hello"}, id="1")
         proto_request = req.build()
 
     Bulk usage:
-        req = RequestConverter(index="my-index", refresh="true")
+        req = BulkRequestProtoBuilder(index="my-index", refresh="true")
         req.index(body={"title": "Doc 1"}, id="1")
         req.index(body={"title": "Doc 2"}, id="2")
         req.create(body={"title": "Doc 3"}, id="3")
@@ -58,25 +70,53 @@ class RequestConverter:
         proto_request = req.build()
 
     From raw body (NDJSON string or list of action/source dicts):
-        req = RequestConverter.from_body(body, index="my-index", refresh="true")
+        req = BulkRequestProtoBuilder.from_body(body, index="my-index", refresh="true")
         proto_request = req.build()
     """
 
-    def __init__(self, index=None, refresh=None, timeout=None,
-                 pipeline=None, routing=None, require_alias=None):
+    def __init__(
+        self,
+        index: Optional[str] = None,
+        refresh: Optional[str] = None,
+        timeout: Optional[str] = None,
+        pipeline: Optional[str] = None,
+        routing: Optional[str] = None,
+        require_alias: Optional[bool] = None,
+        x_source: Optional[Union[bool, List[str]]] = None,
+        x_source_excludes: Optional[List[str]] = None,
+        x_source_includes: Optional[List[str]] = None,
+        wait_for_active_shards: Optional[Union[int, str]] = None,
+    ) -> None:
         self._index = index
         self._refresh = refresh
         self._timeout = timeout
         self._pipeline = pipeline
         self._routing = routing
         self._require_alias = require_alias
-        self._operations = []
+        self._x_source = x_source
+        self._x_source_excludes = x_source_excludes
+        self._x_source_includes = x_source_includes
+        self._wait_for_active_shards = wait_for_active_shards
+        self._operations: List[Tuple[str, Dict[str, Any], Optional[Dict[str, Any]]]] = (
+            []
+        )
 
-    def index(self, body, index=None, id=None, routing=None, pipeline=None,
-              require_alias=None, if_primary_term=None, if_seq_no=None,
-              version=None, version_type=None):
+    def index(
+        self,
+        body: Dict[str, Any],
+        index: Optional[str] = None,
+        id: Optional[str] = None,
+        routing: Optional[str] = None,
+        pipeline: Optional[str] = None,
+        require_alias: Optional[bool] = None,
+        if_primary_term: Optional[int] = None,
+        if_seq_no: Optional[int] = None,
+        version: Optional[int] = None,
+        version_type: Optional[str] = None,
+        op_type: Optional[str] = None,
+    ) -> "BulkRequestProtoBuilder":
         """Queue an index operation. Mirrors client.index()."""
-        meta = {"_index": index or self._index}
+        meta: Dict[str, Any] = {"_index": index or self._index}
         if id is not None:
             meta["_id"] = id
         if routing is not None:
@@ -93,13 +133,22 @@ class RequestConverter:
             meta["version"] = version
         if version_type is not None:
             meta["version_type"] = version_type
+        if op_type is not None:
+            meta["op_type"] = op_type
         self._operations.append(("index", meta, body))
         return self
 
-    def create(self, body, index=None, id=None, routing=None, pipeline=None,
-               require_alias=None):
+    def create(
+        self,
+        body: Dict[str, Any],
+        index: Optional[str] = None,
+        id: Optional[str] = None,
+        routing: Optional[str] = None,
+        pipeline: Optional[str] = None,
+        require_alias: Optional[bool] = None,
+    ) -> "BulkRequestProtoBuilder":
         """Queue a create operation. Mirrors client.create()."""
-        meta = {"_index": index or self._index}
+        meta: Dict[str, Any] = {"_index": index or self._index}
         if id is not None:
             meta["_id"] = id
         if routing is not None:
@@ -111,10 +160,19 @@ class RequestConverter:
         self._operations.append(("create", meta, body))
         return self
 
-    def update(self, id, body, index=None, routing=None, require_alias=None,
-               if_primary_term=None, if_seq_no=None, retry_on_conflict=None):
+    def update(
+        self,
+        id: str,
+        body: Dict[str, Any],
+        index: Optional[str] = None,
+        routing: Optional[str] = None,
+        require_alias: Optional[bool] = None,
+        if_primary_term: Optional[int] = None,
+        if_seq_no: Optional[int] = None,
+        retry_on_conflict: Optional[int] = None,
+    ) -> "BulkRequestProtoBuilder":
         """Queue an update operation. Mirrors client.update()."""
-        meta = {"_index": index or self._index, "_id": id}
+        meta: Dict[str, Any] = {"_index": index or self._index, "_id": id}
         if routing is not None:
             meta["routing"] = routing
         if require_alias is not None:
@@ -128,11 +186,18 @@ class RequestConverter:
         self._operations.append(("update", meta, body))
         return self
 
-    def delete(self, id, index=None, routing=None,
-               if_primary_term=None, if_seq_no=None,
-               version=None, version_type=None):
+    def delete(
+        self,
+        id: str,
+        index: Optional[str] = None,
+        routing: Optional[str] = None,
+        if_primary_term: Optional[int] = None,
+        if_seq_no: Optional[int] = None,
+        version: Optional[int] = None,
+        version_type: Optional[str] = None,
+    ) -> "BulkRequestProtoBuilder":
         """Queue a delete operation. Mirrors client.delete()."""
-        meta = {"_index": index or self._index, "_id": id}
+        meta: Dict[str, Any] = {"_index": index or self._index, "_id": id}
         if routing is not None:
             meta["routing"] = routing
         if if_primary_term is not None:
@@ -146,7 +211,7 @@ class RequestConverter:
         self._operations.append(("delete", meta, None))
         return self
 
-    def build(self):
+    def build(self) -> Any:
         """Build the protobuf BulkRequest from all queued operations."""
         request = BulkRequest()
 
@@ -162,6 +227,24 @@ class RequestConverter:
             request.routing = self._routing
         if self._require_alias is not None:
             request.require_alias = self._require_alias
+        if self._x_source is not None:
+            source_param = SourceConfigParam()
+            if isinstance(self._x_source, bool):
+                source_param.fetch = self._x_source
+            elif isinstance(self._x_source, list):
+                source_param.fields.CopyFrom(StringArray(string_array=self._x_source))
+            request.x_source.CopyFrom(source_param)
+        if self._x_source_excludes:
+            request.x_source_excludes.extend(self._x_source_excludes)
+        if self._x_source_includes:
+            request.x_source_includes.extend(self._x_source_includes)
+        if self._wait_for_active_shards is not None:
+            wfas = WaitForActiveShards()
+            if isinstance(self._wait_for_active_shards, int):
+                wfas.count = self._wait_for_active_shards
+            elif self._wait_for_active_shards == "all":
+                wfas.option = WAIT_FOR_ACTIVE_SHARD_OPTIONS_ALL
+            request.wait_for_active_shards.CopyFrom(wfas)
 
         for op_type, meta, source in self._operations:
             bulk_body = BulkRequestBody()
@@ -179,15 +262,37 @@ class RequestConverter:
         return request
 
     @classmethod
-    def from_body(cls, body, index=None, refresh=None, timeout=None,
-                  pipeline=None, routing=None, require_alias=None):
+    def from_body(
+        cls,
+        body: Union[str, List[Dict[str, Any]]],
+        index: Optional[str] = None,
+        refresh: Optional[str] = None,
+        timeout: Optional[str] = None,
+        pipeline: Optional[str] = None,
+        routing: Optional[str] = None,
+        require_alias: Optional[bool] = None,
+        x_source: Optional[Union[bool, List[str]]] = None,
+        x_source_excludes: Optional[List[str]] = None,
+        x_source_includes: Optional[List[str]] = None,
+        wait_for_active_shards: Optional[Union[int, str]] = None,
+    ) -> "BulkRequestProtoBuilder":
         """
-        Create a RequestConverter from raw bulk body (list of dicts or NDJSON string).
+        Create a BulkRequestProtoBuilder from raw bulk body (list of dicts or NDJSON string).
 
         Mirrors: client.bulk(body=..., index=..., ...)
         """
-        converter = cls(index=index, refresh=refresh, timeout=timeout,
-                        pipeline=pipeline, routing=routing, require_alias=require_alias)
+        converter = cls(
+            index=index,
+            refresh=refresh,
+            timeout=timeout,
+            pipeline=pipeline,
+            routing=routing,
+            require_alias=require_alias,
+            x_source=x_source,
+            x_source_excludes=x_source_excludes,
+            x_source_includes=x_source_includes,
+            wait_for_active_shards=wait_for_active_shards,
+        )
 
         if isinstance(body, str):
             lines = [line.strip() for line in body.split("\n") if line.strip()]
@@ -209,7 +314,7 @@ class RequestConverter:
 
         return converter
 
-    def __len__(self):
+    def __len__(self) -> int:
         return len(self._operations)
 
 
@@ -229,67 +334,20 @@ class ResponseConverter:
         # Convert server response to client format
         result = ResponseConverter.from_bulk_response(response)
 
-        # Reconstruct what the client originally sent
-        original = ResponseConverter.from_proto_request(request)
     """
 
     @staticmethod
-    def from_bulk_response(response):
+    def from_bulk_response(response: Any) -> Dict[str, Any]:
         """
         Convert protobuf BulkResponse → Python dict (opensearch-py format).
 
-        For single-doc operations, returns the one item as a dict.
-        For bulk operations, returns the full bulk response structure.
-
-        Single-doc output:
-            {"_index": "idx", "_id": "1", "result": "created", "_version": 1, ...}
-
-        Bulk output:
+        Always returns the bulk response structure:
             {"took": 50, "errors": False, "items": [{"index": {...}}, ...]}
         """
-        if len(response.items) == 1:
-            return ResponseConverter._convert_single_item(response)
-        else:
-            return ResponseConverter._convert_bulk_items(response)
+        return ResponseConverter._convert_bulk_items(response)
 
     @staticmethod
-    def _convert_single_item(response):
-        """Convert a single-item response to opensearch-py dict format."""
-        item = response.items[0]
-
-        for op_type in ("index", "create", "update", "delete"):
-            if item.HasField(op_type):
-                resp_item = getattr(item, op_type)
-                break
-        else:
-            return {"error": "Unknown response type"}
-
-        result = {
-            "_index": resp_item.x_index,
-            "_id": resp_item.x_id if resp_item.x_id else None,
-            "result": resp_item.result if resp_item.result else None,
-            "_version": resp_item.x_version if resp_item.HasField("x_version") else None,
-            "_seq_no": resp_item.x_seq_no if resp_item.HasField("x_seq_no") else None,
-            "_primary_term": resp_item.x_primary_term if resp_item.HasField("x_primary_term") else None,
-        }
-
-        if resp_item.HasField("x_shards"):
-            result["_shards"] = {
-                "total": resp_item.x_shards.total,
-                "successful": resp_item.x_shards.successful,
-                "failed": resp_item.x_shards.failed,
-            }
-
-        if resp_item.HasField("error"):
-            result["error"] = {
-                "type": resp_item.error.type,
-                "reason": resp_item.error.reason if resp_item.error.HasField("reason") else None,
-            }
-
-        return {k: v for k, v in result.items() if v is not None}
-
-    @staticmethod
-    def _convert_bulk_items(response):
+    def _convert_bulk_items(response: Any) -> Dict[str, Any]:
         """Convert a multi-item bulk response to opensearch-py dict format."""
         items = []
         for item in response.items:
@@ -300,10 +358,25 @@ class ResponseConverter:
                         "_index": resp_item.x_index,
                         "_id": resp_item.x_id if resp_item.x_id else None,
                         "result": resp_item.result if resp_item.result else None,
-                        "_version": resp_item.x_version if resp_item.HasField("x_version") else None,
-                        "_seq_no": resp_item.x_seq_no if resp_item.HasField("x_seq_no") else None,
-                        "_primary_term": resp_item.x_primary_term if resp_item.HasField("x_primary_term") else None,
-                        "status": resp_item.status,
+                        "_version": (
+                            resp_item.x_version
+                            if resp_item.HasField("x_version")
+                            else None
+                        ),
+                        "_seq_no": (
+                            resp_item.x_seq_no
+                            if resp_item.HasField("x_seq_no")
+                            else None
+                        ),
+                        "_primary_term": (
+                            resp_item.x_primary_term
+                            if resp_item.HasField("x_primary_term")
+                            else None
+                        ),
+                        "status": _grpc_to_rest_status(
+                            resp_item.status,
+                            resp_item.result if resp_item.result else None,
+                        ),
                     }
                     if resp_item.HasField("x_shards"):
                         item_dict["_shards"] = {
@@ -314,80 +387,60 @@ class ResponseConverter:
                     if resp_item.HasField("error"):
                         item_dict["error"] = {
                             "type": resp_item.error.type,
-                            "reason": resp_item.error.reason if resp_item.error.HasField("reason") else None,
+                            "reason": (
+                                resp_item.error.reason
+                                if resp_item.error.HasField("reason")
+                                else None
+                            ),
                         }
+                    # forced_refresh: Whether the doc was force-refreshed
+                    if resp_item.HasField("forced_refresh"):
+                        item_dict["forced_refresh"] = resp_item.forced_refresh
+                    # get: Inline get with document source
+                    if resp_item.HasField("get"):
+                        get_dict: Dict[str, Any] = {"found": resp_item.get.found}
+                        if resp_item.get.HasField("x_seq_no"):
+                            get_dict["_seq_no"] = resp_item.get.x_seq_no
+                        if resp_item.get.HasField("x_primary_term"):
+                            get_dict["_primary_term"] = resp_item.get.x_primary_term
+                        if resp_item.get.HasField("x_source"):
+                            get_dict["_source"] = resp_item.get.x_source.decode("utf-8")
+                        item_dict["get"] = get_dict
+                    # _shards.failures: Shard failure details
+                    if resp_item.HasField("x_shards") and resp_item.x_shards.failures:
+                        failures = []
+                        for f in resp_item.x_shards.failures:
+                            failure: Dict[str, Any] = {
+                                "shard": f.shard,
+                                "primary": f.primary,
+                                "reason": {
+                                    "type": f.reason.type,
+                                    "reason": (
+                                        f.reason.reason
+                                        if f.reason.HasField("reason")
+                                        else None
+                                    ),
+                                },
+                            }
+                            if f.HasField("index"):
+                                failure["index"] = f.index
+                            if f.HasField("node"):
+                                failure["node"] = f.node
+                            failures.append(failure)
+                        item_dict["_shards"]["failures"] = failures
                     item_dict = {k: v for k, v in item_dict.items() if v is not None}
                     items.append({op_type: item_dict})
                     break
 
-        return {
+        result: Dict[str, Any] = {
             "took": response.took,
             "errors": response.errors,
             "items": items,
         }
-
-    @staticmethod
-    def from_proto_request(request):
-        """
-        Reconstruct the original Python client request from protobuf.
-
-        Returns what the client originally sent, in the same format they sent it.
-
-        Single-doc output:
-            {"operation": "index", "index": "my-index", "id": "doc-1", "body": {"title": "Hello"}}
-
-        Bulk output:
-            [
-                {"operation": "index", "index": "my-index", "id": "1", "body": {"title": "Doc 1"}},
-                {"operation": "delete", "index": "my-index", "id": "2"},
-            ]
-        """
-        results = []
-        for bulk_body in request.bulk_request_body:
-            op_container = bulk_body.operation_container
-
-            if op_container.HasField("index"):
-                op, op_type = op_container.index, "index"
-            elif op_container.HasField("create"):
-                op, op_type = op_container.create, "create"
-            elif op_container.HasField("update"):
-                op, op_type = op_container.update, "update"
-            elif op_container.HasField("delete"):
-                op, op_type = op_container.delete, "delete"
-            else:
-                results.append({"error": "Unknown operation type"})
-                continue
-
-            original = {
-                "operation": op_type,
-                "index": op.x_index if op.x_index else request.index,
-                "id": op.x_id if op.x_id else None,
-            }
-
-            if bulk_body.HasField("object") and bulk_body.object:
-                original["body"] = json.loads(bulk_body.object.decode("utf-8"))
-            elif bulk_body.HasField("update_action"):
-                update_body = {}
-                action = bulk_body.update_action
-                if action.HasField("doc") and action.doc:
-                    update_body["doc"] = json.loads(action.doc.decode("utf-8"))
-                if action.HasField("doc_as_upsert"):
-                    update_body["doc_as_upsert"] = action.doc_as_upsert
-                if action.HasField("upsert") and action.upsert:
-                    update_body["upsert"] = json.loads(action.upsert.decode("utf-8"))
-                if action.HasField("scripted_upsert"):
-                    update_body["scripted_upsert"] = action.scripted_upsert
-                if action.HasField("detect_noop"):
-                    update_body["detect_noop"] = action.detect_noop
-                original["body"] = update_body
-
-            original = {k: v for k, v in original.items() if v is not None}
-            results.append(original)
-
-        # Single doc: return just the one item. Bulk: return the list.
-        if len(results) == 1:
-            return results[0]
-        return results
+        # ingest_took: Time in ms spent processing documents through ingest pipeline
+        if response.HasField("ingest_took"):
+            result["ingest_took"] = response.ingest_took
+        return result
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -395,7 +448,47 @@ class ResponseConverter:
 # ═══════════════════════════════════════════════════════════════════════════════
 
 
-def _map_refresh(value):
+def _grpc_to_rest_status(grpc_code: int, result: Optional[str] = None) -> int:
+    """Convert gRPC status code to REST HTTP status code.
+
+    gRPC uses different status codes than REST. The mapping is based on the
+    OpenSearch server's RestToGrpcStatusConverter.java:
+    https://github.com/opensearch-project/OpenSearch/blob/main/modules/transport-grpc/
+    src/main/java/org/opensearch/transport/grpc/util/RestToGrpcStatusConverter.java
+
+    For OK (0), the result field disambiguates the specific REST code:
+    - "created" -> 201
+    - "updated", "deleted", "noop" -> 200
+
+    See: https://grpc.io/docs/guides/status-codes/
+    """
+    if grpc_code == 0:  # OK - disambiguate using result field
+        if result == "created":
+            return 201
+        return 200
+    # Non-OK gRPC codes map to REST error codes
+    mapping = {
+        1: 499,  # CANCELLED
+        2: 500,  # UNKNOWN
+        3: 400,  # INVALID_ARGUMENT (BAD_REQUEST, CONFLICT)
+        4: 408,  # DEADLINE_EXCEEDED (REQUEST_TIMEOUT, GATEWAY_TIMEOUT)
+        5: 404,  # NOT_FOUND (NOT_FOUND, GONE)
+        6: 409,  # ALREADY_EXISTS (CONFLICT for create operations)
+        7: 403,  # PERMISSION_DENIED (UNAUTHORIZED, FORBIDDEN)
+        8: 429,  # RESOURCE_EXHAUSTED (TOO_MANY_REQUESTS)
+        9: 412,  # FAILED_PRECONDITION (redirects, LOCKED, FAILED_DEPENDENCY)
+        10: 409,  # ABORTED
+        11: 400,  # OUT_OF_RANGE
+        12: 501,  # UNIMPLEMENTED (METHOD_NOT_ALLOWED, NOT_IMPLEMENTED)
+        13: 500,  # INTERNAL (INTERNAL_SERVER_ERROR)
+        14: 503,  # UNAVAILABLE (BAD_GATEWAY, SERVICE_UNAVAILABLE)
+        15: 500,  # DATA_LOSS
+        16: 401,  # UNAUTHENTICATED (PROXY_AUTHENTICATION)
+    }
+    return mapping.get(grpc_code, 500)
+
+
+def _map_refresh(value: Union[str, bool]) -> Any:
     mapping = {
         "true": REFRESH_TRUE,
         "false": REFRESH_FALSE,
@@ -406,7 +499,7 @@ def _map_refresh(value):
     return mapping.get(value, REFRESH_UNSPECIFIED)
 
 
-def _map_version_type(value):
+def _map_version_type(value: str) -> Any:
     mapping = {
         "internal": VERSION_TYPE_INTERNAL,
         "external": VERSION_TYPE_EXTERNAL,
@@ -415,7 +508,7 @@ def _map_version_type(value):
     return mapping.get(value, VERSION_TYPE_UNSPECIFIED)
 
 
-def _build_index_op(container, meta):
+def _build_index_op(container: Any, meta: Dict[str, Any]) -> None:
     op = IndexOperation()
     if "_id" in meta:
         op.x_id = meta["_id"]
@@ -435,10 +528,12 @@ def _build_index_op(container, meta):
         op.version = meta["version"]
     if "version_type" in meta:
         op.version_type = _map_version_type(meta["version_type"])
+    if "op_type" in meta:
+        op.op_type = _map_op_type(meta["op_type"])
     container.index.CopyFrom(op)
 
 
-def _build_create_op(container, meta):
+def _build_create_op(container: Any, meta: Dict[str, Any]) -> None:
     op = WriteOperation()
     if "_id" in meta:
         op.x_id = meta["_id"]
@@ -453,7 +548,7 @@ def _build_create_op(container, meta):
     container.create.CopyFrom(op)
 
 
-def _build_update_op(container, meta):
+def _build_update_op(container: Any, meta: Dict[str, Any]) -> None:
     op = UpdateOperation()
     if "_id" in meta:
         op.x_id = meta["_id"]
@@ -472,7 +567,7 @@ def _build_update_op(container, meta):
     container.update.CopyFrom(op)
 
 
-def _build_delete_op(container, meta):
+def _build_delete_op(container: Any, meta: Dict[str, Any]) -> None:
     op = DeleteOperation()
     if "_id" in meta:
         op.x_id = meta["_id"]
@@ -491,7 +586,7 @@ def _build_delete_op(container, meta):
     container.delete.CopyFrom(op)
 
 
-def _build_update_action(source):
+def _build_update_action(source: Dict[str, Any]) -> Any:
     action = UpdateAction()
     if "doc" in source:
         action.doc = json.dumps(source["doc"]).encode("utf-8")
@@ -503,7 +598,48 @@ def _build_update_action(source):
         action.scripted_upsert = source["scripted_upsert"]
     if "detect_noop" in source:
         action.detect_noop = source["detect_noop"]
+    if "script" in source:
+        action.script.CopyFrom(_build_script(source["script"]))
+    # _source: Controls which fields to return in the update response
+    if "_source" in source:
+        src = source["_source"]
+        source_config = SourceConfig()
+        if isinstance(src, bool):
+            source_config.fetch = src
+        elif isinstance(src, dict):
+            sf = SourceFilter()
+            if "includes" in src:
+                sf.includes.extend(src["includes"])
+            if "excludes" in src:
+                sf.excludes.extend(src["excludes"])
+            source_config.filter.CopyFrom(sf)
+        action.x_source.CopyFrom(source_config)
     return action
+
+
+def _map_op_type(value: str) -> Any:
+    """Map op_type string to protobuf OpType enum."""
+    mapping = {
+        "index": OP_TYPE_INDEX,
+        "create": OP_TYPE_CREATE,
+    }
+    return mapping.get(value, OP_TYPE_INDEX)
+
+
+def _build_script(script_dict: Dict[str, Any]) -> Any:
+    """Build a Script protobuf from a script dict."""
+    script = Script()
+    if "source" in script_dict:
+        inline = InlineScript()
+        inline.source = script_dict["source"]
+        if "lang" in script_dict:
+            inline.lang.custom = script_dict["lang"]
+        script.inline.CopyFrom(inline)
+    elif "id" in script_dict:
+        stored = StoredScriptId()
+        stored.id = script_dict["id"]
+        script.stored.CopyFrom(stored)
+    return script
 
 
 _OP_BUILDERS = {
@@ -517,32 +653,25 @@ _OP_BUILDERS = {
 # ─── Backward Compatibility ──────────────────────────────────────────────────
 # These keep existing code working without changes.
 
-BulkRequestBuilder = RequestConverter
+BulkRequestBuilder = BulkRequestProtoBuilder
 
 
-def toProtoBulkRequest(body, index=None, pipeline=None, routing=None,
-                       refresh=None, timeout=None, require_alias=None):
-    """Legacy function — use RequestConverter.from_body() instead."""
-    return RequestConverter.from_body(
-        body, index=index, refresh=refresh, timeout=timeout,
-        pipeline=pipeline, routing=routing, require_alias=require_alias
+def toProtoBulkRequest(
+    body: Union[str, List[Dict[str, Any]]],
+    index: Optional[str] = None,
+    pipeline: Optional[str] = None,
+    routing: Optional[str] = None,
+    refresh: Optional[str] = None,
+    timeout: Optional[str] = None,
+    require_alias: Optional[bool] = None,
+) -> Any:
+    """Legacy function — use BulkRequestProtoBuilder.from_body() instead."""
+    return BulkRequestProtoBuilder.from_body(
+        body,
+        index=index,
+        refresh=refresh,
+        timeout=timeout,
+        pipeline=pipeline,
+        routing=routing,
+        require_alias=require_alias,
     ).build()
-
-
-def toProtoIndexRequest(index, body, id=None, **kwargs):
-    """Legacy function — use RequestConverter().index().build() instead."""
-    return RequestConverter(index=index, **{k: v for k, v in kwargs.items() if k in ('refresh', 'timeout')}).index(body=body, id=id, **{k: v for k, v in kwargs.items() if k not in ('refresh', 'timeout')}).build()
-
-
-def _build_single_request(op_type, meta, source, refresh=None, timeout=None):
-    """Legacy internal function — kept for backward compatibility."""
-    req = RequestConverter(index=meta.get("_index"), refresh=refresh, timeout=timeout)
-    if op_type == "index":
-        req._operations.append(("index", meta, source))
-    elif op_type == "create":
-        req._operations.append(("create", meta, source))
-    elif op_type == "update":
-        req._operations.append(("update", meta, source))
-    elif op_type == "delete":
-        req._operations.append(("delete", meta, None))
-    return req.build()
