@@ -59,6 +59,7 @@ from .snapshot import SnapshotClient
 from .tasks import TasksClient
 from .utils import SKIP_IN_PATH, _bulk_body, _make_path, query_params
 from .wlm import WlmClient
+from opensearch_grpc.grpc_transport import GrpcTransport
 
 logger = logging.getLogger("opensearch")
 
@@ -3311,7 +3312,6 @@ class OpenSearchGrpc(OpenSearch):
         hosts: Any = None,
         **kwargs: Any,
     ) -> None:
-        from opensearch_grpc.grpc_transport import GrpcTransport
 
 
         super().__init__(hosts, transport_class=GrpcTransport, **kwargs)
