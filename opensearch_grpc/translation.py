@@ -488,7 +488,10 @@ def _grpc_to_rest_status(grpc_code: int, result: Optional[str] = None) -> int:
     return mapping.get(grpc_code, 500)
 
 
-def _map_refresh(value: Union[str, bool]) -> Any:
+def _map_refresh(value: Union[str, bool, bytes]) -> Any:
+    # opensearch-py may pass refresh as bytes (b'true') from query params
+    if isinstance(value, bytes):
+        value = value.decode("utf-8")
     mapping = {
         "true": REFRESH_TRUE,
         "false": REFRESH_FALSE,
