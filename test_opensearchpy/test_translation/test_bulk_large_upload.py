@@ -157,7 +157,7 @@ class TestLargeBulkUpload:
         resp = client.search(
             index=index_name,
             body={
-                "query": {"term": {"category": "category-5"}},
+                "query": {"term": {"category.keyword": "category-5"}},
                 "size": 5,
             },
         )
