@@ -136,11 +136,14 @@ class TestLargeBulkUpload:
         assert item["_shards"]["successful"] >= 1
 
         print(f"[TEST] Sample item: {first_item}")
+        # Explicit refresh to ensure docs are visible via REST
+        client.indices.refresh(index=index_name)
         print(f"[TEST] ✅ 10,000 documents uploaded successfully via gRPC")
 
     def test_verify_document_count(self, client, index_name):
         """Verify all 10,000 documents are searchable."""
         print("\n[TEST] Verifying document count...")
+        client.indices.refresh(index=index_name)
         resp = client.count(index=index_name)
         count = resp["count"]
         print(f"[TEST] Document count: {count}")
