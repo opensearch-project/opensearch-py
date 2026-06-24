@@ -41,6 +41,22 @@ Run:
     OPENSEARCH_URL="http://localhost:9200" pytest test_opensearchpy/test_translation/test_client_operations.py -v -s
 """
 
+import socket
+
+import pytest
+
+# Skip if OpenSearch server not available
+def _server_available():
+    try:
+        s = socket.create_connection(("localhost", 9200), timeout=1)
+        s.close()
+        return True
+    except OSError:
+        return False
+
+if not _server_available():
+    pytest.skip("OpenSearch server not available", allow_module_level=True)
+
 import os
 
 import pytest
