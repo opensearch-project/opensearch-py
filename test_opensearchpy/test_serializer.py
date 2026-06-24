@@ -199,6 +199,15 @@ class TestJSONSerializer(TestCase):
     def test_strings_are_left_untouched(self) -> None:
         self.assertEqual("你好", JSONSerializer().dumps("你好"))
 
+    def test_dict_is_serialized(self) -> None:
+        self.assertEqual('{"key":"val"}', JSONSerializer().dumps({"key": "val"}))
+
+    def test_bytes_raises_serialization_error(self) -> None:
+        # bytes must not short-circuit through dumps() — stdlib json can't
+        # serialize bytes, so this must raise SerializationError rather than
+        # silently returning the raw bytes (issue #488).
+        self.assertRaises(SerializationError, JSONSerializer().dumps, b"raw bytes")
+
 
 class TestTextSerializer(TestCase):
     def test_strings_are_left_untouched(self) -> None:

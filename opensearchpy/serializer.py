@@ -150,7 +150,7 @@ class JSONSerializer(Serializer):
 
     def dumps(self, data: Any) -> Any:
         # don't serialize strings
-        if isinstance(data, string_types):
+        if isinstance(data, str):
             return data
 
         try:
