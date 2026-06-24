@@ -150,6 +150,7 @@ class TestLargeBulkUpload:
     def test_search_uploaded_documents(self, client, index_name):
         """Search the uploaded documents to verify content is correct."""
         print("\n[TEST] Searching uploaded documents...")
+        client.indices.refresh(index=index_name)
         resp = client.search(
             index=index_name,
             body={
@@ -221,6 +222,7 @@ class TestLargeBulkUpload:
         assert first_item["delete"]["status"] == 200
 
         # Verify count decreased
+        client.indices.refresh(index=index_name)
         count = client.count(index=index_name)["count"]
         assert count == 9500, f"Expected 9500 after delete, got {count}"
         print(f"[TEST] ✅ 500 documents deleted, {count} remaining")
