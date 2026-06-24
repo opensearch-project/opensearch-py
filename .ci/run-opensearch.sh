@@ -40,7 +40,8 @@ fi
 
 NUMBER_OF_NODES=${NUMBER_OF_NODES-1}
 http_port=9200
-for (( i=0; i<$NUMBER_OF_NODES; i++, http_port++ )); do
+grpc_port=9400
+for (( i=0; i<$NUMBER_OF_NODES; i++, http_port++, grpc_port++ )); do
   node_name=${opensearch_node_name}$i
   node_url=${external_opensearch_url/9200/${http_port}}$i
   if [[ "$i" == "0" ]]; then node_name=$opensearch_node_name; fi
@@ -96,6 +97,7 @@ fi
       "${volumes[@]}" \
       "${security[@]}" \
       --publish "$http_port":9200 \
+      --publish "$grpc_port":9400 \
       --ulimit nofile=65536:65536 \
       --ulimit memlock=-1:-1 \
       --detach="$local_detach" \
