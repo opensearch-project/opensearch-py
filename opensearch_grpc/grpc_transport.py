@@ -1,25 +1,22 @@
 """
 grpc_transport.py — gRPC Transport for the opensearch-py Client
 
-Routes operations over gRPC where supported by the OpenSearch server:
-    - bulk   → DocumentService.Bulk (native gRPC)
-    - search → SearchService.Search (native gRPC)
-    - index  → DocumentService.Bulk (single-item wrapper)
-    - create → DocumentService.Bulk (single-item wrapper)
-    - delete → DocumentService.Bulk (single-item wrapper)
-    - update → DocumentService.Bulk (single-item wrapper)
-    - count  → REST fallback (no gRPC RPC available)
+Routes bulk operations over gRPC for improved performance.
+All other operations (search, index, create, delete, update, count, etc.)
+fall back to REST automatically.
+
+    - bulk → DocumentService.Bulk (native gRPC)
+    - everything else → REST fallback
 
 Uses opensearch-py's own serializer and method patterns for integration.
 
 Usage:
     from opensearchpy import OpenSearch
-    from opensearch_grpc.grpc_transport import GrpcTransport
 
     client = OpenSearch(
         hosts=[{"host": "localhost", "port": 9200}],
-        transport_class=GrpcTransport,
-        grpc_port=9400,
+        grpc=True,
+        grpc_hosts=[{"host": "localhost", "port": 9400}],
     )
 """
 
@@ -36,11 +33,10 @@ from opensearchpy.transport import Transport
 
 class GrpcTransport(Transport):
     """
-    Transport that routes supported operations over gRPC.
+    Transport that routes bulk operations over gRPC.
 
-    Native gRPC: bulk, search
-    Via Bulk RPC: index, create, delete, update (single-doc wrapped in BulkRequest)
-    REST fallback: everything else (count, cat, cluster, indices, etc.)
+    Bulk requests are sent via DocumentService.Bulk for better performance.
+    All other operations fall back to REST automatically.
     """
 
     # Operations we handle via gRPC (URL patterns)
