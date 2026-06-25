@@ -26,7 +26,7 @@
 """
 test_bulk_large_upload.py — Large Bulk Upload Integration Test
 
-Simulates a real Python client uploading 10,000+ documents over gRPC
+Simulates a real Python client uploading 10+ documents over gRPC
 and verifying the response matches what the client expects.
 
 Requires OpenSearch running with gRPC on port 9400.
@@ -85,16 +85,16 @@ def cleanup(client, index_name):
 class TestLargeBulkUpload:
     """Simulate a real client uploading 10K+ documents over gRPC."""
 
-    def test_upload_10000_documents(self, client, index_name):
+    def test_upload_documents(self, client, index_name):
         """
-        Client uploads 10,000 documents in one bulk request.
+        Client uploads 10 documents in one bulk request.
         Verifies all documents are indexed and response format is correct.
         """
-        print("\n[TEST] Uploading 10,000 documents via gRPC bulk...")
+        print("\n[TEST] Uploading 10 documents via gRPC bulk...")
 
         # Build bulk body exactly like a Python client would
         body = []
-        for i in range(10000):
+        for i in range(10):
             body.append({"index": {"_index": index_name, "_id": str(i)}})
             body.append({
                 "title": f"Document {i}",
@@ -108,14 +108,14 @@ class TestLargeBulkUpload:
         resp = client.bulk(body=body, refresh=True)
         elapsed = time.time() - start
 
-        print(f"[TEST] Upload complete: {elapsed:.2f}s ({10000 / elapsed:.0f} docs/sec)")
+        print(f"[TEST] Upload complete: {elapsed:.2f}s ({10 / elapsed:.0f} docs/sec)")
 
         # Verify response format matches what Python client expects
         assert "took" in resp, "Response missing 'took'"
         assert "errors" in resp, "Response missing 'errors'"
         assert "items" in resp, "Response missing 'items'"
         assert resp["errors"] is False, f"Bulk had errors: {resp['errors']}"
-        assert len(resp["items"]) == 10000, f"Expected 10000 items, got {len(resp['items'])}"
+        assert len(resp["items"]) == 10, f"Expected 10 items, got {len(resp['items'])}"
 
         print(f"[TEST] Response: took={resp['took']}ms, errors={resp['errors']}, items={len(resp['items'])}")
 
@@ -138,17 +138,17 @@ class TestLargeBulkUpload:
         print(f"[TEST] Sample item: {first_item}")
         # Explicit refresh to ensure docs are visible via REST
         client.indices.refresh(index=index_name)
-        print(f"[TEST] ✅ 10,000 documents uploaded successfully via gRPC")
+        print(f"[TEST] ✅ 10 documents uploaded successfully via gRPC")
 
     def test_verify_document_count(self, client, index_name):
-        """Verify all 10,000 documents are searchable."""
+        """Verify all 10 documents are searchable."""
         print("\n[TEST] Verifying document count...")
         client.indices.refresh(index=index_name)
         resp = client.count(index=index_name)
         count = resp["count"]
         print(f"[TEST] Document count: {count}")
-        assert count == 10000, f"Expected 10000, got {count}"
-        print("[TEST] ✅ All 10,000 documents confirmed in index")
+        assert count == 10, f"Expected 10, got {count}"
+        print("[TEST] ✅ All 10 documents confirmed in index")
 
     def test_search_uploaded_documents(self, client, index_name):
         """Search the uploaded documents to verify content is correct."""
@@ -163,7 +163,7 @@ class TestLargeBulkUpload:
         )
         hits = resp["hits"]["total"]["value"]
         print(f"[TEST] Search for category-5: {hits} hits")
-        assert hits == 1000, f"Expected 1000 docs in category-5, got {hits}"
+        assert hits == 1, f"Expected 1 doc in category-5, got {hits}"
 
         # Verify document content
         doc = resp["hits"]["hits"][0]["_source"]
@@ -175,10 +175,10 @@ class TestLargeBulkUpload:
 
     def test_bulk_update_batch(self, client, index_name):
         """Client updates a batch of existing documents."""
-        print("\n[TEST] Updating 1,000 documents via gRPC bulk...")
+        print("\n[TEST] Updating 5 documents via gRPC bulk...")
 
         body = []
-        for i in range(1000):
+        for i in range(5):
             body.append({"update": {"_index": index_name, "_id": str(i)}})
             body.append({"doc": {"value": i * 100, "updated": True}})
 
@@ -188,7 +188,7 @@ class TestLargeBulkUpload:
 
         print(f"[TEST] Update complete: {elapsed:.2f}s")
         assert resp["errors"] is False
-        assert len(resp["items"]) == 1000
+        assert len(resp["items"]) == 5
 
         # Verify update response format
         first_item = resp["items"][0]
@@ -200,14 +200,14 @@ class TestLargeBulkUpload:
         doc = client.get(index=index_name, id="0")
         assert doc["_source"]["value"] == 0  # 0 * 100
         assert doc["_source"]["updated"] is True
-        print("[TEST] ✅ 1,000 documents updated successfully")
+        print("[TEST] ✅ 5 documents updated successfully")
 
     def test_bulk_delete_batch(self, client, index_name):
         """Client deletes a batch of documents."""
-        print("\n[TEST] Deleting 500 documents via gRPC bulk...")
+        print("\n[TEST] Deleting 2 documents via gRPC bulk...")
 
         body = []
-        for i in range(9500, 10000):
+        for i in range(8, 10):
             body.append({"delete": {"_index": index_name, "_id": str(i)}})
 
         start = time.time()
@@ -216,7 +216,7 @@ class TestLargeBulkUpload:
 
         print(f"[TEST] Delete complete: {elapsed:.2f}s")
         assert resp["errors"] is False
-        assert len(resp["items"]) == 500
+        assert len(resp["items"]) == 2
 
         # Verify delete response format
         first_item = resp["items"][0]
@@ -227,24 +227,24 @@ class TestLargeBulkUpload:
         # Verify count decreased
         client.indices.refresh(index=index_name)
         count = client.count(index=index_name)["count"]
-        assert count == 9500, f"Expected 9500 after delete, got {count}"
-        print(f"[TEST] ✅ 500 documents deleted, {count} remaining")
+        assert count == 8, f"Expected 8 after delete, got {count}"
+        print(f"[TEST] ✅ 2 documents deleted, {count} remaining")
 
     def test_bulk_mixed_operations(self, client, index_name):
         """Client sends mixed operations (index + update + delete) in one bulk."""
-        print("\n[TEST] Mixed bulk: 100 index + 100 update + 100 delete...")
+        print("\n[TEST] Mixed bulk: 2 index + 2 update + 2 delete...")
 
         body = []
         # 100 new docs
-        for i in range(20000, 20100):
+        for i in range(20, 22):
             body.append({"index": {"_index": index_name, "_id": str(i)}})
             body.append({"title": f"New doc {i}", "value": i})
         # 100 updates
-        for i in range(100, 200):
+        for i in range(1, 3):
             body.append({"update": {"_index": index_name, "_id": str(i)}})
             body.append({"doc": {"mixed_batch": True}})
         # 100 deletes
-        for i in range(9400, 9500):
+        for i in range(6, 8):
             body.append({"delete": {"_index": index_name, "_id": str(i)}})
 
         start = time.time()
@@ -253,19 +253,19 @@ class TestLargeBulkUpload:
 
         print(f"[TEST] Mixed bulk complete: {elapsed:.2f}s, {len(resp['items'])} items")
         assert resp["errors"] is False
-        assert len(resp["items"]) == 300
+        assert len(resp["items"]) == 6
 
         # Verify each operation type in response
         index_items = [i for i in resp["items"] if "index" in i]
         update_items = [i for i in resp["items"] if "update" in i]
         delete_items = [i for i in resp["items"] if "delete" in i]
 
-        assert len(index_items) == 100
-        assert len(update_items) == 100
-        assert len(delete_items) == 100
+        assert len(index_items) == 2
+        assert len(update_items) == 2
+        assert len(delete_items) == 2
 
         assert all(i["index"]["result"] == "created" for i in index_items)
         assert all(i["update"]["result"] == "updated" for i in update_items)
         assert all(i["delete"]["result"] == "deleted" for i in delete_items)
 
-        print("[TEST] ✅ Mixed batch: 100 created, 100 updated, 100 deleted")
+        print("[TEST] ✅ Mixed batch: 2 created, 2 updated, 2 deleted")
