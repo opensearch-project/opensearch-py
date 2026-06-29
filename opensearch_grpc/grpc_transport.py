@@ -21,10 +21,7 @@ Usage:
 """
 
 import grpc
-from opensearch.protobufs.services import (
-    document_service_pb2_grpc,
-    search_service_pb2_grpc,
-)
+from opensearch.protobufs.services import document_service_pb2_grpc
 
 from opensearch_grpc.translation import BulkRequestProtoBuilder, ResponseConverter
 from opensearchpy.serializer import JSONSerializer
@@ -71,7 +68,6 @@ class GrpcTransport(Transport):
         self._document_stub = document_service_pb2_grpc.DocumentServiceStub(
             self._channel
         )
-        self._search_stub = search_service_pb2_grpc.SearchServiceStub(self._channel)
         self._serializer = JSONSerializer()
 
     def perform_request(
