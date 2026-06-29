@@ -6,20 +6,83 @@
 #
 # Modifications Copyright OpenSearch Contributors. See
 # GitHub history for details.
-#
-#  Licensed to Elasticsearch B.V. under one or more contributor
-#  license agreements. See the NOTICE file distributed with
-#  this work for additional information regarding copyright
-#  ownership. Elasticsearch B.V. licenses this file to you under
-#  the Apache License, Version 2.0 (the "License"); you may
-#  not use this file except in compliance with the License.
-#  You may obtain a copy of the License at
-#
-# 	http://www.apache.org/licenses/LICENSE-2.0
-#
-#  Unless required by applicable law or agreed to in writing,
-#  software distributed under the License is distributed on an
-#  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-#  KIND, either express or implied.  See the License for the
-#  specific language governing permissions and limitations
-#  under the License.
+
+"""
+test_translation — Integration tests for the gRPC translation layer.
+
+Uses OpenSearchGrpcTestCase for tests that require a running server.
+Skips gracefully when gRPC is not available.
+"""
+
+import os
+from typing import Any
+from unittest import SkipTest
+
+import grpc
+
+from opensearchpy import OpenSearchGrpc
+from opensearchpy.helpers.test import OpenSearchTestCase as BaseTestCase
+from opensearchpy.helpers.test import OPENSEARCH_URL
+
+# pylint: disable=invalid-name
+CLIENT: Any = None
+GRPC_PORT = int(os.environ.get("OPENSEARCH_GRPC_PORT", "9400"))
+GRPC_HOST = os.environ.get("OPENSEARCH_GRPC_HOST", "localhost")
+
+
+def _grpc_available() -> bool:
+    """Check if gRPC port is reachable."""
+    try:
+        channel = grpc.insecure_channel(f"{GRPC_HOST}:{GRPC_PORT}")
+        grpc.channel_ready_future(channel).result(timeout=2)
+        channel.close()
+        return True
+    except Exception:
+        return False
+
+
+def get_client(**kwargs: Any) -> Any:
+    global CLIENT
+    if CLIENT is False:
+        raise SkipTest("No gRPC client is available")
+    if CLIENT is not None and not kwargs:
+        return CLIENT
+
+    if not _grpc_available():
+        CLIENT = False
+        raise SkipTest(f"gRPC server not available on {GRPC_HOST}:{GRPC_PORT}")
+
+    try:
+        kw = {"timeout": 30}
+        kw.update(kwargs)
+        new_client = OpenSearchGrpc(
+            hosts=[OPENSEARCH_URL],
+            grpc_hosts=[{"host": GRPC_HOST, "port": GRPC_PORT}],
+            **kw,
+        )
+        new_client.cluster.health(wait_for_status="yellow")
+    except Exception:
+        CLIENT = False
+        raise SkipTest("OpenSearch server not available")
+
+    if not kwargs:
+        CLIENT = new_client
+
+    return new_client
+
+
+def setup_module() -> None:
+    get_client()
+
+
+class OpenSearchGrpcTestCase(BaseTestCase):
+    """
+    Integration test case for gRPC translation layer tests.
+
+    Inherits teardown from BaseTestCase (deletes all indices after each test).
+    Client uses OpenSearchGrpc so bulk operations go over gRPC.
+    """
+
+    @staticmethod
+    def _get_client(**kwargs: Any) -> Any:
+        return get_client(**kwargs)

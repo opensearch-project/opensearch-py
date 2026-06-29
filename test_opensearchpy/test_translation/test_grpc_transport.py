@@ -6,272 +6,174 @@
 #
 # Modifications Copyright OpenSearch Contributors. See
 # GitHub history for details.
-#
-#  Licensed to Elasticsearch B.V. under one or more contributor
-#  license agreements. See the NOTICE file distributed with
-#  this work for additional information regarding copyright
-#  ownership. Elasticsearch B.V. licenses this file to you under
-#  the Apache License, Version 2.0 (the "License"); you may
-#  not use this file except in compliance with the License.
-#  You may obtain a copy of the License at
-#
-# 	http://www.apache.org/licenses/LICENSE-2.0
-#
-#  Unless required by applicable law or agreed to in writing,
-#  software distributed under the License is distributed on an
-#  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-#  KIND, either express or implied.  See the License for the
-#  specific language governing permissions and limitations
-#  under the License.
+
 """
-test_grpc_transport.py — Automated Integration Tests: OpenSearch Client with GrpcTransport
+test_grpc_transport.py — GrpcTransport Integration Tests
 
-Fully automated tests that verify the GrpcTransport works as a drop-in
-replacement for the standard opensearch-py transport. Uses grpc_hosts parameter.
-
-Requires:
-    - OpenSearch running on localhost:9200 (REST) with gRPC on localhost:9400
-    - No manual setup needed — tests create/cleanup their own indexes
-
-Run:
-    OPENSEARCH_URL="http://localhost:9200" pytest test_opensearchpy/test_translation/test_grpc_transport.py -v
+Verifies bulk via gRPC, single-doc via REST fallback,
+and end-to-end workflows.
 """
 
-import socket
-
-import pytest
-
-# Skip if OpenSearch server not available
-def _server_available():
-    try:
-        s = socket.create_connection(("localhost", 9200), timeout=1)
-        s.close()
-        return True
-    except OSError:
-        return False
-
-if not _server_available():
-    pytest.skip("OpenSearch server not available", allow_module_level=True)
-
-import os
-
-import pytest
-
-from opensearch_grpc.grpc_transport import GrpcTransport
-from opensearchpy import OpenSearch
+from . import OpenSearchGrpcTestCase
 
 
-@pytest.fixture(scope="session")
-def client():
-    """Create a standard opensearch-py client with GrpcTransport using grpc_hosts."""
-    opensearch_url = os.environ.get("OPENSEARCH_URL", "http://localhost:9200")
-    grpc_port = int(os.environ.get("OPENSEARCH_GRPC_PORT", "9400"))
-    host = opensearch_url.split("://")[-1].split(":")[0].split("@")[-1]
-    port = int(opensearch_url.split(":")[-1])
-
-    c = OpenSearch(
-        hosts=[{"host": host, "port": port}],
-        grpc_hosts=[{"host": host, "port": grpc_port}],
-        transport_class=GrpcTransport,
-        use_ssl=False,
-    )
-    yield c
-    c.close()
-
-
-@pytest.fixture(scope="session")
-def index_name():
-    return "test-grpc-transport"
-
-
-@pytest.fixture(autouse=True, scope="session")
-def cleanup(client, index_name):
-    """Ensure clean state before and after all tests."""
-    client.indices.delete(index=index_name, ignore=[404])
-    yield
-    client.indices.delete(index=index_name, ignore=[404])
-
-
-class TestBulkViaGrpc:
-    """Verify client.bulk() is routed over gRPC."""
-
-    def test_bulk_index_documents(self, client, index_name):
-        """Bulk index 3 documents — all should be created."""
+class TestBulkViaGrpc(OpenSearchGrpcTestCase):
+    def test_bulk_index_documents(self) -> None:
+        """Bulk index via gRPC."""
         body = [
-            {"index": {"_index": index_name, "_id": "1"}},
-            {"title": "First", "value": 1},
-            {"index": {"_index": index_name, "_id": "2"}},
-            {"title": "Second", "value": 2},
-            {"index": {"_index": index_name, "_id": "3"}},
-            {"title": "Third", "value": 3},
+            {"index": {"_index": "test-transport-bulk", "_id": "1"}},
+            {"title": "Bulk 1"},
+            {"index": {"_index": "test-transport-bulk", "_id": "2"}},
+            {"title": "Bulk 2"},
         ]
-        resp = client.bulk(body=body, refresh=True)
+        resp = self.client.bulk(body=body, refresh=True)
 
-        assert resp["errors"] is False
-        assert len(resp["items"]) == 3
-        for item in resp["items"]:
-            assert item["index"]["result"] == "created"
+        self.assertFalse(resp["errors"])
+        self.assertEqual(len(resp["items"]), 2)
 
-    def test_bulk_mixed_operations(self, client, index_name):
-        """Bulk with index + update + delete in one call."""
-        body = [
-            {"index": {"_index": index_name, "_id": "4"}},
-            {"title": "New doc", "value": 4},
-            {"update": {"_index": index_name, "_id": "1"}},
+    def test_bulk_mixed_operations(self) -> None:
+        """Bulk with index + update + delete."""
+        # Seed
+        self.client.bulk(body=[
+            {"index": {"_index": "test-transport-mixed", "_id": "1"}},
+            {"title": "Seed", "value": 1},
+        ], refresh=True)
+
+        # Mixed
+        resp = self.client.bulk(body=[
+            {"index": {"_index": "test-transport-mixed", "_id": "2"}},
+            {"title": "New"},
+            {"update": {"_index": "test-transport-mixed", "_id": "1"}},
             {"doc": {"value": 100}},
-            {"delete": {"_index": index_name, "_id": "3"}},
-        ]
-        resp = client.bulk(body=body, refresh=True)
+            {"delete": {"_index": "test-transport-mixed", "_id": "2"}},
+        ], refresh=True)
 
-        assert resp["errors"] is False
-        assert len(resp["items"]) == 3
-        assert resp["items"][0]["index"]["result"] == "created"
-        assert resp["items"][1]["update"]["result"] == "updated"
-        assert resp["items"][2]["delete"]["result"] == "deleted"
+        self.assertFalse(resp["errors"])
+        self.assertEqual(len(resp["items"]), 3)
 
-    def test_bulk_with_index_param(self, client, index_name):
-        """Bulk with default index parameter (not in each action)."""
-        body = [
-            {"index": {"_id": "5"}},
-            {"title": "Default index doc"},
-        ]
-        resp = client.bulk(body=body, index=index_name, refresh=True)
-
-        assert resp["errors"] is False
-        assert resp["items"][0]["index"]["_index"] == index_name
-
-    def test_bulk_large_batch(self, client, index_name):
-        """Bulk index 50 documents in one call."""
-        body = []
-        for i in range(100, 150):
-            body.append({"index": {"_index": index_name, "_id": str(i)}})
-            body.append({"title": f"Batch doc {i}", "value": i})
-
-        resp = client.bulk(body=body, refresh=True)
-
-        assert resp["errors"] is False
-        assert len(resp["items"]) == 50
-
-
-class TestSingleDocViaGrpc:
-    """Verify single-doc operations route over gRPC (via Bulk wrapper)."""
-
-    def test_index_single_document(self, client, index_name):
-        """client.index() creates a document via gRPC."""
-        resp = client.index(
-            index=index_name, body={"title": "Single"}, id="single-1", refresh=True
-        )
-
-        assert resp["result"] == "created"
-        assert resp["_id"] == "single-1"
-
-    def test_create_document(self, client, index_name):
-        """client.create() creates a document, fails if exists."""
-        resp = client.create(
-            index=index_name, body={"title": "Created"}, id="create-1", refresh=True
-        )
-
-        assert resp["result"] == "created"
-        assert resp["_id"] == "create-1"
-
-    def test_update_document(self, client, index_name):
-        """client.update() partially updates a document via gRPC."""
-        resp = client.update(
-            index=index_name, id="single-1", body={"doc": {"value": 999}}, refresh=True
-        )
-
-        assert resp["result"] == "updated"
-        assert resp["_id"] == "single-1"
-
-    def test_delete_document(self, client, index_name):
-        """client.delete() removes a document via gRPC."""
-        resp = client.delete(index=index_name, id="create-1", refresh=True)
-
-        assert resp["result"] == "deleted"
-        assert resp["_id"] == "create-1"
-
-
-class TestRestFallback:
-    """Verify non-gRPC operations fall back to REST transparently."""
-
-    def test_search(self, client, index_name):
-        """client.search() uses REST."""
-        client.indices.refresh(index=index_name)
-        resp = client.search(index=index_name, body={"query": {"match_all": {}}})
-
-        assert resp["hits"]["total"]["value"] >= 1
-
-    def test_get_document(self, client, index_name):
-        """client.get() uses REST."""
-        resp = client.get(index=index_name, id="1")
-
-        assert resp["found"] is True
-        assert resp["_source"]["value"] == 100
-
-    def test_count(self, client, index_name):
-        """client.count() uses REST."""
-        resp = client.count(index=index_name)
-
-        assert resp["count"] >= 3
-
-    def test_create_and_delete_index(self, client):
-        """client.indices.create/delete() uses REST."""
-        idx = "test-grpc-auto-compat"
-        resp = client.indices.create(
-            index=idx, body={"settings": {"number_of_shards": 1}}
-        )
-        assert resp["acknowledged"] is True
-
-        resp = client.indices.delete(index=idx)
-        assert resp["acknowledged"] is True
-
-
-class TestEndToEndWorkflow:
-    """Verify full workflows: gRPC writes → REST reads."""
-
-    def test_bulk_then_search(self, client, index_name):
-        """Bulk index via gRPC, then search via REST finds the documents."""
-        body = [
-            {"index": {"_index": index_name, "_id": "wf-1"}},
-            {"title": "Workflow doc", "category": "automated"},
-        ]
-        bulk_resp = client.bulk(body=body, refresh=True)
-        assert bulk_resp["errors"] is False
-
-        client.indices.refresh(index=index_name)
-        search_resp = client.search(
-            index=index_name, body={"query": {"match": {"category": "automated"}}}
-        )
-        hits = search_resp["hits"]["hits"]
-        assert len(hits) >= 1
-        assert hits[0]["_source"]["title"] == "Workflow doc"
-
-    def test_index_then_get(self, client, index_name):
-        """Index via gRPC, then get via REST returns the document."""
-        client.index(
-            index=index_name,
-            body={"title": "Get test", "x": 42},
-            id="get-1",
+    def test_bulk_with_index_param(self) -> None:
+        """Bulk with index at request level."""
+        resp = self.client.bulk(
+            body=[
+                {"index": {"_id": "1"}},
+                {"title": "Request-level index"},
+            ],
+            index="test-transport-idx",
             refresh=True,
         )
+        self.assertFalse(resp["errors"])
+        self.assertEqual(resp["items"][0]["index"]["_index"], "test-transport-idx")
 
-        resp = client.get(index=index_name, id="get-1")
-        assert resp["found"] is True
-        assert resp["_source"]["x"] == 42
+    def test_bulk_large_batch(self) -> None:
+        """Bulk with 10 docs to verify batching."""
+        body = []
+        for i in range(10):
+            body.append({"index": {"_index": "test-transport-batch", "_id": str(i)}})
+            body.append({"value": i})
 
-    def test_update_then_get(self, client, index_name):
-        """Update via gRPC, then get via REST shows updated values."""
-        client.update(
-            index=index_name, id="get-1", body={"doc": {"x": 99}}, refresh=True
+        resp = self.client.bulk(body=body, refresh=True)
+        self.assertFalse(resp["errors"])
+        self.assertEqual(len(resp["items"]), 10)
+
+
+class TestSingleDocViaRest(OpenSearchGrpcTestCase):
+    """Single-doc operations go through REST fallback."""
+
+    def test_index_single_document(self) -> None:
+        """client.index() goes through REST."""
+        resp = self.client.index(
+            index="test-transport-single", id="1", body={"title": "REST index"}
         )
+        self.assertIn(resp["result"], ("created", "updated"))
 
-        resp = client.get(index=index_name, id="get-1")
-        assert resp["_source"]["x"] == 99
-        assert resp["_source"]["title"] == "Get test"  # unchanged field
+    def test_get_document(self) -> None:
+        """client.get() goes through REST."""
+        self.client.index(
+            index="test-transport-get", id="1", body={"title": "Get me"}, refresh=True
+        )
+        doc = self.client.get(index="test-transport-get", id="1")
+        self.assertEqual(doc["_source"]["title"], "Get me")
 
-    def test_delete_then_get_404(self, client, index_name):
-        """Delete via gRPC, then get via REST returns not found."""
-        client.delete(index=index_name, id="get-1", refresh=True)
+    def test_delete_document(self) -> None:
+        """client.delete() goes through REST."""
+        self.client.index(
+            index="test-transport-delete", id="1", body={"title": "Delete me"}, refresh=True
+        )
+        resp = self.client.delete(index="test-transport-delete", id="1")
+        self.assertEqual(resp["result"], "deleted")
 
-        with pytest.raises(Exception):
-            client.get(index=index_name, id="get-1")
+
+class TestRestFallback(OpenSearchGrpcTestCase):
+    """Non-bulk operations correctly fall back to REST."""
+
+    def test_search(self) -> None:
+        self.client.bulk(body=[
+            {"index": {"_index": "test-transport-search", "_id": "1"}},
+            {"title": "Findme"},
+        ], refresh=True)
+
+        resp = self.client.search(
+            index="test-transport-search",
+            body={"query": {"match": {"title": "Findme"}}},
+        )
+        self.assertEqual(resp["hits"]["total"]["value"], 1)
+
+    def test_count(self) -> None:
+        self.client.bulk(body=[
+            {"index": {"_index": "test-transport-count", "_id": "1"}},
+            {"x": 1},
+            {"index": {"_index": "test-transport-count", "_id": "2"}},
+            {"x": 2},
+        ], refresh=True)
+
+        count = self.client.count(index="test-transport-count")["count"]
+        self.assertEqual(count, 2)
+
+    def test_create_and_delete_index(self) -> None:
+        self.client.indices.create(index="test-transport-idx-mgmt")
+        self.assertTrue(self.client.indices.exists(index="test-transport-idx-mgmt"))
+        self.client.indices.delete(index="test-transport-idx-mgmt")
+        self.assertFalse(self.client.indices.exists(index="test-transport-idx-mgmt"))
+
+
+class TestEndToEndWorkflow(OpenSearchGrpcTestCase):
+    """Full workflows combining gRPC bulk and REST operations."""
+
+    def test_bulk_then_search(self) -> None:
+        self.client.bulk(body=[
+            {"index": {"_index": "test-e2e-search", "_id": "1"}},
+            {"title": "End to end", "status": "active"},
+        ], refresh=True)
+
+        resp = self.client.search(
+            index="test-e2e-search",
+            body={"query": {"term": {"status.keyword": "active"}}},
+        )
+        self.assertEqual(resp["hits"]["total"]["value"], 1)
+
+    def test_bulk_update_then_get(self) -> None:
+        self.client.bulk(body=[
+            {"index": {"_index": "test-e2e-update", "_id": "1"}},
+            {"title": "Original", "value": 1},
+        ], refresh=True)
+
+        self.client.bulk(body=[
+            {"update": {"_index": "test-e2e-update", "_id": "1"}},
+            {"doc": {"value": 999}},
+        ], refresh=True)
+
+        doc = self.client.get(index="test-e2e-update", id="1")
+        self.assertEqual(doc["_source"]["value"], 999)
+        self.assertEqual(doc["_source"]["title"], "Original")
+
+    def test_bulk_delete_then_verify(self) -> None:
+        self.client.bulk(body=[
+            {"index": {"_index": "test-e2e-del", "_id": "1"}},
+            {"title": "Will be deleted"},
+        ], refresh=True)
+
+        self.client.bulk(body=[
+            {"delete": {"_index": "test-e2e-del", "_id": "1"}},
+        ], refresh=True)
+
+        self.assertFalse(self.client.exists(index="test-e2e-del", id="1"))

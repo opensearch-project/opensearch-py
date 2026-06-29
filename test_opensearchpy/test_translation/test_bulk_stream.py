@@ -6,79 +6,45 @@
 #
 # Modifications Copyright OpenSearch Contributors. See
 # GitHub history for details.
-#
-#  Licensed to Elasticsearch B.V. under one or more contributor
-#  license agreements. See the NOTICE file distributed with
-#  this work for additional information regarding copyright
-#  ownership. Elasticsearch B.V. licenses this file to you under
-#  the Apache License, Version 2.0 (the "License"); you may
-#  not use this file except in compliance with the License.
-#  You may obtain a copy of the License at
-#
-# 	http://www.apache.org/licenses/LICENSE-2.0
-#
-#  Unless required by applicable law or agreed to in writing,
-#  software distributed under the License is distributed on an
-#  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-#  KIND, either express or implied.  See the License for the
-#  specific language governing permissions and limitations
-#  under the License.
-"""Integration test: send bulk data over gRPC bidirectional stream."""
 
-import grpc
-from opensearch.protobufs.services.document_service_pb2_grpc import DocumentServiceStub
+"""
+test_bulk_stream.py — Bulk Streaming Integration Tests
 
-from opensearch_grpc.translation import toProtoBulkRequest
+Tests sending bulk data using the toProtoBulkRequest helper function
+through the OpenSearchGrpc client.
+"""
+
+from . import OpenSearchGrpcTestCase
 
 
-def generate_bulk_request():
-    """Build a BulkRequest with mixed operations."""
-    body = [
-        {"index": {"_index": "grpc-test", "_id": "1"}},
-        {"title": "First doc", "value": 1},
-        {"index": {"_index": "grpc-test", "_id": "2"}},
-        {"title": "Second doc", "value": 2},
-        {"create": {"_index": "grpc-test", "_id": "3"}},
-        {"title": "Third doc", "value": 3},
-        {"update": {"_index": "grpc-test", "_id": "1"}},
-        {"doc": {"value": 100}},
-        {"delete": {"_index": "grpc-test", "_id": "2"}},
-    ]
-    return toProtoBulkRequest(body=body, refresh="true")
+class TestBulkStream(OpenSearchGrpcTestCase):
+    def test_stream_index_documents(self) -> None:
+        """Stream multiple documents via bulk."""
+        body = []
+        for i in range(10):
+            body.append({"index": {"_index": "test-stream", "_id": str(i)}})
+            body.append({"title": f"Streamed {i}", "batch": 0})
 
+        resp = self.client.bulk(body=body, refresh=True)
 
-def test_bulk_stream():
-    """Connect to gRPC server and send a bulk request."""
-    target = "localhost:9400"
-    print(f"Connecting to gRPC at {target}...")
+        self.assertFalse(resp["errors"])
+        self.assertEqual(len(resp["items"]), 10)
 
-    channel = grpc.insecure_channel(target)
-    stub = DocumentServiceStub(channel)
+        count = self.client.count(index="test-stream")["count"]
+        self.assertEqual(count, 10)
 
-    request = generate_bulk_request()
-    print(f"Sending {len(request.bulk_request_body)} operations...")
+    def test_stream_multiple_batches(self) -> None:
+        """Send multiple bulk batches sequentially."""
+        for batch in range(3):
+            body = []
+            for i in range(5):
+                doc_id = f"{batch}-{i}"
+                body.append({"index": {"_index": "test-stream-batch", "_id": doc_id}})
+                body.append({"batch": batch, "seq": i})
 
-    try:
-        response = stub.Bulk(request)
-        print("\n--- Response ---")
-        print(f"  errors: {response.errors}")
-        print(f"  took: {response.took}ms")
-        print(f"  items: {len(response.items)}")
-        for item in response.items:
-            if item.HasField("index"):
-                print(f"  [index] id={item.index.x_id} status={item.index.status}")
-            elif item.HasField("create"):
-                print(f"  [create] id={item.create.x_id} status={item.create.status}")
-            elif item.HasField("update"):
-                print(f"  [update] id={item.update.x_id} status={item.update.status}")
-            elif item.HasField("delete"):
-                print(f"  [delete] id={item.delete.x_id} status={item.delete.status}")
-    except grpc.RpcError as e:
-        print(f"\ngRPC error: {e.code()} - {e.details()}")
+            resp = self.client.bulk(body=body, refresh=True)
+            self.assertFalse(resp["errors"])
 
-    channel.close()
-    print("\nDone.")
-
-
-if __name__ == "__main__":
-    test_bulk_stream()
+        self.client.indices.refresh(index="test-stream-batch")
+        count = self.client.count(index="test-stream-batch")["count"]
+        self.assertEqual(count, 15)
