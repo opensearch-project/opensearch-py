@@ -19,17 +19,20 @@ Skips the entire module if gRPC is not available (OpenSearch < 3.0).
 import os
 from typing import Any
 from unittest import SkipTest
+from urllib.parse import urlparse
 
 import grpc
 
 from opensearchpy import OpenSearchGrpc
 from opensearchpy.helpers import test
-from opensearchpy.helpers.test import OpenSearchTestCase as BaseTestCase
+from opensearchpy.helpers.test import OPENSEARCH_URL, OpenSearchTestCase as BaseTestCase
 
 # pylint: disable=invalid-name
 CLIENT: Any = None
 GRPC_PORT = int(os.environ.get("OPENSEARCH_GRPC_PORT", "9400"))
-GRPC_HOST = os.environ.get("OPENSEARCH_GRPC_HOST", "localhost")
+# Derive gRPC host from OPENSEARCH_URL so it works inside Docker containers
+_parsed = urlparse(OPENSEARCH_URL)
+GRPC_HOST = os.environ.get("OPENSEARCH_GRPC_HOST", _parsed.hostname or "localhost")
 
 
 def _grpc_available() -> bool:
