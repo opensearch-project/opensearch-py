@@ -49,6 +49,10 @@ class GrpcTransport(Transport):
         self._grpc_host_override = kwargs.pop("grpc_host", None)
         self._grpc_hosts = kwargs.pop("grpc_hosts", None)
 
+        # Validate single gRPC host — multiple targets not yet supported
+        if self._grpc_hosts and len(self._grpc_hosts) > 1:
+            raise ValueError("Multiple gRPC host targets not yet supported")
+
         super().__init__(hosts, *args, **kwargs)
 
         # Resolve gRPC target from grpc_hosts, grpc_host, or hosts
