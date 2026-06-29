@@ -46,7 +46,6 @@ class GrpcTransport(Transport):
 
     def __init__(self, hosts, *args, **kwargs):
         self._grpc_port = kwargs.pop("grpc_port", 9400)
-        self._grpc_host_override = kwargs.pop("grpc_host", None)
         self._grpc_hosts = kwargs.pop("grpc_hosts", None)
 
         # Validate single gRPC host — multiple targets not yet supported
@@ -55,26 +54,17 @@ class GrpcTransport(Transport):
 
         super().__init__(hosts, *args, **kwargs)
 
-        # Resolve gRPC target from grpc_hosts, grpc_host, or hosts
-        if self._grpc_hosts:
-            # Use grpc_hosts parameter: [{"host": "x", "port": 9400}]
-            first_grpc = (
-                self._grpc_hosts[0]
-                if isinstance(self._grpc_hosts[0], dict)
-                else {"host": self._grpc_hosts[0]}
-            )
-            grpc_host = first_grpc.get("host", "localhost")
-            grpc_port = first_grpc.get("port", self._grpc_port)
-        elif self._grpc_host_override:
-            grpc_host = self._grpc_host_override
-            grpc_port = self._grpc_port
-        elif hosts:
-            first = hosts[0] if isinstance(hosts[0], dict) else {"host": "localhost"}
-            grpc_host = first.get("host", "localhost")
-            grpc_port = self._grpc_port
-        else:
-            grpc_host = "localhost"
-            grpc_port = self._grpc_port
+        # Resolve gRPC target — grpc_hosts is required
+        if not self._grpc_hosts:
+            raise ValueError("grpc_hosts parameter is required for GrpcTransport")
+
+        first_grpc = (
+            self._grpc_hosts[0]
+            if isinstance(self._grpc_hosts[0], dict)
+            else {"host": self._grpc_hosts[0]}
+        )
+        grpc_host = first_grpc.get("host", "localhost")
+        grpc_port = first_grpc.get("port", self._grpc_port)
 
         self._grpc_address = f"{grpc_host}:{grpc_port}"
         self._channel = grpc.insecure_channel(self._grpc_address)
