@@ -19,6 +19,8 @@ Usage:
     )
 """
 
+import re
+
 import grpc
 from opensearch.protobufs.services import document_service_pb2_grpc
 
@@ -80,17 +82,20 @@ class GrpcTransport(Transport):
             headers=headers,
         )
 
+    # Matches: /_bulk or /<index>/_bulk
+    _BULK_PATTERN = re.compile(r"^/([^/]+/)?_bulk$")
+
     def _get_grpc_handler(self, method, url):
         """Determine if this request can be handled via gRPC.
 
         Only bulk requests are routed over gRPC.
         All other operations fall through to REST.
-        """
-        parts = url.strip("/").split("/")
-        last = parts[-1] if parts else ""
 
-        # Bulk: POST /_bulk or POST /index/_bulk
-        if last == "_bulk" and method in ("POST", "PUT"):
+        Matches endpoints:
+            POST /_bulk
+            POST /<index>/_bulk
+        """
+        if method in ("POST", "PUT") and self._BULK_PATTERN.match(url):
             return self._handle_bulk
 
         return None
