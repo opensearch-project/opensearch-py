@@ -11,11 +11,10 @@ fall back to REST automatically.
 Uses opensearch-py's own serializer and method patterns for integration.
 
 Usage:
-    from opensearchpy import OpenSearch
+    from opensearchpy import OpenSearchGrpc
 
-    client = OpenSearch(
+    client = OpenSearchGrpc(
         hosts=[{"host": "localhost", "port": 9200}],
-        grpc=True,
         grpc_hosts=[{"host": "localhost", "port": 9400}],
     )
 """
