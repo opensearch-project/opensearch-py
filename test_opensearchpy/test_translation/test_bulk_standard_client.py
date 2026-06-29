@@ -24,7 +24,7 @@
 #  specific language governing permissions and limitations
 #  under the License.
 """
-test_bulk_standard_client.py — Large Bulk Upload via Standard OpenSearch Client (grpc=True)
+test_bulk_standard_client.py — Large Bulk Upload via OpenSearchGrpc Client
 
 Simulates a real Python client uploading 10+ documents over gRPC
 and verifying the response matches what the client expects.
@@ -42,7 +42,7 @@ import time
 import grpc
 import pytest
 
-from opensearchpy import OpenSearch
+from opensearchpy import OpenSearchGrpc
 
 # Skip if gRPC server not available
 _grpc_port = os.environ.get("OPENSEARCH_GRPC_PORT", "9400")
@@ -61,9 +61,8 @@ def client():
     host = opensearch_url.split("://")[-1].split(":")[0].split("@")[-1]
     port = int(opensearch_url.split(":")[-1])
 
-    c = OpenSearch(
+    c = OpenSearchGrpc(
         hosts=[{"host": host, "port": port}],
-        grpc=True,
         grpc_hosts=[{"host": host, "port": grpc_port}],
         use_ssl=False,
     )

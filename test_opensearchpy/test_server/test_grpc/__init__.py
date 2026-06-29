@@ -22,6 +22,7 @@ from unittest import SkipTest
 
 import grpc
 
+from opensearchpy import OpenSearchGrpc
 from opensearchpy.helpers import test
 from opensearchpy.helpers.test import OpenSearchTestCase as BaseTestCase
 
@@ -54,11 +55,18 @@ def get_client(**kwargs: Any) -> Any:
         raise SkipTest(f"gRPC server not available on {GRPC_HOST}:{GRPC_PORT}")
 
     try:
-        new_client = test.get_test_client(
-            grpc=True,
+        # Get OPENSEARCH_URL for REST host
+        from opensearchpy.helpers.test import OPENSEARCH_URL
+
+        kw = {"timeout": 30}
+        kw.update(kwargs)
+        new_client = OpenSearchGrpc(
+            hosts=[OPENSEARCH_URL],
             grpc_hosts=[{"host": GRPC_HOST, "port": GRPC_PORT}],
-            **kwargs,
+            **kw,
         )
+        # Verify REST is healthy
+        new_client.cluster.health(wait_for_status="yellow")
     except SkipTest:
         CLIENT = False
         raise
