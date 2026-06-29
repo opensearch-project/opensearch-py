@@ -34,11 +34,6 @@ class GrpcTransport(Transport):
     All other operations fall back to REST automatically.
     """
 
-    # Operations we handle via gRPC (URL patterns)
-    _GRPC_ROUTES = {
-        "_bulk": "_handle_bulk",
-    }
-
     def __init__(self, hosts, *args, **kwargs):
         self._grpc_port = kwargs.pop("grpc_port", 9400)
         self._grpc_hosts = kwargs.pop("grpc_hosts", None)
