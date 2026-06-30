@@ -18,8 +18,12 @@ Run:
 
 from typing import Any, Dict, List
 
+from opensearch.protobufs.schemas.common_pb2 import BulkResponse
+
 from opensearch_grpc.translation import (
     BulkRequestProtoBuilder,
+    ResponseConverter,
+    _grpc_to_rest_status,
     toProtoBulkRequest,
 )
 
@@ -244,9 +248,6 @@ class TestResponseConverter:
 
     def test_single_index_response(self) -> None:
         """Convert a single index item response from proto to Python dict."""
-        from opensearch.protobufs.schemas.common_pb2 import BulkResponse
-        from opensearch_grpc.translation import ResponseConverter
-
         response = BulkResponse()
         response.took = 5
         response.errors = False
@@ -283,9 +284,6 @@ class TestResponseConverter:
 
     def test_update_response(self) -> None:
         """Convert an update item response from proto to Python dict."""
-        from opensearch.protobufs.schemas.common_pb2 import BulkResponse
-        from opensearch_grpc.translation import ResponseConverter
-
         response = BulkResponse()
         response.took = 3
         response.errors = False
@@ -314,9 +312,6 @@ class TestResponseConverter:
 
     def test_delete_response(self) -> None:
         """Convert a delete item response from proto to Python dict."""
-        from opensearch.protobufs.schemas.common_pb2 import BulkResponse
-        from opensearch_grpc.translation import ResponseConverter
-
         response = BulkResponse()
         response.took = 2
         response.errors = False
@@ -344,9 +339,6 @@ class TestResponseConverter:
 
     def test_create_response(self) -> None:
         """Convert a create item response from proto to Python dict."""
-        from opensearch.protobufs.schemas.common_pb2 import BulkResponse
-        from opensearch_grpc.translation import ResponseConverter
-
         response = BulkResponse()
         response.took = 4
         response.errors = False
@@ -374,9 +366,6 @@ class TestResponseConverter:
 
     def test_mixed_operations_response(self) -> None:
         """Convert a response with index + update + delete items."""
-        from opensearch.protobufs.schemas.common_pb2 import BulkResponse
-        from opensearch_grpc.translation import ResponseConverter
-
         response = BulkResponse()
         response.took = 10
         response.errors = False
@@ -425,9 +414,6 @@ class TestResponseConverter:
 
     def test_error_response(self) -> None:
         """Convert a response with errors (duplicate create)."""
-        from opensearch.protobufs.schemas.common_pb2 import BulkResponse
-        from opensearch_grpc.translation import ResponseConverter
-
         response = BulkResponse()
         response.took = 5
         response.errors = True
@@ -451,9 +437,6 @@ class TestResponseConverter:
 
     def test_not_found_delete_response(self) -> None:
         """Convert a delete response for a nonexistent document."""
-        from opensearch.protobufs.schemas.common_pb2 import BulkResponse
-        from opensearch_grpc.translation import ResponseConverter
-
         response = BulkResponse()
         response.took = 1
         response.errors = False
@@ -474,3 +457,101 @@ class TestResponseConverter:
         delete_item = result["items"][0]["delete"]
         assert delete_item["result"] == "not_found"
         assert delete_item["status"] == 404
+
+
+class TestGrpcToRestStatus:
+    """Unit tests for _grpc_to_rest_status mapping."""
+
+    # --- OK (code 0) with result disambiguation ---
+
+    def test_ok_with_created_returns_201(self) -> None:
+        """gRPC OK + result='created' → 201"""
+        assert _grpc_to_rest_status(0, "created") == 201
+
+    def test_ok_with_updated_returns_200(self) -> None:
+        """gRPC OK + result='updated' → 200"""
+        assert _grpc_to_rest_status(0, "updated") == 200
+
+    def test_ok_with_deleted_returns_200(self) -> None:
+        """gRPC OK + result='deleted' → 200"""
+        assert _grpc_to_rest_status(0, "deleted") == 200
+
+    def test_ok_with_noop_returns_200(self) -> None:
+        """gRPC OK + result='noop' → 200"""
+        assert _grpc_to_rest_status(0, "noop") == 200
+
+    def test_ok_with_no_result_returns_200(self) -> None:
+        """gRPC OK + no result → 200 (default)"""
+        assert _grpc_to_rest_status(0, None) == 200
+
+    # --- Non-OK gRPC status codes ---
+
+    def test_cancelled_returns_499(self) -> None:
+        """gRPC CANCELLED (1) → 499"""
+        assert _grpc_to_rest_status(1) == 499
+
+    def test_unknown_returns_500(self) -> None:
+        """gRPC UNKNOWN (2) → 500"""
+        assert _grpc_to_rest_status(2) == 500
+
+    def test_invalid_argument_returns_400(self) -> None:
+        """gRPC INVALID_ARGUMENT (3) → 400"""
+        assert _grpc_to_rest_status(3) == 400
+
+    def test_deadline_exceeded_returns_408(self) -> None:
+        """gRPC DEADLINE_EXCEEDED (4) → 408"""
+        assert _grpc_to_rest_status(4) == 408
+
+    def test_not_found_returns_404(self) -> None:
+        """gRPC NOT_FOUND (5) → 404"""
+        assert _grpc_to_rest_status(5) == 404
+
+    def test_already_exists_returns_409(self) -> None:
+        """gRPC ALREADY_EXISTS (6) → 409"""
+        assert _grpc_to_rest_status(6) == 409
+
+    def test_permission_denied_returns_403(self) -> None:
+        """gRPC PERMISSION_DENIED (7) → 403"""
+        assert _grpc_to_rest_status(7) == 403
+
+    def test_resource_exhausted_returns_429(self) -> None:
+        """gRPC RESOURCE_EXHAUSTED (8) → 429"""
+        assert _grpc_to_rest_status(8) == 429
+
+    def test_failed_precondition_returns_412(self) -> None:
+        """gRPC FAILED_PRECONDITION (9) → 412"""
+        assert _grpc_to_rest_status(9) == 412
+
+    def test_aborted_returns_409(self) -> None:
+        """gRPC ABORTED (10) → 409"""
+        assert _grpc_to_rest_status(10) == 409
+
+    def test_out_of_range_returns_400(self) -> None:
+        """gRPC OUT_OF_RANGE (11) → 400"""
+        assert _grpc_to_rest_status(11) == 400
+
+    def test_unimplemented_returns_501(self) -> None:
+        """gRPC UNIMPLEMENTED (12) → 501"""
+        assert _grpc_to_rest_status(12) == 501
+
+    def test_internal_returns_500(self) -> None:
+        """gRPC INTERNAL (13) → 500"""
+        assert _grpc_to_rest_status(13) == 500
+
+    def test_unavailable_returns_503(self) -> None:
+        """gRPC UNAVAILABLE (14) → 503"""
+        assert _grpc_to_rest_status(14) == 503
+
+    def test_data_loss_returns_500(self) -> None:
+        """gRPC DATA_LOSS (15) → 500"""
+        assert _grpc_to_rest_status(15) == 500
+
+    def test_unauthenticated_returns_401(self) -> None:
+        """gRPC UNAUTHENTICATED (16) → 401"""
+        assert _grpc_to_rest_status(16) == 401
+
+    # --- Edge cases ---
+
+    def test_unknown_code_returns_500(self) -> None:
+        """Unknown gRPC code defaults to 500"""
+        assert _grpc_to_rest_status(99) == 500
