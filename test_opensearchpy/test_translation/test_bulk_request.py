@@ -237,3 +237,240 @@ class TestToProtoBulkRequest:
         proto = toProtoBulkRequest(body, index="idx", timeout="30s")
         assert proto.index == "idx"
         assert proto.timeout == "30s"
+
+
+class TestResponseConverter:
+    """Unit tests for ResponseConverter — proto response back to Python dict."""
+
+    def test_single_index_response(self) -> None:
+        """Convert a single index item response from proto to Python dict."""
+        from opensearch.protobufs.schemas.common_pb2 import BulkResponse
+        from opensearch_grpc.translation import ResponseConverter
+
+        response = BulkResponse()
+        response.took = 5
+        response.errors = False
+
+        item = response.items.add()
+        item.index.x_index = "test-index"
+        item.index.x_id = "1"
+        item.index.x_version = 1
+        item.index.result = "created"
+        item.index.status = 0  # gRPC OK
+        item.index.x_seq_no = 0
+        item.index.x_primary_term = 1
+        item.index.x_shards.total = 2
+        item.index.x_shards.successful = 1
+        item.index.x_shards.failed = 0
+
+        result = ResponseConverter.from_bulk_response(response)
+
+        assert result["took"] == 5
+        assert result["errors"] is False
+        assert len(result["items"]) == 1
+
+        index_item = result["items"][0]["index"]
+        assert index_item["_index"] == "test-index"
+        assert index_item["_id"] == "1"
+        assert index_item["_version"] == 1
+        assert index_item["result"] == "created"
+        assert index_item["status"] == 201
+        assert index_item["_seq_no"] == 0
+        assert index_item["_primary_term"] == 1
+        assert index_item["_shards"]["total"] == 2
+        assert index_item["_shards"]["successful"] == 1
+        assert index_item["_shards"]["failed"] == 0
+
+    def test_update_response(self) -> None:
+        """Convert an update item response from proto to Python dict."""
+        from opensearch.protobufs.schemas.common_pb2 import BulkResponse
+        from opensearch_grpc.translation import ResponseConverter
+
+        response = BulkResponse()
+        response.took = 3
+        response.errors = False
+
+        item = response.items.add()
+        item.update.x_index = "test-index"
+        item.update.x_id = "1"
+        item.update.x_version = 2
+        item.update.result = "updated"
+        item.update.status = 0  # gRPC OK
+        item.update.x_seq_no = 1
+        item.update.x_primary_term = 1
+        item.update.x_shards.total = 2
+        item.update.x_shards.successful = 1
+        item.update.x_shards.failed = 0
+
+        result = ResponseConverter.from_bulk_response(response)
+
+        assert result["errors"] is False
+        update_item = result["items"][0]["update"]
+        assert update_item["_index"] == "test-index"
+        assert update_item["_id"] == "1"
+        assert update_item["_version"] == 2
+        assert update_item["result"] == "updated"
+        assert update_item["status"] == 200
+
+    def test_delete_response(self) -> None:
+        """Convert a delete item response from proto to Python dict."""
+        from opensearch.protobufs.schemas.common_pb2 import BulkResponse
+        from opensearch_grpc.translation import ResponseConverter
+
+        response = BulkResponse()
+        response.took = 2
+        response.errors = False
+
+        item = response.items.add()
+        item.delete.x_index = "test-index"
+        item.delete.x_id = "1"
+        item.delete.x_version = 3
+        item.delete.result = "deleted"
+        item.delete.status = 0  # gRPC OK
+        item.delete.x_seq_no = 2
+        item.delete.x_primary_term = 1
+        item.delete.x_shards.total = 2
+        item.delete.x_shards.successful = 1
+        item.delete.x_shards.failed = 0
+
+        result = ResponseConverter.from_bulk_response(response)
+
+        assert result["errors"] is False
+        delete_item = result["items"][0]["delete"]
+        assert delete_item["_index"] == "test-index"
+        assert delete_item["_id"] == "1"
+        assert delete_item["result"] == "deleted"
+        assert delete_item["status"] == 200
+
+    def test_create_response(self) -> None:
+        """Convert a create item response from proto to Python dict."""
+        from opensearch.protobufs.schemas.common_pb2 import BulkResponse
+        from opensearch_grpc.translation import ResponseConverter
+
+        response = BulkResponse()
+        response.took = 4
+        response.errors = False
+
+        item = response.items.add()
+        item.create.x_index = "test-index"
+        item.create.x_id = "2"
+        item.create.x_version = 1
+        item.create.result = "created"
+        item.create.status = 0  # gRPC OK
+        item.create.x_seq_no = 3
+        item.create.x_primary_term = 1
+        item.create.x_shards.total = 2
+        item.create.x_shards.successful = 1
+        item.create.x_shards.failed = 0
+
+        result = ResponseConverter.from_bulk_response(response)
+
+        assert result["errors"] is False
+        create_item = result["items"][0]["create"]
+        assert create_item["_index"] == "test-index"
+        assert create_item["_id"] == "2"
+        assert create_item["result"] == "created"
+        assert create_item["status"] == 201
+
+    def test_mixed_operations_response(self) -> None:
+        """Convert a response with index + update + delete items."""
+        from opensearch.protobufs.schemas.common_pb2 import BulkResponse
+        from opensearch_grpc.translation import ResponseConverter
+
+        response = BulkResponse()
+        response.took = 10
+        response.errors = False
+
+        # Index item
+        item1 = response.items.add()
+        item1.index.x_index = "test-index"
+        item1.index.x_id = "1"
+        item1.index.x_version = 1
+        item1.index.result = "created"
+        item1.index.status = 0
+        item1.index.x_shards.total = 2
+        item1.index.x_shards.successful = 1
+        item1.index.x_shards.failed = 0
+
+        # Update item
+        item2 = response.items.add()
+        item2.update.x_index = "test-index"
+        item2.update.x_id = "2"
+        item2.update.x_version = 2
+        item2.update.result = "updated"
+        item2.update.status = 0
+        item2.update.x_shards.total = 2
+        item2.update.x_shards.successful = 1
+        item2.update.x_shards.failed = 0
+
+        # Delete item
+        item3 = response.items.add()
+        item3.delete.x_index = "test-index"
+        item3.delete.x_id = "3"
+        item3.delete.x_version = 3
+        item3.delete.result = "deleted"
+        item3.delete.status = 0
+        item3.delete.x_shards.total = 2
+        item3.delete.x_shards.successful = 1
+        item3.delete.x_shards.failed = 0
+
+        result = ResponseConverter.from_bulk_response(response)
+
+        assert result["took"] == 10
+        assert result["errors"] is False
+        assert len(result["items"]) == 3
+        assert "index" in result["items"][0]
+        assert "update" in result["items"][1]
+        assert "delete" in result["items"][2]
+
+    def test_error_response(self) -> None:
+        """Convert a response with errors (duplicate create)."""
+        from opensearch.protobufs.schemas.common_pb2 import BulkResponse
+        from opensearch_grpc.translation import ResponseConverter
+
+        response = BulkResponse()
+        response.took = 5
+        response.errors = True
+
+        item = response.items.add()
+        item.create.x_index = "test-index"
+        item.create.x_id = "1"
+        item.create.status = 6  # gRPC ALREADY_EXISTS
+        item.create.result = ""
+        item.create.error.type = "version_conflict_engine_exception"
+        item.create.error.reason = "[1]: version conflict, document already exists"
+
+        result = ResponseConverter.from_bulk_response(response)
+
+        assert result["errors"] is True
+        create_item = result["items"][0]["create"]
+        assert create_item["status"] == 409
+        assert "error" in create_item
+        assert create_item["error"]["type"] == "version_conflict_engine_exception"
+        assert "already exists" in create_item["error"]["reason"]
+
+    def test_not_found_delete_response(self) -> None:
+        """Convert a delete response for a nonexistent document."""
+        from opensearch.protobufs.schemas.common_pb2 import BulkResponse
+        from opensearch_grpc.translation import ResponseConverter
+
+        response = BulkResponse()
+        response.took = 1
+        response.errors = False
+
+        item = response.items.add()
+        item.delete.x_index = "test-index"
+        item.delete.x_id = "missing"
+        item.delete.x_version = 1
+        item.delete.result = "not_found"
+        item.delete.status = 5  # gRPC NOT_FOUND
+        item.delete.x_shards.total = 2
+        item.delete.x_shards.successful = 1
+        item.delete.x_shards.failed = 0
+
+        result = ResponseConverter.from_bulk_response(response)
+
+        assert result["errors"] is False
+        delete_item = result["items"][0]["delete"]
+        assert delete_item["result"] == "not_found"
+        assert delete_item["status"] == 404
