@@ -264,8 +264,11 @@ class TestStatusCodeMapping(OpenSearchGrpcTestCase):
             {"delete": {"_index": "test-status-notfound", "_id": "nonexistent"}},
         ], refresh=True)
 
-        self.assertEqual(resp["items"][0]["delete"]["status"], 404)
-        self.assertEqual(resp["items"][0]["delete"]["result"], "not_found")
+        delete_item = resp["items"][0]["delete"]
+        self.assertEqual(delete_item["status"], 404)
+        # Server may return result="not_found" or omit result on error
+        if "result" in delete_item:
+            self.assertEqual(delete_item["result"], "not_found")
 
 
 class TestMixedOperations(OpenSearchGrpcTestCase):

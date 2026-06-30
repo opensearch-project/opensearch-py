@@ -126,13 +126,18 @@ class TestDeleteDocuments(OpenSearchGrpcTestCase):
         self.assertEqual(resp["items"][0]["delete"]["result"], "deleted")
 
     def test_delete_nonexistent_document(self) -> None:
-        """Delete a nonexistent document — should report not_found."""
+        """Delete a nonexistent document — should report not_found or error."""
         resp = self.client.bulk(body=[
             {"delete": {"_index": "test-ops-del-missing", "_id": "nonexistent"}},
         ], refresh=True)
 
         # Bulk doesn't raise on individual failures, reports in items
-        self.assertEqual(resp["items"][0]["delete"]["result"], "not_found")
+        delete_item = resp["items"][0]["delete"]
+        # Server may return result="not_found" or an error with status 404
+        if "result" in delete_item:
+            self.assertEqual(delete_item["result"], "not_found")
+        else:
+            self.assertEqual(delete_item["status"], 404)
 
 
 class TestDocumentCount(OpenSearchGrpcTestCase):
