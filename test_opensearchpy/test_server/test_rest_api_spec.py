@@ -36,7 +36,7 @@ import os
 import re
 import warnings
 import zipfile
-from typing import Any
+from typing import Any, List
 
 import pytest
 import urllib3
@@ -481,7 +481,7 @@ def sync_runner(sync_client: Any) -> Any:
     return YamlRunner(sync_client)
 
 
-YAML_TEST_SPECS = []
+YAML_TEST_SPECS: List[Any] = []
 
 client = get_client()
 
