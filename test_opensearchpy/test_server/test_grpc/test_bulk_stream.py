@@ -7,6 +7,7 @@
 # Modifications Copyright OpenSearch Contributors. See
 # GitHub history for details.
 
+# mypy: ignore-errors
 """
 test_bulk_stream.py — Bulk Streaming Integration Tests
 

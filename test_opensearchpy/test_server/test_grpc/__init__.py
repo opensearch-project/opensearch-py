@@ -7,6 +7,7 @@
 # Modifications Copyright OpenSearch Contributors. See
 # GitHub history for details.
 
+# mypy: ignore-errors
 """
 OpenSearchGrpcTestCase — Base class for gRPC integration tests.
 

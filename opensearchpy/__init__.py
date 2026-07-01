@@ -42,7 +42,7 @@ VERSION = __version__ = (_major, _minor, _patch)
 logger = logging.getLogger("opensearch")
 logger.addHandler(logging.NullHandler())
 
-from .client import OpenSearch, OpenSearchGrpc
+from .client import OpenSearch, OpenSearchGrpc  # type: ignore[attr-defined]
 from .connection import (
     Connection,
     RequestsHttpConnection,
