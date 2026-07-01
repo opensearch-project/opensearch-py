@@ -127,6 +127,47 @@ class TestAsyncSignerWithFrozenCredentials(TestAsyncSigner):
         assert len(mock_session.get_frozen_credentials.mock_calls) == 1
 
 
+class TestAsyncSignerAllowlistHeaders:
+    def mock_session(self) -> Mock:
+        access_key = uuid.uuid4().hex
+        secret_key = uuid.uuid4().hex
+        token = uuid.uuid4().hex
+        dummy_session = Mock()
+        dummy_session.access_key = access_key
+        dummy_session.secret_key = secret_key
+        dummy_session.token = token
+
+        del dummy_session.get_frozen_credentials
+
+        return dummy_session
+
+    async def test_only_host_and_x_amz_headers_are_signed(self) -> None:
+        """Only host and x-amz-* headers should be included in SignedHeaders."""
+        region = "us-west-2"
+
+        from opensearchpy.helpers.asyncsigner import AWSV4SignerAsyncAuth
+
+        auth = AWSV4SignerAsyncAuth(self.mock_session(), region)
+        headers = auth(
+            "GET",
+            "http://localhost",
+            headers={
+                "connection": "keep-alive",
+                "host": "localhost",
+                "content-type": "application/json",
+                "x-amz-custom": "value",
+            },
+        )
+        assert "Authorization" in headers
+        auth_header = headers["Authorization"]
+        signed_headers_part = auth_header.split("SignedHeaders=")[1].split(",")[0]
+        signed_list = signed_headers_part.split(";")
+        assert "host" in signed_list
+        assert "x-amz-custom" in signed_list
+        assert "connection" not in signed_list
+        assert "content-type" not in signed_list
+
+
 class TestAsyncSignerWithSpecialCharacters:
     def mock_session(self) -> Mock:
         access_key = uuid.uuid4().hex
