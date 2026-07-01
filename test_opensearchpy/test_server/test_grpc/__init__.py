@@ -25,7 +25,8 @@ import grpc
 
 from opensearchpy import OpenSearchGrpc
 from opensearchpy.helpers import test
-from opensearchpy.helpers.test import OPENSEARCH_URL, OpenSearchTestCase as BaseTestCase
+from opensearchpy.helpers.test import OPENSEARCH_URL
+from opensearchpy.helpers.test import OpenSearchTestCase as BaseTestCase
 
 # pylint: disable=invalid-name
 CLIENT: Any = None
