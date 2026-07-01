@@ -22,12 +22,14 @@ class TestBulkUpload(OpenSearchGrpcTestCase):
         body = []
         for i in range(10):
             body.append({"index": {"_index": "test-bulk-upload", "_id": str(i)}})
-            body.append({
-                "title": f"Document {i}",
-                "category": f"category-{i % 10}",
-                "value": i,
-                "tags": ["bulk", "grpc"],
-            })
+            body.append(
+                {
+                    "title": f"Document {i}",
+                    "category": f"category-{i % 10}",
+                    "value": i,
+                    "tags": ["bulk", "grpc"],
+                }
+            )
 
         resp = self.client.bulk(body=body, refresh=True)
 
@@ -88,7 +90,9 @@ class TestBulkUpload(OpenSearchGrpcTestCase):
         # Update them
         update_body = []
         for i in range(5):
-            update_body.append({"update": {"_index": "test-bulk-update", "_id": str(i)}})
+            update_body.append(
+                {"update": {"_index": "test-bulk-update", "_id": str(i)}}
+            )
             update_body.append({"doc": {"value": i * 100, "updated": True}})
 
         resp = self.client.bulk(body=update_body, refresh=True)

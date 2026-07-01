@@ -14,8 +14,6 @@ Tests adding, updating, deleting documents and error handling
 via gRPC using the OpenSearchGrpcTestCase framework.
 """
 
-from opensearchpy.exceptions import ConflictError, NotFoundError
-
 from . import OpenSearchGrpcTestCase
 
 
@@ -79,16 +77,22 @@ class TestUpdateDocuments(OpenSearchGrpcTestCase):
     def test_update_partial_document(self) -> None:
         """Update a document partially via bulk."""
         # Create
-        self.client.bulk(body=[
-            {"index": {"_index": "test-ops-upd", "_id": "1"}},
-            {"title": "Original", "value": 1},
-        ], refresh=True)
+        self.client.bulk(
+            body=[
+                {"index": {"_index": "test-ops-upd", "_id": "1"}},
+                {"title": "Original", "value": 1},
+            ],
+            refresh=True,
+        )
 
         # Update
-        resp = self.client.bulk(body=[
-            {"update": {"_index": "test-ops-upd", "_id": "1"}},
-            {"doc": {"value": 99}},
-        ], refresh=True)
+        resp = self.client.bulk(
+            body=[
+                {"update": {"_index": "test-ops-upd", "_id": "1"}},
+                {"doc": {"value": 99}},
+            ],
+            refresh=True,
+        )
 
         self.assertFalse(resp["errors"])
         self.assertEqual(resp["items"][0]["update"]["result"], "updated")
@@ -99,10 +103,13 @@ class TestUpdateDocuments(OpenSearchGrpcTestCase):
 
     def test_update_with_upsert(self) -> None:
         """Update with upsert — creates if not exists."""
-        resp = self.client.bulk(body=[
-            {"update": {"_index": "test-ops-upsert", "_id": "1"}},
-            {"doc": {"value": 42}, "doc_as_upsert": True},
-        ], refresh=True)
+        resp = self.client.bulk(
+            body=[
+                {"update": {"_index": "test-ops-upsert", "_id": "1"}},
+                {"doc": {"value": 42}, "doc_as_upsert": True},
+            ],
+            refresh=True,
+        )
 
         self.assertFalse(resp["errors"])
 
@@ -113,23 +120,32 @@ class TestUpdateDocuments(OpenSearchGrpcTestCase):
 class TestDeleteDocuments(OpenSearchGrpcTestCase):
     def test_delete_existing_document(self) -> None:
         """Delete an existing document via bulk."""
-        self.client.bulk(body=[
-            {"index": {"_index": "test-ops-del", "_id": "1"}},
-            {"title": "Delete me"},
-        ], refresh=True)
+        self.client.bulk(
+            body=[
+                {"index": {"_index": "test-ops-del", "_id": "1"}},
+                {"title": "Delete me"},
+            ],
+            refresh=True,
+        )
 
-        resp = self.client.bulk(body=[
-            {"delete": {"_index": "test-ops-del", "_id": "1"}},
-        ], refresh=True)
+        resp = self.client.bulk(
+            body=[
+                {"delete": {"_index": "test-ops-del", "_id": "1"}},
+            ],
+            refresh=True,
+        )
 
         self.assertFalse(resp["errors"])
         self.assertEqual(resp["items"][0]["delete"]["result"], "deleted")
 
     def test_delete_nonexistent_document(self) -> None:
         """Delete a nonexistent document — should report not_found or error."""
-        resp = self.client.bulk(body=[
-            {"delete": {"_index": "test-ops-del-missing", "_id": "nonexistent"}},
-        ], refresh=True)
+        resp = self.client.bulk(
+            body=[
+                {"delete": {"_index": "test-ops-del-missing", "_id": "nonexistent"}},
+            ],
+            refresh=True,
+        )
 
         # Bulk doesn't raise on individual failures, reports in items
         delete_item = resp["items"][0]["delete"]
@@ -153,10 +169,13 @@ class TestDocumentCount(OpenSearchGrpcTestCase):
         self.assertEqual(self.client.count(index="test-ops-cnt")["count"], 5)
 
         # Delete 2
-        self.client.bulk(body=[
-            {"delete": {"_index": "test-ops-cnt", "_id": "0"}},
-            {"delete": {"_index": "test-ops-cnt", "_id": "1"}},
-        ], refresh=True)
+        self.client.bulk(
+            body=[
+                {"delete": {"_index": "test-ops-cnt", "_id": "0"}},
+                {"delete": {"_index": "test-ops-cnt", "_id": "1"}},
+            ],
+            refresh=True,
+        )
 
         self.client.indices.refresh(index="test-ops-cnt")
         self.assertEqual(self.client.count(index="test-ops-cnt")["count"], 3)
@@ -165,16 +184,22 @@ class TestDocumentCount(OpenSearchGrpcTestCase):
 class TestErrorHandling(OpenSearchGrpcTestCase):
     def test_create_duplicate_document(self) -> None:
         """Creating a duplicate doc should report error in bulk response."""
-        self.client.bulk(body=[
-            {"create": {"_index": "test-ops-dup", "_id": "1"}},
-            {"title": "First"},
-        ], refresh=True)
+        self.client.bulk(
+            body=[
+                {"create": {"_index": "test-ops-dup", "_id": "1"}},
+                {"title": "First"},
+            ],
+            refresh=True,
+        )
 
         # Try to create again
-        resp = self.client.bulk(body=[
-            {"create": {"_index": "test-ops-dup", "_id": "1"}},
-            {"title": "Duplicate"},
-        ], refresh=True)
+        resp = self.client.bulk(
+            body=[
+                {"create": {"_index": "test-ops-dup", "_id": "1"}},
+                {"title": "Duplicate"},
+            ],
+            refresh=True,
+        )
 
         self.assertTrue(resp["errors"])
         self.assertEqual(resp["items"][0]["create"]["status"], 409)

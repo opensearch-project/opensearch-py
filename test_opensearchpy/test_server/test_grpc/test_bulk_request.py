@@ -25,10 +25,13 @@ class TestBulkRequestBuilderBuild(OpenSearchGrpcTestCase):
 
     def test_single_index_operation(self) -> None:
         """Single index operation produces correct server response."""
-        resp = self.client.bulk(body=[
-            {"index": {"_index": "test-builder-single", "_id": "1"}},
-            {"title": "Doc 1"},
-        ], refresh=True)
+        resp = self.client.bulk(
+            body=[
+                {"index": {"_index": "test-builder-single", "_id": "1"}},
+                {"title": "Doc 1"},
+            ],
+            refresh=True,
+        )
 
         self.assertFalse(resp["errors"])
         self.assertEqual(len(resp["items"]), 1)
@@ -51,10 +54,13 @@ class TestBulkRequestBuilderBuild(OpenSearchGrpcTestCase):
 
     def test_create_operation(self) -> None:
         """Create operation produces correct response fields."""
-        resp = self.client.bulk(body=[
-            {"create": {"_index": "test-builder-create", "_id": "1"}},
-            {"title": "Created doc"},
-        ], refresh=True)
+        resp = self.client.bulk(
+            body=[
+                {"create": {"_index": "test-builder-create", "_id": "1"}},
+                {"title": "Created doc"},
+            ],
+            refresh=True,
+        )
 
         self.assertFalse(resp["errors"])
         self.assertEqual(resp["items"][0]["create"]["result"], "created")
@@ -63,16 +69,22 @@ class TestBulkRequestBuilderBuild(OpenSearchGrpcTestCase):
     def test_update_operation(self) -> None:
         """Update operation produces correct response fields."""
         # Create first
-        self.client.bulk(body=[
-            {"index": {"_index": "test-builder-update", "_id": "1"}},
-            {"title": "Original", "value": 1},
-        ], refresh=True)
+        self.client.bulk(
+            body=[
+                {"index": {"_index": "test-builder-update", "_id": "1"}},
+                {"title": "Original", "value": 1},
+            ],
+            refresh=True,
+        )
 
         # Update
-        resp = self.client.bulk(body=[
-            {"update": {"_index": "test-builder-update", "_id": "1"}},
-            {"doc": {"value": 99}},
-        ], refresh=True)
+        resp = self.client.bulk(
+            body=[
+                {"update": {"_index": "test-builder-update", "_id": "1"}},
+                {"doc": {"value": 99}},
+            ],
+            refresh=True,
+        )
 
         self.assertFalse(resp["errors"])
         self.assertEqual(resp["items"][0]["update"]["result"], "updated")
@@ -86,15 +98,21 @@ class TestBulkRequestBuilderBuild(OpenSearchGrpcTestCase):
     def test_delete_operation(self) -> None:
         """Delete operation produces correct response fields."""
         # Create first
-        self.client.bulk(body=[
-            {"index": {"_index": "test-builder-delete", "_id": "1"}},
-            {"title": "Delete me"},
-        ], refresh=True)
+        self.client.bulk(
+            body=[
+                {"index": {"_index": "test-builder-delete", "_id": "1"}},
+                {"title": "Delete me"},
+            ],
+            refresh=True,
+        )
 
         # Delete
-        resp = self.client.bulk(body=[
-            {"delete": {"_index": "test-builder-delete", "_id": "1"}},
-        ], refresh=True)
+        resp = self.client.bulk(
+            body=[
+                {"delete": {"_index": "test-builder-delete", "_id": "1"}},
+            ],
+            refresh=True,
+        )
 
         self.assertFalse(resp["errors"])
         self.assertEqual(resp["items"][0]["delete"]["result"], "deleted")
@@ -146,10 +164,13 @@ class TestResponseFormat(OpenSearchGrpcTestCase):
 
     def test_response_has_took(self) -> None:
         """Response contains 'took' field (milliseconds)."""
-        resp = self.client.bulk(body=[
-            {"index": {"_index": "test-resp-took", "_id": "1"}},
-            {"x": 1},
-        ], refresh=True)
+        resp = self.client.bulk(
+            body=[
+                {"index": {"_index": "test-resp-took", "_id": "1"}},
+                {"x": 1},
+            ],
+            refresh=True,
+        )
 
         self.assertIn("took", resp)
         self.assertIsInstance(resp["took"], int)
@@ -157,20 +178,26 @@ class TestResponseFormat(OpenSearchGrpcTestCase):
 
     def test_response_has_errors_boolean(self) -> None:
         """Response contains 'errors' boolean."""
-        resp = self.client.bulk(body=[
-            {"index": {"_index": "test-resp-errors", "_id": "1"}},
-            {"x": 1},
-        ], refresh=True)
+        resp = self.client.bulk(
+            body=[
+                {"index": {"_index": "test-resp-errors", "_id": "1"}},
+                {"x": 1},
+            ],
+            refresh=True,
+        )
 
         self.assertIn("errors", resp)
         self.assertIsInstance(resp["errors"], bool)
 
     def test_response_item_has_shards(self) -> None:
         """Response items contain _shards with total/successful/failed."""
-        resp = self.client.bulk(body=[
-            {"index": {"_index": "test-resp-shards", "_id": "1"}},
-            {"x": 1},
-        ], refresh=True)
+        resp = self.client.bulk(
+            body=[
+                {"index": {"_index": "test-resp-shards", "_id": "1"}},
+                {"x": 1},
+            ],
+            refresh=True,
+        )
 
         item = resp["items"][0]["index"]
         self.assertIn("_shards", item)
@@ -181,10 +208,13 @@ class TestResponseFormat(OpenSearchGrpcTestCase):
 
     def test_response_item_has_version(self) -> None:
         """Response items contain _version field."""
-        resp = self.client.bulk(body=[
-            {"index": {"_index": "test-resp-version", "_id": "1"}},
-            {"x": 1},
-        ], refresh=True)
+        resp = self.client.bulk(
+            body=[
+                {"index": {"_index": "test-resp-version", "_id": "1"}},
+                {"x": 1},
+            ],
+            refresh=True,
+        )
 
         item = resp["items"][0]["index"]
         self.assertIn("_version", item)
@@ -192,10 +222,13 @@ class TestResponseFormat(OpenSearchGrpcTestCase):
 
     def test_response_item_has_seq_no(self) -> None:
         """Response items contain _seq_no and _primary_term."""
-        resp = self.client.bulk(body=[
-            {"index": {"_index": "test-resp-seq", "_id": "1"}},
-            {"x": 1},
-        ], refresh=True)
+        resp = self.client.bulk(
+            body=[
+                {"index": {"_index": "test-resp-seq", "_id": "1"}},
+                {"x": 1},
+            ],
+            refresh=True,
+        )
 
         item = resp["items"][0]["index"]
         self.assertIn("_seq_no", item)
@@ -209,60 +242,84 @@ class TestStatusCodeMapping(OpenSearchGrpcTestCase):
 
     def test_created_returns_201(self) -> None:
         """Index/create new document returns status 201."""
-        resp = self.client.bulk(body=[
-            {"index": {"_index": "test-status-create", "_id": "1"}},
-            {"x": 1},
-        ], refresh=True)
+        resp = self.client.bulk(
+            body=[
+                {"index": {"_index": "test-status-create", "_id": "1"}},
+                {"x": 1},
+            ],
+            refresh=True,
+        )
 
         self.assertEqual(resp["items"][0]["index"]["status"], 201)
 
     def test_updated_returns_200(self) -> None:
         """Update existing document returns status 200."""
-        self.client.bulk(body=[
-            {"index": {"_index": "test-status-update", "_id": "1"}},
-            {"x": 1},
-        ], refresh=True)
+        self.client.bulk(
+            body=[
+                {"index": {"_index": "test-status-update", "_id": "1"}},
+                {"x": 1},
+            ],
+            refresh=True,
+        )
 
-        resp = self.client.bulk(body=[
-            {"update": {"_index": "test-status-update", "_id": "1"}},
-            {"doc": {"x": 2}},
-        ], refresh=True)
+        resp = self.client.bulk(
+            body=[
+                {"update": {"_index": "test-status-update", "_id": "1"}},
+                {"doc": {"x": 2}},
+            ],
+            refresh=True,
+        )
 
         self.assertEqual(resp["items"][0]["update"]["status"], 200)
 
     def test_deleted_returns_200(self) -> None:
         """Delete existing document returns status 200."""
-        self.client.bulk(body=[
-            {"index": {"_index": "test-status-delete", "_id": "1"}},
-            {"x": 1},
-        ], refresh=True)
+        self.client.bulk(
+            body=[
+                {"index": {"_index": "test-status-delete", "_id": "1"}},
+                {"x": 1},
+            ],
+            refresh=True,
+        )
 
-        resp = self.client.bulk(body=[
-            {"delete": {"_index": "test-status-delete", "_id": "1"}},
-        ], refresh=True)
+        resp = self.client.bulk(
+            body=[
+                {"delete": {"_index": "test-status-delete", "_id": "1"}},
+            ],
+            refresh=True,
+        )
 
         self.assertEqual(resp["items"][0]["delete"]["status"], 200)
 
     def test_conflict_returns_409(self) -> None:
         """Create duplicate document returns status 409."""
-        self.client.bulk(body=[
-            {"create": {"_index": "test-status-conflict", "_id": "1"}},
-            {"x": 1},
-        ], refresh=True)
+        self.client.bulk(
+            body=[
+                {"create": {"_index": "test-status-conflict", "_id": "1"}},
+                {"x": 1},
+            ],
+            refresh=True,
+        )
 
-        resp = self.client.bulk(body=[
-            {"create": {"_index": "test-status-conflict", "_id": "1"}},
-            {"x": 2},
-        ], refresh=True)
+        resp = self.client.bulk(
+            body=[
+                {"create": {"_index": "test-status-conflict", "_id": "1"}},
+                {"x": 2},
+            ],
+            refresh=True,
+        )
 
         self.assertTrue(resp["errors"])
         self.assertEqual(resp["items"][0]["create"]["status"], 409)
 
     def test_not_found_returns_404(self) -> None:
         """Delete nonexistent document returns status 404."""
-        resp = self.client.bulk(body=[
-            {"delete": {"_index": "test-status-notfound", "_id": "nonexistent"}},
-        ], refresh=True)
+        resp = self.client.bulk(
+            body=[
+                {"delete": {"_index": "test-status-notfound", "_id": "nonexistent"}},
+            ],
+            refresh=True,
+        )
 
         delete_item = resp["items"][0]["delete"]
         self.assertEqual(delete_item["status"], 404)
@@ -277,21 +334,27 @@ class TestMixedOperations(OpenSearchGrpcTestCase):
     def test_index_update_delete_in_one_request(self) -> None:
         """All operation types work correctly in one bulk call."""
         # Seed
-        self.client.bulk(body=[
-            {"index": {"_index": "test-mixed-ops", "_id": "existing"}},
-            {"title": "Existing", "value": 1},
-            {"index": {"_index": "test-mixed-ops", "_id": "to-delete"}},
-            {"title": "Will delete"},
-        ], refresh=True)
+        self.client.bulk(
+            body=[
+                {"index": {"_index": "test-mixed-ops", "_id": "existing"}},
+                {"title": "Existing", "value": 1},
+                {"index": {"_index": "test-mixed-ops", "_id": "to-delete"}},
+                {"title": "Will delete"},
+            ],
+            refresh=True,
+        )
 
         # Mixed batch
-        resp = self.client.bulk(body=[
-            {"index": {"_index": "test-mixed-ops", "_id": "new"}},
-            {"title": "New doc"},
-            {"update": {"_index": "test-mixed-ops", "_id": "existing"}},
-            {"doc": {"value": 99}},
-            {"delete": {"_index": "test-mixed-ops", "_id": "to-delete"}},
-        ], refresh=True)
+        resp = self.client.bulk(
+            body=[
+                {"index": {"_index": "test-mixed-ops", "_id": "new"}},
+                {"title": "New doc"},
+                {"update": {"_index": "test-mixed-ops", "_id": "existing"}},
+                {"doc": {"value": 99}},
+                {"delete": {"_index": "test-mixed-ops", "_id": "to-delete"}},
+            ],
+            refresh=True,
+        )
 
         self.assertFalse(resp["errors"])
         self.assertEqual(len(resp["items"]), 3)

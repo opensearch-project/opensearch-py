@@ -14,8 +14,6 @@ Tests the translation layer by building protobuf requests and sending
 them through the client to verify end-to-end correctness.
 """
 
-from opensearch_grpc.translation import BulkRequestProtoBuilder
-
 from . import OpenSearchGrpcTestCase
 
 
@@ -46,7 +44,13 @@ class TestBulkRequestBuilderIntegration(OpenSearchGrpcTestCase):
     def test_builder_with_routing(self) -> None:
         """Bulk with routing parameter."""
         body = [
-            {"index": {"_index": "test-builder-route", "_id": "1", "routing": "shard-1"}},
+            {
+                "index": {
+                    "_index": "test-builder-route",
+                    "_id": "1",
+                    "routing": "shard-1",
+                }
+            },
             {"title": "Routed doc"},
         ]
         resp = self.client.bulk(body=body, refresh=True)

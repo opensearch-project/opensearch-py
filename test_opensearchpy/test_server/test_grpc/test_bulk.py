@@ -80,7 +80,9 @@ class TestBulkUpdate(OpenSearchGrpcTestCase):
         # Update them
         update_body = []
         for i in range(5):
-            update_body.append({"update": {"_index": "test-grpc-update", "_id": str(i)}})
+            update_body.append(
+                {"update": {"_index": "test-grpc-update", "_id": str(i)}}
+            )
             update_body.append({"doc": {"value": i * 100, "updated": True}})
 
         resp = self.client.bulk(body=update_body, refresh=True)
@@ -109,7 +111,9 @@ class TestBulkDelete(OpenSearchGrpcTestCase):
         # Delete them
         delete_body = []
         for i in range(5):
-            delete_body.append({"delete": {"_index": "test-grpc-delete", "_id": str(i)}})
+            delete_body.append(
+                {"delete": {"_index": "test-grpc-delete", "_id": str(i)}}
+            )
 
         resp = self.client.bulk(body=delete_body, refresh=True)
 

@@ -34,19 +34,25 @@ class TestBulkViaGrpc(OpenSearchGrpcTestCase):
     def test_bulk_mixed_operations(self) -> None:
         """Bulk with index + update + delete."""
         # Seed
-        self.client.bulk(body=[
-            {"index": {"_index": "test-transport-mixed", "_id": "1"}},
-            {"title": "Seed", "value": 1},
-        ], refresh=True)
+        self.client.bulk(
+            body=[
+                {"index": {"_index": "test-transport-mixed", "_id": "1"}},
+                {"title": "Seed", "value": 1},
+            ],
+            refresh=True,
+        )
 
         # Mixed
-        resp = self.client.bulk(body=[
-            {"index": {"_index": "test-transport-mixed", "_id": "2"}},
-            {"title": "New"},
-            {"update": {"_index": "test-transport-mixed", "_id": "1"}},
-            {"doc": {"value": 100}},
-            {"delete": {"_index": "test-transport-mixed", "_id": "2"}},
-        ], refresh=True)
+        resp = self.client.bulk(
+            body=[
+                {"index": {"_index": "test-transport-mixed", "_id": "2"}},
+                {"title": "New"},
+                {"update": {"_index": "test-transport-mixed", "_id": "1"}},
+                {"doc": {"value": 100}},
+                {"delete": {"_index": "test-transport-mixed", "_id": "2"}},
+            ],
+            refresh=True,
+        )
 
         self.assertFalse(resp["errors"])
         self.assertEqual(len(resp["items"]), 3)
@@ -97,7 +103,10 @@ class TestSingleDocViaRest(OpenSearchGrpcTestCase):
     def test_delete_document(self) -> None:
         """client.delete() goes through REST."""
         self.client.index(
-            index="test-transport-delete", id="1", body={"title": "Delete me"}, refresh=True
+            index="test-transport-delete",
+            id="1",
+            body={"title": "Delete me"},
+            refresh=True,
         )
         resp = self.client.delete(index="test-transport-delete", id="1")
         self.assertEqual(resp["result"], "deleted")
@@ -107,10 +116,13 @@ class TestRestFallback(OpenSearchGrpcTestCase):
     """Non-bulk operations correctly fall back to REST."""
 
     def test_search(self) -> None:
-        self.client.bulk(body=[
-            {"index": {"_index": "test-transport-search", "_id": "1"}},
-            {"title": "Findme"},
-        ], refresh=True)
+        self.client.bulk(
+            body=[
+                {"index": {"_index": "test-transport-search", "_id": "1"}},
+                {"title": "Findme"},
+            ],
+            refresh=True,
+        )
 
         resp = self.client.search(
             index="test-transport-search",
@@ -119,12 +131,15 @@ class TestRestFallback(OpenSearchGrpcTestCase):
         self.assertEqual(resp["hits"]["total"]["value"], 1)
 
     def test_count(self) -> None:
-        self.client.bulk(body=[
-            {"index": {"_index": "test-transport-count", "_id": "1"}},
-            {"x": 1},
-            {"index": {"_index": "test-transport-count", "_id": "2"}},
-            {"x": 2},
-        ], refresh=True)
+        self.client.bulk(
+            body=[
+                {"index": {"_index": "test-transport-count", "_id": "1"}},
+                {"x": 1},
+                {"index": {"_index": "test-transport-count", "_id": "2"}},
+                {"x": 2},
+            ],
+            refresh=True,
+        )
 
         count = self.client.count(index="test-transport-count")["count"]
         self.assertEqual(count, 2)
@@ -140,10 +155,13 @@ class TestEndToEndWorkflow(OpenSearchGrpcTestCase):
     """Full workflows combining gRPC bulk and REST operations."""
 
     def test_bulk_then_search(self) -> None:
-        self.client.bulk(body=[
-            {"index": {"_index": "test-e2e-search", "_id": "1"}},
-            {"title": "End to end", "status": "active"},
-        ], refresh=True)
+        self.client.bulk(
+            body=[
+                {"index": {"_index": "test-e2e-search", "_id": "1"}},
+                {"title": "End to end", "status": "active"},
+            ],
+            refresh=True,
+        )
 
         resp = self.client.search(
             index="test-e2e-search",
@@ -152,28 +170,40 @@ class TestEndToEndWorkflow(OpenSearchGrpcTestCase):
         self.assertEqual(resp["hits"]["total"]["value"], 1)
 
     def test_bulk_update_then_get(self) -> None:
-        self.client.bulk(body=[
-            {"index": {"_index": "test-e2e-update", "_id": "1"}},
-            {"title": "Original", "value": 1},
-        ], refresh=True)
+        self.client.bulk(
+            body=[
+                {"index": {"_index": "test-e2e-update", "_id": "1"}},
+                {"title": "Original", "value": 1},
+            ],
+            refresh=True,
+        )
 
-        self.client.bulk(body=[
-            {"update": {"_index": "test-e2e-update", "_id": "1"}},
-            {"doc": {"value": 999}},
-        ], refresh=True)
+        self.client.bulk(
+            body=[
+                {"update": {"_index": "test-e2e-update", "_id": "1"}},
+                {"doc": {"value": 999}},
+            ],
+            refresh=True,
+        )
 
         doc = self.client.get(index="test-e2e-update", id="1")
         self.assertEqual(doc["_source"]["value"], 999)
         self.assertEqual(doc["_source"]["title"], "Original")
 
     def test_bulk_delete_then_verify(self) -> None:
-        self.client.bulk(body=[
-            {"index": {"_index": "test-e2e-del", "_id": "1"}},
-            {"title": "Will be deleted"},
-        ], refresh=True)
+        self.client.bulk(
+            body=[
+                {"index": {"_index": "test-e2e-del", "_id": "1"}},
+                {"title": "Will be deleted"},
+            ],
+            refresh=True,
+        )
 
-        self.client.bulk(body=[
-            {"delete": {"_index": "test-e2e-del", "_id": "1"}},
-        ], refresh=True)
+        self.client.bulk(
+            body=[
+                {"delete": {"_index": "test-e2e-del", "_id": "1"}},
+            ],
+            refresh=True,
+        )
 
         self.assertFalse(self.client.exists(index="test-e2e-del", id="1"))
