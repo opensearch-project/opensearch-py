@@ -3276,7 +3276,6 @@ class OpenSearch(Client):
         )
 
 
-
 class OpenSearchGrpc(OpenSearch):
     """
     OpenSearch client with gRPC transport for bulk document operations.
