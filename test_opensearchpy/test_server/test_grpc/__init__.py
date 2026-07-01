@@ -24,7 +24,7 @@ from urllib.parse import urlparse
 
 import grpc
 
-from opensearchpy import OpenSearchGrpc
+from opensearchpy.client import OpenSearchGrpc
 from opensearchpy.helpers.test import OPENSEARCH_URL
 from opensearchpy.helpers.test import OpenSearchTestCase as BaseTestCase
 
