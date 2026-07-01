@@ -262,14 +262,3 @@ try:
     ]
 except (ImportError, SyntaxError):
     pass
-
-
-def __getattr__(name: str) -> "Any":
-    if name == "OpenSearchGrpc":
-        import importlib
-
-        mod = importlib.import_module("opensearchpy.client")
-        _cls = getattr(mod, "OpenSearchGrpc")
-        globals()["OpenSearchGrpc"] = _cls
-        return _cls
-    raise AttributeError(f"module 'opensearchpy' has no attribute {name}")
