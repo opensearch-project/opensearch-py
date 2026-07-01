@@ -42,7 +42,7 @@ VERSION = __version__ = (_major, _minor, _patch)
 logger = logging.getLogger("opensearch")
 logger.addHandler(logging.NullHandler())
 
-from .client import OpenSearch, OpenSearchGrpc  # type: ignore[attr-defined]
+from .client import OpenSearch
 from .connection import (
     Connection,
     RequestsHttpConnection,
@@ -142,7 +142,6 @@ warnings.simplefilter("default", category=OpenSearchDeprecationWarning, append=T
 
 __all__ = [
     "OpenSearch",
-    "OpenSearchGrpc",
     "Transport",
     "ConnectionPool",
     "ConnectionSelector",
@@ -263,3 +262,11 @@ try:
     ]
 except (ImportError, SyntaxError):
     pass
+
+
+def __getattr__(name):  # type: ignore[no-untyped-def]
+    if name == "OpenSearchGrpc":
+        from .client import OpenSearchGrpc
+
+        return OpenSearchGrpc
+    raise AttributeError(f"module 'opensearchpy' has no attribute {name}")
