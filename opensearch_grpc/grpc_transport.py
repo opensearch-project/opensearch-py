@@ -20,6 +20,7 @@ Usage:
 """
 
 import re
+from typing import Any, Callable, Collection, Dict, Optional, Tuple, Union
 
 import grpc
 from opensearch.protobufs.services import document_service_pb2_grpc
@@ -36,7 +37,7 @@ class GrpcTransport(Transport):
     All other operations fall back to REST automatically.
     """
 
-    def __init__(self, hosts, *args, **kwargs):
+    def __init__(self, hosts: Any, *args: Any, **kwargs: Any) -> None:
         self._grpc_port = kwargs.pop("grpc_port", 9400)
         self._grpc_hosts = kwargs.pop("grpc_hosts", None)
 
@@ -65,8 +66,15 @@ class GrpcTransport(Transport):
         )
 
     def perform_request(
-        self, method, url, params=None, body=None, timeout=None, ignore=(), headers=None
-    ):
+        self,
+        method: str,
+        url: str,
+        params: Optional[Dict[str, Any]] = None,
+        body: Any = None,
+        timeout: Optional[Union[int, float]] = None,
+        ignore: Collection[int] = (),
+        headers: Optional[Dict[str, str]] = None,
+    ) -> Any:
         """Route to gRPC or REST based on the URL pattern."""
         handler = self._get_grpc_handler(method, url)
         if handler:
@@ -85,7 +93,7 @@ class GrpcTransport(Transport):
     # Matches: /_bulk or /<index>/_bulk
     _BULK_PATTERN = re.compile(r"^/([^/]+/)?_bulk$")
 
-    def _get_grpc_handler(self, method, url):
+    def _get_grpc_handler(self, method: str, url: str) -> Optional[Callable[..., Any]]:
         """Determine if this request can be handled via gRPC.
 
         Only bulk requests are routed over gRPC.
@@ -102,7 +110,9 @@ class GrpcTransport(Transport):
 
     # ─── gRPC Handlers ────────────────────────────────────────────────────────
 
-    def _handle_bulk(self, method, url, params, body):
+    def _handle_bulk(
+        self, method: str, url: str, params: Optional[Dict[str, Any]], body: Any
+    ) -> Any:
         """Bulk → DocumentService.Bulk (native gRPC)."""
         url_index = self._extract_index_from_url(url, "_bulk")
         refresh = params.get("refresh") if params else None
@@ -121,14 +131,14 @@ class GrpcTransport(Transport):
         response = self._document_stub.Bulk(converter.build())
         return ResponseConverter._convert_bulk_items(response)
 
-    def _extract_index_from_url(self, url, endpoint):
+    def _extract_index_from_url(self, url: str, endpoint: str) -> Optional[str]:
         """Extract index from URL like /my-index/_bulk → 'my-index'."""
         parts = url.strip("/").split("/")
         if len(parts) >= 2 and parts[-1] == endpoint:
             return "/".join(parts[:-1])
         return None
 
-    def close(self):
+    def close(self) -> None:
         """Close gRPC channel and REST connections."""
         if self._channel:
             self._channel.close()

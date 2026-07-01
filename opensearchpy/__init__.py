@@ -142,6 +142,7 @@ warnings.simplefilter("default", category=OpenSearchDeprecationWarning, append=T
 
 __all__ = [
     "OpenSearch",
+    "OpenSearchGrpc",
     "Transport",
     "ConnectionPool",
     "ConnectionSelector",
