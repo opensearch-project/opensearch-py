@@ -111,7 +111,7 @@ class GrpcTransport(Transport):
     # ─── gRPC Handlers ────────────────────────────────────────────────────────
 
     def _handle_bulk(
-        self, method: str, url: str, params: Optional[Dict[str, Any]], body: Any
+        self, method: str, url: str, params: Optional[Mapping[str, Any]], body: Any
     ) -> Any:
         """Bulk → DocumentService.Bulk (native gRPC)."""
         url_index = self._extract_index_from_url(url, "_bulk")
