@@ -20,7 +20,7 @@ Usage:
 """
 
 import re
-from typing import Any, Callable, Collection, Dict, Optional, Tuple, Union
+from typing import Any, Callable, Collection, Mapping, Optional, Tuple, Union
 
 import grpc
 from opensearch.protobufs.services import document_service_pb2_grpc
@@ -69,11 +69,11 @@ class GrpcTransport(Transport):
         self,
         method: str,
         url: str,
-        params: Optional[Dict[str, Any]] = None,
+        params: Optional[Mapping[str, Any]] = None,
         body: Any = None,
         timeout: Optional[Union[int, float]] = None,
         ignore: Collection[int] = (),
-        headers: Optional[Dict[str, str]] = None,
+        headers: Optional[Mapping[str, str]] = None,
     ) -> Any:
         """Route to gRPC or REST based on the URL pattern."""
         handler = self._get_grpc_handler(method, url)
