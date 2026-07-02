@@ -1,3 +1,12 @@
+# SPDX-License-Identifier: Apache-2.0
+#
+# The OpenSearch Contributors require contributions made to
+# this file be licensed under the Apache-2.0 license or a
+# compatible open source license.
+#
+# Modifications Copyright OpenSearch Contributors. See
+# GitHub history for details.
+
 """
 translation.py — gRPC Translation Layer
 
@@ -489,7 +498,7 @@ def _grpc_to_rest_status(grpc_code: int, result: Optional[str] = None) -> int:
 
 
 def _map_refresh(value: Union[str, bool, bytes]) -> Any:
-    # opensearch-py may pass refresh as bytes (b'true') from query params
+    # opensearch-py may pass refresh as bytes (b"true") from query params
     if isinstance(value, bytes):
         value = value.decode("utf-8")
     mapping = {

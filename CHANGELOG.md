@@ -3,11 +3,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 ## [Unreleased]
 ### Added
-- Add `OpenSearchGrpc` client class extending `OpenSearch` with built-in gRPC transport for bulk operations
-- Add `GrpcTransport` that routes bulk requests over gRPC with automatic REST fallback for unsupported operations
-- Enable gRPC transport in OpenSearch Docker image (port 9400)
-- Expose gRPC port in `run-opensearch.sh` for integration testing
-- Add extensive bulk upload integration tests (10K+ documents)
+- Add gRPC translation layer with `BulkRequestProtoBuilder` and `ResponseConverter` for bulk operations ([#1058](https://github.com/opensearch-project/opensearch-py/pull/1058))
 ### Updated APIs
 ### Changed
 ### Deprecated

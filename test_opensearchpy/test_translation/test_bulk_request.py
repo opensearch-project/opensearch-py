@@ -6,23 +6,6 @@
 #
 # Modifications Copyright OpenSearch Contributors. See
 # GitHub history for details.
-#
-#  Licensed to Elasticsearch B.V. under one or more contributor
-#  license agreements. See the NOTICE file distributed with
-#  this work for additional information regarding copyright
-#  ownership. Elasticsearch B.V. licenses this file to you under
-#  the Apache License, Version 2.0 (the "License"); you may
-#  not use this file except in compliance with the License.
-#  You may obtain a copy of the License at
-#
-# 	http://www.apache.org/licenses/LICENSE-2.0
-#
-#  Unless required by applicable law or agreed to in writing,
-#  software distributed under the License is distributed on an
-#  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-#  KIND, either express or implied.  See the License for the
-#  specific language governing permissions and limitations
-#  under the License.
 """
 test_bulk_request.py — Unit Tests for BulkRequestProtoBuilder
 
@@ -35,8 +18,12 @@ Run:
 
 from typing import Any, Dict, List
 
+from opensearch.protobufs.schemas.common_pb2 import BulkResponse
+
 from opensearch_grpc.translation import (
     BulkRequestProtoBuilder,
+    ResponseConverter,
+    _grpc_to_rest_status,
     toProtoBulkRequest,
 )
 
@@ -254,3 +241,317 @@ class TestToProtoBulkRequest:
         proto = toProtoBulkRequest(body, index="idx", timeout="30s")
         assert proto.index == "idx"
         assert proto.timeout == "30s"
+
+
+class TestResponseConverter:
+    """Unit tests for ResponseConverter — proto response back to Python dict."""
+
+    def test_single_index_response(self) -> None:
+        """Convert a single index item response from proto to Python dict."""
+        response = BulkResponse()
+        response.took = 5
+        response.errors = False
+
+        item = response.items.add()
+        item.index.x_index = "test-index"
+        item.index.x_id = "1"
+        item.index.x_version = 1
+        item.index.result = "created"
+        item.index.status = 0  # gRPC OK
+        item.index.x_seq_no = 0
+        item.index.x_primary_term = 1
+        item.index.x_shards.total = 2
+        item.index.x_shards.successful = 1
+        item.index.x_shards.failed = 0
+
+        result = ResponseConverter.from_bulk_response(response)
+
+        assert result["took"] == 5
+        assert result["errors"] is False
+        assert len(result["items"]) == 1
+
+        index_item = result["items"][0]["index"]
+        assert index_item["_index"] == "test-index"
+        assert index_item["_id"] == "1"
+        assert index_item["_version"] == 1
+        assert index_item["result"] == "created"
+        assert index_item["status"] == 201
+        assert index_item["_seq_no"] == 0
+        assert index_item["_primary_term"] == 1
+        assert index_item["_shards"]["total"] == 2
+        assert index_item["_shards"]["successful"] == 1
+        assert index_item["_shards"]["failed"] == 0
+
+    def test_update_response(self) -> None:
+        """Convert an update item response from proto to Python dict."""
+        response = BulkResponse()
+        response.took = 3
+        response.errors = False
+
+        item = response.items.add()
+        item.update.x_index = "test-index"
+        item.update.x_id = "1"
+        item.update.x_version = 2
+        item.update.result = "updated"
+        item.update.status = 0  # gRPC OK
+        item.update.x_seq_no = 1
+        item.update.x_primary_term = 1
+        item.update.x_shards.total = 2
+        item.update.x_shards.successful = 1
+        item.update.x_shards.failed = 0
+
+        result = ResponseConverter.from_bulk_response(response)
+
+        assert result["errors"] is False
+        update_item = result["items"][0]["update"]
+        assert update_item["_index"] == "test-index"
+        assert update_item["_id"] == "1"
+        assert update_item["_version"] == 2
+        assert update_item["result"] == "updated"
+        assert update_item["status"] == 200
+
+    def test_delete_response(self) -> None:
+        """Convert a delete item response from proto to Python dict."""
+        response = BulkResponse()
+        response.took = 2
+        response.errors = False
+
+        item = response.items.add()
+        item.delete.x_index = "test-index"
+        item.delete.x_id = "1"
+        item.delete.x_version = 3
+        item.delete.result = "deleted"
+        item.delete.status = 0  # gRPC OK
+        item.delete.x_seq_no = 2
+        item.delete.x_primary_term = 1
+        item.delete.x_shards.total = 2
+        item.delete.x_shards.successful = 1
+        item.delete.x_shards.failed = 0
+
+        result = ResponseConverter.from_bulk_response(response)
+
+        assert result["errors"] is False
+        delete_item = result["items"][0]["delete"]
+        assert delete_item["_index"] == "test-index"
+        assert delete_item["_id"] == "1"
+        assert delete_item["result"] == "deleted"
+        assert delete_item["status"] == 200
+
+    def test_create_response(self) -> None:
+        """Convert a create item response from proto to Python dict."""
+        response = BulkResponse()
+        response.took = 4
+        response.errors = False
+
+        item = response.items.add()
+        item.create.x_index = "test-index"
+        item.create.x_id = "2"
+        item.create.x_version = 1
+        item.create.result = "created"
+        item.create.status = 0  # gRPC OK
+        item.create.x_seq_no = 3
+        item.create.x_primary_term = 1
+        item.create.x_shards.total = 2
+        item.create.x_shards.successful = 1
+        item.create.x_shards.failed = 0
+
+        result = ResponseConverter.from_bulk_response(response)
+
+        assert result["errors"] is False
+        create_item = result["items"][0]["create"]
+        assert create_item["_index"] == "test-index"
+        assert create_item["_id"] == "2"
+        assert create_item["result"] == "created"
+        assert create_item["status"] == 201
+
+    def test_mixed_operations_response(self) -> None:
+        """Convert a response with index + update + delete items."""
+        response = BulkResponse()
+        response.took = 10
+        response.errors = False
+
+        # Index item
+        item1 = response.items.add()
+        item1.index.x_index = "test-index"
+        item1.index.x_id = "1"
+        item1.index.x_version = 1
+        item1.index.result = "created"
+        item1.index.status = 0
+        item1.index.x_shards.total = 2
+        item1.index.x_shards.successful = 1
+        item1.index.x_shards.failed = 0
+
+        # Update item
+        item2 = response.items.add()
+        item2.update.x_index = "test-index"
+        item2.update.x_id = "2"
+        item2.update.x_version = 2
+        item2.update.result = "updated"
+        item2.update.status = 0
+        item2.update.x_shards.total = 2
+        item2.update.x_shards.successful = 1
+        item2.update.x_shards.failed = 0
+
+        # Delete item
+        item3 = response.items.add()
+        item3.delete.x_index = "test-index"
+        item3.delete.x_id = "3"
+        item3.delete.x_version = 3
+        item3.delete.result = "deleted"
+        item3.delete.status = 0
+        item3.delete.x_shards.total = 2
+        item3.delete.x_shards.successful = 1
+        item3.delete.x_shards.failed = 0
+
+        result = ResponseConverter.from_bulk_response(response)
+
+        assert result["took"] == 10
+        assert result["errors"] is False
+        assert len(result["items"]) == 3
+        assert "index" in result["items"][0]
+        assert "update" in result["items"][1]
+        assert "delete" in result["items"][2]
+
+    def test_error_response(self) -> None:
+        """Convert a response with errors (duplicate create)."""
+        response = BulkResponse()
+        response.took = 5
+        response.errors = True
+
+        item = response.items.add()
+        item.create.x_index = "test-index"
+        item.create.x_id = "1"
+        item.create.status = 6  # gRPC ALREADY_EXISTS
+        item.create.result = ""
+        item.create.error.type = "version_conflict_engine_exception"
+        item.create.error.reason = "[1]: version conflict, document already exists"
+
+        result = ResponseConverter.from_bulk_response(response)
+
+        assert result["errors"] is True
+        create_item = result["items"][0]["create"]
+        assert create_item["status"] == 409
+        assert "error" in create_item
+        assert create_item["error"]["type"] == "version_conflict_engine_exception"
+        assert "already exists" in create_item["error"]["reason"]
+
+    def test_not_found_delete_response(self) -> None:
+        """Convert a delete response for a nonexistent document."""
+        response = BulkResponse()
+        response.took = 1
+        response.errors = False
+
+        item = response.items.add()
+        item.delete.x_index = "test-index"
+        item.delete.x_id = "missing"
+        item.delete.x_version = 1
+        item.delete.result = "not_found"
+        item.delete.status = 5  # gRPC NOT_FOUND
+        item.delete.x_shards.total = 2
+        item.delete.x_shards.successful = 1
+        item.delete.x_shards.failed = 0
+
+        result = ResponseConverter.from_bulk_response(response)
+
+        assert result["errors"] is False
+        delete_item = result["items"][0]["delete"]
+        assert delete_item["result"] == "not_found"
+        assert delete_item["status"] == 404
+
+
+class TestGrpcToRestStatus:
+    """Unit tests for _grpc_to_rest_status mapping."""
+
+    # --- OK (code 0) with result disambiguation ---
+
+    def test_ok_with_created_returns_201(self) -> None:
+        """gRPC OK + result='created' → 201"""
+        assert _grpc_to_rest_status(0, "created") == 201
+
+    def test_ok_with_updated_returns_200(self) -> None:
+        """gRPC OK + result='updated' → 200"""
+        assert _grpc_to_rest_status(0, "updated") == 200
+
+    def test_ok_with_deleted_returns_200(self) -> None:
+        """gRPC OK + result='deleted' → 200"""
+        assert _grpc_to_rest_status(0, "deleted") == 200
+
+    def test_ok_with_noop_returns_200(self) -> None:
+        """gRPC OK + result='noop' → 200"""
+        assert _grpc_to_rest_status(0, "noop") == 200
+
+    def test_ok_with_no_result_returns_200(self) -> None:
+        """gRPC OK + no result → 200 (default)"""
+        assert _grpc_to_rest_status(0, None) == 200
+
+    # --- Non-OK gRPC status codes ---
+
+    def test_cancelled_returns_499(self) -> None:
+        """gRPC CANCELLED (1) → 499"""
+        assert _grpc_to_rest_status(1) == 499
+
+    def test_unknown_returns_500(self) -> None:
+        """gRPC UNKNOWN (2) → 500"""
+        assert _grpc_to_rest_status(2) == 500
+
+    def test_invalid_argument_returns_400(self) -> None:
+        """gRPC INVALID_ARGUMENT (3) → 400"""
+        assert _grpc_to_rest_status(3) == 400
+
+    def test_deadline_exceeded_returns_408(self) -> None:
+        """gRPC DEADLINE_EXCEEDED (4) → 408"""
+        assert _grpc_to_rest_status(4) == 408
+
+    def test_not_found_returns_404(self) -> None:
+        """gRPC NOT_FOUND (5) → 404"""
+        assert _grpc_to_rest_status(5) == 404
+
+    def test_already_exists_returns_409(self) -> None:
+        """gRPC ALREADY_EXISTS (6) → 409"""
+        assert _grpc_to_rest_status(6) == 409
+
+    def test_permission_denied_returns_403(self) -> None:
+        """gRPC PERMISSION_DENIED (7) → 403"""
+        assert _grpc_to_rest_status(7) == 403
+
+    def test_resource_exhausted_returns_429(self) -> None:
+        """gRPC RESOURCE_EXHAUSTED (8) → 429"""
+        assert _grpc_to_rest_status(8) == 429
+
+    def test_failed_precondition_returns_412(self) -> None:
+        """gRPC FAILED_PRECONDITION (9) → 412"""
+        assert _grpc_to_rest_status(9) == 412
+
+    def test_aborted_returns_409(self) -> None:
+        """gRPC ABORTED (10) → 409"""
+        assert _grpc_to_rest_status(10) == 409
+
+    def test_out_of_range_returns_400(self) -> None:
+        """gRPC OUT_OF_RANGE (11) → 400"""
+        assert _grpc_to_rest_status(11) == 400
+
+    def test_unimplemented_returns_501(self) -> None:
+        """gRPC UNIMPLEMENTED (12) → 501"""
+        assert _grpc_to_rest_status(12) == 501
+
+    def test_internal_returns_500(self) -> None:
+        """gRPC INTERNAL (13) → 500"""
+        assert _grpc_to_rest_status(13) == 500
+
+    def test_unavailable_returns_503(self) -> None:
+        """gRPC UNAVAILABLE (14) → 503"""
+        assert _grpc_to_rest_status(14) == 503
+
+    def test_data_loss_returns_500(self) -> None:
+        """gRPC DATA_LOSS (15) → 500"""
+        assert _grpc_to_rest_status(15) == 500
+
+    def test_unauthenticated_returns_401(self) -> None:
+        """gRPC UNAUTHENTICATED (16) → 401"""
+        assert _grpc_to_rest_status(16) == 401
+
+    # --- Edge cases ---
+
+    def test_unknown_code_returns_500(self) -> None:
+        """Unknown gRPC code defaults to 500"""
+        assert _grpc_to_rest_status(99) == 500
