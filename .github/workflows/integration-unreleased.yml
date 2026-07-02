@@ -54,7 +54,11 @@ jobs:
         working-directory: opensearch/distribution/archives/linux-tar/build/distributions
         run: |
           tar xf opensearch-min-*
-          ./opensearch-*/bin/opensearch -E path.repo=/tmp &
+          if [ "${{ matrix.entry.branch }}" = "main" ]; then
+            ./opensearch-*/bin/opensearch -E path.repo=/tmp -E aux.transport.types=transport-grpc -E aux.transport.transport-grpc.port=9400 -E grpc.host=0.0.0.0 &
+          else
+            ./opensearch-*/bin/opensearch -E path.repo=/tmp &
+          fi
           for attempt in {1..20}; do sleep 5; if curl -s localhost:9200; then echo '=====> ready'; break; fi; echo '=====> waiting...'; done
 
       - name: Checkout Python Client
