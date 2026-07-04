@@ -6,6 +6,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - Add gRPC translation layer with `BulkRequestProtoBuilder` and `ResponseConverter` for bulk operations ([#1058](https://github.com/opensearch-project/opensearch-py/pull/1058))
 ### Updated APIs
 ### Changed
+- Run the test suite via `python -m test_opensearchpy.run_tests` instead of the removed `python setup.py test`, and drop the deprecated `test_suite`/`tests_require` args from `setup.py`, so tests work with `setuptools>=78.1.1` ([#1082](https://github.com/opensearch-project/opensearch-py/pull/1082))
 ### Deprecated
 ### Removed
 ### Fixed

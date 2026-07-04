@@ -209,4 +209,7 @@ def run_all(argv: Any = None) -> None:
 
 
 if __name__ == "__main__":
-    run_all(sys.argv)
+    # Pass through any extra CLI arguments, but fall back to the default
+    # pytest invocation (argv=None) when called with none, e.g. via
+    # "python -m test_opensearchpy.run_tests".
+    run_all(sys.argv[1:] or None)

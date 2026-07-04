@@ -113,8 +113,6 @@ setup(
     ],
     python_requires=">=3.10, <4",
     install_requires=install_requires,
-    test_suite="test_opensearchpy.run_tests.run_all",
-    tests_require=tests_require,
     extras_require={
         "develop": tests_require + docs_require + generate_require,
         "docs": docs_require + async_require,
