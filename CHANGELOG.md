@@ -6,12 +6,11 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - Add gRPC translation layer with `BulkRequestProtoBuilder` and `ResponseConverter` for bulk operations ([#1058](https://github.com/opensearch-project/opensearch-py/pull/1058))
 ### Updated APIs
 ### Changed
-- Run the test suite via `python -m test_opensearchpy.run_tests` instead of the removed `python setup.py test`, and drop the deprecated `test_suite`/`tests_require` args from `setup.py`, so tests work with `setuptools>=78.1.1` ([#1082](https://github.com/opensearch-project/opensearch-py/pull/1082))
 ### Deprecated
 ### Removed
 ### Fixed
 ### Security
-- Refresh `samples/` and `benchmarks/` poetry locks and pin fixed transitive floors to clear all outstanding dependency CVE findings: aiohttp `>=3.14.1` (CVE-2026-54273..54280 et al.), urllib3 `>=2.7.0` (CVE-2025-50181/-50182/-66418/-66471, CVE-2026-21441/-44431/-44432), requests `>=2.33.0` (CVE-2024-47081, CVE-2026-25645), and idna `>=3.18` (CVE-2026-45409); bump `setuptools` in `dev-requirements.txt` from `==71.1.0` to `>=78.1.1` (CVE-2025-47273) ([#1082](https://github.com/opensearch-project/opensearch-py/pull/1082))
+- Refresh `samples/` and `benchmarks/` poetry locks and pin fixed transitive floors to clear all outstanding dependency CVE findings: aiohttp `>=3.14.1` (CVE-2026-54273..54280 et al.), urllib3 `>=2.7.0` (CVE-2025-50181/-50182/-66418/-66471, CVE-2026-21441/-44431/-44432), requests `>=2.33.0` (CVE-2024-47081, CVE-2026-25645), and idna `>=3.18` (CVE-2026-45409) ([#1082](https://github.com/opensearch-project/opensearch-py/pull/1082))
 ### Dependencies
 - Refresh `samples/` poetry lock (aiohttp 3.14.1, urllib3 2.7.0, requests 2.34.2, idna 3.18) and re-refresh `benchmarks/` poetry lock (aiohttp 3.14.1, urllib3 2.7.0, idna 3.18) to clear CVE findings ([#1082](https://github.com/opensearch-project/opensearch-py/pull/1082))
 - Refresh `benchmarks/` poetry lock to pick up aiohttp 3.13.5, urllib3 2.6.3, requests 2.33.1, pygments 2.20.0 (clears Mend CVE findings) ([#1046](https://github.com/opensearch-project/opensearch-py/pull/1046))

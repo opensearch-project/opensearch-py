@@ -44,8 +44,7 @@ SOURCE_FILES = (
 @nox.session(python=["3.10", "3.11", "3.12"])  # type: ignore
 def test(session: Any) -> None:
     """
-    runs all tests with a fresh python environment using
-    "python -m test_opensearchpy.run_tests"
+    runs all tests with a fresh python environment using "python setup.py test"
     :param session: current nox session
     """
     session.install(".")
@@ -59,7 +58,7 @@ def test(session: Any) -> None:
 
     session.install("-r", "dev-requirements.txt")
 
-    session.run("python", "-m", "test_opensearchpy.run_tests")
+    session.run("python", "setup.py", "test")
 
 
 @nox.session(python=["3.10"])  # type: ignore
