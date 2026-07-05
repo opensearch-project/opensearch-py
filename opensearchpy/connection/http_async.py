@@ -10,6 +10,7 @@
 
 
 import asyncio
+import base64
 import os
 import ssl
 import warnings
@@ -88,10 +89,18 @@ class AsyncHttpConnection(AIOHttpConnection):
 
         if http_auth is not None:
             if isinstance(http_auth, (tuple, list)):
-                http_auth = aiohttp.BasicAuth(login=http_auth[0], password=http_auth[1])
+                # aiohttp.BasicAuth and the auth= parameter were deprecated in aiohttp 3.14.
+                # Encode credentials directly as an Authorization header instead.
+                credentials = base64.b64encode(
+                    f"{http_auth[0]}:{http_auth[1]}".encode()
+                ).decode()
+                self.headers["Authorization"] = f"Basic {credentials}"
+                http_auth = None
             elif isinstance(http_auth, string_types):
                 login, password = http_auth.split(":", 1)  # type: ignore
-                http_auth = aiohttp.BasicAuth(login=login, password=password)
+                credentials = base64.b64encode(f"{login}:{password}".encode()).decode()
+                self.headers["Authorization"] = f"Basic {credentials}"
+                http_auth = None
 
         # if providing an SSL context, raise error if any other SSL related flag is used
         if ssl_context and (
@@ -217,9 +226,6 @@ class AsyncHttpConnection(AIOHttpConnection):
             body = self._gzip_compress(body)
             req_headers["content-encoding"] = "gzip"
 
-        auth = (
-            self._http_auth if isinstance(self._http_auth, aiohttp.BasicAuth) else None
-        )
         if callable(self._http_auth):
             req_headers = {
                 **req_headers,
@@ -234,7 +240,6 @@ class AsyncHttpConnection(AIOHttpConnection):
                 method,
                 yarl.URL(url, encoded=True),
                 data=body,
-                auth=auth,
                 headers=req_headers,
                 timeout=timeout,
                 fingerprint=self.ssl_assert_fingerprint,
