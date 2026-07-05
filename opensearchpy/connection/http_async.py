@@ -91,15 +91,15 @@ class AsyncHttpConnection(AIOHttpConnection):
             if isinstance(http_auth, (tuple, list)):
                 # aiohttp.BasicAuth and the auth= parameter were deprecated in aiohttp 3.14.
                 # Encode credentials directly as an Authorization header instead.
-                credentials = base64.b64encode(
-                    f"{http_auth[0]}:{http_auth[1]}".encode()
-                ).decode()
-                self.headers["Authorization"] = f"Basic {credentials}"
+                user = http_auth[0].decode() if isinstance(http_auth[0], bytes) else str(http_auth[0])
+                pwd = http_auth[1].decode() if isinstance(http_auth[1], bytes) else str(http_auth[1])
+                credentials = base64.b64encode((user + ":" + pwd).encode()).decode()
+                self.headers["Authorization"] = "Basic " + credentials
                 http_auth = None
             elif isinstance(http_auth, string_types):
                 login, password = http_auth.split(":", 1)  # type: ignore
-                credentials = base64.b64encode(f"{login}:{password}".encode()).decode()
-                self.headers["Authorization"] = f"Basic {credentials}"
+                credentials = base64.b64encode((login + ":" + password).encode()).decode()
+                self.headers["Authorization"] = "Basic " + credentials
                 http_auth = None
 
         # if providing an SSL context, raise error if any other SSL related flag is used

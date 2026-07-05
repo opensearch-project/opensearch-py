@@ -60,16 +60,22 @@ class TestAsyncHttpConnection:
             return self
 
     def test_auth_as_tuple(self) -> None:
+        import base64
+
         c = AsyncHttpConnection(http_auth=("username", "password"))
-        assert isinstance(c._http_auth, aiohttp.BasicAuth)
-        assert c._http_auth.login, "username"
-        assert c._http_auth.password, "password"
+        # Credentials are now encoded directly as an Authorization header
+        # (aiohttp.BasicAuth was deprecated in aiohttp 3.14)
+        assert c._http_auth is None
+        expected = "Basic " + base64.b64encode(b"username:password").decode()
+        assert c.headers.get("Authorization") == expected
 
     def test_auth_as_string(self) -> None:
+        import base64
+
         c = AsyncHttpConnection(http_auth="username:password")
-        assert isinstance(c._http_auth, aiohttp.BasicAuth)
-        assert c._http_auth.login, "username"
-        assert c._http_auth.password, "password"
+        assert c._http_auth is None
+        expected = "Basic " + base64.b64encode(b"username:password").decode()
+        assert c.headers.get("Authorization") == expected
 
     def test_auth_as_callable(self) -> None:
         def auth_fn(
@@ -92,12 +98,14 @@ class TestAsyncHttpConnection:
         )
         c.headers = {}
         await c.perform_request("post", "/test")
+        import base64
+
+        expected_auth = "Basic " + base64.b64encode(b"username:password").decode()
         mock_request.assert_called_with(
             "post",
             yarl.URL("http://localhost:9200/test", encoded=True),
             data=None,
-            auth=c._http_auth,
-            headers={},
+            headers={"Authorization": expected_auth},
             timeout=aiohttp.ClientTimeout(
                 total=10,
                 connect=None,
@@ -137,7 +145,6 @@ class TestAsyncHttpConnection:
             "post",
             yarl.URL("http://localhost:9200/test", encoded=True),
             data=None,
-            auth=None,
             headers={
                 "Test": "PASSED",
                 "a-header": "a-value",

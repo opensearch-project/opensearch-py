@@ -9,6 +9,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ### Deprecated
 ### Removed
 ### Fixed
+- Fix `DeprecationWarning` for `aiohttp.BasicAuth` and `auth=` parameter (deprecated in aiohttp 3.14) in `AsyncHttpConnection` ([#1085](https://github.com/opensearch-project/opensearch-py/pull/1085))
 ### Security
 ### Dependencies
 - Refresh `benchmarks/` poetry lock to pick up aiohttp 3.13.5, urllib3 2.6.3, requests 2.33.1, pygments 2.20.0 (clears Mend CVE findings) ([#1046](https://github.com/opensearch-project/opensearch-py/pull/1046))
