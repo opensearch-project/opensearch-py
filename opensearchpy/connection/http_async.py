@@ -97,7 +97,8 @@ class AsyncHttpConnection(AIOHttpConnection):
                 self.headers["Authorization"] = "Basic " + credentials
                 http_auth = None
             elif isinstance(http_auth, string_types):
-                login, password = http_auth.split(":", 1)  # type: ignore
+                auth_str = http_auth.decode() if isinstance(http_auth, bytes) else http_auth
+                login, password = auth_str.split(":", 1)
                 credentials = base64.b64encode((login + ":" + password).encode()).decode()
                 self.headers["Authorization"] = "Basic " + credentials
                 http_auth = None

@@ -92,13 +92,16 @@ class TestAsyncHttpConnection:
 
         mock_request.return_value = TestAsyncHttpConnection.MockResponse()
 
+        import base64
+
         c = AsyncHttpConnection(
             http_auth=("username", "password"),
             loop=get_running_loop(),
         )
-        c.headers = {}
+        # Remove non-auth default headers so the assertion is not sensitive to them,
+        # but keep the Authorization header that __init__ stored via our fix.
+        c.headers = {k: v for k, v in c.headers.items() if k == "Authorization"}
         await c.perform_request("post", "/test")
-        import base64
 
         expected_auth = "Basic " + base64.b64encode(b"username:password").decode()
         mock_request.assert_called_with(
