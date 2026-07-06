@@ -3284,9 +3284,22 @@ class OpenSearchGrpc(OpenSearch):
     Bulk requests are routed over gRPC for better performance; all other
     operations fall through to REST automatically.
 
+    Supported parameters:
+        - hosts: REST endpoint(s) for fallback operations
+        - grpc_hosts: gRPC endpoint (required)
+
+    Unsupported parameters (raise NotImplementedError):
+        - use_ssl, verify_certs, ca_certs, client_cert, client_key,
+          ssl_context, ssl_version, ssl_assert_hostname,
+          ssl_assert_fingerprint, ssl_show_warn
+        - http_auth
+
+    Safely ignored (passed to REST fallback only):
+        - http_compress, opaque_id, headers, pool_maxsize
+
     Usage::
 
-        from opensearchpy import OpenSearchGrpc
+        from opensearchpy.client import OpenSearchGrpc
 
         client = OpenSearchGrpc(
             hosts=[{'host': 'localhost', 'port': 9200}],
@@ -3301,8 +3314,24 @@ class OpenSearchGrpc(OpenSearch):
 
     :arg hosts: list of REST nodes (same as OpenSearch client).
     :arg grpc_hosts: list of gRPC nodes, e.g. [{'host': 'localhost', 'port': 9400}].
-    :arg kwargs: all other arguments passed to the OpenSearch client.
+    :arg kwargs: all other arguments passed to the OpenSearch client for REST fallback.
     """
+
+    # Parameters that are not yet supported for gRPC
+    _UNSUPPORTED_TLS_ARGS = (
+        "use_ssl",
+        "verify_certs",
+        "ca_certs",
+        "client_cert",
+        "client_key",
+        "ssl_context",
+        "ssl_version",
+        "ssl_assert_hostname",
+        "ssl_assert_fingerprint",
+        "ssl_show_warn",
+    )
+
+    _UNSUPPORTED_AUTH_ARGS = ("http_auth",)
 
     def __init__(
         self,
@@ -3311,6 +3340,24 @@ class OpenSearchGrpc(OpenSearch):
         **kwargs: Any,
     ) -> None:
         from opensearch_grpc.grpc_transport import GrpcTransport
+
+        # Check for unsupported TLS parameters
+        for arg in self._UNSUPPORTED_TLS_ARGS:
+            if arg in kwargs and kwargs[arg] is not None and kwargs[arg] is not False:
+                raise NotImplementedError(
+                    f"TLS is not yet supported in the gRPC client. "
+                    f"The '{arg}' parameter cannot be used with OpenSearchGrpc. "
+                    f"This will be supported in a future release."
+                )
+
+        # Check for unsupported auth parameters
+        for arg in self._UNSUPPORTED_AUTH_ARGS:
+            if arg in kwargs and kwargs[arg] is not None:
+                raise NotImplementedError(
+                    f"Authentication is not yet supported in the gRPC client. "
+                    f"The '{arg}' parameter cannot be used with OpenSearchGrpc. "
+                    f"This will be supported in a future release."
+                )
 
         if grpc_hosts is not None:
             kwargs["grpc_hosts"] = grpc_hosts
