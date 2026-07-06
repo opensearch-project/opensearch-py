@@ -10,6 +10,6 @@ RUN if [ "$SECURE_INTEGRATION" != "true" ] ; then echo "plugins.security.disable
 ARG OPENSEARCH_VERSION
 RUN if echo "$OPENSEARCH_VERSION" | grep -qE "^3\."; then \
       echo "aux.transport.types: [transport-grpc]" >> $opensearch_yml \
-      && echo "aux.transport.transport-grpc.port: 9400" >> $opensearch_yml \
+      && echo "aux.transport.transport-grpc.port: 9400-9500" >> $opensearch_yml \
       && echo "grpc.host: 0.0.0.0" >> $opensearch_yml; \
     fi
