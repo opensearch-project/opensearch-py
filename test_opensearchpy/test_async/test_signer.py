@@ -141,31 +141,99 @@ class TestAsyncSignerAllowlistHeaders:
 
         return dummy_session
 
-    async def test_only_host_and_x_amz_headers_are_signed(self) -> None:
-        """Only host and x-amz-* headers should be included in SignedHeaders."""
-        region = "us-west-2"
+    def _headers_passed_to_botocore(
+        self, request_headers: Dict[str, str]
+    ) -> Dict[str, str]:
+        """Sign a request and return the exact header dict handed to botocore's
+        AWSRequest, i.e. the headers that actually get signed."""
+        from botocore.awsrequest import AWSRequest
 
         from opensearchpy.helpers.asyncsigner import AWSV4SignerAsyncAuth
 
-        auth = AWSV4SignerAsyncAuth(self.mock_session(), region)
-        headers = auth(
-            "GET",
-            "http://localhost",
-            headers={
+        auth = AWSV4SignerAsyncAuth(self.mock_session(), "us-west-2")
+        with patch(
+            "botocore.awsrequest.AWSRequest", side_effect=AWSRequest
+        ) as mock_aws_request:
+            auth("GET", "http://localhost", headers=request_headers)
+        return mock_aws_request.call_args[1]["headers"]
+
+    def _sign_with_frozen_time(
+        self, auth: Any, request_headers: Dict[str, str]
+    ) -> Dict[str, str]:
+        """Sign with the given auth at a fixed timestamp so two signatures made
+        with the same credentials are directly comparable."""
+        import datetime as _dt
+
+        with patch("botocore.auth.datetime") as mock_datetime:
+            mock_datetime.datetime.utcnow.return_value = _dt.datetime(2020, 1, 1)
+            mock_datetime.timedelta = _dt.timedelta
+            return auth("GET", "http://localhost", headers=request_headers)
+
+    async def test_only_host_and_x_amz_headers_are_signed(self) -> None:
+        """Exactly host and x-amz-* headers — and nothing else — get signed."""
+        signed = self._headers_passed_to_botocore(
+            {
                 "connection": "keep-alive",
                 "host": "localhost",
                 "content-type": "application/json",
+                "accept-encoding": "gzip",
                 "x-amz-custom": "value",
+            }
+        )
+        assert {k.lower() for k in signed} == {"host", "x-amz-custom"}
+
+    async def test_x_amz_headers_included_case_insensitively(self) -> None:
+        """Mixed-case x-amz-* headers are matched and passed through verbatim."""
+        signed = self._headers_passed_to_botocore(
+            {
+                "X-Amz-Custom": "value",
+                "X-Amz-Content-SHA256": "UNSIGNED-PAYLOAD",
+            }
+        )
+        assert signed["X-Amz-Custom"] == "value"
+        assert signed["X-Amz-Content-SHA256"] == "UNSIGNED-PAYLOAD"
+        assert all(
+            k.lower() == "host" or k.lower().startswith("x-amz-") for k in signed
+        )
+
+    async def test_host_is_derived_from_request_url_not_raw_header(self) -> None:
+        """The signed host comes from the reconstructed URL, so a host header
+        pointing elsewhere is reflected consistently in the signature."""
+        signed = self._headers_passed_to_botocore({"host": "otherhost:443"})
+        assert signed["host"] == "otherhost:443"
+
+    async def test_signature_is_unaffected_by_hop_by_hop_headers(self) -> None:
+        """Regression for the fixed bug: a Connection/Content-Type header added
+        by the transport layer must not change the computed signature."""
+        from opensearchpy.helpers.asyncsigner import AWSV4SignerAsyncAuth
+
+        auth = AWSV4SignerAsyncAuth(self.mock_session(), "us-west-2")
+        baseline = self._sign_with_frozen_time(auth, {"x-amz-custom": "v"})
+        with_hop_by_hop = self._sign_with_frozen_time(
+            auth,
+            {
+                "connection": "keep-alive",
+                "content-type": "application/json",
+                "x-amz-custom": "v",
             },
         )
-        assert "Authorization" in headers
-        auth_header = headers["Authorization"]
-        signed_headers_part = auth_header.split("SignedHeaders=")[1].split(",")[0]
-        signed_list = signed_headers_part.split(";")
-        assert "host" in signed_list
-        assert "x-amz-custom" in signed_list
-        assert "connection" not in signed_list
-        assert "content-type" not in signed_list
+        assert baseline["Authorization"] == with_hop_by_hop["Authorization"]
+        # and hop-by-hop headers never leak into the returned signed headers
+        returned = {k.lower() for k in with_hop_by_hop}
+        assert "connection" not in returned
+        assert "content-type" not in returned
+
+    async def test_caller_provided_content_sha256_is_preserved(self) -> None:
+        """A caller-supplied X-Amz-Content-SHA256 (e.g. UNSIGNED-PAYLOAD) is not
+        overwritten by the computed payload hash."""
+        from opensearchpy.helpers.asyncsigner import AWSV4SignerAsyncAuth
+
+        auth = AWSV4SignerAsyncAuth(self.mock_session(), "us-west-2")
+        signed = self._sign_with_frozen_time(
+            auth, {"x-amz-content-sha256": "UNSIGNED-PAYLOAD"}
+        )
+        key = next(k for k in signed if k.lower() == "x-amz-content-sha256")
+        assert signed[key] == "UNSIGNED-PAYLOAD"
 
 
 class TestAsyncSignerWithSpecialCharacters:
