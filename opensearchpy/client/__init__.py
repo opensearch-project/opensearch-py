@@ -37,6 +37,7 @@
 import logging
 from typing import Any, Type
 
+from ..exceptions import ImproperlyConfigured
 from ..transport import Transport, TransportError
 from .cat import CatClient
 from .client import Client
@@ -3339,7 +3340,13 @@ class OpenSearchGrpc(OpenSearch):
         grpc_hosts: Any = None,
         **kwargs: Any,
     ) -> None:
-        from opensearch_grpc.grpc_transport import GrpcTransport
+        try:
+            from opensearch_grpc.grpc_transport import GrpcTransport
+        except ImportError as e:
+            raise ImproperlyConfigured(
+                "gRPC dependencies are not installed. "
+                "Install them with: pip install opensearch-py[grpc]"
+            ) from e
 
         # Check for unsupported TLS parameters
         for arg in self._UNSUPPORTED_TLS_ARGS:
