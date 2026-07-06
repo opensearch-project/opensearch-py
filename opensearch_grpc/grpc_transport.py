@@ -26,6 +26,16 @@ import grpc
 from opensearch.protobufs.services import document_service_pb2_grpc
 
 from opensearch_grpc.translation import BulkRequestProtoBuilder, ResponseConverter
+from opensearchpy.exceptions import (
+    AuthenticationException,
+    AuthorizationException,
+    ConflictError,
+    ConnectionError,
+    ConnectionTimeout,
+    NotFoundError,
+    RequestError,
+    TransportError,
+)
 from opensearchpy.transport import Transport
 
 
@@ -78,7 +88,26 @@ class GrpcTransport(Transport):
         """Route to gRPC or REST based on the URL pattern."""
         handler = self._get_grpc_handler(method, url)
         if handler:
-            return handler(method, url, params, body)
+            # Retry loop for gRPC — mirrors Transport.perform_request behavior
+            for attempt in range(self.max_retries + 1):
+                try:
+                    return handler(method, url, params, body)
+                except ConnectionTimeout:
+                    if self.retry_on_timeout and attempt < self.max_retries:
+                        continue
+                    raise
+                except ConnectionError:
+                    if attempt < self.max_retries:
+                        continue
+                    raise
+                except TransportError as e:
+                    if (
+                        hasattr(e, "status_code")
+                        and e.status_code in self.retry_on_status
+                        and attempt < self.max_retries
+                    ):
+                        continue
+                    raise
 
         return super().perform_request(
             method,
@@ -128,8 +157,39 @@ class GrpcTransport(Transport):
             pipeline=pipeline,
             routing=routing,
         )
-        response = self._document_stub.Bulk(converter.build())
+
+        try:
+            response = self._document_stub.Bulk(converter.build())
+        except grpc.RpcError as e:
+            self._raise_grpc_error(e)
+
         return ResponseConverter._convert_bulk_items(response)
+
+    def _raise_grpc_error(self, error: grpc.RpcError) -> None:
+        """Convert grpc.RpcError to opensearch-py exceptions.
+
+        Maps gRPC status codes to the same exception types that the REST
+        client raises, so users' existing except blocks work unchanged.
+        """
+        code = error.code()
+        details = error.details() or "gRPC error"
+
+        if code == grpc.StatusCode.UNAVAILABLE:
+            raise ConnectionError("N/A", details, error)
+        elif code == grpc.StatusCode.DEADLINE_EXCEEDED:
+            raise ConnectionTimeout("TIMEOUT", details, error)
+        elif code == grpc.StatusCode.UNAUTHENTICATED:
+            raise AuthenticationException(401, details, {"error": details})
+        elif code == grpc.StatusCode.PERMISSION_DENIED:
+            raise AuthorizationException(403, details, {"error": details})
+        elif code == grpc.StatusCode.NOT_FOUND:
+            raise NotFoundError(404, details, {"error": details})
+        elif code == grpc.StatusCode.ALREADY_EXISTS:
+            raise ConflictError(409, details, {"error": details})
+        elif code == grpc.StatusCode.INVALID_ARGUMENT:
+            raise RequestError(400, details, {"error": details})
+        else:
+            raise TransportError("N/A", f"gRPC {code.name}: {details}", error)
 
     def _extract_index_from_url(self, url: str, endpoint: str) -> Optional[str]:
         """Extract index from URL like /my-index/_bulk → 'my-index'."""
