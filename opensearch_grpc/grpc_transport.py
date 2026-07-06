@@ -55,6 +55,7 @@ Usage:
     )
 """
 
+import base64
 import re
 from typing import Any, Callable, Collection, Mapping, Optional, Tuple, Union
 
@@ -74,6 +75,26 @@ from opensearchpy.exceptions import (
     TransportError,
 )
 from opensearchpy.transport import Transport
+
+
+class BasicAuthInterceptor(grpc.UnaryUnaryClientInterceptor):  # type: ignore[misc]
+    """gRPC interceptor that adds Basic auth to every unary call.
+
+    Attaches an 'authorization' metadata header with base64-encoded
+    credentials, matching how the REST client sends Basic auth.
+    """
+
+    def __init__(self, username: str, password: str) -> None:
+        credentials = f"{username}:{password}".encode("utf-8")
+        self._auth_header = f"Basic {base64.b64encode(credentials).decode('utf-8')}"
+
+    def intercept_unary_unary(
+        self, continuation: Any, client_call_details: Any, request: Any
+    ) -> Any:
+        metadata = list(client_call_details.metadata or [])
+        metadata.append(("authorization", self._auth_header))
+        new_details = client_call_details._replace(metadata=metadata)
+        return continuation(new_details, request)
 
 
 class GrpcTransport(Transport):
@@ -108,6 +129,9 @@ class GrpcTransport(Transport):
     def __init__(self, hosts: Any, *args: Any, **kwargs: Any) -> None:
         self._grpc_port = kwargs.pop("grpc_port", 9400)
         self._grpc_hosts = kwargs.pop("grpc_hosts", None)
+
+        # Read auth params (don't pop — REST fallback needs them too)
+        self._http_auth = kwargs.get("http_auth", None)
 
         # Read TLS params (don't pop — REST fallback needs them too)
         self._use_ssl = kwargs.get("use_ssl", False)
@@ -166,6 +190,16 @@ class GrpcTransport(Transport):
             self._channel = grpc.secure_channel(self._grpc_address, credentials)
         else:
             self._channel = grpc.insecure_channel(self._grpc_address)
+
+        # Wrap channel with auth interceptor if credentials provided
+        if self._http_auth is not None:
+            if isinstance(self._http_auth, (tuple, list)):
+                username, password = self._http_auth[0], self._http_auth[1]
+            else:
+                # String format "user:pass"
+                username, password = str(self._http_auth).split(":", 1)
+            interceptor = BasicAuthInterceptor(username, password)
+            self._channel = grpc.intercept_channel(self._channel, interceptor)
 
         self._document_stub = document_service_pb2_grpc.DocumentServiceStub(
             self._channel
