@@ -19,14 +19,16 @@ RUN if echo "$OPENSEARCH_VERSION" | grep -qE "^3\."; then \
       && echo "grpc.host: 0.0.0.0" >> $opensearch_yml; \
     fi
 
-# For 3.x secure mode: set up wrapper entrypoint that injects gRPC TLS cert
-# settings at container start (after demo installer creates certs)
+# Copy wrapper entrypoint (with exec permissions set via --chmod)
+COPY --chmod=755 .ci/opensearch/grpc-entrypoint.sh $opensearch_path/grpc-entrypoint.sh
+
+# Create marker file for 3.x secure mode (needs USER root for /tmp persistence)
+USER root
 ARG OPENSEARCH_VERSION
 ARG SECURE_INTEGRATION
-COPY .ci/opensearch/grpc-entrypoint.sh $opensearch_path/grpc-entrypoint.sh
 RUN if echo "$OPENSEARCH_VERSION" | grep -qE "^3\." && [ "$SECURE_INTEGRATION" = "true" ]; then \
-      chmod +x $opensearch_path/grpc-entrypoint.sh \
-      && touch /tmp/.grpc_secure; \
+      touch /tmp/.grpc_secure; \
     fi
+USER opensearch
 
 ENTRYPOINT ["/usr/share/opensearch/grpc-entrypoint.sh"]
