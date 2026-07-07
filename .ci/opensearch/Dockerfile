@@ -7,6 +7,16 @@ ARG opensearch_yml=$opensearch_path/config/opensearch.yml
 ARG SECURE_INTEGRATION
 RUN if [ "$SECURE_INTEGRATION" != "true" ] ; then echo "plugins.security.disabled: true" >> $opensearch_yml; fi
 
+# For secure mode, run demo installer FIRST to generate certs
+# (must happen before adding gRPC settings that trigger "already configured" detection)
+ARG SECURE_INTEGRATION
+RUN if [ "$SECURE_INTEGRATION" = "true" ]; then \
+      OPENSEARCH_INITIAL_ADMIN_PASSWORD=admin \
+      $opensearch_path/plugins/opensearch-security/tools/install_demo_configuration.sh -y -i -s \
+      2>/dev/null || true; \
+    fi
+
+# Now add gRPC transport settings (after certs exist)
 ARG OPENSEARCH_VERSION
 ARG SECURE_INTEGRATION
 RUN if echo "$OPENSEARCH_VERSION" | grep -qE "^3\."; then \
@@ -21,11 +31,4 @@ RUN if echo "$OPENSEARCH_VERSION" | grep -qE "^3\."; then \
       fi \
       && echo "aux.transport.transport-grpc.port: 9400-9500" >> $opensearch_yml \
       && echo "grpc.host: 0.0.0.0" >> $opensearch_yml; \
-    fi
-
-# For secure mode, generate demo certs at build time so they exist when OpenSearch starts
-ARG SECURE_INTEGRATION
-RUN if [ "$SECURE_INTEGRATION" = "true" ] && [ ! -f $opensearch_path/config/esnode.pem ]; then \
-      $opensearch_path/plugins/opensearch-security/tools/install_demo_configuration.sh -y -i -s \
-      2>/dev/null || true; \
     fi
