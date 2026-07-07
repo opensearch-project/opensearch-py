@@ -5,6 +5,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ### Added
 - Add gRPC translation layer with `BulkRequestProtoBuilder` and `ResponseConverter` for bulk operations ([#1058](https://github.com/opensearch-project/opensearch-py/pull/1058))
 ### Updated APIs
+- Updated opensearch-py APIs to reflect [opensearch-api-specification@7a42f5b](https://github.com/opensearch-project/opensearch-api-specification/commit/7a42f5b107a498caf78cb7ae9aca3d5177bb41d6)
 ### Changed
 ### Deprecated
 ### Removed
