@@ -7,16 +7,15 @@ ARG opensearch_yml=$opensearch_path/config/opensearch.yml
 ARG SECURE_INTEGRATION
 RUN if [ "$SECURE_INTEGRATION" != "true" ] ; then echo "plugins.security.disabled: true" >> $opensearch_yml; fi
 
-# For secure mode, run demo installer FIRST to generate certs
-# (must happen before adding gRPC settings that trigger "already configured" detection)
+# For secure mode, run demo installer FIRST to generate certs.
+# Must happen before adding gRPC settings that trigger "already configured" detection.
 ARG SECURE_INTEGRATION
 RUN if [ "$SECURE_INTEGRATION" = "true" ]; then \
-      OPENSEARCH_INITIAL_ADMIN_PASSWORD=admin \
-      $opensearch_path/plugins/opensearch-security/tools/install_demo_configuration.sh -y -i -s \
-      2>/dev/null || true; \
+      OPENSEARCH_INITIAL_ADMIN_PASSWORD="myStrongPassword123!" \
+      $opensearch_path/plugins/opensearch-security/tools/install_demo_configuration.sh -y -i -s; \
     fi
 
-# Now add gRPC transport settings (after certs exist)
+# Now add gRPC transport settings (after demo certs exist)
 ARG OPENSEARCH_VERSION
 ARG SECURE_INTEGRATION
 RUN if echo "$OPENSEARCH_VERSION" | grep -qE "^3\."; then \
