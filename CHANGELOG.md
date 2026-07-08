@@ -4,6 +4,10 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ## [Unreleased]
 ### Added
 - Add gRPC translation layer with `BulkRequestProtoBuilder` and `ResponseConverter` for bulk operations ([#1058](https://github.com/opensearch-project/opensearch-py/pull/1058))
+- Add gRPC transport for bulk operations with `OpenSearchGrpc` client and `GrpcTransport` ([#1078](https://github.com/opensearch-project/opensearch-py/pull/1078))
+- Add TLS/mTLS support for gRPC transport with `use_ssl`, `ca_certs`, `client_cert`, and `client_key` ([#1087](https://github.com/opensearch-project/opensearch-py/pull/1087))
+- Add Basic authentication support for gRPC transport via `http_auth` parameter ([#1088](https://github.com/opensearch-project/opensearch-py/pull/1088))
+- Add AWS SigV4 authentication support for gRPC transport via `AWSV4GrpcInterceptor` ([#1089](https://github.com/opensearch-project/opensearch-py/pull/1089))
 ### Updated APIs
 ### Changed
 ### Deprecated
