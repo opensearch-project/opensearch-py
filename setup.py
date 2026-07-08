@@ -56,9 +56,12 @@ packages = [
 install_requires = [
     'urllib3>=1.26.20,<1.27 ; python_version < "3.10"',
     'urllib3>=2.7.0,<3 ; python_version >= "3.10"',
-    "requests>=2.32.0, <3.0.0",
+    "requests>=2.33.0, <3.0.0",
     "python-dateutil",
     "certifi>=2024.07.04",
+    # idna is a transitive dependency (via requests); floor it directly to
+    # exclude versions affected by CVE-2026-45409.
+    "idna>=3.18",
 ]
 tests_require = [
     "requests>=2.0.0, <3.0.0",
@@ -72,7 +75,7 @@ tests_require = [
     "opensearch-protobufs==1.4.0",
 ]
 
-async_require = ["aiohttp>=3.12.14,<4"]
+async_require = ["aiohttp>=3.14.1,<4"]
 
 docs_require = ["sphinx", "sphinx_rtd_theme", "myst_parser", "sphinx_copybutton"]
 generate_require = ["black>=24.3.0", "jinja2"]
