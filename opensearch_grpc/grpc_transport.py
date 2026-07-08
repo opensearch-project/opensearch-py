@@ -172,11 +172,33 @@ class GrpcTransport(Transport):
 
         Maps gRPC status codes to the same exception types that the REST
         client raises, so users' existing except blocks work unchanged.
+
+        Mapping follows the comprehensive gRPC-to-HTTP status code table
+        from opensearch-project/OpenSearch#18926:
+            OK (0)                → (no error)
+            CANCELLED (1)        → TransportError
+            UNKNOWN (2)          → TransportError
+            INVALID_ARGUMENT (3) → RequestError (400)
+            DEADLINE_EXCEEDED (4)→ ConnectionTimeout
+            NOT_FOUND (5)        → NotFoundError (404)
+            ALREADY_EXISTS (6)   → ConflictError (409)
+            PERMISSION_DENIED (7)→ AuthorizationException (403)
+            RESOURCE_EXHAUSTED(8)→ TransportError (429)
+            FAILED_PRECONDITION(9)→ RequestError (400)
+            ABORTED (10)         → ConflictError (409)
+            OUT_OF_RANGE (11)    → RequestError (400)
+            UNIMPLEMENTED (12)   → TransportError (501)
+            INTERNAL (13)        → TransportError (500)
+            UNAVAILABLE (14)     → ConnectionError / SSLError
+            UNAUTHENTICATED (16) → AuthenticationException (401)
+            DATA_LOSS (15)       → TransportError (500)
         """
         code = error.code()
         details = error.details() or "gRPC error"
 
-        if code == grpc.StatusCode.UNAVAILABLE:
+        if code == grpc.StatusCode.OK:
+            return  # No error
+        elif code == grpc.StatusCode.UNAVAILABLE:
             raise ConnectionError("N/A", details, error)
         elif code == grpc.StatusCode.DEADLINE_EXCEEDED:
             raise ConnectionTimeout("TIMEOUT", details, error)
@@ -188,9 +210,26 @@ class GrpcTransport(Transport):
             raise NotFoundError(404, details, {"error": details})
         elif code == grpc.StatusCode.ALREADY_EXISTS:
             raise ConflictError(409, details, {"error": details})
+        elif code == grpc.StatusCode.ABORTED:
+            raise ConflictError(409, details, {"error": details})
         elif code == grpc.StatusCode.INVALID_ARGUMENT:
             raise RequestError(400, details, {"error": details})
+        elif code == grpc.StatusCode.FAILED_PRECONDITION:
+            raise RequestError(400, details, {"error": details})
+        elif code == grpc.StatusCode.OUT_OF_RANGE:
+            raise RequestError(400, details, {"error": details})
+        elif code == grpc.StatusCode.RESOURCE_EXHAUSTED:
+            raise TransportError(429, f"gRPC RESOURCE_EXHAUSTED: {details}", error)
+        elif code == grpc.StatusCode.UNIMPLEMENTED:
+            raise TransportError(501, f"gRPC UNIMPLEMENTED: {details}", error)
+        elif code == grpc.StatusCode.INTERNAL:
+            raise TransportError(500, f"gRPC INTERNAL: {details}", error)
+        elif code == grpc.StatusCode.DATA_LOSS:
+            raise TransportError(500, f"gRPC DATA_LOSS: {details}", error)
+        elif code == grpc.StatusCode.CANCELLED:
+            raise TransportError("N/A", f"gRPC CANCELLED: {details}", error)
         else:
+            # UNKNOWN or any future codes
             raise TransportError("N/A", f"gRPC {code.name}: {details}", error)
 
     def _extract_index_from_url(self, url: str, endpoint: str) -> Optional[str]:
