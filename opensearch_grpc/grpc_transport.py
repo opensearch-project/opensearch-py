@@ -148,6 +148,7 @@ class GrpcTransport(Transport):
         timeout = params.get("timeout") if params else None
         pipeline = params.get("pipeline") if params else None
         routing = params.get("routing") if params else None
+        require_alias = params.get("require_alias") if params else None
 
         converter = BulkRequestProtoBuilder.from_body(
             body,
@@ -156,6 +157,7 @@ class GrpcTransport(Transport):
             timeout=timeout,
             pipeline=pipeline,
             routing=routing,
+            require_alias=require_alias,
         )
 
         try:
