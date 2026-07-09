@@ -61,7 +61,7 @@ install_requires = [
     "certifi>=2024.07.04",
     # idna is a transitive dependency (via requests); floor it directly to
     # exclude versions affected by CVE-2026-45409.
-    "idna>=3.18",
+    "idna>=3.18,<4",
 ]
 tests_require = [
     "requests>=2.0.0, <3.0.0",
