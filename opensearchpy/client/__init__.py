@@ -3275,5 +3275,3 @@ class OpenSearch(Client):
             headers=headers,
             body=body,
         )
-
-
