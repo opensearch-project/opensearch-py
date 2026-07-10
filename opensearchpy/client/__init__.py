@@ -37,7 +37,6 @@
 import logging
 from typing import Any, Type
 
-from ..exceptions import ImproperlyConfigured
 from ..transport import Transport, TransportError
 from .cat import CatClient
 from .client import Client
