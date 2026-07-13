@@ -20,8 +20,6 @@ import uuid
 from unittest import TestCase
 from unittest.mock import MagicMock, Mock, patch
 
-import grpc
-
 from opensearch_grpc.grpc_transport import AWSV4GrpcInterceptor, GrpcTransport
 
 
@@ -65,7 +63,9 @@ class TestAWSV4GrpcInterceptor(TestCase):
     def test_interceptor_adds_authorization_metadata(self) -> None:
         """Verify SigV4 headers are added as gRPC metadata."""
         creds = self._mock_credentials()
-        interceptor = AWSV4GrpcInterceptor(creds, "us-east-1", "es", "my-domain.us-east-1.es.amazonaws.com")
+        interceptor = AWSV4GrpcInterceptor(
+            creds, "us-east-1", "es", "my-domain.us-east-1.es.amazonaws.com"
+        )
 
         call_details = self._make_call_details()
         request = self._make_request()
@@ -90,7 +90,9 @@ class TestAWSV4GrpcInterceptor(TestCase):
     def test_interceptor_includes_security_token(self) -> None:
         """Verify X-Amz-Security-Token is included when token is present."""
         creds = self._mock_credentials()
-        interceptor = AWSV4GrpcInterceptor(creds, "us-east-1", "es", "my-domain.us-east-1.es.amazonaws.com")
+        interceptor = AWSV4GrpcInterceptor(
+            creds, "us-east-1", "es", "my-domain.us-east-1.es.amazonaws.com"
+        )
 
         call_details = self._make_call_details()
         request = self._make_request()
@@ -105,13 +107,17 @@ class TestAWSV4GrpcInterceptor(TestCase):
     def test_interceptor_signs_with_grpc_method_path(self) -> None:
         """Verify the signing URL uses the gRPC method path."""
         creds = self._mock_credentials()
-        interceptor = AWSV4GrpcInterceptor(creds, "us-west-2", "es", "my-domain.us-west-2.es.amazonaws.com")
+        interceptor = AWSV4GrpcInterceptor(
+            creds, "us-west-2", "es", "my-domain.us-west-2.es.amazonaws.com"
+        )
 
         call_details = self._make_call_details("/opensearch.DocumentService/Bulk")
         request = self._make_request()
         continuation = MagicMock()
 
-        with patch.object(interceptor._signer, "sign", wraps=interceptor._signer.sign) as mock_sign:
+        with patch.object(
+            interceptor._signer, "sign", wraps=interceptor._signer.sign
+        ) as mock_sign:
             interceptor.intercept_unary_unary(continuation, call_details, request)
 
             mock_sign.assert_called_once()
@@ -130,7 +136,9 @@ class TestAWSV4GrpcInterceptor(TestCase):
         request = self._make_request(data=body_bytes)
         continuation = MagicMock()
 
-        with patch.object(interceptor._signer, "sign", wraps=interceptor._signer.sign) as mock_sign:
+        with patch.object(
+            interceptor._signer, "sign", wraps=interceptor._signer.sign
+        ) as mock_sign:
             interceptor.intercept_unary_unary(continuation, call_details, request)
 
             call_args = mock_sign.call_args
@@ -178,7 +186,7 @@ class TestAWSV4GrpcInterceptor(TestCase):
         details1 = self._make_call_details()
         interceptor.intercept_unary_unary(continuation, details1, request)
         metadata1 = details1._replace.call_args[1]["metadata"]
-        date1 = next(v for k, v in metadata1 if k == "x-amz-date")
+        auth1 = next(v for k, v in metadata1 if k == "authorization")
 
         # Second call (same instant in tests, but signature should still be computed fresh)
         details2 = self._make_call_details()
@@ -187,6 +195,7 @@ class TestAWSV4GrpcInterceptor(TestCase):
         auth2 = next(v for k, v in metadata2 if k == "authorization")
 
         # Both should have authorization (proves sign() was called both times)
+        self.assertTrue(auth1.startswith("AWS4-HMAC-SHA256"))
         self.assertTrue(auth2.startswith("AWS4-HMAC-SHA256"))
 
     def test_interceptor_region_validation(self) -> None:
