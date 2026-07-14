@@ -19,7 +19,6 @@ Uses a real gRPC server running in-process on a random port.
 No AWS credentials or external services required.
 """
 
-import threading
 from concurrent import futures
 from unittest import TestCase
 from unittest.mock import Mock
@@ -30,7 +29,7 @@ from opensearch.protobufs.services import (
     document_service_pb2_grpc,
 )
 
-from opensearch_grpc.grpc_transport import AWSV4GrpcInterceptor, GrpcTransport
+from opensearch_grpc.grpc_transport import GrpcTransport
 
 
 class MockDocumentServicer(document_service_pb2_grpc.DocumentServiceServicer):
@@ -90,7 +89,6 @@ class TestSigV4EndToEnd(TestCase):
 
     def _mock_credentials(self):
         """Create mock AWS credentials."""
-        import uuid
 
         creds = Mock()
         creds.access_key = "AKIAIOSFODNN7EXAMPLE"
