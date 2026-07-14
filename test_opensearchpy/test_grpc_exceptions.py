@@ -154,13 +154,15 @@ class TestGrpcRetryBehavior(TestCase):
     """Test that the gRPC retry loop works correctly."""
 
     def test_connection_error_retries(self) -> None:
-        """ConnectionError is retried up to max_retries."""
+        """ConnectionError retries gRPC then falls back to REST."""
         t = GrpcTransport(
             [{"host": "localhost", "port": 9200}],
             grpc_hosts=[{"host": "localhost", "port": 19400}],  # unreachable
             max_retries=2,
         )
-        with self.assertRaises(ConnectionError):
+        # gRPC fails after retries, falls back to REST which also fails
+        # (no REST server running) — but the error comes from REST, not gRPC
+        with self.assertRaises((ConnectionError, TransportError)):
             t.perform_request(
                 "POST",
                 "/_bulk",
