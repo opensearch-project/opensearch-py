@@ -10,6 +10,18 @@ readme = "README.md"
 python = "^3.10"
 opensearch-py = { path = "../", extras=["async"], develop = true }
 boto3 = "^1.28"
+# Direct constraints to force transitive resolution past known CVE ranges.
+# opensearch-py's own floors still permit vulnerable transitive versions
+# (requests 2.32.3, urllib3 2.2.2, idna 3.7), so pin the fixed floors here.
+# These pull in fixes for requests CVE-2024-47081/CVE-2026-25645, urllib3
+# CVE-2025-50181/-50182/-66418/-66471/-2026-21441/-44431/-44432, idna
+# CVE-2026-45409, and aiohttp CVE-2026-54273..54280 et al. The opensearch-py
+# [async] extra floors aiohttp at >=3.12.14 but still permits vulnerable
+# 3.13.x/3.14.0, so pin >=3.14.1 explicitly.
+requests = ">=2.33.0,<3"
+urllib3 = ">=2.7.0,<3"
+idna = ">=3.18"
+aiohttp = ">=3.14.1,<4"
 
 [build-system]
 requires = ["poetry-core"]
