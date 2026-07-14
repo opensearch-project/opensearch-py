@@ -262,7 +262,7 @@ class GrpcTransport(Transport):
         but SHUTDOWN is terminal — the channel must be recreated.
         """
         try:
-            state = self._channel.get_state(try_to_connect=False)  # type: ignore[attr-defined]
+            state = self._channel.get_state(try_to_connect=False)
             if state == grpc.ChannelConnectivity.SHUTDOWN:
                 self._reconnect_channel()
         except AttributeError:
