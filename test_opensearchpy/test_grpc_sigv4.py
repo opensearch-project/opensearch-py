@@ -217,6 +217,110 @@ class TestAWSV4GrpcInterceptor(TestCase):
         interceptor = AWSV4GrpcInterceptor(creds, "us-east-1", "aoss", "localhost")
         self.assertEqual(interceptor._signer.service, "aoss")
 
+    def test_credential_scope_in_authorization(self) -> None:
+        """Authorization header contains credential scope (date/region/service/aws4_request)."""
+        creds = self._mock_credentials()
+        interceptor = AWSV4GrpcInterceptor(
+            creds, "us-west-2", "es", "my-domain.us-west-2.es.amazonaws.com"
+        )
+
+        call_details = self._make_call_details()
+        request = self._make_request()
+        continuation = MagicMock()
+
+        interceptor.intercept_unary_unary(continuation, call_details, request)
+
+        metadata = call_details._replace.call_args[1]["metadata"]
+        auth_value = next(v for k, v in metadata if k == "authorization")
+
+        # Credential scope format: YYYYMMDD/region/service/aws4_request
+        self.assertIn("us-west-2", auth_value)
+        self.assertIn("es", auth_value)
+        self.assertIn("aws4_request", auth_value)
+        self.assertIn("Credential=", auth_value)
+
+    def test_signed_headers_includes_host(self) -> None:
+        """SignedHeaders in Authorization includes 'host'."""
+        creds = self._mock_credentials()
+        interceptor = AWSV4GrpcInterceptor(creds, "us-east-1", "es", "localhost")
+
+        call_details = self._make_call_details()
+        request = self._make_request()
+        continuation = MagicMock()
+
+        interceptor.intercept_unary_unary(continuation, call_details, request)
+
+        metadata = call_details._replace.call_args[1]["metadata"]
+        auth_value = next(v for k, v in metadata if k == "authorization")
+
+        # SignedHeaders should include 'host'
+        self.assertIn("SignedHeaders=", auth_value)
+        self.assertIn("host", auth_value)
+
+    def test_no_security_token_without_session_token(self) -> None:
+        """Without a session token, x-amz-security-token is NOT included."""
+        creds = Mock()
+        creds.access_key = "AKIAIOSFODNN7EXAMPLE"
+        creds.secret_key = "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
+        creds.token = None  # No session token
+        del creds.get_frozen_credentials
+
+        interceptor = AWSV4GrpcInterceptor(creds, "us-east-1", "es", "localhost")
+
+        call_details = self._make_call_details()
+        request = self._make_request()
+        continuation = MagicMock()
+
+        interceptor.intercept_unary_unary(continuation, call_details, request)
+
+        metadata = call_details._replace.call_args[1]["metadata"]
+        meta_keys = [k for k, v in metadata]
+        self.assertNotIn("x-amz-security-token", meta_keys)
+
+    def test_different_body_produces_different_signature(self) -> None:
+        """Different request bodies produce different signatures (payload hash changes)."""
+        creds = self._mock_credentials()
+        interceptor = AWSV4GrpcInterceptor(creds, "us-east-1", "es", "localhost")
+
+        continuation = MagicMock()
+
+        # First request with body A
+        details1 = self._make_call_details()
+        request1 = self._make_request(data=b"body-content-A")
+        interceptor.intercept_unary_unary(continuation, details1, request1)
+        metadata1 = details1._replace.call_args[1]["metadata"]
+        auth1 = next(v for k, v in metadata1 if k == "authorization")
+
+        # Second request with body B
+        details2 = self._make_call_details()
+        request2 = self._make_request(data=b"body-content-B")
+        interceptor.intercept_unary_unary(continuation, details2, request2)
+        metadata2 = details2._replace.call_args[1]["metadata"]
+        auth2 = next(v for k, v in metadata2 if k == "authorization")
+
+        # Different bodies → different signatures
+        self.assertNotEqual(auth1, auth2)
+
+    def test_signing_url_includes_host(self) -> None:
+        """The signing URL includes the configured host."""
+        creds = self._mock_credentials()
+        host = "search-my-domain.us-east-1.es.amazonaws.com"
+        interceptor = AWSV4GrpcInterceptor(creds, "us-east-1", "es", host)
+
+        call_details = self._make_call_details("/opensearch.DocumentService/Bulk")
+        request = self._make_request()
+        continuation = MagicMock()
+
+        with patch.object(
+            interceptor._signer, "sign", wraps=interceptor._signer.sign
+        ) as mock_sign:
+            interceptor.intercept_unary_unary(continuation, call_details, request)
+
+            call_args = mock_sign.call_args
+            signed_url = call_args[1]["url"]
+            self.assertIn(host, signed_url)
+            self.assertTrue(signed_url.startswith("https://"))
+
 
 class TestGrpcTransportSigV4Detection(TestCase):
     """Test GrpcTransport detects SigV4 callable and creates interceptor."""
