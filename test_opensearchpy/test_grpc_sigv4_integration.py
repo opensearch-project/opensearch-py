@@ -39,7 +39,7 @@ class MockDocumentServicer(document_service_pb2_grpc.DocumentServiceServicer):
         self.received_metadata = {}
         self.call_count = 0
 
-    def Bulk(self, request, context):
+    def Bulk(self, request, context):  # pylint: disable=invalid-name
         """Handle Bulk — capture metadata and return a valid response."""
         self.call_count += 1
         # Capture all metadata from the incoming call
