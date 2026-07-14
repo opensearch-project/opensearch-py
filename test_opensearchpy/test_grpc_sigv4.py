@@ -146,7 +146,7 @@ class TestAWSV4GrpcInterceptor(TestCase):
 
     def test_interceptor_uses_frozen_credentials(self) -> None:
         """get_frozen_credentials is called if available."""
-        creds, frozen = self._mock_credentials_with_frozen()
+        creds, _frozen = self._mock_credentials_with_frozen()
         interceptor = AWSV4GrpcInterceptor(creds, "us-east-1", "es", "localhost")
 
         call_details = self._make_call_details()
