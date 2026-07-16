@@ -131,7 +131,7 @@ class TestGrpcTransportBasicAuth(TestCase):
 
     def test_opensearch_grpc_accepts_http_auth(self) -> None:
         """OpenSearchGrpc accepts http_auth without error."""
-        from opensearchpy.client import OpenSearchGrpc
+        from opensearchpy.client.grpc_client import OpenSearchGrpc
 
         client = OpenSearchGrpc(
             hosts=[{"host": "localhost", "port": 9200}],

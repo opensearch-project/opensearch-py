@@ -25,7 +25,7 @@ from typing import Any
 from unittest import TestCase
 from urllib.parse import urlparse
 
-from opensearchpy.client import OpenSearchGrpc
+from opensearchpy.client.grpc_client import OpenSearchGrpc
 from opensearchpy.exceptions import AuthenticationException
 from opensearchpy.helpers.test import OPENSEARCH_URL
 

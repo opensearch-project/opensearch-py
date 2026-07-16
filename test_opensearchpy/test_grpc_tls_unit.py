@@ -20,7 +20,7 @@ import tempfile
 from unittest import TestCase
 
 from opensearch_grpc.grpc_transport import GrpcTransport
-from opensearchpy.client import OpenSearchGrpc
+from opensearchpy.client.grpc_client import OpenSearchGrpc
 from opensearchpy.exceptions import ImproperlyConfigured
 
 
@@ -277,7 +277,7 @@ class TestOpenSearchGrpcTlsParams(TestCase):
             import opensearchpy.client
 
             importlib.reload(opensearchpy.client)
-            from opensearchpy.client import OpenSearchGrpc as ReloadedGrpc
+            from opensearchpy.client.grpc_client import OpenSearchGrpc as ReloadedGrpc
 
             with self.assertRaises(ImproperlyConfigured):
                 ReloadedGrpc(
