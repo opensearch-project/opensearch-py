@@ -596,25 +596,25 @@ def scan(
                 shards_skipped = _shards.get("skipped", 0)
                 shards_total = _shards.get("total", 0)
 
-            # check if we have any errors
-            if (shards_successful + shards_skipped) < shards_total:
-                shards_message = "Scroll request has only succeeded on %d (+%d skipped) shards out of %d."
-                logger.warning(
-                    shards_message,
-                    shards_successful,
-                    shards_skipped,
-                    shards_total,
-                )
-                if raise_on_error:
-                    raise ScanError(
-                        scroll_id,
-                        shards_message
-                        % (
-                            shards_successful,
-                            shards_skipped,
-                            shards_total,
-                        ),
+                # check if we have any errors
+                if (shards_successful + shards_skipped) < shards_total:
+                    shards_message = "Scroll request has only succeeded on %d (+%d skipped) shards out of %d."
+                    logger.warning(
+                        shards_message,
+                        shards_successful,
+                        shards_skipped,
+                        shards_total,
                     )
+                    if raise_on_error:
+                        raise ScanError(
+                            scroll_id,
+                            shards_message
+                            % (
+                                shards_successful,
+                                shards_skipped,
+                                shards_total,
+                            ),
+                        )
 
             resp = client.scroll(
                 body={"scroll_id": scroll_id, "scroll": scroll}, **scroll_kwargs
