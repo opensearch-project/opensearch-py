@@ -38,6 +38,16 @@ if docker cp ${opensearch_node_name}:/usr/share/opensearch/config/root-ca.pem /t
   echo -e "\033[34;1mINFO:\033[0m Copied root-ca.pem for gRPC TLS tests\033[0m"
 fi
 
+# Copy client certs for mTLS tests
+OPENSEARCH_CLIENT_CERT=""
+OPENSEARCH_CLIENT_KEY=""
+if docker cp ${opensearch_node_name}:/usr/share/opensearch/config/kirk.pem /tmp/opensearch-client-cert.pem 2>/dev/null && \
+   docker cp ${opensearch_node_name}:/usr/share/opensearch/config/kirk-key.pem /tmp/opensearch-client-key.pem 2>/dev/null; then
+  OPENSEARCH_CLIENT_CERT="/tmp/client-cert.pem"
+  OPENSEARCH_CLIENT_KEY="/tmp/client-key.pem"
+  echo -e "\033[34;1mINFO:\033[0m Copied kirk.pem/kirk-key.pem for mTLS tests\033[0m"
+fi
+
 OPENSEARCH_REQUIRED_VERSION="2.12.0"
 # Starting in 2.12.0, security demo configuration script requires an initial admin password
 COMPARE_VERSION=`echo $OPENSEARCH_REQUIRED_VERSION $OPENSEARCH_VERSION | tr ' ' '\n' | sort -V | uniq | head -n 1`
@@ -55,7 +65,11 @@ if [ "$COMPARE_VERSION" != "$OPENSEARCH_REQUIRED_VERSION" ]; then
   --env "OPENSEARCH_GRPC_HOST=${opensearch_node_name}" \
   --env "OPENSEARCH_GRPC_PORT=9400" \
   --env "OPENSEARCH_CA_CERTS=${OPENSEARCH_CA_CERTS}" \
+  --env "OPENSEARCH_CLIENT_CERT=${OPENSEARCH_CLIENT_CERT}" \
+  --env "OPENSEARCH_CLIENT_KEY=${OPENSEARCH_CLIENT_KEY}" \
   ${OPENSEARCH_CA_CERTS:+--volume "/tmp/opensearch-root-ca.pem:/tmp/root-ca.pem:ro"} \
+  ${OPENSEARCH_CLIENT_CERT:+--volume "/tmp/opensearch-client-cert.pem:/tmp/client-cert.pem:ro"} \
+  ${OPENSEARCH_CLIENT_KEY:+--volume "/tmp/opensearch-client-key.pem:/tmp/client-key.pem:ro"} \
   --name opensearch-py \
   --rm \
   opensearch-project/opensearch-py \
@@ -74,7 +88,11 @@ else
   --env "OPENSEARCH_GRPC_HOST=${opensearch_node_name}" \
   --env "OPENSEARCH_GRPC_PORT=9400" \
   --env "OPENSEARCH_CA_CERTS=${OPENSEARCH_CA_CERTS}" \
+  --env "OPENSEARCH_CLIENT_CERT=${OPENSEARCH_CLIENT_CERT}" \
+  --env "OPENSEARCH_CLIENT_KEY=${OPENSEARCH_CLIENT_KEY}" \
   ${OPENSEARCH_CA_CERTS:+--volume "/tmp/opensearch-root-ca.pem:/tmp/root-ca.pem:ro"} \
+  ${OPENSEARCH_CLIENT_CERT:+--volume "/tmp/opensearch-client-cert.pem:/tmp/client-cert.pem:ro"} \
+  ${OPENSEARCH_CLIENT_KEY:+--volume "/tmp/opensearch-client-key.pem:/tmp/client-key.pem:ro"} \
   --name opensearch-py \
   --rm \
   opensearch-project/opensearch-py \

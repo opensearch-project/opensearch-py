@@ -385,3 +385,96 @@ class TestTlsSettings(TestCase):
                 )
         finally:
             client.close()
+
+
+class TestMutualTls(TestCase):
+    """Test mutual TLS (mTLS) with client certificates."""
+
+    def setUp(self) -> None:
+        if not _grpc_available():
+            self.skipTest(f"gRPC not available on {GRPC_HOST}:{GRPC_PORT}")
+        self.ca_certs = os.environ.get("OPENSEARCH_CA_CERTS", None)
+        self.client_cert = os.environ.get("OPENSEARCH_CLIENT_CERT", None)
+        self.client_key = os.environ.get("OPENSEARCH_CLIENT_KEY", None)
+        if not self.ca_certs:
+            self.skipTest("OPENSEARCH_CA_CERTS not set")
+        if not self.client_cert or not self.client_key:
+            self.skipTest("OPENSEARCH_CLIENT_CERT/KEY not set — cannot test mTLS")
+
+    def test_mtls_bulk_succeeds(self) -> None:
+        """Bulk request succeeds with mutual TLS (client cert + key)."""
+        client = OpenSearchGrpc(
+            hosts=[OPENSEARCH_URL],
+            grpc_hosts=[{"host": GRPC_HOST, "port": GRPC_PORT}],
+            http_auth=("admin", OPENSEARCH_PASSWORD),
+            use_ssl=True,
+            ca_certs=self.ca_certs,
+            client_cert=self.client_cert,
+            client_key=self.client_key,
+            ssl_assert_hostname="localhost",
+        )
+        try:
+            resp = client.bulk(
+                body=[
+                    {"index": {"_index": "test-mtls", "_id": "1"}},
+                    {"title": "mTLS doc"},
+                ],
+                refresh=True,
+            )
+            self.assertFalse(resp["errors"])
+            self.assertEqual(len(resp["items"]), 1)
+        finally:
+            # Cleanup with standard client
+            cleanup = OpenSearchGrpc(
+                hosts=[OPENSEARCH_URL],
+                grpc_hosts=[{"host": GRPC_HOST, "port": GRPC_PORT}],
+                http_auth=("admin", OPENSEARCH_PASSWORD),
+                use_ssl=True,
+                verify_certs=False,
+                ca_certs=self.ca_certs,
+                ssl_assert_hostname="localhost",
+            )
+            cleanup.indices.delete(index="test-mtls", ignore=[404])
+            cleanup.close()
+            client.close()
+
+    def test_mtls_with_rest_fallback(self) -> None:
+        """REST fallback also uses client certs for mTLS."""
+        client = OpenSearchGrpc(
+            hosts=[OPENSEARCH_URL],
+            grpc_hosts=[{"host": GRPC_HOST, "port": GRPC_PORT}],
+            http_auth=("admin", OPENSEARCH_PASSWORD),
+            use_ssl=True,
+            ca_certs=self.ca_certs,
+            client_cert=self.client_cert,
+            client_key=self.client_key,
+            ssl_assert_hostname="localhost",
+        )
+        try:
+            # Bulk via gRPC with mTLS
+            client.bulk(
+                body=[
+                    {"index": {"_index": "test-mtls-rest", "_id": "1"}},
+                    {"title": "mTLS REST doc"},
+                ],
+                refresh=True,
+            )
+            # Search via REST — also uses mTLS
+            resp = client.search(
+                index="test-mtls-rest",
+                body={"query": {"match_all": {}}},
+            )
+            self.assertEqual(resp["hits"]["total"]["value"], 1)
+        finally:
+            cleanup = OpenSearchGrpc(
+                hosts=[OPENSEARCH_URL],
+                grpc_hosts=[{"host": GRPC_HOST, "port": GRPC_PORT}],
+                http_auth=("admin", OPENSEARCH_PASSWORD),
+                use_ssl=True,
+                verify_certs=False,
+                ca_certs=self.ca_certs,
+                ssl_assert_hostname="localhost",
+            )
+            cleanup.indices.delete(index="test-mtls-rest", ignore=[404])
+            cleanup.close()
+            client.close()
