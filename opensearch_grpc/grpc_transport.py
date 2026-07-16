@@ -146,6 +146,7 @@ class GrpcTransport(Transport):
 
         # Read TLS params (don't pop — REST fallback needs them too)
         self._use_ssl = kwargs.get("use_ssl", False)
+        self._verify_certs = kwargs.get("verify_certs", True)
         self._ssl_context = kwargs.get("ssl_context", None)
         self._ca_certs = kwargs.get("ca_certs", None)
         self._client_cert = kwargs.get("client_cert", None)
@@ -180,6 +181,21 @@ class GrpcTransport(Transport):
         #   - use_ssl=True + client_cert + client_key: Mutual TLS (mTLS)
         #   - use_ssl=False: No encryption (insecure channel)
         if self._use_ssl:
+            # gRPC Python does not support disabling certificate verification.
+            # When verify_certs=False without ca_certs, gRPC will use system CAs
+            # and fail against self-signed certificates. Users MUST provide
+            # ca_certs (or ssl_context with CA loaded) for self-signed certs.
+            if not self._verify_certs and not self._ca_certs and not self._ssl_context:
+                import warnings
+
+                warnings.warn(
+                    "gRPC does not support verify_certs=False. The gRPC channel "
+                    "will still verify the server certificate using system CAs. "
+                    "For self-signed certificates, provide ca_certs or ssl_context. "
+                    "The REST fallback will respect verify_certs=False.",
+                    stacklevel=2,
+                )
+
             # Determine root CA certificates
             root_certs = None
             if self._ssl_context:
