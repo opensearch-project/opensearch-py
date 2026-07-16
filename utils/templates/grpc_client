@@ -31,6 +31,19 @@ class OpenSearchGrpc(OpenSearch):
     Bulk requests are routed over gRPC for better performance; all other
     operations fall through to REST automatically.
 
+    Supported parameters:
+        - hosts: REST endpoint(s) for fallback operations
+        - grpc_hosts: gRPC endpoint (required)
+        - use_ssl, ca_certs, client_cert, client_key: TLS/mTLS
+        - ssl_context: Custom SSL context for CA certs
+        - ssl_version: Accepted (gRPC auto-negotiates)
+        - ssl_assert_hostname: Maps to grpc.ssl_target_name_override
+        - http_auth: Basic auth (tuple/string), Bearer/JWT, or SigV4 (callable)
+
+    Unsupported parameters (raise NotImplementedError):
+        - ssl_assert_fingerprint: No gRPC equivalent
+        - ssl_show_warn: No gRPC equivalent
+
     Usage::
 
         from opensearchpy import OpenSearchGrpc
@@ -38,6 +51,9 @@ class OpenSearchGrpc(OpenSearch):
         client = OpenSearchGrpc(
             hosts=[{'host': 'localhost', 'port': 9200}],
             grpc_hosts=[{'host': 'localhost', 'port': 9400}],
+            http_auth=('admin', 'password'),
+            use_ssl=True,
+            ca_certs='/path/to/root-ca.pem',
         )
 
         # Bulk goes over gRPC automatically
