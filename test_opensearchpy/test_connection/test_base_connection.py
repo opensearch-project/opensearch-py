@@ -42,6 +42,7 @@ from pytest import raises
 
 from opensearchpy import OpenSearch, serializer
 from opensearchpy.connection import connections
+from opensearchpy.exceptions import TransportError
 
 
 class TestBaseConnection(TestCase):
@@ -52,6 +53,25 @@ class TestBaseConnection(TestCase):
             con._raise_warnings([])
 
         self.assertEqual(w, [])
+
+    def test_raise_error_handles_non_dict_json_body(self) -> None:
+        # A non-object JSON error body (array/string/number/bool/null) with a JSON
+        # content-type must still raise a TransportError carrying the status code,
+        # not an uncaught AttributeError. Regression for the missing
+        # isinstance(additional_info, dict) guard in _raise_error.
+        con = Connection()
+        for body in ("[1, 2, 3]", '"a string"', "42", "true", "null"):
+            with raises(TransportError) as excinfo:
+                con._raise_error(400, body, "application/json")
+            self.assertEqual(excinfo.value.status_code, 400)
+            self.assertEqual(excinfo.value.error, body)
+
+        # a dict body still has its error type extracted
+        with raises(TransportError) as excinfo:
+            con._raise_error(
+                400, '{"error": {"type": "x_exception"}}', "application/json"
+            )
+        self.assertEqual(excinfo.value.error, "x_exception")
 
     def test_raises_warnings(self) -> None:
         con = Connection()
