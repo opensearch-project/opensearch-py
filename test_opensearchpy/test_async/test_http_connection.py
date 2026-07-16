@@ -60,16 +60,22 @@ class TestAsyncHttpConnection:
             return self
 
     def test_auth_as_tuple(self) -> None:
+        import base64
+
         c = AsyncHttpConnection(http_auth=("username", "password"))
-        assert isinstance(c._http_auth, aiohttp.BasicAuth)
-        assert c._http_auth.login, "username"
-        assert c._http_auth.password, "password"
+        # Credentials are now encoded directly as an Authorization header
+        # (aiohttp.BasicAuth was deprecated in aiohttp 3.14)
+        assert c._http_auth is None
+        expected = "Basic " + base64.b64encode(b"username:password").decode()
+        assert c.headers.get("Authorization") == expected
 
     def test_auth_as_string(self) -> None:
+        import base64
+
         c = AsyncHttpConnection(http_auth="username:password")
-        assert isinstance(c._http_auth, aiohttp.BasicAuth)
-        assert c._http_auth.login, "username"
-        assert c._http_auth.password, "password"
+        assert c._http_auth is None
+        expected = "Basic " + base64.b64encode(b"username:password").decode()
+        assert c.headers.get("Authorization") == expected
 
     def test_auth_as_callable(self) -> None:
         def auth_fn(
@@ -86,18 +92,23 @@ class TestAsyncHttpConnection:
 
         mock_request.return_value = TestAsyncHttpConnection.MockResponse()
 
+        import base64
+
         c = AsyncHttpConnection(
             http_auth=("username", "password"),
             loop=get_running_loop(),
         )
-        c.headers = {}
+        # Remove non-auth default headers so the assertion is not sensitive to them,
+        # but keep the Authorization header that __init__ stored via our fix.
+        c.headers = {k: v for k, v in c.headers.items() if k == "Authorization"}
         await c.perform_request("post", "/test")
+
+        expected_auth = "Basic " + base64.b64encode(b"username:password").decode()
         mock_request.assert_called_with(
             "post",
             yarl.URL("http://localhost:9200/test", encoded=True),
             data=None,
-            auth=c._http_auth,
-            headers={},
+            headers={"Authorization": expected_auth},
             timeout=aiohttp.ClientTimeout(
                 total=10,
                 connect=None,
@@ -137,7 +148,6 @@ class TestAsyncHttpConnection:
             "post",
             yarl.URL("http://localhost:9200/test", encoded=True),
             data=None,
-            auth=None,
             headers={
                 "Test": "PASSED",
                 "a-header": "a-value",
