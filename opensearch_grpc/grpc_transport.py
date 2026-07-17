@@ -281,8 +281,9 @@ class GrpcTransport(Transport):
                         and attempt < self.max_retries
                     ):
                         continue
-                    # Fallback to REST after retries exhausted
-                    break
+                    # Non-retryable errors (auth, request errors) should NOT
+                    # fall back to REST — raise immediately
+                    raise
 
         return super().perform_request(
             method,
