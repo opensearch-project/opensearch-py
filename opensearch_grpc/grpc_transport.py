@@ -19,6 +19,7 @@ Usage:
     )
 """
 
+import base64
 import re
 from typing import Any, Callable, Collection, Mapping, Optional, Tuple, Union
 
@@ -37,6 +38,40 @@ from opensearchpy.exceptions import (
     TransportError,
 )
 from opensearchpy.transport import Transport
+
+
+class BasicAuthInterceptor(grpc.UnaryUnaryClientInterceptor):  # type: ignore[misc]
+    """gRPC interceptor that adds Basic auth to every unary call."""
+
+    def __init__(self, username: str, password: str) -> None:
+        credentials = f"{username}:{password}".encode("utf-8")
+        self._auth_header = f"Basic {base64.b64encode(credentials).decode('utf-8')}"
+
+    def intercept_unary_unary(
+        self, continuation: Any, client_call_details: Any, request: Any
+    ) -> Any:
+        metadata = list(client_call_details.metadata or [])
+        metadata.append(("authorization", self._auth_header))
+        new_details = client_call_details._replace(metadata=metadata)
+        return continuation(new_details, request)
+
+
+class BearerTokenInterceptor(grpc.UnaryUnaryClientInterceptor):  # type: ignore[misc]
+    """gRPC interceptor that adds Bearer token auth to every unary call."""
+
+    def __init__(self, token: str) -> None:
+        if token.lower().startswith("bearer "):
+            self._auth_header = token
+        else:
+            self._auth_header = f"Bearer {token}"
+
+    def intercept_unary_unary(
+        self, continuation: Any, client_call_details: Any, request: Any
+    ) -> Any:
+        metadata = list(client_call_details.metadata or [])
+        metadata.append(("authorization", self._auth_header))
+        new_details = client_call_details._replace(metadata=metadata)
+        return continuation(new_details, request)
 
 
 class GrpcTransport(Transport):
@@ -71,6 +106,24 @@ class GrpcTransport(Transport):
 
         self._grpc_address = f"{grpc_host}:{grpc_port}"
         self._channel = grpc.insecure_channel(self._grpc_address)
+
+        # Wrap channel with auth interceptor if credentials provided
+        self._http_auth = kwargs.get("http_auth", None)
+        if self._http_auth is not None:
+            if isinstance(self._http_auth, (tuple, list)):
+                username, password = self._http_auth[0], self._http_auth[1]
+                interceptor = BasicAuthInterceptor(username, password)
+            elif isinstance(self._http_auth, str) and (
+                self._http_auth.startswith("Bearer ")
+                or self._http_auth.startswith("bearer ")
+            ):
+                interceptor = BearerTokenInterceptor(self._http_auth)
+            else:
+                # String format "user:pass"
+                username, password = str(self._http_auth).split(":", 1)
+                interceptor = BasicAuthInterceptor(username, password)
+            self._channel = grpc.intercept_channel(self._channel, interceptor)
+
         self._document_stub = document_service_pb2_grpc.DocumentServiceStub(
             self._channel
         )
