@@ -10,6 +10,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ### Deprecated
 ### Removed
 ### Fixed
+- Fixed `AWSV4Signer.sign()` including hop-by-hop headers (e.g., `connection`) in SigV4 signature, causing 403 errors when the HTTP transport layer modifies these headers after signing ([#1044](https://github.com/opensearch-project/opensearch-py/issues/1044))
 - Fix `UnicodeEncodeError` on surrogate/emoji characters in bulk chunk sizing by passing `surrogatepass` error handler ([#1086](https://github.com/opensearch-project/opensearch-py/pull/1086))
 ### Security
 - Refresh `samples/` and `benchmarks/` poetry locks and pin fixed transitive floors to clear all outstanding dependency CVE findings: aiohttp `>=3.14.1` (CVE-2026-54273..54280 et al.), urllib3 `>=2.7.0` (CVE-2025-50181/-50182/-66418/-66471, CVE-2026-21441/-44431/-44432), requests `>=2.33.0` (CVE-2024-47081, CVE-2026-25645), and idna `>=3.18` (CVE-2026-45409) ([#1082](https://github.com/opensearch-project/opensearch-py/pull/1082))
