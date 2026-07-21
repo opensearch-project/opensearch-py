@@ -43,6 +43,7 @@ logger = logging.getLogger("opensearch")
 logger.addHandler(logging.NullHandler())
 
 from .client import OpenSearch
+from .client.grpc_client import OpenSearchGrpc
 from .connection import (
     Connection,
     RequestsHttpConnection,
@@ -142,6 +143,7 @@ warnings.simplefilter("default", category=OpenSearchDeprecationWarning, append=T
 
 __all__ = [
     "OpenSearch",
+    "OpenSearchGrpc",
     "Transport",
     "ConnectionPool",
     "ConnectionSelector",
