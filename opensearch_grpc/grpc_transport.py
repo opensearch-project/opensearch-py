@@ -8,6 +8,54 @@ fall back to REST automatically.
     - bulk → DocumentService.Bulk (native gRPC)
     - everything else → REST fallback
 
+TLS/SSL Support:
+    The gRPC channel supports TLS and mutual TLS (mTLS) using the same
+    parameters as the REST client:
+
+    - use_ssl=True: Creates a secure gRPC channel (grpc.secure_channel)
+    - ca_certs: Path to CA bundle for server certificate verification
+    - client_cert: Path to client certificate for mTLS
+    - client_key: Path to client private key for mTLS
+
+    When use_ssl=True without ca_certs, system default trusted CAs are used.
+    When use_ssl=False (default), an insecure channel is created.
+
+    Not supported (no gRPC equivalent):
+    - ssl_context: gRPC manages its own SSL internally
+    - ssl_version: gRPC negotiates TLS version automatically
+    - ssl_assert_hostname: Not configurable in gRPC Python
+    - ssl_assert_fingerprint: Not available in gRPC Python
+    - ssl_show_warn: No equivalent in gRPC
+
+Usage:
+    from opensearchpy.client import OpenSearchGrpc
+
+    # Insecure (no TLS)
+    client = OpenSearchGrpc(
+        hosts=[{"host": "localhost", "port": 9200}],
+        grpc_hosts=[{"host": "localhost", "port": 9400}],
+    )
+
+    # TLS with server verification
+    client = OpenSearchGrpc(
+        hosts=[{"host": "localhost", "port": 9200}],
+        grpc_hosts=[{"host": "localhost", "port": 9400}],
+        use_ssl=True,
+        ca_certs="/path/to/root-ca.pem",
+    )
+
+    # Mutual TLS (mTLS)
+    client = OpenSearchGrpc(
+        hosts=[{"host": "localhost", "port": 9200}],
+        grpc_hosts=[{"host": "localhost", "port": 9400}],
+        use_ssl=True,
+        ca_certs="/path/to/root-ca.pem",
+        client_cert="/path/to/client-cert.pem",
+        client_key="/path/to/client-key.pem",
+    )
+"""
+
+import base64
 Uses opensearch-py's own serializer and method patterns for integration.
 
 Usage:
@@ -34,9 +82,71 @@ from opensearchpy.exceptions import (
     ConnectionTimeout,
     NotFoundError,
     RequestError,
+    SSLError,
     TransportError,
 )
 from opensearchpy.transport import Transport
+
+
+class BasicAuthInterceptor(grpc.UnaryUnaryClientInterceptor):  # type: ignore[misc]
+    """gRPC interceptor that adds Basic auth to every unary call.
+
+    Attaches an 'authorization' metadata header with base64-encoded
+    credentials, matching how the REST client sends Basic auth.
+    """
+
+    def __init__(self, username: str, password: str) -> None:
+        credentials = f"{username}:{password}".encode("utf-8")
+        self._auth_header = f"Basic {base64.b64encode(credentials).decode('utf-8')}"
+
+    def intercept_unary_unary(
+        self, continuation: Any, client_call_details: Any, request: Any
+    ) -> Any:
+        metadata = list(client_call_details.metadata or [])
+        metadata.append(("authorization", self._auth_header))
+        new_details = client_call_details._replace(metadata=metadata)
+        return continuation(new_details, request)
+
+
+class AWSV4GrpcInterceptor(grpc.UnaryUnaryClientInterceptor):  # type: ignore[misc]
+    """gRPC interceptor that signs every call with AWS SigV4.
+
+    Uses the existing AWSV4Signer to sign requests. The gRPC method path
+    (e.g., /opensearch.DocumentService/Bulk) is used as the URL path,
+    and the serialized protobuf body is included in the signature.
+
+    Signed headers are attached as gRPC metadata on every call.
+    """
+
+    def __init__(self, credentials: Any, region: str, service: str = "es", host: str = "localhost") -> None:
+        from opensearchpy.helpers.signer import AWSV4Signer
+
+        self._signer = AWSV4Signer(credentials, region, service)
+        self._host = host
+
+    def intercept_unary_unary(
+        self, continuation: Any, client_call_details: Any, request: Any
+    ) -> Any:
+        # gRPC method path (e.g., "/opensearch.DocumentService/Bulk")
+        grpc_method = client_call_details.method
+
+        # Construct the URL that SigV4 will sign
+        url = f"https://{self._host}{grpc_method}"
+
+        # Serialize the protobuf for body signing
+        body = request.SerializeToString() if hasattr(request, "SerializeToString") else None
+
+        # Sign the request — generates Authorization, X-Amz-Date, etc.
+        signed_headers = self._signer.sign(method="POST", url=url, body=body)
+
+        # Attach signed headers as gRPC metadata
+        metadata = list(client_call_details.metadata or [])
+        for key, value in signed_headers.items():
+            # gRPC metadata keys must be lowercase
+            metadata.append((key.lower(), value))
+
+        new_details = client_call_details._replace(metadata=metadata)
+        return continuation(new_details, request)
 
 
 class GrpcTransport(Transport):
@@ -45,11 +155,41 @@ class GrpcTransport(Transport):
 
     Bulk requests are sent via DocumentService.Bulk for better performance.
     All other operations fall back to REST automatically.
+
+    Channel Security:
+        - use_ssl=False (default): grpc.insecure_channel
+        - use_ssl=True: grpc.secure_channel with ssl_channel_credentials
+        - ca_certs: Root CA for server verification (or system defaults)
+        - client_cert + client_key: Mutual TLS (mTLS)
+
+    Error Handling:
+        gRPC errors are mapped to opensearch-py exceptions:
+        - UNAVAILABLE → ConnectionError (retried)
+        - DEADLINE_EXCEEDED → ConnectionTimeout (retried if retry_on_timeout)
+        - UNAUTHENTICATED → AuthenticationException
+        - PERMISSION_DENIED → AuthorizationException
+        - NOT_FOUND → NotFoundError
+        - ALREADY_EXISTS → ConflictError
+        - INVALID_ARGUMENT → RequestError
+        - Other → TransportError
+
+    Retry Behavior:
+        ConnectionError and ConnectionTimeout are retried up to max_retries
+        times, matching the REST transport behavior.
     """
 
     def __init__(self, hosts: Any, *args: Any, **kwargs: Any) -> None:
         self._grpc_port = kwargs.pop("grpc_port", 9400)
         self._grpc_hosts = kwargs.pop("grpc_hosts", None)
+
+        # Read auth params (don't pop — REST fallback needs them too)
+        self._http_auth = kwargs.get("http_auth", None)
+
+        # Read TLS params (don't pop — REST fallback needs them too)
+        self._use_ssl = kwargs.get("use_ssl", False)
+        self._ca_certs = kwargs.get("ca_certs", None)
+        self._client_cert = kwargs.get("client_cert", None)
+        self._client_key = kwargs.get("client_key", None)
 
         # Validate single gRPC host — multiple targets not yet supported
         if self._grpc_hosts and len(self._grpc_hosts) > 1:
@@ -70,6 +210,65 @@ class GrpcTransport(Transport):
         grpc_port = first_grpc.get("port", self._grpc_port)
 
         self._grpc_address = f"{grpc_host}:{grpc_port}"
+
+        # Create channel — secure (TLS/mTLS) or insecure
+        # TLS behavior:
+        #   - use_ssl=True + ca_certs: Verify server using provided CA
+        #   - use_ssl=True + no ca_certs: Verify server using system CAs
+        #   - use_ssl=True + client_cert + client_key: Mutual TLS (mTLS)
+        #   - use_ssl=False: No encryption (insecure channel)
+        if self._use_ssl:
+            # Load root CA certificate for server verification
+            root_certs = None
+            if self._ca_certs:
+                with open(self._ca_certs, "rb") as f:
+                    root_certs = f.read()
+
+            # Load client certificate and key for mutual TLS (mTLS)
+            private_key = None
+            cert_chain = None
+            if self._client_cert:
+                with open(self._client_cert, "rb") as f:
+                    cert_chain = f.read()
+            if self._client_key:
+                with open(self._client_key, "rb") as f:
+                    private_key = f.read()
+
+            credentials = grpc.ssl_channel_credentials(
+                root_certificates=root_certs,
+                private_key=private_key,
+                certificate_chain=cert_chain,
+            )
+            self._channel = grpc.secure_channel(self._grpc_address, credentials)
+        else:
+            self._channel = grpc.insecure_channel(self._grpc_address)
+
+        # Wrap channel with auth interceptor if credentials provided
+        if self._http_auth is not None:
+            if callable(self._http_auth) and not isinstance(self._http_auth, (tuple, list)):
+                # Callable auth — SigV4 signer (Urllib3AWSV4SignerAuth or similar)
+                if hasattr(self._http_auth, "signer"):
+                    # Urllib3AWSV4SignerAuth / RequestsAWSV4SignerAuth
+                    interceptor = AWSV4GrpcInterceptor(
+                        credentials=self._http_auth.signer.credentials,
+                        region=self._http_auth.signer.region,
+                        service=self._http_auth.signer.service,
+                        host=grpc_host,
+                    )
+                else:
+                    raise NotImplementedError(
+                        "Custom callable auth is not supported for gRPC. "
+                        "Use AWSV4SignerAuth or http_auth=('user', 'pass')."
+                    )
+            elif isinstance(self._http_auth, (tuple, list)):
+                username, password = self._http_auth[0], self._http_auth[1]
+                interceptor = BasicAuthInterceptor(username, password)
+            else:
+                # String format "user:pass"
+                username, password = str(self._http_auth).split(":", 1)
+                interceptor = BasicAuthInterceptor(username, password)
+            self._channel = grpc.intercept_channel(self._channel, interceptor)
+
         self._channel = grpc.insecure_channel(self._grpc_address)
         self._document_stub = document_service_pb2_grpc.DocumentServiceStub(
             self._channel
@@ -85,6 +284,9 @@ class GrpcTransport(Transport):
         ignore: Collection[int] = (),
         headers: Optional[Mapping[str, str]] = None,
     ) -> Any:
+        """Route to gRPC or REST based on the URL pattern."""
+        handler = self._get_grpc_handler(method, url)
+        if handler:
         """Route to gRPC or REST based on the URL pattern.
 
         If a gRPC handler exists for this request, attempts gRPC first with
@@ -103,6 +305,11 @@ class GrpcTransport(Transport):
                 except ConnectionTimeout:
                     if self.retry_on_timeout and attempt < self.max_retries:
                         continue
+                    raise
+                except ConnectionError:
+                    if attempt < self.max_retries:
+                        continue
+                    raise
                     # Fall back to REST on final failure
                     break
                 except ConnectionError:
@@ -119,6 +326,8 @@ class GrpcTransport(Transport):
                         and attempt < self.max_retries
                     ):
                         continue
+                    raise
+
                     # Non-retryable errors (auth, request errors) should NOT
                     # fall back to REST — raise immediately
                     raise
@@ -212,6 +421,10 @@ class GrpcTransport(Transport):
         code = error.code()
         details = error.details() or "gRPC error"
 
+        if code == grpc.StatusCode.UNAVAILABLE:
+            # Detect SSL/TLS-specific failures
+            if "SSL" in details or "TLS" in details or "handshake" in details:
+                raise SSLError("N/A", details, error)
         if code == grpc.StatusCode.OK:
             return  # No error
         elif code == grpc.StatusCode.UNAVAILABLE:
@@ -226,6 +439,9 @@ class GrpcTransport(Transport):
             raise NotFoundError(404, details, {"error": details})
         elif code == grpc.StatusCode.ALREADY_EXISTS:
             raise ConflictError(409, details, {"error": details})
+        elif code == grpc.StatusCode.INVALID_ARGUMENT:
+            raise RequestError(400, details, {"error": details})
+        else:
         elif code == grpc.StatusCode.ABORTED:
             raise ConflictError(409, details, {"error": details})
         elif code == grpc.StatusCode.INVALID_ARGUMENT:
