@@ -973,5 +973,23 @@ def dump_modules(modules: Any) -> None:
     blacken(CODE_ROOT / "opensearchpy")
 
 
+def dump_grpc_client() -> None:
+    """
+    Generates the OpenSearchGrpc client from the grpc_client template.
+    Writes to opensearchpy/client/grpc_client.py.
+    """
+    template_path = CODE_ROOT / "utils" / "templates" / "grpc_client"
+    output_path = CODE_ROOT / "opensearchpy" / "client" / "grpc_client.py"
+
+    with open(template_path, "r", encoding="utf-8") as f:
+        content = f.read()
+
+    with open(output_path, "w", encoding="utf-8") as f:
+        f.write(content)
+
+    print(f"Generated {output_path}")
+
+
 if __name__ == "__main__":
     dump_modules(read_modules())
+    dump_grpc_client()

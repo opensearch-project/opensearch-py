@@ -120,11 +120,12 @@ class _ActionChunker:
         raw_data, raw_action = data, action
         action = self.serializer.dumps(action)
         # +1 to account for the trailing new line character
-        cur_size = len(action.encode("utf-8")) + 1
+        # surrogatepass matches the rest of the client (transport.py, http_requests.py, etc.)
+        cur_size = len(action.encode("utf-8", "surrogatepass")) + 1
 
         if data is not None:
             data = self.serializer.dumps(data)
-            cur_size += len(data.encode("utf-8")) + 1
+            cur_size += len(data.encode("utf-8", "surrogatepass")) + 1
 
         # full chunk, send it and start a new one
         if self.bulk_actions and (
