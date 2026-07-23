@@ -108,3 +108,62 @@ class OpenSearchGrpc(OpenSearch):
             kwargs["grpc_hosts"] = grpc_hosts
 
         super().__init__(hosts, transport_class=GrpcTransport, **kwargs)
+
+    @staticmethod
+    def _query_params_list() -> tuple:  # type: ignore[type-arg]
+        """Query params accepted by the bulk endpoint."""
+        return (
+            "_source",
+            "_source_excludes",
+            "_source_includes",
+            "pipeline",
+            "refresh",
+            "require_alias",
+            "routing",
+            "timeout",
+            "wait_for_active_shards",
+        )
+
+    def bulk(
+        self,
+        body: Any,
+        index: Any = None,
+        params: Any = None,
+        headers: Any = None,
+        **kwargs: Any,
+    ) -> Any:
+        """Bulk operations with optimized gRPC path.
+
+        When body is a list of dicts, passes it directly to the gRPC
+        translation layer without the intermediate NDJSON serialization
+        that the standard client performs. This avoids:
+            dicts → NDJSON string → parse back to dicts → protobuf
+
+        And instead does:
+            dicts → protobuf (single serialization pass)
+
+        If body is already an NDJSON string, it is passed as-is and the
+        translation layer handles parsing.
+        """
+        from .utils import SKIP_IN_PATH, _make_path
+
+        if body in SKIP_IN_PATH:
+            raise ValueError("Empty value passed for a required argument 'body'.")
+
+        # Merge kwargs into params for query string parameters
+        if params is None:
+            params = {}
+        for key in self._query_params_list():
+            if key in kwargs:
+                params[key] = kwargs.pop(key)
+
+        # Skip _bulk_body() NDJSON conversion — pass raw body directly.
+        # The translation layer (BulkRequestProtoBuilder.from_body) handles
+        # both list-of-dicts and NDJSON string formats natively.
+        return self.transport.perform_request(
+            "POST",
+            _make_path(index, "_bulk"),
+            params=params,
+            headers=headers,
+            body=body,
+        )
