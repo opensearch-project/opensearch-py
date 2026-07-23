@@ -31,6 +31,19 @@ class OpenSearchGrpc(OpenSearch):
     Bulk requests are routed over gRPC for better performance; all other
     operations fall through to REST automatically.
 
+    Supported parameters:
+        - hosts: REST endpoint(s) for fallback operations
+        - grpc_hosts: gRPC endpoint (required)
+        - use_ssl, ca_certs, client_cert, client_key: TLS/mTLS
+        - ssl_context: Custom SSL context for CA certs
+        - ssl_version: Accepted (gRPC auto-negotiates)
+        - ssl_assert_hostname: Maps to grpc.ssl_target_name_override
+        - http_auth: Basic auth (tuple/string), Bearer/JWT, or SigV4 (callable)
+
+    Unsupported parameters (raise NotImplementedError):
+        - ssl_assert_fingerprint: No gRPC equivalent
+        - ssl_show_warn: No gRPC equivalent
+
     Usage::
 
         from opensearchpy import OpenSearchGrpc
@@ -38,6 +51,9 @@ class OpenSearchGrpc(OpenSearch):
         client = OpenSearchGrpc(
             hosts=[{'host': 'localhost', 'port': 9200}],
             grpc_hosts=[{'host': 'localhost', 'port': 9400}],
+            http_auth=('admin', 'password'),
+            use_ssl=True,
+            ca_certs='/path/to/root-ca.pem',
         )
 
         # Bulk goes over gRPC automatically
@@ -92,3 +108,62 @@ class OpenSearchGrpc(OpenSearch):
             kwargs["grpc_hosts"] = grpc_hosts
 
         super().__init__(hosts, transport_class=GrpcTransport, **kwargs)
+
+    @staticmethod
+    def _query_params_list() -> tuple:  # type: ignore[type-arg]
+        """Query params accepted by the bulk endpoint."""
+        return (
+            "_source",
+            "_source_excludes",
+            "_source_includes",
+            "pipeline",
+            "refresh",
+            "require_alias",
+            "routing",
+            "timeout",
+            "wait_for_active_shards",
+        )
+
+    def bulk(
+        self,
+        body: Any,
+        index: Any = None,
+        params: Any = None,
+        headers: Any = None,
+        **kwargs: Any,
+    ) -> Any:
+        """Bulk operations with optimized gRPC path.
+
+        When body is a list of dicts, passes it directly to the gRPC
+        translation layer without the intermediate NDJSON serialization
+        that the standard client performs. This avoids:
+            dicts → NDJSON string → parse back to dicts → protobuf
+
+        And instead does:
+            dicts → protobuf (single serialization pass)
+
+        If body is already an NDJSON string, it is passed as-is and the
+        translation layer handles parsing.
+        """
+        from .utils import SKIP_IN_PATH, _make_path
+
+        if body in SKIP_IN_PATH:
+            raise ValueError("Empty value passed for a required argument 'body'.")
+
+        # Merge kwargs into params for query string parameters
+        if params is None:
+            params = {}
+        for key in self._query_params_list():
+            if key in kwargs:
+                params[key] = kwargs.pop(key)
+
+        # Skip _bulk_body() NDJSON conversion — pass raw body directly.
+        # The translation layer (BulkRequestProtoBuilder.from_body) handles
+        # both list-of-dicts and NDJSON string formats natively.
+        return self.transport.perform_request(
+            "POST",
+            _make_path(index, "_bulk"),
+            params=params,
+            headers=headers,
+            body=body,
+        )

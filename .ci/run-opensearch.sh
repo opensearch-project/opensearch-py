@@ -38,6 +38,18 @@ END
 ))
 fi
 
+# gRPC TLS settings — pass as env vars so the default entrypoint writes them to opensearch.yml
+declare -a grpc_security
+if [[ "$SECURE_INTEGRATION" == "true" ]] && echo "$OPENSEARCH_VERSION" | grep -qE "^3\."; then
+  grpc_security=($(cat <<-END
+    --env plugins.security.ssl.aux.secure-transport-grpc.enabled=true
+    --env plugins.security.ssl.aux.secure-transport-grpc.pemcert_filepath=esnode.pem
+    --env plugins.security.ssl.aux.secure-transport-grpc.pemkey_filepath=esnode-key.pem
+    --env plugins.security.ssl.aux.secure-transport-grpc.pemtrustedcas_filepath=root-ca.pem
+END
+))
+fi
+
 NUMBER_OF_NODES=${NUMBER_OF_NODES-1}
 http_port=9200
 grpc_port=9400
@@ -96,6 +108,7 @@ fi
       "${environment[@]}" \
       "${volumes[@]}" \
       "${security[@]}" \
+      "${grpc_security[@]}" \
       --publish "$http_port":9200 \
       --publish "$grpc_port":9400 \
       --ulimit nofile=65536:65536 \
