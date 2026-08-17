@@ -118,6 +118,95 @@ class TestParallelBulk(TestCase):
             request_timeout=160,
         )
 
+    @mock.patch("opensearchpy.helpers.actions._process_bulk_chunk")
+    def test_does_not_consume_entire_input_before_yielding(
+        self, _process_bulk_chunk: Any
+    ) -> None:
+        """
+        Regression test for https://github.com/opensearch-project/opensearch-py/issues/871
+
+        ``parallel_bulk`` must stream: it should only pull a bounded number of
+        actions from the (potentially huge/infinite) input iterable, and it
+        must NOT keep draining the input while the caller has paused
+        consumption. Previously the ``ThreadPool.imap`` machinery kept pulling
+        input and buffering every result in the background, growing memory
+        without bound until the process was OOM-killed.
+        """
+        _process_bulk_chunk.side_effect = (
+            lambda client, bulk_actions, bulk_data, *a, **k: [
+                (True, data[1]) for data in bulk_data
+            ]
+        )
+
+        total = 5000
+        chunk_size = 2
+        thread_count = 4
+        queue_size = 4
+        produced = {"count": 0}
+
+        def tracking_actions() -> Any:
+            for i in range(total):
+                produced["count"] += 1
+                yield {"x": i}
+
+        gen = helpers.parallel_bulk(
+            OpenSearch(),
+            tracking_actions(),
+            thread_count=thread_count,
+            chunk_size=chunk_size,
+            queue_size=queue_size,
+        )
+
+        # Pull only the first result, then stop consuming.
+        first = next(gen)
+        self.assertEqual((True, {"x": 0}), first)
+
+        # Only a bounded window of chunks should have been read from the input.
+        # With window = max(queue_size, thread_count) chunks buffered, the
+        # chunker reads at most (window + 1) chunks (+1 lookahead action)
+        # before the first result is produced - not all ``total`` actions.
+        window = max(queue_size, thread_count)
+        consumed_after_first = produced["count"]
+        self.assertLess(consumed_after_first, total)
+        self.assertLessEqual(consumed_after_first, (window + 1) * chunk_size + 1)
+
+        # While the caller is not consuming, input must NOT keep being drained
+        # in the background (which is what caused the unbounded memory growth).
+        time.sleep(0.3)
+        self.assertEqual(
+            consumed_after_first,
+            produced["count"],
+            "parallel_bulk kept consuming input while the caller was paused; "
+            "results would accumulate without bound (issue #871)",
+        )
+
+        gen.close()
+
+    @mock.patch("opensearchpy.helpers.actions._process_bulk_chunk")
+    def test_yields_all_results_in_input_order(self, _process_bulk_chunk: Any) -> None:
+        """
+        Even though chunks are processed concurrently across threads, results
+        must be yielded in the same order as the input actions.
+        """
+        _process_bulk_chunk.side_effect = (
+            lambda client, bulk_actions, bulk_data, *a, **k: [
+                (True, data[1]) for data in bulk_data
+            ]
+        )
+
+        total = 200
+        results = list(
+            helpers.parallel_bulk(
+                OpenSearch(),
+                ({"x": i} for i in range(total)),
+                thread_count=8,
+                chunk_size=3,
+            )
+        )
+
+        self.assertEqual(total, len(results))
+        self.assertEqual([i for i in range(total)], [info["x"] for _, info in results])
+
     @pytest.mark.skip  # type: ignore
     @mock.patch(
         "opensearchpy.helpers.actions._process_bulk_chunk",

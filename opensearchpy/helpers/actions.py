@@ -27,10 +27,11 @@
 
 import logging
 import time
+from collections import deque
 from operator import methodcaller
 from typing import Any, Optional
 
-from ..compat import Mapping, Queue, map, string_types
+from ..compat import Mapping, map, string_types
 from ..exceptions import TransportError
 from .errors import BulkIndexError, ScanError
 
@@ -466,45 +467,62 @@ def parallel_bulk(
         chunks to send) and the processing threads.
     :arg ignore_status: list of HTTP status code that you want to ignore
     """
-    # Avoid importing multiprocessing unless parallel_bulk is used
-    # to avoid exceptions on restricted environments like App Engine
-    from multiprocessing.pool import ThreadPool
+    # Avoid importing concurrent.futures unless parallel_bulk is used.
+    from concurrent.futures import ThreadPoolExecutor
 
     actions = map(expand_action_callback, actions)
+    chunks = _chunk_actions(
+        actions, chunk_size, max_chunk_bytes, client.transport.serializer
+    )
 
-    class BlockingPool(ThreadPool):
-        def _setup_queues(self) -> None:
-            super()._setup_queues()  # type: ignore
-            # The queue must be at least the size of the number of threads to
-            # prevent hanging when inserting sentinel values during teardown.
-            self._inqueue: Any = Queue(max(queue_size, thread_count))
-            self._quick_put = self._inqueue.put
+    def process_chunk(bulk_chunk: Any) -> Any:
+        return list(
+            _process_bulk_chunk(
+                client,
+                bulk_chunk[1],
+                bulk_chunk[0],
+                raise_on_exception,
+                raise_on_error,
+                ignore_status,
+                *args,
+                **kwargs,
+            )
+        )
 
-    pool = BlockingPool(thread_count)
+    # Only keep a bounded number of chunks in flight at once. New chunks are
+    # pulled from ``actions`` and submitted only as previously submitted chunks
+    # are drained by the caller. This applies backpressure to the input
+    # iterable and, crucially, stops completed-but-not-yet-yielded results from
+    # accumulating without bound when the caller consumes results more slowly
+    # than the worker threads produce them - the memory leak that could
+    # previously exhaust all available RAM.
+    # See https://github.com/opensearch-project/opensearch-py/issues/871
+    window_size = max(queue_size, thread_count)
 
-    try:
-        for result in pool.imap(
-            lambda bulk_chunk: list(
-                _process_bulk_chunk(
-                    client,
-                    bulk_chunk[1],
-                    bulk_chunk[0],
-                    raise_on_exception,
-                    raise_on_error,
-                    ignore_status,
-                    *args,
-                    **kwargs,
-                )
-            ),
-            _chunk_actions(
-                actions, chunk_size, max_chunk_bytes, client.transport.serializer
-            ),
-        ):
-            yield from result
+    with ThreadPoolExecutor(max_workers=thread_count) as pool:
+        pending: deque = deque()
+        chunks_iter = iter(chunks)
 
-    finally:
-        pool.terminate()
-        pool.join()
+        # Prime the sliding window with up to ``window_size`` chunks.
+        for _ in range(window_size):
+            try:
+                chunk = next(chunks_iter)
+            except StopIteration:
+                break
+            pending.append(pool.submit(process_chunk, chunk))
+
+        while pending:
+            future = pending.popleft()
+            # Refill the window before blocking on the head of the queue so
+            # every worker thread stays busy while preserving result order.
+            try:
+                chunk = next(chunks_iter)
+            except StopIteration:
+                pass
+            else:
+                pending.append(pool.submit(process_chunk, chunk))
+
+            yield from future.result()
 
 
 def scan(
