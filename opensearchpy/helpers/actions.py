@@ -500,7 +500,7 @@ def parallel_bulk(
     window_size = max(queue_size, thread_count)
 
     with ThreadPoolExecutor(max_workers=thread_count) as pool:
-        pending: deque = deque()
+        pending: "deque[Any]" = deque()
         chunks_iter = iter(chunks)
 
         # Prime the sliding window with up to ``window_size`` chunks.
