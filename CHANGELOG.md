@@ -10,6 +10,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - Add gRPC ML streaming translation layer for ML Commons `PredictModelStream` / `ExecuteAgentStream` APIs ([#1096](https://github.com/opensearch-project/opensearch-py/pull/1096))
 ### Updated APIs
 ### Changed
+- Updated API spec download URL to `https://api-spec.opensearch.org` ([#1104](https://github.com/opensearch-project/opensearch-py/pull/1104))
 ### Deprecated
 ### Removed
 ### Fixed
