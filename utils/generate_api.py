@@ -646,7 +646,7 @@ def clean_description(text: str) -> str:
 def read_modules() -> Any:
     """
     checks the opensearch-api spec at
-    https://github.com/opensearch-project/opensearch-api-specification/releases/download/main-latest/opensearch-openapi.yaml
+    https://api-spec.opensearch.org/opensearch-openapi.yaml
     and parses it into one or more API modules
     :return: a dict of API objects
     """
@@ -654,7 +654,7 @@ def read_modules() -> Any:
 
     # Load the OpenAPI specification file
     response = requests.get(
-        "https://github.com/opensearch-project/opensearch-api-specification/releases/download/main-latest/opensearch-openapi.yaml"
+        "https://api-spec.opensearch.org/opensearch-openapi.yaml"
     )
     data = yaml.safe_load(response.text)
 
