@@ -654,7 +654,7 @@ def read_modules() -> Any:
 
     # Load the OpenAPI specification file
     response = requests.get("https://api-spec.opensearch.org/opensearch-openapi.yaml")
-    data = yaml.safe_load(response.text)
+    data = yaml.safe_load(response.content)
 
     list_of_dicts = []
 
