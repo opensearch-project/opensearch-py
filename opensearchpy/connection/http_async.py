@@ -230,6 +230,8 @@ class AsyncHttpConnection(AIOHttpConnection):
 
         start = self.loop.time()
         try:
+            self.metrics.request_start()
+
             async with self.session.request(
                 method,
                 yarl.URL(url, encoded=True),
@@ -261,6 +263,8 @@ class AsyncHttpConnection(AIOHttpConnection):
             ):
                 raise ConnectionTimeout("TIMEOUT", str(e), e)
             raise ConnectionError("N/A", str(e), e)
+        finally:
+            self.metrics.request_end()
 
         # raise warnings if any from the 'Warnings' header.
         warning_headers = response.headers.getall("warning", ())

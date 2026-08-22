@@ -45,6 +45,8 @@ from opensearchpy import AIOHttpConnection, AsyncOpenSearch, __versionstr__, ser
 from opensearchpy.compat import reraise_exceptions
 from opensearchpy.connection import Connection, async_connections
 from opensearchpy.exceptions import ConnectionError, NotFoundError, TransportError
+from opensearchpy.metrics.metrics_events import MetricsEvents
+from opensearchpy.metrics.metrics_none import MetricsNone
 from test_opensearchpy.test_http_server import TestHTTPServer
 
 pytestmark: MarkDecorator = pytest.mark.asyncio
@@ -389,6 +391,36 @@ class TestAIOHttpConnection:
             assert e.value.error == "snapshot_in_progress_exception"
         finally:
             await con.close()
+
+    async def test_metrics_default_is_metrics_none(self) -> None:
+        con = await self._get_mock_connection()
+        assert isinstance(con.metrics, MetricsNone)
+        await con.perform_request("GET", "/")
+        assert con.metrics.service_time is None
+
+    async def test_metrics_events_records_service_time(self) -> None:
+        metrics = MetricsEvents()
+        con = await self._get_mock_connection({"metrics": metrics})
+        await con.perform_request("GET", "/")
+        assert isinstance(metrics.service_time, float)
+        assert metrics.service_time > 0
+
+        first = metrics.service_time
+        await con.perform_request("GET", "/")
+        assert metrics.service_time != first
+
+    async def test_metrics_events_records_on_failure(self) -> None:
+        metrics = MetricsEvents()
+        con = AIOHttpConnection(metrics=metrics)
+        await con._create_aiohttp_session()
+
+        def request_raise(*_: Any, **__: Any) -> Any:
+            raise Exception("boom")
+
+        con.session.request = request_raise
+        with pytest.raises(ConnectionError):
+            await con.perform_request("GET", "/")
+        assert isinstance(metrics.service_time, float)
 
 
 class TestConnectionHttpServer:

@@ -35,6 +35,8 @@ from multidict import CIMultiDict
 from opensearchpy._async._extra_imports import aiohttp  # type: ignore
 from opensearchpy._async.compat import get_running_loop
 from opensearchpy.connection.http_async import AsyncHttpConnection
+from opensearchpy.metrics.metrics_events import MetricsEvents
+from opensearchpy.metrics.metrics_none import MetricsNone
 
 
 class TestAsyncHttpConnection:
@@ -150,3 +152,24 @@ class TestAsyncHttpConnection:
             ),
             fingerprint=None,
         )
+
+    @pytest.mark.asyncio  # type: ignore
+    @mock.patch("aiohttp.ClientSession.request")
+    async def test_metrics_default_is_metrics_none(self, mock_request: Any) -> None:
+        mock_request.return_value = TestAsyncHttpConnection.MockResponse()
+
+        c = AsyncHttpConnection(loop=get_running_loop())
+        assert isinstance(c.metrics, MetricsNone)
+        await c.perform_request("get", "/test")
+        assert c.metrics.service_time is None
+
+    @pytest.mark.asyncio  # type: ignore
+    @mock.patch("aiohttp.ClientSession.request")
+    async def test_metrics_events_records_service_time(self, mock_request: Any) -> None:
+        mock_request.return_value = TestAsyncHttpConnection.MockResponse()
+
+        metrics = MetricsEvents()
+        c = AsyncHttpConnection(metrics=metrics, loop=get_running_loop())
+        await c.perform_request("get", "/test")
+        assert isinstance(metrics.service_time, float)
+        assert metrics.service_time > 0

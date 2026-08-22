@@ -41,6 +41,7 @@ from ..exceptions import (
     ImproperlyConfigured,
     SSLError,
 )
+from ..metrics import Metrics, MetricsNone
 from ._extra_imports import aiohttp, aiohttp_exceptions, yarl  # type: ignore
 from .compat import get_running_loop
 
@@ -94,6 +95,7 @@ class AIOHttpConnection(AsyncConnection):
         opaque_id: Optional[str] = None,
         loop: Any = None,
         trust_env: Optional[bool] = False,
+        metrics: Metrics = MetricsNone(),
         **kwargs: Any,
     ) -> None:
         """
@@ -128,9 +130,13 @@ class AIOHttpConnection(AsyncConnection):
         :arg opaque_id: Send this value in the 'X-Opaque-Id' HTTP header
             For tracing all requests made by this transport.
         :arg loop: asyncio Event Loop to use with aiohttp. This is set by default to the currently running loop.
+        :arg metrics: metrics is an instance of a subclass of the
+            :class:`~opensearchpy.Metrics` class, used for collecting
+            and reporting metrics related to the client's operations;
         """
 
         self.headers = {}
+        self.metrics = metrics
 
         super().__init__(
             host=host,
@@ -291,6 +297,8 @@ class AIOHttpConnection(AsyncConnection):
 
         start = self.loop.time()
         try:
+            self.metrics.request_start()
+
             async with self.session.request(
                 method,
                 url,
@@ -321,6 +329,8 @@ class AIOHttpConnection(AsyncConnection):
             ):
                 raise ConnectionTimeout("TIMEOUT", str(e), e)
             raise ConnectionError("N/A", str(e), e)
+        finally:
+            self.metrics.request_end()
 
         # raise warnings if any from the 'Warnings' header.
         warning_headers = response.headers.getall("warning", ())
