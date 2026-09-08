@@ -37,6 +37,36 @@ from .update_by_query import UpdateByQuery
 from .utils import merge
 
 
+def _coerce_from_string(value: Any) -> Any:
+    """
+    Recursively convert string values in OpenSearch settings responses back to
+    their native Python types.
+
+    OpenSearch serialises numeric and boolean analysis settings as strings when
+    returning index settings (e.g. ``'false'`` instead of ``False``,
+    ``'3'`` instead of ``3``).  This normalisation step makes the in-memory
+    Python representation comparable to what comes back from the server.
+    """
+    if isinstance(value, dict):
+        return {k: _coerce_from_string(v) for k, v in value.items()}
+    if isinstance(value, list):
+        return [_coerce_from_string(item) for item in value]
+    if isinstance(value, str):
+        if value.lower() == "true":
+            return True
+        if value.lower() == "false":
+            return False
+        try:
+            return int(value)
+        except ValueError:
+            pass
+        try:
+            return float(value)
+        except ValueError:
+            pass
+    return value
+
+
 class IndexTemplate:
     def __init__(
         self,
@@ -346,7 +376,9 @@ class Index:
                 # compare analysis definition, if all analysis objects are
                 # already defined as requested, skip analysis update and
                 # proceed, otherwise raise IllegalOperation
-                existing_analysis = current_settings.get("analysis", {})
+                existing_analysis = _coerce_from_string(
+                    current_settings.get("analysis", {})
+                )
                 if any(
                     existing_analysis.get(section, {}).get(k, None)
                     != analysis[section][k]

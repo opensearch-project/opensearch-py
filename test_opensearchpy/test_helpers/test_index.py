@@ -195,3 +195,64 @@ def test_index_template_save_result(mock_client: Any) -> None:
     it: Any = IndexTemplate("test-template", "test-*")
 
     assert it.save(using="mock") == mock_client.indices.put_template()
+
+
+def test_save_does_not_raise_on_matching_analysis_with_string_typed_server_values(
+    mock_client: Any,
+) -> None:
+    """
+    Regression test for https://github.com/opensearch-project/opensearch-py/issues/882.
+
+    OpenSearch returns analysis settings values as strings (e.g. ``'3'`` for the
+    integer ``3``, ``'false'`` for the boolean ``False``).  Index.save() must not
+    raise IllegalOperation when those string-typed server values logically match
+    the Python-typed values defined in the index settings.
+    """
+    from opensearchpy.exceptions import IllegalOperation
+
+    i: Any = Index("test-index", using="mock")
+    i.settings(
+        analysis={
+            "filter": {
+                "my_shingles": {
+                    "type": "shingle",
+                    "min_shingle_size": 2,
+                    "max_shingle_size": 3,
+                    "output_unigrams": False,
+                }
+            }
+        }
+    )
+
+    # OpenSearch returns all numeric/boolean values as strings.
+    mock_client.indices.exists.return_value = True
+    mock_client.indices.get_settings.return_value = {
+        "test-index": {
+            "settings": {
+                "index": {
+                    "analysis": {
+                        "filter": {
+                            "my_shingles": {
+                                "type": "shingle",
+                                "min_shingle_size": "2",
+                                "max_shingle_size": "3",
+                                "output_unigrams": "false",
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    mock_client.cluster.state.return_value = {
+        "metadata": {"indices": {"test-index": {"state": "open"}}}
+    }
+
+    # Before the fix this raised IllegalOperation because "2" != 2 etc.
+    try:
+        i.save(using="mock")
+    except IllegalOperation:
+        raise AssertionError(
+            "Index.save() raised IllegalOperation even though the analysis "
+            "configuration already matches (types differed only as str vs int/bool)"
+        )
