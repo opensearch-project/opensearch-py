@@ -47,9 +47,23 @@ class AWSV4Signer:
 
         signature_host = self._fetch_url(url, headers or dict())
 
-        # create an AWS request object and sign it using SigV4Auth
+        # Only sign headers required by the SigV4 spec: host and x-amz-*.
+        # Passing all headers risks a signature mismatch when the HTTP
+        # transport layer (aiohttp, urllib3) modifies them after signing.
+        signature_headers = {
+            "host": urlparse(signature_host).netloc,
+            **{
+                k: v
+                for k, v in (headers or {}).items()
+                if k.lower().startswith("x-amz-")
+            },
+        }
+
         aws_request = AWSRequest(
-            method=method.upper(), url=signature_host, data=body, headers=headers or {}
+            method=method.upper(),
+            url=signature_host,
+            data=body,
+            headers=signature_headers,
         )
 
         # credentials objects expose access_key, secret_key and token attributes
