@@ -11,6 +11,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - Added support for `trust_env` to `AsyncHttpConnection` ([886](https://github.com/opensearch-project/opensearch-py/pull/886)) 
 ### Updated APIs
 ### Changed
+- Updated API spec download URL to `https://api-spec.opensearch.org` ([#1104](https://github.com/opensearch-project/opensearch-py/pull/1104))
 ### Deprecated
 ### Removed
 ### Fixed
