@@ -25,6 +25,7 @@
 #  under the License.
 
 
+import json
 from typing import Any, Dict, Optional
 from unittest import mock
 
@@ -35,6 +36,7 @@ from multidict import CIMultiDict
 from opensearchpy._async._extra_imports import aiohttp  # type: ignore
 from opensearchpy._async.compat import get_running_loop
 from opensearchpy.connection.http_async import AsyncHttpConnection
+from opensearchpy.exceptions import RequestError, TransportError
 
 
 class TestAsyncHttpConnection:
@@ -164,3 +166,50 @@ class TestAsyncHttpConnection:
         await conn._create_aiohttp_session()
         assert conn.session
         assert conn.session.trust_env
+
+    @pytest.mark.asyncio  # type: ignore
+    @mock.patch("aiohttp.ClientSession.request")
+    async def test_error_is_parsed_when_content_type_is_json(
+        self, mock_request: Any
+    ) -> None:
+        error_body = (
+            '{"error":{"root_cause":[],'
+            '"type":"resource_already_exists_exception",'
+            '"reason":"index [test-index] already exists"},"status":400}'
+        )
+        mock_request.return_value = TestAsyncHttpConnection.MockResponse(
+            text=error_body,
+            status=400,
+            headers=CIMultiDict({"content-type": "application/json; charset=UTF-8"}),
+        )
+
+        c = AsyncHttpConnection(loop=get_running_loop())
+        c.headers = {}
+
+        with pytest.raises(RequestError) as excinfo:
+            await c.perform_request("PUT", "/test-index")
+
+        # the error type is extracted from the JSON body, and the full body is
+        # available on '.info', matching the synchronous connection classes.
+        assert excinfo.value.error == "resource_already_exists_exception"
+        assert excinfo.value.info == json.loads(error_body)
+
+    @pytest.mark.asyncio  # type: ignore
+    @mock.patch("aiohttp.ClientSession.request")
+    async def test_error_is_not_parsed_when_content_type_is_not_json(
+        self, mock_request: Any
+    ) -> None:
+        mock_request.return_value = TestAsyncHttpConnection.MockResponse(
+            text="<html>502 Bad Gateway</html>",
+            status=502,
+            headers=CIMultiDict({"content-type": "text/html"}),
+        )
+
+        c = AsyncHttpConnection(loop=get_running_loop())
+        c.headers = {}
+
+        with pytest.raises(TransportError) as excinfo:
+            await c.perform_request("GET", "/test-index")
+
+        assert excinfo.value.error == "<html>502 Bad Gateway</html>"
+        assert excinfo.value.info is None
