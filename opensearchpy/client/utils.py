@@ -57,7 +57,16 @@ def _normalize_hosts(hosts: Any) -> Any:
     for host in hosts:
         if isinstance(host, string_types):
             if "://" not in host:
-                host = f"//{host}"  # type: ignore
+                # urlparse() only recognizes an IPv6 literal when it is
+                # wrapped in brackets. A bare address such as "::1" is
+                # otherwise misread as a "host:port" pair and raises a
+                # ValueError. Split off any "user:pass@" first so that
+                # credentials containing a colon are not mistaken for
+                # part of the address.
+                userinfo, at, hostname = to_str(host).rpartition("@")
+                if "[" not in hostname and hostname.count(":") > 1:
+                    hostname = f"[{hostname}]"
+                host = f"//{userinfo}{at}{hostname}"
 
             parsed_url = urlparse(host)
             h = {"host": parsed_url.hostname}
