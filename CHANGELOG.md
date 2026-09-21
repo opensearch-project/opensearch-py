@@ -9,6 +9,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - Add TLS/mTLS and Basic authentication support for gRPC transport with `use_ssl`, `ca_certs`, `client_cert`, `client_key`, `ssl_context`, `ssl_assert_hostname`, and `http_auth` ([#1087](https://github.com/opensearch-project/opensearch-py/pull/1087))
 - Add gRPC ML streaming translation layer for ML Commons `PredictModelStream` / `ExecuteAgentStream` APIs ([#1096](https://github.com/opensearch-project/opensearch-py/pull/1096))
 - Added support for `trust_env` to `AsyncHttpConnection` ([886](https://github.com/opensearch-project/opensearch-py/pull/886)) 
+- Add `yield_failed_action_source` to the bulk helpers to attach the source of a failed action to the yielded item under the `data` key when `raise_on_error=False` ([#1109](https://github.com/opensearch-project/opensearch-py/pull/1109))
 ### Updated APIs
 ### Changed
 ### Deprecated

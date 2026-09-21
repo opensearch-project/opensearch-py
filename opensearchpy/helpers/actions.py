@@ -175,7 +175,11 @@ def _chunk_actions(
 
 
 def _process_bulk_chunk_success(
-    resp: Any, bulk_data: Any, ignore_status: Any = (), raise_on_error: bool = True
+    resp: Any,
+    bulk_data: Any,
+    ignore_status: Any = (),
+    raise_on_error: bool = True,
+    yield_failed_action_source: bool = False,
 ) -> Any:
     # if raise on error is set, we need to collect errors per chunk before raising them
     errors = []
@@ -187,11 +191,12 @@ def _process_bulk_chunk_success(
         status_code = item.get("status", 500)
 
         ok = 200 <= status_code < 300
-        if not ok and raise_on_error and status_code not in ignore_status:
+        if not ok and status_code not in ignore_status:
             # include original document source
-            if len(data) > 1:
+            if (raise_on_error or yield_failed_action_source) and len(data) > 1:
                 item["data"] = data[1]
-            errors.append({op_type: item})
+            if raise_on_error:
+                errors.append({op_type: item})
 
         if ok or not errors:
             # if we are not just recording all errors to be able to raise
@@ -243,6 +248,7 @@ def _process_bulk_chunk(
     raise_on_exception: bool = True,
     raise_on_error: bool = True,
     ignore_status: Any = (),
+    yield_failed_action_source: bool = False,
     *args: Any,
     **kwargs: Any,
 ) -> Any:
@@ -269,6 +275,7 @@ def _process_bulk_chunk(
             bulk_data=bulk_data,
             ignore_status=ignore_status,
             raise_on_error=raise_on_error,
+            yield_failed_action_source=yield_failed_action_source,
         )
     yield from gen
 
@@ -286,6 +293,7 @@ def streaming_bulk(
     max_backoff: int = 600,
     yield_ok: bool = True,
     ignore_status: Any = (),
+    yield_failed_action_source: bool = False,
     *args: Any,
     **kwargs: Any,
 ) -> Any:
@@ -321,6 +329,13 @@ def streaming_bulk(
     :arg max_backoff: maximum number of seconds a retry will wait
     :arg yield_ok: if set to False will skip successful documents in the output
     :arg ignore_status: list of HTTP status code that you want to ignore
+    :arg yield_failed_action_source: if set to True, the source of the action
+        that produced a failed item is attached to that item under the ``data``
+        key, so the failing documents can be identified, patched and retried.
+        This only applies to failed items and only when ``raise_on_error`` is
+        ``False``; when ``raise_on_error`` is ``True`` the source is already
+        included in the ``BulkIndexError`` errors. Off by default because
+        keeping the sources around increases memory usage.
     """
     actions = map(expand_action_callback, actions)
 
@@ -343,6 +358,7 @@ def streaming_bulk(
                         raise_on_exception,
                         raise_on_error,
                         ignore_status,
+                        yield_failed_action_source,
                         *args,
                         **kwargs,
                     ),
@@ -409,6 +425,11 @@ def bulk(
         operations instead of just number of successful and a list of error responses
     :arg ignore_status: list of HTTP status code that you want to ignore
 
+    Passing ``raise_on_error=False`` together with
+    ``yield_failed_action_source=True`` makes every entry of the returned
+    ``errors`` list carry the source of the document that failed under the
+    ``data`` key.
+
     Any additional keyword arguments will be passed to
     :func:`~opensearchpy.helpers.streaming_bulk` which is used to execute
     the operation, see :func:`~opensearchpy.helpers.streaming_bulk` for more
@@ -444,6 +465,7 @@ def parallel_bulk(
     raise_on_exception: bool = True,
     raise_on_error: bool = True,
     ignore_status: Any = (),
+    yield_failed_action_source: bool = False,
     *args: Any,
     **kwargs: Any,
 ) -> Any:
@@ -465,6 +487,10 @@ def parallel_bulk(
     :arg queue_size: size of the task queue between the main thread (producing
         chunks to send) and the processing threads.
     :arg ignore_status: list of HTTP status code that you want to ignore
+    :arg yield_failed_action_source: if set to True, the source of the action
+        that produced a failed item is attached to that item under the ``data``
+        key. Only applies when ``raise_on_error`` is ``False``; see
+        :func:`~opensearchpy.helpers.streaming_bulk`.
     """
     # Avoid importing multiprocessing unless parallel_bulk is used
     # to avoid exceptions on restricted environments like App Engine
@@ -492,6 +518,7 @@ def parallel_bulk(
                     raise_on_exception,
                     raise_on_error,
                     ignore_status,
+                    yield_failed_action_source,
                     *args,
                     **kwargs,
                 )

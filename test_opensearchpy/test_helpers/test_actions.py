@@ -115,6 +115,7 @@ class TestParallelBulk(TestCase):
             True,
             True,
             123,
+            False,
             request_timeout=160,
         )
 
@@ -299,3 +300,110 @@ class TestScanFunction(TestCase):
         # The test should pass without raising a KeyError
         scan_result = list(helpers.scan(client, query={"query": {"match_all": {}}}))
         assert scan_result == [], "Expected empty results when 'hits' key is missing"
+
+
+def mock_bulk_response_with_one_failure() -> Any:
+    """
+    A bulk response for two index actions where the second one failed to be
+    parsed by the server.
+    """
+    return {
+        "errors": True,
+        "items": [
+            {"index": {"_index": "test-index", "_id": "1", "status": 201}},
+            {
+                "index": {
+                    "_index": "test-index",
+                    "_id": "2",
+                    "status": 400,
+                    "error": {
+                        "type": "mapper_parsing_exception",
+                        "reason": "failed to parse field [resource]",
+                    },
+                }
+            },
+        ],
+    }
+
+
+class TestYieldFailedActionSource(TestCase):
+    docs = [{"resource": "ok"}, {"resource": {"resourceId": "i-1"}}]
+
+    @mock.patch("opensearchpy.OpenSearch.bulk")
+    def test_failed_action_source_is_yielded_when_opted_in(self, _bulk: Any) -> None:
+        _bulk.return_value = mock_bulk_response_with_one_failure()
+
+        results = list(
+            helpers.streaming_bulk(
+                OpenSearch(),
+                iter(self.docs),
+                raise_on_error=False,
+                yield_failed_action_source=True,
+            )
+        )
+
+        self.assertEqual([True, False], [ok for ok, _ in results])
+        self.assertNotIn("data", results[0][1]["index"])
+        self.assertEqual(
+            {"resource": {"resourceId": "i-1"}}, results[1][1]["index"]["data"]
+        )
+
+    @mock.patch("opensearchpy.OpenSearch.bulk")
+    def test_failed_action_source_is_not_yielded_by_default(self, _bulk: Any) -> None:
+        _bulk.return_value = mock_bulk_response_with_one_failure()
+
+        results = list(
+            helpers.streaming_bulk(OpenSearch(), iter(self.docs), raise_on_error=False)
+        )
+
+        self.assertEqual([True, False], [ok for ok, _ in results])
+        for _, item in results:
+            self.assertNotIn("data", item["index"])
+
+    @mock.patch("opensearchpy.OpenSearch.bulk")
+    def test_raise_on_error_payload_is_unchanged(self, _bulk: Any) -> None:
+        _bulk.return_value = mock_bulk_response_with_one_failure()
+
+        with self.assertRaises(helpers.BulkIndexError) as cm:
+            list(helpers.streaming_bulk(OpenSearch(), iter(self.docs)))
+
+        errors = cm.exception.errors
+        self.assertEqual(1, len(errors))
+        self.assertEqual("2", errors[0]["index"]["_id"])
+        self.assertEqual(
+            {"resource": {"resourceId": "i-1"}}, errors[0]["index"]["data"]
+        )
+
+    @mock.patch("opensearchpy.OpenSearch.bulk")
+    def test_bulk_errors_carry_the_source(self, _bulk: Any) -> None:
+        _bulk.return_value = mock_bulk_response_with_one_failure()
+
+        success, errors = helpers.bulk(
+            OpenSearch(),
+            iter(self.docs),
+            raise_on_error=False,
+            yield_failed_action_source=True,
+        )
+
+        self.assertEqual(1, success)
+        self.assertEqual(1, len(errors))
+        self.assertEqual(
+            {"resource": {"resourceId": "i-1"}}, errors[0]["index"]["data"]
+        )
+
+    @mock.patch("opensearchpy.OpenSearch.bulk")
+    def test_ignored_status_is_still_not_annotated(self, _bulk: Any) -> None:
+        _bulk.return_value = mock_bulk_response_with_one_failure()
+
+        results = list(
+            helpers.streaming_bulk(
+                OpenSearch(),
+                iter(self.docs),
+                raise_on_error=False,
+                yield_failed_action_source=True,
+                ignore_status=400,
+            )
+        )
+
+        self.assertEqual([True, False], [ok for ok, _ in results])
+        self.assertNotIn("data", results[1][1]["index"])
