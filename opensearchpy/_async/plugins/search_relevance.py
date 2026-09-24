@@ -570,3 +570,116 @@ class SearchRelevanceClient(NamespacedClient):
             headers=headers,
             body=body,
         )
+
+    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    async def delete_scheduled_experiments(
+        self,
+        *,
+        experiment_id: Any,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Deletes a specified scheduled experiment.
+
+
+        :arg experiment_id: The experiment id
+        :arg error_trace: Whether to include the stack trace of returned
+            errors. Default is false.
+        :arg filter_path: A comma-separated list of filters used to
+            filter the response. Use wildcards to match any field or part of a
+            field's name. To exclude fields, use `-`.
+        :arg human: Whether to return human-readable values for
+            statistics. Default is false.
+        :arg pretty: Whether to pretty-format the returned JSON
+            response. Default is false.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        """
+        if experiment_id in SKIP_IN_PATH:
+            raise ValueError(
+                "Empty value passed for a required argument 'experiment_id'."
+            )
+
+        return await self.transport.perform_request(
+            "DELETE",
+            _make_path(
+                "_plugins",
+                "_search_relevance",
+                "experiments",
+                "schedule",
+                experiment_id,
+            ),
+            params=params,
+            headers=headers,
+        )
+
+    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    async def get_scheduled_experiments(
+        self,
+        *,
+        experiment_id: Any = None,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Gets the scheduled experiments.
+
+
+        :arg experiment_id: The experiment id
+        :arg error_trace: Whether to include the stack trace of returned
+            errors. Default is false.
+        :arg filter_path: A comma-separated list of filters used to
+            filter the response. Use wildcards to match any field or part of a
+            field's name. To exclude fields, use `-`.
+        :arg human: Whether to return human-readable values for
+            statistics. Default is false.
+        :arg pretty: Whether to pretty-format the returned JSON
+            response. Default is false.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        """
+        return await self.transport.perform_request(
+            "GET",
+            _make_path(
+                "_plugins",
+                "_search_relevance",
+                "experiments",
+                "schedule",
+                experiment_id,
+            ),
+            params=params,
+            headers=headers,
+        )
+
+    @query_params("error_trace", "filter_path", "human", "pretty", "source")
+    async def post_scheduled_experiments(
+        self,
+        *,
+        body: Any = None,
+        params: Any = None,
+        headers: Any = None,
+    ) -> Any:
+        """
+        Creates a scheduled experiment.
+
+
+        :arg error_trace: Whether to include the stack trace of returned
+            errors. Default is false.
+        :arg filter_path: A comma-separated list of filters used to
+            filter the response. Use wildcards to match any field or part of a
+            field's name. To exclude fields, use `-`.
+        :arg human: Whether to return human-readable values for
+            statistics. Default is false.
+        :arg pretty: Whether to pretty-format the returned JSON
+            response. Default is false.
+        :arg source: The URL-encoded request definition. Useful for
+            libraries that do not accept a request body for non-POST requests.
+        """
+        return await self.transport.perform_request(
+            "POST",
+            "/_plugins/_search_relevance/experiments/schedule",
+            params=params,
+            headers=headers,
+            body=body,
+        )
