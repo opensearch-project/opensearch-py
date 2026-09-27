@@ -413,7 +413,18 @@ class API:
             if k in parts:
                 parts[sub] = parts.pop(k)
 
-        _, components = self.url_parts
+        dynamic, components = self.url_parts
+
+        # `parts` is collected from every path in the spec, but only ONE path is rendered
+        # (see `path`, which picks the variant with the most placeholders). A part that
+        # belongs solely to a path we did not pick has nowhere to appear in the generated
+        # URL, so binding it produces an argument the method silently ignores.
+        # nodes.info is the case in the current spec: it accepts `node_id_or_metric` from
+        # `/_nodes/{node_id_or_metric}` while rendering `/_nodes/{node_id}/{metric}`, so
+        # `info(node_id_or_metric="http")` requests `/_nodes` and returns every node and
+        # every metric instead of the one asked for.
+        if dynamic:
+            parts = {k: v for k, v in parts.items() if k in components}
 
         def ind(item: Any) -> Any:
             try:
