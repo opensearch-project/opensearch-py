@@ -149,7 +149,10 @@ class JSONSerializer(Serializer):
             raise SerializationError(s, e)
 
     def dumps(self, data: Any) -> Any:
-        # don't serialize strings
+        # Don't serialize strings or bytes. bytes intentionally short-circuit here
+        # because callers may pass pre-built NDJSON bytes directly to client.bulk().
+        # See test_clients.py::TestBulk.test_bulk_works_with_bytestring_body before
+        # removing bytes from this check.
         if isinstance(data, string_types):
             return data
 
