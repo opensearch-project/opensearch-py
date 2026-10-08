@@ -6,7 +6,6 @@ This document contains a list of maintainers in this repo. See [opensearch-proje
 
 | Maintainer                | GitHub ID                                           | Affiliation |
 | ------------------------- | --------------------------------------------------- | ----------- |
-| Vacha Shah                | [VachaShah](https://github.com/VachaShah)           | Amazon      |
 | Harsha Vamsi Kalluri      | [harshavamsi](https://github.com/harshavamsi)       | Amazon      |
 | Aleksei Atavin            | [axeoman](https://github.com/axeoman)               | Aiven       |
 | Denis Zalevskiy           | [deztructor](https://github.com/deztructor)         | Aiven       |
@@ -20,3 +19,4 @@ This document contains a list of maintainers in this repo. See [opensearch-proje
 | ------------------ | --------------------------------------- | ----------- |
 | Daniel Doubrovkine | [dblock](https://github.com/dblock)     | Independent |
 | Rushi Agrawal      | [rushiagr](https://github.com/rushiagr) | Amazon      |
+| Vacha Shah | [VachaShah](https://github.com/VachaShah) | Amazon |
