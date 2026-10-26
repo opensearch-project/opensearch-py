@@ -526,7 +526,7 @@ class TestTransport:
             _dummy_request.call_args = (args, kwargs)  # type: ignore
             return response
 
-        con.session.request = _dummy_request  # type: ignore
+        con.session.request = _dummy_request
         await con.perform_request("GET", "/")
         _, yarl_url = con.session.request.call_args[0]
         assert str(yarl_url) == "http://[2001:db8::1]:9200/"
