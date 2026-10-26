@@ -431,3 +431,10 @@ class TestTransport(TestCase):
             t.connection_pool.connection_opts[0][1],
             {"host": "somehost.tld", "port": 123},
         )
+
+    def test_get_host_info_ipv6(self) -> None:
+        # Connection adds the brackets of an IPv6 host itself, so none must be left.
+        t: Any = Transport([{}])
+        host_info = {"http": {"publish_address": "[2001:db8::1]:9200"}}
+        info = t._get_host_info(host_info)
+        self.assertEqual(info, {"host": "2001:db8::1", "port": 9200})
