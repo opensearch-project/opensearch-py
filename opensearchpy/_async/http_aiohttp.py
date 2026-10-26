@@ -262,10 +262,16 @@ class AIOHttpConnection(AsyncConnection):
         # this super-defensively we try to import yarl, if we can't
         # then we pass a string into ClientSession.request() instead.
         if yarl:
-            # Provide correct URL object to avoid string parsing in low-level code
+            # Provide correct URL object to avoid string parsing in low-level code.
+            # encoded=True expects an already-encoded host, so an IPv6 address
+            # must be bracketed. Connection stores the bare hostname and only
+            # adds brackets on self.host.
+            host = self.hostname
+            if ":" in host and not host.startswith("["):
+                host = f"[{host}]"
             url = yarl.URL.build(
                 scheme=self.scheme,
-                host=self.hostname,
+                host=host,
                 port=self.port,
                 path=url_path,
                 query_string=query_string,

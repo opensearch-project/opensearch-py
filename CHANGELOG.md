@@ -15,7 +15,8 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ### Removed
 ### Fixed
 - Fix `UnicodeEncodeError` on surrogate/emoji characters in bulk chunk sizing by passing `surrogatepass` error handler ([#1086](https://github.com/opensearch-project/opensearch-py/pull/1086))
-- Strip surrounding brackets from IPv6 hosts in `Transport._get_host_info` to prevent double-bracketed URLs that break `RequestsHttpConnection` and `AIOHttpConnection` ([#1112](https://github.com/opensearch-project/opensearch-py/issues/1112))
+- Strip surrounding brackets from sniffed IPv6 hosts in `Transport._get_host_info` so connection classes receive a bare host and do not double-bracket the URL ([#1112](https://github.com/opensearch-project/opensearch-py/issues/1112))
+- Bracket bare IPv6 hostnames in `AIOHttpConnection` when building the yarl request URL ([#1112](https://github.com/opensearch-project/opensearch-py/issues/1112))
 ### Security
 - Refresh `samples/` and `benchmarks/` poetry locks and pin fixed transitive floors to clear all outstanding dependency CVE findings: aiohttp `>=3.14.1` (CVE-2026-54273..54280 et al.), urllib3 `>=2.7.0` (CVE-2025-50181/-50182/-66418/-66471, CVE-2026-21441/-44431/-44432), requests `>=2.33.0` (CVE-2024-47081, CVE-2026-25645), and idna `>=3.18` (CVE-2026-45409) ([#1082](https://github.com/opensearch-project/opensearch-py/pull/1082))
 ### Dependencies
