@@ -338,6 +338,10 @@ class Transport:
             host["host"], host["port"] = address.rsplit(":", 1)
             host["port"] = int(host["port"])
 
+        # Strip surrounding brackets from IPv6 addresses
+        if host["host"].startswith("[") and host["host"].endswith("]"):
+            host["host"] = host["host"][1:-1]
+
         return self.host_info_callback(host_info, host)
 
     def sniff_hosts(self, initial: bool = False) -> Any:

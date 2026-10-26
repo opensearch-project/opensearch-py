@@ -152,6 +152,14 @@ class TestAIOHttpConnection:
         assert kwargs["headers"]["accept-encoding"] == "gzip,deflate"
         assert "content-encoding" not in kwargs["headers"]
 
+    async def test_ipv6_host_builds_valid_url(self) -> None:
+        con = await self._get_mock_connection(
+            connection_params={"host": "2001:db8::1", "port": 9200}
+        )
+        await con.perform_request("GET", "/")
+        _, yarl_url = con.session.request.call_args[0]
+        assert str(yarl_url) == "http://[2001:db8::1]:9200/"
+
     async def test_url_prefix(self) -> None:
         con = await self._get_mock_connection(
             connection_params={"url_prefix": "/_search/"}
