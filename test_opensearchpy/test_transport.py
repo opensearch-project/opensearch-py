@@ -150,6 +150,17 @@ class TestTransport(TestCase):
             t.get_connection().calls[0][1],
         )
 
+    def test_request_timeout_and_timeout_both_removed_from_params(self) -> None:
+        t: Any = Transport([{}], connection_class=DummyConnection)
+
+        t.perform_request("GET", "/", params={"request_timeout": 42, "timeout": 84})
+        self.assertEqual(1, len(t.get_connection().calls))
+        self.assertEqual(("GET", "/", {}, None), t.get_connection().calls[0][0])
+        self.assertEqual(
+            {"timeout": 42, "ignore": (), "headers": None},
+            t.get_connection().calls[0][1],
+        )
+
     def test_opaque_id(self) -> None:
         t: Any = Transport([{}], opaque_id="app-1", connection_class=DummyConnection)
 
