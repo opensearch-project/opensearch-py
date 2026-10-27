@@ -26,7 +26,6 @@
 
 
 from collections.abc import Mapping
-from queue import Queue
 from typing import Tuple, Type, Union
 from urllib.parse import quote, quote_plus, unquote, urlencode, urlparse
 
@@ -74,6 +73,5 @@ __all__ = [
     "unquote",
     "urlparse",
     "map",
-    "Queue",
     "Mapping",
 ]

@@ -207,6 +207,75 @@ class TestParallelBulk(TestCase):
         self.assertEqual(total, len(results))
         self.assertEqual([i for i in range(total)], [info["x"] for _, info in results])
 
+    @mock.patch("opensearchpy.helpers.actions._process_bulk_chunk")
+    def test_error_stops_queued_chunks(self, _process_bulk_chunk: Any) -> None:
+        """
+        When a chunk fails, chunks still waiting in the window must not be sent.
+        """
+        lock = threading.Lock()
+        started = []
+
+        def process(
+            client: Any, bulk_actions: Any, bulk_data: Any, *a: Any, **k: Any
+        ) -> Any:
+            with lock:
+                started.append(bulk_data[0][1]["x"])
+            if bulk_data[0][1]["x"] == 0:
+                raise helpers.BulkIndexError("1 document(s) failed to index.", [])
+            time.sleep(0.2)
+            return [(True, data[1]) for data in bulk_data]
+
+        _process_bulk_chunk.side_effect = process
+
+        thread_count = 2
+        with self.assertRaises(helpers.BulkIndexError):
+            list(
+                helpers.parallel_bulk(
+                    OpenSearch(),
+                    ({"x": i} for i in range(100)),
+                    thread_count=thread_count,
+                    chunk_size=1,
+                    queue_size=10,
+                )
+            )
+
+        # Only chunks a worker had already picked up may have run, not the
+        # whole window of 10.
+        self.assertLessEqual(len(started), 2 * thread_count)
+
+    @mock.patch("opensearchpy.helpers.actions._process_bulk_chunk")
+    def test_input_error_keeps_results_of_processed_chunks(
+        self, _process_bulk_chunk: Any
+    ) -> None:
+        """
+        An error raised by the input iterable must not drop the results of a
+        chunk that has already been sent.
+        """
+        _process_bulk_chunk.side_effect = (
+            lambda client, bulk_actions, bulk_data, *a, **k: [
+                (True, data[1]) for data in bulk_data
+            ]
+        )
+
+        def failing_actions() -> Any:
+            for i in range(5):
+                yield {"x": i}
+            raise ValueError("bad input")
+
+        results = []
+        with self.assertRaises(ValueError):
+            for result in helpers.parallel_bulk(
+                OpenSearch(),
+                failing_actions(),
+                thread_count=1,
+                chunk_size=1,
+                queue_size=1,
+            ):
+                results.append(result)
+
+        self.assertEqual(_process_bulk_chunk.call_count, len(results))
+        self.assertEqual(list(range(len(results))), [info["x"] for _, info in results])
+
     @pytest.mark.skip  # type: ignore
     @mock.patch(
         "opensearchpy.helpers.actions._process_bulk_chunk",

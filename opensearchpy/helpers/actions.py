@@ -28,6 +28,7 @@
 import logging
 import time
 from collections import deque
+from itertools import islice
 from operator import methodcaller
 from typing import Any, Optional
 
@@ -463,8 +464,9 @@ def parallel_bulk(
     :arg expand_action_callback: callback executed on each action passed in,
         should return a tuple containing the action line and the data line
         (`None` if data line should be omitted).
-    :arg queue_size: size of the task queue between the main thread (producing
-        chunks to send) and the processing threads.
+    :arg queue_size: maximum number of chunks submitted to the thread pool at
+        once, running or waiting for a worker (never less than ``thread_count``).
+        New chunks are read from ``actions`` only as results are consumed.
     :arg ignore_status: list of HTTP status code that you want to ignore
     """
     # Avoid importing concurrent.futures unless parallel_bulk is used.
@@ -499,30 +501,27 @@ def parallel_bulk(
     # See https://github.com/opensearch-project/opensearch-py/issues/871
     window_size = max(queue_size, thread_count)
 
-    with ThreadPoolExecutor(max_workers=thread_count) as pool:
-        pending: "deque[Any]" = deque()
-        chunks_iter = iter(chunks)
-
-        # Prime the sliding window with up to ``window_size`` chunks.
-        for _ in range(window_size):
-            try:
-                chunk = next(chunks_iter)
-            except StopIteration:
-                break
-            pending.append(pool.submit(process_chunk, chunk))
+    chunks_iter = iter(chunks)
+    pool = ThreadPoolExecutor(max_workers=thread_count)
+    try:
+        pending: "deque[Any]" = deque(
+            pool.submit(process_chunk, chunk)
+            for chunk in islice(chunks_iter, window_size)
+        )
 
         while pending:
-            future = pending.popleft()
-            # Refill the window before blocking on the head of the queue so
-            # every worker thread stays busy while preserving result order.
-            try:
-                chunk = next(chunks_iter)
-            except StopIteration:
-                pass
-            else:
-                pending.append(pool.submit(process_chunk, chunk))
+            # Yield the head's results before pulling more input, so an error
+            # raised while reading the input can't discard the results of a
+            # chunk that has already been indexed.
+            yield from pending.popleft().result()
 
-            yield from future.result()
+            chunk = next(chunks_iter, None)
+            if chunk is not None:
+                pending.append(pool.submit(process_chunk, chunk))
+    finally:
+        # On early exit (an error, ``close()`` or KeyboardInterrupt) don't send
+        # chunks that are still queued; only chunks already running finish.
+        pool.shutdown(wait=True, cancel_futures=True)
 
 
 def scan(
