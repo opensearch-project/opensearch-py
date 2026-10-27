@@ -118,6 +118,164 @@ class TestParallelBulk(TestCase):
             request_timeout=160,
         )
 
+    @mock.patch("opensearchpy.helpers.actions._process_bulk_chunk")
+    def test_does_not_consume_entire_input_before_yielding(
+        self, _process_bulk_chunk: Any
+    ) -> None:
+        """
+        Regression test for https://github.com/opensearch-project/opensearch-py/issues/871
+
+        ``parallel_bulk`` must stream: it should only pull a bounded number of
+        actions from the (potentially huge/infinite) input iterable, and it
+        must NOT keep draining the input while the caller has paused
+        consumption. Previously the ``ThreadPool.imap`` machinery kept pulling
+        input and buffering every result in the background, growing memory
+        without bound until the process was OOM-killed.
+        """
+        _process_bulk_chunk.side_effect = (
+            lambda client, bulk_actions, bulk_data, *a, **k: [
+                (True, data[1]) for data in bulk_data
+            ]
+        )
+
+        total = 5000
+        chunk_size = 2
+        thread_count = 4
+        queue_size = 4
+        produced = {"count": 0}
+
+        def tracking_actions() -> Any:
+            for i in range(total):
+                produced["count"] += 1
+                yield {"x": i}
+
+        gen = helpers.parallel_bulk(
+            OpenSearch(),
+            tracking_actions(),
+            thread_count=thread_count,
+            chunk_size=chunk_size,
+            queue_size=queue_size,
+        )
+
+        # Pull only the first result, then stop consuming.
+        first = next(gen)
+        self.assertEqual((True, {"x": 0}), first)
+
+        # Only a bounded window of chunks should have been read from the input.
+        # With window = max(queue_size, thread_count) chunks buffered, the
+        # chunker reads at most (window + 1) chunks (+1 lookahead action)
+        # before the first result is produced - not all ``total`` actions.
+        window = max(queue_size, thread_count)
+        consumed_after_first = produced["count"]
+        self.assertLess(consumed_after_first, total)
+        self.assertLessEqual(consumed_after_first, (window + 1) * chunk_size + 1)
+
+        # While the caller is not consuming, input must NOT keep being drained
+        # in the background (which is what caused the unbounded memory growth).
+        time.sleep(0.3)
+        self.assertEqual(
+            consumed_after_first,
+            produced["count"],
+            "parallel_bulk kept consuming input while the caller was paused; "
+            "results would accumulate without bound (issue #871)",
+        )
+
+        gen.close()
+
+    @mock.patch("opensearchpy.helpers.actions._process_bulk_chunk")
+    def test_yields_all_results_in_input_order(self, _process_bulk_chunk: Any) -> None:
+        """
+        Even though chunks are processed concurrently across threads, results
+        must be yielded in the same order as the input actions.
+        """
+        _process_bulk_chunk.side_effect = (
+            lambda client, bulk_actions, bulk_data, *a, **k: [
+                (True, data[1]) for data in bulk_data
+            ]
+        )
+
+        total = 200
+        results = list(
+            helpers.parallel_bulk(
+                OpenSearch(),
+                ({"x": i} for i in range(total)),
+                thread_count=8,
+                chunk_size=3,
+            )
+        )
+
+        self.assertEqual(total, len(results))
+        self.assertEqual([i for i in range(total)], [info["x"] for _, info in results])
+
+    @mock.patch("opensearchpy.helpers.actions._process_bulk_chunk")
+    def test_error_stops_queued_chunks(self, _process_bulk_chunk: Any) -> None:
+        """
+        When a chunk fails, chunks still waiting in the window must not be sent.
+        """
+        lock = threading.Lock()
+        started = []
+
+        def process(
+            client: Any, bulk_actions: Any, bulk_data: Any, *a: Any, **k: Any
+        ) -> Any:
+            with lock:
+                started.append(bulk_data[0][1]["x"])
+            if bulk_data[0][1]["x"] == 0:
+                raise helpers.BulkIndexError("1 document(s) failed to index.", [])
+            time.sleep(0.2)
+            return [(True, data[1]) for data in bulk_data]
+
+        _process_bulk_chunk.side_effect = process
+
+        thread_count = 2
+        with self.assertRaises(helpers.BulkIndexError):
+            list(
+                helpers.parallel_bulk(
+                    OpenSearch(),
+                    ({"x": i} for i in range(100)),
+                    thread_count=thread_count,
+                    chunk_size=1,
+                    queue_size=10,
+                )
+            )
+
+        # Only chunks a worker had already picked up may have run, not the
+        # whole window of 10.
+        self.assertLessEqual(len(started), 2 * thread_count)
+
+    @mock.patch("opensearchpy.helpers.actions._process_bulk_chunk")
+    def test_input_error_keeps_results_of_processed_chunks(
+        self, _process_bulk_chunk: Any
+    ) -> None:
+        """
+        An error raised by the input iterable must not drop the results of a
+        chunk that has already been sent.
+        """
+        _process_bulk_chunk.side_effect = (
+            lambda client, bulk_actions, bulk_data, *a, **k: [
+                (True, data[1]) for data in bulk_data
+            ]
+        )
+
+        def failing_actions() -> Any:
+            for i in range(5):
+                yield {"x": i}
+            raise ValueError("bad input")
+
+        results = []
+        with self.assertRaises(ValueError):
+            for result in helpers.parallel_bulk(
+                OpenSearch(),
+                failing_actions(),
+                thread_count=1,
+                chunk_size=1,
+                queue_size=1,
+            ):
+                results.append(result)
+
+        self.assertEqual(_process_bulk_chunk.call_count, len(results))
+        self.assertEqual(list(range(len(results))), [info["x"] for _, info in results])
+
     @pytest.mark.skip  # type: ignore
     @mock.patch(
         "opensearchpy.helpers.actions._process_bulk_chunk",

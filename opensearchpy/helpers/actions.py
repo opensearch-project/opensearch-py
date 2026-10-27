@@ -27,10 +27,12 @@
 
 import logging
 import time
+from collections import deque
+from itertools import islice
 from operator import methodcaller
 from typing import Any, Optional
 
-from ..compat import Mapping, Queue, map, string_types
+from ..compat import Mapping, map, string_types
 from ..exceptions import TransportError
 from .errors import BulkIndexError, ScanError
 
@@ -462,49 +464,64 @@ def parallel_bulk(
     :arg expand_action_callback: callback executed on each action passed in,
         should return a tuple containing the action line and the data line
         (`None` if data line should be omitted).
-    :arg queue_size: size of the task queue between the main thread (producing
-        chunks to send) and the processing threads.
+    :arg queue_size: maximum number of chunks submitted to the thread pool at
+        once, running or waiting for a worker (never less than ``thread_count``).
+        New chunks are read from ``actions`` only as results are consumed.
     :arg ignore_status: list of HTTP status code that you want to ignore
     """
-    # Avoid importing multiprocessing unless parallel_bulk is used
-    # to avoid exceptions on restricted environments like App Engine
-    from multiprocessing.pool import ThreadPool
+    # Avoid importing concurrent.futures unless parallel_bulk is used.
+    from concurrent.futures import ThreadPoolExecutor
 
     actions = map(expand_action_callback, actions)
+    chunks = _chunk_actions(
+        actions, chunk_size, max_chunk_bytes, client.transport.serializer
+    )
 
-    class BlockingPool(ThreadPool):
-        def _setup_queues(self) -> None:
-            super()._setup_queues()  # type: ignore
-            # The queue must be at least the size of the number of threads to
-            # prevent hanging when inserting sentinel values during teardown.
-            self._inqueue: Any = Queue(max(queue_size, thread_count))
-            self._quick_put = self._inqueue.put
+    def process_chunk(bulk_chunk: Any) -> Any:
+        return list(
+            _process_bulk_chunk(
+                client,
+                bulk_chunk[1],
+                bulk_chunk[0],
+                raise_on_exception,
+                raise_on_error,
+                ignore_status,
+                *args,
+                **kwargs,
+            )
+        )
 
-    pool = BlockingPool(thread_count)
+    # Only keep a bounded number of chunks in flight at once. New chunks are
+    # pulled from ``actions`` and submitted only as previously submitted chunks
+    # are drained by the caller. This applies backpressure to the input
+    # iterable and, crucially, stops completed-but-not-yet-yielded results from
+    # accumulating without bound when the caller consumes results more slowly
+    # than the worker threads produce them - the memory leak that could
+    # previously exhaust all available RAM.
+    # See https://github.com/opensearch-project/opensearch-py/issues/871
+    window_size = max(queue_size, thread_count)
 
+    chunks_iter = iter(chunks)
+    pool = ThreadPoolExecutor(max_workers=thread_count)
     try:
-        for result in pool.imap(
-            lambda bulk_chunk: list(
-                _process_bulk_chunk(
-                    client,
-                    bulk_chunk[1],
-                    bulk_chunk[0],
-                    raise_on_exception,
-                    raise_on_error,
-                    ignore_status,
-                    *args,
-                    **kwargs,
-                )
-            ),
-            _chunk_actions(
-                actions, chunk_size, max_chunk_bytes, client.transport.serializer
-            ),
-        ):
-            yield from result
+        pending: "deque[Any]" = deque(
+            pool.submit(process_chunk, chunk)
+            for chunk in islice(chunks_iter, window_size)
+        )
 
+        while pending:
+            # Yield the head's results before pulling more input, so an error
+            # raised while reading the input can't discard the results of a
+            # chunk that has already been indexed.
+            yield from pending.popleft().result()
+
+            chunk = next(chunks_iter, None)
+            if chunk is not None:
+                pending.append(pool.submit(process_chunk, chunk))
     finally:
-        pool.terminate()
-        pool.join()
+        # On early exit (an error, ``close()`` or KeyboardInterrupt) don't send
+        # chunks that are still queued; only chunks already running finish.
+        pool.shutdown(wait=True, cancel_futures=True)
 
 
 def scan(
