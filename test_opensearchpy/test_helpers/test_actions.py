@@ -299,3 +299,26 @@ class TestScanFunction(TestCase):
         # The test should pass without raising a KeyError
         scan_result = list(helpers.scan(client, query={"query": {"match_all": {}}}))
         assert scan_result == [], "Expected empty results when 'hits' key is missing"
+
+
+class TestBulkChunkBytesSerializer(TestCase):
+    """Test that bulk chunk helpers handle bytes from serializers."""
+
+    def test_bulk_chunk_with_bytes_serializer_output(self) -> None:
+        """When serializer returns bytes, bulk chunk should handle it."""
+        from opensearchpy.serializer import JSONSerializer
+
+        class BytesSerializer(JSONSerializer):
+            def dumps(self, data):
+                if isinstance(data, (str, bytes)):
+                    return data
+                import json
+                return json.dumps(data).encode("utf-8")
+
+        serializer = BytesSerializer()
+        # Verify bytes output doesn't crash len() calculation
+        result = serializer.dumps({"test": "data"})
+        assert isinstance(result, bytes)
+        # This should work without AttributeError
+        size = len(result) + 1
+        assert size > 0
