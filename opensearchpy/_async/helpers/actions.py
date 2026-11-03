@@ -83,6 +83,7 @@ async def _process_bulk_chunk(
     raise_on_exception: bool = True,
     raise_on_error: bool = True,
     ignore_status: Any = (),
+    yield_failed_action_source: bool = False,
     *args: Any,
     **kwargs: Any
 ) -> AsyncGenerator[Tuple[bool, Any], None]:
@@ -109,6 +110,7 @@ async def _process_bulk_chunk(
             bulk_data=bulk_data,
             ignore_status=ignore_status,
             raise_on_error=raise_on_error,
+            yield_failed_action_source=yield_failed_action_source,
         )
     for item in gen:
         yield item
@@ -158,6 +160,7 @@ async def async_streaming_bulk(
     max_backoff: Union[float, int] = 600,
     yield_ok: bool = True,
     ignore_status: Any = (),
+    yield_failed_action_source: bool = False,
     *args: Any,
     **kwargs: Any
 ) -> AsyncGenerator[Tuple[bool, Any], None]:
@@ -193,6 +196,13 @@ async def async_streaming_bulk(
     :arg max_backoff: maximum number of seconds a retry will wait
     :arg yield_ok: if set to False will skip successful documents in the output
     :arg ignore_status: list of HTTP status code that you want to ignore
+    :arg yield_failed_action_source: if set to True, the source of the action
+        that produced a failed item is attached to that item under the ``data``
+        key, so the failing documents can be identified, patched and retried.
+        This only applies to failed items and only when ``raise_on_error`` is
+        ``False``; when ``raise_on_error`` is ``True`` the source is already
+        included in the ``BulkIndexError`` errors. Off by default because
+        keeping the sources around increases memory usage.
     """
 
     async def map_actions() -> Any:
@@ -220,6 +230,7 @@ async def async_streaming_bulk(
                         raise_on_exception,
                         raise_on_error,
                         ignore_status,
+                        yield_failed_action_source,
                         *args,
                         **kwargs,
                     ),
@@ -285,6 +296,11 @@ async def async_bulk(
     :arg stats_only: if `True` only report number of successful/failed
         operations instead of just number of successful and a list of error responses
     :arg ignore_status: list of HTTP status code that you want to ignore
+
+    Passing ``raise_on_error=False`` together with
+    ``yield_failed_action_source=True`` makes every entry of the returned
+    ``errors`` list carry the source of the document that failed under the
+    ``data`` key.
 
     Any additional keyword arguments will be passed to
     :func:`~opensearchpy.helpers.async_streaming_bulk` which is used to execute
