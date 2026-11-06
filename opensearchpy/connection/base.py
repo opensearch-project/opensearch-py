@@ -306,9 +306,10 @@ class Connection:
             )
             if raw_data and content_type == "application/json":
                 additional_info = json.loads(raw_data)
-                error_message = additional_info.get("error", error_message)
-                if isinstance(error_message, dict) and "type" in error_message:
-                    error_message = error_message["type"]
+                if isinstance(additional_info, dict):
+                    error_message = additional_info.get("error", error_message)
+                    if isinstance(error_message, dict) and "type" in error_message:
+                        error_message = error_message["type"]
         except (ValueError, TypeError) as err:
             logger.warning("Undecodable raw error response from server: %s", err)
 
