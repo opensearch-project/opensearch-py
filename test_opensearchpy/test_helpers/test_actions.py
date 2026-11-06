@@ -299,3 +299,49 @@ class TestScanFunction(TestCase):
         # The test should pass without raising a KeyError
         scan_result = list(helpers.scan(client, query={"query": {"match_all": {}}}))
         assert scan_result == [], "Expected empty results when 'hits' key is missing"
+
+    @mock.patch("opensearchpy.OpenSearch.clear_scroll")
+    @mock.patch("opensearchpy.OpenSearch.scroll")
+    @mock.patch("opensearchpy.OpenSearch.search")
+    def test_scan_with_missing_shards_key(
+        self, mock_search: Mock, mock_scroll: Mock, mock_clear_scroll: Mock
+    ) -> None:
+        """
+        A response with hits but no '_shards' key must not raise (regression for
+        UnboundLocalError referencing shards_successful before assignment).
+        """
+        mock_search.return_value = {
+            "_scroll_id": "dummy_scroll_id",
+            "hits": {"hits": [{"_id": "1", "_source": {}}]},
+        }
+        mock_scroll.side_effect = [
+            {"_scroll_id": "dummy_scroll_id", "hits": {"hits": []}}
+        ]
+        mock_clear_scroll.return_value = None
+
+        client = OpenSearch()
+
+        scan_result = list(helpers.scan(client, query={"query": {"match_all": {}}}))
+        assert scan_result == [{"_id": "1", "_source": {}}]
+
+    @mock.patch("opensearchpy.OpenSearch.clear_scroll")
+    @mock.patch("opensearchpy.OpenSearch.scroll")
+    @mock.patch("opensearchpy.OpenSearch.search")
+    def test_scan_shard_failure_raises_scan_error(
+        self, mock_search: Mock, mock_scroll: Mock, mock_clear_scroll: Mock
+    ) -> None:
+        """
+        A page whose '_shards' report fewer successful than total triggers the
+        shard-failure check (which now runs inside the ``if _shards:`` guard).
+        """
+        mock_search.return_value = {
+            "_scroll_id": "dummy_scroll_id",
+            "_shards": {"successful": 1, "skipped": 0, "total": 5, "failed": 4},
+            "hits": {"hits": [{"_id": "1"}]},
+        }
+        mock_clear_scroll.return_value = None
+
+        client = OpenSearch()
+
+        with self.assertRaises(helpers.ScanError):
+            list(helpers.scan(client, query={"query": {"match_all": {}}}))
