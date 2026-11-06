@@ -32,6 +32,7 @@ from unittest.mock import patch
 
 import pytest
 from _pytest.mark.structures import MarkDecorator
+from multidict import CIMultiDict
 
 from opensearchpy import AIOHttpConnection, AsyncTransport
 from opensearchpy.connection import Connection
@@ -479,6 +480,57 @@ class TestTransport:
             "host": "somehost.tld",
             "port": 123,
         }
+
+    async def test_sniff_ipv6_publish_address(self) -> None:
+        """IPv6 publish addresses are sniffed as a bare host.
+
+        Async connections are constructed with that bare host. AIOHttpConnection
+        must still build a valid request URL from it.
+        """
+        nodes = CLUSTER_NODES.replace(
+            '"publish_address" : "1.1.1.1:123"',
+            '"publish_address" : "[2001:db8::1]:9200"',
+        )
+        t: Any = AsyncTransport(
+            [{"data": nodes}],
+            connection_class=DummyConnection,
+        )
+        await t._async_call()
+        await t.sniff_hosts()
+
+        assert t.connection_pool.connection_opts[0][1] == {
+            "host": "2001:db8::1",
+            "port": 9200,
+        }
+        sniffed = t.get_connection()
+        assert sniffed.hostname == "2001:db8::1"
+        assert sniffed.host == "http://[2001:db8::1]:9200"
+
+        con = AIOHttpConnection(host=sniffed.hostname, port=sniffed.port)
+        await con._create_aiohttp_session()
+
+        def _dummy_request(*args: Any, **kwargs: Any) -> Any:
+            class DummyResponse:
+                async def __aenter__(self, *_: Any, **__: Any) -> Any:
+                    return self
+
+                async def __aexit__(self, *_: Any, **__: Any) -> None:
+                    pass
+
+                async def text(self) -> str:
+                    return "{}"
+
+            response: Any = DummyResponse()
+            response.headers = CIMultiDict()
+            response.status = 200
+            _dummy_request.call_args = (args, kwargs)  # type: ignore
+            return response
+
+        con.session.request = _dummy_request
+        await con.perform_request("GET", "/")
+        _, yarl_url = con.session.request.call_args[0]
+        assert str(yarl_url) == "http://[2001:db8::1]:9200/"
+        await con.close()
 
     async def test_transport_close_closes_all_pool_connections(self) -> None:
         t1: Any = AsyncTransport([{}], connection_class=DummyConnection)
