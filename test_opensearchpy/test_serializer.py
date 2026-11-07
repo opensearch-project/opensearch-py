@@ -199,6 +199,16 @@ class TestJSONSerializer(TestCase):
     def test_strings_are_left_untouched(self) -> None:
         self.assertEqual("你好", JSONSerializer().dumps("你好"))
 
+    def test_dict_is_serialized(self) -> None:
+        self.assertEqual('{"key":"val"}', JSONSerializer().dumps({"key": "val"}))
+
+    def test_bytes_are_left_untouched(self) -> None:
+        # bytes short-circuit via compat.string_types intentionally — callers
+        # pass pre-built NDJSON bytes to client.bulk(). The actual issue #488 bug
+        # is about serializer *output* bytes in helpers/actions.py, not input.
+        # End-to-end coverage: test_clients.py::TestBulk.test_bulk_works_with_bytestring_body.
+        self.assertEqual(b"raw bytes", JSONSerializer().dumps(b"raw bytes"))
+
 
 class TestTextSerializer(TestCase):
     def test_strings_are_left_untouched(self) -> None:

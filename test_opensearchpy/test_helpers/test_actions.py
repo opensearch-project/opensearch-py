@@ -270,6 +270,29 @@ class TestChunkActions(TestCase):
             chunk = chunk if isinstance(chunk, str) else chunk.encode("utf-8")
             self.assertLessEqual(len(chunk), max_byte_size)
 
+    def test_chunk_actions_handles_bytes_serializer_output(self) -> None:
+        # Regression test for issue #488: a custom serializer (e.g. orjson-backed)
+        # may return bytes from dumps() instead of str. _ActionChunker.feed() must
+        # decode those bytes so bulk_actions contains only str for "\n".join().
+        class BytesReturningSerializer(JSONSerializer):
+            def dumps(self, data: Any) -> Any:
+                result = super().dumps(data)
+                if isinstance(result, str):
+                    return result.encode("utf-8")
+                return result
+
+        actions = [
+            ({"index": {}}, {"field": "value"}),
+            ({"delete": {"_id": "1"}}, None),
+        ]
+        chunks = list(
+            helpers._chunk_actions(actions, 100, 99999999, BytesReturningSerializer())
+        )
+        self.assertEqual(1, len(chunks))
+        _, bulk_actions = chunks[0]
+        for line in bulk_actions:
+            self.assertIsInstance(line, str)
+
 
 class TestExpandActions(TestCase):
     def test_string_actions_are_marked_as_simple_inserts(self) -> None:
