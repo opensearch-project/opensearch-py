@@ -509,9 +509,9 @@ class Transport:
 
         if params:
             if not timeout:
-                timeout = params.pop("request_timeout", None) or params.pop(
-                    "timeout", None
-                )
+                request_timeout = params.pop("request_timeout", None)
+                params_timeout = params.pop("timeout", None)
+                timeout = request_timeout or params_timeout
             if not ignore:
                 ignore = params.pop("ignore", ())
             if isinstance(ignore, int):
