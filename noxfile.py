@@ -41,7 +41,7 @@ SOURCE_FILES = (
 )
 
 
-@nox.session(python=["3.10", "3.11", "3.12"])  # type: ignore
+@nox.session(python=["3.10", "3.11", "3.12", "3.13", "3.14"])  # type: ignore
 def test(session: Any) -> None:
     """
     runs all tests with a fresh python environment using "python setup.py test"
