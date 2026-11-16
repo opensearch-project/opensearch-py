@@ -30,6 +30,7 @@
 # See the LICENSE file in the project root for more information
 
 import asyncio
+import builtins
 import logging
 from typing import (
     Any,
@@ -122,7 +123,8 @@ def aiter(x: Union[Iterable[T], AsyncIterable[T]]) -> Any:
     if hasattr(x, "__anext__"):
         return x
     elif hasattr(x, "__aiter__"):
-        return aiter(x)
+        # this module's ``aiter`` shadows the built-in, so reach for it explicitly
+        return builtins.aiter(x)  # type: ignore
 
     async def f() -> Any:
         for item in x:
