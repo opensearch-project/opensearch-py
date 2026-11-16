@@ -77,3 +77,28 @@ class TestNormalizeHosts(TestCase):
         self.assertEqual(
             [{"host": "opensearch.org"}], _normalize_hosts("opensearch.org")
         )
+
+    def test_ipv6_addresses_are_parsed_without_port(self) -> None:
+        self.assertEqual([{"host": "::1"}], _normalize_hosts(["::1"]))
+        self.assertEqual(
+            [{"host": "fdbd:dc05:1a:10c::53"}],
+            _normalize_hosts(["fdbd:dc05:1a:10c::53"]),
+        )
+
+    def test_credentials_with_a_colon_are_not_mistaken_for_an_address(
+        self,
+    ) -> None:
+        self.assertEqual(
+            [{"host": "host", "port": 9200, "http_auth": "user:secret"}],
+            _normalize_hosts(["user:secret@host:9200"]),
+        )
+        self.assertEqual(
+            [{"host": "::1", "http_auth": "user:secret"}],
+            _normalize_hosts(["user:secret@::1"]),
+        )
+
+    def test_bracketed_ipv6_addresses_are_parsed_with_port(self) -> None:
+        self.assertEqual(
+            [{"host": "fdbd:dc05:1a:10c::53", "port": 9292}],
+            _normalize_hosts(["[fdbd:dc05:1a:10c::53]:9292"]),
+        )
