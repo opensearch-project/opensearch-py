@@ -2,6 +2,7 @@
   - [Line-Delimited JSON](#line-delimited-json)
   - [Bulk Helper](#bulk-helper)
   - [Parallel Bulk](#parallel-bulk)
+  - [Retrying Failed Documents](#retrying-failed-documents)
   - [Data Generator](#data-generator)
 
 # Bulk Indexing
@@ -101,6 +102,32 @@ if len(failed) > 0:
 if len(succeeded) > 0:
     print(f"Bulk-inserted {len(succeeded)} items.")
 ```
+
+## Retrying Failed Documents
+
+With `raise_on_error=False` the bulk helpers yield the server's response for every
+action, but that response only identifies a document by the `_id` OpenSearch
+generated for it. Pass `yield_failed_action_source=True` to also get the source of
+the document that failed, under the `data` key of the failed item, so it can be
+patched and retried.
+
+```python
+to_retry = []
+for success, item in helpers.streaming_bulk(client,
+    actions=data,
+    raise_on_error=False,
+    yield_failed_action_source=True):
+
+    if not success:
+        _, info = next(iter(item.items()))
+        if info["status"] == 429:
+            to_retry.append(info["data"])
+```
+
+The sources are only attached to failed items, and holding on to them increases
+memory usage, which is why the option is off by default. When `raise_on_error` is
+`True` the sources are already included in the errors of the raised
+`BulkIndexError`.
 
 ## Data Generator
 
