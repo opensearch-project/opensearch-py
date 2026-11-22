@@ -33,7 +33,7 @@ from unittest.mock import Mock
 
 import pytest
 
-from opensearchpy import OpenSearch, helpers
+from opensearchpy import OpenSearch, TransportError, helpers
 from opensearchpy.serializer import JSONSerializer
 
 from ..test_cases import TestCase
@@ -269,6 +269,37 @@ class TestChunkActions(TestCase):
             chunk = "".join(chunk_actions)  # fmt: skip
             chunk = chunk if isinstance(chunk, str) else chunk.encode("utf-8")
             self.assertLessEqual(len(chunk), max_byte_size)
+
+
+class TestBulkChunkError(TestCase):
+    def _client(self) -> Any:
+        client = Mock()
+        client.transport.serializer = JSONSerializer()
+        client.bulk.side_effect = TransportError(503, "boom")
+        return client
+
+    def test_raw_json_string_documents_when_exception_not_raised(self) -> None:
+        results = list(
+            helpers.streaming_bulk(
+                self._client(),
+                ['{"a": 1}'],
+                raise_on_exception=False,
+                raise_on_error=False,
+            )
+        )
+
+        assert len(results) == 1
+        ok, item = results[0]
+        assert ok is False
+        assert item["index"]["status"] == 503
+        assert item["index"]["data"] == '{"a": 1}'
+
+    def test_raw_json_string_documents_with_ignored_status(self) -> None:
+        results = list(
+            helpers.streaming_bulk(self._client(), ['{"a": 1}'], ignore_status=503)
+        )
+
+        assert [ok for ok, _ in results] == [False]
 
 
 class TestExpandActions(TestCase):
