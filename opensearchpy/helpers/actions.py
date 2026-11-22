@@ -25,6 +25,7 @@
 #  under the License.
 
 
+import json
 import logging
 import time
 from operator import methodcaller
@@ -219,7 +220,11 @@ def _process_bulk_chunk_error(
 
     for data in bulk_data:
         # collect all the information about failed actions
-        op_type, action = data[0].copy().popitem()
+        # documents passed as raw JSON strings have a JSON string as their action
+        action_line = data[0]
+        if isinstance(action_line, string_types):
+            action_line = json.loads(action_line)
+        op_type, action = action_line.copy().popitem()
         info = {"error": err_message, "status": error.status_code, "exception": error}
         if op_type != "delete":
             info["data"] = data[1]
