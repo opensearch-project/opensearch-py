@@ -120,8 +120,19 @@ class JSONSerializer(Serializer):
             elif isinstance(data, np.bool_):
                 return bool(data)
             elif isinstance(data, np.datetime64):
-                return data.item().isoformat()
+                value = data.item()
+                if value is None:  # NaT
+                    return None
+                # Below microsecond precision, item() returns an int of nanoseconds
+                # instead of a datetime, so format the value with numpy.
+                if isinstance(value, int):
+                    return str(np.datetime_as_string(data))
+                return value.isoformat()
             elif isinstance(data, np.ndarray):
+                # tolist() also turns datetime64[ns] values into ints, so each value
+                # goes through the np.datetime64 branch above instead.
+                if data.dtype.kind == "M":
+                    return [self.default(value) for value in data]
                 return data.tolist()
         except ImportError:
             pass
