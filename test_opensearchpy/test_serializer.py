@@ -119,6 +119,43 @@ class TestJSONSerializer(TestCase):
             JSONSerializer().dumps({"d": np.datetime64("2010-10-01T02:30:00")}),
         )
 
+    def test_serializes_numpy_datetime_nanoseconds(self) -> None:
+        requires_numpy_and_pandas()
+
+        # pandas 2 and Arrow/Parquet timestamps use datetime64[ns]
+        self.assertEqual(
+            '{"d":"2010-10-01T02:30:00.123456789"}',
+            JSONSerializer().dumps(
+                {"d": np.datetime64("2010-10-01T02:30:00.123456789")}
+            ),
+        )
+        self.assertEqual(
+            '{"d":"2010-10-01T02:30:00.000000000"}',
+            JSONSerializer().dumps(
+                {"d": np.datetime64("2010-10-01T02:30:00").astype("datetime64[ns]")}
+            ),
+        )
+
+    def test_serializes_numpy_datetime_nat_to_null(self) -> None:
+        requires_numpy_and_pandas()
+
+        self.assertEqual(
+            '{"d":null}', JSONSerializer().dumps({"d": np.datetime64("NaT", "ns")})
+        )
+
+    def test_serializes_numpy_datetime_ndarray(self) -> None:
+        requires_numpy_and_pandas()
+
+        for unit, expected in (
+            ("s", '{"d":["2010-10-01T02:30:00",null]}'),
+            ("us", '{"d":["2010-10-01T02:30:00",null]}'),
+            ("ns", '{"d":["2010-10-01T02:30:00.000000000",null]}'),
+        ):
+            values = np.array(
+                ["2010-10-01T02:30:00", "NaT"], dtype=f"datetime64[{unit}]"
+            )
+            self.assertEqual(expected, JSONSerializer().dumps({"d": values}))
+
     def test_serializes_numpy_ndarray(self) -> None:
         requires_numpy_and_pandas()
 
